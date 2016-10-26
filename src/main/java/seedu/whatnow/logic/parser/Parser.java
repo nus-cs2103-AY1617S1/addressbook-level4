@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
+import seedu.whatnow.model.tag.Tag;
 
 /**
  * Parses user input.
@@ -43,6 +44,15 @@ public class Parser {
     /**
      * Regular Expressions
      */
+	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|start|end|tag)($|\\s))");
+
+    private static final Pattern DATE_SUFFIX = Pattern.compile("(st|nd|rd|th)$");
+    private static final Pattern DATE = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))$");
+    private static final Pattern DATE_WITH_SUFFIX = Pattern.compile("^((([3][0-1])|([1-2][0-9])|([0]??[1-9]))(st|nd|rd|th))$");
+    private static final Pattern MONTH_IN_FULL = Pattern.compile("^(january|february|march|april|may|june|july|august|september|october|november|december)$");
+    private static final Pattern MONTH_IN_SHORT = Pattern.compile("^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)$");
+    private static final Pattern YEAR = Pattern.compile("^([0-9]{4})$");
+    
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern.compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
@@ -53,7 +63,7 @@ public class Parser {
 
     private static final Pattern KEYWORD_FOR_DATE = Pattern.compile("^((on)|(by)|(from)|(to))$");
     private static final Pattern KEYWORD_FOR_TIME = Pattern.compile("^((at)|(by)|(from)|(to)|(till))$");
-
+    
     /**
      * Integer Constants
      */
@@ -65,14 +75,16 @@ public class Parser {
     private static final int ARG_TYPE = 2;
     private static final int ARG = 3;
 
-    private static final int DESCRIPTION = 1;
-    private static final int TAG = 1;
-    private static final int MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS = 2;
-    private static final int NUM_OF_QUOTATION_MARKS = 2;
-
     private static final int TIME_WITHOUT_PERIOD = 0;
     private static final int TIME_HOUR = 0;
     private static final int TIME_MINUTES = 1;
+    
+    private static final int ADD_COMMAND_DESCRIPTION_INDEX = 1;
+    private static final int ADD_COMMAND_TAG_INDEX = 1;
+    private static final int ADD_COMMAND_MIN_ARGUMENTS = 2;
+    private static final int NUM_OF_QUOTATION_MARKS = 2;
+    
+    private static final int UPDATE_COMMAND_MIN_ARGUMENTS = 3;
 
     private static final int LIST_ARG = 0;
 
@@ -83,17 +95,26 @@ public class Parser {
     /**
      * String Constants
      */
+    private static final String NONE = "none";
+    private static final String DESCRIPTION = "description";
+
     private static final String DELIMITER_BLANK_SPACE = " ";
     private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
     private static final String DELIMITER_FORWARD_SLASH = "/";
 
     private static final String BACK_SLASH = "\\";
+    private static final String FORWARD_SLASH = "/";
+    private static final String EMPTY_STRING = "";
+    
+    private static final String DATE_SUFFIX_STRING = "(st|nd|rd|th)$";
 
     private static final String TIME_COLON = ":";
     private static final String TIME_DOT = ".";
     private static final String TIME_AM = "am";
     private static final String TIME_PM = "pm";
     private static final String TIME_DEFAULT_MINUTES = "00";
+    private static final String DEFAULT_START_TIME = "12:00am";
+    private static final String DEFAULT_END_TIME = "11:59pm";
 
     private static final String TASK_TYPE_FLOATING = "todo";
     private static final String TASK_TYPE_NON_FLOATING = "schedule";
@@ -235,6 +256,38 @@ public class Parser {
 
         return time;
     }
+    
+    public static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
+        months.put("january", 1);
+        months.put("february", 2);
+        months.put("march", 3);
+        months.put("april", 4);
+        months.put("may", 5);
+        months.put("june", 6);
+        months.put("july", 7);
+        months.put("august", 8);
+        months.put("september", 9);
+        months.put("october", 10);
+        months.put("november", 11);
+        months.put("december", 12);
+        return months;
+    }
+    
+    public static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
+        months.put("jan", 1);
+        months.put("feb", 2);
+        months.put("mar", 3);
+        months.put("apr", 4);
+        months.put("may", 5);
+        months.put("jun", 6);
+        months.put("jul", 7);
+        months.put("aug", 8);
+        months.put("sep", 9);
+        months.put("oct", 10);
+        months.put("nov", 11);
+        months.put("dec", 12);
+        return months;
+    }
 
     /**
      * Parses arguments in the context of the add task command.
@@ -257,9 +310,14 @@ public class Parser {
         String endTime = null;
         Set<String> tags = new HashSet<String>();
         String[] additionalArgs = null;
+        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
+        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
+        
+        fullMonths = storeFullMonths(fullMonths);
+        shortMonths = storeShortMonths(shortMonths);    
 
         args = args.trim();
-
+        
         //final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
         // Validate the format of the arguments
         /*if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
@@ -273,13 +331,13 @@ public class Parser {
 
         String[] arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
 
-        if (arguments.length < MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
+        if (arguments.length < ADD_COMMAND_MIN_ARGUMENTS) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         // E.g. add "Without date and time"
-        if (arguments.length == MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
-            name = arguments[DESCRIPTION].trim();
+        if (arguments.length == ADD_COMMAND_MIN_ARGUMENTS) {
+            name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 
             try {
                 return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, Collections.emptySet());
@@ -290,9 +348,9 @@ public class Parser {
             }
         }
 
-        name = arguments[DESCRIPTION].trim();
+        name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 
-        if (arguments.length > MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
+        if (arguments.length > ADD_COMMAND_MIN_ARGUMENTS) {
             additionalArgs = arguments[arguments.length - 1].trim().split(DELIMITER_BLANK_SPACE);
         }
 
@@ -307,7 +365,7 @@ public class Parser {
             }
             else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
                 String[] splitTag = additionalArgs[i].trim().split(DELIMITER_FORWARD_SLASH);
-                tags.add(splitTag[TAG]);
+                tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
                 continue;
             } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
                 numOfDate++;
@@ -326,7 +384,7 @@ public class Parser {
                     if (startDate != null & endDate != null) {
                         endTime = time;
                         time = null;
-                        startTime = "12:00am";
+                        startTime = DEFAULT_START_TIME;
                     }
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
@@ -348,6 +406,7 @@ public class Parser {
                         date = null;
                         endDate = additionalArgs[i];
                     }
+                    hasDate = false;
                 } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
@@ -357,6 +416,7 @@ public class Parser {
                         date = null;
                         endDate = additionalArgs[i].toLowerCase();
                     }
+                    hasDate = false;
                 } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == ONE) {
@@ -364,18 +424,61 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
                         endTime = additionalArgs[i].toLowerCase();       
                     }
+                    hasDate = false;
+                } else if (DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase();
+                        date += FORWARD_SLASH;
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                        endDate += FORWARD_SLASH;
+                    } 
+                } else if (DATE_WITH_SUFFIX.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_STRING, EMPTY_STRING);
+                        date += FORWARD_SLASH;
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                        endDate += FORWARD_SLASH;
+                    } 
+                } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {     
+                    if (numOfDate == ONE) {
+                        date += fullMonths.get(additionalArgs[i].toLowerCase());
+                    } else if (numOfDate == TWO) {
+                        endDate += fullMonths.get(additionalArgs[i].toLowerCase());
+                    }
+                } else if (MONTH_IN_SHORT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    if (numOfDate == ONE) {
+                        date += shortMonths.get(additionalArgs[i].toLowerCase());               
+                    } else if (numOfDate == TWO) {
+                        endDate += shortMonths.get(additionalArgs[i].toLowerCase());     
+                    } 
+                } else if (YEAR.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    if (numOfDate == ONE) {
+                        date += FORWARD_SLASH;
+                        date += additionalArgs[i].toLowerCase();
+                    } else if (numOfDate == TWO) {
+                        endDate += FORWARD_SLASH;
+                        endDate += additionalArgs[i].toLowerCase();
+                    } 
+                    hasDate = false;
                 } else {
+                    hasDate = false;
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
-
-                hasDate = false;
             }
 
             if (hasTime) {
@@ -386,7 +489,7 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;             
@@ -416,7 +519,7 @@ public class Parser {
             if (time != null) {
                 startTime = time;
                 time = null;
-                endTime = "11:59pm";
+                endTime = DEFAULT_END_TIME;
             }
         }
 
@@ -508,39 +611,78 @@ public class Parser {
         if (args.equals(null))
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
-        String[] argComponents= args.trim().split(" ");
+        String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
 
-        if (argComponents.length < 3)
+        if (argComponents.length < UPDATE_COMMAND_MIN_ARGUMENTS)
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-
-        String type = argComponents[TASK_TYPE];
+        
+        String taskType = argComponents[TASK_TYPE];
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
         String argType = argComponents[ARG_TYPE];
         String arg = "";
-        Optional<Integer> index = parseIndex(argComponents[INDEX]);
-        for (int i = ARG; i < argComponents.length; i++) {
-            if (argComponents[i].toUpperCase().compareToIgnoreCase("none") == 0 && argType.toUpperCase().compareToIgnoreCase("description") != 0) {
-                arg = argComponents[i];
-                try {
-                    return new UpdateCommand(type, index.get(), argType, arg);
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                } catch (ParseException pe) {
-                    return new IncorrectCommand(pe.getMessage());
+        
+        int numOfDate = 0;
+        int numOfTime = 0;
+           
+        if (argComponents.length > UPDATE_COMMAND_MIN_ARGUMENTS) {
+            for (int i = ARG; i < argComponents.length; i++) {            
+                if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DESCRIPTION) == 0) {
+                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + UpdateCommand.MESSAGE_USAGE); 
+                    
+                    arg += argComponents[i] + DELIMITER_BLANK_SPACE;
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DATE) == 0) {
+                    if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
+                        numOfDate++;
+                        if (numOfDate == ONE)
+                            arg = argComponents[i];
+                        else if (numOfDate == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
+                    } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
+                        numOfDate++;
+                        if (numOfDate == ONE)
+                            arg = argComponents[i];
+                        else if (numOfDate == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TIME) == 0) {
+                    if (TIME_FORMAT.matcher(argComponents[i]).find()) {
+                        numOfTime++;
+                        if (numOfTime == ONE)
+                            arg = argComponents[i];
+                        else if (numOfTime == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TAG) == 0) {
+                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                    else
+                        arg += argComponents[i] + DELIMITER_BLANK_SPACE;
                 }
             }
-            arg += argComponents[i] + " ";
+            
+            try {
+                return new UpdateCommand(taskType, index.get(), argType, arg);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            } catch (ParseException pe) {
+                return new IncorrectCommand(pe.getMessage());
+            }
         }
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-
-        if (!isValidUpdateCommandFormat(type, index.get(), argType)) {
+        
+        if (!isValidUpdateCommandFormat(taskType, index.get(), argType)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
         try {
-            return new UpdateCommand(type, index.get(), argType, arg);
+            return new UpdateCommand(taskType, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {

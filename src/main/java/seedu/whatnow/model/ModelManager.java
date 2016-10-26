@@ -1,11 +1,16 @@
+
 package seedu.whatnow.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
+import seedu.whatnow.commons.events.model.AddTaskEvent;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
@@ -29,6 +34,7 @@ import java.util.logging.Logger;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static final String TASK_TYPE_FLOATING = "floating";
     private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
@@ -37,23 +43,23 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
-    private final FilteredList<Task> filteredSchedules;
-    private final FilteredList<Task> backUpFilteredTasks;
-    private final FilteredList<Task> backUpFilteredSchedules;
+    private FilteredList<Task> filteredSchedules;
     private final Stack<Command> stackOfUndo;
     private final Stack<Command> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
     private final Stack<ReadOnlyTask> stackOfNewTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
-    private final Stack<String> stackOfDeletedTaskTypes;
+    private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
+    private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
+    private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
     private final Stack<ReadOnlyTask> stackOfMarkDone;
     private final Stack<ReadOnlyTask> stackOfMarkUndone;
     private final Stack<String> stackOfMarkDoneTaskTypes;
     private final Stack<String> stackOfMarkUndoneTaskTypes;
-    private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
-    private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
-
+    private final Stack<String> stackOfListTypes;
+    private final Stack<String> stackOfListTypesRedo;
+    
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -71,19 +77,19 @@ public class ModelManager extends ComponentManager implements Model {
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
         stackOfRedo = new Stack<>();
-        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfOldTask = new Stack<>();
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
-        stackOfDeletedTaskTypes = new Stack<>();
+        stackOfDeletedTasksRedo = new Stack<>();
+        stackOfDeletedTasksAdd = new Stack<>();
+        stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone= new Stack<>();
-        stackOfMarkUndone= new Stack<>();
+        stackOfMarkUndone = new Stack<>();
         stackOfMarkDoneTaskTypes = new Stack<>();
         stackOfMarkUndoneTaskTypes = new Stack<>();
-        stackOfWhatNowUndoUpdate = new Stack<>();
-        stackOfWhatNowRedoUpdate = new Stack<>();
+        stackOfListTypes = new Stack<>();
+        stackOfListTypesRedo = new Stack<>();
     }
 
     public ModelManager() {
@@ -97,46 +103,34 @@ public class ModelManager extends ComponentManager implements Model {
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo =  new Stack<>();
         stackOfRedo = new Stack<>();
-        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfOldTask = new Stack<>();
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
-        stackOfDeletedTaskTypes = new Stack<>();
+        stackOfDeletedTasksRedo = new Stack<>();
+        stackOfDeletedTasksAdd = new Stack<>();
+        stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone = new Stack<>();
         stackOfMarkUndone = new Stack<>();
         stackOfMarkDoneTaskTypes = new Stack<>();
         stackOfMarkUndoneTaskTypes = new Stack<>();
-        stackOfWhatNowUndoUpdate = new Stack<>();
-        stackOfWhatNowRedoUpdate = new Stack<>();
+        stackOfListTypes = new Stack<>();
+        stackOfListTypesRedo = new Stack<>();
     }
 
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
-    	stackOfWhatNow.push(new WhatNow(whatNow));
-    	whatNow.resetData(newData);
+        stackOfWhatNow.push(new WhatNow(whatNow));
+        whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
-    
-    @Override
-	public synchronized void revertData() {
-		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
-		indicateWhatNowChanged();
-	}
 
     @Override
-    public synchronized void revertDataUpdate() {
-    	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
-    	whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
-    	indicateWhatNowChanged();
+    public synchronized void revertData() {
+        whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
+        indicateWhatNowChanged();
     }
-    @Override
-    public synchronized void revertToPrevDataUpdate() {
-    	stackOfWhatNowUndoUpdate.push(stackOfWhatNowRedoUpdate.peek());
-    	whatNow.revertEmptyWhatNow(stackOfWhatNowRedoUpdate.pop());	
-    	indicateWhatNowChanged();
-    }
+
     @Override
     public ReadOnlyWhatNow getWhatNow() {
         return whatNow;
@@ -146,10 +140,20 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
-
+    
     /** Raises an event to indicate the config has changed */
     private void indicateConfigChanged(Path destination, Config config) {
         raise(new ConfigChangedEvent(destination, config));
+    }
+    
+    /** Raises an event to indicate that a task was added */
+    private void indicateAddTask(Task task) {
+        raise (new AddTaskEvent(task));
+    }
+    
+    /** Raises an event to indicate that a task was updated */
+    private void indicateUpdateTask(Task task) {
+        raise (new UpdateTaskEvent(task));
     }
     
     @Override
@@ -157,32 +161,28 @@ public class ModelManager extends ComponentManager implements Model {
         indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
-    
+
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        stackOfDeletedTasks.push(target);
-    	whatNow.removeTask(target);
+        whatNow.removeTask(target);
         indicateWhatNowChanged();
     }
+    
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllIncomplete();
+        indicateAddTask(task);
         indicateWhatNowChanged();
     }
+
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-        stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
-    	stackOfOldTask.push(old);
-    	whatNow.updateTask(old, toUpdate);
+        whatNow.updateTask(old, toUpdate);
+        indicateUpdateTask(toUpdate);
         indicateWhatNowChanged();
     }
-    @Override
-    public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException {
-        stackOfNewTask.push(old);
-    	whatNow.updateTask(old, (Task) toUpdate);
-    	indicateWhatNowChanged();
-    }
+
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.markTask(target);
@@ -194,71 +194,90 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.unMarkTask(target);
         indicateWhatNowChanged();
     }
+    
     @Override
     public Stack<Command> getUndoStack() {
         return stackOfUndo;
     }
+    
     @Override
     public Stack<Command> getRedoStack() {
         return stackOfRedo;
     }
+    
     @Override
     public Stack<ReadOnlyTask> getOldTask() {
         return stackOfOldTask;
     }
+    
     @Override
     public Stack<ReadOnlyTask> getNewTask() {
         return stackOfNewTask;
     }
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
         filteredTasks.setPredicate(null);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
     @Override
-    public Stack<ReadOnlyTask> getDeletedStackOfTask() {
+    public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
         return stackOfDeletedTasks;
     }
+    
     @Override
-    public Stack<String> getDeletedStackOfTaskType() {
-        return stackOfDeletedTaskTypes;
+    public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
+        return stackOfDeletedTasksRedo;
     }
+    
+    @Override
+    public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
+        return stackOfDeletedTasksAdd;
+    }
+    
+    @Override
+    public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
+        return stackOfDeletedTasksAddRedo;
+    }
+    
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
         return stackOfMarkDone;
     }
-
+    
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
         return stackOfMarkUndone;
     }
+    
     @Override
     public Stack<String> getStackOfMarkDoneTaskTaskType() {
         return stackOfMarkDoneTaskTypes;
     }
-    @Override
+    
     public Stack<String> getStackOfMarkUndoneTaskTaskType() {
         return stackOfMarkUndoneTaskTypes;
     }
+    
     @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
-        return stackOfWhatNowUndoUpdate;
+    public Stack<String> getStackOfListTypes() {
+        return stackOfListTypes;
     }
-    @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
-        return stackOfWhatNowRedoUpdate;
+    
+    @Override 
+    public Stack<String> getStackOfListTypesRedo() {
+        return stackOfListTypesRedo;
     }
+    
     //=========== Filtered Task List Accessors ===============================================================
-
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         updateFilteredListToShowAllIncomplete();
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
-        return new UnmodifiableObservableList<>(backUpFilteredTasks);
-    }
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
@@ -274,29 +293,32 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         String[] taskType = {TASK_TYPE_FLOATING};
         Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+        FXCollections.sort(filteredTasks.getSource());
         updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
     }
 
     @Override
     public void updateFilteredListToShowAllIncomplete() {
+        FXCollections.sort(filteredTasks.getSource());
         filteredTasks.setPredicate(p -> {
             if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
                 return true;
             } else {
                 return false;
-            }}
-                );
+            }
+        });
     }
 
     @Override
     public void updateFilteredListToShowAllCompleted() {
+        FXCollections.sort(filteredTasks.getSource());
         filteredTasks.setPredicate(p -> {
             if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
                 return true;
             } else {
                 return false;
-            }}
-                );
+            }
+        });
     }
 
     @Override
@@ -317,10 +339,11 @@ public class ModelManager extends ComponentManager implements Model {
             }
         });
     }
+
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //=========== Filtered Schedule List Accessors ===============================================================
 
     @Override 
@@ -335,11 +358,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
-        return new UnmodifiableObservableList<>(backUpFilteredSchedules);
-    }
-
-    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
         updateFilteredScheduleList(keyword);
         return new UnmodifiableObservableList<>(filteredSchedules);
@@ -349,29 +367,32 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredScheduleListToShowAll() {
         String[] taskType = {TASK_TYPE_NOT_FLOATING};
         Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+        FXCollections.sort(filteredSchedules.getSource());
         updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
     }
 
     @Override
     public void updateFilteredScheduleListToShowAllIncomplete() {
+        FXCollections.sort(filteredSchedules.getSource());
         filteredSchedules.setPredicate(p -> {
             if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
                 return true;
             } else {
                 return false;
-            }}
-                );
+            }
+        });
     }
 
     @Override
     public void updateFilteredScheduleListToShowAllCompleted() {
+        FXCollections.sort(filteredSchedules.getSource());
         filteredSchedules.setPredicate(p -> {
             if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
                 return true;
             } else {
                 return false;
-            }}
-                );
+            }
+        });
     }
 
     @Override
@@ -484,15 +505,10 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent();
         }
-        
+
         @Override
         public String toString() {
             return "TaskType=" + String.join(", ", taskType);
         }
-    }
-
-    @Override
-    public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-        
     }
 }

@@ -46,76 +46,48 @@ public class DeleteCommand extends UndoAndRedo {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
-
 		ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
 		assert model != null;	 
 		try {
 			model.deleteTask(taskToDelete);
 			model.getUndoStack().push(this);
-			model.getDeletedStackOfTask().push(taskToDelete);
-			model.getDeletedStackOfTaskType().push(taskType);
+			model.getDeletedStackOfTasks().push(taskToDelete);
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
-
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
 	}
 
-
+	//@@author A0139128A
 	@Override
 	public CommandResult undo() {
-		if(model.getDeletedStackOfTask().isEmpty() || model.getDeletedStackOfTaskType().isEmpty()) {
+		if(model.getDeletedStackOfTasks().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
-
-		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTask().pop();
-		String taskTypeToReAdd = model.getDeletedStackOfTaskType().pop();
-
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-		if(taskTypeToReAdd.equals(TASK_TYPE_FLOATING)) {
-			lastShownList = model.getCurrentFilteredTaskList();
-		}
-		else {
-			lastShownList = model.getCurrentFilteredScheduleList();
-		}
-		assert model != null;
+		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTasks().pop();
+		model.getDeletedStackOfTasksRedo().push(taskToReAdd);
 		try {
-			model.addTask((Task) taskToReAdd);
-		} catch (DuplicateTaskException e) {
+			model.addTask((Task)taskToReAdd);
+		} catch(DuplicateTaskException e) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
-
+	
+	//@author A0139128A
 	@Override
 	public CommandResult redo() {
-		// TODO Auto-generated method stub
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-
-		if (taskType.equals(TASK_TYPE_FLOATING)) {
-			lastShownList = model.getCurrentFilteredTaskList();
-		} else {
-			lastShownList = model.getCurrentFilteredScheduleList();
+		if(model.getStackOfListTypesRedo().isEmpty()) {
+			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
-
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		}
-
-		ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-		assert model != null;
+		ReadOnlyTask taskToDelete = model.getDeletedStackOfTasksRedo().pop();
+		model.getDeletedStackOfTasks().push(taskToDelete);
 		try {
-			model.deleteTask(taskToDelete);
-			model.getUndoStack().push(this);
-			model.getDeletedStackOfTask().push(taskToDelete);
-			model.getDeletedStackOfTaskType().push(taskType);
-		} catch (TaskNotFoundException pnfe) {
+			model.deleteTask((Task) taskToDelete);
+		} catch(TaskNotFoundException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
 		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
-
 	}
-
 }

@@ -10,13 +10,18 @@ import java.util.GregorianCalendar;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
+/** This class checks if the user input date and time are of a valid one by checking currentTime/currentDate/Range and throws
+ *  its respective message if the input is invalid
+ * @author A0139128A
+ *
+ */
 //@@author A0139128A
 public class TaskTime {
 
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "(((\\d|\\d\\d):\\d\\d)(am|pm))";
-	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50pm
+	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; /*E.g. 1:50pm */
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(((\\d|\\d\\d)\\.\\d\\d)(am|pm))";
-	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45pm
+	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	/*E.g. 1.45pm */
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1]*[0-9]{1}+)(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
@@ -33,7 +38,7 @@ public class TaskTime {
 	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX = "([1-9]{1}+)/([1-9]{1}+)/([0-9]{4})";
 
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT = "dd/MM";
-	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([1-9]{2}+)/([0-9]{2}+))";
+	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_VALIDATION_REGEX = "([1-9]{2}+)/([0-9]{2}+)";
 
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_FORMAT = "d/MM";
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_SHORTENED_DAY_VALIDATION_REGEX = "([1-9]{1}+)/([0-9]{2}+)";
@@ -285,6 +290,7 @@ public class TaskTime {
 			ex.printStackTrace();
 			return false;
 		}
+		
 		//Checks if beforeTime is earlier than afterTime
 		if(beforeEarlierThanAfter) {
 			//This check if for e.g. input add "Sth" from 5pm to 7pm
@@ -486,6 +492,27 @@ public class TaskTime {
 				sameDate = true;
 			}
 		} catch (ParseException e) {
+			return false;
+		}Calendar b = new GregorianCalendar();
+		b.setTime(beginDate);
+		b.set(Calendar.HOUR_OF_DAY, 23);
+		b.set(Calendar.MINUTE, 59);
+		b.set(Calendar.SECOND, 59);
+		beginDate = b.getTime();
+		
+		Calendar a = new GregorianCalendar();
+		a.setTime(beginDate);
+		a.set(Calendar.HOUR_OF_DAY, 23);
+		a.set(Calendar.MINUTE, 59);
+		a.set(Calendar.SECOND, 59);
+		finishDate = a.getTime();
+		//Following checks if the user input date is invalid i.e before today's date
+		Calendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 00);
+		c.set(Calendar.MINUTE, 00);
+		c.set(Calendar.SECOND, 00);
+		Date currDate = c.getTime();
+		if(currDate.compareTo(beginDate) > 0 || currDate.compareTo(finishDate) > 0) {
 			return false;
 		}
 		if(!validDateRange && !sameDate) {

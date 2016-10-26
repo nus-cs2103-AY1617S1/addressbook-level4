@@ -9,10 +9,10 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    String getDate();
+    String getTaskDate();
     String getStartDate();
     String getEndDate();
-    String getTime();
+    String getTaskTime();
     String getStartTime();
     String getEndTime();
 
@@ -26,19 +26,45 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (other.getDate() == null && this.getDate() == null) {
+        if (isBothFloating(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName())
                     && other.getTags().equals(this.getTags())
                     );
+        } else if (isBothDeadline(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else if (isBothEvent(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else {
+            return false;
         }
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())
-                && other.getDate().equals(this.getDate())
-                && other.getTags().equals(this.getTags())
-                );
+    }
+    
+    default boolean isBothFloating(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() == null && task.getStartDate() == null;
+    }
+    
+    default boolean isBothDeadline(ReadOnlyTask task) {
+        return this.getTaskDate() != null && task.getTaskDate() != null
+                && this.getStartDate() == null && task.getStartDate() == null;
+    }
+    
+    default boolean isBothEvent(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() != null && task.getStartDate() != null;
     }
     
     /**
@@ -59,8 +85,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if (getDate() != null)
-            builder.append(" " + getDate());
+        if (getTaskDate() != null)
+            builder.append(" " + getTaskDate());
         		
         if (getStartDate() != null)
             builder.append(" " + getStartDate());
@@ -68,8 +94,8 @@ public interface ReadOnlyTask {
         if (getEndDate() != null)
             builder.append(" " + getEndDate());
         
-        if (getTime() != null)
-            builder.append(" " + getTime());
+        if (getTaskTime() != null)
+            builder.append(" " + getTaskTime());
         
         if (getStartTime() != null)
             builder.append(" " + getStartTime());

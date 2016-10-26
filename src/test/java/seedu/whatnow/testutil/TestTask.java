@@ -12,10 +12,10 @@ import seedu.whatnow.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private String date;
+    private String taskDate;
     private String startDate;
     private String endDate;
-    private String time;
+    private String taskTime;
     private String startTime;
     private String endTime;
     private UniqueTagList tags;
@@ -23,10 +23,10 @@ public class TestTask implements ReadOnlyTask {
     private String taskType; //todo or schedule
 
     public TestTask() throws IllegalValueException {
-        setDate(null);
+        setTaskDate(null);
         setStartDate(null);
         setEndDate(null);
-        setTime(null);
+        setTaskTime(null);
         setStartTime(null);
         setEndTime(null);
         setTaskType(null);
@@ -74,8 +74,8 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public String getDate() {
-        return date;
+    public String getTaskDate() {
+        return taskDate;
     }
 
     @Override
@@ -89,8 +89,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public String getTime() {
-        return time;
+    public String getTaskTime() {
+        return taskTime;
     }
 
     @Override
@@ -103,8 +103,8 @@ public class TestTask implements ReadOnlyTask {
         return endTime;
     }
     
-    public void setDate(String date) {
-        this.date = date;
+    public void setTaskDate(String date) {
+        this.taskDate = date;
     }
     
     public void setStartDate(String date) {
@@ -115,8 +115,8 @@ public class TestTask implements ReadOnlyTask {
         this.endDate = date;
     }
     
-    public void setTime(String time) {
-        this.time = time;
+    public void setTaskTime(String time) {
+        this.taskTime = time;
     }
     
     public void setStartTime(String time) {
@@ -143,8 +143,8 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add \"" + this.getName().fullName + "\" ");
         if (this.getStartDate() != null && !this.getStartDate().equals("")) {
             sb.append("on" + " " + this.getStartDate());
-        } else if (this.getDate() != null && !this.getDate().equals("")) {
-            sb.append("on" + " " + this.getDate());
+        } else if (this.getTaskDate() != null && !this.getTaskDate().equals("")) {
+            sb.append("on" + " " + this.getTaskDate());
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();

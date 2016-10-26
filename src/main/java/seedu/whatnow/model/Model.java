@@ -26,11 +26,7 @@ public interface Model {
     
 	/** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
-    
-    /** Reverts to previous data of WhatNow */
-	void revertDataUpdate();
 	
-	void revertToPrevDataUpdate();
   //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
@@ -38,9 +34,6 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
-
-    /** Changes the file data storage location */
-    void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList();
@@ -51,9 +44,6 @@ public interface Model {
     /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> key);
 
-    /**	Returns old copy of the filteredTaskList before a clear */
-	UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList();
-	
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
@@ -71,9 +61,6 @@ public interface Model {
     
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException;
-    
-    /** Undo the update done on given task */
-	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -93,30 +80,34 @@ public interface Model {
 	/**Gets the newTask if possible */
 	Stack<ReadOnlyTask> getNewTask();
 	
-	/** Gets the deletedStackOfTask */
-	Stack<ReadOnlyTask> getDeletedStackOfTask();
+	/** Gets the deletedStackOfTask that corresponds to deleteCommand*/
+	Stack<ReadOnlyTask> getDeletedStackOfTasks();
 
-	/** Gets the deletedStackOfTaskType corresponding to stackOfTask */
-	Stack<String> getDeletedStackOfTaskType();
+	/** Gets the deletedStackOfTaskRedo that corresponds to deleteCommand*/
+	Stack<ReadOnlyTask> getDeletedStackOfTasksRedo();
+	
+	/** Gets the deleted StackOfTasks that corresponds to AddCommand */
+	Stack<ReadOnlyTask> getDeletedStackOfTasksAdd();
+
+	/** Gets the deleted StackOfTasksRedo that corresponds to AddCommand */
+	Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo();
 	
 	/** Gets Stack of Task that were marked */
 	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
 	
-	/** Gets Stack of Task that were marked */
-    Stack<ReadOnlyTask> getStackOfMarkUndoneTask();  
+	Stack<ReadOnlyTask> getStackOfMarkUndoneTask();
+	
+	Stack<String> getStackOfMarkUndoneTaskTaskType();
 	
 	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
 	Stack<String> getStackOfMarkDoneTaskTaskType();
 	
-	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
-    Stack<String> getStackOfMarkUndoneTaskTaskType();
-    
-	/** Gets a stack of WhatNow corresponding to Undoes of Update */
-	Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate();  
+	/** Gets a stack of String that corresponds to the list of commands that were executed */
+	Stack<String> getStackOfListTypes();
 	
-	/** Gets a stack of WhatNow corresponding to Redoes of Update */
-	Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate();
-    
+	/**Gets a stack of String that corresponds to the list of Commands that were undone */
+	Stack<String> getStackOfListTypesRedo();
+	
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
@@ -126,9 +117,6 @@ public interface Model {
     
     /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> key);
-    
-    /** Returns the filtered task list before the clear */
-	UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList();
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredScheduleListToShowAll();
@@ -149,4 +137,5 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
 
     void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException;
+	
 }

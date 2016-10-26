@@ -612,8 +612,8 @@ public class LogicManagerTest {
 
             cmd.append("\"" + p.getName().toString() + "\"");
             
-            if (p.getDate() != null)
-                cmd.append(" on " + p.getDate());
+            if (p.getTaskDate() != null)
+                cmd.append(" on " + p.getTaskDate());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
