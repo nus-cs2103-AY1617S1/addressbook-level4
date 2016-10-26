@@ -37,7 +37,7 @@ public interface Model {
     /** Edit the given task */
     void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
-    /** Edit the given task */
+    /** Mark the given task done */
     void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
