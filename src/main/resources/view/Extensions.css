@@ -1,4 +1,4 @@
-
+/* @@author A0144727B */
 .error:focused {
     /*-fx-background-color: derive(#e80549, 30%);
     -fx-text-box-border: #1d1d1d;
@@ -36,7 +36,7 @@
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
 }
-
+/* @@author */
 
 .tag-selector {
     -fx-border-width: 1;

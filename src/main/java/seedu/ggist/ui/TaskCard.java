@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.model.task.ReadOnlyTask;
-
+//@@author A0144727B
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
