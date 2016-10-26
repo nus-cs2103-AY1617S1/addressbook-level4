@@ -274,23 +274,24 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
+            logger.info(this.startDate.toString() + this.endDate.toString());
+            
             if(endDate == null && startDate != null) { //if searching for a specific date
                 if(task instanceof Event) {
-                    return ((Event) task).getStart().getDifferenceInDays(startDate) <= 0
-                            && ((Event) task).getEnd().getDifferenceInDays(startDate) >= 0;
+                    return ((Event) task).getStart().getDifferenceInDays(startDate) >= 0
+                            && ((Event) task).getEnd().getDifferenceInDays(startDate) <= 0;
                 } else if(task instanceof DeadlineTask) {
                     return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) == 0;
                 }
             } else if(endDate != null) { //if searching for a range of dates
                 if(task instanceof Event) {
-                    return (((Event) task).getStart().getDifferenceInDays(startDate) <= 0
-                            && ((Event) task).getEnd().getDifferenceInDays(startDate) >= 0)
-                            || (((Event) task).getStart().getDifferenceInDays(endDate) <= 0
-                               && ((Event) task).getEnd().getDifferenceInDays(endDate) >= 0);
-                            
+                    return (((Event) task).getStart().getDifferenceInDays(startDate) >= 0
+                            && ((Event) task).getEnd().getDifferenceInDays(startDate) <= 0)
+                            || (((Event) task).getStart().getDifferenceInDays(endDate) >= 0
+                               && ((Event) task).getEnd().getDifferenceInDays(endDate) <= 0);    
                 } else if(task instanceof DeadlineTask) {
-                    return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) >= 0
-                            && ((DeadlineTask) task).getDeadline().getDifferenceInDays(endDate) <= 0;
+                    return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) <= 0
+                            && ((DeadlineTask) task).getDeadline().getDifferenceInDays(endDate) >= 0;
                 }
             }
             

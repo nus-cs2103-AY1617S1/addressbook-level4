@@ -1,5 +1,7 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import seedu.jimi.model.datetime.DateTime;
@@ -15,7 +17,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " add water";
+            + "Example: " + COMMAND_WORD + " \"add water\"";
 
     private final Set<String> keywords;
     private final DateTime fromDate;
@@ -28,10 +30,19 @@ public class FindCommand extends Command {
         fromDate = null;
     }
     
-    public FindCommand(Set<String> keywords, DateTime fromDate, DateTime toDate) {
+    public FindCommand(Set<String> keywords, List<Date> fromDate, List<Date> toDate) {
         this.keywords = keywords;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        if(fromDate != null && fromDate.size() != 0) {
+            this.fromDate = new DateTime(fromDate.get(0));
+        } else {
+            this.fromDate = null;
+        }
+            
+        if(toDate != null && toDate.size() != 0) {
+            this.toDate = new DateTime(toDate.get(0));
+        } else {
+            this.toDate = null;
+        }
     }
     //@@author A0138915X
 

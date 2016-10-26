@@ -55,7 +55,10 @@ public class JimiParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
+    
+    private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
+            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\"\\s?)?((from (?<startDateTime>.+))?)?((to (?<endDateTime>.+))?)");
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -451,16 +454,33 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = KEYWORDS_WITH_DATES_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+        
+        Optional<String> optKeywords = Optional.ofNullable(matcher.group("keywords"));
+        Set<String> keywordSet = null;
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        if(optKeywords.isPresent()) {
+            final String[] keywords = optKeywords.get().split("\\s+");
+            keywordSet = new HashSet<>(Arrays.asList(keywords));
+        }
+        
+        List<Date> startDates= null;
+        List<Date> endDates = null;
+        Optional<List<Date>> optStartDate = Optional.ofNullable(startDates);
+        Optional<List<Date>> optEndDate = Optional.ofNullable(endDates);
+        try {
+            startDates = parseStringToDate(matcher.group("startDateTime"));
+            endDates = parseStringToDate(matcher.group("endDateTime"));
+        } catch (DateNotParsableException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return new FindCommand(keywordSet, optStartDate.orElse(null), optEndDate.orElse(null));
     }
     
     // @@author A0140133B
