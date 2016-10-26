@@ -210,7 +210,7 @@ Done T1, T3
 
 The display command will display the completed tasks in their respective categories.
 
-> Format: list completed
+> Format: list done
 
 ####5.2 Display all tasks
 
@@ -329,4 +329,6 @@ The task manager shifts your file from the current storage folder to the newly s
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
 11| Exit | exit 
 12| help | help 
-13| set storage| storage &lt;valid file path&gt; 
+13| list | list
+14| list done| list done
+14| storage| storage &lt;valid file path&gt; 
