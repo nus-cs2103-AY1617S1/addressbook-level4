@@ -35,7 +35,7 @@ public class TodoList implements TodoListModel {
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
-    
+
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
 
     private MovableStorage<ImmutableTodoList> storage;
@@ -124,7 +124,6 @@ public class TodoList implements TodoListModel {
         return task;
     }
     
-    //@@author A0092382A
     @Override
     public void updateAll(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
         for (Integer x: indexes) {
@@ -143,7 +142,6 @@ public class TodoList implements TodoListModel {
         
     } 
     
-    //@@author A0135817B
     @Override
     public void save(String location) throws ValidationException {
         try {

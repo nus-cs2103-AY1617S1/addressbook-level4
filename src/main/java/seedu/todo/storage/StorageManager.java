@@ -7,7 +7,7 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of user preferences in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 

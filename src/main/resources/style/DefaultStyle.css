@@ -88,7 +88,7 @@
 
 .commandInput {
     -fx-font-family: "Consolas";
-    -fx-font-size: 14pt;
+    -fx-font-size: 20px;
 }
 
 .commandInput.error {
@@ -130,6 +130,30 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+/*@@author A0135817B */
+.searchStatus {
+    -fx-padding: 4px;
+}
+
+.searchStatus Text {
+    -fx-font-size: 14px;
+    -fx-fill: #fff;
+}
+
+.searchStatus .searchLabel {
+}
+
+.searchStatus .searchTerm {
+    -fx-font-weight: bold;
+}
+
+.searchStatus .searchCount {
+    -fx-text-alignment: right;
+}
+
+
+
+/*@@author A0135805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
@@ -231,12 +255,12 @@
     -fx-image: url("../images/location_white.png");
 }
 
+
 /*@@author A0092382A */
 /*Ongoing*/
 .ongoing {
     -fx-background-color: #388E3C;
 }
-
 
 .ongoing .label {
     -fx-text-fill: #FFFFFF;
@@ -258,8 +282,9 @@
 .ongoing .locationImage {
     -fx-image: url("../images/location_white.png");
 }
-/*@@author A0135805H */
 
+
+/* @@author A0135805H */
 /*Selected*/
 .selected {
     -fx-background-color: #00A4FF;

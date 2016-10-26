@@ -39,7 +39,6 @@ public class MainWindow extends UiPart {
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
-    private FilterBarView filterBarView;
     private TodoListView todoListView;
     private HelpView helpView;
 
@@ -53,6 +52,7 @@ public class MainWindow extends UiPart {
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
     @FXML private AnchorPane filterBarViewPlaceholder;
+    @FXML private AnchorPane searchStatusViewPlaceholder;
 
     /**
      * Loads an instance of the {@link MainWindow} together with the associated view elements.
@@ -89,11 +89,12 @@ public class MainWindow extends UiPart {
         //Initialise the view elements to each placeholders.
         todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
-        filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
-
+        
+        FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
+        SearchStatusView.load(primaryStage, searchStatusViewPlaceholder, model.getSearchStatus());
         //Constructs a command communication link between the commandXViews and logic.
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }

@@ -5,10 +5,12 @@ import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.property.SearchStatus;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -84,9 +86,17 @@ public interface Model {
     void view(TaskViewFilter view);
 
     /**
-     * Filters the list of tasks by this predicate. This is run after the view predicate. 
+     * Filters the list of tasks by this predicate. This is filtering is ran 
+     * after the view predicate. No information about the search is shown to the user. 
+     * Setting predicate to null will reset the search. 
      */
     void find(Predicate<ImmutableTask> predicate);
+
+    /**
+     * Filters the list of tasks by this predicate. This is filtering is ran 
+     * after the view predicate. A list of search terms is also shown to the user. 
+     */
+    void find(Predicate<ImmutableTask> predicate, List<String> terms);
 
     /**
      * Undoes the last operation that modifies the todolist
@@ -126,4 +136,9 @@ public interface Model {
      * Get the current view filter used on the model. Used mainly by the JavaFx UI. 
      */
     ObjectProperty<TaskViewFilter> getViewFilter();
+
+    /**
+     * Get the current status of the search used on the model.  
+     */
+    ObjectProperty<SearchStatus> getSearchStatus();
 }

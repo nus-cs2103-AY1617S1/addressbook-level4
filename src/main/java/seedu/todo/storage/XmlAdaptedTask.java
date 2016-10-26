@@ -13,8 +13,9 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 
+//@@author A0139021U-reused
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the task.
  */
 public class XmlAdaptedTask {
 
