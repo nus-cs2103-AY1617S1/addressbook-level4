@@ -23,20 +23,21 @@ public class Event extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime) {
+    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime, Done isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime(), source.getDone());
     }
     
     public Event(ReadOnlyTask source) {

@@ -65,16 +65,35 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetTodoListData(ReadOnlyTaskList newData) {
         todoList.resetData(newData);
         indicateTodoListChanged();
+        updateFilteredTodoListToShowAll();
     } 
     @Override
     public void resetEventListData(ReadOnlyTaskList newData) {
         eventList.resetData(newData);
-        indicateTodoListChanged();
+        indicateEventListChanged();
+        updateFilteredEventListToShowAll();
     } 
     @Override
     public void resetDeadlineListData(ReadOnlyTaskList newData) {
         deadlineList.resetData(newData);
+        indicateDeadlineListChanged();
+        updateFilteredDeadlineListToShowAll();
+    }
+    
+    @Override
+    public void resetTodoListData() {
+        todoList.resetData();
         indicateTodoListChanged();
+    } 
+    @Override
+    public void resetEventListData() {
+        eventList.resetData();
+        indicateEventListChanged();
+    } 
+    @Override
+    public void resetDeadlineListData() {
+        deadlineList.resetData();
+        indicateDeadlineListChanged();
     }
 
     @Override

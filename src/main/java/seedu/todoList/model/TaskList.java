@@ -47,11 +47,6 @@ public class TaskList implements ReadOnlyTaskList {
     public void setTasks(List<Task> tasks) {
     	this.tasks.getInternalList().setAll(tasks);
     }
-
-
-//    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
-//        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-//    }
     
     public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
     	Object[] typeCheck = newTasks.toArray();
@@ -71,6 +66,10 @@ public class TaskList implements ReadOnlyTaskList {
     
     public void resetData(ReadOnlyTaskList newData) {
         resetData(newData.getTaskList());
+    }
+    
+    public void resetData() {
+    	tasks.removeAll();
     }
     
 
