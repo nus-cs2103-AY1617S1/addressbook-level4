@@ -19,14 +19,12 @@ public class ListCommand extends Command {
 
     public static final String LIST_KEYWORDS = LIST_KEYWORD_ALL + "/" + LIST_KEYWORD_OD + "/" + LIST_KEYWORD_DONE;
 
-    public static final String MESSAGE_LIST_KEYWORDS = "Only " + LIST_KEYWORDS + " are allowed.";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the tasks in the address book.\n"
-            + "Parameters: " + LIST_KEYWORDS + "\n"
+    public static final String MESSAGE_LIST_USAGE = COMMAND_WORD + ": Lists the tasks in the address book.\n"
+            + "Parameters: list " + LIST_KEYWORDS + "\n"
             + "Example: " + COMMAND_WORD
             + " done";
 
-    public static final String MESSAGE_SUCCESS = "Listed tasks";
+    public static final String MESSAGE_SUCCESS = "Listed %1$s tasks";
 
     private final String keyword;
 
@@ -36,28 +34,37 @@ public class ListCommand extends Command {
             this.keyword = key;
         }
         else {
-            throw new IllegalValueException(MESSAGE_LIST_KEYWORDS);
+            throw new IllegalValueException(MESSAGE_LIST_USAGE);
         }
     }
 
     @Override
     public CommandResult execute() {
-
+        String taskStatus;
+        
         switch (keyword) {
         case LIST_KEYWORD_ALL:
+            taskStatus = "all";
             model.updateFilteredListToShowAll();
             break;
 
         case LIST_KEYWORD_DONE:
+            taskStatus = "completed";
             model.updateFilteredTaskList("DONE");
             break;
 
         case LIST_KEYWORD_OD:
-            model.updateFilteredTaskList("OVERDUE");
+            taskStatus = "overdue and expired";
+            model.updateFilteredTaskList("OVERDUE", "EXPIRE");
+            break;
+            
+        default:
+            //Not possible
+            taskStatus = "";
             break;
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, taskStatus));
     }
 
     @Override

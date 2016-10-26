@@ -59,18 +59,18 @@ public class ModelManager extends ComponentManager implements Model {
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
         undoableTasks = new UndoList();
     }
-    
+
     public void checkStatus(){
         UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
         LocalDateTime currentTime = LocalDateTime.now();
-        
+
         for (Task target : tasks) {
             if(target.getDatetime().getEnd() == null){
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
                 LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
                 if(dateTime.isBefore(currentTime)){
-                   try {
-                       taskBook.overdueTask(target);
+                    try {
+                        taskBook.overdueTask(target);
                     } catch (TaskNotFoundException e) {}                
                 }
                 else if(dateTime.isAfter(currentTime) && target.getStatus().toString() == "OVERDUE"){
@@ -81,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }         
     }
-    
+
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -119,7 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-    
+
     @Override
     public synchronized UndoTask undoTask() {
         return undoableTasks.removeFromFront();
@@ -136,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addUndo(String command, ReadOnlyTask postData) {
         undoableTasks.addToFront(command, postData, null);
     }
-    
+
     @Override
     public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
         undoableTasks.addToFront(command, postData, preData);
@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors =============================================================== 
 
-	@Override
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList() {
         return new UnmodifiableObservableList<>(filteredDatedTasks);
     }
@@ -156,7 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        updateFilteredTaskList("NONE", "OVERDUE");
+        updateFilteredTaskList("NONE", "OVERDUE", "EXPIRE");
         //filteredDatedTasks.setPredicate(null);
         //filteredUndatedTasks.setPredicate(null);
     }
