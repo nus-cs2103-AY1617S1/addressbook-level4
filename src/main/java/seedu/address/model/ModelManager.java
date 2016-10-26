@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
-
 /**
  * Represents the in-memory model of the address book data. All changes to any
  * model should be synchronized.

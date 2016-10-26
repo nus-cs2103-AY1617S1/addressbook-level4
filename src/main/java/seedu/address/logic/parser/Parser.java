@@ -198,13 +198,13 @@ public class Parser {
 	private Command prepareComplete(String args) throws IllegalValueException {
   		  
         Optional<Integer> index = parseIndex(args);
-	if(!index.isPresent()){
+        if(!index.isPresent()){
      		return new IncorrectCommand(
 	     		String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
- 	}
+ 		}
  
- 	return new CompleteCommand(index.get());
-}
+ 		return new CompleteCommand(index.get());
+	}
     /**
      * Parses arguments in the context of the select task command.
      *
