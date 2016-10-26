@@ -2,56 +2,62 @@
 <taskscheduler>
     <tasks>
         <name>Career Fair</name>
-        <phone>07-Oct-2016, Fri</phone>
-        <email>11-Oct-2016, Tue</email>
+        <startDateTime>07-Oct-2016, Fri</startDateTime>
+        <endDateTime>11-Oct-2016, Tue</endDateTime>
         <address>NUS COM1</address>
-        <tagged>Event</tagged>
+        <type>EVENT</type>
     </tasks>
     <tasks>
         <name>Groupwork Project</name>
-        <phone></phone>
-        <email>14-Oct-2016, Fri</email>
+        <startDateTime></startDateTime>
+        <endDateTime>14-Oct-2016, Fri</endDateTime>
         <address></address>
+        <type>DEADLINE</type>
         <tagged>Deadline</tagged>
     </tasks>
     <tasks>
         <name>Project Discussion</name>
-        <phone>14-Oct-2016, Fri</phone>
-        <email>21-Oct-2016, Fri</email>
+        <startDateTime>14-Oct-2016, Fri</startDateTime>
+        <endDateTime>21-Oct-2016, Fri</endDateTime>
         <address>Technoedge</address>
+        <type>EVENT</type>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Groupwork Discussion</name>
-        <phone></phone>
-        <email></email>
+        <startDateTime></startDateTime>
+        <endDateTime></endDateTime>
         <address></address>
+        <type>FLOATING</type>
     </tasks>
     <tasks>
         <name>CS2103 Lecture</name>
-        <phone>01-Jan-2018, Mon</phone>
-        <email>31-Dec-2018, Mon</email>
+        <startDateTime>01-Jan-2018, Mon</startDateTime>
+        <endDateTime>31-Dec-2018, Mon</endDateTime>
         <address>ICube Lecture Hall</address>
+        <type>EVENT</type>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Send kid to NUS</name>
-        <phone>01-Jan-2034, Sun</phone>
-        <email>01-Jan-2038, Fri</email>
+        <startDateTime>01-Jan-2034, Sun</startDateTime>
+        <endDateTime>01-Jan-2038, Fri</endDateTime>
         <address>NUS</address>
+        <type>EVENT</type>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Project Briefing</name>
-        <phone>01-Jan-2034, Sun</phone>
-        <email>01-Jan-2034, Sun</email>
+        <startDateTime>01-Jan-2034, Sun</startDateTime>
+        <endDateTime>01-Jan-2034, Sun</endDateTime>
         <address>ICube Lecture Hall</address>
+        <type>EVENT</type>
         <tagged>Event</tagged>
     </tasks>
     <tags>
-        <tagName>Event</tagName>
+        <tagName>Deadline</tagName>
     </tags>
     <tags>
-        <tagName>Deadline</tagName>
+        <tagName>Event</tagName>
     </tags>
 </taskscheduler>

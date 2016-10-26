@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.logic.commands.CommandHistory;
-import seedu.taskscheduler.logic.commands.RecurCommand;
 import seedu.taskscheduler.testutil.TestTask;
 import seedu.taskscheduler.testutil.TestUtil;
 

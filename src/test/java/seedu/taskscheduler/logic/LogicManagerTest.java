@@ -21,6 +21,7 @@ import seedu.taskscheduler.model.TaskScheduler;
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 import seedu.taskscheduler.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -155,23 +156,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add ^wrong args wrong args^", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/today at valid, address", expectedMessage);
+                "add Valid Name from 12345 e/ today at valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/today yesterday, address", expectedMessage);
+                "add Valid Name s/ today to yesterday at address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/today e/yesterday valid, address but no address prefix", expectedMessage);
+                "add Valid Name s/today e/yesterday valid, address at no address prefix", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         String invalidDate = "not_numbers";
         assertCommandBehavior(
-                "add []\\[;] s/090909 e/090909 at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] from 090909 to 090909 at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/" + invalidDate + " e/010116 at valid, address", 
+                "add Valid Name from " + invalidDate + " to 010116 at valid, address", 
                 String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
         assertCommandBehavior(
-                "add Valid Name s/010116 e/" + invalidDate + " at valid, address", 
+                "add Valid Name from 010116 to " + invalidDate + " at valid, address", 
                 String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -393,10 +394,9 @@ public class LogicManagerTest {
             TaskDateTime startDate = new TaskDateTime("090911");
             TaskDateTime endDate = new TaskDateTime("090911");
             Location privateAddress = new Location("111, alpha street");
-            Tag tag1 = new Tag("Event");
-//            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, startDate, endDate, privateAddress, tags);
+            TaskType type = TaskType.EVENT;
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(name, startDate, endDate, privateAddress, type, tags);
         }
 
         /**
@@ -412,6 +412,7 @@ public class LogicManagerTest {
                     new TaskDateTime("090901"),
                     new TaskDateTime("090901"),
                     new Location("House of " + seed),
+                    TaskType.EVENT,
                     new UniqueTagList(new Tag("Event"))
                     );
         }
@@ -423,8 +424,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" s/").append(p.getStartDate());
-            cmd.append(" e/").append(p.getEndDate());
+            cmd.append(" from ").append(p.getStartDate());
+            cmd.append(" to ").append(p.getEndDate());
             cmd.append(" at ").append(p.getLocation().value);
 
 //            UniqueTagList tags = p.getTags();
@@ -511,6 +512,7 @@ public class LogicManagerTest {
                     new TaskDateTime("161216"),
                     new TaskDateTime("161216"),
                     new Location("House of 1"),
+                    TaskType.EVENT,
                     new UniqueTagList(new Tag("Event"))
             );
         }

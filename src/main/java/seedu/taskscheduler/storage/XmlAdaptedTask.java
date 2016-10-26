@@ -6,6 +6,7 @@ import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.Location;
 import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.TaskDateTime;
 
@@ -21,11 +22,13 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String startDateTime;
     @XmlElement(required = true)
-    private String email;
+    private String endDateTime;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String type;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,9 +46,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getStartDate().toString();
-        email = source.getEndDate().toString();
+        startDateTime = source.getStartDate().toString();
+        endDateTime = source.getEndDate().toString();
         address = source.getLocation().value;
+        type = source.getType().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -63,10 +67,11 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final TaskDateTime startDateTime = new TaskDateTime(this.phone);
-        final TaskDateTime endDateTime = new TaskDateTime(this.email);
+        final TaskDateTime startDateTime = new TaskDateTime(this.startDateTime);
+        final TaskDateTime endDateTime = new TaskDateTime(this.endDateTime);
         final Location address = new Location(this.address);
+        final TaskType type = TaskType.valueOf(this.type);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startDateTime, endDateTime, address, tags);
+        return new Task(name, startDateTime, endDateTime, address, type, tags);
     }
 }

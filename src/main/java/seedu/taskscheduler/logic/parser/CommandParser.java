@@ -32,19 +32,28 @@ public abstract class CommandParser {
 
     protected static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+   
     protected static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " "
-                    + START_DATE_DELIMITER
-                    + "(?<startDate>[^/]*)"
-                    + " "
-                    + END_DATE_DELIMITER
+            Pattern.compile("(?<name>.+)"
+                    + "(?>\\s+\\bfrom\\b)"
+                    + "(?<startDate>.*)"
+                    + "(?>\\s+\\bto\\b)"
                     + "(?<endDate>.*)"
                     + "(?>\\s+\\bat\\b)"
                     + "(?<address>.*)"
-                    ); 
- 
+                    );  
+//    protected static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+//            Pattern.compile("(?<name>[^/]+)"
+//                    + " "
+//                    + START_DATE_DELIMITER
+//                    + "(?<startDate>[^/]*)"
+//                    + " "
+//                    + END_DATE_DELIMITER
+//                    + "(?<endDate>.*)"
+//                    + "(?>\\s+\\bat\\b)"
+//                    + "(?<address>.*)"
+//                    ); 
+// 
     protected static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+?)"
                     + "(?>(\\s+\\b(by|on)\\b))"

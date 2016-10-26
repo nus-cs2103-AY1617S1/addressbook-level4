@@ -14,7 +14,11 @@ public interface ReadOnlyTask {
     Location getLocation();
     ReadOnlyTask copy();
     boolean getCompleteStatus();
+    TaskType getType();
     
+    public enum TaskType {
+        FLOATING, DEADLINE, EVENT
+    }
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -80,7 +84,8 @@ public interface ReadOnlyTask {
             .append(getLocation())  
             .append(" ");  
         getTags().forEach(b -> builder.append(b.tagName + " ")); 
-        builder.append(getCompleteStatus() ? "completed" : "incomplete");
+        builder.append(getCompleteStatus() ? " completed" : " incomplete");
+        builder.append(" " + getType());
         return builder.toString();  
     }  
     //@@author

@@ -18,19 +18,21 @@ public class Task implements ReadOnlyTask {
     private TaskDateTime endDateTime;
     private Location address;
     private boolean completeStatus;
+    private TaskType type;
     
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
+    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, TaskType type, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
         this.startDateTime = new TaskDateTime(startDateTime);
         this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
         this.tags = tags;
+        this.type = type;
         this.completeStatus = false;
     }
 
@@ -38,7 +40,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getType(), source.getTags());
         this.completeStatus = source.getCompleteStatus();
     }
 
@@ -160,9 +162,19 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+    //@@author A0148145E 
     @Override
     public Task copy() {
         return new Task(this);
+    }
+
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+    
+    public void setType(TaskType type) {
+        this.type = type;
     }
 
 }

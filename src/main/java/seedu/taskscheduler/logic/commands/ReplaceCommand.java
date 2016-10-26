@@ -16,13 +16,13 @@ public class ReplaceCommand extends Command {
     public static final String COMMAND_WORD = "replace";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces a task in the scheduler. "
-            + "Parameters: INDEX TASK s/START_DATE e/END_DATE at LOCATION \n"
+            + "Parameters: INDEX TASK from START_DATE to END_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
             + " 1 Must Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD
-            + " 2 new task name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS\n"
+            + " 2 new task name from 10-Oct-2016 8am to 10-Oct-2016 9am at NUS\n"
             + "Example: " + COMMAND_WORD
-            + " 1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there\n";
+            + " 1 another new task name from 11-Oct-2016 8am to 11-Oct-2016 9am at there\n";
 
     public static final String MESSAGE_SUCCESS = "Task replaced: %1$s";
     

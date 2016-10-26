@@ -17,6 +17,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskDateTime endDateTime;
     private UniqueTagList tags;
     private boolean completeStatus;
+    private TaskType type;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -116,8 +117,8 @@ public class TestTask implements ReadOnlyTask {
     private String getEventString() {
         StringBuilder sb = new StringBuilder();
         sb.append(" " + this.getName().fullName + " ");
-        sb.append("s/" + this.getStartDate() + " ");
-        sb.append("e/" + this.getEndDate() + " ");
+        sb.append("from " + this.getStartDate() + " ");
+        sb.append("to " + this.getEndDate() + " ");
         sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -139,5 +140,14 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public boolean getCompleteStatus() {
         return completeStatus;
+    }
+    
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+
+    public void setType(TaskType type) {
+        this.type = type;
     }
 }

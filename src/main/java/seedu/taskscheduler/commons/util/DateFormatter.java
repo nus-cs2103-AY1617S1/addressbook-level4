@@ -26,7 +26,7 @@ public class DateFormatter {
         try {
             return new PrettyTimeParser().parse(val).get(0);
         } catch (IndexOutOfBoundsException iobe) {
-            throw new IllegalValueException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,val));
+            throw new IllegalValueException(String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,val.trim()));
         }
     }
     

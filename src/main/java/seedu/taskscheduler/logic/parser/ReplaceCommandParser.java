@@ -10,7 +10,6 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.ReplaceCommand;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.model.task.Task;
-import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0148145E
 
@@ -32,10 +31,8 @@ public class ReplaceCommandParser extends CommandParser{
         final Matcher indexMatcher = INDEX_COMMAND_FORMAT.matcher(args);
 
         if (!indexMatcher.matches()) {
-            System.out.println("no int");
             return generateReplaceCommand(args, -1);
         } else {
-            System.out.println("got int");
             int index = Integer.parseInt(indexMatcher.group("index"));
             assert index >= 0;
             String newArgs = indexMatcher.group("arguments").trim();

@@ -1,7 +1,6 @@
 package seedu.taskscheduler.model.task;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 
 //@@author A0148145E
@@ -16,7 +15,8 @@ public class DeadlineTask extends Task {
             new TaskDateTime(), 
             endDateTime, 
             new Location(), 
-            new UniqueTagList(new Tag("Deadline")));
+            TaskType.DEADLINE,
+            new UniqueTagList());
     }
 
     public DeadlineTask(ReadOnlyTask source) {

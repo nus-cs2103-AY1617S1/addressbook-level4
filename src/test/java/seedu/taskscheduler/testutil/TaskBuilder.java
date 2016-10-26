@@ -3,6 +3,7 @@ package seedu.taskscheduler.testutil;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 
 /**
  *
@@ -41,6 +42,12 @@ public class TaskBuilder {
         this.task.setEndDate(new TaskDateTime(endDate));
         return this;
     }
+    
+    public TaskBuilder withType(String type) throws IllegalValueException {
+        this.task.setType(TaskType.valueOf(type));
+        return this;
+    }
+
 
     public TestTask build() {
         return this.task;
