@@ -105,6 +105,8 @@ Examples:
 
 > * If only 1 task matches the entered text, it is deleted. Otherwise, the tasks matching `b*y*` will be listed for the user to choose from.
 
+/* @@author A0144919W */
+
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
 Format: `update INDEX [TASKNAME] [at/from [START_TIMEDATE] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]`
@@ -135,6 +137,8 @@ Format: `done INDEX/TASKNAME`
 Examples:
 * `done 1`
 * `done b*y`
+
+/* @@author */
 
 #### Setting the storage location: `setstorage`
 Sets the data storage location to the specified file path. <br>
@@ -169,6 +173,8 @@ Format: `exit`
 #### Saving the data 
 The task manager data is saved on the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+/* @@author A0144919W */
 
 ## FAQ
 
