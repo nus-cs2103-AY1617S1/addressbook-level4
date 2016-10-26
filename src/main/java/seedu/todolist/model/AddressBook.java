@@ -103,8 +103,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
+    public boolean removeTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.remove(keys)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
