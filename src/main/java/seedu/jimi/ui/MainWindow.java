@@ -2,6 +2,7 @@ package seedu.jimi.ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -115,7 +116,7 @@ public class MainWindow extends UiPart {
      * @@author A0138915X
      */
     private void setCurrentDate() {
-        String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM"));
+        String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM", Locale.ENGLISH));
         this.currentDateLabel.setText(currentDate);
         currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy"));
         this.currentYearLabel.setText(currentDate);
