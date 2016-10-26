@@ -23,7 +23,7 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * [Add tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#add)
     * [Edit tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#edit)
     * [Set new save directory](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#saveas)
-* Code written:[[functional code](A0140133B.md)][[test code](A0140133B.md)][[docs](A0140133B.md)]
+* Code written:[[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0140133B.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0140133B.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0140133B.md)]
 *  Other major contributions:
     * Set up JimiParser
     * Set up FilteredListManager
@@ -44,7 +44,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
     * [Show complete/incomplete tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#show)
     * [Show tasks/events on a certain day](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#show)
     * [Complete a task/event](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#com)
-* Code written:[[functional code](A0138915X.md)][[test code](A0138915X.md)][[docs](A0138915X.md)] 
+* Code written:[[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0138915X.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0138915X.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0138915X.md)] 
 * Other major contributions:
     * Morph Model and ModelManager
     * Set up the fixing of tasks
@@ -61,7 +61,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
 * Features implemented:
     * [Delete tasks/ events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#del)
     * [Set new save directory](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#saveas)
-* Code written: [[functional code](A0143471L.md)][[test code](A0143471L.md)][[docs](A0143471L.md)] 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0143471L.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0143471L.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0143471L.md)] 
 * Other major contributions:
     * Set tasks with priority
     
@@ -75,7 +75,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
     * [Find task/event using keyword](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#find)
     * [Undo action](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#undo)
     * [Redo action](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#redo)
-* Code written: [[functional code](A0148040R.md)][[test code](A0148040R.md)][[docs](A0148040R.md)] 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0148040R.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0148040R.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0148040R.md)] 
 * Other major contributions:
     * Set up Travis
     * Create DateTime class for Events
