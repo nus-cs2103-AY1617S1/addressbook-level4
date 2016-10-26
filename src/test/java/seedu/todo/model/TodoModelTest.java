@@ -23,7 +23,6 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-
 public class TodoModelTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();

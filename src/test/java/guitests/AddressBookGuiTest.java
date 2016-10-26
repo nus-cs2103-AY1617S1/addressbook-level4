@@ -12,7 +12,6 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.todo.TestApp;
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.model.AddressBook;
 import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.TypicalTestPersons;
@@ -65,16 +64,6 @@ public abstract class AddressBookGuiTest {
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
-    }
-
-    /**
-     * Override this in child classes to set the initial local data.
-     * Return null to use the data in the file specified in {@link #getDataFileLocation()}
-     */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
-        return ab;
     }
 
     /**

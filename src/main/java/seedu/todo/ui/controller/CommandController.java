@@ -1,5 +1,6 @@
 package seedu.todo.ui.controller;
 
+import javafx.scene.input.KeyCode;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
@@ -7,8 +8,9 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.CommandPreviewView;
 
-//@@author A0315805H
+//@@author A0135805H
 /**
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
  * and hands the {@link seedu.todo.logic.commands.CommandResult}
@@ -18,6 +20,7 @@ public class CommandController {
 
     private Logic logic;
     private CommandInputView inputView;
+    private CommandPreviewView previewView;
     private CommandFeedbackView feedbackView;
     private CommandErrorView errorView;
 
@@ -29,11 +32,13 @@ public class CommandController {
     /**
      * Constructs a link between the classes defined in the parameters.
      */
-    public static CommandController constructLink(Logic logic, CommandInputView inputView,
+    public static CommandController constructLink(Logic logic,
+                                                  CommandInputView inputView, CommandPreviewView previewView,
                                                   CommandFeedbackView feedbackView, CommandErrorView errorView) {
         CommandController controller = new CommandController();
         controller.logic = logic;
         controller.inputView = inputView;
+        controller.previewView = previewView;
         controller.feedbackView = feedbackView;
         controller.errorView = errorView;
         controller.start();
@@ -41,23 +46,34 @@ public class CommandController {
     }
 
     /**
-     * Asks {@link #inputView} to start listening for a new command.
-     * Once the callback returns a command, {@link #submitCommand(String)} will process this command.
+     * Asks {@link #inputView} to start listening for a new key strokes.
+     * Once the callback returns a command, {@link #handleInput(KeyCode, String)} will process the input.
      */
     private void start() {
-        inputView.listenToCommandExecution(this::submitCommand);
+        inputView.listenToInput(this::handleInput);
     }
 
+    //@@author A0139021U
     /**
-     * Submits a command to logic, and once logic is completed with a {@link CommandResult}, it will be processed
-     * by {@link #handleCommandResult(CommandResult)}
-     * @param commandText command submitted by user
+     * Handles a key stroke from input and sends it to logic. Once logic sends back a preview, it will be
+     * processed by {@link #handleCommandResult(CommandResult)}
+     * @param keyCode key pressed by user
+     * @param userInput text as shown in input view
      */
-    private void submitCommand(String commandText) {
-        //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
-        if (!StringUtil.isEmpty(commandText)) {
-            CommandResult result = logic.execute(commandText);
-            handleCommandResult(result);
+    private void handleInput(KeyCode keyCode, String userInput) {
+        System.out.println("USER TYPED: " + userInput);
+        switch (keyCode) {
+        case ENTER :    // Submitting command
+            //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
+            if (!StringUtil.isEmpty(userInput)) {
+                CommandResult result = logic.execute(userInput);
+                handleCommandResult(result);
+            }
+            break;
+        default :   // Typing command, show preview
+            logic.preview(userInput);
+            errorView.hideCommandErrorView();     // Don't show error when previewing
+            break;
         }
     }
 
@@ -66,6 +82,7 @@ public class CommandController {
      * @param result produced by {@link Logic}
      */
     private void handleCommandResult(CommandResult result) {
+        previewView.hidePreviewPanel();
         displayMessage(result.getFeedback());
         if (result.isSuccessful()) {
             viewDisplaySuccess();
@@ -73,6 +90,7 @@ public class CommandController {
             viewDisplayError(result.getErrors());
         }
     }
+    //@@author
 
     /**
      * Displays error in the respective UI elements

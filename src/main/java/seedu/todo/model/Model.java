@@ -66,7 +66,14 @@ public interface Model {
     /**
      * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
      * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
-     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. 
+     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. Since
+     * this represents the observable layer, the changes required to be done to the underlying layer TodoList
+     * is set via getting a list of their indices in the underlying layer using a UUID map.  
+     * 
+     * <pre><code>todo.updateAll (t -> {
+     *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all Observable tasks back by 2h
+     *     t.setPin(true); // Pin all tasks in Observable view
+     * });</code></pre>
      * 
      * @throws ValidationException if any updates on any of the task objects are considered invalid
      */
@@ -79,15 +86,15 @@ public interface Model {
     void view(TaskViewFilter view);
 
     /**
-     * Filters the list of tasks by this predicate. This is filtering is ran 
-     * after the view predicate. No information about the search is shown to the user. 
-     * Setting predicate to null will reset the search. 
+     * Filters the list of tasks by this predicate. This is filtering is ran
+     * after the view predicate. No information about the search is shown to the user.
+     * Setting predicate to null will reset the search.
      */
     void find(Predicate<ImmutableTask> predicate);
 
     /**
-     * Filters the list of tasks by this predicate. This is filtering is ran 
-     * after the view predicate. A list of search terms is also shown to the user. 
+     * Filters the list of tasks by this predicate. This is filtering is ran
+     * after the view predicate. A list of search terms is also shown to the user.
      */
     void find(Predicate<ImmutableTask> predicate, List<String> terms);
 
@@ -131,7 +138,26 @@ public interface Model {
     ObjectProperty<TaskViewFilter> getViewFilter();
 
     /**
-     * Get the current status of the search used on the model.  
+     * Get the current status of the search used on the model.
      */
     ObjectProperty<SearchStatus> getSearchStatus();
+
+    //@@author A0135805H
+    /**
+     * Adds the supplied list of tags (as tag names) to the specified task.
+     *
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be added.
+     * @throws ValidationException when the given index is invalid, or the given tagNames contain illegal characters.
+     */
+    void addTagsToTask(int index, String[] tagNames) throws ValidationException;
+
+    /**
+     * Deletes a list of tags from the specified task.
+     *
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be deleted.
+     * @throws ValidationException when the given index is invalid, or when there is duplicates.
+     */
+    void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException;
 }

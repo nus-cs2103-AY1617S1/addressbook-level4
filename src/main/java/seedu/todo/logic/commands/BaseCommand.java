@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
@@ -27,6 +28,8 @@ public abstract class BaseCommand {
     private static final String DEFAULT_ARGUMENT_ERROR_MESSAGE = ""; 
     
     private static final String TASK_MODIFIED_SUCCESS_MESSAGE = "'%s' successfully %s!";
+    
+    protected static final EventsCenter eventBus = EventsCenter.getInstance();
 
     protected Model model;
     

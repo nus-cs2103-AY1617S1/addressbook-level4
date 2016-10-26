@@ -90,7 +90,7 @@
 
 .commandInput {
     -fx-font-family: "Roboto Mono Medium";
-    -fx-font-size: 14pt;
+    -fx-font-size: 20px;
 }
 
 .commandInput.error {
@@ -159,7 +159,7 @@
     -fx-text-alignment: right;
 }
 
-/*@@author A0315805H */
+/*@@author A0135805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard {
@@ -297,7 +297,8 @@
     selected-color: #33691e;
     font-color: rgba(255, 255, 255, .9);
 }
-/* @@author A0315805H */
+
+/* @@author A0135805H */
 /*Selected*/
 .selected {
     font-color: rgba(255, 255, 255, .9);
@@ -326,6 +327,7 @@
 
 /***TaskCardView Styles End***/
 
+/*@@author -reused */
 /**Modern UI***/
 /*
  * Metro style Push Button

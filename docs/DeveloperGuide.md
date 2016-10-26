@@ -2,15 +2,15 @@
 
 ## Introduction
 
-Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
-the basic architecture of the application, how to perform some common development tasks as well as 
-who to contact when you're lost.
+Welcome to the Uncle Jim's Discount To-do App!
+
+This guide will teach you how to set up your development environment, explain the basic architecture of the application, teach you how to perform some common development tasks, as well as provide contact information for the times when you require additional help.
 
 ### Tooling
 
 This project uses 
 
-- **git** - Version control 
+- **Git** - Version control 
 - **[Eclipse][eclipse]** - IDE 
 - **Gradle** - Build automation 
 - **[Travis][travis], [Coveralls][coveralls] and [Codacy][codacy]** - Continuous integration and quality control
@@ -20,21 +20,24 @@ This project uses
 
 ### Prerequisites
 
-1. **A git client**. If you're on Linux you should already have one installed on your command line. For Windows 
-and OS X you can use [SourceTree][sourcetree] if you are more comfortable with using GUI
-2. [**JDK 1.8.0_60**][jdk]  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
-developing the application's UI.
+1. **Git client**
+    If you are using Linux, you should already have one installed on your command line. If you are using Windows or OS X you can use [SourceTree][sourcetree] if you are more comfortable with using a GUI.
+2. [**JDK 1.8.0_60**][jdk] or later
+    Please use Oracle's jdk because it comes with JavaFX, which is needed for developing the application's UI.
 3. **Eclipse** IDE
-4. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+4. **e(fx)clipse** plugin for Eclipse
+    Perform steps 2 onwards as listed in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious){: .print-url } to install the plugin.
 5. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-
+    You can find Eclipse Marketplace from Eclipse's `Help` toolbar.
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
+0. Fork this repository, and clone the fork to your computer with Git.
+1. Open Eclipse
+!!! note
+    
+    Ensure that you have installed the **e(fx)clipse** and **buildship** plugins as listed in the prerequisites above.
+
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 4. Click `Browse`, then locate the project's directory
@@ -43,15 +46,15 @@ developing the application's UI.
 !!! note
     
     * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-    * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+    * Depending on your connection speed and server load, this step may take up to 30 minutes to finish
       (This is because Gradle downloads library files from servers during the project set up process)
-    * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+    * If Eclipse has changed any settings files during the import process, you can discard those changes.
   
 ### Contributing 
 
-We use the [feature branch git workflow][workflow]. When working on a task please remember to assign the relevant issue to yourself [on the issue tracker][issues] and branch off from `master`. When the task is complete remember to push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. 
+We use the [feature branch git workflow][workflow]. Thus when you are working on a task, please remember to assign the relevant issue to yourself [on the issue tracker][issues] and branch off from `master`. When the task is completed, do remember to push the branch to GitHub and [create a new pull request][pr] so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on the issue tracker so that the design of the code can be discussed first.
 
-[Test driven development][tdd] is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.
+[Test driven development][tdd] is encouraged but not required. If possible, all of your incoming code should have 100% accompanying tests - Coveralls will fail any incoming pull request which causes coverage to fall.
 
 ### Coding Style
 
@@ -62,36 +65,38 @@ We use the Java coding standard found at <https://oss-generic.github.io/process/
 
 ### Architecture
 
+Now let us explore the architecture of Uncle Jim's Discount To-do App to help you understand how it works.
+
 <img src="diagrams/Architecture Diagram.png" />
 
 <figcaption>Simplistic overview of the application</figcaption>
 
-The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.
+The architecture diagram above explains the high-level design of the application. Here is a quick overview of each component:
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for,
+* `Main` has only one class called [`MainApp`](../src/main/java/seedu/todo/MainApp.java). It is responsible for:
 
-* At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. 
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+    * Bootstrapping the application at app launch by initializing the components in the correct sequence and injecting the dependencies needed for each component.
+    * Shutting down the components and invoke cleanup method where necessary during shut down.
 
-[**`Commons`**](#common-modules) represents a collection of modules used by multiple other components.
-
+* [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components.
 * [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-Each of the three components defines its API in an `interface` with the same name and are bootstrapped at launch by `MainApp`.
+The UI, Logic and Model components each define their API in an `interface` with the same name and is bootstrapped at launch by `MainApp`.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
 
 <img src="diagrams/Logic Component.png" />
 
 <figcaption>Example of a Logic class diagram exposing its API to other components</figcaption>
 
-The Sequence Diagram below shows how the components interact when the user issues a generic command.
-
 <img src="diagrams/Sequence Diagram.png" />
 
 <figcaption>The interaction of major components in the application through a sequence diagram</figcaption>
+
+
+The sequence diagram above shows how the components interact with each other when the user issues a generic command.
 
 The diagram below shows how the `EventsCenter` reacts to a `help` command event, where the UI does not know or contain any business side logic.
 
@@ -105,7 +110,7 @@ The diagram below shows how the `EventsCenter` reacts to a `help` command event,
     to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
     coupling between components.
 
-The sections below give more details of each component.
+The sections below will provide you with more details for each component.
 
 ### UI component
 
@@ -955,6 +960,7 @@ See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list
 *[CRUD]: Create, Retrieve, Update, Delete
 *[GUI]: Graphical User Interface
 *[UI]: User interface
+*[IDE]: Integrated Development Environment
 
 [repo]: https://github.com/CS2103AUG2016-W10-C4/main/
 

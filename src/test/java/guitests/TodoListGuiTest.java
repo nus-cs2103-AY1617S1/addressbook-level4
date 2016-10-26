@@ -1,9 +1,6 @@
 package guitests;
 
-import guitests.guihandles.CommandFeedbackViewHandle;
-import guitests.guihandles.CommandInputViewHandle;
-import guitests.guihandles.MainGuiHandle;
-import guitests.guihandles.TodoListViewHandle;
+import guitests.guihandles.*;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +14,9 @@ import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
+import seedu.todo.ui.view.CommandFeedbackView;
+import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.TodoListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +48,7 @@ public abstract class TodoListGuiTest {
     protected MainGuiHandle mainGui;
     protected TodoListViewHandle todoListView;
     protected CommandInputViewHandle commandInputView;
+    protected CommandPreviewViewHandle commandPreviewView;
     protected CommandFeedbackViewHandle commandFeedbackView;
 
     private Stage stage;
@@ -71,8 +72,9 @@ public abstract class TodoListGuiTest {
             todoListView = mainGui.getTodoListView();
             commandInputView = mainGui.getCommandInputView();
             commandFeedbackView = mainGui.getCommandFeedbackView();
+            commandPreviewView = mainGui.getCommandPreviewView();
         });
-        EventsCenter.clearSubscribers();
+        // EventsCenter.clearSubscribers();
         /*
          * A new instance of the to-do list data structure ImmutableTodoList
          * that will be injected into the TestApp, which inherits from MainApp
@@ -118,14 +120,22 @@ public abstract class TodoListGuiTest {
     }
 
     /**
-     * Executes the command via the {@link seedu.todo.ui.view.CommandInputView}
+     * Enters the command via the {@link CommandInputView} but does not execute.
+     */
+    protected void enterCommand(String commandText) {
+        commandInputView.enterCommand(commandText);
+        mainGui.pressSpace();
+    }
+
+    /**
+     * Executes the command via the {@link CommandInputView}
      */
     protected void runCommand(String commandText) {
         commandInputView.runCommand(commandText);
     }
 
     /**
-     * Asserts the message shown in the {@link seedu.todo.ui.view.CommandFeedbackView}
+     * Asserts the message shown in the {@link CommandFeedbackView}
      * is same as the given {@code expected} string.
      */
     protected void assertFeedbackMessage(String expected) {
@@ -133,7 +143,7 @@ public abstract class TodoListGuiTest {
     }
 
     /**
-     * Copies the list of ImmutableTask stored inside the {@link seedu.todo.ui.view.TodoListView}
+     * Copies the list of ImmutableTask stored inside the {@link TodoListView}
      * into {@link #previousTasksFromView}, for history taking.
      */
     protected void updatePreviousTaskListFromView() {

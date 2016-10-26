@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +9,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 
 import static org.junit.Assert.*;
 
-//@@author A00923282A
+//@@author A0092382A
 public class FindCommandTest extends CommandTest {
     
     @Override
@@ -65,14 +66,14 @@ public class FindCommandTest extends CommandTest {
         execute(true);
         assertVisibleTaskCount(1);
     }
-    
+
     @Test
     public void testDismissFind() throws ValidationException {
         setParameter("project");
         execute(true);
         assertVisibleTaskCount(2);
         assertNotNull(model.getSearchStatus().getValue());
-        
+
         setParameter("");
         execute(true);
         assertVisibleTaskCount(4);

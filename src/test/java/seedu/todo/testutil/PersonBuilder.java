@@ -1,8 +1,10 @@
 package seedu.todo.testutil;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.person.*;
-import seedu.todo.model.tag.Tag;
+import seedu.todo.model.person.Address;
+import seedu.todo.model.person.Email;
+import seedu.todo.model.person.Name;
+import seedu.todo.model.person.Phone;
 
 /**
  *
@@ -22,7 +24,7 @@ public class PersonBuilder {
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+//            person.getTags().add(new Tag(tag));
         }
         return this;
     }

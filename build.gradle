@@ -4,7 +4,7 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
- 
+
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
@@ -52,13 +52,15 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-        
+
         // https://mvnrepository.com/artifact/org.ocpsoft.prettytime/prettytime-nlp
         compile group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.0.Final'
 
         // https://mvnrepository.com/artifact/org.atteo/evo-inflector
         compile group: 'org.atteo', name: 'evo-inflector', version: '1.2.1'
 
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
         testCompile group: 'com.github.javafaker', name: 'javafaker', version: '0.10'
         testCompile "org.mockito:mockito-core:1.+"
@@ -71,7 +73,7 @@ allprojects {
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
     }
-    
+
     sourceSets {
         main {
             java {
@@ -82,7 +84,7 @@ allprojects {
             }
         }
     }
-    
+
     shadowJar {
         archiveName = "todo.jar"
 

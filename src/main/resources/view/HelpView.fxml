@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;"
-      styleClass="spacing" xmlns="http://javafx.com/javafx/8.0.102"
+      styleClass="spacing" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.HelpView">
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
@@ -31,5 +31,5 @@
       </VBox.margin>
    </GridPane>
    <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4"
-          text="Press [ENTER] to dismiss."/>
+          text="Start typing in the command to dismiss."/>
 </VBox>

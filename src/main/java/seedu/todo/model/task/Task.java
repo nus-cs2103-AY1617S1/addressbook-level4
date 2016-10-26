@@ -16,6 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import seedu.todo.model.tag.Tag;
 
+//@@author A0139021U-reused
 /**
  * Represents a single task
  */
@@ -55,6 +56,7 @@ public class Task implements MutableTask {
         this.setPinned(task.isPinned());
         this.setCreatedAt(task.getCreatedAt());
         this.uuid = task.getUUID();
+        this.setTags(task.getTags());
     }
 
     @Override

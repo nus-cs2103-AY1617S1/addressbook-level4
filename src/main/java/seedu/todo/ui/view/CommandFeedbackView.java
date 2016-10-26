@@ -13,7 +13,7 @@ import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
-//@@author A0315805H
+//@@author A0135805H
 /**
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */

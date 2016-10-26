@@ -1,11 +1,13 @@
 package seedu.todo.commons.util;
 
 import com.google.common.base.CharMatcher;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Helper functions for handling strings.
@@ -65,5 +67,53 @@ public class StringUtil {
             stringArray[2] = string.substring(position + 1, string.length());
         }
         return stringArray;
+    }
+
+    /**
+     * Splits string at only space and comma.
+     * @return Returns a String array with all the split components of the string.
+     */
+    public static String[] splitString(String string) {
+        if (string == null || string.isEmpty()) {
+            return new String[0];
+        } else {
+            return string.trim().split("([, ])+");
+        }
+    }
+
+    /**
+     * Given a string list, gets the text from the list in the following manner:
+     *      apple, pear, pineapple
+     */
+    public static String convertListToString(String[] stringList) {
+        if (stringList == null || stringList.length == 0) {
+            return "";
+        }
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        for (String string : stringList) {
+            stringJoiner.add(string);
+        }
+        return stringJoiner.toString();
+    }
+
+    //@@author A0139021U
+    /**
+     * Calculates the levenstein distance between the two strings and returns
+     * their closeness in a percentage score.
+     * @param s1 The first string
+     * @param s2 The second string
+     * @return The percentage score of their closeness
+     */
+    public static double calculateClosenessScore(String s1, String s2) {
+        // empty string, not close at all
+        if (isEmpty(s1) || isEmpty(s2)) {
+            return 0d;
+        }
+
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+        int distance = StringUtils.getLevenshteinDistance(s1, s2);
+        double ratio = ((double) distance) / (Math.max(s1.length(), s2.length()));
+        return 100 - ratio * 100;
     }
 }
