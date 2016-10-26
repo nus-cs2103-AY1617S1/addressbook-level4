@@ -16,7 +16,10 @@ import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A mutable Event object. For testing only.
+ *
+ * @author Bangwu
  */
+
 public class TestEvent extends TestActivity implements ReadOnlyEvent {
 
     private StartTime startTime;

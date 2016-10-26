@@ -16,6 +16,12 @@ import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.util.DateUtil;
 
+/**
+ * A mutable Task object. For testing only.
+ *
+ * @author Bangwu
+ */
+
 public class TestTask extends TestActivity implements ReadOnlyTask{
 
     private DueDate duedate;

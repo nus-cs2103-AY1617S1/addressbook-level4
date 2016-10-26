@@ -19,6 +19,8 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * A mutable Activity object. For testing only.
+ * 
+ * @author Bangwu
  */
 public class TestActivity implements ReadOnlyActivity {
 
