@@ -257,9 +257,11 @@ public class Parser {
 					
 					System.out.println("startDateTime: " + startDateTime.toString());
 					
+					//@@author A0143756Y
 					if(startDateTime.isAfter(endDateTime)){
 						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 					}
+					//@@author A0141019U
 					
 				} catch (ParseException e) {
 					// TODO better command
@@ -292,9 +294,11 @@ public class Parser {
 					startDateTime = DateParser.parse(startDayAndTime);
 					endDateTime = DateParser.parse(endDayAndTime);
 					
+					//@@author A0143756Y
 					if(startDateTime.isAfter(endDateTime)){
 						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 					}
+					// @@author A0141019U
 					
 				} catch (ParseException e) {
 					// TODO better command
