@@ -35,6 +35,7 @@ public class SaveCommand extends Command {
 
     public SaveCommand(String newTaskManagerFilePath) {
         this.newTaskManagerFilePath = newTaskManagerFilePath;
+        logger.info("New task file path specified: " + newTaskManagerFilePath);
     }
     
     @Override
@@ -54,6 +55,8 @@ public class SaveCommand extends Command {
             
             ReadOnlyTaskManager previousTaskManager = previousStorage.readTaskManager().orElse(new TaskManager());
             newStorage.saveTaskManager(previousTaskManager);
+            
+            logger.fine("Saved to specified file path: " + newTaskManagerFilePath);
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, newStorage.getTaskManagerFilePath()));
             
