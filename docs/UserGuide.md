@@ -53,11 +53,12 @@ Examples:
 * `add Pay bills by 13/09/2016 5pm`
 * `add Do laundry p/low`
 
+/* @@author A0142102E */
 #### Displaying tasks : `show`
-Displays tasks and their indexes in the specified timeframe.<br>
+Displays tasks and their indexes in the specified category.<br>
 Format: `show TYPE`
 
-> * TYPE can be replaced with p/high, p/med, p/low, complete, all, overdue, floating, today, tomorrow, upcoming, or any specific date.
+> * TYPE can be replaced with p/high, p/med, p/low, complete, incomplete, all, overdue, floating, today, tomorrow, or any specific date.
 > * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
 > * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
 

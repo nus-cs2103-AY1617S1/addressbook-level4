@@ -161,7 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
         addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
     }
-    //@@author
+    //@@author A0142102E
     @Override
     public boolean isOverlapping(Task task) {
     	return taskList.isOverlapping(task);
@@ -215,19 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
         UndoInfo undoInfo = new UndoInfo(undoID, filePath, tasks);
         undoStack.push(undoInfo);
     }
-    //@@author
-    @Override
-    public void updateFilteredListToShowPriority(String priority) {
-        updateFilteredListToShowAll();
-        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
-    }
 
-    @Override
-    public void updateFilteredListToShowDate(String date) {
-        updateFilteredListToShowAll();
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
-
-    }
     // =========== Filtered Person List Accessors
     // ===============================================================
 
@@ -275,6 +263,7 @@ public class ModelManager extends ComponentManager implements Model {
         return keywords;
     }
 
+    //@@author A0142102E
     @Override
     public void updateFilteredListToShowComplete() {
         updateFilteredListToShowAll();
@@ -303,6 +292,18 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowOverlapping(Task task) {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new OverlappingQualifier(task)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowPriority(String priority) {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));
+    }
+
+    @Override
+    public void updateFilteredListToShowDate(String date) {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(date)));
     }
 
     private void sortByDateAndPriority() {
@@ -393,7 +394,15 @@ public class ModelManager extends ComponentManager implements Model {
             return person.isFloating();
         }
     }
-    /* @@author */
+
+    private class OverDueQualifier implements Qualifier {
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return person.isOverDue();
+        }
+    }
+    
+    //@@author A0142102E
     private class PriorityQualifier implements Qualifier {
         private String priority;
 
@@ -423,14 +432,7 @@ public class ModelManager extends ComponentManager implements Model {
                             && DateUtils.isSameDay(person.getEndTime().time, requestedTime));
         }
     }
-    /* @@author A0135769N */
-    private class OverDueQualifier implements Qualifier {
-        @Override
-        public boolean run(ReadOnlyTask person) {
-            return person.isOverDue();
-        }
-    }
-    /* @@author */
+
     private class RecurringQualifier implements Qualifier {
         @Override
         public boolean run(ReadOnlyTask person) {

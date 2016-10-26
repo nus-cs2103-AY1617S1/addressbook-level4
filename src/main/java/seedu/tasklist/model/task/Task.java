@@ -148,6 +148,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.recurringFrequency = frequency;
 	}
 
+	//@@author A0142102E
 	public void setRecurringTime() {
 	    if (isRecurring && !this.recurringFrequency.equals("")) {
 	    	if (isComplete) {
@@ -232,6 +233,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     	}
     }
 
+	//@@author A0142102E
 	@Override
 	public int compareTo(Task o) {
 		// compare floating tasks
