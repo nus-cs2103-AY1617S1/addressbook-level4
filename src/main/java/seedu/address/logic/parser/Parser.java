@@ -74,6 +74,9 @@ public class Parser {
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+        
+        case GroupCommand.COMMAND_WORD:
+        	return prepareGroup(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
