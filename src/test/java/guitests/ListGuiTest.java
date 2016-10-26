@@ -7,7 +7,6 @@ import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Deadline;
 import seedu.todoList.model.task.Event;
-import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TypicalTestDeadline;

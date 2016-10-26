@@ -31,13 +31,14 @@ public class EditCommand extends Command {
     public final String dataType;
     public final int targetIndex;
     private final Task toEdit;
+    ReadOnlyTask taskToEdit = null;
     
     /**
      * Edit Todo
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -46,7 +47,7 @@ public class EditCommand extends Command {
                 new StartDate(date),
                 new EndDate(endDate),
                 new Priority(priority),
-                new Done(done)
+                "false"
         );
     }
     
@@ -55,7 +56,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -65,7 +66,7 @@ public class EditCommand extends Command {
                 new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime),
-                new Done(done)
+                "false"
         );
     }
     
@@ -74,7 +75,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -82,29 +83,41 @@ public class EditCommand extends Command {
                 new Name(name),
                 new StartDate(date),
                 new EndTime(endTime),
-                new Done(done)
+                "false"
         );
+    }
+    
+    /**
+     * Constructor for undo
+     */
+    public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
+    	this.taskToEdit = original;
+    	this.toEdit = (Task) toEdit;
+    	this.targetIndex = -1;
+    	this.dataType = dataType;
     }
 
     @Override
     public CommandResult execute() {
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-    	switch (dataType) {
-    		case "todo":
-    			lastShownList = model.getFilteredTodoList();
-    			break;
-    		case "event":
-    			lastShownList = model.getFilteredEventList();
-    			break;
-    		case "deadline":
-    			lastShownList = model.getFilteredDeadlineList();
+    	if(this.taskToEdit == null && this.targetIndex != -1) {
+	    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+	    	switch (dataType) {
+	    		case "todo":
+	    			lastShownList = model.getFilteredTodoList();
+	    			break;
+	    		case "event":
+	    			lastShownList = model.getFilteredEventList();
+	    			break;
+	    		case "deadline":
+	    			lastShownList = model.getFilteredDeadlineList();
+	    	}
+	        if (lastShownList.size() < targetIndex) {
+	            indicateAttemptToExecuteIncorrectCommand();
+	            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+	        }
+	        
+	        taskToEdit = lastShownList.get(targetIndex - 1);
     	}
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
-        }
-        
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         assert model != null;
         try {

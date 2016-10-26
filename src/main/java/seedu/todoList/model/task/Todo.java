@@ -16,13 +16,12 @@ public class Todo extends Task implements ReadOnlyTask {
     private StartDate startDate;
     private EndDate endDate;
     private Priority priority;
-    private Done isDone;
 
     /**
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority, Done isDone) {
+    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority, String isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, priority);
         super.name = name;
         this.startDate = startDate;
@@ -48,10 +47,6 @@ public class Todo extends Task implements ReadOnlyTask {
 
     public Priority getPriority() {
         return priority;
-    }
-    
-    public Done getDone() {
-    	return isDone;
     }
     
     public Todo(ReadOnlyTask source) {

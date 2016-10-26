@@ -1,9 +1,6 @@
 package seedu.todoList.logic.commands;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.commons.events.storage.*;
 
 /**
  * Adds a task to the TodoList.

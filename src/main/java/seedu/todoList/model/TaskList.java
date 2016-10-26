@@ -13,9 +13,11 @@ import java.util.stream.Collectors;
 public class TaskList implements ReadOnlyTaskList {
 
     private UniqueTaskList tasks;
+    private Stack<UniqueTaskList> backupStack;
 
     {
         tasks = new UniqueTaskList();
+        backupStack = new Stack<UniqueTaskList>();
     }
 
     public TaskList() {}
@@ -69,7 +71,13 @@ public class TaskList implements ReadOnlyTaskList {
     }
     
     public void resetData() {
+    	backupStack.push(new UniqueTaskList(tasks));
     	tasks.removeAll();
+    }
+    
+    public void restoreData() {
+    	UniqueTaskList backup = backupStack.pop();
+    	tasks.setAll(backup);
     }
     
 
@@ -101,15 +109,22 @@ public class TaskList implements ReadOnlyTaskList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+
+    public boolean doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    	if(tasks.doneTask(target)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+    }
     
-    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.done(key)) {
+    public boolean undoneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if(tasks.undoneTask(target)){
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
 //// util methods
 
     @Override

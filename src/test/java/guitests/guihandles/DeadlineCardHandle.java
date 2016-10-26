@@ -3,8 +3,6 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.todoList.model.task.Deadline;
-import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.ReadOnlyTask;
 
 

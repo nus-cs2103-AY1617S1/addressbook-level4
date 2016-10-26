@@ -77,6 +77,13 @@ Mark a Todo-task with given index number as done.<br>
 > Example(Event): `done event 1` <br>
 > Example(Deadline): `done deadline 1`
 
+#### Un-Marking a completed task : `undone`
+Mark a Todo-task with given index number as undone.<br>
+> Format: `undone TASK_TYPE INDEX_NUMBER`<br>
+> Example(Todo): `undone todo 1` <br>
+> Example(Event): `undone event 1` <br>
+> Example(Deadline): `undone deadline 1`
+
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task-list.<br>
 > Format: `list TASK_TYPE` <br>
@@ -137,6 +144,7 @@ Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done TASK_TYPE INDEX_NUMBER`
+Undone		| `undone TASK_TYPE INDEX_NUMBER`
 List		| `list TASK_TYPE`
 Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
 Help		| `help`

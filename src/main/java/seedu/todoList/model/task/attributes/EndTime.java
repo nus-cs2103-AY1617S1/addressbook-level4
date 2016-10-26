@@ -1,9 +1,5 @@
 package seedu.todoList.model.task.attributes;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**

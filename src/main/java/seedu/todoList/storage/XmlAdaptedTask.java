@@ -3,11 +3,6 @@ package seedu.todoList.storage;
 import seedu.todoList.model.task.*;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
-import javax.xml.bind.annotation.XmlElement;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * JAXB-friendly version of the task.
  */
