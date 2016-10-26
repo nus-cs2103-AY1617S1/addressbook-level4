@@ -75,7 +75,7 @@ public class EditCommand extends Command {
             if(newName.isPresent()) {
         	    postEdit.setName(newName.get());
             }
-            
+            //@@author A0143756Y
             if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
             	LocalDateTime startDateTime = newStartDateTime.get();
             	LocalDateTime endDateTime = taskToEdit.getEndDate().get();
@@ -93,7 +93,7 @@ public class EditCommand extends Command {
             		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
             	}      
             }
-                        
+            //@@author            
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
             }
