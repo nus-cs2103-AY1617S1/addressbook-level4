@@ -2,9 +2,11 @@ package seedu.address.storage;
 
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskManager;
@@ -53,6 +55,11 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public String getTaskManagerFilePath() {
         return taskManagerStorage.getTaskManagerFilePath();
+    }
+    
+    @Override
+    public String getTaskManagerPreviousFilePath() {
+        return taskManagerStorage.getTaskManagerPreviousFilePath();
     }
     
     @Override
@@ -116,6 +123,13 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStoragePathChangedBackEvent(StoragePathChangedBackEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage file path changed back"));
+        EventsCenter.getInstance().post(new StoragePathChangedEvent(getTaskManagerPreviousFilePath(), event.isToClearNew));
     }
 
 }

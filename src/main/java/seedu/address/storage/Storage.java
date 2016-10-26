@@ -2,12 +2,12 @@ package seedu.address.storage;
 
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -50,4 +50,11 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleStoragePathChangedEvent(StoragePathChangedEvent abce);
+    
+    /**
+     * Saves the current version of the Task Manager to the previous file in hard disk.
+     *   Delete the new data file if it is specified.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleStoragePathChangedBackEvent(StoragePathChangedBackEvent abce);
 }

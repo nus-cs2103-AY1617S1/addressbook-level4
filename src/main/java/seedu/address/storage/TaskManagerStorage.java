@@ -17,6 +17,11 @@ public interface TaskManagerStorage {
     String getTaskManagerFilePath();
     
     /**
+     * Returns the previous file path of the data file.
+     */
+    String getTaskManagerPreviousFilePath();
+    
+    /**
      * Sets the file path of the data file.
      */
     void setTaskManagerFilePath(String filePath);
