@@ -91,7 +91,7 @@ public class ModifyCommand extends ModelRequiringCommand {
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
     }
-    //@@author A0139915W
+    //@@author
     
     /**
      * Checks if a command can perform undo operations

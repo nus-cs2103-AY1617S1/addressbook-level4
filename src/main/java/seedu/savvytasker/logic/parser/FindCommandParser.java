@@ -47,7 +47,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         
         throw new ParseException(commandText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
-    //@@author A0139915W
+    //@@author
     
     private FindType parseFindType(String findTypeText) throws ParseException {
         if (findTypeText == null)

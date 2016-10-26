@@ -64,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
+    //@@author
     
     @Override
     public void resetData(ReadOnlySavvyTasker newData) {
@@ -89,6 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAliasSymbolRemoved(AliasSymbol symbol) {
         raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Removed));
     }
+    //@@author
 
 
     //@@author A0139915W
@@ -111,8 +113,9 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
     }
+    //@@author
+    
     //@@author A0139916U
-
     @Override
     public synchronized void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {
         savvyTasker.addAliasSymbol(symbol);
@@ -126,6 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateSavvyTaskerChanged();
         indicateAliasSymbolRemoved(symbol);
     }
+    //@@author
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================
 
@@ -197,7 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
         sortedAndFilteredTasks.setComparator(comparator);
     }
-    //@@author A0139915W
+    //@@author
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -476,6 +480,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
-    //@@author A0139915W
+    //@@author
 
 }

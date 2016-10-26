@@ -45,4 +45,4 @@ public class TaskCardHandle extends GuiHandle {
         return getTaskName();
     }
 }
-//@@author A0139915W
+//@@author

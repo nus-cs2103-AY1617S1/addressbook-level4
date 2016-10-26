@@ -55,4 +55,4 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
-//@@author A0139915W
+//@@author

@@ -16,6 +16,7 @@ public interface ReadOnlySavvyTasker {
      * Returns a defensively copied task list.
      */
     TaskList getTaskList();
+    //@@author
     //@@author A0139916U
 
     /**
@@ -23,15 +24,18 @@ public interface ReadOnlySavvyTasker {
      */
     
     AliasSymbolList getAliasSymbolList();
+    //@@author
     //@@author A0139915W
     /**
      * Returns an unmodifiable view of task list
      */
     List<ReadOnlyTask> getReadOnlyListOfTasks();
+    //@@author
     //@@author A0139916U
 
     /**
      * Returns unmodifiable view of symbols list
      */
     List<AliasSymbol> getReadOnlyListOfAliasSymbols();
+    //@@author
 }

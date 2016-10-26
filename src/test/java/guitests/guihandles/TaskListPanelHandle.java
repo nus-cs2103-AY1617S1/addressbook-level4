@@ -173,4 +173,4 @@ public class TaskListPanelHandle extends GuiHandle {
         return getListView().getItems().size();
     }
 }
-//@@author A0139915W
+//@@author

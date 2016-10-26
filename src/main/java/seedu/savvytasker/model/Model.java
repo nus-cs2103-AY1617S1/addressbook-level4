@@ -53,7 +53,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(FindType findType, String[] keywords);
-    //@@author A0139916U
+    //@@author
 
     /** Adds the given AliasSymbol */
     void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException;
