@@ -54,7 +54,7 @@ public class ClearCommand extends UndoableCommand {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-
+    //@@author A0093960X
     @Override
     public CommandResult undo() {
         assert model != null && clearedTasks != null;
@@ -70,4 +70,6 @@ public class ClearCommand extends UndoableCommand {
         
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
+    
+    //@@author 
 }

@@ -17,8 +17,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Edmund Mok](https://github.com/edmundmok)
 <img src="images/EM.png" width="150"><br>
-Responsibilities: Jack of all trades <br>
-In-Charge: DearJim
+* Responsibilities: UI/UX Designer
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)
+* Features implemented:
+  * Undo command
+  * Redo command
+  * Tooltip
+  * Input history navigation with Arrow Keys
+  * Switch view buttons
+* Code written: [functional code][test code][docs]
 
 -----
 

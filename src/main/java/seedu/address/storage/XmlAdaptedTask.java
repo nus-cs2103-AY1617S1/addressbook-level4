@@ -12,11 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
-
+//@@author A0093960X
 /**
  * JAXB-friendly version of the Person.
  */
 public class XmlAdaptedTask {
+    
+    private static SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+
 
     @XmlElement(required = true)
     private String name;
@@ -37,22 +40,94 @@ public class XmlAdaptedTask {
 
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Task into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
+        saveName(source);
+        savePriority(source); 
+        saveStartDateIfPresent(source);    
+        saveEndDateIfPresent(source);
+        saveRecurrenceRateIfPresent(source); 
+    }
+
+
+    /**
+     * @param source
+     */
+    private void savePriority(ReadOnlyTask source) {
+        String priorityString = source.getPriorityValue().toString();
+        priorityValue = priorityString.toLowerCase();
+    }
+
+
+    /**
+     * @param source
+     */
+    private void saveName(ReadOnlyTask source) {
         name = source.getName().name;
-        priorityValue = source.getPriorityValue().toString().toLowerCase();    
-        if (source.getStartDate().isPresent()) {
-            startDate = source.getStartDate().get().toString();
-        }
-        if (source.getEndDate().isPresent()) {
-            endDate = source.getEndDate().get().toString();
-        }
-        if (source.getRecurrenceRate().isPresent()) {
+    }
+
+
+    /**
+     * @param source
+     */
+    private void saveRecurrenceRateIfPresent(ReadOnlyTask source) {
+        boolean hasRecurrenceRate = hasRecurrenceRate(source);
+        if (hasRecurrenceRate) {
             recurrenceRate = new XmlAdaptedRecurrenceRate(source.getRecurrenceRate().get());
         }
+    }
+
+
+    /**
+     * @param source
+     */
+    private void saveEndDateIfPresent(ReadOnlyTask source) {
+        boolean hasEndDate = taskHasEndDate(source);
+
+        if (hasEndDate) {
+            endDate = source.getEndDate().get().toString();
+        }
+    }
+
+
+    /**
+     * @param source
+     */
+    private void saveStartDateIfPresent(ReadOnlyTask source) {
+        boolean hasStartDate = taskHasStartDate(source);
+        if (hasStartDate) {
+            startDate = source.getStartDate().get().toString();
+        }
+    }
+
+
+    /**
+     * @param source
+     * @return
+     */
+    private boolean hasRecurrenceRate(ReadOnlyTask source) {
+        return source.getRecurrenceRate().isPresent();
+    }
+
+
+    /**
+     * @param source
+     * @return
+     */
+    private boolean taskHasEndDate(ReadOnlyTask source) {
+        return source.getEndDate().isPresent();
+    }
+
+
+    /**
+     * @param source
+     * @return
+     */
+    private boolean taskHasStartDate(ReadOnlyTask source) {
+        return source.getStartDate().isPresent();
     }
 
     /**
@@ -62,30 +137,90 @@ public class XmlAdaptedTask {
      * @throws ParseException 
      */
     public Task toModelType() throws IllegalValueException, ParseException {
-        SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
-        Date startDateForModel = null, endDateForModel = null;
-        RecurrenceRate recurrenceRateForModel = null;
+        final String nameForModel = retrieveNameFromStoredTask();
+        Priority priorityForModel = retrievePriorityFromStoredTask();
         
-        final String name = new String(this.name);
-        Priority priority = Priority.MEDIUM;
-
-        if (this.priorityValue.equals("high")) {
-            priority = Priority.HIGH;
-        } else if (this.priorityValue.equals("medium")) {
-            priority = Priority.MEDIUM;
-        } else if (this.priorityValue.equals("low")) {
-            priority = Priority.LOW;
-        }
-        
-        if (this.startDate != null){
-            startDateForModel = dateParser.parse(this.startDate);
-        }
-        if (this.endDate != null){
-            endDateForModel = dateParser.parse(this.endDate);
-        }
-        if (this.recurrenceRate != null)
-            recurrenceRateForModel = this.recurrenceRate.toModelType();
+        Date startDateForModel = retrieveStartDateFromStoredTask();
+        Date endDateForModel = retrieveEndDateFromStoredTask();
+        RecurrenceRate recurrenceRateForModel = retrieveRecurrenceRateFromStoredTask();
     
-        return new Task(new Name(name), startDateForModel, endDateForModel, recurrenceRateForModel, priority);
+        return new Task(new Name(nameForModel), startDateForModel, endDateForModel, recurrenceRateForModel, priorityForModel);
+    }
+
+
+    /**
+     * @param recurrenceRateForModel
+     * @return
+     * @throws IllegalValueException
+     * @throws ParseException
+     */
+    private RecurrenceRate retrieveRecurrenceRateFromStoredTask()
+            throws IllegalValueException, ParseException {
+        if (this.recurrenceRate == null) {
+            return null;
+        }
+        return recurrenceRate.toModelType();
+    }
+
+
+    /**
+     * @param endDateForModel
+     * @return
+     * @throws ParseException
+     */
+    private Date retrieveEndDateFromStoredTask() throws ParseException {
+        if (this.endDate == null) {
+            return null;
+        }
+        
+        return dateParser.parse(this.endDate);
+    }
+
+
+    /**
+     * @param startDateForModel
+     * @return
+     * @throws ParseException
+     */
+    private Date retrieveStartDateFromStoredTask() throws ParseException {
+        if (this.startDate == null) {
+            return null;
+        }
+        return dateParser.parse(this.startDate);
+    }
+
+
+    /**
+     * @return
+     * @throws IllegalValueException 
+     */
+    private Priority retrievePriorityFromStoredTask() throws IllegalValueException {    
+        String storedPriority = this.priorityValue;
+        
+        switch (storedPriority) {
+            case "high":
+            case "h":
+                return Priority.HIGH;
+            case "medium":
+            case "med":
+            case "m":
+                return Priority.MEDIUM;
+            case "low":
+            case "l":
+                return Priority.LOW;
+            default:
+                // invalid value
+                throw new IllegalValueException("The priority value stored is invalid");
+        }
+    }
+
+
+    /**
+     * @return
+     */
+    private String retrieveNameFromStoredTask() {
+        assert this.name != null;
+        
+        return new String(this.name);
     }
 }

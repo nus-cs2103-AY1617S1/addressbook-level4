@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-
+//@@author A0093960X
 /**
  * Selects a person identified using it's last displayed index from the address book.
  */

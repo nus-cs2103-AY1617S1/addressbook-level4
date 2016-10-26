@@ -483,6 +483,7 @@ public class LogicManagerTest {
     
     
     //TODO: do i need to have a test case for null string 
+    //@@author A0093960X
     @Test
     public void toolTip_invalidCommandInput_incorrectCommandTooltip() {
         assertToolTipBehavior("", MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT);
@@ -605,6 +606,8 @@ public class LogicManagerTest {
         assertToolTipBehavior("undo", UndoCommand.TOOL_TIP);
         assertToolTipBehavior("undo done", UndoCommand.TOOL_TIP);
     }
+    
+    //@@author
 
 
     /**

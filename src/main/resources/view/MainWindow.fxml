@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author A0093960X -->
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -39,7 +40,7 @@
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <AnchorPane fx:id="commandBoxPlaceholder1" styleClass="anchor-pane-with-border">
+      <AnchorPane fx:id="switchViewButtonsPlaceholder" styleClass="anchor-pane-with-border">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
