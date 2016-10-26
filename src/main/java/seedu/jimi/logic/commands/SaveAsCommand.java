@@ -1,7 +1,5 @@
 package seedu.jimi.logic.commands;
 
-import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.io.IOException;
 
 import seedu.jimi.commons.core.Config;
