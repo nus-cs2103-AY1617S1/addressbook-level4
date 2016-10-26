@@ -26,9 +26,10 @@ public class EditCommand extends Command {
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
+    //@@author A0143756Y
     public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
     		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
-
+    //@@author
 
     public final int targetIndex;
     private final Optional<Name> newName;
