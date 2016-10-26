@@ -114,6 +114,14 @@ public class DateTimeUtil {
         }
     }
     
+    public static boolean beforeOther(TaskDate onDate, TaskDate byDate) {
+        if (onDate.getDate() == null || byDate.getDate() == null) {
+            return true;
+        } else {
+            return onDate.getDate().isBefore(byDate.getDate());
+        }
+    }
+    
     
     public static LocalDateTime combineLocalDateAndTime(LocalDate date, LocalTime time) {
         assert date != null;

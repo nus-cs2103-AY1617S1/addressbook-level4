@@ -26,8 +26,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Priority priority, Recurrence recurrence) {
+    public Task(Name name, Detail detail, TaskDate fromDate, 
+            TaskDate tillDate, Priority priority, Recurrence recurrence) {
+        
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, recurrence);
+        
         this.name = name;
         this.detail = detail;
         this.onDate = fromDate;
@@ -50,20 +53,6 @@ public class Task implements ReadOnlyTask {
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-    
-    //@@author A0121643R    
-    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Recurrence recurrence) throws IllegalValueException {
-        assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, recurrence);
-        this.name = name;
-        this.detail = detail;
-        this.onDate = fromDate;
-        this.byDate = tillDate;
-        this.priority = new Priority(Priority.DEFAULT_PRIORITY);
-        this.recurrence = recurrence;
-        this.completion = new Completion(false);
-        this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
-    }
-    //@@author
     
     /**
      * Copy constructor.

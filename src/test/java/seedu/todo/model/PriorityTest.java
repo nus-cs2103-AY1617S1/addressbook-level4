@@ -24,7 +24,7 @@ public class PriorityTest {
     @Test
     public void execute_setDefaultPriority_successful() throws Exception{
         TestDataHelper helper = new TestDataHelper();
-        Task toBeSet = helper.generateNoPriorityTask(0);
+        Task toBeSet = helper.generateFullTask(0);
                 
         assertEquals(toBeSet.getPriority().priorityLevel, Priority.DEFAULT_PRIORITY);
 

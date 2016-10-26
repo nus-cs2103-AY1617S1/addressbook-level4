@@ -22,7 +22,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added! Name : %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to do list";
-
+    public static final String MESSAGE_INVALID_DATE_RANGE = "Cannot have on date later than by date";
+    
     private final Task toAdd;
     
     /**
@@ -36,11 +37,17 @@ public class AddCommand extends Command {
         
         TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
         TaskDate byDate = new TaskDate(byDateString, TaskDate.TASK_DATE_BY);
+        
         if (byDate.getDate() != null && !DateTimeUtil.containsDateField(byDateString)) {
             
             byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
                     onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
         }
+        
+        if (!DateTimeUtil.beforeOther(onDate, byDate)) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
+        }
+        
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
