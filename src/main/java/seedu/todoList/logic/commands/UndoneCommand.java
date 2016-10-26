@@ -21,7 +21,7 @@ public class UndoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " event 1\n"
             + "Example: " + COMMAND_WORD + " deadline 1";
 
-    public static final String MESSAGE_DONE_task_SUCCESS = "Completed task: %1$s";
+    public static final String MESSAGE_DONE_task_SUCCESS = "Resumed task: %1$s";
     
     public final String dataType;
     public final int targetIndex;
