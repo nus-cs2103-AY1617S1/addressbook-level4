@@ -28,21 +28,7 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-																											// or
-																											// more
-																											// keyword
-																											// separated
-																											// by
-																											// whitespace
-
-	// private static final Pattern HELP_FORMAT =
-	// Pattern.compile("(?<help>\\S+(?:\\s+\\S+)*)");
-
-	/*
-	 * private static final Pattern KEYWORDS_DATE_FORMAT =
-	 * Pattern.compile("(?<dates>\\S+([0-9]{2}[/][0-9]{2}[/][0-9]{4})*)");
-	 */
+	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
 
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
 
@@ -131,6 +117,8 @@ public class Parser {
 	 * @return the command based on the user input
 	 * @throws ParseException
 	 */
+	
+	//@@Nathanael Chan A0139678J
 	public Command parseCommand(String userInput) throws ParseException {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -426,6 +414,7 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 */
+	//@@Gary Goh A0139714B
 	private Command prepareSetDir(String args) {
 		final Matcher resetMatcher = SET_DIR_FORMAT_RESET.matcher(args.trim());
 		final Matcher pathMatcher = SET_DIR_FORMAT.matcher(args.trim());
@@ -446,6 +435,8 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 */
+	
+	//@@author generated
 	private Command prepareSelect(String args) {
 
 		Optional<Integer> index = parseIndex(args);
@@ -482,6 +473,8 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 */
+	
+	//@@Nathanael Chan A0139678J
 	private Command prepareFind(String args) {
 		final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
 		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());

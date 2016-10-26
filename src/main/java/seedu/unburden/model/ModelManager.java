@@ -21,6 +21,8 @@ import com.google.common.base.Predicate;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
+
+//@@Nathanael Chan A0139678J
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -168,17 +170,6 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return checkName(task);
         }
-
-		/**
-		 * @param task
-		 * @return
-		 */
-		/*private boolean checkTags(ReadOnlyTask task) {
-			return nameKeyWords.stream()
-			.filter(keyword -> StringUtil.tagsContainsIgnoreCase(task.getTags(), keyword))
-			.findAny()
-			.isPresent();
-		}*/
 
 		/**
 		 * @param task
