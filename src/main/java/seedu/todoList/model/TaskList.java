@@ -71,12 +71,13 @@ public class TaskList implements ReadOnlyTaskList {
     }
     
     public void resetData() {
-    	backupStack.push(tasks);
+    	backupStack.push(new UniqueTaskList(tasks));
     	tasks.removeAll();
     }
     
     public void restoreData() {
-    	tasks = backupStack.pop();
+    	UniqueTaskList backup = backupStack.pop();
+    	tasks.setAll(backup);
     }
     
 

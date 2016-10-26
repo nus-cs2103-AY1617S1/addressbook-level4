@@ -38,6 +38,13 @@ public class UniqueTaskList implements Iterable<Task> {
      * Constructs empty taskList.
      */
     public UniqueTaskList() {}
+    
+    /**
+     * Constructs empty taskList.
+     */
+    public UniqueTaskList(UniqueTaskList taskList) {
+    	setAll(taskList);
+    }
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -92,6 +99,13 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void removeAll() {
        internalList.remove(0, internalList.size());
+    }
+    
+    /**
+     * Replace all task from another list.
+     */
+    public void setAll(UniqueTaskList taskList) {
+       internalList.setAll(taskList.getInternalList());
     }
 
     public ObservableList<Task> getInternalList() {
