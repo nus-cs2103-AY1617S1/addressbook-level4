@@ -69,6 +69,13 @@ Examples:
 * **`add`**` Meet with professor ; consultation for mid-terms`
 * **`add`**` CS1010 Lab 4 by 10/10/2017`
 * **`add`**` Amy's weddings on 25/10/17;`
+* **`add`**` demoAdd on today by tomorrow priority mid ; for show only`
+
+Demo:
+Type the command
+	> ![ADD](./images/ADD.png)
+Display result
+	> ![ADD_Result](./images/ADD_Result.png)
 
 ## Seeing tasks : `see`
 Shows a list of all tasks in Do-Do Bird.<br>
