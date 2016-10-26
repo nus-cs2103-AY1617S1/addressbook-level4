@@ -71,6 +71,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.priority = priorityValue;
     }
 
+    //@@author A0139655U
     //TODO: Comments - Zhi Yuan
     public void updateRecurringTask() {
         assert recurrenceRate != null && recurrenceRate.timePeriod != null && recurrenceRate.rate != null &&

@@ -25,6 +25,7 @@ public class HelpCommand extends Command {
             + " " + ListCommand.COMMAND_WORD
             + " " + UndoCommand.COMMAND_WORD
             + " " + RedoCommand.COMMAND_WORD
+            + " " + StoreCommand.COMMAND_WORD
             + " " + HelpCommand.COMMAND_WORD
             + " " + ExitCommand.COMMAND_WORD;
     
@@ -37,6 +38,7 @@ public class HelpCommand extends Command {
             + "\n" + ListCommand.MESSAGE_USAGE
             + "\n" + UndoCommand.MESSAGE_USAGE
             + "\n" + RedoCommand.MESSAGE_USAGE
+            + "\n" + StoreCommand.MESSAGE_USAGE
             + "\n" + HelpCommand.MESSAGE_USAGE
             + "\n" + ExitCommand.MESSAGE_USAGE;
 
@@ -58,10 +60,11 @@ public class HelpCommand extends Command {
         case ListCommand.COMMAND_WORD:   return new CommandResult(ListCommand.MESSAGE_USAGE);
         case UndoCommand.COMMAND_WORD:   return new CommandResult(UndoCommand.MESSAGE_USAGE);
         case RedoCommand.COMMAND_WORD:   return new CommandResult(RedoCommand.MESSAGE_USAGE);
+        case StoreCommand.COMMAND_WORD:  return new CommandResult(StoreCommand.MESSAGE_USAGE);
         case HelpCommand.COMMAND_WORD:   return new CommandResult(HelpCommand.MESSAGE_USAGE);
         case ExitCommand.COMMAND_WORD:   return new CommandResult(ExitCommand.MESSAGE_USAGE);
         case ALL_COMMANDS:               return new CommandResult(MESSAGE_ALL_USAGES);
-        default: return new CommandResult(MESSAGE_ALL_COMMAND_WORDS +"\n" + HelpCommand.MESSAGE_USAGE);
+        default: return new CommandResult(MESSAGE_ALL_COMMAND_WORDS + "\n" + HelpCommand.MESSAGE_USAGE);
         }
     }
 }

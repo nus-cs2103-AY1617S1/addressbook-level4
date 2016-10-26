@@ -76,6 +76,9 @@ public class CommandParser {
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
 
+        case StoreCommand.COMMAND_WORD:
+            return prepareStore(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -95,6 +98,7 @@ public class CommandParser {
             return prepareAdd(commandWord + arguments);
         }
     }
+
 
     //@@author A0139655U
 	/**
@@ -116,14 +120,8 @@ public class CommandParser {
         
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
-            
             logger.finer("Exiting CommandParser, prepareAdd()");
-            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
-                    + "priority have these values respectively:", 
-                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
-            return new AddCommand(extractedValues.get("taskName"), extractedValues.get("startDate"), 
-                    extractedValues.get("endDate"), extractedValues.get("rate"), 
-                    extractedValues.get("timePeriod"), extractedValues.get("priority"));
+            return new AddCommand(extractedValues);
             
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
@@ -320,6 +318,17 @@ public class CommandParser {
 
     }
 
+    /**
+     * Parses arguments in the context of the change storage location command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStore(String args) {  
+        return new StoreCommand(args.trim());
+    }
+    
+    //@@author
     /**
      * Parses arguments in the context of the find person command.
      *

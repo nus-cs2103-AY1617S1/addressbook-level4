@@ -1,5 +1,6 @@
 package seedu.address.model.item;
 
+//@@author A0139655U
 public class Name {
 
     public String name;
