@@ -184,6 +184,8 @@ public class ModelManager extends ComponentManager implements Model {
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
     	}
+    	
+    	undoStack.push(new EditCommand(task, dataType, target));
     }
 
     @Override
