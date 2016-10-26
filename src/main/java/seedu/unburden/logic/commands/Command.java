@@ -3,6 +3,7 @@ package seedu.unburden.logic.commands;
 import seedu.unburden.commons.core.EventsCenter;
 import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.unburden.commons.events.storage.StoragePathChangedEvent;
 import seedu.unburden.model.Model;
 
 /**
@@ -42,5 +43,9 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    protected void indicateStoragePathChange(String oldPath, String newPath) {
+    	EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
     }
 }

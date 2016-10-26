@@ -34,10 +34,10 @@ public class SetDirectoryCommand extends Command{
 	
 	@Override
 	public CommandResult execute() {
+		if (!FileUtil.isValidPath(newDirectory)) {
+			return new CommandResult(MESSAGE_INVALID_PATH);
+		}
 		try {
-			if (!FileUtil.isValidPath(newDirectory)) 
-				return new CommandResult(MESSAGE_INVALID_PATH);
-			
 			Config currentConfig = ConfigUtil.readConfig(currentConfigPath).orElse(new Config());
 			String currentDirectory = currentConfig.getTaskListFilePath();
 			if (currentDirectory.equals(newDirectory)) {
@@ -47,7 +47,7 @@ public class SetDirectoryCommand extends Command{
 			
 			currentConfig.setTaskListFilePath(newDirectory);
 			ConfigUtil.saveConfig(currentConfig, currentConfigPath);
-			//indicateStoragePathChanged(currentDirectory, newDirectory);
+			indicateStoragePathChange(currentDirectory, newDirectory);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, currentConfig.getTaskListFilePath()));
 			
 		} catch (DataConversionException e) {

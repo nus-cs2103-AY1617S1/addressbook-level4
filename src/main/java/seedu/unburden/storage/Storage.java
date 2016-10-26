@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
-import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
+import seedu.unburden.commons.events.storage.*;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.UserPrefs;
@@ -36,4 +36,6 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleListOfTaskChangedEvent(ListOfTaskChangedEvent abce);
+    
+    void handleStoragePathChangeEvent(StoragePathChangedEvent abce);
 }
