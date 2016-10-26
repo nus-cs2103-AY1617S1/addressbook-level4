@@ -2,6 +2,7 @@ package seedu.task.ui;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -55,7 +56,11 @@ public class CommandBox extends UiPart {
         this.liveSearchHandler = new ChangeListener<String>(){
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                logic.updateTaskListFilter(newValue);
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        logic.updateTaskListFilter(newValue);
+                    }
+                });
             }
         };
         this.isSearchMode = false;
