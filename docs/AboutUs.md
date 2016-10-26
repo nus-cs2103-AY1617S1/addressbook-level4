@@ -38,12 +38,13 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:
    * [Undo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#undo-a-command--undo)
    * [Redo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#redo-a-command--redo)
-   * 
+   * [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adding-a-task-add-do)
 * Code written: [[functional code](A0138862W.md)][[test code](A0138862W.md)][[docs](A0138862W.md)]
 * Other major contributions:
   * Set up Travis and Coveralls
   * Git expert
   * UI Revamp
+  * Action history
 
 -----
 
