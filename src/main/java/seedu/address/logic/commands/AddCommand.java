@@ -28,9 +28,10 @@ public class AddCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+    //@@author A0143756Y
     public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
     		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
-
+    //@@author
     private final Task toAdd;
 
     /**
