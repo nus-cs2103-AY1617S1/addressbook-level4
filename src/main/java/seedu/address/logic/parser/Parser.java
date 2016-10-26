@@ -33,10 +33,10 @@ import seedu.address.logic.commands.UndoCommand;
 
 
 public class Parser {
-	// @@author A0141019U
+	//@@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regexps for different permutations of arguments
+	// Different regexes for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
@@ -243,11 +243,9 @@ public class Parser {
 					
 					System.out.println("startDateTime: " + startDateTime.toString());
 					
-					//@@author A0143756Y
 					if(startDateTime.isAfter(endDateTime)){
 						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 					}
-					//@@author A0141019U
 					
 				} catch (ParseException e) {
 					return new IncorrectCommand(e.getMessage());
@@ -278,11 +276,9 @@ public class Parser {
 					startDateTime = DateParser.parse(startDayAndTime);
 					endDateTime = DateParser.parse(endDayAndTime);
 					
-					//@@author A0143756Y
 					if(startDateTime.isAfter(endDateTime)){
 						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 					}
-					// @@author A0141019U
 					
 				} catch (ParseException e) {
 					// TODO better command
@@ -544,13 +540,11 @@ public class Parser {
 			}
 		}
 		
-		//@@author A0143756Y
 		if(startDateTime!=null && endDateTime!=null){
 			if(startDateTime.isAfter(endDateTime)){
 				return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
 			}
 		}
-		//@@author A0139339W
 		
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
