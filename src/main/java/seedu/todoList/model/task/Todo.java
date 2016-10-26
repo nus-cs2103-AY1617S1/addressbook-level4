@@ -16,7 +16,6 @@ public class Todo extends Task implements ReadOnlyTask {
     private StartDate startDate;
     private EndDate endDate;
     private Priority priority;
-    private String isDone;
 
     /**
      * Every field must be present and not null.
@@ -48,10 +47,6 @@ public class Todo extends Task implements ReadOnlyTask {
 
     public Priority getPriority() {
         return priority;
-    }
-    
-    public String getDone() {
-    	return isDone;
     }
     
     public Todo(ReadOnlyTask source) {

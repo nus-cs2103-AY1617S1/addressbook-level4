@@ -42,7 +42,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
     	this.startDate = source.getStartDate().saveDate;
     	this.endDate = source.getEndDate().saveEndDate;
     	this.priority = source.getPriority().savePriority;
-    	this.isDone = source.getDone().isDone;
+    	this.isDone = source.getDone();
     }
     
     public XmlAdaptedTodo(ReadOnlyTask source) {
@@ -54,7 +54,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
         final StartDate date = new StartDate(this.startDate);
         final EndDate endDate = new EndDate(this.endDate);
         final Priority priority = new Priority(this.priority);
-        final Done isDone = new Done(this.isDone);
+        final String isDone = new String(this.isDone);
         return new Todo(name, date, endDate, priority, isDone);
     }
 }

@@ -14,7 +14,6 @@ public class Deadline extends Task implements ReadOnlyTask {
 
 	private StartDate date;
     private EndTime endTime;
-    private String isDone;
 
     /**
      * Every field must be present and not null.
@@ -37,10 +36,6 @@ public class Deadline extends Task implements ReadOnlyTask {
     public Deadline(ReadOnlyTask source) {
     	this((Deadline) source);
     };
-    
-    public String getDone(){
-    	return isDone;
-    }
 
     public StartDate getDate() {
         return date;

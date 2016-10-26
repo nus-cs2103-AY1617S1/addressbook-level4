@@ -91,7 +91,8 @@ public class Parser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {  	
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
+    	final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -160,8 +161,8 @@ public class Parser {
                         matcher_task.group("name").trim(), 
                         matcher_task.group("date").trim(),
                         isInputPresent(matcher_task.group("endDate")),
-                        matcher_task.group("priority").trim(),
-                        "false");
+                        matcher_task.group("priority").trim()
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -172,8 +173,7 @@ public class Parser {
                         matcher_event.group("date").trim(),
                         isInputPresent(matcher_event.group("endDate")).trim(),
                         matcher_event.group("startTime").trim(), 
-                        matcher_event.group("endTime").trim(),
-                        "false"
+                        matcher_event.group("endTime").trim()
                         );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -183,8 +183,7 @@ public class Parser {
                 return new AddCommand(
                         matcher_deadline.group("name").trim(), 
                         matcher_deadline.group("date").trim(),
-                        matcher_deadline.group("endTime").trim(),
-                        "false"
+                        matcher_deadline.group("endTime").trim()
                         );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
