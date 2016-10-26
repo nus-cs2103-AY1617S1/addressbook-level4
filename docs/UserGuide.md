@@ -59,10 +59,10 @@ This user guide covers the features of the application and has a short summary o
 >   * `INDEX` : The index of the task as currently displayed in the GUI
 >   * `PROPERTY` : The parameters of your task as mentioned above
 >     * Entering the following would edit the corresponding parameter
->       * `description` : `DESCRIPTION`
->       *  `priority` : `PRIORITY`
->       *  `start` : `STARTTIME`
->        * `end` : `ENDTIME`
+>       * `des` : `DESCRIPTION`
+>       *  `pr` : `PRIORITY`
+>       *  `st` : `STARTTIME`
+>        * `ed` : `ENDTIME`
 
 <br>
 ### View help : `help`
@@ -73,7 +73,7 @@ Format: `help`
 <br>
 ### Adding a task: `add`
 Adds a task to the task manager.<br>
-General Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
+General Format: `add DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]...`
 
 > * You can only set the task's `DESCRIPTION` alphanumerically (i.e. no special characters)
 > * You can set tasks with three different `PRIORITY` levels: `high`, `normal` or `low`
@@ -93,9 +93,9 @@ General Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [
 > * Any, if not all, of the parameters can be not specified when adding your task
 
 Examples:
-* `add Midterms pr/high start/14:00 end/16:00 t/important`
-* `add report pr/high end/17:00`
-* `add AFA pr/low start/9:00 t/anime`
+* `add Midterms pr/high st/14:00 ed/16:00 t/important`
+* `add report pr/high ed/17:00`
+* `add AFA pr/low st/9:00 t/anime`
 * `add get groceries pr/low t/family`
 * `add organize room`
 
@@ -117,7 +117,7 @@ Adds a task with the description `get groceries` with `high` priority to the tas
 All other parameters are empty
 
 #### Adding a deadline
-Format: `add DESCRIPTION end/ENDTIME` <br>
+Format: `add DESCRIPTION ed/ENDTIME` <br>
 
 Example:
 * `add project end/27.10.2016` <br>
@@ -126,7 +126,7 @@ Adds a task with the description `project` due on (i.e. with `ENDTIME` entered a
 
 
 #### Adding a event
-Format: `add DESCRIPTION start/STARTTIME end/ENDTIME` <br>
+Format: `add DESCRIPTION st/STARTTIME ed/ENDTIME` <br>
 
 Example:
 * `add AFA start/25.11.2016 end/27.11.2016` <br>
@@ -207,30 +207,30 @@ Example:
 Returns any tasks with high priority
 
 #### Find tasks starting after given time: `find start/`
-Format: `find start/STARTTIME`
+Format: `find st/STARTTIME`
 
 > * When only DayOfWeek is inputted, tasks that start on that day, current time is listed
 
 Examples:
-* `find start/tues`<br>
+* `find st/tues`<br>
 Returns any task that starts after the current time of the specified day of the week, this Week
-* `find start/27.10.2016`<br>
+* `find st/27.10.2016`<br>
 Returns any task that starts after `27.10.2016`, `00:00`
-* `find start/16:00`<br>
+* `find st/16:00`<br>
 Returns any tasks that starts after `16:00` `today`
 
 
 #### Finding tasks due before given time: `find end/`
-Format: `find end/ENDTIME`
+Format: `find ed/ENDTIME`
 
 > * When only DayOfWeek is inputted, tasks that are due by that day, current time is listed
 
 Examples:
-* `find end/tues`<br>
+* `find ed/tues`<br>
 Returns any task that ends before the current time of the specified day of the week, this Week
-* `find end/27.10.2016`<br>
+* `find ed/27.10.2016`<br>
 Returns any task that ends before **27.10.2016**, **00:00**
-* `find end/16:00`<br>
+* `find ed/16:00`<br>
 Returns any tasks that end before **16:00 today**
 
 #### Finding tasks with given tags: `find t/`
@@ -254,25 +254,25 @@ Format: `update INDEX PROPERTY INPUT`
 
 Examples:
 * `list`<br>
-  `update 3 description Go to SOC`<br>
+  `update 3 des/ Go to SOC`<br>
   Edits the 3rd task listed in the task manager by replacing the previous description with `Go to SOC`.
 
-#### Adding a tag: `addTag`
+#### Adding a tag: `addtag`
 Add a tag to a task with specific index in the list.<br>
-Format: `addTag INDEX TAG`
+Format: `addtag INDEX TAG`
 
 Example:
 * `list`<br>
-  `addTag 2 NUS`<br>
+  `addtag 2 NUS`<br>
   Adds the tag `NUS` to the 2nd task listed.
 
 #### Deleting a tag: `deleteTag`
 Delete a tag of a task with specific index in the list.<br><br>
-Format: `deleteTag INDEX TAG`
+Format: `deletetag INDEX TAG`
 
 Example:
 * `list`<br>
-  `deleteTag 3 NTU`<br>
+  `deletetag 3 NTU`<br>
   Removes the tag `NTU` from the 3rd task listed.
 
 <br>
@@ -317,16 +317,16 @@ There is no need to save manually.
 
 Command | Format
 -------- | :--------
-Add Tag | `addTag INDEX TAG`
-Add Task | `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
+Add Tag | `addtag INDEX TAG`
+Add Task | `add DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]...`
 Clear | `clear`
 Complete | `complete INDEX`
-Delete Tags | `deleteTag INDEX TAG`
+Delete Tags | `deletetag INDEX TAG`
 Delete Task | `delete INDEX`
 Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
-Find Tasks due by `ENDTIME` | `find end/ENDTIME`
-Find Tasks starting after `STARTTIME` | `find start/STARTTIME`
+Find Tasks due by `ENDTIME` | `find ed/ENDTIME`
+Find Tasks starting after `STARTTIME` | `find st/STARTTIME`
 Find Tasks with `PRIORITY` | `find pr/PRIORITY`
 Find Tasks with `TAG`s | `find t/TAG [MORE_TAGS]`
 Help | `help`
