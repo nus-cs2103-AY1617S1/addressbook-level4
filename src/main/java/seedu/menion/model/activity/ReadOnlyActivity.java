@@ -2,7 +2,8 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
-import seedu.menion.model.tag.UniqueTagList;
+import seedu.menion.commons.exceptions.IllegalValueException;
+
 
 /**
  * A read-only immutable interface for a Task in the task manager.
@@ -17,7 +18,7 @@ public interface ReadOnlyActivity {
     // Floating Task parameters
     ActivityName getActivityName();   
     Note getNote();
-    
+
     // Task additional parameters, on top of Floating Task
     ActivityDate getActivityStartDate();
     ActivityTime getActivityStartTime();
@@ -28,6 +29,7 @@ public interface ReadOnlyActivity {
     
     // Finding Activity Type; Can be a Floating Task, Task, or Event
     String getActivityType();
+
     
     // Gets the state of completion of an activity.
     Completed getActivityStatus();
@@ -35,18 +37,19 @@ public interface ReadOnlyActivity {
     // An arrayList having parameters of an activity.
     ArrayList<String> getActivityDetails();
     
-    void setCompleted();
-    
-    void setUncompleted();
-
     void setActivityDetails();
     
+    //@@author A0139164A
     /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
+     * Methods to set the Activity's Param 
+     * @param the String of the new change to make.
      */
-    UniqueTagList getTags();
-
+    void setCompleted();
+    void setUncompleted();
+    void setActivityName(String newName) throws IllegalValueException;
+    void setActivityNote(String newNote) throws IllegalValueException;
+    void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException;
+    void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException;
     
     /**
      * For Floating Task

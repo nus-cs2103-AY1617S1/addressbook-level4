@@ -1,5 +1,6 @@
 package seedu.menion.logic.parser;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.StringUtil;
 import seedu.menion.logic.commands.*;
@@ -26,9 +27,6 @@ public class ActivityParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    private static String previousCommandString;
-    private static Command previousCommand;
     
     public ActivityParser() {}
 
@@ -50,36 +48,40 @@ public class ActivityParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-        	previousCommandString = commandWord;
             return prepareAdd(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
+
 
         case DeleteCommand.COMMAND_WORD:
-        	previousCommandString = commandWord;
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
-        	previousCommandString = commandWord;
-            return prepareClear();
+            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            System.out.println("here");
-            System.out.println("Arguments = " + arguments);
-        	//return new ListCommand();
+            
+        	return prepareList(arguments);
             
         case UndoCommand.COMMAND_WORD:
-        	return new UndoCommand(previousCommand);
+        	return new UndoCommand();
         	
+        case RedoCommand.COMMAND_WORD:
+        	return new RedoCommand();
+        	//@@author: A0139164A
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
             
         case UnCompleteCommand.COMMAND_WORD:
             return prepareUnComplete(arguments);
+        
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
+        case ModifyStoragePathCommand.COMMAND_WORD:
+        	return new ModifyStoragePathCommand(arguments);
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -92,11 +94,27 @@ public class ActivityParser {
         }
     }
     
+   //@@author A0139277U
+    private Command prepareList(String args){
+    	
+    	args = args.trim();
+    	
+    	return new ListCommand(args);
+    
+    }
+    
+    //@@author A0139164A
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
-        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
-        boolean isValidType = false; // Checks that the activity type is of valid type
+        
+        // Should only contain a space, Activity Type and Index
+        if (splited.length != 3) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
+        }
+        
+        // Checks that the activity type is of valid type
+        boolean isValidType = false;
         String activityType = splited[1];
 
         if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
@@ -108,20 +126,23 @@ public class ActivityParser {
         }
 
         Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
-
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
-        previousCommand = new CompleteCommand(splited);
-        return previousCommand;
+        return new CompleteCommand(splited);
     }
     
     private Command prepareUnComplete(String args) {
 
         String[] splited = args.split("\\s+");
-        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
+        
+        // Should only contain a space, Activity Type and Index
+        if (splited.length != 3) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
+        }
+        
         boolean isValidType = false; // Checks that the activity type is of valid type
         String activityType = splited[1];
 
@@ -139,10 +160,35 @@ public class ActivityParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
-        
-        previousCommand = new UnCompleteCommand(splited);
-        return previousCommand;
+
+        return new UnCompleteCommand(splited);
     }
+    
+    private Command prepareEdit(String args) {
+        
+        String[] splited = args.split("\\s+");
+        
+        // Checks for valid number of parameters.
+        // Must be 5 and above. [Command] + [Type] + [index] + [parameter] + [changes]
+        if (splited.length > 4) {
+            String activityType = splited[1];
+            // Checks for valid activityType
+            if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {  
+                // Checks for valid index 
+                Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+                if(index.isPresent()){
+                    return new EditCommand(splited);
+                }
+            }
+        }
+        
+        // Only get here if invalid command!
+        System.out.println("Invalid command leh");
+        return new IncorrectCommand(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+    
+    //@@author A0139515A
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -157,12 +203,12 @@ public class ActivityParser {
         }
         
         try {
-        	previousCommand = new AddCommand(details);
-            return previousCommand;
+            return new AddCommand(details);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    //@@author
 
 
     /**
@@ -183,38 +229,10 @@ public class ActivityParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        previousCommand = new DeleteCommand(activityType.get(0), index);
-        return previousCommand;
+
+        return new DeleteCommand(activityType.get(0), index);
     }
     
-    /**
-     * Parses arguments in the context of the clear activity command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareClear() {
-    	previousCommand = new ClearCommand();
-    	
-        return previousCommand;
-    }
-    
-
-    /**
-     * Parses arguments in the context of the select activity command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

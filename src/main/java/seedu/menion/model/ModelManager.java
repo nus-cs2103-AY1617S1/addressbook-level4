@@ -5,13 +5,16 @@ import seedu.menion.commons.core.ComponentManager;
 import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.StringUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
+import seedu.menion.model.TaskComparator;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -25,7 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Activity> filteredTasks;
     private final FilteredList<Activity> filteredFloatingTasks;
     private final FilteredList<Activity> filteredEvents;
-
+    private Stack<ReadOnlyActivityManager> activityManagerUndoStack;
+    private Stack<ReadOnlyActivityManager> activityManagerRedoStack;
     /**
      * Initializes a ModelManager with the given Activity Manager
      * ActivityManager and its variables should not be null
@@ -41,6 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     public ModelManager() {
@@ -52,6 +58,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     @Override
@@ -70,6 +78,48 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    //@@author A0139515A
+    /**
+     * Methods for undo 
+     * 
+     */
+
+    @Override
+    public void addStateToUndoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerUndoStack.push(activityManager);
+    }
+
+    @Override
+    public ReadOnlyActivityManager retrievePreviousStateFromUndoStack() {
+    	return activityManagerUndoStack.pop();
+    }
+
+    @Override
+    public boolean checkStatesInUndoStack() {
+    	return this.activityManagerUndoStack.isEmpty();
+    }
+    
+    /**
+     * Methods for redo
+     * 
+     */
+
+    @Override
+    public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerRedoStack.push(activityManager);
+    }
+
+    @Override
+    public ReadOnlyActivityManager retrievePreviousStateFromRedoStack() {
+    	return activityManagerRedoStack.pop();
+    }
+
+    @Override
+    public boolean checkStatesInRedoStack() {
+    	return this.activityManagerRedoStack.isEmpty();
+    }
+
+    //@@author A0139164A
     /**
      * Methods for Completing an activity
      */
@@ -82,13 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void completeTask(int index) {
         activityManager.completeTask(index);
-        updateFilteredListToShowAll();
-        indicateActivityManagerChanged();
-    }
-    
-    @Override
-    public void completeEvent(int index) {
-        activityManager.completeEvent(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
@@ -110,15 +153,87 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
+    
+    //@@author A0139164A
+    /**
+     * Methods for editting Activity's name
+     * @throws IllegalValueException 
+     */
     @Override
-    public void UncompleteEvent(int index) {
-        activityManager.unCompleteEvent(index);
+    public void editFloatingTaskName(int index, String changes) throws IllegalValueException{
+        activityManager.editFloatingTaskName(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override 
+    public void editTaskName(int index, String changes) throws IllegalValueException {
+        activityManager.editTaskName(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override
-    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public void editEventName(int index, String changes) throws IllegalValueException{
+        activityManager.editEventName(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    /**
+     * Methods for editting Activity's note
+     * @throws IllegalValueException 
+     */
+    @Override
+    public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
+        activityManager.editFloatingTaskNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void editTaskNote(int index, String changes) throws IllegalValueException {
+        activityManager.editTaskNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
+    public void editEventNote(int index, String changes) throws IllegalValueException {
+        activityManager.editEventNote(index, changes);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    /**
+     * Methods for editting Event/Task Starting Date & Time
+     * @throws IllegalValueException 
+     */
+    @Override
+    public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        activityManager.editTaskDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override 
+    public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        activityManager.editEventStartDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+        
+    }
+    
+    @Override
+    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        activityManager.editEventEndDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    //@@author A0146752B
+    @Override
+    public synchronized void deleteTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }
@@ -131,7 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeFloatingTask(target);
         indicateActivityManagerChanged();
     }
@@ -144,7 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteEvent(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteEvent(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeEvent(target);
         indicateActivityManagerChanged();
     }
@@ -249,10 +364,26 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
+        //@@author A0139277U
         @Override
         public boolean run(ReadOnlyActivity activity) {
+        	String activityKeyWords;
+        	
+        	if (activity.getActivityType().equals(Activity.TASK_TYPE)){
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() +
+        				" " + activity.getActivityStartDate().getMonth();
+        	}
+        	else if (activity.getActivityType().equals(Activity.EVENT_TYPE)){
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() + 
+        				" " + activity.getActivityEndDate() + " " + activity.getActivityStartDate().getMonth() + " " + 
+        				activity.getActivityEndDate().getMonth(); 
+        	}
+        	else {
+        		activityKeyWords = activity.getActivityName().fullName;
+        	}
+        	
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getActivityName().fullName, keyword)).findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activityKeyWords, keyword)).findAny()
                     .isPresent();
         }
 

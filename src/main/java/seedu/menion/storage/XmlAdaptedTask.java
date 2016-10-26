@@ -2,8 +2,7 @@ package seedu.menion.storage;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
+
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -31,8 +30,6 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String status;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
