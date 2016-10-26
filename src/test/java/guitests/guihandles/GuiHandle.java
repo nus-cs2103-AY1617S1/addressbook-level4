@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 /**
  * Base class for all GUI Handles used in testing.
  */
+
+//@@author A0147994J
 public class GuiHandle {
     protected final GuiRobot guiRobot;
     protected final Stage primaryStage;
