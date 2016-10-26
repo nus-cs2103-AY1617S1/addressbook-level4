@@ -38,7 +38,7 @@ public interface ReadOnlyTask {
                         && other.getName().equals(this.getName())
                         && other.getTaskDate().equals(this.getTaskDate())
                         && other.getTags().equals(this.getTags()));
-            } else if (other.getAsText() != null && this.getTaskTime() != null) {
+            } else if (other.getTaskTime() != null && this.getTaskTime() != null) {
                 return other == this // short circuit if same object
                         || (other != null // this is first to avoid NPE below
                         && other.getName().equals(this.getName())
