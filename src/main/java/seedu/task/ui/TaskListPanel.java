@@ -69,15 +69,18 @@ public class TaskListPanel extends UiPart {
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
+        
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
+
             }
         });
+        
     }
 
     public void scrollTo(int index) {
@@ -101,6 +104,7 @@ public class TaskListPanel extends UiPart {
                 setText(null);
             } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                
             }
         }
     }

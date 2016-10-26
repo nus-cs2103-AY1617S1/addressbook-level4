@@ -1,5 +1,7 @@
 package seedu.task.model;
 
+
+
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
@@ -9,6 +11,7 @@ import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
+
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -74,6 +77,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        
+       
     }
 
     @Override

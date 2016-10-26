@@ -180,7 +180,7 @@ public class UndoCommand extends Command {
         
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
             
-            Command command = new DeleteCommand(lastShownList.size());     
+            Command command = new DeleteCommand(1);     
             command.setData(model);
             command.execute(true);
 

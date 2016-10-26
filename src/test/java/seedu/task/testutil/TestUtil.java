@@ -322,6 +322,12 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    
+    public static TestTask[] doneTasksToList(final TestTask[] tasks, int index) {
+        tasks[index - 1].getStatus().setDoneStatus(true);
+        
+        return tasks;
+    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();

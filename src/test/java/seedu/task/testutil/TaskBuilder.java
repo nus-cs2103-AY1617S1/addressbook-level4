@@ -42,8 +42,8 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withStatus(boolean isDone, boolean isOverdue) throws IllegalValueException {
-        this.task.setStatus(new Status(isDone, isOverdue));
+    public TaskBuilder withStatus(boolean isDone, boolean isOverdue, boolean isNewlyAdded) throws IllegalValueException {
+        this.task.setStatus(new Status(isDone, isOverdue, isNewlyAdded));
         return this;
     }
 

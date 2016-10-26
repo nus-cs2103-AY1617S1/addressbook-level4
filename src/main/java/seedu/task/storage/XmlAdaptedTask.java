@@ -26,6 +26,8 @@ public class XmlAdaptedTask {
     private boolean doneStatus;
     @XmlElement(required = true)
     private boolean overdueStatus;
+    @XmlElement(required = true)
+    private boolean newlyAdded;
     
 
     @XmlElement
@@ -49,6 +51,7 @@ public class XmlAdaptedTask {
         deadline = source.getDeadline().value;
         doneStatus = source.getStatus().getDoneStatus();
         overdueStatus = source.getStatus().getOverdueStatus();
+        newlyAdded = source.getStatus().getNewlyAddedStatus();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -70,7 +73,7 @@ public class XmlAdaptedTask {
         final EndTime endTime = new EndTime(this.endTime);
         final Deadline deadline = new Deadline(this.deadline);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        final Status status = new Status(this.doneStatus, this.overdueStatus);
+        final Status status = new Status(this.doneStatus, this.overdueStatus, this.newlyAdded);
         return new Task(name, startTime, endTime, deadline, tags, status);
     }
 }

@@ -3,9 +3,6 @@
     -fx-background-color: red;
 }
 
-.done {
-    -fx-background-color: #ADDFAD;
-}
 
 .tag-selector {
     -fx-border-width: 1;

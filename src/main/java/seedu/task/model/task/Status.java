@@ -6,14 +6,18 @@ public class Status {
     
     private boolean isOverdue;
     
+    private boolean newlyAdded;
+    
     public Status(){
         this.isDone = false;
         this.isOverdue = false;
+        this.newlyAdded = false;
     }
     
-    public Status(boolean isDone, boolean isOverdue){
+    public Status(boolean isDone, boolean isOverdue, boolean newlyAdded){
         this.isDone = isDone;
         this.isOverdue = isOverdue;
+        this.newlyAdded = newlyAdded;
     }
     
     public void setDoneStatus(boolean doneStatus){
@@ -24,11 +28,19 @@ public class Status {
         this.isDone = overdueStatus;
     }
     
+    public void setNewlyAdded(boolean newlyAdded){
+        this.newlyAdded = newlyAdded;
+    }
+    
     public boolean getDoneStatus(){
         return isDone;
     }
     
     public boolean getOverdueStatus(){
         return isOverdue;
+    }
+    
+    public boolean getNewlyAddedStatus(){
+        return newlyAdded;
     }
 }

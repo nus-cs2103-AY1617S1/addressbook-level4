@@ -43,7 +43,7 @@ public class AddCommand extends Command {
                 new EndTime(endTime),
                 new Deadline(deadline),
                 new UniqueTagList(tagSet),
-                new Status()
+                new Status(false, false, true)
         );
         //
     }
