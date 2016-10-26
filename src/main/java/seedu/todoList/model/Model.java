@@ -45,6 +45,9 @@ public interface Model {
     /** Edit the given task */
     void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Undo the latest command */
+    void undoLatestCommand() throws Exception;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList();
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

@@ -31,6 +31,7 @@ public class EditCommand extends Command {
     public final String dataType;
     public final int targetIndex;
     private final Task toEdit;
+    ReadOnlyTask taskToEdit = null;
     
     /**
      * Edit Todo
@@ -85,26 +86,38 @@ public class EditCommand extends Command {
                 new Done(done)
         );
     }
+    
+    /**
+     * Constructor for undo
+     */
+    public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
+    	this.taskToEdit = original;
+    	this.toEdit = (Task) toEdit;
+    	this.targetIndex = -1;
+    	this.dataType = dataType;
+    }
 
     @Override
     public CommandResult execute() {
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-    	switch (dataType) {
-    		case "todo":
-    			lastShownList = model.getFilteredTodoList();
-    			break;
-    		case "event":
-    			lastShownList = model.getFilteredEventList();
-    			break;
-    		case "deadline":
-    			lastShownList = model.getFilteredDeadlineList();
+    	if(this.taskToEdit == null && this.targetIndex != -1) {
+	    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+	    	switch (dataType) {
+	    		case "todo":
+	    			lastShownList = model.getFilteredTodoList();
+	    			break;
+	    		case "event":
+	    			lastShownList = model.getFilteredEventList();
+	    			break;
+	    		case "deadline":
+	    			lastShownList = model.getFilteredDeadlineList();
+	    	}
+	        if (lastShownList.size() < targetIndex) {
+	            indicateAttemptToExecuteIncorrectCommand();
+	            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+	        }
+	        
+	        taskToEdit = lastShownList.get(targetIndex - 1);
     	}
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
-        }
-        
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         assert model != null;
         try {
