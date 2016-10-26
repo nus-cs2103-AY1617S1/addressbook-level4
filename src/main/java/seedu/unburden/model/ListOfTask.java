@@ -126,6 +126,10 @@ public class ListOfTask implements ReadOnlyListOfTask {
     	tasks.done(key,isDone);
     }
     
+    public void undo() {
+    	tasks.undo();
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

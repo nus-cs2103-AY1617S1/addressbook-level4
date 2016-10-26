@@ -16,6 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        model.saveToPrevLists();
         model.resetData(ListOfTask.getEmptyAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }

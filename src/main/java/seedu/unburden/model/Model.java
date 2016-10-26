@@ -27,6 +27,12 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
     void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+    
+    void saveToPrevLists();
+    
+    void loadFromPrevLists();
+    
+    void loadFromUndoHistory();
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
