@@ -59,7 +59,10 @@ public interface Model {
     /**Updates the attribute in ModelManager to reflect last shown listing */
     void setLastListing(String listing);
     
-    /**Updates the filtered */
+    /**Updates the filtered list */
     void updateListing();
+    
+    /**Returns the most recent type of listing of the filtered task list */
+   String getLastListing();
 
 }

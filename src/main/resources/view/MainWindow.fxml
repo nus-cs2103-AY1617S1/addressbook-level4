@@ -29,6 +29,7 @@
             </Menu>
          </menus>
       </MenuBar>
+      <AnchorPane fx:id="listHeaderPlaceHolder" prefHeight="70.0" prefWidth="200.0" styleClass="anchor-pane" stylesheets="@DarkTheme.css" />
       <SplitPane id="splitPane" fx:id="splitPane" orientation="VERTICAL" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" minWidth="340" prefWidth="340">
