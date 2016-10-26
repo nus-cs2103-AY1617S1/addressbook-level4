@@ -93,15 +93,13 @@ Command | Format
 Format: `help`
 
 The user guide will open in another window.
-<br>
+
 > <img src="images/Help.png" width="600">
 
 <br><br>
 
 #### <a id="add"></a> Adding a task: `add`
-> Remember to surround your `TASK_DETAILS` or `EVENT_DETAILS` with quotation marks!
-
-<br>
+> Remember to always surround your `TASK_DETAILS` or `EVENT_DETAILS` with quotation marks! <br>
 
 Adding a floating task to Jimi.<br>
 Format: `add "TASK_DETAILS" [t/tag] [p/priority]` 
@@ -110,7 +108,8 @@ Format: `add "TASK_DETAILS" [t/tag] [p/priority]`
 
 Examples: 
 * `add "Buy groceries" t/NTUC`
-* `add "Visit parents" p/HIGH`<br>
+* `add "Visit parents" p/HIGH`
+
 > <img src="images/AddFloatingTasks.png" width="600">
 
 <br>
@@ -121,7 +120,8 @@ Format: `add "TASK_DETAILS" due DATE_TIME [t/tag] [p/priority]`
 
 Examples:
 * `add "Get a haircut" due Tuesday p/LOW`
-* `add "Pick up Jimmy" due Monday 2pm t/tuition`<br>
+* `add "Pick up Jimmy" due Monday 2pm t/tuition`
+
 > <img src="images/AddDeadlineTasks.png" width="600">
 <br>
 
@@ -129,12 +129,13 @@ Adds an event to Jimi.<br>
 Format: `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/tag] [p/priority]` 
 
 > * If the event is more than a day long, you may include the end date_time. <br>
-> * You may define the start and end time of the event if you wish.
+> * You may define the end time of the event if you wish. If you do not, however, Jimi will assume your event lasts a day long.
 
 Examples:
 * `add "Attend Timmy's orchestra" on 5th July t/Timmy`
 * `add "Show up for dentist appointment" on 8-7-2016 5:00pm to 7:30pm p/MED`
-* `add "Have school camp" on 10 October 10am to 18 October 5pm`<br>
+* `add "Have school camp" on 10 October 10am to 18 October 5pm`
+
 > <img src="images/AddEvents.png" width="600">
 <br><br>
 
@@ -146,7 +147,8 @@ Format: `complete TASK_INDEX`
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 
 Example:
-* `complete t1` <br>
+* `complete t1`
+
 > <img src="images/Complete.png" width="600">
 
 <br><br>
@@ -162,7 +164,8 @@ Examples:
 * `delete e2`
   Deletes the 2nd event in Jimi.
 * `delete t1`
-  Deletes the 1st task in the Jimi.<br>
+  Deletes the 1st task in the Jimi.
+
 > <img src="images/Delete.png" width="600">
 
 
@@ -189,7 +192,8 @@ The `NEW_DETAILS` can come in the following styles:
 
 Examples:
 * `edit e2 "Have orientation camp"`
-* `edit e1 on 5th July 7pm`<br>
+* `edit e1 on 5th July 7pm`
+
 > <img src="images/Edit.png" width="600">
 <br><br>
 
@@ -202,7 +206,8 @@ Format: `show SECTION`
 
 Examples:
 * `show monday`
-* `show completed` <br>
+* `show completed`
+
 > <img src="images/Complete.png" width="600">
 <br><br>
 
@@ -231,7 +236,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples: 
 * `find Jimmy`
-* `find Haircut`<br>
+* `find Haircut`
+
 > <img src="images/Find.png" width="600">
 <br><br>
 
@@ -243,14 +249,15 @@ Format: `saveas NEW_DIRECTORY`
 > * If you want to reset the save directory back to default, type `saveas reset`
 
 Example:
-* `saveas Jimi_tasks.xml`<br>
+* `saveas Jimi_tasks.xml`
+
 > <img src="images/SaveAs.png" width="600">
 <br><br>
 
 #### <a id="clear"></a>Clearing all entries : `clear`
 Clears all entries from Jimi.<br>
 Format: `clear`  
-> If you want to undo your clear, use the [`undo`](#undo) command.<br>
+> If you want to undo your clear, use the [`undo`](#undo) command.
 
 > <img src="images/Clear.png" width="600">
 <br><br>
