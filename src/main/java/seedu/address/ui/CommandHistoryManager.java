@@ -30,9 +30,9 @@ public class CommandHistoryManager {
 		}
 		else {
 			String cmd = previousCommands.pop();			
-			if (!cmd.equals(latestCommand)) {
+//			if (!cmd.equals(latestCommand)) {
 				nextCommands.push(cmd);
-			}
+//			}
 			return cmd;
 		}
 	}
@@ -42,7 +42,9 @@ public class CommandHistoryManager {
 			return "";
 		}
 		else {
-			return nextCommands.pop();
+			String cmd = nextCommands.pop();
+			previousCommands.push(cmd);
+			return cmd;
 		}
 	}
 }
