@@ -24,10 +24,11 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName d/newDescription sd/11-11-2011 dd/11-11-2016 ts/tag ts/tag2";
+            + " 1 t/newTaskName d/newDescription sd/11-11-2011 dd/11-11-2016 ts/tag ts/tag2"
+            + "\nNote: You must have at least one parameter other than the index of the task. Use multiple 'ts/' to list multiple tags.";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
