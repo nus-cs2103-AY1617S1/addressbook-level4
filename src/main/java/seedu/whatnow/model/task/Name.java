@@ -1,5 +1,6 @@
+//@@author A0126240W-reused
 package seedu.whatnow.model.task;
-//@@author A0139772U-reused
+
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**

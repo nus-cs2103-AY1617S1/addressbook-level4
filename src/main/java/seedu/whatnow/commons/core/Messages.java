@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.commons.core;
-//@@author A0141021H-reused
+
 /**
  * Container for user visible messages.
  */

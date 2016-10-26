@@ -1,3 +1,4 @@
+//@@author A0139772U
 # User Guide
 
 
@@ -8,7 +9,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-
+//@@author A0141021H
 ## Introduction
 Are you feeling stressed or overwhelmed with the number of things you have to do? Are you drowning in the pool of to-dos and confused about where to start? WhatNow is here to throw you a lifebuoy and to help you manage all your tasks. It allows you to manage your tasks by entering simple commands without the use of a mouse. You can even find free slots amidst your busy schedule by keying in a special command: freetime.
 
@@ -53,7 +54,6 @@ Figure 1: GUI layout
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
-
 ### Changing storage location : `change`
 Changes the data file storage location.
 
@@ -71,7 +71,7 @@ Figure 2: The storage location is changed
 
 </p>
 
-
+//@@author A0139128A
 ### Adding a task: `add`
 Adds everyday tasks, deadlines and events to WhatNow. Everyday tasks are listed under Todo and the others are listed under Schedule.
 
@@ -149,7 +149,7 @@ Figure 5: An event task with period and priority added under Schedule tasks
 
 </p>
 
-
+//@@author A0139772U
 ###Marking a task as completed: done
 Marks a task from WhatNow as completed.
 
@@ -244,7 +244,7 @@ Figure 10: Display after delete
 
 </p>
 
-
+//@@author A0126240W
 ### Updating a task: `update`
 Updates a task from the list displayed.
 
@@ -332,7 +332,7 @@ Figure 14: Display result after find is executed
 
 </p>
 
-
+//@@author A0141021H
 ### Viewing help: `help`
 Opens the help page.
 

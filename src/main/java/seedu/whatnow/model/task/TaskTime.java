@@ -1,5 +1,6 @@
-package seedu.whatnow.model.task;
 //@@author A0139128A
+package seedu.whatnow.model.task;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,6 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
  * @author A0139128A
  *
  */
-//@@author A0139128A
 public class TaskTime {
 
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "(((\\d|\\d\\d):\\d\\d)(am|pm))";

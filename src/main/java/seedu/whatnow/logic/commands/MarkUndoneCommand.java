@@ -1,5 +1,6 @@
-package seedu.whatnow.logic.commands;
 //@@author A0141021H
+package seedu.whatnow.logic.commands;
+
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;

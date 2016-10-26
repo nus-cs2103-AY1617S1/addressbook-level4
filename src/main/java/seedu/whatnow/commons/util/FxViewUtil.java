@@ -1,5 +1,6 @@
-package seedu.whatnow.commons.util;
 //@@author A0139772U
+package seedu.whatnow.commons.util;
+
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 

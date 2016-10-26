@@ -1,5 +1,6 @@
-package seedu.whatnow.logic.commands;
 //@@author A0139772U-reused
+package seedu.whatnow.logic.commands;
+
 /**
  * Represents the result of a command execution.
  */

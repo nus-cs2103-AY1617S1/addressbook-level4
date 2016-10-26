@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.logic.commands;
-//@@author A0139772U-reused
+
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
@@ -75,7 +76,6 @@ public class DeleteCommand extends UndoAndRedo {
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
 	
-	//@author A0139128A
 	@Override
 	public CommandResult redo() {
 		if(model.getDeletedStackOfTasksRedo().isEmpty()) {

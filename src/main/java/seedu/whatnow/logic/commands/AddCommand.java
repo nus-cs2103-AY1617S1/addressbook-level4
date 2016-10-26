@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.logic.commands;
-//@@author A0141021H
+
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,6 +35,7 @@ public class AddCommand extends UndoAndRedo {
 
 	private final Task toAdd;
 	
+	//@@author A0126240W
 	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
 	    TaskTime validateTime = null;
 	    TaskDate validateDate = null;
@@ -62,6 +64,7 @@ public class AddCommand extends UndoAndRedo {
         this.toAdd = new Task(new Name(name), date, startDate, endDate, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 
+	//@@author A0139128A
 	@Override
 	public CommandResult execute() {
 		assert model != null;
@@ -74,8 +77,7 @@ public class AddCommand extends UndoAndRedo {
 		}
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 	}
-
-	//@@author A0139128A
+	
 	@Override
 	public CommandResult undo() {
 		assert model != null;
@@ -92,7 +94,6 @@ public class AddCommand extends UndoAndRedo {
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
 	
-	//@@author A0139128A
 	@Override
 	public CommandResult redo() {
 		assert model != null;

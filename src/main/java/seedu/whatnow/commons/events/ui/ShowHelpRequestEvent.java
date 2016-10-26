@@ -1,5 +1,6 @@
+//@@author A0141021H-reused
 package seedu.whatnow.commons.events.ui;
-//@@author A0141021H
+
 import seedu.whatnow.commons.events.BaseEvent;
 
 /**
