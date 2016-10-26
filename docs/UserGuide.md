@@ -72,15 +72,30 @@ Examples:
 * **`add`**` demoAdd on today by tomorrow priority mid ; for show only`
 
 Demo:
+
 Type the command
-	> ![ADD](./images/ADD.png)
+
+![ADD](./images/ADD.png)
+
 Display result
-	> ![ADD_Result](./images/ADD_Result.png)
+
+![ADD_Result](./images/ADD_Result.png)
+
 
 ## Seeing tasks : `see`
 Shows a list of all tasks in Do-Do Bird.<br>
 
 Format: `see`
+
+Demo:
+
+Type the command
+
+![SEE](./images/SEE.png)
+
+Display result
+
+![SEE_Result](./images/SEE_Result.png)
 
 ## Searching tasks: `search`
 Search tasks whose names or details contain any of the given keywords. <br>
@@ -104,11 +119,22 @@ Examples:
 * **`search`**` Party fun NIgHt OUTzz`
 * **`search`**` before 25/10/17 t09:30`
 * **`search`**` tag birthdays`
+* **`search`**` HeLlO`
 
 > * The search is case insensitive. e.g `meeting` will match `Meeting`.
 > * The order of the keywords does not matter. e.g. `Meet Professor` will match `Professor Meet`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Meeting` will match `Meeting Professor`
+
+Demo:
+
+Type the command
+
+![SEARCH](./images/SEARCH.png)
+
+Display result
+
+![SEARCH_Result](./images/SEARCH_Result.png)
 
 
 ## Marking tasks as done : `mark`
