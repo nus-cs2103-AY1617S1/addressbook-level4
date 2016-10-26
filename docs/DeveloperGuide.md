@@ -1,9 +1,13 @@
 # Introduction
 
+
+[//]: # (@@author A0139515A)
+
 Menion is a simple activity manager for students to track their activities so they can better manage their schedule. It is a command line interface that minimizes mouse usage and focuses on keyboard commands.
 
 This guide will bring you through the design and implementation of Menion. It's purpose is to help you understand how Menion works and how you can further contribute to its development. The content of this guide is structured from a top-down manner to best help you understand how our application works before going into the minute details. Let's begin!
 
+[//]: # (@@author)
 
 # Table of Contents
 * [Setting Up](#setting-up)
@@ -11,10 +15,10 @@ This guide will bring you through the design and implementation of Menion. It's 
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 <br>
@@ -71,7 +75,6 @@ Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of Event Driven design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
-<br><br>
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 > Diagram 2: Model diagam<br>
@@ -103,7 +106,7 @@ command `delete task 1`.
  instead of asking the `Storage` to save the updates to the hard disk.
 
 
-<br><br><img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
 > Diagram 4: Sequence diagram
 
 The diagram above shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -111,7 +114,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > * Notice how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` being coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
-<br><br><br>
+
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -132,6 +135,7 @@ The `UI` component
 * responds to events raised from various parts of the App and updates the UI accordingly.
 
 <br>
+
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -278,6 +282,7 @@ Remember to include those libraries in the repo (this bloats the repo size). Dev
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
+[//]: # (@@author A0139277U)
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -297,6 +302,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user with many activities in the activity manager | sort activities by different datelines | have a clearer view of what needs to be completed first
 
 {More to be added}
+
+
+[//]: # (@@author A0139515A)
 
 ## Appendix B : Use Cases
 
@@ -344,7 +352,24 @@ Use case ends.
 > Repeat 1a1 - 1ab until user inputs valid index of the Activity.<br>
 > Use case resumes at step 2.
 
-<br>
+#### Use Case : Undo
+
+**MSS**
+
+1. User enters undo command.
+2. System reverts back to the state of the previous command.
+
+Use case ends.
+
+**Extensions**
+
+1a. There is no previous command available to undo.
+
+> 1a1. System prompts user to enter another command.<br>
+> 1a2. Use case ends.
+
+
+[//]: # (@@author A0139164A)
 
 #### Use Case : Edit Activity
 
@@ -372,26 +397,6 @@ Use case ends.
 > Repeat 1b1 - 1b2 until the user inputs a valid format for the Activity.<br>
 > Use case resumes at step 2.
 
-<br>
-
-#### Use Case : Undo
-
-**MSS**
-
-1. User enters undo command.
-2. System reverts back to the state of the previous command.
-
-Use case ends.
-
-**Extensions**
-
-1a. There is no previous command available to undo.
-
-> 1a1. System prompts user to enter another command.<br>
-> 1a2. Use case ends.
-
-
-<br>
 
 #### Use Case : List
 
@@ -416,7 +421,6 @@ Use case ends.
 > 1c1. Menion shows a list of all the Activities in the Menion which has a deadline of the specified date.<br>
 > 1c2. Resume to step 3 in MSS.
 
-<br>
 
 #### Use Case: Find
 
@@ -434,7 +438,6 @@ Use case ends.
 > 3a1. Menion displays 'No particular Activity' message.<br>
 > Use case ends.
 
-<br>
 
 #### Use Case : Modify Storage Path
 **MSS**
@@ -452,7 +455,8 @@ Use case ends.
 > 2a1. Menion shows an error message.<br>
 > Use case resumes at step 2.
 
-<br>
+
+[//]: # (@@author A0146752B)
 
 ## Appendix C : Non Functional Requirements
 
@@ -471,6 +475,9 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
+
+[//]: # (@@author A0139515A)
+
 **1. WunderList**
 
 _1.1 Pros_
@@ -487,6 +494,9 @@ _1.2 Cons_
 > 1.2.4 Unable to set the time of the dateline.<br>
 > 1.2.5 Unable to synchronize schedule without 3rd party calendar app.
 
+
+[//]: # (@@author A0139277U)
+
 **2. Fantastical**
 
 _2.1 Pros_
@@ -499,6 +509,9 @@ _2.2 Cons_
 > 2.2.1 No one shot approach of typing details of activity into a command line.<br>
 > 2.2.2 Unable to block out uncertain schedules.<br>
 > 2.2.3 Requires a lot of mouse clicking.
+
+
+[//]: # (@@author A0146752B)
 
 **3. Any.do**
 
