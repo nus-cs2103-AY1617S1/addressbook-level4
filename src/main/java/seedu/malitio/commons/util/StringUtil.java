@@ -46,4 +46,12 @@ public class StringUtil {
         
         return arg.substring(0,arg.indexOf("t/"));    
     }
+    
+    //@@author a0126633j
+    public static String removeSlashesAtBeginningOfString(String arg) {
+        while(arg.charAt(0) == '/') {
+            arg = arg.substring(1);
+        }
+        return arg;
+    }
 }

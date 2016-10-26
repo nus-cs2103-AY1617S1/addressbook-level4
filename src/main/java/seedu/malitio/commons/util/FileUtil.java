@@ -100,4 +100,15 @@ public class FileUtil {
         Path path = Paths.get(filePath);
         Files.deleteIfExists(path);
     }
+    
+    public static boolean twoFilePathsAreEqual(String filePath1, String filePath2) throws IOException {
+        try {
+            if(new File(filePath1).getCanonicalPath().compareTo(new File(filePath2).getCanonicalPath()) == 0) {
+                return true;
+            }
+        } catch (IOException e1) {
+            throw new IOException("Fail to compare two file paths");
+        }
+        return false;
+    }
 }

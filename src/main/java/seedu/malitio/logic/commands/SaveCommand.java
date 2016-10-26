@@ -10,6 +10,7 @@ import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.storage.DataStorageFileChangedEvent;
 import seedu.malitio.commons.util.ConfigUtil;
 import seedu.malitio.commons.util.FileUtil;
+import seedu.malitio.commons.util.StringUtil;
 
 //@@author a0126633j
 /**
@@ -31,7 +32,7 @@ public class SaveCommand extends Command {
 
     public static final String MESSAGE_SAVE_SUCCESSFUL = "Malitio data will be saved in %s from now onwards.";
     
-    public static final String MESSAGE_INVALID_DIRECTORY = "The directory is invalid!\n";
+    public static final String MESSAGE_INVALID_DIRECTORY = "The directory is invalid!\nExample: ";
     
     public static final char FILE_PATH_IDENTIFIER = '/';
     
@@ -43,7 +44,7 @@ public class SaveCommand extends Command {
      */
     public SaveCommand(String dataFilePath) {
         if(dataFilePath.charAt(dataFilePath.length() - 1) == FILE_PATH_IDENTIFIER) {
-            this.dataFilePath = dataFilePath.trim() + Config.DEFAULT_FILE_NAME;
+            this.dataFilePath = StringUtil.removeSlashesAtBeginningOfString(dataFilePath.trim()) + Config.DEFAULT_FILE_NAME;
         } else {
             this.dataFilePath = null;
         }
@@ -52,7 +53,8 @@ public class SaveCommand extends Command {
     @Override
     public CommandResult execute() {
         if(!isValidFilePath()) {
-            return new CommandResult(MESSAGE_INVALID_DIRECTORY + MESSAGE_USAGE);
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(MESSAGE_INVALID_DIRECTORY + MESSAGE_DIRECTORY_EXAMPLE);
         }
         EventsCenter.getInstance().post(new DataStorageFileChangedEvent(dataFilePath));
         ConfigUtil.changeMalitioSaveDirectory(dataFilePath);
@@ -64,7 +66,7 @@ public class SaveCommand extends Command {
      * Checks if the input by user is a valid file path
      */
     private boolean isValidFilePath() {
-        if(dataFilePath == null) {
+        if(dataFilePath == null || dataFilePath.contains("\\")) {
             return false;
         }
  

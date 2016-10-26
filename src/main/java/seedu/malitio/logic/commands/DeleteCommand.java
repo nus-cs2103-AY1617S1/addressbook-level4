@@ -22,7 +22,7 @@ public class DeleteCommand extends Command {
             + ": Deletes the task identified by the index used in the last task listing.\n"
             + "Parameters: INDEX \n" + "Example: " + COMMAND_WORD + " D1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted %1$s";
 
    private static final String[] TYPES_OF_TASKS = {"f","d", "e"}; 
    private static final String FLOATING_TASK_KEYWORD = "f";
@@ -40,10 +40,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        if(!Arrays.asList(TYPES_OF_TASKS).contains(taskType)) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+        assert(Arrays.asList(TYPES_OF_TASKS).contains(taskType));
 
         int sizeOfList = 0;
         
