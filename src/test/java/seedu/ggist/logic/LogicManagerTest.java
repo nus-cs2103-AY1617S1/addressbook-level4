@@ -35,6 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.ggist.commons.core.Messages.*;
 
+//@@author A0147994J
 public class LogicManagerTest {
 
     /**
