@@ -8,9 +8,9 @@
 
 
 ## Introduction
-This application is a task manager created to solve Jim's problems. Jim is a person who prefers typing over clicking, and to that end this task manager has Command Line Interface as the primary mode of input. A Graphical User Interface is present for visual feedback purposes.
+This application is a task manager created to solve Jim's problems. Jim prefers typing over clicking, so you will primarily use Command Line Interface (CLI) for input. A Graphical User Interface (GUI) is present for your visual feedback.
 
-This user guide covers the features of the application and has a short summary of commands at the end for reference.
+This user guide covers the features of the application and has a short summary of commands at the end for your reference.
 
 
 ## Quick Start
@@ -20,7 +20,7 @@ This user guide covers the features of the application and has a short summary o
 
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
-3. Double-click the file to start the app. The GUI should appear in a few seconds.<br>
+3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <div style="text-align:center" markdown="1">
 <img src="images/UserGuide Mock up1.png" title="Task manager GUI on start up" width="900">
 <figcaption>Fig. 1: Task manager GUI on start up</figcaption>
@@ -37,19 +37,32 @@ This user guide covers the features of the application and has a short summary o
 
 ## Features
 > **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * Words in `UPPER_CASE` are the parameters
+> * Items in `SQUARE_BRACKETS` are optional
+> * Items with `...` after them can have multiple instances
 
-Parameters | Input Limit
---- | :---
-PROPERTY | `description`, `priority`,` start` (refers to start time),`end` (refers to end time)
-DESCRIPTION | Alphanumeric
-PRIORITY | `normal`, `high`, `low`
-TIME | Day of the Week or 24:00 format
-TAG | Alphanumeric
-INDEX | Integers
+<br>
+> **Parameters**
+>  * The order of parameters is fixed
+>  * The following are the parameters used in the task manager:
+>   * `DESCRIPTION` : Your task's description
+>     * Should be in alphanumeric
+>   * `PRIORITY` : Your task's priority ranking
+>     * Either `high`, `low`, or `normal`
+>   * `STARTTIME`/`ENDTIME` : Your task's starting time and ending time respectively, if any
+>     * Entered in the following order: `DAYOFWEEK DATE TIME`
+>     * `DAYOFWEEK` : The day of the week (i.e. Monday to Sunday)
+>     * `DATE` : Date in `DD.MM.YYYY` or `D.M.YYYY`
+>     * `TIME` : 24H time (i.e. `HH:MM` or `H:MM`)
+>   * `TAG` : Your task's tag(s), if any
+>     * Should be in alphanumeric
+>   * `INDEX` : The index of the task as currently displayed in the GUI
+>   * `PROPERTY` : The parameters of your task as mentioned above
+>     * Entering the following would edit the corresponding parameter
+>       * `description` : `DESCRIPTION`
+>       *  `priority` : `PRIORITY`
+>       *  `start` : `STARTTIME`
+>        * `end` : `ENDTIME`
 
 <br>
 ### View help : `help`
@@ -58,41 +71,94 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 <br>
-### Add a task: `add`
+### Adding a task: `add`
 Adds a task to the task manager.<br>
-Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
+General Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
-> * Priority should be high, normal or low
-> * Starttime and endtime should either be in 24H format or given as a Day of the Week
-> * Deadlines are set for tasks if an endtime entered without a starttime
-> * Tasks can have any number of tags (including 0)
-> * If no priority added, the priority is set normal by default
-> * If no starttime/endtime/tag added, the starttime/endtime/tag will be empty
-
+> * You can only set the task's `DESCRIPTION` alphanumerically (i.e. no special characters)
+> * You can set tasks with three different `PRIORITY` levels: `high`, `normal` or `low`
+>  * Each task will only accept one priority level (i.e.`add task pr/high` or `add task pr/low`)
+>  * If `PRIORITY` is not specified, the task's `PRIORITY` will be set to `normal`
+> * You can enter `STARTTIME` and `ENDTIME` in the following format: `DAYOFWEEK DATE TIME`
+>  * If `DATE` is entered, `DAYOFWEEK` is ignored
+>  * At least one parameter (i.e. `DAYOFWEEK` `DATE` `TIME`) is needed to specify `STARTTIME` or `ENDTIME`
+>  * For `DAYOFWEEK`, common shorthand are accepted
+>    * i.e. thu, thur, thurs or thursday are accepted
+>  * For `DATE`, only dates in `DD.MM.YYYY` or `D.M.YYYY` are recognised
+>  * For `TIME`, only 24H time formats are recognised (i.e. `HH:MM` or `H:MM`)
+> * Deadlines can be set for your tasks by entering a `ENDTIME`
+> * Your tasks can have any number of tags (including 0)
+>  * `TAG` should be alphanumeric (i.e. no special characters are allowed)
+> * If `STARTIME`/`ENDTIME`/`TAG` is not entered, the respective parameter for your task will be empty
+> * Any, if not all, of the parameters can be not specified when adding your task
 
 Examples:
 * `add Midterms pr/high start/14:00 end/16:00 t/important`
-* `add work pr/high end/17:00`
+* `add report pr/high end/17:00`
 * `add AFA pr/low start/9:00 t/anime`
-* `add get eggs pr/low t/family`
+* `add get groceries pr/low t/family`
 * `add organize room`
+
+#### Adding a simple task
+Adds a generic task with only the description. <br>
+Format: `add DESCRIPTION`
+
+Example:
+* `add organise room` <br>
+Adds a task with the description `organise room` into the task manager <br>
+`PRIORITY` is set to normal, all other parameters are empty
+
+#### Adding a prioritised task
+Format: `add DESCRIPTION pr/PRIORITY`
+
+Example:
+* `add get groceries pr/high` <br>
+Adds a task with the description `get groceries` with `high` priority to the task manager <br>
+All other parameters are empty
+
+#### Adding a deadline
+Format: `add DESCRIPTION end/ENDTIME` <br>
+
+Example:
+* `add project end/27.10.2016` <br>
+Adds a task with the description `project` due on (i.e. with `ENDTIME` entered as) `27.10.2016` <br>
+`PRIORITY` is set to normal, all other parameters are empty
+
+
+#### Adding a event
+Format: `add DESCRIPTION start/STARTTIME end/ENDTIME` <br>
+
+Example:
+* `add AFA start/25.11.2016 end/27.11.2016` <br>
+Adds a task with the description `AFA` <br>
+starting from (i.e with `STARTTIME` entered as) `25.11.2016` till (i.e. with `ENDTIME` entered as) `27.11.2016` <br>
+`PRIORITY` is set to normal, all other parameters are empty
+
+#### Adding a tagged task
+Format: `add DESCRIPTION t/TAG...`
+
+ Examples:
+ * `add finish LN t/index` <br>
+Adds a task with the description `finish LN`, with the tag `index` <br>
+`PRIORITY` is set to normal, all other parameters are empty
+ * `add finish runthrough t/skyrim t/video` <br>
+ Adds a task with the description `finish playthrough` with the tags `skyrim` and `video` <br>
+ `PRIORITY` is set to normal, all other parameters are empty
+
 <br>
-### List
-#### List all tasks: `list`
+### Listing
+#### Listing all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 
-> * Tasks are listed in the order of the user inputs the tasks by default.
-> * With different modifiers, tasks is listed in different order.
-
-Modifiers | Action
---- | :---
--pr | Tasks are listed by priority
--st | Tasks are listed by start time chronologically
--ed | Tasks are listed by end time chronological
--t/TAG | Tasks with the specified tag are listed
-> * When `list -st`, tasks without start time will be listed at the end of the list. 
-> * When `list -ed`, tasks without end time will be listed at the end of the list. 
+> * Tasks are listed in the order of your input into the task manager by default.
+> * With different modifiers (i.e. `-pr`, `-st`, `-ed`), tasks is listed in different order.
+> * With `list -pr`, your tasks are listed by `PRIORITY`
+>  * Tasks with `high` priority are listed first, followed by `normal` priority, then `low` priority
+> * With `list -st`, your tasks are listed by `STARTTIME` chronologically
+>  * Tasks without start time will be listed at the end of the list.
+> * With `list -ed`, your tasks are listed by `ENDTIME` chronologically
+>  * Tasks without end time will be listed at the end of the list.
 
 
 <div style="text-align:center" markdown="1">
@@ -100,12 +166,12 @@ Modifiers | Action
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 </div>
 
-#### List all tags used: `list tags`
+#### Listing all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
 <br>
-### Delete a task: `delete`
+### Deleting a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
 
@@ -115,16 +181,16 @@ Examples:
   Deletes the 2nd task in the task manager.
 
 <br>
-### Find
-#### Find all tasks with keyword: `find`
+### Finding
+#### Finding all tasks with keyword: `find`
 Finds tasks whose description contains any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is not case sensitive. e.g. `Gives` will match `gives`
 > * The order of the keywords does not matter. e.g. `Give Eggs` will match `Eggs Give`
-> * Only the description is searched.
+> * Only your task's description is searched
 > * Only full words will be matched e.g. `Return` will not match `Returns`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
     e.g. `Return` will match `Return Car`
 
 Examples:
@@ -133,70 +199,91 @@ Examples:
 * `find Return lunch Meeting`<br>
   Returns any tasks having description containing `Return`, `lunch`, or `Meeting`
 
-#### Find tasks using specified information: `find pr/`
-Find tasks with the specified priority.<br>
-Format: `find pr/PRIORITY`
+#### Finding tasks with specified priority: `find pr/`
+Format: `find pr/PRIORITY`<br>
 
+Example:
+* `find pr/high`<br>
+Returns any tasks with high priority
 
 #### Find tasks starting after given time: `find start/`
-Find tasks that starts after the specified time.<br>
-Format: `find start/TIME`
+Format: `find start/STARTTIME`
 
 > * When only DayOfWeek is inputted, tasks that start on that day, current time is listed
 
-#### Find task due before given time: `find end/`
-Find tasks that are due before the specified time.<br>
-Format: `find end/TIME`
+Examples:
+* `find start/tues`<br>
+Returns any task that starts after the current time of the specified day of the week, this Week
+* `find start/27.10.2016`<br>
+Returns any task that starts after `27.10.2016`, `00:00`
+* `find start/16:00`<br>
+Returns any tasks that starts after `16:00` `today`
+
+
+#### Finding tasks due before given time: `find end/`
+Format: `find end/ENDTIME`
 
 > * When only DayOfWeek is inputted, tasks that are due by that day, current time is listed
 
+Examples:
+* `find end/tues`<br>
+Returns any task that ends before the current time of the specified day of the week, this Week
+* `find end/27.10.2016`<br>
+Returns any task that ends before **27.10.2016**, **00:00**
+* `find end/16:00`<br>
+Returns any tasks that end before **16:00 today**
 
-#### Find task with given tags: `find t/`
-Find tasks that have any of the specified tags.<br>
+#### Finding tasks with given tags: `find t/`
 Format: `find t/TAG [MORE_TAGS]`
 
+Examples:
+* `find t/blue`<br>
+Returns any tasks that have the tag `blue`
+* `find t/cheese cake`<br>
+Returns any tasks that have the tags `cheese` or `cake`
+
 <br>
-### Edit: 
+### Editing:
 #### Edit a task: `update`
 Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
 
-> * Edits a property of the task with the input index by replacing the information stored with the new information accordingly
-> * Inputs are the same as specified in the `add` functions
-> * Entries can be removed by calling the modifier but not specifying anything
+> * Edits a parameter of your specified task (specified with `INDEX`) by replacing the parameter stored with the new parameter accordingly
+> * Your `INPUT` should follow the same format as that of the respective parameter referenced by `PROPERTY`
+
 
 Examples:
 * `list`<br>
-  `update 3 descrition Go to SOC`<br>
-  Edits the 3rd task in the task manager by replacing the previous description with `Go to SOC`.
+  `update 3 description Go to SOC`<br>
+  Edits the 3rd task listed in the task manager by replacing the previous description with `Go to SOC`.
 
-#### Add a tag: `addTag`
+#### Adding a tag: `addTag`
 Add a tag to a task with specific index in the list.<br>
 Format: `addTag INDEX TAG`
 
 Example:
 * `list`<br>
   `addTag 2 NUS`<br>
-  Adds the tag `NUS` to the task with the index 2
-  
-#### Delete a tag: `deleteTag`
+  Adds the tag `NUS` to the 2nd task listed.
+
+#### Deleting a tag: `deleteTag`
 Delete a tag of a task with specific index in the list.<br><br>
 Format: `deleteTag INDEX TAG`
 
 Example:
 * `list`<br>
   `deleteTag 3 NTU`<br>
-  Removes the tag `NTU` from the task with the index 3
+  Removes the tag `NTU` from the 3rd task listed.
 
 <br>
 ### Complete a task: `complete`
-Marks the task with the specified index as 'Completed' and removes it from the calendar.<br>
+Marks the task with the specified index as 'Completed' and updates the GUI accordingly.<br>
 Format: `complete INDEX`
 
 Examples:
 * `list`<br>
   `complete 2`<br>
-  Marks the second task as 'Completed' and removes it from the calendar.<br>
+  Marks the second task listed as 'Completed'.<br>
 
 <br>
 ### Undo action: `undo`
@@ -231,17 +318,17 @@ There is no need to save manually.
 Command | Format
 -------- | :--------
 Add Tag | `addTag INDEX TAG`
-Add Task | `add DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...`
+Add Task | `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 Clear | `clear`
 Complete | `complete INDEX`
 Delete Tags | `deleteTag INDEX TAG`
 Delete Task | `delete INDEX`
 Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
-Find Tasks due by TIME | `find end/TIME`
-Find Tasks starting after TIME | `find start/TIME`
-Find Tasks with PRIORITY | `find pr/PRIORITY`
-Find Tasks with TAGS | `find t/TAG [MORE_TAGS]`
+Find Tasks due by `ENDTIME` | `find end/ENDTIME`
+Find Tasks starting after `STARTTIME` | `find start/STARTTIME`
+Find Tasks with `PRIORITY` | `find pr/PRIORITY`
+Find Tasks with `TAG`s | `find t/TAG [MORE_TAGS]`
 Help | `help`
 List Tags | `list tags`
 List Tasks | `list [-pr] [-t/TAG]...`

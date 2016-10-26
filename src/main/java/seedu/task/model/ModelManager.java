@@ -102,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
     }
 
+    //@@ author A0139860X
     @Override
     public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
         switch (operand) {
@@ -122,6 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@ author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -177,7 +179,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+
+    //@@ author A0139860X
     private class TagQualifier implements Qualifier {
         private final Set<Tag> tags = new HashSet<>();
 

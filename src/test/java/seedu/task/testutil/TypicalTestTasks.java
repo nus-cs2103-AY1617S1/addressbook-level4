@@ -11,6 +11,7 @@ public class TypicalTestTasks {
 
     public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
+    //@@author A0139860X
     public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withDescription("buy food").withPriority("high")
@@ -48,6 +49,7 @@ public class TypicalTestTasks {
         }
     }
 
+    //@@author 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
