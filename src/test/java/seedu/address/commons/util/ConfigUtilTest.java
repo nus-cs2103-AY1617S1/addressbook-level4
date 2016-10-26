@@ -73,11 +73,11 @@ public class ConfigUtilTest {
 
     private Config getTypicalConfig() {
         Config config = new Config();
-        config.setAppTitle("Typical App Title");
+        config.setAppTitle("AddressBook name");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setLifekeeperFilePath("addressbook.xml");
-        config.setLifekeeperName("TypicalAddressBookName");
+        config.setLifekeeperFilePath("data/lifekeeper.xml");
+        config.setLifekeeperName("Lifekeeper");
         return config;
     }
 

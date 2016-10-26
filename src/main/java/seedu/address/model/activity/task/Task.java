@@ -22,7 +22,7 @@ public class Task extends Activity implements ReadOnlyTask {
     public Task(Name name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
         
-        assert !CollectionUtil.isAnyNull(dueDate, priority);
+//        assert !CollectionUtil.isAnyNull(dueDate, priority);
         this.duedate = dueDate;
         this.priority = priority;
         this.isCompleted = false;
