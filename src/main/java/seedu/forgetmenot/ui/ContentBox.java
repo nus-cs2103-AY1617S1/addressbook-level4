@@ -27,6 +27,7 @@ import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
+ * @@author A0139211R
  */
 public class ContentBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(ContentBox.class);

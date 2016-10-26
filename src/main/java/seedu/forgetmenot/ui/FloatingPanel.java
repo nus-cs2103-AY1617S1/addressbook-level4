@@ -18,7 +18,8 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of floating tasks.
+ * @@author A0139211R
  */
 public class FloatingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(FloatingPanel.class);

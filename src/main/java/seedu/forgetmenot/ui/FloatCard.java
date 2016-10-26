@@ -7,6 +7,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 
+/**
+ * 
+ * @@author A0139211R
+ *
+ */
 public class FloatCard extends UiPart{
 
     private static final String FXML = "FloatingCard.fxml";
