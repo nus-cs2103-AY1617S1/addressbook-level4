@@ -60,4 +60,62 @@ public class CalendarItemTests {
         event.setEndDate(time);
         assertEquals(event.isOver(), true);
     }
+    
+    @Test
+    public void test_task_duedate() {
+        Task task = new Task();
+        LocalDateTime time = LocalDateTime.now();
+        task.setDueDate(time);
+        assertEquals(task.getDueDate(), time);
+    }
+    
+    @Test
+    public void test_task_name() {
+        Task task = new Task();
+        String name = "abcdef";
+        task.setName(name);
+        assertEquals(task.getName(), name);
+    }
+    
+    @Test
+    public void test_task_calendardt() {
+        Task task = new Task();
+        LocalDateTime time = LocalDateTime.now();
+        task.setCalendarDT(time);
+        assertEquals(task.getCalendarDT(), time);
+    }
+    
+    @Test
+    public void test_task_calendardt_is_duedate() {
+        Task task = new Task();
+        LocalDateTime time1 = LocalDateTime.now();
+        task.setCalendarDT(time1);
+        assertEquals(task.getDueDate(), time1);
+        
+        LocalDateTime time2 = LocalDateTime.now();
+        task.setDueDate(time2);
+        assertEquals(task.getCalendarDT(), time2);
+    }
+    
+    @Test
+    public void test_task_is_over() {
+        Task task = new Task();
+        assertEquals(task.isOver(), false);
+        
+        LocalDateTime time = LocalDateTime.now().minusSeconds(10);
+        task.setDueDate(time);
+        assertEquals(task.isOver(), true);
+    }
+    
+    @Test
+    public void test_task_complete() {
+        Task task = new Task();
+        assertEquals(task.isCompleted(), false);
+        
+        task.setCompleted();
+        assertEquals(task.isCompleted(), true);
+        
+        task.setIncomplete();
+        assertEquals(task.isCompleted(), false);
+    }
 }
