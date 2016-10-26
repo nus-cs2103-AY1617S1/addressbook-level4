@@ -14,7 +14,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Code written: [[functional code](../collated/main/A0135782Y.md)][[testcode](../collated/test/A0135782Y.md)][[docs](../collated/docs/A0135782Y.md)]
 * Other major contributions:
    * Did part of the initial refactoring [[#6](https://github.com/CS2103AUG2016-W09-C2/main/pull/6)]
-   * Set up Travis and EclEmma
+   * Set up Travis and Coveralls
+   * Implemented Abstraction Ocurrence Pattern for recurring tasks.[[#66](https://github.com/CS2103AUG2016-W09-C2/main/pull/66)]
 
 -----
 
