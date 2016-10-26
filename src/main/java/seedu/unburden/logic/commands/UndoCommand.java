@@ -2,6 +2,10 @@ package seedu.unburden.logic.commands;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Undo an undo action.
+ * @@author A0139714B
+ */
 public class UndoCommand extends Command {
 	
 	public static final String COMMAND_WORD = "undo";
