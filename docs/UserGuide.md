@@ -1,3 +1,4 @@
+[//]: # (@@author A0146752B)
 <center><h1>  Welcome to Menion </h1> </center>
 
 
@@ -9,12 +10,14 @@
 * [Features](#features)
   * [Add Activity](#adding-an-activity)
   * [Delete Activities](#deleting-an-activity)
-  * [Edit Activities](#editing-an-activity)
   * [List Activities](#listing-all-activities)
   * [Find Activities](#finding-all-activities-containing-any-keyword-in-their-name)
+  * [Clear Activities](#clearing-all-entries)
+  * [Edit Activities](#editing-an-activity)
+  * [Complete Activities](#complete-an-activity)
+  * [Uncomplete Activities](#uncomplete-an-activity)
   * [Undo Command](#undo)
   * [Redo Command](#redo)
-  * [Mark Completed Activities](#complete-an-activity)
   * [Modify Storage Path](#modifying-the-storage-path)
   * [Help](#viewing-help)
   * [Exit](#exiting-the-program)
@@ -65,6 +68,8 @@ Unlike other complicated task managers, Menion is simple and intuitive. It relie
 > <li>Event has a starting date/time and an ending date/time.
 > <li> Floating Task does not have any dates attached to it.
 
+[//]: # (@@author A0139277U)
+
 #### Adding an activity
 Adds an activity to Menion<br>
 
@@ -94,45 +99,6 @@ Examples:
 
 * `delete event 2`
 * `delete task 2`
-
-#### Editing an activity
-Updates a specified activity from Menion.
-
-Format : `edit ACTIVITY_TYPE INDEX PARAMETERS`
-> Edits the activity at the specified `INDEX`. The index refers to the index number shown beside the activity. <br>
-> The input field is the same as Add command. <br>
-> The index must be a positive integer 1,2,3, ...
-
-Examples :
-
-* `edit event 3 by 08-19-2016 1900`
-* `edit task 4 note buy extra stuff`
-* `edit task 1 name Hello World`
-
-
-[//]: # (@@author A0139515A)
-
-#### Undo
-Undo the most previous command.
-
-Format : `undo`
-
-#### Redo
-Redo the most previous command.
-
-Format : `redo`
-
-
-#### Complete an activity
-Marks an activity as completed.
-
-Format : `completed ACTIVITY_TYPE ACTIVITY_INDEX`
-
-Example : 
-
-* `completed event 3`
-
-> Event 3 labeled as completed.
 
 
 #### Listing all activities
@@ -179,7 +145,60 @@ Clear all entries from Menion.<br>
 
 Format : `clear`
 
+
+[//]: # (@@author A0139164A)
+
+#### Editing an activity
+Updates a specified activity from Menion.
+
+Format : `edit ACTIVITY_TYPE INDEX PARAMETERS`
+> Edits the activity at the specified `INDEX`. The index refers to the index number shown beside the activity. <br>
+> The input field is the same as Add command. <br>
+> The index must be a positive integer 1,2,3, ...
+
+Examples :
+
+* `edit event 3 by 08-19-2016 1900`
+* `edit task 4 note buy extra stuff`
+* `edit task 1 name Hello World`
+
+
+#### Complete an activity
+Marks an activity as completed.
+
+Format : `completed ACTIVITY_TYPE ACTIVITY_INDEX`
+
+Example : 
+
+* `completed event 3`
+
+> Event 3 labeled as completed.
+
+
+#### Uncomplete an activity
+Marks an activity as uncompleted.
+
+Format : `uncompleted ACTIVITY_TYPE ACTIVITY_INDEX`
+
+Example : 
+
+* `uncompleted event 3`
+
+> Event 3 labeled as uncompleted.
+
+
 [//]: # (@@author A0139515A)
+
+#### Undo
+Undo the most previous command.
+
+Format : `undo`
+
+#### Redo
+Redo the most previous command.
+
+Format : `redo`
+
 
 #### Modifying the storage path
 Modify the storage path that stores all the data.<br>
@@ -216,18 +235,17 @@ There is no need to save manually.<br>
 Command | Format  
 -------- | :-------- 
 Add | `add FLOATING_TASK_NAME n:NOTES...`<br>`add TASK_NAME by: TASK_DEADLINE_DATE TASK_DEADLINE_TIME n:NOTES...`<br>`add EVENT_NAME from: EVENT_START_DATE EVENT_START_TIME to: EVENT_END_DATE EVENT_END_TIME n:NOTES...`
+Delete | `delete ACTIVITY_TYPE INDEX`
+List | `list` <br> `list DATE` <br> `list MONTH`
 Clear | `clear`
+Edit | `edit ACTIVITY_TYPE ACTIVITY_INDEX ACTIVITY_PARAMETER_TO_CHANGE ACTIVITY_PARAMETER_CHANGES`
 Complete | `complete ACTIVITY_TYPE INDEX`
 Uncomplete | `uncomplete ACTIVITY_TYPE INDEX`
-Delete | `delete ACTIVITY_TYPE INDEX`
-Edit | `edit ACTIVITY_TYPE ACTIVITY_INDEX ACTIVITY_PARAMETER_TO_CHANGE ACTIVITY_PARAMETER_CHANGES`
-Exit | `exit`
-Help | `help`
-List | `list` <br> `list DATE` <br> `list MONTH`
-Modify Storage Path | `modify STORAGE_LOCATION`
 Undo| `undo`
 Redo | `redo`
-
+Modify Storage Path | `modify STORAGE_LOCATION`
+Help | `help`
+Exit | `exit`
 
 
 ## GLOSSARY
