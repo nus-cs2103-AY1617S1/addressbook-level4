@@ -39,7 +39,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
     	name = source.getName().name;
     	startDate = source.getDate().saveDate;
         endTime = source.getEndTime().saveEndTime;
-        isDone = source.getDone().isDone;
+        isDone = source.getDone();
     }
     
     public XmlAdaptedDeadline(ReadOnlyTask source) {
@@ -50,7 +50,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
         final Name name = new Name(this.name);
         final StartDate date = new StartDate(this.startDate);
         final EndTime endTime = new EndTime(this.endTime);
-        final Done isDone = new Done(this.isDone);
+        final String isDone = new String(this.isDone);
         return new Deadline(name, date, endTime, isDone);
     }
 }
