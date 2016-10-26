@@ -84,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0153467Y
     @Override
     public synchronized void completeTask(ReadOnlyTask originalTask, Task completeTask){
         taskManager.completeTask(originalTask, completeTask);
@@ -104,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0153467Y
     @Override
     public synchronized void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask){
         taskManager.uncompleteTask(originalTask, uncompleteTask);

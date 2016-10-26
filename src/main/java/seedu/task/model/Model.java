@@ -34,9 +34,11 @@ public interface Model {
     /** Pins the given task as important */
     void pinTask(ReadOnlyTask originalTask, Task toPin);
 
+    //@@author A0153467Y    
     /** Mark the given task as completed */
     void completeTask(ReadOnlyTask originalTask, Task completedTask);
     
+    //@@author A0153467Y
     /** Unmark the given important task */
     void uncompleteTask(ReadOnlyTask originalTask, Task uncompletedTask);
     

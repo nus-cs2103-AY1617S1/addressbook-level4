@@ -111,9 +111,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(toPin);
         tasks.pin(originalTask, toPin);
     }
-
+    
+    //@@author A0153467Y
     /**
      * Marks a specific task as completed to the task list.
+     * 
+     * @param originalTask refers to the task that selected from the list
+     * @param completeTask refers to a task same as original task except being marked as complete
      */
     
     public void completeTask(ReadOnlyTask originalTask, Task completeTask) {
@@ -121,11 +125,12 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.complete(originalTask,completeTask); 
     }
     
+    //@@author A0153467Y
     /**
      * Unmark a specific completed task as not completed to the task list.
      * 
-     * @param originalTask Task which is marked as complete
-     * @param uncompleteTask Task which is now marked as not complete
+     * @param originalTask refers to task which is marked as complete
+     * @param uncompleteTask refers to task which is now marked as not complete
      */
     public void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask) {
         syncTagsWithMasterList(uncompleteTask);
