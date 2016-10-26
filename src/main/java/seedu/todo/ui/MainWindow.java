@@ -38,7 +38,10 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    //@@author A0142421X
     private TagListPanel tagListPanel;
+    //@@author
+    
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -49,6 +52,7 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane browserPlaceholder;
     
+    //@@author A0142421X
     @FXML
     private AnchorPane tagListPanelPlaceholder;
 

@@ -57,6 +57,7 @@ public class Tag {
         return '[' + tagName + ']';
     }
     
+    //@@author A0142421X
     public String getName() {
     	return tagName;
     }

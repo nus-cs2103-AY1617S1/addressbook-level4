@@ -19,7 +19,9 @@ public interface Logic {
     /** Returns the unmodfiable filtered list of tasks */
     ObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
 
+    //@@author A0138967J
     ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList();
     
+    //@@author A0142421X
     ObservableList<Tag> getUnmodifiableTagList();
 }

@@ -47,11 +47,12 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getUnmodifiableFilteredTaskList();
     }
 
-    
+    //@@author A0138967J
     public ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
         return model.getUnmodifiableTodayTaskList();
     }
     
+    //@@author A0142421X
     @Override
     public ObservableList<Tag> getUnmodifiableTagList() {
     	return model.getUnmodifiableTagList();
