@@ -13,6 +13,8 @@ import seedu.unburden.model.task.UniqueTaskList;
 /**
  * The API of the Model component.
  */
+
+//@@Nathanael Chan A0139678J
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyListOfTask newData);
@@ -44,13 +46,7 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate);
-    
-    /** Updates the filter of the filtered task list to filter by the given date*/
-	void updateFilteredTaskListForDate(Set<String> keywords);
 		
-	/** Updates the filter of the filtered task list to filter all tasks with dates before the given date*/
-	void updateFilteredListToShow(java.util.function.Predicate<? super Task> predicate);
-	
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
 	

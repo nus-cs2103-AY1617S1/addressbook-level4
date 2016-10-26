@@ -24,6 +24,8 @@ import com.google.common.base.Predicate;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
+
+//@@Nathanael Chan A0139678J
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -155,111 +157,4 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate){
         filteredTasks.setPredicate(predicate);
     }
-    
-    @Override
-    public void updateFilteredTaskListForDate(Set<String> keywords){
-    	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
-    }
-	
-	@Override
-	public void updateFilteredListToShow(java.util.function.Predicate<? super Task> predicate){
-    	filteredTasks.setPredicate(predicate);
-    }
-
-    private void updateFilteredPersonList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering ==================================================
-
-    interface Expression {
-        boolean satisfies(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
-        }
-
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return checkName(task);
-        }
-
-		/**
-		 * @param task
-		 * @return
-		 */
-		/*private boolean checkTags(ReadOnlyTask task) {
-			return nameKeyWords.stream()
-			.filter(keyword -> StringUtil.tagsContainsIgnoreCase(task.getTags(), keyword))
-			.findAny()
-			.isPresent();
-		}*/
-
-		/**
-		 * @param task
-		 * @return
-		 */
-		private boolean checkName(ReadOnlyTask task) {
-			return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-		}
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
-    
-    private class DateQualifier implements Qualifier {
-    	private Set<String> dateKeyWords;
-    	
-    	DateQualifier(Set<String> dateKeyWords){
-    		this.dateKeyWords = dateKeyWords;
-    	}
-    	
-    	@Override
-    	public boolean run(ReadOnlyTask task){
-    		return dateKeyWords.stream()
-    				.filter(keyword -> StringUtil.containsDate(task.getDate().fullDate, keyword))
-    				.findAny()
-    				.isPresent();
-    	}
-    	
-    	@Override
-        public String toString() {
-    		return "date=" + String.join(", ", dateKeyWords);
-        }
-    }
-
 }
