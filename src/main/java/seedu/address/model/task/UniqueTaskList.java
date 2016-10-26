@@ -110,10 +110,9 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean markOverdue(ReadOnlyTask key) {
     	assert key != null;
     	int overdueIndex = internalList.indexOf(key);
-    	Task overduedTask = new Task(internalList.get(overdueIndex));
+    	Task overduedTask = internalList.get(overdueIndex);
     	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd())) {
     		overduedTask.setOverdue(1);
-    		internalList.set(overdueIndex, overduedTask);
     		return true;
     	}
     	else

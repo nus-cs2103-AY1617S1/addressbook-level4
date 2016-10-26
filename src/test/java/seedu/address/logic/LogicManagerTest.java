@@ -216,7 +216,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
         TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
-        model.addTask(toBeAdded);
+        helper.addToModel(model, 1, 1, 1);
+        expectedAB.addTask(toBeAdded);
         
         assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
                 String.format(AddCommand.TODO_SUCCESS, toBeAdded),

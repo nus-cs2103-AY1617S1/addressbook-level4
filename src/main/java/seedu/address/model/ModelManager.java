@@ -82,8 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addToUndoStack() {
         TaskBook taskBookToBeAdded = new TaskBook(addressBook);
-        Config configToBeAdded = new Config(config);
-        SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, configToBeAdded);
+        //Config configToBeAdded = new Config(config);
+        SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, config);
         
         undoStack.push(saveToBeAdded);
     }
