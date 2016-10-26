@@ -48,10 +48,19 @@ public class TaskCard extends UiPart{
         
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        taskD.setText("Task Description : " + task.getTaskDescription().fullTaskDescriptions);
-        date.setText("Date: " + task.getDate().fullDate);
-        startTime.setText("Start Time: " + task.getStartTime().fullTime);
-        endTime.setText("End Time: " + task.getEndTime().fullTime);
+        if(task.getTaskDescription().fullTaskDescriptions != "NIL"){
+        	taskD.setText("Task Description : " + task.getTaskDescription().fullTaskDescriptions);
+        	cardPane.setStyle("-fx-background-color : #8295b5");
+        }
+        if(task.getDate().fullDate != "NIL"){
+            date.setText("Date: " + task.getDate().fullDate);
+        }
+        if(task.getStartTime().fullTime != "NIL"){
+        	startTime.setText("Start Time: " + task.getStartTime().fullTime);
+        }
+        if(task.getStartTime().fullTime != "NIL"){
+            endTime.setText("End Time: " + task.getEndTime().fullTime);
+        } 
         done.setText(" [ " + task.getDoneString() + " ] ");
         tags.setText("      " + task.tagsString());
         
