@@ -226,9 +226,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             
-            boolean willBeShown = isTaskGoingToBeShown(task);
-
-            if (willBeShown==false){ 
+            if (!isTaskGoingToBeShown(task)){ 
                 return false; 
             }
             
@@ -238,7 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
                 return task.getIsDone();
             }
             
-            return willBeShown;
+            return isTaskGoingToBeShown(task);
             
         }
 
@@ -258,10 +256,12 @@ public class ModelManager extends ComponentManager implements Model {
                 return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
             } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
                 return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
-            } else {
+            } else if (!dateInfo.equals("")){
                 return DateTimeInfo.isOnTheDate(dateInfo, task);
             }
-            // if (!dateInfo.equals(""))
+            else {
+                return true;
+            }
         }
         
     }
