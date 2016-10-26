@@ -38,4 +38,6 @@ public interface Model {
     void updateFilteredListToShowClashing() throws DuplicateTaskException;
 
 	void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException;
+
+	void updateFilteredPersonGroup(String keywords);
 }

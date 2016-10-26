@@ -74,6 +74,9 @@ public class Parser {
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+        
+        case GroupCommand.COMMAND_WORD:
+        	return prepareGroup(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -266,6 +269,20 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the Group task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    
+    
+    private Command prepareGroup(String args) {
+        final String keyword = args.trim();
+    	   
+        return new GroupCommand(keyword);
     }
     
     /**

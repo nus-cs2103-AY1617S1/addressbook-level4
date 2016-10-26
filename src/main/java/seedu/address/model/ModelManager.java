@@ -7,7 +7,9 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.ModelManager.Qualifier;
 import seedu.address.model.deadline.Deadline;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -102,6 +104,11 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredPersonList(Set<String> keywords) {
 		updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
 	}
+	
+	@Override
+	public void updateFilteredPersonGroup(String keywords) {
+		updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));
+	}
 
 	private void updateFilteredPersonList(Expression expression) {
 		filteredPersons.setPredicate(expression::satisfies);
@@ -135,7 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
 		
-		for (int i = 0; i < filteredPersons.size() - 1; i++){
+		for (int i = 0; i <= filteredPersons.size() - 1; i++){
 			boolean isIncompleted = false;
 			Task task = filteredPersons.get(i);
 			if (!task.getName().toString().contains(" is completed")) isIncompleted = true;
@@ -145,8 +152,8 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		}
 		
-		FilteredList<Task> clashingTasks = new FilteredList<Task>(taskmanager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(clashingTasks)));
+		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
+		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
 	}
 
 	// ========== Inner classes/interfaces used for filtering
@@ -218,6 +225,30 @@ public class ModelManager extends ComponentManager implements Model {
 				}
 			}
 			return false;
+		}
+	}
+	
+	private class TagQualifier implements Qualifier {
+		private String keyWords;
+
+		TagQualifier(String keyWords) {
+			this.keyWords = keyWords;
+		}
+
+		@Override // for loop embedded
+		public boolean run(ReadOnlyTask person) {
+			try {
+				return person.getTags().contains(new Tag(keyWords));
+			} catch (IllegalValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", keyWords);
 		}
 	}
 
