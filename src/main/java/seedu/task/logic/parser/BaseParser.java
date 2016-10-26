@@ -63,7 +63,6 @@ public abstract class BaseParser {
         }
         
         arrayItems.add(value);
-        System.out.println(keyword + ": " + value);
         argumentsTable.put(keyword, arrayItems);
     }
     
@@ -91,8 +90,12 @@ public abstract class BaseParser {
                 numOptional++;
             }
         }
-
-        return argumentsTable.size() >= numOptional + requiredArgs.length;
+        
+        if (isStrictSet) {
+            return argumentsTable.size() == numOptional + requiredArgs.length;
+        } else {
+            return argumentsTable.size() >= numOptional + requiredArgs.length;
+        }
     }
     
     /**
