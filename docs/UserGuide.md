@@ -108,7 +108,7 @@ Example:
   <img src="images/UIviewDone.png" width="900">
   
 <br>
-<!-- @@author -->
+<!-- @@author A0139930B -->
 #### Create a new task: `add`
 Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
 * Todo format: `add NAME`<br>
@@ -157,7 +157,6 @@ Example:
 * `find assign`<br>
   <img src="images/UIfind.png" width="900">
 
-<!-- @@author -->
 <br>
 <!-- @@author A0135793W -->
 #### Edit task details: `edit`
@@ -169,7 +168,6 @@ If no or an invalid category was listed, the app will default to todo format `t`
 > Format depends on the type of task being edited. When only 1 `TIME` is provided, it is treated as `END_TIME` for both deadline and event.<br><br>
 > Note that you can enter the `view` command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
-<!-- @@author -->
 <!-- @@author A0130853L -->
 Example:
 
@@ -223,8 +221,7 @@ Example:
   
   After:<br>
   <img src="images/UIdoneAfter.png" width="900"><br>
-
-<!-- @@author --> 
+ 
 <br>
 #### Undo previous action: `undo`
 Undoes the last completed action.<br>
@@ -234,6 +231,7 @@ The previous version will be restored.<br>
 User can keep retyping undo to undo multiple actions.<br>
 
 Example:
+
 * `undo`<br>
   Undoes the last deleted item.<br>
   
@@ -263,7 +261,6 @@ Example:
   If folder CS2103 Tutorial is not present, TasKitty will create the folder.
 
 <br>
-<!-- @@author -->
 <!-- @@author A0130853L -->
 #### Clear all entries : `clear`
 Clears all tasks from the task manager.<br>
