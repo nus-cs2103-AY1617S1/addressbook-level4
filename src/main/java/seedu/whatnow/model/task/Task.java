@@ -181,6 +181,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (isBothFloating(task)) {
             return COMPARE_TO_IS_EQUAL;
         } else if (isBothDeadline(task)) {
+            System.out.println(task.getTaskDate());
             if (this.taskDate.equals(task.taskDate)) {
                 if (this.taskTime == null && task.taskTime == null) {
                     return COMPARE_TO_IS_EQUAL;
