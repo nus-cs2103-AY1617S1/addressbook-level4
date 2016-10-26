@@ -182,7 +182,8 @@ public class MainApp extends Application {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
-
+    
+    //@@author A0147890U
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");

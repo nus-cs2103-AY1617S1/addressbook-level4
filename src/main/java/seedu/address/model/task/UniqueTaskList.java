@@ -120,13 +120,6 @@ public class UniqueTaskList implements Iterable<Task> {
     		return false;
     }
 
-	/**
-	 * @author Ronald 
-	 * @param key
-	 * @param args
-	 * @return
-	 * @throws IllegalValueException
-	 */
   //@@author A0139430L JingRui
 	public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub

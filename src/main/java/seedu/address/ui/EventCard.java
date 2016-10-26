@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0147890U
 public class EventCard extends UiPart{
 
     private static final String FXML = "EventListCard.fxml";

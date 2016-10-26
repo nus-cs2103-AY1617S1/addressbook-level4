@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 /**
  * Lists all tasks in the address book to the user.
  */
+//@@author A0147890U
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

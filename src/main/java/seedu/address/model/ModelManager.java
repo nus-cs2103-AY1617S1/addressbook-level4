@@ -80,6 +80,8 @@ public class ModelManager extends ComponentManager implements Model {
         this.config = config;
     }
     
+    
+    //@@author A0147890U
     @Override
     public void addToUndoStack() {
         TaskBook taskBookToBeAdded = new TaskBook(addressBook);
@@ -89,21 +91,25 @@ public class ModelManager extends ComponentManager implements Model {
         undoStack.push(saveToBeAdded);
     }
     
+    //@@author A0147890U
     @Override
     public Config getConfig() {
         return config;
     }
     
+    //@@author A0147890U
     @Override
     public void setConfig(Config config) {
         this.config = config;
     }
     
+    //@@author A0147890U
     @Override 
     public Stack<SaveState> getUndoStack() {
         return this.undoStack;
     }
     
+    //@@author A0147890U
     @Override
     public Stack<SaveState> getRedoStack() {
         return this.redoStack;
@@ -133,7 +139,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override 
-    
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         addressBook.changeTask(target, args, category);
         //updateFilteredListToShowAll(); // why was this line commented out?
@@ -207,6 +212,7 @@ public class ModelManager extends ComponentManager implements Model {
         //filteredCompleted.setPredicate(null);
     }
     
+    //@@author A0147890U
     @Override
     public void updateFilteredListToShowAllCompleted() {
         //updateFilteredEventList
@@ -230,6 +236,7 @@ public class ModelManager extends ComponentManager implements Model {
         });
     }
     
+    //@@author A0147890U
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
         System.out.println("here");

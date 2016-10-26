@@ -298,6 +298,14 @@ Example: Exit
 
 Example : Help
 
+###11 Setting Storage Folder
+
+>Format: **storage** &lt;valid file path&gt;
+
+Example: storage C:\Users\Ronald\Documents\DummyFolder
+
+The task manager shifts your file from the current storage folder to the newly specified one on exit.
+
 
 ## FAQ
 
@@ -321,3 +329,4 @@ Example : Help
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
 11| Exit | exit 
 12| help | help 
+13| set storage| storage &lt;valid file path&gt; 

@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.util.ConfigUtil;
 
+//@@author A0147890U
 public class SpecifyStorageCommand extends Command {
 
     public static final String COMMAND_WORD = "storage";
