@@ -23,7 +23,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Done the given task. */
-    void doneTask(Task target) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.TaskAlreadyDoneException;
+    void doneTask(ReadOnlyTask target, Task replacer) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.TaskAlreadyDoneException;
     
     /** Adds the given task */
     void addTask(Task task);
@@ -49,9 +49,6 @@ public interface Model {
 	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
 
 	void changeStorageFilePath(String filePath);
-
-	//@@author A0139661Y
-	void undoOne() throws CannotUndoException;
 
 	void undo() throws CannotUndoException;
 
