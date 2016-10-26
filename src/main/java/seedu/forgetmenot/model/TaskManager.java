@@ -216,7 +216,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 				 upcoming++;
 			 }
 			 
-			 if ((toCount.checkOverdue()))
+			 if ((toCount.checkOverdue()) && !toCount.getDone().getDoneValue())
 			     overdue++;
 		 }
 		 
@@ -230,7 +230,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 		 System.out.println("Today: " + todayCounter);
 		 System.out.println("Tomorrow: " + tomorrowCounter);
 		 System.out.println("Upcoming: " + upcomingCounter);
-	      System.out.println("Overdue: " + overdueCounter);
+		 System.out.println("Overdue: " + overdueCounter);
 
 		 
 	}
