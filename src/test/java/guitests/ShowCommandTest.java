@@ -6,7 +6,7 @@ import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import org.junit.Test;
 
 import seedu.jimi.logic.commands.ShowCommand;
-
+//@@author A0138915X
 public class ShowCommandTest extends AddressBookGuiTest {
 
     @Test
