@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
+//@@author A0146107M
 public class ArgumentParser {
 	private HashMap<String, String> subArgs;
 	

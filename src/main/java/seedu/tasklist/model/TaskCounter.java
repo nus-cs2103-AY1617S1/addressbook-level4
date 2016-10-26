@@ -6,7 +6,7 @@ import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.model.task.ReadOnlyTask;
-
+//@@author A0146107M
 public class TaskCounter {
 
 	private int total;
