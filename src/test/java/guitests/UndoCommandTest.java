@@ -21,17 +21,39 @@ public class UndoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
     	
-        //undo one operation
-        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
-        TestTask taskToAdd = td.event;
+        //run add and edit operations
+        TestTask taskToAdd = td.deadline;   
         commandBox.runCommand(taskToAdd.getAddCommand());
-        commandBox.runCommand("delete 1");
+        TestTask taskAfterEdit = td.event;
+        commandBox.runCommand(taskAfterEdit.getEditCommand(1));
+        
+        //undo an edit operation
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         currentList.addTasksToList(taskToAdd);
         assertUndoCommandSuccess(currentList);
               
-        //undo another operation again after undoing one operation
-        TestTask[] taskToDelete  = new TestTask[]{taskToAdd};
-        currentList.removeTasksFromList(taskToDelete, true);
+        //undo an add operation after undoing an edit operation
+        currentList = new TestTaskList(td.getTypicalTasks());
+        assertUndoCommandSuccess(currentList);
+        
+        //run done, delete, invalid and clear operations
+        commandBox.runCommand("done 1");
+        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete " + (currentList.getIncompleteList().length+2));
+        commandBox.runCommand("clear");	
+              
+        //undo a clear operation
+        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameters});
+        currentList.removeTasksFromList(new TestTask[] {td.eventWithLocation}, true);
+        assertUndoCommandSuccess(currentList);
+        
+        //undo a delete operation
+        currentList = new TestTaskList(td.getTypicalTasks());
+        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameters});
+        assertUndoCommandSuccess(currentList);
+        
+        //undo a done operation
+        currentList = new TestTaskList(td.getTypicalTasks());
         assertUndoCommandSuccess(currentList);
 
         //invalid command
@@ -42,6 +64,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
     private void assertUndoCommandSuccess(TestTaskList expectedList) {
         commandBox.runCommand("undo");
         assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
+        assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
     }
 }

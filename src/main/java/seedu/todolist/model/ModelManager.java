@@ -69,7 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
-        addressBookHistory.push(new AddressBook(this.addressBook));
+    	addAddressBookHistory(new AddressBook(addressBook));
     	addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
@@ -80,7 +80,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void undoAddressBook() throws EmptyStackException {
+    public void addAddressBookHistory(ReadOnlyAddressBook previousAddressBook) {
+    	addressBookHistory.push(previousAddressBook);
+    }
+    
+    @Override
+    public synchronized void undoAddressBook() throws EmptyStackException {
     	addressBook.resetData(addressBookHistory.pop());
     	indicateAddressBookChanged();
     }
@@ -103,30 +108,30 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBookHistory.push(new AddressBook(this.addressBook));
         addressBook.markTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-    	addressBookHistory.push(new AddressBook(this.addressBook));
     	addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-    	addressBookHistory.push(new AddressBook(this.addressBook));
+    	AddressBook previousAddressBook = new AddressBook(this.addressBook);
     	addressBook.addTask(task);
+    	addAddressBookHistory(previousAddressBook);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
     
     @Override
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
-    	addressBookHistory.push(new AddressBook(this.addressBook));
+    	AddressBook previousAddressBook = new AddressBook(this.addressBook);
     	addressBook.editTask(target, replacement);
+    	addAddressBookHistory(previousAddressBook);
         indicateAddressBookChanged();
     }
 
