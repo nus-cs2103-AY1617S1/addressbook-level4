@@ -57,31 +57,30 @@ Command | Format
 [Exit](#exit) | `exit`
 
 
-> **Command Format**
-> * Commands have to follow a certain format as shown in the table above.
-> * Replace words in `UPPER_CASE` with your input.
-> * Items in `[]` are optional.
-> * The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK_DETAILS]` is invalid.
+**Command Format**
+* Commands have to follow a certain format as shown in the table above.
+* Replace words in `UPPER_CASE` with your input.
+* Items in `[]` are optional.
+* The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK_DETAILS]` is invalid. 
 
-> **Input of Date and Time in Commands**
-> * The input of date and time is flexible.
-> * Eg:
->    * Tomorrow 2pm
->    * Next Monday
->     * 7/11/2016
-> * You can either input date, time or both.
->     * If no time is given, the current time will be used instead.
->     * If no date is given, the current date will be used instead.
-> * However, you cannot input none of them.
-> * The start-date & time of the events cannot be earlier prior to the end-date & time.
-
-> **Input of Index**
-> * In order to differentiate the indexes of the tasks and events in the command inputs:
->     * The index of tasks should be preceded by the letter 't'.
->     * The index of events should be preceded by the letter 'e'.
->     * Eg:
->         * complete **t1**
->         * delete **e3**
+**Input of Date and Time in Commands**
+* The input of date and time is flexible.
+* Eg:
+   * Tomorrow 2pm
+   * Next Monday
+    * 7/11/2016
+* You can either input date, time or both.
+    * If no time is given, the current time will be used instead.
+    * If no date is given, the current date will be used instead.
+* However, you cannot input none of them.
+* The start-date & time of the events cannot be earlier prior to the end-date & time.
+**Input of Index**
+* In order to differentiate the indexes of the tasks and events in the command inputs:
+    * The index of tasks should be preceded by the letter 't'.
+    * The index of events should be preceded by the letter 'e'.
+    * Eg:
+        * complete **t1**
+        * delete **e3**
 
 <br>
 <br>
@@ -93,17 +92,16 @@ Command | Format
 #### <a id="help"></a> Viewing help : `help`
 Format: `help`
 
-> The user guide will open in another window.<br>
-
-<img src="images/Help.png" width="600">
+The user guide will open in another window.
+<br>
+> <img src="images/Help.png" width="600">
 
 <br><br>
 
 #### <a id="add"></a> Adding a task: `add`
-> Remember to put your `TASK_DETAILS` or `EVENT_DETAILS` in quotation marks!
+> Remember to surround your `TASK_DETAILS` or `EVENT_DETAILS` with quotation marks!
 
 <br>
-
 
 Adding a floating task to Jimi.<br>
 Format: `add "TASK_DETAILS" [t/tag] [p/priority]` 
@@ -113,7 +111,7 @@ Format: `add "TASK_DETAILS" [t/tag] [p/priority]`
 Examples: 
 * `add "Buy groceries" t/NTUC`
 * `add "Visit parents" p/HIGH`<br>
-<img src="images/AddFloatingTasks.png" width="600">
+> <img src="images/AddFloatingTasks.png" width="600">
 
 <br>
 <br>
@@ -124,7 +122,7 @@ Format: `add "TASK_DETAILS" due DATE_TIME [t/tag] [p/priority]`
 Examples:
 * `add "Get a haircut" due Tuesday p/LOW`
 * `add "Pick up Jimmy" due Monday 2pm t/tuition`<br>
-<img src="images/AddDeadlineTasks.png" width="600">
+> <img src="images/AddDeadlineTasks.png" width="600">
 <br>
 
 Adds an event to Jimi.<br>
@@ -137,7 +135,7 @@ Examples:
 * `add "Attend Timmy's orchestra" on 5th July t/Timmy`
 * `add "Show up for dentist appointment" on 8-7-2016 5:00pm to 7:30pm p/MED`
 * `add "Have school camp" on 10 October 10am to 18 October 5pm`<br>
-<img src="images/AddEvents.png" width="600">
+> <img src="images/AddEvents.png" width="600">
 <br><br>
 
 #### <a id="com"></a>Marking a task as complete: `complete`
@@ -149,7 +147,7 @@ Format: `complete TASK_INDEX`
 
 Example:
 * `complete t1` <br>
-<img src="images/Complete.png" width="600">
+> <img src="images/Complete.png" width="600">
 
 <br><br>
 
@@ -165,7 +163,7 @@ Examples:
   Deletes the 2nd event in Jimi.
 * `delete t1`
   Deletes the 1st task in the Jimi.<br>
-  <img src="images/Delete.png" width="600">
+> <img src="images/Delete.png" width="600">
 
 
 <br><br>
@@ -192,7 +190,7 @@ The `NEW_DETAILS` can come in the following styles:
 Examples:
 * `edit e2 "Have orientation camp"`
 * `edit e1 on 5th July 7pm`<br>
-<img src="images/Edit.png" width="600">
+> <img src="images/Edit.png" width="600">
 <br><br>
 
 #### <a id="show"></a>Showing section: `show`
@@ -205,7 +203,7 @@ Format: `show SECTION`
 Examples:
 * `show monday`
 * `show completed` <br>
-<img src="images/Complete.png" width="600">
+> <img src="images/Complete.png" width="600">
 <br><br>
 
 #### <a id="undo"></a>Undoing previous action: `undo`
@@ -234,7 +232,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples: 
 * `find Jimmy`
 * `find Haircut`<br>
-<img src="images/Find.png" width="600">
+> <img src="images/Find.png" width="600">
 <br><br>
 
 #### <a id="saveas"></a>Setting save directory : `saveas`
@@ -246,7 +244,7 @@ Format: `saveas NEW_DIRECTORY`
 
 Example:
 * `saveas Jimi_tasks.xml`<br>
-<img src="images/SaveAs.png" width="600">
+> <img src="images/SaveAs.png" width="600">
 <br><br>
 
 #### <a id="clear"></a>Clearing all entries : `clear`
@@ -254,7 +252,7 @@ Clears all entries from Jimi.<br>
 Format: `clear`  
 > If you want to undo your clear, use the [`undo`](#undo) command.<br>
 
-<img src="images/Clear.png" width="600">
+> <img src="images/Clear.png" width="600">
 <br><br>
 
 #### <a id="exit"></a>Exiting the program : `exit`
