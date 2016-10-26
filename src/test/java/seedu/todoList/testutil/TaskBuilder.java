@@ -34,7 +34,7 @@ public class TaskBuilder {
         return this;
     }
     public TaskBuilder withDone(String dd) throws IllegalValueException {
-        this.task.setDone(new Done(dd));
+        this.task.setDone(dd);
         return this;
     }
 

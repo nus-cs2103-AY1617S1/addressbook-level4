@@ -15,7 +15,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
     private static Name name;
     private static StartDate startdate;
     private static EndTime endTime;
-    private static Done done;
+    private static String done;
 
 
     public TestDeadline() {
@@ -38,7 +38,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
     public void setDate(StartDate date) {
         TestDeadline.startdate = date;
     }
-    public void setDone(Done dd) {
+    public void setDone(String dd) {
         TestDeadline.done = dd;
     }
 
@@ -60,7 +60,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
     public StartDate getStartDate() {
         return startdate;
     }
-    public Done getDone() {
+    public String getDone() {
         return done;
     }
     

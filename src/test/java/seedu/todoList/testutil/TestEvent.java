@@ -17,7 +17,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
     private static StartTime startTime;
     private static EndDate endDate;
     private static EndTime endTime;
-    private static Done done;
+    private static String done;
 
 
     public TestEvent() {
@@ -39,7 +39,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
     public void setEndDate(EndDate date) {
         TestEvent.endDate = date;
     }
-    public void setDone(Done done) {
+    public void setDone(String done) {
         TestEvent.done = done;
     }
     
@@ -76,7 +76,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
     public EndTime getEndTime() {
         return endTime;
     }
-    public Done getDone() {
+    public String getDone() {
         return done;
     }
     

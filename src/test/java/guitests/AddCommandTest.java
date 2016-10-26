@@ -6,9 +6,11 @@ import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.core.Messages;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.logic.commands.*;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TypicalTestTask;
+import seedu.todoList.testutil.TaskBuilder;
 import seedu.todoList.testutil.TestDeadline;
 import seedu.todoList.testutil.TestEvent;
 import seedu.todoList.testutil.TestTask;
@@ -21,12 +23,10 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends ListGuiTest {
 
     @Test
-    public void add() {
+    public void add() throws IllegalValueException {
         //add one task
         TestTask[] currentList = td.getTypicaltasks();
-        TestTask taskToAdd = TypicalTestTask.a1;
-        //LogsCenter.getLogger(AddCommandTest.class).info("taskToAdd: " + taskToAdd.getName().toString());
-        //LogsCenter.getLogger(AddCommandTest.class).info("taskToAddList: " + currentList.toString());
+        TestTask taskToAdd = new TaskBuilder().withName("PROJECT 5").withStartDate("28-10-2018").withEndDate("29-10-2018").withPriority("3").withDone("false").build();
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         

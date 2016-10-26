@@ -16,7 +16,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
     private static Priority priority;
     private static StartDate startDate;
     private static EndDate endDate;
-    private static Done done;
+    private static String done;
 
 
     public TestTask() {
@@ -42,7 +42,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
     public void setEndDate(EndDate edate) {
         TestTask.endDate = edate;
     }
-    public void setDone(Done done) {
+    public void setDone(String done) {
         TestTask.done = done;
     }
 
@@ -67,7 +67,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
     public EndDate getEndDate() {
         return endDate;
     }
-    public Done getDone() {
+    public String getDone() {
         return done;
     }
 
