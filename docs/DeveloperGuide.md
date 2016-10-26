@@ -35,27 +35,29 @@ This guide describes the design and implementation of Jimi. It will help you und
     This app will not work with earlier versions of Java 8.
     
 2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
+3. **e(fx)clipse** plugin for Eclipse (Do the steps from step 2 onwards given in
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)).
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 <br>
+
 ### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+1. Fork this repo, and clone the fork to your computer.
+2. Open Eclipse. (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+   in the prerequisites above.)
+3. Click `File` > `Import`.
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+5. Click `Browse`, then locate the project's directory.
+6. Click `Finish`.
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish.
+      (This is because Gradle downloads library files from servers during the project set up process.)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 <br>
+
 ### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -71,30 +73,32 @@ This guide describes the design and implementation of Jimi. It will help you und
 <br>
 ## Design
 
+/* @@author A0140133B */
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/jimi/MainApp.java). It is responsible for:
+* Initializing the components in the correct sequence, and connect them up with each other when app launches.
+* Shutting down the components and invoke cleanup method where necessary when app shuts down.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
-<br>* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+<br>* `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 <br>* `LogsCenter` : Used by many classes to write log messages to the App's log file.
 <br><br>
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of the App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Displays interactions with the user
+* [**`Logic`**](#logic-component) : Executes the commands
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its [_API (Application program interface)_](#API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
@@ -103,7 +107,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete t3`.
 <br>
 <img src="images\SDforDeleteTask.png" width="800">
 <br><br>
@@ -123,6 +127,8 @@ The sections below give more details of each component.
 
 <br><br>
 
+/* @@author A0140133B */
+
 ### UI component
 <br>
 <img src="images/UiClassDiagram.png" width="800">
@@ -139,12 +145,14 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/jimi/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <br>
+
+/* @@author A0140133B */
 
 ### Logic component
 <br>
@@ -152,16 +160,19 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/jimi/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a Task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The `Logic` component:
+* uses the `Parser` class to parse the user command.
+* Creates a `Command` object which is executed by the `LogicManager`.
+* Changes the model (e.g. when adding a task) and/or raise events along with the command execution.
+* Encapsulates the result of the command execution as a `CommandResult` object and passes it back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete t1")`
  API call.<br>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br><br>
 
 <br>
+
+/* @@author A0140133B */
 
 ### Model component
 
@@ -170,7 +181,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/jimi/model/Model.java)
 
-The `Model`,
+The `Model` component:
 * stores a `UserPref` object that represents the user's preferences.
 * stores Jimi's data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
@@ -178,6 +189,8 @@ The `Model`,
 * does not depend on any of the other three components.
 
 <br>
+
+/* @@author A0140133B */
 
 ### Storage component
 
@@ -187,9 +200,9 @@ The `Model`,
 
 **API** : [`Storage.java`](../src/main/java/seedu/jimi/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save Jimi's data in xml format and read it back.
+The `Storage` component:
+* saves `UserPref` objects in json format and reads it back.
+* saves Jimi's data in xml format and reads it back.
 
 <br>
 
@@ -214,10 +227,10 @@ and logging destinations.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `SEVERE` : Shows that critical problems, which may possibly cause the termination of the application, are detected.
+* `WARNING` : Shows that application can continue operation, but with caution.
+* `INFO` : Shows information of the noteworthy actions by the App
+* `FINE` : Shows details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
   
 <br>
@@ -300,22 +313,27 @@ Here are the steps to create a new release.
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
+    and upload the JAR file you created.
     
 <br>
    
 ### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Jimi depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing.
+
+These _dependencies_ can be manually managed by:
+a. Including those libraries in the repo (this bloats the repo size)
+b. Requiring developers to download those libraries manually (this creates extra work for developers)<br>
+
+On the other hand, you can automate the managing of these _dependencies_ using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than the above alternatives.<br>
+
 
 <br>
 <br>
 
+/* @@author A0138915X */
 <a id="app-a"></a>
 ## Appendix A : User Stories 
 
@@ -348,6 +366,7 @@ Priority | As a ... | I want to ... | So that I can...
 <br>
 <br>
 
+/* @@author A0143471L */
 <a id="app-b"></a>
 ## Appendix B : Use Cases 
 
@@ -620,7 +639,7 @@ Use case ends.
 
 <br>
 <br>
-
+/* @@author A0138915X */
 <a id="app-c"></a>
 ## Appendix C : Non Functional Requirements 
 
@@ -646,6 +665,10 @@ Other requirements can be found in the project constraints section of our team's
 <a id="app-d"></a>
 ## Appendix D : Glossary 
 
+##### Application program interface
+> A set of routines, protocols, and tools for building software applications.
+
+
 ##### Mainstream OS
 > Windows, Linux, OS-X
 
@@ -666,7 +689,7 @@ Other requirements can be found in the project constraints section of our team's
 
 <br>
 <br>
-
+/* @@author A0143471L */
 <a id="app-e"></a>
 ## Appendix E : Product Survey 
 
@@ -682,3 +705,4 @@ Other requirements can be found in the project constraints section of our team's
 | Clear| Comes with a mobile app. <br>Differs from other task managers, as you can use gestures, such as swiping, to create, rearrange and mark tasks as complete on the mobile version, instead of tapping on the mobile.<br> Allows creation of separate lists.<br> Built-in reminder feature. <br> | Users have to pay to use this app. <br> |
 | Habitica | Comes with a mobile app. <br>Comes as an RPG-style game to motivate users to complete tasks that are tracked in the app. | May be too quirky for more serious users or users who do not play RPGs. |
 | OmniFocus | Flexible in that it can be as simple or as complex as what the user wants it. <br>Allows viewing and organising tasks in different ways to suit the wants of the user. <br> Allows user to just use a keyboard shortcut to add a task anytime while on the desktop. <br>Desktop version syncs with some email clients to turn emails into tasks. <br>iOS 8 devices allows addition of tasks into OmniFocus from other iOS apps. <br>iOs 8 devices has a quick-entry button into the OmniFocus App. <br>Syncs across all iOS devices and Mac. | Only available for iOS devices and Mac. <br> Users have to pay to use this app. |
+

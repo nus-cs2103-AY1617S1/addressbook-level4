@@ -10,7 +10,7 @@ This provided the impetus for our team to develop a task managing app. Now, you'
 <br><br><br>
 Well, you're right... you don't. **NOT UNLESS YOU'RE SOMEONE LIKE** [**JIM.**](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-product) <br><br>
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/Jimi Ui.png" width="600"><br>
 
 * Jimi is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
