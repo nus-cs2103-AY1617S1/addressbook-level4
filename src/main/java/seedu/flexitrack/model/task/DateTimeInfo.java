@@ -15,16 +15,16 @@ import seedu.flexitrack.logic.commands.ListCommand;
  */
 public class DateTimeInfo {
     public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
-    public static final boolean DUE_DATE_OR_START_TIME = true;
-    public static final boolean END_TIME = false;
+    public static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
+
     private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = Pattern.compile("(?<info>.+)");
-    private static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
     private static final int AVERAGE_DAYS_IN_A_MONTH = 30; 
-    private static final int DAYS_IN_A_WEEK = 7; 
+    private static final int DAYS_IN_A_WEEK = 7;
+    private static final boolean FAIL_DUE_TO_EXCEPTION = false; 
     
     private String setTime;
 
-    public DateTimeInfo(String givenTime) {
+    public DateTimeInfo(String givenTime) throws IllegalValueException {
         setDateGroupTime(givenTime);
     }
 
@@ -32,8 +32,9 @@ public class DateTimeInfo {
      * Set the setTime (DateGroup object) as the date inputed by the user
      * 
      * @param givenTime
+     * @throws IllegalValueException 
      */
-    public void setDateGroupTime(String givenTime) {
+    public void setDateGroupTime(String givenTime) throws IllegalValueException {
         assert givenTime != null;
         final Matcher matcher = TIME_TYPE_DATA_ARGS_FORMAT.matcher(givenTime.trim());
         matcher.matches();
@@ -43,8 +44,7 @@ public class DateTimeInfo {
             this.setTime = parsedTiming.getParsedTimingInfo();
             formatTiming(parsedTiming.isInferred());
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
     }
 
@@ -270,7 +270,7 @@ public class DateTimeInfo {
 
     @Override
     public String toString() {
-        return setTime.substring(0, 17);
+        return setTime;
     }
 
     @Override
@@ -329,9 +329,12 @@ public class DateTimeInfo {
      * @param task
      * @return 
      */
-    public static boolean isOnTheDate(String keyWords, ReadOnlyTask task) {
-        String dateInfo = keyWords.replace(ListCommand.LIST_MARK_COMMAND, "").replace(ListCommand.LIST_UNMARK_COMMAND, "").trim();
-        dateInfo = new DateTimeInfo (dateInfo).toString().substring(0,11);
+    public static boolean isOnTheDate(String dateInfo, ReadOnlyTask task) {
+        try {
+            dateInfo = new DateTimeInfo (dateInfo).toString().substring(0,11);
+        } catch (IllegalValueException e) {
+            new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        }
         return isTaskOnTheSpecifiedDate(task, dateInfo);
     }
 
@@ -359,9 +362,14 @@ public class DateTimeInfo {
         if (!task.getIsEvent()){
             return false; 
         } 
-        DateTimeInfo dateSpecified =null;
-        dateSpecified = new DateTimeInfo (dateInfo);
-        return isInTheFuture(task.getEndTime(), dateSpecified) && isInTheFuture(dateSpecified, task.getStartTime()); 
+        DateTimeInfo dateSpecified;
+        try {
+            dateSpecified = new DateTimeInfo (dateInfo);
+            return isInTheFuture(task.getStartTime(), dateSpecified) && isInTheFuture(dateSpecified, task.getEndTime()); 
+        } catch (IllegalValueException e) {
+            new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        }
+        return FAIL_DUE_TO_EXCEPTION; 
     }
 
     /** 
@@ -421,12 +429,16 @@ public class DateTimeInfo {
      */
     public static DateTimeInfo getCurrentTimeInString() {
         DateTimeInfo dateNow = null;
-        dateNow = new DateTimeInfo ("now");
+        try {
+            dateNow = new DateTimeInfo ("now");
+        } catch (IllegalValueException e) {
+            new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        }
         return dateNow;
     }
 
     /**
-     * Process if the difference of two given time is less than the time duration.
+     * Process if the two given time is less than the time duration.
      * @param startTime 
      * @param endTime 
      * @param limitTimeDuration 
