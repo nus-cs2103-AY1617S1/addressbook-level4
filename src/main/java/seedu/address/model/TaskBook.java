@@ -249,13 +249,14 @@ public class TaskBook implements ReadOnlyTaskBook {
                 throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
-        else{
+        else if(category == 'T'){
             if (todo.edit(target, args)) {
                 return true;
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
+        return false;
     }
 
     public boolean changeDeadline(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
