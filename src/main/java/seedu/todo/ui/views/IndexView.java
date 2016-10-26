@@ -5,11 +5,9 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.Sidebar;
 import seedu.todo.ui.components.TaskList;
 
@@ -28,11 +26,6 @@ public class IndexView extends View {
     public List<Task> tasks = new ArrayList<>();
     public List<String> tags = new ArrayList<>();
 
-
-    public static IndexView load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new IndexView());
-    }
-
     @Override
     public String getFxmlPath() {
         return FXML_PATH;
@@ -49,12 +42,12 @@ public class IndexView extends View {
 
     private void loadComponents() {
         // Render TagList
-        Sidebar tagList = Sidebar.load(primaryStage, tagsPane);
+        Sidebar tagList = load(primaryStage, tagsPane, Sidebar.class);
         tagList.tags = tags;
         tagList.render();
 
         // Render TaskList
-        TaskList taskList = TaskList.load(primaryStage, tasksPane);
+        TaskList taskList = load(primaryStage, tasksPane, TaskList.class);
         taskList.tasks = tasks;
         taskList.events = events;
         taskList.render();

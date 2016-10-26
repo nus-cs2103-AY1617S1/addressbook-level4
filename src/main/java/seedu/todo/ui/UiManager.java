@@ -55,7 +55,8 @@ public class UiManager extends ComponentManager implements Ui {
 
         // Show main window.
         try {
-            mainWindow = MainWindow.load(primaryStage, config);
+            mainWindow = UiPartLoader.loadUiPart(primaryStage, null, MainWindow.class);
+            mainWindow.configure(config);
             mainWindow.render();
             mainWindow.show();
         } catch (Throwable e) {

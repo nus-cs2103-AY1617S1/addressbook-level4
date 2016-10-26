@@ -1,8 +1,5 @@
 package seedu.todo.ui;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,13 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
-import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.ui.components.Component;
 import seedu.todo.ui.components.Console;
@@ -28,8 +22,6 @@ import seedu.todo.ui.views.View;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends Component {
-
-    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private static final String FXML_PATH = "MainWindow.fxml";
     private static final String ICON_PATH = "/images/logo-512x512.png";
@@ -51,13 +43,7 @@ public class MainWindow extends Component {
     @FXML
     private AnchorPane headerPlaceholder;
 
-    public static MainWindow load(Stage primaryStage, Config config) {
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, null, new MainWindow());
-        mainWindow.configure(config);
-        return mainWindow;
-    }
-
-    private void configure(Config config) {
+    public void configure(Config config) {
         String appTitle = config.getAppTitle();
 
         // Configure the UI
@@ -76,13 +62,13 @@ public class MainWindow extends Component {
 
     protected void loadComponents() {
         // Load Header
-        Header header = Header.load(primaryStage, getHeaderPlaceholder());
+        Header header = UiPartLoader.loadUiPart(primaryStage, getHeaderPlaceholder(), Header.class);
         header.appTitle = MainApp.getConfig().getAppTitle();
         header.versionString = MainApp.VERSION.toString();
         header.render();
 
         // Load ConsoleInput
-        Console console = Console.load(primaryStage, getConsoleInputPlaceholder());
+        Console console = UiPartLoader.loadUiPart(primaryStage, getConsoleInputPlaceholder(), Console.class);
         console.consoleOutput = UiManager.getConsoleMessage();
         console.consoleInputValue = UiManager.getConsoleInputValue();
         console.render();
@@ -123,25 +109,8 @@ public class MainWindow extends Component {
                                (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    @SuppressWarnings("unchecked")
     protected <T extends View> T loadView(Class<T> viewClass) {
-        View loadedView = null;
-
-        try {
-            Method loadMethod = viewClass.getMethod("load", Stage.class, Pane.class);
-            loadedView = (View) loadMethod.invoke(null, primaryStage, getChildrenPlaceholder());
-        } catch (InvocationTargetException e) {
-            logger.severe(e.getTargetException().getMessage());
-        } catch (NoSuchMethodException | IllegalAccessException e) {
-            logger.severe(String.format("View class %s does not have a mandatory method with the method signature: \n" + 
-                                        "public static View load(Stage stage, Pane placeholder) \n" +
-                                        "This method is mandatory.", 
-                                        viewClass.getName()));
-            e.printStackTrace();
-        }
-
-        return (T) loadedView;
-
+        return load(primaryStage, getChildrenPlaceholder(), viewClass);
     }
 
     /** ================ FXML COMPONENTS ================== **/
