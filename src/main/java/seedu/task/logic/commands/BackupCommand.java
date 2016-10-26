@@ -20,6 +20,8 @@ public class BackupCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String COMMAND_WORD = "backup";
+    
+    public static final String COMMAND_WORD_ALT = "b";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves TaskManager in given directory. \nIf only filename is given, file is saved in root directory of TaskManager. \n"
             + "Parameters: directory/filename OR filename\n"
