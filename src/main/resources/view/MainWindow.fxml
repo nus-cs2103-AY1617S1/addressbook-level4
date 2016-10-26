@@ -21,6 +21,7 @@
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
+         <!-- @@author A0139052L -->
             <Menu mnemonicParsing="false" text="File">
                <items>
                   <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -38,6 +39,7 @@
                   <MenuItem fx:id="viewDoneMenuItem" mnemonicParsing="false" onAction="#handleViewDone" text="View Done" />
               </items>
             </Menu>
+            <!-- @@author A0130853L -->
             <Menu mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
