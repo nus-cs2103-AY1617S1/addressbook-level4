@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import static org.junit.Assert.*;
 //import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_TASK_SUCCESS;
@@ -20,7 +20,7 @@
 //import seedu.address.testutil.TypicalTestTasks;
 //
 //
-//public class EditCommandTest extends TaskManagerGuiTest{
+public class EditCommandTest extends TaskManagerGuiTest{
 //	
 //	@Test
 //	public void edit() {
@@ -133,4 +133,4 @@
 //    }
 //
 //
-//}
+}

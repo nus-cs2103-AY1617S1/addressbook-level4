@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import org.junit.Test;
 //import seedu.address.commons.core.Messages;
@@ -7,7 +7,7 @@
 //
 //import static org.junit.Assert.assertTrue;
 //
-//public class FindCommandTest extends TaskManagerGuiTest {
+public class FindCommandTest extends TaskManagerGuiTest {
 //
 //    @Test
 //    public void find_nonEmptyList() {
@@ -37,4 +37,4 @@
 //        assertResultMessage(expectedHits.length + " tasks listed!");
 //        assertTrue(taskListPanel.isListMatching(expectedHits));
 //    }
-//}
+}

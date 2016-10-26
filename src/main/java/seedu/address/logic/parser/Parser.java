@@ -399,7 +399,7 @@ public class Parser {
 		String[] args = arguments.split(" ");
 
 		String taskType = null;
-		String done = null;
+		String status = null;
 		for (int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
@@ -412,14 +412,15 @@ public class Parser {
 				break;
 			case "done":
 			case "not-done":
-				done = args[i];
+			case "overdue":
+				status = args[i];
 				break;
 			default:
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 			}
 		}
 
-		return new ListCommand(taskType, done);
+		return new ListCommand(taskType, status);
 	}
 	
 	//@@author A0141019U

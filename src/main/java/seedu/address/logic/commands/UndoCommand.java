@@ -13,6 +13,7 @@ public class UndoCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
+		model.checkForOverdueTasks();
 		try {
 			model.loadPreviousState();
 			return new CommandResult(MESSAGE_UNDO_SUCCESS);

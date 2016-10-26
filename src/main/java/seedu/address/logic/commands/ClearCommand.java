@@ -17,6 +17,7 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
+        model.checkForOverdueTasks();
         model.saveState();
         
         model.resetData(TaskManager.getEmptyTaskManager());

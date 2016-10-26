@@ -56,7 +56,6 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -117,6 +116,8 @@ public class EditCommand extends Command {
             model.loadPreviousState();
             assert false : "The target task cannot be missing";
         }
+        
+        model.checkForOverdueTasks();
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
