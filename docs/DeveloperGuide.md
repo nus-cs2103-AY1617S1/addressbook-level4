@@ -1,4 +1,3 @@
-/* @@author A0135769N */
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -43,6 +42,8 @@
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ## Design
+
+/* @@author A0135769N */
 
 ### Architecture
 
@@ -149,6 +150,8 @@ The `Model`,
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Task list data in xml format and read it back.
+
+/* @@author */
 
 ### Common classes
 

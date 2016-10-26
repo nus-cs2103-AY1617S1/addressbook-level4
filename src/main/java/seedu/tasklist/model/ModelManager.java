@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
   //@@author A0146107M
     private final TaskCounter taskCounter;
-
+  //@@author
     /**
      * Initializes a ModelManager with the given TaskList TaskList and its
      * variables should not be null
@@ -393,7 +393,7 @@ public class ModelManager extends ComponentManager implements Model {
             return person.isFloating();
         }
     }
-
+    /* @@author */
     private class PriorityQualifier implements Qualifier {
         private String priority;
 
@@ -430,7 +430,7 @@ public class ModelManager extends ComponentManager implements Model {
             return person.isOverDue();
         }
     }
-
+    /* @@author */
     private class RecurringQualifier implements Qualifier {
         @Override
         public boolean run(ReadOnlyTask person) {
