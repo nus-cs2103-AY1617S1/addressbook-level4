@@ -14,6 +14,7 @@ import seedu.taskmanager.model.TaskManager;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.storage.StorageManager;
 
+//@@author A0143641M
 /**
  * Saves the program data file at the specified location in a .xml file.
  */
@@ -22,7 +23,6 @@ public class SaveCommand extends Command {
     
     public static final String MESSAGE_ERROR_CONVERTING_FILE = "Error reading from config file: " + Config.DEFAULT_CONFIG_FILE;
     public static final String MESSAGE_SUCCESS = "File path changed! Custom file path specified: %1$s";
-    public static final String MESSAGE_SAME_FILE_PATH = "File path is already saved at the specified location!";
     public static final String MESSAGE_ERROR_SAVING_FILE = "Error occured saving to file.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves task manager information to the specified storage file path.\n"
             + "Parameters: " + COMMAND_WORD + " FILEPATH.xml \n"
@@ -35,6 +35,7 @@ public class SaveCommand extends Command {
 
     public SaveCommand(String newTaskManagerFilePath) {
         this.newTaskManagerFilePath = newTaskManagerFilePath;
+       
     }
     
     @Override
