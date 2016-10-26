@@ -50,5 +50,18 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-
+    @Test
+    public void test_pluralizer_singular() {
+        String singular = "apple";
+        String plural = "apples";
+        assertEquals(StringUtil.pluralizer(1, singular, plural), singular);
+    }
+    
+    @Test
+    public void test_pluralizer_plural() {
+        String singular = "apple";
+        String plural = "apples";
+        assertEquals(StringUtil.pluralizer(0, singular, plural), plural);
+        assertEquals(StringUtil.pluralizer(2, singular, plural), plural);
+    }
 }
