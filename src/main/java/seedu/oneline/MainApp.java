@@ -188,6 +188,7 @@ public class MainApp extends Application {
         launch(args);
     }
     
+    //@@author A0121657H
     @Subscribe
     private void handleStorageChangedEvent(StorageLocationChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -213,4 +214,5 @@ public class MainApp extends Application {
             EventsCenter.getInstance().post(new DataSavingExceptionEvent(dcex));
         }
     }   
+    //@@author 
 }

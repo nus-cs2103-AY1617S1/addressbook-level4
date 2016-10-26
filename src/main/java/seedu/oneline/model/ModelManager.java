@@ -114,6 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
   //@@author
     
+    //@@author A0121657H
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
         Task done = filteredTasks.get(index);
@@ -131,6 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
+    //@@author 
 
     //=========== Filtered Task List Accessors ===============================================================
     
@@ -145,7 +147,8 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks.sorted());
     }
-    //@@author:
+    
+    //@@author A0121657H
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -201,7 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(t -> t.isFloating());
     }
     
-    //@@author
+    //@@author A0121657H
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
     }
@@ -209,6 +212,8 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Task> getDonePredicate() {
         return task -> task.isCompleted();
     }
+    
+    //@@author 
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
