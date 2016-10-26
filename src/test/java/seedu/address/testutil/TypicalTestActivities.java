@@ -19,18 +19,18 @@ public class TypicalTestActivities {
     public TypicalTestActivities() {
         try {
         	//to test loading saved activity, tasks and events
-            findAlice =  new ActivityBuilder().withName("find Alice").withReminder("30-12-2017 1200").withTags("bringgift").build();
-            findBenson = new TaskBuilder().withName("find Benson").withDueDate("31-12-2017 1400").withTags("bringgift").build();
-            findCarl = new TaskBuilder().withName("find Carl").withDueDate("31-12-2017 1200").build();
-            findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
-            findElle = new EventBuilder().withName("find Elle").withStartTime("31-12-2017 1200").withReminder("30-12-2017 1200").build();
-            findFiona = new EventBuilder().withName("find Fiona").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").build();
-            findGeorge = new EventBuilder().withName("find George").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withTags("bringgifts").build();
+            findAlice =  new ActivityBuilder().withName("find Alice").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
+            findBenson = new TaskBuilder().withName("find Benson").withDueDate("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
+            findCarl = new TaskBuilder().withName("find Carl").withDueDate("Sat, Dec 30, 2017 12:00 PM").build();
+            findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 AM").withTags("bringgifts").build();
+            findElle = new EventBuilder().withName("find Elle").withStartTime("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 PM").build();
+            findFiona = new EventBuilder().withName("find Fiona").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").build();
+            findGeorge = new EventBuilder().withName("find George").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withTags("bringgifts").build();
 
             //To test adding of activity, task and event.
-            findHoon = new ActivityBuilder().withName("find Hoon").withReminder("30-12-2017 1200").withTags("bringgift").build();
-            findIda = new TaskBuilder().withName("find Ida").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
-            findJodie = new EventBuilder().withName("find Jodie").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").withTags("bringgifts").build();
+            findHoon = new ActivityBuilder().withName("find Hoon").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
+            findIda = new TaskBuilder().withName("find Ida").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
+            findJodie = new EventBuilder().withName("find Jodie").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -39,8 +39,7 @@ public class TypicalTestActivities {
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
     	
-    	//TO KEVIN:: THERE IS SOMETHING WRONG WITH THIS BLOCK OF CODE.
-    	/*
+/*
         try {
             ab.addPerson(new Activity(findAlice));
             ab.addPerson(new Task(findBenson));

@@ -66,14 +66,14 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         sb.append("add " + this.getName().fullName + " ");
         
         if (getDueDate().value != null) {
-        sb.append("d/ " + dUtil.outputDateTimeAsString(this.getDueDate().getCalendarValue(), dateFormat) + " ");     
+        sb.append("d/" + dUtil.outputDateTimeAsString(this.getDueDate().getCalendarValue(), dateFormat) + " ");     
         }
         
         if (getReminder().value != null) {
         sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
         }
         
-        if (getPriority().value != null) {
+        if (getPriority() != null) {
        	sb.append("p/" + this.getPriority().value + " ");	
         }
         

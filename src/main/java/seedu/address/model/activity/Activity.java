@@ -76,7 +76,9 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public boolean equals(Object other) {
-        if (this.getClass() != other.getClass()) {
+        if (this == null || other == null) {
+            return !(this == null ^ other == null);
+        } else if (this.getClass() != other.getClass()) {
             return false;
         } else {
             return other == this // short circuit if same object
