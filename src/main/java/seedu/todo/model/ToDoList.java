@@ -52,6 +52,12 @@ public class ToDoList implements ReadOnlyToDoList {
     public ObservableList<Task> getTasks() {
         return tasksHistory.peek().getInternalList();
     }
+    
+    public ObservableList<Tag> getTags() {
+    	return tagsHistory.peek().getInternalList();
+    }
+    
+    
 
     //@@author A0093896H
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
@@ -75,11 +81,11 @@ public class ToDoList implements ReadOnlyToDoList {
     //@@author A0093896H
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
-            UniqueTaskList topList = this.createNewTaskList(tasks);
+            UniqueTaskList topList = this.copyTaskList(tasks);
             this.tasksHistory.push(topList);
         } else {
             UniqueTaskList topList = this.tasksHistory.pop();
-            UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+            UniqueTaskList oldList = this.copyTaskList(topList.getInternalList());
             
             this.tasksHistory.push(oldList);
             topList.getInternalList().setAll(tasks);
@@ -90,7 +96,7 @@ public class ToDoList implements ReadOnlyToDoList {
     //@@author
 
     public void setTags(Collection<Tag> tags) {
-        UniqueTagList newList = this.createNewTagList(tags);
+        UniqueTagList newList = this.copyTagList(tags);
         this.tagsHistory.push(newList);
     }
 
@@ -107,7 +113,7 @@ public class ToDoList implements ReadOnlyToDoList {
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         UniqueTaskList topList = this.tasksHistory.pop();
-        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        UniqueTaskList oldList = this.copyTaskList(topList.getInternalList());
         this.tasksHistory.push(oldList);
         this.tasksHistory.push(topList);
         topList.add(p);
@@ -122,7 +128,7 @@ public class ToDoList implements ReadOnlyToDoList {
      */
     public void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
-        UniqueTagList newList = this.createNewTagList(this.tagsHistory.peek().getInternalList());
+        UniqueTagList newList = this.copyTagList(this.tagsHistory.peek().getInternalList());
         newList.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
@@ -142,7 +148,7 @@ public class ToDoList implements ReadOnlyToDoList {
     //@@author A0093896H
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         UniqueTaskList topList = this.tasksHistory.pop();
-        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        UniqueTaskList oldList = this.copyTaskList(topList.getInternalList());
         this.tasksHistory.push(oldList);
         this.tasksHistory.push(topList);
         if (topList.remove(key)) {
@@ -154,7 +160,7 @@ public class ToDoList implements ReadOnlyToDoList {
     
     public boolean updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
         UniqueTaskList topList = this.tasksHistory.pop();
-        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        UniqueTaskList oldList = this.copyTaskList(topList.getInternalList());
         this.tasksHistory.push(oldList);
         this.tasksHistory.push(topList);
         
@@ -173,6 +179,16 @@ public class ToDoList implements ReadOnlyToDoList {
         }
     }
     
+    public void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
+    	for (Tag t : newTask.getTags().getInternalList()) {
+    		try {
+    			this.getTags().add(t);	
+    		}catch (Exception e) {
+    			
+    		}
+    		
+    	}
+    }
     
     
     /**
@@ -193,7 +209,7 @@ public class ToDoList implements ReadOnlyToDoList {
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        UniqueTagList newList = this.createNewTagList(this.tagsHistory.peek().getInternalList());
+        UniqueTagList newList = this.copyTagList(this.tagsHistory.peek().getInternalList());
         newList.add(t);
         this.tagsHistory.push(newList);
     }
@@ -246,7 +262,7 @@ public class ToDoList implements ReadOnlyToDoList {
         return Objects.hash(tasksHistory.peek(), tagsHistory.peek());
     }
     
-    private UniqueTaskList createNewTaskList(Collection<Task> old) {
+    private UniqueTaskList copyTaskList(Collection<Task> old) {
         UniqueTaskList newList = new UniqueTaskList();
 
         for (Task t : old) {
@@ -257,7 +273,7 @@ public class ToDoList implements ReadOnlyToDoList {
         return newList;
     }
     
-    private UniqueTagList createNewTagList(Collection<Tag> old) {
+    private UniqueTagList copyTagList(Collection<Tag> old) {
         UniqueTagList newList = new UniqueTagList();
         
         for (Tag t : old) {

@@ -2,6 +2,7 @@ package seedu.todo.logic;
 
 import javafx.collections.ObservableList;
 import seedu.todo.logic.commands.CommandResult;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ReadOnlyTask;
 
 /**
@@ -19,4 +20,6 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
 
     ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList();
+    
+    ObservableList<Tag> getUnmodifiableTagList();
 }
