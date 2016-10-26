@@ -52,9 +52,6 @@ public class DeleteCommandTest extends TaskListGuiTest {
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
-
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }

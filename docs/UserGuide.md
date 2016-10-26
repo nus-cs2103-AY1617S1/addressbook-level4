@@ -76,7 +76,7 @@ Examples:
 
 > * Lists all the tasks scheduled on 30th October, 2016
 
-/* @@author A0144919W */
+/* @@author A0146107M */
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
@@ -108,6 +108,8 @@ Examples:
 * `delete b*y`
 
 > * If only 1 task matches the entered text, it is deleted. Otherwise, the tasks matching `b*y*` will be listed for the user to choose from.
+
+/* @@author A0144919W */
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
@@ -173,6 +175,7 @@ Format: `redo`
 Autocomplete the command that has been entered halfway in the command box.
 Format: NIL
 
+> * If no commands match the current text, nothing will happen
 > * If 2 or more commands match the current text, nothing will happen
 
 Examples:
@@ -193,6 +196,7 @@ Displays the help page.
 Format: `help`
 
 > The help page will open in a new window.
+> The help page does not require an active internet connection.
 
 /* @@author */
 
