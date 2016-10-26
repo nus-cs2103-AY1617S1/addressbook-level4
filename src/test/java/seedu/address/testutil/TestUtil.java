@@ -17,6 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -65,15 +66,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Task Manager v01"), new Deadline("061016"), new Priority("2"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v02"), new Deadline("131016"), new Priority("1"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v03"), new Deadline("201016"), new Priority("3"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v04"), new Deadline("271016"), new Priority("4"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v05"), new Deadline("948222"), new Priority("5"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v06"), new Deadline("948242"), new Priority("1"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v07"), new Deadline("948244"), new Priority("2"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v08"), new Deadline("848242"), new Priority("3"), new UniqueTagList()),
-                    new Task(new Name("Task Manager v09"), new Deadline("848213"), new Priority("3"), new UniqueTagList())
+                    new Task(new Name("Task Manager v01"), new Startline("101010 12:00"), new Deadline("061016 23:00"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v02"), new Startline("101010 12:00"), new Deadline("131016 23:00"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v03"), new Startline("101010 12:00"), new Deadline("201016 23:00"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v04"), new Startline("101010 12:00"), new Deadline("271016 23:00"), new Priority("4"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v05"), new Startline("101010 12:00"), new Deadline("948222 23:00"), new Priority("5"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v06"), new Startline("101010 12:00"), new Deadline("948242 23:00"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v07"), new Startline("101010 12:00"), new Deadline("948244 23:00"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v08"), new Startline("101010 12:00"), new Deadline("848242 23:00"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v09"), new Startline("101010 12:00"), new Deadline("848213 23:00"), new Priority("3"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             //assert false; //This was causing errors

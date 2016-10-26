@@ -18,6 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -157,7 +158,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name 12345 101010 1", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/1 101010", expectedMessage);
+                "add Valid Name l/ p/1", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/ d/101010", expectedMessage);
     }
@@ -387,12 +388,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Deadline deadline = new Deadline("111111");
+            Startline startline = new Startline("000000 00:00");
+            Deadline deadline = new Deadline("111111 23:59");
             Priority priority = new Priority("5");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, deadline, priority, tags);
+            return new Task(name, startline, deadline, priority, tags);
         }
 
         /**
@@ -405,7 +407,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Deadline(seed + "91016"),
+                    new Startline("101010 00:00"),
+                    new Deadline("121212 23:59"),
                     new Priority("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -418,7 +421,11 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
+            
+            cmd.append(" s/").append(p.getStartline().value);
+           
             cmd.append(" d/").append(p.getDeadline());
+            
             cmd.append(" p/").append(p.getPriority());
 
             UniqueTagList tags = p.getTags();
@@ -502,7 +509,8 @@ public class LogicManagerTest {
         Task generatePersonWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Deadline("191016"),
+                    new Startline("181016 23:59"),
+                    new Deadline("191016 00:00"),
                     new Priority("1"),
                     new UniqueTagList(new Tag("tag"))
             );

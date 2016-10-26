@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -53,11 +54,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
-
+    
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
-
+    
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
@@ -103,7 +104,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-
+    
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
@@ -111,12 +112,13 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+   
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
+    
 
 //// util methods
 
@@ -130,7 +132,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
-
+    
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
@@ -159,5 +161,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
+    }
+    
+    public boolean contains(Task task){
+    	return tasks.contains(task);
     }
 }

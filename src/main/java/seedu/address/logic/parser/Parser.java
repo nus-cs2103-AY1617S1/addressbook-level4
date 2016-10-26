@@ -29,15 +29,17 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDeadlinePrivate>p?)d/(?<deadline>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+            		+ "(?<startline>(?: s/[^/]+)*)"
+                    + "(?<deadline>(?: d/[^/]+)*)"
+                    + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
-                    + " (?<isDeadlinePrivate>p?)d/(?<deadline>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+            		+ "s/(?<startline>[^/]+)"
+            		+ "d/(?<deadline>[^/]+)"
+                    + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -61,9 +63,20 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+			
+	case CompleteCommand.COMMAND_WORD:
+       		try {
+			return prepareComplete(arguments);
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+        
+        case GroupCommand.COMMAND_WORD:
+        	return prepareGroup(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -77,6 +90,9 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+	case ListAllCommand.COMMAND_WORD:
+            return new ListAllCommand();
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -85,6 +101,9 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
         	return prepareEdit(arguments);
+        	
+        case ClashCommand.COMMAND_WORD:
+        	return new ClashCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -107,16 +126,58 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("deadline"),
-                    matcher.group("priority"),
+                    getStartlineFromArgs(matcher.group("startline")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
     /**
+     * Checks if user inputs startline
+     * if not returns date from start of common era
+     * if no time, time is set to 23:59 by default
+     * @param args
+     * @return args
+     */
+    private String getStartlineFromArgs(String args){
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" s/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "00:00";
+    	}
+    	return args;    	
+    }
+
+    private String getDeadlinesFromArgs(String args) {
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" d/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "23:59";
+    	}
+    	return args; 
+	}
+    
+    private String getPriorityFromArgs(String args) {
+        if (args.isEmpty()) {
+            return "0";
+        }
+        args = args.replaceFirst(" p/", "");
+
+        return args;
+    }
+
+
+	/**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
@@ -145,8 +206,18 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
-    }
-
+    }	
+				
+	private Command prepareComplete(String args) throws IllegalValueException {
+  		  
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+     		return new IncorrectCommand(
+	     		String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+ 		}
+ 
+ 		return new CompleteCommand(index.get());
+	}
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -201,6 +272,20 @@ public class Parser {
     }
     
     /**
+     * Parses arguments in the context of the Group task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    
+    
+    private Command prepareGroup(String args) {
+        final String keyword = args.trim();
+    	   
+        return new GroupCommand(keyword);
+    }
+    
+    /**
      * Parses arguments in the context of the edit task command
      * 
      * @param args full command args String
@@ -217,8 +302,9 @@ public class Parser {
             return new EditCommand(
             		matcher.group("targetIndex"),
                     matcher.group("name"),
-                    matcher.group("deadline"),
-                    matcher.group("priority"),
+                    getStartlineFromArgs(matcher.group("startline")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

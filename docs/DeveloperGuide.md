@@ -1,5 +1,6 @@
 # Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -9,9 +10,13 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix E: Product Survey's](#appendix-e--product-surveys)
 
 
+## Introduction 
+
+This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand. 
+   
 ## Setting up
 
 #### Prerequisites
@@ -79,8 +84,8 @@ Two of those classes play important roles at the architecture level.
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Model`**](#model-component) : The component that holds the data of the App in-memory.
+* [**`Storage`**](#storage-component) : The location that data is read from and writes data to, the hard disk.
 
 Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
@@ -88,21 +93,21 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/logicDiagram.png" width="800"><br>
 Figure 2: Logic Class Diagram
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images/SDforDeletePerson.png" width="800">
+<img src="images/SDforDeleteTask.png" width="800">
 Figure 3: Sequence Diagram For Delete Person
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images/SDforDeletePersonEventHandling.png" width="800">
+<img src="images/SDforDeleteTaskEventHandling.png" width="800">
 Figure 4: Sequence Diagram For Event Handling Of Delete Person
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -110,15 +115,17 @@ Figure 4: Sequence Diagram For Event Handling Of Delete Person
 
 The sections below give more details of each component.
 
+<div style="page-break-after: always;"></div>
+
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UIdiagram.png" width="800"><br>
 Figure 5: UI Class Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -134,6 +141,7 @@ The `UI` component,
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+Figure 6 : Logic Class Diagram
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -144,27 +152,27 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
-Figure 6: Sequence Diagram Within Logic For Delete Person
+<img src="images/logicDiagram.png" width="800"><br>
+Figure 7: Sequence Diagram Within Logic For Delete Task
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
-Figure 7: Model Class Diagram
+<img src="images/modelDiagram.png" width="800"><br>
+Figure 8: Model Class Diagram
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
-Figure 8: Storage Class Diagram
+<img src="images/storageDiagram.jpg" width="800"><br>
+Figure 9: Storage Class Diagram
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -240,7 +248,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- * Reason: Assertions are not enabled for JUnit tests. 
+ * Reason: Assertions are not enabled for JUnit tests.<br> 
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
  * Solution: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
@@ -276,38 +284,36 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-
+<div style="page-break-after: always;"></div>
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | user | add a new task with a deadline and priority level | sort by urgency and importance
-`* * *` | user | know if any events clash | reschedule
-`* * *` | user | see all current tasks on the calendar | know what I have to do
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | user | add a new task with a deadline and priority level | determine what I should accomplish first based on the tasks urgency and importance
+`* * *` | user | know if any events clash | reschedule
+`* * *` | user | see all current tasks on the calendar | determine what I have to do over a longer period of time
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | modify a task’s deadline or priority level | account for changes in deadlines and importance
 `* * *` | user | find a task by name | locate details of persons without having to go through the entire list
 `* * *` | user | know the most urgent and important task | do it first
-`* *` | user | be reminded when a deadline is approaching | not forget to complete the task
-`* *` | user | schedule my free time | work on tasks
+`* *` | user | be told when a deadline is approaching for a task | remember to complete the task on time
+`* *` | user | be notified of free periods in the day | allocate tasks more efficiently
 `* *` | user | set tasks to autorepeat | not have to reschedule repeating tasks
 `* *` | user | see a weekly view of tasks | know what is ahead of me
 `* *` | user | see the list of overdue tasks if there is any at the start of the day | get things done still
 `* *` | user | group all relevant tasks | manage them in groups
-`*` | Advance user | outline procedures needed to complete a task | remember how to approach said tasks
-`*` | user with many tasks in the task manager | sort tasks by name | locate a task easily
+`* *` | user | attach relevant files or notes to the task | keep project data in one place
+`*` | advance user | outline procedures needed to complete a task | remember how to approach said tasks
+`*` | user with many tasks in the task manager | sort tasks by name | group and manage tasks easily
 `*` | user with friends | share a task with my friends | delegate tasks in a group
 `*` | user | store all necessary contacts | bring up contact details when I need them
 `*` | user | delegate a task to my friends | lessen the workload
-`* *` | user | attach relevant files or notes to the task | keep project data in one place
-`*` | Advanced user | track the amount of time spend on a task | detect and manage time wasters
+`*` | advanced user | track the amount of time spent on a task | detect and manage time wasters
 `*` | user | keep track of ideas and history | not forget ideas
-`*` | user | see the number of tasks completed at the end of the day | have a sense of accomplishment. If 0 tasks though there is at least one task to be completed for that day, encourage the user to work harder
-
-{More to be added}
+`*` | user | see the number of tasks completed at the end of the day | have a better understanding of my capabilities. 
 
 
 ## Appendix B : Use Cases
@@ -320,16 +326,16 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. System prompts the user to input a command.
 2. Actor enters the add command and the details of the task.
-3. System add the task to the list.
-4. System will indicate through a message that (TASKNAME added).
-5. The System will show the updated list.
+3. System adds the task to the list.
+4. System indicates through a message that the Task has been added.
+5. System shows the updated list.
 6. Use case ends.
 
 **Extensions**
 
 2a. Actor fails to input details of the task.
 
-> 2a1. System will respond with an error message (e.g. "Invalid command format!")
+> 2a1. System responds with an error message (e.g. "Invalid command format!")
 
 > Use case resumes at step 1
 
@@ -346,9 +352,8 @@ Priority | As a ... | I want to ... | So that I can...
 1. Actor requests the lists from the System.
 2. System shows the task list.
 3. Actor inputs the delete command of a task based on its index on the list.
-4. System will delete the task.
-5. System displays a feedback message that the task has been deleted.
-6. The displayed list will be updated to reflect the new state.
+4. System deletes the task.
+5. System displays a feedback message that the task has been deleted, displayed list will be updated to reflect the new state.
 7. Use case ends.
 
 **Extensions**
@@ -357,9 +362,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Use case ends
 
-3a. The Actor inputs an invalid index
+3a. Actor inputs an invalid index
 
-> 3a1. System will display an error message ("The index inputted is invalid")
+> 3a1. System displays an error message ("The index inputted is invalid")
 
 > Use case resumes at step 2
 
@@ -369,22 +374,22 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Actor requests the list of the task manager (Can be general using `list` command or more specific using `find`.)
 2. Actor inputs the edit command, the index of the task being changed and the relevant details
-3. System will update the task with its new details.
-4. System will display a feedback message that the task has been updated successfully.
-5. List displayed will reflect the updated details of the specific task.
+3. System updates the task with its new details.
+4. System displays a feedback message that the task has been updated successfully.
+5. List displayed reflects the updated details of the specific task.
 6. Use case ends. 
 
 **Extensions**
 
 2a. Actor inputs an invalid index
 
-> 2a1. System will display an error message ("The index inputted is invalid")
+> 2a1. System displays an error message ("User inputted index is invalid")
 
 > Use case resumes at step 2.
 
 2b. Actor inputs incorrect detail format.
 
-> 2b1. System will display an error message ("Invalid command format!")
+> 2b1. System displays an error message ("Invalid command format!")
 
 > Use case resumes at step 2.
 
@@ -410,52 +415,55 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Windows, Linux, Unix, OS-X
 
+##### MSS
 
-## Appendix E : Product Survey
+> Main Success Scenario 
+
+## Appendix E : Product Survey's
 
 ### Google Calendar Quick Add 
 
 **Strengths**
 
 1. Has an intuitive User Interface. 
-2. Is able to have user shared schedules to accomadate for better planning.
+2. Is able to have user shared schedules to accommodate for better planning.
 
 **Weaknesses**
 
 1. Indicates an event clashes but does not prevent you from creating the event.
-2. Inability to customize events appering on your calendar.
+2. Unable to customize how events appear on your calendar.
 
 ### Todoist
 
 **Strengths**
 
-1. Able to access your tasks on over 10 different platforms.
+1. Is able to access your tasks on over 10 different platforms.
 2. Has the ability to allow users to collaborate on shared tasks.
 
 **Weaknesses**
 
-1. Does not allow user to set a location for the task.
+1. Unable to allow user to set a location for the task.
 2. Has no web based capabilities.
 
 ### dapulse
 
 **Strengths**
 
-1. Able to customize labels for grouped tasks (in a column) 
-2. The in built scheduling service is convenient.
+1. Is able to customize labels for grouped tasks (in a column) 
+2. Has a convenient inbuilt scheduling service.
 
 **Weaknesses**
 
-1. If the task is simple the task scheduling process becomes overcomplicated.
+1. Unable to efficiently schedule simple tasks.
 
 ### Things
 
 **Strengths**
 
 1. Has the ability to link tasks that fall under the same category.
-2. The Graphical User Interface is intuitive and aesthetically pleasing.
+2. Has a Graphical User Interface that is intuitive and aesthetically pleasing.
 
 **Weaknesses**
 
 1. Is cost prohibitive.
-2. Not available on certain platforms.
+2. Is unavailable on certain platforms.

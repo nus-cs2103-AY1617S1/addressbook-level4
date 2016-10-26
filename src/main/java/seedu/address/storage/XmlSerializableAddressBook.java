@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -24,10 +25,13 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<Tag> tags;
+    @XmlElement
+    private List<Deadline> deadlines;
 
     {
         persons = new ArrayList<>();
         tags = new ArrayList<>();
+        deadlines = new ArrayList<>();
     }
 
     /**
@@ -53,7 +57,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
             return null;
         }
     }
-
+    
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();

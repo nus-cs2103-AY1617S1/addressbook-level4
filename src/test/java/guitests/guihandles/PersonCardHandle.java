@@ -10,6 +10,7 @@ import seedu.address.model.task.ReadOnlyTask;
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
+    private static final String STARTLINE_FIELD_ID = "#startline";
     private static final String DEADLINE_FIELD_ID = "#deadline";
     private static final String PRIORITY_FIELD_ID = "#priority";
     private Node node;
@@ -26,6 +27,10 @@ public class PersonCardHandle extends GuiHandle {
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
+    
+    public String getStartline(){
+    	return getTextFromLabel(STARTLINE_FIELD_ID);
+    }
 
     public String getDeadline() {
         return getTextFromLabel(DEADLINE_FIELD_ID);
@@ -37,22 +42,20 @@ public class PersonCardHandle extends GuiHandle {
 
     
     public boolean isSamePerson(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getDeadline().equals(task.getDeadline().value)
-                && getPriority().equals(task.getPriority().value);
+        return getFullName().equals(task.getName().fullName);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getDeadline().equals(handle.getDeadline()); //TODO: compare the rest
+            return getFullName().equals(handle.getFullName()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getDeadline();
+        return getFullName() + " ";
     }
 }

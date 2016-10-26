@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -13,6 +14,7 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Priority priority;
+    private Startline startline;
     private Deadline deadline;
 
     private UniqueTagList tags;
@@ -20,9 +22,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Deadline deadline, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, deadline, priority, tags);
+    public Task(Name name, Startline startline, Deadline deadline, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startline, deadline, priority, tags);
         this.name = name;
+        this.startline = startline;
         this.deadline = deadline;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -32,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDeadline(), source.getPriority(), source.getTags());
+        this(source.getName(), source.getStartline(), source.getDeadline(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -43,6 +46,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
     }
 
     @Override
@@ -55,6 +63,12 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    /**
+     * Replaces this person's deadlines with the deadlines in the argument deadline list.
+     */
+    public void setDeadline(Deadline replacement) {
+        deadline = replacement;
+    }
 
 
     /**
@@ -81,5 +95,6 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
 
 }

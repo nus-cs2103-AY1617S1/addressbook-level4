@@ -31,7 +31,8 @@
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
+                        <Label fx:id="startline" styleClass="cell_small_label" text="\$startline" />
+                        <Label fx:id="deadlines" styleClass="cell_small_label" text="\$deadline" />
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
                     </children>
                 </VBox>

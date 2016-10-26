@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 
 import java.util.Set;
 
@@ -32,5 +33,11 @@ public interface Model {
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
 
+    /** Updates the filter of the filtered task list to show tasks with clashing deadlines
+     * @throws DuplicateTaskException */
+    void updateFilteredListToShowClashing() throws DuplicateTaskException;
 
+	void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException;
+
+	void updateFilteredPersonGroup(String keywords);
 }
