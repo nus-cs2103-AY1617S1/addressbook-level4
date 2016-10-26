@@ -183,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
 		malitio.completeTask(taskToComplete);
 		updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
 	}
 	
 
@@ -191,7 +191,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
 		malitio.completeDeadline(deadlineToEdit);
 		updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
 		
 	}
     
