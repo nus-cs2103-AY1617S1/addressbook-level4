@@ -15,9 +15,6 @@ public class Tag {
     //Stores a unique tag name, that is alphanumeric, and contains dashes and underscores.
     private String tagName;
 
-    /* Default Constructor */
-    public Tag() {}
-
     /**
      * Constructs a new tag with the given tag name.
      * This class is intentional to be package private, so only {@link UniqueTagCollection} can construct new tags.
@@ -27,6 +24,8 @@ public class Tag {
     }
 
     /* Methods */
+    //@@author A0135805H-unused
+    //Feature to be implemented in V0.5
     /**
      * Renames the tag with a {@code newName}.
      * This class is intentional to be package private, so only {@link UniqueTagCollection} can rename tags.
@@ -35,6 +34,7 @@ public class Tag {
         this.tagName = newName;
     }
 
+    //@@author A0135805H-reused
     /* Override Methods */
     @Override
     public boolean equals(Object other) {
