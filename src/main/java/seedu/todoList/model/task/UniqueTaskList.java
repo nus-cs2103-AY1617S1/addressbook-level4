@@ -91,7 +91,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Removes all task from the list.
      */
     public void removeAll() {
-       internalList.removeAll();
+       internalList.remove(0, internalList.size());
     }
     
     /**
