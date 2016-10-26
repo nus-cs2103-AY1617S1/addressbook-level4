@@ -55,8 +55,8 @@ public class TodoListPanel extends UiPart {
         return todoListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> todoList) {
-        setConnections(todoList);
+    private void configure(ObservableList<ReadOnlyTask> todokList) {
+        setConnections(todokList);
         addToPlaceholder();
     }
 
