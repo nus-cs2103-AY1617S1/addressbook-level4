@@ -70,9 +70,12 @@ public class TimeUtilTest {
     public void getTaskDeadlineText_dueNow() {
         String expectedOutput = "due now";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Lower Bound: 0th second
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0), dueTime);
+        //Upper Bound: 59th second
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 59), dueTime);
+        //In the middle: 30th second
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 30), dueTime);
     }
     
@@ -80,9 +83,12 @@ public class TimeUtilTest {
     public void getTaskDeadlineText_dueLessThanAMinute() {
         String expectedOutput = "in less than a minute";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Lower bound: 59 seconds left
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 1), dueTime);
+        //Upper bound: 1 second left
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 59), dueTime);
+        //In the middle: 30 seconds left
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 30), dueTime);
     }
     
@@ -90,9 +96,12 @@ public class TimeUtilTest {
     public void getTaskDeadlineText_aMinuteBeforeDeadline() {
         String expectedOutput = "in 1 minute";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Upper Bound
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 59, 0), dueTime);
+        //In the middle
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 30), dueTime);
+        //Lower Bound
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 11, 58, 1), dueTime);
     }
     
@@ -100,16 +109,20 @@ public class TimeUtilTest {
     public void getTaskDeadlineText_aMinuteAfterDeadline() {
         String expectedOutput = "1 minute ago";
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Lower Bound
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 0), dueTime);
+        //Middle
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 30), dueTime);
+        //Upper Bound
         testTaskDeadlineTextHelper(expectedOutput, LocalDateTime.of(2016, Month.MARCH, 20, 12, 1, 59), dueTime);
     }
     
     @Test
     public void getTaskDeadlineText_minutesBeforeDeadline() {
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Test 2 min to 59 min
         for (int minutesLeft = 2; minutesLeft <= 59; minutesLeft++) {
             String expectedOutput = "in " + minutesLeft + " minutes";
             
@@ -122,7 +135,8 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineText_minutesAfterDeadline() {
         LocalDateTime dueTime = LocalDateTime.of(2016, Month.MARCH, 20, 12, 0, 0);
-        
+
+        //Test 2 min to 59 min
         for (int minutesLater = 2; minutesLater <= 59; minutesLater++) {
             String expectedOutput = minutesLater + " minutes ago";
             
@@ -177,6 +191,7 @@ public class TimeUtilTest {
         testTaskDeadlineTextHelper("by 12 August, 12:55 PM", 
                 LocalDateTime.of(2016, Month.JANUARY, 21, 12, 0),
                 LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55));
+
         testTaskDeadlineTextHelper("by 15 September, 12:00 AM",
                 LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59),
                 LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0));
@@ -187,6 +202,7 @@ public class TimeUtilTest {
         testTaskDeadlineTextHelper("since 21 January, 8:47 PM", 
                 LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55),
                 LocalDateTime.of(2016, Month.JANUARY, 21, 20, 47));
+
         testTaskDeadlineTextHelper("since 13 September, 11:59 PM",
                 LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0),
                 LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59));
