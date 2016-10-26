@@ -37,9 +37,15 @@ Responsibilities: Code Testing
 #### [Ng Huan Ran](https://github.com/shusiner)
 <img src="images/NgHuanRan.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Code Quality
+* Component in charge of: [UI](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/DeveloperGuide.md#ui-component) <br>
+* Aspects/tools in charge of: Code Quality <br>
+* Features implemented: <br>
+   * [Complete Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#edit-a-task--complete) <br>
+* Code written: [[functional code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/main/A0122460W.md) [[test code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/docs/A0122460W.md) [[docs]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/test/A0122460W.md) <br>
+* Other major contributions: <br>
+  * Set the base structure to Malitio 
 
- -----
+-----
 
 # Contributors
 
