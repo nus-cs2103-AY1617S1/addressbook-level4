@@ -271,6 +271,13 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
     
+    
+    private Command prepareGroup(String args) {
+        final String keyword = args.trim();
+    	   
+        return new GroupCommand(keyword);
+    }
+    
     /**
      * Parses arguments in the context of the edit task command
      * 
