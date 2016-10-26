@@ -13,7 +13,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Aspects/tools incharge of: JavaFX, Scene Builder 
 * Features implemented:
   *  
-* Code written: [[functional code](collated/main/A0144919W.md)][[test code](collated/test/A0144919W.md)][[docs](collated/docs/A0144919W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0144919W.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0144919W.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0144919W.md)]
 * Other major contributions:
   *  
   *  
@@ -28,7 +28,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Aspects/tools incharge of: All the relevant Java APIs (Comparators, Collections, etc.)
 * Features implemented:
   *  
-* Code written: [[functional code](/collated/A0144919W.md)][[test code](/collated/A0144919W.md)][[docs](/collated/A0144919W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0144919W.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0144919W.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0144919W.md)]
 * Other major contributions:
   *  
   *  
@@ -43,7 +43,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Aspects/tools incharge of: GitHub and SourceTree
 * Features implemented:
   *  
-* Code written: [[functional code](A0144919W.md)][[test code](A0144919W.md)][[docs](A0144919W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0144919W.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0144919W.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0144919W.md)]
 * Other major contributions:
   *  
   *  
@@ -58,7 +58,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Aspects/tools incharge of: Eclipse
 * Features implemented:
   *  
-* Code written: [[functional code](A0144919W.md)][[test code](A0144919W.md)][[docs](A0144919W.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0144919W.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0144919W.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0144919W.md)]
 * Other major contributions:
   *  
   *  
