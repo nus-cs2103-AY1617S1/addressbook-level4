@@ -19,10 +19,14 @@
 
 #### Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent
+* Some parts of this application were inspired by the excellent
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*.
+
+* The application uses [Natty Date Parser](https://github.com/joestelmach/natty) for natural language date parsing.
 
 * This project is an extension to the original project addressbook-level4
 created by SE-EDU initiative at https://github.com/nus-cs2103-AY1617S1/addressbook-level4
+
+
 
 #### Licence : [MIT](LICENSE)

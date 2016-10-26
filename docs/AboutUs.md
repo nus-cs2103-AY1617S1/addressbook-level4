@@ -15,9 +15,9 @@ We are a team based in the [School of Computing, National University of Singapor
     * Undo Command
     * Update Command
     * Recurring Tasks
-* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
-[[test code]](https://github.com/KnewYouWereTrouble)
-[[docs]](https://github.com/KnewYouWereTrouble)
+* Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0093896H.md)
+[[test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0093896H.md)
+[[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0093896H.md)
 
 * Other major contributions
     * Did the initial refactoring from AddressBook to ToDoList
@@ -32,9 +32,9 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features Implemented:
     * Tag List Panel
     * Tag Command
-* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
+* Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0142421X.md)
 [[test code]](https://github.com/KnewYouWereTrouble)
-[[docs]](https://github.com/KnewYouWereTrouble)
+[[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0142421X.md)
 
 * Other major contributions
     * Conceptualisation of UI
@@ -48,10 +48,11 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features Implemented:
     * Mark Command
     * Unmark Command
+    * Search Command
     * Task priorities
-* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
-[[test code]](https://github.com/KnewYouWereTrouble)
-[[docs]](https://github.com/KnewYouWereTrouble)
+* Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0121643R.md)
+[[test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0121643R.md)
+[[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0121643R.md)
 
 * Other major contributions
     * Did the initial refactoring from AddressBook to ToDoList
@@ -65,9 +66,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features Implemented:
     * See Command
     * Today Task Panel
-* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
-[[test code]](https://github.com/KnewYouWereTrouble)
-[[docs]](https://github.com/KnewYouWereTrouble)
+* Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0138967J.md)
+[[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0138967J.md)
 
 * Other major contributions
     * Conceptualisation of UI
