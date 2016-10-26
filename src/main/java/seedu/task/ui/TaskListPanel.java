@@ -64,10 +64,13 @@ public class TaskListPanel extends UiPart {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
+        
+        
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
+       
         placeHolderPane.getChildren().add(panel);
         
     }
@@ -103,7 +106,10 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
+                
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                
+                
                 
             }
         }

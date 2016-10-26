@@ -8,6 +8,7 @@ import seedu.task.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
+ * @@author A0147335E-reused
  */
 public interface Logic {
     /**
@@ -19,7 +20,7 @@ public interface Logic {
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
-    
+
     /** Returns the undo list of commands */
     ArrayList<RollBackCommand> getUndoList();
 

@@ -25,7 +25,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
          TestTask[] expectedList = currentList;
         //confirm the list now contains all previous tasks plus the new task
-        expectedList[index - 1].getStatus().setDoneStatus(false);
+        expectedList[0].getStatus().setDoneStatus(false);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 }

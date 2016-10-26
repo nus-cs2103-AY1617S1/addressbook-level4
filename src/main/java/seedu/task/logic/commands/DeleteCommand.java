@@ -10,6 +10,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
+ * @@author A0147335E-reused
  */
 public class DeleteCommand extends Command {
 
@@ -28,7 +29,6 @@ public class DeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
     public CommandResult execute(boolean isUndo) {
 
@@ -40,9 +40,9 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-        if(isUndo == false){
-            Task task = new Task(taskToDelete.getName(),taskToDelete.getStartTime(),taskToDelete.getEndTime(),taskToDelete.getDeadline(),taskToDelete.getTags(),taskToDelete.getStatus());
-            history.getUndoList().add(new RollBackCommand("delete" , task, null));
+        if (isUndo == false) {
+            Task task = new Task(taskToDelete.getName(), taskToDelete.getStartTime(), taskToDelete.getEndTime(), taskToDelete.getDeadline(), taskToDelete.getTags(), taskToDelete.getStatus());
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, task, null));
         }
         try {
             model.deleteTask(taskToDelete);
@@ -56,8 +56,6 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
         return null;
     }
-
 }

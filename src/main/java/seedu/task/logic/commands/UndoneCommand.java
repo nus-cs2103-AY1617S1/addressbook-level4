@@ -22,15 +22,11 @@ public class UndoneCommand extends Command {
     public static final String MESSAGE_ALREADY_UNDONE = "Task has already been undone!";
 
     public final int targetIndex;
-    //public final Task toDone;
-
 
     public UndoneCommand(int targetIndex)
     {
         this.targetIndex = targetIndex;
     }
-
-
 
     @Override
     public CommandResult execute(boolean isUndo) {
@@ -44,33 +40,24 @@ public class UndoneCommand extends Command {
         ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
         boolean oldStatus = currentTask.getStatus().getDoneStatus();
 
-
         try {
             model.deleteTask(currentTask);
-        } catch (TaskNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+        } catch (TaskNotFoundException e) {}
+
         Task newTask = new Task(currentTask);
         newTask.getStatus().setDoneStatus(false);
         try {
             model.addTask(targetIndex - 1, newTask);
-        } catch (DuplicateTaskException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        } catch (DuplicateTaskException e) {}
 
-        if(oldStatus == newTask.getStatus().getDoneStatus()) {
+        if (oldStatus == newTask.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
-        if(isUndo == false){
-            history.getUndoList().add(new RollBackCommand("undone" , newTask, null));
+        if (isUndo == false) {
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask));
     }
-
-
 
     @Override
     public CommandResult execute(int index) {

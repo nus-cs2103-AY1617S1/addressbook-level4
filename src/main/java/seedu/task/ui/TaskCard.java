@@ -34,7 +34,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyTask task;
+    private static ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard(){
@@ -45,6 +45,7 @@ public class TaskCard extends UiPart{
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
+        
         return UiPartLoader.loadUiPart(card);
     }
 
@@ -72,6 +73,7 @@ public class TaskCard extends UiPart{
 
     public HBox getLayout() {
         if(task.getStatus().getNewlyAddedStatus() == true) {
+            
             cardPane.setStyle("-fx-background-color: #FFFE00");
             //cardPane.setStyle("-fx-background-color: #FFFE00");
             
@@ -79,7 +81,7 @@ public class TaskCard extends UiPart{
                    
            
             
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -97,6 +99,9 @@ public class TaskCard extends UiPart{
         return cardPane;
     }
 
+    public static boolean isAdded(){
+        return task.getStatus().getNewlyAddedStatus();
+    }
     @Override
     public void setNode(Node node) {
         cardPane = (HBox)node;

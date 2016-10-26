@@ -10,11 +10,12 @@ import seedu.task.model.task.ReadOnlyTask;
  * Provides a handle to a person card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
+    private static final String COLOR_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String DEADLINE_FIELD_ID = "#deadlineLabel";
     private static final String STARTTIME_FIELD_ID = "#startTimeLabel";
     private static final String ENDTIME_FIELD_ID = "#endTimeLabel";
-    private static final String COLOR_FIELD_ID = "#id";
+   
 
     private Node node;
 
@@ -45,6 +46,7 @@ public class TaskCardHandle extends GuiHandle {
     
     public boolean getDoneStatus() {
         if(getColorFromLabel(COLOR_FIELD_ID, node).equals("-fx-background-color: #ADDBAC")) {
+           
             return true;
         }
                 

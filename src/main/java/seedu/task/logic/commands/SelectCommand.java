@@ -8,6 +8,7 @@ import seedu.task.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the task manager.
+ * @@author generated
  */
 public class SelectCommand extends Command {
 

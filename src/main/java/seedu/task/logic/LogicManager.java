@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
+ * @@author A0147335E-reused
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -34,33 +35,28 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        
+
         command.setData(model);
         command.setHistory(historyManager);
+
         if (command != null && command instanceof IncorrectCommand) {
             return command.execute(false);
         } else if (command == null && command instanceof IncorrectCommand) {
             return command.execute(false);
         }
+
         logger.info("SUCCESS");
-        if(!commandText.equals("undo")){
+
+        if (!commandText.equals("undo")) {
             historyManager.getPreviousCommandList().add(commandText);
-            for(int i = 0; i < historyManager.getPreviousCommandList().size(); i++){
-                logger.info("" + historyManager.getPreviousCommandList().get(i));
-            }
             return command.execute(false);
         }
-        else{
-            for(int i = 0; i < historyManager.getPreviousCommandList().size(); i++){
-                logger.info("" + historyManager.getPreviousCommandList().get(i));
-            }
+        else {
             return command.execute(true);
         }
-        
-        
     }
-    
-    
+
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
@@ -68,13 +64,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ArrayList<RollBackCommand> getUndoList() {
-        // TODO Auto-generated method stub
         return historyManager.getUndoList();
     }
 
     @Override
     public ArrayList<String> getPreviousCommandList() {
-        // TODO Auto-generated method stub
         return historyManager.getPreviousCommandList();
     }
 }

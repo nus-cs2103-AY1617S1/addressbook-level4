@@ -8,6 +8,7 @@ import seedu.task.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
+ * @@author A0147335E-reused
  */
 public abstract class Command {
     protected Model model;
@@ -43,7 +44,7 @@ public abstract class Command {
     public void setHistory(HistoryManager history) {
         this.history = history;
     }
-    
+
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
