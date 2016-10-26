@@ -65,11 +65,13 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
+            //@@author A0142184L
             todayTaskListTabPanel = mainGui.getTodayTaskListTabPanel();
             tomorrowTaskListTabPanel = mainGui.getTomorrowTaskListTabPanel();
             in7DaysTaskListTabPanel = mainGui.getIn7DaysTaskListTabPanel();
             in30DaysTaskListTabPanel = mainGui.getIn30DaysTaskListTabPanel();
             somedayTaskListTabPanel = mainGui.getSomedayTaskListTabPanel();
+            //@@author
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -103,7 +105,8 @@ public abstract class TaskManagerGuiTest {
     public void cleanup() throws TimeoutException {
         FxToolkit.cleanupStages();
     }
-
+    
+    //@@author A0142184L
     /**
      * Asserts the someday task shown in the card is same as the given someday task
      */
@@ -124,7 +127,7 @@ public abstract class TaskManagerGuiTest {
     public void assertEventTaskMatching(ReadOnlyTask task, EventTaskCardHandle card) {
         assertTrue(TestUtil.compareEventCardAndTask(card, task));
     }
-
+    //@@author
     /**
      * Asserts the size of the task list is equal to the given number.
      */
@@ -132,7 +135,7 @@ public abstract class TaskManagerGuiTest {
         int numberOfTasks = taskListPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
     }
-    
+    //@@author A0142184L
     /**
      * Asserts the size of the today task list in the tab pane is equal to the given number.
      */
@@ -172,7 +175,7 @@ public abstract class TaskManagerGuiTest {
         int numberOfTasks = somedayTaskListTabPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
     }
-    
+    //@@author
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
