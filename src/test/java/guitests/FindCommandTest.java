@@ -12,17 +12,17 @@ public class FindCommandTest extends WhatNowGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-        assertFindResult("find Buy", td.a, td.c, td.d, td.g); //multiple results
+        assertFindResult("find Party", td.k, td.p); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete todo 1");
-        assertFindResult("find Buy",td.c, td.d, td.g);
+        commandBox.runCommand("delete schedule 4");
+        assertFindResult("find Buy",td.p);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find apricots"); //no results
+        assertFindResult("find Apricot"); //no results
     }
 
     @Test
