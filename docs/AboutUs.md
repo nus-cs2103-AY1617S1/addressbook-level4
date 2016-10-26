@@ -6,32 +6,59 @@ We are a team based in the [School of Computing, National University of Singapor
 <@@author A0139749L>
 #### Lee Jing He
 
-Role: Developer <br>
-Responsibilities: Logic
+*Components in charge of: Storage
+*Aspects/tools in charge of: Testing, Git
+*Features implemented:
+..*List persons
+..*Delete person
+*Code written: [functional code][test code][docs]
+*Other major contributions:
+..*Did the initial refactoring from AddressBook to ToDoList [#133 ]
+..*Set up Travis and Coveralls
 
 -----
 
 <@@author A0139342H>
 #### Lim Khong Yew
 
-Role: Developer <br>  
-Responsibilities: Storage
-
+*Components in charge of: Storage
+*Aspects/tools in charge of: Testing, Git
+*Features implemented:
+..*List persons
+..*Delete person
+*Code written: [functional code][test code][docs]
+*Other major contributions:
+..*Did the initial refactoring from AddressBook to ToDoList [#133 ]
+..*Set up Travis and Coveralls
 -----
 
 <@@author A0139196U>
 #### Lim Zhiming
 
-Role: Developer <br>  
-Responsibilities: Model
+*Components in charge of: Storage
+*Aspects/tools in charge of: Testing, Git
+*Features implemented:
+..*List persons
+..*Delete person
+*Code written: [functional code][test code][docs]
+*Other major contributions:
+..*Did the initial refactoring from AddressBook to ToDoList [#133 ]
+..*Set up Travis and Coveralls
 
 -----
 
 <@@author A0142290N>
 #### Ng Kai Sing
 
-Role: Developer <br>  
-Responsibilities: UI
+*Components in charge of: Storage
+*Aspects/tools in charge of: Testing, Git
+*Features implemented:
+..*List persons
+..*Delete person
+*Code written: [functional code][test code][docs]
+*Other major contributions:
+..*Did the initial refactoring from AddressBook to ToDoList [#133 ]
+..*Set up Travis and Coveralls
 
 -----
 
