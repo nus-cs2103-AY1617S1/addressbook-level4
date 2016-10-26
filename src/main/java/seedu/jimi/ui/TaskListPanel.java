@@ -234,8 +234,8 @@ public class TaskListPanel extends UiPart {
         case "incomplete":
             showIncompleteTasks();
             break;
-        case "complete":
-            showCompleteTasks();
+        case "completed":
+            showCompletedTasks();
             break;
         case "today":
             showDay1();
@@ -287,7 +287,7 @@ public class TaskListPanel extends UiPart {
         tasksAccordion.setExpandedPane(titleIncompleteTasks); 
     }
     
-    public void showCompleteTasks() {
+    public void showCompletedTasks() {
         tasksAccordion.setExpandedPane(titleCompletedTasks);
     }
     
