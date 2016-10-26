@@ -99,7 +99,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal task manager data are same as those in the {@code expectedTaskManager} <br>
+     *      - the internal address book data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
@@ -197,7 +197,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal task manager
+        model.addTask(toBeAdded); // task already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -215,7 +215,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("show all",
@@ -231,7 +231,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(3);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show",
@@ -247,7 +247,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(3);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show 01/01/17",

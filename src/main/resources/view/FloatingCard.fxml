@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="cardPane" style="-fx-background-color: #deeff5;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="floatname" alignment="CENTER" contentDisplay="CENTER" style="-fx-text-fill: black; -fx-font-size: 175%; -fx-font-family: &quot;Comic Sans MS&quot;;" text="asdasdas" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+   </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+</HBox>

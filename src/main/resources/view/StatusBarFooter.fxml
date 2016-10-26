@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.StatusBarFooter" stylesheets="@DarkTheme.css">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane style="-fx-background-color: #324c5f;" styleClass="grid-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.StatusBarFooter">
 <columnConstraints>
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 </columnConstraints>
  <children>
-      <AnchorPane styleClass="anchor-pane" id="syncStatusBarPane" fx:id="syncStatusBarPane" minWidth="0.0" />
-      <AnchorPane styleClass="anchor-pane" id="saveLocStatusBarPane" fx:id="saveLocStatusBarPane" minWidth="0.0" GridPane.columnIndex="1" />
+      <AnchorPane id="syncStatusBarPane" fx:id="syncStatusBarPane" minWidth="0.0" styleClass="anchor-pane" />
+      <AnchorPane id="saveLocStatusBarPane" fx:id="saveLocStatusBarPane" minWidth="0.0" styleClass="anchor-pane" GridPane.columnIndex="1" />
  </children>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>

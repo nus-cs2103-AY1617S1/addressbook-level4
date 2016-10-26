@@ -99,6 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
+        taskManager.counter();
         indicateTaskManagerChanged();
     }
 
@@ -108,6 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
+        taskManager.counter();
         indicateTaskManagerChanged();
     }
     
@@ -131,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);
-    	updateFilteredTaskListToShow(ShowCommand.isNotDone());
+    	updateFilteredTaskListToShowDone();
     	indicateTaskManagerChanged();
     	
     }
@@ -139,7 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.undoneTask(target);
-    	updateFilteredTaskListToShow(ShowDoneCommand.isDone());
+    	updateFilteredTaskListToShowDone();
     	indicateTaskManagerChanged();
     	
     }
@@ -157,6 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
         
         //Recurring task with only end time.
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with only end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -167,6 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task with only start time.
         else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
+            System.out.println("adding a recurring tasks with only start time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -177,6 +181,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task wth both start and end times  
         else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with start and end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -186,7 +191,7 @@ public class ModelManager extends ComponentManager implements Model {
                     ));
         }
         
-        updateFilteredTaskListToShow(ShowCommand.isNotDone());
+        updateFilteredTaskListToShowDone();
         indicateTaskManagerChanged();
     }
     
@@ -238,9 +243,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
-    	sortTasks();
-    	filteredTasks.setPredicate(predicate);
+    public void updateFilteredTaskListToShowDone() {
+    	filteredTasks.setPredicate(isDone());
+    	taskManager.counter();
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowDate(String date) {
+    	filteredTasks.setPredicate(filterByDate(date));
+    	taskManager.counter();
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowNotDone() {
+    	filteredTasks.setPredicate(isNotDone());
+    	taskManager.counter();
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -293,6 +310,19 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    public static Predicate<Task> isDone() {
+    	return t -> t.getDone().value == true;
+    }
+    
+    public static Predicate<Task> filterByDate(String date) {
+    	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
+    			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
+    }
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> (t.getDone().value == false);
     }
     
 }

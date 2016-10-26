@@ -202,9 +202,7 @@ Following is the list of all commands:
 | `add`       | `add` `<name>`                                     | Adds a floating task                           |
 |             | `add` `<name>` at `<Start Time>`                   | Adds a task only with a start time             |
 |             | `add` `<name>` by `<End Time>`                     | Adds a deadline task                           |
-|             | `add` `<name>` from `<Start Time>` to `<End Time>` | Adds an event task from start time to end time |
-|             | `add` `<name>` from `<Start Time>` to `<End Time>` | Adds a recurring tasks                         |
-|             |  every `<number>` days                             |                                                |
+|             | `add` `<name>` from `<Start Time>` to `<End_Time>` | Adds an event task from start time to end time |
 | `edit`      | `edit` `<index>` `<New Parameters>`                | Edits a task with the new parameters           |
 | `done`      | `done` `<index>`                                   | Marks a task as done                           |
 | `delete`    | `delete` `<index>`                                 | Removes a task from the task manager           |

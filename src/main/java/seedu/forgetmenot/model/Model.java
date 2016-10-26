@@ -62,13 +62,12 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    void updateFilteredTaskListToShow(Predicate<Task> predicate);
-    
     /** Clears all the done tasks in the list
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
     
     //@@author A0147619W
     void sortTasks();
+
 
 }

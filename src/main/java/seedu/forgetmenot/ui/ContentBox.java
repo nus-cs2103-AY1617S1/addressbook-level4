@@ -18,6 +18,7 @@ import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.forgetmenot.logic.Logic;
+import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -32,11 +33,7 @@ public class ContentBox extends UiPart {
     private static final String FXML = "ContentBox.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static ObservableList<ReadOnlyTask> list;
 
-    
-    @FXML
-    private ImageView imagetest;
     
     @FXML
     private AnchorPane summarypane;
@@ -54,7 +51,7 @@ public class ContentBox extends UiPart {
     private ImageView upcomingicon;
     
     @FXML
-    private ImageView alltaskicon;
+    private ImageView overdueicon;
     
     @FXML
     private Label summary;
@@ -63,7 +60,7 @@ public class ContentBox extends UiPart {
     private GridPane gridpane;
     
     @FXML
-    private Label alltask;
+    private Label overdue;
     
     @FXML
     private Label today;
@@ -92,6 +89,9 @@ public class ContentBox extends UiPart {
     @FXML
     private Label dummy5;
     
+    @FXML
+    private Label floatheader;
+    
 
     public ContentBox() {
         super();
@@ -114,7 +114,6 @@ public class ContentBox extends UiPart {
 
     public static ContentBox load(Stage primaryStage, AnchorPane ContentBoxPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-    	list = taskList;
     	ContentBox contentbox =
                 UiPartLoader.loadUiPart(primaryStage, ContentBoxPlaceholder, new ContentBox());
         contentbox.configure(taskList);
@@ -124,7 +123,11 @@ public class ContentBox extends UiPart {
     
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
-    	dummy1.setText(Integer.toString(list.size()));
+    	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
+     	dummy2.setText(Integer.toString(TaskManager.todayCounter));
+    	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
+    	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
+    	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
     
  
@@ -132,18 +135,16 @@ public class ContentBox extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
 //        setConnections(taskList);
         addToPlaceholder();
-    
-        
+        panel.prefHeightProperty().bind(placeHolderPane.heightProperty());       
     }
     
     @FXML
     public void initialize() {
-    	
-    	dummy1.setText(Integer.toString(list.size()));
-    	dummy2.setText("X");
-    	dummy3.setText("X");
-    	dummy4.setText("X");
-    	dummy5.setText("X");
+       	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
+    	dummy2.setText(Integer.toString(TaskManager.todayCounter));
+    	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
+    	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
+    	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
 
 //    private void setConnections(ObservableList<ReadOnlyTask> taskList) {

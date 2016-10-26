@@ -30,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
+            "(?<name>([^;](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
             		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
                     );
@@ -147,6 +147,7 @@ public class Parser {
     	else if (args.equals("today") || args.equals("tdy") ) {
     		Calendar cal = Calendar.getInstance();
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	
@@ -154,6 +155,7 @@ public class Parser {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.DATE, 1);
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	

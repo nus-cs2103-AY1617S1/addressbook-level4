@@ -1,5 +1,7 @@
 package seedu.forgetmenot.ui;
 
+import java.util.function.Predicate;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import seedu.forgetmenot.commons.events.ui.ExitAppRequestEvent;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.model.UserPrefs;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -21,7 +24,7 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/taskmanagericon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -37,6 +40,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private FloatingPanel floatingPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -45,7 +49,7 @@ public class MainWindow extends UiPart {
     private String taskManagerName;
     
     @FXML
-    private AnchorPane contentBoxPlaceHolder;
+    private AnchorPane contentBoxPlaceholder;
     
 //    @FXML
 //    private AnchorPane browserPlaceholder;
@@ -64,6 +68,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane floatingPanelPlaceholder;
 
 
     public MainWindow() {
@@ -112,6 +119,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
 //        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -120,8 +128,12 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
+    private AnchorPane getFloatingPanelPlaceholder() {
+    	return floatingPanelPlaceholder;
+    }
+    
     private AnchorPane getContentBoxPlaceholder() {
-    	return contentBoxPlaceHolder;
+    	return contentBoxPlaceholder;
     }
     
     private AnchorPane getCommandBoxPlaceholder() {
@@ -199,12 +211,23 @@ public class MainWindow extends UiPart {
     	return this.contentBox;
     }
     
+    public FloatingPanel getFloatingPanel() {
+    	return this.floatingPanel;
+    }
+    
     /**
      * Render Status Bar Footer again, used when storage location in config changes
      * @@author A0147619W
      */
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+    }
+    
+    public Predicate<ReadOnlyTask> isFloating() {
+    	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
+    }
+    public Predicate<ReadOnlyTask> isNotFloating() {
+    	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
     }
 
 /*    public void loadTaskPage(ReadOnlyTask task) {

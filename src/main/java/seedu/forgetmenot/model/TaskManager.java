@@ -21,11 +21,11 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     
-    private static int floatingCounter;
-    private static int todayCounter;
-    private static int tomorrowCounter;
-    private static int upcomingCounter;
-    private static int overdueCounter;
+    public static int floatingCounter;
+    public static int todayCounter;
+    public static int tomorrowCounter;
+    public static int upcomingCounter;
+    public static int overdueCounter;
     
     {
         tasks = new UniqueTaskList();
@@ -132,14 +132,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0139671X
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editEndTime(task, new Time(newInfo));
-		counter();
+        counter();
+
     }
     
     //@@author A0139671X
     public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
-        tasks.editRecurFreq(task, new Recurrence(newRecur));
+	tasks.editRecurFreq(task, new Recurrence(newRecur));
+    counter();
+
     }
     
+    
+
+   
 //// util methods
 
     @Override
@@ -172,7 +178,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 
-	private void counter() {
+	public void counter() {
 		int floating = 0;
 		int today = 0;
 		int tomorrow = 0;
@@ -216,6 +222,13 @@ public class TaskManager implements ReadOnlyTaskManager {
 		 tomorrowCounter = tomorrow;
 		 upcomingCounter = upcoming;
 		 overdueCounter = overdue;
+		 
+		 System.out.println("Floating: " + floatingCounter);
+		 System.out.println("Today: " + todayCounter);
+		 System.out.println("Tomorrow: " + tomorrowCounter);
+		 System.out.println("Upcoming: " + upcomingCounter);
+	      System.out.println("Overdue: " + overdueCounter);
+
 		 
 	}
 	

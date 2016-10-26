@@ -22,15 +22,11 @@ public class ShowDateCommand extends Command {
     	this.date = date;
     }
 
-    public static Predicate<Task> filterByDate() {
-    	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
-    			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
-    }
     
     @Override
     public CommandResult execute() {
     	model.updateFilteredListToShowAll();
-        model.updateFilteredTaskListToShow(filterByDate());
+        model.updateFilteredTaskListToShowDate(date);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

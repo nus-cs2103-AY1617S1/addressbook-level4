@@ -101,11 +101,14 @@ public class TaskListPanelHandle extends GuiHandle {
 
 
     public TaskCardHandle navigateToTask(String name) {
+        System.out.println("10");
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
+            System.out.println("101");
             throw new IllegalStateException("Name not found: " + name);
         }
+        System.out.println("20");
         return navigateToTask(task.get());
     }
 
