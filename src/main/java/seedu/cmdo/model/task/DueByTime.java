@@ -18,8 +18,8 @@ public class DueByTime {
     private final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
     private final LocalTime NO_TIME = LocalTime.MAX;
     
-    public final LocalTime start;
-    public final LocalTime end;
+    public LocalTime start;
+    public LocalTime end;
     public final Boolean isRange;
     private Boolean isFloating = false; // Floating time is found in tasks with no time. 
     
@@ -84,6 +84,10 @@ public class DueByTime {
     public void setFloating(){
     	this.start = LocalTime.MAX;
     	this.end = start;
+    }
+    //check if single time
+    public boolean isSingleTime(){
+    	return isFloating;
     }
     //check if time is entered
     public boolean timeNotEntered(){
