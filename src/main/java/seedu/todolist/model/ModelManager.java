@@ -113,8 +113,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-    	addressBook.removeTask(target);
+    public synchronized void deleteTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
+        AddressBook previousAddressBook = new AddressBook(this.addressBook);
+    	addressBook.removeTask(tasks);
+    	addAddressBookHistory(previousAddressBook);
         indicateAddressBookChanged();
     }
 
