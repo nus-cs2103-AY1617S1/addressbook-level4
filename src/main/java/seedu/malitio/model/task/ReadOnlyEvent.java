@@ -13,6 +13,8 @@ public interface ReadOnlyEvent {
         Name getName();
         DateTime getStart();
         DateTime getEnd();
+        boolean isMarked();
+        void setMarked(boolean marked);
         
         /**
          * The returned TagList is a deep copy of the internal TagList,

@@ -36,6 +36,10 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public static class DeadlineNotFoundException extends Exception {}
     
     public static class DeadlineCompletedException extends Exception {}
+    
+    public static class DeadlineMarkedException extends Exception {}
+    
+    public static class DeadlineUnmarkedException extends Exception {}
 
     private final ObservableList<Deadline> internalList = FXCollections.observableArrayList();
 
@@ -97,7 +101,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
 	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
         assert deadlineToComplete!=null;
         
-        if(deadlineToComplete.getCompleted()) {
+        if (deadlineToComplete.getCompleted()) {
         	throw new DeadlineCompletedException();
         }
 
@@ -107,6 +111,29 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         
         deadlineToComplete.setCompleted();
         updateDeadlineList(deadlineToComplete);
+	}
+	
+	/**
+     * Marks the deadline in the list.
+     *
+     * @throws DuplicateDeadlineException if the task to add is a duplicate of an existing task in the list.
+     * @throws DeadlineMarkedException if the deadline is already marked.
+     * @throws DeadlineUnmarkedException if the deadline is already unmarked.
+     */
+	public void mark(ReadOnlyDeadline deadlineToMark, boolean marked)
+	        throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
+	    if (deadlineToMark.isMarked() && marked) {
+            throw new DeadlineMarkedException();
+	    } else if (!deadlineToMark.isMarked() && !marked) {
+	        throw new DeadlineUnmarkedException();
+	    }
+
+        if (!contains(deadlineToMark)) {
+            throw new DeadlineNotFoundException();
+        }
+        
+        deadlineToMark.setMarked(marked);
+        updateDeadlineList(deadlineToMark);
 	}
 
 	private void updateDeadlineList(ReadOnlyDeadline deadlineToComplete) {

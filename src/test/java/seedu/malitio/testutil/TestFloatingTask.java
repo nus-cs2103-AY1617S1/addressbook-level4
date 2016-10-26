@@ -10,6 +10,7 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
     private boolean completed = false;
+    private boolean marked = false;
     private UniqueTagList tags;
 
     public TestFloatingTask() {
@@ -62,4 +63,13 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
 		this.completed = true;
 	}
 
+	@Override
+    public boolean isMarked() {
+        return marked;
+    }
+
+    @Override
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
 }

@@ -10,6 +10,7 @@ public class Event implements ReadOnlyEvent {
     private DateTime start;
     private DateTime end;
     private UniqueTagList tags;
+    private boolean marked;
 	
     private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
 
@@ -26,6 +27,21 @@ public class Event implements ReadOnlyEvent {
        this.start = start;
        this.end = end;
        this.tags = tags;
+       this.marked = false;
+    }
+    
+    public Event(Name name, DateTime start, DateTime end, boolean marked, UniqueTagList tags) 
+            throws IllegalValueException {
+        
+       if(!isValidEvent(start, end)) {       
+           throw new IllegalValueException(MESSAGE_INVALID_EVENT);
+       }
+       this.name = name;
+       this.start = start;
+       this.end = end;
+       this.marked = marked;
+       this.tags = tags;
+       this.marked = false;
     }
 	
     /**
@@ -34,6 +50,7 @@ public class Event implements ReadOnlyEvent {
      */
     public Event(ReadOnlyEvent source) throws IllegalValueException {
         this(source.getName(), source.getStart(), source.getEnd(), source.getTags());
+        this.marked = source.isMarked();
     }
 
     @Override
@@ -62,6 +79,14 @@ public class Event implements ReadOnlyEvent {
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public boolean isMarked() {
+        return marked;
+    }
+    
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
 
     @Override

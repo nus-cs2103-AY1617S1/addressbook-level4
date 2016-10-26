@@ -41,7 +41,14 @@ public class FloatingTaskCard extends UiPart{
     	} else {
     		name.setText(task.getName().fullName);
     	}
-        id.setText("F"+displayedIndex + ". ");
+    	
+    	if (task.isMarked()) {
+    	    cardPane.setStyle("-fx-background-color: yellow;");
+    	} else {
+            cardPane.setStyle("-fx-background-color: white;");
+        }
+    	
+        id.setText("F" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 

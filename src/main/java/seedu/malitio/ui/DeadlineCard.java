@@ -46,7 +46,14 @@ public class DeadlineCard extends UiPart{
     	} else {
     		name.setText(deadline.getName().fullName);
     	}
-        id.setText("D"+displayedIndex + ". ");
+    	
+    	if (deadline.isMarked()) {
+    	    cardPane2.setStyle("-fx-background-color: yellow;");
+    	} else {
+    	    cardPane2.setStyle("-fx-background-color: white;");
+    	}
+    	
+        id.setText("D" + displayedIndex + ". ");
         due.setText("Due: "+ deadline.getDue().toString());
         tags.setText(deadline.tagsString());
     }

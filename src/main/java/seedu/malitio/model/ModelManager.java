@@ -15,18 +15,25 @@ import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
+import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
+import seedu.malitio.model.history.InputMarkHistory;
 
 import java.util.LinkedList;
 import java.util.Set;
@@ -186,14 +193,40 @@ public class ModelManager extends ComponentManager implements Model {
         indicateMalitioChanged();
 	}
 	
-
 	@Override
 	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
 		malitio.completeDeadline(deadlineToEdit);
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
-		
+
+	//@@author A0153006W
+	@Override
+	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
+	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
+	    malitio.markTask(taskToMark, marked);
+	    history.add(new InputMarkHistory(taskToMark, marked));
+	    updateFilteredTaskListToShowAll();
+	    indicateMalitioChanged();
 	}
+	
+	@Override
+    public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
+            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
+        malitio.markDeadline(deadlineToMark, marked);
+        history.add(new InputMarkHistory(deadlineToMark, marked));
+        updateFilteredDeadlineListToShowAll();
+        indicateMalitioChanged();
+    }
+	
+	@Override
+	public void markEvent(ReadOnlyEvent eventToMark, boolean marked)
+	        throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
+	    malitio.markEvent(eventToMark, marked);
+	    history.add(new InputMarkHistory(eventToMark, marked));
+	    updateFilteredEventListToShowAll();
+	    indicateMalitioChanged();
+	}
+    //@@author
     
     @Override
     public Stack<InputHistory> getHistory() {

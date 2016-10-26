@@ -18,6 +18,8 @@ public class XmlAdaptedFloatingTask {
     private String name;
     @XmlElement(required = true)
     private boolean completed; 
+    @XmlElement(required = true)
+    private boolean marked; 
 
 
     @XmlElement
@@ -37,6 +39,7 @@ public class XmlAdaptedFloatingTask {
     public XmlAdaptedFloatingTask(ReadOnlyFloatingTask source) {
         name = source.getName().fullName;
         completed = source.getCompleted();
+        marked = source.isMarked();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -55,7 +58,8 @@ public class XmlAdaptedFloatingTask {
         }
         final Name name = new Name(this.name);
         final boolean complete = this.completed;
+        final boolean marked = this.marked;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new FloatingTask(name, complete, tags);
+        return new FloatingTask(name, complete, marked, tags);
     }
 }

@@ -56,6 +56,8 @@ Examples:
 * `add CS2103 homework by 09-10 1100  p/high`
 * `add lunch with mom start 05-10 1400 end 05-10 1700 t/don’t be late`
 
+<!--- @@author A0153006W --->
+
 #### Listing tasks: `list`
 Shows a list of everything in the to-do list.<br>
 Format: `list [tasks|events|deadlines]`
@@ -68,6 +70,7 @@ Examples:
 * `list deadlines`
 * `list deadlines 05-10 1400`
 * `list 05-10 1400`
+<!--- @@author --->
 
 <!--- @@author a0126633j --->
 #### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
@@ -107,8 +110,8 @@ Examples:
 * `delete f1`<br>
   Deletes the 1st task in the currently showing floating task list. 
 <!--- @@author --->
-<!--- @@author A0129595N --->
 
+<!--- @@author A0129595N --->
 
 #### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
@@ -127,17 +130,12 @@ To remove all tags from a task without adding new ones, use the parameter: t/nul
   No changing of task type supported. <br>
 
 Examples: 
-  `edit f2 p/low`<br>
-  Edit the 2nd floating task in the to-do list replacing the priority. <br>
   `edit e1 end 12-21 2359` <br>
-  Edit the 1st event in the to-do list replacing its orginial end time with 12-21 2359. <br>
+  Edit the 1st event in the to-do list replacing its original end time with 12-21 2359. <br>
   `edit 1 n/lunch with mom`<br>
   Edits the 1st task in the results of the `find` or ‘ command.<br>
   Need to put at least one field
 <!--- @@author --->
-#### Clearing all entries : `clear`
-Clears all entries from the to-do list.<br>
-Format: `clear`  
 
 <!--- @@author A0122460W--->
 #### Completing a floating task or deadline: `complete`
@@ -153,7 +151,28 @@ Examples:
   Complete the 2nd floating task in Malitio.
   `complete d1`<br>
   Complete the 1st deadline in Malitio.
-  
+
+<!--- @@author A0153006W --->
+
+#### Marking as priority : `mark`
+Marks the specified task in the to-do list <br>
+Format: `mark INDEX`
+
+Examples:
+* `mark f1`
+
+#### Marking as priority : `unmark`
+Unmarks the specified task in the to-do list <br>
+Format: `unmark INDEX`
+
+Examples:
+* `unmark f1`
+<!--- @@author --->
+
+#### Clearing all entries : `clear`
+Clears all entries from the to-do list.<br>
+Format: `clear`  
+
 <!--- @@author A0129595N --->
 #### Undo the most recent action: `undo`
 Undo the most recent data-related command and reverts Malitio to previous state. <br>
@@ -195,17 +214,19 @@ Example:
 ## Command Summary
 
 Command | Format  
--------- | :-------- 
-Add | `add TASK_NAME [by DATE/TIME] [start DATE/TIME end DATE/TIME] [t/TAG]...`
-Clear | `clear`
-Complete | `complete f/d+INDEX`
-Delete | `delete f/d/e+INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
-List | `list`
-Edit | `edit f\d\e+INDEX [NAME] [by DATE/TIME] [start DATE/TIME] [end DATE/TIME] [t/TAG] `
-Help | `help`
-Undo | `undo`
-Redo | `redo`
-Save | `save DIRECTORY`
+------- | :------- 
+Add	| `add TASK_NAME [by DATE/TIME] [start DATE/TIME end DATE/TIME] [t/TAG]...`
+Clear 	| `clear`
+Delete  | `delete [f|d|e]INDEX`
+Find 	| `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
+List 	| `list`
+Edit 	| `edit [f|d|e]INDEX [NAME] [by DATE/TIME] [start DATE/TIME] [end DATE/TIME] [t/TAG]...`
+Complete| `complete [f|d|e]INDEX`
+Mark 	| `mark [f|d|e]INDEX`
+Unmark 	| `unmark [f|d|e]INDEX`
+Help 	| `help`
+Undo 	| `undo`
+Redo 	| `redo`
+Save 	| `save DIRECTORY`
 
 

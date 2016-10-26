@@ -9,7 +9,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
     private boolean completed;
-    
+    private boolean marked;    
     private UniqueTagList tags;
 
     /**
@@ -20,12 +20,14 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.completed = false;
+        this.marked = false;
     }
     
-    public FloatingTask(Name name, boolean completed, UniqueTagList tags) {
+    public FloatingTask(Name name, boolean completed, boolean marked, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.completed = completed;
+        this.marked = marked;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -35,21 +37,13 @@ public class FloatingTask implements ReadOnlyFloatingTask {
     public FloatingTask(ReadOnlyFloatingTask source) {
         this(source.getName(), source.getTags());
         this.completed = source.getCompleted();
+        this.marked = source.isMarked();
     }
 
     @Override
     public Name getName() {
         return name;
     }
-
-
-    public boolean getCompleted() {
-		return this.completed;
-	}
-
-	public void setCompleted() {
-		this.completed = true;
-	}
 
 	@Override
     public UniqueTagList getTags() {
@@ -63,6 +57,22 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         tags.setTags(replacement);
     }
 
+    public boolean getCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted() {
+        this.completed = true;
+    }
+    
+    public boolean isMarked() {
+        return this.marked;
+    }
+    
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

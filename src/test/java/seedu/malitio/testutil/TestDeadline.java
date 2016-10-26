@@ -11,6 +11,7 @@ public class TestDeadline implements ReadOnlyDeadline {
     private Name name;
     private DateTime due;
     private boolean completed = false;
+    private boolean marked = false;
     private UniqueTagList tags;
 
     public TestDeadline() {
@@ -72,5 +73,14 @@ public class TestDeadline implements ReadOnlyDeadline {
 	public void setCompleted() {
 		this.completed = true;
 	}
+	
+	@Override
+    public boolean isMarked() {
+        return marked;
+    }
 
+    @Override
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
 }

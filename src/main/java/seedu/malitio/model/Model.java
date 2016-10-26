@@ -12,13 +12,19 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
+import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 
 import java.util.Set;
@@ -108,5 +114,16 @@ public interface Model {
 	
 	 /** Complete the deadline.*/
 	void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException;
+	
+	/** Marks the floating task as a prority.*/
+	void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
+	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException;
     
+	/** Marks the deadline as a prority.*/
+    void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
+            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException;
+    
+    /** Marks the event as a priority.*/
+    void markEvent(ReadOnlyEvent eventToMark, boolean marked)
+            throws EventNotFoundException, EventMarkedException, EventUnmarkedException; 
 }

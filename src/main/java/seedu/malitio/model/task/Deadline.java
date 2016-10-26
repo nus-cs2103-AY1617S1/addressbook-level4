@@ -11,6 +11,7 @@ public class Deadline implements ReadOnlyDeadline{
     private DateTime due;
     private UniqueTagList tags;
     private boolean completed;
+    private boolean marked;
 
     /**
      * Constructor for deadlines.
@@ -20,12 +21,14 @@ public class Deadline implements ReadOnlyDeadline{
 		this.due = due;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 		this.completed = false;
+		this.marked = false;
 	}
 	
-	public Deadline(Name name, DateTime due, boolean completed, UniqueTagList tags) {
+	public Deadline(Name name, DateTime due, boolean completed, boolean marked, UniqueTagList tags) {
 		this.name = name;
 		this.due = due;
 		this.completed = completed;
+		this.marked = marked;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 	}
 	
@@ -35,6 +38,7 @@ public class Deadline implements ReadOnlyDeadline{
     public Deadline(ReadOnlyDeadline source) {
         this(source.getName(), source.getDue(), source.getTags());
         this.completed = source.getCompleted();
+        this.marked = source.isMarked();
     }
 
 
@@ -53,19 +57,27 @@ public class Deadline implements ReadOnlyDeadline{
         return new UniqueTagList(tags);
     }
 
-    public boolean getCompleted() {
-		return completed;
-	}
-
-	public void setCompleted() {
-		this.completed = true;
-	}
-
 	/**
      * Replaces this deadline's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted() {
+        this.completed = true;
+    }
+
+    public boolean isMarked() {
+        return marked;
+    }
+    
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
     
     @Override
