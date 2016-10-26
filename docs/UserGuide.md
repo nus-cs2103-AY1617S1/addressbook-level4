@@ -14,9 +14,8 @@
 1. Download the latest `Do-Do Bird.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Do-Do Bird application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-<<<<<<< Updated upstream
 
-   > ![GUI](./images/UI.png)
+   > ![GUI](./images/GUI.png)
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
