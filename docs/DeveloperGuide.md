@@ -545,3 +545,18 @@ Use case ends.
 4. Auto sync with Gmail (Firefox plugin), Google Calendar, Twitter (direct integration), Atom/RSS, IM (feed)
 5. Email notifications, autoprocess
 6. API <br>
+
+#### Competing product: MIUI Calendar
+
+**Pros:**
+
+1. Able to sync to different devices
+2. Able to set privacy to private or public
+3. Able to set 2 reminders
+4. Able to set reminder as a notification popup or an alarm
+
+**Cons:**
+
+1. Unable to check(tick) completed event
+3. Does not cater for tasks, only events
+
