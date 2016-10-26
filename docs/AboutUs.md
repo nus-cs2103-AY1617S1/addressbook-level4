@@ -4,32 +4,73 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Desmond Ang](https://github.com/KnewYouWereTrouble)
+<!-- @@author A0093896H -->
+#### [@Desmond Ang](https://github.com/KnewYouWereTrouble)
 <img src="images/Desmond.jpg" width="150"><br>
-**Role**: Team Lead, Git Expert <br>
-**Responsibilities**:Logic, Model, Storage
+* Components in charge of: Model, Logic, Storage <br>
+* Aspects/tools in charge of: Testing, Git <br>
+* Features Implemented:
+    * Add Command
+    * Delete Command
+    * Undo Command
+    * Update Command
+    * Recurring Tasks
+* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
+[[test code]](https://github.com/KnewYouWereTrouble)
+[[docs]](https://github.com/KnewYouWereTrouble)
+
+* Other major contributions
+    * Did the initial refactoring from AddressBook to ToDoList
+    * Set up Travis, Coveralls, Codacy
 
 -----
-
-#### [Dewi Tan Jia Hui](https://github.com/jessidew95)
+<!-- @@author A0142421X -->
+#### [@Dewi Tan Jia Hui](https://github.com/jessidew95)
 <img src="images/DewiTanJiaHui.jpg" width="150"><br>
-**Role**: Requirements Analyst, Developer <br>
-**Responsibilities**: UI, Events
+* Components in charge of: UI, Logic <br>
+* Aspects/tools in charge of: Scenebuilder <br>
+* Features Implemented:
+    * Tag List Panel
+    * Tag Command
+* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
+[[test code]](https://github.com/KnewYouWereTrouble)
+[[docs]](https://github.com/KnewYouWereTrouble)
+
+* Other major contributions
+    * Conceptualisation of UI
 
 -----
-
-#### [Lang Yan Bin](https://github.com/langyanbin0314)
+<!-- @@author A0121643R -->
+#### [@Lang Yan Bin](https://github.com/langyanbin0314)
 <img src="images/LangYanBin.jpg" width="150"><br>
-**Role**: Integration, Developer <br>
-**Responsibilities**: UI, Events
+* Components in charge of: Model, Logic <br>
+* Aspects/tools in charge of: Eclipse, Git <br>
+* Features Implemented:
+    * Mark Command
+    * Unmark Command
+    * Task priorities
+* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
+[[test code]](https://github.com/KnewYouWereTrouble)
+[[docs]](https://github.com/KnewYouWereTrouble)
+
+* Other major contributions
+    * Did the initial refactoring from AddressBook to ToDoList
 
 -----
-
-#### [Chua Yu Peng](http://github.com/chuayupeng)
+<!-- @@author A0138967J -->
+#### [@Chua Yu Peng](http://github.com/chuayupeng)
 <img src="images/ChuaYuPeng.jpg" width="150"><br>
-**Role**: Documentation, Eclipse Expert, Developer <br>
-**Responsibilities**: Testing, Dev Ops
+* Components in charge of: UI, Model <br>
+* Aspects/tools in charge of: Eclipse, Git <br>
+* Features Implemented:
+    * See Command
+    * Today Task Panel
+* Code Written: [[functional code]](https://github.com/KnewYouWereTrouble)
+[[test code]](https://github.com/KnewYouWereTrouble)
+[[docs]](https://github.com/KnewYouWereTrouble)
 
+* Other major contributions
+    * Conceptualisation of UI
 
  -----
 

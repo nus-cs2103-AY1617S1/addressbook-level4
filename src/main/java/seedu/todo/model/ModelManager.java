@@ -149,7 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0142421X
     public UnmodifiableObservableList<Tag> getUnmodifiableTagList() {
     	return new UnmodifiableObservableList<>(tagList);
-    }
+    } 
     
     //@@author A0138967J
     public void updateTodayListToShowAll() {
@@ -202,6 +202,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime){
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
+
   //@@author A0121643R
     @Override
     public void updateFilteredTaskListByPriority(Priority priority) {
