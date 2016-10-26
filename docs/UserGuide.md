@@ -35,6 +35,7 @@
 > * Items with `...` after them can have multiple instances.
 > * Flexible ordering of parameters.
 
+/* @@author A0146107M */
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
 Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING] [p/PRIORITY]`
