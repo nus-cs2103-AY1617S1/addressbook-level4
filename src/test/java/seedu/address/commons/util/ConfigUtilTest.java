@@ -53,10 +53,10 @@ public class ConfigUtilTest {
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
-        //Config expected = getTypicalConfig();
+        Config expected = getTypicalConfig();
 
-        //Config actual = read("TypicalConfig.json").get();
-        //assertEquals(expected, actual);
+        Config actual = read("TypicalConfig.json").get();
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -67,10 +67,10 @@ public class ConfigUtilTest {
 
     @Test
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
-        //Config expected = getTypicalConfig();
-        //Config actual = read("ExtraValuesConfig.json").get();
+        Config expected = getTypicalConfig();
+        Config actual = read("ExtraValuesConfig.json").get();
 
-        //assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     private Config getTypicalConfig() {
@@ -78,8 +78,8 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setTaskManagerFilePath("taskmanager.xml");
-        config.setTaskManagerName("TypicalTaskManagerName");
+        config.setTaskManagerFilePath("data/taskmanager.xml");
+        config.setTaskManagerName("MyTaskManager");
         return config;
     }
 

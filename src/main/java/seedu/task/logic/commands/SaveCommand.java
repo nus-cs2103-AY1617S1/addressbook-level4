@@ -47,7 +47,7 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
          
             new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
             
-            return new CommandResult("Change save path:" + changePathLink + "\n Updated \n");
+            return new CommandResult("Change save path:" + changePathLink + " Updated");
             
             //new XmlTaskManagerStorage(config.getTaskManagerFilePath());
         }
