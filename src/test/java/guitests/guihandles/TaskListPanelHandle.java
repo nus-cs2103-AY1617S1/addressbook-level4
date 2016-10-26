@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
+
+//@@author A0147994J
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
@@ -131,7 +133,7 @@ public class TaskListPanelHandle extends GuiHandle {
     /**
      * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getTaskIndex(ReadOnlyTask targetTask) {
+    public int getTaskIndex(ReadOnlyTask targetTask){
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
             if(tasksInList.get(i).getTaskName().equals(targetTask.getTaskName())){

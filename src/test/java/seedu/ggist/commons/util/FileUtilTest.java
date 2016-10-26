@@ -14,13 +14,14 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
+//@@author A0147994J
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
+/*
     @Test
     public void getPath(){
 
@@ -35,7 +36,7 @@ public class FileUtilTest {
         thrown.expect(AssertionError.class);
         FileUtil.getPath("folder");
     }
-
+*/
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();

@@ -310,7 +310,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            
             if (taskDateKeyWords == null) {
                 return true;
             }
@@ -321,7 +320,6 @@ public class ModelManager extends ComponentManager implements Model {
                    (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
                    (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) && !task.isDone())) ||
                    (task.isOverdue() && !task.isDone())));
-                   
         }
       //@@author
         @Override

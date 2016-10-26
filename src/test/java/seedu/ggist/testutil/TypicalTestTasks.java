@@ -8,6 +8,8 @@ import seedu.ggist.model.task.*;
 /**
  *
  */
+
+//@@author A0147994J
 public class TypicalTestTasks {
 
     public static TestTask floating, deadline, event, dance, soccer;
@@ -52,9 +54,11 @@ public class TypicalTestTasks {
     public static void loadTaskManagerWithSampleData(TaskManager ab) throws IllegalValueException {
 
         try {
-            ab.addTask(new Task(floating));
+            //ab.addTask(new Task(floating));
             ab.addTask(new Task(deadline));
             ab.addTask(new Task(event));
+            ab.addTask(new Task(dance));
+            //ab.addTask(new Task(soccer));
           
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -62,7 +66,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{floating,deadline,event};
+        return new TestTask[]{deadline,event,dance};
     }
 
     public TaskManager getTypicalTaskManager() throws IllegalValueException{

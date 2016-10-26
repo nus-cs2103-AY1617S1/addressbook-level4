@@ -44,7 +44,7 @@ public class Task implements ReadOnlyTask{
         } else {
             constructStartDateTime(startDate, startTime);
         }
-        constructEndDateTime(endDate, endTime);       
+        constructEndDateTime(endDate, endTime);
         checkTimeClash();
     }
     
