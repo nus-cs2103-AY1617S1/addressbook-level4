@@ -24,6 +24,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
 
+//@@author reused
 /**
  * A GUI Test class for Uncle Jim's Discount To-do List.
  */

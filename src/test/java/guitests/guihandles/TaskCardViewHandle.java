@@ -261,12 +261,14 @@ public class TaskCardViewHandle extends GuiHandle {
     }
 
     /* View Elements Helper Methods */
+    //@@author A0135805H-reused
     /**
      * Search and returns exactly one matching node.
      *
      * @param fieldId Field ID to search inside the parent node.
      * @return Returns one appropriate node that matches the {@code fieldId}.
-     * @throws NullPointerException when no node with {@code fieldId} can be found, intentionally breaking the tests.
+     * @throws NullPointerException when no node with {@code fieldId} can be found, intentionally breaking
+     *         the tests.
      */
     @Override
     protected Node getNode(String fieldId) throws NullPointerException {
@@ -278,6 +280,7 @@ public class TaskCardViewHandle extends GuiHandle {
         }
     }
 
+    //@@author A0135805H
     /**
      * Gets a text from the node with {@code fieldId}.
      *
@@ -298,6 +301,7 @@ public class TaskCardViewHandle extends GuiHandle {
         return displayedIndex + ". " + actualTitle;
     }
 
+    //@@author A0135805H=reused
     /* Override Methods */
     @Override
     public boolean equals(Object obj) {

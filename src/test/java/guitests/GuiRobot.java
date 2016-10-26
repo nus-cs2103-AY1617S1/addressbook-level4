@@ -5,6 +5,7 @@ import seedu.todo.testutil.TestUtil;
 
 import org.testfx.api.FxRobot;
 
+//@@author reused
 /**
  * Robot used to simulate user actions on the GUI.
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.

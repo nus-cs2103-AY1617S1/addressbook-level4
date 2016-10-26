@@ -17,7 +17,6 @@ import seedu.todo.ui.view.TodoListView;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 //@@author A0135805H
 /**
@@ -31,6 +30,7 @@ public class TodoListViewHandle extends GuiHandle {
     private static final String TASK_CARD_ID = "#taskCard";
     private static final String TODO_LIST_VIEW_ID = "#todoListView";
 
+    //@@author A0135805H-reused
     /**
      * Constructs a handle for {@link TodoListView}.
      *
@@ -49,6 +49,7 @@ public class TodoListViewHandle extends GuiHandle {
         return (ListView<ImmutableTask>) getNode(TODO_LIST_VIEW_ID);
     }
 
+    //@@author A0135805H
     /**
      * Gets a list of {@link ImmutableTask}
      */
@@ -142,8 +143,9 @@ public class TodoListViewHandle extends GuiHandle {
         if (possibleNode.isPresent()) {
             return possibleNode.get();
         } else {
-            String errorMessage = "Either the node fails to draw on the screen, or you provided an invalid index "
-                                  + listIndex + " where the number of nodes is " + getAllTaskCardNodes().size();
+            String errorMessage
+                    = "Either the node fails to draw on the screen, or you provided an invalid index "
+                    + listIndex + " where the number of nodes is " + getAllTaskCardNodes().size();
             throw new NodeFinderException(errorMessage, NodeFinderException.ErrorType.NO_NODES_FOUND);
         }
     }
@@ -185,7 +187,8 @@ public class TodoListViewHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
+     * Returns true if the {@code tasks} appear as the sub list (in that order) at position
+     * {@code startPosition}.
      */
     public boolean containsInOrder(int startPosition, ImmutableTask... tasks) {
         List<ImmutableTask> taskList = getImmutableTaskList();

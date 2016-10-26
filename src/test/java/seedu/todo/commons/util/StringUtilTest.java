@@ -144,7 +144,8 @@ public class StringUtilTest {
         testSplitStringHelper("Pichu-Pikachu_RAICHU's", new String[] {"Pichu-Pikachu_RAICHU's"});
 
         //Test multiple element split by space and comma
-        testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away", new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
+        testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away",
+                new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
     }
 
     /**
@@ -186,7 +187,6 @@ public class StringUtilTest {
         String outcome = StringUtil.convertListToString(input);
         assertEquals(expected, outcome);
     }
-    //@@author
 
     //@@author A0139021U
     @Test

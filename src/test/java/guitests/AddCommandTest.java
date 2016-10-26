@@ -121,7 +121,8 @@ public class AddCommandTest extends TodoListGuiTest {
 
     /**
      * Tasks should be collapsed when newly added.
-     * Checks the case where if the task is collapsible, then the task is in the collapsed state when newly added.
+     * Checks the case where if the task is collapsible,
+     * then the task is in the collapsed state when newly added.
      */
     private void assertCollapsed(TaskCardViewHandle newTask) {
         if (newTask.isTaskCollapsible()) {

@@ -9,8 +9,7 @@ import seedu.todo.ui.view.CommandInputView;
 
 //@@author A0135805H
 /**
- * A handle to the {@link CommandInputView}'s
- * command text box in the GUI.
+ * A handle to the {@link CommandInputView}'s command text box in the GUI.
  */
 public class CommandInputViewHandle extends GuiHandle {
     /* Constants */
@@ -45,6 +44,7 @@ public class CommandInputViewHandle extends GuiHandle {
         return getTextAreaText(COMMAND_INPUT_FIELD_ID);
     }
 
+    //@@author A0135805H-reused
     /**
      * Enters the given command in the Command Box and presses enter.
      * @param command Command text to be executed.

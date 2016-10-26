@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
 
+//@@author reused
 /**
  * Provides a handle for the main GUI.
  */

@@ -7,14 +7,16 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
+//@@author A0135805H
 /**
  * Tests the TimeUtil class
  */
 public class TimeUtilTest {
 
-    //@@author A0135805H
     /**
      * A subclass of TimeUtil that provides the ability to override the current system time, 
      * so that time sensitive components can be conveniently tested. 
@@ -42,7 +44,8 @@ public class TimeUtilTest {
     /**
      * Aids to test taskDeadlineText with a current time and due time, against an expected output.
      */
-    private void testTaskDeadlineTextHelper(String expectedOutput, LocalDateTime currentTime, LocalDateTime dueTime) {
+    private void testTaskDeadlineTextHelper(String expectedOutput, LocalDateTime currentTime,
+                                            LocalDateTime dueTime) {
         TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
         String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
         assertEquals(expectedOutput, generatedOutput);
@@ -172,41 +175,53 @@ public class TimeUtilTest {
     @Test
     public void getTaskDeadlineText_thisYearBeforeDeadline() {
         testTaskDeadlineTextHelper("by 12 August, 12:55 PM", 
-                LocalDateTime.of(2016, Month.JANUARY, 21, 12, 0), LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55));
+                LocalDateTime.of(2016, Month.JANUARY, 21, 12, 0),
+                LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55));
         testTaskDeadlineTextHelper("by 15 September, 12:00 AM",
-                LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59), LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0));
+                LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59),
+                LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0));
     }
     
     @Test
     public void getTaskDeadlineText_thisYearAfterDeadline() {
         testTaskDeadlineTextHelper("since 21 January, 8:47 PM", 
-                LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55), LocalDateTime.of(2016, Month.JANUARY, 21, 20, 47));
+                LocalDateTime.of(2016, Month.AUGUST, 12, 12, 55),
+                LocalDateTime.of(2016, Month.JANUARY, 21, 20, 47));
         testTaskDeadlineTextHelper("since 13 September, 11:59 PM",
-                LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0), LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59));
+                LocalDateTime.of(2016, Month.SEPTEMBER, 15, 0, 0),
+                LocalDateTime.of(2016, Month.SEPTEMBER, 13, 23, 59));
     }
     
     @Test
     public void getTaskDeadlineText_differentYearBeforeDeadline() {
         testTaskDeadlineTextHelper("in 1 minute", 
-                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59), LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59),
+                LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0));
         testTaskDeadlineTextHelper("by tomorrow, 1:15 AM",
-                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 0), LocalDateTime.of(2017, Month.JANUARY, 1, 1, 15));
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 0),
+                LocalDateTime.of(2017, Month.JANUARY, 1, 1, 15));
         testTaskDeadlineTextHelper("by 31 January 2017, 1:05 AM",
-                LocalDateTime.of(2016, Month.JUNE, 30, 22, 0), LocalDateTime.of(2017, Month.JANUARY, 31, 1, 5));
+                LocalDateTime.of(2016, Month.JUNE, 30, 22, 0),
+                LocalDateTime.of(2017, Month.JANUARY, 31, 1, 5));
         testTaskDeadlineTextHelper("by 31 August 2020, 12:35 PM",
-                LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0), LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35));
+                LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0),
+                LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35));
     }
     
     @Test
     public void getTaskDeadlineText_differentYearAfterDeadline() {
         testTaskDeadlineTextHelper("1 minute ago", 
-                LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0), LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59));
+                LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0),
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 23, 59));
         testTaskDeadlineTextHelper("since yesterday, 12:00 AM",
-                LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0), LocalDateTime.of(2016, Month.DECEMBER, 31, 0, 0));
+                LocalDateTime.of(2017, Month.JANUARY, 1, 0, 0),
+                LocalDateTime.of(2016, Month.DECEMBER, 31, 0, 0));
         testTaskDeadlineTextHelper("since 30 June 2016, 10:00 PM",
-                LocalDateTime.of(2017, Month.JANUARY, 31, 1, 5), LocalDateTime.of(2016, Month.JUNE, 30, 22, 0));
+                LocalDateTime.of(2017, Month.JANUARY, 31, 1, 5),
+                LocalDateTime.of(2016, Month.JUNE, 30, 22, 0));
         testTaskDeadlineTextHelper("since 13 February 2016, 1:00 PM",
-                LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35), LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0));
+                LocalDateTime.of(2020, Month.AUGUST, 31, 12, 35),
+                LocalDateTime.of(2016, Month.FEBRUARY, 13, 13, 0));
     }
     
     @Test

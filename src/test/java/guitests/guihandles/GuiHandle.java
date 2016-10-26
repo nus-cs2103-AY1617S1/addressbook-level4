@@ -10,6 +10,7 @@ import seedu.todo.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author reused
 /**
  * Base class for all GUI Handles used in testing.
  */
