@@ -524,7 +524,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void changeFileStorage(String filePath) throws IOException, ParseException, JSONException {
         if (filePath.equals("default")) {
-            filePath = "/data/tasklist.xml";
+            filePath = "data/tasklist.xml";
+        }
+        else{
+        	filePath = checkFileSpecification(filePath);
         }
         File targetListFile = new File(filePath);
         FileReader read = new FileReader("config.json");
@@ -541,11 +544,23 @@ public class ModelManager extends ComponentManager implements Model {
         addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
         clearRedoStack();
     }
+    public String checkFileSpecification(String filePath){
+    	CharSequence xmlFile = ".xml";
+    	if(!filePath.contains(xmlFile)){
+    		filePath=filePath.trim();
+    		filePath=filePath.concat("/tasklist.xml");
+    	}
+    	return filePath;
+    }
+
 
     @Override
     public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
         if (filePath.equals("default")) {
-            filePath = "/data/tasklist.xml";
+            filePath = "data/tasklist.xml";
+        }
+        else{
+        	filePath = checkFileSpecification(filePath);
         }
         File targetListFile = new File(filePath);
         FileReader read = new FileReader("config.json");
@@ -599,7 +614,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void changeFileStorageRedo(String filePath) throws IOException, ParseException, JSONException {
         if (filePath.equals("default")) {
-            filePath = "/data/tasklist.xml";
+            filePath = "data/tasklist.xml";
+        }
+        else{
+        	filePath = checkFileSpecification(filePath);
         }
         File targetListFile = new File(filePath);
         FileReader read = new FileReader("config.json");
