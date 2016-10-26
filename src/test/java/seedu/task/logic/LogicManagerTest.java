@@ -155,11 +155,11 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add inval#id name", expectedMessage);
         assertCommandBehavior(
-                "add Invalid start time, from 3/0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
+                "add Invalid start time, from 3@0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Invalid end time, from 10.00am to 11.7/1pm by 10.00pm #tagged", expectedMessage);
+                "add Invalid end time, from 10.00am to 11.7@1pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Invalid deadline, from 10.00am to 11.11pm by 10/00pm #tagged", expectedMessage);
+                "add Invalid deadline, from 10.00am to 11.11pm by 10#00pm #tagged", expectedMessage);
         assertCommandBehavior(
                 "add Invalid tag, from 10.00am to 11.11pm by 10.00pm /#tagged#", expectedMessage);
     }
