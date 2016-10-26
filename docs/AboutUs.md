@@ -25,7 +25,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Tooltip
   * Input history navigation with Arrow Keys
   * Switch view buttons
-* Code written: [functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)[docs]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)][[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)][docs]
 
 -----
 
