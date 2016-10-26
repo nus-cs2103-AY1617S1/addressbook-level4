@@ -1,6 +1,7 @@
 package seedu.flexitrack.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.util.StringUtil;
@@ -111,7 +112,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        SortedList<ReadOnlyTask> taskSortedList = new SortedList<ReadOnlyTask>(filteredTasks);
+        return new UnmodifiableObservableList<>(taskSortedList);
     }
 
     @Override
