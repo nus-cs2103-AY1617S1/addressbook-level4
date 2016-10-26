@@ -5,14 +5,15 @@ import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.BackupCommand;
+import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
 public class BackupCommandTest extends TaskManagerGuiTest {
 
-    public static final String filepath_A = "data/empty";
-    public static final String filepath_B = "data/notempty";
+    public static final String filepath_A = TestUtil.getFilePathInSandboxFolder("empty");
+    public static final String filepath_B = TestUtil.getFilePathInSandboxFolder("notempty");
     public static final String filepath_C = "c:/inaccessible";
     public static final String filepath_D = "invalid:/drive";
     public static final String filepath_E = "c:/invalid>character";

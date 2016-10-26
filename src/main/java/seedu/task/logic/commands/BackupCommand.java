@@ -40,23 +40,22 @@ public class BackupCommand extends Command {
     private String _source;
     
     //This is the path of the storage file.
-    private String _directory;
+    private String _destination;
     
-    public BackupCommand(String directory) {
-        setDirectory(directory);
+    public BackupCommand(String destination) {
+        setDestination(destination);
         setSource();
-        File newFile = new File(this._directory);
+        File newFile = new File(this._destination);
         File source = new File(this._source);
         if (!source.exists()) {
             return;
         }
-        if (!newFile.exists()) {
-            try {
-                newFile.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        if (!FileUtil.isFileExists(newFile)) {
+                try {
+                    FileUtil.createFile(newFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
         try {
             FileUtils.copyFile(source, newFile);
@@ -65,9 +64,10 @@ public class BackupCommand extends Command {
         }
     }
     
-    public void setDirectory(String directory) {
-        if (directory != null) {
-            _directory = directory + FILE_EXTENSION;
+    public void setDestination(String destination) {
+        if (destination != null) {
+            
+            _destination = destination + FILE_EXTENSION;
         }
     }
     
@@ -81,7 +81,6 @@ public class BackupCommand extends Command {
             try {
                 throw new DataConversionException(e);
             } catch (DataConversionException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
         }
@@ -93,15 +92,14 @@ public class BackupCommand extends Command {
     @Override
     public CommandResult execute(boolean isUndo) {
         //assert _directory != null;
-        boolean check = new File(_directory).exists();
+        boolean check = new File(_destination).exists();
         if (!check)
-            return new CommandResult(String.format(MESSAGE_BACKUP_FAILURE, _directory));
-        return new CommandResult(String.format(MESSAGE_BACKUP_SUCCESS, _directory));
+            return new CommandResult(String.format(MESSAGE_BACKUP_FAILURE, _destination));
+        return new CommandResult(String.format(MESSAGE_BACKUP_SUCCESS, _destination));
     }
 
     @Override
     public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
         return null;
     }
 
