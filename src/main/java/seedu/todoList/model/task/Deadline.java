@@ -19,20 +19,18 @@ public class Deadline extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Deadline(Name name, StartDate date, EndTime endTime, Done isDone) {
+    public Deadline(Name name, StartDate date, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, date, endTime);
         super.name = name;
         this.date = date;
         this.endTime = endTime;
-        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Deadline(Deadline source) {
-        this(source.getName(), source.getDate(), source.getEndTime(),
-        		source.getDone());
+        this(source.getName(), source.getDate(), source.getEndTime());
     }
     
     public Deadline(ReadOnlyTask source) {
