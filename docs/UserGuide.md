@@ -100,46 +100,52 @@ Format: `delete INDEX`
   The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** eg. f1, e2, d3, ...
 
 Examples: 
-* `list`<br>
   `delete 2`<br>
   Deletes the 2nd task in the to-do list.
-* `find lunch`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` or ‘ command.
-
+<!--- @@author A0129595N --->
 #### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
 Edit Floating Task Format: `edit 'f'INDEX [TASK_NAME] [t/TAG]`<br>
 Edit Deadline Format: `edit 'd'INDEX [TASK_NAME] [by DATE/TIME] [t/TAG]` <br>
 Edit Event Format `edit 'e'INDEX [TASK_NAME] [start DATE/TIME] [end DATE/TIME]` <br>
+To remove all tags from a task without adding new ones, use the parameter: t/null <br>
 
 
-> Edits the task at the specified `INDEX`. 
+> Edits the task at the specified `INDEX` with the given one or more parameters.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** f1, e2, d3, ...<br>
+  At least one of the optional parameters must be present <br>
   The prefix is not case sensitive. <br>
   The edit function can only edit the details within the same type of task. <br>
   No changing of task type supported. <br>
 
 Examples: 
-* `list`<br>
   `edit f2 p/low`<br>
   Edit the 2nd floating task in the to-do list replacing the priority. <br>
   `edit e1 end 12-21 2359` <br>
   Edit the 1st event in the to-do list replacing its orginial end time with 12-21 2359. <br>
-* `find lunch`<br> 
   `edit 1 n/lunch with mom`<br>
   Edits the 1st task in the results of the `find` or ‘ command.<br>
   Need to put at least one field
-
+<!--- @@author --->
 #### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
 Format: `clear`  
-
+<!--- @@author A0129595N --->
 #### Undo the most recent action: `undo`
-Undo the most recent action and reverts the to-do list to previous state. <br>
+Undo the most recent data-related command and reverts Malitio to previous state. <br>
+Data-related commands include add, delete, edit and clear. <br>
 Format: `undo`
 
+#### Redo the most recent action: `redo`
+Redo the most recent data-related command and reverts Malitio to previous state before undo. <br>
+Redo will no longer be possible after a new data-related command is executed. <br>
+Data-related commands include add, delete, edit and clear. <br>
+Format: `redo`
+
+<!--- @@author --->
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
@@ -176,6 +182,7 @@ List | `list`
 Edit | `edit f\d\e+INDEX [NAME] [by DATE/TIME] [start DATE/TIME] [end DATE/TIME] [t/TAG] `
 Help | `help`
 Undo | `undo`
+Redo | `redo`
 Save | `save DIRECTORY`
 
 
