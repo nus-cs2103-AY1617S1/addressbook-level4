@@ -1,13 +1,15 @@
 package seedu.tasklist.model.task;
 
 
+import java.util.Calendar;
+
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 //@@author A0146107M
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
  */
-public class EndTime extends Time {
+public class EndTime extends Time{
 
     public static final String MESSAGE_END_TIME_CONSTRAINTS = "End time is invalid!";
     public static final int DEFAULT_HOUR_VAL = 23;
@@ -32,13 +34,17 @@ public class EndTime extends Time {
     }
 
     @Override
-    protected int getDefaultMinuteVal(){
+	protected int getDefaultMinuteVal(){
     	return DEFAULT_MINUTE_VAL;
     }
     
     @Override
     protected String getIVEMessage(){
     	return MESSAGE_TIME_CONSTRAINTS;
+    }
+    
+    public void setCalendar(Calendar cal){
+    	time = (Calendar)cal.clone();
     }
 
     @Override

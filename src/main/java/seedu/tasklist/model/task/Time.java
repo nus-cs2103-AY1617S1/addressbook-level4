@@ -17,7 +17,7 @@ public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS = "Time is invalid!";
 
-    public final Calendar time;
+    public Calendar time;
 
     /**
      * Validates given start time.
@@ -50,6 +50,9 @@ public class Time {
     public Time(Long unixTime) {
     	time = Calendar.getInstance();
     	time.setTimeInMillis(unixTime);
+    }
+    public Time(Calendar cal){
+    	time = (Calendar)cal.clone();
     }
     
     public void updateTime(String input) throws IllegalValueException {
