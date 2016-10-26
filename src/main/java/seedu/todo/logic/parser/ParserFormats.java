@@ -13,7 +13,7 @@ public class ParserFormats {
     public static final String ON_DATE_FORMAT = " (on|from) (?<onDateTime>[^;]+)" ;
     public static final String BY_DATE_FORMAT = " (by|to) (?<byDateTime>[^;]+)";
     public static final String DETAIL_FORMAT = "(?: ?; ?(?<detail>.+))?";
-    public static final String NAME_FORMAT = "(?<name>[^/]+)";
+    public static final String NAME_FORMAT = "(?<name>[^/;]+)";
     public static final String RECUR_FORMAT = " every (?<rec>[^;]+)";
             
     /**
