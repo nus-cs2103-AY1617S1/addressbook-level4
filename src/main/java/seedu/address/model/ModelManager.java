@@ -7,7 +7,6 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-
 import seedu.address.model.ModelManager.Qualifier;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
@@ -153,8 +152,8 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		}
 		
-		FilteredList<Task> clashingTasks = new FilteredList<Task>(taskmanager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(clashingTasks)));
+		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
+		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
 	}
 
 	// ========== Inner classes/interfaces used for filtering
