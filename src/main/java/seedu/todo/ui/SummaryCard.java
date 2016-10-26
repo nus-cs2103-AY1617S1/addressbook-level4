@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 
 public class SummaryCard extends UiPart{
@@ -19,6 +22,8 @@ public class SummaryCard extends UiPart{
     private Label details;
     @FXML
     private Label tags;
+    @FXML
+    private Circle priorityLevel;
 
     private ReadOnlyTask task;
 
@@ -33,6 +38,13 @@ public class SummaryCard extends UiPart{
         name.setText(task.getName().fullName);
         details.setText(task.getDetail().value);
         tags.setText(task.tagsString());
+        if (task.getPriority().toString().equals(Priority.LOW)) {
+            priorityLevel.setFill(Color.LIMEGREEN);
+        } else if (task.getPriority().toString().equals(Priority.MID)) {
+            priorityLevel.setFill(Color.YELLOW);
+        } else {
+            priorityLevel.setFill(Color.RED);
+        }
     }
 
     public HBox getLayout() {
