@@ -11,8 +11,12 @@ import seedu.cmdo.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#detail";
     private static final String PRIORITY_FIELD_ID = "#priority";
-    private static final String DATE_FIELD_ID = "#dbd";
-    private static final String TIME_FIELD_ID = "#dbt";
+    private static final String START_TIME = "#st";
+    private static final String START_DATE = "#sd";
+    private static final String END_DATE = "#dbd";
+    private static final String END_TIME = "#dbt";
+    private static final String ID = "#id";
+    private static final String TAG = "#tags";
 
     private Node node;
 
@@ -21,6 +25,10 @@ public class TaskCardHandle extends GuiHandle {
         this.node = node;
     }
 
+    public String getID(String id) {
+    	return getTextFromLabel(ID);
+    }
+    
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
@@ -32,18 +40,35 @@ public class TaskCardHandle extends GuiHandle {
     public String getPriority() {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
-
+    
+    public String getStartDate() {
+    	return getTextFromLabel(START_DATE);
+    }
+    
+    public String getStartTime() {
+    	return getTextFromLabel(START_TIME);
+    }
+    
     public String getDueByDate() {
-        return getTextFromLabel(DATE_FIELD_ID);
+        return getTextFromLabel(END_DATE);
     }
 
     public String getDueByTime() {
-        return getTextFromLabel(TIME_FIELD_ID);
+        return getTextFromLabel(END_TIME);
+    }
+    
+    public String getTag() {
+    	return getTextFromLabel(TAG);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getDetail().equals(task.getDetail().details) && getDueByDate().equals(task.getDueByDate().getFriendlyString())
-                && getDueByTime().equals(task.getDueByTime().getFriendlyString()) && getPriority().equals(task.getPriority().value.toString());
+        return getDetail().equals(task.getDetail().details)
+        		&& getDueByDate().equals(task.getDueByDate().getFriendlyEndString()) 
+                && getDueByTime().equals(task.getDueByTime().getFriendlyEndString()) 
+                && getPriority().equals(task.getPriority().value) 
+                && getTag().equals(task.tagsString())
+                && getStartTime().equals(task.getDueByTime().getFriendlyStartString())
+                && getStartDate().equals(task.getDueByDate().getFriendlyStartString());
     }
 
     @Override
