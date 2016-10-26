@@ -1,7 +1,5 @@
 package seedu.task.logic;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +47,7 @@ public class HelpCommandTest extends CommandTest {
 	 * "mark", "find", "undo", "clear", "exit"
 	 * 
 	 * 
-	 * Invalid arguments to test: [KEY_WORD]: "4", "-r", "$", "adds"
+	 * Invalid arguments to test: [KEY_WORD]: "4", "/r", "$", "adds"
 	 * 
 	 * 
 	 */
@@ -58,8 +56,8 @@ public class HelpCommandTest extends CommandTest {
 	public void executeHelpInvalidArgsFormat() throws Exception {
 		String expectedMessage = String.format(HelpCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help  4 ", expectedMessage);
-		assertHelpCommandBehavior("help  -r ", expectedMessage);
-		assertHelpCommandBehavior("help - r ", expectedMessage);
+		assertHelpCommandBehavior("help  /r ", expectedMessage);
+		assertHelpCommandBehavior("help / r ", expectedMessage);
 		assertHelpCommandBehavior("help $ ", expectedMessage);
 		assertHelpCommandBehavior("help adds", expectedMessage);
 
@@ -67,8 +65,16 @@ public class HelpCommandTest extends CommandTest {
 
 	// ------------------------Tests for valid inputs----------------
 	/*
-	 * 1) valid help [KEY_WORD] - add - delete - list - find - edit - mark -
-	 * clear - exit
+	 * 1) valid help [KEY_WORD] 
+	 *  add  
+	 *  delete 
+	 *  list 
+	 *  find 
+	 *  edit 
+	 *  mark 
+	 *  undo
+	 *  clear 
+	 *  exit
 	 */
 
 	@Test

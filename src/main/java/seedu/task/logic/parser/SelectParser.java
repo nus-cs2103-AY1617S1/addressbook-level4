@@ -1,5 +1,13 @@
 package seedu.task.logic.parser;
 
+/**
+ * Parses arguments in the context of the add task command.
+ *
+ * @param args full command args string
+ * @return the prepared command
+ * @author Yee Heng
+ */
+
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
@@ -17,17 +25,12 @@ public class SelectParser implements Parser {
     
      
     private static final Pattern SELECT_TASK_DATA_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-t)\\s(?<index>\\d*)");
+            Pattern.compile("(?:/t)\\s(?<index>\\d*)");
    
     private static final Pattern SELECT_EVENT_DATA_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-e)\\s(?<index>\\d*)");
+            Pattern.compile("(?:/e)\\s(?<index>\\d*)");
     
-    /**
-     * Parses arguments in the context of the add person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
+    
     @Override
     public Command prepare(String args){
         final Matcher taskMatcher = SELECT_TASK_DATA_FORMAT.matcher(args.trim());

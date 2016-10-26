@@ -10,6 +10,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 /**
  * Selects an Event identified using it's last displayed index from the task
  * book.
+ * @author Yee Heng
  */
 public class SelectTaskCommand extends SelectCommand {
 
