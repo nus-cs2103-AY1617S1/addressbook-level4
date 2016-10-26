@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
         this.targetIndexes = indexes;
     }
 
-
+  //@@author A0138420N
     @Override
     public CommandResult execute() {
         Collections.sort(targetIndexes);
@@ -56,7 +56,7 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,sb.toString()));
     }
-
+  //@@author
 
     @Override
     public  String toString(){
