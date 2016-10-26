@@ -31,7 +31,7 @@
                 <RowConstraints maxHeight="86.0" minHeight="20.0" prefHeight="86.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateY="-35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="10.0" translateY="-35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            <Label fx:id="id" styleClass="cell_big_label" text="id">
                      <padding>
                         <Insets left="10.0" />
@@ -41,18 +41,18 @@
                      </opaqueInsets>
                   </Label>
                           <HBox GridPane.columnIndex="1">
-                              <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                              <Label fx:id="name" styleClass="cell_big_label" text="\$first" translateX="10.0">
                         <font>
                            <Font name="Cambria" size="16.0" />
                         </font>
                      </Label>
-                             <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="10.0" translateY="4.0">
+                             <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="15.0" translateY="4.0">
                         <graphic>
                            <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
                         </graphic>
                      </Label>
                           </HBox>
-                  <Circle fx:id="priorityLevel" fill="#1fff4d" radius="7.0" stroke="BLACK" strokeType="INSIDE" translateX="25.0" />
+                  <Circle fx:id="priorityLevel" fill="#1fff4d" radius="6.0" scaleX="1.1" scaleY="1.1" scaleZ="1.1" stroke="BLACK" strokeType="INSIDE" translateX="35.0" />
                </children>
             </GridPane>
             <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" translateY="-5.0" GridPane.columnIndex="1">
