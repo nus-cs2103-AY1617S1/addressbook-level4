@@ -15,11 +15,11 @@ import seedu.ggist.model.task.*;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+  //@@author A0138411N
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task\n"
-            + "Parameters: TASK, [DATE], [TIME]\n"
+            + "Parameters: TASK, [DATE], [TIME], [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
-            + " examination period, friday 1pm to next friday 12pm";
+            + " examination period from friday 1pm to next friday 12pm -high";
     
     public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";

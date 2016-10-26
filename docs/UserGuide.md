@@ -5,6 +5,8 @@
 * [Features](#features)
 * [Command Cheatsheet](#command-cheatsheet)
 
+<!-- @@author A0138420N --> 
+
 ## About GGist
 
 Are you constantly overwhelmed by the number of things you have to do everyday or do you have a really hard time managing them? If you answer is yes, GGist is the perfect solution to your daily struggle. GGist is a one-stop user friendly desktop organiser designed to aid working professionals like you to better organize and prioritise your everyday tasks.
@@ -49,6 +51,8 @@ Are you ready to embrace a new way of living and have your life better organized
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
+<!-- @@author -->
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
@@ -89,7 +93,7 @@ Format: `add TASK, DATE, START TIME, END TIME [PRIORITY]`
 Examples: 
 * `add tennis, 21 nov, 1pm-3pm -high`
 * `add lunch with parents on friday from 12pm to 1pm`
-
+<!--- @@author A0138411N --->
 > * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
 > * The comma after `[START TIME]` can be replaced with `to`.<br>
@@ -116,7 +120,9 @@ Format: `list [PARAMETERS]`
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
 > * `list [DATE]` shows remaining tasks starting or ending on a particular date
+<!--- @@author --->
 
+<!-- @@author A0138420N --> 
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
 Format: `search KEYWORD`<br>
@@ -131,7 +137,7 @@ Examples:
   Lists all tasks that have the date `oct 1`.
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found.
-  
+
 #### Deleting a task : `delete`
 Deletes the specified task from the list. Irreversible.<br>
 Format: `delete INDEX...`
@@ -153,11 +159,16 @@ Example:<br>
 * `delete 1, 2, 3`
 * `search oct 1`
   `done 2, 3`
-    
+  
+<!-- @@author --> 
+
+<!-- @@author A0138420N -->    
 #### Undo : `undo`
 Reverts the most recent action.<br>
 Format: `undo`
+<!-- @@author -->  
 
+<!--- @@author A0138411N --->
 #### Redo : `redo`
 Reverts the most recent undo action.<br>
 Format: `redo`
@@ -167,7 +178,9 @@ Edits task on the display list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
 > More than 1 parameter can be edited at the same input, simply separate them with a comma.
+<!--- @@author --->
 
+<!-- @@author A0138420N -->
 Examples: 
 * `edit 1 date oct 11, time 1800-2000`
 * `list dec 30`<br>
@@ -200,7 +213,9 @@ Example:<br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
+<!-- @@author -->
 
+<!--- @@author A0138411N -->
 #### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually. The save file is `./data` by default.<br>
@@ -216,7 +231,9 @@ You can change the file name to your preference too.<br>
 Format: `save FILE_NAME.xml`
 
 > The file format has to be .xml
-       
+<!--- @@author --->
+
+<!-- @@author A0138420N --> 
 ## Command Cheatsheet
 
 Command | Format  
@@ -232,3 +249,4 @@ Done    | `done INDEX`
 Help    | `help`
 Save    | `save FILE_LOCATION`
 Exit    | `exit`
+<!-- @@author --> 

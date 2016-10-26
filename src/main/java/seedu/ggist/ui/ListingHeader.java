@@ -49,7 +49,7 @@ public class ListingHeader extends UiPart {
         listingHeader.configure(listing);
         return listingHeader;
     }
-
+  //@@author A0138411N
     public void configure(String listing) {
         addMainPane();
         addListing();
@@ -86,7 +86,7 @@ public class ListingHeader extends UiPart {
     public void setPlaceholder(AnchorPane placeholder) {
         this.placeHolder = placeholder;
     }
-    
+  //@@author  
     @Override
     public String getFxmlPath() {
         return FXML;

@@ -14,6 +14,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String STARTTIME_FIELD_ID = "#startTime";
     private static final String ENDDATE_FIELD_ID = "#endDate";
     private static final String ENDTIME_FIELD_ID = "#endTime";
+    private static final String PRIORITY_FIELD_ID = "#priority";
 
     private Node node;
 
@@ -44,6 +45,10 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getEndTime() {
         return getTextFromLabel(ENDTIME_FIELD_ID);
+    }
+    
+    public String getPriority() {
+    	return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
