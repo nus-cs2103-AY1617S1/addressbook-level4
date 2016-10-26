@@ -8,6 +8,7 @@ import seedu.savvytasker.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.savvytasker.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+//@@author A0139915W
 public class DeleteCommandTest extends SavvyTaskerGuiTest {
 
     @Test
@@ -55,3 +56,4 @@ public class DeleteCommandTest extends SavvyTaskerGuiTest {
     }
 
 }
+//@@author A0139915W

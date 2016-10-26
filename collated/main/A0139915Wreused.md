@@ -1,15 +1,6 @@
-package seedu.savvytasker.commons.util;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Helper functions for handling strings.
- */
-public class StringUtil {
-    //@@author A0139915W-reused
+# A0139915Wreused
+###### \java\seedu\savvytasker\commons\util\StringUtil.java
+``` java
     // reused original implementation of 'containsIgnoreCase' to find exact matches
     public static boolean containsExactIgnoreCase(String source, String query) {
         List<String> strings = Arrays.asList(source);
@@ -23,7 +14,9 @@ public class StringUtil {
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
     }
-    //@@author A0139915W-reused
+```
+###### \java\seedu\savvytasker\commons\util\StringUtil.java
+``` java
     
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
@@ -50,3 +43,4 @@ public class StringUtil {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
 }
+```

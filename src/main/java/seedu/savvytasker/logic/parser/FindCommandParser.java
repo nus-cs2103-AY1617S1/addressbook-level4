@@ -32,6 +32,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         return READABLE_FORMAT;
     }
 
+    //@@author A0139915W
     @Override
     public FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
@@ -45,6 +46,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         
         throw new ParseException(commandText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
+    //@@author A0139915W
     
     private FindType parseFindType(String findTypeText) throws ParseException {
         if (findTypeText == null)

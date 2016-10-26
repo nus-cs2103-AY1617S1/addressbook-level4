@@ -39,7 +39,8 @@ public class ModifyCommand extends ModelRequiringCommand {
     private final Integer numberOfRecurrence;
     private final String category;
     private final String description;
-    
+
+    //@@author A0139915W
     /**
      * Creates an add command.
      */
@@ -90,6 +91,7 @@ public class ModifyCommand extends ModelRequiringCommand {
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
     }
+    //@@author A0139915W
     
     /**
      * Checks if a command can perform undo operations

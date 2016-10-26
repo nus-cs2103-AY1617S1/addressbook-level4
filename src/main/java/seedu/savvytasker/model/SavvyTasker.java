@@ -29,7 +29,6 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     //@@author A0139915W
     private final AliasSymbolList symbols;
 
-    //@@author A0139915W
     public SavvyTasker() {
         this.tasks = new TaskList();
         this.symbols = new AliasSymbolList();
@@ -66,7 +65,6 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public void resetData(ReadOnlySavvyTasker newData) {
         resetData(newData.getReadOnlyListOfTasks());
     }
-    //@@author A0139915W
 
 //// symbol/task-level operations
 

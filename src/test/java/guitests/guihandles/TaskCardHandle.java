@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0139915W
 /**
  * Provides a handle to a person card in the person list panel.
  */
@@ -44,3 +45,4 @@ public class TaskCardHandle extends GuiHandle {
         return getTaskName();
     }
 }
+//@@author A0139915W

@@ -37,9 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedAndFilteredTasks;
-    //@@author A0139915W
 
-    //@@author A0139915W
     /**
      * Initializes a ModelManager with the given SavvyTasker
      * and its variables should not be null
