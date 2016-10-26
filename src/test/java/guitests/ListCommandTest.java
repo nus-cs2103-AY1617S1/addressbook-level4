@@ -40,7 +40,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		
 		//list not done
 		expectedList = new TestTask[] {td.deadlineTomorrow, td.deadlineIn30Days, 
-				td.someday2, td.deadline2, td.eventTomorrow, td.eventIn30Days, td.event2};
+				td.someday2, td.eventTomorrow, td.eventIn30Days};
 		assertListResult("list not-done", expectedList);
 		
 		//list done and deadline

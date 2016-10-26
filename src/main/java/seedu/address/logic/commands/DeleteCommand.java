@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	
+    	model.checkForOverdueTasks();
     	model.saveState();
     	
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

@@ -81,6 +81,9 @@ public class DoneCommand extends Command {
         } else if(status.equals("not done")) {
             successMessage =  String.format(MESSAGE_NOT_DONE_TASK_SUCCESS, tasksList);
         }
+        
+        model.checkForOverdueTasks();
+        
         return successMessage;
     }
 

@@ -26,10 +26,6 @@ public class Status {
 	
 	public DoneStatus value;
 	
-	public Status(DoneStatus status) {
-		value = status;
-	}
-
 	
 	public Status(String string) {
 		switch (string.trim().toLowerCase()) {
@@ -41,9 +37,22 @@ public class Status {
 			break;
 		case "overdue":
 			value = DoneStatus.OVERDUE;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}
+	}
+	
+	public boolean isDone() {
+		return value.equals(DoneStatus.DONE);
+	}
+	
+	public boolean isNotDone() {
+		return value.equals(DoneStatus.NOT_DONE);
+	}
+	
+	public boolean isOverdue() {
+		return value.equals(DoneStatus.OVERDUE);
 	}
 	
     @Override
