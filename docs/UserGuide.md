@@ -233,15 +233,15 @@ Command | Format
 -------- | :-------- 
 [Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `add Weekly Milestone s/Thurs r/weekly n/3 l/COM1 c/Meeting`
 [Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`<br>Example: `alias k/main success scenario s/mss`
-[Clear](#clearing-all-entries--clear) | `clear`<br>Example: `clear`
+[Clear](#clearing-all-entries--clear) | `clear`
 [Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`<br>Example: `delete 1 2 3`
-[Exit](#exiting-the-program--exit) | `exit`<br>Example: `exit`
+[Exit](#exiting-the-program--exit) | `exit`
 [Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`<br>Example: `find t/exact CS2103 Meeting`
 [List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`<br>Example: `list t/archived`
-[Help](#viewing-help--help) | `help`<br>Example: `help`
+[Help](#viewing-help--help) | `help`
 [Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
-[Undo](#undo-the-most-recent-operation--undo) | `undo`<br>Example: `undo`
-[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`<br>Example: `redo`
+[Undo](#undo-the-most-recent-operation--undo) | `undo`
+[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
 [Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`
