@@ -1,11 +1,12 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.FindCommand;
-import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
 public class FindCommandParser implements CommandParser<FindCommand> {
@@ -32,6 +33,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
         return READABLE_FORMAT;
     }
 
+    //@@author A0139915W
     @Override
     public FindCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
@@ -40,34 +42,36 @@ public class FindCommandParser implements CommandParser<FindCommand> {
             String[] keywords = parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
-            return new FindCommand(new FindCommandModel(findType, keywords));
+            return new FindCommand(findType, keywords);
         }
         
-        throw new ParseException(commandText, getRequiredFormat());
+        throw new ParseException(commandText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
+    //@@author
     
     private FindType parseFindType(String findTypeText) throws ParseException {
+        if (findTypeText == null)
+            return null;
+        
+        String trimmedFindTypeText = findTypeText.trim();
         try {
-            if (findTypeText == null)
-                return null;
-            findTypeText = findTypeText.trim();
-            return FindType.valueOfIgnoreCase(findTypeText);
+            return FindType.valueOfIgnoreCase(trimmedFindTypeText);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(findTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
+            throw new ParseException(trimmedFindTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
         }
     }
     
     private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
-        keywordsBefore = keywordsBefore.trim();
-        keywordsAfter = keywordsAfter.trim();
+        String trimmedKeywordsBefore = keywordsBefore.trim();
+        String trimmedKeywordsAfter = keywordsAfter.trim();
         
         String[] keywordsArr1 = new String[0];
         String[] keywordsArr2 = new String[0];
-        if (!keywordsBefore.isEmpty()) keywordsArr1 = keywordsBefore.split("\\s+");
-        if (!keywordsAfter.isEmpty()) keywordsArr2 = keywordsAfter.split("\\s+");
+        if (!trimmedKeywordsBefore.isEmpty()) keywordsArr1 = trimmedKeywordsBefore.split("\\s+");
+        if (!trimmedKeywordsAfter.isEmpty()) keywordsArr2 = trimmedKeywordsAfter.split("\\s+");
         
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
-            throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
+            throw new ParseException(trimmedKeywordsBefore + " ... " + trimmedKeywordsAfter,
                     "KEYWORD: Need to specify at least one keyword!");
         
         return concatArray(keywordsArr1, keywordsArr2);

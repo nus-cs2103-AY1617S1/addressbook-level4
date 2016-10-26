@@ -1,12 +1,12 @@
 package seedu.savvytasker.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import javax.xml.bind.JAXBException;
 
 import seedu.savvytasker.commons.exceptions.DataConversionException;
 import seedu.savvytasker.commons.util.XmlUtil;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Stores savvytasker data in an XML file

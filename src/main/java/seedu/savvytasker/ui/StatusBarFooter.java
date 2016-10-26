@@ -1,19 +1,20 @@
 package seedu.savvytasker.ui;
 
+import java.util.Date;
+import java.util.logging.Logger;
+
+import org.controlsfx.control.StatusBar;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
-import seedu.savvytasker.commons.events.model.AddressBookChangedEvent;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
-
-import org.controlsfx.control.StatusBar;
-
-import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -91,9 +92,9 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleAddressBookChangedEvent(SavvyTaskerChangedEvent stce) {
         String lastUpdated = (new Date()).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(stce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
 }

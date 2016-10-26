@@ -1,6 +1,9 @@
 package seedu.savvytasker.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -11,9 +14,7 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.logic.Logic;
-import seedu.savvytasker.logic.commands.*;
-
-import java.util.logging.Logger;
+import seedu.savvytasker.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);

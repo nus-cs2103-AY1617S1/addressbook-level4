@@ -2,14 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.savvytasker.testutil.TestPerson;
 import seedu.savvytasker.testutil.TestTask;
 import seedu.savvytasker.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.savvytasker.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+//@@author A0139915W
+public class DeleteCommandTest extends SavvyTaskerGuiTest {
 
     @Test
     public void delete() {
@@ -56,3 +56,4 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     }
 
 }
+//@@author

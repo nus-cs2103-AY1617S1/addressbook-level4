@@ -2,10 +2,11 @@ package seedu.savvytasker.testutil;
 
 import java.util.Date;
 
-import seedu.savvytasker.model.person.*;
 import seedu.savvytasker.model.task.PriorityLevel;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
 
+//@@author A0139915W
 /**
  * A mutable task object. For testing only.
  */
@@ -24,6 +25,10 @@ public class TestTask implements ReadOnlyTask {
     private boolean isArchived;
 
     public TestTask() {
+        // sets initial default values
+        this.priority = PriorityLevel.Medium;
+        this.recurringType = RecurrenceType.None;
+        this.numberOfRecurrence = 0;
     }
 
     public int getId() {
@@ -140,3 +145,4 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 }
+//@@author

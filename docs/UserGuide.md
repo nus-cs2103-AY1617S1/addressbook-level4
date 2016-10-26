@@ -55,15 +55,18 @@ Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVE
 > Parameters | Description  
 > -------- | :-------- 
 > TASK_NAME | `Mandatory` Specifies the name of the task.
-> START_DATE **(See DATE)** | `Optional` Specifies the starting date and time of the task.
-> END_DATE **(See DATE)** | `Optional` Specifies the ending date and time of the task.
-> **DATE** | If only the DATE is specified, the TIME defaults to starting at 12am or ending at 11:59pm.<br>If only the TIME is specified, the DATE defaults to today.<br><br>If only START_DATE is supplied, the task will be a 1-day event starting from the specified START_DATE and ending on the same day at 11:59pm.<br>If only END_DATE is supplied, the task will start today at 12am.<br><br>The date and time can be entered in a formal format like <i>17-03-2016</i>, or a natural format like <i>next wednesday, 2pm</i>. The formal format follows the system's settings for whether <i>mm-dd-yyyy</i> or <i>dd-mm-yyyy</i> is used.
+> START_DATE (See [DATE](#date)) | `Optional` Specifies the starting date and time of the task.
+> END_DATE (See [DATE](#date)) | `Optional` Specifies the ending date and time of the task.
 > LOCATION | `Optional` Specifies the location where the task happens.
 > PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
 > RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
 > NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs. A value of 0 specifies a never-ending recurrence.<br>`Defaults` to `0`<br>`Ignored` if RECURRING_TYPE is `none`
 > CATEGORY | `Optional` Specifies a custom category for the task. This can be used for keeping track of similar tasks.
 > DESCRIPTION | `Optional` Describes the task.
+
+##### Date
+
+> If only the DATE is specified, the TIME defaults to starting at 12am or ending at 11:59pm.<br>If only the TIME is specified, the DATE defaults to today.<br><br>If only `START_DATE` is supplied, the task will be a 1-day event starting from the specified `START_DATE` and ending on the same day at 11:59pm.<br>If only `END_DATE` is supplied, the task will start today at 12am.<br><br>The date and time can be entered in a formal format like <i>17-03-2016</i>, or a natural format like <i>next wednesday, 2pm</i>. The formal format follows the system's settings for whether <i>mm-dd-yyyy</i> or <i>dd-mm-yyyy</i> is used.
 
 Examples: 
 * `add Project Meeting s/05-10-2016 2pm e/6pm r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
@@ -142,7 +145,7 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 > Parameters | Description  
 > -------- | :-------- 
 > INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
-> TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | See [Adding a task](#adding-a-task-add)
+> TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | Similar to [Adding a task](#adding-a-task-add)
 > <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
@@ -192,22 +195,28 @@ Clears all entries from the Savvy Task.<br>
 Format: `clear`  
 
 #### Alias a keyword : `alias`
-Alias a keyword with shorter version of keyword <br>
-Format: `alias k/KEYWORD s/SHORT_KEYWORD`
+Alias a keyword to mean another text. <br>
+Format: `alias k/KEYWORD r/REPRESENTATION`
 
 Examples: 
-* `alias k/Project Meeting s/pjm`<br>
-System will interpret subsequent user command of "pjm" as "Project Meeting"<br>
+* `alias k/pjm r/Project Meeting`<br>
+System will interpret subsequent keywords "pjm" as "Project Meeting"<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
-Add "Project Meeting" to task list
+Add "Project Meeting" to task list<br>
+>Note that only keywords must be a single word by themselves, or they will not be replaced.
+The below example shows 'pjm' as part of another word and it is not replaced with its representation.
+inside another word
+  `add pjm2 s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
+Add "pjm2" to task list, and <b>not</b> "Project Meeting2"<br>
+
   
 #### Unalias a keyword : `unalias`
-Unalias of shorter version of keyword <br>
-Format: `unalias s/SHORT_KEYWORD`
+Unalias a keyword <br>
+Format: `unalias KEYWORD`
 
 Examples: 
-* `unalias s/pjm`<br>
-Remove replacement of shorter version of "pjm" back to "Project Meeting"<br>
+* `unalias pjm`<br>
+Removes the replacement of keyword "pjm" with "Project Meeting"<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 Add task named "pjm" to task list
   
@@ -222,17 +231,17 @@ Add task named "pjm" to task list
 
 Command | Format  
 -------- | :-------- 
-[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`
+[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `add Weekly Milestone s/Thurs r/weekly n/3 l/COM1 c/Meeting`
+[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`<br>Example: `alias k/main success scenario s/mss`
 [Clear](#clearing-all-entries--clear) | `clear`
-[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`
+[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`<br>Example: `delete 1 2 3`
 [Exit](#exiting-the-program--exit) | `exit`
-[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`
+[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`<br>Example: `find t/exact CS2103 Meeting`
+[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`<br>Example: `list t/archived`
 [Help](#viewing-help--help) | `help`
-[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`
-[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`
+[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
+[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
+[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
-[Unalias](#unalias-a-keyword--unalias) | `unalias  s/SHORT_KEYWORD`
+[Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`

@@ -1,17 +1,36 @@
 package seedu.savvytasker.logic;
 
+import java.util.List;
+import java.util.Stack;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
+import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
-import seedu.savvytasker.logic.parser.*;
+import seedu.savvytasker.logic.parser.AddCommandParser;
+import seedu.savvytasker.logic.parser.AliasCommandParser;
+import seedu.savvytasker.logic.parser.ClearCommandParser;
+import seedu.savvytasker.logic.parser.DeleteCommandParser;
+import seedu.savvytasker.logic.parser.ExitCommandParser;
+import seedu.savvytasker.logic.parser.FindCommandParser;
+import seedu.savvytasker.logic.parser.HelpCommandParser;
+import seedu.savvytasker.logic.parser.ListCommandParser;
+import seedu.savvytasker.logic.parser.MarkCommandParser;
+import seedu.savvytasker.logic.parser.MasterParser;
+import seedu.savvytasker.logic.parser.ModifyCommandParser;
+import seedu.savvytasker.logic.parser.RedoCommandParser;
+import seedu.savvytasker.logic.parser.UnaliasCommandParser;
+import seedu.savvytasker.logic.parser.UndoCommandParser;
+import seedu.savvytasker.logic.parser.UnmarkCommandParser;
 import seedu.savvytasker.model.Model;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
-
-import java.util.Stack;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -31,16 +50,29 @@ public class LogicManager extends ComponentManager implements Logic {
         this.redoStack = new Stack<Command>();
         
         registerAllDefaultCommandParsers();
+        loadAllAliasSymbols();
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parse(commandText);
-        command.setData(model);
+        command.setModel(model);
+        command.setLogic(this);
         
         CommandResult result = command.execute();
-        if (command.canUndo()) {
+        
+        if (command.isUndo()){
+            if (!undo()) {
+                result = new CommandResult("Cannot Undo");
+            }
+        }   
+        else if (command.isRedo()){
+            if (!redo()) {
+                result = new CommandResult("Cannot Redo");
+            }
+        }
+        else if (command.canUndo()){
             undoStack.push(command);
             redoStack.clear();
         }
@@ -53,6 +85,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
+    //@@author A0139916U
     private void registerAllDefaultCommandParsers() {
         parser.registerCommandParser(new AddCommandParser());
         parser.registerCommandParser(new DeleteCommandParser());
@@ -66,10 +99,18 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new UnmarkCommandParser());
         parser.registerCommandParser(new UndoCommandParser());
         parser.registerCommandParser(new RedoCommandParser());
+        parser.registerCommandParser(new AliasCommandParser());
+        parser.registerCommandParser(new UnaliasCommandParser());
+    }
+    
+    private void loadAllAliasSymbols() {
+        List<AliasSymbol> allSynbols = model.getSavvyTasker().getReadOnlyListOfAliasSymbols();
+        for (AliasSymbol symbol : allSynbols) {
+            parser.addAliasSymbol(symbol);
+        }
     }
 
-    @Override
-    public boolean undo() {
+    private boolean undo() {
         boolean undone = false;
         
         if (!undoStack.isEmpty()) {
@@ -82,8 +123,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return undone;
     }
 
-    @Override
-    public boolean redo() {
+    private boolean redo() {
         boolean redone = false;
         
         if (!redoStack.isEmpty()) {
@@ -94,5 +134,31 @@ public class LogicManager extends ComponentManager implements Logic {
         }
         
         return redone;
+    }
+    
+    @Subscribe
+    public void handleAliasSymbolChangedEvent(AliasSymbolChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(
+                event, "Alias symbol " + event.action.toString().toLowerCase()));
+        if (event.action.equals(AliasSymbolChangedEvent.Action.Added)) {
+            boolean success = parser.addAliasSymbol(event.symbol);
+            if (success) {
+                logger.info("Added alias symbol '"+event.symbol.getKeyword()+"' to parser");
+            } else {
+                logger.warning("Failed to add alias symbol '"+event.symbol.getKeyword()+" to parser");
+            }
+        } else {
+            boolean success = parser.removeAliasSymbol(event.symbol.getKeyword());
+            if (success) {
+                logger.info("Removed alias symbol '"+event.symbol.getKeyword()+"' from parser");
+            } else {
+                logger.warning("Failed to remove alias symbol '"+event.symbol.getKeyword()+" from parser");
+            }
+        }
+    }
+    
+    @Override
+    public boolean canParseHeader(String header) {
+        return parser.isCommandParserRegistered(header);
     }
 }

@@ -1,9 +1,11 @@
 package seedu.savvytasker.testutil;
 
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
+//@@author A0139915W
 /**
  * A utility class to help with building SavvyTasker objects.
  * Example usage: <br>
@@ -17,7 +19,7 @@ public class SavvyTaskerBuilder {
         this.savvyTasker = savvyTasker;
     }
 
-    public SavvyTaskerBuilder withTask(Task task) throws DuplicateTaskException {
+    public SavvyTaskerBuilder withTask(Task task) throws DuplicateTaskException, InvalidDateException {
         savvyTasker.addTask(task);
         return this;
     }
@@ -26,3 +28,4 @@ public class SavvyTaskerBuilder {
         return savvyTasker;
     }
 }
+//@@author

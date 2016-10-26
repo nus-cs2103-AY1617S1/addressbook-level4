@@ -3,6 +3,7 @@ package seedu.savvytasker.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.savvytasker.commons.core.EventsCenter;
+import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
@@ -10,12 +11,13 @@ import seedu.savvytasker.commons.events.ui.ShowHelpRequestEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.LogicManager;
 import seedu.savvytasker.logic.commands.*;
+import seedu.savvytasker.logic.parser.IndexParser;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.ModelManager;
-import seedu.savvytasker.model.ReadOnlyAddressBook;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.*;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.storage.StorageManager;
 
 import org.junit.After;
@@ -126,7 +128,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -191,8 +193,10 @@ public class LogicManagerTest {
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         
-        // Parser doesn't support these yet, skipping test case
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
+        // the following commands outputs a different expected message dealing with
+        // invalid indices.
+        expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
+        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned [NOT SUPPORTED]
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);

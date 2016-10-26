@@ -1,6 +1,5 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
 /**
@@ -8,7 +7,7 @@ import seedu.savvytasker.model.task.FindType;
  * Keyword matching is case sensitive.
  * @author A0139915W
  */
-public class FindCommand extends Command {
+public class FindCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_FORMAT = "find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]";
@@ -17,25 +16,32 @@ public class FindCommand extends Command {
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
+    
+    private final FindType findType;
+    private final String[] keywords;
 
-    private final FindCommandModel commandModel;
-
-    public FindCommand(FindCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    //@@author A0139915W
+    public FindCommand(FindType findType, String[] keywords) {
+        this.findType = findType;
+        this.keywords = keywords;
     }
 
     @Override
     public CommandResult execute() {
-        FindType findType = commandModel.getFindType();
-        if (findType == null) {
+        FindType _findType = findType;
+        if (_findType == null) {
             // use default find type, partial.
-            findType = FindType.Partial;
+            _findType = FindType.Partial;
         }
-        model.updateFilteredTaskList(findType, commandModel.getKeywords());
+        model.updateFilteredTaskList(_findType, keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
+    //@@author
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -48,7 +54,7 @@ public class FindCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
@@ -58,7 +64,24 @@ public class FindCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    } 
 }

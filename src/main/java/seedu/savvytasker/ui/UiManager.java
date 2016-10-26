@@ -1,6 +1,9 @@
 package seedu.savvytasker.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -17,8 +20,6 @@ import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.commons.util.StringUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.

@@ -1,5 +1,9 @@
 package seedu.savvytasker.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.savvytasker.commons.core.ComponentManager;
@@ -9,10 +13,6 @@ import seedu.savvytasker.commons.events.storage.DataSavingExceptionEvent;
 import seedu.savvytasker.commons.exceptions.DataConversionException;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.UserPrefs;
-
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of AddressBook data in local storage.

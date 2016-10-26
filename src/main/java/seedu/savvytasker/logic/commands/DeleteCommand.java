@@ -4,14 +4,17 @@ import java.util.LinkedList;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
+import seedu.savvytasker.model.SavvyTasker;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+//import seedu.savvytasker.model.task.Task;
+//import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_FORMAT = "delete INDEX [MORE_INDEX]";
@@ -21,15 +24,16 @@ public class DeleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s\n";
 
-    public final DeleteCommandModel commandModel;
+    //private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
+    private ReadOnlySavvyTasker original;
+    private final int[] targetIndices;
 
-    public DeleteCommand(DeleteCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    //@@author A0139915W
+    public DeleteCommand(int[] targetIndices) {
+        this.targetIndices = targetIndices;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -37,18 +41,21 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         LinkedList<ReadOnlyTask> tasksToDelete = new LinkedList<ReadOnlyTask>();
-        for(int targetIndex : commandModel.getTargetIndex()) {
+        for(int targetIndex : this.targetIndices) {
             if (lastShownList.size() < targetIndex || targetIndex <= 0) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
             tasksToDelete.add(lastShownList.get(targetIndex - 1));
         }
+        
+        original = new SavvyTasker(model.getSavvyTasker());
 
         StringBuilder resultSb = new StringBuilder();
         try {
             for(ReadOnlyTask taskToDelete : tasksToDelete) {
                 model.deleteTask(taskToDelete);
+                //tasksToUndo.add((Task)taskToDelete);
                 resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
             }
         } catch (TaskNotFoundException pnfe) {
@@ -57,10 +64,15 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(resultSb.toString());
     }
+    //@@author
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
-        return false;
+        return true;
     }
 
     /**
@@ -69,7 +81,25 @@ public class DeleteCommand extends Command {
      */
     @Override
     public boolean redo() {
-        // nothing required to be done
+        execute();
+        
+        /*
+         * METHOD 2
+        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
+        
+        for(Task toUndo : tasksToUndo){
+            for (int i = 0; i < lastShownList.size(); i++) {
+                if (lastShownList.get(i) == toUndo){
+                    ReadOnlyTask taskToDelete = lastShownList.get(i);
+                    try {
+                        model.deleteTask(taskToDelete);
+                    } catch (TaskNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } 
+        */
         return true;
     }
 
@@ -78,9 +108,40 @@ public class DeleteCommand extends Command {
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
-    public boolean undo() {
-        // nothing required to be done
+    public boolean undo() {      
+
+        assert model != null;
+        model.resetData(original);
+        
+        /*
+         * METHOD 2
+        assert model != null;
+  
+        for(Task deleted : tasksToUndo)
+        try {
+            model.addTask(deleted);
+        } catch (DuplicateTaskException e) {
+            e.printStackTrace();
+        }
+        */
         return true;
     }
-
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    }
 }

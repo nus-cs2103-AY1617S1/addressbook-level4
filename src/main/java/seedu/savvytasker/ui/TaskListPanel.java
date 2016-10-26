@@ -1,5 +1,7 @@
 package seedu.savvytasker.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,9 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-
-import java.util.logging.Logger;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
  * Panel containing the list of persons.

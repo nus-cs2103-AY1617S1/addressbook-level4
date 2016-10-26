@@ -5,13 +5,15 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.savvytasker.commons.core.Messages;
-import seedu.savvytasker.logic.commands.AddCommand;
+import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 import seedu.savvytasker.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.savvytasker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-public class AddCommandTest extends AddressBookGuiTest {
+//@@author A0139915W
+public class AddCommandTest extends SavvyTaskerGuiTest {
 
     @Test
     public void add() {
@@ -32,7 +34,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //invalid command
         commandBox.runCommand("adds Bad Command Task");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
@@ -48,3 +50,4 @@ public class AddCommandTest extends AddressBookGuiTest {
     }
 
 }
+//@@author

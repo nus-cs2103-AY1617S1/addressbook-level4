@@ -5,10 +5,11 @@ package seedu.savvytasker.logic.commands;
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
 public class IncorrectCommand extends Command {
-
+    public final String resolvedText;
     public final String feedbackToUser;
 
-    public IncorrectCommand(String feedbackToUser){
+    public IncorrectCommand(String resolvedText, String feedbackToUser){
+        this.resolvedText = resolvedText;
         this.feedbackToUser = feedbackToUser;
     }
 
@@ -18,6 +19,10 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -30,7 +35,7 @@ public class IncorrectCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
@@ -40,8 +45,25 @@ public class IncorrectCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
     }
-
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    }
 }
 

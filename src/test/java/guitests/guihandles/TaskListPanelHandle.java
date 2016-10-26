@@ -7,8 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.savvytasker.TestApp;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.Task;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.testutil.TestUtil;
 
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139915W
 /**
  * Provides a handle for the panel containing the person list.
  */
@@ -36,7 +37,9 @@ public class TaskListPanelHandle extends GuiHandle {
         return taskList.getSelectionModel().getSelectedItems();
     }
 
+    @SuppressWarnings("unchecked")
     public ListView<ReadOnlyTask> getListView() {
+        // Should be a listview of readonlytask only.
         return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
@@ -170,3 +173,4 @@ public class TaskListPanelHandle extends GuiHandle {
         return getListView().getItems().size();
     }
 }
+//@@author

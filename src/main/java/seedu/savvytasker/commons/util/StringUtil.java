@@ -9,16 +9,21 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    //@@author A0139915W-reused
+    // reused original implementation of 'containsIgnoreCase' to find exact matches
     public static boolean containsExactIgnoreCase(String source, String query) {
         List<String> strings = Arrays.asList(source);
         return strings.stream().filter(s -> s.equalsIgnoreCase(query)).count() > 0;
     }
-    
+
+    // reused original implementation of 'containsIgnoreCase' to find partial matches
     public static boolean containsPartialIgnoreCase(String source, String query) {
+        if (source == null) return false;
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
     }
+    //@@author
     
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");

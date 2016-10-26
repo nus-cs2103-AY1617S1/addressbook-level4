@@ -5,18 +5,20 @@ import java.util.Date;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.PriorityLevel;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
+//@@author A0139915W
 /**
- *
+ *  Test tasks used to test cases
  */
 public class TypicalTestTasks {
 
-    public static TestTask highPriority, medPriority, lowPriority, furthestDue, 
+    public TestTask highPriority, medPriority, lowPriority, furthestDue, 
                             nearerDue, notSoNearerDue, earliestDue, longDue, happy, haloween;
-    private static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             
     public TypicalTestTasks() {
         try {
@@ -47,17 +49,19 @@ public class TypicalTestTasks {
     }
 
     public static void loadSavvyTaskerWithSampleData(SavvyTasker st) {
-
+        TypicalTestTasks td = new TypicalTestTasks();
         try {
-            st.addTask(new Task(highPriority));
-            st.addTask(new Task(medPriority));
-            st.addTask(new Task(lowPriority));
-            st.addTask(new Task(furthestDue));
-            st.addTask(new Task(nearerDue));
-            st.addTask(new Task(notSoNearerDue));
-            st.addTask(new Task(earliestDue));
-            st.addTask(new Task(longDue));
+            st.addTask(new Task(td.highPriority));
+            st.addTask(new Task(td.medPriority));
+            st.addTask(new Task(td.lowPriority));
+            st.addTask(new Task(td.furthestDue));
+            st.addTask(new Task(td.nearerDue));
+            st.addTask(new Task(td.notSoNearerDue));
+            st.addTask(new Task(td.earliestDue));
+            st.addTask(new Task(td.longDue));
         } catch (DuplicateTaskException e) {
+            assert false : "not possible";
+        } catch (InvalidDateException e) {
             assert false : "not possible";
         }
     }
@@ -82,3 +86,4 @@ public class TypicalTestTasks {
         return null;
     }
 }
+//@@author

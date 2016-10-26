@@ -5,10 +5,12 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
-import seedu.savvytasker.model.person.*;
 import seedu.savvytasker.model.task.PriorityLevel;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
+import seedu.savvytasker.model.task.Task;
 
+//@@author A0139915W
 /**
  * JAXB-friendly version of the Task.
  */
@@ -63,7 +65,7 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted Task
      */
@@ -83,3 +85,4 @@ public class XmlAdaptedTask {
                 recurringType, numberOfRecurrence, category, description, isArchived);
     }
 }
+//@@author

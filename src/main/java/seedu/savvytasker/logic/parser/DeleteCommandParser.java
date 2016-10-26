@@ -1,3 +1,4 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
 import java.util.regex.Matcher;
@@ -5,7 +6,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.DeleteCommand;
-import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     private static final String HEADER = "delete";
@@ -33,8 +33,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
-            
-            return new DeleteCommand(new DeleteCommandModel(indices));
+            return new DeleteCommand(indices);
         }
 
         throw new ParseException(commandText, String.format(
@@ -45,7 +44,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         try {
             return INDEX_PARSER.parseMultiple(indicesText);
         } catch (ParseException ex) {
-            throw new ParseException(indicesText, "INDEX [MORE_INDEX]: " + ex.getFailureDetails());
+            throw new ParseException(indicesText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat() + ": " + ex.getFailureDetails()));
         }
     }
 

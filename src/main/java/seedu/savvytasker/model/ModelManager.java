@@ -1,18 +1,5 @@
 package seedu.savvytasker.model;
 
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import seedu.savvytasker.commons.core.ComponentManager;
-import seedu.savvytasker.commons.core.LogsCenter;
-import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
-import seedu.savvytasker.commons.util.StringUtil;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
-import seedu.savvytasker.model.task.FindType;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -21,6 +8,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import seedu.savvytasker.commons.core.ComponentManager;
+import seedu.savvytasker.commons.core.LogsCenter;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
+import seedu.savvytasker.commons.util.StringUtil;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
+import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
+import seedu.savvytasker.model.task.FindType;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
+
 /**
  * Represents the in-memory model of the savvy tasker data.
  * All changes to any model should be synchronized.
@@ -28,6 +33,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    //@@author A0139915W
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedAndFilteredTasks;
@@ -58,7 +64,8 @@ public class ModelManager extends ComponentManager implements Model {
         sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
-
+    //@@author
+    
     @Override
     public void resetData(ReadOnlySavvyTasker newData) {
         savvyTasker.resetData(newData);
@@ -74,7 +81,19 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateSavvyTaskerChanged() {
         raise(new SavvyTaskerChangedEvent(savvyTasker));
     }
+    //@@author A0139916U
 
+    private void indicateAliasSymbolAdded(AliasSymbol symbol) {
+        raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Added));
+    }
+    
+    private void indicateAliasSymbolRemoved(AliasSymbol symbol) {
+        raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Removed));
+    }
+    //@@author
+
+
+    //@@author A0139915W
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         savvyTasker.removeTask(target);
@@ -82,24 +101,47 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
+    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
         savvyTasker.replaceTask(target, replacement);
         indicateSavvyTaskerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task t) throws DuplicateTaskException {
+    public synchronized void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
         t.setId(savvyTasker.getNextTaskId());
         savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
     }
+    //@@author
+    
+    //@@author A0139916U
+    @Override
+    public synchronized void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {
+        savvyTasker.addAliasSymbol(symbol);
+        indicateSavvyTaskerChanged();
+        indicateAliasSymbolAdded(symbol);
+    }
+
+    @Override
+    public synchronized void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException {
+        savvyTasker.removeAliasSymbol(symbol);
+        indicateSavvyTaskerChanged();
+        indicateAliasSymbolRemoved(symbol);
+    }
+    //@@author
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================
 
+    //@@author A0139915W
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<Task> getFilteredTaskListTask() {
+        return new UnmodifiableObservableList<Task>(sortedAndFilteredTasks);
     }
 
     @Override
@@ -111,12 +153,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowActiveSortedByPriorityLevel() {
         updateFilteredListToShowActive(new TaskSortedByPriorityLevel());
     }
-
+    
     @Override
     public void updateFilteredListToShowActive() {
         updateFilteredTaskList(new PredicateExpression(new TaskIsActiveQualifier()));
     }
-    
     private void updateFilteredListToShowActive(Comparator<Task> comparator) {
         updateFilteredTaskList(
                 new PredicateExpression(new TaskIsActiveQualifier()),
@@ -127,7 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowArchived() {
         updateFilteredTaskList(new PredicateExpression(new TaskIsArchivedQualifier()));
     }
-
+    
     @Override
     public void updateFilteredTaskList(FindType findType, String[] keywords) {
         assert findType != null;
@@ -143,6 +184,9 @@ public class ModelManager extends ComponentManager implements Model {
         case Exact:
             qualifier = new TaskNameExactMatchQualifier(keywords);
             break;
+        case Category:
+            qualifier = new CategoryPartialMatchQualifier(keywords);
+            break;
         default:
             assert false; // should never get here.
         }
@@ -157,6 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
         sortedAndFilteredTasks.setComparator(comparator);
     }
+    //@@author
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -201,6 +246,32 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author A0139915W
+    /**
+     * Qualifier matching a partial word from the set of keywords
+     * @author A0139915W
+     */
+    private class CategoryPartialMatchQualifier implements Qualifier {
+        private Set<String> keyWordsToMatch;
+
+        CategoryPartialMatchQualifier(String[] keyWordsToMatch) {
+            this.keyWordsToMatch = createSet(keyWordsToMatch);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return keyWordsToMatch.stream()
+                    .filter(keyword -> StringUtil.containsPartialIgnoreCase(task.getCategory(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "category(PartialMatch)=" + String.join(", ", keyWordsToMatch);
+        }
+    }
+
     /**
      * Qualifier matching a partial word from the set of keywords
      * @author A0139915W
@@ -222,7 +293,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+            return "taskName(PartialMatch)=" + String.join(", ", keyWordsToMatch);
         }
     }
 
@@ -291,7 +362,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+            return "taskName(ExactMatch)=" + String.join(", ", keyWordsToMatch);
         }
     }
 
@@ -409,5 +480,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
+    //@@author
 
 }

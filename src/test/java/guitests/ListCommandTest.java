@@ -3,12 +3,14 @@ package guitests;
 import org.junit.Test;
 
 import seedu.savvytasker.commons.core.Messages;
-import seedu.savvytasker.testutil.TestPerson;
+import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.savvytasker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-public class ListCommandTest extends AddressBookGuiTest {
+//@@author A0139915W
+public class ListCommandTest extends SavvyTaskerGuiTest {
 
     @Test
     public void list_nonEmptyList() {
@@ -29,7 +31,7 @@ public class ListCommandTest extends AddressBookGuiTest {
     @Test
     public void list_nonEmptyList_byPriority() {
         assertListResult("list t/PriorityLevel", td.highPriority, td.medPriority, 
-                td.lowPriority, td.furthestDue, td.nearerDue, td.notSoNearerDue, td.earliestDue); //multiple results
+                td.furthestDue, td.nearerDue, td.notSoNearerDue, td.earliestDue, td.lowPriority); //multiple results
     }
     
     @Test
@@ -46,7 +48,7 @@ public class ListCommandTest extends AddressBookGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("listmytasks");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertListResult(String command, TestTask... expectedHits ) {
@@ -56,3 +58,4 @@ public class ListCommandTest extends AddressBookGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
+//@@author

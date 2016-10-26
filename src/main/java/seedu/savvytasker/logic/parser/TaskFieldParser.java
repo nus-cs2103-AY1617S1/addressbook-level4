@@ -1,3 +1,4 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
@@ -8,7 +9,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
  * This class contains common parsing methods for parsing Task fields.
  */
 public class TaskFieldParser {
-    private DateParser dateParser;
+    protected final DateParser dateParser;
     
     public TaskFieldParser() {
         this.dateParser = new DateParser();
@@ -21,24 +22,22 @@ public class TaskFieldParser {
     }
     
     public InferredDate parseStartDate(String dateText) throws ParseException {
-        try {
-            if (dateText == null)
-                return null;
-            dateText = dateText.trim();
-            return dateParser.parseSingle(dateText);
-        } catch (ParseException ex) {
-            throw new ParseException(dateText, "START_DATE: " + ex.getFailureDetails());
-        }
+        return parseDate(dateText, "START_DATE: ");
     }
     
     public InferredDate parseEndDate(String dateText) throws ParseException {
+        return parseDate(dateText, "END_DATE: ");
+    }
+    
+    private InferredDate parseDate(String dateText, String errorField) throws ParseException {
+        if (dateText == null)
+            return null;
+        
+        String trimmedDateText = dateText.trim();
         try {
-            if (dateText == null)
-                return null;
-            dateText = dateText.trim();
-            return dateParser.parseSingle(dateText);
+            return dateParser.parseSingle(trimmedDateText);
         } catch (ParseException ex) {
-            throw new ParseException(dateText, "END_DATE: " + ex.getFailureDetails());
+            throw new ParseException(trimmedDateText, errorField + ex.getFailureDetails());
         }
     }
     
@@ -49,24 +48,26 @@ public class TaskFieldParser {
     }
     
     public PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
+        if (priorityLevelText == null)
+            return null;
+        
+        String trimmedPriorityLevelText = priorityLevelText.trim();
         try {
-            if (priorityLevelText == null)
-                return null;
-            priorityLevelText = priorityLevelText.trim();
-            return PriorityLevel.valueOfIgnoreCase(priorityLevelText);
+            return PriorityLevel.valueOfIgnoreCase(trimmedPriorityLevelText);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(priorityLevelText, "PRIORITY_LEVEL: Unknown type '" + priorityLevelText + "'");
+            throw new ParseException(trimmedPriorityLevelText, "PRIORITY_LEVEL: Unknown type '" + priorityLevelText + "'");
         }
     }
     
     public RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
+        if (recurrenceTypeText == null)
+            return null;
+        
+        String trimmedRecurrenceTypeText = recurrenceTypeText.trim();
         try {
-            if (recurrenceTypeText == null)
-                return null;
-            recurrenceTypeText = recurrenceTypeText.trim();
-            return RecurrenceType.valueOfIgnoreCase(recurrenceTypeText);
+            return RecurrenceType.valueOfIgnoreCase(trimmedRecurrenceTypeText);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(recurrenceTypeText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
+            throw new ParseException(trimmedRecurrenceTypeText, "RECURRING_TYPE: Unknown type '" + recurrenceTypeText + "'");
         }
     }
     
@@ -74,12 +75,12 @@ public class TaskFieldParser {
         if (numRecurrenceText == null)
             return null;
         
+        String trimmedNumRecurrenceText = numRecurrenceText.trim();
         int numRecurrence = 0;
         boolean parseError = false;
         
         try {
-            numRecurrenceText = numRecurrenceText.trim();
-            numRecurrence = Integer.parseInt(numRecurrenceText);
+            numRecurrence = Integer.parseInt(trimmedNumRecurrenceText);
             if (numRecurrence < 0)
                 parseError = true;
         } catch (NumberFormatException ex) {
@@ -87,7 +88,7 @@ public class TaskFieldParser {
         }
         
         if (parseError)
-            throw new ParseException(numRecurrenceText, "NUMBER_OF_RECURRENCE: Must be a nonnegative whole number!");
+            throw new ParseException(trimmedNumRecurrenceText, "NUMBER_OF_RECURRENCE: Must be a nonnegative whole number!");
         
         return numRecurrence;
     }

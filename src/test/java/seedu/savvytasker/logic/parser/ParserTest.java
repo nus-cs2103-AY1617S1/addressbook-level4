@@ -1,10 +1,21 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.savvytasker.logic.commands.AddCommand;
+import seedu.savvytasker.logic.commands.Command;
+import seedu.savvytasker.logic.commands.IncorrectCommand;
+import seedu.savvytasker.model.alias.AliasSymbol;
 
 public class ParserTest {
     private AddCommandParser addParser;
@@ -19,6 +30,8 @@ public class ParserTest {
     private UnmarkCommandParser unmarkParser;
     private UndoCommandParser undoParser;
     private RedoCommandParser redoParser;
+    private AliasCommandParser aliasParser;
+    private UnaliasCommandParser unaliasParser;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -37,16 +50,18 @@ public class ParserTest {
         unmarkParser = new UnmarkCommandParser();
         undoParser = new UndoCommandParser();
         redoParser = new RedoCommandParser();
+        aliasParser = new AliasCommandParser();
+        unaliasParser = new UnaliasCommandParser();
     }
     
     @Test
     public void parse_add_reorder() throws ParseException {
-        assertNotEquals(addParser.parse("add task l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"), null);
+        assertNotNull(addParser.parse("add task l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"));
     }
     
     @Test
     public void parse_add_multipleSpaces() throws ParseException {
-        assertNotEquals(addParser.parse("add    Multiple   Spaces    s/  2pm"), null);
+        assertNotNull(addParser.parse("add    Multiple   Spaces    s/  2pm"));
     }
     
     @Test
@@ -69,7 +84,7 @@ public class ParserTest {
     
     @Test
     public void parse_add_fullValid() throws ParseException {
-        assertNotEquals(addParser.parse("add task s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"), null);
+        assertNotNull(addParser.parse("add task s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"));
     }
     
     @Test
@@ -94,17 +109,17 @@ public class ParserTest {
     
     @Test
     public void parse_delete_oneIndex() throws ParseException {
-        assertNotEquals(deleteParser.parse("delete 1"), null);
+        assertNotNull(deleteParser.parse("delete 1"));
     }
     
     @Test
     public void parse_delete_multipleIndices() throws ParseException {
-        assertNotEquals(deleteParser.parse("delete 1 2 3"), null);
+        assertNotNull(deleteParser.parse("delete 1 2 3"));
     }
     
     @Test
     public void parse_delete_multipleSpacesIndices() throws ParseException {
-        assertNotEquals(deleteParser.parse("delete    1   2     3"), null);
+        assertNotNull(deleteParser.parse("delete    1   2     3"));
     }
 
     @Test
@@ -147,29 +162,29 @@ public class ParserTest {
 
     @Test
     public void parse_modify_onlySpecifyIndex() throws ParseException {
-        assertNotEquals(modifyParser.parse("modify 1"), null);
+        assertNotNull(modifyParser.parse("modify 1"));
     }
     
     @Test
     public void parse_modify_fullValid() throws ParseException {
-        assertNotEquals(modifyParser.parse("modify 3 t/ newtask s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"), null);
+        assertNotNull(modifyParser.parse("modify 3 t/ newtask s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"));
     }
 
     @Test
     public void parse_modify_reorder() throws ParseException {
-        assertNotEquals(modifyParser.parse("modify 1 l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"), null);
+        assertNotNull(modifyParser.parse("modify 1 l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"));
     }
 
     @Test
     public void parse_modify_multipleSpaces() throws ParseException {
-        assertNotEquals(modifyParser.parse("modify   1  t/   Multiple   Spaces    s/  2pm"), null);
+        assertNotNull(modifyParser.parse("modify   1  t/   Multiple   Spaces    s/  2pm"));
     }
     
     //==================================================================================
     
     @Test
     public void parse_clear_spaces() throws ParseException {
-        assertNotEquals(clearParser.parse("clear     "), null);
+        assertNotNull(clearParser.parse("clear     "));
     }
     
     @Test
@@ -180,24 +195,24 @@ public class ParserTest {
     
     @Test
     public void parse_clear_valid() throws ParseException {
-        assertNotEquals(clearParser.parse("clear"), null);
+        assertNotNull(clearParser.parse("clear"));
     }
 
     //==================================================================================
     
     @Test
     public void parse_list_noParameters() throws ParseException {
-        assertNotEquals(listParser.parse("list"), null);
+        assertNotNull(listParser.parse("list"));
     }
 
     @Test
     public void parse_list_noParametersSpaces() throws ParseException {
-        assertNotEquals(listParser.parse("list   "), null);
+        assertNotNull(listParser.parse("list   "));
     }
     
     @Test
     public void parse_list_valid() throws ParseException {
-        assertNotEquals(listParser.parse("list   t/ Priority Level "), null);
+        assertNotNull(listParser.parse("list   t/ Priority Level "));
     }
     
     @Test
@@ -234,24 +249,24 @@ public class ParserTest {
     
     @Test
     public void parse_find_validAfter() throws ParseException {
-        assertNotEquals(findParser.parse("find t/ Exact this word "), null);
+        assertNotNull(findParser.parse("find t/ Exact this word "));
     }
     
     @Test
     public void parse_find_validBefore() throws ParseException {
-        assertNotEquals(findParser.parse("find some words t/ Partial  "), null);
+        assertNotNull(findParser.parse("find some words t/ Partial  "));
     }
 
     @Test
     public void parse_find_validBeforeAndAfter() throws ParseException {
-        assertNotEquals(findParser.parse("find some words t/ Full some words after "), null);
+        assertNotNull(findParser.parse("find some words t/ Full some words after "));
     }
 
     //==================================================================================
     
     @Test
     public void parse_help_spaces() throws ParseException {
-        assertNotEquals(helpParser.parse("help     "), null);
+        assertNotNull(helpParser.parse("help     "));
     }
     
     @Test
@@ -262,14 +277,14 @@ public class ParserTest {
     
     @Test
     public void parse_help_valid() throws ParseException {
-        assertNotEquals(helpParser.parse("help"), null);
+        assertNotNull(helpParser.parse("help"));
     }
 
     //==================================================================================
 
     @Test
     public void parse_exit_spaces() throws ParseException {
-        assertNotEquals(exitParser.parse("exit     "), null);
+        assertNotNull(exitParser.parse("exit     "));
     }
     
     @Test
@@ -280,7 +295,7 @@ public class ParserTest {
     
     @Test
     public void parse_exit_valid() throws ParseException {
-        assertNotEquals(exitParser.parse("exit"), null);
+        assertNotNull(exitParser.parse("exit"));
     }
 
     //==================================================================================
@@ -293,17 +308,17 @@ public class ParserTest {
     
     @Test
     public void parse_mark_oneIndex() throws ParseException {
-        assertNotEquals(markParser.parse("mark 1"), null);
+        assertNotNull(markParser.parse("mark 1"));
     }
     
     @Test
     public void parse_mark_multipleIndices() throws ParseException {
-        assertNotEquals(markParser.parse("mark 1 2 3"), null);
+        assertNotNull(markParser.parse("mark 1 2 3"));
     }
     
     @Test
     public void parse_mark_multipleSpacesIndices() throws ParseException {
-        assertNotEquals(markParser.parse("mark    1   2     3"), null);
+        assertNotNull(markParser.parse("mark    1   2     3"));
     }
 
     @Test
@@ -328,17 +343,17 @@ public class ParserTest {
     
     @Test
     public void parse_unmark_oneIndex() throws ParseException {
-        assertNotEquals(unmarkParser.parse("unmark 1"), null);
+        assertNotNull(unmarkParser.parse("unmark 1"));
     }
     
     @Test
     public void parse_unmark_multipleIndices() throws ParseException {
-        assertNotEquals(unmarkParser.parse("unmark 1 2 3"), null);
+        assertNotNull(unmarkParser.parse("unmark 1 2 3"));
     }
     
     @Test
     public void parse_unmark_multipleSpacesIndices() throws ParseException {
-        assertNotEquals(unmarkParser.parse("unmark    1   2     3"), null);
+        assertNotNull(unmarkParser.parse("unmark    1   2     3"));
     }
 
     @Test
@@ -357,7 +372,7 @@ public class ParserTest {
 
     @Test
     public void parse_undo_spaces() throws ParseException {
-        assertNotEquals(undoParser.parse("undo     "), null);
+        assertNotNull(undoParser.parse("undo     "));
     }
     
     @Test
@@ -368,14 +383,14 @@ public class ParserTest {
     
     @Test
     public void parse_undo_valid() throws ParseException {
-        assertNotEquals(undoParser.parse("undo"), null);
+        assertNotNull(undoParser.parse("undo"));
     }
 
     //==================================================================================
 
     @Test
     public void parse_redo_spaces() throws ParseException {
-        assertNotEquals(redoParser.parse("redo     "), null);
+        assertNotNull(redoParser.parse("redo     "));
     }
     
     @Test
@@ -386,7 +401,104 @@ public class ParserTest {
     
     @Test
     public void parse_redo_valid() throws ParseException {
-        assertNotEquals(redoParser.parse("redo"), null);
+        assertNotNull(redoParser.parse("redo"));
+    }
+
+    //==================================================================================
+
+    @Test
+    public void parse_alias_keywordUnspecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias r/ a string of things");
+    }
+
+    @Test
+    public void parse_alias_textUnspecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ xyz");
     }
     
+    @Test
+    public void parse_alias_noSwitchesSpecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias power overwhelming");
+    }
+    
+    @Test
+    public void parse_alias_keywordTooLong() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ not a single word r/ project management");
+    }
+    
+    @Test
+    public void parse_alias_keywordEmpty() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/   r/ project management");
+    }
+    
+    @Test
+    public void parse_alias_textEmpty() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ pjm  r/  ");
+    }
+    
+    @Test
+    public void parse_alias_fullValid() throws ParseException {
+        assertNotNull(aliasParser.parse("alias   k/ pjm  r/  project management  "));
+    }
+
+    //==================================================================================
+
+    @Test
+    public void parse_unalias_emptyKeyword() throws ParseException {
+        thrown.expect(ParseException.class);
+        unaliasParser.parse("unalias    ");
+    }
+
+    @Test
+    public void parse_unalias_valid() throws ParseException {
+        assertNotNull(unaliasParser.parse("unalias  something "));
+    }
+
+    //==================================================================================
+    
+    @Test
+    public void parse_master_subparser() throws ParseException {
+        MasterParser parser = new MasterParser();
+        parser.registerCommandParser(new AddCommandParser());
+        assertTrue(parser.parse(" add A New Task s/ tomorrow  e/ the day after tomorrow, l/ SR10 ") instanceof AddCommand);
+    }
+
+    @Test
+    public void parse_master_subparserRemoved() throws ParseException {
+        MasterParser parser = new MasterParser();
+        parser.registerCommandParser(new AddCommandParser());
+        parser.unregisterCommandParser("add");
+        assertTrue(parser.parse(" add A New Task s/ tomorrow  e/ the day after tomorrow, l/ SR10 ") instanceof IncorrectCommand);
+    }
+
+    @Test
+    public void parse_master_alias() throws ParseException {
+        MasterParser parser = new MasterParser();
+        parser.registerCommandParser(new AddCommandParser());
+        parser.addAliasSymbol(new AliasSymbol("xyz", "add A New Task"));
+        parser.addAliasSymbol(new AliasSymbol("pqr", "s/ tomorrow e/ 30 september 3pm"));
+        assertTrue(parser.parse("xyz pqr") instanceof AddCommand);
+    }
+
+    @Test
+    public void parse_master_invalidAlias() throws ParseException {
+        MasterParser parser = new MasterParser();
+        parser.registerCommandParser(new AddCommandParser());
+        assertFalse(parser.addAliasSymbol(new AliasSymbol("add", "add A New Task")));
+    }
+
+    @Test
+    public void parse_master_removedAlias() throws ParseException {
+        MasterParser parser = new MasterParser();
+        parser.registerCommandParser(new AddCommandParser());
+        parser.addAliasSymbol(new AliasSymbol("xyz", "add A New Task"));
+        parser.removeAliasSymbol("xyz");
+        assertTrue(parser.parse("xyz pqr") instanceof IncorrectCommand);
+    }
 }

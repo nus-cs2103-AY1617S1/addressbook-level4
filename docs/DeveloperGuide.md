@@ -1,4 +1,4 @@
-# Developer Guide 
+﻿# Developer Guide 
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -148,7 +148,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Savvy Tasker data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -277,6 +277,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new task | record tasks that need to be done some day
 `* * *` | user | update a task description/due date/priority level | make modifications to tasks without having delete and re-add it
 `* * *` | user | mark completed tasks as done | remind myself that I have completed a task
+`* * *` | user | unmark marked tasks | list a resurfaced task without having to key in the same information again
 `* * *` | user | delete a task | get rid of tasks that I no longer care to track 
 `* * *` | user | sort ongoing tasks by due date or priority | decide what needs to be done soon
 `* * *` | user | view the list of ongoing tasks | decide what needs to be done
@@ -330,6 +331,7 @@ Use case ends.
 1. Savvy Tasker waits for user command
 2. User requests to list tasks
 3. Savvy Tasker shows a list of tasks <br>
+Use case ends.
 
 **Extensions**
 
@@ -345,6 +347,7 @@ Use case ends.
 1. Savvy Tasker waits for user command
 2. User requests to find tasks by keyword
 3. Savvy Tasker displays the list of tasks that contains the keyword in the name<br>
+Use case ends.
 
 **Extensions**
 
@@ -389,7 +392,8 @@ Use case ends.
 
 1. Savvy Tasker waits for user command
 2. User request to mark specific tasks in the list based on task’s index
-3. Savvy Tasker marks the tasks<br>
+3. Savvy Tasker marks the tasks, removes it from the task list, and adds it to the Archived list<br>
+Use case ends.
 
 **Extensions**
 
@@ -405,15 +409,16 @@ Use case ends.
 > 3b1. Savvy Tasker shows a 'task already marked' error message.<br>
 > Use case resumes at step 1
 
-###Use case: Unmark of task
+###Use case: Unmark marked task
 
 **MSS**
 
 1. Savvy Tasker waits for user command
 2. User requests to list archived tasks
 3. Savvy Tasker displays a list of archived tasks, sorted by time and date the task has been marked
-4. User request to unmark of the specific task in the list based on task’s index
-4. Savvy Tasker removes the done mark of the specific task <br>
+4. User requests to unmark the specific task in the list based on task’s index
+5. Savvy Tasker removes the marked status of the specific task, removes it from the Archived list, and adds it back to the task list <br>
+Use case ends.
 
 **Extensions**
 
@@ -457,6 +462,7 @@ Use case ends.
 4. User request a command
 4. Savvy Tasker check if the command contain any shorten keyword, if it does, replace the shorten keyword with the associated keyword from its database
 5. Savvy Tasker carry out the command <br>
+Use case ends.
 
 **Extensions**
 
@@ -475,6 +481,7 @@ Use case ends.
 1. Savvy Tasker waits for user command
 2. User requests to unalias a shorten keyword
 3. Savvy Tasker remove the shorten keyword associated with the keyword in its database <br>
+Use case ends.
 
 **Extensions**
 
@@ -482,6 +489,35 @@ Use case ends.
 > 2a1. Savvy Tasker shows a 'not found' error message 
 > Use case resumes at step 1 <br>
 
+###Use case: Undo previous command
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to undo last executed command
+3. Savvy Tasker undos the last executed command to return to the state before that command was executed <br>
+Use case ends.
+
+**Extensions**
+
+2a. There is no previously executed command to undo
+> 2a1. Savvy Tasker shows a 'cannot undo' error message <br>
+> Use case ends
+
+###Use case: Redo most recently undone command
+
+**MSS**
+
+1. Savvy Tasker waits for user command
+2. User requests to redo last undone command
+3. Savvy Tasker re executes the executed command that was last undone <br>
+Use case ends.
+
+**Extensions**
+
+2a. There are no executed undo commands to redo
+> 2a1. Savvy Tasker shows a 'cannot redo' error message <br>
+> Use case ends
 
 ## Appendix C : Non Functional Requirements
 
@@ -545,3 +581,35 @@ Use case ends.
 4. Auto sync with Gmail (Firefox plugin), Google Calendar, Twitter (direct integration), Atom/RSS, IM (feed)
 5. Email notifications, autoprocess
 6. API <br>
+
+
+#### Competing product: MIUI Calendar
+
+**Pros:**
+
+1. Able to sync to different devices
+2. Able to set privacy to private or public
+3. Able to set 2 reminders
+4. Able to set reminder as a notification popup or an alarm
+
+**Cons:**
+
+1. Unable to check(tick) completed event
+2. Does not cater for tasks, only events
+
+
+#### Competing product: WunderList
+
+**Pros:**
+
+1. Allows creation of subtasks within a task.
+2. Allows local storage, in case there isn't internet access.
+3. Can sync across devices by signing in.
+4. Allows the grouping of tasks as a list and even grouping into folders.
+5. Can invite other person(s), sharing the tasks with them.
+
+**Cons:**
+
+1. Doesn't allow adding of tasks through the command line (one-shot).
+2. Cannot block slots.
+3. No calendar view.

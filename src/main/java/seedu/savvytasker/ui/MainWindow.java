@@ -13,7 +13,7 @@ import seedu.savvytasker.commons.core.GuiSettings;
 import seedu.savvytasker.commons.events.ui.ExitAppRequestEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing

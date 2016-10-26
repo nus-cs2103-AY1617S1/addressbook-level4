@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 import seedu.savvytasker.commons.exceptions.DataConversionException;
-import seedu.savvytasker.model.ReadOnlyAddressBook;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 
 /**

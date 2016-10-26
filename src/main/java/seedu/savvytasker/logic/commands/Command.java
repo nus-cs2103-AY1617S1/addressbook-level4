@@ -3,14 +3,13 @@ package seedu.savvytasker.logic.commands;
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-    protected Model model;
-
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
@@ -29,13 +28,18 @@ public abstract class Command {
     public abstract CommandResult execute();
 
     /**
-     * Provides any needed dependencies to the command.
+     * Provides any model related dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
-        this.model = model;
-    }
+    public void setModel(Model model) { /* Intentionally does nothing */ }
+    
+    /**
+     * Provides any logic related dependencies to the command.
+     * Commands making use of any of these should override this method to gain
+     * access to the dependencies.
+     */
+    public void setLogic(Logic logic) { /* Intentionally does nothing */ }
 
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
@@ -44,6 +48,7 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0139916U
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -61,4 +66,17 @@ public abstract class Command {
      * @return true if the operation completed successfully, false otherwise
      */
     public abstract boolean undo();
+    
+    //@@author
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    public abstract boolean isUndo();
+
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    public abstract boolean isRedo();
 }

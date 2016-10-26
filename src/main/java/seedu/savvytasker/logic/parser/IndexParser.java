@@ -1,3 +1,4 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Arrays;
  * they act on.
  */
 public class IndexParser {    
+    public static String INDEX_MUST_BE_POSITIVE = "Must be positive whole numbers.";
     /**
      * Parses a single index.
      * 
@@ -18,11 +20,11 @@ public class IndexParser {
      */
     public int parseSingle(String indexText) throws ParseException {
         boolean parseError = false;
-        
+
+        String trimmedIndexText = indexText.trim();
         int index = 0;
         try {
-            indexText = indexText.trim();
-            index = Integer.parseInt(indexText);
+            index = Integer.parseInt(trimmedIndexText);
             
             if (index <= 0)
                 parseError = true;
@@ -31,7 +33,7 @@ public class IndexParser {
         }
         
         if (parseError)
-            throw new ParseException(indexText, "Must be a positive whole number.");
+            throw new ParseException(trimmedIndexText, "Must be a positive whole number.");
             
         return index;
     }
@@ -45,11 +47,12 @@ public class IndexParser {
      */
     public int[] parseMultiple(String indicesText) throws ParseException {
         boolean parseError = false;
-        
+
+        String trimmedIndicesText = indicesText.trim();
         int[] indices = null;
         try {
             indices = Arrays
-                .stream(indicesText.trim().split("\\s+"))
+                .stream(trimmedIndicesText.split("\\s+"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
             
@@ -64,7 +67,7 @@ public class IndexParser {
         }
         
         if (parseError)
-            throw new ParseException(indicesText, "Must be positive whole numbers.");
+            throw new ParseException(trimmedIndicesText, INDEX_MUST_BE_POSITIVE);
             
         return indices;
     }

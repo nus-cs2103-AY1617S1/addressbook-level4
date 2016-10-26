@@ -1,3 +1,4 @@
+//@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
 import java.util.regex.Matcher;
@@ -5,7 +6,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.ListCommand;
-import seedu.savvytasker.logic.commands.models.ListCommandModel;
 import seedu.savvytasker.model.task.ListType;
 
 public class ListCommandParser implements CommandParser<ListCommand> {
@@ -34,7 +34,7 @@ public class ListCommandParser implements CommandParser<ListCommand> {
         if (matcher.matches()) {
             ListType listType = parseListType(matcher.group(REGEX_REF_LIST_TYPE));
             
-            return new ListCommand(new ListCommandModel(listType));
+            return new ListCommand(listType);
         }
         
         throw new ParseException(commandText, String.format(

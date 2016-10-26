@@ -4,12 +4,12 @@ import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.
  */
-public class SelectCommand extends Command {
+public class SelectCommand extends ModelRequiringCommand {
 
     public final int targetIndex;
 
@@ -41,6 +41,10 @@ public class SelectCommand extends Command {
 
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -53,7 +57,7 @@ public class SelectCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
@@ -63,6 +67,24 @@ public class SelectCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
+    }
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
     }
 }

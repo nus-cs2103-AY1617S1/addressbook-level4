@@ -12,8 +12,7 @@ import org.testfx.api.FxToolkit;
 import seedu.savvytasker.TestApp;
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.ReadOnlyPerson;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.testutil.TestUtil;
 import seedu.savvytasker.testutil.TypicalTestTasks;
 
@@ -25,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for AddressBook.
  */
-public abstract class AddressBookGuiTest {
+public abstract class SavvyTaskerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule

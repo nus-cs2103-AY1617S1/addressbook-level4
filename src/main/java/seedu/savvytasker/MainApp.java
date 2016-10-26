@@ -1,6 +1,12 @@
 package seedu.savvytasker;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,16 +20,15 @@ import seedu.savvytasker.commons.util.ConfigUtil;
 import seedu.savvytasker.commons.util.StringUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.LogicManager;
-import seedu.savvytasker.model.*;
+import seedu.savvytasker.model.Model;
+import seedu.savvytasker.model.ModelManager;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
+import seedu.savvytasker.model.SavvyTasker;
+import seedu.savvytasker.model.UserPrefs;
 import seedu.savvytasker.storage.Storage;
 import seedu.savvytasker.storage.StorageManager;
 import seedu.savvytasker.ui.Ui;
 import seedu.savvytasker.ui.UiManager;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
@@ -31,7 +36,7 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+    public static final Version VERSION = new Version(0, 4, 0, true);
 
     protected Ui ui;
     protected Logic logic;
@@ -44,7 +49,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Savvy Tasker ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -74,14 +79,14 @@ public class MainApp extends Application {
         try {
             savvyTaskerOptional = storage.readSavvyTasker();
             if(!savvyTaskerOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+                logger.info("Data file not found. Will be starting with an empty Savvy Tasker");
             }
             initialData = savvyTaskerOptional.orElse(new SavvyTasker());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Savvy Tasker");
             initialData = new SavvyTasker();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty Savvy Tasker");
             initialData = new SavvyTasker();
         }
 
@@ -138,7 +143,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty Savvy Tasker");
             initializedPrefs = new UserPrefs();
         }
 
@@ -158,13 +163,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Savvy Tasker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Savvy Tasker ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

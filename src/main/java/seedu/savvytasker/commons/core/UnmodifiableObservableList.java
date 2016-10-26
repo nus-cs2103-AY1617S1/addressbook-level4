@@ -1,17 +1,22 @@
 package seedu.savvytasker.commons.core;
 
+import java.text.Collator;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
+
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
-import java.text.Collator;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import java.util.stream.Stream;
 
 /**
  * Unmodifiable view of an observable list
@@ -95,7 +100,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final SortedList<E> sorted() {
         return sorted(Comparator.nullsFirst((o1, o2) -> {
             if (o1 instanceof Comparable) {
-                return ((Comparable) o1).compareTo(o2);
+                return ((Comparable<E>) o1).compareTo(o2);
             }
             return Collator.getInstance().compare(o1.toString(), o2.toString());
         }));

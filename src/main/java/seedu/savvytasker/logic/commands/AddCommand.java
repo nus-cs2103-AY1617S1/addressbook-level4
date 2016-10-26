@@ -1,13 +1,19 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.logic.commands.models.AddCommandModel;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.logic.parser.DateParser.InferredDate;
+import seedu.savvytasker.model.task.PriorityLevel;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.RecurrenceType;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -19,35 +25,68 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
+    public static final String MESSAGE_INVALID_START_END = "The end time cannot be earlier than the start time";
 
-    private final Task toAdd;
+    private final String taskName;
+    private final InferredDate startDateTime;
+    private final InferredDate endDateTime;
+    private final String location;
+    private final PriorityLevel priority;
+    private final RecurrenceType recurringType;
+    private final Integer numberOfRecurrence;
+    private final String category;
+    private final String description;
+    
+    private Task toAdd;
 
+    //@@author A0139915W
     /**
      * Creates an add command.
      */
-    public AddCommand(AddCommandModel commandModel) {
+    public AddCommand(String taskName, InferredDate startDateTime, InferredDate endDateTime,
+            String location, PriorityLevel priority, RecurrenceType recurringType, 
+            Integer numberOfRecurrence, String category, String description) {
+        this.taskName = taskName;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.location = location;
+        this.priority = priority;
+        this.recurringType = recurringType;
+        this.numberOfRecurrence = numberOfRecurrence;
+        this.category = category;
+        this.description = description;
+    }
+    
+    private void createTask() {
         final boolean isArchived = false;   // all tasks are first added as active tasks
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
-        this.toAdd = new Task(taskId, commandModel.getTaskName(),
-                commandModel.getStartDateTime(), commandModel.getEndDateTime(),
-                commandModel.getLocation(), commandModel.getPriority(),
-                commandModel.getRecurringType(), commandModel.getNumberOfRecurrence(),
-                commandModel.getCategory(), commandModel.getDescription(), isArchived);
+        
+        this.toAdd = new Task(taskId, taskName, startDateTime, endDateTime,
+                location, priority, recurringType, numberOfRecurrence,
+                category, description, isArchived);
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
+        createTask();
+
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
-            assert false; // ModelManager will ensure no duplicated tasks
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (InvalidDateException ex) {
+            return new CommandResult(MESSAGE_INVALID_START_END);
         }
 
     }
+    //@@author
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;
@@ -59,7 +98,7 @@ public class AddCommand extends Command {
      */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
+        execute();
         return false;
     }
     
@@ -69,8 +108,37 @@ public class AddCommand extends Command {
      */
     @Override
     public boolean undo() {
-        // TODO Auto-generated method stub
+        
+        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
+        
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i) == toAdd){
+                ReadOnlyTask taskToDelete = lastShownList.get(i);
+                try {
+                    model.deleteTask(taskToDelete);
+                } catch (TaskNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
         return false;
     }
-
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    }
 }

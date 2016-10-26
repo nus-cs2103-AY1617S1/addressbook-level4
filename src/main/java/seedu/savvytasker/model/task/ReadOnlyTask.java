@@ -1,10 +1,8 @@
-package seedu.savvytasker.model.person;
+package seedu.savvytasker.model.task;
 
 import java.util.Date;
 
-import seedu.savvytasker.model.task.PriorityLevel;
-import seedu.savvytasker.model.task.RecurrenceType;
-
+//@@author A0139915W
 /**
  * A read-only immutable interface for a Task in the TaskList.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -62,3 +60,4 @@ public interface ReadOnlyTask {
     }
 
 }
+//@@author

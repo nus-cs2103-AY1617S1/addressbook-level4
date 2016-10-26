@@ -1,12 +1,11 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.logic.commands.models.ListCommandModel;
 import seedu.savvytasker.model.task.ListType;
 
 /**
  * Lists all tasks in the savvy tasker to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "list";
 
@@ -17,26 +16,26 @@ public class ListCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    private final ListCommandModel commandModel;
-    
+    private final ListType listType;
+
+    //@@author A0139915W
     /**
      * Creates the List command to list the specified tasks
      * @author A0139915W
      * @param commandModel Arguments for the List command, must not be null
      */
-    public ListCommand(ListCommandModel commandModel) {
-        assert commandModel != null;
-        this.commandModel = commandModel;
+    public ListCommand(ListType listType) {
+        this.listType = listType;
     }
 
     @Override
     public CommandResult execute() {
-        ListType listType = commandModel.getListType();
+        ListType _listType = listType;
         if (listType == null) {
             // use default, sort by due date
-            listType = ListType.DueDate;
+            _listType = ListType.DueDate;
         }
-        switch (listType)
+        switch (_listType)
         {
         case DueDate:
             model.updateFilteredListToShowActiveSortedByDueDate();
@@ -52,7 +51,12 @@ public class ListCommand extends Command {
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
+    //@@author
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -65,7 +69,7 @@ public class ListCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     
@@ -76,6 +80,25 @@ public class ListCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
+    }
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
     }
 }
+

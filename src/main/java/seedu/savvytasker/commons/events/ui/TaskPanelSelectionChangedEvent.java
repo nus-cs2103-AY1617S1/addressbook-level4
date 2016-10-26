@@ -1,10 +1,12 @@
 package seedu.savvytasker.commons.events.ui;
 
 import seedu.savvytasker.commons.events.BaseEvent;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+
+//@@author A0139915W
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Task List Panel
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
@@ -24,3 +26,4 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
         return newSelection;
     }
 }
+//@@author
