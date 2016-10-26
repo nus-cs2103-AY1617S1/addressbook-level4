@@ -70,8 +70,8 @@ public class XmlAdaptedTask {
         final Date date = new Date(this.date);
         final Time startTime = new Time(this.startTime);
         final Time endTime = new Time(this.endTime);
-        //final String done = new String(this.done);
+        final String done = new String(this.done);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name,taskD,date,startTime,endTime, tags);
+        return new Task(name,taskD,date,startTime,endTime,tags);
     }
 }
