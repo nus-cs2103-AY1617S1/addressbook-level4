@@ -176,6 +176,9 @@ public class Parser {
 
 		case DoneCommand.COMMAND_WORD:
 			return prepareDone(arguments);
+	
+		case UnDoneCommand.COMMAND_WORD:
+			return prepareUnDone(arguments);
 
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -532,6 +535,23 @@ public class Parser {
 		return new DoneCommand(index.get());
 	}
 
+	/**
+	 * Sets up undone command to be executed
+	 * 
+	 * @param args
+	 *            full command args string
+	 * @return prepared undoneCommand
+	 */
+	private Command prepareUnDone(String args) {
+		Optional<Integer> index = parseIndex(args);
+		if (!index.isPresent()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+		}
+
+		return new UnDoneCommand(index.get());
+	}
+	
+	
 	private Command prepareHelp(String args) {
 		args = args.trim();
 

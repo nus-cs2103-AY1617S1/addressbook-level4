@@ -51,5 +51,8 @@ public interface Model {
 	
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
+	
+	/** Marks a task as undone when it is not completed. */
+	void undoneTask(ReadOnlyTask taskToDone, boolean isUnDone);
 
 }
