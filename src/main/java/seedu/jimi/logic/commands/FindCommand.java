@@ -2,6 +2,8 @@ package seedu.jimi.logic.commands;
 
 import java.util.Set;
 
+import seedu.jimi.model.datetime.DateTime;
+
 /**
  * Finds and lists all tasks in Jimi whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -16,19 +18,39 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " add water";
 
     private final Set<String> keywords;
-
+    private final DateTime fromDate;
+    private final DateTime toDate;
+    
+    
     public FindCommand() {
         keywords = null;
+        toDate = null;
+        fromDate = null;
     }
     
-    public FindCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords, DateTime fromDate, DateTime toDate) {
         this.keywords = keywords;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
     }
+    //@@author A0138915X
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredAgendaTaskList(keywords);
-        model.updateFilteredAgendaEventList(keywords);
+        if(keywords != null && keywords.size() > 0) {
+            if(fromDate != null) {
+                model.updateFilteredAgendaTaskList(keywords, fromDate, toDate);
+                model.updateFilteredAgendaEventList(keywords, fromDate, toDate);
+            } else {
+                model.updateFilteredAgendaTaskList(keywords);
+                model.updateFilteredAgendaEventList(keywords);
+            }
+        } else {
+            model.updateFilteredAgendaTaskList(fromDate, toDate);
+            model.updateFilteredAgendaEventList(fromDate, toDate);
+        }
+        
+        
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredAgendaTaskList().size()
                 + model.getFilteredAgendaEventList().size()));
     }
