@@ -66,6 +66,10 @@ public class GuiHandle {
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
+    
+    protected String getColorFromLabel(String fieldId, Node parentNode) {
+        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
+    }
 
     public void focusOnSelf() {
         if (stageTitle != null) {

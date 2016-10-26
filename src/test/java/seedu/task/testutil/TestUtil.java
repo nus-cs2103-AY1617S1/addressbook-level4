@@ -67,15 +67,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Call Jim"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Do homework"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Finish up the project"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Go for a jog"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
-                    new Task(new Name("Iron new clothes"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Call Jim"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Do homework"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Finish up the project"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Go for a jog"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status()),
+                    new Task(new Name("Iron new clothes"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList(), new Status())
             };
           
             
@@ -322,6 +322,12 @@ public class TestUtil {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    public static TestTask[] doneTasksToList(final TestTask[] tasks, int index) {
+        tasks[index - 1].getStatus().setDoneStatus(true);
+        
+        return tasks;
     }
 
     private static <T> List<T> asList(T[] objs) {
