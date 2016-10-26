@@ -27,10 +27,10 @@ This guide describes the design and implementation of Amethyst, to help you unde
 - [Testing](#testing)
 - [Dev Ops](#dev-ops)
 - [Future Development](#future-development)
-- [Appendix A: User Stories](#appendix-a--user-stories)
-- [Appendix B: Use Cases](#appendix-b--use-cases)
-- [Appendix C: Non-Functional Requirements](#appendix-c--non-functional-requirements)
-- [Appendix D: Glossary](#appendix-d--glossary)
+- [Appendix A: User Stories](#appendix-a-user-stories)
+- [Appendix B: Use Cases](#appendix-b-use-cases)
+- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
+- [Appendix D: Glossary](#appendix-d-glossary)
 - [Appendix E : Product Survey](#appendix-e-product-survey)
 
 <!-- /MarkdownTOC -->
@@ -482,7 +482,9 @@ Use case ends
 5. Amethyst should have critical functionality without the need for an installer
 6. Amethyst should not require the user to pay
 7. Data should stored locally in human editable text
-8. Command Line Interface (CLI) should be the primary mode of input
+8. Command Line Interface (CLI) should be the primary mode of input  
+
+For more information, you may refer to the [Project Constraints](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/), available in the [CS2103T Handbook](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/).
 
 <br>
 ## Appendix D: Glossary
