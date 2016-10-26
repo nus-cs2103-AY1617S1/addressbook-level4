@@ -134,6 +134,7 @@ Examples:
 Clears all entries from the to-do list.<br>
 Format: `clear`  
 
+<!--- @@author A0122460W--->
 #### Completing a floating task or deadline: `complete`
 complete the specified floating task or deadline from Malitio by striking out them.<br>
 Format: `complete f/d+INDEX`
