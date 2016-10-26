@@ -115,7 +115,7 @@ public class TestTask extends Task implements ReadOnlyTask {
         assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
         recurringDates.add(componentToBeAppended);        
     }
-
+    //@@author A0147967J
     public String getAddFloatingCommand() {
     	this.type = TaskType.FLOATING;
         return getAddCommand();

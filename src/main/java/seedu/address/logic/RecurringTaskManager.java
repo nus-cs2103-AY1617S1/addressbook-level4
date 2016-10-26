@@ -392,6 +392,7 @@ public class RecurringTaskManager {
                 break;
             default:
                 assert true : "Failed to set recurring type";
+            	break;
         }        
     }
 

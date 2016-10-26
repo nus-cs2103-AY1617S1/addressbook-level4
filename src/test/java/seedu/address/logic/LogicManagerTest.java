@@ -106,7 +106,7 @@ public class LogicManagerTest {
     }
 
     @Before
-    public void setup() {
+    public void setUp() {
         model = new ModelManager();
         String tempTaskListFile = saveFolder.getRoot().getPath() + "TempTaskList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
@@ -121,7 +121,7 @@ public class LogicManagerTest {
     
 
     @After
-    public void teardown() throws DataConversionException, IOException {
+    public void tearDown() throws DataConversionException, IOException {
     	Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
 		config.setTaskListFilePath("data\\tasklist.xml");
 		ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -1161,6 +1161,7 @@ public class LogicManagerTest {
     }
     //@@author
     
+	//@@author A0147995H
     /** tests for edit command*/   
     @Test
     public void execute_edit_invalidTaskData() throws Exception {
@@ -1419,6 +1420,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskComponentList());
     }
+	//@@author
 
     /**
      * A utility class to generate test data.

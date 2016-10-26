@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-//@@author A0147967J
+//@@author A0147967J-reused
 /**
  * This class extends javafx text field for auto complete
  * implementation for Happy Jim Task Master. 
+ * Reference: https://gist.github.com/floralvikings/10290131
  */
 public class AutoCompleteTextField extends TextField
 {	

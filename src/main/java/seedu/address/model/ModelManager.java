@@ -96,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@author A0147995H
     @Override
     public synchronized void editTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
@@ -103,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     	updateFilteredListToShowAll();
     }
+    //@@author
     
     //@@author A0135782Y
     @Override
@@ -125,7 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void changeDirectory(String filePath) {
 		raise(new FilePathChangeEvent(filePath));
 	}
-    //@@author A0147967J
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -229,6 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
     
+    //@@author A0147995H
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -326,8 +329,8 @@ public class ModelManager extends ComponentManager implements Model {
 			Date startDate = timeArray[START_DATE_INDEX];
 			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if((startDate.after(this.startTime)||startDate.equals(this.startTime))
-					&& (endDate.before(this.endTime)||endDate.equals(this.endTime)))
+			if(!startDate.before(this.startTime)
+					&& !endDate.after(this.endTime))
 				return true;
 			return false;	
 		}
@@ -420,4 +423,5 @@ public class ModelManager extends ComponentManager implements Model {
     				+ archiveQualifier.toString() + " ";
     	}
     }
+    //@@author
 }

@@ -21,6 +21,10 @@ import seedu.address.model.tag.UniqueTagList;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
+	
+
+    private final List<Task> internalList = new ArrayList<Task>();
+    private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -51,8 +55,6 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
     //@@author
     
-    private final List<Task> internalList = new ArrayList<Task>();
-    private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
     
     /**
      * Constructs empty TaskList.
@@ -192,7 +194,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndArchived;
 	}
 	//@@author
-	
+	//@@author A0147995H
 	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
 			TaskDate endDate, RecurringType recurringType) throws TimeslotOverlapException {
 		assert target != null;

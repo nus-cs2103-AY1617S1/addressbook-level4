@@ -77,7 +77,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
-
+    //@@author A0147967J
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         rebuildComponentList();
@@ -105,7 +105,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
         }
         this.tasks.getInternalComponentList().setAll(fullList);
 	}
-
+	//@@author
     public void resetData(ReadOnlyTaskMaster newData) {
         resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
     }
@@ -216,6 +216,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 	}
 	//@@author
 	
+	//@@author A0147995H
 	public boolean updateTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
 		if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
@@ -240,4 +241,5 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 			throw new UniqueTaskList.TaskNotFoundException();
 		}
 	}
+	//@@author
 }

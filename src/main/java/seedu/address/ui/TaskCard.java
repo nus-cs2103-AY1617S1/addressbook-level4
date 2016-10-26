@@ -99,7 +99,7 @@ public class TaskCard extends UiPart{
     		recurringType.setStyle("-fx-text-fill : derive(#373737, 20%);");
     	}  	
     }
-
+    //@@author
     public HBox getLayout() {    	
         return cardPane;
     }

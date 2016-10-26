@@ -23,7 +23,7 @@ public class RecurringTaskManagerTest {
     private TaskMaster taskMaster;
     
     @Before
-    public void setup() {
+    public void setUp() {
         recurringManager = RecurringTaskManager.getInstance();
         taskMaster = new TaskMaster();
         recurringManager.setTaskList(taskMaster.getUniqueTaskList());

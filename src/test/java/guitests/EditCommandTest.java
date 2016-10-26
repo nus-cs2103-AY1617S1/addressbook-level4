@@ -71,7 +71,7 @@ public class EditCommandTest extends TaskMasterGuiTest {
         
         //Edit it back also enabled
         toBeEdited = currentList[index - 1];
-        toBeEdited.setRecurringType(RecurringType.NONE);;
+        toBeEdited.setRecurringType(RecurringType.NONE);
         currentList[index - 1] = toBeEdited;
         assertEditSuccess(toBeEdited, "edit 4 none", currentList);
 

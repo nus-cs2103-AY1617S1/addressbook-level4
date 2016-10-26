@@ -17,7 +17,7 @@ import seedu.address.testutil.TestTask;
 public class UniqueTaskListTest {
     UniqueTaskList taskList;
     @Before
-    public void setup() {
+    public void setUp() {
         taskList = new UniqueTaskList();
     }
     

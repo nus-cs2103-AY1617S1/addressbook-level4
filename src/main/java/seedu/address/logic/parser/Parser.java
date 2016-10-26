@@ -428,6 +428,7 @@ public class Parser {
 
     }
 
+    //@@author A0147995H
     /**
      * Parses arguments in the context of the find task command.
      *
@@ -509,7 +510,7 @@ public class Parser {
         }
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
     }
-    
+
     private Command prepareEdit(String args) {
     	if(args == null || args.length() == 0)
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -613,6 +614,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }   
     }
+    //@@author
     
     //@@author A0147967J
     /**
@@ -632,6 +634,7 @@ public class Parser {
 	}
     //@@author
     
+    //@@author A0147995H
     public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalArgumentException {
     	ArrayList<Date> resultSet = new ArrayList<Date>();
     	try {
@@ -654,6 +657,7 @@ public class Parser {
     	} 	
     	return resultSet;
     }
+    //@@author
     
     /**
      * Parses through the dateInput and provides the Date from that input

@@ -15,7 +15,7 @@ public class TypicalTestTasks {
 	
 	/** Floating test tasks. */
     public static TestTask trash, book, homework, lecture, meeting, george, hoon, ida;
-    
+    //@@author A0147967J
     /** Non-floating test tasks. */
     public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper, incoming;
     
@@ -69,7 +69,7 @@ public class TypicalTestTasks {
             assert false : "not possible";
         }
     }
-
+    //@@author
     public static void loadTaskListWithSampleData(TaskMaster ab) throws TimeslotOverlapException {
 
         try {
@@ -91,11 +91,11 @@ public class TypicalTestTasks {
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
     }
-    
+    //@@author A0147967J
     public TestTask[] getTypicalTasksWithRecurringOnes(){
     	return new TestTask[]{trash, tutorialSlot, essayDeadline,concert, yearly, monthly, weekly, daily, none};
     }
-    
+    //@@author
     public TaskComponent[] getTypicalTaskComponents() {
         List<TaskComponent> components = new ArrayList<TaskComponent>();
         TestTask[] tasks = getTypicalTasks();
