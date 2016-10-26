@@ -66,11 +66,13 @@ public class LogicManagerTest {
         targetedJumpIndex = je.targetIndex;
     }
     
+    //@@author A0141052Y
     @Subscribe
     private void handleSwitchCommandBoxFunctionEvent(SwitchCommandBoxFunctionEvent evt) {
         hasSwitchedToSearch = true;
     }
 
+    //@@author
     @Before
     public void setup() {
         model = new ModelManager();
@@ -378,13 +380,14 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
+    //@@author A0141052Y
     @Test
     public void execute_find_swithCommandBoxInitiated() throws Exception {
         assertCommandBehavior("searchbox", SearchCommand.MESSAGE_SEARCH_SUCCESS);
         assertTrue(hasSwitchedToSearch);
     }
-
+    //@@author
 
     /**
      * A utility class to generate test data.

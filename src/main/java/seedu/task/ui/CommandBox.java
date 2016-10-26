@@ -53,6 +53,7 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        //@@author A0141052Y
         this.liveSearchHandler = new ChangeListener<String>(){
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -64,6 +65,7 @@ public class CommandBox extends UiPart {
             }
         };
         this.isSearchMode = false;
+        //@@author
         
         registerAsAnEventHandler(this);
     }
