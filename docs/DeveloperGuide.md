@@ -602,8 +602,14 @@ Use case ends.
 
 **Pros:**
 
-1. 
+1. Allows creation of subtasks within a task.
+2. Allows local storage, in case there isn't internet access.
+3. Can sync across devices by signing in.
+4. Allows the grouping of tasks as a list and even grouping into folders.
+5. Can invite other person(s), sharing the tasks with them.
 
 **Cons:**
 
-1. 
+1. Doesn't allow adding of tasks through the command line (one-shot).
+2. Cannot block slots.
+3. No calendar view.
