@@ -128,7 +128,7 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add Activity1")`
  API call.<br>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
