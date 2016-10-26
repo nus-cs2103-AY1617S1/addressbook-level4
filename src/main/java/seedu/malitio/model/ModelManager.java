@@ -84,7 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
                 malitio.getUniqueEventList(), 
                 malitio.getUniqueTagList()));
         malitio.resetData(newData);
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
 
@@ -94,7 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicatemalitioChanged() {
+    private void indicateMalitioChanged() {
         raise(new MalitioChangedEvent(malitio));
     }
 
@@ -102,21 +102,21 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
         history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
         malitio.removeTask(target);
-        indicatemalitioChanged();        
+        indicateMalitioChanged();        
     }
 
     @Override
     public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
         malitio.removeDeadline(target);
         history.add(new InputDeleteHistory(target));
-        indicatemalitioChanged();        
+        indicateMalitioChanged();        
     }
 
     @Override
     public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
         malitio.removeEvent(target);
         history.add(new InputDeleteHistory(target));
-        indicatemalitioChanged();        
+        indicateMalitioChanged();        
     }
 
 
@@ -126,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addFloatingTask(task);
         history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addFloatingTask(task, index);
         history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
 
     @Override
@@ -142,7 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addDeadline(deadline);
         history.add(new InputAddHistory(deadline));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -150,7 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.addEvent(event);
         history.add(new InputAddHistory(event));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -158,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.editFloatingTask(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.editDeadline(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -174,7 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.editEvent(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredEventListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
@@ -380,5 +380,4 @@ public class ModelManager extends ComponentManager implements Model {
             return timeKeyWord.toString();
         }
     }
-
 }

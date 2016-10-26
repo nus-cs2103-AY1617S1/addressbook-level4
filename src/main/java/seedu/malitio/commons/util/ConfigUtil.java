@@ -58,5 +58,29 @@ public class ConfigUtil {
 
         FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
     }
+    
+    /**
+     * Changing the location of saving local data in config.json file
+     * @param dataFilePath
+     */
+    //@@author a0126633j
+    public static void changeMalitioSaveDirectory(String dataFilePath) {
+        Config existingConfig;
+        
+        try {
+            Optional<Config> config = readConfig(Config.DEFAULT_CONFIG_FILE);
+            existingConfig = config.orElse(new Config());
+        } catch (DataConversionException e) {
+            logger.warning("Could not find existing Config file. Created a new Config file.");
+            existingConfig = new Config();
+        }
+        
+       existingConfig.setMalitioFilePath(dataFilePath);
+       try {
+           saveConfig(existingConfig, Config.DEFAULT_CONFIG_FILE);
+       } catch (IOException e) {
+           logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+       }
+    }
 
 }

@@ -10,6 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
+import seedu.malitio.commons.events.storage.DataStorageFileChangedEvent;
 import seedu.malitio.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -46,7 +47,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -56,7 +57,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+        this.saveLocationStatus.setText("Data file is saved at " + location);
     }
 
     private void addSaveLocation() {
@@ -91,9 +92,15 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handlemalitioChangedEvent(MalitioChangedEvent abce) {
+    public void handleMalitioChangedEvent(MalitioChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    //@@author a0126633j
+    @Subscribe
+    public void handleDataStorageFileChangedEvent(DataStorageFileChangedEvent event) {
+        setSaveLocation(event.dataFilePath);
     }
 }
