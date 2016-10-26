@@ -39,6 +39,7 @@ Responsibilities: UI
 * Features implemented:
 	* Find task/deadline/event
 	* List data by task/deadline/event (List commands)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0135792X.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0135792X.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0135792X.md)]	
 * Other major contributions
 	* Maintaining and updating documentation
 	* Generating sample data 
