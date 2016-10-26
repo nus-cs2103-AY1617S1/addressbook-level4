@@ -73,7 +73,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     default int compareTo(ReadOnlyTask task) {
         if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
             if (!task.getIsEvent() && !task.getIsTask()){
-                return this.getName().fullName.compareTo(task.getName().fullName);
+                return compareByMarkThenByName(task);
             }else{
                 return -1;
             }
@@ -81,7 +81,24 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
             DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
             int c = time1.compareTo(time2);
-            return ((c == 0) ? this.getName().fullName.compareTo(task.getName().fullName) : c);
+            if (c == 0){
+                return compareByMarkThenByName(task);
+            }else{
+                return c;
+            }
+        }
+    }
+
+    default int compareByMarkThenByName(ReadOnlyTask task) {
+        String name1 = this.getName().fullName;
+        String name2 = task.getName().fullName;
+        
+        if(name1.contains("(Done)") && !name2.contains("(Done)")){
+            return 1;
+        }else if(!name1.contains("(Done)") && name2.contains("(Done)")){
+            return -1;
+        }else{
+            return this.getName().fullName.compareTo(task.getName().fullName);
         }
     }
 

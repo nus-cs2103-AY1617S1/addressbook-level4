@@ -33,11 +33,12 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
 
-        commandBox.runCommand("mark 1");
-        commandBox.runCommand("mark 4");
-        commandBox.runCommand("mark 6");
-        commandBox.runCommand("mark 8");
-
+        currentList = TestUtil.markTasksToList(currentList, 6);
+        currentList = TestUtil.markTasksToList(currentList, 4);
+        currentList = TestUtil.markTasksToList(currentList, 3);
+        currentList = TestUtil.markTasksToList(currentList, 1);
+        Arrays.sort(currentList);
+        
         // list all marked tasks
         listCommand = "list mark";
         assertFindSuccess(listCommand, currentList);
