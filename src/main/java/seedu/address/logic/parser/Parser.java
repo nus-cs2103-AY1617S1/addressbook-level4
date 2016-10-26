@@ -60,6 +60,10 @@ public class Parser {
     		Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
     				+ "([E|D|T]\\d+-[E|D|T]\\d+)");
     
+    private static final Pattern COMPLETE_ARGS_FORMAT =
+            Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
+                    + "([E|D|T]\\d+-[E|D|T]\\d+)");
+    
     public Parser() {}
 
     /**
@@ -376,12 +380,20 @@ public class Parser {
     }
     
     private Command prepareComplete(String args) {
+<<<<<<< HEAD
     	final Matcher matcher = DELETE_ARGS_FORMAT.matcher(args.trim());
+=======
+        final Matcher matcher = COMPLETE_ARGS_FORMAT.matcher(args.trim());
+>>>>>>> complete_regex
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DoneCommand.MESSAGE_USAGE));
         }
+<<<<<<< HEAD
         
+=======
+            
+>>>>>>> complete_regex
         char cat = args.charAt(1);
         Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
               
@@ -423,8 +435,10 @@ public class Parser {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
             }           
         }
+       
         System.out.println(pass);
         return new DoneCommand(pass);
+        
     }
 
     /**
