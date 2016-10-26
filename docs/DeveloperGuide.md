@@ -278,57 +278,78 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | list done/undone tasks | Keep track of which items are done and which are yet to be done
 `*` | user | have auto-fill | easily key in commands without remembering the formats
 
+// @@author A0147944U
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
+
+#### Use case: Add task
+
+**MSS**
+
+1. User requests to add a task with given parameters
+2. Task Manager successfully adds task, showing parsed parameters in the message panel and added task in task list panel<br>
+Use case ends
+
+**Extensions**
+
+1a. Task of same parameters have been added before
+
+> 1a1. Task Manager shows an error message stating that the task already exists <br>
+  Use case ends
+
+1b. Parameters given are invalid
+
+> 1b1. Task Manager shows an error message <br>
+  Use case ends
+
+  #### Use case: Clear tasks
+
+**MSS**
+
+1. User requests to clear tasks
+2. Task Manager successfully clear tasks, showing success message in the message panel and the updated task list in the task list panel <br>
+Use case ends
 
 #### Use case: Delete task
 
 **MSS**
 
-1. User requests to list tasks
-2. Task Manager shows a list of tasks
-3. User requests to delete a specific task in the list
-4. Task Manager deletes the task <br>
-Use case ends.
+1. User requests to delete a specific task in the list
+2. Task Manager deletes the task and updates accordingly in task list panel <br>
+Use case ends
 
 **Extensions**
 
-2a. The list is empty
+1a. The list is empty
 
 > Use case ends
 
-3a. The given index is invalid
+1b. The given index is invalid
 
-> 3a1. Task Manager shows an error message <br>
-  Use case resumes at step 2
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
 
-#### Use case: Find Tasks
+#### Use case: Find Task(s)
 
 **MSS**
 
 1. User requests to list tasks containing a KEYWORD
-2. Task Manager shows a task or more tasks which match the KEYWORD.<br>
-Use case ends.
-
-**Extensions**
-
-1a. The user don't type the correct keyword
-
-> Use case ends
+2. Task Manager shows tasks containing the KEYWORD <br>
+Use case ends
 
 #### Use case: Backup Data
 
 **MSS**
 
 1. User requests to backup current data at specified location
-2. Task Manager saves data at specified location.
-3. Task Manager shows location data is saved at.<br>
-Use case ends.
+2. Task Manager saves data at specified location
+3. Task Manager shows location where data is saved at in message panel <br>
+Use case ends
 
 **Extensions**
 
-1a. The user don't type a valid file path
+1a. The user don't enter a valid file path
 
 > 1a1. Task Manager shows an error message <br>
   Use case ends
@@ -344,12 +365,12 @@ Use case ends.
 
 1. User requests to access data at specified location
 2. Task Manager loads data at specified location.
-3. Task Manager shuts down.<br>
-Use case ends.
+3. Task Manager restarts<br>
+Use case ends
 
 **Extensions**
 
-1a. The user don't type a valid file path
+1a. The user don't enter a valid file path
 
 > 1a1. Task Manager shows an error message <br>
   Use case ends
@@ -358,7 +379,98 @@ Use case ends.
  
  > 2a1. Task Manager shows an error message <br>
   Use case ends
- 
+
+#### Use case: Mark task as done
+
+**MSS**
+
+1. User requests to mark a task as done
+2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. Task is already marked as done
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as done <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+#### Use case: Mark task as not done
+
+**MSS**
+
+1. User requests to mark a task as not done
+2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. Task is already marked as not done
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as not done <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to edit task with given parameters
+2. Task Manager successfully updates task, showing affected task in the message panel and updates accordingly in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. The given index is invalid
+
+> 1a1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+1b. Parameters given are invalid
+
+> 1b1. Task Manager shows an error message <br>
+  Use case ends
+
+#### Use case: Exit TaskManager
+
+**MSS**
+
+1. User requests to exit TaskManager
+2. Task Manager shuts down <br>
+Use case ends
+
+#### Use case: Show help page
+
+**MSS**
+
+1. User requests to view help page (via help command, <kbd>F1</kbd> key, or menu option) 
+2. Task Manager opens help page <br>
+Use case ends
+
+#### Use case: Undo last command
+
+**MSS**
+
+1. User requests undo last command
+2. Task Manager successfully reverts to previous state, showing command undone in message panel <br>
+Use case ends
+
+**Extensions**
+
+1a. No more commands to undo
+
+> 1a1. Task Manager shows an error message stating that there are no more commands to undo <br>
+  Use case ends
+
 
 ## Appendix C : Non Functional Requirements
 
@@ -367,6 +479,7 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should function fully offline.
 5. Should process a command within 3 seconds.
+// @@author
 
 ## Appendix D : Glossary
 
