@@ -3,9 +3,11 @@ package guitests;
 import org.junit.Test;
 
 import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.savvytasker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 //@@author A0139915W
 public class FindCommandTest extends SavvyTaskerGuiTest {
@@ -45,7 +47,7 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findmyring");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
     }
 
     private void assertFindResult(String command, TestTask... expectedHits) {
