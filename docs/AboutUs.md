@@ -21,7 +21,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Other major contributions:
   *  Wrote JUnit test cases for Find, Update, Undo and Redo commands
   *  Contributed to the initial refactoring from AddressBook to SmartScheduler ([#51](https://github.com/CS2103AUG2016-T11-C1/main/pull/51))
-  *  Set up Travis and Coveralls
+  *  Set up Coveralls
 
 -----
 
@@ -70,10 +70,17 @@ We are a group of highly motivated and hardworking students working on our CS210
   *  [Deleting tasks](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#deleting-a-task--delete)
   *  [Auto-complete feature for commands in the command box] (https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button)
   *  [Checking command history in the command box](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrows)
+  *  Added counters for different task types
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0146107M.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0146107M.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0146107M.md)]
 * Other major contributions:
   *  Contributed to the initial refactoring from AddressBook to SmartScheduler ([#41](https://github.com/CS2103AUG2016-T11-C1/main/pull/41))
-  *  
+  *  General bug fixes
+  *  Integration of different pull requests
+  *  Rearranged UI
+  *  Implemented once a minute clock and tasklist updates
+  *  Set up Travis
+  *  Wrote the argument parser
+
 
 ## Project Mentor
  

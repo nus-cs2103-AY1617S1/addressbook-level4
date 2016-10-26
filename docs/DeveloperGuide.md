@@ -295,7 +295,7 @@ Guarantees:
 > 1a1. System will identify the clash and will display to the user the list of actions to be taken.
 User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
 
-
+/* @@author A0146107M */
 #### Use case UC02 - Show tasks
 
 **MSS**
@@ -475,7 +475,7 @@ Weaknesses:
 1. Reminder feature could only be utilized by premium members.
 2. Additional features such as backups and productivity trackers are only available in the premium version.
 
-
+/* @@author A0146107M */
 #### Todo.txt (studied by Lester Tan)
 
 Strengths:
@@ -494,7 +494,7 @@ Weaknesses:
 2. Fixed format for entering dates
 3. No feature to search for free slots
 
-
+/* @@author */
 #### Fantastical (studied by Fionna Tong)
 
 Strengths:
