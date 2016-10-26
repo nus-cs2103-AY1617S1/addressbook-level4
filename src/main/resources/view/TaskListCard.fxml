@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -29,11 +29,11 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_id_label" text="index">
+                                    <Label fx:id="id" minWidth="-Infinity" prefWidth="20.0" styleClass="cell_id_label" text="index">
                               <HBox.margin>
-                                 <Insets right="5.0" />
+                                 <Insets right="5.0" top="2.0" />
                               </HBox.margin></Label>
-                                    <Label fx:id="taskName" styleClass="cell_name_label" text="task name" wrapText="true" />
+                                    <Label fx:id="taskName" minWidth="-Infinity" prefWidth="900.0" styleClass="cell_name_label" text="task name" textOverrun="CENTER_ELLIPSIS" wrapText="true" />
                                 </HBox>
                             </children>
                         </HBox>

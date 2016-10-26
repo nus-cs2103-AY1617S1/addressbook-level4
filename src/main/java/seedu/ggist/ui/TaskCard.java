@@ -27,16 +27,14 @@ public class TaskCard extends UiPart{
     private Label endDate;
     @FXML
     private Label endTime;
-    //@FXML
-    //private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
     
     private ColorPicker low = new ColorPicker(Color.web("#ffa900"));
     private ColorPicker med = new ColorPicker(Color.web("#ff5c00"));
-    private ColorPicker high = new ColorPicker(Color.web("#ff0000"));
-    private ColorPicker none = new ColorPicker(Color.BLACK);
+    private ColorPicker high = new ColorPicker(Color.web("#e80549"));
+    private ColorPicker none = new ColorPicker(Color.web("#663220"));
     private ColorPicker done = new ColorPicker(Color.web("#2eb211"));
     private ColorPicker overdue = new ColorPicker(Color.web("#ff0000"));
 
@@ -77,7 +75,7 @@ public class TaskCard extends UiPart{
         }
         if (task.getPriority().value.equals(Messages.MESSAGE_NO_PRIORITY_VALUE)) {
             id.textFillProperty().bind(none.valueProperty());
-            //priority.setText("");
+            taskName.textFillProperty().bind(none.valueProperty());
         } else {
             String level = task.getPriority().value;
             if (level.equals("low")) {
@@ -90,9 +88,9 @@ public class TaskCard extends UiPart{
                 id.textFillProperty().bind(high.valueProperty());
                 taskName.textFillProperty().bind(high.valueProperty());
             }
-            //priority.setText(level);
         }
         if (task.isDone()) {
+            id.textFillProperty().bind(done.valueProperty());
             taskName.textFillProperty().bind(done.valueProperty());
         }
         if (task.isOverdue()) {
@@ -100,7 +98,12 @@ public class TaskCard extends UiPart{
             endTime.textFillProperty().bind(overdue.valueProperty());
             startDate.textFillProperty().bind(overdue.valueProperty());
             endDate.textFillProperty().bind(overdue.valueProperty());
-        } 
+        } else {
+            startTime.textFillProperty().bind(none.valueProperty());
+            endTime.textFillProperty().bind(none.valueProperty());
+            startDate.textFillProperty().bind(none.valueProperty());
+            endDate.textFillProperty().bind(none.valueProperty());
+        }
     }
 
     public HBox getLayout() {

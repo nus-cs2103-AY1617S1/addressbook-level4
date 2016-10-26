@@ -15,7 +15,7 @@ public class TaskDate {
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date is unreadable and should contains only spaces, letters or digits. \n" 
             + "Example: 22 Nov or Decemeber 22 or tomorrow";
-    public static final String DATE_VALIDATION_REGEX = "\\w{3}, \\d{2} \\w{3} \\d{2}";
+    public static final String DATE_VALIDATION_REGEX = ".+";
 
     public String value;
     public String testValue;
@@ -33,11 +33,8 @@ public class TaskDate {
             this.testValue = date;
         } else if (!isValidDateFormat(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        } else {
-        	this.value = date;
-        	String[] tempList = date.split("\\s+");
-        	this.testValue = tempList[1] + " " + tempList[2];
         }
+        this.value = date;
     }
     
     public void editDate(String newDate) throws IllegalValueException {

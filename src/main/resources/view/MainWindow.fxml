@@ -29,6 +29,7 @@
             </Menu>
          </menus>
       </MenuBar>
+      <AnchorPane fx:id="listHeaderPlaceHolder" prefHeight="70.0" prefWidth="200.0" styleClass="anchor-pane" stylesheets="@DarkTheme.css" />
       <SplitPane id="splitPane" fx:id="splitPane" orientation="VERTICAL" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" minWidth="340" prefWidth="340">
@@ -41,14 +42,14 @@
             </VBox>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.99" prefHeight="60.0" prefWidth="200.0">
+      <SplitPane dividerPositions="0.5" prefHeight="60.0" prefWidth="200.0">
          <items>
             <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0" styleClass="anchor-pane-with-border">
                <padding>
                   <Insets bottom="5.0" left="10.0" right="2.0" top="10.0" />
                </padding>
             </AnchorPane>
-             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" styleClass="anchor-pane-with-border">
+             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600.0" styleClass="anchor-pane-with-border">
                  <padding>
                      <Insets bottom="4.0" left="2.0" right="10.0" top="4.0" />
                  </padding>

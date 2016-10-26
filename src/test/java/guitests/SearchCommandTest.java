@@ -29,7 +29,7 @@ public class SearchCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("search milk");
+        commandBox.runCommand("find milk");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

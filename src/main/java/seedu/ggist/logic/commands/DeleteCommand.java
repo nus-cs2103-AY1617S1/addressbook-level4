@@ -32,33 +32,28 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         Collections.sort(targetIndexes);
-        for(int i = 0; i < targetIndexes.size(); i++){
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (lastShownList.size() + i < targetIndexes.get(i)) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-       
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes.get(i) - 1 - i);
-        try {
-            model.deleteTask(taskToDelete);
-            listOfCommands.push(COMMAND_WORD);
-            listOfTasks.push(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-        }
-        
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < targetIndexes.size(); i++){
-            if (i != targetIndexes.size()-1){
-                sb.append(targetIndexes.get(i));
-                sb.append(", ");            
+        for(int i = 0; i < targetIndexes.size(); i++) {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+            if (lastShownList.size() + i < targetIndexes.get(i)) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            else {
-                sb.append(targetIndexes.get(i));
+       
+            ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes.get(i) - 1 - i);
+            try {
+                model.deleteTask(taskToDelete);
+                listOfCommands.push(COMMAND_WORD);
+                listOfTasks.push(taskToDelete);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            sb.append(taskToDelete.getTaskName().taskName);
+            if (targetIndexes.size() > 1 && i != targetIndexes.size()) {
+                sb.append(", ");
             }
         }
+
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,sb.toString()));
     }
 
