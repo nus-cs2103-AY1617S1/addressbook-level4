@@ -38,7 +38,7 @@ public class CommandBox extends UiPart {
 	private String currHistLine;
 	private boolean hasTempEnd;
 
-	String[] commands = {"add ", "update ", "delete ", "show ", "find ", "exit "
+	String[] commands = {"add ", "done ", "update ", "delete ", "show ", "find ", "exit "
 			, "undo ", "redo ", "help ", "clear ", "setstorage "};
 	//@@author
 
