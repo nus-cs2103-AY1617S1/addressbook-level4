@@ -43,11 +43,11 @@ Command | Format
 -------- | :-------- 
 [Help](#help) | `help`
 [Add](#add) | `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]`
-&nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG][p/PRIORITY]`
+&nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
 [Complete](#com)| `complete INDEX`
 [Delete](#del) | `delete INDEX`
-[Edit](#edit) | `edit INDEX KEYWORDS NEW_DETAILS`
+[Edit](#edit) | `edit INDEX NEW_DETAILS`
 [Show](#show) | `show SECTION`
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
@@ -61,7 +61,7 @@ Command | Format
 > * Commands have to follow a certain format as shown in the table above.
 > * Replace words in `UPPER_CASE` with your input.
 > * Items in `[]` are optional.
-> * The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK DETAILS]` is invalid.
+> * The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK_DETAILS]` is invalid.
 
 > **Input of Date and Time in Commands**
 > * The input of date and time is flexible.
@@ -93,7 +93,7 @@ Command | Format
 #### <a id="help"></a> Viewing help : `help`
 Format: `help`
 
-> The user guide will open in another window.
+> The user guide will open in another window.<br>
 
 <img src="images/Help.png" width="600">
 
@@ -112,7 +112,7 @@ Format: `add "TASK_DETAILS" [t/tag] [p/priority]`
 
 Examples: 
 * `add "Buy groceries" t/NTUC`
-* `add "Visit parents" p/HIGH`
+* `add "Visit parents" p/HIGH`<br>
 <img src="images/AddFloatingTasks.png" width="600">
 
 <br>
@@ -123,7 +123,7 @@ Format: `add "TASK_DETAILS" due DATE_TIME [t/tag] [p/priority]`
 
 Examples:
 * `add "Get a haircut" due Tuesday p/LOW`
-* `add "Pick up Jimmy" due Monday 2pm t/tuition`
+* `add "Pick up Jimmy" due Monday 2pm t/tuition`<br>
 <img src="images/AddDeadlineTasks.png" width="600">
 <br>
 
@@ -136,19 +136,19 @@ Format: `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/tag] [p/pr
 Examples:
 * `add "Attend Timmy's orchestra" on 5th July t/Timmy`
 * `add "Show up for dentist appointment" on 8-7-2016 5:00pm to 7:30pm p/MED`
-* `add "Have school camp" on 10 October 10am to 18 October 5pm`
+* `add "Have school camp" on 10 October 10am to 18 October 5pm`<br>
 <img src="images/AddEvents.png" width="600">
 <br><br>
 
 #### <a id="com"></a>Marking a task as complete: `complete`
 Marks an existing task as complete. <br>
-Format: `complete tTASK_INDEX`
+Format: `complete TASK_INDEX`
 
 > * Jimi will mark the task as completed at the specified `TASK_INDEX`. 
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 
 Example:
-* `complete t1`
+* `complete t1` <br>
 <img src="images/Complete.png" width="600">
 
 <br><br>
@@ -164,7 +164,7 @@ Examples:
 * `delete e2`
   Deletes the 2nd event in Jimi.
 * `delete t1`
-  Deletes the 1st task in the Jimi.
+  Deletes the 1st task in the Jimi.<br>
   <img src="images/Delete.png" width="600">
 
 
@@ -172,42 +172,44 @@ Examples:
 
 #### <a id="edit"></a>Editing a detail: `edit`
 Edits the specified detail of any task or event. <br>
-Format: `edit INDEX KEYWORDS NEW_DETAILS` 
+Format: `edit INDEX NEW_DETAILS` 
 
-Jimi edits the task/event specified by `TASK_INDEX`.
-`NEW_DETAILS` are simply the edits you want to make. 
-`KEYWORDS` are the keywords used when you add a task.
-The keywords are as such: 
+Jimi edits the task/event specified by `INDEX`.<br>
+`NEW_DETAILS` are simply the edits you want to make. <br>
+You can edit everything from the items name to its priority.<br>
+You can leave out fields that you do not wish to edit too.
+
+The `NEW_DETAILS` can come in the following styles: 
  *  `"TASK_DETAILS/EVENT_DETAILS"` : Edit task or event details
  * `due DATE_TIME` : Edit deadline of deadline tasks
  * `on START_DATE_TIME`: Edit start date-time of event 
  * `to END_DATE_TIME`: Edit end date-time of event <br>
 
 > If you want to undo your edit, use the [`undo`](#undo) command.
-> If you want to remove all dates and times from a particular task/event, use `edit float`
+> If you want to remove all dates and times from a particular task/event, use `edit INDEX float`
 
 
 Examples:
 * `edit e2 "Have orientation camp"`
-* `edit e1 on 5th July 7pm`
+* `edit e1 on 5th July 7pm`<br>
 <img src="images/Edit.png" width="600">
 <br><br>
 
 #### <a id="show"></a>Showing section: `show`
-Shows certain sections of the task panel <br>
+Expands and lists sections from the left summary panel. <br>
 Format: `show SECTION`
 
-> * The sections are case-sensitive, with the first letter of the word being capitalised.
+> * The `SECTION` is case-insensitive.
 > * For the sections with two words, you can input just the first word of the two. 
 
 Examples:
-* `show Monday`
-* `show Completed`
+* `show monday`
+* `show completed` <br>
 <img src="images/Complete.png" width="600">
 <br><br>
 
 #### <a id="undo"></a>Undoing previous action: `undo`
-Undos the previous action done in Jimi. <br>
+Undoes the previous action done in Jimi. <br>
 Format: `undo`
 
 <br><br>
@@ -231,7 +233,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples: 
 * `find Jimmy`
-* `find Haircut`
+* `find Haircut`<br>
 <img src="images/Find.png" width="600">
 <br><br>
 
@@ -240,18 +242,18 @@ Sets new save directory for the tasks and events in Jimi.
 Format: `saveas NEW_DIRECTORY`
 
 > * `NEW_DIRECTORY` should be in the format: `[desired_path]/[file_name].xml`
-> * If you want to reset the save directory back to default, use `saveas reset`
+> * If you want to reset the save directory back to default, type `saveas reset`
 
 Example:
-* `saveas Jimi_tasks.xml`
+* `saveas Jimi_tasks.xml`<br>
 <img src="images/SaveAs.png" width="600">
 <br><br>
 
 #### <a id="clear"></a>Clearing all entries : `clear`
 Clears all entries from Jimi.<br>
 Format: `clear`  
-> If you want to undo your clear, use the [`undo`](#undo) command.
-> 
+> If you want to undo your clear, use the [`undo`](#undo) command.<br>
+
 <img src="images/Clear.png" width="600">
 <br><br>
 
@@ -271,16 +273,16 @@ There is no need to save manually.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?
+**Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-<br>
-**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?
+<br><br>
+**Q**: Is there a way to be notified of upcoming tasks or events that are due soon?<br>
 **A**: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first.
-<br>
-**Q**: What happens if I typed in a wrong command?
+<br><br>
+**Q**: What happens if I typed in a wrong command?<br>
 **A**: An unknown command message will be shown to you.
-<br>
-**Q**: What happens if I typed in the format wrongly?
+<br><br>
+**Q**: What happens if I typed in the format wrongly?<br>
 **A**: An invalid command format message will be shown to you, along with the correct format you should use instead.
 
 
