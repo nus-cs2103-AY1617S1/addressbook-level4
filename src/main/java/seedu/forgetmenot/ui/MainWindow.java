@@ -119,22 +119,28 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	// @@author A0139211R
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
+    	// @@author A0139211R
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
-//        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
+    /**
+     * 
+     * @@author A0139211R
+     */
     private AnchorPane getFloatingPanelPlaceholder() {
     	return floatingPanelPlaceholder;
     }
-    
+    // @@author A0139211R
     private AnchorPane getContentBoxPlaceholder() {
     	return contentBoxPlaceholder;
     }
+    
     
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
@@ -206,7 +212,10 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    
+    /**
+     * 
+     * @@author A0319211R
+     */
     public ContentBox getContentBox() {
     	return this.contentBox;
     }
@@ -222,7 +231,10 @@ public class MainWindow extends UiPart {
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
-    
+    /**
+     * 
+     * @@author A0139198N
+     */
     public Predicate<ReadOnlyTask> isFloating() {
     	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
     }
@@ -230,12 +242,4 @@ public class MainWindow extends UiPart {
     	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
     }
 
-/*    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
-*/
 }

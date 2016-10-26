@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/forgetmenot/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -96,7 +96,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/forgetmenot/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -104,7 +104,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/forgetmenot/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -116,7 +116,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/forgetmenot/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -131,7 +131,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/forgetmenot/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -144,7 +144,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/forgetmenot/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -152,7 +152,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.forgetmenot.commons` package.
 
 ## Implementation
 
@@ -535,6 +535,50 @@ Day:
 
 ## Appendix E: Product Survey
 
+## Fantastical
+#### Strengths
+
+1. It has a good and clean UI, really simple to use. <br>
+2. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+3. Includes all CRUD features. <br>
+4. It has a reminder function. <br>
+5. Has a list of all upcoming tasks for the week at the left hand side. <br>
+6. Has natural language processing, can add events using Siri. <br>
+7. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+8. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+
+#### Weakness
+
+1. Limited features for free users. <br>
+2. Hard to categorise tasks. <br> 
+3. Can be difficult to use for first time users <br>
+4. No support for ipad.
+5. No alert when event is starting
+
+
+## Google Cal
+#### Strengths
+
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+3. It has a reminder function.<br>
+4. It can support multiple accounts in one device.<br>
+5. It can create Event, Reminder or Goal.<br>
+6. All task created are automatically grouped and colour coded.<br>
+7. Clean and simple UI.<br>
+8. It can be used online or offline.<br>
+9. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+
+#### Weakness
+
+1. Does not have done function
+2. Not keyboard friendly
+3. Requires a google account
+4. Does not support floating task
+5. Steep learning curve
+6. Does not support categaries
+7. Reorganising of task is not user friendly
 1. **Fantastical**
 
 1a. It has a good and clean UI, really simple to use. <br>
@@ -546,18 +590,24 @@ Day:
 1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
 1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
-2. **Google Cal**
+## Google Cal
+##### Strengths
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+4. It has a reminder function.<br>
+5. It can support multiple accounts in one device.<br>
+6. It can create Event, Reminder or Goal.<br>
+7. All task created are automatically grouped and colour coded.<br>
+8. Clean and simple UI.<br>
+9. It can be used online or offline.<br>
+10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-2a. It has CRUD features. <br>
-2b. It can link to external applications such as Gmail and Contacts. <br>
-2c. It has cross-platform features.<br>
-2d. It has a reminder function.<br>
-2e. It can support multiple accounts in one device.<br>
-2f. It can create Event, Reminder or Goal.<br>
-2g. All task created are automatically grouped and colour coded.<br>
-2h Clean and simple UI.<br>
-3i. It can be used online or offline.<br>
-3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+##### Weaknesses
+1. It is not keyboard friendly.<br>
+2. It requires user to have a google account to use it.<br>
+3. It does not have a done function.<br>
+4. It has a steep learning curve.<br>
 
 ### Any.do
 ##### Strengths
