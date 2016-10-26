@@ -64,11 +64,13 @@ public class BlockCommand extends Command {
         );
         //makes the task a block time slot
         toBlock.setBlock();
+        this.isUndoable = true;
     }
 
 
     public BlockCommand(Task toBlock) {
         this.toBlock = toBlock;
+        this.isUndoable = true;
     }
 
     public ReadOnlyTask getBlock() {

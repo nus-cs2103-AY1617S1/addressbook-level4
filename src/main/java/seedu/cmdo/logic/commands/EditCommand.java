@@ -36,7 +36,7 @@ public class EditCommand extends Command {
 
     private final int targetIndex;
     private final Task toEditWith;
-
+    
     public EditCommand(int targetIndex,
     					String newDetail,
     					LocalDate newDueByDate,
@@ -54,8 +54,8 @@ public class EditCommand extends Command {
                 new Priority(newPriority),
                 new UniqueTagList(tagSet)
         );
-        
         this.targetIndex = targetIndex;
+        this.isUndoable = true;
     }
     
     public ReadOnlyTask getTask() {

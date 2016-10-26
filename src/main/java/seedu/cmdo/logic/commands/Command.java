@@ -10,6 +10,7 @@ import seedu.cmdo.model.Model;
  */
 public abstract class Command {
     protected Model model;
+    public Boolean isUndoable = false;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
