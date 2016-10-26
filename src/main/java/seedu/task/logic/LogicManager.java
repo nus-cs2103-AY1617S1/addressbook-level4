@@ -38,13 +38,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
         command.setData(model);
         command.setHistory(historyManager);
-
-        if (command != null && command instanceof IncorrectCommand) {
-            return command.execute(false);
-        } else if (command == null && command instanceof IncorrectCommand) {
+        //@@author
+        //@@author A0147944U
+        if (command instanceof IncorrectCommand) {
             return command.execute(false);
         }
-
+        //@@author
+        //@@author A0147335E-reused
         logger.info("SUCCESS");
 
         if (!commandText.equals("undo")) {
