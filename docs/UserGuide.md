@@ -69,41 +69,44 @@ Examples:
 * `list deadlines 05-10 1400`
 * `list 05-10 1400`
 
+<!--- @@author a0126633j --->
 #### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
 Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>
 If the type is not specified, all entries containing the keyword will be displayed. <br>
-Format: `find KEYWORD  [MORE KEYWORDS] [t/TYPE]`
+Format: `find [f|d|e] KEYWORD  [MORE KEYWORDS]`
 
 > * The search is case insensitive.
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the task name and tags are searched.
+> * Only the task names are searched.
 > * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Task matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Hans` will match `Hans Bo`
 
 Examples: 
-* `find lunch t\task`<br>
-  Returns `lunch with mom in task` 
-* `find lunch t\deadlines`<br>
+* `find f lunch`<br>
+  Returns `lunch with mom in floating task` 
+* `find d lunch`<br>
   Returns `lunch with mom in deadlines` 
-* `find lunch t\events`<br>
+* `find e lunch`<br>
   Returns `lunch with mom in events` 
 * `find lunch dinner breakfast`<br>
-  Returns Any task having names `lunch`, `dinner`, or `breakfast`
+  Returns any tasks having names `lunch`, `dinner`, or `breakfast`
 
-#### Deleting a task: `delete`
-Deletes the specified task from the to-do list.<br>
+
+#### Deleting a task : `delete`
+Deletes the specified task from the to-do list. Irreversible.<br>
+
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** eg. f1, e2, d3, ...
+  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** f1, e2, d3, ...<br>
 
 Examples: 
-  `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` or ‘ command.
+* `delete e2`<br>
+  Deletes the 2nd task in the currently showing events list.
+* `delete f1`<br>
+  Deletes the 1st task in the currently showing floating task list. 
+<!--- @@author --->
 <!--- @@author A0129595N --->
 #### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
@@ -170,6 +173,7 @@ Format: `exit`
 Malitio data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually. <br>
 
+<!--- @@author a0126633j --->
 #### Specifying location of local data file: `save`
 Users can specify which directory to save their data file. Only valid directory will be created if it does not exist already. <br>
 The old data file will automatically be deleted.
@@ -178,7 +182,7 @@ Format: `save DIRECTORY`
 Example: 
 * `save C://Users`<br>
   Saves data in C://Users/malitio.xml
-
+<!--- @@author --->
 
 ## FAQ
 
