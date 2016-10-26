@@ -15,16 +15,16 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             buyGroceries =  new TaskBuilder().withName("Buy Groceries").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("fish").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("12/10/2016").withDetail("fish").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyMilk =  new TaskBuilder().withName("Buy Milk").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("Marigold").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("20/10/2016").withDetail("Marigold").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyRice =  new TaskBuilder().withName("Buy Rice").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("Thai Rice").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("30/10/2016").withDetail("Thai Rice").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyChilli =  new TaskBuilder().withName("Buy Chilli").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("12/11/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyNoodles = new TaskBuilder().withName("Buy Noodles").withByDate("12/12/2016")
                     .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)

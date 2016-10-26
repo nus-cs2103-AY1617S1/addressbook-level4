@@ -37,7 +37,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertAddSuccess(TypicalTestTasks.buyGroceries);
 
         //invalid command
-        commandBox.runCommand("adds Johnny");
+        commandBox.runCommand("adds go to town");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 //@@author
