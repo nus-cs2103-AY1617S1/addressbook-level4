@@ -101,9 +101,8 @@ public class FilterBarView extends UiPart {
         ViewStyleUtil.addClassStyles(centreText, ViewStyleUtil.STYLE_UNDERLINE);
 
         HBox textContainer = new HBox();
-        textContainer.getChildren().add(leftText);
-        textContainer.getChildren().add(centreText);
-        textContainer.getChildren().add(rightText);
+        textContainer.getChildren().addAll(leftText, centreText, rightText);
+        textContainer.getStyleClass().add("viewFilterItem");
         return textContainer;
     }
 

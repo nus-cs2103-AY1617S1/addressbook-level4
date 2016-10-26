@@ -113,6 +113,11 @@
 }
 
 /***View Filter Styles Start***/
+.viewFilter {
+    -fx-padding: -12 0 0 0;
+    -fx-hgap: -3;
+}
+
 .viewFilter .label {
     -fx-font-family: "Roboto Bold";
     -fx-font-size: 14pt;
@@ -120,10 +125,13 @@
     -fx-text-fill: #ddd;
 }
 
+.viewFilter .viewFilterItem {
+    -fx-padding: 0 12 2;
+}
+
 .viewFilter .selected {
     -fx-background-color: #f3f3f3;
     -fx-background-radius: 100;
-    -fx-padding: 0 16 2;
 }
 
 .viewFilter .selected .label {
