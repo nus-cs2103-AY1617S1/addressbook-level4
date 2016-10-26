@@ -267,12 +267,13 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         String index = parseIndex(args);
-        char taskType = index.charAt(0);
-        int taskNum = Integer.parseInt(index.substring(1));
-        if(index.isEmpty()){
+          if(index.isEmpty()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
+          }
+          char taskType = index.charAt(0);
+          int taskNum = Integer.parseInt(index.substring(1));
+      
         return new DeleteCommand(Character.toString(taskType), taskNum);
     }
 
