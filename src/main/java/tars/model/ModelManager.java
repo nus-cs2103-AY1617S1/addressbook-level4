@@ -253,7 +253,9 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    @Override
+    /**
+     * @@author A0140022H
+     */
     public void updateFilteredTaskListUsingDate(DateTime dateTime) {
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateTime)));
     }
@@ -418,14 +420,22 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    /**
+     * @@author A0140022H
+     */
     private class DateQualifier implements Qualifier {
         private final LocalDateTime startDateTime;
         private final LocalDateTime endDateTime;
         private final DateTime dateTimeQuery;
 
         DateQualifier(DateTime dateTime) {
-            startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 0, 0, 0);
-            endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            if(dateTime.getStartDate() != null) {
+                startDateTime = DateTimeUtil.setLocalTime(dateTime.getStartDate(), 0, 0, 0);
+                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            } else {
+                startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 0, 0, 0);
+                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            }
 
             dateTimeQuery = new DateTime();
             dateTimeQuery.setStartDateTime(startDateTime);

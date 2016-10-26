@@ -18,19 +18,22 @@ public class AddCommandTest extends TarsGuiTest {
     public void add() {
         // add one task
         TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] expectedList1 = {td.taskG};
         TestTask taskToAdd = td.taskH;
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, expectedList1);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         // add another task
         taskToAdd = td.taskI;
-        assertAddSuccess(taskToAdd, currentList);
+        TestTask[] expectedList2 = {td.taskH};
+        assertAddSuccess(taskToAdd, expectedList2);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        expectedList2 = TestUtil.addTasksToList(expectedList2, taskToAdd);
 
         // add duplicate task
         commandBox.runCommand(td.taskH.getAddCommand());
         assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(expectedList2));
 
         // add to empty list
         commandBox.runCommand("clear");
@@ -65,7 +68,6 @@ public class AddCommandTest extends TarsGuiTest {
             recurringList[1].setName(new Name("Task C"));
             recurringList[1].setPriority(new Priority("l"));
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
