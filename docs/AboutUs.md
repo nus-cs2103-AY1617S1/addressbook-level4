@@ -23,7 +23,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Upcoming](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#show-upcoming-tasks--upcoming)
    * allow adding of recurring task in [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adds-a-recurring-deadline)
    
-* Code written: [[functional code](A0124797.md)][[test code](A0124797.md)][[docs](A0124797.md)]
+* Code written: [[functional code](A0124797R.md)][[test code](A0124797R.md)][[docs](A0124797R.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList
   * Set up Travis and Coveralls 
@@ -33,30 +33,33 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Wong Kang Fei](https://github.com/kfwong)
 <img src="images/KangFei.png" width="150"><br>
-* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Git, Travis, UI, Logic
 * Features implemented:
-   * [Undo](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Redo](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Undo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#undo-a-command--undo)
+   * [Redo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#redo-a-command--redo)
    * 
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Code written: [[functional code](A0138862W.md)][[test code](A0138862W.md)][[docs](A0138862W.md)]
 * Other major contributions:
   * Set up Travis and Coveralls
   * Git expert
+  * UI Revamp
 
 -----
 
 #### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
 <img src="images/HuiQi.png" width="150"><br>
-* Components in charge of: [Memory](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Components in charge of: [Memory](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Aspects/tools in charge of: UI, Scheduling and deadlines, Tracking
 * Features implemented:
-   * [Auto Complete](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-   * 
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+   * [Edit](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [Find](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#finding-all-tasks-containing-any-keyword-in-their-description-find)
+* Code written: [[functional code](A0143378Y.md)][[test code](A0143378Y.md)][[docs](A0143378Y.md)]
 * Other major contributions:
   * Documentation
+  * Smart learning text field
+  * Autocomplete
+  * Issue tracking
 
 -----
 
@@ -68,7 +71,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Relocate Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#changing-save-location--relocate)
    * [Help Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#viewing-help--help)
    * [Clear Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#clearing-all-entries-clear)
-* Code written: [[functional code](A0139194.md)][[test code](A0139194.md)][[docs](A0139194.md)]
+* Code written: [[functional code](A0139194X.md)][[test code](A0139194X.md)][[docs](A0139194X.md)]
 * Other major contributions:
   * Documentation
   * Proof reading
