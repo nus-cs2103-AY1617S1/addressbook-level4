@@ -14,12 +14,11 @@ import seedu.address.testutil.TypicalTestTasks;
 
 
 //@@author A0141019U
-public class TaskComparatorTest {
+public class TaskCompareTest {
 	
-	private TaskComparator comparator = new TaskComparator();
 	private List<ReadOnlyTask> unsorted, sorted;
 	
-	public TaskComparatorTest() throws IllegalArgumentException, IllegalValueException {
+	public TaskCompareTest() throws IllegalArgumentException, IllegalValueException {
 		TypicalTestTasks td = new TypicalTestTasks();
 		unsorted = Arrays.asList(td.getTypicalTasks());
 		sorted = Arrays.asList(td.getSortedTypicalTasks());
@@ -30,7 +29,7 @@ public class TaskComparatorTest {
 	public void testComparator() {
 		assertFalse(unsorted.equals(sorted));
 		
-		Collections.sort(unsorted, comparator);	
+		Collections.sort(unsorted);	
 		
 		for (ReadOnlyTask t : sorted) {
 			System.out.println("status: " + t.getStatus());
