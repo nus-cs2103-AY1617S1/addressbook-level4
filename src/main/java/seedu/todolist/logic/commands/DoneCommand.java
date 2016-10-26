@@ -48,24 +48,18 @@ public class DoneCommand extends Command {
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        AddressBook previousAddressBook = new AddressBook(model.getAddressBook());
         
+        ReadOnlyTask[] tasksToMark = new ReadOnlyTask[targetIndexes.length];        
         for (int i = 0; i < targetIndexes.length; i++) {
-            ReadOnlyTask taskToMark = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_MARK_OFFSET));
-    
-            try {
-                model.markTask(taskToMark);
-                Task taskBeforeMark = new Task(taskToMark.getName(), taskToMark.getInterval(), 
-                		taskToMark.getLocation(), taskToMark.getRemarks(), new Status(false));
-                previousAddressBook.editTask(taskToMark, taskBeforeMark);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            }
-            
+            tasksToMark[i] = lastShownList.get(targetIndexes[i] - MULTIPLE_MARK_OFFSET);
+        }
+        
+        try {
+            model.markTask(tasksToMark);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
         }
 
-        model.addAddressBookHistory(previousAddressBook);
         return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);
     }
     
