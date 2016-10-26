@@ -47,15 +47,23 @@
                         </AnchorPane>
                      </children>
                   </VBox>
-                   <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border">
-                       <padding>
-                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                       </padding>
-                   </AnchorPane>
-                  <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
+                  <AnchorPane maxHeight="300.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                         <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="300.0" minHeight="100" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <padding>
+                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                             </padding>
+                         </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="50.0" minHeight="50.0" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <padding>
+                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </AnchorPane>
+                     </children>
                   </AnchorPane>
                </children>
             </VBox>
