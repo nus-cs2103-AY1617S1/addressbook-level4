@@ -23,6 +23,7 @@ import seedu.tasklist.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -74,18 +75,18 @@ public class MainApp extends Application {
     private void initThread(){
     	updateThread = new Thread(){
     		public void run(){
-    			while(true){
-    				Platform.runLater(()->{
-//    					model.updateListCounters();
-//    					ui.updateTaskList();
-    					EventsCenter.getInstance().post(new TickEvent());
-    				});
-    				try {
-						Thread.sleep(20*1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+				long timeToNextMinute = 60 - Calendar.getInstance().get(Calendar.SECOND);
+				try {
+					Thread.sleep(timeToNextMinute*1000);
+    				while (true) {
+						Platform.runLater(() -> {
+							EventsCenter.getInstance().post(new TickEvent());
+						});
+						Thread.sleep(60 * 1000);
 					}
-    			}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
     		}
     	};
     	updateThread.start();
