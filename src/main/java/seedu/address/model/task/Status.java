@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+
+//@@author A0139145E
 /**
  * Represents a task's status in the to-do-list.
  * Guarantees: immutable
@@ -90,3 +92,4 @@ public class Status {
     }
 
 }
+//@@author
