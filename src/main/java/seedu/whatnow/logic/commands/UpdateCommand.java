@@ -231,7 +231,6 @@ public class UpdateCommand extends UndoAndRedo {
         
         try {
             model.updateTask(taskToUpdate, toUpdate);
-            model.getUndoStack().push(this);
             model.getOldTask().push(taskToUpdate);
             model.getNewTask().push(toUpdate);
         } catch (TaskNotFoundException tnfe) {
