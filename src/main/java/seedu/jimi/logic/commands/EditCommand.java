@@ -217,7 +217,7 @@ public class EditCommand extends Command implements TaskBookEditor {
                 ((Event) t).getEnd() : eventEnd;
         if (newStart.compareTo(newEnd) <= 0) {
             return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
-                    newTagList == null ? t.getTags() : newTagList, t.isCompleted()
+                    newTagList == null ? t.getTags() : newTagList, t.isCompleted(),
 					newPriority == null ? t.getPriority() : newPriority);
         } else {
             throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
