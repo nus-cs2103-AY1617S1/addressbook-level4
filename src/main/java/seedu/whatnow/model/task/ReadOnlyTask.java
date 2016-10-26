@@ -26,103 +26,45 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (this.getName().equals(other.getName())) {  
-            if (isSameNonFloatingTask(this, other)) {
-                return true;
-            }  
+        if (isBothFloating(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags())
+                    );
+        } else if (isBothDeadline(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else if (isBothEvent(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else {
+            return false;
         }
-        
-        return false;
     }
     
-    public static boolean isFloatingTask(ReadOnlyTask task) {
-        if (task.getTaskDate() != null) {
-            return false;
-        }
-        
-        if (task.getStartDate() != null) {
-            return false;
-        }
-        
-        if (task.getEndDate() != null) {
-            return false;
-        }
-        
-        if (task.getTaskTime() != null) {
-            return false;
-        }
-        
-        if (task.getStartTime() != null) {
-            return false;
-        }
-        
-        if (task.getEndTime() != null) {
-            return false;
-        }
-        
-        return true;
+    default boolean isBothFloating(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() == null && task.getStartDate() == null;
     }
     
-    public static boolean isSameNonFloatingTask(ReadOnlyTask task1, ReadOnlyTask task2) {
-        if (!isFloatingTask(task1) || !isFloatingTask(task2)) {
-            if (task1.getTaskDate() != null && !task1.getTaskDate().equals(task2.getTaskDate())) {
-                return false;
-            }
-            
-            if (task2.getTaskDate() != null && !task2.getTaskDate().equals(task1.getTaskDate())) {
-                return false;
-            }
-            
-            if (task1.getStartDate() != null && !task1.getStartDate().equals(task2.getStartDate())) {
-                return false;
-            }
-            
-            if (task2.getStartDate() != null && !task2.getStartDate().equals(task1.getStartDate())) {
-                return false;
-            }
-            
-            if (task1.getEndDate() != null && !task1.getEndDate().equals(task2.getEndDate())) {
-                return false;
-            }
-            
-            if (task2.getEndDate() != null && !task2.getEndDate().equals(task1.getEndDate())) {
-                return false;
-            }
-            
-            if (task1.getTaskTime() != null && !task1.getTaskTime().equals(task2.getTaskTime())) {
-                return false;
-            }
-            
-            if (task2.getTaskTime() != null && !task2.getTaskTime().equals(task1.getTaskTime())) {
-                return false;
-            }
-            
-            if (task1.getStartTime() != null && !task1.getStartTime().equals(task2.getStartTime())) {
-                return false;
-            }
-            
-            if (task2.getStartTime() != null && !task2.getStartTime().equals(task1.getStartTime())) {
-                return false;
-            }
-            
-            if (task1.getEndTime() != null && !task1.getEndTime().equals(task2.getEndTime())) {
-                return false;
-            }
-            
-            if (task2.getEndTime() != null && !task2.getEndTime().equals(task1.getEndTime())) {
-                return false;
-            }
-        }        
-        
-        if (task1.getTags() != null && !task1.getTags().equals(task2.getTags())) {
-            return false;
-        }
-        
-        if (task2.getTags() != null && !task2.getTags().equals(task1.getTags())) {
-            return false;
-        }
-        
-        return true;
+    default boolean isBothDeadline(ReadOnlyTask task) {
+        return this.getTaskDate() != null && task.getTaskDate() != null
+                && this.getStartDate() == null && task.getStartDate() == null;
+    }
+    
+    default boolean isBothEvent(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() != null && task.getStartDate() != null;
     }
     
     /**

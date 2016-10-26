@@ -1,5 +1,6 @@
 package seedu.whatnow.model.task;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import seedu.whatnow.commons.util.CollectionUtil;
@@ -9,7 +10,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
  * Represents a Task in WhatNow.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private String taskDate;
@@ -24,6 +25,11 @@ public class Task implements ReadOnlyTask {
     
     private static final String FLOATING = "floating";
     private static final String NOT_FLOATING = "not_floating";
+    private static final int COMPARE_TO_IS_EQUAL = 0;
+    
+    public Task() {
+        
+    }
     
     /**
      * Every field must be present and not null.
@@ -170,6 +176,45 @@ public class Task implements ReadOnlyTask {
         this.taskType = taskType;
     }
 
+    public int compareTo(Task task) {
+        if (isBothFloating(task)) {
+            return COMPARE_TO_IS_EQUAL;
+        } else if (isBothDeadline(task)) {
+            if (this.taskDate.equals(task.taskDate)) {
+                return COMPARE_TO_IS_EQUAL;
+                //@zac : check for time later
+            } else {
+                return this.taskDate.compareToIgnoreCase(task.taskDate);
+                //@zac : check for time later
+            }
+        } else if (isBothEvent(task)) {
+            if (this.startDate.equals(task.startDate)) {
+                return COMPARE_TO_IS_EQUAL;
+                //@zac : check for time later
+            } else {
+                return this.startDate.compareToIgnoreCase(task.startDate);
+                //@zac : check for time later
+            }
+        } else {
+            return COMPARE_TO_IS_EQUAL;
+        }
+    }
+    
+    private boolean isBothFloating(Task task) {
+        return this.taskDate == null && task.taskDate == null
+                && this.startDate == null && task.startDate == null;
+    }
+    
+    private boolean isBothDeadline(Task task) {
+        return this.taskDate != null && task.taskDate != null
+                && this.startDate == null && task.startDate == null;
+    }
+    
+    private boolean isBothEvent(Task task) {
+        return this.taskDate == null && task.taskDate == null
+                && this.startDate != null && task.startDate != null;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
