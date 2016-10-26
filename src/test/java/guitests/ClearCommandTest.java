@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertTrue;
 
