@@ -5,6 +5,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.StorageDataPathChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.UserPrefs;
@@ -85,6 +86,13 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+    
+    @Subscribe
+    public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Saving task.xml in a new location."));
+        
+        this.addressBookStorage = new XmlTaskBookStorage(event.newDataPath);
     }
 
 }
