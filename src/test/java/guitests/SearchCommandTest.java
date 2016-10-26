@@ -11,15 +11,15 @@ public class SearchCommandTest extends TaskManagerGuiTest {
     @Test
     public void search() {
         TestTask[] currentList = td.getTypicalTasks();
+        
+        // test search no name
+        assertSearchResult("", currentList);
 
         // test search full name
         assertSearchResult(td.daniel.getName().taskName, td.daniel);
         
         // test search partial name
         assertSearchResult("Have lunch", td.daniel);
-        
-        // test search no name
-        assertSearchResult("", currentList);
         
         // test search no results
         assertSearchResult("this does not exist");
