@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.ui.PersonListPanel;
@@ -33,14 +34,12 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
-        if ((targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
-                && lastUndatedTaskList.size() < targetIndex)
-           || (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
-                   && lastShownList.size() < targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)) {
+        if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
+                lastShownList.size(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         ReadOnlyTask personToDelete;
         if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
             personToDelete = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
@@ -51,6 +50,9 @@ public class DeleteCommand extends Command {
 
         try {
             model.deleteTask(personToDelete);
+            if (isMutating()){
+                model.addUndo(COMMAND_WORD, personToDelete);
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }
@@ -58,4 +60,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
+
+    @Override
+    public boolean isMutating() {
+        return true;
+    }
 }

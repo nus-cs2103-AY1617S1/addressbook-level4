@@ -17,17 +17,18 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label description;
     @FXML
-    private Label address;
+    private Label date;
     @FXML
-    private Label email;
+    private Label time;
     @FXML
     private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
 
+    
     public PersonCard(){
 
     }
@@ -37,16 +38,19 @@ public class PersonCard extends UiPart{
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
+        
     }
+    
 
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(task.getDescription().value);
-        address.setText(task.getDatetime().getDateString());
-        email.setText(task.getDatetime().getTimeString());
+        description.setText(task.getDescription().value);
+        date.setText(task.getDatetime().getDateString());
+        time.setText(task.getDatetime().getTimeString());
         tags.setText(task.tagsString());
+        setStyleToIndicateOverdueTask(task);
     }
 
     public HBox getLayout() {
@@ -62,4 +66,22 @@ public class PersonCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+    
+    
+    /**
+     * Sets the command box style to indicate an overdue,completed or no status tasks.
+     */
+    private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
+        String status = task.getStatus().toString();
+        if(status.equals("OVERDUE")){
+        	cardPane.setStyle("-fx-background-color: red;");
+        }
+        else if(status.equals("DONE")){
+        	cardPane.setStyle("-fx-background-color: midnightblue ;");
+        }
+        else if(status.equals("NONE")){
+        	cardPane.setStyle("-fx-background-color: black");
+        }
+        
+    }   
 }

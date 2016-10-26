@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.commands.*;
 
 /**
@@ -34,14 +35,14 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/\\.]+)){0,1}"
+                    + "( date/(?<date>[^/]+)){0,1}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/\\.]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
+                    + "( date/(?<date>[^/]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     public Parser() {}
@@ -79,6 +80,9 @@ public class Parser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -94,6 +98,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        
+        case RefreshCommand.COMMAND_WORD:
+        	return new RefreshCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -168,7 +175,7 @@ public class Parser {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
 
         return new DoneCommand(index.get());

@@ -7,10 +7,16 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class JumpToListRequestEvent extends BaseEvent {
 
+	public static int UNDATED_LIST = 1;
+	public static int DATED_LIST = 2;
+	
     public final int targetIndex;
+    public final int listType;
+    
 
-    public JumpToListRequestEvent(int targetIndex) {
+    public JumpToListRequestEvent(int targetIndex, int listType) {
         this.targetIndex = targetIndex;
+        this.listType = listType;
     }
 
     @Override

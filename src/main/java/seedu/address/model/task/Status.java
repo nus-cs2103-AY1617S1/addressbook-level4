@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+
+//@@author A0139145E
 /**
  * Represents a task's status in the to-do-list.
  * Guarantees: immutable
@@ -7,7 +9,7 @@ package seedu.address.model.task;
 public class Status {
 
     public static enum State {
-        DONE, OVERDUE, NONE
+        DONE, OVERDUE, NONE, EXPIRE
     }
 
     public State status;
@@ -39,7 +41,10 @@ public class Status {
             
         case "OVERDUE":
             return State.OVERDUE;
-            
+        
+        case "EXPIRE":
+            return State.EXPIRE;
+         
         default:
             return null; //not possible
         }
@@ -60,6 +65,10 @@ public class Status {
             
         case OVERDUE:
             toReturn = "OVERDUE";
+            break;
+            
+        case EXPIRE:
+            toReturn = "EXPIRE";
             break;
         
         default:
@@ -83,3 +92,4 @@ public class Status {
     }
 
 }
+//@@author

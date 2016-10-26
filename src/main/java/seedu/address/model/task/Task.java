@@ -23,10 +23,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Description phone, Datetime datetime, Status status, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, datetime, status, tags);
+    public Task(Name name, Description description, Datetime datetime, Status status, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, description, datetime, status, tags);
         this.name = name;
-        this.description = phone;
+        this.description = description;
         this.datetime = datetime;
         this.status = status;
         this.tags = new UniqueTagList(tags); // protect internal tags from
@@ -106,6 +106,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return true;
     }
 
+    public boolean setAsExpire() {
+        this.setStatus(new Status(State.EXPIRE));
+        return true;
+    }
+    
     private void setStatus(Status status) {
         this.status = status;
     }

@@ -47,7 +47,7 @@ public class SaveCommand extends Command {
 	 *             if any of the raw values are invalid
 	 */
 	public SaveCommand(String dirPath) {
-		this.dirPath = dirPath + "task.xml";
+		this.dirPath = dirPath;
 	}
 	
 	@Override
@@ -62,6 +62,8 @@ public class SaveCommand extends Command {
 				return new CommandResult(MESSAGE_FOLDER_CANNOT_BE_CREATED);
 			}
 		}
+		String filePath = dirPath + "task.xml";
+		
 		
 		// Checks if the given path is a directory and not a file
 		if (!f.isDirectory())
@@ -73,13 +75,13 @@ public class SaveCommand extends Command {
 
 			// Moves the old task.xml file to the new location
 			File oldDataPath = new File(config.getAddressBookFilePath());
-			if (this.dirPath.equals(oldDataPath.toString())) {
+			if (filePath.equals(oldDataPath.toString())) {
 				return new CommandResult(MESSAGE_LOCATION_SPECIFIED_SAME);
 			}
-			File newDataPath = new File(dirPath);
+			File newDataPath = new File(filePath);
 			oldDataPath.renameTo(newDataPath);
 
-			changeConfigPaths(dirPath);
+			changeConfigPaths(filePath);
 			
 			indicateStorageDataPathChangeCommand(oldDataPath.toString(), newDataPath.toString());
 			
@@ -139,5 +141,10 @@ public class SaveCommand extends Command {
 		}
     		
     }
+
+	@Override
+	public boolean isMutating() {
+		return false;
+	}
 
 }

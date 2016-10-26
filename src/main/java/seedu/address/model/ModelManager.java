@@ -1,18 +1,24 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.core.ComponentManager;
-
-import java.util.Set;
-import java.util.logging.Logger;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.undo.UndoList;
+import seedu.address.model.undo.UndoTask;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -24,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredDatedTasks;
     private final FilteredList<Task> filteredUndatedTasks;
+    private UndoList undoableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -39,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(src);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoableTasks = new UndoList();
     }
 
     public ModelManager() {
@@ -49,11 +57,35 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(initialData);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoableTasks = new UndoList();
     }
-
+    
+    public void checkStatus(){
+        UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
+        LocalDateTime currentTime = LocalDateTime.now();
+        
+        for (Task target : tasks) {
+            if(target.getDatetime().getEnd() == null){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
+                LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
+                if(dateTime.isBefore(currentTime)){
+                   try {
+                       taskBook.overdueTask(target);
+                    } catch (TaskNotFoundException e) {}                
+                }
+                else if(dateTime.isAfter(currentTime) && target.getStatus().toString() == "OVERDUE"){
+                    try{
+                        taskBook.postponed(target);
+                    }catch(TaskNotFoundException e) {}
+                }
+            }
+        }         
+    }
+    
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        undoableTasks = new UndoList(); 
         indicateTaskBookChanged();
     }
 
@@ -64,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
+        checkStatus();
         raise(new TaskBookChangedEvent(taskBook));
     }
 
@@ -74,25 +107,48 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addTask(task);
+    public synchronized void addTask(Task target) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(target);
+        updateFilteredListToShowAll();
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        taskBook.completeTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
     
     @Override
-    public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-        taskBook.completeTask(target);
+    public synchronized UndoTask undoTask() {
+        return undoableTasks.removeFromFront();
+    }
+
+    @Override
+    public synchronized void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.overdueTask(target);
+        updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
-    //=========== Filtered Task List Accessors ===============================================================
-
     @Override
+    public void addUndo(String command, ReadOnlyTask postData) {
+        undoableTasks.addToFront(command, postData, null);
+    }
+    
+    @Override
+    public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
+        undoableTasks.addToFront(command, postData, preData);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================== 
+
+	@Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList() {
         return new UnmodifiableObservableList<>(filteredDatedTasks);
     }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList() {
         return new UnmodifiableObservableList<>(filteredUndatedTasks);
@@ -100,8 +156,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredDatedTasks.setPredicate(null);
-        filteredUndatedTasks.setPredicate(null);
+        updateFilteredTaskList("NONE", "OVERDUE");
+        //filteredDatedTasks.setPredicate(null);
+        //filteredUndatedTasks.setPredicate(null);
     }
 
     @Override
@@ -109,10 +166,15 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TaskQualifier(keywords)));
     }
 
-    public void updateFilteredTaskList(String keyword){
-        updateFilteredTaskList(new PredicateExpression(new StatusQualifier(keyword)));
+    @Override
+    public void updateFilteredTaskList(String... keyword){
+        ArrayList<String> listOfKeywords = new ArrayList<>();
+        for (String word : keyword){
+            listOfKeywords.add(word);
+        }
+        updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
     }
-    
+
     private void updateFilteredTaskList(Expression expression) {
         filteredDatedTasks.setPredicate(expression::satisfies);
         filteredUndatedTasks.setPredicate(expression::satisfies);
@@ -181,22 +243,31 @@ public class ModelManager extends ComponentManager implements Model {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
-    
-    private class StatusQualifier implements Qualifier {
-        private Status stateKeyWord;
 
-        StatusQualifier(String stateKeyWord) {
-            this.stateKeyWord = new Status(stateKeyWord);
+    private class StatusQualifier implements Qualifier {
+        private ArrayList<Status> statusList;
+
+        StatusQualifier(ArrayList<String> stateKeyWords) {
+            this.statusList = new ArrayList<Status>();
+            for (String word : stateKeyWords){
+                statusList.add(new Status(word));
+            }
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.getStatus().equals(stateKeyWord);
+            for (Status key : statusList) {
+                if (task.getStatus().equals(key)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @Override
         public String toString() {
-            return "status=" + stateKeyWord;
+            return "status=" + statusList.toString();
         }
     }
+
 }

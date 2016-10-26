@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <datedTasks>
-        <name>Jim birthday party</name>
-        <description>at Wave House</description>
-        <datetime>21-Dec-2016 21:00 21-Dec-2016 21:00</datetime>
-        <status>NONE</status>
+        <name>some event</name>
+        <description></description>
+        <datetime>25-Oct-2016 13:00</datetime>
+        <status>OVERDUE</status>
+        <tagged>ftw</tagged>
     </datedTasks>
     <datedTasks>
-        <name>Submit income tax claims</name>
-        <description>using the online portal</description>
-        <datetime>21-Oct-2017 15:00</datetime>
+        <name>event</name>
+        <description></description>
+        <datetime>26-Oct-2016 15:00</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>2020labs</name>
+        <description></description>
+        <datetime>27-Oct-2016 23:59</datetime>
         <status>NONE</status>
     </datedTasks>
     <undatedTasks>
-        <name>Buy new bag</name>
+        <name>a new task</name>
         <description></description>
         <datetime></datetime>
         <status>NONE</status>
     </undatedTasks>
     <undatedTasks>
-        <name>Collect parcel</name>
-        <description>from postal office</description>
+        <name>floats</name>
+        <description></description>
         <datetime></datetime>
         <status>NONE</status>
     </undatedTasks>
+    <undatedTasks>
+        <name>rubber tree</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>exotic</tagged>
+        <tagged>notNative</tagged>
+    </undatedTasks>
+    <tags>
+        <tagName>ftw</tagName>
+    </tags>
+    <tags>
+        <tagName>exotic</tagName>
+    </tags>
+    <tags>
+        <tagName>notNative</tagName>
+    </tags>
 </addressbook>
