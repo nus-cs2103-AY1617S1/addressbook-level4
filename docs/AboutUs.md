@@ -10,7 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 
 ## Project Team
-
+<!--- @@author A0124797R --->
 #### [Dylan Chew Zhi Jiang](https://github.com/zavfel) <br>
 <img src="images/DylanChew.png" width="150"><br>
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
@@ -30,7 +30,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Class Diagrams  
   
 -----
-
+<!--- @@author A0138862W --->
 #### [Wong Kang Fei](https://github.com/kfwong)
 <img src="images/KangFei.png" width="150"><br>
 * Components in charge of: [UI](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#ui-component)
@@ -47,7 +47,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Action history
 
 -----
-
+<!--- @@author A0143378Y --->
 #### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
 <img src="images/HuiQi.png" width="150"><br>
 * Components in charge of: [Memory](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
@@ -63,7 +63,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Issue tracking
 
 -----
-
+<!--- @@author A0139194X --->
 #### [Albert Yeoh Ji Bin](https://github.com/bertojo)
 <img src="images/AlbertYeoh.png" width="150"><br>
 * Components in charge of: [Data](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
