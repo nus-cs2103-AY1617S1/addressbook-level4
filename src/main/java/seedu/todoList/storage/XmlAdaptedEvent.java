@@ -41,7 +41,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
     	endDate = source.getEndDate().saveEndDate;
         startTime = source.getStartTime().saveStartTime;
         endTime = source.getEndTime().saveEndTime;
-        isDone = source.getDone().isDone;
+        isDone = source.getDone();
     }
     
     public XmlAdaptedEvent(ReadOnlyTask source) {
@@ -54,7 +54,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
         final EndDate endDate = new EndDate(this.endDate);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
-        final Done isDone = new Done(this.isDone);
+        final String isDone = new String(this.isDone);
         return new Event(name, date, endDate, startTime, endTime, isDone);
     }
 }
