@@ -61,6 +61,15 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
+    
+    /**
+     * Copy constructor with dereferencing Done value. This ensures that source's value does not get modified along with the new task's.
+     * 
+     * @@author A0139661Y
+     */
+    public Task(ReadOnlyTask source, Done done) {
+        this(source.getDetail(), done, source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
+    }
 
 
 	@Override
