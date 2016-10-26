@@ -14,6 +14,11 @@ import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Class to test whether XML saving works.
+ * 
+ */
+
 public class XmlUtilTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");

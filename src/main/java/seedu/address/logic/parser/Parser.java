@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -90,8 +91,11 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
+            return new ListCommand(arguments);
+            
+        case FindTagCommand.COMMAND_WORD:
+            return new FindTagCommand(arguments);
+        
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -138,11 +142,13 @@ public class Parser {
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
+
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        
         return new HashSet<>(tagStrings);
     }   
     

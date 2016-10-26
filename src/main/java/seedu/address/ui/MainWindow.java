@@ -1,5 +1,10 @@
 package seedu.address.ui;
 
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,6 +19,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.storage.XmlAddressBookStorage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -180,6 +186,27 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    @FXML
+    private void handleSaveLoc() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("data/addressbook.xml"/*System.getProperty("user.home")
+         + System.getProperty("file.separator") + "Desktop"*/));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int result = fileChooser.showSaveDialog(null);
+        
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            
+            if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
+                selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
+            }
+            
+            XmlAddressBookStorage.setAddressBookFilePath(selectedFile.getAbsolutePath());
+            resultDisplay.postMessage("New save location: " + selectedFile.getAbsolutePath());
+        }
     }
 
     public PersonListPanel getPersonListPanel() {

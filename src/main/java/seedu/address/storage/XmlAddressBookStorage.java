@@ -4,6 +4,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyLifeKeeper;
+import seedu.address.model.UserPrefs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,10 +19,17 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
-    private String filePath;
+    private static String filePath;
 
     public XmlAddressBookStorage(String filePath){
         this.filePath = filePath;
+    }
+    
+    public XmlAddressBookStorage(){}
+    
+    public static void setAddressBookFilePath(String filePath){
+        XmlAddressBookStorage.filePath = filePath;
+        UserPrefs.setDataFilePath(filePath);
     }
 
     public String getAddressBookFilePath(){

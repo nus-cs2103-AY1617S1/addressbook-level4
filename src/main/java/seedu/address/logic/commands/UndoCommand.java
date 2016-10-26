@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import java.util.Stack;
 
 import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.UniqueTaskList;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 
 /**
  * Undo previous add, delete and edit commands.
@@ -77,7 +77,7 @@ public class UndoCommand extends Command {
 		try {
 			model.undoDelete(index,taskToAdd);
 			
-		} catch (UniqueTaskList.DuplicateTaskException e) {
+		} catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
@@ -99,7 +99,7 @@ public class UndoCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task to be edited cannot be missing";
         return new CommandResult("not found");
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueActivityList.DuplicateTaskException e) {
             assert false : "The unedited task should not be a duplicate of the edited task";
         return new CommandResult("duplicate");
         } 

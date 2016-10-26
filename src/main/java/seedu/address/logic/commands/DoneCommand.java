@@ -4,8 +4,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 
 /**
  * Marks the completion of a task identified using it's last displayed index

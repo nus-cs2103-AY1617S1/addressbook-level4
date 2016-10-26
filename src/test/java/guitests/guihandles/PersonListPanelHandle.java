@@ -100,20 +100,22 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    public PersonCardHandle navigateToPerson(String name) {
+    public ActivityCardHandle navigateToActivity(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyActivity> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
-        if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+        final Optional<ReadOnlyActivity> activity = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        if (activity != null) System.out.println(activity.toString());
+        
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Activity Name not found: " + name);
         }
 
-        return navigateToPerson(person.get());
+        return navigateToPerson(activity.get());
     }
 
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyActivity person) {
+    public ActivityCardHandle navigateToPerson(ReadOnlyActivity person) {
         int index = getPersonIndex(person);
 
         guiRobot.interact(() -> {
@@ -146,17 +148,17 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public ActivityCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(new Activity(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(ReadOnlyActivity person) {
+    public ActivityCardHandle getPersonCardHandle(ReadOnlyActivity person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new ActivityCardHandle(guiRobot, primaryStage, n).isSameActivity(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
+            return new ActivityCardHandle(guiRobot, primaryStage, personCardNode.get());
         } else {
             return null;
         }

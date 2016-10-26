@@ -2,7 +2,7 @@ package seedu.address.model;
 
 
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -15,7 +15,7 @@ public interface ReadOnlyLifeKeeper {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniquePersonList();
+    UniqueActivityList getUniquePersonList();
 
     /**
      * Returns an unmodifiable view of persons list

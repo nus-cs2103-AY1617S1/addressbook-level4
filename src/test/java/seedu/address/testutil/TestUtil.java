@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ActivityCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -21,7 +21,8 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -70,15 +71,15 @@ public class TestUtil {
     private static Activity[] getSamplePersonData() {
         try {
             return new Activity[]{
-                    new Activity(new Name("Ali Muster"),  new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new Name("Boris Mueller"),  new Reminder("81th street"), new UniqueTagList()),
-                    new Activity(new Name("Carl Kurz"), new Reminder("wall street"), new UniqueTagList()),
-                    new Activity(new Name("Daniel Meier"),  new Reminder("10th street"), new UniqueTagList()),
-                    new Activity(new Name("Elle Meyer"),  new Reminder("michegan ave"), new UniqueTagList()),
-                    new Activity(new Name("Fiona Kunz"),  new Reminder("little tokyo"), new UniqueTagList()),
-                    new Activity(new Name("George Best"), new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new Name("Hoon Meier"), new Reminder("little india"), new UniqueTagList()),
-                    new Activity(new Name("Ida Mueller"), new Reminder("chicago ave"), new UniqueTagList())
+                    new Activity(new Name("Find Ali"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Boris"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Carl"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Daniel"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Elle"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Fiona"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find George"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Hoon"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Ida"), new Reminder("30-12-2017 1200"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -140,7 +141,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+        return new AddressBook(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
@@ -283,10 +284,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestActivity[] removePersonsFromList(final TestActivity[] persons, TestActivity... personsToRemove) {
+        List<TestActivity> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestActivity[listOfPersons.size()]);
     }
 
 
@@ -295,7 +296,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static TestActivity[] removePersonFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -306,7 +307,7 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
+    public static TestActivity[] replacePersonFromList(TestActivity[] persons, TestActivity person, int index) {
         persons[index] = person;
         return persons;
     }
@@ -317,10 +318,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static TestActivity[] addPersonsToList(final TestActivity[] persons, TestActivity... personsToAdd) {
+        List<TestActivity> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestActivity[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -331,8 +332,21 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyActivity person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
+    	String classOfActivity = activity.getClass().getSimpleName();
+
+    	switch (classOfActivity) {
+	    	case "TestActivity":
+	    	    return card.isSameActivity(activity);
+	    	
+	    	case "TestTask": 
+	    		return card.isSameTask((ReadOnlyTask) activity);
+	    	
+	    	case "TestEvent": 
+	    		return card.isSameEvent((ReadOnlyEvent) activity);
+    	}
+    	return false;
+    	
     }
 
     public static Tag[] getTagList(String tags) {
