@@ -56,4 +56,4 @@ public class DeleteCommandTest extends SavvyTaskerGuiTest {
     }
 
 }
-//@@author A0139915W
+//@@author

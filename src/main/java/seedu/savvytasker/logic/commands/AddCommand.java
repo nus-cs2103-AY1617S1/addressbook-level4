@@ -83,7 +83,7 @@ public class AddCommand extends ModelRequiringCommand {
         }
 
     }
-    //@@author A0139915W
+    //@@author
     
     /**
      * Checks if a command can perform undo operations

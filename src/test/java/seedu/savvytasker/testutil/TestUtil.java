@@ -72,7 +72,7 @@ public class TestUtil {
                 new Task("Sample Task Ah")
         };
     }
-    //@@author A0139915W
+    //@@author
     
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
@@ -296,7 +296,7 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    //@@author A0139915W
+    //@@author
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -310,6 +310,6 @@ public class TestUtil {
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
-    //@@author A0139915W
+    //@@author
 
 }
