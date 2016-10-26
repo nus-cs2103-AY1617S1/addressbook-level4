@@ -30,7 +30,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    //private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,9 +43,6 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
-
-    //@FXML
-    //private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -195,12 +191,4 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    //public void loadTaskPage(ReadOnlyTask task) {
-    //    browserPanel.loadTaskPage(task);
-    //}
-
-    //public void releaseResources() {
-    //    browserPanel.freeResources();
-    //}
 }

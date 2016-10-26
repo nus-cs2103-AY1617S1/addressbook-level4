@@ -3,10 +3,22 @@
 }
 
 .label {
-    fx-font-size: 35pt;
+    -fx-font-size: 35pt;
 	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-text-fill: #008080;
     -fx-opacity: 1;
+}
+
+.label-date {
+	-fx-font-size: 42pt;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	-fx-text-fill: #649fbc;
+	-fx-opacity: 0.6;
+}
+
+.label-date:hover {
+	-fx-text-fill: #f4a9a9;
+	-fx-opacity: 1;
 }
 
 .label-bright {
