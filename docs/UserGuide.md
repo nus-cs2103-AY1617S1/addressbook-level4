@@ -232,16 +232,33 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add TASKNAME [PARAMETERS]`
+Add | `add TASKNAME`
+	| `add TASKNAME on/from DATE`
+	| `add TASKNAME by/to DATE`
+	| `add TASKNAME on/from DATE by/to DATE`
+	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY`
+	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`
 Clear | `clear`
 Delete | `delete ID`
 Help | `help`
 Mark | `mark ID`
 Unmark | `unmark ID`
 Quitting | `exit`
-Search | `search [PARAMETERS]`
+Search | `search KEYWORDS`
+	   | `search before DATE`
+	   | `search after DATE`
+	   | `search priority PRIORITY`	 
+	   | `search tag TAG`	   
 See | `see`
 Tag | `tag ID TAG`
 Untag | `untag ID TAG`
 Undo | `undo`
-Update | `update TASKNAME; [PARAMETERS;]`
+Update | `update ID TASKNAME`
+	   | `update ID on/from DATE`
+	   | `update ID by/to DATE`
+	   | `update ID TASKNAME on/from DATE`
+	   | `update ID TASKNAME by/to DATE`
+	   | `update ID on/from DATE by/to DATE`
+	   | `update ID TASKNAME on/from DATE by/to DATE`
+	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY`
+	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`
