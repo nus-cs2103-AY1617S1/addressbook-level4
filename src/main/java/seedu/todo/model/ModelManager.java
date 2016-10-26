@@ -189,7 +189,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime){
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
-
+  //@@author A0121643R
     @Override
     public void updateFilteredTaskListByPriority(Priority priority) {
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));   

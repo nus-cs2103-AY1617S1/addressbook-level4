@@ -47,7 +47,7 @@ public class ParserFormats {
 
     public static final Pattern ADD_TASK_ARGS_RECUR_FORMAT_BY = Pattern
             .compile(NAME_FORMAT + BY_DATE_FORMAT + RECUR_FORMAT + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
-
+  //@@author A0121643R
     public static final Pattern ADD_PRIORITY_FT = Pattern
             .compile(NAME_FORMAT + ON_DATE_FORMAT + BY_DATE_FORMAT + priorityFormat + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
 
@@ -59,7 +59,7 @@ public class ParserFormats {
     
     public static final Pattern ADD_PRIORITY_FL = Pattern
             .compile("(?<name>[a-zA-Z_0-9 ]+)" + priorityFormat+ "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
-    
+  //@@author A0121643R    
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
             .compile("on (?<onDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
@@ -71,10 +71,10 @@ public class ParserFormats {
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
             .compile("from (?<fromDateTime>.+) to (?<tillDateTime>.+)", Pattern.CASE_INSENSITIVE);
-    
+  //@@author A0121643R   
     public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)", Pattern.CASE_INSENSITIVE);
-    
+  //@@author A0121643R   
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? "
                       + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"

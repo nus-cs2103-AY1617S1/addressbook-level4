@@ -126,7 +126,7 @@ public class UpdateCommand extends Command{
         }
         return newOnDate;
     }
-    
+  //@@author A0121643R   
     private Priority makeNewPriority(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Priority newPriority;
         if (this.priority == null) {
@@ -138,7 +138,7 @@ public class UpdateCommand extends Command{
         }
         return newPriority;
     }
-    
+  //@@author A0121643R    
     private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Recurrence newRecurrence;
         if (this.recurrence == null) {

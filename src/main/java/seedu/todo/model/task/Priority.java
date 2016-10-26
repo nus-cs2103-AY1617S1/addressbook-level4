@@ -2,10 +2,12 @@ package seedu.todo.model.task;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 
+
 /**
  * Represents a Task's priority in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidpriority(String)}
  */
+//@@author A0121643R
 public class Priority {
 
     public static final String PRIORITY_RULE = "Task priority should be high, mid or low";
