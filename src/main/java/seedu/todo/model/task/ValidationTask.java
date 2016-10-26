@@ -13,7 +13,7 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
 //@@author A0139021U
-public class ValidationTask implements MutableTask {
+public class ValidationTask extends BaseTask implements MutableTask {
     private static final String END_TIME = "endTime";
     private static final String TITLE = "title";
     private static final String ONLY_START_TIME_ERROR_MESSAGE = "You must define an ending time.";
@@ -35,12 +35,10 @@ public class ValidationTask implements MutableTask {
 
     private Set<Tag> tags = new HashSet<>();
     private LocalDateTime lastUpdated;
-    private UUID uuid;
 
     public ValidationTask(String title) {
         this.setTitle(title);
         this.setCreatedAt();
-        this.uuid = UUID.randomUUID();
     }
 
     /**
@@ -187,22 +185,4 @@ public class ValidationTask implements MutableTask {
     }
 
     public void setCreatedAt() { this.lastUpdated = LocalDateTime.now(); }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof ImmutableTask)) {
-            return false;
-        }
-
-        return uuid.equals(((ImmutableTask) o).getUUID());
-    }
-
-    @Override
-    public int hashCode() {
-        return uuid.hashCode();
-    }
 }
