@@ -242,9 +242,9 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console displays deleted item in second box and refreshes list of items.
 
-#### Delete 2 deadlines, tasks or events
+#### Delete multiple deadlines, tasks or events
 
-1. Type `del[ete] INDEX1 INDEX2`. Press `Enter`.
+1. Type `del[ete] INDEX ...`. Press `Enter`.
 
 2. Console displays deleted item in second box and refreshes list of items.
 
@@ -292,7 +292,8 @@ For events, you can edit the name and both start and end dates and times.
 	> <div style="text-align:center"><img src="images/appResponses/redo_command_response.png" width="300"><br>
 	> App Response for `redo`
 
-[comment]: # (@@author )
+
+[comment]: # (@@author A0143641M)
 
 ### When you want to specify a custom save location for your data
 
