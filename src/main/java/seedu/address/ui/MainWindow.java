@@ -236,7 +236,7 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-    
+    //@@author A0142184L
     @FXML
     private void handleQuickView() {
     	tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -256,7 +256,7 @@ public class MainWindow extends UiPart {
             }
         });
     }
-
+    //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListLeftPanel;
     }
