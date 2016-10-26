@@ -55,6 +55,7 @@ public class DoneCommand extends Command {
                 ReadOnlyTask taskDone = lastShownEventList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
                 
                 try {
+                    model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
                     assert false : "The target task cannot be missing";
@@ -69,6 +70,7 @@ public class DoneCommand extends Command {
                 ReadOnlyTask taskDone = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
                 
                 try {
+                    model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
                     assert false : "The target Deadline cannot be missing";
@@ -83,6 +85,7 @@ public class DoneCommand extends Command {
                 ReadOnlyTask taskDone = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
 
                 try {
+                    model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
                     assert false : "The target Deadline cannot be missing";

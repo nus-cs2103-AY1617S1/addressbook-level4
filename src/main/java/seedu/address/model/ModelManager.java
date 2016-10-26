@@ -100,6 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         addressBook.resetData(newData);
+        updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
 
@@ -122,20 +123,22 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         addressBook.changeTask(target, args, category);
-        //updateFilteredListToShowAll();
+        //updateFilteredListToShowAll(); // why was this line commented out?
+        updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
     
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.completeTask(target);
-        updateFilteredListToShowAll();
+        //updateFilteredListToShowAll();
+        updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
 
@@ -169,6 +172,35 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAllCompleted() {
         //updateFilteredEventList
+        filteredEvents.setPredicate(task -> {
+            if (task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+    }
+    
+    @Override 
+    public void updateFilteredListToShowAllUncompleted() {
+        filteredEvents.setPredicate(task -> {
+            if (!task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+        filteredDeadlines.setPredicate(task -> {
+            if (!task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+        filteredTodos.setPredicate(task -> {
+            if (!task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+        
     }
 
     @Override
@@ -263,5 +295,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
 
 }
