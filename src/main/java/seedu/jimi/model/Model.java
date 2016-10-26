@@ -54,7 +54,7 @@ public interface Model{
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 
     /** Updates the filter of the filtered task list to show the default listings */
-    void updateAllFilteredListsShowDefault();
+    void updateAllFilteredListsToNormalListing();
 
     /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredAgendaTaskList(Set<String> keywords);

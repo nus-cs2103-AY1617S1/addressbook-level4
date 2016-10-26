@@ -126,12 +126,14 @@ public class FilteredListManager {
      */
     
     /** Updates filters of all filtered lists to default specified in {@code defaultExpressions} */
-    public void updateFilteredListsToDefault() {
+    public void updateFilteredListsToNormalListing() {
         for (ListId id : ListId.values()) {
-            if(id.equals(ListId.TASKS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
-            } else if(id.equals(ListId.EVENTS_AGENDA)) {
-                listMap.get(id).setPredicate(new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+            if (id.equals(ListId.TASKS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+            } else if (id.equals(ListId.EVENTS_AGENDA)) {
+                listMap.get(id).setPredicate(
+                        new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
             } else {
                 listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
             }
@@ -198,7 +200,6 @@ public class FilteredListManager {
             return qualifiers.toString();
         }
     }
-    
     // @@author
     
     interface Qualifier {
@@ -335,9 +336,11 @@ public class FilteredListManager {
         }
     }
     
+    // @@author A0138915X
+    
     /**
      * Predicate for filtering events from the internal list.
-     * @@author A0138915X
+     * 
      * @param isMatchingForEvent If true, matches events. Else matches anything that's not an event.
      */
     private class EventQualifier implements Qualifier {

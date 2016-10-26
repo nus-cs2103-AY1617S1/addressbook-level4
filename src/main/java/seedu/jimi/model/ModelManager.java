@@ -85,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateAllFilteredListsShowDefault();
+        updateAllFilteredListsToNormalListing();
         indicateTaskBookChanged();
     }
     
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
             throws TaskNotFoundException {
         taskBook.completeTask(taskToComplete, isComplete);
-        updateAllFilteredListsShowDefault();
+        updateAllFilteredListsToNormalListing();
         indicateTaskBookChanged();
     }
     
@@ -127,8 +127,8 @@ public class ModelManager extends ComponentManager implements Model {
      */
     
     @Override
-    public void updateAllFilteredListsShowDefault() {
-        this.filteredListManager.updateFilteredListsToDefault();
+    public void updateAllFilteredListsToNormalListing() {
+        this.filteredListManager.updateFilteredListsToNormalListing();
     }
     
     @Override
