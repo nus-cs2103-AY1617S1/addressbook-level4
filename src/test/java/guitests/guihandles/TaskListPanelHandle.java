@@ -226,6 +226,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public DeadlineTaskCardHandle getDeadlineTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
+        System.out.println(nodes);
         Optional<Node> taskCardNode = nodes.stream()
                 .filter(n -> new DeadlineTaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();

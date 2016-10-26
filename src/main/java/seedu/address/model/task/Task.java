@@ -11,7 +11,7 @@ import seedu.address.model.tag.UniqueTagList;
 
 public class Task implements ReadOnlyTask {
 
-	public final TaskType taskType;
+	private TaskType taskType;
 	private Name name;
 	private Status status;
 	private Optional<LocalDateTime> startDate;
@@ -63,6 +63,10 @@ public class Task implements ReadOnlyTask {
         return taskType;
     }
     
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+    
     public Status getStatus() {
         return status;
     }
@@ -71,35 +75,30 @@ public class Task implements ReadOnlyTask {
         this.status = status;
     }
     
+    public Optional<LocalDateTime> getEndDate() {
+    	return endDate;
+    }
+    
+    public void setEndDate(LocalDateTime date) {
+    	if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
+    		this.setTaskType(new TaskType("deadline"));
+    	}
+    	endDate = Optional.of(date);
+    }
+    
     public Optional<LocalDateTime> getStartDate() {
         return startDate;
     }
     
     public void setStartDate(LocalDateTime date) throws UnsupportedOperationException {
-        if (taskType.value.equals(TaskType.Type.DEADLINE)) {
-            throw new UnsupportedOperationException("Start date cannot be set on a deadline task");
-        }
-        else if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
-            throw new UnsupportedOperationException("Start date cannot be set on a someday task");
+        if (!endDate.isPresent()) {
+            throw new UnsupportedOperationException("End date missing, start date cannot be set");
         }
         else {
-            startDate = Optional.of(date);
+            this.setTaskType(new TaskType("event"));
+        	startDate = Optional.of(date);
         }
     }
-
-    public Optional<LocalDateTime> getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime date) throws UnsupportedOperationException {
-        if (taskType.value.equals(TaskType.Type.SOMEDAY)) {
-            throw new UnsupportedOperationException("End date cannot be set on a someday task");
-        }
-        else {
-            endDate = Optional.of(date);
-        }
-    }
-
 
     /**
      * The returned TagList is a deep copy of the internal TagList, changes on
