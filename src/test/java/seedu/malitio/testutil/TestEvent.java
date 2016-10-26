@@ -11,6 +11,7 @@ public class TestEvent implements ReadOnlyEvent {
     private Name name;
     private DateTime start;
     private DateTime end;
+    private boolean marked;
     private UniqueTagList tags;
 
     public TestEvent() {
@@ -69,4 +70,13 @@ public class TestEvent implements ReadOnlyEvent {
         return ReadOnlyEvent.super.getAsText();
     }
 
+    @Override
+    public boolean isMarked() {
+        return marked;
+    }
+
+    @Override
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
 }

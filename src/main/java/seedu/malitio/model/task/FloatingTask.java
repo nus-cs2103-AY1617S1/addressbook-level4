@@ -47,23 +47,6 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         return name;
     }
 
-
-    public boolean getCompleted() {
-		return this.completed;
-	}
-
-	public void setCompleted() {
-		this.completed = true;
-	}
-	
-	public boolean isMarked() {
-	    return this.marked;
-	}
-	
-	public void setMarked(boolean marked) {
-	    this.marked = marked;
-	}
-
 	@Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -76,6 +59,22 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         tags.setTags(replacement);
     }
 
+    public boolean getCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted() {
+        this.completed = true;
+    }
+    
+    public boolean isMarked() {
+        return this.marked;
+    }
+    
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

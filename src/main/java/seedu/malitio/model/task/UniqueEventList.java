@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
@@ -37,6 +40,10 @@ public class UniqueEventList implements Iterable<Event> {
      * there is no such matching task in the list.
      */
     public static class EventNotFoundException extends Exception {}
+    
+    public static class EventMarkedException extends Exception {}
+    
+    public static class EventUnmarkedException extends Exception {}
 
     private final ObservableList<Event> internalList = FXCollections.observableArrayList();
 
@@ -94,7 +101,36 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.remove(beforeEdit);
         internalList.add(edited);
     }
+    
+    /**
+     * Marks the event in the list.
+     *
+     * @throws DuplicateEventException if the task to add is a duplicate of an existing task in the list.
+     * @throws EventMarkedException if the event is already marked.
+     * @throws EventUnmarkedException if the event is already unmarked.
+     */
+    public void mark(ReadOnlyEvent eventToMark, boolean marked)
+            throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
+        if (eventToMark.isMarked() && marked) {
+            throw new EventMarkedException();
+        } else if (!eventToMark.isMarked() && !marked) {
+            throw new EventUnmarkedException();
+        }
 
+        if (!contains(eventToMark)) {
+            throw new EventNotFoundException();
+        }
+        
+        eventToMark.setMarked(marked);
+        updateEventList(eventToMark);
+    }
+
+    private void updateEventList(ReadOnlyEvent eventToComplete) {
+        int indexToReplace = internalList.indexOf(eventToComplete);
+        internalList.remove(eventToComplete);
+        internalList.add(indexToReplace, (Event) eventToComplete);
+    }
+    
     /**
      * Removes the equivalent schedule from the list.
      *

@@ -114,11 +114,18 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         updateDeadlineList(deadlineToComplete);
 	}
 	
+	/**
+     * Marks the deadline in the list.
+     *
+     * @throws DuplicateDeadlineException if the task to add is a duplicate of an existing task in the list.
+     * @throws DeadlineMarkedException if the deadline is already marked.
+     * @throws DeadlineUnmarkedException if the deadline is already unmarked.
+     */
 	public void mark(ReadOnlyDeadline deadlineToMark, boolean marked)
 	        throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
-	    if (deadlineToMark.isMarked() == marked == true) {
+	    if (deadlineToMark.isMarked() && marked) {
             throw new DeadlineMarkedException();
-	    } else if (deadlineToMark.isMarked() == marked == false) {
+	    } else if (!deadlineToMark.isMarked() && !marked) {
 	        throw new DeadlineUnmarkedException();
 	    }
 

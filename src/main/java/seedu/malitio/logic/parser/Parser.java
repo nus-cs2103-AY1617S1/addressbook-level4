@@ -284,7 +284,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareMark(String args) {
-        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
@@ -305,7 +305,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareUnmark(String args) {
-        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));

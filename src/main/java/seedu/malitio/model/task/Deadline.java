@@ -58,26 +58,27 @@ public class Deadline implements ReadOnlyDeadline{
         return new UniqueTagList(tags);
     }
 
-    public boolean getCompleted() {
-		return completed;
-	}
-
-	public void setCompleted() {
-		this.completed = true;
-	}
-
-	public boolean isMarked() {
-	    return marked;
-	}
-	
-	public void setMarked(boolean marked) {
-	    this.marked = marked;
-	}
 	/**
      * Replaces this deadline's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public boolean getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted() {
+        this.completed = true;
+    }
+
+    public boolean isMarked() {
+        return marked;
+    }
+    
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
     
     @Override

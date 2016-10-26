@@ -3,10 +3,14 @@ package seedu.malitio.logic.commands;
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
+import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
+import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
+import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
@@ -34,17 +38,19 @@ public class UnmarkCommand extends Command {
             
     @Override
     public CommandResult execute() {
-        if (!(taskType == 'f' || taskType == 'd')) {
+        if (!(taskType == 'f' || taskType == 'd' || taskType == 'e')) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         if (taskType == 'f') {
             model.getFuture().clear();
             return executeUnmarkFloatingTask();
-        }
-        else {
+        } else if (taskType == 'd') {
             model.getFuture().clear();
             return executeUnmarkDeadline();
+        } else {
+            model.getFuture().clear();
+            return executeUnmarkEvent();
         }
     }
 
@@ -86,6 +92,27 @@ public class UnmarkCommand extends Command {
         } catch (DeadlineUnmarkedException e) {
             return new CommandResult(MESSAGE_MARK_SUCCESS);
         } catch (DeadlineMarkedException e) {
+        }
+        return new CommandResult(MESSAGE_MARK_SUCCESS);        
+    }
+    
+    private CommandResult executeUnmarkEvent() {
+        UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        ReadOnlyEvent eventToMark = lastShownList.get(targetIndex - 1);
+        
+        try {
+            assert model != null;
+            model.markEvent(eventToMark, false);
+        } catch (EventNotFoundException e) {
+            assert false : "The target deadline cannot be missing";
+        } catch (EventUnmarkedException e) {
+            return new CommandResult(MESSAGE_MARK_SUCCESS);
+        } catch (EventMarkedException e) {
         }
         return new CommandResult(MESSAGE_MARK_SUCCESS);        
     }

@@ -83,5 +83,4 @@ public class TestDeadline implements ReadOnlyDeadline {
     public void setMarked(boolean marked) {
         this.marked = marked;
     }
-
 }

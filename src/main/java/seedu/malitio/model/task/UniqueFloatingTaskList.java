@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 import java.util.*;
 
@@ -121,6 +124,13 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         updateFloatingTaskList(toComplete);
     }
     
+    /**
+     * Marks the task in the list.
+     *
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws FloatingTaskMarkedException if the deadline is already marked.
+     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     */
     public void mark(ReadOnlyFloatingTask taskToMark, boolean marked)
             throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
         if (taskToMark.isMarked() && marked) {

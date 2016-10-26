@@ -42,10 +42,16 @@ public class EventCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(event.getName().fullName);
-        id.setText("E"+displayedIndex + ". ");
-        start.setText("Start: "+ event.getStart().toString());
+        id.setText("E" + displayedIndex + ". ");
+        start.setText("Start: " + event.getStart().toString());
         end.setText("End: " + event.getEnd().toString());
         tags.setText(event.tagsString());
+        
+        if (event.isMarked()) {
+            cardPane3.setStyle("-fx-background-color: yellow;");
+        } else {
+            cardPane3.setStyle("-fx-background-color: white;");
+        }
     }
 
     public HBox getLayout() {

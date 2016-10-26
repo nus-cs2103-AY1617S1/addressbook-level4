@@ -13,7 +13,9 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
+import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
@@ -282,6 +284,10 @@ public class Malitio implements ReadOnlyMalitio {
 	    deadlines.mark(deadlineToMark, marked);
 	}
 
+	public void markEvent(ReadOnlyEvent eventToMark, boolean marked)
+	        throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
+	    events.mark(eventToMark, marked);
+	}
 
 //// tag-level operations
 
