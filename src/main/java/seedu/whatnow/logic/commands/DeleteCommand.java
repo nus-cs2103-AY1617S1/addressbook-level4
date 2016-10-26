@@ -78,7 +78,7 @@ public class DeleteCommand extends UndoAndRedo {
 	//@author A0139128A
 	@Override
 	public CommandResult redo() {
-		if(model.getStackOfListTypesRedo().isEmpty()) {
+		if(model.getDeletedStackOfTasksRedo().isEmpty()) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
 		ReadOnlyTask taskToDelete = model.getDeletedStackOfTasksRedo().pop();
