@@ -14,13 +14,15 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+    
+    //@@author A0139749L
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: \"TASK_DESCRIPTION\" [on DATE] [by DATE_TIME] [from START_DATE_TIME]"
             + "[to END_DATE_TIME] [#TAGS]...\n"
             + "Example: " + COMMAND_WORD
             + " \"CS2103T Lecture\" on 7 Oct 2016 from 2pm to 4pm #Important";
-
+    //@@author
+    
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 

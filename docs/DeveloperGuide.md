@@ -12,6 +12,7 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+<@@author A0139196U>
 <br>
 ## Introduction
 
@@ -21,6 +22,7 @@ It is also a Java desktop application that has a GUI.
 <br>
 This guide describes the design and implementation of Emeraldo.
 Through this guide, you will gain an understanding how Emeraldo works and how you can further contribute to its development.
+<@@author>
 
 <br>
 ## Setting up
@@ -309,6 +311,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <br>
 ## Appendix A : User Stories
 
+<@@author A0139749L>
 #### High Priority `* * *`
 
 As a ... | I want to ... | so that ...
@@ -323,6 +326,7 @@ user | see all my tasks | I can easily know what I need to do at a glance.<br>
 user | edit the task descriptions, date or time | I can update the details of my tasks.<br>
 
 <br>
+<@@author A0139342H>
 #### Medium Priority `* *`
 
 As a ... | I want to ... | so that ...
@@ -334,6 +338,7 @@ user | mark tasks as completed or uncompleted | I can keep track of my tasks pro
 user | specify a folder for data storage location | I can store the data file in a local folder controlled by a cloud syncing service.<br>
 
 <br>
+<@@author A0139196U>
 #### Low Priority `*`
 
 As a ... | I want to ... | so that ...
@@ -351,6 +356,7 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 
 (For all use cases below, the **System** is the Task Manager and the **Actor** is the user, unless specified otherwise)
 
+<@@author A0142290N>
 ####Use case: Add task
 
 **MSS**
@@ -373,7 +379,7 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 2. TaskManager shows a list of task
 3. User requests to edit a task
 4. TaskManager brings task to the center of the window and asks user which field they would like to edit
-5. User requests to edit a specific field eg. "Edit Title"
+5. User requests to edit a specific field e.g. "Edit Title"
 6. TaskManager returns the title to the command line for editing and asks user to edit the title
 7. User edits title
 8. TaskManager edits title accordingly and asks user to exit edit or continue editing by typing "edit title" again
@@ -405,6 +411,7 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
   Use case ends
 
 <br>
+<@@author A0139196U>
 #### Use case: Delete task
 
 **MSS**
@@ -435,7 +442,8 @@ Use case ends.
 Step 5a1 and 5a2 are repeated until the user enters a valid input
 
 <br>
-#### Use case: List by
+<@@author A0139342H>
+#### Use case: List [category]
 	
 **MSS**
 
@@ -455,7 +463,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 2c. Category is by tag
 
 > TaskManager shows list of tasks by the particular tag in order of index
-
+<@@author>
 
 <br>
 ## Appendix C : Non Functional Requirements
@@ -477,6 +485,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 
 <br>
 ## Appendix E : Product Survey
+<@@author A0139196U>
 
 #### Wunderlist
  **Strengths**
@@ -488,6 +497,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * Able to share lists with others for collaboration
   * Able to sort list
 
+<@@author A0139342H>
 #### Todoist
  **Strengths**
   * Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim's command line habits
@@ -501,6 +511,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
 **Weaknesses**
   * Synced to the cloud. Users may have problems when there is no internet connection
 
+<@@author A0139749L>
 #### Centrallo
  **Strengths**
   * Supports email forwarding from your personal mail into Centrallo
@@ -517,6 +528,7 @@ Step 5a1 and 5a2 are repeated until the user enters a valid input
   * No calendar view for a quick overview of all notes by dates
   * No quick overview of all notes in general (GUI highly resembles that of an email inbox - the notes occupy a narrow column on the screen with the rest of the screen occupied by the content of the notes)
 
+<@@author A0142290N>
 #### Trello
  **Strengths**
   * Able to create various lists, allows good organisation
