@@ -12,6 +12,7 @@ import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
 import seedu.todoList.logic.commands.*;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -31,7 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredEvents;
     private final FilteredList<Task> filteredDeadlines;
     
-    private final Stack<Command> undoStack;
+    private final Undoer undoer;
 
     /**
      * Initializes a ModelManager with the given TodoList
@@ -51,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
         
-        undoStack = new Stack<Command>();
+        undoer = new Undoer(this);
     }
 
     public ModelManager() {
@@ -66,8 +67,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(todoList.getTasks());
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
-        
-        undoStack = new Stack<Command>();
+
+        undoer = new Undoer(this);
     }
 
     @Override
@@ -91,17 +92,36 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void resetTodoListData() {
+        undoer.prepareUndoClear("todo");
         todoList.resetData();
         indicateTodoListChanged();
     } 
     @Override
     public void resetEventListData() {
+    	undoer.prepareUndoClear("event");
         eventList.resetData();
         indicateEventListChanged();
     } 
     @Override
     public void resetDeadlineListData() {
+    	undoer.prepareUndoClear("deadline");
         deadlineList.resetData();
+        indicateDeadlineListChanged();
+    }
+    
+    @Override
+    public void restoreTodoListData() {
+        todoList.restoreData();
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void restoreEventListData() {
+        eventList.restoreData();
+        indicateEventListChanged();
+    } 
+    @Override
+    public void restoreDeadlineListData() {
+        deadlineList.restoreData();
         indicateDeadlineListChanged();
     }
 
@@ -185,7 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
     		indicateDeadlineListChanged();
     	}
     	
-    	undoStack.push(new EditCommand(task, dataType, target));
+    	undoer.prepareUndoEdit(target, dataType, task);
     }
 
     @Override
@@ -209,15 +229,15 @@ public class ModelManager extends ComponentManager implements Model {
     		case "todo":
     			todoList.removeTask(target);
     			indicateTodoListChanged();
-    			undoStack.push(new AddCommand(target));
+    			undoer.prepareUndoDelete(target);
     		case "event":
     			eventList.removeTask(target);
     			indicateEventListChanged();
-    			undoStack.push(new AddCommand(target));
+    			undoer.prepareUndoDelete(target);
     		case "deadline":
     			deadlineList.removeTask(target);
     			indicateDeadlineListChanged();
-    			undoStack.push(new AddCommand(target));
+    			undoer.prepareUndoDelete(target);
     	}
     }
 
@@ -227,19 +247,19 @@ public class ModelManager extends ComponentManager implements Model {
     		todoList.addTask(task);
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
-    		undoStack.push(new DeleteCommand(task, "todo"));
+    		undoer.prepareUndoAdd(task, "todo");
     	}
     	else if(task instanceof Event) {
     		eventList.addTask(task);
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
-    		undoStack.push(new DeleteCommand(task, "event"));
+    		undoer.prepareUndoAdd(task, "event");
     	}
     	else if(task instanceof Deadline) {
     		deadlineList.addTask(task);
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
-    		undoStack.push(new DeleteCommand(task, "deadline"));
+    		undoer.prepareUndoAdd(task, "deadline");
     	}
     	else {
     		throw new IllegalValueException("Invalid data type for add");
@@ -247,10 +267,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void undoLatestCommand() throws Exception {
-    	Command undoCommand = undoStack.pop();
-    	undoCommand.setData(this, null);
-    	undoCommand.execute();
+    public synchronized void undoLatestCommand() throws EmptyStackException {
+    	undoer.executeUndo();
     }
 
 

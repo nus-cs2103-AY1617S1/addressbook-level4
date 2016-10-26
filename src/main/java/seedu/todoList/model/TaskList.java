@@ -13,9 +13,11 @@ import java.util.stream.Collectors;
 public class TaskList implements ReadOnlyTaskList {
 
     private UniqueTaskList tasks;
+    private Stack<UniqueTaskList> backupStack;
 
     {
         tasks = new UniqueTaskList();
+        backupStack = new Stack<UniqueTaskList>();
     }
 
     public TaskList() {}
@@ -69,7 +71,12 @@ public class TaskList implements ReadOnlyTaskList {
     }
     
     public void resetData() {
+    	backupStack.push(tasks);
     	tasks.removeAll();
+    }
+    
+    public void restoreData() {
+    	tasks = backupStack.pop();
     }
     
 
