@@ -2,11 +2,14 @@ package seedu.jimi.model.tag;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
-/*
+/**
+ * 
+ * @@author A0143471L
+ * 
  * Represents the priority of the tasks & events in Jimi.
  * 
  * Priorities can be classified into: LOW, MED & HIGH
- */
+ **/
 
 public class Priority extends Tag{
     

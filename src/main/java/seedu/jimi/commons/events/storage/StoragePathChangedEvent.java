@@ -2,6 +2,14 @@ package seedu.jimi.commons.events.storage;
 
 import seedu.jimi.commons.events.BaseEvent;
 
+/**
+ * 
+ * @@author A0143471L
+ * 
+ * Indicates the event where storage path has changed
+ *
+ */
+
 public class StoragePathChangedEvent extends BaseEvent {
     
     public final String oldPath;
