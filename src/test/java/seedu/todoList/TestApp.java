@@ -8,7 +8,6 @@ import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.GuiSettings;
 import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
-import seedu.todoList.storage.XmlSerializableTaskList;
 import seedu.todoList.storage.XmlSerializableTodoList;
 import seedu.todoList.testutil.TestUtil;
 

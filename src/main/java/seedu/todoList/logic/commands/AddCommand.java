@@ -73,6 +73,13 @@ public class AddCommand extends Command {
         );
     }
     
+    /**
+     * Add task to undo delete
+     */
+    public AddCommand(ReadOnlyTask toAdd) {
+    	this.toAdd = (Task) toAdd;
+    }
+    
     
 
     @Override

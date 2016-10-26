@@ -1,6 +1,5 @@
 package seedu.todoList.storage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
-import seedu.todoList.storage.TaskListStorage;
 
 /**
  * API of the Storage component

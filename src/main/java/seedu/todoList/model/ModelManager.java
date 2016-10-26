@@ -7,12 +7,14 @@ import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
+import seedu.todoList.logic.commands.*;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
+
 
 /**
  * Represents the in-memory model of the TodoList data.
@@ -27,6 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTodos;
     private final FilteredList<Task> filteredEvents;
     private final FilteredList<Task> filteredDeadlines;
+    
+    private final Stack<Command> undoStack;
 
     /**
      * Initializes a ModelManager with the given TodoList
@@ -45,6 +49,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(todoList.getTasks());
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
+        
+        undoStack = new Stack<Command>();
     }
 
     public ModelManager() {
@@ -59,6 +65,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(todoList.getTasks());
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
+        
+        undoStack = new Stack<Command>();
     }
 
     @Override
@@ -175,6 +183,8 @@ public class ModelManager extends ComponentManager implements Model {
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
     	}
+    	
+    	undoStack.push(new EditCommand(task, dataType, target));
     }
 
     @Override
@@ -213,12 +223,15 @@ public class ModelManager extends ComponentManager implements Model {
     		case "todo":
     			todoList.removeTask(target);
     			indicateTodoListChanged();
+    			undoStack.push(new AddCommand(target));
     		case "event":
     			eventList.removeTask(target);
     			indicateEventListChanged();
+    			undoStack.push(new AddCommand(target));
     		case "deadline":
     			deadlineList.removeTask(target);
     			indicateDeadlineListChanged();
+    			undoStack.push(new AddCommand(target));
     	}
     }
 
@@ -228,20 +241,30 @@ public class ModelManager extends ComponentManager implements Model {
     		todoList.addTask(task);
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
+    		undoStack.push(new DeleteCommand(task, "todo"));
     	}
     	else if(task instanceof Event) {
     		eventList.addTask(task);
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
+    		undoStack.push(new DeleteCommand(task, "event"));
     	}
     	else if(task instanceof Deadline) {
     		deadlineList.addTask(task);
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
+    		undoStack.push(new DeleteCommand(task, "deadline"));
     	}
     	else {
     		throw new IllegalValueException("Invalid data type for add");
     	}
+    }
+    
+    @Override
+    public synchronized void undoLatestCommand() throws Exception {
+    	Command undoCommand = undoStack.pop();
+    	undoCommand.setData(this, null);
+    	undoCommand.execute();
     }
 
 

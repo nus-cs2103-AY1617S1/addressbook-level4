@@ -5,7 +5,6 @@ import seedu.todoList.commons.core.ComponentManager;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.logic.commands.Command;
 import seedu.todoList.logic.commands.CommandResult;
-import seedu.todoList.logic.commands.StorageCommand;
 import seedu.todoList.logic.parser.Parser;
 import seedu.todoList.model.Model;
 import seedu.todoList.model.task.ReadOnlyTask;

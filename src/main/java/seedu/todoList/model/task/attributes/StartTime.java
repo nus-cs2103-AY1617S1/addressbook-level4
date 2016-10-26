@@ -1,11 +1,6 @@
 package seedu.todoList.model.task.attributes;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.task.Event;
 
 /**
  * Represents a Event's start time in the TodoList.

@@ -23,35 +23,46 @@ public class DeleteCommand extends Command {
 
     public final String dataType;
     public final int targetIndex;
+    public ReadOnlyTask taskToDelete = null;
 
     public DeleteCommand(String dataType, int targetIndex) {
     	this.dataType = dataType;
         this.targetIndex = targetIndex;
     }
+    
+    /*
+     * Constructor for undo command
+     */
+    public DeleteCommand(ReadOnlyTask toDelete, String dataType) {
+    	this.dataType = dataType;
+        this.targetIndex = -1;
+        this.taskToDelete = toDelete;
+    }
 
 
     @Override
     public CommandResult execute() {
-    	
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
-    	switch (dataType) {
-    		case "todo":
-    			lastShownList = model.getFilteredTodoList();
-    			break;
-    		case "event":
-    			lastShownList = model.getFilteredEventList();
-    			break;
-    		case "deadline":
-    			lastShownList = model.getFilteredDeadlineList();
+    	if(this.targetIndex != -1 && this.taskToDelete == null) {
+	    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+	    	switch (dataType) {
+	    		case "todo":
+	    			lastShownList = model.getFilteredTodoList();
+	    			break;
+	    		case "event":
+	    			lastShownList = model.getFilteredEventList();
+	    			break;
+	    		case "deadline":
+	    			lastShownList = model.getFilteredDeadlineList();
+	    	}
+	        if (lastShownList.size() < targetIndex) {
+	            indicateAttemptToExecuteIncorrectCommand();
+	            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+	        }
+	
+	        taskToDelete = lastShownList.get(targetIndex - 1);
     	}
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
         try {
+        	assert(taskToDelete != null);
             model.deleteTask(taskToDelete, dataType);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

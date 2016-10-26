@@ -1,7 +1,5 @@
 package seedu.todoList.logic.commands;
 
-import seedu.todoList.model.TaskList;
-
 /**
  * Clears the TodoList.
  */

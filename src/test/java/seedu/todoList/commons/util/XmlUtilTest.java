@@ -6,7 +6,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.todoList.model.TaskList;
 
-import seedu.todoList.storage.XmlSerializableTaskList;
 import seedu.todoList.storage.XmlSerializableTodoList;
 import seedu.todoList.testutil.TodoListBuilder;
 import seedu.todoList.testutil.TestUtil;
