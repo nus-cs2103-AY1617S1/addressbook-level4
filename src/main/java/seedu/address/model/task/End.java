@@ -59,7 +59,7 @@ public class End {
 			new_min = "0" + new_min;
 		localTime = new_hr +""+ new_min;
 		if (Integer.parseInt(end) - Integer.parseInt(localTime) < 0){
-			System.out.println("end:" + Integer.parseInt(end) + " local:" + Integer.parseInt(localTime));
+		//	System.out.println("end:" + Integer.parseInt(end) + " local:" + Integer.parseInt(localTime));
 			return true;
 		}
 		else
