@@ -1,7 +1,5 @@
 package seedu.ggist.logic.commands;
 
-//@@author A0138420N
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -29,6 +27,8 @@ public class DoneCommand extends Command {
     public DoneCommand(ArrayList<Integer> indexes) {
         this.targetIndexes = indexes;
     }
+    
+  //@@author A0138420N
 
     @Override
     public CommandResult execute() {
