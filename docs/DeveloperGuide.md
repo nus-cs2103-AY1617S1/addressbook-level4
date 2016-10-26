@@ -130,6 +130,12 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+**UNDO** : [`UndoCommand.java`](../src/main/java/seedu/task/logic/commands/UndoCommand.java)
+1. `UndoCommand` uses the `HistoryManager` class to extract the previous commands that was successfully inputted by user
+2. As the user wants to undo previous command, the command that is actually executed is the reverse action for previous command
+3. As undo command is most useful for delete, add, clear, done, undone, edit commands as it uses the storage component
+4. The result of the undo command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
