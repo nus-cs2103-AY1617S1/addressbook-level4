@@ -36,11 +36,21 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <VBox spacing="5" alignment="CENTER_LEFT">
-                             <children>
-                             	<Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
-                             	<Label fx:id="closeTime" styleClass="cell_big_label" text="End: \$closeTime" />
-                             </children>
+                        <VBox fx:id="cardDetails" spacing="5" alignment="CENTER_LEFT">
+                        	<children>
+                        		<HBox spacing="5" alignment="CENTER_LEFT">
+		                             <children>
+		                             	<Label styleClass="cell_big_label" text="Start: "></Label>
+		                             	<Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
+		                             </children>
+		                        </HBox>
+		                        <HBox spacing="5" alignment="CENTER_LEFT">
+		                             <children>
+		                             	<Label styleClass="cell_big_label" text="End: "></Label>
+		                             	<Label fx:id="closeTime" styleClass="cell_big_label" text="\$closeTime" />
+		                             </children>
+		                        </HBox>
+                        	</children>
                         </VBox>
                         <AnchorPane fx:id="tagsListPlaceholder" />
                     </children>

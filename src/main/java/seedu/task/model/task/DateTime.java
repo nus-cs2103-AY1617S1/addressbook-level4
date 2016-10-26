@@ -98,4 +98,12 @@ public class DateTime {
         return this.value;
     }
 
+    /**
+     * Checks if there is a DateTime specified
+     * 
+     * @return true if a DateTime is specified, else false
+     */
+    public boolean isEmpty() {
+        return !this.value.isPresent();
+    }
 }
