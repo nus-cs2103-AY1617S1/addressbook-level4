@@ -9,36 +9,68 @@ We are the team in charge of developing Jimi, a command-line based task manager 
 
 ## Project Team
 
-#### [Nirandika Wanigasekara](https://github.com/nirandiw)
+#### Nirandika Wanigasekara(https://github.com/nirandiw)
 <img src="images/NirandikaWanigasekara.JPG" width="150"><br>
 **Role**: Project Mentor
 
 -----
 
-#### <a id="clarence"></a> [Clarence Chee](https://github.com/cheec)
+#### <a id="clarence"></a> Clarence Chee [@cheec](https://github.com/cheec)
 <img src="images/ClarenceChee.jpg" width="150"><br>
-**Role**: Team Leader, Developer <br>  
-**Responsibilities**: Integration, Logic
+* Components in charge of : [Logic](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Team Lead, Integration, Code quality control
+* Features implemented:
+    * Add tasks/events
+    * Edit tasks/events
+    * Set new save directory
+* Code written: [JimiParser][FilteredListManager]
+*  Other major contributions:
+    * Set up JimiParser
+    * Morph Model and ModelManager
+    * Update EditCommand parsing of updated commands
+
 
 -----
 
-#### <a id="zexuan"></a> [Chong Ze Xuan](http://github.com/syltaris) 
-<img src="images/ChongZeXuan.jpg" width="150"><br>
-**Role**: Developer <br> 
-**Responsibilities**: Scheduling and Tracking, Deliverables and Deadlines, Model
-
+#### <a id="zexuan"></a> Chong Ze Xuan [@syltaris](http://github.com/syltaris) 
+<img 
+src="images/ChongZeXuan.jpg" width="150"><br>
+* Components in charge of : [UI](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
+* Aspects/tools in charge of: Scheduling and Tracking, Deliverables and Deadlines, Git
+* Features implemented:
+    * Edit tasks/ events
+    * Show complete/incomplete tasks/events
+    * Show tasks/events on a certain day
+    * Complete a task/event
+* Code written: [AgendaListPanel for GUI][TaskListPanel for GUI]
+[MainWindow layout]
+* Other major contributions:
+    * Morph Model and ModelManager
+    * Did the fixing of tasks
 -----
 
-#### <a id="weiyin"></a> [Chong Wei Yin](https://github.com/ShadowLoner17) 
+#### <a id="weiyin"></a> Chong Wei Yin [@ShadowLoner17](https://github.com/ShadowLoner17) 
 <img src="images/ChongWeiYin.jpg" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: Documentation, UI
+* Components in charge of : [Storage](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
+* Aspects/tools in charge of: Documentation
+* Features implemented:
+    * Delete tasks/ events
+    * Set new save directory
+    * Set tasks with priority
+* Code written: 
+* Other major contributions:
 
 -----
 
-#### <a id="yunxuan"></a> [Zhang Yunxuan](https://github.com/yunxz)
+#### <a id="yunxuan"></a> Zhang Yunxuan [@yunz](https://github.com/yunxz)
 <img src="images/ZhangYunxuan.jpg" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: Testing, Code Quality Control, Storage
+* Components in charge of : [Model](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#model-component)
+* Aspects/tools in charge of: Testing, Code Quality Control
+* Features implemented:
+    * Find task/event using keyword
+    * Undo/redo Commands
+* Code written: [DateTime]
+* Other major contributions:
+    * Set up Travis
 
 -----
