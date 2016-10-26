@@ -133,6 +133,21 @@ Examples:
 #### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
 Format: `clear`  
+
+#### completing a floating task or deadline: `complete`
+complete the specified floating task or deadline from Malitio by striking out them.<br>
+Format: `complete f/d+INDEX`
+
+> Complete the floating task or deadline at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must have either 'f' or 'd' as a prefix and also a positive integer** eg. f1, d2, ...
+
+Examples: 
+  `complete f2`<br>
+  Complete the 2nd floating task in Malitio.
+  `complete d1`<br>
+  Complete the 1st deadline in Malitio.
+  
 <!--- @@author A0129595N --->
 #### Undo the most recent action: `undo`
 Undo the most recent data-related command and reverts Malitio to previous state. <br>
@@ -176,6 +191,7 @@ Command | Format
 -------- | :-------- 
 Add | `add TASK_NAME [by DATE/TIME] [start DATE/TIME end DATE/TIME] [t/TAG]...`
 Clear | `clear`
+Complete | `complete f/d+INDEX`
 Delete | `delete f/d/e+INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
 List | `list`
