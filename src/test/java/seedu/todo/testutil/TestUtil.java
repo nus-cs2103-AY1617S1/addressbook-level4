@@ -42,8 +42,8 @@ public class TestUtil {
 
     public static String LS = System.lineSeparator();
     
-    public static final Task[] samplePersonData = getSamplePersonData();
-    public static final Tag[] sampleTagData = getSampleTagData();
+    public static final Task[] SAMPLE_PERSON_DATA = getSampleTaskData();
+    public static final Tag[] SAMPLE_TAG_DATA = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -65,7 +65,7 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
     
-    private static Task[] getSamplePersonData() {
+    private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
                 new Task(new Name("Ali Muster"), new Detail("9482424"), 
@@ -132,8 +132,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Task> generateSampleTaskData() {
+        return Arrays.asList(SAMPLE_PERSON_DATA);
     }
 
     /**

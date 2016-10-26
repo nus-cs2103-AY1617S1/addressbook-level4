@@ -29,22 +29,22 @@ public class Recurrence {
     }
         
     public boolean isRecurring() {
-       return this.freq != Frequency.NONE;
+        return this.freq != Frequency.NONE;
     }
     
     @Override
     public String toString() {
         switch(this.freq) {
-            case YEAR :
-                return "YEAR";
-            case MONTH :
-                return "MONTH";
-            case WEEK:
-                return "WEEK";
-            case DAY :
-                return "DAY";
-            default :
-                return "NONE";
+        case YEAR :
+            return "YEAR";
+        case MONTH :
+            return "MONTH";
+        case WEEK:
+            return "WEEK";
+        case DAY :
+            return "DAY";
+        default :
+            return "NONE";
         }
     }
     

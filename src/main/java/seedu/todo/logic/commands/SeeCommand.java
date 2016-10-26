@@ -1,7 +1,7 @@
 package seedu.todo.logic.commands;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all tasks and display them to the user
  */
 public class SeeCommand extends Command {
 

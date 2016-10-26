@@ -55,6 +55,6 @@ public class LogicManager extends ComponentManager implements Logic {
     //@@author A0142421X
     @Override
     public ObservableList<Tag> getUnmodifiableTagList() {
-    	return model.getUnmodifiableTagList();
+        return model.getUnmodifiableTagList();
     }
 }

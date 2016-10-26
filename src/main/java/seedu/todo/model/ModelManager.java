@@ -111,7 +111,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
+    public synchronized void deleteTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) 
+            throws TaskNotFoundException {
         dodobird.deleteTaskTags(oldTask, newTagList);
         indicateToDoListChanged();
     }
@@ -131,7 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142421X
     public UnmodifiableObservableList<Tag> getUnmodifiableTagList() {
-    	return new UnmodifiableObservableList<>(tagList);
+        return new UnmodifiableObservableList<>(tagList);
     } 
     
     //@@author A0138967J

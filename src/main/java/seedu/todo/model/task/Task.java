@@ -50,7 +50,8 @@ public class Task implements ReadOnlyTask {
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-//@@author A0121643R    
+    
+    //@@author A0121643R    
     public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Recurrence recurrence) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, recurrence);
         this.name = name;
@@ -62,7 +63,8 @@ public class Task implements ReadOnlyTask {
         this.completion = new Completion(false);
         this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
-//@@author A0121643R
+    //@@author
+    
     /**
      * Copy constructor.
      */
@@ -105,12 +107,12 @@ public class Task implements ReadOnlyTask {
     public Recurrence getRecurrence() {
         return this.recurrence;
     }
-  //@@author A0121643R  
+    //@@author A0121643R  
     @Override
     public Priority getPriority() {
         return this.priority;
     }
-  //@@author A0121643R   
+    //@@author
     
     @Override
     public boolean isRecurring() {
@@ -132,11 +134,11 @@ public class Task implements ReadOnlyTask {
     public void setByDate(TaskDate td) {
         this.byDate = td;
     }
-//@@author A0121643R   
+    //@@author A0121643R   
     public void setPriority(Priority p) {
     	this.priority = p;
     }
-//@@author A0121643R
+    
     public void setCompletion(Completion c) {
         this.completion = c;
     }

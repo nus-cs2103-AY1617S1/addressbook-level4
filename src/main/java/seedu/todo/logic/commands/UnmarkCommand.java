@@ -11,6 +11,9 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Unmark a task identified using it's last displayed index from the to do list.
+ */
 public class UnmarkCommand extends Command {
     
     public static final String COMMAND_WORD = "unmark";

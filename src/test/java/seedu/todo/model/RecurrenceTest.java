@@ -27,13 +27,19 @@ public class RecurrenceTest {
         Task toBeRecur = helper.generateFullTask(0);
         
         toBeRecur.setRecurrence(new Recurrence(Frequency.WEEK));
-        LocalDateTime oldOnDateTime = DateTimeUtil.combineLocalDateAndTime(toBeRecur.getOnDate().getDate(), toBeRecur.getOnDate().getTime());
-        LocalDateTime oldByDateTime = DateTimeUtil.combineLocalDateAndTime(toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
+        LocalDateTime oldOnDateTime = DateTimeUtil.combineLocalDateAndTime(
+                toBeRecur.getOnDate().getDate(), toBeRecur.getOnDate().getTime());
+        
+        LocalDateTime oldByDateTime = DateTimeUtil.combineLocalDateAndTime(
+                toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
         toBeRecur.getRecurrence().updateTaskDate(toBeRecur);
         
-        LocalDateTime newOnDateTime = DateTimeUtil.combineLocalDateAndTime(toBeRecur.getOnDate().getDate(), toBeRecur.getOnDate().getTime());
-        LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
+        LocalDateTime newOnDateTime = DateTimeUtil.combineLocalDateAndTime(
+                toBeRecur.getOnDate().getDate(), toBeRecur.getOnDate().getTime());
+        
+        LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(
+                toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
         assertEquals(oldOnDateTime.plusWeeks(1), newOnDateTime);
         assertEquals(oldByDateTime.plusWeeks(1), newByDateTime);

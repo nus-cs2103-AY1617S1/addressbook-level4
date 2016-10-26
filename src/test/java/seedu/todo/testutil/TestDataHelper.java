@@ -185,13 +185,13 @@ public class TestDataHelper{
         );
     }
 
-	public Task generateNoPriorityTask(int i) throws Exception {
-		return new Task(
+    public Task generateNoPriorityTask(int i) throws Exception {
+        return new Task(
                 new Name("Task number " + i),
                 new Detail("Index number " + i),
                 new TaskDate("", TaskDate.TASK_DATE_ON),
                 new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
                 new Recurrence(Frequency.NONE)
         );
-	}
+    }
 }

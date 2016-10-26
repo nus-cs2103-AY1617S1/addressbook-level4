@@ -29,7 +29,7 @@ public class DeleteCommandTest extends ToDoListGuiTest {
 
         //delete from the middle of the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+        targetIndex = currentList.length / 2;
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index

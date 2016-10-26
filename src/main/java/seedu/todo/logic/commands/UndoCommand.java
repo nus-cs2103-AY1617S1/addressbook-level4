@@ -1,6 +1,9 @@
 //@@author A0093896H
 package seedu.todo.logic.commands;
 
+/**
+ * Undoes the user's last action
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

@@ -57,7 +57,7 @@ public class UntagCommand extends Command{
 
         ReadOnlyTask taskToUntag = lastShownList.get(targetIndex - 1);
 
-        try{
+        try {
             model.deleteTaskTags(taskToUntag, tags);
             model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {

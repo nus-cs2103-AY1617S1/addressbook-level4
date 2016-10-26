@@ -21,8 +21,8 @@ public class TypicalTestTasks {
                     .withOnDate("20/10/2016").withDetail("Marigold").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyRice =  new TaskBuilder().withName("Buy Rice").withByDate("12/12/2016")
-                    .withOnDate("30/10/2016").withDetail("Thai Rice").withCompletion(true).withRecurrence(Frequency.NONE)
-                    .withTags("urgent").withPriority("mid").build();
+                    .withOnDate("30/10/2016").withDetail("Thai Rice").withCompletion(true).
+                    withRecurrence(Frequency.NONE).withTags("urgent").withPriority("mid").build();
             buyChilli =  new TaskBuilder().withName("Buy Chilli").withByDate("12/12/2016")
                     .withOnDate("12/11/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();

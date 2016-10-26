@@ -87,5 +87,5 @@ public interface Model {
     
     //@@author A0121643R
     /** updates the filter of the filtered task list to filter by the given priority level*/
-	void updateFilteredTaskListByPriority(Priority priority);
+    void updateFilteredTaskListByPriority(Priority priority);
 }

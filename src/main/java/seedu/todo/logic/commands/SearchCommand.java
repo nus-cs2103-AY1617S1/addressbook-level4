@@ -14,11 +14,23 @@ import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.TaskDate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds and lists all the task in DoDoBird based on the search option and arguments
+ * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {
 
+    public enum SearchIndex {
+        ON,
+        BEFORE,
+        AFTER,
+        KEYWORD,
+        TAG,
+        DONE,
+        UNDONE,
+        FT,
+        PRIORITY,
+    }
+    
     public static final String COMMAND_WORD = "search";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Search all tasks whose names contain any of "
@@ -27,100 +39,181 @@ public class SearchCommand extends Command {
             + "Example: " + COMMAND_WORD + " birthday homework friday";
 
     private final String data;
-    private final int whichSearch;
+    private final SearchIndex whichSearch;
     
-    public SearchCommand(String data, int whichSearch) {
+    public SearchCommand(String data, SearchIndex whichSearch) {
         this.data = data;
         this.whichSearch = whichSearch;
     }
 
     @Override
     public CommandResult execute() {
-        switch (whichSearch) {
-        case 0 : //on date search
-            try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
-                model.updateFilteredTaskListOnDate(datetime);
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-            } catch (DateTimeParseException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            }
-        case 1 : //before date search
-            try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_BY);
-                model.updateFilteredTaskListBeforeDate(datetime);
+        switch (this.whichSearch) {
+        case ON : 
+            return searchOn();
+            
+        case BEFORE : 
+            return searchBefore();
+            
+        case AFTER : 
+            return searchAfter();
+            
+        case FT : 
+            return searchFT();
+            
+        case KEYWORD : 
+            return searchKeyword();
+            
+        case TAG : 
+            return searchTag();
+            
+        case DONE :
+            return searchDone();
                     
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        case UNDONE : 
+            return searchUndone();
+    
+        case PRIORITY : 
+            return searchPriority();
                     
-            } catch (DateTimeParseException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            }
-                
-        case 2 : //after date search
-            try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
-                model.updateFilteredTaskListAfterDate(datetime);
-                    
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                    
-            } catch (DateTimeParseException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            }
-                
-        case 3 : //from till date search
-            try {
-                String fromDateString = data.split("@")[0].trim();
-                LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString, TaskDate.TASK_DATE_ON);
-                    
-                String tillDateString = data.split("@")[1].trim();
-                LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString, TaskDate.TASK_DATE_BY);
-                    
-                model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                    
-            } catch (DateTimeParseException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            }
-                
-        case 4 : //keyword search
-            final String[] keywords = data.split("\\s+");
-            final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-            model.updateFilteredTaskListByKeywords(keywordSet);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                
-        case 5 : //tag search
-            String tag = data.split("tag")[1].trim();
-            model.updateFilteredTaskListByTag(tag);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                
-        case 6 : //done search
-            model.updateFilteredListToShowAllCompleted();
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                
-        case 7 : //undone search
-            model.updateFilteredListToShowAllNotCompleted();
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-
-        case 8 : //priority search
-            try {
-            	String priority = data.trim();                   
-                model.updateFilteredTaskListByPriority(new Priority(priority));
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
-                    
-            } catch (IllegalValueException e) {
-                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-            }
-                
         default :
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-        
-        
-        
-        ///
-        
-        
-        
+        }        
     }
 
+    /**
+     * Search tasks that falls on a certain date
+     */
+    private CommandResult searchOn() {
+        try {
+            LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
+            model.updateFilteredTaskListOnDate(datetime);
+            
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(getMessageForTaskListShownSummary(size));
+            
+        } catch (DateTimeParseException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+    
+    /**
+     * Search tasks that falls before a certain date
+     */
+    private CommandResult searchBefore() {
+        try {
+            LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_BY);
+            model.updateFilteredTaskListBeforeDate(datetime);
+                
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(getMessageForTaskListShownSummary(size));
+                
+        } catch (DateTimeParseException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+    
+    /**
+     * Search tasks that falls after a certain date
+     */
+    private CommandResult searchAfter() {
+        try {
+            LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
+            model.updateFilteredTaskListAfterDate(datetime);
+                
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(getMessageForTaskListShownSummary(size));
+                
+        } catch (DateTimeParseException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+    
+    /**
+     * Search tasks that falls from a certain date to another date
+     */
+    private CommandResult searchFT() {
+        try {
+            String fromDateString = data.split("@")[0].trim();
+            LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString, TaskDate.TASK_DATE_ON);
+                
+            String tillDateString = data.split("@")[1].trim();
+            LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString, TaskDate.TASK_DATE_BY);
+                
+            model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);
+            
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(getMessageForTaskListShownSummary(size));
+                
+        } catch (DateTimeParseException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+    
+    /**
+     * Search tasks based on keywords
+     * Search is case insensitive
+     * Will match the keywords in the tasks names and details.
+     */
+    private CommandResult searchKeyword() {
+        final String[] keywords = data.split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        model.updateFilteredTaskListByKeywords(keywordSet);
+        
+        int size = model.getFilteredTaskList().size();
+        return new CommandResult(getMessageForTaskListShownSummary(size));
+    }
+    
+    /**
+     * Search tasks that have a certain tag
+     */
+    private CommandResult searchTag() {
+        String tag = data.split("tag")[1].trim();
+        model.updateFilteredTaskListByTag(tag);
+        
+        int size = model.getFilteredTaskList().size();
+        return new CommandResult(getMessageForTaskListShownSummary(size));
+    }
+    
+    
+    /**
+     * Search tasks that based on their priority level
+     */
+    private CommandResult searchPriority() {
+        try {
+            String priority = data.trim();                   
+            model.updateFilteredTaskListByPriority(new Priority(priority));
+           
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(getMessageForTaskListShownSummary(size));
+               
+        } catch (IllegalValueException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
+    
+    /**
+     * Search tasks that are completed
+     */
+    private CommandResult searchDone() {
+        model.updateFilteredListToShowAllCompleted();
+
+        int size = model.getFilteredTaskList().size();
+        return new CommandResult(getMessageForTaskListShownSummary(size));
+    }
+    
+    /**
+     * Search tasks that are not completed
+     */
+    private CommandResult searchUndone() {
+        model.updateFilteredListToShowAllNotCompleted();
+        
+        int size = model.getFilteredTaskList().size();
+        return new CommandResult(getMessageForTaskListShownSummary(size));
+    }
+    
+    
+    
+    
+    
 }

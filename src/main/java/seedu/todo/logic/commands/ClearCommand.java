@@ -3,7 +3,7 @@ package seedu.todo.logic.commands;
 import seedu.todo.model.DoDoBird;
 
 /**
- * Clears the address book.
+ * Clears DoDo-Bird
  */
 public class ClearCommand extends Command {
 
