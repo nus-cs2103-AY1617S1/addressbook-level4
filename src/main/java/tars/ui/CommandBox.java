@@ -8,11 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.IncorrectCommandAttemptedEvent;
+import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.commons.util.FxViewUtil;
 import tars.logic.Logic;
 import tars.logic.commands.CommandResult;
@@ -27,6 +30,11 @@ public class CommandBox extends UiPart {
     private final Stack<String> prevCmdTextHistStack = new Stack<String>();
     private final Stack<String> nextCmdTextHistStack = new Stack<String>();
 
+    public static final KeyCombination KEY_COMB_CTRL_RIGHT_ARROW = new KeyCodeCombination(KeyCode.RIGHT,
+            KeyCombination.CONTROL_DOWN);
+    public static final KeyCombination KEY_COMB_CTRL_LEFT_ARROW = new KeyCodeCombination(KeyCode.LEFT,
+            KeyCombination.CONTROL_DOWN);
+
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
@@ -36,6 +44,7 @@ public class CommandBox extends UiPart {
 
     @FXML
     private TextField commandTextField;
+    
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
@@ -69,10 +78,16 @@ public class CommandBox extends UiPart {
                     setTextToShowPrevCmdText(ke);
                 } else if (ke.getCode().equals(KeyCode.DOWN)) {
                     setTextToShowNextCmdText(ke);
+                } else if (KEY_COMB_CTRL_RIGHT_ARROW.match(ke)) {
+                    raise(new KeyCombinationPressedEvent(KEY_COMB_CTRL_RIGHT_ARROW));
+                    ke.consume();
+                } else if (KEY_COMB_CTRL_LEFT_ARROW.match(ke)) {
+                    raise(new KeyCombinationPressedEvent(KEY_COMB_CTRL_LEFT_ARROW));
+                    ke.consume();
                 }
-
             }
         });
+
     }
 
     @Override
@@ -127,7 +142,7 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Shows the prev cmdtext in the CommandBox Does nothing if "prev" stack is
+     * Shows the prev cmdtext in the CommandBox. Does nothing if "prev" stack is
      * empty
      */
     private void setTextToShowPrevCmdText(KeyEvent ke) {
@@ -137,7 +152,7 @@ public class CommandBox extends UiPart {
             }
             String cmdTextToShow = prevCmdTextHistStack.pop();
             addCmdTextToNextStack(cmdTextToShow);
-            if (commandTextField.getText().equals(cmdTextToShow)) {
+            if (commandTextField.getText().equals(cmdTextToShow) && !prevCmdTextHistStack.isEmpty()) {
                 cmdTextToShow = prevCmdTextHistStack.pop();
                 addCmdTextToNextStack(cmdTextToShow);
             }
@@ -147,14 +162,14 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Shows the prev cmdtext in the CommandBox Does nothing if "prev" stack is
+     * Shows the next cmdtext in the CommandBox. Does nothing if "next" stack is
      * empty
      */
     private void setTextToShowNextCmdText(KeyEvent ke) {
         if (!nextCmdTextHistStack.isEmpty()) {
             String cmdTextToShow = nextCmdTextHistStack.pop();
             addCmdTextToPrevStack(cmdTextToShow);
-            if (commandTextField.getText().equals(cmdTextToShow)) {
+            if (commandTextField.getText().equals(cmdTextToShow) && !nextCmdTextHistStack.isEmpty()) {
                 cmdTextToShow = nextCmdTextHistStack.pop();
                 if (!nextCmdTextHistStack.isEmpty()) {
                     addCmdTextToNextStack(cmdTextToShow);

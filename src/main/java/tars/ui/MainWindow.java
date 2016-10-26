@@ -2,6 +2,10 @@ package tars.ui;
 
 import javafx.scene.input.KeyEvent;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,7 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.Config;
 import tars.commons.core.GuiSettings;
+import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.ExitAppRequestEvent;
+import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.logic.Logic;
 import tars.model.UserPrefs;
 
@@ -26,6 +32,7 @@ import tars.model.UserPrefs;
 public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/tars_icon_32.png";
+    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -53,6 +60,7 @@ public class MainWindow extends UiPart {
 
     private String tarsName;
     
+    public static final int overviewPanelTabPaneIndex = 0;
     public static final int helpPanelTabPaneIndex = 2;
 
     @FXML
@@ -125,6 +133,8 @@ public class MainWindow extends UiPart {
         
         addMouseEventHandler();
         addTabPaneHandler();
+        
+        registerAsAnEventHandler(this);
                         
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
@@ -154,14 +164,40 @@ public class MainWindow extends UiPart {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.RIGHT) {
-                    tabPane.getSelectionModel().selectNext();
+                    cycleTabPaneRight();
                     event.consume();
                 } else if (event.getCode() == KeyCode.LEFT) {
-                    tabPane.getSelectionModel().selectPrevious();
+                    cycleTabPaneLeft();
                     event.consume();
                 }
             }
         });
+    }
+    
+    @Subscribe
+    private void KeyCombinationPressedEventHandler(KeyCombinationPressedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getKeyCombination().getDisplayText()));
+        if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_RIGHT_ARROW) {
+            cycleTabPaneRight();
+        } else if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_LEFT_ARROW) {
+            cycleTabPaneLeft();
+        }
+    }
+    
+    private void cycleTabPaneRight() {
+        if (tabPane.getSelectionModel().isSelected(helpPanelTabPaneIndex)) {
+            tabPane.getSelectionModel().selectFirst();
+        } else {
+            tabPane.getSelectionModel().selectNext();
+        }
+    }
+    
+    private void cycleTabPaneLeft() {
+        if (tabPane.getSelectionModel().isSelected(overviewPanelTabPaneIndex)) {
+            tabPane.getSelectionModel().selectLast();
+        } else {
+            tabPane.getSelectionModel().selectPrevious();
+        }
     }
 
 
