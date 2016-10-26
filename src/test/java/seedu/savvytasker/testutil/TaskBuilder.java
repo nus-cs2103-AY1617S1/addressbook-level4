@@ -6,8 +6,9 @@ import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
 
+//@@author A0139915W
 /**
- *
+ * Helper to build Task objects
  */
 public class TaskBuilder {
 
@@ -77,3 +78,4 @@ public class TaskBuilder {
     }
 
 }
+//@@author A0139915W

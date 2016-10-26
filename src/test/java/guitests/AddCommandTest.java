@@ -10,6 +10,7 @@ import seedu.savvytasker.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139915W
 public class AddCommandTest extends SavvyTaskerGuiTest {
 
     @Test
@@ -47,3 +48,4 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
     }
 
 }
+//@@author A0139915W

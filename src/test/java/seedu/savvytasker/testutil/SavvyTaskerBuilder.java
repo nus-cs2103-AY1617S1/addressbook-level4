@@ -5,6 +5,7 @@ import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
+//@@author A0139915W
 /**
  * A utility class to help with building SavvyTasker objects.
  * Example usage: <br>
@@ -27,3 +28,4 @@ public class SavvyTaskerBuilder {
         return savvyTasker;
     }
 }
+//@@author A0139915W
