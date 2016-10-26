@@ -10,12 +10,11 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
 public class Tag {
 
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String TAG_VALIDATION_REGEX = "^[\\p{IsAlphabetic}\\p{IsDigit}]+$";
+    public static final String TAG_VALIDATION_REGEX = "[\\p{IsAlphabetic}\\p{IsDigit}]+";
 
     public String tagName;
-
-    public Tag() {
-    }
+    
+    public Tag() {}
 
     /**
      * Validates given tag name.

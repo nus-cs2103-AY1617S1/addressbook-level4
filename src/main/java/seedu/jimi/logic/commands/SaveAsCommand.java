@@ -1,9 +1,12 @@
 package seedu.jimi.logic.commands;
 
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.io.IOException;
 
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DataConversionException;
+import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.ConfigUtil;
 import seedu.jimi.commons.util.FileUtil;
 
@@ -33,17 +36,24 @@ public class SaveAsCommand extends Command {
     
     private static String configFilePath = Config.DEFAULT_CONFIG_FILE;
     
-    private String taskBookFilePath;
+    private final String taskBookFilePath;
     
     /**
      * Empty constructor for stub usage
      */
-    public SaveAsCommand() {}
+    public SaveAsCommand() {
+        this.taskBookFilePath = null;
+    }
     
     /**
      * Convenience constructor using raw values.
+     * @throws IllegalValueException 
      */
-    public SaveAsCommand(String filePath) {
+    public SaveAsCommand(String filePath) throws IllegalValueException {
+        if (!FileUtil.isValidPath(filePath)) {
+            throw new IllegalValueException(MESSAGE_INVALID_PATH);
+        }
+        
         this.taskBookFilePath = filePath;
     }
     
@@ -53,9 +63,7 @@ public class SaveAsCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        if (!FileUtil.isValidPath(taskBookFilePath)) {
-            return new CommandResult(MESSAGE_INVALID_PATH);
-        }
+        assert FileUtil.isValidPath(taskBookFilePath);
         
         try {
             Config config = ConfigUtil.readConfig(configFilePath).orElse(new Config());

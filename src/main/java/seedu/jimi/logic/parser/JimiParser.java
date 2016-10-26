@@ -23,10 +23,12 @@ import com.joestelmach.natty.Parser;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.CommandResult;
 import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.EditCommand;
@@ -468,18 +470,21 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareSaveAs(String args) {
-        final Matcher resetMatcher = SAVE_RESET_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
-        if (resetMatcher.matches()) {
-            return new SaveAsCommand(Config.DEFAULT_XML_FILE_PATH);
+        try {
+            final Matcher resetMatcher = SAVE_RESET_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+            if (resetMatcher.matches()) {
+                return new SaveAsCommand(Config.DEFAULT_XML_FILE_PATH);
+            }
+            
+            final Matcher matcher = SAVE_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
+            }
+            
+            return new SaveAsCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
-        
-        final Matcher matcher = SAVE_DIRECTORY_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE));
-        }
-        
-        return new SaveAsCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
     }
 
 }
