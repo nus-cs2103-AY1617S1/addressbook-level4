@@ -22,6 +22,8 @@ public class DirectoryCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     public static final String COMMAND_WORD = "directory";
+    
+    public static final String COMMAND_WORD_ALT = "dir";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Load TaskManager with data in given directory. \n"
             + "Parameters: directory/filename OR filename\n"
