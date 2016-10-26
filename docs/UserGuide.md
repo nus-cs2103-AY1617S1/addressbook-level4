@@ -155,6 +155,10 @@ Format: `show upcoming`
 Displays all the task for today the user to view.<br>
 Format: `show <date>`
 
+##### Showing a list for overdue tasks: `show overdue`
+Displays all the overdue tasks. <br>
+Format `show overdue`
+
 Example:
 * `show 10/10/16`
 
@@ -191,6 +195,7 @@ Example:
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+//@@author A0147619W
 ## Command Summary
 
 Following is the list of all commands:
@@ -210,6 +215,7 @@ Following is the list of all commands:
 |             | `show` today                                       | Shows all tasks for today                      |
 |             | `show` tmr                                         | Shows all tasks for tomorrow                   |
 |             | `show` `<date>`                                    | Shows all tasks for that particular date       |
+|             | `show` overdue                                     | Shows all the overdue tasks                    |
 | `undo`      | `undo`                                             | Undoes the most recent command                 |
 | `redo`      | `redo`                                             | Redoes the latest undo                         |
 | `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          |

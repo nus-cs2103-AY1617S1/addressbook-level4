@@ -12,8 +12,8 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": Clears the task manager";
 
-    public ClearCommand() {
-    }
+    public ClearCommand() {}
+
 
     @Override
     public CommandResult execute() {

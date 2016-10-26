@@ -1,11 +1,8 @@
 package seedu.forgetmenot.logic.commands;
 
-import java.util.function.Predicate;
-
-import seedu.forgetmenot.model.task.Task;
-
 /**
  * Shows all tasks in the task manager to the user.
+ * @@author A0139198N
  */
 public class ShowCommand extends Command {
 
@@ -18,14 +15,10 @@ public class ShowCommand extends Command {
     
     public ShowCommand() {}
 
-    public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().value == false;
-    }
-    
     @Override
     public CommandResult execute() {
     	model.updateFilteredListToShowAll();
-        model.updateFilteredTaskListToShow(isNotDone());
+        model.updateFilteredTaskListToShowNotDone();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -69,12 +69,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0139198N
     @Override
     public void clearDone() throws TaskNotFoundException {
     	taskManager.clearDone();
     	indicateTaskManagerChanged();
     }
     
+    //@@author A0139671X
     public void clearHistory() {
         taskManagerHistory.clear();
         undoHistory.clear();
@@ -85,25 +87,30 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    //@@author A0139671X
     @Override
     public void saveToHistory() {
         taskManagerHistory.push(new TaskManager(taskManager));
         undoHistory.clear();
     }
     
+    //@@author A0139671X
     @Override
     public void loadFromHistory() throws NoSuchElementException {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
+        taskManager.counter();
         indicateTaskManagerChanged();
     }
-    
+
+    //@@author A0139671X
     @Override
     public void loadFromUndoHistory() throws NoSuchElementException {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
+        taskManager.counter();
         indicateTaskManagerChanged();
     }
     
@@ -118,39 +125,44 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0147619W
     @Override
     public synchronized void sortTasks() {
         taskManager.sortTasksList();
     }
     
+    //@@author A0139198N
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);
-    	updateFilteredTaskListToShow(ShowCommand.isNotDone());
+    	updateFilteredTaskListToShowNotDone();
     	indicateTaskManagerChanged();
     	
     }
     
+    //@@author A0139198N
     @Override
     public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.undoneTask(target);
-    	updateFilteredTaskListToShow(ShowDoneCommand.isDone());
+    	updateFilteredTaskListToShowDone();
     	indicateTaskManagerChanged();
     	
     }
 
+    //@@author A0147619W
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+    //@@author A0139671X
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
         
         //Recurring task with only end time.
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with only end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -161,6 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task with only start time.
         else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
+            System.out.println("adding a recurring tasks with only start time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -171,6 +184,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task wth both start and end times  
         else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with start and end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -180,10 +194,11 @@ public class ModelManager extends ComponentManager implements Model {
                     ));
         }
         
-        updateFilteredTaskListToShow(ShowCommand.isNotDone());
+        updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
     }
     
+    //@@author A0139671X
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
@@ -212,6 +227,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0147619W
     @Override
     public void updateFilteredListToShowAll() {
     	sortTasks();
@@ -229,10 +245,35 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
+    //@@author A0139198N
     @Override
-    public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
+    public void updateFilteredTaskListToShowDone() {
     	sortTasks();
-    	filteredTasks.setPredicate(predicate);
+    	filteredTasks.setPredicate(isDone());
+		taskManager.counter();
+    }
+    
+    //@@author A0139198N
+    @Override
+    public void updateFilteredTaskListToShowNotDone() {
+    	sortTasks();
+    	filteredTasks.setPredicate(isNotDone());
+		taskManager.counter();
+    }
+    
+    //@@author A0139198N
+    @Override
+    public void updateFilteredTaskListToShowDate(String date) {
+    	sortTasks();
+    	filteredTasks.setPredicate(filterByDate(date));
+		taskManager.counter();
+    }
+    
+    //@@author A0139198N
+    @Override
+    public void updateFilteredTaskListToShowOverdue() {
+        filteredTasks.setPredicate(isOverdue());
+        taskManager.counter();
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -287,4 +328,24 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0139198N
+    public static Predicate<Task> isDone() {
+    	return t -> t.getDone().value == true;
+    }
+    
+    //@@author A0139198N
+    public static Predicate<Task> filterByDate(String date) {
+    	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
+    			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
+    }
+    
+    //@@author A0139198N
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().value == false;
+    }
+    
+    //@@author A0139198N
+    public static Predicate<Task> isOverdue() {
+        return t -> t.checkOverdue() == true;
+    }
 }

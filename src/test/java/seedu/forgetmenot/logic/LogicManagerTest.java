@@ -99,7 +99,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal task manager data are same as those in the {@code expectedTaskManager} <br>
+     *      - the internal address book data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
@@ -197,7 +197,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal task manager
+        model.addTask(toBeAdded); // task already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -207,7 +207,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-
+    //@@author A0139198N
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -215,7 +215,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("show all",
@@ -224,6 +224,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author A0139198N
     @Test
     public void execute_list_showsUndoneTasks() throws Exception {
         // prepare expectations
@@ -231,7 +232,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(3);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show",
@@ -240,6 +241,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author A0139198N
     @Test
     public void execute_list_showsDateTasks() throws Exception {
         // prepare expectations
@@ -247,7 +249,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(3);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
-        // prepare task manager state
+        // prepare address book state
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show 01/01/17",
@@ -342,13 +344,14 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139198N
     @Test
     public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
 
-    
+    //@@author A0139198N
     @Test
     public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
@@ -433,6 +436,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author A0139671X
     @Test
     public void execute_edit_taskName() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -450,6 +454,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139671X
     @Test
     public void execute_edit_taskStartTime() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -465,6 +470,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139671X
     @Test
     public void execute_edit_taskEndTime() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -480,6 +486,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     } 
     
+    //@@author A0139671X
     @Test
     public void execute_undo_nothingToUndo() throws Exception {
         String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;

@@ -56,6 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
     /**
      * Sorts a list according to timing
+     * @@author A0147619W
      */
     public void sortList() {
         if (internalList.size() <= 1)
@@ -82,46 +83,56 @@ public class UniqueTaskList implements Iterable<Task> {
     			
     			if(!start1IsMissing && !end1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("2");
     					return start1.time.compareTo(start2.time) == 0?
     							end1.time.compareTo(end2.time):
     							start1.time.compareTo(start2.time);
     				}
     							
     				if(!start2IsMissing) {
+    					System.out.println("3");
     					return start1.time.compareTo(start2.time) == 0?
     							-1: start1.time.compareTo(start2.time);
     				}
     				else {
+    					System.out.println("4");
     					return start1.time.compareTo(end2.time) == 0?
     							1: start1.time.compareTo(end2.time);
     				}
     			}
     			else if(!start1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("5");
     					return start1.time.compareTo(start2.time) == 0?
     							1: start1.time.compareTo(start2.time);
     				}
     				
     				if(!start2IsMissing) {
+    					System.out.println("6");
     					return start1.time.compareTo(start2.time);
     				}
     				else {
+    					System.out.println("7");
     					return start1.time.compareTo(end2.time);
     				}
     			}
     			else if(!end1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("8");
     					return end1.time.compareTo(start2.time) == 0?
     							-1: end1.time.compareTo(start2.time);
     				}
     				
     				if(!end1IsMissing) {
+    					System.out.println("9");
     					return end1.time.compareTo(start2.time);
     				}
     				else {
+    					System.out.println("10");
     					return end1.time.compareTo(end2.time);
     				}
     			}	
+    			System.out.println("11");
     			return 0;
     	    }
 		});
@@ -140,6 +151,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
+    //@@author A0139671X
     public void editTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -150,6 +162,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -160,6 +173,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -170,6 +184,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editRecurFreq(ReadOnlyTask toEdit, Recurrence newRec) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -181,6 +196,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * @@author A0139198N
      * Mark a task as done from the list.
      * @return 
      */
@@ -198,6 +214,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * @@author A0139198N
      * Mark a task as undone from the list.
      * @return 
      */

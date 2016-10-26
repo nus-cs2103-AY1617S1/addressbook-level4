@@ -5,11 +5,12 @@ import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's name in ForgetMeNot.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * @@author A0147619W
  */
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = ".*"; //"[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX = ".*";
 
     public String fullName;
 

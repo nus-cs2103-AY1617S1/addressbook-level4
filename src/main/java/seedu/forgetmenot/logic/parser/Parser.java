@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  * Parses user input.
+ * //@@author A0147619W
  */
 public class Parser {
 
@@ -29,7 +30,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
+            "(?<name>([^;](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
             		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
                     );
@@ -112,6 +113,7 @@ public class Parser {
         }
     }
     
+    //@@author A0139198N
     private Command prepareClear(String args) {
     	args = args.trim();
     	
@@ -127,6 +129,7 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
     }
     
+    //@@author A0139198N
     private Command prepareShow(String args){
     	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
     	
@@ -143,9 +146,14 @@ public class Parser {
     		return new ShowCommand();
     	}
     	
+        else if (args.equals("overdue")) {
+            return new ShowOverdueCommand();
+        }
+    	
     	else if (args.equals("today") || args.equals("tdy") ) {
     		Calendar cal = Calendar.getInstance();
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	
@@ -153,6 +161,7 @@ public class Parser {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.DATE, 1);
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	
@@ -162,7 +171,7 @@ public class Parser {
     	else
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
-    
+    //@@author A0147619W
     private Command prepareSetStorage(String args) {
     	if(args != null) {
     		args = args.trim();
@@ -172,6 +181,7 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
     }
     
+    //@@author A0139671X
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
         String name, startTime, endTime, recur;
@@ -194,6 +204,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @@author A0147619W
      */
     private Command prepareAdd(String args){
     	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());

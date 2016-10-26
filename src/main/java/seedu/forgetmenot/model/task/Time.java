@@ -17,6 +17,7 @@ import com.joestelmach.natty.*;
 /**
  * Represents a Task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
+ * @@author A0147619W
  */
 public class Time {
     
@@ -80,6 +81,7 @@ public class Time {
     	}
     }
     
+    //@@author A0139198N
     public String appearOnUIFormatForDate() {
     	if(time.getTime().equals(new Date(0))) {
     		return "-";
@@ -89,7 +91,7 @@ public class Time {
     		return dateFormat.format(time.getTime());
     	}
     }
-    
+   
     public boolean isToday(String date) {
     	Calendar cal = Calendar.getInstance();
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
@@ -147,6 +149,7 @@ public class Time {
      * 
      * @param token
      * @return true if the given date is a valid date
+     * @@author A0147619W
      */
 	static boolean isValidDate(String token) {
 		

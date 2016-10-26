@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/taskmanagericon.png";
 
     private Logic logic;
     private Config config;
@@ -119,6 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
+    //@@author A0147619W
     public void handleConfigFilePathChangedEvent(ConfigFilePathChangedEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, updating status bar"));
     	mainWindow.rerenderStatusBarFooter();

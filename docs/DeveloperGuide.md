@@ -204,13 +204,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.forgetmenot.commons.UrlUtilTest`
+      e.g. `seedu.address.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.forgetmenot.storage.StorageManagerTest`
+      e.g. `seedu.address.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.forgetmenot.logic.LogicManagerTest`
+      e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -535,6 +535,50 @@ Day:
 
 ## Appendix E: Product Survey
 
+## Fantastical
+#### Strengths
+
+1. It has a good and clean UI, really simple to use. <br>
+2. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+3. Includes all CRUD features. <br>
+4. It has a reminder function. <br>
+5. Has a list of all upcoming tasks for the week at the left hand side. <br>
+6. Has natural language processing, can add events using Siri. <br>
+7. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+8. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+
+#### Weakness
+
+1. Limited features for free users. <br>
+2. Hard to categorise tasks. <br> 
+3. Can be difficult to use for first time users <br>
+4. No support for ipad.
+5. No alert when event is starting
+
+
+## Google Cal
+#### Strengths
+
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+3. It has a reminder function.<br>
+4. It can support multiple accounts in one device.<br>
+5. It can create Event, Reminder or Goal.<br>
+6. All task created are automatically grouped and colour coded.<br>
+7. Clean and simple UI.<br>
+8. It can be used online or offline.<br>
+9. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+
+#### Weakness
+
+1. Does not have done function
+2. Not keyboard friendly
+3. Requires a google account
+4. Does not support floating task
+5. Steep learning curve
+6. Does not support categaries
+7. Reorganising of task is not user friendly
 1. **Fantastical**
 
 1a. It has a good and clean UI, really simple to use. <br>
@@ -546,18 +590,24 @@ Day:
 1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
 1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
-2. **Google Cal**
+## Google Cal
+##### Strengths
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+4. It has a reminder function.<br>
+5. It can support multiple accounts in one device.<br>
+6. It can create Event, Reminder or Goal.<br>
+7. All task created are automatically grouped and colour coded.<br>
+8. Clean and simple UI.<br>
+9. It can be used online or offline.<br>
+10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-2a. It has CRUD features. <br>
-2b. It can link to external applications such as Gmail and Contacts. <br>
-2c. It has cross-platform features.<br>
-2d. It has a reminder function.<br>
-2e. It can support multiple accounts in one device.<br>
-2f. It can create Event, Reminder or Goal.<br>
-2g. All task created are automatically grouped and colour coded.<br>
-2h Clean and simple UI.<br>
-3i. It can be used online or offline.<br>
-3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+##### Weaknesses
+1. It is not keyboard friendly.<br>
+2. It requires user to have a google account to use it.<br>
+3. It does not have a done function.<br>
+4. It has a steep learning curve.<br>
 
 ### Any.do
 ##### Strengths
@@ -586,11 +636,18 @@ Day:
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
 
-4. **Reminders**
+### Reminders
+##### Strengths
 
-4a. It has CRUD features. <br>
-4b. It has a search function. <br>
-4c. It has different tabs for today, tomorrow and date-wise events. <br>
-4d. It allows to set priorities for different tasks. <br>
-4e. It allows to repeat reminders on a periodic basis. <br>
-4f. It can show all previous events which are marked ‘done’. <br>
+1. It has CRUD features. <br>
+2. It has a search function. <br>
+3. It has different tabs for today, tomorrow and date-wise events. <br>
+4. It allows to set priorities for different tasks. <br>
+5. It allows to repeat reminders on a periodic basis. <br>
+6. It can show all previous events which are marked ‘done’. <br>
+7. It has great syncing facilities. <br>
+
+##### Weaknesses
+
+1. It is not cross-platform.<br>
+2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>

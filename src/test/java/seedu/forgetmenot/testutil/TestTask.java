@@ -1,5 +1,7 @@
 package seedu.forgetmenot.testutil;
 
+import java.util.Calendar;
+
 import seedu.forgetmenot.model.task.*;
 
 /**
@@ -71,5 +73,16 @@ public class TestTask implements ReadOnlyTask {
         sb.append("to " + this.getEndTime().appearOnUIFormat() + " ");
         return sb.toString();
     }
+
+	@Override
+	public boolean checkOverdue() {
+		if (start.isMissing() && !end.isMissing())
+            return end.time.compareTo(Calendar.getInstance()) < 0;
+        
+        if (!start.isMissing())
+            return start.time.compareTo(Calendar.getInstance()) < 0;
+        
+        return false;
+	}
 
 }

@@ -24,7 +24,9 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given task */
+    /** Adds the given task 
+     * @@author A0147619W
+     * */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
  
     /** Adds the given recurring task again with the correct date and time*/
@@ -60,12 +62,24 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    void updateFilteredTaskListToShow(Predicate<Task> predicate);
-    
     /** Clears all the done tasks in the list
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
-
+    
+    //@@author A0147619W
     void sortTasks();
+    
+    /** Updates the filter of the filtered task list to show done tasks */
+	void updateFilteredTaskListToShowDone();
+
+	/** Updates the filter of the filtered task list to show task by date */
+	void updateFilteredTaskListToShowDate(String date);
+	
+	/** Updates the filter of the filtered task list to show undone tasks */
+	void updateFilteredTaskListToShowNotDone();
+	
+	/** Updates the filter of the filtered task list to show overdue tasks */
+	void updateFilteredTaskListToShowOverdue();
+
 
 }
