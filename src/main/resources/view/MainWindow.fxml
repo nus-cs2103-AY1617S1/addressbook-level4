@@ -29,7 +29,7 @@
                               <Insets left="8.0" />
                            </padding>
                         </Label>
-                        <Label id="task_det" layoutX="798.0" layoutY="4.0" text="Start" />
+                        <Label id="task_det" layoutX="795.0" layoutY="4.0" text="Start" />
                         <Label id="task_det" layoutX="896.0" layoutY="4.0" text="End" />
                         <Label id="task_det" layoutX="704.0" layoutY="4.0" text="Priority" />
                      </children>
@@ -56,7 +56,7 @@
             </VBox>
          </items>
       </SplitPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="139.0" minHeight="62.0" prefHeight="139.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="155.0" minHeight="62.0" prefHeight="155.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
