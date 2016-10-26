@@ -12,6 +12,8 @@ import seedu.malitio.commons.core.Config;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.storage.DataSavingExceptionEvent;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.malitio.commons.events.ui.DeadlinePanelSelectionChangedEvent;
+import seedu.malitio.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.logic.Logic;
@@ -113,18 +115,24 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskDetail(event.getNewFloatingTaskSelection());
+        mainWindow.getEventListPanel().getEventListView().getSelectionModel().clearSelection();
+        mainWindow.getDeadlineListPanel().getDeadlineListView().getSelectionModel().clearSelection();
     }
     
     @Subscribe
-    private void handleDeadlinePanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
+    private void handleDeadlinePanelSelectionChangedEvent(DeadlinePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskDetail(event.getNewDeadlineSelection());
+        mainWindow.getEventListPanel().getEventListView().getSelectionModel().clearSelection();
+        mainWindow.getTaskListPanel().getTaskListView().getSelectionModel().clearSelection();
     }
     
     @Subscribe
-    private void handleEventPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
+    private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadTaskDetail(event.getNewEventSelection());
+        mainWindow.getTaskListPanel().getTaskListView().getSelectionModel().clearSelection();
+        mainWindow.getDeadlineListPanel().getDeadlineListView().getSelectionModel().clearSelection();
     }
 
 }

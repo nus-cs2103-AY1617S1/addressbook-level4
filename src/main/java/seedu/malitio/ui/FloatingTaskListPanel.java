@@ -11,7 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.malitio.commons.core.LogsCenter;
+import seedu.malitio.commons.events.ui.DeadlinePanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.malitio.commons.exceptions.IllegalValueException;
+import seedu.malitio.model.tag.UniqueTagList;
+import seedu.malitio.model.task.DateTime;
+import seedu.malitio.model.task.Deadline;
+import seedu.malitio.model.task.Name;
+import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 import java.util.logging.Logger;
@@ -77,7 +84,7 @@ public class FloatingTaskListPanel extends UiPart {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
+                }
         });
     }
 
@@ -86,6 +93,10 @@ public class FloatingTaskListPanel extends UiPart {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+    
+    public ListView<ReadOnlyFloatingTask> getTaskListView() {
+        return taskListView;
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyFloatingTask> {
@@ -105,5 +116,4 @@ public class FloatingTaskListPanel extends UiPart {
             }
         }
     }
-
 }

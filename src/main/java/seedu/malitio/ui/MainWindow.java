@@ -205,6 +205,10 @@ public class MainWindow extends UiPart {
         return this.deadlineListPanel;
     }
     
+    public EventListPanel getEventListPanel() {
+        return this.eventListPanel;
+    }
+    
     public void loadTaskDetail(ReadOnlyFloatingTask task) {
         resultDisplay.postMessage(task.toString());
     }

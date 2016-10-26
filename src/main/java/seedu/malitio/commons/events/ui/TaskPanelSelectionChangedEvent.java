@@ -12,19 +12,9 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
 
     private ReadOnlyFloatingTask newTaskSelection;
-    private ReadOnlyDeadline newDeadlineSelection;
-    private ReadOnlyEvent newEventSelection;
 
     public TaskPanelSelectionChangedEvent(ReadOnlyFloatingTask newSelection) {
         this.newTaskSelection = newSelection;
-    }
-    
-    public TaskPanelSelectionChangedEvent(ReadOnlyDeadline newSelection) {
-        this.newDeadlineSelection = newSelection;
-    }
-    
-    public TaskPanelSelectionChangedEvent(ReadOnlyEvent newSelection) {
-        this.newEventSelection = newSelection;
     }
 
     @Override
@@ -35,12 +25,5 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
     public ReadOnlyFloatingTask getNewFloatingTaskSelection() {
         return newTaskSelection;
     }
-    
-    public ReadOnlyDeadline getNewDeadlineSelection() {
-        return newDeadlineSelection;
-    }
-    
-    public ReadOnlyEvent getNewEventSelection() {
-        return newEventSelection;
-    }
+
 }
