@@ -37,6 +37,10 @@ public class CommandBox extends UiPart {
     private Stack<String> downStack;
     private String currHistLine;
     private boolean hasTempEnd;
+    
+    String[] commands = {"add ", "update ", "delete ", "show ", "find ", "exit "
+    		, "undo ", "redo ", "help ", "clear ", "setstorage "};
+    
 
     private Logic logic;
 
@@ -72,6 +76,10 @@ public class CommandBox extends UiPart {
         			getDownLine();
         			keyEvent.consume();
         		}
+        		if (keyEvent.getCode() == KeyCode.TAB) {
+        			autoComplete();
+        			keyEvent.consume();
+        		}
         	}
         });
     }
@@ -93,6 +101,25 @@ public class CommandBox extends UiPart {
     		currHistLine = downStack.pop();
     		commandTextField.setText(currHistLine);
     	}
+    }
+    
+    private void autoComplete(){
+    	String currentString = commandTextField.getText();
+    	String completedCommand = "";
+    	boolean found = false;
+    	for (String command: commands){
+    		if (command.startsWith(currentString)){
+    			if(found){
+    				return;
+    			}
+    			else{
+    				completedCommand = command;
+        			found = true;
+    			}
+    		}
+    	}
+    	commandTextField.setText(completedCommand);
+    	commandTextField.end();
     }
 
     private void addToPlaceholder() {
