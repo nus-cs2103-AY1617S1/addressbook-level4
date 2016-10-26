@@ -78,7 +78,6 @@ public class DeadlineListPanel extends UiPart {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new DeadlinePanelSelectionChangedEvent(newValue));
-                System.out.println(newValue);
             }
         });
     }
