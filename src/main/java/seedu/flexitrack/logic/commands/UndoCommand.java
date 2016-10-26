@@ -36,19 +36,22 @@ public class UndoCommand extends Command {
             undo = new AddCommand();
             break; 
         case "delete":   
-            undo = new DeleteCommand(1);
+            undo = new DeleteCommand();
             break; 
         case "mark":   
-            undo = new MarkCommand(1); 
+            undo = new MarkCommand(); 
             break;
         case "unmark":  
-            undo = new UnmarkCommand(1); 
+            undo = new UnmarkCommand(); 
             break;
         case "clear": 
             undo = new ClearCommand(); 
             break; 
         case "edit":   
-            undo = new EditCommand(1,null ); 
+            undo = new EditCommand(); 
+            break;
+        case "list":
+            undo = new ListCommand(); 
             break;
         }
         undo.setData(model);

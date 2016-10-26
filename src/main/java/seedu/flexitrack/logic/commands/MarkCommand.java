@@ -32,6 +32,13 @@ public class MarkCommand extends Command {
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+    
+    /** 
+     * Constructor for undo command
+     */
+    public MarkCommand() {
+        this.targetIndex = storeDataChanged.peek();
+    }
 
     @Override
     public CommandResult execute(){
@@ -56,8 +63,6 @@ public class MarkCommand extends Command {
     @Override
     //TODO: to be implemented 
     public void executeUndo() {
-        int targetIndex = storeDataChanged.peek();
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {

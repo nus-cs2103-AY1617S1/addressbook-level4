@@ -41,6 +41,14 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.arguments = arguments;
     }
+ 
+    /** 
+     * Constructor for the undo method
+     */
+    public EditCommand() {
+        this.targetIndex = storeIndexChanged.peek();
+        this.arguments = null;
+    }
 
     @Override
     public CommandResult execute() {

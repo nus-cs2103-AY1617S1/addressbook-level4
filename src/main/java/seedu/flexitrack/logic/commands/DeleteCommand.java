@@ -36,6 +36,13 @@ public class DeleteCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /** 
+     * Constructor for undo command
+     */
+    public DeleteCommand() {
+        this.targetIndex = 0;
+    }
+
     @Override
     public CommandResult execute() {
 
