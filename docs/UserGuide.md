@@ -166,7 +166,7 @@ To prevent this, you can enclose the task name with double inverted commas to de
 Example:
 
 |Input|Interpreted Command|Interpreted Task Name| Interpreted Deadline| Result|
-|---|---|---|---|
+|---|---|---|---|---|
 |`lower word count by 1500`|`add`|`lower word count`|`by 1500`|`add` a task with name `lower word count` and deadline `1500`|
 |`"add lower word count by 1500"`|`add`|`lower word count by 1500`| NONE| `add` a task with name `lower word count by 1500`|
 
