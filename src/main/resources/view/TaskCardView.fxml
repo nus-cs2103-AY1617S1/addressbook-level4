@@ -9,89 +9,121 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css"
-      xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
+               <children>
+                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. $Tasking Title$">
+                  </Label>
+                  <Label fx:id="typeLabel" text="Event" textFill="WHITE">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <styleClass>
+                        <String fx:value="highlightedBackground" />
+                        <String fx:value="roundLabel" />
+                     </styleClass>
+                  </Label>
+                  <Label fx:id="moreInfoLabel" text="•••" textFill="WHITE">
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="lightBackground" />
+                        <String fx:value="roundLabel" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </StackPane>
+      <FlowPane fx:id="tagsBox" hgap="4.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></FlowPane>
+      <HBox fx:id="descriptionBox" spacing="8.0">
+         <children>
+            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
+               <styleClass>
+                  <String fx:value="highlightedBackground" />
+                  <String fx:value="roundLabel" />
+               </styleClass></Label>
+            <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. $Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere.$" wrapText="true">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" />
+         </VBox.margin>
+         <styleClass>
+            <String fx:value="collapsible" />
+            <String fx:value="spacing" />
+            <String fx:value="subheadingPadding" />
+         </styleClass>
+         <padding>
+            <Insets left="2.0" />
+         </padding>
+      </HBox>
+      <FlowPane hgap="16.0" styleClass="spacing">
+         <children>
+            <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
+               <children>
+                  <ImageView fx:id="dateImage" fitHeight="2420.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from $date missing$">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </HBox>
+            <HBox fx:id="locationBox" alignment="CENTER_LEFT" maxWidth="-Infinity" styleClass="spacingSmall">
+               <children>
+                  <ImageView fx:id="locationImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="locationImage">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at $location missing$">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </FlowPane>
+   </children>
    <opaqueInsets>
-      <Insets/>
+      <Insets />
    </opaqueInsets>
    <padding>
-      <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+      <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
    </padding>
-   <StackPane>
-      <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
-         <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel"
-                text="1. $Tasking Title$">
-         </Label>
-         <Label fx:id="typeLabel" text="Event" textFill="WHITE">
-            <padding>
-               <Insets left="8.0" right="8.0"/>
-            </padding>
-            <styleClass>
-               <String fx:value="highlightedBackground"/>
-               <String fx:value="roundLabel"/>
-            </styleClass>
-         </Label>
-         <Label fx:id="moreInfoLabel" text="•••" textFill="WHITE">
-            <padding>
-               <Insets left="8.0" right="8.0"/>
-            </padding>
-            <styleClass>
-               <String fx:value="lightBackground"/>
-               <String fx:value="roundLabel"/>
-            </styleClass>
-         </Label>
-      </HBox>
-      <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true"
-                 styleClass="pinImage" StackPane.alignment="CENTER_RIGHT"/>
-   </StackPane>
-   <FlowPane fx:id="tagsBox" hgap="4.0">
-      <opaqueInsets>
-         <Insets/>
-      </opaqueInsets>
-      <VBox.margin>
-         <Insets/>
-      </VBox.margin>
-   </FlowPane>
-   <HBox fx:id="descriptionBox" spacing="8.0">
-      <VBox.margin>
-         <Insets bottom="2.0"/>
-      </VBox.margin>
-      <styleClass>
-         <String fx:value="collapsible"/>
-         <String fx:value="spacing"/>
-         <String fx:value="subheadingPadding"/>
-      </styleClass>
-      <padding>
-         <Insets left="2.0"/>
-      </padding>
-      <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
-         <styleClass>
-            <String fx:value="highlightedBackground"/>
-            <String fx:value="roundLabel"/>
-         </styleClass>
-      </Label>
-      <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel"
-             text="Task description. $Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere.$"
-             wrapText="true">
-      </Label>
-   </HBox>
-   <FlowPane hgap="16.0" styleClass="spacing">
-      <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
-         <ImageView fx:id="dateImage" fitHeight="2420.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true"
-                    styleClass="dateImage">
-         </ImageView>
-         <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel"
-                text="from $date missing$">
-         </Label>
-      </HBox>
-      <HBox fx:id="locationBox" alignment="CENTER_LEFT" maxWidth="-Infinity" styleClass="spacingSmall">
-         <ImageView fx:id="locationImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
-                    preserveRatio="true" styleClass="locationImage">
-         </ImageView>
-         <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity"
-                styleClass="footnoteLabel" text="at $location missing$">
-         </Label>
-      </HBox>
-   </FlowPane>
 </VBox>
