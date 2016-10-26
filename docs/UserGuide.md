@@ -1,5 +1,5 @@
 [TOC]
-
+<!-- @@author A0135805H -->
 ## Introduction
 
 In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
@@ -12,7 +12,7 @@ Moreover, we know that you understand your activities better. So Uncle Jim allow
 
 Sounds exciting? Then let's get started!
 
-
+<!-- @@author -->
 ## Quick Start
 
 1. Ensure you have [**Java version 8 update 60**][java]{: .print-url } or later installed on your computer.

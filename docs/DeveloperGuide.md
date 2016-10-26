@@ -111,7 +111,7 @@ The diagram below shows how the `EventsCenter` reacts to a `help` command event,
     coupling between components.
 
 The sections below will provide you with more details for each component.
-
+<!-- @@author A0135805H -->
 ### UI component
 
 <img src="diagrams/Ui Component.png" />
@@ -159,6 +159,7 @@ The UI component uses [JavaFX](http://docs.oracle.com/javase/8/javafx/get-starte
 
 Other than through `CommandResult` and `ObservableList`, you may also invoke changes to the GUI outside the scope of UI components by raising an event. `UiManager` will then call specific view elements to update the GUI accordingly. For example, you may show the `HelpView` by raising a `ShowHelpPanel` via the `EventsCentre`.
 
+<!-- @@author  -->
 ### Logic component
 
 <img src="diagrams/Logic Component.png" />
