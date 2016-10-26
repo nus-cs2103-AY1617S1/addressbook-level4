@@ -46,7 +46,7 @@ public class TaskFilter {
 	}
 	
 	public static Predicate<Task> isDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.StatusType.DONE);
 	}
 
 	public static Predicate<Task> isDeadlineTask() {

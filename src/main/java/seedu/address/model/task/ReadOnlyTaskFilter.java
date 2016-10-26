@@ -44,7 +44,7 @@ public class ReadOnlyTaskFilter {
 	}
 	
 	public static Predicate<ReadOnlyTask> isDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.StatusType.DONE);
 	}
 
 	public static Predicate<ReadOnlyTask> isDeadlineTask() {

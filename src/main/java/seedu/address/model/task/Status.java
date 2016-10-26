@@ -1,7 +1,7 @@
 package seedu.address.model.task;
 
-public class Status {
-    public enum DoneStatus {
+public class Status implements Comparable<Status> {
+    public enum StatusType {
         DONE {
             @Override
             public String toString() {
@@ -24,9 +24,9 @@ public class Status {
         }
     }
 	
-	public DoneStatus value;
+	public StatusType value;
 	
-	public Status(DoneStatus status) {
+	public Status(StatusType status) {
 		value = status;
 	}
 
@@ -34,13 +34,13 @@ public class Status {
 	public Status(String string) {
 		switch (string.trim().toLowerCase()) {
 		case "done":
-			value = DoneStatus.DONE;
+			value = StatusType.DONE;
 			break;
 		case "not done":
-			value = DoneStatus.NOT_DONE;
+			value = StatusType.NOT_DONE;
 			break;
 		case "overdue":
-			value = DoneStatus.OVERDUE;
+			value = StatusType.OVERDUE;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}
@@ -62,4 +62,10 @@ public class Status {
     public int hashCode() {
         return value.hashCode();
     }
+
+
+	@Override
+	public int compareTo(Status other) {
+		return 0;
+	}
 }

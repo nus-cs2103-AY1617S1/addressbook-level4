@@ -12,10 +12,10 @@ public class TaskComparator implements Comparator<ReadOnlyTask> {
 	@Override
 	public int compare(ReadOnlyTask t1, ReadOnlyTask t2) {
 		// Done tasks take precedence
-		if (t1.getStatus().value.equals(Status.DoneStatus.NOT_DONE) && t2.getStatus().value.equals(Status.DoneStatus.DONE)) {
+		if (t1.getStatus().value.equals(Status.StatusType.NOT_DONE) && t2.getStatus().value.equals(Status.StatusType.DONE)) {
 			return -1;
 		} 
-		else if (t1.getStatus().value.equals(Status.DoneStatus.DONE) && t2.getStatus().value.equals(Status.DoneStatus.NOT_DONE)) {
+		else if (t1.getStatus().value.equals(Status.StatusType.DONE) && t2.getStatus().value.equals(Status.StatusType.NOT_DONE)) {
 			return 1;
 		} 
 		else {
