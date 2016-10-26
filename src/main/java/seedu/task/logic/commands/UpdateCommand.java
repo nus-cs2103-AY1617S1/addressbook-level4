@@ -18,8 +18,9 @@ public class UpdateCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": update the details of an existing task.\n"
-            + "Parameters: INDEX (must be a positive integer) PROPERTY INFOMATION\n"
-            + "Example: " + COMMAND_WORD + " 1" + " priority"+" high";
+    		+ "Parameters: INDEX [des/DESCRIPTION] [pr/PRIORITY] [st/TIME] [ed/TIME]\n"
+            + "Example: " + COMMAND_WORD
+            + " des/Go to Tutorial pr/normal st/12:00 ed/14:00";
 
     public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully: %1$s";
     public static final String MESSAGE_EDIT_FAIL = "Editing failed";
