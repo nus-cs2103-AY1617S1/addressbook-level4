@@ -195,6 +195,7 @@ The `Model`component:
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+<!-- @@author A0139930B -->
 ### Storage component
 <br></br>
 <p align="center">
@@ -210,6 +211,7 @@ The `Storage` component:
 * saves `UserPrefs` objects in json format and reads it back.
 * saves the Task Manager data in xml format and reads it back.
 
+<!-- @@author -->
 ### Common classes
 
 Classes used by multiple components are in the `seedu.taskitty.commons` package.
@@ -335,7 +337,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | view instructions as I type | remember less commands
 `*` | user | use keyboard shortcuts | use the task manager more quickly
 
-<!-- @@author -->
+<!-- @@author A0139930B -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
@@ -665,7 +667,7 @@ Use case ends
 
 > * Program automatically creates the folder<br>
   Use case ends.
-<!-- @@author -->
+<!-- @@author A0139930B -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -681,14 +683,14 @@ Use case ends
 * Should have intuitive commands for users.
 * Should store data in a human editable file.
 
-
+<!-- @@author -->
 ## Appendix D : Glossary
 
 #### Mainstream OS
 > Windows, Linux, Unix, OS-X
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0139930B -->
 #### Ian: `Google Calendar`
 
 **Pros**

@@ -61,7 +61,8 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
             );
         } else {
-            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    MESSAGE_FORMAT + MESSAGE_PARAMETER));
         }
     }
 

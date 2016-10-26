@@ -4,7 +4,7 @@
 
 # TasKitty
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/Ui.png" width="900"><br>
 
 {Application will look similar to the above. Will be updated in the future}
 
