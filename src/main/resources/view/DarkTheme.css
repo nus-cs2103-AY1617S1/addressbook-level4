@@ -162,7 +162,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#015166, 20%);
 }
 
 .menu-bar .label {
@@ -183,10 +183,10 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
+    -fx-border-color: #015166;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #015166;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -212,7 +212,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #015166;
     -fx-text-fill: white;
 }
 
@@ -226,21 +226,22 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #015166;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #015166;
 }
 
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
+    -fx-alignment: center-left;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#015166, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -251,7 +252,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#015166, 50%);
     -fx-background-insets: 3;
 }
 
@@ -274,7 +275,7 @@
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
+    -fx-border-color: #015166;
     -fx-border-width: 1 1 1 1;
 }
 
