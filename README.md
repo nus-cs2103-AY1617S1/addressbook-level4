@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W15-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W15-C4/main)
-[![Coverage Status](https://coveralls.io/github/CS2103AUG2016-W15-C4/main)](https://coveralls.io/github/CS2103AUG2016-W15-C4/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W15-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W15-C4/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/52e16deff87a4a03883d696d8bff5158)](https://www.codacy.com/app/verbena_94/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W15-C4/main&amp;utm_campaign=Badge_Grade)
 
 # WhatNow (V0.0)
 
