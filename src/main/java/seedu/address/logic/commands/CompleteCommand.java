@@ -11,7 +11,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deadline.Deadline;
-import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -36,7 +35,7 @@ public class CompleteCommand extends Command {
 	public final int targetIndex;
 	public Name name;
 	public final Startline startline;
-	public final UniqueDeadlineList deadlineSet;
+	public final Deadline deadline;
 	public final Priority priority;
 	public final UniqueTagList tagSet;
 	private Task toAdd;
@@ -48,14 +47,9 @@ public class CompleteCommand extends Command {
 		for (String tagName : getTagsFromArgs("")) {
 			tagSet.add(new Tag(tagName));
 		}
-
-		final Set<Deadline> deadlineSet = new HashSet<>();
-		for (String deadlineDate : getDeadlinesFromArgs("")) {
-			deadlineSet.add(new Deadline(deadlineDate));
-		}
         
 		this.startline = new Startline(null);
-		this.deadlineSet = new UniqueDeadlineList(deadlineSet);
+		this.deadline = new Deadline(null);
 		this.priority = new Priority("0");
 		this.tagSet = new UniqueTagList(tagSet);
 	}
@@ -123,7 +117,7 @@ public class CompleteCommand extends Command {
 			e1.printStackTrace();
 		}
 
-		toAdd = new Task(this.name, this.startline, this.deadlineSet, this.priority, this.tagSet);
+		toAdd = new Task(this.name, this.startline, this.deadline, this.priority, this.tagSet);
 
 		assert model != null;
 		try {

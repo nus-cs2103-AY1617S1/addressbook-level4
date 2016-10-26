@@ -30,8 +30,8 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
             		+ "(?<startline>(?: s/[^/]+)*)"
-                    + "d/(?<deadline>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + "(?<deadline>(?: d/[^/]+)*)"
+                    + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -39,7 +39,7 @@ public class Parser {
             		+ " (?<name>[^/]+)"
             		+ "s/(?<startline>[^/]+)"
             		+ "d/(?<deadline>[^/]+)"
-                    + "(?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -125,7 +125,7 @@ public class Parser {
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadline")),
-                    matcher.group("priority"),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
@@ -163,6 +163,16 @@ public class Parser {
     	}
     	return args; 
 	}
+    
+    private String getPriorityFromArgs(String args) {
+        if (args.isEmpty()) {
+            return "0";
+        }
+        args = args.replaceFirst(" p/", "");
+
+        return args;
+    }
+
 
 	/**
      * Extracts the new person's tags from the add command's tag arguments string.
@@ -198,13 +208,13 @@ public class Parser {
 	private Command prepareComplete(String args) throws IllegalValueException {
   		  
         Optional<Integer> index = parseIndex(args);
-	if(!index.isPresent()){
+        if(!index.isPresent()){
      		return new IncorrectCommand(
 	     		String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
- 	}
+ 		}
  
- 	return new CompleteCommand(index.get());
-}
+ 		return new CompleteCommand(index.get());
+	}
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -277,7 +287,7 @@ public class Parser {
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadline")),
-                    matcher.group("priority"),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
