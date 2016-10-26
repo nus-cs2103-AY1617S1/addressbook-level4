@@ -29,17 +29,21 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-         <padding>
-            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
-         </padding>
-      </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-           <padding>
-               <Insets left="20.0" right="20.0" />
-           </padding>
-       </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.9651162790697675" VBox.vgrow="ALWAYS">
+      <SplitPane dividerPositions="0.9331395348837209" prefHeight="200.0" prefWidth="200.0">
+         <items>
+            <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="199.0" minHeight="100" prefHeight="198.0" prefWidth="114.0" styleClass="anchor-pane-with-border">
+                 <padding>
+                     <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                 </padding>
+             </AnchorPane>
+         </items>
+      </SplitPane>
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.936046511627907" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
                 <padding>
