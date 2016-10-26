@@ -3,6 +3,7 @@
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
+-----
 <@@author A0139749L>
 #### Lee Jing He
 
