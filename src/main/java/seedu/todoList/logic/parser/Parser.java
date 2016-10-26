@@ -130,8 +130,8 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        //case StorageCommand.COMMAND_WORD:
-         //   return new StorageCommand(arguments);
+        case StorageCommand.COMMAND_WORD:
+            return new StorageCommand(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -157,23 +157,22 @@ public class Parser {
         if (matcher_task.matches()) {
             try {
                 return new AddCommand(
-                        matcher_task.group("name"), 
-                        matcher_task.group("date"),
+                        matcher_task.group("name").trim(), 
+                        matcher_task.group("date").trim(),
                         isInputPresent(matcher_task.group("endDate")),
-                        matcher_task.group("priority"),
-                        "false");
+                        matcher_task.group("priority").trim()
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
         } else if (matcher_event.matches()) {
             try {
                 return new AddCommand(
-                        matcher_event.group("name"), 
-                        matcher_event.group("date"),
-                        isInputPresent(matcher_event.group("endDate")),
-                        matcher_event.group("startTime"), 
-                        matcher_event.group("endTime"),
-                        "false"
+                        matcher_event.group("name").trim(), 
+                        matcher_event.group("date").trim(),
+                        isInputPresent(matcher_event.group("endDate")).trim(),
+                        matcher_event.group("startTime").trim(), 
+                        matcher_event.group("endTime").trim()
                         );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -181,10 +180,9 @@ public class Parser {
         } else if (matcher_deadline.matches()) {
             try {
                 return new AddCommand(
-                        matcher_deadline.group("name"), 
-                        matcher_deadline.group("date"),
-                        matcher_deadline.group("endTime"),
-                        "false"
+                        matcher_deadline.group("name").trim(), 
+                        matcher_deadline.group("date").trim(),
+                        matcher_deadline.group("endTime").trim()
                         );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -326,39 +324,39 @@ public class Parser {
             if (matcher_task.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_task.group("name"), 
-                            matcher_task.group("date"),
-                            isInputPresent(matcher_task.group("endDate")),
-                            matcher_task.group("priority"),
+                            matcher_task.group("name").trim(), 
+                            matcher_task.group("date").trim(),
+                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_event.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_event.group("name"), 
-                            matcher_event.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
-                            matcher_event.group("startTime"), 
-                            matcher_event.group("endTime"),
+                            matcher_event.group("name").trim(), 
+                            matcher_event.group("date").trim(),
+                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            matcher_event.group("startTime").trim(), 
+                            matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_deadline.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_deadline.group("name"), 
-                            matcher_deadline.group("date"),
-                            matcher_deadline.group("endTime"), 
+                            matcher_deadline.group("name").trim(), 
+                            matcher_deadline.group("date").trim(),
+                            matcher_deadline.group("endTime").trim(), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -371,39 +369,39 @@ public class Parser {
             if (matcher_task.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_task.group("name"), 
-                            matcher_task.group("date"),
-                            isInputPresent(matcher_task.group("endDate")),
-                            matcher_task.group("priority"),
+                            matcher_task.group("name").trim(), 
+                            matcher_task.group("date").trim(),
+                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_event.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_event.group("name"), 
-                            matcher_event.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
-                            matcher_event.group("startTime"), 
-                            matcher_event.group("endTime"),
+                            matcher_event.group("name").trim(), 
+                            matcher_event.group("date").trim(),
+                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            matcher_event.group("startTime").trim(), 
+                            matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_deadline.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_deadline.group("name"), 
-                            matcher_deadline.group("date"),
-                            matcher_deadline.group("endTime"), 
+                            matcher_deadline.group("name").trim(), 
+                            matcher_deadline.group("date").trim(),
+                            matcher_deadline.group("endTime").trim(), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -416,39 +414,39 @@ public class Parser {
             if (matcher_task.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_task.group("name"), 
-                            matcher_task.group("date"),
-                            isInputPresent(matcher_task.group("endDate")),
-                            matcher_task.group("priority"),
+                            matcher_task.group("name").trim(), 
+                            matcher_task.group("date").trim(),
+                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_event.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_event.group("name"), 
-                            matcher_event.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
-                            matcher_event.group("startTime"), 
-                            matcher_event.group("endTime"),
+                            matcher_event.group("name").trim(), 
+                            matcher_event.group("date").trim(),
+                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            matcher_event.group("startTime").trim(), 
+                            matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
             } else if (matcher_deadline.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_deadline.group("name"), 
-                            matcher_deadline.group("date"),
-                            matcher_deadline.group("endTime"), 
+                            matcher_deadline.group("name").trim(), 
+                            matcher_deadline.group("date").trim(),
+                            matcher_deadline.group("endTime").trim(), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get(),
-                            "false");
+                            dataType.get().trim()
+                            );
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
