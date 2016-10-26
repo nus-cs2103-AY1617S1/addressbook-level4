@@ -93,7 +93,7 @@ public class CommandParser {
         	return prepareDone(arguments);
         	
         case ViewCommand.COMMAND_WORD:
-        	if (userInput.equals("view")) {
+        	if (userInput.trim().equals("view")) {
         		return prepareView(null);
         	}
         	return prepareView(arguments);
