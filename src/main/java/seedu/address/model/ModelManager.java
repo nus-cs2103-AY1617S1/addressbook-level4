@@ -7,9 +7,8 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.ModelManager.PredicateExpression;
+
 import seedu.address.model.ModelManager.Qualifier;
-import seedu.address.model.ModelManager.TagQualifier;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
