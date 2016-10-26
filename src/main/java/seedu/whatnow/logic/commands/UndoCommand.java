@@ -23,7 +23,6 @@ public class UndoCommand extends Command{
 		}
 		else {
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getUndoStack().pop();
-			System.out.println("redo stack is getting this in undoCommand: " + reqCommand);
 			model.getRedoStack().push(reqCommand);
 			return reqCommand.undo();
 		}
