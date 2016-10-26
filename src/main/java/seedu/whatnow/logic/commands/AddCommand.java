@@ -46,6 +46,12 @@ public class AddCommand extends UndoAndRedo {
 	    
 	    if (date != null || startDate != null || endDate != null) {
 	        validateDate = new TaskDate(date, startDate, endDate);
+	        if (date != null) {
+	            date = validateDate.getDate();
+	        } else if (startDate != null) {
+	            startDate = validateDate.getStartDate();
+	            endDate = validateDate.getEndDate();
+	        }
 	    }
 	    
 	    final Set<Tag> tagSet = new HashSet<>();
