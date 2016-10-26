@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
         this.targetIndexes = targetIndexes;
     }
 
-  //@@author A0138601M
+    //@@author A0138601M
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
@@ -43,22 +43,19 @@ public class DeleteCommand extends Command {
         
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+        }   
         
-        AddressBook previousAddressBook = new AddressBook(model.getAddressBook());
-        
+        ReadOnlyTask[] tasksToDelete = new ReadOnlyTask[targetIndexes.length];
         for (int i = 0; i < targetIndexes.length; i++) {
-            ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_DELETE_OFFSET));
-            
-            try {
-                model.deleteTask(taskToDelete);
-            } catch (TaskNotFoundException tnfe) {
-                assert false : "The target task cannot be missing";
-            }
-            
+            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - 1);         
         }
-
-        model.addAddressBookHistory(previousAddressBook);
+        
+        try {
+            model.deleteTask(tasksToDelete);
+        } catch (TaskNotFoundException tnfe) {
+            assert false : "The target task cannot be missing";
+        }
+        
         return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
     }
     //@@author
