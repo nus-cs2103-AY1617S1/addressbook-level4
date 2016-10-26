@@ -198,6 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
 		malitio.completeDeadline(deadlineToEdit);
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
+	}
 
 	//@@author A0153006W
 	@Override
