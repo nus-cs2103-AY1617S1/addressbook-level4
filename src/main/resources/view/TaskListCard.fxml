@@ -1,3 +1,5 @@
+<!-- @@author A0144919W -->
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
@@ -9,51 +11,52 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-          <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="40.0" prefHeight="40.0" prefWidth="956.0">
-              <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-              </stylesheets>
-              <padding>
-                  <Insets bottom="5" left="15" right="5" top="5" />
-              </padding>
+	<children>
+		<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="40.0" prefHeight="40.0" prefWidth="956.0">
+			<stylesheets>
+				<URL value="@DarkTheme.css" />
+				<URL value="@Extensions.css" />
+			</stylesheets>
+			<padding>
+				<Insets bottom="5" left="15" right="5" top="5" />
+			</padding>
 
-              <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="900.0" spacing="5">
-                      <children>
-                          <HBox maxWidth="319.0" prefWidth="319.0">
-                     <ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
-                        <HBox.margin>
-                           <Insets top="3.0" />
-                        </HBox.margin>
-                        <image>
-                           <Image url="@../images/icon_incomplete.png" />
-                        </image>
-                     </ImageView>
-                              <Label fx:id="id" minHeight="25.0" minWidth="25.0" prefHeight="25.0" prefWidth="25.0" styleClass="cell_big_label" HBox.hgrow="NEVER">
-                        <padding>
-                           <Insets left="5.0" />
-                        </padding>
-                     </Label>
-                              <Label fx:id="name" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" styleClass="cell_big_label" text="\$first" />
-                             <Label fx:id="tags" prefHeight="16.0" prefWidth="82.0" styleClass="cell_small_label" text="\$tags">
-                        <HBox.margin>
-                           <Insets top="5.0" />
-                        </HBox.margin>
-                     </Label>
-                          </HBox>
-                  <HBox />
-                  <Label minHeight="25.0" minWidth="31.0" prefHeight="25.0" prefWidth="31.0" styleClass="cell_small_label" text="Start: " HBox.hgrow="NEVER" />
-                        <Label fx:id="startTime" prefHeight="16.0" prefWidth="136.0" styleClass="cell_small_label" text="\$startTime" />
-                  <Label minHeight="16.0" minWidth="27.0" prefHeight="16.0" prefWidth="27.0" styleClass="cell_small_label" text="End: " HBox.hgrow="NEVER" />
-                        <Label fx:id="endTime" prefHeight="16.0" prefWidth="136.0" styleClass="cell_small_label" text="\$endTime" />
-                  <Label minHeight="16.0" minWidth="43.0" styleClass="cell_small_label" text="Priority: " />
-                        <Label fx:id="priority" prefHeight="16.0" prefWidth="86.0" styleClass="cell_small_label" text="\$priority" />
-                      </children>
-                  </HBox>
-            <HBox />
-              </children>
-          </VBox>
-    </children>
+			<children>
+				<HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="936.0" spacing="5">
+					<children>
+						<HBox maxWidth="629.0" prefHeight="30.0" prefWidth="629.0">
+							<ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
+								<HBox.margin>
+									<Insets top="3.0" />
+								</HBox.margin>
+								<image>
+									<Image url="@../images/icon_incomplete.png" />
+								</image>
+							</ImageView>
+							<Label fx:id="id" minHeight="25.0" minWidth="25.0" prefHeight="25.0" prefWidth="75.0" styleClass="cell_big_label" HBox.hgrow="NEVER">
+								<padding>
+									<Insets left="5.0" />
+								</padding>
+							</Label>
+							<Label fx:id="name" maxWidth="623.0" prefHeight="25.0" prefWidth="603.0" styleClass="cell_big_label" text="\$first" />
+<!-- 						<Label fx:id="tags" prefHeight="16.0" prefWidth="82.0"
+								styleClass="cell_small_label" text="\$tags">
+								<HBox.margin>
+									<Insets top="5.0" />
+								</HBox.margin>
+							</Label>
+-->
+						</HBox>
+						<HBox />
+						<Label fx:id="priority" prefHeight="30.0" prefWidth="109.0" style="-fx-alignment: CENTER-RIGHT;" styleClass="cell_small_label" text="\$priority">
+							
+						</Label>
+						<Label fx:id="startTime" prefHeight="30.0" prefWidth="108.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
+						<Label fx:id="endTime" prefHeight="30.0" prefWidth="84.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
+					</children>
+				</HBox>
+				<HBox />
+			</children>
+		</VBox>
+	</children>
 </HBox>

@@ -1,0 +1,15 @@
+/* @@author A0144919W */
+
+#total_tasks_label {
+    -fx-text-fill: red;
+}
+
+#upcoming_events_label {
+    -fx-text-fill: blue;
+}
+
+.label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-opacity: 0.9;
+}
