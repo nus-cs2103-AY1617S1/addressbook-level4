@@ -78,7 +78,7 @@ allprojects {
         archiveName = "taskmanager.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.forgetmenot.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
@@ -139,7 +139,7 @@ task guiTests(type: TaskManagerTest) {
 
 
 task nonGuiTests(type: TaskManagerTest) {
-    include 'seedu/address/**'
+    include 'seedu/forgetmenot/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
