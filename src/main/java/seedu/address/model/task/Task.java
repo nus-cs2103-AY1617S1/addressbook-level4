@@ -106,6 +106,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return true;
     }
 
+    public boolean setAsExpire() {
+        this.setStatus(new Status(State.EXPIRE));
+        return true;
+    }
+    
     private void setStatus(Status status) {
         this.status = status;
     }
