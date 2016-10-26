@@ -292,13 +292,17 @@ We have two types of tests:
 
 2. **Non-GUI Tests** - These are tests that do not involve the GUI. They include:
 
-   1. _Integration tests_ that checks the integration of multiple code units
+   1. _Unit tests_ targeting the lowest level methods/classes.
+
+	  e.g. `seedu.whatnow.commons.util.XMLUtilTest`
+
+   2. _Integration tests_ that checks the integration of multiple code units
 
      (those code units are assumed to be working).
 
       e.g. `seedu.whatnow.storage.StorageManagerTest`
 
-   2. Hybrid of unit and integration tests. These tests check the correctness of the multiple  code units as well as how they are connected together.
+   3. Hybrid of unit and integration tests. These tests check the correctness of the multiple  code units as well as how they are connected together.
 
       e.g. `seedu.whatnow.logic.LogicManagerTest`
 
