@@ -75,14 +75,19 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `add Activity1`.
+
+<img src="images\SDforAddActivity.png" width="800"> 
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Lifekeeper data are changed,
+>Note how the `Model` in both cases simply raises a `AddressBookChangedEvent` when the Lifekeeper data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The diagram below shows how the `EventsCenter` reacts to those events, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
