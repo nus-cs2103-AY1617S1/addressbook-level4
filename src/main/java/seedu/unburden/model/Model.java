@@ -30,6 +30,8 @@ public interface Model {
     
     void saveToPrevLists();
     
+    void saveToUndoHistory();
+    
     void loadFromPrevLists();
     
     void loadFromUndoHistory();
