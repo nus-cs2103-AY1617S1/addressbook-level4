@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 
 /**
@@ -37,6 +36,7 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	
+    	model.checkForOverdueTasks();
     	
     	if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||

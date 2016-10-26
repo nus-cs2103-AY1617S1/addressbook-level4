@@ -52,7 +52,7 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	model.checkForOverdueTasks();
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

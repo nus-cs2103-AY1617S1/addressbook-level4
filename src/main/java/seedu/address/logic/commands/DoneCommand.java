@@ -50,6 +50,7 @@ public class DoneCommand extends Command {
     		int[] indices, String status) {
     	
     	assert status.equals("done") || status.equals("not done");
+    	model.checkForOverdueTasks();
     	model.saveState();
     	
     	ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
