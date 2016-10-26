@@ -18,7 +18,8 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 * Features implemented:
 	* Edit task / deadline / event (end-to-end)
 	* List uncompleted tasks / deadlines / events
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/main/A0140060A.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/test/A0140060A.md)][docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/docs/A0140060A.md)]
+	* Short command words (aliases)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/main/A0140060A.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/test/A0140060A.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/docs/A0140060A.md)]
 * Other major contributions:
 	* Initial and follow up refactoring of AddressBook to TaskManager/IvoryTasks (including test data)
 	* Set up Travis, Coveralls and Codacy
@@ -53,7 +54,7 @@ Role: Code Quality / Eclipse Expert <br>
 * Features implemented: [functional code][test code][docs]
 	* Delete by two indexes at a time (extension)
 	* Save to a specified location (end-to-end)
-* Code written: 
+* Code written:
 * Other major contributions:
 	* Maintaining consistent format of code in Developer Guide and User Guide
 	* Documentation of

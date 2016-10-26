@@ -238,11 +238,11 @@ We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ o
 
 ### Test Coverage
 
-We use [Coveralls](https://coveralls.io/) to track test coverage of our code built using Travis CI
+We use [Coveralls](https://coveralls.io/) to track _Test Coverage_ of our code built using Travis CI
 
 ### Code Quality
 
-We use [Codacy](https://www.codacy.com/) for static analysis of our code.
+We use [Codacy](https://www.codacy.com/) for _Static Analysis_ of our code.
 
 [comment]: # (@@author )
 
@@ -304,8 +304,10 @@ Use case ends.
 [comment]: # (@@author A0140060A)
 
 #### Use case: Find an item
+**MSS**
 1. User requests to find an item by searching for a keyword
-2. TaskManager lists the items containing the keyword
+2. TaskManager lists the items containing the keyword. <br>
+Use case ends.
 
 #### Use case: Edit a task/deadline/event
 **MSS**
@@ -332,8 +334,28 @@ Use case ends.
 >Use case resumes at step 2.
 
 #### Use case: List all uncompleted tasks / deadlines / events
-1.User requests to list all uncompleted tasks / deadlines / events
-2.TaskManager shows a list of uncompleted tasks / deadlines / events
+**MSS**
+1. User requests to list all uncompleted tasks / deadlines / events
+2. TaskManager shows a list of uncompleted tasks / deadlines / events
+
+#### Use case: View details of a task/deadline/event
+**MSS**
+
+1. User requests to list task/deadline/event (TDE).
+2. TaskManager shows a list of TDEs.
+3. User requests to view details of a specific TDE in the list.
+4. TaskManager displays details of the TDE. <br>
+Use case ends.
+
+**Extensions**
+
+>2a. The TDE list is empty. <br>
+>Use case ends.
+
+
+>3a. The given index is invalid.
+>3a1. TaskManager shows an error message. <br>
+>Use case resumes at step 2.
 
 [comment]: # (@@author )
 
