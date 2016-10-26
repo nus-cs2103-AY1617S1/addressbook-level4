@@ -276,7 +276,83 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 **MSS**
 
+<<<<<<< HEAD
 1. User adds task
+=======
+1. User adds floating task
+2. OneLine creates the task <br>
+Use case ends
+
+**Extensions**
+
+1a. OneLine detects an error in the data entered
+>   1a1. OneLine requests for the correct data <br>
+>   1a2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+    
+
+#### Use case: Add task with deadline
+
+**MSS**
+
+1. User adds task with deadline
+2. OneLine creates the task <br>
+Use case ends
+
+**Extensions**
+
+1a. OneLine detects an error in the data entered
+>   1a1. OneLine requests for the correct data <br>
+>   1a2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+    
+#### Use case: Add event-based task
+**MSS**
+
+1. User adds event-based task
+2. OneLine creates the event-based task <br>
+Use case ends
+
+**Extensions**
+
+1a. OneLine detects a time clash in task entered
+>   1a1. OneLine creates the task <br>
+>   1a2. OneLine reports a time clash in affected tasks.<br>
+    Use case ends
+
+1b. OneLine detects an error in the data entered
+>   1b1. OneLine requests for the correct data <br>
+>   1b2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+        
+#### Use case: Add event-based task
+**MSS**
+
+1. User adds event-based task
+2. OneLine creates the event-based task <br>
+Use case ends
+
+**Extensions**
+
+1a. OneLine detects a time clash in task entered
+>   1a1. OneLine creates the task <br>
+>   1a2. OneLine reports a time clash in affected tasks.<br>
+    Use case ends
+
+1b. OneLine detects an error in the data entered
+>   1b1. OneLine requests for the correct data<br>
+>   1b2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+#### Use case: Add task with category
+
+**MSS**
+
+1. User adds task with category
+>>>>>>> master
 2. OneLine creates the task <br>
 Use case ends
 
@@ -287,8 +363,8 @@ Use case ends
     Use case resumes from step 2.
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data
-    1b2. User enters new data <br>
+>   1b1. OneLine requests for the correct data<br>
+>   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
 
@@ -345,8 +421,8 @@ Use case ends.
     Use case resumes from step 4.
 
 3c. OneLine detects an error in the data entered
->   3c1. OneLine requests for the correct data
-    3c2. User enters new data <br>
+>   3c1. OneLine requests for the correct data<br>
+>   3c2. User enters new data <br>
     Steps 3c1-3c2 are repeated until data contains no errors
     Use case resumes from step 4.
 
@@ -417,8 +493,8 @@ Use case ends
  Use case ends.
 
 1b. OneLine detects an error in the data entered
-> 1b1. OneLine requests for the correct data
- 1b2. User enters new data 
+> 1b1. OneLine requests for the correct data<br>
+> 1b2. User enters new data <br>
  Steps 1b1-1b2 are repeated until data contains no errors<br>
  Use case resumes from step 2.
 
