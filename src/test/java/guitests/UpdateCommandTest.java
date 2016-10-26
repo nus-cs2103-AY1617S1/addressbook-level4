@@ -24,26 +24,26 @@ public class UpdateCommandTest extends TaskListGuiTest {
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
         //updating all information for a task
-        commandBox.runCommand("update 1 Attend yoga session from 2pm to 4pm p/high");
+        commandBox.runCommand("update 1 Attend yoga session from today 2pm to today 4pm p/high");
         TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
+        TypicalTestTasks.task1.setStartTime(new StartTime("today 2pm"));
+        TypicalTestTasks.task1.setEndTime(new EndTime("today 4pm"));
         TypicalTestTasks.task1.setPriority(new Priority("high"));      
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[0]));
         
         //updating task description for a task
-        commandBox.runCommand("update 2 Attend yoga session");
-        TypicalTestTasks.task2.setTaskDetails(new TaskDetails("Attend yoga session"));
+        commandBox.runCommand("update 2 Study for PC1432");
+        TypicalTestTasks.task2.setTaskDetails(new TaskDetails("Study for PC1432"));
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[1]));
 
         //updating start time for a task
         commandBox.runCommand("update 7 at 10am");
-        TypicalTestTasks.task7.setStartTime(new StartTime("10am"));
+        TypicalTestTasks.task7.setStartTime(new StartTime("today 10am"));
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[6]));
         
         //updating end time for a task
         commandBox.runCommand("update 5 by 1pm");
-        TypicalTestTasks.task5.setEndTime(new EndTime("1pm"));
+        TypicalTestTasks.task5.setEndTime(new EndTime("today 1pm"));
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[4]));
 
         //updating priority for a task, also updating an updated task again
@@ -53,7 +53,7 @@ public class UpdateCommandTest extends TaskListGuiTest {
         
         //updating a floating task to a task with date and time
         commandBox.runCommand("update 3 at 5pm");
-        TypicalTestTasks.task3.setStartTime(new StartTime("5pm"));
+        TypicalTestTasks.task3.setStartTime(new StartTime("today 5pm"));
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[2]));
 
     }
