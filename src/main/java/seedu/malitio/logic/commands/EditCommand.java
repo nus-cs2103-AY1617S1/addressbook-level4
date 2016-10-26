@@ -1,5 +1,6 @@
 package seedu.malitio.logic.commands;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,12 +23,10 @@ import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-
+//@@author A0129595N
 /**
  * Edits a floating task/ deadline/ event identified using it's last displayed index from Malitio.
- * Only the attribute(s) that require changes is(are) entered.
- * @author Annabel Eng A0129595N
- * 
+ * Only the attribute(s) that require changes is(are) entered. 
  */
 public class EditCommand extends Command{
 
@@ -40,17 +39,17 @@ public class EditCommand extends Command{
     
     public static final String MESSAGE_DUPLICATE_TASK = "The intended edit correspond to a pre-existing floating task in Malitio";
  
-    private static final String MESSAGE_DUPLICATE_DEADLINE = "The intended edit correspond to a pre-existing deadline in Malitio";
+    public static final String MESSAGE_DUPLICATE_DEADLINE = "The intended edit correspond to a pre-existing deadline in Malitio";
 
-    private static final String MESSAGE_DUPLICATE_EVENT = "The intended edit correspond to a pre-existing event in Malitio";
+    public static final String MESSAGE_DUPLICATE_EVENT = "The intended edit correspond to a pre-existing event in Malitio";
 
-    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
+    public static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited floating task.\nOld: %1$s\nNew: %2$s";
 
-    private static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
 
-    private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
     
     private final char taskType;
     
@@ -75,7 +74,7 @@ public class EditCommand extends Command{
     //@@author A0129595N  
     public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
             throws IllegalValueException {
-        assert taskType == 'd';
+        assert taskType == 'f';
         assert !name.equals("") || !newTags.isEmpty() ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
@@ -126,13 +125,16 @@ public class EditCommand extends Command{
      * @throws IllegalValueException
      */
     private UniqueTagList processTags(Set<String> newTags) throws IllegalValueException {
-        if (!newTags.isEmpty()){
+        if (!newTags.isEmpty() && newTags.toArray()[0].equals("null") && newTags.size()==1) {
+            return new UniqueTagList();
+        } 
+        else if (!newTags.isEmpty()){
             final Set<Tag> tagSet = new HashSet<>();
             for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
             }
             return new UniqueTagList(tagSet);
-        }
+        }       
         else {
             return null;
         }

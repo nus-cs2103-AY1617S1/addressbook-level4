@@ -13,7 +13,6 @@ public class Event implements ReadOnlyEvent {
 	
     private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
 
-    //@@author A0129595N
     /**
      * Constructor for events.
      */

@@ -102,8 +102,23 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
         history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
         malitio.removeTask(target);
-        indicateMalitioChanged();
+        indicateMalitioChanged();        
     }
+
+    @Override
+    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
+        malitio.removeDeadline(target);
+        history.add(new InputDeleteHistory(target));
+        indicateMalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
+        malitio.removeEvent(target);
+        history.add(new InputDeleteHistory(target));
+        indicateMalitioChanged();        
+    }
+
 
     //@@author A0129595N
     @Override
@@ -172,7 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
         return future;
     }
     
-
+    //@@author
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -365,19 +380,4 @@ public class ModelManager extends ComponentManager implements Model {
             return timeKeyWord.toString();
         }
     }
-
-    @Override
-    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
-        malitio.removeDeadline(target);
-        history.add(new InputDeleteHistory(target));
-        indicateMalitioChanged();        
-    }
-
-    @Override
-    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
-        malitio.removeEvent(target);
-        history.add(new InputDeleteHistory(target));
-        indicateMalitioChanged();        
-    }
-
 }

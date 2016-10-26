@@ -18,7 +18,6 @@ public interface ReadOnlyDeadline {
          */
         UniqueTagList getTags();
 
-        //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */
@@ -36,6 +35,7 @@ public interface ReadOnlyDeadline {
         default String getAsText() {
             final StringBuilder builder = new StringBuilder();
             builder.append(getName())
+                    .append(" ")
                     .append(getDue())
                     .append(" Tags: ");
             getTags().forEach(builder::append);

@@ -11,7 +11,6 @@ public class Deadline implements ReadOnlyDeadline{
     private DateTime due;
     private UniqueTagList tags;
 
-    //@@author A0129595N
     /**
      * Constructor for deadlines.
      */

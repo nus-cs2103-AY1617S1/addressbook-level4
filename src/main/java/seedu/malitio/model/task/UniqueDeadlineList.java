@@ -20,7 +20,6 @@ import java.util.*;
 
 public class UniqueDeadlineList implements Iterable<Deadline> {
 
-    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -50,7 +49,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-    
+    //@@author A0129595N
     /**
      * Returns true if the list contains an equivalent deadline as the given argument as well as identical tag(s).
      */
@@ -92,7 +91,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.remove(beforeEdit);
         internalList.add(edited);
     }
-
+    //@@author
     /**
      * Removes the equivalent schedule from the list.
      *
@@ -122,7 +121,6 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         	});
 	}
     
-    //@@author A0129595N
     @Override
     public Iterator<Deadline> iterator() {
         return internalList.iterator();

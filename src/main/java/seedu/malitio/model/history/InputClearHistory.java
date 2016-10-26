@@ -4,7 +4,7 @@ import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
-
+//@@author A0129595N
 public class InputClearHistory extends InputHistory{
     
     UniqueFloatingTaskList originalFloatingTaskList = new UniqueFloatingTaskList();

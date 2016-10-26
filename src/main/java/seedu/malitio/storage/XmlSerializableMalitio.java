@@ -40,7 +40,6 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
         tags = new ArrayList<>();
     }
     
-    //@@author A0129595N
     /**
      * Empty constructor required for marshalling
      */

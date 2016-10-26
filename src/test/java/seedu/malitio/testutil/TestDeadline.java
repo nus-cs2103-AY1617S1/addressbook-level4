@@ -38,7 +38,7 @@ public class TestDeadline implements ReadOnlyDeadline {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " " + "by " + this.getDue().toString());
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
     }
 
