@@ -1,5 +1,7 @@
 package seedu.flexitrack.logic.commands;
 
+import java.util.Stack;
+
 import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
@@ -24,6 +26,8 @@ public class MarkCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
+    
+    private static Stack<Integer> storeDataChanged = new Stack<Integer>(); 
 
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -33,6 +37,7 @@ public class MarkCommand extends Command {
     public CommandResult execute(){
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -40,10 +45,29 @@ public class MarkCommand extends Command {
         
         try {
             model.markTask(lastShownList.get(targetIndex-1));
+            storeDataChanged.add(targetIndex);
+            recordCommand("mark"); 
             return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
         }
     }
 
+    @Override
+    //TODO: to be implemented 
+    public void executeUndo() {
+        int targetIndex = storeDataChanged.peek();
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+        }
+        try {
+            model.unmarkTask(lastShownList.get(targetIndex - 1));
+        } catch (IllegalValueException e) {
+        }
+        
+        storeDataChanged.pop();
+    }
 }

@@ -160,4 +160,27 @@ public class TestTask implements ReadOnlyTask {
     }
     
 
+    @Override
+    public boolean getIsNotFloatingTask() {
+        return !( this.isEvent || this.isTask );
+    }
+
+    @Override
+    public DateTimeInfo getStartingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getStartTime();
+        }
+    }
+    
+    @Override
+    public DateTimeInfo getEndingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getEndTime();
+        }
+    }
+
 }
