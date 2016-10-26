@@ -53,7 +53,7 @@ help
 
 ### Adding a task: `add`, `do`
 
-For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure. 
+For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure.
 
 _Mastermind_ helps you to organize your task into three main categories:
 - **Event**: Task with `startDate` and `endDate` specified.
@@ -65,55 +65,53 @@ _Mastermind_ helps you to organize your task into three main categories:
 #### Adds an event  
 _Format:_
 ```java
-(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> from <start_date> to <end_date> #[comma_separated_tags]
 ```
 
 _Example:_
 ```java
-> add 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'
+> add attend workshop from today 7pm to next monday 1pm #programming,java
 ```
 #### Adds a task with deadline
 _Format:_
 
 ```java
-(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> by <end_date> #[comma_separated_tags]
 ```  
 
 _Example:_
 
 ```java
-> add 'submit homework' ed/'next sunday 11pm' t/'math,physics'
+> add submit homework by next sunday 11pm #math,physics
 ```  
 #### Adds a floating task
 _Format:_
 ```java
-(add|do) '<name>' [t/'<comma_separated_tags>...']
+(add|do) <task_name> #[<comma_separated_tags>]
 ```  
 
 _Example:_
 ```java
-> do 'chores' t/'cleaning'
+> do chores #cleaning
 ```  
 
 #### Adds a recurring Deadline
 _Format:_
 ```java
-(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> by <end_date> [daily|weekly|monthly|yearly] #[comma_separated_tags]
 ```  
 
 _Example:_
 ```java
-> do r/'daily' 'chores' ed/'today' t/'cleaning'
-> do r/'weekly 2' 'workshop' sd/'tomorrow 3pm' ed/'tomorrow 5pm'
-``` 
+> do chores today daily #cleaning
+> do workshop from tomorrow 3pm to tomorrow 5pm weekly
+```
 
-> Quick Tip: You can add recurring events too!  
-> 'weekly 2' will repeat the Task only twice
-> Use keywords like 'weekly', 'biweekly', 'monthly' and 'yearly' for recurring tasks  
+> Quick Tip: You can add recurring events too!
+> Use keywords like ```'daily', 'weekly', 'monthly' and 'yearly'``` for recurring tasks.
 
-> Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `startDate` & `endDate`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
+> Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `<start_date>` & `<end_date>`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
 >
-> `three days from now`
 > `tomorrow 6pm`
 > `next saturday`
 > `13 Oct 2016 6pm`

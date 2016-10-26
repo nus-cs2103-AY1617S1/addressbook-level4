@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Date;
 
 import guitests.TaskManagerGuiTest;
+import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 
@@ -45,24 +46,32 @@ public class TestTask implements ReadOnlyTask {
     }
 
 
-    //@@author A0124797R
+    //@@author A0138862W
     public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add");
-        sb.append(" '" + this.getName() + "' ");
-        if (startDate!=null) {
-            sb.append("sd/'" + startDate + "' ");
-        }
-        if (endDate!=null) {
-            sb.append("ed/'" + endDate + "' ");
-        }
-        sb.append("t/'");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append(s.tagName + ","));
+        StringBuffer cmd = new StringBuffer();
 
-        sb.deleteCharAt(sb.length()-1);
-        sb.append("'");
-        return sb.toString();
+        cmd.append("add");
+
+        cmd.append(" ").append(this.name);
+        if(startDate != null && endDate !=null){
+            cmd.append(" from ").append(startDate);
+            cmd.append(" to ").append(endDate);
+        }else if(endDate!=null){
+            cmd.append(" from ").append(startDate);
+            cmd.append(" to ").append(endDate);
+        }
         
+        
+        cmd.append(" #");
+
+        for (Tag t: tags) {
+            cmd.append(t.tagName);
+            cmd.append(',');
+        }
+        
+        cmd.deleteCharAt(cmd.length()-1);
+
+        return cmd.toString();
     }
 
     //@@author A0124797R
@@ -154,7 +163,7 @@ public class TestTask implements ReadOnlyTask {
     }
     
     //@@author A0124797R
-    public TestTask mark() {
+    public TestTask mark() {        
         this.marked = true;
         return this;
     }
