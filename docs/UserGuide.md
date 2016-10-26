@@ -1,6 +1,6 @@
 # User Guide
 
-   > <img src="UserGuideImages/UI_MainPage.JPG" width="400">
+<img src="images/UI_MainPage.JPG" width="150"><br>>
    <br><br><br>
 
 
