@@ -28,7 +28,7 @@ public class ListCommandTest extends SavvyTaskerGuiTest {
     @Test
     public void list_nonEmptyList_byPriority() {
         assertListResult("list t/PriorityLevel", td.highPriority, td.medPriority, 
-                td.lowPriority, td.furthestDue, td.nearerDue, td.notSoNearerDue, td.earliestDue); //multiple results
+                td.furthestDue, td.nearerDue, td.notSoNearerDue, td.earliestDue, td.lowPriority); //multiple results
     }
     
     @Test
