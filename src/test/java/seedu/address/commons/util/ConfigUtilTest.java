@@ -1,6 +1,14 @@
 package seedu.address.commons.util;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -10,14 +18,6 @@ import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Level;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class ConfigUtilTest {
 
@@ -85,7 +85,7 @@ public class ConfigUtilTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigUtil().readConfig(configFilePath);
+		return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test
@@ -108,21 +108,21 @@ public class ConfigUtilTest {
         ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configStorage.saveConfig(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        Config readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configStorage.saveConfig(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil().saveConfig(config, configFilePath);
+		ConfigUtil.saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

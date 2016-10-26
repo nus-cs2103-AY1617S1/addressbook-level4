@@ -1,5 +1,8 @@
 package seedu.task.logic;
 
+import java.text.ParseException;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
@@ -7,13 +10,8 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.parser.Parser;
 import seedu.task.model.Model;
-import seedu.task.model.UndoCommandManager;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
 import seedu.task.storage.Storage;
-
-import java.text.ParseException;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

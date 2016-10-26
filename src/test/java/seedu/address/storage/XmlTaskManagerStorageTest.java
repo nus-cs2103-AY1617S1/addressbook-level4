@@ -1,23 +1,20 @@
 package seedu.address.storage;
 
 
+import static org.junit.Assert.assertFalse;
+
+import java.io.IOException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestTasks;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
-import seedu.task.model.TaskManager;
 import seedu.task.model.ReadOnlyTaskManager;
-import seedu.task.model.task.Task;
+import seedu.task.model.TaskManager;
 import seedu.task.storage.XmlTaskManagerStorage;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class XmlTaskManagerStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");

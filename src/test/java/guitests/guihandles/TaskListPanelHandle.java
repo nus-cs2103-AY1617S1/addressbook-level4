@@ -1,6 +1,12 @@
 package guitests.guihandles;
 
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -8,14 +14,8 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
-import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
+import seedu.task.model.task.Task;
 
 /**
  * Provides a handle for the panel containing the task list.
@@ -36,7 +36,8 @@ public class TaskListPanelHandle extends GuiHandle {
         return taskList.getSelectionModel().getSelectedItems();
     }
 
-    public ListView<ReadOnlyTask> getListView() {
+    @SuppressWarnings("unchecked")
+	public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
