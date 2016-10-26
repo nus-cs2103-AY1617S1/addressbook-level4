@@ -113,7 +113,6 @@ Examples:
 > <img src="images/AddFloatingTasks.png" width="600">
 
 <br>
-<br>
 
 Adds a task with a deadline to Jimi.<br>
 Format: `add "TASK_DETAILS" due DATE_TIME [t/tag] [p/priority]`
@@ -123,6 +122,7 @@ Examples:
 * `add "Pick up Jimmy" due Monday 2pm t/tuition`
 
 > <img src="images/AddDeadlineTasks.png" width="600">
+
 <br>
 
 Adds an event to Jimi.<br>
@@ -137,6 +137,7 @@ Examples:
 * `add "Have school camp" on 10 October 10am to 18 October 5pm`
 
 > <img src="images/AddEvents.png" width="600">
+
 <br><br>
 
 #### <a id="com"></a>Marking a task as complete: `complete`
@@ -195,6 +196,7 @@ Examples:
 * `edit e1 on 5th July 7pm`
 
 > <img src="images/Edit.png" width="600">
+
 <br><br>
 
 #### <a id="show"></a>Showing section: `show`
@@ -209,6 +211,7 @@ Examples:
 * `show completed`
 
 > <img src="images/Complete.png" width="600">
+
 <br><br>
 
 #### <a id="undo"></a>Undoing previous action: `undo`
