@@ -55,6 +55,8 @@ public class DoneCommand extends Command {
             model.completeTask(taskToComplete, completedTask);
             
         } catch (TaskNotFoundException pnfe) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
             assert false : MESSAGE_NOT_FOUND;
         }
         

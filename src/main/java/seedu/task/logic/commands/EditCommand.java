@@ -96,12 +96,20 @@ public class EditCommand extends Command {
 			edit(selectedTask);
 			modifyList();
 		} catch (TaskNotFoundException e) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
 			return new CommandResult(MESSAGE_NOT_FOUND);
 		} catch (DuplicateTaskException e) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
 			return new CommandResult(MESSAGE_DUPLICATE);
 		} catch (IllegalValueException e) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
 			return new CommandResult(MESSAGE_PARAM);
 		} catch (ParseException e) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
 			return new CommandResult(MESSAGE_PARAM);
 		}
 		return new CommandResult(MESSAGE_SUCCESS);

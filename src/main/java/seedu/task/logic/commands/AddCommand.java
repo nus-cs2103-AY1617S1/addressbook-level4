@@ -99,6 +99,8 @@ public class AddCommand extends Command {
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),
 						tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 	}

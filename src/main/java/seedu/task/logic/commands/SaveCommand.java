@@ -52,6 +52,8 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
         }
         
         catch(IOException e){
+			//remove this command from list for undo
+			model.getCommandForUndo();
             return new CommandResult("Failed to save config file: "+ StringUtil.getDetails(e));
         }
         

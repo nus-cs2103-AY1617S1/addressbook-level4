@@ -50,6 +50,8 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
+			//remove this command from list for undo
+			model.getCommandForUndo();
             assert false : "The target task cannot be missing";
         }
 
