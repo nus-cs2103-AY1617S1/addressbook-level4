@@ -12,8 +12,8 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /** 
  * Edits a task identified using its last displayed index in the task manager.
- * @author Ronald
- * @author A0139430L JingRui
+ * @@author Ronald
+ * @@author A0139430L JingRui
  */
 
 
@@ -74,7 +74,7 @@ public class EditCommand extends Command{
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
             }
-
+            model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
         else if(category == 'D'){
@@ -97,10 +97,10 @@ public class EditCommand extends Command{
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
             }
-
+            model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
-        else{
+        else if(category == 'T'){
             if (lastShownTodoList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -120,8 +120,10 @@ public class EditCommand extends Command{
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
             }
+            model.changeTaskCategory();
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
+        return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
 }

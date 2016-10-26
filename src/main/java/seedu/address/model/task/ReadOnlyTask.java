@@ -47,6 +47,12 @@ public interface ReadOnlyTask {
                 .append(getStart())
                 .append(" End: ")
                 .append(getEnd())
+                .append(" overdue: ")
+                .append(getOverdue())
+                .append(" category: ")
+                .append(getTaskCategory())
+                .append(" complete: ")
+                .append(getIsCompleted())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

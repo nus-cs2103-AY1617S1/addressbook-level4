@@ -82,4 +82,8 @@ public interface Model {
      * Sets the config object
      */
     void setConfig(Config config);
+    /**
+     * finds all tasks in the wrong category and changes it to the correct category
+     */
+    void changeTaskCategory();
 }
