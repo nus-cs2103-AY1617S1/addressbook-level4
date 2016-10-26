@@ -96,13 +96,16 @@ public interface Model {
     /** Returns the unique tag list as an {@code ObservableList<? extends ReadOnlyTag>} */
     ObservableList<? extends ReadOnlyTag> getUniqueTagList();
 
-   /**
+    /**
      * Sorts the filtered task list by the given keywords
      * 
      * @@author A0140022H
      */
 	void sortFilteredTaskList(Set<String> keywords);
 
+	/**
+     * @@author A0140022H
+     */
 	void updateFilteredTaskListUsingDate(DateTime dateTime);  
 
 }
