@@ -2,14 +2,13 @@ package seedu.todo.model;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
@@ -23,6 +22,7 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+//@@author A0135817B
 public class TodoModelTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();

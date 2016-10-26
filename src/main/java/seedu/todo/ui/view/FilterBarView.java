@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.WordUtils;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;

@@ -9,11 +9,10 @@ import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskBuilder;
-import seedu.todo.testutil.TimeUtil;
 
 //@@ author A0092382A
 public class ViewCommandTest extends CommandTest {

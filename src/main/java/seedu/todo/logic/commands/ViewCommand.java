@@ -1,7 +1,7 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;

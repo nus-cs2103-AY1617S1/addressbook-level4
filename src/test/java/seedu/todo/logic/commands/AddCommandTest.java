@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.model.task.ImmutableTask;

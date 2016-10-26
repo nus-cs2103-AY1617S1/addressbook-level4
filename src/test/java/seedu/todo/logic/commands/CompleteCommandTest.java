@@ -10,10 +10,9 @@ import static org.hamcrest.Matchers.*;
 
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.EventsCollector;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.logic.commands.CompleteCommand;
 
 public class CompleteCommandTest extends CommandTest {
     private static final String VERB_COMPLETE = "marked complete";

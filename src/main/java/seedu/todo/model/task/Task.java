@@ -16,7 +16,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import seedu.todo.model.tag.Tag;
 
-//@@author A0139021U-reused
+//@@author A0135817B
 /**
  * Represents a single task
  */

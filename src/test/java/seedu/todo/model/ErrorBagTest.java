@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.todo.commons.exceptions.ValidationException;
 
+//@@author A0135817B
 public class ErrorBagTest {
     
     private ErrorBag errorBag = new ErrorBag();
@@ -57,6 +58,7 @@ public class ErrorBagTest {
         errorBag.validate("Validation message");
     }
     
+    @Test
     public void testValidationException() {
         errorBag.put("Hello World");
         errorBag.put("a", "Hello World");

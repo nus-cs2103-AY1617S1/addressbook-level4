@@ -1,4 +1,4 @@
-package seedu.todo.commons.core;
+package seedu.todo.model.property;
 
 import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;

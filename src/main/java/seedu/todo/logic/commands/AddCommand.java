@@ -3,7 +3,7 @@ package seedu.todo.logic.commands;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;

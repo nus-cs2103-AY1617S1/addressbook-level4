@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import java.util.*;
 import java.util.Map.Entry;
 
-
+//@@author A0135817B
 /**
  * Parses a input string into the command, positional argument and named arguments. 
  * The format looks like: 
@@ -18,43 +18,6 @@ import java.util.Map.Entry;
  */
 public class TodoParser implements Parser {
     public static String FLAG_TOKEN = "/";
-    
-    private class TodoResult implements ParseResult {
-        private final String command;
-        private final String positional;
-        private final Map<String, String> named;
-        
-        public TodoResult(String command, String positional, Map<String, String> named) {
-            this.command = command;
-            this.positional = positional.length() > 0 ? positional : null;
-            this.named = named;
-        }
-
-        @Override
-        public String getCommand() {
-            return command;
-        }
-
-        @Override
-        public Optional<String> getPositionalArgument() {
-            return Optional.ofNullable(positional);
-        }
-
-        @Override
-        public Map<String, String> getNamedArguments() {
-            return named;
-        }
-        
-        @Override
-        public String toString() {
-            StringJoiner sj = new StringJoiner(" ");
-            sj.add(command).add(getPositionalArgument().orElse(""));
-            for (Entry<String, String> e : getNamedArguments().entrySet()) {
-                sj.add(TodoParser.FLAG_TOKEN + e.getKey()).add(e.getValue());
-            }
-            return sj.toString();
-        }
-    }
 
     private List<String> tokenize(String input) {
         input = input.trim();
@@ -110,5 +73,41 @@ public class TodoParser implements Parser {
         
         return new TodoResult(command, positional, named);
     }
-    
+
+    private class TodoResult implements ParseResult {
+        private final String command;
+        private final String positional;
+        private final Map<String, String> named;
+
+        public TodoResult(String command, String positional, Map<String, String> named) {
+            this.command = command;
+            this.positional = positional.length() > 0 ? positional : null;
+            this.named = named;
+        }
+
+        @Override
+        public String getCommand() {
+            return command;
+        }
+
+        @Override
+        public Optional<String> getPositionalArgument() {
+            return Optional.ofNullable(positional);
+        }
+
+        @Override
+        public Map<String, String> getNamedArguments() {
+            return named;
+        }
+
+        @Override
+        public String toString() {
+            StringJoiner sj = new StringJoiner(" ");
+            sj.add(command).add(getPositionalArgument().orElse(""));
+            for (Entry<String, String> e : getNamedArguments().entrySet()) {
+                sj.add(TodoParser.FLAG_TOKEN + e.getKey()).add(e.getValue());
+            }
+            return sj.toString();
+        }
+    }
 }

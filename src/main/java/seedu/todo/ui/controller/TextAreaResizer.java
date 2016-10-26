@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
+//@@author A0135817B
 /**
  * Automatically resize a text area object such that the height fits the content of the text area
  */

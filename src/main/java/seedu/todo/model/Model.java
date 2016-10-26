@@ -1,7 +1,7 @@
 package seedu.todo.model;
 
 import javafx.beans.property.ObjectProperty;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;

@@ -4,7 +4,7 @@ package seedu.todo.logic.commands;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 
 import static org.junit.Assert.*;

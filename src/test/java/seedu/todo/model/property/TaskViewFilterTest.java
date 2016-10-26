@@ -1,7 +1,7 @@
-package seedu.todo.commons.core;
+package seedu.todo.model.property;
 
 import org.junit.Test;
-import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.model.property.TaskViewFilter;
 
 import java.util.HashSet;
 import java.util.Set;
