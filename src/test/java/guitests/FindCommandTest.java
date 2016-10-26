@@ -12,13 +12,14 @@ import seedu.malitio.logic.commands.FindCommand;
 import static org.junit.Assert.assertTrue;
 import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+//@@author a0126633j
 public class FindCommandTest extends MalitioGuiTest {
 
     @Test
     public void find_nonEmptyList() throws IllegalArgumentException, IllegalValueException {
 
         assertFindEventResult("find with", td.event1, td.event2); //multiple results
-        assertFindEventResult("find hello");
+        assertFindEventResult("find hello"); //no result
         
         //find after deleting one result
         commandBox.runCommand("list");

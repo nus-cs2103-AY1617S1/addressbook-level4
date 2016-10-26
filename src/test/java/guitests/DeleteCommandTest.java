@@ -11,6 +11,7 @@ import seedu.malitio.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.malitio.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+//@@author a0126633j
 public class DeleteCommandTest extends MalitioGuiTest {
   
     private static final String FLOATING_TASK_KEYWORD = "f";
@@ -25,14 +26,15 @@ public class DeleteCommandTest extends MalitioGuiTest {
         TestDeadline[] deadlineList = td.getTypicalDeadlines(); // 2 deadlines
         TestEvent[] eventList = td.getTypicalEvents(); // 4 events
         
-  /*      //invalid index argument
+        //invalid index argument
         commandBox.runCommand("delete " + FLOATING_TASK_KEYWORD + floatingTaskList.length + 1); // boundary
         assertResultMessage("The task index provided is invalid");
         commandBox.runCommand("delete " + EVENT_KEYWORD + 0); // boundary
         assertResultMessage("The task index provided is invalid");
         commandBox.runCommand("delete " + "g1"); // invalid task type
         assertResultMessage("The task index provided is invalid");
-  */      
+        
+        // to save time, work on each list because each list is identical
         //delete first in floating task
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, floatingTaskList);
@@ -40,13 +42,11 @@ public class DeleteCommandTest extends MalitioGuiTest {
         //delete the last in deadline
         targetIndex = deadlineList.length;   
         assertDeleteSuccess(targetIndex, deadlineList);
-  //      deadlineList = TestUtil.removeTaskFromList(deadlineList, targetIndex);
 
-  /*      //delete from the middle of event list
+        //delete from the middle of event list
         targetIndex = eventList.length/2;
         assertDeleteSuccess(targetIndex, eventList);
-        eventList = TestUtil.removeTaskFromList(eventList, targetIndex);
-*/
+
 
     }
 
@@ -57,7 +57,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] floatingTaskList) {
         TestFloatingTask taskToDelete = floatingTaskList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestFloatingTask[] expectedRemainder = TestUtil.removeTaskFromList(floatingTaskList, targetIndexOneIndexed);
+        TestFloatingTask[] expectedRemainder = TestUtil.removeTasksFromList(floatingTaskList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + FLOATING_TASK_KEYWORD + targetIndexOneIndexed);
 
@@ -70,7 +70,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
     
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestDeadline[] deadlineList) {
         TestDeadline taskToDelete = deadlineList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestDeadline[] expectedRemainder = TestUtil.removeTaskFromList(deadlineList, targetIndexOneIndexed);
+        TestDeadline[] expectedRemainder = TestUtil.removeTasksFromList(deadlineList, taskToDelete);
 
         commandBox.runCommand("delete " + DEADLINE_KEYWORD + targetIndexOneIndexed);
 
@@ -78,12 +78,12 @@ public class DeleteCommandTest extends MalitioGuiTest {
         assertTrue(deadlineListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-  //      assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
     
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestEvent[] eventList) {
         TestEvent taskToDelete = eventList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestEvent[] expectedRemainder = TestUtil.removeTaskFromList(eventList, targetIndexOneIndexed);
+        TestEvent[] expectedRemainder = TestUtil.removeTasksFromList(eventList, taskToDelete);
 
         commandBox.runCommand("delete " + EVENT_KEYWORD + targetIndexOneIndexed);
 
@@ -97,7 +97,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
         }
 
         //confirm the result message is correct
-        //assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

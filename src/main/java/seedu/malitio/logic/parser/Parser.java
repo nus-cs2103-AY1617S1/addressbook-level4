@@ -273,7 +273,7 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        return new DeleteCommand(taskType, taskNum);
+        return new DeleteCommand(Character.toString(taskType), taskNum);
     }
 
     /**

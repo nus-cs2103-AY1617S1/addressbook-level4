@@ -332,25 +332,13 @@ public class TestUtil {
         return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
-    
-    /**
-     * Removes a subset from the list of deadlines.
-     * @param tasks The list of deadlines
-     * @param tasksToRemove The subset of tasks.
-     * @return The modified deadline after removal of the subset from deadlines.
-     */
+
     public static TestDeadline[] removeTasksFromList(final TestDeadline[] tasks, TestDeadline... tasksToRemove) {
         List<TestDeadline> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
         return listOfTasks.toArray(new TestDeadline[listOfTasks.size()]);
     }
 
-    /**
-     * Removes a subset from the list of tasks.
-     * @param tasks The list of tasks
-     * @param tasksToRemove The subset of tasks.
-     * @return The modified tasks after removal of the subset from tasks.
-     */
     public static TestEvent[] removeTasksFromList(final TestEvent[] tasks, TestEvent... tasksToRemove) {
         List<TestEvent> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
@@ -362,7 +350,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
+    public static TestFloatingTask[] removeTasksFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
