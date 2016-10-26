@@ -199,9 +199,27 @@ Examples:
 * **`search`**` tomorrow`<br>
   **`update`**` 2 on 14/10/17 by 18/10/17;` <br>
   Update the task with `ID #2` to reflect new dates/
-* **`search`**` 25/10/17`<br>
-  **`update`**` 3 -on ;` <br>
+* **`search`**` hello`<br>
+  **`update`**`  1 hello haha on Oct 29 1600 by mon priority mid ; changed everything` <br>
   Update the task with `ID #3` to remove old on date.
+
+Demo:
+
+Type the `search` command
+
+![SEARCH_1](./images/SEARCH_1.png)
+
+Display search result
+
+![SEARCH_Result_1](./images/SEARCH_Result_1.png)
+
+Type the `update` command
+
+![UPDATE](./images/UPDATE.png)
+
+Display mark result
+
+![UPDATE_Result](./images/UPDATE_Result.png)
 
 
 ## Deleting a task : `delete`
@@ -216,6 +234,24 @@ Examples:
 * **`search`**` Tutorial`<br>
   **`delete`**` 1`<br>
   Deletes the task with `ID #1` in the Do-Do Bird.
+  
+Demo:
+
+Type the `search` command
+
+![SEARCH_1](./images/SEARCH_1.png)
+
+Display search result
+
+![SEARCH_Result_1](./images/SEARCH_Result_1.png)
+
+Type the `delete` command
+
+![DELETE](./images/DELETE.png)
+
+Display delete result
+
+![DELETE_Result](./images/DELETE_Result.png)
 
 ## Tagging a task : `tag`
 Tags the specified task with the specified tag.<br>
