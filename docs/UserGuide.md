@@ -58,6 +58,7 @@ Command | Format
 
 <br>
 
+<!--- @@author A0140133B -->
 **General Information About Command Format**
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
@@ -88,7 +89,9 @@ Exit | `exit` | None
 * You have to always surround task/event names with double quotation marks, `"`.
 * Other than that, you can type anything within those double quotes.
 
+<!--- @@author -->
 <br>
+<!--- @@author A0148040R -->
 
 **Input of Date and Time in Commands**
 * The input of date and time is flexible.
