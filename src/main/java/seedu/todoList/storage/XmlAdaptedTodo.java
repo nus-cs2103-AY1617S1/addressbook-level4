@@ -24,7 +24,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
 	@XmlElement(required = true)
 	private String priority;
 	@XmlElement(required = true)
-	private boolean isDone;
+	private String isDone;
 
     /**
      * No-arg constructor for JAXB use.
@@ -42,20 +42,20 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
     	this.startDate = source.getStartDate().saveDate;
     	this.endDate = source.getEndDate().saveEndDate;
     	this.priority = source.getPriority().savePriority;
-    	this.isDone = source.getDone();
+    	this.isDone = source.getDone().isDone;
     }
     
     public XmlAdaptedTodo(ReadOnlyTask source) {
     	this((Todo) source);
     }
 
-    public Task toModelType() throws IllegalValueException {
+    public Todo toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
         final StartDate date = new StartDate(this.startDate);
         final EndDate endDate = new EndDate(this.endDate);
         final Priority priority = new Priority(this.priority);
-        final Done done = (new Done(String.valueOf(this.isDone)));
-        return new Todo(name, date, endDate, priority);
+        final Done isDone = new Done(this.isDone);
+        return new Todo(name, date, endDate, priority, isDone);
     }
 }
 

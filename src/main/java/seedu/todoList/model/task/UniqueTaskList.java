@@ -86,6 +86,13 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    /**
+     * Removes all task from the list.
+     */
+    public void removeAll() {
+       internalList.remove(0, internalList.size());
+    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;

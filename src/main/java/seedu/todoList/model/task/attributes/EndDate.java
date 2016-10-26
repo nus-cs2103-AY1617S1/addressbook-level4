@@ -86,11 +86,13 @@ public class EndDate {
             checkYear = false;
         }
         //Check if input month is less than current month or more than 12 months
-        else if(Integer.parseInt(dateArr[1]) < Integer.parseInt(curDate[1]) || Integer.parseInt(dateArr[1]) > 12){
+        else if((Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) &&
+                Integer.parseInt(dateArr[1]) < Integer.parseInt(curDate[1])) || Integer.parseInt(dateArr[1]) > 12){
             checkMonth = false; 
         }
         //Check if input day is more than current day or more than days in current month
-        else if(Integer.parseInt(dateArr[0]) < Integer.parseInt(curDate[0]) || Integer.parseInt(dateArr[0]) > daysOfcurrMonth){
+        else if((Integer.parseInt(dateArr[1]) == Integer.parseInt(curDate[1]) &&
+                Integer.parseInt(dateArr[0]) < Integer.parseInt(curDate[0])) || Integer.parseInt(dateArr[0]) > daysOfcurrMonth){
             checkDay = false;
         } 
       

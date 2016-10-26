@@ -16,23 +16,18 @@ public class Todo extends Task implements ReadOnlyTask {
     private StartDate startDate;
     private EndDate endDate;
     private Priority priority;
-    private Done done;
-    private boolean isDone = false;
+    private String isDone;
 
     /**
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority) {
+    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority, String isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, priority);
         super.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
-    }
-    
-    public Todo(boolean isDone , String nothing){
-        nothing = "";
         this.isDone = isDone;
     }
 
@@ -40,7 +35,7 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority());
+        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority(), source.getDone());
     }
 
     public StartDate getStartDate() {
@@ -54,8 +49,8 @@ public class Todo extends Task implements ReadOnlyTask {
     public Priority getPriority() {
         return priority;
     }
-
-    public boolean getDone() {
+    
+    public String getDone() {
     	return isDone;
     }
     
@@ -70,8 +65,7 @@ public class Todo extends Task implements ReadOnlyTask {
                 && super.name.equals(((Todo) other).getName()))
                 && this.startDate.equals(((Todo) other).getStartDate())
                 && this.endDate.equals(((Todo) other).getEndDate())
-                && this.priority.equals(((Todo) other).getPriority())
-                && this.done.equals(((Todo) other).getDone());
+                && this.priority.equals(((Todo) other).getPriority());
     }
 
     @Override
@@ -83,9 +77,7 @@ public class Todo extends Task implements ReadOnlyTask {
                 .append("\nEnd Date: ")
                 .append(getEndDate())
                 .append("\nPriority: ")
-                .append(getPriority())
-                .append("\nDone: ")
-                .append(getDone());
+                .append(getPriority());
         return builder.toString();
     }
 

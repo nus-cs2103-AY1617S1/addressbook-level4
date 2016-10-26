@@ -20,6 +20,13 @@ public interface Model {
     void resetEventListData(ReadOnlyTaskList newData);
     /** Clears existing backing model and replaces with the provided new data. */
     void resetDeadlineListData(ReadOnlyTaskList newData);
+    
+    /** Clears existing backing model. */
+    void resetTodoListData();
+    /** Clears existing backing model. */
+    void resetEventListData();
+    /** Clears existing backing model. */
+    void resetDeadlineListData();
 
     /** Returns the TodoList */
     ReadOnlyTaskList getTodoList();
@@ -37,7 +44,7 @@ public interface Model {
     /** Edit the given task */
     void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
-    /** Mark the given task done */
+    /** Edit the given task */
     void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

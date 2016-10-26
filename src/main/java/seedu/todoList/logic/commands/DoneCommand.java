@@ -4,16 +4,8 @@ import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.commons.core.Messages;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
-import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.Todo;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.todoList.model.task.attributes.Done;
-import seedu.todoList.model.task.attributes.EndDate;
-import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.task.attributes.Priority;
-import seedu.todoList.model.task.attributes.StartDate;
 
 /**
  * Selects a task identified using it's last displayed index from the TodoList.
@@ -33,7 +25,7 @@ public class DoneCommand extends Command {
     
     public final String dataType;
     public final int targetIndex;
-    
+
     public DoneCommand(String dataType, int targetIndex) {
     	this.dataType = dataType;
         this.targetIndex = targetIndex;
