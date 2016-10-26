@@ -104,7 +104,6 @@ Format: `find KEYWORD` or `find t/TAG`
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 > * Only task name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
 	e.g. `Hans` will match `Hans Bo`
 
@@ -114,6 +113,12 @@ Examples:
 * `find t/cs2103`<br>
   Returns tasks having tag `cs2103`
 
+#### Activate real time search: `searchbox`
+Activates the real time search, which is located in the same input box used to input commands.<br/>
+Format: `searchbox`
+
+> * To exit from real time search, just hit <kbd>Enter</kbd>.
+> * Similar functionality to `find`
 
 #### Update entries : `update`
 Update a specific task.<br>
