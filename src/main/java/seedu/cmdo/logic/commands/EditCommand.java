@@ -33,7 +33,7 @@ public class EditCommand extends Command {
     		+ "NOTE: You must reenter all parameters again.\n"
             + "Example: " + COMMAND_WORD + " 2 Take Bongo out for a walk tomorrow 2pm /medium -dog";
     
-    public static final String MESSAGE_EDITED_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDITED_TASK_SUCCESS = "Edited Task: %1$s";
 
     private final int targetIndex;
     private final Task toEditWith;
