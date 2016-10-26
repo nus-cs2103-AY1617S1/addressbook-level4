@@ -12,17 +12,16 @@ public interface ReadOnlyTask {
     Name getName();
 
     DateTimeInfo getDueDate();
-
     DateTimeInfo getStartTime();
-
     DateTimeInfo getEndTime();
+    DateTimeInfo getStartingTimeOrDueDate();
+    DateTimeInfo getEndingTimeOrDueDate();
 
     boolean getIsTask();
-
     boolean getIsEvent();
-
     boolean getIsDone();
-
+    boolean getIsNotFloatingTask();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList, changes on
      * the returned list will not affect the person's internal tags.
@@ -69,5 +68,7 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
+
 
 }

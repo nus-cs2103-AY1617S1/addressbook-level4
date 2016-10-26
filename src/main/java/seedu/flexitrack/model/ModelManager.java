@@ -204,7 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    //TODO: 
+
     private class DateQualifier implements Qualifier {
         private String keyWords;
         private String dateInfo; 
@@ -217,33 +217,16 @@ public class ModelManager extends ComponentManager implements Model {
                     .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").trim();
         }
 
+        //TODO: need to refactor 
         @Override
         public boolean run(ReadOnlyTask task) {
-            boolean willBeShown=true; 
-
-            if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
-                if (task.getIsTask()){ 
-                    willBeShown = DateTimeInfo.isInTheFuture(task.getDueDate());
-                } else if (task.getIsEvent()){
-                    willBeShown = DateTimeInfo.isInTheFuture(task.getEndTime());
-                }else { 
-                    willBeShown = !task.getIsDone();
-                }
-            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
-                if (task.getIsTask()){ 
-                    willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
-                } else {
-                    willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
-                } 
-            } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
-                willBeShown = DateTimeInfo.withInTheDuration(keyWords,task);
-            } else if (!dateInfo.equals("")){
-                willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
-            }
+            
+            boolean willBeShown = isTaskGoingToBeShown(task);
 
             if (willBeShown==false){ 
                 return false; 
             }
+            
             if (keyWords.contains(ListCommand.LIST_UNMARK_COMMAND)){
                 return !task.getIsDone();
             } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)){
@@ -253,11 +236,29 @@ public class ModelManager extends ComponentManager implements Model {
             return willBeShown;
             
         }
+
+        /**
+         * @param task
+         * @param willBeShown
+         * @return
+         */
+        private boolean isTaskGoingToBeShown(ReadOnlyTask task) {
+            if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
+                if (task.getIsNotFloatingTask()){ 
+                    return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+                }else { 
+                    return !task.getIsDone();
+                }
+            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
+                return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+            } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
+                return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
+            } else {
+                return DateTimeInfo.isOnTheDate(dateInfo, task);
+            }
+            // if (!dateInfo.equals(""))
+        }
         
-//        @Override
-//        public String toString() {
-//            return "name=" + String.join(", ", dateKeyWords);
-//        }
     }
     
     
