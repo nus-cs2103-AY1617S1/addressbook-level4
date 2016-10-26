@@ -1,5 +1,5 @@
 package seedu.whatnow.model;
-
+//@@author A0126240W
 
 import java.util.List;
 

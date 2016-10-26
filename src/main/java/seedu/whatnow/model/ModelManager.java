@@ -1,4 +1,3 @@
-
 package seedu.whatnow.model;
 
 import javafx.collections.FXCollections;
@@ -59,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfMarkUndoneTaskTypes;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
-    
+    //@@author A0139128A
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -91,11 +90,11 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
     }
-
+    //@@author A0141021H
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
-
+    //@@author A0139128A
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
         new Config();
@@ -117,57 +116,57 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
     }
-
+    //@@author A0139128A
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
         stackOfWhatNow.push(new WhatNow(whatNow));
         whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
-
+    //@@author A0139128A
     @Override
     public synchronized void revertData() {
         whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
         indicateWhatNowChanged();
     }
-
+    //@@author A0139128A-reused
     @Override
     public ReadOnlyWhatNow getWhatNow() {
         return whatNow;
     }
-
+    //@@author A0139772U-reused
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
-    
+    //@@author A0141021H
     /** Raises an event to indicate the config has changed */
     private void indicateConfigChanged(Path destination, Config config) {
         raise(new ConfigChangedEvent(destination, config));
     }
-    
+    //@@author A0141021H-reused
     /** Raises an event to indicate that a task was added */
     private void indicateAddTask(Task task) {
         raise (new AddTaskEvent(task));
     }
-    
+    //@@author A0141021H-reused
     /** Raises an event to indicate that a task was updated */
     private void indicateUpdateTask(Task task) {
         raise (new UpdateTaskEvent(task));
     }
-    
+    //@@author A0141021H
     @Override
     public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
         indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
-
+    //@@author A0139128A-reused
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.removeTask(target);
         indicateWhatNowChanged();
     }
-    
+    //@@author A0126240W-reused
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
@@ -175,103 +174,103 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddTask(task);
         indicateWhatNowChanged();
     }
-
+    //@@author A0126240W
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         whatNow.updateTask(old, toUpdate);
         indicateUpdateTask(toUpdate);
         indicateWhatNowChanged();
     }
-
+    //@@author A0139772U
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.markTask(target);
         indicateWhatNowChanged();
     }
-
+    //@@author A0141021H
     @Override
     public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
         whatNow.unMarkTask(target);
         indicateWhatNowChanged();
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<Command> getUndoStack() {
         return stackOfUndo;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<Command> getRedoStack() {
         return stackOfRedo;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getOldTask() {
         return stackOfOldTask;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getNewTask() {
         return stackOfNewTask;
     }
-    
+    //@@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
         filteredTasks.setPredicate(null);
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
         return stackOfDeletedTasks;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
         return stackOfDeletedTasksRedo;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
         return stackOfDeletedTasksAdd;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
         return stackOfDeletedTasksAddRedo;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
         return stackOfMarkDone;
     }
-    
+    //@@author A0141021H
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
         return stackOfMarkUndone;
     }
-    
+    //@@author A0139128A 
     @Override
     public Stack<String> getStackOfMarkDoneTaskTaskType() {
         return stackOfMarkDoneTaskTypes;
     }
-    
+    //@@author A0141021H
     public Stack<String> getStackOfMarkUndoneTaskTaskType() {
         return stackOfMarkUndoneTaskTypes;
     }
-    
+    //@@author A0139128A
     @Override
     public Stack<String> getStackOfListTypes() {
         return stackOfListTypes;
     }
-    
+    //@@author A0139128A
     @Override 
     public Stack<String> getStackOfListTypesRedo() {
         return stackOfListTypesRedo;
     }
     
     //=========== Filtered Task List Accessors ===============================================================
-    
+    //@@author A0139772U
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         updateFilteredListToShowAllIncomplete();
@@ -345,7 +344,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //=========== Filtered Schedule List Accessors ===============================================================
-
+    //@@author A0139772U
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
         updateFilteredScheduleListToShowAllIncomplete();
@@ -419,7 +418,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
-
+    //@@author A0141021H
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
         String toString();
@@ -448,7 +447,7 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
-
+    //@@author A0139772U
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -469,7 +468,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    //@@author A0139772U
     private class TaskStatusQualifier implements Qualifier {
         private Set<String> status;
 
@@ -490,7 +489,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "Status=" + String.join(", ", status);
         }
     }
-
+    //@@author A0139772U
     private class TaskTypeQualifier implements Qualifier {
         private Set<String> taskType;
 

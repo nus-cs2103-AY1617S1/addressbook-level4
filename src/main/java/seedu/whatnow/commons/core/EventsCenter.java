@@ -1,5 +1,5 @@
 package seedu.whatnow.commons.core;
-
+//@@author A0126240W
 import com.google.common.eventbus.EventBus;
 
 import seedu.whatnow.commons.events.BaseEvent;
