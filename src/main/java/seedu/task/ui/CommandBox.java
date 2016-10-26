@@ -1,14 +1,18 @@
 package seedu.task.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.task.commons.events.ui.SwitchCommandBoxFunctionEvent;
 import seedu.task.commons.util.FxViewUtil;
 import seedu.task.logic.Logic;
 import seedu.task.logic.commands.*;
@@ -18,6 +22,9 @@ import java.util.logging.Logger;
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
+    
+    private final String TEXT_LIVE_SEARCH = "Enter your search term here...";
+    private final String TEXT_COMMAND_BOX = "Enter command here...";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -29,6 +36,8 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
+    private EventHandler<KeyEvent> liveSearchHandler;
+    private boolean isSearchMode;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
             ResultDisplay resultDisplay, Logic logic) {
@@ -41,6 +50,14 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        this.liveSearchHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                logic.updateTaskListFilter(commandTextField.getText());
+            }
+        };
+        this.isSearchMode = false;
+        
         registerAsAnEventHandler(this);
     }
 
@@ -69,16 +86,24 @@ public class CommandBox extends UiPart {
 
     @FXML
     private void handleCommandInputChanged() {
-        //Take a copy of the command text
-        previousCommandTest = commandTextField.getText();
+        //@@author A0141052Y
+        if (isSearchMode) {
+            // Will always set back on enter and ensure that command is not executed!
+            setToCommandBox();
+            commandTextField.setText("");
+        //@@author
+        } else {
+            //Take a copy of the command text
+            previousCommandTest = commandTextField.getText();
 
-        /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
-         * in the event handling code {@link #handleIncorrectCommandAttempted}
-         */
-        setStyleToIndicateCorrectCommand();
-        mostRecentResult = logic.execute(previousCommandTest);
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+            /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
+             * in the event handling code {@link #handleIncorrectCommandAttempted}
+             */
+            setStyleToIndicateCorrectCommand();
+            mostRecentResult = logic.execute(previousCommandTest);
+            resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+            logger.info("Result: " + mostRecentResult.feedbackToUser);
+        }
     }
 
 
@@ -96,7 +121,26 @@ public class CommandBox extends UiPart {
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
+    
+    //@@author A0141052Y
+    @Subscribe
+    private void handleSwitchCommandBoxFunction(SwitchCommandBoxFunctionEvent event) {
+        setToLiveSearch();
+    }
+    
+    private void setToLiveSearch() {
+        commandTextField.setPromptText(TEXT_LIVE_SEARCH);
+        this.isSearchMode = true;
+        commandTextField.addEventHandler(KeyEvent.KEY_TYPED, this.liveSearchHandler);
+    }
+    
+    private void setToCommandBox() {
+        commandTextField.setPromptText(TEXT_COMMAND_BOX);
+        this.isSearchMode = false;
+        commandTextField.removeEventHandler(KeyEvent.KEY_TYPED, this.liveSearchHandler);
+    }
 
+    //@@author
     /**
      * Restores the command box text to the previously entered command
      */
