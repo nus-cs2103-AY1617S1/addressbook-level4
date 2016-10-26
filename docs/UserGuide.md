@@ -145,7 +145,7 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 > Parameters | Description  
 > -------- | :-------- 
 > INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
-> TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | See [Adding a task](#adding-a-task-add)
+> TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | Similar to [Adding a task](#adding-a-task-add)
 > <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
@@ -231,17 +231,17 @@ Add task named "pjm" to task list
 
 Command | Format  
 -------- | :-------- 
-[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`
-[Clear](#clearing-all-entries--clear) | `clear`
-[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`
-[Exit](#exiting-the-program--exit) | `exit`
-[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`
-[Help](#viewing-help--help) | `help`
-[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`
-[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`
-[Undo](#undo-the-most-recent-operation--undo) | `undo`
-[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
-[Unalias](#unalias-a-keyword--unalias) | `unalias  s/SHORT_KEYWORD`
+[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `add Weekly Milestone s/Thurs r/weekly n/3 l/COM1 c/Meeting`
+[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`<br>Example: `alias k/main success scenario s/mss`
+[Clear](#clearing-all-entries--clear) | `clear`<br>Example: `clear`
+[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`<br>Example: `delete 1 2 3`
+[Exit](#exiting-the-program--exit) | `exit`<br>Example: `exit`
+[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`<br>Example: `find t/exact CS2103 Meeting`
+[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`<br>Example: `list t/archived`
+[Help](#viewing-help--help) | `help`<br>Example: `help`
+[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
+[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
+[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
+[Undo](#undo-the-most-recent-operation--undo) | `undo`<br>Example: `undo`
+[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`<br>Example: `redo`
+[Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`
