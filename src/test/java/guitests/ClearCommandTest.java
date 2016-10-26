@@ -1,3 +1,4 @@
+//@@author A0142102E
 package guitests;
 
 import seedu.tasklist.testutil.TypicalTestTasks;
@@ -28,6 +29,6 @@ public class ClearCommandTest extends TaskListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Your to-do list has been cleared!");
+        assertResultMessage("Your Smart Scheduler has been cleared!");
     }
 }
