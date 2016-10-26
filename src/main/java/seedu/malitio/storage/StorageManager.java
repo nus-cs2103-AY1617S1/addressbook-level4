@@ -12,7 +12,9 @@ import seedu.malitio.commons.util.FileUtil;
 import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.UserPrefs;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -93,18 +95,20 @@ public class StorageManager extends ComponentManager implements Storage {
      * Stores the current data file in the new directory and deletes the old data file.
      * @param event
      * @throws DataConversionException
+     * @throws IOException 
      */
     //@@author a0126633j
     @Subscribe
-    public void handleDataStorageFileChangedEvent(DataStorageFileChangedEvent event) throws DataConversionException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Data storage file path changed, updating.."));
+    public void handleDataStorageFileChangedEvent(DataStorageFileChangedEvent event) throws DataConversionException, IOException {
         String oldDataFilePath = malitioStorage.getMalitioFilePath();
         malitioStorage = new XmlMalitioStorage(event.dataFilePath);
         
-        if(oldDataFilePath != this.malitioStorage.getMalitioFilePath()) {
-            return;
+        if(FileUtil.twoFilePathsAreEqual(oldDataFilePath, this.malitioStorage.getMalitioFilePath())) {
+                return;
         }
         
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Data storage file path changed, updating.."));
+
         try {
             saveMalitio(readMalitio(oldDataFilePath).get(), this.malitioStorage.getMalitioFilePath()); 
         } catch (IOException e) {
