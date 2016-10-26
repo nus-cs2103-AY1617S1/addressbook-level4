@@ -51,7 +51,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     private void addMainPane() {
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0,0.0);
         placeHolder.getChildren().add(mainPane);
     }
 

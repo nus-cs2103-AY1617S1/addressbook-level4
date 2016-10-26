@@ -26,9 +26,9 @@
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <Label fx:id="name" text="\$first" styleClass="cell_large_label"/>
                                 </HBox>
-                                <Label fx:id="complete" styleClass="cell_small_label" text="\$complete" />
+                                <Label fx:id="complete" styleClass="cell_large_label" text="\$complete" />
                             </children>
                         </HBox>
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
