@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500');
+@import "Fonts.css";
 
 .main {
     -fx-background-color: #2D2D2D;
@@ -81,6 +80,7 @@
 
 .commandFeedback{
     -fx-text-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 12pt;
 }
 
@@ -101,13 +101,12 @@
 
 .commandError {
     -fx-text-fill: #f3f3f3;
-    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
     -fx-wrap-text: true;
 }
 
 .roundLabel {
-    -fx-background-radius: 10;
+    -fx-background-radius: 100;
     -fx-text-fill: #f3f3f3;
     -fx-background-color: #2D2D2D;
     -fx-font-size: 10pt;
@@ -174,7 +173,6 @@
 
 .taskCard .label {
     -fx-text-fill: #444;
-    -fx-font-smoothing-type: lcd;
 }
 
 .taskCard .titleLabel {
@@ -203,7 +201,6 @@
 .taskCard .roundLabel {
     -fx-text-fill: rgba(255, 255, 255, .9);
     -fx-padding: 1 8 2;
-    -fx-background-radius: 100;
 }
 
 .taskCard .pinImage {
@@ -260,15 +257,10 @@
 
 /* Overdue and ongoing inverts their highlights their dateBox, so 
    we add some padding to allow the */
- 
 .overdue #dateBox, 
 .ongoing #dateBox {
     -fx-padding: 3 8;
     -fx-background-radius: 4;
-}
-
-.selected .pinImage {
-    -fx-image: url("../images/star_white.png");
 }
 
 .overdue .dateImage, 
@@ -313,6 +305,10 @@
     -fx-text-fill: selected-color;
 }
 
+.selected .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
 /*Collapse*/
 .collapsed .collapsible {
     visibility: collapse;
@@ -334,7 +330,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Roboto";
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
