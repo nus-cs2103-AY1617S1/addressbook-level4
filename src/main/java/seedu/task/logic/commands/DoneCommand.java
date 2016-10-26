@@ -22,10 +22,12 @@ public class DoneCommand extends Command {
     
     public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Completed Task: %1$s";
 	public static final String MESSAGE_SUCCESS_UNDO = "Undo of done command";
+	public static final String MESSAGE_ALREADY_COMPLETED = "The task is already done.";
 	public final String MESSAGE_DUPLICATE = "The task is a duplicate of an existing task.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
     
     public int targetIndex;
+    public String targetStatus;
     
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -43,6 +45,10 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);
 
+        targetStatus= taskToComplete.getStatus().status;
+        if(targetStatus.equals("COMPLETED"))
+        	return new CommandResult(MESSAGE_ALREADY_COMPLETED);
+        
         try {
             ReadOnlyTask completedTask = taskToComplete;
             completedTask.setStatus(new Status("COMPLETED"));
@@ -61,12 +67,14 @@ public class DoneCommand extends Command {
 	 */
 	@Override
 	public CommandResult executeUndo() {
+		if(targetStatus.equals("COMPLETED"))
+			return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		int numberOfTasks = lastShownList.size();
 		ReadOnlyTask task = lastShownList.get(numberOfTasks - 1);
 		Task taskToAdd = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(),
 				task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags());
-		taskToAdd.setStatus(new Status("ONGOING"));
+		taskToAdd.setStatus(new Status(targetStatus));
 		try {
 			model.deleteTask(task);
 			model.addTaskWithSpecifiedIndex(taskToAdd, targetIndex - 1);
@@ -78,6 +86,9 @@ public class DoneCommand extends Command {
 		return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
 	}
 
+	/**
+	 * If the task is already COMPLETED, method is not reversible
+	 */
 	@Override
 	public boolean isReversible() {
 		return true;
