@@ -275,7 +275,7 @@ public class FilteredListManager {
         private boolean isTaskSameWeekDate(DeadlineTask task, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(task.getDeadline());
             
-            if (daysDifference > 0) {
+            if (daysDifference >= 0) {
                 return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue(); // check if day of the week
             }
             
