@@ -162,7 +162,7 @@ public class ModelManager extends ComponentManager implements Model {
     	        indicateAddressBookChanged();
     		};
     	};
-    	scheduler.scheduleAtFixedRate(overdue, 0, 5, TimeUnit.SECONDS); 
+    	scheduler.scheduleAtFixedRate(overdue, 0, 30, TimeUnit.SECONDS); 
     }
     //=========== Filtered Task List Accessors ===============================================================
 
