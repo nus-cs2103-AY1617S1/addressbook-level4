@@ -18,7 +18,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Gauri Joshi](https://github.com/gaurzzz)
-<img src="images/Gauri_Joshi.png" width="150"><br>
+<img src="images/Gauri_Joshi.PNG" width="150"><br>
  Role: Developer <br>
  Responsibility: Storage
  
