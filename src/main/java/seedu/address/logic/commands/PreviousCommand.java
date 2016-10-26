@@ -5,8 +5,14 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.activity.event.EndTime;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
+import seedu.address.model.activity.event.StartTime;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
+import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 /** 
  * Carries information of previous command: Command word and task.
@@ -16,6 +22,7 @@ public class PreviousCommand {
 	public String COMMAND_WORD;
 	public Activity updatedTask;
 	public Activity oldTask;
+	public int index;
 
 	
 	public PreviousCommand(String command, Activity task)
@@ -25,10 +32,30 @@ public class PreviousCommand {
 		oldTask = null;
 	}
 	
-	public PreviousCommand(String command, ReadOnlyActivity task)
+	public PreviousCommand(String command, int index, ReadOnlyActivity task)
 	{
 		COMMAND_WORD = command;
-		updatedTask = new Activity(task);
+		this.index = index;
+		String type = task.getClass().getSimpleName().toLowerCase();
+			
+		switch (type) {
+        case "activity":
+    		updatedTask = new Activity(task);
+            break;
+        
+        case "task":
+        	updatedTask = new Task((ReadOnlyTask) task);
+            break;
+        
+        case "event":
+        	updatedTask = new Event((ReadOnlyEvent) task);
+            break;
+        
+        default:
+            assert false : "Invalid class type";
+        }
+		
+		
 		oldTask = null;
 	}
 		
@@ -55,5 +82,9 @@ public class PreviousCommand {
 	    return oldTask;
     }
 	   
+	public int getIndex()
+	{
+	    return index;
+    }
 	
 }

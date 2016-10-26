@@ -19,10 +19,10 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all tasks
+   * **`list`** : lists all activities
    * **`add`**` CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2` : 
-     adds a task named `CS2103 T7A1` to the Lifekeeper.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
+     adds an activity named `CS2103 T7A1` to the Lifekeeper.
+   * **`delete`**` 3` : deletes the 3rd activity shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -32,6 +32,7 @@
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `[SQUARE_BRACKETS]` are optional.
+> * Items in `{CURLY_BRACES}` cannot be input together with other items within a separate `{CURLY_BRACES}`
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is not fixed.
 
@@ -40,71 +41,60 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a task or event: `add`
+#### Adding an activity: `add`
 
-Adds a task to Lifekeeper<br>
-Format: `add TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [r/REMINDER] [t/TAG]...` 
+Adds an activity to Lifekeeper<br>
+Format: `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
 
-> Tasks can have any number of tags (including 0)
+> Activities can have only either {[d/DUEDATE] [p/PRIORITY_LEVEL]} or {[s/START_TIME] [e/END_TIME]} 
+> Activities can have any number of tags (including 0)
 
-`DEADLINE` accepts `Date Time` format input and variable inputs namely:
+`DUEDATE` accepts `Date Time` format input and variable inputs namely:
 * `tomorrow [TIME]`
 * `today [TIME]`
 
 `PRIORITY_LEVEL` has to be an integer equal or larger than 1, with `1` being the top priority.
 
+`START_TIME` accepts `Date Time` format input and variable inputs namely:
+* `tomorrow [TIME]`
+* `today [TIME]`
+
+`END_TIME` accepts `Date Time` format input and variable inputs namely:
+* `tomorrow [TIME]`
+* `today [TIME]`
+
+
 `REMINDER` accepts `Date Time` format input and variable inputs namely:
 * `tomorrow [TIME]`
 * `today [TIME]`
-* `[TIME] before` sets reminder at the specified time before the `DEADLINE`. e.g. `0015 before` for a reminder 15 minutes before the `DEADLINE`.
+* `[TIME] before` sets reminder at the specified time before the `DUEDATE`. e.g. `0015 before` for a reminder 15 minutes before the `DUEDATE`.
 
 Examples: 
 * `add Grocery Shopping`
 * `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
-* `add Assignment 2 d/Tomorrow p/1 r/0400 before`
+* `add Project Report d/Tomorrow 1700 t/school`
 * `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
-
-Adds an event to Lifekeeper<br>
-Format: `add EVENT_NAME s/START_TIME e/END_TIME [t/TAG]...` 
-
-> Events can have any number of tags (including 0)
-
-`START_TIME` and `END_TIME` accepts `Date Time` format input and variable inputs namely:
-* `tomorrow [TIME]`
-* `today [TIME]`
-* `TIME` format assumes `today`
-
-Examples: 
 * `add Lunch s/1200 e/1300`
 * `add Executive Meeting s/tomorrow 0900 e/tomorrow 1200`
 * `add Concert s/tomorrow 1800 e/tomorrow 2000 t/Leisure`
 
-#### Adding a category: `addcat`
-Adds a category to Lifekeeper<br>
-Format: `add CATEGORY_NAME` 
-
-Examples: 
-* `addcat Work`
-* `addcat CS2103`
-* `addcat Family `
-
-#### Listing tasks : `list`
-Shows a list of tasks in Lifekeeper, if any.<br>
+#### Listing activities : `list`
+Shows a list of activites in Lifekeeper, if any.<br>
 Format: `list`
 
-> All the tasks in Lifekeeper will be listed
+> All the activites in Lifekeeper will be listed
 
-#### Listing categories: `listcat`
-Shows a list of all categories in LifeKeeper.<br>
-Format: `listcat`
+#### Listing tags: `listtag`
+Shows a list of all tags in LifeKeeper.<br>
+Format: `listtag`
 
-> All the categories in Lifekeeper will be listed
+> All the tags in Lifekeeper will be listed
 
 
-#### Finding tasks by name, tag(s) or the range of DEADLINEs: `find`
-Finding all tasks containing the queried keyword in their name
-* Finds tasks whose names contain any of the given keywords.<br>
-* Format: `find tasks KEYWORD [MORE_KEYWORDS]`
+#### Finding activities by name or tag(s): `find`
+Finding all activities containing the queried keyword in their name
+* Finds activities whose names contain any of the given keywords.<br>
+* Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is not case sensitive. e.g `study` will match `Study`
 > * The order of the keywords matters. e.g. `Assignment Due` will not match `Due Assignment`
@@ -113,11 +103,11 @@ Finding all tasks containing the queried keyword in their name
     e.g. `Shopping` will match `Clothes Shopping`
 
 Examples: 
-* `find tasks Homework Assignment`<br>
-  Returns Any tasks with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
+* `find activities Homework Assignment`<br>
+  Returns Any activities with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
 
-Finding all tasks containing a certain tag    
-* Finds tasks which has tags of given keywords attached to it.<br>    
+Finding all activities containing a certain tag    
+* Finds activities which has tags of given keywords attached to it.<br>    
 * Format: `find tags KEYWORD [MORE_KEYWORDS]`   
     
 > * The search is not case sensitive.     
@@ -125,73 +115,60 @@ Finding all tasks containing a certain tag
 > * Only tags matching the EXACT keyword will be returned.    
     
 Examples:   
-* `find tags CS2103`    
-  Returns Any tasks containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
-    
-Finding all tasks which has deadlines falling within certain dates    
-* Finds tasks which has DEADLINEs falling between the specified range.<br>    
-* Format: `find date STARTING_DATE ENDING_DATE`    
-    
-> Date must be in the form `d MMM yyyy`, `d-MM-yyyy` or `d/MM/yyyy`
-    
-Examples:   
-`find date 1 Oct 2016 31 Oct 2016`   
-  Returns Any tasks which has DEADLINEs falling in between 1st October 2016 and 31st October 2016.<br>
-`find date 1-11-2016 31-12-2016`   
-  Returns Any tasks which has DEADLINEs falling in between 1st November 2016 and 31st December 2016.
+* `find CS2103`    
+  Returns Any activities containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
 
-#### Deleting a task: `delete`
-Deletes the selected task from Lifekeeper. Irreversible.<br>
+#### Deleting an activity: `delete`
+Deletes the selected activity from Lifekeeper. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the task with `INDEX`. 
+> Deletes the activity with `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   
 
 Examples: 
 * `list`<br>
-  `delete 1,3`<br>
-  Deletes the 1st and 3rd task in the Lifekeeper task list.
+  `delete 1`<br>
+  Deletes the 1st activity in the Lifekeeper activity list.
 * `find Dinner`<br>
   `delete 2`<br>
-  Deletes the 2nd task listed in the results of the `find` command.
+  Deletes the 2nd activity listed in the results of the `find` command.
 
-#### Marking a task as done: `done`
-Marks the task as completed.<br>
+#### Marking an activity as done: `done`
+Marks the activity as completed.<br>
 Format: `done INDEX`
 
-> Marks the task with `INDEX` as completed.
+> Marks the activity with `INDEX` as completed.
   The index refers to the index number shown in the most recent listing.<br>
   
 
 Examples: 
 * `list`<br>
   `done 1`<br>
-  Marks the 1st task in the Lifekeeper task list as completed.
+  Marks the 1st activity in the Lifekeeper activity list as completed.
 * `find Admin`<br>
   `done 2`<br>
-  Selects the 2nd task in the results of the `find` command and then marks it as completed.
+  Selects the 2nd activity in the results of the `find` command and then marks it as completed.
 
-#### Editing a task: `edit`
-Edits the selected task from Lifekeeper.<br>
-Format: `edit INDEX [n/TASK_NAME] [c/CATEGORY] [d/DEADLINE] [p/PRIORITY_LEVEL] [r/REMINDER] [t/TAG]...`
+#### Editing an activity: `edit`
+Edits the selected activity from Lifekeeper.<br>
+Format: `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
 
-> Edits the task that was previously selected with `INDEX`. 
+> Edits the activity that was previously selected with `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
   
 
 Examples: 
-* `list task work`<br>
-  `edit 2 n/assignment 5 c/school`<br>
-  Edit the selected the 2nd task in the category `work` by changing its name to assignment 5 and category from work to school.
+* `list`<br>
+  `edit 2 n/assignment 5 r/today`<br>
+  Edit the selected the 2nd activity in the list by changing its name to `assignment 5` and reminder to `today`.
 * `find CS2103 Assignment`<br>
-  `edit 1 d/15/06/2017`<br>
-  Selects the 1st task in the results of the `find` command and then change the DEADLINE to 15/06/2017.
+  `edit 1 d/15-06-2017`<br>
+  Selects the 1st activity in the results of the `find` command and then change the DUEDATE to `15/06/2017`.
 
 #### Undoing an action : `undo`
 Reverts the action that was previously executed.<br>
 Format: `undo`
-
 
 #### Clearing all entries : `clear`
 Clears all entries from Lifekeeper.<br>
@@ -215,15 +192,14 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME d/DEADLINE p/PRIORITY_LEVEL r/REMINDER [t/TAG]...` 
-Add Category |`addcat CATEGORY_NAME`
-Edit | `edit [TASK_NAME] [c/CATEGORY] [d/DEADLINE] p/PRIORITY_LEVEL r/REMINDER [t/TAG]...`
+Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
+Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
 Clear | `clear`
-Delete | `delete [INDEX]...`
+Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
-List Categories | `listcat`
-Done | `done`
+List Tags | `listtags`
+Done | `done INDEX`
 Undo | `undo`
 Help | `help`
 Exit | `exit`

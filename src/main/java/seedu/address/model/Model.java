@@ -26,7 +26,11 @@ public interface Model {
     /** Adds the given task */
     void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException;
     
-    /** Edits the given task
+    /** Undo delete of the given task at the specific index
+     * @throws DuplicateTaskException */
+	void undoDelete(int index, Activity taskToAdd) throws DuplicateTaskException;
+    
+	/** Edits the given task
      * @return The edited task
      */
     Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException;
@@ -50,6 +54,8 @@ public interface Model {
 
     /** Marks task as completed **/
 	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
+
+
 
     
 }

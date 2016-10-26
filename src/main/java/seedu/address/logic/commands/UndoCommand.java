@@ -72,9 +72,10 @@ public class UndoCommand extends Command {
 	 */
 	private CommandResult undoDelete(PreviousCommand toUndo) {
 		Activity taskToAdd = toUndo.getUpdatedTask();
-
+        int index = toUndo.getIndex();
+		
 		try {
-			model.addTask(taskToAdd);
+			model.undoDelete(index,taskToAdd);
 			
 		} catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

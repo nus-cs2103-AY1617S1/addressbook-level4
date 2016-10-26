@@ -86,6 +86,12 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         syncTagsWithMasterList(p);
         activities.add(p);
     }
+    
+
+	public void addPerson(int index, Activity activity) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(activity);
+        tasks.addAt(index, activity);
+	}
 
     /**
      * Ensures that every tag in this person:
@@ -185,6 +191,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(activities, tags);
     }
+
 
 
 }

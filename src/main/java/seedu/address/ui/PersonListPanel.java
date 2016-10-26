@@ -100,7 +100,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(ActivityCard.load(person, getIndex() + 1).getLayout());
             }
         }
     }

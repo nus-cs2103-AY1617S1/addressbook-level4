@@ -41,7 +41,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTask(taskToDelete);
             
-            PreviousCommand deleteCommand = new PreviousCommand(COMMAND_WORD,taskToDelete);
+            PreviousCommand deleteCommand = new PreviousCommand(COMMAND_WORD,targetIndex,taskToDelete);
             PreviousCommandsStack.push(deleteCommand);
             
         } catch (TaskNotFoundException tnfe) {
