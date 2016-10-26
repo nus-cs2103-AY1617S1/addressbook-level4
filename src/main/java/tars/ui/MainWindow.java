@@ -62,9 +62,9 @@ public class MainWindow extends UiPart {
 
     private String tarsName;
 
-    public static final int overviewPanelTabPaneIndex = 0;
-    public static final int rsvTaskListPanelTabPaneIndex = 1;
-    public static final int helpPanelTabPaneIndex = 2;
+    public static final int OVERVIEW_PANEL_TAB_PANE_INDEX = 0;
+    public static final int RSV_TASK_LIST_PANEL_TAB_PANE_INDEX = 1;
+    public static final int HELP_PANEL_TAB_PANE_INDEX = 2;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -175,7 +175,7 @@ public class MainWindow extends UiPart {
     }
 
     private void cycleTabPaneRight() {
-        if (tabPane.getSelectionModel().isSelected(helpPanelTabPaneIndex)) {
+        if (tabPane.getSelectionModel().isSelected(HELP_PANEL_TAB_PANE_INDEX)) {
             tabPane.getSelectionModel().selectFirst();
         } else {
             tabPane.getSelectionModel().selectNext();
@@ -183,7 +183,7 @@ public class MainWindow extends UiPart {
     }
 
     private void cycleTabPaneLeft() {
-        if (tabPane.getSelectionModel().isSelected(overviewPanelTabPaneIndex)) {
+        if (tabPane.getSelectionModel().isSelected(OVERVIEW_PANEL_TAB_PANE_INDEX)) {
             tabPane.getSelectionModel().selectLast();
         } else {
             tabPane.getSelectionModel().selectPrevious();
@@ -272,7 +272,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        tabPane.getSelectionModel().select(helpPanelTabPaneIndex);
+        tabPane.getSelectionModel().select(HELP_PANEL_TAB_PANE_INDEX);
     }
 
     public void show() {
@@ -311,7 +311,7 @@ public class MainWindow extends UiPart {
     private void CommandBoxTextFieldValueChangedEventHandler(CommandBoxTextFieldValueChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getTextFieldValue() + " command detected."));
         if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD)) {
-            tabPane.getSelectionModel().select(rsvTaskListPanelTabPaneIndex);
+            tabPane.getSelectionModel().select(RSV_TASK_LIST_PANEL_TAB_PANE_INDEX);
         }
     }
     

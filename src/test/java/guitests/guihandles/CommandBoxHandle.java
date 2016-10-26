@@ -2,7 +2,9 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
+import tars.ui.CommandBox;
 
 /**
  * A handle to the Command Box in the GUI.
@@ -35,7 +37,19 @@ public class CommandBoxHandle extends GuiHandle{
     public HelpPanelHandle runHelpCommand() {
         enterCommand("help");
         pressEnter();
+        return getHelpPanelHandle();
+    }
+    
+    public HelpPanelHandle getHelpPanelHandle() {
         return new HelpPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public OverviewPanelHandle getOverviewPanelHandle() {
+        return new OverviewPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public RsvTaskListPanelHandle getRsvTaskListPanelHandle() {
+        return new RsvTaskListPanelHandle(guiRobot, primaryStage);
     }
     
     public void pressUpKey() {
@@ -45,4 +59,13 @@ public class CommandBoxHandle extends GuiHandle{
     public void pressDownKey() {
         guiRobot.type(KeyCode.DOWN).sleep(500);
     }
+    
+    public void pressCtrlRightArrowKeys() {
+        guiRobot.push((KeyCodeCombination) CommandBox.KEY_COMB_CTRL_RIGHT_ARROW);
+    }
+    
+    public void pressCtrlLeftArrowKeys() {
+        guiRobot.push((KeyCodeCombination) CommandBox.KEY_COMB_CTRL_LEFT_ARROW);
+    }
+    
 }
