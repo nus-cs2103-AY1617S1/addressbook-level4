@@ -178,14 +178,29 @@ public class ModelManager extends ComponentManager implements Model {
             }
             return false;
         });
+        filteredDeadlines.setPredicate(task -> {
+            if (task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+        filteredTodos.setPredicate(task -> {
+            if (task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
     }
     
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
+        System.out.println("here");
         filteredEvents.setPredicate(task -> {
             if (!task.getIsCompleted()) {
+                System.out.println("please");
                 return true;
             }
+            System.out.println("no");
             return false;
         });
         filteredDeadlines.setPredicate(task -> {
