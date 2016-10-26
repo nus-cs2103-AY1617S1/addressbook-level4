@@ -13,7 +13,8 @@ public interface ReadOnlyTask {
     TaskDateTime getEndDate();
     Location getLocation();
     ReadOnlyTask copy();
-
+    boolean getCompleteStatus();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -78,7 +79,8 @@ public interface ReadOnlyTask {
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
-        getTags().forEach(b -> builder.append(b.tagName + " "));  
+        getTags().forEach(b -> builder.append(b.tagName + " ")); 
+        builder.append(getCompleteStatus() ? "completed" : "incomplete");
         return builder.toString();  
     }  
     //@@author

@@ -2,9 +2,7 @@ package seedu.taskscheduler.model.task;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
-import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
-import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.Objects;
 
@@ -19,6 +17,7 @@ public class Task implements ReadOnlyTask {
     private TaskDateTime startDateTime;
     private TaskDateTime endDateTime;
     private Location address;
+    private boolean completeStatus;
     
     private UniqueTagList tags;
 
@@ -31,7 +30,8 @@ public class Task implements ReadOnlyTask {
         this.startDateTime = new TaskDateTime(startDateTime);
         this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
-        this.tags = new UniqueTagList(tags);
+        this.tags = tags;
+        this.completeStatus = false;
     }
 
     /**
@@ -39,6 +39,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
+        this.completeStatus = source.getCompleteStatus();
     }
 
     @Override
@@ -59,6 +60,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Location getLocation() {
         return address;
+    }
+    
+    @Override
+    public boolean getCompleteStatus() {
+        return completeStatus;
     }
     
     public void setName(Name name) {
@@ -86,29 +92,42 @@ public class Task implements ReadOnlyTask {
     
     /**
      * Add completed tag to indicate task done.
+     * @throws IllegalValueException 
      */
-    public void markComplete() throws DuplicateTagException {
-        try {
-            this.tags.add(new Tag("Completed"));
-        } catch (DuplicateTagException dte) { 
-            throw dte;
-        } catch (IllegalValueException ive) {
-            assert false : "The tag cannot be illegal value";
-        } 
+    public void markComplete() throws IllegalValueException {
+        if (completeStatus) {
+            throw new IllegalValueException("");
+        } else {
+            completeStatus = true;
+        }
+        
+//        try {
+//            this.tags.add(new Tag("Completed"));
+//        } catch (DuplicateTagException dte) { 
+//            throw dte;
+//        } catch (IllegalValueException ive) {
+//            assert false : "The tag cannot be illegal value";
+//        } 
     }
 
     /**
      * Add completed tag to indicate task done.
+     * @throws IllegalValueException 
      */
-    public void unMarkComplete() throws NullPointerException {
-        try {
-            this.tags.remove(new Tag("Completed"));
+    public void unMarkComplete() throws IllegalValueException {
+        if (!completeStatus) {
+            throw new IllegalValueException("");
+        } else {
+            completeStatus = false;
         }
-        catch (NullPointerException npe) { 
-            throw npe;
-        } catch (IllegalValueException ive) {
-            assert false : "The tag cannot be illegal value";
-        }
+//        try {
+//            this.tags.remove(new Tag("Completed"));
+//        }
+//        catch (NullPointerException npe) { 
+//            throw npe;
+//        } catch (IllegalValueException ive) {
+//            assert false : "The tag cannot be illegal value";
+//        }
     }
 
     @Override

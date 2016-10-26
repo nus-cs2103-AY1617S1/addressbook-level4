@@ -3,6 +3,7 @@ package seedu.taskscheduler.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.taskscheduler.commons.exceptions.DuplicateDataException;
+import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
 import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 
@@ -31,7 +32,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {
+        public TaskNotFoundException() {
+            
+        }
+        public TaskNotFoundException(String message) {
+            super(message);
+        }
+    }
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -63,20 +71,20 @@ public class UniqueTaskList implements Iterable<Task> {
 
     //@@author A0148145E
     /**
-     * Edits a task to the list.
+     * Replaces a task in the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException if the task to replace is a duplicate of an existing task in the list.
      */
-    public void edit(ReadOnlyTask toEdit, Task toCopy) throws DuplicateTaskException, TaskNotFoundException{
-        assert toEdit != null;
-        if (contains(toCopy)) {
+    public void replace(Task oldTask, Task newTask) throws DuplicateTaskException, TaskNotFoundException{
+        assert oldTask != null;
+        if (contains(newTask)) {
             throw new DuplicateTaskException();
         }
-        int index = internalList.indexOf(toEdit);
+        int index = internalList.indexOf(oldTask);
         if (index < 0) {
             throw new TaskNotFoundException();
         }
-        internalList.set(index, toCopy);
+        internalList.set(index, newTask);
     }
 
     //@@author A0148145E
@@ -84,17 +92,16 @@ public class UniqueTaskList implements Iterable<Task> {
      * Marks a task to the list as completed.
      *
      * @throws TaskNotFoundException
-     * @throws DuplicateTagException if the task is already complete.
+     * @throws IllegalValueException if the task is already complete.
      */
-    public void mark(ReadOnlyTask toMark) throws TaskNotFoundException, DuplicateTagException{
+    public void mark(Task toMark) throws TaskNotFoundException, IllegalValueException{
         assert toMark != null;
         int index = internalList.indexOf(toMark);
         if (index < 0) {
             throw new TaskNotFoundException();
         }
-        Task newTask = new Task(toMark);
-        newTask.markComplete();
-        internalList.set(index, newTask);
+        toMark.markComplete();
+        internalList.set(index, toMark);
     }
     
 
@@ -105,15 +112,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException
      * @throws DuplicateTagException if the task is already complete.
      */
-    public void unMark(ReadOnlyTask toMark) throws TaskNotFoundException, NullPointerException {
+    public void unMark(Task toMark) throws TaskNotFoundException, IllegalValueException {
         assert toMark != null;
         int index = internalList.indexOf(toMark);
         if (index < 0) {
             throw new TaskNotFoundException();
         }
-        Task newTask = new Task(toMark);
-        newTask.unMarkComplete();
-        internalList.set(index, newTask);
+        toMark.unMarkComplete();
+        internalList.set(index, toMark);
     }
     
     //@@author A0140007B

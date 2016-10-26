@@ -16,6 +16,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskDateTime startDateTime;
     private TaskDateTime endDateTime;
     private UniqueTagList tags;
+    private boolean completeStatus;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -27,6 +28,7 @@ public class TestTask implements ReadOnlyTask {
         this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
         this.tags = new UniqueTagList(tags);
+        this.completeStatus = false;
     }
     public TestTask(ReadOnlyTask source) {
         this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
@@ -133,5 +135,9 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public TestTask copy() {
         return new TestTask(this);
+    }
+    @Override
+    public boolean getCompleteStatus() {
+        return completeStatus;
     }
 }

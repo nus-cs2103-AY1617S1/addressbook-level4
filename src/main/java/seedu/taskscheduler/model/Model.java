@@ -1,7 +1,7 @@
 package seedu.taskscheduler.model;
 
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
-import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -25,12 +25,13 @@ public interface Model {
     void deleteTask(ReadOnlyTask... targets) throws UniqueTaskList.TaskNotFoundException;
 
     //@@author A0148145E
-    /** Marks the given task. */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateTagException;
+    /** Marks the given task. 
+     * @throws IllegalValueException */
+    void markTask(Task target) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
     //@@author A0148145E
     /** Unmarks the given task. */
-    void unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void unMarkTask(Task target) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
     //@@author A0148145E
     /** Adds the given task */
@@ -41,9 +42,9 @@ public interface Model {
 	void insertTask(int index, Task newTask) throws TaskNotFoundException;
 
     //@@author A0148145E
-    /** Edits the given task. 
+    /** Replaces the given task. 
      * @throws DuplicateTaskException */
-    void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException, DuplicateTaskException;
+    void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException;
     //@@author
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

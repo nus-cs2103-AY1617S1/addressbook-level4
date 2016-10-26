@@ -4,7 +4,9 @@ import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 
+import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0140007B
 /**
@@ -92,8 +94,12 @@ public class CommandHistory {
 	    lastModTask = task;
 	}
 	
-    public static ReadOnlyTask getModTask() {
-        return lastModTask;
+    public static ReadOnlyTask getModTask() throws TaskNotFoundException {
+        if (lastModTask == null) {
+            throw new TaskNotFoundException(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
+        } else {
+            return lastModTask;
+        }
     }
     
     public static Set<String> getFilteredKeyWords() {

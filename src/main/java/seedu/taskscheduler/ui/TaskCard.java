@@ -85,7 +85,7 @@ public class TaskCard extends UiPart{
     //@@author A0148145E
     public void indicatingColourByCondition(ReadOnlyTask task) {
         
-        if (task.tagsString().contains("Completed")) {
+        if (task.getCompleteStatus()) {
             // if task completed
             cardPane.setStyle(COMPLETED_INDICATION);
         } else if (task.getEndDate().getDate() != null && task.getEndDate().getDate().before(new Date())) {

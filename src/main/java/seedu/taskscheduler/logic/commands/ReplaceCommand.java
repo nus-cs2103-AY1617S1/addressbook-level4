@@ -1,9 +1,7 @@
 package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.Messages;
-import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
@@ -11,13 +9,13 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 //@@author A0148145E
 
 /**
- * Edits a task in the task scheduler.
+ * Replaces a task in the task scheduler.
  */
-public class EditCommand extends Command {
+public class ReplaceCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "replace";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces a task in the scheduler. "
             + "Parameters: INDEX TASK s/START_DATE e/END_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
             + " 1 Must Do CS2103 Pretut\n"
@@ -26,56 +24,51 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there\n";
 
-    public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
+    public static final String MESSAGE_SUCCESS = "Task replaced: %1$s";
     
     public final int targetIndex;
-    private final Task toCopy;
-    private Task toEdit;
+    private final Task newTask;
+    private Task oldTask;
 
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, Task toCopy)
-            throws IllegalValueException {
-        
+    public ReplaceCommand(int targetIndex, Task toReplace) {
+
         this.targetIndex = targetIndex;
-        this.toCopy = toCopy;
+        this.newTask = toReplace;
     }
 
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        toEdit = (Task)lastShownList.get(targetIndex - 1);
-
         try {
-            model.editTask(toEdit, toCopy);
+            oldTask = new Task(getTaskFromIndexOrLastModified(targetIndex));
+            model.replaceTask(oldTask, newTask);
             CommandHistory.addExecutedCommand(this);
+            CommandHistory.setModTask(newTask);
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        } catch (IndexOutOfBoundsException iobe) { 
+            return new CommandResult(iobe.getMessage());
+        } catch (TaskNotFoundException tnfe) {
+            return new CommandResult(tnfe.getMessage());
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, oldTask));
     }
 
     @Override
     public CommandResult revert() {
         try {
-            model.editTask(toCopy, toEdit);
+            model.replaceTask(newTask, oldTask);
             CommandHistory.addRevertedCommand(this);
+            CommandHistory.setModTask(oldTask);
         } catch (DuplicateTaskException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;
         } catch (TaskNotFoundException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
         }
-        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + toCopy));
+        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + newTask));
     }
 }
