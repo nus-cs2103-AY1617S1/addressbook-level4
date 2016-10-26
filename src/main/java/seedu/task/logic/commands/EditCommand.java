@@ -1,34 +1,25 @@
 package seedu.task.logic.commands;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.DueDate;
-import seedu.task.model.task.Interval;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Task;
-import seedu.task.model.task.TimeInterval;
-import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Edits a task in the address book.
- * Specifically, it finds the details that requires editing and creates a new task, deleting the old one.
- * Currently, it can only edit the name of a task.
- * This Command is currently VERY INEFFICIENT because it uses deep copying instead of actual editing.
+ * Edits a task in the task manager.
  */
 
 public class EditCommand extends Command {
@@ -36,7 +27,7 @@ public class EditCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName";
+            + " 1 t/newTaskName d/newDescription sd/11-11-2011 dd/11-11-2016 ts/tag ts/tag2";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -46,25 +37,26 @@ public class EditCommand extends Command {
 	
 	private ReadOnlyTask selectedTask;
 	private Task copy, editedTask;
-	private int paramLength;
-	private String[] params;
 	private String newTitle, description, startDate, dueDate, interval, timeInterval;
 	private Set<String> tags;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex, realIndex;
-	private ArrayList<Task> tempCopy = new ArrayList<Task>();
 	//Task (before modification) for undo command
 	private Task savedTaskForUndo; 
 
 	/**
 	 * Constructor
-	 * @param name the name/identifier of the task
-	 * @param strings the parameters
+	 * @param index identifier of the task
+	 * @param title new title of the task
+	 * @param description new description of the task
+	 * @param startDate new start date
+	 * @param dueDate new due date
+	 * @param interval new interval
+	 * @param timeInterval new time interval
+	 * @param tags new set of tags
 	 */
 	public EditCommand(int index, String title, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) {
 		taskIndex = index;
-		//paramLength = strings.length;
-		//params = strings;
 		newTitle = title;
 		this.description = description;
 		this.startDate = startDate;
@@ -77,7 +69,7 @@ public class EditCommand extends Command {
 	
 	/**
 	 * Searches through the task list to find the specified task
-	 * @param name the name/identifier of the task
+	 * @param index the index/identifier of the task
 	 * @return the specified task
 	 * @throws TaskNotFoundException if the task was not found
 	 */
@@ -119,17 +111,8 @@ public class EditCommand extends Command {
 	 */
 	private void modifyList() throws TaskNotFoundException, DuplicateTaskException {
 		realIndex = taskIndex - 1;
-		//for (int i = taskIndex; i < taskList.size(); i++) {
-			//tempCopy.add((Task) taskList.get(i));
-		//}
 		model.deleteTask(selectedTask);
-		//for (int i = 0; i < tempCopy.size(); i++) {
-			//model.deleteTask(tempCopy.get(i));
-		//}
 		model.addTaskWithSpecifiedIndex(editedTask, realIndex);
-		//for (int i = 0; i < tempCopy.size(); i++) {
-			//model.addTask((Task) tempCopy.get(i));
-		//}
 	}
 	
 	/**
@@ -145,10 +128,16 @@ public class EditCommand extends Command {
 	}
 	
 	/**
-	 * Iterates through the parameters
-	 * @param params array of parameters
-	 * @throws IllegalValueException if the parameters provided were incorrect
-	 * @throws ParseException 
+	 * Processing the parameters
+	 * @param name new title
+	 * @param description new description
+	 * @param startDate new start date
+	 * @param dueDate new due date
+	 * @param interval new interval
+	 * @param timeInterval new time interval
+	 * @param tags new set of tags
+	 * @throws IllegalValueException if any values are illegal
+	 * @throws ParseException if any values are illegal
 	 */
 	public void iterateParams(String name, String description, String startDate, String dueDate, String interval, String timeInterval, Set<String> tags) throws IllegalValueException, ParseException{
 		if (name != null) {
@@ -163,12 +152,6 @@ public class EditCommand extends Command {
 		if (dueDate != null) {
 			changeDueDate(dueDate);
 		}
-		//if (interval != null) {
-			//changeInterval(interval);
-		//}
-		//if (timeInterval != null) {
-			//changeTimeInterval(timeInterval);
-		//}
 		if (tags != null && !tags.isEmpty()) {
 			changeTags(tags);
 		}
@@ -215,27 +198,12 @@ public class EditCommand extends Command {
 		DueDate newDueDate = new DueDate(dueDate);
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), newDueDate, copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), copy.getTags());
 	}
-
-	/**
-	 * Changes the interval in a task if specified in the parameters
-	 * @param interval the new interval value
-	 * @throws IllegalValueException if the interval value is invalid
-	 */
-	public void changeInterval(String interval) throws IllegalValueException {
-		Interval newInterval = new Interval(interval);
-		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), newInterval, copy.getTimeInterval(), copy.getStatus(), copy.getTags());
-	}
 	
 	/**
-	 * Changes the time interval in a task if specified in the parameters
-	 * @param timeInterval the new time interval value
-	 * @throws IllegalValueException if the time interval value is invalid
+	 * Changes the tags in a task if specified in the parameters
+	 * @param tags the new set of tags
+	 * @throws IllegalValueException if the set of tags contains illegal values such as null
 	 */
-	public void changeTimeInterval(String timeInterval) throws IllegalValueException {
-		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
-		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
-	}
-	
 	public void changeTags(Set<String> tags) throws IllegalValueException {
 		Set<Tag> newTags = new HashSet<>();
 		for (String tagName : tags) {
