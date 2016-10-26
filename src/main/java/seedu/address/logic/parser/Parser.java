@@ -14,20 +14,8 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RefreshCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
+
+import seedu.address.logic.commands.*;
 
 /**
  * Parses user input.
@@ -101,6 +89,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -301,4 +292,19 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses arguments in the context of the save folder command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+    	if (args.charAt(args.length()-1) != '/') {
+    		args = args.trim() + "/";
+    	}
+    	
+		return new SaveCommand(args);
+	}
+    
+
 }

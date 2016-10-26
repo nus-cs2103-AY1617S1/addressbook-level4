@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <datedTasks>
+        <name>some event</name>
+        <description></description>
+        <datetime>25-Oct-2016 13:00</datetime>
+        <status>OVERDUE</status>
+        <tagged>ftw</tagged>
+    </datedTasks>
+    <datedTasks>
         <name>event</name>
         <description></description>
         <datetime>26-Oct-2016 15:00</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>2020labs</name>
+        <description></description>
+        <datetime>27-Oct-2016 23:59</datetime>
         <status>NONE</status>
     </datedTasks>
+    <undatedTasks>
+        <name>a new task</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>floats</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>rubber tree</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>exotic</tagged>
+        <tagged>notNative</tagged>
+    </undatedTasks>
+    <tags>
+        <tagName>ftw</tagName>
+    </tags>
+    <tags>
+        <tagName>exotic</tagName>
+    </tags>
+    <tags>
+        <tagName>notNative</tagName>
+    </tags>
 </addressbook>
