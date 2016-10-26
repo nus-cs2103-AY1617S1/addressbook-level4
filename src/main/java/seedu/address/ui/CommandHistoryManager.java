@@ -8,7 +8,6 @@ public class CommandHistoryManager {
 	private Stack<String> previousCommands = new Stack<>();;
 	private Stack<String> nextCommands = new Stack<>();;
 	private String firstEnteredCommand = "";
-	private String latestCommand = "";
 	private boolean isFirstCommand = true;
 	
 	public CommandHistoryManager() {}
@@ -19,7 +18,6 @@ public class CommandHistoryManager {
 			isFirstCommand = false;
 		}
 		
-		latestCommand = command;
 		previousCommands.push(command);
 		nextCommands.clear();
 	}
@@ -30,9 +28,7 @@ public class CommandHistoryManager {
 		}
 		else {
 			String cmd = previousCommands.pop();			
-//			if (!cmd.equals(latestCommand)) {
-				nextCommands.push(cmd);
-//			}
+			nextCommands.push(cmd);
 			return cmd;
 		}
 	}
