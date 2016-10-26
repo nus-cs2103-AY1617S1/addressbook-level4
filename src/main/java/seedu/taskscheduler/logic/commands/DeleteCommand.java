@@ -39,10 +39,11 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        taskToDelete = new Task(lastShownList.get(targetIndex - 1));
+        taskToDelete = (Task) lastShownList.get(targetIndex - 1);
 
         try {
         	model.deleteTask(taskToDelete);
+            CommandHistory.setModTask(null);
         	CommandHistory.addExecutedCommand(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
@@ -55,6 +56,7 @@ public class DeleteCommand extends Command {
     public CommandResult revert() {
         try {
             model.insertTask(targetIndex, taskToDelete);
+            CommandHistory.setModTask(taskToDelete);
             CommandHistory.addRevertedCommand(this);
         } catch (TaskNotFoundException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;

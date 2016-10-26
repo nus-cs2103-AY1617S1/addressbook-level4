@@ -21,7 +21,19 @@ public class CollectionUtil {
         return false;
     }
 
-
+    //@@author A0148145E
+    /**
+     * Returns true if all of the given items are null.
+     */
+    public static boolean isAllNull(Object... items) {
+        for (Object item : items) {
+            if (item != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //@@author
 
     /**
      * Throws an assertion error if the collection or any item in it is null.

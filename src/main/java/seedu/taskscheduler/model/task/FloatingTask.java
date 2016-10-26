@@ -9,7 +9,8 @@ import seedu.taskscheduler.model.tag.UniqueTagList;
 public class FloatingTask extends Task {
 
     public FloatingTask(Name name) {
-        super(name, new TaskDateTime(), new TaskDateTime(), new Location(), new UniqueTagList());
+        super(name, new TaskDateTime(), new TaskDateTime(), new Location(),
+                TaskType.FLOATING, new UniqueTagList());
     }
 
     public FloatingTask(ReadOnlyTask source) {

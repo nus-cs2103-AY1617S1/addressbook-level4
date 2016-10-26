@@ -6,8 +6,8 @@ import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
+import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.StringUtil;
-import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -87,25 +87,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editTask(ReadOnlyTask oldTask, Task newTask) 
+    public void replaceTask(Task oldTask, Task newTask) 
             throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        taskScheduler.editTask(oldTask, newTask);
+        taskScheduler.replaceTask(oldTask, newTask);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
         
     }   
 
     @Override
-    public void markTask(ReadOnlyTask task) 
-            throws TaskNotFoundException, DuplicateTagException {
+    public void markTask(Task task) 
+            throws IllegalValueException, TaskNotFoundException {
         taskScheduler.markTask(task);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
     }
 
     @Override
-    public void unMarkTask(ReadOnlyTask task) 
-            throws TaskNotFoundException, NullPointerException {
+    public void unMarkTask(Task task) 
+            throws IllegalValueException, TaskNotFoundException {
         taskScheduler.unMarkTask(task);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();

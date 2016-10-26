@@ -1,7 +1,6 @@
 package seedu.taskscheduler.model.task;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 
 //@@author A0148145E
@@ -11,7 +10,8 @@ import seedu.taskscheduler.model.tag.UniqueTagList;
 public class EventTask extends Task{
 
     public EventTask(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address) throws IllegalValueException {
-        super(name, startDateTime, endDateTime, address, new UniqueTagList(new Tag("Event")));
+        super(name, startDateTime, endDateTime, address, 
+                TaskType.EVENT, new UniqueTagList());
     }
     
     public EventTask(ReadOnlyTask source) {

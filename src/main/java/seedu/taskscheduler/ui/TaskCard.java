@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 
 
 /**
@@ -72,10 +73,10 @@ public class TaskCard extends UiPart{
 
     //@@author A0148145E
     public void hideFieldsAccordingToType(ReadOnlyTask task) {
-        if (task.tagsString().contains("Deadline")) {
+        if (task.getType() == TaskType.DEADLINE) {
             phone.setVisible(false);
             address.setVisible(false);
-        } else if (!task.tagsString().contains("Event")) {
+        } else if (task.getType() == TaskType.FLOATING) {
             phone.setVisible(false);
             address.setVisible(false);
             email.setVisible(false);
@@ -85,7 +86,7 @@ public class TaskCard extends UiPart{
     //@@author A0148145E
     public void indicatingColourByCondition(ReadOnlyTask task) {
         
-        if (task.tagsString().contains("Completed")) {
+        if (task.getCompleteStatus()) {
             // if task completed
             cardPane.setStyle(COMPLETED_INDICATION);
         } else if (task.getEndDate().getDate() != null && task.getEndDate().getDate().before(new Date())) {

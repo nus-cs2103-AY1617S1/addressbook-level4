@@ -40,7 +40,7 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     }
     
     @Test
-    public void find_tag() {
+    public void find_completed() {
         commandBox.runCommand("mark 1");
         commandBox.runCommand("mark 4");
         assertFindResult("find Completed", td.alice, td.daniel);

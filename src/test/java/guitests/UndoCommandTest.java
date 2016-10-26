@@ -37,8 +37,8 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand(commandKey + " 1");
         assertUndoSuccess(commandKey,currentList,task);
 
-        //undo edit command
-        commandKey = "edit";
+        //undo replace command
+        commandKey = "replace";
         task = taskListPanel.getTask(1);
         commandBox.runCommand(commandKey + " 2 " + td.ida.getTaskString());
         assertUndoSuccess(commandKey,currentList,td.ida);
@@ -61,7 +61,7 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
     }
 
     private void assertUndoMixedCommandsSuccess(TestTask[] currentList) {
-        commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
+        commandBox.runCommand("replace " + 2 + " " + td.ida.getTaskString());
         commandBox.runCommand("mark 5");
         commandBox.runCommand("mark 3");
         commandBox.runCommand(td.event.getAddCommand());

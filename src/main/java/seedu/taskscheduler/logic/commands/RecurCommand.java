@@ -3,7 +3,6 @@ package seedu.taskscheduler.logic.commands;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
-import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
@@ -49,19 +48,16 @@ public class RecurCommand extends Command {
     }
     
     public RecurCommand(String args) {
-        this(0,args);
+        this(-1, args);
     }
     
     @Override
     public CommandResult execute() {
         assert model != null;
         ReadOnlyTask task;
-        task = getTaskFromIndexOrLastModified();
-        if (task == null) {
-            return new CommandResult(MESSAGE_MISSING_TASK);
-        }
         
         try {
+            task = getTaskFromIndexOrLastModified(targetIndex);
             DateGroup dg = new PrettyTimeParser().parseSyntax(args).get(0);
             addRecurTasks(task, dg, taskList);
             model.addTask(taskList.getArray());
@@ -74,6 +70,8 @@ public class RecurCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE);
         } catch (NullPointerException npe) {
             return new CommandResult(MESSAGE_INVALID_TASK_FOR_RECUR);
+        } catch (TaskNotFoundException tnfe) {
+            return new CommandResult(tnfe.getMessage());
         }
     }
 
@@ -99,21 +97,5 @@ public class RecurCommand extends Command {
             task = toAdd;
         } while ((toAdd.getEndDate().getDate().getTime() + dg.getRecurInterval()) 
                 < dg.getRecursUntil().getTime());
-    }
-
-    private ReadOnlyTask getTaskFromIndexOrLastModified() {
-        ReadOnlyTask task;
-        if (targetIndex <= 0) {
-            task = CommandHistory.getModTask();
-        }
-        else {
-            try {
-                UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-                task = lastShownList.get(targetIndex - 1);
-            } catch (IndexOutOfBoundsException iobe) {
-                return null;
-            }
-        }
-        return task;
     }
 }

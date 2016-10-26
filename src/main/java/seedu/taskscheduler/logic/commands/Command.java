@@ -2,8 +2,11 @@ package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.EventsCenter;
 import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.taskscheduler.model.Model;
+import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -55,5 +58,28 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    /**
+     * Gets the task from list or last modified task
+     * @param targetIndex
+     * @return task from list if index > 0 or last modified task
+     * @throws TaskNotFoundException if task is not found
+     */
+    protected ReadOnlyTask getTaskFromIndexOrLastModified(int targetIndex) 
+            throws TaskNotFoundException {
+        ReadOnlyTask task;
+        if (targetIndex == -1) {
+            task = CommandHistory.getModTask();
+        }
+        else {
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+            try { 
+                task = lastShownList.get(targetIndex - 1);
+            } catch (IndexOutOfBoundsException iobe){ 
+                throw new TaskNotFoundException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+        } 
+        return task;
     }
 }

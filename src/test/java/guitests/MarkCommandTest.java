@@ -63,7 +63,6 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand("mark " + targetIndexOneIndexed);
         
         //confirm the task card is now marked completed.
-        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getTags().contains("[Completed]"));
         assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
         assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
         //confirm the result message is correct

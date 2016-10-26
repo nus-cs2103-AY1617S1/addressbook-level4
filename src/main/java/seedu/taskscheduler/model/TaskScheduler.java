@@ -1,7 +1,7 @@
 package seedu.taskscheduler.model;
 
 import javafx.collections.ObservableList;
-
+import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
@@ -87,15 +87,15 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
     
     //@@author A0148145E
     /**
-     * Edits a task in the task scheduler
+     * Replaces a task in the task scheduler
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void editTask(ReadOnlyTask oldTask, Task newTask) 
+    public void replaceTask(Task oldTask, Task newTask) 
             throws UniqueTaskList.DuplicateTaskException, UniqueTaskList.TaskNotFoundException {
-        tasks.edit(oldTask, newTask);        
+        tasks.replace(oldTask, newTask);        
         syncTagsWithMasterList(newTask);
     }
 
@@ -108,9 +108,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      * @throws DuplicateTagException 
      */
-    public void markTask(ReadOnlyTask task) 
-            throws UniqueTaskList.TaskNotFoundException, DuplicateTagException {
-        syncTagsWithMasterList((Task)task);
+    public void markTask(Task task) 
+            throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.mark(task);
     }
 
@@ -123,9 +122,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      * @throws DuplicateTagException 
      */
-    public void unMarkTask(ReadOnlyTask task) 
-            throws UniqueTaskList.TaskNotFoundException, NullPointerException {
-        syncTagsWithMasterList((Task)task);
+    public void unMarkTask(Task task) 
+            throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.unMark(task);
     }
     

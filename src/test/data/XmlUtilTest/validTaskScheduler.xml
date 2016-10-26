@@ -1,57 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskscheduler>
     <tasks>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">09 oct 1925</phone>
-        <email isPrivate="false">09 oct 2016</email>
-        <address isPrivate="false">4th street</address>
+        <name>do cs2103</name>
+        <startDateTime>26-Oct-2016, Wed</startDateTime>
+        <endDateTime>27-Oct-2017, Fri</endDateTime>
+        <address>home</address>
+        <type>EVENT</type>
     </tasks>
     <tasks>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">19 oct 1925</phone>
-        <email isPrivate="false">31 oct 2016</email>
-        <address isPrivate="false">81th street</address>
+        <name>do this</name>
+        <startDateTime></startDateTime>
+        <endDateTime>27-Oct-2016, Thu</endDateTime>
+        <address></address>
+        <type>DEADLINE</type>
     </tasks>
     <tasks>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">10 oct 1925</phone>
-        <email isPrivate="false">01 oct 2016</email>
-        <address isPrivate="false">wall street</address>
-    </tasks>
-    <tasks>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">09 oct 1935</phone>
-        <email isPrivate="false">09 jan 2016</email>
-        <address isPrivate="false">10th street</address>
-    </tasks>
-    <tasks>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">09 DEC 1925</phone>
-        <email isPrivate="false">09 DEC 2016</email>
-        <address isPrivate="false">michegan ave</address>
-    </tasks>
-    <tasks>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">09 JAN 1925</phone>
-        <email isPrivate="false">09 oct 2016</email>
-        <address isPrivate="false">little tokyo</address>
-    </tasks>
-    <tasks>
-        <name>Anna Best</name>
-        <phone isPrivate="false">09 FEB 1925</phone>
-        <email isPrivate="false">09 oct 2016</email>
-        <address isPrivate="false">4th street</address>
-    </tasks>
-    <tasks>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">09 oct 1925</phone>
-        <email isPrivate="false">09 oct 1925</email>
-        <address isPrivate="false">little india</address>
-    </tasks>
-    <tasks>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">09 oct 1975</phone>
-        <email isPrivate="false">09 oct 2105</email>
-        <address isPrivate="false">chicago ave</address>
+        <name>CS2103 Tutorial</name>
+        <startDateTime>27-Oct-2016, Thu 08:00 AM</startDateTime>
+        <endDateTime>28-Oct-2016, Fri 09:00 AM</endDateTime>
+        <address>NUS COM1-B103</address>
+        <type>EVENT</type>
     </tasks>
 </taskscheduler>
