@@ -1,24 +1,24 @@
 package seedu.cmdo.ui;
 
-import java.awt.Font;
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
 import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.ReadOnlyTask;
-import seedu.cmdo.model.task.Task;
 import javafx.scene.Node;
-//import javafx.scene.layout.GridPane;
+
 
 
 public class TaskCategory extends UiPart {
@@ -30,71 +30,55 @@ public class TaskCategory extends UiPart {
 	private static final String ICON4 = "/images/thismonth.png";
 	private static final String ICON5 = "/images/someday.png";
 	private static final String ICON6 = "/images/totaltask.png";
+	private static final Integer LABEL_WIDTH = 100;
+	private static final Integer LABEL_HEIGHT = 30;
+	private ObservableList<ReadOnlyTask> allTasksList;
+	
+	public TaskCategory(ObservableList<ReadOnlyTask> allTasksList) {
+		this.allTasksList = allTasksList;
+        registerAsAnEventHandler(this);
+	}
 	
 	//======= FXML =======
 	@FXML
 	private GridPane taskCategoryPane;
-		
 	@FXML
 	private ImageView overDueImg; 
-	
 	@FXML
 	private ImageView todayImg; 
-	
 	@FXML
 	private ImageView thisWeekImg;
-	
 	@FXML
 	private ImageView thisMonthImg; 
-	
 	@FXML
 	private ImageView somedayImg; 
-	
 	@FXML
 	private ImageView totalTaskImg;
-	
 	@FXML
 	private static Label overDue;
-	
 	@FXML
 	private Label today;
-
 	@FXML
 	private Label thisWeek;
-
 	@FXML
 	private Label thisMonth;
-	
 	@FXML
 	private Label someday;
-
 	@FXML
 	private Label totalTask;
-
 	@FXML
 	private Label overDueNo;
-	
 	@FXML
 	private Label todayNo;
-
 	@FXML
 	private Label thisWeekNo;
-
 	@FXML
 	private Label thisMonthNo;
-	
 	@FXML
 	private Label somedayNo;
-
 	@FXML
 	private Label totalTaskNo;
 	
-	//@FXML
-	//private Label test;
-	
-	//@FXML
-	//private AnchorPane placeHolder;
-
 	@Override
 	public void setNode(Node node) {
 		taskCategoryPane = (GridPane) node;
@@ -104,26 +88,42 @@ public class TaskCategory extends UiPart {
 	public String getFxmlPath() {
 		return FXML;
 	}
-	/*
-	public AnchorPane getTaskCategoryPane() {
-		placeHolder = new AnchorPane();
-		Label test = new Label();
-		test.setText("Loser look here please!");
-		placeHolder.getChildren().add(test);
-		return placeHolder;	
-	}
-	*/
+
 	public GridPane getTaskCategoryPane() {
 		logger.info("Starting task category...");
 		GridPane taskCategoryPane = new GridPane();
-		setGridPictures();
+		//setGridPictures();
 		setGridLabels();
-		taskCategoryPane.getChildren().addAll(overDueImg, todayImg, thisWeekImg,
-				thisMonthImg, somedayImg, totalTaskImg,
-				overDue, today, thisWeek, thisMonth, someday, totalTask
+		setGridNumbers();
+		taskCategoryPane.getChildren().addAll(
+				//overDueImg, todayImg, thisWeekImg,
+				//thisMonthImg, somedayImg, totalTaskImg,
+				overDue, today, thisWeek, thisMonth, someday, totalTask,
+				overDueNo, todayNo, thisWeekNo, thisMonthNo, somedayNo, totalTaskNo
 				);		
-		
+		updateTasksOverviewPanel(allTasksList);
+		logger.info("" + allTasksList.size());
 		return taskCategoryPane;
+	}
+	
+	public void setGridNumbers() {
+		overDueNo = new Label();
+		GridPane.setConstraints(overDueNo, 2, 0);	
+		
+		todayNo = new Label();
+		GridPane.setConstraints(todayNo, 2, 1);		
+		
+		thisWeekNo = new Label();
+		GridPane.setConstraints(thisWeekNo, 2, 2);		
+		
+		thisMonthNo = new Label();
+		GridPane.setConstraints(thisMonthNo, 2, 3);		
+		
+		somedayNo = new Label();
+		GridPane.setConstraints(somedayNo, 2, 4);		
+		
+		totalTaskNo = new Label();
+		GridPane.setConstraints(totalTaskNo, 2, 5);				
 	}
 	
 	public void setGridPictures() {
@@ -148,38 +148,38 @@ public class TaskCategory extends UiPart {
 	
 	public void setGridLabels() {
 		overDue = new Label();
+		overDue.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(overDue, 1, 0);
-		overDue.setText("Overdue");
-		//overDue.setTextFill(Color.RED);		
+		overDue.setText("Overdue");		
 		
 		today = new Label();
+		today.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(today, 1, 1);		
-		today.setText("Today");	
-		//today.setTextFill(Color.DARKORANGE);	
+		today.setText("Today");
 		
 		thisWeek = new Label();
+		thisWeek.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisWeek, 1, 2);		
-		thisWeek.setText("This Week");	
-		//thisWeek.setTextFill(Color.GOLD);	
+		thisWeek.setText("This Week");
 		
 		thisMonth = new Label();
+		thisMonth.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisMonth, 1, 3);		
 		thisMonth.setText("This Month");	
-		//thisMonth.setTextFill(Color.GREEN);	
 		
 		someday = new Label();
+		someday.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(someday, 1, 4);		
 		someday.setText("Someday");	
-		//someday.setTextFill(Color.ROYALBLUE);	
 		
 		totalTask = new Label();
+		totalTask.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalTask, 1, 5);		
-		totalTask.setText("Total Tasks");
-		//totalTask.setTextFill(Color.VIOLET);	
+		totalTask.setText("Total Tasks");	
 	}
 	
 	//@@author A0139661Y
-    public void updateTasksOverviewPanel(ObservableList<Task> taskObservableList) {
+    public void updateTasksOverviewPanel(ObservableList<ReadOnlyTask> taskObservableList) {
         List<Integer> countMap = getTaskTimeStateCount(taskObservableList);
         
     	//Integer tasksInInbox = 0;
@@ -198,14 +198,20 @@ public class TaskCategory extends UiPart {
         	case 0:
         		somedayNumber++;
         		break;
-        	case 3:
+        	case 1:
         		todayNumber++;
         	case 2:
         		thisWeekNumber++;
-        	case 1:
+        	case 3:
         		thisMonthNumber++;
         	}
         }
+        overDueNo.setText("[" + Integer.toString(overdueNumber) + "]");
+        todayNo.setText("[" + Integer.toString(todayNumber) + "]");
+        thisWeekNo.setText("[" + Integer.toString(thisWeekNumber) + "]");
+        thisMonthNo.setText("[" + Integer.toString(thisMonthNumber) + "]");
+        somedayNo.setText("[" + Integer.toString(somedayNumber) + "]");
+        totalTaskNo.setText("[" + Integer.toString(totalTasksNumber) + "]");
      }
 
      /**
@@ -223,11 +229,12 @@ public class TaskCategory extends UiPart {
      * ==============================
      * 
      * @param task in question
-     * @return int based on the time-state
+     * @return Integer based on the time-state
      * 
      * @@author A0139661Y
      */
-    public int getTaskTimeState(ReadOnlyTask task) {
+    public Integer getTaskTimeState(ReadOnlyTask task) {
+    	assert task != null;
         DueByDate dbd = task.getDueByDate();
         
         LocalDate nowDate = LocalDate.now();
@@ -249,12 +256,25 @@ public class TaskCategory extends UiPart {
     }
     
     //@@author A0139661Y
-    public List<Integer> getTaskTimeStateCount(ObservableList<Task> taskObservableList) {
-        List<Integer> countMap = Collections.EMPTY_LIST;
-        for (Task t:taskObservableList) {
-            countMap.add(getTaskTimeState(t));          
+    public List<Integer> getTaskTimeStateCount(ObservableList<ReadOnlyTask> taskObservableList) {
+        assert taskObservableList != null;
+    	List<Integer> countMap = new ArrayList<Integer>();
+        for (ReadOnlyTask t:taskObservableList) {
+        	logger.info("Cycle 1");
+            countMap.add(getTaskTimeState(t));        
         }
         return countMap;
+    }
+    
+    //@@author A0141006B
+    @Subscribe
+    public void handleToDoListChangedEvent(ToDoListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        try {
+        	updateTasksOverviewPanel(FXCollections.observableList(event.data.getTaskList()));
+        } catch (Exception e) {
+        	logger.severe("Failed to update task category panel.");
+        }
     }
 	
 }
