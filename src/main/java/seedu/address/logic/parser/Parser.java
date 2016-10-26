@@ -72,7 +72,7 @@ public class Parser {
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY \n"
             + "12Hour format with AM/PM required or 24Hour format without AM/PM \n"
             + "eg: 10-12-2012 09:00AM 11:59PM";
-
+    
     enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
 
     private static final Prefix namePrefix = new Prefix("n;");
@@ -192,12 +192,16 @@ public class Parser {
             }
             Optional<String> validateDateTimeArgs = argsTokenizer.getValue(datePrefix);
             if(validateDateTimeArgs.isPresent()) {
-                validateDateTimeArgs = Optional.of(validateDateTimeArgs.get().toUpperCase());
+                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get().toUpperCase());
+//                validateDateTimeArgs = Optional.of(validateDateTimeArgs.get().toUpperCase());
 //                if(!validateDateTimeArgs.get().matches(DATE_TIME_VALIDATION_FORMAT)){
 //                TODO: FIX System.out.println("line 197 parser: " + farthestPoint(Pattern.compile(DATE_TIME_VALIDATION_FORMAT), validateDateTimeArgs.get()));;
 //                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
 //                }
-                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get());
+//                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get());
+                if(!isValidDateTimeFormat(dateTimeArgs))
+                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+                
                 taskType = TaskType.values()[(dateTimeArgs.length-1)];
             }else {
                 taskType = TaskType.values()[0];
@@ -243,6 +247,44 @@ public class Parser {
         }
     }
 
+    private boolean isValidDateTimeFormat(String[] dateTimeArgs) {
+        int args = dateTimeArgs.length-1; // adjust for Array and eNum count from 0.
+        TaskType taskType = TaskType.values()[args];
+        
+        switch (taskType) {
+            case TIMERANGE: 
+                if(!isValidTime(dateTimeArgs[2])) {
+                    return false;
+                }
+            case DEADLINE:
+                if(!isValidTime(dateTimeArgs[1])) {
+                    return false;
+                }
+            case UNTIMED:
+                if (!isValidDate(dateTimeArgs[0])) {
+                    return false;
+                }
+                break;
+            default:
+                assert false : "Not suppose to happen";                
+        }        
+        return true;
+    }
+
+    private boolean isValidTime(String time) {
+        if(time.matches(TIME_VALIDATION_FORMAT)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidDate(String date) {
+        if(date.matches(DATE_VALIDATION_FORMAT)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Takes the text before first valid prefix as task name if input does not contain namePrefix.
      *
@@ -270,7 +312,7 @@ public class Parser {
     }
 
     private String[] prepareAddTimeArgs(String dateTimeInput) {
-        String[] dateTimeSplitted = dateTimeInput.split(" ");
+        String[] dateTimeSplitted = dateTimeInput.split(" ");        
         return dateTimeSplitted;
     }
 
