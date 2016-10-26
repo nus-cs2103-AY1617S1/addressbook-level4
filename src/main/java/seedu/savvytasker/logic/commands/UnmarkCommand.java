@@ -9,6 +9,7 @@ import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 public class UnmarkCommand extends ModelRequiringCommand {
@@ -64,6 +65,8 @@ public class UnmarkCommand extends ModelRequiringCommand {
             assert false : "The target task cannot be missing";
         } catch (DuplicateTaskException e) {
             e.printStackTrace();
+        }catch (InvalidDateException e) {
+            assert false : "The target task should be valid, only the archived flag is set";
         }
         return new CommandResult(resultSb.toString());
     }

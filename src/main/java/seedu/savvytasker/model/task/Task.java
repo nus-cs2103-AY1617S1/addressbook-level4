@@ -28,8 +28,16 @@ public class Task implements ReadOnlyTask {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.location = location;
-        this.priority = priority;
-        this.recurringType = recurringType;
+        if (priority == null) {
+            this.priority = PriorityLevel.Medium;
+        } else {
+            this.priority = priority;
+        }
+        if (recurringType == null) {
+            this.recurringType = RecurrenceType.None;
+        } else {
+            this.recurringType = recurringType;
+        }
         if (numberOfRecurrence == null) {
             this.numberOfRecurrence = 0;
         } else {
@@ -42,6 +50,10 @@ public class Task implements ReadOnlyTask {
     
     public Task(String taskName) {
         this.taskName = taskName;
+        // sets initial default values
+        this.priority = PriorityLevel.Medium;
+        this.recurringType = RecurrenceType.None;
+        this.numberOfRecurrence = 0;
     }
 
     /**

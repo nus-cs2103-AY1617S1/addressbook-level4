@@ -15,6 +15,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -78,7 +79,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
      * Adds a task to savvy tasker.
      * @throws TaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws DuplicateTaskException {
+    public void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
         tasks.add(t);
     }
     
@@ -102,7 +103,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
      * @return true if the task is removed successfully
      * @throws TaskNotFoundException if the task to be removed does not exist
      */
-    public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException {
+    public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
         if (tasks.contains(key)) {
             return tasks.replace(key, replacement);
         } else {

@@ -1,14 +1,14 @@
 package seedu.savvytasker.logic.commands;
 
-import java.util.Date;
-
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.util.SmartDefaultDates;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -32,9 +32,7 @@ public class ModifyCommand extends ModelRequiringCommand {
     private final int index;
     private final String taskName;
     private final InferredDate startDateTime;
-    private Date inferredStart;
     private final InferredDate endDateTime;
-    private Date inferredEnd;
     private final String location;
     private final PriorityLevel priority;
     private final RecurrenceType recurringType;
@@ -71,10 +69,13 @@ public class ModifyCommand extends ModelRequiringCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+        
+
+        SmartDefaultDates sdd = new SmartDefaultDates(null, null);
 
         ReadOnlyTask taskToModify = lastShownList.get(index - 1);
-        Task replacement = new Task(taskToModify, taskName, inferredStart, 
-                                    inferredEnd, location, priority, 
+        replacement = new Task(taskToModify, taskName, sdd.getStart(startDateTime), 
+                                    sdd.getEnd(endDateTime), location, priority, 
                                     recurringType, numberOfRecurrence, 
                                     category, description);
 
@@ -83,6 +84,8 @@ public class ModifyCommand extends ModelRequiringCommand {
             model.modifyTask(taskToModify, replacement);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
+        } catch (InvalidDateException ex) {
+            return new CommandResult(Messages.MESSAGE_INVALID_START_END);
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
@@ -123,6 +126,10 @@ public class ModifyCommand extends ModelRequiringCommand {
             model.modifyTask(taskToModify, originalTask);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
+        } catch (InvalidDateException ex) {
+            //TODO: Verify branch
+            //assert false : "The target task cannot be having an invalid start end ";
+            //return new CommandResult(Messages.MESSAGE_INVALID_START_END);
         }
        
         return true;

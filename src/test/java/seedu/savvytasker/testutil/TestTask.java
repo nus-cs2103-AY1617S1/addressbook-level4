@@ -24,6 +24,10 @@ public class TestTask implements ReadOnlyTask {
     private boolean isArchived;
 
     public TestTask() {
+        // sets initial default values
+        this.priority = PriorityLevel.Medium;
+        this.recurringType = RecurrenceType.None;
+        this.numberOfRecurrence = 0;
     }
 
     public int getId() {

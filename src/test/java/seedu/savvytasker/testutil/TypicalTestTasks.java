@@ -8,6 +8,7 @@ import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
 /**
  *
@@ -58,6 +59,8 @@ public class TypicalTestTasks {
             st.addTask(new Task(td.earliestDue));
             st.addTask(new Task(td.longDue));
         } catch (DuplicateTaskException e) {
+            assert false : "not possible";
+        } catch (InvalidDateException e) {
             assert false : "not possible";
         }
     }

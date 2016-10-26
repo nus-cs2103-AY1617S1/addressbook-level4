@@ -1,14 +1,14 @@
 package seedu.savvytasker.logic.commands;
 
-import java.util.Date;
-
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.util.SmartDefaultDates;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -26,12 +26,11 @@ public class AddCommand extends ModelRequiringCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
+    public static final String MESSAGE_INVALID_START_END = "The end time cannot be earlier than the start time";
 
     private final String taskName;
     private final InferredDate startDateTime;
-    private Date inferredStart;
     private final InferredDate endDateTime;
-    private Date inferredEnd;
     private final String location;
     private final PriorityLevel priority;
     private final RecurrenceType recurringType;
@@ -56,8 +55,6 @@ public class AddCommand extends ModelRequiringCommand {
         this.numberOfRecurrence = numberOfRecurrence;
         this.category = category;
         this.description = description;
-        
-        createTask();
     }
     
     private void createTask() {
@@ -65,7 +62,8 @@ public class AddCommand extends ModelRequiringCommand {
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
         
         //TODO: Smart defaults for date
-        this.toAdd = new Task(taskId, taskName, inferredStart, inferredEnd,
+        SmartDefaultDates sdd = new SmartDefaultDates(startDateTime, endDateTime);
+        this.toAdd = new Task(taskId, taskName, sdd.getStartDate(), sdd.getEndDate(),
                 location, priority, recurringType, numberOfRecurrence,
                 category, description, isArchived);
     }
@@ -73,11 +71,15 @@ public class AddCommand extends ModelRequiringCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
+        createTask();
+
         try {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (InvalidDateException ex) {
+            return new CommandResult(MESSAGE_INVALID_START_END);
         }
 
     }
