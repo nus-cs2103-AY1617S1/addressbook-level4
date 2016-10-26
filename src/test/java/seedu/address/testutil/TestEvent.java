@@ -83,5 +83,20 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         return sb.toString().trim();
     }
     
+    @Override
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime())
+                .append(" Reminder: ")
+                .append(getReminder())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 
+    
 }

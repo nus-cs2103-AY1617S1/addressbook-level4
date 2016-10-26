@@ -72,7 +72,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         }
         
         
-        if (getPriority() != null) {
+        if (!getPriority().value.equals("")) {
         sb.append("p/" + this.getPriority().value + " ");   
         }
         
@@ -83,5 +83,20 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString().trim();
+    }
+    
+    @Override
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Duedate: ")
+                .append(getDueDate())
+                .append(" Priority: ")
+                .append(getPriority())
+                .append(" Reminder: ")
+                .append(getReminder())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 }

@@ -113,5 +113,14 @@ public class TestActivity implements ReadOnlyActivity {
         return sb.toString().trim();
     }
 
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Reminder: ")
+                .append(getReminder())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 
 }
