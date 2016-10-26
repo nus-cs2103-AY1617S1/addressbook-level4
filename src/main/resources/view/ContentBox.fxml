@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
    <children>
-      <GridPane prefWidth="378.0" style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
+      <GridPane prefWidth="300.0" style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
           <ColumnConstraints hgrow="ALWAYS" />
