@@ -36,7 +36,7 @@ public class FindCommand extends ModelRequiringCommand {
         model.updateFilteredTaskList(_findType, keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
-    //@@author A0139915W
+    //@@author
     
     /**
      * Checks if a command can perform undo operations

@@ -26,4 +26,4 @@ public class TaskPanelSelectionChangedEvent extends BaseEvent {
         return newSelection;
     }
 }
-//@@author A0139915W
+//@@author

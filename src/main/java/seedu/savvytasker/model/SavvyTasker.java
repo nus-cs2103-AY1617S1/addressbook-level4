@@ -24,7 +24,6 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
  */
 public class SavvyTasker implements ReadOnlySavvyTasker {
 
-    //@@author A0139915W
     private final TaskList tasks;
     private final AliasSymbolList symbols;
 
@@ -104,6 +103,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
         return tasks.replace(key, replacement);
     }
+    //@@author
     //@@author A0139916U
     
     /**
@@ -123,8 +123,8 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException {
         symbols.removeAliasSymbol(symbol);
     }
-    //@@author A0139915W
-
+    //@@author
+    
 //// util methods
 
     @Override
@@ -133,6 +133,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         // TODO: refine later
     }
 
+    //@@author A0139915W
     @Override
     public List<ReadOnlyTask> getReadOnlyListOfTasks() {
         return Collections.unmodifiableList(tasks.getInternalList());
@@ -144,6 +145,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         defensiveCopy.getInternalList().addAll(tasks.getInternalList());
         return defensiveCopy;
     }
+    //@@author
 
     //@@author A0139916U
     @Override
@@ -155,6 +157,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public AliasSymbolList getAliasSymbolList() {
         return new AliasSymbolList(symbols);
     }
+    //@@author
 
     //@@author A0139915W
     @Override
@@ -170,4 +173,5 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, symbols);
     }
+    //@@author
 }

@@ -85,4 +85,4 @@ public class XmlAdaptedTask {
                 recurringType, numberOfRecurrence, category, description, isArchived);
     }
 }
-//@@author A0139915W
+//@@author
