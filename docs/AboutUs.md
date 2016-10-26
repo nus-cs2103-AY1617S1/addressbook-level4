@@ -35,7 +35,7 @@ Responsibilities: Codes about features.
 #### [Xu Tianyu](https://github.com/yeetee179)
 <img src="images/XuTianyu.JPG" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: Codes about user interface.
 
 -----
 
