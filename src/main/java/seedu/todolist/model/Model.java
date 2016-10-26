@@ -49,7 +49,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(Set<String> keywords, String findType);
     
     /** Set the current tab the user is looking at */
     void setCurrentTab(String tab);

@@ -164,8 +164,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(Set<String> keywords, String findType){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords, findType)));
     }
     
     private void updateFilteredTaskList(Expression expression) {
@@ -207,17 +207,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
+        private String findType;
 
-        NameQualifier(Set<String> nameKeyWords) {
+        NameQualifier(Set<String> nameKeyWords, String findType) {
             this.nameKeyWords = nameKeyWords;
+            this.findType = findType;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
+            if (findType.equals("all")) {
+            	for (String keyword : nameKeyWords) {
+            		if (!StringUtil.containsIgnoreCase(task.getName().fullName, keyword)) {
+            			return false;
+            		}
+            	}
+            	return true;
+            }
+            else if (findType.equals("exactly")) {
+            	String keyword = String.join(" ", nameKeyWords).trim().toLowerCase();
+            	return task.getName().fullName.toLowerCase().contains(keyword);
+            }
+            else {
+            	return nameKeyWords.stream()
+            			.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            			.findAny()
+            			.isPresent();
+            }
         }
 
         @Override

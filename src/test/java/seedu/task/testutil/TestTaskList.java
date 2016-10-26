@@ -8,6 +8,7 @@ import java.util.List;
 public class TestTaskList {
     private ArrayList<TestTask> testCompleteTasks;
     private ArrayList<TestTask> testIncompleteTasks;
+    private int numberOfTask;
     
     public TestTaskList() {
         clear();
@@ -16,6 +17,7 @@ public class TestTaskList {
     public TestTaskList(List<TestTask> incompleteList, List<TestTask> completeList) {
         testCompleteTasks = new ArrayList<TestTask>(completeList);
         testIncompleteTasks = new ArrayList<TestTask>(incompleteList);
+        numberOfTask = incompleteList.size() + completeList.size();
     }
     
     public TestTaskList(TestTask[] testTasks) {
@@ -30,6 +32,7 @@ public class TestTaskList {
                 Collections.sort(testIncompleteTasks);
             }
         }
+        numberOfTask = testTasks.length;
     }
     
     public TestTask[] getCompleteList() {
@@ -42,9 +45,14 @@ public class TestTaskList {
         return testIncompleteTasks.toArray(incompleteTasks);
     }
     
+    public int getNumberOfTask() {
+    	return numberOfTask;
+    }
+    
     public void clear() {
         testCompleteTasks = new ArrayList<TestTask>();
         testIncompleteTasks = new ArrayList<TestTask>();
+        numberOfTask = 0;
     }
     
     /**
@@ -56,6 +64,7 @@ public class TestTaskList {
     public void addTasksToList(TestTask taskToAdd) {
         testIncompleteTasks.add(taskToAdd);
         Collections.sort(testIncompleteTasks);
+        numberOfTask++;
     }
     
     /**
@@ -72,6 +81,7 @@ public class TestTaskList {
             else {
                 testCompleteTasks.remove(tasksToDelete[i]);
             }
+            numberOfTask--;
         }
     }
     

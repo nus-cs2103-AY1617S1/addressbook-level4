@@ -11,7 +11,7 @@ public class TypicalTestTasks {
 
     public static TestTask  eventWithoutParameters, eventWithLocation, eventWithRemarks, 
                             eventWithLocationAndRemarks, deadlineWithoutParameter,  deadlineWithLocation, 
-                            event, deadline;
+                            event, deadline, taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
 
     //@@author A0138601M
     public TypicalTestTasks() {
@@ -57,6 +57,25 @@ public class TypicalTestTasks {
                     .withInterval(null, null, "2 dec 2016", null)
                     .withLocation(null)
                     .withRemarks("bring towel")
+                    .withStatus(false).build();
+            
+            //Task for testing FindCommand
+            taskOneToTestFind = new TaskBuilder().withName("One two Three")
+                    .withInterval(null, null, "24 dec 2016", null)
+                    .withLocation(null)
+                    .withRemarks("testing")
+                    .withStatus(false).build();
+            
+            taskTwoToTestFind = new TaskBuilder().withName("one Three Two four")
+                    .withInterval(null, null, "27 dec 2016", null)
+                    .withLocation("NUS")
+                    .withRemarks(null)
+                    .withStatus(false).build();
+            
+            taskThreeToTestFind = new TaskBuilder().withName("Four One three two")
+                    .withInterval(null, null, "30 dec 2016", null)
+                    .withLocation("home")
+                    .withRemarks(null)
                     .withStatus(false).build();
 
         } catch (IllegalValueException e) {
