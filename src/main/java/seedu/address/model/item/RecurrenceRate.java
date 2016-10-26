@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author A0139655U
 public class RecurrenceRate {
     
     private static final String STRING_CONSTANT_ONE = "1";
