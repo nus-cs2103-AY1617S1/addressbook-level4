@@ -1,9 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.model.Model;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.forgetmenot.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

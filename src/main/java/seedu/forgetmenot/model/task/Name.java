@@ -1,6 +1,6 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's name in ForgetMeNot.

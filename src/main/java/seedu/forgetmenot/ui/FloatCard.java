@@ -1,11 +1,11 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
 
 public class FloatCard extends UiPart{
 

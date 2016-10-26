@@ -1,13 +1,13 @@
-package seedu.address.storage;
+package seedu.forgetmenot.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
 
 import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.TaskManager}.
+ * Represents a storage for {@link seedu.forgetmenot.model.TaskManager}.
  */
 public interface TaskManagerStorage {
 

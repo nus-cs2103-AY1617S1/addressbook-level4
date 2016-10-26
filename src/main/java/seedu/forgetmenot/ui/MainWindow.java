@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import java.util.function.Predicate;
 
@@ -10,13 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.logic.Logic;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
+import seedu.forgetmenot.commons.core.Config;
+import seedu.forgetmenot.commons.core.GuiSettings;
+import seedu.forgetmenot.commons.events.ui.ExitAppRequestEvent;
+import seedu.forgetmenot.logic.Logic;
+import seedu.forgetmenot.model.UserPrefs;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing

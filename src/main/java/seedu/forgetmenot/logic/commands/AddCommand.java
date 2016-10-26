@@ -1,15 +1,15 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.task.*;
-import seedu.address.storage.Storage;
-import seedu.address.ui.TaskListPanel;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.logic.LogicManager;
+import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.storage.Storage;
+import seedu.forgetmenot.ui.TaskListPanel;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_TIME;
 
 import java.util.HashSet;
 import java.util.Set;

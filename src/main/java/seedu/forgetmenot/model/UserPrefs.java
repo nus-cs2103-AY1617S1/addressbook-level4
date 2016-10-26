@@ -1,8 +1,8 @@
-package seedu.address.model;
-
-import seedu.address.commons.core.GuiSettings;
+package seedu.forgetmenot.model;
 
 import java.util.Objects;
+
+import seedu.forgetmenot.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.

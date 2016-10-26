@@ -1,7 +1,7 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.CollectionUtil;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.CollectionUtil;
 
 import java.util.Calendar;
 import java.util.Objects;

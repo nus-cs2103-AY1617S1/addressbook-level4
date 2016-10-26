@@ -1,7 +1,7 @@
-package seedu.address.commons.events.model;
+package seedu.forgetmenot.commons.events.model;
 
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.commons.events.BaseEvent;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
 
 /** Indicates the TaskManager in the model has changed*/
 public class TaskManagerChangedEvent extends BaseEvent {

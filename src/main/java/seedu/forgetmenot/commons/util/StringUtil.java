@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.forgetmenot.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

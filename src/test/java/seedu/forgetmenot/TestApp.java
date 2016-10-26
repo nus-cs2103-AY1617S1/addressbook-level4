@@ -1,13 +1,14 @@
-package seedu.address;
+package seedu.forgetmenot;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.XmlSerializableTaskManager;
-import seedu.address.testutil.TestUtil;
+import seedu.forgetmenot.MainApp;
+import seedu.forgetmenot.commons.core.Config;
+import seedu.forgetmenot.commons.core.GuiSettings;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.UserPrefs;
+import seedu.forgetmenot.storage.XmlSerializableTaskManager;
+import seedu.forgetmenot.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

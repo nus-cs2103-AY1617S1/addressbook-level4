@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
@@ -7,9 +7,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.util.FxViewUtil;
+
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.util.FxViewUtil;
 
 import java.util.Date;
 import java.util.logging.Logger;

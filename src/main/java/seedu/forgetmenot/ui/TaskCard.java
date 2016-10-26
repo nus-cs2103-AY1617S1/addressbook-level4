@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 

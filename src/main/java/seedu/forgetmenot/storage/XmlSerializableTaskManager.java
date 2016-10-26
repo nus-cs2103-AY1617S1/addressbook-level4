@@ -1,9 +1,9 @@
-package seedu.address.storage;
+package seedu.forgetmenot.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.UniqueTaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -1,11 +1,11 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Mark a task as done identified using it's last displayed index from the task manager.

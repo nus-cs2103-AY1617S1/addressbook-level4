@@ -1,7 +1,7 @@
-package seedu.address.storage;
+package seedu.forgetmenot.storage;
 
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.commons.util.XmlUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

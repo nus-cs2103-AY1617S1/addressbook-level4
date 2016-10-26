@@ -1,7 +1,8 @@
-package seedu.address.commons.core;
+package seedu.forgetmenot.commons.core;
 
-import seedu.address.commons.events.BaseEvent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * Base class for *Manager classes

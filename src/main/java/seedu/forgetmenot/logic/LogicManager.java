@@ -1,15 +1,15 @@
-package seedu.address.logic;
+package seedu.forgetmenot.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.parser.Parser;
-import seedu.address.model.Model;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.storage.Storage;
+import seedu.forgetmenot.commons.core.ComponentManager;
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.logic.commands.Command;
+import seedu.forgetmenot.logic.commands.CommandResult;
+import seedu.forgetmenot.logic.parser.Parser;
+import seedu.forgetmenot.model.Model;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.storage.Storage;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;

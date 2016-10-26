@@ -1,7 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.model.TaskManager;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class ClearDoneCommand extends Command{
     public static final String COMMAND_WORD = "cleardone";

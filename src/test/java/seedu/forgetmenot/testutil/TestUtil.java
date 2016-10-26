@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.forgetmenot.testutil;
 
 import com.google.common.io.Files;
 import guitests.guihandles.TaskCardHandle;
@@ -12,13 +12,14 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.TaskManager;
-import seedu.address.model.task.*;
-import seedu.address.storage.XmlSerializableTaskManager;
+
+import seedu.forgetmenot.TestApp;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.FileUtil;
+import seedu.forgetmenot.commons.util.XmlUtil;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.storage.XmlSerializableTaskManager;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,9 +1,9 @@
-package seedu.address.commons.core;
-
-import seedu.address.commons.events.BaseEvent;
+package seedu.forgetmenot.commons.core;
 
 import java.io.IOException;
 import java.util.logging.*;
+
+import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * Configures and manages loggers and handlers, including their logging level

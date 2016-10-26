@@ -1,14 +1,14 @@
-package seedu.address.model;
+package seedu.forgetmenot.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.Time;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Recurrence;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.model.task.UniqueTaskList;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;

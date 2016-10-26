@@ -1,6 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.model.TaskManager;
+import seedu.forgetmenot.model.TaskManager;
 
 /**
  * Clears the task manager.

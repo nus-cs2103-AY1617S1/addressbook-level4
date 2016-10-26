@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.forgetmenot.commons.core;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -6,9 +6,9 @@ import java.io.IOException;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.address.commons.events.storage.ConfigFilePathChangedEvent;
-import seedu.address.commons.events.storage.StorageLocationChangedEvent;
-import seedu.address.commons.util.ConfigUtil;
+import seedu.forgetmenot.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.forgetmenot.commons.events.storage.StorageLocationChangedEvent;
+import seedu.forgetmenot.commons.util.ConfigUtil;
 /**
  * Config values used by the app
  */

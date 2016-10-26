@@ -1,12 +1,12 @@
-package seedu.address.model;
+package seedu.forgetmenot.model;
 
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.UniqueTaskList;
+import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.function.Predicate;

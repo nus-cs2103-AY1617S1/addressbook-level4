@@ -1,10 +1,10 @@
-package seedu.address.storage;
+package seedu.forgetmenot.storage;
 
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.UserPrefs;
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.storage.DataSavingExceptionEvent;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.UserPrefs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

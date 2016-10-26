@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -13,13 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.logic.Logic;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.TaskManager;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.forgetmenot.logic.Logic;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 

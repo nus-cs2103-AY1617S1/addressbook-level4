@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
 /**
  * Represents a Task's recurrence in the task manager.

@@ -1,8 +1,8 @@
-package seedu.address.testutil;
+package seedu.forgetmenot.testutil;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.TaskManager;
-import seedu.address.model.task.*;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.*;
 
 /**
  *

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.forgetmenot.testutil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,17 +1,22 @@
-package seedu.address.storage;
+package seedu.forgetmenot.storage;
 
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.model.TaskManager;
-import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalTestTasks;
-import seedu.address.testutil.EventsCollector;
+
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.storage.DataSavingExceptionEvent;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.UserPrefs;
+import seedu.forgetmenot.storage.JsonUserPrefsStorage;
+import seedu.forgetmenot.storage.Storage;
+import seedu.forgetmenot.storage.StorageManager;
+import seedu.forgetmenot.storage.XmlTaskManagerStorage;
+import seedu.forgetmenot.testutil.EventsCollector;
+import seedu.forgetmenot.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 

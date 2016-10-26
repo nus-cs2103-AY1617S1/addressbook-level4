@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.forgetmenot.commons.util;
 
 import java.util.Collection;
 import java.util.HashSet;

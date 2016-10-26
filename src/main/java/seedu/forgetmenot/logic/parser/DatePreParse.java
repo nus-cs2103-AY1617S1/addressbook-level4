@@ -1,9 +1,9 @@
-package seedu.address.logic.parser;
+package seedu.forgetmenot.logic.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
 public class DatePreParse {
 	

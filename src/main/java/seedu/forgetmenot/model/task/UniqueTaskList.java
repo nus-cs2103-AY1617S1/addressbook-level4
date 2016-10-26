@@ -1,10 +1,10 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.exceptions.DuplicateDataException;
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.exceptions.DuplicateDataException;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.CollectionUtil;
 
 import java.util.*;
 

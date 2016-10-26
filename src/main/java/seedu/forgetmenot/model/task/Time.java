@@ -1,8 +1,8 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.DatePreParse;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.logic.parser.DatePreParse;
 
 import java.util.List;
 import java.util.regex.Matcher;

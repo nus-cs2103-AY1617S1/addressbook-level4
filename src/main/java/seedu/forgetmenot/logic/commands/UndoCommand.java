@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
 import java.util.NoSuchElementException;
 

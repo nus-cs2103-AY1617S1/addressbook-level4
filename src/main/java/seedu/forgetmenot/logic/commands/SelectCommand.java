@@ -1,10 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the task manager.

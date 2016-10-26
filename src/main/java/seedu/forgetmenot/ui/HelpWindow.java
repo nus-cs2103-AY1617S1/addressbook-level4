@@ -1,12 +1,12 @@
-package seedu.address.ui;
+package seedu.forgetmenot.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
-import seedu.address.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.util.FxViewUtil;
 
 import java.util.logging.Logger;
 

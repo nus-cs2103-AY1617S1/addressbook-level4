@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.forgetmenot.commons.core;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 

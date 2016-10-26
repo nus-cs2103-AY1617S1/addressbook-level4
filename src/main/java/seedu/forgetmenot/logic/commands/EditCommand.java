@@ -1,13 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from the task manager.

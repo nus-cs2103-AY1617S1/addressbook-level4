@@ -1,6 +1,6 @@
-package seedu.address.commons.events.storage;
+package seedu.forgetmenot.commons.events.storage;
 
-import seedu.address.commons.events.BaseEvent;
+import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * Indicates an exception during a file saving

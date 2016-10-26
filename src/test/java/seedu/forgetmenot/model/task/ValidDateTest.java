@@ -1,4 +1,4 @@
-package seedu.address.model.task;
+package seedu.forgetmenot.model.task;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import seedu.forgetmenot.model.task.Time;
 
 public class ValidDateTest {
 

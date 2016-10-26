@@ -1,8 +1,8 @@
-package seedu.address.testutil;
+package seedu.forgetmenot.testutil;
 
 import java.util.Calendar;
 
-import seedu.address.model.task.*;
+import seedu.forgetmenot.model.task.*;
 
 /**
  * A mutable task object. For testing only.

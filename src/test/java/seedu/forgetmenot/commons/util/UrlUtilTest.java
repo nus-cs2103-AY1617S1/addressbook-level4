@@ -1,6 +1,8 @@
-package seedu.address.commons.util;
+package seedu.forgetmenot.commons.util;
 
 import org.junit.Test;
+
+import seedu.forgetmenot.commons.util.UrlUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -1,9 +1,9 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
 import java.io.File;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.storage.StorageLocationChangedEvent;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.events.storage.StorageLocationChangedEvent;
 
 public class SetStorageCommand extends Command {
 	

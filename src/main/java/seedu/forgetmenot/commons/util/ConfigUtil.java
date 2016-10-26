@@ -1,8 +1,8 @@
-package seedu.address.commons.util;
+package seedu.forgetmenot.commons.util;
 
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.commons.core.Config;
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
 
 import java.io.File;
 import java.io.IOException;

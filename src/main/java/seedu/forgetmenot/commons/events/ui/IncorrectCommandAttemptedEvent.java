@@ -1,7 +1,7 @@
-package seedu.address.commons.events.ui;
+package seedu.forgetmenot.commons.events.ui;
 
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.logic.commands.Command;
+import seedu.forgetmenot.commons.events.BaseEvent;
+import seedu.forgetmenot.logic.commands.Command;
 
 /**
  * Indicates an attempt to execute an incorrect command

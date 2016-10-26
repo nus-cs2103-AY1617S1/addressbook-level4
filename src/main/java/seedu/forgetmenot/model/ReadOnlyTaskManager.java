@@ -1,10 +1,10 @@
-package seedu.address.model;
+package seedu.forgetmenot.model;
 
-
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
 
 import java.util.List;
+
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of a task manager

@@ -1,8 +1,8 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.task.Task;
+import seedu.forgetmenot.model.task.Task;
 
 /**
  * Shows all tasks in the task manager to the user.

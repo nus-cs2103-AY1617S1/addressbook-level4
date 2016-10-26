@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.forgetmenot.logic;
 
 import com.google.common.eventbus.Subscribe;
 import org.junit.After;
@@ -6,18 +6,21 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-import seedu.address.model.TaskManager;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyTaskManager;
-import seedu.address.model.task.*;
-import seedu.address.storage.StorageManager;
+
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
+import seedu.forgetmenot.commons.events.ui.ShowHelpRequestEvent;
+import seedu.forgetmenot.logic.Logic;
+import seedu.forgetmenot.logic.LogicManager;
+import seedu.forgetmenot.logic.commands.*;
+import seedu.forgetmenot.model.Model;
+import seedu.forgetmenot.model.ModelManager;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +29,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.forgetmenot.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

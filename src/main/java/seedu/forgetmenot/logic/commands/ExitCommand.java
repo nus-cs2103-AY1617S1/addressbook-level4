@@ -1,7 +1,7 @@
-package seedu.address.logic.commands;
+package seedu.forgetmenot.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Terminates the program.
