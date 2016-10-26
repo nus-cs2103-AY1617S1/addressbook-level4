@@ -38,6 +38,12 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all completed tasks */
+    void updateFilteredListToShowAllCompleted();
+    
+    /** Updates the filter of the filtered task list to show all uncompleted tasks */
+    void updateFilteredListToShowAllUncompleted();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredEventList(Set<String> keywords);
