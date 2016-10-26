@@ -63,7 +63,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Removes the equivalent task from the list.
+     * Removes the equivalent task(s) from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
@@ -81,20 +81,22 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0138601M
     /**
-     * Marks the equivalent task in the list.
+     * Marks the equivalent task(s) in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
+    public boolean mark(ReadOnlyTask... toMark) throws TaskNotFoundException {
         assert toMark != null;
-        final boolean taskFound = (internalList.indexOf(toMark) != -1);
-        toMark.getStatus().setStatus(true);
-        internalList.remove(toMark);
-        internalList.add((Task)toMark);
-        Collections.sort(internalList);
-        if (!taskFound) {
-            throw new TaskNotFoundException();
+        boolean taskFound = false;
+        for (ReadOnlyTask task : toMark) {
+        	taskFound = (internalList.indexOf(task) != -1);
+        	if (!taskFound) {
+                throw new TaskNotFoundException();
+            }
+        	Task taskMarked = new Task(task.getName(), task.getInterval(), task.getLocation(), task.getRemarks(), new Status(true));
+        	internalList.set(internalList.indexOf(task), taskMarked);
         }
+        Collections.sort(internalList);
         return taskFound;
     }
     //@@author
