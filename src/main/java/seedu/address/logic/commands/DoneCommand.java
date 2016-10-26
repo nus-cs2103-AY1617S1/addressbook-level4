@@ -23,7 +23,7 @@ public class DoneCommand extends Command {
             + "      "
             + "Example: " + COMMAND_WORD + " T1, E2, D3"
             + "      "
-            + "Example: " + COMMAND_WORD + " T1-10";
+            + "Example: " + COMMAND_WORD + " T1-T10";
     
     public static final String MESSAGE_MARK_DONE_SUCCESS = "Marked task as done: %1$s";
     
