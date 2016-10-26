@@ -13,28 +13,26 @@ import seedu.todo.ui.view.CommandPreviewView;
 //@@author A0135805H
 /**
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
- * and hands the {@link seedu.todo.logic.commands.CommandResult}
- * to {@link CommandFeedbackView} and {@link CommandErrorView}
+ * and hands the {@link seedu.todo.logic.commands.CommandResult} to {@link CommandFeedbackView} and
+ * {@link CommandErrorView}
  */
 public class CommandController {
-
+    /* Variables */
     private Logic logic;
     private CommandInputView inputView;
     private CommandPreviewView previewView;
     private CommandFeedbackView feedbackView;
     private CommandErrorView errorView;
 
-    /**
-     * Defines a default constructor
-     */
+    /* Private Constructor */
     private CommandController() {}
 
     /**
      * Constructs a link between the classes defined in the parameters.
      */
-    public static CommandController constructLink(Logic logic,
-                                                  CommandInputView inputView, CommandPreviewView previewView,
-                                                  CommandFeedbackView feedbackView, CommandErrorView errorView) {
+    public static CommandController constructLink(Logic logic, CommandInputView inputView,
+            CommandPreviewView previewView, CommandFeedbackView feedbackView, CommandErrorView errorView) {
+
         CommandController controller = new CommandController();
         controller.logic = logic;
         controller.inputView = inputView;
@@ -89,8 +87,8 @@ public class CommandController {
             viewDisplayError(result.getErrors());
         }
     }
-    //@@author
 
+    //@@author A0135805H
     /**
      * Displays error in the respective UI elements
      * @param errorBag group of errors to display
