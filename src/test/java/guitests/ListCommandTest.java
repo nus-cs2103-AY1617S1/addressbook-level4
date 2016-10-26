@@ -91,15 +91,19 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		// Test wrong command
 		commandBox.runCommand("list oktober");
 		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "oktober");
-		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
-		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
+		assertTrue(activityListPanel.isTaskListMatching());
+		assertTrue(activityListPanel.isEventListMatching());
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
 		
+		TestActivity[] expectedKeywordTaskList1 = new TestActivity[1];
+		expectedKeywordTaskList1[0] = testTask1;
+		TestActivity[] expectedKeywordFloatingList1 = new TestActivity[1];
+		expectedKeywordFloatingList1[0] = testFloating1;
 		commandBox.runCommand("list cs2103t");
 		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "cs2103t");
-		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
-		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
-		assertTrue(activityListPanel.isFloatingTaskListMatching());
+		assertTrue(activityListPanel.isTaskListMatching(expectedKeywordTaskList1));
+		assertTrue(activityListPanel.isEventListMatching());
+		assertTrue(activityListPanel.isFloatingTaskListMatching(testFloating1));
 	}
 
 	private void generateActivitiesForList(ActivityManager testActivityManager) {
@@ -121,7 +125,7 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 					new ActivityDate("18-08-2016"), new ActivityTime("1900"), new ActivityDate("18-08-2016"),
 					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
-			testFloating1 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Must do 2103t"),
+			testFloating1 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Must do cs2103t"),
 					new Note("Very important"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
 			testFloating2 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Print card"),

@@ -17,6 +17,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String LIST_ALL = "all";
+    public static final String LIST_COMPLETED = "completed";
+    public static final String LIST_UNCOMPLETED = "uncompleted";
     public static final String LIST_MONTH = "month";
     public static final String LIST_DATE = "date";
     public static final String LIST_KEYWORDS = "keywords";
@@ -27,7 +29,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_ALL = "Listed all activities";
     public static final String MESSAGE_SUCCESS_DATE_MONTH = "Menion lists all activities that falls on ";
     public static final String MESSAGE_SUCCESS_LIST_KEYWORDS = "Menion has found these activities with the keyword : ";
-
+    
     private String listArgument;
     private String listType;
     private String monthToList;
@@ -62,6 +64,14 @@ public class ListCommand extends Command {
     	
     	else if (isDate(args)){
     		return LIST_DATE;
+    	}
+    	
+    	else if (args.equals(LIST_COMPLETED)){
+    		return LIST_COMPLETED;
+    	}
+    	
+    	else if (args.equals(LIST_UNCOMPLETED)){
+    		return LIST_UNCOMPLETED;
     	}
     		// Find by keywords
     	else {
@@ -153,8 +163,8 @@ public class ListCommand extends Command {
 		case LIST_KEYWORDS:
 			
 			model.updateFilteredTaskList(this.argumentsToList);
-			model.updateFilteredFloatingTaskList(this.argumentsToList);
 			model.updateFilteredEventList(this.argumentsToList);
+			model.updateFilteredFloatingTaskList(this.argumentsToList);
 			return new CommandResult(MESSAGE_SUCCESS_LIST_KEYWORDS + this.keywordToList); 
 			
 		default:
