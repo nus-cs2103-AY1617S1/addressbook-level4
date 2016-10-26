@@ -20,6 +20,13 @@ public interface Model {
     void resetEventListData(ReadOnlyTaskList newData);
     /** Clears existing backing model and replaces with the provided new data. */
     void resetDeadlineListData(ReadOnlyTaskList newData);
+    
+    /** Clears existing backing model. */
+    void resetTodoListData();
+    /** Clears existing backing model. */
+    void resetEventListData();
+    /** Clears existing backing model. */
+    void resetDeadlineListData();
 
     /** Returns the TodoList */
     ReadOnlyTaskList getTodoList();

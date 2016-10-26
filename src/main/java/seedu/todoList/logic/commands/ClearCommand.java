@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     private String dataType;
 
     public ClearCommand(String args) {
-    	this.dataType = args;
+    	this.dataType = args.trim();
     }
 
 
