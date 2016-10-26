@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * Provides a handle for the panel containing the deadline list.
  */
 public class DeadlineListPanelHandle extends GuiHandle {
-    //@@author A0129595N
+
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane2";
 

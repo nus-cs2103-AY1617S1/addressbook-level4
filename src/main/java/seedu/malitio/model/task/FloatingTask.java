@@ -10,8 +10,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
     private Name name;
     
     private UniqueTagList tags;
-    
-    //@@author A0129595N
+
     /**
      * Constructor for floating tasks.
      */

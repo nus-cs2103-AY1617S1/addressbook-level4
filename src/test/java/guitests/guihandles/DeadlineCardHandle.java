@@ -9,7 +9,7 @@ import seedu.malitio.model.task.ReadOnlyDeadline;
  * Provides a handle to a deadline card in the task list panel.
  */
 public class DeadlineCardHandle extends GuiHandle {
-    //@@author A0129595N
+
     private static final String NAME_FIELD_ID = "#name";
     private static final String DUE_FIELD_ID = "#due";
 

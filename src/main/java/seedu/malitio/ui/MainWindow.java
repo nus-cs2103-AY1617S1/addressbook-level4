@@ -27,7 +27,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
-    //@@author A0129595N
+    
     // Independent Ui parts residing in this Ui container
     private FloatingTaskListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;

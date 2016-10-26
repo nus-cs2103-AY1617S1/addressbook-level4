@@ -17,7 +17,6 @@ public class TypicalTestTasks {
     public static TestEvent event1, event2, event3, event4, event5, event6, manualEvent1, manualEvent2,
                                     editedEvent1, editedEvent2, editedEvent3, editedEvent4, editedEvent5;
     
-    //@@author A0129595N
     public TypicalTestTasks() {
         try {
             floatingTask1 =  new FloatingTaskBuilder().withName("Adjust meter")

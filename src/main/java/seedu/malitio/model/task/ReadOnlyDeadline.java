@@ -18,7 +18,6 @@ public interface ReadOnlyDeadline {
          */
         UniqueTagList getTags();
 
-        //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */
