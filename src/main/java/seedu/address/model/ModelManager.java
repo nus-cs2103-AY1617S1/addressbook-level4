@@ -7,7 +7,9 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.ModelManager.Qualifier;
 import seedu.address.model.deadline.Deadline;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -218,6 +220,30 @@ public class ModelManager extends ComponentManager implements Model {
 				}
 			}
 			return false;
+		}
+	}
+	
+	private class TagQualifier implements Qualifier {
+		private String keyWords;
+
+		TagQualifier(String keyWords) {
+			this.keyWords = keyWords;
+		}
+
+		@Override // for loop embedded
+		public boolean run(ReadOnlyTask person) {
+			try {
+				return person.getTags().contains(new Tag(keyWords));
+			} catch (IllegalValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", keyWords);
 		}
 	}
 
