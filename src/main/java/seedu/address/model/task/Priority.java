@@ -11,10 +11,10 @@ public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
             "Task priority should be an integer between 1 and 5";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\w\\.]+";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
 
-    public final String value;
-
+    public String value;
+    
     /**
      * Validates given priority.
      *
@@ -33,12 +33,12 @@ public class Priority {
      * Returns if a given string is a valid priority.
      */
     public static boolean isValidPriority(String test) {
-    	if(Integer.parseInt(test) > 0 && Integer.parseInt(test) < 6) {
+    	if(Integer.parseInt(test) >= 0 && Integer.parseInt(test) < 6) {
     		return test.matches(PRIORITY_VALIDATION_REGEX);
     	}
-    	return false;
+    	return true;
     }
-
+    
     @Override
     public String toString() {
         return value;
