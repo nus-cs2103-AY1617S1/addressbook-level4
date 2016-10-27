@@ -31,9 +31,7 @@ Responsibilities: Codes about features.
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
    * [Complete task]
-   * [Update]
-   * [Add tag]
-   * [Delete tag](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Editing](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#features--Editing)
    * [Undo]
 * Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
 * Other major contributions:
