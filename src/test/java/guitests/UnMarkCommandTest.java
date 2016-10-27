@@ -11,10 +11,14 @@ import seedu.taskscheduler.ui.TaskCard;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0138696L
+
+/**
+ * Undo a unmark command in the task scheduler.
+ */
 
 public class UnMarkCommandTest extends TaskSchedulerGuiTest {
     
-    //@@author A0138696L
     @Test
     public void unmark() {
 
@@ -64,7 +68,6 @@ public class UnMarkCommandTest extends TaskSchedulerGuiTest {
 
     }
 
-    //@@author A0148145E
     /**
      * Runs the mark command to mark the task at specified index as completed and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to mark the first task in the list, 1 should be given as the target index.
@@ -82,14 +85,11 @@ public class UnMarkCommandTest extends TaskSchedulerGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
-    
-    
-    //@@author A0138696L
+
     /**
      * Runs the unmark command to unmark the task at specified index as uncompleted and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to unmark the first task in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of tasks (before deletion).
-     * Credits: A0148145E - Eugene
+     * @param currentList A copy of the current list of tasks (before deletion).S
      */
     public void assertUnMarkSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         
