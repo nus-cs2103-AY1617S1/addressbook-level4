@@ -3,9 +3,7 @@
 
 # Task Manager (Based on Address Book Level 4)
 
-<img src="docs/images/UIProject.png" width="600"><br>
-
-<img src="docs/images/UITaskDetails.png" width="600"><br>
+<img src="docs/images/task-manager-gui.png" width="600"><br>
 
 * This is a desktop task manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
