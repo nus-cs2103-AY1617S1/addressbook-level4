@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,6 @@ import com.joestelmach.natty.*;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
-import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.logic.commands.*;
 import seedu.cmdo.model.task.Priority;
 
@@ -38,11 +36,12 @@ public class MainParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 	
-	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
-	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
+	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MIN;	// All floating tasks are giving this date.
+	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
 	
 	// Singleton
 	private static MainParser mainParser;
+	private static Parser parser;
 	private static Blocker blocker;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
@@ -66,10 +65,10 @@ public class MainParser {
      * 
      * Natty is a natural language parser for dates by Joe Stelmach
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private void init() {
-    	Parser parser = new Parser();
+    	parser = new Parser();
     	datesAndTimes = new ArrayList<LocalDateTime>();
     }
 
@@ -121,6 +120,12 @@ public class MainParser {
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
             
@@ -172,6 +177,8 @@ public class MainParser {
      *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0139661Y
      */
     private Command prepareAdd(String args){
     	datesAndTimes.clear();
@@ -194,8 +201,7 @@ public class MainParser {
         		dtEnd = datesAndTimes.get(1);
         		dataMode = 2;
         	} else {
-        		dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        								LocalTime.MAX);
+        		dt = LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT);
         		dataMode = 0;
         	}
     		if (dataMode <= 1) {
@@ -221,9 +227,11 @@ public class MainParser {
     }
     /**
      * Parses arguments in the context of the block task command.
-     *
+     * 
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareBlock(String args){
     	datesAndTimes.clear();
@@ -273,9 +281,11 @@ public class MainParser {
     
     /**
      * Parses arguments in the context of the edit task command.
-     *
+     * 
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareEdit(String args){
     	try {
@@ -286,52 +296,88 @@ public class MainParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-    	
+    	//check for empty detail
+        if (args.lastIndexOf("'") == args.indexOf("'"))
+        	detailToAdd = "";
         // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
-        boolean validTime = false;
-        for(String sArg : splittedArgs){
-        	if(sArg.equals("at"))
-        		validTime = true;
-        }
         
     	Integer index = Integer.valueOf(splittedArgs[0]);
         if(index == null){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
         // Store index and remove
         int targetIndex = index;
         args = args.replaceFirst("[0-9]+\\s", "");
+        //If details is not empty, extract details
+        if(detailToAdd == null || !detailToAdd.equals(""))
         extractDetail(args);
-        
+        //used a flag to check if floating task
+        boolean floating = false;
+        //used flag to check if want to remove priority
+        boolean removePriority = false;
         // Parse date and time
         reducedArgs = extractDueByDateAndTime(args);
-        LocalDateTime dt;
+        //if keyword float is entered, it becomes a floating task (no date no time)
+        if(reducedArgs.toLowerCase().contains("floating")){
+        	floating = true;
+        }
+        //if keyword rp or remove priority is entered, priority is removed
+        if(reducedArgs.toLowerCase().contains("remove priority")||reducedArgs.toLowerCase().contains("rp")){
+        	removePriority = true;
+        }
+        // used as flag for task type. 0 for floating, 1 for non-range, 2 for range
+    	int dataNo;
+        LocalDateTime dt = LocalDateTime.MIN;
+    	LocalDateTime dtStart = LocalDateTime.MIN;
+    	LocalDateTime dtEnd = LocalDateTime.MIN;
+    	
+    	if (datesAndTimes.size() == 1) {
+    		dt = datesAndTimes.get(0);
+    		dataNo = 1;
+    	} else if (datesAndTimes.size() == 2) {
+    		dtStart = datesAndTimes.get(0);
+    		dtEnd = datesAndTimes.get(1);
+    		dataNo = 2;
+    	} else{
+    		dt = LocalDateTime.of(NO_DATE_DEFAULT, LocalTime.MAX);
+        			dataNo = 0;
+    	}
+    	// For testing purposes
+        datesAndTimes.clear();
+        String detailToEdit = detailToAdd;
         
-        // empty details
-        if(extractDetail(reducedArgs).isEmpty()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }        
-        
-        if (datesAndTimes.size() != 0)
-        	dt = datesAndTimes.get(0);
-        else
-        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        			LocalTime.MAX);
         // For testing purposes
         datesAndTimes.clear();
+        detailToAdd = null;
     	
-    	
-    		return new EditCommand(
-    				targetIndex,
-    				detailToAdd,
-    				dt.toLocalDate(),
-    				dt.toLocalTime(),
-    				extractPriority(splittedArgs),
-    				getTagsFromArgs(splittedArgs));
+    	//need to change constructor of edit
+		if (dataNo <= 1) {
+			return new EditCommand(
+					removePriority,
+					floating,
+					targetIndex,
+					detailToEdit,
+					dt.toLocalDate(),
+					dt.toLocalTime(),
+					extractPriority(splittedArgs),
+					getTagsFromArgs(splittedArgs));
+		} 
+		else{ 
+			//only use this constructor when timing is keyed in
+			assert(dataNo!=0);
+			return new EditCommand(
+					removePriority,
+					targetIndex,
+					detailToEdit,
+					dtStart.toLocalDate(),
+					dtStart.toLocalTime(),
+					dtEnd.toLocalDate(),
+					dtEnd.toLocalTime(),
+					extractPriority(splittedArgs),
+					getTagsFromArgs(splittedArgs));
+    		}
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
@@ -339,9 +385,11 @@ public class MainParser {
 
     /**
      * Parses arguments in the context of the delete task command.
-     *
+	 *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareDelete(String args) {
 
@@ -353,14 +401,14 @@ public class MainParser {
 
         return new DeleteCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the done task command.
      *
      * @param args full command args string
      * @return the prepared command
      * 
-     * @author A0141128R
+     * @@author A0141128R
      */
     private Command prepareDone(String args) {
 
@@ -394,6 +442,8 @@ public class MainParser {
      *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareFind(String args) {
         boolean taskStatus = false; // we assume the user is searching for undone tasks
@@ -419,7 +469,7 @@ public class MainParser {
      * @param args full command args string
      * @return the prepared command
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private Command prepareList(String args) {
         int type = 0; // we assume the user is searching for undone tasks
@@ -436,7 +486,7 @@ public class MainParser {
      * @param args an uncleaan string
      * @return a cleaned up string
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
@@ -450,7 +500,6 @@ public class MainParser {
      * 
      * @@author A0139661Y
      */
-    
     private static String extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
@@ -507,16 +556,12 @@ public class MainParser {
      * Extracts the dueByDate and dueByTime out of the args.
      * 
      * This snippet of code uses natty by Joel Ostenmach and its implementation was inspired by
-     * https://github.com/cs2103aug2015-t16-1j/fini
      * 
      * @@author A0139661Y
      */
     public String extractDueByDateAndTime(String dirtyArgs) {
-    	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
-    	
-    	
     	
     	try {
     		// This retrieves either the start date/time, or the only date/time.
@@ -550,7 +595,7 @@ public class MainParser {
     /**
      * Checks for non-essential groups.
      * 
-     * @author A0139661Y
+     * @author A0139661Y-unused
      */
     private static String checkEmpty(String argument) {
     	if (argument.isEmpty()) {
@@ -598,6 +643,8 @@ public class MainParser {
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
+     *   
+     * @@author A0139661Y
      */
     private Optional<Integer> parseLooseIndex(String command) {
         final Matcher matcher = TASK_LOOSE_INDEX_ARGS_FORMAT.matcher(command.trim());

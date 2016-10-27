@@ -12,15 +12,11 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.TaskBlockedException;
-import seedu.cmdo.logic.Logic;
-import seedu.cmdo.logic.LogicManager;
-import seedu.cmdo.model.Model;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 
 public class Blocker {
 
-	private static Blocker blocker;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 	
 	LocalDate checkingDate;
@@ -30,7 +26,8 @@ public class Blocker {
 	LocalDateTime againstEnd;
 
 	public Blocker() {}
-	
+
+	//@@author A0139661Y
 	public ArrayList<LocalDateTime> checkBlocked(Task toCheck, UnmodifiableObservableList<ReadOnlyTask> blockedList)
 										throws TaskBlockedException {
 		ArrayList<LocalDateTime> dateTimeList = new ArrayList<LocalDateTime>();

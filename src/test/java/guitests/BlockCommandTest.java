@@ -9,10 +9,7 @@ import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
-/*
- * @@author A0141128R tested as of 20/10/16
- */
-
+//@@author A0141128R 
 public class BlockCommandTest extends ToDoListGuiTest {
 
     @Test

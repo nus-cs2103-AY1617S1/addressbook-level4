@@ -1,11 +1,11 @@
 package seedu.cmdo.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.util.CollectionUtil;
-import seedu.cmdo.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -16,15 +16,6 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
-
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified person in the list would fail because
@@ -59,7 +50,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) {
         assert toAdd != null;
         internalList.add(toAdd);
     }
@@ -76,8 +67,9 @@ public class UniqueTaskList implements Iterable<Task> {
     	if (index == -1) {
     		throw new TaskNotFoundException();
     	}
-    	internalList.remove(toEdit);
-    	internalList.add(toEditWith);
+    	internalList.set(index, toEditWith);
+//    	internalList.remove(toEdit);
+//    	internalList.add(toEditWith);
     }
     
     /**

@@ -4,7 +4,6 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.model.ToDoList;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building ToDoList objects.
@@ -19,7 +18,7 @@ public class ToDoListBuilder {
         this.toDoList = toDoList;
     }
 
-    public ToDoListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public ToDoListBuilder withTask(Task task) {
         toDoList.addTask(task);
         return this;
     }

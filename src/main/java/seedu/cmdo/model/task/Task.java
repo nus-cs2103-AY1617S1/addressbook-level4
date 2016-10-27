@@ -1,6 +1,8 @@
 package seedu.cmdo.model.task;
 
+import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.cmdo.commons.util.CollectionUtil;
 import seedu.cmdo.model.tag.UniqueTagList;
@@ -8,7 +10,7 @@ import seedu.cmdo.model.tag.UniqueTagList;
 /**
  * Represents a Task in the To Do List.
  * Guarantees: details are present and not null, field values are validated.
- */
+ **/
 public class Task implements ReadOnlyTask {
 
 	
@@ -19,6 +21,8 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private UniqueTagList tags;
     private Boolean block = false;
+    // ObjectID assign each Task instance a distinct ID
+    private String objectID = null;
 
     /**
      * Every field must be present and not null.
@@ -58,8 +62,38 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
+    
+    /**
+     * Copy constructor with dereferencing Done value. This ensures that source's value does not get modified along with the new task's.
+     * 
+     * @@author A0139661Y
+     */
+    public Task(ReadOnlyTask source, Done done) {
+        this(source.getDetail(), done, source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
+    }
 
 
+    
+    //@@author A0141128R
+    //to edit it to a floating task
+    public void setFloating(){
+    	dueByTime.setFloating();
+    	dueByDate.setFloating();
+	}
+    
+    //change detail used in edit command
+    public void setDetail(Detail d) {
+        detail = d;
+    }
+    //setter to edit due by date for edit command
+    public void setDueByDate(DueByDate dbd){
+    	dueByDate = dbd;
+    }
+    //setter to edit due by time for edit command
+    public void setDueByTime(DueByTime dbt){
+    	dueByTime = dbt;
+    }
+    
 	@Override
     public Detail getDetail() {
         return detail;
@@ -89,6 +123,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    public void updateObjectID() {
+        objectID = UUID.randomUUID().toString();
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -116,6 +154,19 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
+     * Marks a floating task via boolean
+     * 
+     * @author A0141006B
+     */
+    
+    public boolean isFloatingTask() {
+    	if(getDueByDate().start.equals(LocalDate.MIN)) {
+    		return true;
+    	}else
+    		return false;
+    }
+    
+    /**
      * Returns a proper parser understandable date string for testing purposes.
      * @return friendly string of date object.
      * 
@@ -134,6 +185,7 @@ public class Task implements ReadOnlyTask {
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
     }
+    
     /*
      * @@author A0141128R
      * To set task to blocked time slot

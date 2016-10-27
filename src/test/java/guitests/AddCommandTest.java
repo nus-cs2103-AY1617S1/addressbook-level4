@@ -1,15 +1,16 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+import static seedu.cmdo.logic.commands.AddCommand.MESSAGE_SUCCESS;
+
 import org.junit.Test;
 
+import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.commons.core.Messages;
-import seedu.cmdo.logic.commands.AddCommand;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
-import static org.junit.Assert.assertTrue;
-
+//@@author A0139661Y
 public class AddCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -65,6 +66,9 @@ public class AddCommandTest extends ToDoListGuiTest {
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
+        
+        //confirm
+        assertResultMessage(String.format(MESSAGE_SUCCESS,taskToAdd));
     }
 
 }

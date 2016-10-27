@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.sun.media.jfxmedia.logging.Logger;
-
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -28,6 +26,8 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String PANEL = "#panel";
+    private static final String PLACEHOLDER_PANE = "#placeHolderPane";
     
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -38,6 +38,14 @@ public class TaskListPanelHandle extends GuiHandle {
         return taskList.getSelectionModel().getSelectedItems();
     }
 
+    public String getPlaceholderPane() {
+    	return PLACEHOLDER_PANE;
+    }
+    
+    public String getPanel() {
+    	return PANEL;
+    }
+    
     public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }

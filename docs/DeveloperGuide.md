@@ -1,3 +1,4 @@
+<!-- @@author A0141128R-->
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -60,7 +61,7 @@ Two of those classes play an important role at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of that App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -115,7 +116,7 @@ The `UI` component,
 
 1. `Logic` uses the `MainParser` class to parse the user command. `MainParser` relies on `Parser` of [Natty by Joe Stelmach](https://github.com/joestelmach/natty) for natural language processing.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
 ### Model component
@@ -143,7 +144,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.CMDo.commans` package. 
 
 ## Implementation
 
@@ -254,16 +255,16 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | edit a task| edit the task by accessing the task and typing the changes
 `* * *` | user | find a task by keywords | access details of tasks quickly without having to go through the entire list
-`* * *` | user |only view uncompleted task in CMDo| avoid being confused by completed task that are overdue| 
+`* * *` | user | only view uncompleted task in CMDo| avoid being confused by completed task that are overdue| 
 `* * *` | user | my tasks sorted by due date and due time|locate urgent tasks easily | 
 `* * *` | user | remove my completed tasks| see only uncompleted tasks | 
 `* * *` | user | book by time slots| block out time for unconfirmed events |
-`* * *` | user | undo my previous action | make mistakes | 
-`* * *` | user | redo my previous action upon undo | make mistakes |
+`* * *` | user | undo my previous action | always undo my previous actions so I can act without worrying that if i make a mistake, it will be too troublesome| 
+`* * *` | user | redo my previous action upon undo | always redo my previous actions so I can act without worrying that if i make a mistake, it will be too troublesome  |
 `* * *` | user | set priority to my task | know which task is more important | 
 `* *` | user |Simply assign a date due to my todo by typing in the due date| to enter due dates easily
-`* *` | user |block out time slots of unconfirmed tasks| avoid scheduling tasks that clash
-`* *` | user |auto reschedule a task i am unable to complete due at the moment| save the effort of manual rescheduling
+`* *` | user | block out time slots of unconfirmed tasks| avoid scheduling tasks that clash
+`* *` | user | auto reschedule a task i am unable to complete due at the moment| save the effort of manual rescheduling
 
 ## Appendix B : Use Cases
 
@@ -274,8 +275,9 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to add a task
-2. CMDo stores the natural language into data
-3. CMD0 adds the task <br>
+2. User types in task details
+3. CMDo adds the task <br>
+4. CMDo shows a message 'task added'
 >Use case ends.
 
 **Extensions**
@@ -309,10 +311,10 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
   
-  
 1. User requests to block time slot
-2. CMDo stores the natural language into data
-3. CMD0 blocks the specified time slot <br>
+2. User inputs details
+3. CMDo blocks the specified time slot 
+4. CMDo shows a message 'time slot blocked'<br>
 >Use case ends.
 
 **Extensions**
@@ -344,13 +346,14 @@ Priority | As a ... | I want to ... | So that I can...
 1. User requests to search a task
 2. CMDo shows a list of tasks
 3. User requests to delete a specific task in the list
-4. CMD0 deletes the task <br>
+4. CMDo deletes the task 
+5. CMDo shows message "task deleted" <br>
 >Use case ends.
 
 **Extensions**
 
 2a. The list is empty
-
+>2a1. CMDo shows help message <br>
 > Use case ends
 
 3a. The given index is invalid
@@ -366,13 +369,13 @@ Priority | As a ... | I want to ... | So that I can...
 2. CMDo shows a list of tasks
 3. User requests to edit a specific task in the list by index
 4. User keys in the changes
-5. CMD0 edits the task <br>
+5. CMDo edits the task <br>
 Use case ends.
 
 **Extensions**
 
 2a. The list is empty
-
+>2a1. CMDo shows help message <br>
 > Use case ends
 
 3a. The given index is invalid
@@ -386,13 +389,14 @@ Use case ends.
 **MSS**
 
 1. User requests to find a task
-2. CMDo shows a list of tasks <br>
+2. CMDo shows a list of tasks 
+3. CMDo shows message "tasks listed" <br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
-
+>1a1. CMDo shows message "0 tasks listed!" <br>
 > Use case ends
 
 ### Use case: List all tasks
@@ -400,38 +404,42 @@ Use case ends.
 **MSS**
 
 1. User requests to list all tasks
-2. CMDo shows a list of tasks <br>
+2. CMDo shows a list of tasks
+3. CMDo shows message "task listed" <br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
-
-### Use case: List done tasks
-
+>1a1. CMDo shows message "0 tasks listed!"
 > Use case ends
 
+### Use case: List done tasks
 **MSS**
 
 1. User requests to list done tasks
-2. CMDo shows a list of done tasks <br>
+2. CMDo shows a list of done tasks
+3. CMDo shows message "task listed" <br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
+>1a1. CMDo shows message "0 done tasks listed!"
 
 > Use case ends
 
 **MSS**
 
 1. User requests to list blocked time slots
-2. CMDo shows a list of blocked time slots <br>
+2. CMDo shows a list of blocked time slots
+3. CMDo shows message "task listed" <br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
+>1a1. CMDo shows message "0 tasks listed!"
 
 > Use case ends
 
@@ -442,12 +450,15 @@ Use case ends.
 1. User requests to find a task or list all tasks
 2. CMDo shows a list of tasks 
 3. Mark the task done by index 
-4. The task is marked as done and moved to storage<br>
+4. The task is marked as done and moved to storage
+5. CMDo shows message "task done" <br>
 >Use case ends.
 
 **Extensions**
 
 1a. The list is empty
+
+> 1a1. CMDo shows help message <br>
 
 > Use case ends
 
@@ -465,53 +476,27 @@ Use case ends.
 **MSS**
 
 1. User requests to undo previous action
-2. CMDo requests the user to confirm the action
-3. CMDo undos the previous action <br>
+2. CMDo undos the previous action 
+3. CMDo shows message "Undone!"<br>
 >Use case ends.
-
-**Extensions**
-
-1a. There are no more previous actions
-
-> Use case ends
-
-2a. User does not confirm the action
-
-> Use case ends
 
 ### Use case: Redo
 
 **MSS**
 
 1. User requests to redo previous action
-2. CMDo requests the user to confirm the action
-3. CMDo undos the previous action <br>
+2. CMDo undos the previous action 
+3. CMDo shows message "Redone!"<br>
 > Use case ends.
-
-**Extensions**
-
-1a. There are no more previous actions
-
-> Use case ends
-
-2a. User does not confirm the action
-
-> Use case ends
 
 ### Use case: Change storage location
 
 **MSS**
 
 1. User requests to to change file storage location
-2. CMDo requests the user to confirm the action
-3. CMDo changes the file storage location <br>
+2. CMDo changes the file storage location 
+3. CMDo shows message "'file' name now saves to 'new file path'"<br>
 > Use case ends.
-
-**Extensions**
-
-2a. User does not confirm the action
-
-> Use case ends
 
 ### Use case: Exit
 
@@ -536,12 +521,10 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. Customize commands to suit user preference
-6. Able to toggle layout for dark and light for colour blindness
-7. Issue reminders for upcoming tasks
-8. Auto-complete functionality for user entries
-9. Google search function in CMDo
-
-{More to be added}
+6. Issue reminders for upcoming tasks
+7. Power Search, able to search for tasks with part of the keyword
+8. Block time slot function, to block out time slots
+9. Natural language input
 
 ## Appendix D : Glossary
 
@@ -572,7 +555,8 @@ Use case ends.
 4. Can share with another person via email.
 
 **CONS**
-1. 
+1. Too many things in the UI
+2. Ugly
 
 ---
 ### Product 3: Windows Sticky Note
@@ -601,4 +585,4 @@ Use case ends.
 
 ---
 
-_Last updated 11 Oct 2016 by @author A0141128R_
+_Last updated 28 Oct 2016_

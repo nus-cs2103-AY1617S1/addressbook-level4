@@ -16,7 +16,6 @@ import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
 /**
  * Created an Block command
  *
@@ -30,9 +29,9 @@ public class BlockCommand extends Command {
     public static final String COMMAND_WORD = "block";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Blocks a timeslot in the address book. "
-            + "Parameters: <details> by/on <date> at <time> /<priority> /<TAG...>\n"
+            + "\n" + "Parameters: <details> by/on <date> at <time> /<priority> -<TAG>\n"
             + "Example: " + COMMAND_WORD
-            + " unconfirmed business meeting on Thursday at noon to 1300 /high -$$$";
+            + " 'unconfirmed business meeting' on Thursday at noon to 1300 /high -business";
 
     public static final String MESSAGE_SUCCESS = "Time slot blocked: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This time slot if already booked";
@@ -64,11 +63,13 @@ public class BlockCommand extends Command {
         );
         //makes the task a block time slot
         toBlock.setBlock();
+        this.isUndoable = true;
     }
 
 
     public BlockCommand(Task toBlock) {
         this.toBlock = toBlock;
+        this.isUndoable = true;
     }
 
     public ReadOnlyTask getBlock() {
@@ -82,8 +83,6 @@ public class BlockCommand extends Command {
     		blocker.checkBlocked(toBlock, model.getBlockedList());
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
-        } catch (UniqueTaskList.DuplicateTaskException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskBlockedException tbe) {
         	return new CommandResult (tbe.getMessage());
         }

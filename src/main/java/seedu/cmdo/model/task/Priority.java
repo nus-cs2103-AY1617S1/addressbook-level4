@@ -17,7 +17,7 @@ public class Priority {
     public static final String LOW = "low";
     public static final String NONE = "";
 
-    public final String value;
+    public String value;
 
     /**
      * Creates a default priority object, which has value "low"
@@ -55,6 +55,16 @@ public class Priority {
     	if (test.equals(HIGH) || test.equals((MEDIUM)) || test.equals(LOW) || test.equals(NONE))
     		return true;
     	return false;
+    }
+    
+    //@@author A0141128R
+    //getter to get value 
+    public String getValue(){
+    	return value;
+    }
+    //setter for priority
+    public void setPriority(String value){
+    	this.value = value;
     }
 
     @Override

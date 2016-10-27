@@ -4,10 +4,11 @@ import org.junit.Test;
 
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+import static org.junit.Assert.assertTrue;
+
+//@@author A0141128R
 public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -17,19 +18,26 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //delete the last in the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //delete from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //invalid index
         commandBox.runCommand("delete " + currentList.length + 1);
+        assertResultMessage("The task index provided is invalid");
+        
+        //delete something from an empty list
+        commandBox.runCommand("clear");
+        targetIndex = 1;
+        commandBox.runCommand("delete " + targetIndex);
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -49,7 +57,7 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS,taskToDelete));
     }
 
 }

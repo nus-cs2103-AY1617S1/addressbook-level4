@@ -1,5 +1,6 @@
 package seedu.cmdo.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
@@ -39,6 +40,11 @@ public class ToDoList implements ReadOnlyToDoList {
     public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
+    
+    //@@author A0139661Y
+    public ToDoList(ArrayList<ReadOnlyTask> tasks, UniqueTagList tags) {
+    	resetData(FXCollections.observableList(tasks), tags.getInternalList());
+    }
 
     public static ReadOnlyToDoList getEmptyToDoList() {
         return new ToDoList();
@@ -76,7 +82,7 @@ public class ToDoList implements ReadOnlyToDoList {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task t) {
         syncTagsWithMasterList(t);
         tasks.add(t);
     }

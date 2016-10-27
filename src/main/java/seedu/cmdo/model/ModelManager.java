@@ -1,20 +1,21 @@
 package seedu.cmdo.model;
 
+import java.util.Collections;
+import java.util.EmptyStackException;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
-import seedu.cmdo.commons.util.StringUtil;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
+import seedu.cmdo.commons.util.SearchUtil;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
 import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Collections;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the todo list data.
@@ -26,7 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
     private final UserPrefs userPrefs;
-
+    private final Undoer undoer;
+    
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -41,6 +43,10 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
+        
+        //@@author A0139661Y
+        this.undoer = Undoer.getInstance();
+        logger.info("Saved new toDoList into Undoer stack. " + toDoList.toString());
     }
 
     public ModelManager() {
@@ -51,11 +57,15 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
+
+        //@@author A0139661Y
+        this.undoer = Undoer.getInstance();
+        logger.info("Saved last stable toDoList into Undoer stack. " + toDoList.toString());
     }
 
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-        toDoList.resetData(newData);
+    	toDoList.resetData(newData);
         indicateToDoListChanged();
     }
 
@@ -68,35 +78,66 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
-
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        toDoList.removeTask(target);
-        indicateToDoListChanged();
-    }
     
+    /**
+     * Undo functionality
+     * 
+     * @@author A0139661Y
+     */
     @Override
-    public synchronized void doneTask(Task target) throws TaskNotFoundException, TaskAlreadyDoneException {
-        if (target.checkDone().value) {
-        	throw new TaskAlreadyDoneException();
-        }
-    	target.checkDone().setDone();
-        indicateToDoListChanged();
-        updateFilteredListToShowAll();
-    }
-
-    @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        toDoList.addTask(task);
-        updateFilteredListToShowAll(); 
-        indicateToDoListChanged();
+    public synchronized void undo() throws CannotUndoException {
+    	try {
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.undo(currentState));
+    		logger.info("Undo operation called.");
+    	} catch (EmptyStackException ese) {
+    		throw new CannotUndoException("Nothing to undo.");
+    	}
+    	indicateToDoListChanged();
+    	updateFilteredListToShowAll();
     }
     
     /**
-     * Edits a task
+     * Redo functionality
      * 
-     * @author A0139661Y
+     * @@author A0141006B
      */
+    @Override
+    public synchronized void redo() throws CannotUndoException {
+    	try {
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.redo(currentState));
+    		logger.info("Redo operation called.");
+    	} catch (EmptyStackException ese) {
+    		throw new CannotUndoException("Nothing to redo.");
+    	}
+    	indicateToDoListChanged();
+    	updateFilteredListToShowAll();
+    }
+
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	toDoList.removeTask(target);
+        indicateToDoListChanged();
+    }
+    
+    //@@author A0139661Y
+    @Override
+    public synchronized void doneTask(ReadOnlyTask target, Task replacer) throws TaskNotFoundException, TaskAlreadyDoneException {
+        toDoList.removeTask(target);
+    	toDoList.addTask(replacer);
+        indicateToDoListChanged();
+    	updateFilteredListToShowAll();
+    }
+
+    @Override
+    public synchronized void addTask(Task task) {
+        toDoList.addTask(task);
+        updateFilteredListToShowAll();
+        indicateToDoListChanged();
+    }
+    
+    //@@author A0139661Y
     @Override
     public synchronized void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
     	toDoList.editTask(taskToEdit, toEditWith);
@@ -112,11 +153,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors ===============================================================
     
+    // @@author A0139661Y
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskList() {
+    	return new UnmodifiableObservableList<>(toDoList.getTasks());
+    }
+    
+    // @@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	return new UnmodifiableObservableList<>(filteredTasks); 
     }
     
+    // @@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
@@ -125,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     	return initList;
     }
     
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getBlockedList() {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
@@ -234,7 +284,10 @@ public class ModelManager extends ComponentManager implements Model {
         	if (task.checkDone().value != taskStatus)
         		return false;
             return detailKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDetail().details, keyword))
+                    .filter(keyword -> (SearchUtil.containsIgnoreCase(task.getDetail().details, keyword)
+                    					|| SearchUtil.containsIgnoreCase(task.getPriority().value, keyword)
+                    					|| SearchUtil.containsIgnoreCase(task.getTags(), keyword)
+                    					|| SearchUtil.containsTimeAndDate(task.getDueByDate(), task.getDueByTime(), keyword)))
                     .findAny()
                     .isPresent();
         }
