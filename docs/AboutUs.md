@@ -45,9 +45,12 @@ We are a team based in the [School of Computing, National University of Singapor
     - Features implemented:
       - [Help] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#viewing-help)
       - [Select] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#selecting-a-taskevent)
+      - [Save] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#changing-the-save-location)
     - Code written: functional code test code docs
     - Other major contributions: 
       - Refactored original AddressBookLevel4 to current TaskBook
+        - [Morph UI.Package] (https://github.com/CS2103AUG2016-F09-C4/main/pull/12)
+        - [Morph Storage package] (https://github.com/CS2103AUG2016-F09-C4/main/pull/14)
 
 4. Xu Chen [@githubxxcc] (https://github.com/githubxxcc)  
   <img src="images/Xuchen.jpg" width="150">  
