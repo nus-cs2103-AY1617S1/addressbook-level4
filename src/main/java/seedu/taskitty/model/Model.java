@@ -39,6 +39,9 @@ public interface Model {
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
     
+    /** Redoes the previous undo command if there is any 
+     * @throws NoPreviousValidCommandException */
+    String redo() throws NoPreviousValidCommandException;
     /**
      * stores the info from an add command that is needed for undoing/redoing functions
      */
