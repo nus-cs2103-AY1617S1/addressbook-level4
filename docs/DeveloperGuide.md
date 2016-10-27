@@ -313,7 +313,8 @@ Use Case ends
        >1a1. System show error message
        Use case ends.
        
-<!-- @@author A0153411W -->       
+<!-- @@author A0153411W -->
+
 #### Use case: UC02 Add an event 
 Actor: User<br>
 
@@ -396,7 +397,8 @@ Use Case end.
     2a. There are no upcoming task to be found
     >2a1. System shows a message no upcoming task are found.
     Use case ends
-<!-- @@author --> 
+
+<!-- @@author -->
 
 #### Use case: UC06 Delete task
    Actor: User<br>
@@ -418,8 +420,12 @@ Use Case end.
        Use case resume at step 1.
 
 
-
 <!-- @@author A0153411W -->
+
+<<<<<<< HEAD
+<!-- @@author A0153411W -->
+=======
+>>>>>>> 1e41ef63b34d61159454bdb4106b309b63897ef8
 #### Use case: UC07 edit task details
    Actor: User<br>
 
@@ -547,7 +553,8 @@ Use Case end.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
-//@@author A0139932X
+
+<!-- @@author A0139932X -->
 ## Appendix E : Product Survey
 
 Product 1: Google Keep
