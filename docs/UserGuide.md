@@ -22,7 +22,7 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 1. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for Jimi.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-> <img src="images/WelcomeScreenUi.png" width="600">
+> <img src="images/WelcomeScreenUi.png" width="800">
 
 4. Type the command in the command box below and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open this user guide in another window.
@@ -127,7 +127,7 @@ Format: `help`
 
 The user guide will open in another window.
 
-> <img src="images/Help.png" width="600">
+> <img src="images/Help.png" width="800">
 
 <br><br>
 
@@ -142,7 +142,7 @@ Examples:
 * `add "Buy groceries" t/NTUC`
 * `add "Visit parents" p/HIGH`
 
-> <img src="images/AddFloatingTasks.png" width="600">
+> <img src="images/AddFloatingTasks.png" width="800">
 
 <br>
 
@@ -153,7 +153,7 @@ Examples:
 * `add "Get a haircut" due Tuesday p/LOW`
 * `add "Pick up Jimmy" due Monday 2pm t/tuition`
 
-> <img src="images/AddDeadlineTasks.png" width="600">
+> <img src="images/AddDeadlineTasks.png" width="800">
 
 <br>
 
@@ -168,7 +168,7 @@ Examples:
 * `add "Show up for dentist appointment" on 8-7-2016 5:00pm to 7:30pm p/MED`
 * `add "Have school camp" on 10 October 10am to 18 October 5pm`
 
-> <img src="images/AddEvents.png" width="600">
+> <img src="images/AddEvents.png" width="800">
 
 <br><br>
 
@@ -182,7 +182,7 @@ Format: `complete TASK_INDEX`
 Example:
 * `complete t1`
 
-> <img src="images/Complete.png" width="600">
+> <img src="images/Complete.png" width="800">
 
 <br><br>
 
@@ -199,7 +199,7 @@ Examples:
 * `delete t1`
   Deletes the 1st task in the Jimi.
 
-> <img src="images/Delete.png" width="600">
+> <img src="images/Delete.png" width="800">
 
 
 <br><br>
@@ -231,7 +231,7 @@ Dateless Task | float | edit e1 float
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | edit e3 due tomorrow [p/HIGH]
 Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
 
-> <img src="images/Edit.png" width="600">
+> <img src="images/Edit.png" width="800">
 
 > * If you want to undo your edit, use the [`undo`](#undo) command.
 
@@ -250,7 +250,7 @@ Examples:
 * `show monday`
 * `show completed`
 
-> <img src="images/Show.png" width="600">
+> <img src="images/Show.png" width="800">
 
 <br><br> 
 
@@ -281,7 +281,7 @@ Examples:
 * `find Jimmy`
 * `find Haircut`
 
-> <img src="images/Find.png" width="600">
+> <img src="images/Find.png" width="800">
 
 <br><br>
 
@@ -295,7 +295,7 @@ Format: `saveas NEW_DIRECTORY`
 Example:
 * `saveas Jimi_tasks.xml`
 
-> <img src="images/SaveAs.png" width="600">
+> <img src="images/SaveAs.png" width="800">
 
 <br><br>
 
@@ -303,7 +303,7 @@ Example:
 Clears all entries from Jimi.<br>
 Format: `clear`  
 
-> <img src="images/Clear.png" width="600">
+> <img src="images/Clear.png" width="800">
 
 > If you want to undo your clear, use the [`undo`](#undo) command.
 
