@@ -19,12 +19,19 @@ public class TaskListDateItemHandle extends GuiHandle {
     
     /**
      * Gets the LocalDate parsed from the date label, which is in the date format {@code ddd dd MMM} (e.g. Thu 27 Oct).
+     * If the date item is for floating tasks, it will return {@code NO_DATE_VALUE}.
      * 
      * @return Parsed LocalDate.
      */
     public LocalDate getDate() {
-        String shortDateString = getStringFromText(TASKLISTDATEITEM_DATE_ID);
-        return DateUtil.parseShortDate(shortDateString);
+        String shortDateString = getStringFromText(TASKLISTDATEITEM_DATE_ID, node);
+        LocalDate parsed = DateUtil.parseShortDate(shortDateString);
+        
+        if (parsed == null) {
+            return DateUtil.NO_DATE_VALUE;
+        } else {
+            return parsed;
+        }
     }
 
 }

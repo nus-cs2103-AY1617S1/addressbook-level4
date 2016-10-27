@@ -14,6 +14,9 @@ import java.util.Locale;
  * A utility class for Dates and LocalDateTimes
  */
 public class DateUtil {
+    
+    public static final LocalDateTime NO_DATETIME_VALUE = LocalDateTime.MIN;
+    public static final LocalDate NO_DATE_VALUE = NO_DATETIME_VALUE.toLocalDate();
 
     private static final String FROM_NOW = "later";
     private static final String TILL_NOW = "ago";
