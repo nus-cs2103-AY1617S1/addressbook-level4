@@ -40,12 +40,12 @@ public class StringUtil {
     }
     
     /**
-     * Returns <code>string</code> if not null, <code>replaceString</code> otherwise.
+     * Returns <code>string</code> if empty, <code>replaceString</code> otherwise.
      * @param string String to check
-     * @param replaceString String to return if <code>string</code> is null
+     * @param replaceString String to return if <code>string</code> is empty
      */
-    public static String replaceNull(String string, String replaceString) {
-        return (string == null) ? replaceString : string;
+    public static String replaceEmpty(String string, String replaceString) {
+        return (string == null || string.isEmpty()) ? replaceString : string;
     }
     
     /**
