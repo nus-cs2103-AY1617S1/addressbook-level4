@@ -16,8 +16,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: ";
     public static final String MESSAGE_NO_PREVIOUS_VALID_COMMANDS = "There is no more previous command in this session.";
     
-    public UndoCommand() {}
-    
     @Override
     public CommandResult execute() {
         try {
