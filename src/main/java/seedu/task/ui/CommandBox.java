@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -13,6 +15,7 @@ import seedu.task.logic.Logic;
 import seedu.task.logic.commands.*;
 import seedu.taskcommons.core.LogsCenter;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -23,6 +26,8 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
+    ArrayList<String> record = new ArrayList<String>();
+    int index = 0;
 
     private Logic logic;
 
@@ -35,6 +40,7 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        
         return commandBox;
     }
 
@@ -71,7 +77,7 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
-
+        addNewCommand();
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
@@ -80,7 +86,40 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    
+    //@@author A0121608N
+    private void addNewCommand() {
+        record.add(previousCommandTest);
+        index = record.size();
+    }
 
+    @FXML
+    private void handleKeyPress(KeyEvent event) {
+        switch (event.getCode()){
+            case DELETE:
+                commandTextField.getStyleClass().remove("error");
+                commandTextField.setText("");
+                break;
+            case UP:
+                commandTextField.getStyleClass().remove("error");
+                if(index > 0)
+                    index--;
+                commandTextField.setText(record.get(index));
+                break;
+            case DOWN:
+                commandTextField.getStyleClass().remove("error");
+                if(index < record.size())
+                    index++;
+                commandTextField.setText(record.get(index));
+                break;
+        default:
+            break;
+         
+        }
+        
+    }
+    //@@author
 
     /**
      * Sets the command box style to indicate a correct command.
