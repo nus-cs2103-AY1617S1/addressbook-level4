@@ -33,27 +33,33 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void invalid_unpin() {
+    public void invalidUnpin() {
         TestTask[] currentList = td.getTypicalTasks();
-     // unpin a task which is not pinned
+        
+        // unpin a task which is not pinned
         int targetIndex = 3;
         commandBox.runCommand("unpin " + targetIndex);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
+        
         //check that the task is still not pinned
         assertFalse(newTask.getImportance());
         assertResultMessage(Messages.MESSAGE_INVALID_UNPIN_TASK);
-        
-        // unpin at an empty list
-        commandBox.runCommand("clear");
-        commandBox.runCommand("unpin " + (currentList.length + 1));
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        
+      
         //invalid command
         commandBox.runCommand("unppinn");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
 
         // invalid index
+        commandBox.runCommand("unpin " + (currentList.length + 1));
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    }
+    
+    @Test
+    public void unpinTask_emtpyList() {
+        TestTask[] currentList = td.getTypicalTasks();
+        // unpin at an empty list
+        commandBox.runCommand("clear");
         commandBox.runCommand("unpin " + (currentList.length + 1));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
