@@ -13,6 +13,7 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
+import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
@@ -29,6 +30,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     private final UniqueTaskList deadlines;
     private final ArchiveTaskList archives;
     private final UniqueTagList tags;
+    private final TaskListComparator comparator;
 
     {
         tasks = new UniqueTaskList();
@@ -37,6 +39,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         deadlines = new UniqueTaskList();
         archives = new ArchiveTaskList();
         tags = new UniqueTagList();
+        comparator = new TaskListComparator();
     }
 
     public TaskManager() {}
@@ -91,6 +94,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void setTasks(List<Task> tasks) {
+        this.getUniqueTaskList().getInternalList().sort(new TaskListComparator());
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -154,7 +158,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
         tasks.add(t);
+        this.getUniqueTaskList().getInternalList().sort(comparator);
         syncAddTask(t);
+
     }
     
     /**
@@ -188,10 +194,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         Date nextEndDate = getNextDate(t.getEndDate(),recurVal[0]);
         
         if (t.isDeadline()) {
-            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur);
+            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur, new Date());
         }else if (t.isEvent()) {
             Date nextStartDate = getNextDate(t.getStartDate(), recurVal[0]);
-            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur);
+            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur, new Date());
         }
         
         return newT;
@@ -271,6 +277,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            this.getUniqueTaskList().getInternalList().sort(comparator);
             syncRemoveTask(key);
             return true;
         } else {

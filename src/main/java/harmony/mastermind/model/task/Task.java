@@ -14,6 +14,7 @@ public class Task implements ReadOnlyTask {
     private String name;
     private Date startDate;
     private Date endDate;
+    private Date createdDate;
     private UniqueTagList tags;
     private String recur;
     private boolean marked;
@@ -21,30 +22,31 @@ public class Task implements ReadOnlyTask {
     
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur, Date createdDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
         this.marked = false;
         this.recur = recur;
+        this.createdDate = createdDate;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, String recur) {
-        this(name, null, endDate, tags, recur);
+    public Task(String name, Date endDate, UniqueTagList tags, String recur, Date createdDate) {
+        this(name, null, endDate, tags, recur, createdDate);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags) {
-        this(name, null, null, tags, null);
+    public Task(String name, UniqueTagList tags, Date createdDate) {
+        this(name, null, null, tags, null, createdDate);
     }
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur(), source.getCreatedDate());
         this.marked = source.isMarked();
     }
 
@@ -120,6 +122,11 @@ public class Task implements ReadOnlyTask {
     // @@author A0138862W
     public boolean isEvent() {
         return startDate != null && endDate != null;
+    }
+
+    // @@author A0138862W
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
     //@@author A0124797R
