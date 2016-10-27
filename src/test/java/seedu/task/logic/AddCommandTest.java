@@ -20,6 +20,7 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 
+//@@author A0127570H
 public class AddCommandTest extends CommandTest{
 
 	/*

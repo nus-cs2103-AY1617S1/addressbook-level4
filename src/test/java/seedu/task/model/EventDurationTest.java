@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.EventDuration;
 
+//@@author A0127570H
 public class EventDurationTest {
 
 	@Test

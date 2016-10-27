@@ -8,6 +8,7 @@ import  seedu.task.model.item.Flag;
  * API of the Parser component
  */
 
+//@@author A0127570H
 public interface Parser {
     
     public static final Prefix taskPrefix = new Prefix(Flag.taskFlag);  

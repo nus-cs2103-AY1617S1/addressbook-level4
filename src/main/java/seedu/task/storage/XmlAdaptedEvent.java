@@ -30,7 +30,7 @@ public class XmlAdaptedEvent {
      */
     public XmlAdaptedEvent() {}
 
-
+    //@@author A0127570H
     /**
      * Converts a given event into this class for JAXB use.
      *
@@ -56,4 +56,5 @@ public class XmlAdaptedEvent {
         
         return new Event(name, description, eventDuration);
     }
+    
 }

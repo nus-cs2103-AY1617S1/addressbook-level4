@@ -16,6 +16,8 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * 
  * @author kian ming
  */
+
+//@@author A0127570H
 public class EditEventCommand extends EditCommand {
 
 	public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
