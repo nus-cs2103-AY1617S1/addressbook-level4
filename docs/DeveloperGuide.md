@@ -265,6 +265,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | summon the software quickly by pressing a keyboard shortcut | save time
 `*` | user | synchronize my tasklist among all my devices | check my tasks wherever I am
 
+<!-- @@author A0138601M -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Task!t` and the **Actor** is the `user`, unless specified otherwise)
@@ -441,6 +442,7 @@ Use case ends.
 2a. The given path is invalid
 > 2a1. Task!t shows a 'invalid path' message<br>
 > Use case ends
+<!-- @@author -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -458,7 +460,6 @@ Use case ends.
 12. Should be free and come with open source code
 
 
-
 ## Appendix D : Glossary
 
 ##### Mainstream OS
@@ -470,7 +471,7 @@ Use case ends.
 > An item in Task!t, could be an event, a deadline, or a reminder.
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0138601M -->
 #### Google Calendar
 Pros:
 * Able to color-code different events
@@ -479,12 +480,14 @@ Pros:
 * Able to add notes (i.e. location, remarks)
 * Able to sync on different devices
 * Able to share calendar
+* Able to create layers to manege events
 * Able to undo last action <br>
 
 Cons:
 * Unable to check off completed event (only reminder can)
+* Unable to label event with categories
 * Event name gets truncated <br>
-
+<!-- @@author -->
 #### S Planner
 Pros:
 * Able to sync with another calendar product(i.e. Google calendar)
