@@ -147,9 +147,7 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add s/today c/tomorrow", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name a/sadsadsad", expectedMessage);
+                "add starts today ends tomorrow", expectedMessage);
     }
 
     @Test
@@ -157,12 +155,12 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Do CS2103 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/hello c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/tomorrow c/today", Task.MESSAGE_DATETIME_CONSTRAINTS);
-        assertCommandBehavior("add Do CS2103 s/6 hours from now c/3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Do CS2103 tag invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts hello ends bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 ends bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts tomorrow ends today", Task.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 starts 6 hours from now ends 3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
 
 
     }
@@ -417,7 +415,7 @@ public class LogicManagerTest {
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" tag ").append(t.tagName);
             }
 
             return cmd.toString();
