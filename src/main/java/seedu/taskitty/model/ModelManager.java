@@ -107,7 +107,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
-        taskManagerState.storeCommand(DeleteCommand.COMMAND_WORD);
         for (ReadOnlyTask targetTask: taskList) {
             taskManager.removeTask(targetTask);
         }
@@ -115,8 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskManagerState.storeCommand(AddCommand.COMMAND_WORD);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {        
         taskManager.addTask(task);
         indicateTaskManagerChanged();
     }
@@ -141,18 +139,23 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.removeTask(taskManagerState.getAddedTask());
             
         case DeleteCommand.COMMAND_WORD:
-            taskManager.addTask(taskManagerState.getDeletedTask());
-        
+            int numberOfTasksDeleted = taskManagerState.getNumberOfTasks();
+            for (int i = 0; i < numberOfTasksDeleted; i++) {
+                taskManager.addTask((Task) taskManagerState.getDeletedTask());
+            }
         case EditCommand.COMMAND_WORD:
-            taskManager.addTask(taskManagerState.getDeletedTask());
+            taskManager.addTask((Task) taskManagerState.getDeletedTask());
             taskManager.removeTask(taskManagerState.getAddedTask());
        
         case ClearCommand.COMMAND_WORD:
             resetData(taskManagerState.getTaskManager());
         
         case DoneCommand.COMMAND_WORD:
-            taskManager.unMarkTaskAsDoneTask(taskManagerState.getMarkedTask());
-            
+            int numberOfTasksMarkedAsDone = taskManagerState.getNumberOfTasks();
+            for (int i = 0; i < numberOfTasksMarkedAsDone; i++) {
+                taskManager.unMarkTaskAsDoneTask(taskManagerState.getMarkedTask());
+            }
+                       
         default:
             assert false: "Should not have an invalid previousCommand";
         }
@@ -173,7 +176,6 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0130853L
     @Override
     public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
-        taskManagerState.storeCommand(DoneCommand.COMMAND_WORD);
         for (ReadOnlyTask targetTask: taskList) {
             taskManager.markTaskAsDoneTask(targetTask);
         }
@@ -182,14 +184,42 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0135793W
    	@Override
-    public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-   	 taskManagerState.storeCommand(EditCommand.COMMAND_WORD);
+    public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {   	    
    	    taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-   	//@@author
+   	
+   	//@@author   	
+   	private void storeAddCommandInfo(ReadOnlyTask addedTask) {
+        taskManagerState.storeCommand(AddCommand.COMMAND_WORD);
+        taskManagerState.storeAddedTask(addedTask);
+    }
+   	
+   	private void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask) {
+   	    taskManagerState.storeCommand(EditCommand.COMMAND_WORD);
+   	    taskManagerState.storeAddedTask(addedTask);
+   	    taskManagerState.storeDeletedTask(deletedTask);
+   	}
+   	
+   	private void storeDeleteCommandInfo(ReadOnlyTask deletedTask, int numberOfTask) {
+        taskManagerState.storeCommand(DeleteCommand.COMMAND_WORD);
+        taskManagerState.storeDeletedTask(deletedTask);
+        taskManagerState.storeNumberOfTasks(numberOfTask);
+    }
+   	
+   	private void storeDoneCommandInfo(ReadOnlyTask markedTask, int numberOfTask) {
+        taskManagerState.storeCommand(DoneCommand.COMMAND_WORD);
+        taskManagerState.storeMarkedTask(markedTask);
+        taskManagerState.storeNumberOfTasks(numberOfTask);
+    }
+   	
+   	private void storeClearCommandInfo() {
+        taskManagerState.storeCommand(ClearCommand.COMMAND_WORD);
+        taskManagerState.storeTaskManager(new TaskManager(taskManager));
+    }
+   	
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -322,17 +352,19 @@ public class ModelManager extends ComponentManager implements Model {
         
         private final Stack<String> commands;
         private final Stack<String> commandTexts;
-        private final Stack<Task> addedTasks;
-        private final Stack<Task> markedTasks;
-        private final Stack<Task> deletedTasks;
+        private final Stack<ReadOnlyTask> addedTasks;
+        private final Stack<ReadOnlyTask> markedTasks;
+        private final Stack<ReadOnlyTask> deletedTasks;
+        private final Stack<Integer> numberOfTasks;
         private final Stack<ReadOnlyTaskManager> taskManagers;
         
         TaskManagerState() {
             commands = new Stack<String>();
             commandTexts = new Stack<String>();
-            addedTasks = new Stack<Task>();
-            markedTasks = new Stack<Task>();
-            deletedTasks = new Stack<Task>();
+            addedTasks = new Stack<ReadOnlyTask>();
+            markedTasks = new Stack<ReadOnlyTask>();
+            deletedTasks = new Stack<ReadOnlyTask>();
+            numberOfTasks = new Stack<Integer>();
             taskManagers = new Stack<ReadOnlyTaskManager>();
         }
         
@@ -340,24 +372,48 @@ public class ModelManager extends ComponentManager implements Model {
             return commands.pop();
         }
         
-        private void storeCommand(String command) {
-            commands.push(command);
-        }
-        
-        private Task getAddedTask() {
+        private ReadOnlyTask getAddedTask() {
             return addedTasks.pop();
         }
         
-        private Task getMarkedTask() {
+        private ReadOnlyTask getMarkedTask() {
             return markedTasks.pop();
         }
         
-        private Task getDeletedTask() {
+        private ReadOnlyTask getDeletedTask() {
             return deletedTasks.pop();
+        }
+        
+        private int getNumberOfTasks() {
+            return numberOfTasks.pop();
         }
         
         private ReadOnlyTaskManager getTaskManager() {
             return taskManagers.pop();
+        }
+        
+        private void storeCommand(String command) {
+            commands.push(command);
+        }
+        
+        private void storeAddedTask(ReadOnlyTask addedTask) {
+            addedTasks.push(addedTask);
+        }
+        
+        private void storeMarkedTask(ReadOnlyTask markedTask) {
+            markedTasks.push(markedTask);
+        }
+        
+        private void storeDeletedTask(ReadOnlyTask deletedTask) {
+            deletedTasks.push(deletedTask);
+        }
+        
+        private void storeNumberOfTasks(int numberOfTask) {
+            numberOfTasks.push(numberOfTask);
+        }
+        
+        private void storeTaskManager(ReadOnlyTaskManager taskManager) {
+            taskManagers.push(taskManager);
         }
         
     }
