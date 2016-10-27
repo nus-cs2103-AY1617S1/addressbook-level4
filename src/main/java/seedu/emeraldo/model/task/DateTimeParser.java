@@ -6,6 +6,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //@@author A0139749L
+/**
+ * Parses the date and time, and check for the validity of the inputs
+ */
 public class DateTimeParser {
 
     public static final String ON_KEYWORD_VALIDATION_REGEX = "on "
@@ -53,13 +56,23 @@ public class DateTimeParser {
             + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"
             + "(:(?<minuteEnd>([0-5][0-9])))?"
             );
-
+    
+    /*
+     * TODO: LocalDate.of() throws DateTimeException for out of range field and invalid
+     * day-of-month for the month-year
+     * 
+     * Format the date for creation of LocalDate object
+     */
     public static LocalDate valueDateFormatter(Matcher matcher, String keyword){
         
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
         String year = matcher.group("year");
 
+        int yearParsed;
+        int monthParsed;
+        int dayParsed;
+        
         if(keyword.equals("to")){
             day = matcher.group("dayEnd");
             month = matcher.group("monthEndInNumbers");
@@ -74,13 +87,25 @@ public class DateTimeParser {
             month = convertMonthFromWordsToNumbers(month);
         }
         
-        int yearParsed = Integer.parseInt(year);
-        int monthParsed = Integer.parseInt(month);
-        int dayParsed = Integer.parseInt(day);
+        if(year.isEmpty())
+        	yearParsed = LocalDate.now().getYear();
+        else if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
+        	yearParsed = Integer.parseInt(String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year);
+        else
+        	yearParsed = Integer.parseInt(year);
+        
+        monthParsed = Integer.parseInt(month);
+        dayParsed = Integer.parseInt(day);
         
         return LocalDate.of(yearParsed, monthParsed, dayParsed);
     }
-    
+
+    /*
+     * TODO: LocalTime.of() throws DateTimeException for out of range field
+     * i.e. hours from 0 to 23 and min from 0 to 59
+     * 
+     * Format the time for creating a LocalTime object
+     */
     public static LocalTime valueTimeFormatter(Matcher matcher, String keyword){
         
         String hour = matcher.group("hour");
@@ -97,6 +122,9 @@ public class DateTimeParser {
         return LocalTime.of(hourParsed, minuteParsed);
     }
     
+    /*
+     * Formats the date and time for display
+     */
     public static String valueFormatter(Matcher matcher, String keyword){
         
         String day = matcher.group("day");
@@ -121,6 +149,11 @@ public class DateTimeParser {
         }
         
         int monthParsed = Integer.parseInt(month);
+        
+        //For years input with only the last 2 digit
+        if(Integer.parseInt(year) < 100)
+        	year = String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year;
+
         
         if(keyword.equals("on"))
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) + " " + year;
