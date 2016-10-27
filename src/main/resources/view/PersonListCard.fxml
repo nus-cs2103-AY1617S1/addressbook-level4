@@ -34,13 +34,13 @@
                                     <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                        <Label text="isComplete" />
                             </children>
                         </HBox>
                         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
                         
                         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                  <Label fx:id="isComplete" styleClass="cell_small_label" text="\$isComplete" />
                     </children>
                 </VBox>
             </children>

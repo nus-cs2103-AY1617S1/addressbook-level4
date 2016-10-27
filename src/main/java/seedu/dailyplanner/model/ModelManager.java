@@ -79,6 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void markTaskAsComplete(int targetIndex) throws PersonNotFoundException {
 	addressBook.markTaskAsComplete(targetIndex);
+	updateFilteredListToShowAll();
 	indicateAddressBookChanged();
     }
 
@@ -186,4 +187,3 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     }
-}

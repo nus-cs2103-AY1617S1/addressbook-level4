@@ -73,4 +73,34 @@ public class TestPerson implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+    @Override
+    public boolean isComplete() {
+	// TODO Auto-generated method stub
+	return false;
+    }
+
+    @Override
+    public void setDate(Date date) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public void setStartTime(StartTime time) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public void setEndTime(EndTime time) {
+	// TODO Auto-generated method stub
+	
+    }
+
+    @Override
+    public void markAsComplete() {
+	// TODO Auto-generated method stub
+	
+    }
 }

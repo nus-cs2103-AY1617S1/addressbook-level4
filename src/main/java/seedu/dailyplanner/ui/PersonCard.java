@@ -49,8 +49,7 @@ public class PersonCard extends UiPart{
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         tags.setText(person.tagsString());
-        if (person.isComplete())
-            isComplete.setText("COMPLETED");
+        isComplete.setText(person.getCompletion());
     }
 
     public HBox getLayout() {

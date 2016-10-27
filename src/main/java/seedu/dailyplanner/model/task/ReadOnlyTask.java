@@ -12,7 +12,7 @@ public interface ReadOnlyTask {
     Date getPhone();
     StartTime getEmail();
     EndTime getAddress();
-    boolean isComplete();
+    String getCompletion();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -29,7 +29,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getPhone().equals(this.getPhone())
                 && other.getEmail().equals(this.getEmail())
-                && other.getAddress().equals(this.getAddress()));
+                && other.getAddress().equals(this.getAddress())
+        		&& other.getCompletion().equals(this.getCompletion()));
     }
 
     /**
@@ -44,6 +45,8 @@ public interface ReadOnlyTask {
                 .append(getEmail())
                 .append(" End Time: ")
                 .append(getAddress())
+                .append("Completed: ")
+                .append(getCompletion())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -105,17 +105,16 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, isComplete);
     }
 
     @Override
     public String toString() {
         return getAsText();
     }
-
-    @Override
-    public boolean isComplete() {
-	return this.isComplete;
+    
+    public String getCompletion() {
+	return (isComplete) ? "COMPLETE" : "NOT COMPLETE"; 
     }
 
 }

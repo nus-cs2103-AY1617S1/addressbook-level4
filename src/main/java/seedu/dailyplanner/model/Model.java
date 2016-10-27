@@ -24,8 +24,7 @@ public interface Model {
     /** Adds the given person */
     void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
 
-    /** Marks the given task as coplete 
-     * @throws PersonNotFoundException */
+    /** Marks the given task as complete  */
     void markTaskAsComplete(int targetIndex) throws PersonNotFoundException;
     
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
