@@ -48,6 +48,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)" + "s/(?<startDate>[^/]+)" + "e/(?<endDate>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
                                                          // tags
+    private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
 
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
@@ -107,7 +108,7 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareMarkAsDone(arguments);
-            
+
         case RefreshCommand.COMMAND_WORD:
             return new RefreshCommand();
 
@@ -161,12 +162,13 @@ public class Parser {
         argsTokenizer.tokenize(args);
         try {
             if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-                
-                   if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
-                            && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                        // non-recurring task
-                        return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
-                                toSet(argsTokenizer.getAllValues(tagPrefix)), "");}
+
+                if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
+                        && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+                    // non-recurring task
+                    return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                            toSet(argsTokenizer.getAllValues(tagPrefix)), "");
+                }
                 // check if task is recurring floating task
                 if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
@@ -178,8 +180,7 @@ public class Parser {
                     return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                             argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                             "");
-                } 
-                 else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
+                } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
                     if (!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
                         // non-recurring event
@@ -199,6 +200,8 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (Exception e) {
+            return new IncorrectCommand(MESSAGE_INVALID_DATE);
         }
 
     }
