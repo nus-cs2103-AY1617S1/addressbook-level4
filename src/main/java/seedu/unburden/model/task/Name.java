@@ -7,7 +7,10 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ *  @@author A0143095H
  */
+
+
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";

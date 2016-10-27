@@ -97,11 +97,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
-<<<<<<< HEAD
-    //@@Gauri Joshi A0143095H
-=======
+
+
     //@@author A0143095H
->>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
@@ -109,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
-  //@@author A0143095H
+    //@@author A0143095H
     @Override 
     public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
     	listOfTask.doneTask(taskToDone,isunDone);
@@ -117,22 +115,14 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
-  //@@author A0139714B
+    //@@author A0139714B
     @Override
     public synchronized void saveToPrevLists() {
     	prevLists.push(new ListOfTask(listOfTask));
     	undoHistory.clear();
     }
     
-<<<<<<< HEAD
-    public synchronized void saveToUndoHistory() {
-    	if (undoHistory.size() == 0) 
-    		undoHistory.push(new ListOfTask(listOfTask));
-    }
-    
-=======
   //@@author A0139714B
->>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     @Override
     public synchronized void loadFromPrevLists() throws NoSuchElementException {
     	ListOfTask oldCopy = prevLists.pop();
@@ -141,7 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
-  //@@author A0139714B
+    //@@author A0139714B
     @Override
     public synchronized void loadFromUndoHistory() throws NoSuchElementException {
     	ListOfTask oldCopy = undoHistory.pop();
@@ -149,7 +139,6 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();
     }
-    //@@Gauri Joshi
     
 
     //=========== Filtered Task List Accessors ===============================================================
