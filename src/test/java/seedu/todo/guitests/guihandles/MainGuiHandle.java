@@ -10,4 +10,8 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
+    public ConsoleHandle getConsole() {
+        return new ConsoleHandle(guiRobot, primaryStage);
+    }
+    
 }

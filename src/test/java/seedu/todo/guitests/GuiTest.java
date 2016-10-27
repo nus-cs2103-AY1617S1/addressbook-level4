@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.todo.TestApp;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.BaseEvent;
+import seedu.todo.guitests.guihandles.ConsoleHandle;
 import seedu.todo.guitests.guihandles.MainGuiHandle;
 import seedu.todo.models.TodoListDB;
 
@@ -27,6 +28,7 @@ public abstract class GuiTest {
     
     // Handles to GUI elements present at the start up are created in advance for easy access from child classes.
     protected MainGuiHandle mainGui;
+    protected ConsoleHandle console;
     
     private Stage stage;
     
@@ -44,6 +46,7 @@ public abstract class GuiTest {
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
+            console = mainGui.getConsole();
             // TODO: create handles for other components
             this.stage = stage;
         });
