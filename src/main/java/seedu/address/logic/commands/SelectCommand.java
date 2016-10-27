@@ -41,7 +41,7 @@ public class SelectCommand extends Command {
         }
 
         if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.DATED_LIST));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET - 1, JumpToListRequestEvent.DATED_LIST));
         }
         else {
             EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.UNDATED_LIST));
