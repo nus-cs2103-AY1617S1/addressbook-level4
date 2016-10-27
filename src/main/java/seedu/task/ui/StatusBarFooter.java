@@ -14,6 +14,7 @@ import org.controlsfx.control.StatusBar;
 
 import java.util.Date;
 import java.util.logging.Logger;
+import java.nio.file.*;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -46,7 +47,13 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        Path path = Paths.get(saveLocation);
+        if(path.isAbsolute()){
+            setSaveLocation(saveLocation);
+        }
+        else{
+            setSaveLocation("./" + saveLocation);
+        }
         registerAsAnEventHandler(this);
     }
 
