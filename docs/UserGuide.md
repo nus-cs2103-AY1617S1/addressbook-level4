@@ -1,3 +1,4 @@
+[comment]: # (@@author A0124333U)
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -29,7 +30,7 @@
 
 
 ## Features
-
+[comment]: # (@@author A0139924W)
 #### Displaying a list of available commands : `help`
 Displays a list of available commands with their individual usage information  
 Format: `help`
@@ -51,6 +52,7 @@ Examples:
 * `add Complete CS2103 Quiz /dt 23/09/2016 /p h /t Quiz /t CS2103, /r 13 EVERY WEEK`
 * `add Floating Task`
 
+[comment]: # (@@author A0124333U)
 #### Reserving timeslots for a task : `rsv` 
 Reserves one or more timeslot for a task  
 Format: `rsv <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> [/dt <START_DATE/TIME> to <END_DATE/TIME> /dt...]`
@@ -87,6 +89,7 @@ Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT> /p <PRIORITY> /t <TAG(s)>`
 Examples:
 * `confirm 3 2 /p l /t tagname`
 
+[comment]: # (@@author A0121533W)
 #### Editing a task : `edit`
 Edits any component of a particular task  
 Format: `edit <INDEX> /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> /ta <TAG(s)> /tr <TAG(s)>`
@@ -103,6 +106,7 @@ Format: `edit <INDEX> /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p
 Examples:
 * `edit 3 /n Meet John Tan /dt 08/10/2016 1000 to 1200 /p h /ta friend`
 
+[comment]: # (@@author A0139924W)
 #### Editing a tag's name : `tag /e`
 Edits a tag’s name  
 Format: `tag /e <INDEX> <TAG>`
@@ -129,6 +133,7 @@ Examples:
 Lists all tags in TARS  
 Format: `tag /ls`
 
+[comment]: # (@@author A0121533W)
 #### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone`  
 Format: `mark /do <INDEX>[<INDEX> <INDEX> ...] /ud <INDEX>[<INDEX> <INDEX> ...]`  
@@ -162,6 +167,7 @@ Examples:
 * `del 3 6`
 * `del 1..3`
 
+[comment]: # (@@author A0140022H)
 #### Listing tasks : `ls`
 Lists all tasks in TARS with available list filters.  
 Format: 
@@ -181,7 +187,7 @@ Examples:
 * `ls /p`
 * `ls /p dsc`
 
-
+[comment]: # (@@author A0124333U)
 #### Finding tasks : `find`
 Finds all tasks containing a list of keywords (i.e. AND search).  
 Two modes: Quick Search & Filter Search.  
@@ -203,6 +209,7 @@ Examples:
 * `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
 * `find /n meet /dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
+[comment]: # (@@author A0139924W)
 #### Undoing a command : `undo`
 Undo a command executed by the user.  
 Format: `undo` 
@@ -223,6 +230,7 @@ Format: `clear`
 Exits the program.  
 Format: `exit` 
 
+[comment]: # (@@author A0124333U)
 #### Changing data storage location : `cd`
 Changes the directory of which the data storage file is saved in.  
 Format: `cd <FILE_PATH>`
@@ -242,7 +250,8 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?  
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous TARS app.
-       
+
+[comment]: # (@@author A0139924W)
 ## Supported Date Formats
 #### formal dates
 Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may preceed the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
@@ -312,7 +321,8 @@ Examples:
 * `10 seconds ago`
 * `in 5 minutes`
 * `4 minutes from now`
-       
+
+[comment]: # (@@author A0124333U)
 ## Command Summary
 
 Command | Format  
