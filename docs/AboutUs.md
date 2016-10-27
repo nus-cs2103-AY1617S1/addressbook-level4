@@ -33,8 +33,18 @@ Component SME: Logic, Parsing
 #### [Ng Qing Hua](http://github.com/qhng) <br>
 <img src="images/qinghua.png" width="150"><br>
 **Role**: Developer <br>
-Responsibilities: Testing, Deliverables and Deadlines <br>
-Component SME: Model, Commons
+* Components in charge of: [Storage](DeveloperGuide.md#storage-component), [Model](DeveloperGuide.md#model-component)
+* Aspects/tools in charge of: Testing, Deliverables and Deadlines
+* Features implemented:
+   * [Add task](UserGuide.md#adding-a-task-add)
+   * [List task](UserGuide.md#listing-all-tasks-list)
+   * [Find task](UserGuide.md#finding-all-task-containing-any-keyword-in-its-name-find)
+   * [Delete task](UserGuide.md#deleting-a-task--delete)
+   * [Modify task](UserGuide.md#modifies-a-task--modify)
+* Code written: [[functional code](../collated/main/A1019915W.md)][[test code](../collated/main/A1019915W.md)][[docs](../collated/docs/A1019915W.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to SavvyTasker [[#34](https://github.com/CS2103AUG2016-T14-C2/main/pull/34) ]
+  * Set up Travis and Coveralls 
 
 -----
 
