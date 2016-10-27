@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.IncorrectCommand;
 
 public class AddParser extends BaseParser {
@@ -34,12 +35,22 @@ public class AddParser extends BaseParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        int recurrentWeek = 0;
+        
+        if (getSingleKeywordArgValue(FLAG_RECURRING) != null) {
+            try {
+                recurrentWeek = Integer.parseInt(getSingleKeywordArgValue(FLAG_RECURRING));
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        }
+        
         try {
             return new AddCommand(getSingleKeywordArgValue(FLAG_NAME),
                     getSingleKeywordArgValue(FLAG_START_TIME),
                     getSingleKeywordArgValue(FLAG_CLOSE_TIME),
                     getTags(),
-                    getSingleKeywordArgValue(FLAG_RECURRING));
+                    recurrentWeek);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

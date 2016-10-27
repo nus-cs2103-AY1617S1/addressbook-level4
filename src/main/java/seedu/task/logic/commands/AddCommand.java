@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,13 +39,12 @@ public class AddCommand extends UndoableCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String openTime, String closeTime, Set<String> tags, String recurrence) 
+    public AddCommand(String name, String openTime, String closeTime, Set<String> tags, int recurrence) 
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        int recurrentWeek=Integer.parseInt(recurrence);
         
         this.toAdd = new Task(
                 new Name(name),
@@ -52,7 +53,7 @@ public class AddCommand extends UndoableCommand {
                 false,
                 false,
                 new UniqueTagList(tagSet),
-                recurrentWeek           
+                recurrence           
              );
     }
 
