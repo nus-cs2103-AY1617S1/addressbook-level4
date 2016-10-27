@@ -150,7 +150,6 @@ Format: `undo`
 >Marking a completed a floating task and deadline as done. <br>
 Format: `done INDEX`
 
-
 > Marks the floating tasks or deadline as done at the specified `index` <br>
   The index refers to the index number shown in the most recent listing. <br>
   The index **must be a positive integer** 1,2,3, .. <br>
@@ -160,9 +159,23 @@ Format: `done INDEX`
 * `list all` <br>
   `done 2` <br>
    Mark the 2nd task in DoMePlease as completed.
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Change location of the data storage file: `save` </b><br>
+>Moves the data storage file to the specified location if possible. <br>
+Format: `save FOLDERPATH`
+
+
+> Moves the data storage location to the specified `FOLDERPATH` <br>
+  The folder path you specify must be able to be created in your device.<br>
+  The path you specify cannot be a file path eg. `C:\Users\Public\Desktop\data.txt`. <br>
+  The data storage file will only exist in the location you specified and the old copy will be deleted. <br>
+
+>Examples: 
+* `save data\firstcopy` <br>
+   Moves the data storage file from its previous location to ../data/firstcopy/.
   
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.12 Exiting the program : `exit` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.13 Exiting the program : `exit` </b><br>
 >Exits the program.<br>
 Format: `exit`  
 
@@ -179,6 +192,9 @@ Format: `exit`
 Command | Format  
 -------- | -------- 
 
+Help | `help`
+- Shows a help file
+
 Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
 - Inserts a task into DoMePlease
 
@@ -194,14 +210,14 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list all` , `list od`, `list done`
 - Lists all/overdue/completed tasks in DoMePlease
 
-Help | `help`
-- Shows a help file
-
 View | `view DATE`
 - Populates the list of deadlines and events of the selected DATE
 
 Done | `done INDEX`
 - Marks the selected task as completed
+
+Save | `save FOLDERPATH`
+- Changes location of storage data to specified folder
 
 Undo | `undo`
 - Reverts the last reversible action (up to 3)
