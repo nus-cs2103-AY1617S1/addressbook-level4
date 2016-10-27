@@ -83,6 +83,7 @@ public class UniqueActivityList implements Iterable<Activity> {
         return personFoundAndDeleted;
     }
     
+    //@@author A0125680H
     /**
      * Edits the equivalent Task from the list.
      *
@@ -104,6 +105,7 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index, newTask);
     }
     
+    //@@author A0125680H
     public void mark(Activity task, boolean isComplete) throws TaskNotFoundException {
         int index = internalList.indexOf(task);
         

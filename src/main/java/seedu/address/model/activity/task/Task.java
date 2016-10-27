@@ -10,6 +10,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.UniqueTagList;
 
+//@@author A0125680H
 public class Task extends Activity implements ReadOnlyTask {
 
     private DueDate duedate;
@@ -22,7 +23,6 @@ public class Task extends Activity implements ReadOnlyTask {
     public Task(Name name, DueDate dueDate, Priority priority, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
         
-//        assert !CollectionUtil.isAnyNull(dueDate, priority);
         this.duedate = dueDate;
         this.priority = priority;
         this.isCompleted = false;

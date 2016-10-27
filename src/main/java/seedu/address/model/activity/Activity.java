@@ -12,7 +12,7 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the Lifekeeper.
+ * Represents an Activity in the Lifekeeper.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Activity implements ReadOnlyActivity {

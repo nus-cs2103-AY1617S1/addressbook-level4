@@ -92,7 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	}
 
-    
+    //@@author A0125680H
     @Override
     public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
         Activity editedTask = addressBook.editTask(oldTask, newParams, "edit");

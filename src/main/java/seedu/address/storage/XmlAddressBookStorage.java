@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyLifeKeeper;
 import seedu.address.model.UserPrefs;
@@ -27,6 +28,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     
     public XmlAddressBookStorage(){}
     
+    //@@author A0125680H
+    /**
+     * Sets the storage location of the activity data to the new file path specified
+     * @param filePath
+     */
     public static void setAddressBookFilePath(String filePath){
         XmlAddressBookStorage.filePath = filePath;
         UserPrefs.setDataFilePath(filePath);
