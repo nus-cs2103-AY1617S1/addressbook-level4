@@ -44,7 +44,7 @@ public class LogicManager extends ComponentManager implements Logic {
             return command.execute(false);
         }
         //@@author
-        //@@author A0147335E reused
+        //@@author A0147335E-reused
         logger.info("SUCCESS");
 
         if (!commandText.equals("undo")) {

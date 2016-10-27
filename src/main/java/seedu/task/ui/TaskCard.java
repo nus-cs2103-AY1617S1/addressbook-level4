@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import seedu.task.model.task.ReadOnlyTask;
 
-//@@author A0147335E reused
+//@@author A0147335E-reused
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
