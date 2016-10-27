@@ -138,7 +138,23 @@ public class Parser {
     }
 
 
-
+    /**
+     * Helper function to extract dates from argument
+     * @param args
+     * @return
+     */
+    private List<LocalDateTime> getDates(DateGroup dg){
+    	List<LocalDateTime> dates = new ArrayList<>();
+    	if(dg.getDates().size() > 1){
+    		dg.getDates().forEach(
+    				d -> dates.add(LocalDateTime.ofInstant(d.toInstant(), 
+    						ZoneId.systemDefault())));
+    	} else {
+    		dates.add(LocalDateTime.ofInstant(
+    					dg.getDates().get(0).toInstant(), ZoneId.systemDefault()));
+    	}
+    	return dates;
+    }
 	/**
      * Parses arguments in the context of the add person command.
      *
@@ -158,14 +174,20 @@ public class Parser {
     	List<DateGroup> dg = p.parse(args);
         String[] sections; //split around the time
         
+        
+	    System.out.println("Section dates: ");
+	    dg.forEach(n-> System.out.println(n.getText() + " " + n.getDates()));
+	    System.out.println(LocalDateTime.now().toString());
+        
         String priority = null;
         String date = null;
         String description = null;
         String location = null;
         LocalDateTime ldt = null;
+        List<LocalDateTime> dates = null;
         
     	if(!dg.isEmpty() && dg.get(0) != null){
-    		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
+    		 dates = getDates(dg.get(0));
 
     		sections = args.split(dg.get(0).getText());
     		if(sections.length > 1){
@@ -196,46 +218,17 @@ public class Parser {
         }
 
         
+//        
+//        List<String> list = Arrays.asList(sections);
+//        System.out.println("Section groups: ");
+//        list.forEach(n-> System.out.println(n));
+//        System.out.println(LocalDateTime.now().toString());
+//        
         
-        List<String> list = Arrays.asList(sections);
-        System.out.println("Section groups: ");
-        list.forEach(n-> System.out.println(n));
-        System.out.println(LocalDateTime.now().toString());
-        
-//    	
-//    	dg.forEach(g -> System.out.println("group: "+ g.getText()));
-//    	dg.get(0).getDates().forEach(d -> System.out.println("date: " + d.toString()));
-//    	
-    	
-    	
-//        if(sections.length > 1){
-//        	Pattern dateRegex = Pattern.compile("(\\d\\d[- /.]\\d\\d[- /.]\\d\\d\\d\\d)(.*)");
-//        	Pattern timeRegex = Pattern.compile("(.*)(\\d\\d[: /.]\\d\\d)(.*)");
-//        	try {
-//        		Matcher m = dateRegex.matcher(sections[1]);
-//        		Matcher t = timeRegex.matcher(sections[1]);
-//        		if(m.matches() || t.matches()){
-//        			date = sections[1];
-//        			System.out.println("date: " + date);
-//        			if(sections.length > 2) location = sections[2];
-//        		} else {
-//        			location = sections[1];
-//        			System.out.println("location " + location);
-//        			if(sections.length > 2) date = sections[2];
-//        		}
-//        	} catch (Exception e){
-//        		e.printStackTrace();
-//        	}
-//        	
-        //	if(sections[1])
-        //	date = sections[1];
- //       }
-     
-    
         try {
             return new AddCommand(
                     description,
-                    ldt,
+                    dates,
                     location
  //                   getTagsFromArgs(matcher.group("tagArguments"))
             );
