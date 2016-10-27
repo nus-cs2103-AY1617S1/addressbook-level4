@@ -5,6 +5,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import seedu.todo.MainApp;
+import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
 
@@ -83,9 +84,10 @@ public class InputHandler {
         
         Map<String, String> aliases = MainApp.getConfig().getAliases();
         String aliasedInput = StringUtil.replaceAliases(input, aliases);
+        Controller selectedController = null;
         
         if (this.handlingController != null) {
-            handlingController.process(aliasedInput);
+            selectedController = handlingController;
         } else {
             Controller[] controllers = instantiateAllControllers();
 
@@ -114,9 +116,16 @@ public class InputHandler {
                 return false;
             }
 
-            // Process using best-matched controller.
-            maxController.process(aliasedInput);
+            // Select best-matched controller.
+            selectedController = maxController;
 
+        }
+        
+        // Process using best-matched controller.
+        try {
+            selectedController.process(aliasedInput);
+        } catch (ParseException e) {
+            return false;
         }
         
         // Since command is not invalid, we push it to history
