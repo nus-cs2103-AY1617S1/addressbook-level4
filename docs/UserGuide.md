@@ -2,15 +2,15 @@
 
 # User Guide
 
-* [Quick Start](#quick-start)
+* [Getting Started](#getting-started)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
+## Getting Started
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
+   > Having any Java 8 version is not enough.<br>
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `MustDoList.jar` from the 'releases' tab.
@@ -22,14 +22,19 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all task
-   * **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103` : 
+   * **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103` : 
      adds a task named `CS2103 Tutorial` to the MustDoList.
    * **`delete`**` 1` : deletes the 1st task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
 ## Features
+
+> Command Format
+* Words in `UPPER_CASE` are the parameters.<br>
+* Items in `SQUARE_BRACKETS` are optional.<br>
+* Items in `...` after them can have multiple instances.<br>
+* Parameters can be in any order.<br>
 
 #### Viewing help : `help`
 Format: `help`
@@ -41,19 +46,20 @@ Adds a floating task, task or an event to the MustDoList.<br>
 
 Format 1: **`add`**`FLOATING TASK_NAME`<br>
 Format 2: **`add`**`TASK NAME by END_TIME END_DATE`<br>
-Format 3: **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`<br>
+Format 3: **`add`**`EVENT NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
 
-> Date Format: DD-MMM-YYYY<br>
-> Time Format: HH:MM am/pm<br> 
+> Date Format: DD-MMM-YYYY<br> 
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+> Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
 Examples:<br> 
 * **`add`**`Do CS2103 Pretut`<br>
-	Adding a floating task.<br>
-* **`add`**`Do CS2103 Pretut by 8am 01-Oct-16 `<br>
-	Adding a task.<br>
-* **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9pm at NUS COM1-B103`<br>
-* **`add`**`CS2103 Tutorial s/today 0800 e/tomorrow 2100 at NUS COM1-B103`<br>
-	Adding an event.<br>	
+	Adding a floating task.
+* **`add`**`Do CS2103 Pretut by 8am 01-Oct-2016`<br>
+	Adding a task.
+* **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103`<br>
+	Adding an event.	
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -65,9 +71,11 @@ Finds a task by keywords.<br>
 
 Format: **`find`**`KEYWORD`
 
-> KEYWORD refers to: task name, location, date, time, mark<br> 
+> KEYWORD refers to: task name, location, date, time, completed, incomplete<br> 
 > Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
 > Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
@@ -93,7 +101,7 @@ Examples:<br>
   **`select`**`1`<br>
   Selects the 1st task in the results of the `find` command.
   
-#### Select a task : `setpath`
+#### Set a path : `setpath`
 Set user specified filename and/or file directory.<br>
 
 Format: **`setpath`**`FILENAME`
@@ -102,9 +110,9 @@ Format: **`setpath`**`FILENAME`
 
 Examples:<br> 
 * **`setpath`**`taskData`<br>
-  Filename taskData will be created at default location data/taskData .
+  Filename taskData will be created at default location data/taskData.
 * **`setpath`**`backup/taskData`<br>
-  Filename taskData will be created at location data/backup/taskData .
+  Filename taskData will be created at location data/backup/taskData.
 * **`setpath`**`c:/user/<name>/desktop/taskData`<br>
   Filename "taskData" will be created at user desktop.
 
@@ -126,20 +134,40 @@ Clears all entries from the TaskListPanel.<br>
 Format: `clear`  
 
 #### Edit a task : `edit`
+Edits a task specific parameter from the MustDoList by index.<br>
+
+Format: **`edit`**`INDEX [TASK_NAME] [from START_TIME_DATE to END_TIME_DATE] [at LOCATION]`
+
+Examples:<br>
+* **`edit`**`1 Must Do CS2103 Pretut`<br>
+  Edit the 1st task in the MustDoList by a specific task name.<br>
+* **`edit`**`2 at NUS COM1-B103` <br>
+  Edit the 2nd task in the MustDoList by a specific location.<br>
+* **`edit`**`1 from 8am 11-Oct-2016 to 9am 11-Oct-2016`<br>
+  Edit the 1st task in the MustDoList by a specific time and date.<br>
+  
+> Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
+
+#### Replace a task : `replace`
 Edits a task parameter from the MustDoList by index.<br>
 
-Format: **`edit`**`INDEX TASK_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
+Format: **`replace`**`INDEX TASK_NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 new task name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS`<br>
+  **`replace`**`2 new task name from 8am 10-Oct-2016 to 9am 10-Oct-2016 at NUS`<br>
   Edit the 2nd task in the MustDoList by the given PARAMETERS.<br>
 * **`find`**`CS2103` <br>
-  **`edit`**`1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there `<br>
+  **`replace`**`1 another new task name from 8am 11-Oct-2016 to 9 am 11-Oct-2016 at there `<br>
   Edit the 1st task in the results of the `find` command by PARAMETERS.<br>
   
 > Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
 Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
 #### Undo a previous task : `undo`
 Undo a previously add, edit, delete, mark, clear and recur command in the MustdoList.<br>
@@ -202,6 +230,7 @@ Format 2: **`recur`**`INDEX every INTERVAL until END_DATE`<br>
 >INTERVAL refers to the number of days to recur.<br> 
 INDEX refers to the index number shown in the most recent listing.<br>
 Date Format: DD-MMM-YYYY
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
 
 Examples:<br>
 * **`recur`**`every 2 days until 19-Oct-2016`<br>
@@ -220,25 +249,51 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Help | `help`
-Add | **`add`**`FLOATING TASK NAME`
-| 	| **`add`**`TASK NAME by END_DATE END_TIME`
-|	| **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-List | **`list`**
-Find | **`find`**`KEYWORD`
-Select | **`select`**`INDEX`
-Delete | **`delete`**`INDEX`
-Clear | **`clear`**
-Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-Undo | **`undo`**
-|	 | `undo modification commands to task such as `
-|	 | `add, clear, delete, edit, mark, recur.`
-Mark | **`mark`**`INDEX` 
-SetPath | **`setpath`**`FILENAME`
-Exit | **`exit`**
-UpDownArrow | `system display and select previously keyed commands`
-ColorCode | `system indicate overdue(red) and completed(green) task by color code`
-Recur | **`recur`**`INDEX every INTERVAL until END_DATE`
-Save | system save automatically
+* Help: `help`
+
+* Add: **`add`**`FLOATING TASK NAME`<br>
+**`add`**`TASK NAME by END_TIME END_DATE`<br> 
+**`add`**`EVENT NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
+e.g. **`add`**`Do CS2103 Pretut`<br>
+e.g. **`add`**`Do CS2103 Pretut by 8am 01-Oct-2016`<br>
+e.g. **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103`
+
+* List: `list`
+
+* Find: **`find`**`KEYWORD`<br>
+e.g. **`find`**`CS2103`
+
+* Select: **`select`**`INDEX`<br>
+e.g. **`select`**`1`
+
+* Delete: **`delete`**`INDEX`<br>
+e.g. **`delete`**`1`
+
+* Clear: `clear`
+
+* Edit: **`edit`**`[INDEX EVENT_NAME][from START_TIME_DATE to END_TIME_DATE][at LOCATION]`<br>
+e.g. **`edit`**`1 Must Do CS2103 Pretut`<br>
+e.g. **`edit`**`2 at NUS COM1-B103`<br>
+e.g. **`edit`**`1 from 8am 11-Oct-2016 to 9am 11-Oct-2016`
+
+* Replace: **`replace`**`INDEX EVENT_NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
+e.g. **`replace`**`2 new task name from 8am 10-Oct-2016 to 9am 10-Oct-2016 at NUS`<br>
+
+* Undo: `undo`
+
+* Mark: **`mark`**`INDEX`<br>
+e.g. **`mark`**`1`
+
+* SetPath: **`setpath`**`FILENAME`<br>
+e.g. **`setpath`**`taskData`
+
+* Recur: **`recur`**`INDEX every INTERVAL until END_DATE`<br>
+e.g. **`recur`**`every 2 days until 19-Oct-2016`
+
+* Exit: `exit`
+
+* UpDownArrow: system display and select previously keyed commands
+
+* ColorCode: system indicate overdue(red) and completed(green) task by color code
+
+* Save: system save automatically
