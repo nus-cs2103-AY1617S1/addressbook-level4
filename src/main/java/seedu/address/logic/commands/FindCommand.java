@@ -16,15 +16,19 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " horror night";
 
     private final Set<Set<String>> keywordsGroups;
+    private final boolean isExactSearch;
 
-    public FindCommand(Set<Set<String>> keywordsGroups) {
+    public FindCommand(Set<Set<String>> keywordsGroups, boolean isExactSearch) {
         this.keywordsGroups = keywordsGroups;
+        this.isExactSearch = isExactSearch;
     }
 
     @Override
     public CommandResult execute() {
-        for (Set<String> keywords: keywordsGroups) {
-            model.updateFilteredTaskListForFind(keywords);
+        if (isExactSearch) {
+            model.updateFilteredTaskListWithKeywords(keywordsGroups);
+        } else {
+            model.updateFilteredTaskListWithStemmedKeywords(keywordsGroups);
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

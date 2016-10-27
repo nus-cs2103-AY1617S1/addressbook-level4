@@ -332,7 +332,7 @@ public class Parser {
         for (String keyword: keywords) {
             keywordsGroup.add(new HashSet<>(Arrays.asList(keyword.trim().split("\\s+"))));
         }
-        return new FindCommand(keywordsGroup);
+        return new FindCommand(keywordsGroup, matcher.group("keywords").contains("exact!"));
     }
 
     private Command prepareList(String args) {

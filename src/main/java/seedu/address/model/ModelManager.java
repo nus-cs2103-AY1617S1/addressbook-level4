@@ -25,6 +25,7 @@ import seedu.address.commons.core.EventsCenter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -217,8 +218,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListForFind(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new StemmedNameQualifier(keywords)));
+    public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups){
+        PredicateExpression[] predicate = new PredicateExpression[keywordsGroups.size()];
+        int i = 0;
+        for (Set<String> keywords : keywordsGroups) {
+            predicate[i] = new PredicateExpression(new NameQualifier(keywords));
+            i++;
+        }
+        updateFilteredTaskList(predicate);
+    }
+    
+    @Override
+    public void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups){
+        PredicateExpression[] predicate = new PredicateExpression[keywordsGroups.size()];
+        int i = 0;
+        for (Set<String> keywords : keywordsGroups) {
+            predicate[i] = new PredicateExpression(new StemmedNameQualifier(keywords));
+            i++;
+        }
+        updateFilteredTaskList(predicate);
     }
 
     @Override
@@ -226,8 +244,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
     
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(Expression... expression) {
+        Predicate<? super Task> predicate;
+        Predicate<Task> predicates = task -> expression[0].satisfies(task);;
+        for (Expression e: expression) {
+            predicate = task -> e.satisfies(task);
+            predicates = predicates.and(predicate);
+        }
+        filteredTasks.setPredicate(predicates);
     }
     
     //========== Inner classes/interfaces used for filtering ==================================================
