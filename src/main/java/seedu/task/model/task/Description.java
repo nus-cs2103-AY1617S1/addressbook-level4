@@ -2,7 +2,7 @@ package seedu.task.model.task;
 
 
 import seedu.task.commons.exceptions.IllegalValueException;
-
+//@@author A0148083A
 public class Description {
 
     public String fullDescription;
@@ -42,3 +42,4 @@ public class Description {
         return fullDescription.hashCode();
     }
 }
+//@@author

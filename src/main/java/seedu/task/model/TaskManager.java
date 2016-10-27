@@ -140,6 +140,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    //@@author A0148083A
+    //Mark a task as completed
     public boolean completeTask(ReadOnlyTask target, ReadOnlyTask toBeComplete) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.complete(target, toBeComplete)) {
             return true;
@@ -147,6 +149,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    //@@author
 
 //// tag-level operations
 

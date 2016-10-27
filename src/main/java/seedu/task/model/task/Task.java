@@ -12,6 +12,7 @@ import seedu.task.model.tag.UniqueTagList;
  * not null, field values are validated.
  */
 //@@author A0153411W
+//@@author A0148083A
 public class Task implements ReadOnlyTask {
 
 
@@ -136,6 +137,6 @@ public class Task implements ReadOnlyTask {
 		return cal.getTime();
 	}
 }
-
+//@@author
 
 

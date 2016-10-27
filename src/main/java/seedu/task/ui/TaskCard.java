@@ -42,7 +42,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+    //@@author A0148083A
     @FXML
     public void initialize() {
     	title.setText(task.getTitle().fullTitle);
@@ -58,6 +58,7 @@ public class TaskCard extends UiPart{
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy HH:mm");
         return inputDate == null ? "Not Set" : dateFormat.format(inputDate);
     }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;

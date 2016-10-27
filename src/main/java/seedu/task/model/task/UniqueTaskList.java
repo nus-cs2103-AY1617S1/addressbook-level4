@@ -95,6 +95,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
+    //@@author A0148083A
     public boolean complete(ReadOnlyTask toRemove, ReadOnlyTask toReplaceWith) throws TaskNotFoundException {
         assert toRemove != null;
         assert toReplaceWith != null;

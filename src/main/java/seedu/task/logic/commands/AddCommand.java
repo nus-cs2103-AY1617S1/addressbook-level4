@@ -89,7 +89,11 @@ public class AddCommand extends Command {
 			for (Task task : tasksToAdd) {
 				model.addTask(task);
 			}
+			//@@author A0148083A
+			//to focus on the latest added task
 			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size() - 1));
+			//@@author
+			
 			if (tasksToAdd.size() == 1)
 				return new CommandResult(String.format(MESSAGE_SUCCESS,
 						tasksToAdd.get(0).getTitle() + " Description: " + tasksToAdd.get(0).getDescription()

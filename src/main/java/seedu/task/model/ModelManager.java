@@ -82,11 +82,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0148083A
     @Override
     public synchronized void completeTask(ReadOnlyTask target, ReadOnlyTask toBeComplete) throws TaskNotFoundException {
         taskManager.completeTask(target, toBeComplete);
         indicateTaskManagerChanged();
     }
+    //@@author
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {

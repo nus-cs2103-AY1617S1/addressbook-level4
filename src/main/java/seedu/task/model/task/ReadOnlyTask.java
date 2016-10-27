@@ -8,6 +8,7 @@ import seedu.task.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
+    //@@author A0148083A
     Title getTitle();
     Description getDescription();
     StartDate getStartDate();
@@ -16,6 +17,7 @@ public interface ReadOnlyTask {
     TimeInterval getTimeInterval();
     Status getStatus();
     void setStatus(Status status);
+    //@@author
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -37,6 +39,7 @@ public interface ReadOnlyTask {
                 && other.getStatus().equals(this.getStatus()));
     }
 
+    //@@author A0148083A
     /**
      * Formats the task as text, showing all contact details.
      */
@@ -55,7 +58,7 @@ public interface ReadOnlyTask {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
+    //@@author
     /**
      * Returns a string representation of this Task's tags
      */

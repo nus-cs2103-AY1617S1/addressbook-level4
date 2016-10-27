@@ -11,6 +11,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Mark a task as completed which is identified using it's last displayed index from the task manager.
  */
+//@@author A0148083A
 public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";
@@ -33,6 +34,7 @@ public class DoneCommand extends Command {
         this.targetIndex = targetIndex;
     }
     
+  //@@author A0148083A
     @Override
     public CommandResult execute() {
 
@@ -63,6 +65,7 @@ public class DoneCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToComplete));
     }
+    //@@author
 
     //@@author A0153411W
 	/**
