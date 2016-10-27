@@ -98,6 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    //@@LiXiaowei A0142325R
     @Override
     public synchronized void refreshTask(){
         taskManager.refreshTask();
@@ -164,10 +165,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
-      /*   for(Task e:filteredTasks){
-           if(e.isRecurring())
-             System.out.println(e.getDate().toString());
-        }*/
         
     }
 
@@ -279,7 +276,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+    //@@LiXiaowei A0142325R
     private class EventQualifier implements Qualifier{
         EventQualifier(){}
 		@Override
@@ -293,7 +290,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	
     }
-    
+    //@@LiXiaowei A0142325R
     private class TaskQualifier implements Qualifier{
     	TaskQualifier(){}
     	@Override
@@ -305,7 +302,7 @@ public class ModelManager extends ComponentManager implements Model {
     		return "name";
     	}
     }
-
+//@@LiXiaowei A0142325R
     private class DoneQualifier implements Qualifier{
         private boolean isDone;
         
@@ -353,7 +350,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "date type=" + dateType +  " date=" + dateValue;
         }
     }
-    
+    //@@LiXiaowei A0142325R
     private class RecurringQualifier implements Qualifier{
         private String recurring;
         private static final String EMPTY = "";
