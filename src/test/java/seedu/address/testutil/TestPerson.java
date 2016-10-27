@@ -12,6 +12,7 @@ public class TestPerson implements ReadOnlyTask {
     private EndTime address;
     private StartTime email;
     private Date phone;
+    private boolean isCompleted;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -82,7 +83,6 @@ public class TestPerson implements ReadOnlyTask {
 
     @Override
     public String getCompletion() {
-	// TODO Auto-generated method stub
-	return null;
+	return (isCompleted) ? "COMPLETE" : "NOT COMPLETE";
     }
 }

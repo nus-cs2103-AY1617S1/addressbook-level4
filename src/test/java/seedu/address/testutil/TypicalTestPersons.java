@@ -9,25 +9,24 @@ import seedu.dailyplanner.model.task.*;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestPerson CS2103_Project, CS2103_Lecture, MA1101R_Homework, soccerWithFriends, buyGroceries, goSkydiving, watchMovie,
+    				learnPython, learnSpanish;
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("6pm")
-                    .withEmail("3pm").withPhone("today")
-                    .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+            CS2103_Project =  new PersonBuilder().withName("CS2103 Project").withAddress("6pm")
+                    .withEmail("3pm").withPhone("today").build();
+            CS2103_Lecture = new PersonBuilder().withName("CS2103 Lecture").withAddress("4pm")
+                    .withEmail("2pm").withPhone("next friday").build();
+            MA1101R_Homework = new PersonBuilder().withName("MA1101R Homework").withPhone("today").withEmail("3pm").withAddress("5pm").build();
+            soccerWithFriends = new PersonBuilder().withName("Soccer with friends").withPhone("tomorrow").withEmail("1pm").withAddress("5pm").build();
+            buyGroceries = new PersonBuilder().withName("Buy groceries").withPhone("Sunday").withEmail("10am").withAddress("12pm").build();
+            goSkydiving = new PersonBuilder().withName("Go skydiving").withPhone("next month").withEmail("2am").withAddress("10am").build();
+            watchMovie = new PersonBuilder().withName("Watch movie").withPhone("tomorrow").withEmail("10pm").withAddress("12am").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("today").withEmail("2pm").withAddress("5pm").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("tomorrow").withEmail("1am").withAddress("2am").build();
+            learnPython = new PersonBuilder().withName("Hoon Meier").withPhone("today").withEmail("2pm").withAddress("5pm").build();
+            learnSpanish = new PersonBuilder().withName("Ida Mueller").withPhone("tomorrow").withEmail("1am").withAddress("2am").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -37,20 +36,20 @@ public class TypicalTestPersons {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Task(alice));
-            ab.addPerson(new Task(benson));
-            ab.addPerson(new Task(carl));
-            ab.addPerson(new Task(daniel));
-            ab.addPerson(new Task(elle));
-            ab.addPerson(new Task(fiona));
-            ab.addPerson(new Task(george));
+            ab.addPerson(new Task(CS2103_Project));
+            ab.addPerson(new Task(CS2103_Lecture));
+            ab.addPerson(new Task(MA1101R_Homework));
+            ab.addPerson(new Task(soccerWithFriends));
+            ab.addPerson(new Task(buyGroceries));
+            ab.addPerson(new Task(goSkydiving));
+            ab.addPerson(new Task(watchMovie));
         } catch (UniqueTaskList.DuplicatePersonException e) {
             assert false : "not possible";
         }
     }
 
     public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestPerson[]{CS2103_Project, CS2103_Lecture, MA1101R_Homework, soccerWithFriends, buyGroceries, goSkydiving, watchMovie};
     }
 
     public AddressBook getTypicalAddressBook(){
