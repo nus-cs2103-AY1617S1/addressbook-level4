@@ -29,17 +29,20 @@ public class Parser {
     private static final Pattern LIST_KEYWORD_ARGS_FORMAT =
             Pattern.compile("(?<keyword>\\S+)?"); //Only one keyword
     
+    //@@author A0139749L
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\"(?<description>.+)\""
                     + "(?<dateTime>((( by )|( on )|( from ))[^#]+)?)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
+    //@@author A0139342H
     private static final Pattern TASK_EDIT_ARGS_FORMAT = 
             Pattern.compile("(?<targetIndex>\\d+)" //index must be digits
             + "\\s+"                               //any number of whitespace
             + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
             + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
             );
+    //@@author
     
     public Parser() {}
 
@@ -161,6 +164,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0139196U
     private Command prepareEdit(String args) {
         
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
@@ -192,6 +196,7 @@ public class Parser {
         }        
     }
     
+    //@@author A0142290N
     Command prepareComplete(String args) throws IllegalValueException {
     	
     	  Optional<Integer> index = parseIndex(args);
@@ -263,6 +268,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0139749L
     private Command prepareList(String args) {
         final Matcher matcher = LIST_KEYWORD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {

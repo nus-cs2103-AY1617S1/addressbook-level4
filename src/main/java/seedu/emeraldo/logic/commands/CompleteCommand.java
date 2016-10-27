@@ -7,6 +7,7 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0142290N
 public class CompleteCommand extends Command {
 
 	public static final String COMMAND_WORD = "completed";

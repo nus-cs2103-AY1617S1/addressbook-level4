@@ -36,7 +36,9 @@
                             </children>
                         </HBox>
                         <Label fx:id="dateTime" styleClass="cell_small_label" text="\$dateTime" />
+                        <!-- @@author A0142290N -->
                   		<Label fx:id="overdueContext" style="-fx-text-fill: #ff0000; -fx-font-size: 9pt;" text="\$overdueContext" />
+                  		<!-- @@author-->
                         <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                     </children>
                 </VBox>

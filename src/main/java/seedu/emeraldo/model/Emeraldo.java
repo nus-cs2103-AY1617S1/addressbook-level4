@@ -115,13 +115,16 @@ public class Emeraldo implements ReadOnlyEmeraldo {
         }
     }
     
+    //@@author A0139342H
     public void editTask(Task task, int index, Description description, DateTime dateTime) throws IllegalValueException {
         tasks.edit(task, index, description, dateTime);
     }
     
+    //@@author A0142290N
     public void completedTask(Task task, int index) throws IllegalValueException {
     	tasks.complete(task, index);
     }
+    //@@author
     
 //// tag-level operations
 

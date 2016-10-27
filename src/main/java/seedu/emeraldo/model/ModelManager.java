@@ -133,7 +133,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
     }
-
+    
+    //@@author A0139342H
     @Override
     public synchronized void editTask(Task target, int index, Description description, DateTime dateTime) 
             throws TaskNotFoundException {
@@ -146,6 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateEmeraldoChanged();
     }
     
+    //@@author A0142290N
     @Override 
     public synchronized void completedTask(Task target, int index)
     		throws TaskNotFoundException {
@@ -180,11 +182,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
     
+    //@@author A0139749L
     @Override
     public void updateFilteredTaskList(String keyword){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
-
+    //@@author
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -247,6 +251,7 @@ public class ModelManager extends ComponentManager implements Model {
     /*
      *  Compare tasks tags with keywords
      */
+    //@@author A0139749L
     private class TagQualifier implements Qualifier {
         private String tagKeyWord;
 
