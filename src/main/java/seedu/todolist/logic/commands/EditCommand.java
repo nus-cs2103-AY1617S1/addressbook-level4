@@ -13,8 +13,9 @@ import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.TaskDate;
 import seedu.todolist.model.task.TaskTime;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.todolist.ui.MainWindow;
 
-/**
+/**@author A0146682X
  * Edits the information of an existing task.
  */
 
@@ -54,9 +55,16 @@ public class EditCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAllTaskList();
-
+		
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+        
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+            lastShownList = model.getFilteredCompleteTaskList();
+        }
+        else {
+            lastShownList = model.getFilteredIncompleteTaskList();
+        }
+        
 		if (lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

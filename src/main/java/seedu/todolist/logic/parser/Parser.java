@@ -225,21 +225,29 @@ public class Parser {
     }
     //@@author
 
-    /**
+    /**@author A0146682X
      * Parses arguments in the context of the edit task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
+    	
+    	Matcher index_matcher = Pattern.compile("\\d+").matcher(args);
+    	index_matcher.find();
+    	
+    	int index;
+    	
+    	try {
+    		index = Integer.valueOf(index_matcher.group());
+    	} catch (IllegalStateException e) {
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	}
 
-        int index = Character.getNumericValue(args.charAt(1));
-        if(!(index>=0)){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.substring(2));
+    	String[] content = args.split("\\d+", 2);
+
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(content[1]);
+ 
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
