@@ -234,7 +234,12 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console refreshes with all events displayed.
 
+[comment]: # (@@author A0140060A)
+
 ### When you want to delete a deadline, task or event
+* The index(es) specified refers to the index number(s) shown in the most recent listing.
+* The index(es) must be positive integers 1, 2, 3...
+* This action is irreversible.
 
 #### Delete one deadline, task or event
 
@@ -247,6 +252,8 @@ For events, you can edit the name and both start and end dates and times.
 1. Type `del[ete] INDEX ...`. Press `Enter`.
 
 2. Console displays deleted item in second box and refreshes list of items.
+
+[comment]: # (@@author)
 
 ### When you are done with a deadline, task or event
 
@@ -335,7 +342,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
-Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim`
+Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim\data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 
