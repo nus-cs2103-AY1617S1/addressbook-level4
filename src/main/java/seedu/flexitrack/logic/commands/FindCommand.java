@@ -23,12 +23,14 @@ public class FindCommand extends Command {
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
-
+    
+    //@@author A0147092E
     public FindCommand(String keywords) {
         Set<String> keyword2 = new HashSet<String>();
         keyword2.add(keywords);
         this.keywords = keyword2;
     }
+    //@@author
 
     @Override
     public CommandResult execute() {

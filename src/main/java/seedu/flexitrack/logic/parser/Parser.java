@@ -68,11 +68,11 @@ public class Parser {
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+    //@@author A0147092E
     private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>[^/dd]+)" + "ty/(?<occurrenceType>[^/].+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    //@@author
     private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -339,7 +339,9 @@ public class Parser {
         final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+        //@@author A0147092E
         final Matcher matcherRecurring = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+        //@@author
         // Validate arg string format
         try {
             if (matcherRecurring.matches()) {
@@ -367,14 +369,14 @@ public class Parser {
         return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO,
                 getTagsFromArgs(matcher.group("tagArguments")));
     }
-
+    
+    
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
-        System.out.println("normal start: " + matcher.group("startTime"));
-        System.out.println("normal end: " + matcher.group("endTime"));
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
                 matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
     }
     
+    //@@author A0147092E
     private Command addRecurringEvent(Matcher matcher) throws IllegalValueException{
         String formattedStartTime;
         String formattedEndTime;
@@ -436,7 +438,7 @@ public class Parser {
             return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
         }
     }
-    
+    //@@author
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
