@@ -31,8 +31,8 @@ public class MainApp extends Application {
     
     private static final String MESSAGE_WELCOME = "Welcome! What would like to get done today?";
 
-    private static Config config;
-    private static String configFilePath;
+    protected static Config config;
+    protected static String configFilePath;
     
     protected UiManager ui;
 
@@ -103,7 +103,7 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
-    private Config initConfig() {
+    protected Config initConfig() {
         Config initializedConfig;
         String configFilePathUsed;
 
