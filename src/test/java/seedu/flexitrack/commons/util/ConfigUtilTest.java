@@ -1,19 +1,20 @@
 package seedu.flexitrack.commons.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import seedu.flexitrack.commons.core.Config;
-import seedu.flexitrack.commons.exceptions.DataConversionException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+
+import seedu.flexitrack.commons.core.Config;
+import seedu.flexitrack.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 

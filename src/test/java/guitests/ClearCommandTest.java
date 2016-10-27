@@ -1,8 +1,10 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class ClearCommandTest extends FlexiTrackGuiTest {
 
@@ -14,8 +16,8 @@ public class ClearCommandTest extends FlexiTrackGuiTest {
         assertClearCommandSuccess();
 
         // verify other commands can work after a clear command
-        commandBox.runCommand(td.basketball.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.basketball));
+        commandBox.runCommand(TypicalTestTasks.basketball.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(TypicalTestTasks.basketball));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

@@ -1,6 +1,9 @@
 package seedu.flexitrack.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,13 +15,11 @@ import seedu.flexitrack.commons.core.Config;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.events.storage.DataSavingExceptionEvent;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
-import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
+import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.model.UserPrefs;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.

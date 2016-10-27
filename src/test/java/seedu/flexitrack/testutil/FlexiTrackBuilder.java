@@ -1,10 +1,10 @@
 package seedu.flexitrack.testutil;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
-import seedu.flexitrack.model.FlexiTrack;
 
 /**
  * A utility class to help with building FlexiTrack objects. Example usage: <br>

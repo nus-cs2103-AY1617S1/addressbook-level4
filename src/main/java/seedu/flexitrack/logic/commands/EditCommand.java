@@ -1,7 +1,9 @@
+//@@author A0127855W
 package seedu.flexitrack.logic.commands;
 
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import seedu.flexitrack.commons.core.Messages;
@@ -9,7 +11,6 @@ import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.DateTimeInfoParser;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
@@ -33,6 +34,14 @@ public class EditCommand extends Command {
             + COMMAND_WORD + " 1 " + "by/ 01062016";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited: %1$s";
+    
+    public static final HashMap<String, Integer> EDIT_PARAMETER_PASSING_MASK = new HashMap<String, Integer>();
+    static {
+        EDIT_PARAMETER_PASSING_MASK.put("name", 0);
+        EDIT_PARAMETER_PASSING_MASK.put("dueDate", 1);
+        EDIT_PARAMETER_PASSING_MASK.put("startTime", 2);
+        EDIT_PARAMETER_PASSING_MASK.put("endTime", 3);
+    }
 
     public final int targetIndex;
     public final String[] arguments;

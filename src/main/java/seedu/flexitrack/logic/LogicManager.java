@@ -1,5 +1,7 @@
 package seedu.flexitrack.logic;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.core.ComponentManager;
 import seedu.flexitrack.commons.core.LogsCenter;
@@ -9,8 +11,6 @@ import seedu.flexitrack.logic.parser.Parser;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.storage.Storage;
-
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

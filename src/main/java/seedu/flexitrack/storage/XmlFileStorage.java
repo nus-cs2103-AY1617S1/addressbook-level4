@@ -1,11 +1,12 @@
 package seedu.flexitrack.storage;
 
-import seedu.flexitrack.commons.util.XmlUtil;
-import seedu.flexitrack.commons.exceptions.DataConversionException;
-
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
+import seedu.flexitrack.commons.exceptions.DataConversionException;
+import seedu.flexitrack.commons.util.XmlUtil;
 
 /**
  * Stores FlexiTrack data in an XML file

@@ -1,14 +1,16 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class CommandBoxTest extends FlexiTrackGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.homework2.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.homework2.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

@@ -1,19 +1,20 @@
 package seedu.flexitrack.storage;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import seedu.flexitrack.commons.exceptions.DataConversionException;
-import seedu.flexitrack.commons.util.FileUtil;
-import seedu.flexitrack.model.UserPrefs;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+
+import seedu.flexitrack.commons.exceptions.DataConversionException;
+import seedu.flexitrack.commons.util.FileUtil;
+import seedu.flexitrack.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 

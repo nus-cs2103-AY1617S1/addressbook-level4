@@ -69,25 +69,34 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         }
     }
     
+//@@author A0127855W
+    /**
+     * Comparator for ReadOnlyTask and its children classes
+     * Sorts by whether the task is a floating task, then by whether the task is done, then by start time/due date, then by name
+     */
     default int compareTo(ReadOnlyTask task) {
         if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
             if (!task.getIsEvent() && !task.getIsTask()){
-                return compareByMark(task, "Float");
+                return compareByMarkThenByType(task, "Float");
             }else{
                 return -1;
             }
         }else{
-            return compareByMark(task, "TaskEvent");
+            return compareByMarkThenByType(task, "TaskEvent");
         }
     }
 
-    default int compareByMark(ReadOnlyTask task, String type) {
-        Name name1 = this.getName();
-        Name name2 = task.getName();
-        
-        if(name1.getIsDone() && !name2.getIsDone()){
+    /**
+     * Compares whether the task is done, then proceeds to compare by start date/due date (if both are nor floating tasks) then by name
+     * @param task
+     * @param type
+     * @return compare result
+     */
+    default int compareByMarkThenByType(ReadOnlyTask task, String type) {
+      
+        if(this.getIsDone() && !task.getIsDone()){
             return 1;
-        }else if(!name1.getIsDone() && name2.getIsDone()){
+        }else if(!this.getIsDone() && task.getIsDone()){
             return -1;
         }else{
             if(type.equals("Float")){

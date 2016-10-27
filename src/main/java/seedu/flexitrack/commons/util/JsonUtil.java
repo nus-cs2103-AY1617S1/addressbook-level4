@@ -1,5 +1,8 @@
 package seedu.flexitrack.commons.util;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,9 +13,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
-import java.io.IOException;
-import java.util.logging.Level;
 
 /**
  * Converts a Java object instance to JSON and vice versa

@@ -1,16 +1,17 @@
+//@@author A0127855W
 package guitests;
-
-import guitests.guihandles.TaskCardHandle;
-import org.junit.Test;
-import seedu.flexitrack.logic.commands.AddCommand;
-import seedu.flexitrack.logic.commands.EditCommand;
-import seedu.flexitrack.commons.core.Messages;
-import seedu.flexitrack.testutil.TestTask;
-import seedu.flexitrack.testutil.TestUtil;
-import seedu.flexitrack.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import org.junit.Test;
+
+import guitests.guihandles.TaskCardHandle;
+import seedu.flexitrack.commons.core.Messages;
+import seedu.flexitrack.logic.commands.EditCommand;
+import seedu.flexitrack.testutil.TestTask;
+import seedu.flexitrack.testutil.TestUtil;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class EditCommandTest extends FlexiTrackGuiTest {
 

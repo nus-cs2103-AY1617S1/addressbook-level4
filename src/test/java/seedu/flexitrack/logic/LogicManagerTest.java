@@ -1,35 +1,51 @@
 package seedu.flexitrack.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import seedu.flexitrack.commons.core.EventsCenter;
-import seedu.flexitrack.logic.commands.*;
-import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
-import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
-import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
-import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.Model;
-import seedu.flexitrack.model.ModelManager;
-import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
-import seedu.flexitrack.model.task.*;
-import seedu.flexitrack.storage.StorageManager;
-import seedu.flexitrack.testutil.TestTask;
-import seedu.flexitrack.testutil.TypicalTestTasks;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.flexitrack.commons.core.Messages.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.flexitrack.commons.core.EventsCenter;
+import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
+import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
+import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
+import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.logic.commands.ClearCommand;
+import seedu.flexitrack.logic.commands.Command;
+import seedu.flexitrack.logic.commands.CommandResult;
+import seedu.flexitrack.logic.commands.DeleteCommand;
+import seedu.flexitrack.logic.commands.ExitCommand;
+import seedu.flexitrack.logic.commands.FindCommand;
+import seedu.flexitrack.logic.commands.HelpCommand;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.logic.commands.SelectCommand;
+import seedu.flexitrack.model.FlexiTrack;
+import seedu.flexitrack.model.Model;
+import seedu.flexitrack.model.ModelManager;
+import seedu.flexitrack.model.ReadOnlyFlexiTrack;
+import seedu.flexitrack.model.tag.Tag;
+import seedu.flexitrack.model.tag.UniqueTagList;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.Name;
+import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.Task;
+import seedu.flexitrack.storage.StorageManager;
+import seedu.flexitrack.testutil.TestTask;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class LogicManagerTest {
 

@@ -1,10 +1,5 @@
 package seedu.flexitrack.logic.commands;
 
-import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import seedu.flexitrack.commons.core.EventsCenter;
-import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
-
 /**
  * Format full help instructions for every command for display.
  */

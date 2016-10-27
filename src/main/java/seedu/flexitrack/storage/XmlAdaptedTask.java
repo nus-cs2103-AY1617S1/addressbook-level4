@@ -1,13 +1,17 @@
 package seedu.flexitrack.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
-import seedu.flexitrack.model.task.*;
-
-import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.Name;
+import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.Task;
 
 /**
  * JAXB-friendly version of the Task.

@@ -1,15 +1,10 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import seedu.flexitrack.logic.commands.AddCommand;
-import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.testutil.TestTask;
-import seedu.flexitrack.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class UndoCommandTest extends FlexiTrackGuiTest {
 

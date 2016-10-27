@@ -1,5 +1,7 @@
 package seedu.flexitrack.model;
 
+import java.util.Set;
+
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -7,8 +9,6 @@ import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Set;
 
 /**
  * The API of the Model component.
@@ -60,6 +60,7 @@ public interface Model {
      */
     void unmarkTask(ReadOnlyTask taskToMark) throws IllegalValueException;
 
+    //@@author A0127855W
     /**
      * Edits the given task
      * 
@@ -67,7 +68,8 @@ public interface Model {
      */
     Task editTask(int taskToEdit, String[] args)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
-    
+
+    //@@author
     /**
      * 
      * @param Task toAdd

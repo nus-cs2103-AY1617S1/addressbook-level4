@@ -1,14 +1,13 @@
 package seedu.flexitrack.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
 import seedu.flexitrack.commons.events.storage.DataSavingExceptionEvent;
 import seedu.flexitrack.commons.exceptions.DataConversionException;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
 
 /**
  * API of the Storage component

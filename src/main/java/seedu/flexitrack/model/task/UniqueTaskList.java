@@ -1,14 +1,14 @@
 package seedu.flexitrack.model.task;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.flexitrack.commons.util.CollectionUtil;
-import seedu.flexitrack.model.Model;
-import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.DuplicateDataException;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-
-import java.util.*;
+import seedu.flexitrack.commons.util.CollectionUtil;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not
@@ -103,10 +103,6 @@ public class UniqueTaskList implements Iterable<Task> {
                 || (other instanceof UniqueTaskList // instanceof handles nulls
                         && this.internalList.equals(((UniqueTaskList) other).internalList));
     }
-    
-    public void sort(){
-    	Collections.sort(internalList);;
-    }
 
     @Override
     public int hashCode() {
@@ -121,7 +117,26 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(targetIndex, markTask);
 
     }
-
+    
+  //@@author A0127855W
+    /**
+     * Sorts the observable list according to the ReadOnlyTask comparator
+     */
+    public void sort(){
+    	Collections.sort(internalList);;
+    }
+  
+    /**
+     * edit
+     * -----------------------------------------------------
+     * finds the target task to be edited by the specified index and edits the task using the given argument array
+     * @param targetIndex
+     * @param args: Array of edit parameters
+     * @return The new duration if the item being edited is an event, or "" if it is a floating task or task
+     * @throws IllegalEditException
+     * @throws TaskNotFoundException
+     * @throws IllegalValueException
+     */
     public Task edit(int targetIndex, String[] args)
             throws IllegalEditException, TaskNotFoundException, IllegalValueException {
         assert targetIndex >= 0;
@@ -140,7 +155,18 @@ public class UniqueTaskList implements Iterable<Task> {
 
     }
 
+    /**
+     * checkForIllegalFloatingTaskEdit
+     * -------------------------------------------------
+     * checks that the appropriate edit parameters to a floating task; user should not add both task and event parameters to a floating task,
+     * he must also make the floating task a complete event (with start and end time) if he were to edit it into an event. 
+     * @param args
+     * @param editTask
+     * @throws IllegalEditException
+     */
     private void checkForIllegalFloatingTaskEdit(String[] args, Task editTask) throws IllegalEditException {
+        assert args != null;
+        assert editTask != null;
         if (!editTask.getIsTask() && !editTask.getIsEvent()) {
             if ((args[1] != null) && (args[2] != null || args[3] != null)) {
                 throw new IllegalEditException();
@@ -151,7 +177,19 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
+    /**
+     * editTaskParameters
+     * ---------------------------------------------------
+     * edits the actual task with given parameters, checking that the wrong parameters are not given to the wrong type of task;
+     * i.e. user should not add start date to a task, nor should he add a due date to an event
+     * @param editTask
+     * @param args
+     * @throws IllegalValueException
+     * @throws IllegalEditException
+     */
     private void editTaskParameters(Task editTask, String[] args) throws IllegalValueException, IllegalEditException {
+        assert args != null;
+        assert editTask != null;
         for (int i = 0; i < args.length; i++) {
             if (!(args[i] == null)) {
                 switch (i) {

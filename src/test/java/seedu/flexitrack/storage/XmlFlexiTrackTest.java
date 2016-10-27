@@ -1,20 +1,21 @@
 package seedu.flexitrack.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.IOException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.flexitrack.commons.exceptions.DataConversionException;
 import seedu.flexitrack.commons.util.FileUtil;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.testutil.TypicalTestTasks;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class XmlFlexiTrackTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlFlexiTrackStorageTest/");

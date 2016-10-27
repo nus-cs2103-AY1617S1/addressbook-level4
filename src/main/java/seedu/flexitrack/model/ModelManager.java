@@ -1,26 +1,22 @@
 package seedu.flexitrack.model;
 
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import seedu.flexitrack.commons.core.ComponentManager;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
+import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
-import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.IllegalEditException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.commons.core.ComponentManager;
-
-import java.util.Set;
-import java.util.logging.Logger;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Represents the in-memory model of the tasktracker data. All changes to any
@@ -98,15 +94,21 @@ public class ModelManager extends ComponentManager implements Model {
         flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
-
+  //@@author A0127855W
     @Override
+    /**
+     * Edits a Task in the tasks tracker.
+     * 
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TaskNotFoundException if specified task is not found.
+     */
     public Task editTask(int taskToEdit, String[] args)
             throws TaskNotFoundException, IllegalEditException, IllegalValueException {
         Task editedTask = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
         return editedTask;
     }
-    
+  //@@author
     @Override
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         return flexiTracker.checkBlock(toCheck);

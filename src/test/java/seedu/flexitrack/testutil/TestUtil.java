@@ -1,5 +1,19 @@
 package seedu.flexitrack.testutil;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+
+import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+
 import com.google.common.io.Files;
 
 import edu.emory.mathcs.backport.java.util.Collections;
@@ -12,8 +26,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
 import seedu.flexitrack.TestApp;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.FileUtil;
@@ -21,20 +33,12 @@ import seedu.flexitrack.commons.util.XmlUtil;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
-import seedu.flexitrack.model.task.*;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.Name;
+import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.Task;
+import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.storage.XmlSerializableFlexiTrack;
-import seedu.flexitrack.testutil.TestTask;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 /**
  * A utility class for test cases.

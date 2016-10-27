@@ -1,9 +1,10 @@
 package seedu.flexitrack.commons.core;
 
-import com.google.common.eventbus.EventBus;
-import seedu.flexitrack.commons.events.BaseEvent;
-
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.EventBus;
+
+import seedu.flexitrack.commons.events.BaseEvent;
 
 /**
  * Manages the event dispatching of the app.

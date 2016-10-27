@@ -1,11 +1,5 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.Stack;
-
-import seedu.flexitrack.commons.core.UnmodifiableObservableList;
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.task.ReadOnlyTask;
-
 /**
  * Lists all task in the FlexiTrack to the user.
  */

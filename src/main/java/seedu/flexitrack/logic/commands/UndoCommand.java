@@ -1,14 +1,6 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
-
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.logic.LogicManager;
-import seedu.flexitrack.logic.parser.Parser;
-import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
 
 /**
  * Clears the FlexiTrack.

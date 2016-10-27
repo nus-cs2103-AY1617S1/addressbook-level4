@@ -1,10 +1,9 @@
 package seedu.flexitrack.storage;
 
-import seedu.flexitrack.commons.util.CollectionUtil;
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
-
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted version of the Tag.

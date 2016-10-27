@@ -1,17 +1,36 @@
 package seedu.flexitrack.logic.parser;
 
-import seedu.flexitrack.logic.commands.*;
-import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.DateTimeInfoParser;
-import seedu.flexitrack.commons.util.StringUtil;
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.commons.util.StringUtil;
+import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.logic.commands.BlockCommand;
+import seedu.flexitrack.logic.commands.ClearCommand;
+import seedu.flexitrack.logic.commands.Command;
+import seedu.flexitrack.logic.commands.DeleteCommand;
+import seedu.flexitrack.logic.commands.EditCommand;
+import seedu.flexitrack.logic.commands.ExitCommand;
+import seedu.flexitrack.logic.commands.FindCommand;
+import seedu.flexitrack.logic.commands.HelpCommand;
+import seedu.flexitrack.logic.commands.IncorrectCommand;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.logic.commands.MarkCommand;
+import seedu.flexitrack.logic.commands.SelectCommand;
+import seedu.flexitrack.logic.commands.UndoCommand;
+import seedu.flexitrack.logic.commands.UnmarkCommand;
+import seedu.flexitrack.model.task.DateTimeInfoParser;
 
 /**
  * Parses user input.
@@ -24,8 +43,8 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
+  //@@author A0127855W 
     private static final HashMap<String, String> SHORTCUT_MAP = new HashMap<String, String>();                                                                                                       // more
-                                                                                                           
     static {
         SHORTCUT_MAP.put(AddCommand.COMMAND_SHORTCUT, AddCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(ClearCommand.COMMAND_SHORTCUT, ClearCommand.COMMAND_WORD);
@@ -39,7 +58,8 @@ public class Parser {
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
-    }                                                                                                      
+    }
+    
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -57,6 +77,7 @@ public class Parser {
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
 
+    //@@author
     public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
 
     public Parser() {
@@ -77,13 +98,13 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String parsedCommandWord = parseCommandWord(commandWord);
-        
+
         final String arguments = matcher.group("arguments");
         switch (parsedCommandWord) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-            
+
         case BlockCommand.COMMAND_WORD:
             return prepareBlock(arguments);
 
@@ -101,7 +122,7 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
@@ -124,38 +145,48 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-        
-        private String parseCommandWord(String commandWord) {       
-            return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
-        }
 
-        private Command prepareList(String arguments) {
-            arguments=arguments.trim();
-            try {
-                if (isValideListFormat(arguments)) {
-                    return new ListCommand(arguments);
-                }
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+  //@@author A0127855W
+    /**
+     * parseCommandWord
+     * -------------------------------------------
+     * Parses the given command word string, converting shortcut commands into their full versions
+     * @param commandWord
+     * @return String: Full command word
+     */
+    private String parseCommandWord(String commandWord) {     
+        assert commandWord != null;
+        return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
+    }
+
+  //@@author
+    private Command prepareList(String arguments) {
+        arguments=arguments.trim();
+        try {
+            if (isValideListFormat(arguments)) {
+                return new ListCommand(arguments);
             }
+        } catch (IllegalValueException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
-        
-        private Command prepareBlock(String args) {
-            final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
 
-            // Validate arg string format
-            try {
-                if (matcherEvent.matches()) {
-                    return new BlockCommand("(Blocked) " + matcherEvent.group("name"), EMPTY_TIME_INFO, matcherEvent.group("startTime"),
-                            matcherEvent.group("endTime"), getTagsFromArgs(matcherEvent.group("tagArguments")));
-                } else {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
-                }
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
+    private Command prepareBlock(String args) {
+        final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+
+        // Validate arg string format
+        try {
+            if (matcherEvent.matches()) {
+                return new BlockCommand("(Blocked) " + matcherEvent.group("name"), EMPTY_TIME_INFO, matcherEvent.group("startTime"),
+                        matcherEvent.group("endTime"), getTagsFromArgs(matcherEvent.group("tagArguments")));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
             }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
+    }
 
     /**
      * @param arguments
@@ -164,10 +195,10 @@ public class Parser {
      */
     private boolean isValideListFormat(String arguments) throws IllegalValueException {
         String dateInfo = (arguments.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
-        replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").
-        replace(ListCommand.LIST_LAST_MONTH_COMMAND, "").replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").
-        replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").
-        replace(ListCommand.LIST_BLOCK_COMMAND, "").trim());
+                replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").
+                replace(ListCommand.LIST_LAST_MONTH_COMMAND, "").replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").
+                replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").
+                replace(ListCommand.LIST_BLOCK_COMMAND, "").trim());
         if ( !dateInfo.equals("") ){
             DateTimeInfoParser timeArgs = new DateTimeInfoParser(dateInfo);
         }
@@ -178,11 +209,20 @@ public class Parser {
                 || arguments.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) || arguments.contains(ListCommand.LIST_BLOCK_COMMAND));
     }
 
+  //@@author A0127855W
+    /**
+     * prepareEdit
+     * ------------------------------------------
+     * Parses the edit command arguments and outputs the correct EditCommand object for execution
+     * @param arguments
+     * @return Command: The correct EditCommand object
+     */
     private Command prepareEdit(String arguments) {
-
+        assert arguments != null;
+        
         int index;
-        String args;
-        String[] passing = new String[4];
+        String editParameters;
+        String[] passing = new String[EditCommand.EDIT_PARAMETER_PASSING_MASK.size()];
 
         final Matcher matcherEdit = EDIT_COMMAND_FORMAT.matcher(arguments.trim());
 
@@ -190,53 +230,49 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else {
             index = Integer.parseInt(matcherEdit.group("index"));
-            args = matcherEdit.group("arguments");
+            editParameters = matcherEdit.group("arguments").trim();
         }
 
-        final Matcher matcherName = EDIT_ARGS_NAME.matcher(args.trim());
-        final Matcher matcherDueDate = EDIT_ARGS_DUEDATE.matcher(args.trim());
-        final Matcher matcherStartTime = EDIT_ARGS_STARTTIME.matcher(args.trim());
-        final Matcher matcherEndTime = EDIT_ARGS_ENDTIME.matcher(args.trim());
+        final Matcher matcherName = EDIT_ARGS_NAME.matcher(editParameters);
+        final Matcher matcherDueDate = EDIT_ARGS_DUEDATE.matcher(editParameters);
+        final Matcher matcherStartTime = EDIT_ARGS_STARTTIME.matcher(editParameters);
+        final Matcher matcherEndTime = EDIT_ARGS_ENDTIME.matcher(editParameters);
 
         boolean namePresent = matcherName.find();
         boolean dueDatePresent = matcherDueDate.find();
         boolean startTimePresent = matcherStartTime.find();
         boolean endTimePresent = matcherEndTime.find();
-
+        
+        //Check that at least one edit parameter exists
         if (!namePresent && !dueDatePresent && !startTimePresent && !endTimePresent) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        if (namePresent) {
-            passing[0] = matcherName.group("name");
-        } else {
-            passing[0] = null;
-        }
-
-        if (dueDatePresent) {
-            if (startTimePresent || endTimePresent) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            } else {
-                passing[1] = matcherDueDate.group("dueDate");
-            }
-        } else {
-            passing[1] = null;
-        }
-
-        if (startTimePresent) {
-            passing[2] = matcherStartTime.group("startTime");
-        } else {
-            passing[2] = null;
-        }
-
-        if (endTimePresent) {
-            passing[3] = matcherEndTime.group("endTime");
-        } else {
-            passing[3] = null;
-        }
+        prepareEditParameter(passing, matcherName, namePresent, "name");
+        prepareEditParameter(passing, matcherDueDate, dueDatePresent, "dueDate");
+        prepareEditParameter(passing, matcherStartTime, startTimePresent, "startTime");
+        prepareEditParameter(passing, matcherEndTime, endTimePresent, "endTime");
 
         return new EditCommand(index, passing);
     }
+
+    /**
+     * prepareEditParameter
+     * ---------------------------------------------------------
+     * prepares the passing array for each parameter to be passed into the EditCommand constructor
+     * @param passing
+     * @param matcherType
+     * @param typePresent
+     * @param typeGroupID
+     */
+    private void prepareEditParameter(String[] passing, final Matcher matcherType, boolean typePresent, String typeGroupID) {
+        if (typePresent) {
+            passing[EditCommand.EDIT_PARAMETER_PASSING_MASK.get(typeGroupID)] = matcherType.group(typeGroupID);
+        } else {
+            passing[EditCommand.EDIT_PARAMETER_PASSING_MASK.get(typeGroupID)] = null;
+        }
+    }
+  //@@author
 
     /**
      * Parses arguments in the context of the add task command.

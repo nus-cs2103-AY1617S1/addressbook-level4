@@ -1,7 +1,6 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,25 +8,24 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.google.common.eventbus.Subscribe;
-
 import seedu.flexitrack.commons.core.EventsCenter;
-import seedu.flexitrack.commons.core.Messages;
-import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
-import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
-import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.logic.LogicManager;
-import seedu.flexitrack.logic.commands.*;
+import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.logic.commands.ClearCommand;
 import seedu.flexitrack.logic.commands.CommandResult;
+import seedu.flexitrack.logic.commands.DeleteCommand;
+import seedu.flexitrack.logic.commands.EditCommand;
+import seedu.flexitrack.logic.commands.ExitCommand;
+import seedu.flexitrack.logic.commands.FindCommand;
 import seedu.flexitrack.logic.commands.HelpCommand;
-import seedu.flexitrack.model.FlexiTrack;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.logic.commands.MarkCommand;
+import seedu.flexitrack.logic.commands.SelectCommand;
+import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;
-import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.storage.StorageManager;
-import seedu.flexitrack.testutil.TestTask;
-import seedu.flexitrack.testutil.TestUtil;
 
 public class HelpCommandTest extends FlexiTrackGuiTest {
 

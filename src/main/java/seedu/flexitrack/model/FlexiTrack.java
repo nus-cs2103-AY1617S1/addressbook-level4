@@ -1,5 +1,16 @@
 package seedu.flexitrack.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
@@ -10,9 +21,6 @@ import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.IllegalEditException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the task-tracker level Duplicates are not allowed (by
@@ -88,18 +96,18 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         task.add(p);
     }
 
+    //@@author A0127855W
     /**
      * Edits a Task in the tasks tracker.
      * 
-     * @throws UniqueTaskList.DuplicateTaskException
-     *             if an equivalent task already exists.
-     * @throws TaskNotFoundException
-     *             if specified task is not found.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TaskNotFoundException if specified task is not found.
      */
     public Task editTask(int taskToEdit, String[] args)
             throws TaskNotFoundException, IllegalEditException, IllegalValueException {
         return task.edit(taskToEdit, args);
     }
+  //@@author
 
     /**
      * Ensures that every tag in this task: - exists in the master list
@@ -171,10 +179,14 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 || (other instanceof FlexiTrack // instanceof handles nulls
                         && this.task.equals(((FlexiTrack) other).task) && this.tags.equals(((FlexiTrack) other).tags));
     }
-    
+  //@@author A0127855W
+    /**
+     * Sorts the flexitrack according to the ReadOnlyTask comparator
+     */
     public void sort(){
     	task.sort();
     }
+  //@@author
 
     @Override
     public int hashCode() {

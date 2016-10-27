@@ -1,11 +1,10 @@
 package seedu.flexitrack.testutil;
 
-import java.util.Arrays;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.task.*;
+import seedu.flexitrack.model.task.Name;
+import seedu.flexitrack.model.task.Task;
+import seedu.flexitrack.model.task.UniqueTaskList;
 
 /**
  *

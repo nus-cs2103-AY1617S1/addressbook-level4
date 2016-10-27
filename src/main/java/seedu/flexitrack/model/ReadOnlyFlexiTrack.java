@@ -1,11 +1,11 @@
 package seedu.flexitrack.model;
 
+import java.util.List;
+
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.UniqueTaskList;
-
-import java.util.List;
 
 /**
  * Unmodifiable view of an address book

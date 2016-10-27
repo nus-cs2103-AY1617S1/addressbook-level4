@@ -1,14 +1,14 @@
 package seedu.flexitrack.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
+import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.util.FxViewUtil;
 import seedu.flexitrack.model.task.ReadOnlyTask;
-import seedu.flexitrack.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.

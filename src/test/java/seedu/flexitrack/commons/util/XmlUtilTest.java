@@ -1,18 +1,20 @@
 package seedu.flexitrack.commons.util;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.storage.XmlSerializableFlexiTrack;
 import seedu.flexitrack.testutil.FlexiTrackBuilder;
 import seedu.flexitrack.testutil.TestUtil;
-
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 
