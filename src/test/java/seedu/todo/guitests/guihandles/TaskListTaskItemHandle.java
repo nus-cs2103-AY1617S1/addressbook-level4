@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todo.guitests.GuiRobot;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskListTaskItemHandle extends GuiHandle {
 
     private static final String TASKLISTTASKITEM_NAME_ID = "#taskText";

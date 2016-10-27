@@ -19,6 +19,9 @@ import seedu.todo.guitests.guihandles.MainGuiHandle;
 import seedu.todo.guitests.guihandles.TaskListHandle;
 import seedu.todo.models.TodoListDB;
 
+/**
+ * @@author A0139812A
+ */
 public abstract class GuiTest {
 
     // The TestName Rule makes the current test name available inside test methods.

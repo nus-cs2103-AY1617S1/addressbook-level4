@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+/**
+ * @@author A0139812A
+ */
 public class ConsoleTest extends GuiTest {
     
     @Test

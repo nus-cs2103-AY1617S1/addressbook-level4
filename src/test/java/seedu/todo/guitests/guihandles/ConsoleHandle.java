@@ -3,6 +3,9 @@ package seedu.todo.guitests.guihandles;
 import javafx.stage.Stage;
 import seedu.todo.guitests.GuiRobot;
 
+/**
+ * @@author A0139812A
+ */
 public class ConsoleHandle extends GuiHandle {
 
     private static final String CONSOLE_INPUT_ID = "#consoleInputTextField";

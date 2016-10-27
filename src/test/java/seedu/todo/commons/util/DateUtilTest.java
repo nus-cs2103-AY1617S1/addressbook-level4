@@ -16,6 +16,11 @@ import seedu.todo.commons.util.DateUtil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+/**
+ * Test cases for {@link DateUtil}.
+ * 
+ * @@author A0139812A
+ */
 public class DateUtilTest {
 	
 	@Test

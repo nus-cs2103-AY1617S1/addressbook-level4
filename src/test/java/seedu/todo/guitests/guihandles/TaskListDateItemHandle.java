@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.guitests.GuiRobot;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskListDateItemHandle extends GuiHandle {
 
     private static final String TASKLISTDATEITEM_DATE_ID = "#dateLabel";
