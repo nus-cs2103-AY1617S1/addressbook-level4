@@ -8,8 +8,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
 //Represents a Task's(event) start date in the task manager.
 public class StartDate {
 
-	public static final String MESSAGE_DATE_CONSTRAINTS = "Task's start date should be entered as DD-MM-YYYY";
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+	public static final String MESSAGE_DATE_CONSTRAINTS = "Task's start date should be entered as DD-MM-YYYY hh:mm\n"
+	        +"Example: add Homework d/Math homework sd/01-01-2011 00:00 dd/03-01-2011 23:59";
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
 	public final Date startDate;
 

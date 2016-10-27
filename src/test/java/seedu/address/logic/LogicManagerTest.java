@@ -546,8 +546,8 @@ public class LogicManagerTest {
         helper.addToModel(model, oneTasks);
         String expectedTask = "Task 1 "
                 + "Description: Description 1 "
-                + "Start Date: 01-01-2016 "
-                + "Due Date: 01-01-2016 "
+                + "Start Date: 01-01-2016 00:00 "
+                + "Due Date: 01-01-2016 23:59 "
                 + "Status: COMPLETED "
                 + "Tags: [tag1][tag2]";
         String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask);
@@ -565,8 +565,8 @@ public class LogicManagerTest {
         Task homework() throws Exception {
         	Title title = new Title("Homework");
         	Description description= new Description("Database Tutorials.");
-        	StartDate startDate= new StartDate("11-01-2012");
-        	DueDate dueDate= new DueDate("11-01-2012");
+        	StartDate startDate= new StartDate("11-01-2012 00:00");
+        	DueDate dueDate= new DueDate("11-01-2012 23:59");
         	Interval interval= new Interval("1");
         	TimeInterval timeInterval = new TimeInterval("7");
         	Status status = new Status("ONGOING");
@@ -587,8 +587,8 @@ public class LogicManagerTest {
             return new Task(
                     new Title("Task " + seed),
                     new Description("Description " + seed),
-                    new StartDate("01-01-2016"),
-                    new DueDate("01-01-2016"),
+                    new StartDate("01-01-2016 00:00"),
+                    new DueDate("01-01-2016 23:59"),
                     new Interval("1"),
                     new TimeInterval(""+seed),
                     new Status("ONGOING"),
@@ -698,8 +698,8 @@ public class LogicManagerTest {
             return new Task(
             		new Title(name),
                     new Description("Description"),
-                    new StartDate("11-01-2012"),
-                    new DueDate("11-01-2012"),
+                    new StartDate("11-01-2012 00:00"),
+                    new DueDate("11-01-2012 23:59"),
                     new Interval("7"),
                     new TimeInterval("1"),
                     new Status("ONGOING"),

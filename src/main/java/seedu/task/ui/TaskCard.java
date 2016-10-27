@@ -25,10 +25,6 @@ public class TaskCard extends UiPart{
     @FXML
     private Label dueDate;
     @FXML
-    private Label interval;
-    @FXML
-    private Label timeInterval;
-    @FXML
     private Label status;
     @FXML
     private Label tags;
@@ -59,7 +55,7 @@ public class TaskCard extends UiPart{
     }
     
     public String isDateNull(Date inputDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy HH:mm");
         return inputDate == null ? "Not Set" : dateFormat.format(inputDate);
     }
 
