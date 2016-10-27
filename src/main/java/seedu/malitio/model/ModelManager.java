@@ -239,6 +239,13 @@ public class ModelManager extends ComponentManager implements Model {
         return future;
     }
     
+    //@@author a0126633j
+    @Override
+    public void dataFilePathChanged() {
+        logger.info("Data storage file path changed, updating..");
+        indicateMalitioChanged();
+    }
+    
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
 

@@ -125,5 +125,8 @@ public interface Model {
     
     /** Marks the event as a priority.*/
     void markEvent(ReadOnlyEvent eventToMark, boolean marked)
-            throws EventNotFoundException, EventMarkedException, EventUnmarkedException; 
+            throws EventNotFoundException, EventMarkedException, EventUnmarkedException;
+    
+    /** Indicate the directory of data file has changed. Save data into new directory*/
+    void dataFilePathChanged(); 
 }

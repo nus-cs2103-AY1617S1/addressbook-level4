@@ -101,6 +101,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleDataStorageFileChangedEvent(DataStorageFileChangedEvent event) throws DataConversionException, IOException {
         String oldDataFilePath = malitioStorage.getMalitioFilePath();
+        Optional<ReadOnlyMalitio> dataToBeTransferred = malitioStorage.readMalitio();
         malitioStorage = new XmlMalitioStorage(event.dataFilePath);
         
         if(FileUtil.twoFilePathsAreEqual(oldDataFilePath, this.malitioStorage.getMalitioFilePath())) {
@@ -108,13 +109,13 @@ public class StorageManager extends ComponentManager implements Storage {
         }
         
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Data storage file path changed, updating.."));
-
+/*
         try {
-            saveMalitio(readMalitio(oldDataFilePath).get(), this.malitioStorage.getMalitioFilePath()); 
+            saveMalitio(dataToBeTransferred.get(), this.malitioStorage.getMalitioFilePath()); 
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
-        
+        */
         try {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "Old data file is being deleted."));
             FileUtil.deleteFile(oldDataFilePath);
