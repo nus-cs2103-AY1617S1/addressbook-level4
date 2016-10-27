@@ -9,6 +9,7 @@ import seedu.address.model.task.ReadOnlyTask;
  */
 public class UndoList {
 
+    public static int MAX_UNDO_SIZE = 10;
     public UndoNode head;
     public UndoNode tail;
     private int size;
@@ -28,12 +29,12 @@ public class UndoList {
             tail = head;
             size++;
         }
-        else if (size < 3){
+        else if (size < MAX_UNDO_SIZE){
             tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
             size++;
         }
-        else if (size == 3){
+        else if (size == MAX_UNDO_SIZE){
             head = head.getNext();
             tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
