@@ -220,6 +220,8 @@ Dateless Task | ["NEW_TASK_DETAILS"] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "fin
 Deadine Task | ["NEW_TASK_DETAILS"] [due NEW_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t4 t/bobz | Edit just the tag of task t4.
 Event | ["NEW_TASK_DETAILS"] [on NEW_START_DATETIME] [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit e2 "go to concert" to monday p/LOW | Edit name, end date and priority of event e2.
 
+<br>
+
 * Using edit, you may also convert between item types. That is, you may freely convert between floating tasks (dateless tasks), events, and deadline tasks. <br>
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when converting: <br>
 
