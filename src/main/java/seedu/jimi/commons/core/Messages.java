@@ -12,5 +12,5 @@ public class Messages {
             "Date and time are invalid!\n" 
             + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 
             + "> You might confuse Jimi!";
-    public static final String MESSAGE_START_END_CONSTRAINT = "Start need to be prior to end!";
+    public static final String MESSAGE_START_END_CONSTRAINT = "Start date/time needs to be prior to end date/time!";
 }
