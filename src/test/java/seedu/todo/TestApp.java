@@ -1,9 +1,11 @@
 package seedu.todo;
 
+import java.io.File;
 import java.util.function.Supplier;
 
 import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.util.FileUtil;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
@@ -17,6 +19,7 @@ public class TestApp extends MainApp {
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<TodoListDB> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected String configFileLocation = CONFIG_LOCATION_FOR_TESTING;
 
     public TestApp(Supplier<TodoListDB> initialDataSupplier, String saveFileLocation) {
         super();
@@ -27,6 +30,10 @@ public class TestApp extends MainApp {
     @Override
     public void init() throws Exception {
         super.init();
+        
+        // Purge test JSON
+        FileUtil.removeFile(new File(saveFileLocation));
+        FileUtil.removeFile(new File(configFileLocation));
         
         // If some initial local data has been provided, load that data into TodoListDB instead.
         if (initialDataSupplier.get() != null) {
@@ -39,7 +46,7 @@ public class TestApp extends MainApp {
 
     @Override
     protected Config initConfig() {
-        config = super.loadConfigFromFile(CONFIG_LOCATION_FOR_TESTING);
+        config = super.loadConfigFromFile(configFileLocation);
         config.setAppTitle(APP_TITLE);
         config.setDatabaseFilePath(saveFileLocation);
         return config;
