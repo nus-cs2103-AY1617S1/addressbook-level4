@@ -42,7 +42,7 @@ public class DateTime {
         this.value = Optional.of(possibleDates.get(0).toInstant());
     }
     
-    public DateTime(Long epochMilli) {
+    public DateTime(Long epochMilli, boolean isEpoch) {
         if (epochMilli == null) {
             this.value = Optional.empty();
             return;
@@ -89,7 +89,7 @@ public class DateTime {
     
     public Long getSaveableValue() {
         if(value.isPresent()) {
-            return this.value.get().getEpochSecond();
+            return this.value.get().toEpochMilli();
         } else {
             return null;
         }
