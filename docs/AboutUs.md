@@ -26,7 +26,7 @@ Responsibilities: Codes about features.
 -----
 
 #### [Xie Jihui](https://github.com/xjh666) 
-<img src="images/XieJihui.jpg" width="150"><br>
+<img src="images/XieJihui.JPG" width="150"><br>
 * Components in charge of: [Logic][Model]
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
