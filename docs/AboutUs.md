@@ -21,7 +21,7 @@ Responsibilities: Team Mentor
    * <kbd>[Undo](UserGuide.md#undo-the-modification--undo)</kbd> Command
    * <kbd>[Done](UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](UserGuide.md#undone-a-specific-task--undone)</kbd> Command
-* Code written: <kbd>[Functional code](https://github.com/CS2103AUG2016-T17-C3/main/tree/master/collated/main/A0147335E.md)</kbd> <kbd>[Test code](https://github.com/CS2103AUG2016-T17-C3/main/tree/master/collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager
   * Did the initial refactoring of testing from AddressBook to TaskManager
@@ -36,9 +36,9 @@ Responsibilities: Team Lead, Logic
 
 * Components in charge of: [Add command]
 * Features implemented:
-   * <kbd>[Add](docs/UserGuide.md#add-the-modification--undo)</kbd> Command
+   * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
    * <kbd>[Natural input using natty]</kbd>
-* Code written: <kbd>[Functional code](collated/main/A0152958R.md)</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
 
 **Role**: Developer <br>
 Responsibilities: Code Quality, Parser
@@ -47,6 +47,14 @@ Responsibilities: Code Quality, Parser
 
 #### [Han Xue](http://github.com/Hanxnow77)
 <img src="images/hanxue.png" width="150"><br>
+
+* Components in charge of: [GUI]
+* Features implemented:
+   * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
+* Code written: <kbd>[Functional code]</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
+* Other major contributions:
+  * {to be updated}
+
 **Role**: Developer <br>
 Responsibilities: Testing, GUI
 
@@ -57,9 +65,9 @@ Responsibilities: Testing, GUI
 
 * Components in charge of: [Storage]
 * Features implemented:
-   * <kbd>[Backup](docs/UserGuide.md#backup--backup)</kbd> Command
-   * <kbd>[Directory](docs/UserGuide.md#change-working-directory--directory)</kbd> Command
-* Code written: <kbd>[Functional code](collated/main/A0147944U.md)</kbd> <kbd>[Test code](collated/test/A0147944U.md)</kbd> <kbd>[Docs](collated/docs/A0147944U.md)</kbd>
+   * <kbd>[Backup](UserGuide.md#backup--backup)</kbd> Command
+   * <kbd>[Directory](UserGuide.md#change-working-directory--directory)</kbd> Command
+* Code written: <kbd>[Functional code](../collated/main/A0147944U.md)</kbd> <kbd>[Test code](../collated/test/A0147944U.md)</kbd> <kbd>[Docs](../collated/docs/A0147944U.md)</kbd>
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
   * Improve Regex for CommandParser
