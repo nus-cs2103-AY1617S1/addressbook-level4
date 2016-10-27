@@ -514,7 +514,6 @@ public class Parser {
 			default:
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
 			final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
-			System.out.println(nameKeyword);
 			return new FindCommand(nameKeyword, "name");
 			}
 		}
