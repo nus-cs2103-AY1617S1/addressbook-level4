@@ -162,8 +162,6 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add n/[]\\[;] d/11.12.2016", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add n/Valid Name d/not_numbers", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        assertCommandBehavior(
                 "add n/Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
