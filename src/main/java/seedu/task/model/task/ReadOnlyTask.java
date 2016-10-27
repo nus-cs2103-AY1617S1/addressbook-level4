@@ -9,16 +9,30 @@ import seedu.task.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    //@@author A0144939R
     DateTime getOpenTime();
     DateTime getCloseTime();
     boolean getImportance();
     boolean getComplete();
+    int getRecurrentWeek();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the tasks's internal tags.
      */
     UniqueTagList getTags();
+    
+    /**
+     * Equality based on what is shown to the user. Useful for tests.
+     */
+    default boolean isSameVisualStateAs(ReadOnlyTask other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getOpenTime().toPrettyString().equals(this.getOpenTime().toPrettyString())
+                && other.getCloseTime().toPrettyString().equals(this.getCloseTime().toPrettyString())
+                && other.getImportance() == this.getImportance());
+    }
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -26,12 +40,10 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
-                /**
+                && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getOpenTime().equals(this.getOpenTime())
                 && other.getCloseTime().equals(this.getCloseTime())
                 && other.getImportance() == this.getImportance());
-                **/
     }
 
     /**

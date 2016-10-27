@@ -75,14 +75,14 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SDforDeleteTask.png" width="800">
+<img src="images\SDforAddTask.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManager ChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforAddTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -123,7 +123,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 
-<img src="images/deleteTaskSdForLogic.jpg" width="800"><br>
+<img src="images/addTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
@@ -240,6 +240,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+<!-- @@author A0153467Y-->
 ## Appendix A : User Stories
  
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -391,8 +392,26 @@ Use case ends.
 > Nothing will be returned. <br>
 Use case ends.
 
+<!-- @@author A0144939R -->
+#### Use case: Change storage location
 
+**MSS**
 
+1. User requests to change storage file location
+2. MESS changes storage file location and saves in that location
+
+**Extensions**
+2a. The file path may not be valid
+
+> Error message will be displayed <br>
+Use case ends.
+
+2b. The folder may not be writable(Lack permission)
+
+> Error message will be displayed <br>
+Use case ends.
+
+<!-- @@author -->
 ## Appendix C : Non Functional Requirements
  
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
@@ -410,6 +429,7 @@ Use case ends.
  
 > Windows, Linux, Unix, OS-X
 
+<!-- @@author-->
 ## Appendix E : Product Survey
  
 ### Google Calendar
@@ -427,7 +447,8 @@ Use case ends.
 2. No analysis, summary nor statistics of data the user has entered
 3. No anonymous use; must have a google account
 4. Calendar cannot display a filtered set, thus clutter when high volume of data
- 
+
+<!-- @@author A0153467Y-->
 ### Todo.txt (laptop version)
 #### Strength:
 1. Simple editors(use CLI) to manage tasks

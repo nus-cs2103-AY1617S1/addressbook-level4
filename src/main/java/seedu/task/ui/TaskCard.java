@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
@@ -25,41 +26,53 @@ public class TaskCard extends UiPart{
     
     @FXML
     private SVGPath star;
-    
+    //@@author A0144939R
     @FXML
     private Label openTime;
     
     @FXML
     private Label closeTime;
+    //@@author
+    @FXML
+    private VBox cardDetails;
 
     @FXML
     private AnchorPane tagsListPlaceholder;
 
     private ReadOnlyTask task;
     private int displayedIndex;
+    private boolean isSelected;
     private TagListPanel tagListPanel;
 
     public TaskCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex, boolean isSelected){
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
+        card.isSelected = isSelected;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
+        setCardDetails();
+        setVisualFlags();
+        showExtendedInformation();
+    }
+    //@@author A0144939R
+    private void setCardDetails() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-        openTime.setText("Start: "+task.getOpenTime().toPrettyString());
-        closeTime.setText("End: "+task.getCloseTime().toPrettyString());
+        
+        openTime.setText(task.getOpenTime().toPrettyString());
+        closeTime.setText(task.getCloseTime().toPrettyString());
+        
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
-        setVisualFlags();
     }
-    
+    //@@author
     private void setVisualFlags() {
         if (!task.getImportance()) {
             star.setOpacity(0.0);
@@ -69,6 +82,11 @@ public class TaskCard extends UiPart{
             cardPane.setId("cardPane-completed");
             name.setStrikethrough(true);
         }
+    }
+    
+    private void showExtendedInformation() {
+        cardDetails.managedProperty().bind(cardDetails.visibleProperty());
+        cardDetails.setVisible(isSelected);
     }
 
     public HBox getLayout() {

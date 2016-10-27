@@ -1,3 +1,4 @@
+//@author A0144939R
 package seedu.task.model.task;
 
 import java.time.Instant;
@@ -18,15 +19,15 @@ public class Task implements ReadOnlyTask {
     private DateTime closeTime;
     private boolean isCompleted;
     private boolean isImportant;
+    private int recurrentWeek;
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
-
     /**
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
+    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags, int recurrentWeek) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
@@ -34,6 +35,7 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = isCompleted;
         this.isImportant = isImportant;
+        this.recurrentWeek=recurrentWeek;
         if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
@@ -57,9 +59,8 @@ public class Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags(), source.getRecurrentWeek());
     }
-
     @Override
     public Name getName() {
         return name;
@@ -74,7 +75,8 @@ public class Task implements ReadOnlyTask {
     public DateTime getCloseTime() {
         return closeTime;
     }
-    
+
+    //@@author A0153467Y
     @Override
     public boolean getImportance() {
         return isImportant;
@@ -84,7 +86,13 @@ public class Task implements ReadOnlyTask {
     public boolean getComplete() {
         return isCompleted;
     }
+    //@@author
 
+    @Override
+    public int getRecurrentWeek() {
+        return recurrentWeek;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -96,7 +104,7 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    
+    //@@author A0153467Y
     /**
      * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
      */
@@ -108,18 +116,23 @@ public class Task implements ReadOnlyTask {
             return null;
         }
     }
-
+    
+    /**
+     * Sets the task's importance flag
+     * @param isImportant is a variable to show whether the task is important or not
+     */
     public void setIsImportant(boolean isImportant) {
         this.isImportant = isImportant;
     }
 
     /**
      * Sets the task's completion flag
+     * @param isCompleted is a variable which shows whether the task is completed or not
      */
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    
+	//@@author 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

@@ -24,9 +24,12 @@
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`1`: delete the first task in the list
    * **`complete`** `1`: mark the first task as completed
+   * **`uncomplete`** `1`: mark the completed first task on the list as not completed
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
+   * **'change-to'**`1`: change the storage location
+   * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -41,7 +44,7 @@
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG r/NUMBER_OF_WEEKLY_RECURRING_TASK]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
@@ -49,6 +52,7 @@ Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
+* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 
 Examples:
@@ -57,10 +61,12 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
 * `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
+* `add test s/today r/1` <br> Adds a task start today and recur for one more week.
 
 Examples on date time flexibility:
 * `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
 
+<!-- @@author A0153467Y-->
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -83,8 +89,18 @@ Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
    
+#### Unarking a completed task as not completed: `uncomplete`
+Unmarks a completed specific task as not completed by index from the to-do list.<br>
+FormatL `uncomplete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `uncomplete 2`<br>
+   Unmarks the completed second task on the list as not completed.
+   
 #### Pin: `pin`
-Pin a important task.<br>
+Pin an important task.<br>
 Format: `pin INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
@@ -92,6 +108,16 @@ Format: `pin INDEX`
 Example:
 * `pin 1`<br>
 pin the first task to show that it is an important task.
+
+#### Unpin: `unpin`
+Unpin a previously pinned task.<br>
+Format: `unpin INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `unpin 1`<br>
+unpin the pinned and first task on the list. 
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
@@ -104,7 +130,6 @@ Format: `find KEYWORD` or `find t/TAG`
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 > * Only task name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
 	e.g. `Hans` will match `Hans Bo`
 
@@ -114,6 +139,15 @@ Examples:
 * `find t/cs2103`<br>
   Returns tasks having tag `cs2103`
 
+<!-- @@author A0141052Y -->
+#### Activate real time search: `searchbox`
+Activates the real time search, which is located in the same input box used to input commands.<br/>
+Format: `searchbox`
+
+> * To exit from real time search, just hit <kbd>Enter</kbd>.
+> * Similar functionality to `find`
+
+<!-- @@author -->
 
 #### Update entries : `update`
 Update a specific task.<br>
@@ -137,6 +171,7 @@ Examples:
 * `update 2 t/family rt/friends` <br>  
    add a tag family to the second task and remove the tag named friends
 
+<!-- @@author A0153467Y-->
 #### Undo action : `undo`
 Undo the previous action.<br>
 Format: `undo`
@@ -154,6 +189,15 @@ Format: `exit`
 #### Saving the data
 To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+<!-- @@author A0144939R -->
+
+#### Change storage location : `change-to`
+Shows a list of tasks and events in the todo list.<br>
+Format: `change-to NEWFILEPATH`
+Example: 'change-to data/taskmanager.xml'
+
+<!-- @@author -->
 
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
@@ -174,10 +218,13 @@ Command | Format
 Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
 Complete | `complete INDEX`
+Uncomplete | `uncomplete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 Undo | `undo`
 Pin | `pin`
+Unpin | `unpin`
+Live Search | `searchbox`
 Help | `help`
 Exit | `exit`

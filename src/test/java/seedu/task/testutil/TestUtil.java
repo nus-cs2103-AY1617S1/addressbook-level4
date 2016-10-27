@@ -62,19 +62,19 @@ public class TestUtil {
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] sampleTaskData = getSampleTaskData();
-
+    //@@author A0144939R
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList() ),
-                    new Task(new Name("Boris Mueller"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("George Best"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList()),
+                    new Task(new Name("Ali Muster"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0 ),
+                    new Task(new Name("Boris Mueller"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(),0),
+                    new Task(new Name("Carl Kurz"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("Daniel Meier"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("Elle Meyer"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("Fiona Kunz"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("George Best"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("Hoon Meier"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
+                    new Task(new Name("Ida Mueller"), new DateTime(null), new DateTime(null), false, false, new UniqueTagList(), 0),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -82,7 +82,7 @@ public class TestUtil {
             return null;
         }
     }
-
+    //@@author
     public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {

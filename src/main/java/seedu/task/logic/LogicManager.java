@@ -6,11 +6,13 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.UndoableCommand;
-import seedu.task.logic.parser.Parser;
+import seedu.task.logic.parser.ParseSwitcher;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.storage.Storage;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 /**
@@ -20,12 +22,12 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Parser parser;
+    private final ParseSwitcher parser;
     private UndoableCommand previousCommand;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.parser = new Parser();
+        this.parser = new ParseSwitcher();
         this.previousCommand = null;
     }
 
@@ -42,6 +44,12 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+
+    //@@author A0141052Y
+    @Override
+    public void updateTaskListFilter(String keyword) {
+        model.updateFilteredTaskList(new HashSet<String>(Arrays.asList(keyword)));
     }
     
     private void setPreviousCommand(boolean isSuccessful, Command command) {
