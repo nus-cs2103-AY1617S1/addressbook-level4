@@ -64,13 +64,6 @@ public class TaskDate {
     public boolean isBefore(TaskDate other) {
         return this.date.isBefore(other.getDate());
     }
-    
-    /**
-     * Returns true if this date is equals to the given date.
-     */
-    public boolean isEquals(TaskDate other) {
-        return this.date.equals(other.getDate());
-    }
 
     public LocalDate getDate() {
         return this.date;

@@ -118,6 +118,7 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
+<!-- @@author A0138601M -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -126,10 +127,11 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the Address Book data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
+* Stores the To Do List data
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
+<!-- @@author -->
 
 ### Storage component
 
@@ -265,6 +267,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | summon the software quickly by pressing a keyboard shortcut | save time
 `*` | user | synchronize my tasklist among all my devices | check my tasks wherever I am
 
+<!-- @@author A0138601M -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Task!t` and the **Actor** is the `user`, unless specified otherwise)
@@ -385,7 +388,7 @@ Use case ends.
 > 3c1. Task!t shows a 'task already marked' message.<br>
 > Use case resumes at step 3
 
-###Use case: Remove the done mark of task
+<!-- ###Use case: Remove the done mark of task
 
 **MSS**
 
@@ -406,7 +409,7 @@ Use case ends.
 
 3b. The task is not marked as done
 > 3b1. Task!t shows a 'the task is not marked as done' message <br>
-> Use case resumes at step 2
+> Use case resumes at step 2 -->
 
 #### Use case: Delete task
 
@@ -441,6 +444,7 @@ Use case ends.
 2a. The given path is invalid
 > 2a1. Task!t shows a 'invalid path' message<br>
 > Use case ends
+<!-- @@author -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -458,7 +462,6 @@ Use case ends.
 12. Should be free and come with open source code
 
 
-
 ## Appendix D : Glossary
 
 ##### Mainstream OS
@@ -470,7 +473,7 @@ Use case ends.
 > An item in Task!t, could be an event, a deadline, or a reminder.
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0138601M -->
 #### Google Calendar
 Pros:
 * Able to color-code different events
@@ -479,12 +482,14 @@ Pros:
 * Able to add notes (i.e. location, remarks)
 * Able to sync on different devices
 * Able to share calendar
+* Able to create layers to manege events
 * Able to undo last action <br>
 
 Cons:
 * Unable to check off completed event (only reminder can)
+* Unable to label event with categories
 * Event name gets truncated <br>
-
+<!-- @@author -->
 #### S Planner
 Pros:
 * Able to sync with another calendar product(i.e. Google calendar)

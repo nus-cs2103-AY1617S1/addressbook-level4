@@ -4,7 +4,7 @@ package seedu.todolist.model.task;
  * A read-only immutable interface for a Task in the to-do list.
  * Implementations should guarantee: name is present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
 
     Name getName();
     Interval getInterval();

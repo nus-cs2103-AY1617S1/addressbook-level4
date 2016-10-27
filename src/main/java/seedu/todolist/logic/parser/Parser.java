@@ -90,7 +90,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
             
         case SetstorageCommand.COMMAND_WORD:
             return prepareSetstorage(arguments);
@@ -229,21 +229,29 @@ public class Parser {
     }
     //@@author
 
-    /**
+    /**@author A0146682X
      * Parses arguments in the context of the edit task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
+    	
+    	Matcher index_matcher = Pattern.compile("\\d+").matcher(args);
+    	index_matcher.find();
+    	
+    	int index;
+    	
+    	try {
+    		index = Integer.valueOf(index_matcher.group());
+    	} catch (IllegalStateException e) {
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	}
 
-        int index = Character.getNumericValue(args.charAt(1));
-        if(!(index>=0)){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.substring(2));
+    	String[] content = args.split("\\d+", 2);
+
+        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(content[1]);
+ 
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -280,6 +288,7 @@ public class Parser {
         return new DeleteCommand(indexes);
     }
 
+    //@@author A0138601M
     /**
      * Returns an int[] if valid indexes are provided.
      * throws IllegalValueException indexes are invalid
@@ -314,7 +323,9 @@ public class Parser {
         }
         return indexes;
     }
-
+    //@@author
+    
+    //@@author A0153736B
     /**
      * Parses arguments in the context of the find task command.
      *
@@ -331,7 +342,17 @@ public class Parser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        String findType = "null";
+        if (keywords[0].equals("all") || keywords[0].equals("exactly")) {
+        	findType = keywords[0];
+        	keywordSet.remove(keywords[0]);
+        }
+        return new FindCommand(keywordSet, findType);
+    }
+    
+    private Command prepareList(String args) {
+    	final String dateFilter = args.trim();
+    	return new ListCommand(dateFilter);
     }
     
     /**

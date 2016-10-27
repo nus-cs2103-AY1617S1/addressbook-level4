@@ -10,20 +10,23 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any or all of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: [FINDTYPE] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " exactly alice bob charlie";
 
     private final Set<String> keywords;
-
-    public FindCommand(Set<String> keywords) {
+    private final String findType;
+  
+    //@@author A0153736B
+    public FindCommand(Set<String> keywords, String findType) {
         this.keywords = keywords;
+        this.findType = findType;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredTaskList(keywords, findType);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredAllTaskList().size()));
     }
 

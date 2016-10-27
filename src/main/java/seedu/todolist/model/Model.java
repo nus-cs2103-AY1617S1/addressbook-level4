@@ -5,6 +5,7 @@ import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 
+import java.time.DateTimeException;
 import java.util.EmptyStackException;
 import java.util.Set;
 
@@ -21,11 +22,11 @@ public interface Model {
     /** Reverts the previous state of the AddressBook */
     void undoAddressBook() throws EmptyStackException;
     
-    /** Marks the given task as done. */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Marks the given task(s) as done. */
+    void markTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Deletes the given task(s). */
+    void deleteTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -45,8 +46,11 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords */
+    void updateFilteredTaskList(Set<String> keywords, String findType);
+    
+    /** Updates the filter of the filtered task list to filter by the given date filter */
+    void updateFilteredTaskList(String dateFilter) throws DateTimeException;
     
     /** Set the current tab the user is looking at */
     void setCurrentTab(String tab);

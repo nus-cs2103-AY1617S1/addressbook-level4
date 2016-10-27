@@ -2,12 +2,13 @@ package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
+import seedu.todolist.model.AddressBook;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the to-do list.
  */
 public class DeleteCommand extends Command {
 
@@ -28,7 +29,7 @@ public class DeleteCommand extends Command {
         this.targetIndexes = targetIndexes;
     }
 
-
+    //@@author A0138601M
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
@@ -42,21 +43,22 @@ public class DeleteCommand extends Command {
         
         if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }   
+        
+        ReadOnlyTask[] tasksToDelete = new ReadOnlyTask[targetIndexes.length];
+        for (int i = 0; i < targetIndexes.length; i++) {
+            tasksToDelete[i] = lastShownList.get(targetIndexes[i] - 1);         
         }
         
-        for (int i = 0; i < targetIndexes.length; i++) {
-            ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_DELETE_OFFSET));
-            
-            try {
-                model.deleteTask(taskToDelete);
-            } catch (TaskNotFoundException tnfe) {
-                assert false : "The target task cannot be missing";
-            }
-            
+        try {
+            model.deleteTask(tasksToDelete);
+        } catch (TaskNotFoundException tnfe) {
+            assert false : "The target task cannot be missing";
         }
-
+        
         return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
     }
+    //@@author
     
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
         for (int index : targetIndexes) {

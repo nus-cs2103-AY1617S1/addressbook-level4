@@ -38,14 +38,6 @@ public class CompleteTaskListPanelHandle extends GuiHandle {
     public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
-
-    /**
-     * Returns true if the list is showing the task details correctly and in correct order.
-     * @param tasks A list of task in the correct order.
-     */
-    public boolean isListMatching(ReadOnlyTask... tasks) {
-        return this.isListMatching(0, tasks);
-    }
     
     /**
      * Clicks on the ListView.
@@ -56,19 +48,28 @@ public class CompleteTaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
+     * Returns true if the {@code tasks} appear as the sub list (in that order).
      */
-    public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
+    public boolean containsInOrder(ReadOnlyTask... tasks) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + tasks.length > tasksInList.size()){
+
+        if (tasks.length > tasksInList.size()){
             return false;
+        }
+        
+        for (int i = 0; i < tasksInList.size(); i++) {
+            System.out.println(tasksInList.get(i).getNameAsText());
+        }
+        
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println(tasks[i].getNameAsText());
         }
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!tasksInList.get(i).equals(tasks[i])){
                 return false;
             }
         }
@@ -76,27 +77,28 @@ public class CompleteTaskListPanelHandle extends GuiHandle {
         return true;
     }
 
+    //@@author A0138601M
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
-        if (tasks.length + startPosition != getListView().getItems().size()) {
+    public boolean isListMatching(ReadOnlyTask... tasks) throws IllegalArgumentException {
+        if (tasks.length != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
-        assertTrue(this.containsInOrder(startPosition, tasks));
+        assertTrue(this.containsInOrder(tasks));
         for (int i = 0; i < tasks.length; i++) {
-            final int scrollTo = i + startPosition;
+            final int scrollTo = i;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+            if (!TestUtil.compareCardAndTask(getTaskCardHandle(i), tasks[i])) {
                 return false;
             }
         }
         return true;
     }
+    //@@author
 
 
     public TaskCardHandle navigateToTask(String name) {

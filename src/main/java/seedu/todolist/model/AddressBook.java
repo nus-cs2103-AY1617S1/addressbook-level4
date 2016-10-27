@@ -51,6 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tasks.getInternalList();
     }
     
+    //@@author A0138601M
     public ObservableList<Task> getCompletedTasks() {
         return tasks.getFilteredTaskList(Status.STATUS_COMPLETE);
     }
@@ -58,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Task> getIncompleteTasks() {
         return tasks.getFilteredTaskList(Status.STATUS_INCOMPLETE);
     }
+    //@@author
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
@@ -85,6 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.add(p);
     }
     
+    /**@author A0146682X
+     */
     public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.edit(key, replacement)) {
             return true;
@@ -92,17 +96,18 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    //@author
     
-    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.mark(key)) {
+    public boolean markTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.mark(keys)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
+    public boolean removeTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.remove(keys)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

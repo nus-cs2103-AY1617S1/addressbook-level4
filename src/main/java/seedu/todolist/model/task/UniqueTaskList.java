@@ -59,40 +59,49 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        Collections.sort(internalList);
     }
 
     /**
-     * Removes the equivalent task from the list.
+     * Removes the equivalent task(s) from the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyTask... toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
-        }
+        boolean taskFoundAndDeleted = false;
+        for (ReadOnlyTask task : toRemove) {
+            taskFoundAndDeleted = internalList.remove(task);
+            if (!taskFoundAndDeleted) {
+                throw new TaskNotFoundException();
+            }       
+        }      
         return taskFoundAndDeleted;
     }
     
+    //@@author A0138601M
     /**
-     * Marks the equivalent task in the list.
+     * Marks the equivalent task(s) in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
+    public boolean mark(ReadOnlyTask... toMark) throws TaskNotFoundException {
         assert toMark != null;
-        final boolean taskFound = (internalList.indexOf(toMark) != -1);
-        toMark.getStatus().setStatus(true);
-        internalList.remove(toMark);
-        internalList.add((Task)toMark);
-        if (!taskFound) {
-            throw new TaskNotFoundException();
+        boolean taskFound = false;
+        for (ReadOnlyTask task : toMark) {
+        	taskFound = (internalList.indexOf(task) != -1);
+        	if (!taskFound) {
+                throw new TaskNotFoundException();
+            }
+        	Task taskMarked = new Task(task.getName(), task.getInterval(), task.getLocation(), task.getRemarks(), new Status(true));
+        	internalList.set(internalList.indexOf(task), taskMarked);
         }
+        Collections.sort(internalList);
         return taskFound;
     }
+    //@@author
     
-    /**
+    /**@author A0146682X
      * Edits the equivalent task in the list.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
