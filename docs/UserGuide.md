@@ -60,7 +60,7 @@
 
 ### When you have a new deadline, task or event
 
-[comment]: # (@@author )
+[comment]: # (@@author A0065571A)
 
 #### Add a deadline
 
@@ -253,7 +253,7 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console displays deleted item in second box and refreshes list of items.
 
-[comment]: # (@@author)
+[comment]: # (@@author A0065571A)
 
 ### When you are done with a deadline, task or event
 

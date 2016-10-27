@@ -82,7 +82,7 @@ command `edit 1 n/Survive`.
 
 <img src="images\SDforEditItem.png" width="800">
 
-[comment]: # (@@author )
+[comment]: # (@@author A0065571A)
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.

@@ -59,7 +59,7 @@ public class AddCommand extends Command {
     	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
     }
     
-  //@@author 
+    //@@author A0065571A
     /**
      * Convenience constructor using raw values.
      *
