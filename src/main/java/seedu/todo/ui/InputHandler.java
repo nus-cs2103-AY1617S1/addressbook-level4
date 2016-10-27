@@ -136,6 +136,7 @@ public class InputHandler {
     
     private Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
+                                  new UnaliasController(),
                                   new HelpController(),
                                   new AddController(),
                                   new ListController(),
