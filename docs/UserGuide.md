@@ -35,7 +35,7 @@ Format: **`help`**
  
 ### Adding a task : `add`
 Add a task to Task!t.<br>
-Format: **`add`**` [task_name] [time parameter] [optional parameter 1] [optional parameter 2]...`<br>
+Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`<br>
  
 > ##### Time parameter
 > One of the following parameters must be appended to the add command. <br>
@@ -95,7 +95,7 @@ Format: **`add`**` [task_name] [time parameter] [optional parameter 1] [optional
 
 Examples:
 * **`add`**` Prepare meeting agenda `**`by`**` 11:00 7 oct 2016`
-* **`add`**` Jimmy's wedding banquet `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016` `**`at`**` Trinity Church
+* **`add`**` Jimmy's wedding banquet `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016` **`at`**` Trinity Church`
 
 ### Listing all tasks : `list`
 Shows the list of all tasks sorted temporally with the most recent ones displayed first.<br>
@@ -237,7 +237,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | **`add`**` [task_name] [time parameter] [optional parameter 1] [optional parameter 2]...`
+Add | **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`
 Clear | **`clear`**
 Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
