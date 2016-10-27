@@ -4,11 +4,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ArgumentTokenizerTest {
-    private final Prefix unknownPrefix = new Prefix("/uuuuuu");
-    private final Prefix tagPrefix = new Prefix("/t");
-    private final Prefix dateTimePrefix = new Prefix("/dt");
-    private final Prefix namePrefix = new Prefix("/n");
+    private static final Prefix unknownPrefix = new Prefix("/uuuuuu");
+    private static final Prefix tagPrefix = new Prefix("/t");
+    private static final Prefix dateTimePrefix = new Prefix("/dt");
+    private static final Prefix namePrefix = new Prefix("/n");
 
     @Test
     public void accessors_notTokenizedYet() {
@@ -89,7 +91,7 @@ public class ArgumentTokenizerTest {
         
         tokenizer.tokenize("SomePreambleString /n /t dashT-Value /t another");
         assertPreamblePresent(tokenizer, "SomePreambleString");
-        assertArgumentPresent(tokenizer, tagPrefix, "dashT-Value", "another dashT value");
+        assertArgumentPresent(tokenizer, tagPrefix, "dashT-Value", "another");
         assertArgumentPresent(tokenizer, namePrefix, "/n");
     }
 
@@ -115,9 +117,10 @@ public class ArgumentTokenizerTest {
         assertEquals(expectedValues.length, argsTokenizer.getMultipleValues(prefix).get().size());
 
         // Verify all values returned are as expected and in order
-        for (int i = 0; i < expectedValues.length; i++) {
-            // assertEquals(expectedValues[i],
-            // argsTokenizer.getMultipleValues(prefix).get().get(i));
-        }
+        final AtomicInteger count = new AtomicInteger();
+        argsTokenizer.getMultipleValues(prefix).get().forEach((v) -> {
+            assertEquals(expectedValues[count.getAndIncrement()], v);
+        });
+        
     }
 }
