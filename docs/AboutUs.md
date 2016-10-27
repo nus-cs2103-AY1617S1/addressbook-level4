@@ -42,6 +42,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Back-end]()
 * Aspect/tools in charge of:
 * Features implemented:  
+ * [Add]() - To Different Lists
  * [Undone]()
  * [Edit]()
 * Code written: [[stub entry]()]
