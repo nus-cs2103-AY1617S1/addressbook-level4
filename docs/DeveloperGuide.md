@@ -269,7 +269,7 @@ b. Require developers to download those libraries manually (this creates extra w
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
+	//@@author A0153411W
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *`| new user | view more information about a particular command | learn how to use various commands 
@@ -281,7 +281,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
 `* *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
-
+	//@@author
 
 //to do
 `* *`| user | specify which folder path to save my file | organize my task manager easily
@@ -315,7 +315,7 @@ Use Case ends
        1a.User enter an invalid command
        >1a1. System show error message
        Use case ends.
-              
+//@@author A0153411W       
 #### Use case: UC02 Add an event 
 Actor: User<br>
 
@@ -398,7 +398,7 @@ Use Case end.
     2a. There are no upcoming task to be found
     >2a1. System shows a message no upcoming task are found.
     Use case ends
-
+//@@author 
 #### Use case: UC06 Delete task
    Actor: User<br>
 
@@ -417,7 +417,7 @@ Use Case end.
        4a. System is unable to delete due to failed to connect to database.
        >4a1. System shows connection has failed message.
        Use case resume at step 1.
-
+//@@author A0153411W
 #### Use case: UC07 edit task details
    Actor: User<br>
 
@@ -497,7 +497,7 @@ Use Case end.
     1a. Thete is nothing to undo
     >1a1. System shows an error message
     Use case finishes.
-
+//@@author 
 
 
 {More to be added}

@@ -53,7 +53,7 @@ Adds a task which has a start time and end time.
 User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
 * `add Birthday Party d/Edwin's birthday party sd/08-01-2012 10:00 dd/08-01-2012 23:00`
 * `add Soccer match d/Champion League sd/08-01-2012 18:00 dd/08-01-2012 20:00 i/8 ti/7`
-
+	//@@author A0153411W
 #### Adding a deadline
 Adds a task that have to be done before a specific deadline. 
 User has to specify TITLE, DESCRIPTION and DUE_DATE.
@@ -66,13 +66,14 @@ User has to specify TITLE, DESCRIPTION.
 * `add Homework d/ProgrammingEx1`
 * `add Assignment d/Math i/4 ti/7`
 
+<a id="adding-duplicated--add" class="anchor" href="#listing-all-persons--list" aria-hidden="true">
 #### Adding duplicated tasks
 Adds a task with specific interval. START_DATE and DUE_DATE(if specified) will by adjusted accordingly to interval. 
 User has to specify INTERVAL or TIME_INTERVAL.
 * `add Homework d/ProgrammingEx1 i/2 dd/10-01-2012`
 * `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
 
-
+	//@@author 
 ### List tasks : `list`
 Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
@@ -97,6 +98,7 @@ Format: `save folderpath`
 Example:
 * `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.
 
+<a id="undo-method--undo" class="anchor" href="#listing-all-persons--list" aria-hidden="true">
 #### Undo the last executed command: `undo`
 Restore the task manager to the state before command was executed 
 Format: `undo`
@@ -161,7 +163,7 @@ Undo | `undo`
 Save | `save`
 Help | `help`
 Color | `color`
-
+	//@@author A0153411W
 ## Parameters 
 Parameter     | Flag  |  Format           | Required                          | Meaning
 TITLE         |       |  Text             |   Yes                             | Title of a task 
@@ -170,4 +172,4 @@ START_DATE    |  /sd  |  Date(DD-MM-YYYY) |   NO                              | 
 DUE_DATE      |  /dd  |  Date(DD-MM-YYYY) |   YES(if START_DATE is specified) | Due Date of a task
 INTERVAL      |  /i   |  Integer Number   |   NO                              | Interval of a task specifies how many times should be duplicated
 TIME_INTERVAL |  /ti  |  Integer Number   |   NO                              | Time interval of a task specifies how many days are between duplicated tasks
-
+	//@@author
