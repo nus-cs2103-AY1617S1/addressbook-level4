@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
+import seedu.todo.guitests.guihandles.TaskListTaskItemHandle;
 import seedu.todo.models.Task;
 
 import static seedu.todo.testutil.AssertUtil.assertSameDate;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -60,6 +62,7 @@ public class AddTaskCommandTest extends GuiTest {
         assertSameDate(taskDate, dateItem);
         
         // Check TaskListDateItem if it contains the TaskListTaskItem with the same data.
-        // TODO
+        TaskListTaskItemHandle taskItem = dateItem.getTaskListTaskItem(taskToAdd.getName());
+        assertEquals(taskItem.getName(), taskToAdd.getName());
     }
 }
