@@ -48,7 +48,7 @@ public abstract class Command {
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
-    protected void indicateStorageDataPathChangeCommand(String oldDataPath, String newDataPath) {
-        EventsCenter.getInstance().post(new StorageDataPathChangedEvent(oldDataPath, newDataPath));
+    protected void indicateStorageDataPathChangeCommand(String newDataPath) {
+        EventsCenter.getInstance().post(new StorageDataPathChangedEvent(newDataPath));
     }
 }

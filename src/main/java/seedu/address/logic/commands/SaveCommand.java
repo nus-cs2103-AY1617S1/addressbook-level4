@@ -36,62 +36,80 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_PATH_IS_NOT_A_DIRECTORY = "The path given does not refer to a folder.";
     public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
     public static final String MESSAGE_CONFIG_FILE_CANNOT_LOAD = "config.json file cannot be found.";
-    public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
+	public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
 
+    
     private final String dirPath;
 
     /**
-     * Constructor
-     *
-     * @throws IllegalValueException
-     *             if any of the raw values are invalid
-     */
-    public SaveCommand(String dirPath) {
-        this.dirPath = dirPath;
-    }
-
-    @Override
-    public CommandResult execute() {
-
-        // Creates the folder if the file does not exist
-        File f = new File(dirPath);
-        if (!f.exists()) {
-            try {
-                f.mkdirs();
-            } catch (SecurityException e) {
-                return new CommandResult(MESSAGE_FOLDER_CANNOT_BE_CREATED);
-            }
+	 * Constructor
+	 *
+	 * @throws IllegalValueException
+	 *             if any of the raw values are invalid
+	 */
+	public SaveCommand(String dirPath) {
+		this.dirPath = dirPath;
+	}
+	
+	@Override
+	public CommandResult execute() {
+		String dirPathArgs = dirPath.trim();
+		
+        String operatingSystem = System.getProperty("os.name");
+        if (operatingSystem.startsWith("Windows")) { // windows formatting
+        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "\\\\\\\\");
+        	dirPathArgs = dirPathArgs.replaceAll("/", "\\\\\\\\");
+        	
+        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '\\') {
+        		dirPathArgs = dirPathArgs + "\\\\";
+        	}
+        } else { // unix formatting
+        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "/");
+        	
+        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '/') {
+        		dirPathArgs = dirPathArgs + "/";
+        	}
         }
-        String filePath = dirPath + "task.xml";
+        
+		
+		File f = new File(dirPathArgs);
+		
+		// Creates the folder if the file does not exist
+		if (!f.exists()) {
+			try {
+				f.mkdirs();
+			} catch (SecurityException e) {
+				return new CommandResult(MESSAGE_FOLDER_CANNOT_BE_CREATED);
+			}
+		}
+		String filePath = dirPathArgs + "task.xml";
+		
+		// Checks if the given path is a directory and not a file
+		if (!f.isDirectory())
+			return new CommandResult(MESSAGE_PATH_IS_NOT_A_DIRECTORY);
 
+		Config config;
+		try {
+			config = ConfigUtil.readConfig(configFilePath).orElse(new Config());
 
-        // Checks if the given path is a directory and not a file
-        if (!f.isDirectory())
-            return new CommandResult(MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+			// Moves the old task.xml file to the new location
+			File oldDataPath = new File(config.getAddressBookFilePath());
+			if (filePath.equals(oldDataPath.toString())) {
+				return new CommandResult(MESSAGE_LOCATION_SPECIFIED_SAME);
+			}
+			File newDataPath = new File(filePath);
+			oldDataPath.renameTo(newDataPath);
 
-        Config config;
-        try {
-            config = ConfigUtil.readConfig(configFilePath).orElse(new Config());
+			changeConfigPaths(filePath);
+			
+			indicateStorageDataPathChangeCommand(newDataPath.toString());
+			
+		} catch (DataConversionException e) {
+			return new CommandResult(MESSAGE_CONFIG_FILE_CANNOT_LOAD);
+		}
 
-            // Moves the old task.xml file to the new location
-            File oldDataPath = new File(config.getAddressBookFilePath());
-            if (filePath.equals(oldDataPath.toString())) {
-                return new CommandResult(MESSAGE_LOCATION_SPECIFIED_SAME);
-            }
-            File newDataPath = new File(filePath);
-            oldDataPath.renameTo(newDataPath);
-
-            changeConfigPaths(filePath);
-
-            indicateStorageDataPathChangeCommand(oldDataPath.toString(), newDataPath.toString());
-
-        } catch (DataConversionException e) {
-            return new CommandResult(MESSAGE_CONFIG_FILE_CANNOT_LOAD);
-        }
-
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
-
+		return new CommandResult(MESSAGE_SUCCESS);
+	}
 
 
     /**

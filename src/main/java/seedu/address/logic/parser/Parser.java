@@ -67,14 +67,14 @@ public class Parser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim().toLowerCase());
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -307,6 +307,8 @@ public class Parser {
         }
     }
     
+    
+    //@@author A0139528W
     /**
      * Parses arguments in the context of the save folder command.
      *
@@ -314,12 +316,14 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSave(String args) {
-    	if (args.charAt(args.length()-1) != '/') {
-    		args = args.trim() + "/";
-    	}
+        if (args.trim().length() == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SaveCommand.MESSAGE_USAGE));
+        }
     	
 		return new SaveCommand(args);
 	}
+    //@@author
     
 
 }

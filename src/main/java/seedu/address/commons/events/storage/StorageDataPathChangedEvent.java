@@ -10,11 +10,9 @@ import seedu.address.commons.events.BaseEvent;
 
 public class StorageDataPathChangedEvent extends BaseEvent {
 	
-	public final String oldDataPath;
 	public final String newDataPath;
 
-	public StorageDataPathChangedEvent(String oldDataPath, String newDataPath) {
-		this.oldDataPath = oldDataPath;
+	public StorageDataPathChangedEvent(String newDataPath) {
 		this.newDataPath = newDataPath;
 	}
 
