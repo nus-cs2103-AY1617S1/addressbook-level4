@@ -5,6 +5,7 @@ import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 
+import java.time.DateTimeException;
 import java.util.EmptyStackException;
 import java.util.Set;
 
@@ -45,8 +46,11 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords, String findType);
+    
+    /** Updates the filter of the filtered task list to filter by the given date filter */
+    void updateFilteredTaskList(String dateFilter) throws DateTimeException;
     
     /** Set the current tab the user is looking at */
     void setCurrentTab(String tab);

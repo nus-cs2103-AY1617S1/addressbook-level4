@@ -89,7 +89,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -335,6 +335,11 @@ public class Parser {
         	keywordSet.remove(keywords[0]);
         }
         return new FindCommand(keywordSet, findType);
+    }
+    
+    private Command prepareList(String args) {
+    	final String dateFilter = args.trim();
+    	return new ListCommand(dateFilter);
     }
 
 }
