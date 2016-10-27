@@ -15,7 +15,7 @@ import seedu.todo.commons.util.StringUtil;
  */
 public class CommandPreview {
     private static final int COMMAND_INDEX = 0;
-    private static final double CLOSENESS_THRESHOLD = 30d;
+    private static final double CLOSENESS_THRESHOLD = 50d;
     private List<CommandSummary> commandSummaries;
 
     public CommandPreview(String userInput) {
@@ -39,11 +39,15 @@ public class CommandPreview {
                 .split(input.toLowerCase()));
         
         String command = inputList.get(COMMAND_INDEX);
-
-        CommandMap.getCommandMap().keySet().parallelStream().filter(key ->
-                StringUtil.calculateClosenessScore(key, command) > CLOSENESS_THRESHOLD || key.startsWith(command))
-            .forEach(key -> summaries.addAll(CommandMap.getCommand(key).getCommandSummary()));
-
+        
+        // Appends all command summaries to summaries if they fit the criteria
+        CommandMap.getCommandSummaryMap().forEach((key, value) -> {
+            boolean isRelevantCommand = StringUtil.calculateClosenessScore(key, command) > CLOSENESS_THRESHOLD || 
+                    key.startsWith(command);
+            if (isRelevantCommand) {
+                summaries.addAll(value);
+            }
+        });
         return summaries;
     }
 }

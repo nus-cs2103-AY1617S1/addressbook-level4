@@ -15,14 +15,10 @@ import java.util.List;
  */
 public class HelpCommand extends BaseCommand {
     private final static String HELP_MESSAGE = "Showing help...";
-    
-    private static List<CommandSummary> commandSummaries;
 
     @Override
     public CommandResult execute() throws ValidationException {
-        if (commandSummaries == null) {
-            commandSummaries = collectCommandSummaries();
-        }
+        List<CommandSummary> commandSummaries = CommandMap.getAllCommandSummary();
         
         EventsCenter.getInstance().post(new ShowHelpEvent(commandSummaries));
         return new CommandResult(HelpCommand.HELP_MESSAGE);
@@ -41,13 +37,5 @@ public class HelpCommand extends BaseCommand {
     @Override
     public List<CommandSummary> getCommandSummary() {
         return ImmutableList.of(new CommandSummary("Show help", getCommandName()));
-    }
-    
-    private List<CommandSummary> collectCommandSummaries() {
-        List<CommandSummary> summaries = new ArrayList<>();
-        for (String key : CommandMap.getCommandMap().keySet()) {
-            summaries.addAll(CommandMap.getCommand(key).getCommandSummary());
-        }
-        return summaries;
     }
 }

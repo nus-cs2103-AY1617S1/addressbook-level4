@@ -2,6 +2,7 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ public class CommandMap {
     );
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;
+    private static Map<String, List<CommandSummary>> commandSummaryMap;
     
     private static void buildCommandMap() {
         commandMap = new LinkedHashMap<>();
@@ -36,6 +38,13 @@ public class CommandMap {
         for (Class<? extends BaseCommand> command : CommandMap.commandClasses) {
             String commandName = getCommand(command).getCommandName().toLowerCase();
             commandMap.put(commandName, command);
+        }
+    }
+    
+    private static void buildCommandSummariesMap() {
+        commandSummaryMap = new LinkedHashMap<>();
+        for (String key : getCommandMap().keySet()) {
+            commandSummaryMap.put(key, CommandMap.getCommand(key).getCommandSummary());
         }
     }
 
@@ -58,5 +67,23 @@ public class CommandMap {
             e.printStackTrace();
             return null; // This shouldn't happen
         }
+    }
+    
+    public static Map<String, List<CommandSummary>> getCommandSummaryMap() {
+        if (commandSummaryMap == null) {
+            buildCommandSummariesMap();
+        }
+        
+        return commandSummaryMap;
+    }
+    
+    public static List<CommandSummary> getAllCommandSummary() {
+        List<CommandSummary> commandSummariesList = new ArrayList<>();
+        commandSummaryMap.values().forEach(commandSummariesList::addAll);
+        return commandSummariesList;
+    }
+    
+    public static List<CommandSummary> getListOfCommandSummary(String key) {
+        return getCommandSummaryMap().get(key);
     }
 }
