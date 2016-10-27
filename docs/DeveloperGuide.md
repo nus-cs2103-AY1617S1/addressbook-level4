@@ -270,6 +270,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete an existing task | delete entries that I no longer need to do.
 `* * *` | user | undo a reversible action | quickly change any accidental actions. 
 `* * *` | user | mark a task as done | keep track of what I have not done. 
+`* * *` | user | change the data storage location | save it in a place I want to access easily. 
 `* * *` | user | exit the application | close the application. 
 `* *` | user | convert between a floating task, deadline or event | efficiently modify or update entries that I have previously entered.
 `* *` | user | find task(s) by keyword, date, priority or tag | search for one or more tasks with certain properties. 
@@ -374,6 +375,19 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. User requests to undo the previous command
 2. DoMePlease displays a message that the previous reversible command is undone
+3. Use case ends
+
+**Extensions**
+
+&nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
+> 2a1. DoMePlease shows an error message
+
+#### Use case: Save
+
+**MSS**
+
+1. User requests to change the data storage location
+2. DoMePlease displays a message that the data storage file is saved in the new location
 3. Use case ends
 
 **Extensions**
