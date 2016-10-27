@@ -37,7 +37,7 @@ Responsibilities: Team Lead, Logic
 * Components in charge of: [Add command]
 * Features implemented:
    * <kbd>[Add](docs/UserGuide.md#add-the-modification--undo)</kbd> Command
-   * <kbd>[Natural input using natty]</kbd>
+   * Natural input using natty
 * Code written: <kbd>[Functional code](collated/main/A0152958R.md)</kbd>
 
 **Role**: Developer <br>
