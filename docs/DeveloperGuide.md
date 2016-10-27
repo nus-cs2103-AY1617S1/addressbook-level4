@@ -243,6 +243,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+[comment]: # (@@author A0124333U)
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -277,6 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 {More to be added}
 
+[comment]: # (@@author A0139924W)
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TARS` and the **Actor** is the `user`, unless specified otherwise)
@@ -513,6 +515,7 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
+[comment]: # (@@author A0121533W)
 ## Appendix E : Product Survey
 
 Product | Strength | Weaknesses
