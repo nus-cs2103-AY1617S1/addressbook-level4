@@ -30,6 +30,8 @@
 
 ## Features
  
+<!-- @@author A0127570H -->
+
 #### Adding a task
 Adds a task to dowat<br>
 
@@ -98,6 +100,7 @@ Examples:
 * `list /e /a` <br>
   All events will be shown.
 
+<!-- @@author A0127570H -->
 
 #### Editing a task
 Edits an existing task in dowat<br>
@@ -133,6 +136,7 @@ Examples:
 * `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
+<!-- @@author -->
 
 #### Marking a task as completed
 Mark an existing task as completed in dowat.
