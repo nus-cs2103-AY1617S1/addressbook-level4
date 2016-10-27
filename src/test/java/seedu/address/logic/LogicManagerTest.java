@@ -451,7 +451,7 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
-
+    //@@author A0139932X
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -470,6 +470,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    //author
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
@@ -508,7 +509,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+    //author A0139932X
     @Test
     public void execute_save_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE);
@@ -527,6 +528,7 @@ public class LogicManagerTest {
         ConfigUtil.saveConfig(config, "config.json");
         
     }
+    //@@author
     
     @Test
     public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
