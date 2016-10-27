@@ -36,7 +36,16 @@ Responsibilities: Code quality,integration,logic
 #### [Tsang Cheuk Ling](https://github.com/SukiTsang)
 <img src="images/SukiTsang.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Documentation, deliverables and deadlines
+Aspects in charge of: Documentation, deliverables and deadlines
+Features implemented:
+* Pin Task
+* Unpin Task
+* Complete Task
+* Uncomplete Task
+* Recurring Task weekly
+
+Other major contributions:
+* Make all the diagrams in Developer Guide
 
  -----
 
