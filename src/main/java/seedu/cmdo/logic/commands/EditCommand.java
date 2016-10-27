@@ -31,7 +31,7 @@ public class EditCommand extends Command {
     		+ "NOTE: You must reenter all parameters again.\n"
             + "Example: " + COMMAND_WORD + " 2 Take Bongo out for a walk tomorrow 2pm /medium -dog";
     
-    public static final String MESSAGE_EDITED_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDITED_TASK_SUCCESS = "Edited task.";
 
     private final int targetIndex;
     private final Task toEditWith;
@@ -154,7 +154,7 @@ public class EditCommand extends Command {
         //remove priority
         if(removePriority)
         	toEditWith.getPriority().setPriority("");
-//        //append tags
+        //append tags
         if(tagIsEmpty)
         	toEditWith.setTags(taskToEdit.getTags());
         
@@ -164,7 +164,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-    	return new CommandResult(Messages.MESSAGE_EDIT_TASK_SUCCESS);
+    	return new CommandResult(MESSAGE_EDITED_TASK_SUCCESS);
     }
 
 }

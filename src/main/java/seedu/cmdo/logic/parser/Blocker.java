@@ -17,7 +17,6 @@ import seedu.cmdo.model.task.Task;
 
 public class Blocker {
 
-	private static Blocker blocker;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 	
 	LocalDate checkingDate;

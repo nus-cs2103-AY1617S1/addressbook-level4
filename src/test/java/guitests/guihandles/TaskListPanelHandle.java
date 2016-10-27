@@ -5,7 +5,6 @@ import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.cmdo.TestApp;
 import seedu.cmdo.model.task.ReadOnlyTask;
