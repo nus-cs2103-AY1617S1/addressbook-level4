@@ -502,13 +502,16 @@ public class MainWindow extends UiPart {
             @Override
             public void updateIndex(int index) {
                 super.updateIndex(index);
+                
+                Text indexText = new Text(Integer.toString(index+ 1)+".");
+                indexText.getStyleClass().add("index-column");
+                
 
                 if (isEmpty()
                     || index < 0) {
-                    setText(null);
+                    this.setGraphic(null);
                 } else {
-                    setText(Integer.toString(index
-                                             + 1));
+                    this.setGraphic(indexText);
                 }
             }
 
