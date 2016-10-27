@@ -12,7 +12,7 @@ import seedu.address.model.activity.task.Priority;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
-
+//@@author A0131813R
 public class Event extends Activity implements ReadOnlyEvent{
 
     private StartTime startTime;

@@ -15,6 +15,7 @@ import java.util.Objects;
  * Represents an Activity in the Lifekeeper.
  * Guarantees: details are present and not null, field values are validated.
  */
+//@@author A0131813R
 public class Activity implements ReadOnlyActivity {
 
     protected Name name;

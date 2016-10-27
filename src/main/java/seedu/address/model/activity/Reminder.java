@@ -14,6 +14,7 @@ import seedu.address.commons.util.DateValidation;
  * Represents a Task's reminder in the Lifekeeper. Guarantees: immutable; is
  * valid as declared in {@link #isValidReminder(String)}
  */
+//@@author A0131813R
 public class Reminder extends DateTime {
 
     public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder can only be in date format";

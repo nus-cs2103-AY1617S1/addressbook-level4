@@ -52,6 +52,7 @@ public class DateUtil {
      * 
      * @param date
      * @return true valid date format, false invalid date format
+     * 
      */
     public static boolean validate(String date) {
         Date validDate;
