@@ -153,12 +153,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
+    //@@author A0135722L Zhiyuan
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.completeTask(target);
         //updateFilteredListToShowAll();
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
+    
     //@@author A0138993L
     @Override
     public synchronized void overdueTask() {
@@ -171,6 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
     	};
     	scheduler.scheduleAtFixedRate(overdue, 0, 30, TimeUnit.SECONDS); 
     }
+    
     //@@author A0139430L JingRui
     @Override
     public synchronized void changeTaskCategory() {
@@ -182,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         indicateAddressBookChanged();
     }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
