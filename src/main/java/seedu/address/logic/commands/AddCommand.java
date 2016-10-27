@@ -42,7 +42,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        if(!deadline.matches(DATE_VALIDATION_REGEX)){
+        if(!deadline.matches(DATE_VALIDATION_REGEX)&&!deadline.equals("")){
         List<Date> date = new com.joestelmach.natty.Parser().parse(deadline).get(0).getDates();
         deadline=dateFormat.format(date.get(0)).toString()+"-"+date.get(0).toString().substring(11,13);
         }
@@ -73,11 +73,11 @@ public class AddCommand extends Command {
         final Set<Tag> tagSet = new HashSet<>();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         List<Date> date;
-        if(!startDate.matches(DATE_VALIDATION_REGEX)){
+        if(!startDate.matches(DATE_VALIDATION_REGEX)&&!startDate.equals("")){
         date = new com.joestelmach.natty.Parser().parse(startDate).get(0).getDates();
         startDate=dateFormat.format(date.get(0)).toString()+"-"+date.get(0).toString().substring(11,13);
         }
-        if(!endDate.matches(DATE_VALIDATION_REGEX)){
+        if(!endDate.matches(DATE_VALIDATION_REGEX)&&!endDate.equals("")){
         date = new com.joestelmach.natty.Parser().parse(endDate).get(0).getDates();
         endDate=dateFormat.format(date.get(0)).toString()+"-"+date.get(0).toString().substring(11,13);
         }
