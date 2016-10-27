@@ -108,12 +108,25 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
-
+        	
+        case SetStorageCommand.COMMAND_WORD:
+            return prepareSetStorageCommand(arguments);
+                    
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+    /**
+     * Parses arguments in the context of the set storage command.
+     * 
+     * @params args full command args string
+     * @return the prepared command
+     */
+    //TODO: check input for validity
+    private Command prepareSetStorageCommand(String args){
+        return new SetStorageCommand(args.substring(1));
+    }
+    
     /**
      * Parses arguments in the context of the add task command.
      *
