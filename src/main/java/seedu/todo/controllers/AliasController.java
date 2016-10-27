@@ -1,6 +1,11 @@
 package seedu.todo.controllers;
 
+import java.io.IOException;
 import java.util.Map;
+
+import seedu.todo.MainApp;
+import seedu.todo.commons.core.Config;
+import seedu.todo.commons.util.ConfigUtil;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 
@@ -19,9 +24,11 @@ public class AliasController implements Controller {
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
     private static final String MESSAGE_SHOWING = "Showing all aliases.";
+    private static final String MESSAGE_SAVE_SUCCESS = "Successfully saved alias!";
     private static final String INVALID_NUM_PARAMS = "Seems like you have provided an invalid number of parameters!";
     private static final String MESSAGE_INVALID_INPUT = "Invalid alias parameters! Alias inputs must consist solely "
                                                       + "of alphabetical characters.";
+    private static final String SAVE_ERROR = "There was an error saving your aliases. Please try again.";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -33,7 +40,7 @@ public class AliasController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return input.startsWith("alias") ? 1 : 0;
+        return input.toLowerCase().startsWith("alias") ? 1 : 0;
     }
 
     @Override
@@ -77,10 +84,14 @@ public class AliasController implements Controller {
         }
         
         // Persist alias mapping
-        TodoListDB db = TodoListDB.getInstance();
-        saveAlias(db, aliasKey, aliasValue);
+        try {
+            saveAlias(aliasKey, aliasValue);
+        } catch (IOException e) {
+            Renderer.renderAlias(SAVE_ERROR);
+            return;
+        }
         
-        Renderer.renderAlias(MESSAGE_SHOWING);
+        Renderer.renderAlias(MESSAGE_SAVE_SUCCESS);
     }
     
     /**
@@ -89,11 +100,14 @@ public class AliasController implements Controller {
      * @param db    TodoListDB singleton
      * @param aliasKey
      * @param aliasValue
+     * @throws IOException 
      */
-    private static void saveAlias(TodoListDB db, String aliasKey, String aliasValue) {
-        Map<String, String> aliases = db.getAliases();
+    private static void saveAlias(String aliasKey, String aliasValue) throws IOException {
+        Config config = MainApp.getConfig();
+        Map<String, String> aliases = config.getAliases();
         aliases.put(aliasKey, aliasValue);
-        db.save();
+        ConfigUtil.saveConfig(config, MainApp.getConfigFilePath());
+        
     }
     
     /**

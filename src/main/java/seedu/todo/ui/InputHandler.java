@@ -2,7 +2,10 @@ package seedu.todo.ui;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Map;
 
+import seedu.todo.MainApp;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
 
 public class InputHandler {
@@ -77,8 +80,12 @@ public class InputHandler {
     }
 
     public boolean processInput(String input) {
+        
+        Map<String, String> aliases = MainApp.getConfig().getAliases();
+        String aliasedInput = StringUtil.replaceAliases(input, aliases);
+        
         if (this.handlingController != null) {
-            handlingController.process(input);
+            handlingController.process(aliasedInput);
         } else {
             Controller[] controllers = instantiateAllControllers();
 
@@ -89,7 +96,7 @@ public class InputHandler {
             float maxConfidence = Integer.MIN_VALUE;
 
             for (int i = 0; i < controllers.length; i++) {
-                float confidence = controllers[i].inputConfidence(input);
+                float confidence = controllers[i].inputConfidence(aliasedInput);
 
                 // Don't consider controllers with non-positive confidence.
                 if (confidence <= 0) {
@@ -108,12 +115,12 @@ public class InputHandler {
             }
 
             // Process using best-matched controller.
-            maxController.process(input);
+            maxController.process(aliasedInput);
 
         }
         
         // Since command is not invalid, we push it to history
-        pushCommand(input);
+        pushCommand(aliasedInput);
 
         return true;
     }
