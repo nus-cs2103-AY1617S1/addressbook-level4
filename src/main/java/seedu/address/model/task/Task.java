@@ -129,7 +129,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     	return taskCategory;
     }
     
-    
+    @Override
     public boolean getIsCompleted() {
         return isCompleted;
     }
@@ -168,6 +168,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     	this.taskCategory = taskCat;
     }
     
+    @Override
     public void setCompleted(boolean completed) {
         this.isCompleted = completed;
     }
