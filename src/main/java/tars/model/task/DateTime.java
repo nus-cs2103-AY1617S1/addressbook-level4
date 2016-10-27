@@ -99,7 +99,7 @@ public class DateTime implements Comparable<DateTime>{
 
 	@Override
 	public int compareTo(DateTime o) {
-	    if(o.endDate == null) {
+	    if(o.endDate == null || this.endDate == null) {
 	        return DATETIME_COMPARE_NULL;
 	    } else {
 	        return this.endDate.compareTo(o.endDate);
