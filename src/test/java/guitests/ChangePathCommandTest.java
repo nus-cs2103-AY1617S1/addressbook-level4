@@ -33,6 +33,8 @@ public class ChangePathCommandTest extends TaskManagerGuiTest {
         Thread.sleep(300);
         commandBox.runCommand("change-to " + unWriteableFilePath);
         assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, unWriteableFilePath));
+        unWriteableFolder.setWritable(true);
+        Thread.sleep(300);
         
         //Try with empty String
         String emptyPath = TestUtil.getFilePathInSandboxFolder("");
