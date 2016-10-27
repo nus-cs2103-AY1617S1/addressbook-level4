@@ -91,7 +91,7 @@ command `delete 3`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -108,7 +108,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/task/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -116,7 +116,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -128,7 +128,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -259,7 +259,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -269,7 +269,6 @@ b. Require developers to download those libraries manually (this creates extra w
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-	//@@author A0153411W
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *`| new user | view more information about a particular command | learn how to use various commands 
@@ -281,9 +280,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
 `* *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
-	//@@author
-
-//to do
 `* *`| user | specify which folder path to save my file | organize my task manager easily
 `* * *`| user | keep track my task | check which task have completed or on going
 `* *`| advanced user |  use shorter versions of a command | that can type a command faster.
@@ -315,6 +311,7 @@ Use Case ends
        1a.User enter an invalid command
        >1a1. System show error message
        Use case ends.
+       
 //@@author A0153411W       
 #### Use case: UC02 Add an event 
 Actor: User<br>
@@ -399,6 +396,7 @@ Use Case end.
     >2a1. System shows a message no upcoming task are found.
     Use case ends
 //@@author 
+
 #### Use case: UC06 Delete task
    Actor: User<br>
 
@@ -417,6 +415,9 @@ Use Case end.
        4a. System is unable to delete due to failed to connect to database.
        >4a1. System shows connection has failed message.
        Use case resume at step 1.
+
+
+
 //@@author A0153411W
 #### Use case: UC07 edit task details
    Actor: User<br>
@@ -494,11 +495,27 @@ Use Case end.
 
 **Extension**
 
-    1a. Thete is nothing to undo
+    1a. There is nothing to undo
     >1a1. System shows an error message
     Use case finishes.
 //@@author 
 
+//@@author A0139932X
+#### Use case: UC10 Change save file path command
+   Actor:User
+   
+**MSS**
+
+1. User request to change file directory
+2. System will update the file directory on the config
+
+**Extension**
+
+	1a. Invalid file path
+	>1a1. System shows an error message
+	Use case ends.
+
+//author
 
 {More to be added}
 
@@ -529,7 +546,7 @@ Use Case end.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
-
+//@@author A0139932X
 ## Appendix E : Product Survey
 
 Product 1: Google Keep
