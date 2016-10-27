@@ -18,10 +18,10 @@ Responsibilities: Team Mentor
 
 * Components in charge of: [Logic]
 * Features implemented:
-   * [Undo Command]
-   * [Done Commmand]
-   * [Undone Command]
-* Code written: [functional code][test code][docs]
+   * [Undo Command](docs/UserGuide.md#undo-the-modification--undo)
+   * [Done Commmand](docs/UserGuide.md#done-a-specific-task--done)
+   * [Undone Command](docs/UserGuide.md#undone-a-specific-task--undone)
+* Code written: [Functional code](collated/main/A0147335E.md) [Test code](collated/test/A0147335E.md) [Docs]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager
   * Did the initial refactoring of testing from AddressBook to TaskManager
@@ -50,15 +50,15 @@ Responsibilities: Testing, GUI
 
 * Components in charge of: [Storage]
 * Features implemented:
-   * [Backup Command]
-   * [Directory Commmand]
-* Code written: [functional code](collated/main/A0147944U.md)[test code](collated/test/A0147944U.md)[docs](collated/docs/A0147944U.md)
+   * [Backup Command](docs/UserGuide.md#backup--backup)
+   * [Directory Command](docs/UserGuide.md#change-working-directory--directory)
+* Code written: [Functional code](collated/main/A0147944U.md) [Test code](collated/test/A0147944U.md) [Docs](collated/docs/A0147944U.md)
 * Other major contributions:
-  * Organize and manage github repository
+  * Organize and manage GitHub repository
   * Improve Regex for CommandParser
   * Edit and ensure formatting of documentations
   
 **Role**: Developer <br>
-Responsibilities: Integration, Storage Commands
+Responsibilities: Integration, Storage Commands, GitHub Project Manager
 
 -----
