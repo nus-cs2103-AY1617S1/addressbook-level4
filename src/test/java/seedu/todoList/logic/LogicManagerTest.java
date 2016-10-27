@@ -149,7 +149,9 @@ public class LogicManagerTest {
         model.addTask(helper.generatetask(2));
         model.addTask(helper.generatetask(3));
 
-        assertCommandBehavior("clear", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear todo", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear event", ClearCommand.EVENT_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear deadline", ClearCommand.DEADLINE_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
 
