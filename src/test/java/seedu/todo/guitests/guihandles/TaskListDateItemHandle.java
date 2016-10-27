@@ -23,8 +23,8 @@ public class TaskListDateItemHandle extends GuiHandle {
      * @return Parsed LocalDate.
      */
     public LocalDate getDate() {
-        String shortDateString = getTextFromLabel(TASKLISTDATEITEM_DATE_ID);
-        return DateUtil.parseShortDate(shortDateString).toLocalDate();
+        String shortDateString = getStringFromText(TASKLISTDATEITEM_DATE_ID);
+        return DateUtil.parseShortDate(shortDateString);
     }
 
 }

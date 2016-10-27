@@ -1,9 +1,9 @@
 package seedu.todo.guitests.guihandles;
 
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.todo.TestApp;
@@ -68,12 +68,12 @@ public class GuiHandle {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
 
-    protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+    protected String getStringFromText(String fieldId, Node parentNode) {
+        return ((Text) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
-    protected String getTextFromLabel(String fieldId) {
-        return ((Label) guiRobot.lookup(fieldId).tryQuery().get()).getText();
+    protected String getStringFromText(String fieldId) {
+        return ((Text) guiRobot.lookup(fieldId).tryQuery().get()).getText();
     }
 
     public void focusOnSelf() {

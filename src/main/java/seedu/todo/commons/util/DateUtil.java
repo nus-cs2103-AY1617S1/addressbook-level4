@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -112,25 +113,28 @@ public class DateUtil {
      * Parses a short date (as defined in {@link formatShortDate}) back to a LocalDateTime.
      * We ignore the day of week portion for simplicity, since the shortDate can optionally omit it.
      * 
-     * @param shortDateString   Date string to format.
+     * @param shortDateToParse   Date string to format.
      * @return                  Parsed LocalDateTime.
      */
-    public static LocalDateTime parseShortDate(String shortDateString) {
-        String[] dateParts = shortDateString.split(" ");
-        String datePart;
+    public static LocalDate parseShortDate(String shortDateToParse) {
+        String[] dateParts = shortDateToParse.split(" ");
+        String dateString;
+        
+        // Get the current year to add to the parsing since we cannot parse without a year...
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         
         if (dateParts.length < 2 || dateParts.length > 3) {
             return null;
         }
         
         if (dateParts.length == 3) {
-            datePart = String.format("%s %s", dateParts[1], dateParts[2]);
+            dateString = String.format("%s %s %d", dateParts[1], dateParts[2], currentYear);
         } else {
-            datePart = String.format("%s %s", dateParts[0], dateParts[1]);
+            dateString = String.format("%s %s %d", dateParts[0], dateParts[1], currentYear);
         }
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM");
-        return LocalDateTime.parse(datePart, formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        return LocalDate.parse(dateString, formatter);
     }
     
     /**
