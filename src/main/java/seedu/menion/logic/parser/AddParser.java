@@ -82,7 +82,7 @@ public class AddParser {
 	}
 
 	
-	public static void parseDate (String args) {
+	public static Calendar parseDate (String args) {
 		
 		Parser parser = new Parser();
 		List<DateGroup>groups = parser.parse(args);	
@@ -93,42 +93,10 @@ public class AddParser {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		
-		String dateString = formatDate(calendar);
-		System.out.println(dateString);
+		return calendar;
+		
 	}
 
-	/**
-	 * This method formats the date into a presentable String format.
-	 * @param Calendar object cal.
-	 * @return a format string in the form of dd-mm-yyyy
-	 */
-	private static String formatDate (Calendar cal){
-		
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		int month = cal.get(Calendar.MONTH);
-		int year = cal.get(Calendar.YEAR);
-		
-		// Converts month into XX format
-		String monthString;
-		if (month + 1 < 10){
-			monthString = "0" + Integer.toString(month + 1);
-		}
-		else {
-			monthString = Integer.toString(month + 1);
-		}
-		
-		// Converts day into XX format
-		String dayString;
-		if (day< 10){
-			dayString = "0" + Integer.toString(day);
-			
-		}
-		else {
-			dayString = Integer.toString(day);
-		}
-		
-		return (dayString + "-" + monthString + "-" + Integer.toString(year));
-	}
 	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.
