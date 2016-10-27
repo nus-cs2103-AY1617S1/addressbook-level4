@@ -152,5 +152,16 @@ public class DateUtil {
             return String.format("%s - %s", formatDateTime(dateFrom), formatDateTime(dateTo));
         }
     }
+    
+    /**
+     * Parses a dateTime string with the standard ISO format {@code yyyy-MM-dd HH:mm:ss}.
+     * 
+     * @param dateTimeString
+     * @return
+     */
+    public static LocalDateTime parseDateTime(String dateTimeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(dateTimeString, formatter);
+    }
 
 }
