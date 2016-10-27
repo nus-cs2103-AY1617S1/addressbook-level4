@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.Stemmer;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.state.StateManager;
 import seedu.address.model.state.TaskManagerState;
@@ -21,8 +22,11 @@ import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -193,7 +197,6 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAll();
             break;
         }
-
     }
 
     @Override
@@ -213,6 +216,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    @Override
+    public void updateFilteredTaskListForFind(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new StemmedNameQualifier(keywords)));
+    }
+
     @Override
     public void updateFilteredTaskListByTags(Set<String> keyword) {
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
@@ -255,28 +263,54 @@ public class ModelManager extends ComponentManager implements Model {
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
-        private String keyword;
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
-            this.keyword=null;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-        	if(nameKeyWords!=null){
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
                     .findAny()
                     .isPresent();
-        	}else{
-        		return task.getName().taskName.equals(keyword.trim());
-        	}
         }
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class StemmedNameQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+
+        StemmedNameQualifier(Set<String> nameKeyWords) {
+            Stemmer stemmer = new Stemmer();
+            this.nameKeyWords = nameKeyWords.stream().map(keyword -> stemmer.stem(keyword))
+                    .collect(Collectors.toSet());
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            Set<String> taskName = getStemmedTaskName(task);
+            Stemmer stemmer = new Stemmer();
+            return nameKeyWords.stream()
+                    .filter(keyword -> taskName.stream()
+                            .map(name -> stemmer.stem(name))
+                            .filter(name -> name.equals(keyword)).count() > 0)
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "stemmed name=" + String.join(", ", nameKeyWords);
+        }
+        
+        private Set<String> getStemmedTaskName(ReadOnlyTask task) {
+            String[] taskName = task.getName().taskName.split("\\s+");
+            return new HashSet<>(Arrays.asList(taskName));
         }
     }
     

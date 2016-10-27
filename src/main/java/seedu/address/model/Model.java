@@ -42,6 +42,11 @@ public interface Model {
 	/** Updates the filter of the filtered task list to filter by the given keywords of the given type */
 	void updateFilteredTaskList(String keyword, String type);
 	
+	/** Updates the filter of the filtered task list to filter by the given keywords for find 
+     * (support near-match search) 
+     */
+    void updateFilteredTaskListForFind(Set<String> keywords);
+	
     /** Updates the filter of the filtered task list to filter by the given tags */
     void updateFilteredTaskListByTags(Set<String> keywords);
 

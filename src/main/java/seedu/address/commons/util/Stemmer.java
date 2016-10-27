@@ -23,6 +23,20 @@ public class Stemmer {
         i = 0;
         i_end = 0;
     }
+    
+    /**
+     * Add a string as the word being stemmed. 
+     * After stemming, reset the stemmer and return the stemmed word
+     */
+    public String stem (String word) {
+        add(word.toLowerCase().toCharArray(), word.length());
+        stem();
+        String stemmedWord = toString();
+        b = new char[INC];
+        i = 0;
+        i_end = 0;
+        return stemmedWord;
+    }
 
     /**
      * Add a character to the word being stemmed.  When you are finished
