@@ -9,6 +9,11 @@ import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.controllers.CommandDefinition;
 import seedu.todo.ui.components.HelpCommandItem;
 
+/**
+ * Help View, which shows all the commands available.
+ * 
+ * @@author A0139812A
+ */
 public class HelpView extends View {
 
     private static final String FXML_PATH = "views/HelpView.fxml";

@@ -3,6 +3,9 @@ package seedu.todo.ui.components;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+/**
+ * @@author A0139812A
+ */
 public class HelpCommandItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/HelpCommandItem.fxml";

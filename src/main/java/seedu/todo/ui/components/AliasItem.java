@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import seedu.todo.commons.core.AliasDefinition;
 
+/**
+ * @@author A0093907W
+ */
 public class AliasItem extends MultiComponent {
     
     private static final String FXML_PATH = "components/AliasItem.fxml";

@@ -6,6 +6,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import seedu.todo.commons.util.FxViewUtil;
 
+/**
+ * @@author A0139812A
+ */
 public class Header extends Component {
 
     private static final String LOGO_IMAGE_PATH = "/images/logo-64x64.png";

@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.AliasDefinition;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.components.AliasItem;
 
 /**

@@ -8,6 +8,9 @@ import javafx.scene.input.KeyEvent;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.InputHandler;
 
+/**
+ * @@author A0139812A
+ */
 public class Console extends Component {
 
     private static final String FXML_PATH = "components/Console.fxml";
