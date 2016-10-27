@@ -22,7 +22,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Delete Reserved Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-task-with-reserved-timeslots--rsv-d)
    * [Confirm Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#confirming-a-reserved-timeslot--confirm)
    * [Find Tasks [Quick Search & Filter Search]](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#finding-tasks--find)
-* Code Written:
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0124333U.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0124333U.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0124333U.md)]
 * Other Major Contributions:
    * Did the initial refactoring from AddressBook-Level4 to TARS
    * User Guide
@@ -38,7 +38,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Add Recurring Task](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#adding-a-task--add)
    * [List Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#listing-tasks--ls)
    * Result Summary
-* Code Written:
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0140022H.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0140022H.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0140022H.md)]
 * Other Major Contributions:
     * User Guide
 
@@ -59,7 +59,7 @@ We are a team based in the [School of Computing, National University of Singapor
     * [Help](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#displaying-a-list-of-available-commands--help)
     * [Natural Date Input](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#supported-date-formats)
     * Shortcut keys for undo and redo commands
-* Code Written:
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0139924W.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0139924W.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0139924W.md)]
 * Other Major Contributions:
     * Did the initial refactoring from AddressBook-Level4 to TARS
     * ArgumentTokenizer (flexible commands)
@@ -78,7 +78,7 @@ We are a team based in the [School of Computing, National University of Singapor
     * [Editing Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#editing-a-task--edit)
     * [Marking Tasks Done & Undone](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#marking-tasks--mark)
     * [Deleting Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-task--del)
-* Code Written:
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/main/A0121533W.md)][[test code](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/test/A0121533W.md)][[docs](https://github.com/CS2103AUG2016-F10-C1/main/blob/master/collated/docs/A0121533W.md)]
 * Other Major Contributions:
     * Designed App Logo
     * Designed App UI
