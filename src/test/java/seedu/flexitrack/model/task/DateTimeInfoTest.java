@@ -57,14 +57,14 @@ public class DateTimeInfoTest {
     @Test 
     public void RelativeValidInputWithNoSpecificHoursAndMinutes_returnsDate() { 
         final String validInput = "next month";
-        final String expectedSetTime = "Nov 26 2016 07:59";
+        final String expectedSetTime = "Nov 27 2016 07:59";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     
     @Test 
     public void RelativeValidInputWithSpecificHours_returnsDate() { 
         final String validInput = "last month";
-        final String expectedSetTime = "Sep 26 2016 07:59";
+        final String expectedSetTime = "Sep 27 2016 07:59";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     

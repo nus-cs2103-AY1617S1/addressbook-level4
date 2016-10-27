@@ -28,6 +28,7 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
     
     private static Stack<Integer> storeDataChanged = new Stack<Integer>(); 
+    private static Stack<ReadOnlyTask> storeDataChangedTask = new Stack<ReadOnlyTask>(); 
 
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -44,8 +45,10 @@ public class MarkCommand extends Command {
         }
         
         try {
+            ReadOnlyTask taskMarked = lastShownList.get(targetIndex - 1);
             model.markTask(lastShownList.get(targetIndex-1));
             storeDataChanged.add(targetIndex);
+            storeDataChangedTask.add(taskMarked);
             recordCommand("mark"); 
             return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
         } catch (IllegalValueException e) {
@@ -62,6 +65,7 @@ public class MarkCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            
         }
         try {
             model.unmarkTask(lastShownList.get(targetIndex - 1));
