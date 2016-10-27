@@ -15,6 +15,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Mark task as completed] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-completed)
     - Code written: functional code test code docs
     - Other major contributions:
+      - Refactored original AddressBookLevel4 to current TaskBook
 
 2. Phua Kian Ming [@daredevil999] (https://github.com/daredevil999)  
   <img src="images/Kianming.jpg" width="150">  
@@ -27,6 +28,13 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Edit task and event] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#editing-a-task)
     - Code written: functional code test code docs
     - Other major contributions:
+      - Refactored original AddressBookLevel4 to current TaskBook
+        - [Renaming Package] (https://github.com/CS2103AUG2016-F09-C4/main/commit/e93b297607533f33222103b1b9fc9d94b0dfa960)
+        - [Morphing Person to Task] (https://github.com/CS2103AUG2016-F09-C4/main/commit/07beda6d36db067565c0fdfecc951ac077456e8d)
+        - [Morph Model.Package] (https://github.com/CS2103AUG2016-F09-C4/main/commit/f6b74062938f8f4e342c104620a7184d1b6f9975)
+        - [Morph Test package] (https://github.com/CS2103AUG2016-F09-C4/Main/pull/11)
+      - Prepared preliminary MockUI layout [#3] (https://github.com/CS2103AUG2016-F09-C4/main/issues/3)
+      - Implemented an Event List Panel [#35] (https://github.com/CS2103AUG2016-F09-C4/Main/pull/35)
     
 3. Poh Yee Heng Keith [@Yeehengg] (https://github.com/Yeehengg)  
   <img src="images/Keith.jpg" width="150">  
@@ -39,6 +47,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Select] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#selecting-a-taskevent)
     - Code written: functional code test code docs
     - Other major contributions: 
+      - Refactored original AddressBookLevel4 to current TaskBook
 
 4. Xu Chen [@githubxxcc] (https://github.com/githubxxcc)  
   <img src="images/Xuchen.jpg" width="150">  
@@ -52,3 +61,4 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Undo] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#undo-modifications)
     - Code written: functional code test code docs
     - Other major contributions:
+      - Refactored original AddressBookLevel4 to current TaskBook
