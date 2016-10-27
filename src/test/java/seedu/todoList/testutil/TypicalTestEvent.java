@@ -6,7 +6,7 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 /**
  *
  */
-//@@ Author A0132157M
+//@@author A0132157M
 public class TypicalTestEvent {
 
    
