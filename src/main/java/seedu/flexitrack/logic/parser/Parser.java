@@ -382,8 +382,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args
-     *            full command args string
+     * @param args (full command args string)
      * @return the prepared command
      */
     public static Command prepareFind(String args) {
@@ -400,7 +399,7 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 
-        return new FindCommand(keywordSet, args);
+        return new FindCommand(keywordSet);
     }
 
 }
