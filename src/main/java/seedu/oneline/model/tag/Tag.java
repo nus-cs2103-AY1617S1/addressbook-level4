@@ -1,3 +1,4 @@
+//@@author A0140156R
 package seedu.oneline.model.tag;
 
 
@@ -9,24 +10,30 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.task.TaskRecurrence;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the Task book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
 
+    public static final String EMPTY_TAG_VALUE = "#"; // escape character
+    
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public static final Tag EMPTY_TAG = new Tag();
+    public static final Tag EMPTY_TAG = createEmptyTag();
     
-    public String tagName = "#";
+    public String tagName = "";
 
     public static final Map<String, Tag> allTags = new HashMap<String, Tag>();
     
-    private Tag() {
+    private Tag() {}
+    
+    private static Tag createEmptyTag() {
+        Tag t = new Tag();
+        t.tagName = EMPTY_TAG_VALUE;
+        return t;
     }
     
-    //@@author A0142605N
     /**
      * Validates given tag name.
      *
@@ -40,7 +47,6 @@ public class Tag {
         }
         this.tagName = name;
     }
-
     public static Tag getTag(String name) throws IllegalValueException {
         assert name != null;
         if (allTags.containsKey(name)) {
@@ -85,6 +91,9 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
+        if (this == EMPTY_TAG) {
+            return "[No category]";
+        }
         return '[' + tagName + ']';
     }
     
@@ -99,7 +108,7 @@ public class Tag {
      * Deserialize from storage
      */
     public static Tag deserialize(String args) throws IllegalValueException {
-        if (args.equals(EMPTY_TAG.getTagName())) {
+        if (args.equals(EMPTY_TAG_VALUE)) {
             return EMPTY_TAG;
         }
         return new Tag(args);

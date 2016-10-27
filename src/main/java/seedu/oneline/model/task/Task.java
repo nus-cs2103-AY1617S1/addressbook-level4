@@ -116,7 +116,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public String toString() {
         return getAsText();
     }
-    
+
+    //@@author A0140156R
     public Task update(Map<TaskField, String> fields) throws IllegalValueException {
         ReadOnlyTask oldTask = this;
         
@@ -152,6 +153,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
         return newTask;
     }
+    //@@author
 
     //@@author A0138848M
     /**

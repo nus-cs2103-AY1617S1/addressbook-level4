@@ -37,9 +37,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
+    //@@author A0140156R
     private final Stack<ModelState> prevState = new Stack<ModelState>();
     private final Stack<ModelState> nextState = new Stack<ModelState>();
-    
+    //@@author
     
     /**
      * Initializes a ModelManager with the given Task book
@@ -271,6 +272,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
   //@@author
+  //@@author A0140156R
   //========== Inner functions and classes used for undo/redo ==================================================
     
     public void undo() throws StateNonExistentException {
@@ -310,5 +312,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
+  //@@author
 
 }

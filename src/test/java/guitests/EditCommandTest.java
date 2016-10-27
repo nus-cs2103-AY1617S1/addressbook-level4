@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
@@ -52,20 +54,6 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields = new HashMap<TaskField, String>();
         fields.put(TaskField.START_TIME, "Not a real time");
         assertEditFailed(2, fields, TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS, currentList);
-
-//        //add another task
-//        taskToAdd = TypicalTestTasks.todoExtra;
-//        assertEditSuccess(taskToAdd, currentList);
-//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-//        //add duplicate task
-//        commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
-
-//        //add to empty list
-//        commandBox.runCommand("clear");
-//        assertEditSuccess(TypicalTestTasks.event1);
 
         //invalid command
         commandBox.runCommand("edits Task");
