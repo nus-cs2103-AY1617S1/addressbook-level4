@@ -47,7 +47,7 @@ public class StartTime extends DateTime {
     }
     
     public String forDisplay() {
-        if (this.value == null) {
+        if (this.value.equals(null)) {
             return "Start:\t\t-";
         } else {
             return "Start:\t\t".concat(this.toString());

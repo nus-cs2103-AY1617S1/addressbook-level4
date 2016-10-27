@@ -128,6 +128,7 @@ public class DateUtil {
      * @return the date in valid date format
      * @throws IllegalValueException 
      */
+    //@@author A0131813R
     public static Date parseReminder(String date) throws IllegalValueException {
         Date validDate;
         String dateform;

@@ -12,7 +12,7 @@ import seedu.address.model.activity.event.StartTime;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-
+//@@author A0125680H
 public class ActivityManager {
     private static final String NULL_ENTRY = "";
     
@@ -121,7 +121,7 @@ public class ActivityManager {
 	private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Name newTaskName;
 
-        if (newParams.getName().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (newParams.getName().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             newTaskName = new Name(oldTask.getName().toString());
         } else {
             newTaskName = new Name(newParams.getName().toString());
@@ -138,7 +138,7 @@ public class ActivityManager {
             return new DueDate(((Task) oldTask).getDueDate().getCalendarValue());
         }
 
-        if (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
                 newDueDate = new DueDate("");
             } else {
@@ -159,7 +159,7 @@ public class ActivityManager {
             return new Priority(((Task) oldTask).getPriority().toString());
         }
 
-        if (((Task) newParams).getPriority().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (((Task) newParams).getPriority().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
                 newPriority = new Priority("0");
             } else {
@@ -176,7 +176,7 @@ public class ActivityManager {
     private static Reminder updateReminder(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Reminder newReminder;
 
-        if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (newParams.getReminder().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
         } else {
             newReminder = new Reminder(newParams.getReminder().getCalendarValue());
@@ -194,7 +194,7 @@ public class ActivityManager {
             return new StartTime(((Event) oldTask).getStartTime().getCalendarValue());
         }
 
-        if (((Event) newParams).getStartTime().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (((Event) newParams).getStartTime().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
                 newStartTime = new StartTime("");
             } else {
@@ -215,7 +215,7 @@ public class ActivityManager {
             return new EndTime(((Event) oldTask).getEndTime().getCalendarValue());
         }
 
-        if (((Event) newParams).getEndTime().toString().equals(NULL_ENTRY)&& type == "edit") {
+        if (((Event) newParams).getEndTime().toString().equals(NULL_ENTRY)&& type.equals("edit")) {
             if (oldTask.getClass().getSimpleName().equalsIgnoreCase("activity")) {
                 newEndTime = new EndTime("20-10-2016 1200", ""); //what to put as starttime?
             } else {
