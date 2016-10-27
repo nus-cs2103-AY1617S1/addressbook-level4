@@ -24,12 +24,12 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         UndoTask toUndo = model.undoTask();
-        
+
         //No undoable action found.
         if (toUndo == null) { 
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
-        
+
         try {
             switch (toUndo.getCommand()){
 
@@ -59,11 +59,5 @@ public class UndoCommand extends Command {
         }
 
     }
-
-    @Override
-    public boolean isMutating() {
-        return false;
-    }
-
 }
 //@@author
