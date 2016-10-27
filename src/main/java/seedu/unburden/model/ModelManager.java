@@ -109,31 +109,26 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
+  //@@author A0139714B
     @Override
     public synchronized void saveToPrevLists() {
     	prevLists.push(new ListOfTask(listOfTask));
     	undoHistory.clear();
     }
     
-    @Override
-    public synchronized void saveToUndoHistory() {
-    	if (undoHistory.size() == 0) 
-    		undoHistory.push(new ListOfTask(listOfTask));
-    }
-    
+  //@@author A0139714B
     @Override
     public synchronized void loadFromPrevLists() throws NoSuchElementException {
     	ListOfTask oldCopy = prevLists.pop();
-    	System.out.println(oldCopy.getTasks());
     	undoHistory.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();
     }
     
+  //@@author A0139714B
     @Override
     public synchronized void loadFromUndoHistory() throws NoSuchElementException {
     	ListOfTask oldCopy = undoHistory.pop();
-    	System.out.println(oldCopy.getTasks());
     	prevLists.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();
