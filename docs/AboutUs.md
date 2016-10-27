@@ -30,7 +30,7 @@ Component SME: UI
 * Features implemented:
    * [Alias](UserGuide.md##alias-a-keyword--alias)
    * [Unalias](UserGuide.md#unalias-a-keyword--unalias)
-* Code written: [[functional code](../collated/main/A0139916U.md)][[test code](../collated/main/A0139916U.md)][[docs](../collated/docs/A0139916U.md)]
+* Code written: [[functional code](../collated/main/A0139916U.md)][[test code](../collated/test/A0139916U.md)][[docs](../collated/docs/A0139916U.md)]
 * Other major contributions:
   * Initial gradle natty dependency configuration [[8360c0d](https://github.com/CS2103AUG2016-T14-C2/main/commit/8360c0d66fc55f36bed0d0e9d4c6b63186aeb590)]
   * Set up initial interface for undo/redo in Command classes and implement Logic-level undo/redo [[4dfafa0](https://github.com/CS2103AUG2016-T14-C2/main/commit/4dfafa07337f731959bcd7e267e0de9a093ae285)]
@@ -49,7 +49,7 @@ Component SME: UI
    * [Find task](UserGuide.md#finding-all-task-containing-any-keyword-in-its-name-find)
    * [Delete task](UserGuide.md#deleting-a-task--delete)
    * [Modify task](UserGuide.md#modifies-a-task--modify)
-* Code written: [[functional code](../collated/main/A0139915W.md)][[test code](../collated/main/A0139915W.md)][[docs](../collated/docs/A0139915W.md)]
+* Code written: [[functional code](../collated/main/A0139915W.md)][[test code](../collated/test/A0139915W.md)][[docs](../collated/docs/A0139915W.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to SavvyTasker [[#34](https://github.com/CS2103AUG2016-T14-C2/main/pull/34) ]
   * Set up Travis and Coveralls 
