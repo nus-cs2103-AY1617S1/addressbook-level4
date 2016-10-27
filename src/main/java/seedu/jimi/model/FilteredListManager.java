@@ -1,6 +1,7 @@
 package seedu.jimi.model;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -157,11 +158,11 @@ public class FilteredListManager {
 
     public void updateFilteredList(ListId id, Set<String> keywords, DateTime fromDate, DateTime toDate) {
         if (toDate == null) {
-            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords)),
-                    new PredicateExpression(new DateQualifier(fromDate)));
+            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords),
+                    new CompletedQualifier(false), new DateQualifier(fromDate)));
         } else {
-            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords)),
-                    new PredicateExpression(new DateQualifier(fromDate, toDate)));
+            updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords),
+                    new CompletedQualifier(false), new DateQualifier(fromDate, toDate)));
         }
     }
     //@@author
@@ -288,6 +289,8 @@ public class FilteredListManager {
                     return (((Event) task).getStart().getDifferenceInDays(startDate) >= 0
                             && ((Event) task).getEnd().getDifferenceInDays(startDate) <= 0)
                             || (((Event) task).getStart().getDifferenceInDays(endDate) >= 0
+                               && ((Event) task).getEnd().getDifferenceInDays(endDate) <= 0)
+                            || (((Event) task).getStart().getDifferenceInDays(startDate) >= 0
                                && ((Event) task).getEnd().getDifferenceInDays(endDate) <= 0);    
                 } else if(task instanceof DeadlineTask) {
                     return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) <= 0
