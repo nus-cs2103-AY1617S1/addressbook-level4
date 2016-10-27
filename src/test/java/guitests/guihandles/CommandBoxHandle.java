@@ -68,4 +68,12 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW);
     }
     
+    public void pressCtrlZArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_Z);
+    }
+    
+    public void pressCtrlYArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_Y);
+    }
+    
 }

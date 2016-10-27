@@ -19,7 +19,9 @@ import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.commons.util.FxViewUtil;
 import tars.logic.Logic;
 import tars.logic.commands.CommandResult;
+import tars.logic.commands.RedoCommand;
 import tars.logic.commands.RsvCommand;
+import tars.logic.commands.UndoCommand;
 
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -67,25 +69,28 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
-    //@@author A0124333U
+    // @@author A0124333U
     private void setTextFieldKeyPressedHandler() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            // To allow users to cycle through the command text history
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.UP)) {
                     setTextToShowPrevCmdText(ke);
                 } else if (ke.getCode().equals(KeyCode.DOWN)) {
                     setTextToShowNextCmdText(ke);
                 } else if (KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW.match(ke)) {
-                    raise(new KeyCombinationPressedEvent(KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW));
+                    raise(new KeyCombinationPressedEvent(
+                            KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW));
                     ke.consume();
                 } else if (KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW.match(ke)) {
                     raise(new KeyCombinationPressedEvent(KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW));
                     ke.consume();
+                } else if (KeyCombinations.KEY_COMB_CTRL_Z.match(ke)) {
+                    handleUndoAndRedoKeyRequest(UndoCommand.COMMAND_WORD);
+                } else if (KeyCombinations.KEY_COMB_CTRL_Y.match(ke)) {
+                    handleUndoAndRedoKeyRequest(RedoCommand.COMMAND_WORD);
                 }
             }
         });
-
     }
     
     private void setTextFieldValueHandler() {
@@ -125,6 +130,21 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
+        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    /**
+     * Handle any undo and redo request
+     * 
+     * @@author A0139924W
+     */
+    private void handleUndoAndRedoKeyRequest(String commandWord) {
+        if (UndoCommand.COMMAND_WORD.equals(commandWord)) {
+            mostRecentResult = logic.execute(UndoCommand.COMMAND_WORD);
+        } else if (RedoCommand.COMMAND_WORD.equals(commandWord)) {
+            mostRecentResult = logic.execute(RedoCommand.COMMAND_WORD);
+        }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }

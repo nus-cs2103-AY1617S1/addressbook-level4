@@ -2,6 +2,9 @@ package guitests;
 
 import org.junit.Test;
 
+import tars.logic.commands.RedoCommand;
+import tars.logic.commands.UndoCommand;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -61,6 +64,18 @@ public class CommandBoxTest extends TarsGuiTest {
     public void commandBox_textFieldValueChangesEvents_success() {
         commandBox.enterCommand("rsv");
         assertTrue(commandBox.getRsvTaskListPanelHandle().isTabSelected());
+    }
+    
+    @Test
+    public void commandBox_undoShortcut() {
+        commandBox.pressCtrlZArrowKeys();
+        assertEquals(resultDisplay.getText(), UndoCommand.MESSAGE_EMPTY_UNDO_CMD_HIST);
+    }
+
+    @Test
+    public void commandBox_redoShortcut() {
+        commandBox.pressCtrlYArrowKeys();
+        assertEquals(resultDisplay.getText(), RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
     }
 
 }
