@@ -641,7 +641,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -728,7 +728,7 @@ public class Parser {
     }    
     
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -762,7 +762,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find item command.
      *
      * @param args full command args string
      * @return the prepared command
