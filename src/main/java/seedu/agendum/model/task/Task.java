@@ -188,7 +188,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     public int compareCompletionStatus(Task other) {
-        return Boolean.compare(this.isCompleted(), other.isCompleted);
+        return Boolean.compare(this.isCompleted(), other.isCompleted());
     }
 
     public int compareTime(Task other) {
