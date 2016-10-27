@@ -6,6 +6,7 @@ import java.util.Map;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.util.ConfigUtil;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 
@@ -120,25 +121,11 @@ public class AliasController implements Controller {
         return alias.chars().allMatch(Character::isLetter);
     }
     
-    /**
-     * Makes a best effort to sanitize input string.
-     * 
-     * @param alias     string to sanitize
-     * @return          sanitized string
-     */
-    private static String sanitize(String alias) {
-        return (alias == null) ? null : alias.replaceAll("[^A-Za-z]+", "");
-    }
-    
     private static void renderDisambiguation(String aliasKey, String aliasValue, String message) {
-        String sanitizedAliasKey = sanitize(aliasKey);
-        if (sanitizedAliasKey == null || sanitizedAliasKey.length() == 0) {
-            sanitizedAliasKey = "<alias key>";
-        }
-        String sanitizedAliasValue = sanitize(aliasValue);
-        if (sanitizedAliasValue == null || sanitizedAliasValue.length() == 0) {
-            sanitizedAliasValue = "<alias value>";
-        }
+        String sanitizedAliasKey = StringUtil.sanitize(aliasKey);
+        sanitizedAliasKey = StringUtil.replaceEmpty(sanitizedAliasKey, "<alias key>");
+        String sanitizedAliasValue = StringUtil.sanitize(aliasValue);
+        sanitizedAliasValue = StringUtil.replaceEmpty(sanitizedAliasValue, "<alias value>");
         Renderer.renderDisambiguation(String.format("alias %s %s",
                 sanitizedAliasKey, sanitizedAliasValue), message);
     }
