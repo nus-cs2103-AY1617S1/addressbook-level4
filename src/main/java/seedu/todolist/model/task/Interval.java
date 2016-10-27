@@ -184,9 +184,15 @@ public class Interval implements Comparable<Interval> {
             if (secondDate == null) { //timed tasks always earlier than floating task
                 return -1;
             }
-            else { //both are timed tasks
+            else { //both are dated tasks
                 if (firstDate.equals(secondDate)) { //if date are the same, determine order with time
-                    if (firstTime.equals(secondTime)) { //both datetime are equal
+                    if (firstTime == null) { //untimed task always later than timed task
+                        return 1;
+                    }
+                    else if (secondTime == null) { //timed task always earlier than untimed task
+                        return -1;
+                    }
+                    else if (firstTime.equals(secondTime)) { //both datetime are equal
                         return 0;
                     }
                     else if (firstTime.isBefore(secondTime)) { //first task is earlier
