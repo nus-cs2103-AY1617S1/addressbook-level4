@@ -130,13 +130,26 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     /**
      * Marks a specific task as completed to the task list.
+     * 
+     * @param originalTask refers to the task that selected from the list
+     * @param completeTask refers to a task same as original task except being marked as complete
      */
     
     public void completeTask(ReadOnlyTask originalTask, Task completeTask) {
-    	syncTagsWithMasterList(completeTask);
     	tasks.complete(originalTask,completeTask); 
     }
     
+    //@@author A0153467Y
+    /**
+     * Unmark a specific completed task as not completed to the task list.
+     * 
+     * @param originalTask refers to task which is marked as complete
+     * @param uncompleteTask refers to task which is now marked as not complete
+     */
+    public void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask) {
+        tasks.uncomplete(originalTask,uncompleteTask); 
+    }
+    //@@author
     /**
      * Ensures that every tag in this task: - exists in the master list
      * {@link #tags} - points to a Tag object in the master list

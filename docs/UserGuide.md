@@ -24,6 +24,7 @@
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`1`: delete the first task in the list
    * **`complete`** `1`: mark the first task as completed
+   * **`uncomplete`** `1`: mark the completed first task on the list as not completed
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
@@ -61,7 +62,6 @@ Examples:
 
 <!--@@author -->
 
-//@@author A0153467Y
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -73,7 +73,7 @@ Examples:
   Deletes `meeting` task.
 * `delete 1`<br>
   Deletes the first task in the to-do list.
-
+<!-- @@author A0153467Y-->
 #### Marking a task as completed: `complete`
 Marks a specific task by index from the to-do list.<br>
 FormatL `complete INDEX`
@@ -83,6 +83,16 @@ FormatL `complete INDEX`
 Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
+   
+#### Unarking a completed task as not completed: `uncomplete`
+Unmarks a completed specific task as not completed by index from the to-do list.<br>
+FormatL `uncomplete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `uncomplete 2`<br>
+   Unmarks the completed second task on the list as not completed.
    
 #### Pin: `pin`
 Pin an important task.<br>
@@ -103,7 +113,7 @@ Format: `unpin INDEX`
 Example:
 * `unpin 1`<br>
 unpin the pinned and first task on the list. 
-
+<!-- @@author -->
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
 Format: `list`
@@ -153,13 +163,13 @@ Examples:
    
 <!-- @@author -->
 
-//@@author A0153467Y
+<!-- @@author A0153467Y-->
 #### Undo action : `undo`
 Undo the previous action.<br>
 Format: `undo`
 
 > * Will only undo `add`, `delete` and `update` actions.
-
+<!-- @@author -->
 #### Viewing help : `help`
 Show the help menu. Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `123abc`
@@ -191,6 +201,7 @@ Command | Format
 Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
 Complete | `complete INDEX`
+Uncomplete | `uncomplete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`

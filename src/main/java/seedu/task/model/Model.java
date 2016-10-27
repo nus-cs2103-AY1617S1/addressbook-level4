@@ -39,9 +39,14 @@ public interface Model {
     /** Unpins the given task*/
     void unpinTask(ReadOnlyTask originalTask, Task toUnpin);
 
+    //@@author A0153467Y    
     /** Mark the given task as completed */
     void completeTask(ReadOnlyTask originalTask, Task completedTask);
     
+    //@@author A0153467Y
+    /** Unmark the given important task */
+    void uncompleteTask(ReadOnlyTask originalTask, Task uncompletedTask);
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
