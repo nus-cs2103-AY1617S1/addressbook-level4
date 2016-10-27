@@ -75,7 +75,8 @@ public class TaskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue.getTaskReference()));
+                int index = taskListView.getSelectionModel().getSelectedIndex();
+                raise(new TaskPanelSelectionChangedEvent(newValue.getTaskReference(), index));
             }
         });
     }
