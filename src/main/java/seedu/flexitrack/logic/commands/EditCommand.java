@@ -56,11 +56,10 @@ public class EditCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         String duration = null;
-
-        storeDataChanged.add(new Task(lastShownList.get(targetIndex - 1))); 
         
         try {
             duration = model.editTask(targetIndex - 1, arguments);
+            storeDataChanged.add(new Task(lastShownList.get(targetIndex - 1))); 
         } catch (TaskNotFoundException pnfe) {
             indicateAttemptToExecuteIncorrectCommand();
             storeDataChanged.pop();
