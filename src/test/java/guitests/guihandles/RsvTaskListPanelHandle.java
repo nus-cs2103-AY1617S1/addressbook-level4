@@ -5,10 +5,12 @@ import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import tars.TestApp;
 import tars.model.task.rsv.RsvTask;
 import tars.testutil.TestUtil;
+import tars.ui.MainWindow;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,7 @@ public class RsvTaskListPanelHandle extends GuiHandle {
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String RSV_TASK_LIST_VIEW_ID = "#rsvTaskListView";
+    private static final String TAB_PANEL_ROOT_FIELD_ID = "#tabPane";
 
     public RsvTaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -167,5 +170,9 @@ public class RsvTaskListPanelHandle extends GuiHandle {
 
     public int getNumberOfTasks() {
         return getRsvListView().getItems().size();
+    }
+    
+    public boolean isTabSelected() {
+        return ((TabPane) getNode(TAB_PANEL_ROOT_FIELD_ID)).getSelectionModel().isSelected(MainWindow.RSV_TASK_LIST_PANEL_TAB_PANE_INDEX);
     }
 }

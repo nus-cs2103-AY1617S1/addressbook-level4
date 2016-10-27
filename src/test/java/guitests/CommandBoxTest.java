@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CommandBoxTest extends TarsGuiTest {
 
@@ -40,6 +41,26 @@ public class CommandBoxTest extends TarsGuiTest {
         commandBox.pressDownKey();
         assertEquals(commandBox.getCommandInput(), "Temp User Input Command");
 
+    }
+    
+    @Test
+    public void commandBox_cycleThroughTabPane() {
+        commandBox.pressCtrlRightArrowKeys();
+        assertTrue(commandBox.getRsvTaskListPanelHandle().isTabSelected());
+        commandBox.pressCtrlRightArrowKeys();
+        assertTrue(commandBox.getHelpPanelHandle().isTabSelected());
+        commandBox.pressCtrlRightArrowKeys();
+        assertTrue(commandBox.getOverviewPanelHandle().isTabSelected());
+        commandBox.pressCtrlLeftArrowKeys();
+        assertTrue(commandBox.getHelpPanelHandle().isTabSelected());
+        commandBox.pressCtrlLeftArrowKeys();
+        assertTrue(commandBox.getRsvTaskListPanelHandle().isTabSelected());      
+    }
+    
+    @Test
+    public void commandBox_textFieldValueChangesEvents_success() {
+        commandBox.enterCommand("rsv");
+        assertTrue(commandBox.getRsvTaskListPanelHandle().isTabSelected());
     }
 
 }
