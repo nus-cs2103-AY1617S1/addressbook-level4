@@ -26,8 +26,18 @@ Responsibilities: Documentation, Testing
 
 #### [Antonia Devina](https://github.com/antoniadevina)
 <img src="images/AntoniaDevina.jpeg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Integration, Scheduling and tracking
+* Role: Developer <br>  
+* Responsibilities: Integration, Scheduling and tracking
+* Features implemented:
+	> * Mark Command 
+	> * Undo Command 
+	> * List Command 
+	
+* Code written: [functional code][test code][docs]
+* Other major contributions:
+	> * Did the initial refactoring from AddressBook to FlexiTrack 
+	> * Fix the Initial test cases to fit FlexiTrack 
+	> * Implement natty and the DateTimeInfo class
 
 -----
 

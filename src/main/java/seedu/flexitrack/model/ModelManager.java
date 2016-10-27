@@ -125,11 +125,13 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
     }
 
+    //@@author A0127686R
     @Override
     public void updateFilteredListToFitUserInput(String args){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(args)));
     }
     
+    //@@author 
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -199,21 +201,29 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-
+    //@@author A0127686R
     private class DateQualifier implements Qualifier {
         private String keyWords;
         private String dateInfo; 
 
         DateQualifier(String keyWord) {
             this.keyWords = keyWord;
-            this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
+            this.dateInfo = trimKeyWords(keyWord);
+        }
+
+        /**
+         * Delete all the list command that is not date from the keywords
+         * @param keyWord
+         * @return
+         */
+        private String trimKeyWords(String keyWord) {
+            return keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
                     .replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "")
                     .replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").replace(ListCommand.LIST_LAST_MONTH_COMMAND, "")
                     .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "")
                     .replace(ListCommand.LIST_BLOCK_COMMAND, "").trim();
         }
 
-        //TODO: need to refactor 
         @Override
         public boolean run(ReadOnlyTask task) {
             
@@ -238,25 +248,58 @@ public class ModelManager extends ComponentManager implements Model {
          */
         private boolean isTaskGoingToBeShown(ReadOnlyTask task) {
             if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
-                if (task.getIsNotFloatingTask()){ 
-                    return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
-                }else { 
-                    return !task.getIsDone();
-                }
+                return isTaskInTheFuture(task);
             } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
-                return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+                return isTaskInThePast(task);
             } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
-                return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
+                return isTaskWithinTheSpecifiedTiming(task);
             } else if (!dateInfo.equals("")){
-                return DateTimeInfo.isOnTheDate(dateInfo, task);
+                return doesTaskCrossTheParticularStatedDate(task);
             } else { 
                 return true; 
             }
         }
+
+        /**
+         * Process If the task happens on a particular date 
+         * @param task
+         * @return true if task contain or cross the date
+         */
+        private boolean doesTaskCrossTheParticularStatedDate(ReadOnlyTask task) {
+            return DateTimeInfo.isOnTheDate(dateInfo, task);
+        }
+
+        /**
+         * Process if the task happens between now and the time stated 
+         * @param task
+         * @return true if task is within the stated time
+         */
+        private boolean isTaskWithinTheSpecifiedTiming(ReadOnlyTask task) {
+            return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
+        }
+
+        /**
+         * Process if a particular task has passed
+         * @param task
+         * @return true if it has passed
+         */
+        private boolean isTaskInThePast(ReadOnlyTask task) {
+            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+        }
+
+        /**
+         * Process if a particular task has not passed yet
+         * @param task
+         * @return true if it has not passed yet
+         */
+        private boolean isTaskInTheFuture(ReadOnlyTask task) {
+            if (task.getIsNotFloatingTask()){ 
+                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+            }else { 
+                return !task.getIsDone();
+            }
+        }
         
     }
-
-    
-    
 
 }

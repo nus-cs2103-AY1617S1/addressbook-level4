@@ -65,6 +65,7 @@ public class Name {
         return isDonePrefix.equals(DONE_PREFIX);
     }
     
+  //@@author A0127686R
     @Override
     public String toString(){ 
         return isDonePrefix + fullName; 

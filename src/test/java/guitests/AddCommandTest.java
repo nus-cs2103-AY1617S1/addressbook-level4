@@ -9,6 +9,7 @@ import seedu.flexitrack.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0127686R
 public class AddCommandTest extends FlexiTrackGuiTest {
 
     @Test

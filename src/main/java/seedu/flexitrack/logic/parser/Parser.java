@@ -25,7 +25,7 @@ public class Parser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     private static final HashMap<String, String> SHORTCUT_MAP = new HashMap<String, String>();                                                                                                       // more
-                                                                                                           
+
     static {
         SHORTCUT_MAP.put(AddCommand.COMMAND_SHORTCUT, AddCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(ClearCommand.COMMAND_SHORTCUT, ClearCommand.COMMAND_WORD);
@@ -39,17 +39,18 @@ public class Parser {
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
-    }                                                                                                      
+    }  
+
+    //@@author A0127686R
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    //@@author 
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
 
     private static final Pattern EDIT_ARGS_NAME = Pattern.compile("n/\\s*(?<name>.+)");
@@ -77,13 +78,13 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String parsedCommandWord = parseCommandWord(commandWord);
-        
+
         final String arguments = matcher.group("arguments");
         switch (parsedCommandWord) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-            
+
         case BlockCommand.COMMAND_WORD:
             return prepareBlock(arguments);
 
@@ -101,7 +102,7 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
@@ -124,38 +125,23 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-        
-        private String parseCommandWord(String commandWord) {       
-            return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
-        }
 
-        private Command prepareList(String arguments) {
-            arguments=arguments.trim();
-            try {
-                if (isValideListFormat(arguments)) {
-                    return new ListCommand(arguments);
-                }
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    private String parseCommandWord(String commandWord) {       
+        return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
+    }
+
+    //@@author A0127686R
+    private Command prepareList(String arguments) {
+        arguments=arguments.trim();
+        try {
+            if (isValideListFormat(arguments)) {
+                return new ListCommand(arguments);
             }
+        } catch (IllegalValueException e) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
-        
-        private Command prepareBlock(String args) {
-            final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-
-            // Validate arg string format
-            try {
-                if (matcherEvent.matches()) {
-                    return new BlockCommand("(Blocked) " + matcherEvent.group("name"), EMPTY_TIME_INFO, matcherEvent.group("startTime"),
-                            matcherEvent.group("endTime"), getTagsFromArgs(matcherEvent.group("tagArguments")));
-                } else {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
-                }
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
 
     /**
      * @param arguments
@@ -164,10 +150,10 @@ public class Parser {
      */
     private boolean isValideListFormat(String arguments) throws IllegalValueException {
         String dateInfo = (arguments.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
-        replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").
-        replace(ListCommand.LIST_LAST_MONTH_COMMAND, "").replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").
-        replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").
-        replace(ListCommand.LIST_BLOCK_COMMAND, "").trim());
+                replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").
+                replace(ListCommand.LIST_LAST_MONTH_COMMAND, "").replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").
+                replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").
+                replace(ListCommand.LIST_BLOCK_COMMAND, "").trim());
         if ( !dateInfo.equals("") ){
             DateTimeInfoParser timeArgs = new DateTimeInfoParser(dateInfo);
         }
@@ -178,6 +164,23 @@ public class Parser {
                 || arguments.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) || arguments.contains(ListCommand.LIST_BLOCK_COMMAND));
     }
 
+    //@@author
+    private Command prepareBlock(String args) {
+        final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+
+        // Validate arg string format
+        try {
+            if (matcherEvent.matches()) {
+                return new BlockCommand("(Blocked) " + matcherEvent.group("name"), EMPTY_TIME_INFO, matcherEvent.group("startTime"),
+                        matcherEvent.group("endTime"), getTagsFromArgs(matcherEvent.group("tagArguments")));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
     private Command prepareEdit(String arguments) {
 
         int index;
@@ -271,6 +274,7 @@ public class Parser {
         return new MarkCommand(index.get());
     }
 
+    //@@author A0127686R
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -313,6 +317,7 @@ public class Parser {
                 matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
     }
 
+    //@@author 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.

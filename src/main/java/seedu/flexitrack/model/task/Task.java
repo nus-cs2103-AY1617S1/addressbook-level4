@@ -154,6 +154,7 @@ public class Task implements ReadOnlyTask{
         this.isEvent = bool;
     }
 
+    //@@author A0127686R
     public boolean getIsNotFloatingTask(){
         return (this.isEvent || this.isTask);
     }

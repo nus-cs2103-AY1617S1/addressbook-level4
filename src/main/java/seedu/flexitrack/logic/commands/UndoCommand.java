@@ -10,6 +10,7 @@ import seedu.flexitrack.logic.parser.Parser;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.tag.Tag;
 
+//@@author A0127686R
 /**
  * Clears the FlexiTrack.
  */

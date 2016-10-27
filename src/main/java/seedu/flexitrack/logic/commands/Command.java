@@ -55,6 +55,7 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0127686R
     public void recordCommand(String command){
         UndoCommand.commandRecord.add(command); 
     }
