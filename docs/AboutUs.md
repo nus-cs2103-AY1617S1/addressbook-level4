@@ -28,14 +28,14 @@ Responsibilities: Code Quality/Deliverables/UI
 
 #### [Aloisius Stephen](https://github.com/aloisiusStephen)
 <img src="images/Aloisius.jpg" width="150"><br> 
-* Components in charge of: []
+* Components in charge of: UI
 * Aspects/tools in charge of: Git
 * Features Implemented
-..* [Undo commands](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#undoing-an-action--undo)
-..* [Mark completion](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#marking-an-activity-as-done-done)
+* [Undo commands](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#undoing-an-action--undo)
+* [Mark completion](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#marking-an-activity-as-done-done)
 * Code Written:[functional code][test code][docs]
 * Other major contributions:
-..* 
+[Took on Project Management role]
 -----
 
 #### [Kevin Ong](https://github.com/Kevin-Ong)
