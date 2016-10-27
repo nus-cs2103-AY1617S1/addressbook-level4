@@ -72,7 +72,7 @@ public class DateTime {
 
         if(value.isPresent()) {
             DateTimeFormatter formatter =
-                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.FULL )
+                    DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                                      .withLocale( Locale.UK )
                                      .withZone( ZoneId.systemDefault() );
             return formatter.format( value.get() );

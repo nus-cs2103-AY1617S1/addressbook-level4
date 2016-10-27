@@ -42,13 +42,15 @@
                         		<HBox spacing="5" alignment="CENTER_LEFT">
 		                             <children>
 		                             	<Label styleClass="cell_big_label" text="Start: "></Label>
-		                             	<Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
+		                             	<Label fx:id="actualOpenTime" styleClass="cell_big_label" text="\$actualOpenTime" />
+		                                <Label fx:id="openTime" styleClass="cell_big_label" text="\$openTime" />
 		                             </children>
 		                        </HBox>
 		                        <HBox spacing="5" alignment="CENTER_LEFT">
 		                             <children>
 		                             	<Label styleClass="cell_big_label" text="End: "></Label>
-		                             	<Label fx:id="closeTime" styleClass="cell_big_label" text="\$closeTime" />
+		                             	<Label fx:id="actualCloseTime" styleClass="cell_big_label" text="\$actualCloseTime" />
+		                                <Label fx:id="closeTime" styleClass="cell_big_label" text="\$closeTime" />
 		                             </children>
 		                        </HBox>
                         	</children>
