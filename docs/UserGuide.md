@@ -325,7 +325,6 @@ Command | Format
 [Delete [by Date]](#deleting-a-task--del) | `del /dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]`
 [Delete [by Tags]](#deleting-a-task--del) | `del /t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
 [Edit](#editing-a-task--edit) | `edit <INDEX> /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> /t <TAG(s)>`
-[Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> /ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
 [Find [Quick Serach]](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
 [Find [Filter Serach]](#finding-tasks--find) | `find /n <NAME_KEYWORD> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITYLEVEL> /do [or /ud] /t <TAG_KEYWORD>`
