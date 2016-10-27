@@ -276,7 +276,7 @@ Priority | As a ... | I want to ... | So that I can...
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
-
+//@@LiXiaowei A0142325R
 #### Use case: Delete task
 
 **MSS**
@@ -300,7 +300,7 @@ Use case resumes at step 4
 
 > 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
-
+//
 #### Use case: Find task
 
 **MSS**

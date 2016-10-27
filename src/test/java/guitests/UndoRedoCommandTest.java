@@ -15,6 +15,9 @@ public class UndoRedoCommandTest extends TaskManagerGuiTest {
     public void undoRedo() {
         // Action: mark as done
         TestTask[] secondState = td.getTypicalTasks();
+        secondState[1].markAsDone();
+        commandBox.runCommand("done 2");
+        
         secondState[0].markAsDone();
         commandBox.runCommand("done 1");
         

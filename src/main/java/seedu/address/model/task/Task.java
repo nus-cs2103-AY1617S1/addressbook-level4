@@ -111,7 +111,7 @@ public class Task implements ReadOnlyTask {
         this.recurring = null;
     }
 
-
+    //@@LiXiaowei A0142325R
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar currentDateTime = Calendar.getInstance();
@@ -128,7 +128,7 @@ public class Task implements ReadOnlyTask {
             updateRecurringTask(elapsedDays);
             break;
         case "weekly":
-            long numWeek = elapsedDays / 7 + 1;
+            long numWeek = (elapsedDays - 1) / 7 + 1;
             updateRecurringTask(numWeek * 7);
             break;
         case "monthly":
@@ -195,7 +195,7 @@ public class Task implements ReadOnlyTask {
         // assert recurring!=null;
         return this.recurring;
     }
-
+//
     @Override
     public Date getDate() {
         return date;
@@ -228,7 +228,7 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-
+    //@@LiXiaowei A0142325R
     @Override
     public boolean isRecurring() {
         return isRecurring;

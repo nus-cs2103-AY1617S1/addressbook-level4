@@ -1,5 +1,5 @@
 package guitests;
-
+//@@LiXiaowei A0142325R
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestTask;
@@ -15,7 +15,9 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find friends",td.friendEvent,td.lunch);
+        assertFindResult("find friend",td.friendEvent,td.lunch); // near match search
+        assertFindResult("find lunch AND friend",td.lunch); // AND operator
+        assertFindResult("find exact! friend"); //no results
     }
 
     @Test

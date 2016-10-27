@@ -27,6 +27,16 @@ public class ListCommandTest extends TaskManagerGuiTest {
         assertListResult("list",currentList);
         assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS));
         
+        //list all done items
+        commandBox.runCommand("done 1");
+        td.friend.markAsDone();
+        assertListResult("list done", td.friend);
+        assertResultMessage(String.format(ListCommand.MESSAGE_LIST_DONE_TASK_SUCCESS));
+        
+        // list all undone items
+        assertListResult("list undone", td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
+        assertResultMessage(String.format(ListCommand.MESSAGE_LIST_UNDONE_TASK_SUCCESS));
+        
         //list empty lists
         commandBox.runCommand("clear");
         assertListResult("list");
@@ -34,7 +44,8 @@ public class ListCommandTest extends TaskManagerGuiTest {
         //invalid command
         commandBox.runCommand("lists");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
+        commandBox.runCommand("list unknown");
+        assertResultMessage(ListCommand.MESSAGE_INVALID_LIST_COMMAND);
         
     }
 

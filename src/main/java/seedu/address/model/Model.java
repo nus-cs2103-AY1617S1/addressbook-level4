@@ -3,7 +3,6 @@ package seedu.address.model;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
-import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -39,16 +38,32 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
 
-	void updateFilteredTaskList(String keyword);
+    /** Updates the filter of the filtered task list to filter by the given type */
+	void updateFilteredTaskList(String type);
+	
+	/** Updates the filter of the filtered task list to filter by the given keywords of the given type */
+	void updateFilteredTaskList(String keyword, String type);
+	
+	/** Updates the filter of the filtered task list to filter by the the given keywords (for find command) */
+    void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups);
+	
+	/** Updates the filter of the filtered task list to filter by the stemmed words of the given keywords (for find command) */
+    void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups);
+	
+    /** Updates the filter of the filtered task list to filter by the given tags */
+    void updateFilteredTaskListByTags(Set<String> keywords);
 
-	/** Updates the filter of the filtered task list to filter by the given date*/
-	void updateFilteredTaskList(String dateValue, boolean isEventDate);
-
-	/** Update the task manager to the new file path*/
+	/** Update the task manager to the new file path */
 	void updateTaskManager(String filePath, boolean isToClearOld);
+	
+	/** Change the task manager back to the old file path*/
+    void changeBackTaskManager(boolean isToClearNew);
+    
+    /** Redo update the task manager back to the new file path*/
+    void redoUpdateTaskManager(boolean isToClearOld);
 
 	/** Saves the current state of the task manager. */
     public void saveState(String message);

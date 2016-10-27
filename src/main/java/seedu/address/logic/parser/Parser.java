@@ -54,6 +54,8 @@ public class Parser {
 			+ "(?<edit>(?: [dsenr]/[^/]+)?)"
 			+ "((i/(?<index>([0-9])+)*)?)" );
 
+    private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
+//@LiXiaowei A0142325R
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
     public static final Prefix startDatePrefix = new Prefix("s/");
@@ -127,6 +129,12 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+        case UndoChangeCommand.COMMAND_WORD:
+            return new UndoChangeCommand(arguments);
+            
+        case RedoChangeCommand.COMMAND_WORD:
+            return new RedoChangeCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -152,7 +160,7 @@ public class Parser {
         }
         return new DoneCommand(index.get());
     }
-
+//@@LiXiaowei A0142325R
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -166,12 +174,12 @@ public class Parser {
         argsTokenizer.tokenize(args);
         try {
             if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-
-                   if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
-                            && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                        // non-recurring task
-                        return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
-                                toSet(argsTokenizer.getAllValues(tagPrefix)), "");}
+                if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
+                        && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+                    // non-recurring task
+                    return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                            toSet(argsTokenizer.getAllValues(tagPrefix)), "");
+                }
                 // check if task is recurring floating task
                 if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
@@ -183,8 +191,7 @@ public class Parser {
                     return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                             argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                             "");
-                }
-                 else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
+                } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
                     if (!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
                         // non-recurring event
@@ -204,8 +211,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (Exception e) {
+            return new IncorrectCommand(MESSAGE_INVALID_DATE);
         }
     }
+    //@@LiXiaowei A0142325R-reused
 
     /**
      * Extracts the new task's deadline from the add command's deadline argument
@@ -237,7 +247,7 @@ public class Parser {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
-
+//@@LiXiaowei A0142325R
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -323,10 +333,14 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        // Group keywords by AND operator
+        final String[] keywords = matcher.group("keywords").split("AND");
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        final Set<Set<String>> keywordsGroup = new HashSet<Set<String>>();
+        for (String keyword: keywords) {
+            keywordsGroup.add(new HashSet<>(Arrays.asList(keyword.trim().split("\\s+"))));
+        }
+        return new FindCommand(keywordsGroup, matcher.group("keywords").contains("exact!"));
     }
 
     private Command prepareList(String args) {
@@ -364,14 +378,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFilter(String arguments) {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, startDatePrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, startDatePrefix, endDatePrefix,
+                recurringPrefix, tagPrefix);
         argsTokenizer.tokenize(arguments);
-        if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-            if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-                return new FilterCommand(argsTokenizer.getValue(deadlinePrefix).get(), false);
-            }
-        } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-            return new FilterCommand(argsTokenizer.getValue(startDatePrefix).get(), true);
+        Optional<String> deadline = argsTokenizer.getValue(deadlinePrefix);
+        Optional<String> startDate = argsTokenizer.getValue(startDatePrefix);
+        Optional<String> endDate = argsTokenizer.getValue(endDatePrefix);
+        Optional<String> recurring = argsTokenizer.getValue(recurringPrefix);
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent() 
+                || recurring.isPresent() || tags.isPresent()) {
+           return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags));
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
