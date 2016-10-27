@@ -12,9 +12,6 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.TaskBlockedException;
-import seedu.cmdo.logic.Logic;
-import seedu.cmdo.logic.LogicManager;
-import seedu.cmdo.model.Model;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 

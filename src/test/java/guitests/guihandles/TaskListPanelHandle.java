@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.sun.media.jfxmedia.logging.Logger;
-
 import static org.junit.Assert.assertTrue;
 
 /**

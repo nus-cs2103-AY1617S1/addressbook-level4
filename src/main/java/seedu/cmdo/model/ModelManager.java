@@ -1,22 +1,21 @@
 package seedu.cmdo.model;
 
-import javafx.collections.transformation.FilteredList;
-import seedu.cmdo.commons.core.ComponentManager;
-import seedu.cmdo.commons.core.LogsCenter;
-import seedu.cmdo.commons.core.UnmodifiableObservableList;
-import seedu.cmdo.commons.exceptions.CannotUndoException;
-import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
-import seedu.cmdo.commons.util.SearchUtil;
-import seedu.cmdo.commons.util.StringUtil;
-import seedu.cmdo.model.task.ReadOnlyTask;
-import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
-import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
-
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javafx.collections.transformation.FilteredList;
+import seedu.cmdo.commons.core.ComponentManager;
+import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.core.UnmodifiableObservableList;
+import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
+import seedu.cmdo.commons.util.SearchUtil;
+import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
+import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
+import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the todo list data.

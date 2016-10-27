@@ -6,20 +6,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.joestelmach.natty.*;
-import com.sun.glass.ui.monocle.linux.LinuxInputProcessor.Logger;
 
-import seedu.cmdo.MainApp;
-import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.commands.*;
-import seedu.cmdo.model.ModelManager;
 import seedu.cmdo.model.task.Priority;
 
 /**
@@ -46,6 +41,7 @@ public class MainParser {
 	
 	// Singleton
 	private static MainParser mainParser;
+	private static Parser parser;
 	private static Blocker blocker;
 	private ArrayList<LocalDateTime> datesAndTimes;
 	private String reducedArgs;
@@ -72,7 +68,7 @@ public class MainParser {
      * @author A0139661Y
      */
     private void init() {
-    	Parser parser = new Parser();
+    	parser = new Parser();
     	datesAndTimes = new ArrayList<LocalDateTime>();
     }
 
@@ -287,11 +283,7 @@ public class MainParser {
      * may have error as use the same array variable as add
      */
     private Command prepareEdit(String args){
-        //java.util.logging.Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     	try {
-    		//logger.info(detailToAdd + " Initial");
-    		//logger.info(datesAndTimes.toString());
     	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
     	
@@ -299,13 +291,9 @@ public class MainParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
     	//check for empty detail
         if (args.lastIndexOf("'") == args.indexOf("'"))
         	detailToAdd = "";
-        
-       // logger.info(detailToAdd + "Empty ''");
-        	
         // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
         
@@ -314,22 +302,18 @@ public class MainParser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
         // Store index and remove
         int targetIndex = index;
         args = args.replaceFirst("[0-9]+\\s", "");
         //If details is not empty, extract details
         if(detailToAdd == null || !detailToAdd.equals(""))
         extractDetail(args);
-        
         //used a flag to check if floating task
         boolean floating = false;
         //used flag to check if want to remove priority
         boolean removePriority = false;
         // Parse date and time
-        //logger.info(args);
         reducedArgs = extractDueByDateAndTime(args);
-        //logger.info(datesAndTimes.toString());
         //if keyword float is entered, it becomes a floating task (no date no time)
         if(reducedArgs.toLowerCase().contains("floating")){
         	floating = true;
@@ -338,13 +322,6 @@ public class MainParser {
         if(reducedArgs.toLowerCase().contains("remove priority")||reducedArgs.toLowerCase().contains("rp")){
         	removePriority = true;
         }
-        	
-//        // empty details
-//        if(extractDetail(reducedArgs).isEmpty()){
-//            return new IncorrectCommand(
-//                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//        }      
-        
         // used as flag for task type. 0 for floating, 1 for non-range, 2 for range
     	int dataNo;
         LocalDateTime dt = LocalDateTime.MIN;
@@ -365,9 +342,7 @@ public class MainParser {
     	// For testing purposes
         datesAndTimes.clear();
         String detailToEdit = detailToAdd;
-        //logger.info(detailToAdd);
         
-
         // For testing purposes
         datesAndTimes.clear();
         detailToAdd = null;
@@ -398,20 +373,10 @@ public class MainParser {
 					extractPriority(splittedArgs),
 					getTagsFromArgs(splittedArgs));
     		}
-    	}
-    	
-//    		return new EditCommand(
-//    				targetIndex,
-//    				detailToAdd,
-//    				dt.toLocalDate(),
-//    				dt.toLocalTime(),
-//    				extractPriority(splittedArgs),
-//    				getTagsFromArgs(splittedArgs));
-    	 catch (IllegalValueException ive) {
+    	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
-    
 
     /**
      * Parses arguments in the context of the delete task command.
@@ -430,17 +395,6 @@ public class MainParser {
         return new DeleteCommand(index.get());
     }
 
-//    private String RedoCommand() {
-//        if (statusSaver.isRedoMasterStackEmpty()) {
-//            return REDO_LIMIT;
-//        }
-//        statusSaver.retrieveRedoStatus();
-//        taskMasterList = statusSaver.getLastTaskMasterList();
-//        taskObservableList = statusSaver.getLastTaskObservableList();
-//        taskOrganiser.updateFile(taskMasterList);
-//        return REDO_MESSAGE;
-//    }
-    
     /**
      * Parses arguments in the context of the done task command.
      *
@@ -594,16 +548,12 @@ public class MainParser {
      * Extracts the dueByDate and dueByTime out of the args.
      * 
      * This snippet of code uses natty by Joel Ostenmach and its implementation was inspired by
-     * https://github.com/cs2103aug2015-t16-1j/fini
      * 
      * @@author A0139661Y
      */
     public String extractDueByDateAndTime(String dirtyArgs) {
-    	Parser parser = new Parser();
     	List<DateGroup> groups = parser.parse(dirtyArgs);
     	String cleanArgs = dirtyArgs;
-    	
-    	
     	
     	try {
     		// This retrieves either the start date/time, or the only date/time.
@@ -637,7 +587,7 @@ public class MainParser {
     /**
      * Checks for non-essential groups.
      * 
-     * @author A0139661Y
+     * @author A0139661Y-unused
      */
     private static String checkEmpty(String argument) {
     	if (argument.isEmpty()) {

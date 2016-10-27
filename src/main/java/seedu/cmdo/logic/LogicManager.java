@@ -1,20 +1,18 @@
 package seedu.cmdo.logic;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
-import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.ToDoList;
 import seedu.cmdo.model.Undoer;
-import seedu.cmdo.model.ReadOnlyToDoList;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.storage.Storage;
-
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

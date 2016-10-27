@@ -16,7 +16,6 @@ import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
 /**
  * Created an Block command
  *

@@ -1,11 +1,11 @@
 package seedu.cmdo.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.util.CollectionUtil;
-import seedu.cmdo.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.

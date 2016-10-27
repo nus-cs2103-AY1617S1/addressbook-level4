@@ -1,7 +1,6 @@
 package seedu.cmdo.logic;
 
 import javafx.collections.ObservableList;
-import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.model.task.ReadOnlyTask;
 

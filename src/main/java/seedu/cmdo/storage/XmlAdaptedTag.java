@@ -1,10 +1,9 @@
 package seedu.cmdo.storage;
 
-import seedu.cmdo.commons.util.CollectionUtil;
-import seedu.cmdo.model.tag.Tag;
-import seedu.cmdo.commons.exceptions.IllegalValueException;
-
 import javax.xml.bind.annotation.XmlValue;
+
+import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.model.tag.Tag;
 
 /**
  * JAXB-friendly adapted version of the Tag.

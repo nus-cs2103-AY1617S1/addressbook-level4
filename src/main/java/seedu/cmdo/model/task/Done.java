@@ -1,7 +1,5 @@
 package seedu.cmdo.model.task;
 
-import seedu.cmdo.commons.exceptions.IllegalValueException;
-
 /**
  * Represents if a Task's is done in the To Do List.
  * Guarantees: immutable; is valid as declared in {@link #isValidDone(String)}
