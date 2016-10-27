@@ -1,11 +1,9 @@
 package seedu.todo;
 
-import java.io.IOException;
 import java.util.function.Supplier;
 
 import javafx.stage.Stage;
 import seedu.todo.commons.core.Config;
-import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
@@ -19,10 +17,7 @@ public class TestApp extends MainApp {
     protected Supplier<TodoListDB> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
-    public TestApp() {
-    }
-
-    public TestApp(Supplier<TodoListDB> initialDataSupplier, String saveFileLocation) throws DataConversionException, IOException {
+    public TestApp(Supplier<TodoListDB> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -30,6 +25,8 @@ public class TestApp extends MainApp {
     
     @Override
     public void init() throws Exception {
+        super.init();
+        
         // If some initial local data has been provided, load that data into TodoListDB instead.
         if (initialDataSupplier.get() != null) {
             TodoListDB db = TodoListDB.getInstance();
@@ -37,9 +34,6 @@ public class TestApp extends MainApp {
             storage.save(initialDataSupplier.get());
             db.setStorage(storage);
         }
-        
-        // Continue with the rest of initialization
-        super.init();
     }
 
     @Override

@@ -197,4 +197,19 @@ public class TestUtil {
         return list.get(list.size() - 1);
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T[] appendTo(final T[] addTo, T... toAdd) {
+        List<T> listAddTo = asList(addTo);
+        listAddTo.addAll(asList(toAdd));
+        return (T[]) listAddTo.toArray();
+    }
+
+    private static <T> List<T> asList(T[] objs) {
+        List<T> list = new ArrayList<>();
+        for (T obj : objs) {
+            list.add(obj);
+        }
+        return list;
+    }
+
 }
