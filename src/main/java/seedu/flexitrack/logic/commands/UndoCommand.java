@@ -43,6 +43,9 @@ public class UndoCommand extends Command {
             break; 
         case "edit":   
             undo = new EditCommand(); 
+            break;            
+        case "block":   
+            undo = new BlockCommand(); 
             break;
         }
         undo.setData(model);

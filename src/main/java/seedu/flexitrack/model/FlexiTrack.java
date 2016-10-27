@@ -194,7 +194,8 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         // your own
         return Objects.hash(task, tags);
     }
-
+    
+    //@@author A0138455Y
     public void markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         task.mark(targetIndex, Boolean.TRUE);
     }
@@ -207,7 +208,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         setBlockList();
 
         if(blockList.getInternalList().size()==0) {
-            System.out.println("block list equal to 0");
+            //System.out.println("block list equal to 0");
             return false;
         }
         for(Task forCheck: blockList) {
@@ -238,4 +239,5 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
+  //@@author
 }
