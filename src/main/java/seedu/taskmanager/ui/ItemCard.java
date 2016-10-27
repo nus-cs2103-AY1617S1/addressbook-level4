@@ -31,8 +31,8 @@ public class ItemCard extends UiPart{
     //@@author A0140060A
     @FXML
     private Text name;
-    //@@author 
     
+    //@@author A0065571A 
     @FXML
     private Label itemType;
     @FXML

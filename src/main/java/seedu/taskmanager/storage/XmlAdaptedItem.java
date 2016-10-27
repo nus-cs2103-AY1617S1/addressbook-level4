@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class XmlAdaptedItem {
 
+	//@@author A0065571A
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)

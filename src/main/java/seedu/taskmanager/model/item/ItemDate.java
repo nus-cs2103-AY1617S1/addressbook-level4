@@ -29,7 +29,7 @@ public class ItemDate {
         value = EMPTY_DATE;
     }
     
-    //@@author 
+    //@@author A0065571A 
     
     /**
      * Validates given date.

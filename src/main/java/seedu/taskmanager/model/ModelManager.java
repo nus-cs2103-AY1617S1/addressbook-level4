@@ -76,6 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    //@@author A0065571A
     @Override
     public synchronized void setDone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.setDone(target);
@@ -139,7 +140,8 @@ public class ModelManager extends ComponentManager implements Model {
             return currentData.getActionTaken();
     	}
     }
-
+    
+    //@@author
     @Override
     public synchronized void deleteItem(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.removeItem(target);
@@ -221,6 +223,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
+    //@@author A0065571A
     private class HistoryTaskManager {
         
         private String actionTaken;
@@ -245,6 +248,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author
     private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;

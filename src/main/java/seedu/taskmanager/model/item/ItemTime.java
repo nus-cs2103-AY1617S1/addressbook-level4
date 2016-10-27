@@ -23,7 +23,7 @@ public class ItemTime {
     public ItemTime() {
         value = EMPTY_TIME;
     }
-    //@@author A0140060A
+    //@@author A0065571A
     
     /**
      * Validates given time.

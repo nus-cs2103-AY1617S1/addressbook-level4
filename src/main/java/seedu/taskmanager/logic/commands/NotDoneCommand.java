@@ -14,8 +14,8 @@ public class NotDoneCommand extends Command {
   
     //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "nd";
-    //@@author 
     
+    //@@author A0065571A
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Mark the item identified by the index number used in the last item listing as not done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"

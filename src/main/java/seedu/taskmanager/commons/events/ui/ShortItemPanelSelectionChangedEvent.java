@@ -8,7 +8,7 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
  */
 public class ShortItemPanelSelectionChangedEvent extends BaseEvent {
 
-
+	//@@author A0065571A
     private final ReadOnlyItem newSelection;
     private final int newIdx;
 

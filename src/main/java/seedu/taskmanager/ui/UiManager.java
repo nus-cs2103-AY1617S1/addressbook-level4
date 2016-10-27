@@ -119,6 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getShortItemListPanel().scrollTo(event.targetIndex);
     }
 
+    //@@author A0065571A
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ShortItemPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

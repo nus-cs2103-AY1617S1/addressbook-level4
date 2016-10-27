@@ -86,7 +86,7 @@ public class Parser {
     private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/#]+))");
     private static final Pattern END_DATETIME_ARG_FORMAT = Pattern.compile("edt/(?<endDateTime>[^/#]+)");
     
-    //@@author
+    //@@author A0065571A
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
                     + "(n/)?(?<name>[^/]+)"
@@ -121,6 +121,7 @@ public class Parser {
                     + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
     
+    //@@author
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
                                                                             + "(?<editCommandArguments>.+)");
 
@@ -218,6 +219,7 @@ public class Parser {
         }
     }
 
+    //@@author A0065571A
     /**
      * Parses arguments in the context of the add item command.
      *
@@ -687,6 +689,7 @@ public class Parser {
         }
     }
     
+    //@@author A0065571A
     /**
      * Parses arguments in the context of the done item command.
      *
@@ -721,6 +724,7 @@ public class Parser {
         return new NotDoneCommand(index.get());
     }    
     
+    //@@author
     /**
      * Parses arguments in the context of the select person command.
      *
