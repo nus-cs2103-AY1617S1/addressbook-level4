@@ -56,7 +56,7 @@ public class UnaliasController implements Controller {
             if (destroyAlias(aliasKey)) {
                 Renderer.renderAlias(MESSAGE_DESTROY_SUCCESS);
             } else {
-                Renderer.renderAlias(MESSAGE_ALIAS_NOT_EXISTS);
+                renderDisambiguation(aliasKey, MESSAGE_ALIAS_NOT_EXISTS);
             }
         } catch (IOException e) {
             Renderer.renderAlias(SAVE_ERROR);
