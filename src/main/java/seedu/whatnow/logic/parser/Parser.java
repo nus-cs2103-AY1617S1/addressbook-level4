@@ -45,9 +45,8 @@ public class Parser {
     /**
      * Regular Expressions
      */
-	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|start|end|tag)($|\\s))");
+	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|tag)($|\\s))");
 
-    private static final Pattern DATE_SUFFIX = Pattern.compile("(st|nd|rd|th)$");
     private static final Pattern DATE = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))$");
     private static final Pattern DATE_WITH_SUFFIX = Pattern.compile("^((([3][0-1])|([1-2][0-9])|([0]??[1-9]))(st|nd|rd|th))$");
     private static final Pattern MONTH_IN_FULL = Pattern.compile("^(january|february|march|april|may|june|july|august|september|october|november|december)$");
@@ -107,7 +106,7 @@ public class Parser {
     private static final String FORWARD_SLASH = "/";
     private static final String EMPTY_STRING = "";
     
-    private static final String DATE_SUFFIX_STRING = "(st|nd|rd|th)$";
+    private static final String DATE_SUFFIX_REGEX = "(st|nd|rd|th)$";
 
     private static final String TIME_COLON = ":";
     private static final String TIME_DOT = ".";
@@ -447,7 +446,7 @@ public class Parser {
                 } else if (DATE_WITH_SUFFIX.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_STRING, EMPTY_STRING);
+                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
                         date += FORWARD_SLASH;
                     } else if (numOfDate == TWO) {
                         startDate = date;
@@ -612,6 +611,10 @@ public class Parser {
         if (args.equals(null))
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
 
+        if (!UPDATE_FORMAT.matcher(args.trim().toLowerCase()).find()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }
+        
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
 
         if (argComponents.length < UPDATE_COMMAND_MIN_ARGUMENTS)
