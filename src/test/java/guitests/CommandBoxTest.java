@@ -64,6 +64,8 @@ public class CommandBoxTest extends TarsGuiTest {
     public void commandBox_textFieldValueChangesEvents_success() {
         commandBox.enterCommand("rsv");
         assertTrue(commandBox.getRsvTaskListPanelHandle().isTabSelected());
+        commandBox.pressCtrlLeftArrowKeys();
+        commandBox.enterCommand("confirm");
     }
     
     @Test

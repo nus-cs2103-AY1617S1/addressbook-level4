@@ -19,6 +19,7 @@ import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.commons.util.FxViewUtil;
 import tars.logic.Logic;
 import tars.logic.commands.CommandResult;
+import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.RsvCommand;
 import tars.logic.commands.UndoCommand;
@@ -95,7 +96,7 @@ public class CommandBox extends UiPart {
     
     private void setTextFieldValueHandler() {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(RsvCommand.COMMAND_WORD)) {
+            if (newValue.equals(RsvCommand.COMMAND_WORD) || newValue.equals(ConfirmCommand.COMMAND_WORD)) {
                 raise(new CommandBoxTextFieldValueChangedEvent(newValue));
             }
         });

@@ -25,6 +25,7 @@ import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.logic.Logic;
+import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.RsvCommand;
 import tars.model.UserPrefs;
 
@@ -311,7 +312,7 @@ public class MainWindow extends UiPart {
     @Subscribe
     private void CommandBoxTextFieldValueChangedEventHandler(CommandBoxTextFieldValueChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getTextFieldValue() + " command detected."));
-        if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD)) {
+        if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD) || event.getTextFieldValue().equals(ConfirmCommand.COMMAND_WORD)) {
             tabPane.getSelectionModel().select(RSV_TASK_LIST_PANEL_TAB_PANE_INDEX);
         }
     }
