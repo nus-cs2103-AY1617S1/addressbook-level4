@@ -22,7 +22,8 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
 
     private final UniqueTaskList task;
     private final UniqueTagList tags;
-
+    private UniqueTaskList blockList = new UniqueTaskList();
+    
     {
         task = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -188,5 +189,41 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
 
     public void unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         task.mark(targetIndex, Boolean.FALSE);
+    }
+    
+    public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
+        setBlockList();
+
+        if(blockList.getInternalList().size()==0) {
+            System.out.println("block list equal to 0");
+            return false;
+        }
+        for(Task forCheck: blockList) {
+            if(compareDate(toCheck,forCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean compareDate(Task toCheck, Task blockDate) {
+        Date start1 = toCheck.getStartTime().getTimeInfo().getTimingInfo().getDates().get(0);
+        Date start2 = blockDate.getStartTime().getTimeInfo().getTimingInfo().getDates().get(0);
+        Date end1 = toCheck.getEndTime().getTimeInfo().getTimingInfo().getDates().get(0);
+        Date end2 = blockDate.getEndTime().getTimeInfo().getTimingInfo().getDates().get(0);
+
+        if((start1.compareTo(start2)>=0 && start1.compareTo(end2)<=0) || 
+                (end1.compareTo(start2)>=0 && end1.compareTo(end2)<=0)) {
+            return true;
+        }
+        return false;
+    }
+    
+    private void setBlockList() throws DuplicateTaskException {
+        for(Task toAdd: task) {
+            if(toAdd.getName().toString().contains("(Blocked) ")) {
+                blockList.add(toAdd);
+            }
+        }
     }
 }

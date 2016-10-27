@@ -106,6 +106,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateFlexiTrackerChanged();
         return duration;
     }
+    
+    @Override
+    public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
+        return flexiTracker.checkBlock(toCheck);
+    }
 
     // =========== Filtered Tasks List Accessors
     // ===============================================================
@@ -219,7 +224,8 @@ public class ModelManager extends ComponentManager implements Model {
             this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
                     .replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "")
                     .replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").replace(ListCommand.LIST_LAST_MONTH_COMMAND, "")
-                    .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").trim();
+                    .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "")
+                    .replace(ListCommand.LIST_BLOCK_COMMAND, "").trim();
         }
 
         //TODO: need to refactor 

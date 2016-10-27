@@ -43,6 +43,10 @@ public class DateTimeInfoParser {
     public List<Date> getParsedTimingObject(){
         return timingInfo.getDates();
     }
+    
+    public DateGroup getTimingInfo() {
+        return timingInfo;
+    }
 
     public boolean isInferred() {
         return timingInfo.isTimeInferred();

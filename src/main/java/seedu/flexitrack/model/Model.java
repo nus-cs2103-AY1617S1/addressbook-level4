@@ -67,5 +67,11 @@ public interface Model {
      */
     String editTask(int taskToEdit, String[] args)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
-
+    
+    /**
+     * 
+     * @param Task toAdd
+     * @return true if new event want to place at a period that reserve for other event
+     */
+    boolean checkBlock(Task toAdd) throws DuplicateTaskException;
 }

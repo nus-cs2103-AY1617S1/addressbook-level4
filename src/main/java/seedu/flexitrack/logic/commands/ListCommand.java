@@ -25,6 +25,7 @@ public class ListCommand extends Command {
     public static final String LIST_PAST_COMMAND = "past";
     public static final String LIST_MARK_COMMAND = "mark";
     public static final String LIST_UNMARK_COMMAND = "unmark";
+    public static final String LIST_BLOCK_COMMAND = "block";
     public static final String LIST_LAST_COMMAND = "last";
     public static final String LIST_NEXT_COMMAND = "next";
     public static final String LIST_LAST_WEEK_COMMAND = "last week";
