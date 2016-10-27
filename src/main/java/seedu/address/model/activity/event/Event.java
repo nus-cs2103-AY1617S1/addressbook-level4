@@ -17,11 +17,12 @@ public class Event extends Activity implements ReadOnlyEvent{
 
     private StartTime startTime;
     private EndTime endTime;
+    private boolean isCompleted;
     
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
         
-        assert !CollectionUtil.isAnyNull(start, end);
+//        assert !CollectionUtil.isAnyNull(start, end);
         this.startTime = start;
         this.endTime = end;
         isCompleted = false;

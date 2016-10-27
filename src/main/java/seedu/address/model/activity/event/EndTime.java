@@ -58,7 +58,7 @@ public class EndTime extends DateTime {
         if (!date.equals("")) {
             taskDate = DATE_PARSER.EventDateConvert(date);
 
-            if (taskDate == null) {
+            if (taskDate.equals(null)) {
                 assert false : "Date should not be null";
             } else if (DateUtil.hasPassed(taskDate)) {
                 throw new IllegalValueException(MESSAGE_ENDTIME_INVALID);

@@ -15,10 +15,12 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 * Components in charge of: [Storage] (https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Git
 * Features Implemented
-..*ListCommandTest
+..*[ListCommand] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#list-activities--list)
+..*[FindByTagCommand] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#find-by-tag--findtag)
+..*[AddCommand] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#adding-an-activity--add)
 * Code Written: []
 * Other major contributions:
-..* Helped with troubleshooting AddCommandTest 
+..* 
   
 Responsibilities: Code Quality/Deliverables/UI
 

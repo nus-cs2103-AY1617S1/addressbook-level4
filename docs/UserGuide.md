@@ -67,8 +67,8 @@ Format: `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/EN
 
 
 `REMINDER` accepts `Date Time` format input and variable inputs namely:
-* `tomorrow [TIME]`
-* `today [TIME]`
+* `tomorrow`
+* `today`
 * `[TIME] before` sets reminder at the specified time before the `DUEDATE`. e.g. `0015 before` for a reminder 15 minutes before the `DUEDATE`.
 
 Examples: 
@@ -80,6 +80,7 @@ Examples:
 * `add Executive Meeting s/tomorrow 0900 e/tomorrow 1200`
 * `add Concert s/tomorrow 1800 e/tomorrow 2000 t/Leisure`
 
+<!-- @@author A0131813R -->
 #### Listing activities : `list`
 Shows a list of activites in Lifekeeper, if any.<br>
 Format: `list [TYPE]`
@@ -96,12 +97,13 @@ Examples:
 > shows all events in the list.
 
 
-#### Listing tags: `listtag`
-Shows a list of all tags in LifeKeeper.<br>
-Format: `listtag`
+#### Find by tag: `findtag `
+Shows a list of all entries with the tags in LifeKeeper.<br>
+Format: `findtag KEYWORD`
 
-> All the tags in Lifekeeper will be listed
+> All the entries with tags in Lifekeeper will be listed
 
+<!-- @@author A0125097A -->
 
 #### Finding activities by name or tag(s): `find`
 Finding all activities containing the queried keyword in their name
@@ -210,7 +212,7 @@ Clear | `clear`
 Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
-List Tags | `listtags`
+Find Tags | `findtag`
 Done | `done INDEX`
 Undo | `undo`
 Help | `help`
