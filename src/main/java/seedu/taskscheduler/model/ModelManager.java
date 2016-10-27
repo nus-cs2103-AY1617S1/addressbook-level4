@@ -13,6 +13,7 @@ import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -131,6 +132,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getPriorityFilteredTaskList() {
+        FilteredList<Task> priorityTasks = new FilteredList<Task>(filteredTasks);
+        Set<String> strings = new HashSet<String>();
+        strings.add("incomplete");
+        Expression expression = new PredicateExpression(new NameQualifier(strings));
+        priorityTasks.setPredicate(expression::satisfies);
+        return new UnmodifiableObservableList<>(priorityTasks);
     }
 
     @Override

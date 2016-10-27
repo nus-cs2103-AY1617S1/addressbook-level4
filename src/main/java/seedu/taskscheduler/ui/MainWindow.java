@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
     public void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
-                logic.getFilteredTaskList());
+                logic.getPriorityFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskSchedulerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
