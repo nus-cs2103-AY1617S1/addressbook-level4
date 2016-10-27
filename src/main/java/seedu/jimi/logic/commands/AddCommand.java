@@ -35,7 +35,7 @@ public class AddCommand extends Command implements TaskBookEditor {
             + "Example: " + COMMAND_WORD + " \"do dishes\" t/important\n"
             + "\n"
             + "To add an event:\n"
-            + "Parameters: \"TASK_DETAILS\" on START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
+            + "Parameters: \"TASK_DETAILS\" on|from START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " \"linkin park concert\" on sunday 2pm t/fun\n"
             + "\n"
             + "> Tip: Typing 'a' or 'ad' instead of 'add' works too.\n";

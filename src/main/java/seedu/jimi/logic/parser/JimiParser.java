@@ -63,7 +63,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
     
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on|from (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -73,13 +73,13 @@ public class JimiParser {
     
     // accepts in the format of a deadline task or event
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
-            "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
+            "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on|from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
     
     private static final Pattern ADD_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
     
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
-            Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
+            Pattern.compile("(\"(?<taskDetails>.+)\") (on|from) (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
     private static final Pattern SHOW_COMMAND_ARGS_FORMAT = Pattern.compile("(?<sectionToShow>.+)");
     
