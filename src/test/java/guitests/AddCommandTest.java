@@ -35,13 +35,13 @@ public class AddCommandTest extends TaskSchedulerGuiTest {
         //add duplicate tasks
         commandBox.runCommand(td.event.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.listContainsAll(currentList));
         commandBox.runCommand(td.deadline.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.listContainsAll(currentList));
         commandBox.runCommand(td.floating.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.listContainsAll(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -61,7 +61,7 @@ public class AddCommandTest extends TaskSchedulerGuiTest {
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.listContainsAll(expectedList));
     }
 
 }
