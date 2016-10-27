@@ -13,7 +13,6 @@ import seedu.taskscheduler.commons.core.GuiSettings;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.model.UserPrefs;
-import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
