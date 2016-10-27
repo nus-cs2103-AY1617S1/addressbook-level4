@@ -8,27 +8,26 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 <img src="images/VictorLoh.jpg" width="150"><br>
  Role: Project Mentor <br>  
  Responsibilities: Mentoring
- 
+
  -----
 
 #### [Irwin Mah](https://github.com/chooxy) <br>
 <img src="images/IrwinMah.jpg" width="150"><br>
-* Components in charge of: [storage]
-* Aspects/tools in charge of: 
-* Features implemented:
-   * [Set storage location]
-* Other major contributions:
+Role: Developer <br>
+Responsibilities: Codes about storage.
 
 -----
 
-#### [Yip Bing You](https://github.com/leaffriend)
+#### [Yip Bing You @leaffriend](https://github.com/leaffriend)
 <img src="images/YipBingYou.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Codes about features.
+* Features implemented:
+ * [Add task](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+ * [Listing](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#listing)
+ * [Finding](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#finding)
 
 -----
 
-#### [Xie Jihui](https://github.com/xjh666) 
+#### [Xie Jihui](https://github.com/xjh666)
 <img src="images/XieJihui.JPG" width="150"><br>
 * Components in charge of: [logic] [model]
 * Aspects/tools in charge of: Testing, Git
