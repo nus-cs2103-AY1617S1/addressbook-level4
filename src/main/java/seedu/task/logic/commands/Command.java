@@ -28,7 +28,7 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws IllegalValueException
      */
-    public abstract CommandResult execute() throws IllegalValueException;
+    public abstract CommandResult execute();
 
     /**
      * Provides any needed dependencies to the command.

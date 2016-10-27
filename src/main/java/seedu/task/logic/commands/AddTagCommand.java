@@ -1,3 +1,4 @@
+//@@ author A0147969E
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
@@ -11,11 +12,11 @@ import seedu.task.model.tag.UniqueTagList.NotExistTagException;
 import seedu.task.model.task.*;
 
 /**
- * Adds a task to the task manager.
+ * Adds a tag to a task.
  */
 public class AddTagCommand extends Command{
 
-    public static final String COMMAND_WORD = "addTag";
+    public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": add a tag to the task identified by the index number used in the last task listing.\n"
@@ -36,7 +37,7 @@ public class AddTagCommand extends Command{
 	@Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

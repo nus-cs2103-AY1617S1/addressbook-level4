@@ -3,7 +3,6 @@ package seedu.task.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
@@ -21,9 +20,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...\n"
+            + "Parameters: DESCRIPTION [pr/PRIORITY] [st/TIME] [ed/TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Go to Tutorial pr/normal start/12:00 end/14:00 t/tutorial";
+            + " Go to Tutorial pr/normal st/12:00 ed/14:00 t/tutorial";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -34,8 +33,6 @@ public class AddCommand extends Command {
 
     private Time start;
     private Time end;
-
-    private boolean canUndo = false;
 
     /**
      * Convenience constructor using raw values.
@@ -89,7 +86,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
 
-        if(end.isEndBeforeStart(start))
+        if(end.isBefore(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
@@ -103,7 +100,7 @@ public class AddCommand extends Command {
 
     @Override
 	 public CommandResult undo(){
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         ReadOnlyTask taskToDelete = lastShownList.get(lastShownList.size() - 1);
 
@@ -120,7 +117,7 @@ public class AddCommand extends Command {
     public CommandResult insert() {
         assert model != null;
 
-        if(end!=null && start!=null && end.isEndBeforeStart(start))
+        if(end!=null && start!=null && end.isBefore(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {

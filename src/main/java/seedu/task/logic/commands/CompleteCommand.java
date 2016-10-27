@@ -1,3 +1,4 @@
+//@@ author A0147969E
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
@@ -35,7 +36,7 @@ public class CompleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

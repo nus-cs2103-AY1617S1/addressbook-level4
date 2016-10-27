@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
@@ -16,6 +17,7 @@ import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -29,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final SortedList<Task> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -43,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -52,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     @Override
@@ -89,12 +94,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
-
+	
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
+        return new UnmodifiableObservableList<>(sortedTasks);
     }
 
     @Override
@@ -107,16 +112,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
         switch (operand) {
         case "pr/":
-            updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keywords)));
             break;
         case "t/":
-            updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
             break;
-        case "start/":
-            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("start", keywords)));    
+        case "st/":
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("start", keywords)));
             break;
-        case "end/":
-            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("end", keywords)));    
+        case "ed/":
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("end", keywords)));
             break;
         default:
             updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -238,7 +243,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     private class TimeQualifier implements Qualifier {
         private Time time;
         private String arg;
@@ -257,9 +262,9 @@ public class ModelManager extends ComponentManager implements Model {
             // TODO: Implement floating task search
             switch (arg) {
             case "start":
-                return time.isEndBeforeStart(task.getTimeStart());
+                return time.isBefore(task.getTimeStart());
             case "end":
-                return task.getTimeEnd().isEndBeforeStart(time);
+                return task.getTimeEnd().isBefore(time);
             default:
                 return false;
             }
@@ -270,5 +275,100 @@ public class ModelManager extends ComponentManager implements Model {
             return "time=" + time.toString();
         }
     }
+    
+    //=========== Sorted Task List Accessors ===============================================================
+  
+    @Override
+    public void sortFilteredTaskList(String modifier) {
+        switch (modifier) {
+        case "-st":
+            sortedTasks.setComparator(new StTimeComparator());
+            break;
+        case "-ed":
+            sortedTasks.setComparator(new EdTimeComparator());        
+            break;
+        case "-pr":
+            sortedTasks.setComparator(new PrTimeComparator());
+            break;
+        default:
+            sortedTasks.setComparator(null);
+            break;
+        }
+        
+    }
+ 
+    //========== Inner classes/interfaces used for filtering =================================================
+    
+    private class StTimeComparator implements Comparator<Task> {
+        
+        @Override
+        public int compare(Task o1, Task o2) {
+            if (o1.getTimeStart().isBefore(o2.getTimeStart())) {
+                return -1;
+            }
+            else if (o2.getTimeStart().isBefore(o1.getTimeStart())) {
+                return 1;
+            }
+            else if (o1.getTimeStart().equals(o2.getTimeEnd())) {
+                return 0;
+            }
+            else if (o1.getTimeStart() == null && o2.getTimeStart()!= null) {
+                return 1;
+            }
+            else if (o1.getTimeStart() != null && o2.getTimeStart() == null) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+            
+        }
+        
+    }
+    
+    private class EdTimeComparator implements Comparator<Task> {
+        
+        @Override
+        public int compare(Task o1, Task o2) {
+            if (o1.getTimeEnd().isBefore(o2.getTimeEnd())) {
+                return -1;
+            }
+            else if (o2.getTimeEnd().isBefore(o1.getTimeEnd())) {
+                return 1;
+            }
+            else if (o1.getTimeEnd().equals(o2.getTimeEnd())) {
+                return 0;
+            }
+            else if (o1.getTimeEnd() == null && o2.getTimeEnd()!= null) {
+                return 1;
+            }
+            else if (o1.getTimeEnd() != null && o2.getTimeEnd() == null) {
+                return -1;
+            }
+            else {
+                return 1;
+            }
+            
+        }
+        
+    }
 
+    private class PrTimeComparator implements Comparator<Task> {
+    
+        @Override
+        public int compare(Task o1, Task o2) {
+            if (o1.hasHigherPriorityThan(o2)) {
+                return -1;
+            }
+            else if (o1.hasLowerPriorityThan(o2)) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+            
+        }
+    
+    }
+    
 }

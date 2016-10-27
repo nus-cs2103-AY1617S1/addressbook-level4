@@ -1,5 +1,6 @@
 package seedu.task.model.task;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
@@ -56,7 +57,7 @@ public class Task implements ReadOnlyTask {
     public void setDescription(Description description){
     	this.description = description;
     }
-
+    //@@ author A0147969E
     public void undoTask(){
     	completeStatus = false;
     }
@@ -65,6 +66,10 @@ public class Task implements ReadOnlyTask {
 		return completeStatus;
     }
 
+    public void setCompleteStatus(boolean complete){
+    	this.completeStatus = complete;
+    }
+  //@@ author
     @Override
     public Time getTimeStart() {
         return timeStart;
@@ -102,6 +107,14 @@ public class Task implements ReadOnlyTask {
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public boolean hasHigherPriorityThan(Task task) {
+        return priority.isRankedHigher(task.getPriority());
+    }
+    
+    public boolean hasLowerPriorityThan(Task task) {
+        return priority.isRankedLower(task.getPriority());
     }
 
     @Override
