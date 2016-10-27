@@ -19,6 +19,7 @@ import seedu.oneline.commons.util.FileUtil;
 import seedu.oneline.commons.util.XmlUtil;
 import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColorMap;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 import seedu.oneline.storage.XmlSerializableTaskBook;
@@ -130,7 +131,7 @@ public class TestUtil {
     }
 
     public static TaskBook generateEmptyTaskBook() {
-        return new TaskBook(new UniqueTaskList(), new UniqueTagList());
+        return new TaskBook(new UniqueTaskList(), new UniqueTagList(), new TagColorMap());
     }
 
     public static XmlSerializableTaskBook generateSampleStorageTaskBook() {

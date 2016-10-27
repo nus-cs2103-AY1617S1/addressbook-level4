@@ -13,7 +13,10 @@ import javafx.stage.Stage;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap;
 
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 //@@author A0142605N
@@ -26,6 +29,7 @@ public class TagListPanel extends UiPart {
     private static final String FXML = "TagListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private TagColorMap colorMap;
 
     @FXML
     private ListView<Tag> tagListView;
@@ -50,15 +54,16 @@ public class TagListPanel extends UiPart {
     }
 
     public static TagListPanel load(Stage primaryStage, AnchorPane tagListPlaceholder,
-                                       ObservableList<Tag> tagList) {
+                                       ObservableList<Tag> tagList, TagColorMap colorMap) {
         TagListPanel tagListPanel =
                 UiPartLoader.loadUiPart(primaryStage, tagListPlaceholder, new TagListPanel());
-        tagListPanel.configure(tagList);
+        tagListPanel.configure(tagList, colorMap);
         return tagListPanel;
     }
 
-    private void configure(ObservableList<Tag> tagList) {
+    private void configure(ObservableList<Tag> tagList, TagColorMap colorMap) {
         setConnections(tagList);
+        this.colorMap = colorMap;
         addToPlaceholder();
     }
 
@@ -102,9 +107,8 @@ public class TagListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TagCard.load(tag).getLayout());
+                setGraphic(TagCard.load(tag, colorMap.getTagColor(tag)).getLayout());
             }
         }
     }
-
 }

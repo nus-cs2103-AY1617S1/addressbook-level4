@@ -1,11 +1,14 @@
 package seedu.oneline.ui;
 
+import java.util.Map.Entry;
+
 //@@author A0142605N
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColor;
 
 public class TagCard extends UiPart{
 
@@ -19,22 +22,23 @@ public class TagCard extends UiPart{
     private Label duetoday; 
     
     private Tag tag;
-    private String colour; 
+    private TagColor color; 
     
     public TagCard() {
 
     }
 
-    public static TagCard load(Tag tag){
+    public static TagCard load(Tag tag, TagColor color){
         TagCard card = new TagCard();
         card.tag = tag;
+        card.color = color;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText("#" + tag.tagName);
-        tagCardPane.setStyle("-fx-background-color: " + colour);
+        name.setText("#" + tag.tagName + " [" + color.toString() + "]");
+        tagCardPane.setStyle("-fx-background-color: " + color.toHTMLColor());
     }
 
     public HBox getLayout() {

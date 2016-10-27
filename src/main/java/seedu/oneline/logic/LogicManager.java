@@ -1,6 +1,8 @@
 package seedu.oneline.logic;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import seedu.oneline.commons.core.ComponentManager;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.logic.commands.Command;
@@ -8,9 +10,14 @@ import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.Model;
 import seedu.oneline.model.task.ReadOnlyTask;
-import seedu.oneline.model.tag.Tag; 
+import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap;
 import seedu.oneline.storage.Storage;
 
+import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 /**
@@ -41,6 +48,11 @@ public class LogicManager extends ComponentManager implements Logic {
     
     @Override
     public ObservableList<Tag> getTagList() {
-        return model.getTagList(); 
+        return model.getTagList();
+    }
+    
+    @Override
+    public TagColorMap getTagColorMap() {
+        return model.getTagColorMap();
     }
 }
