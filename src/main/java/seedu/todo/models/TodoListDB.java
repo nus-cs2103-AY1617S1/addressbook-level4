@@ -32,7 +32,7 @@ import seedu.todo.storage.Storage;
 public class TodoListDB {
 
     private static TodoListDB instance = null;
-    private Storage storage = new JsonStorage();
+    private static Storage storage = new JsonStorage();
     
     private Set<Task> tasks = new LinkedHashSet<Task>();
     private Set<Event> events = new LinkedHashSet<Event>();
