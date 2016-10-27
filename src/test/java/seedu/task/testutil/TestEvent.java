@@ -37,7 +37,7 @@ public class TestEvent implements ReadOnlyEvent {
 
 	@Override
 	public boolean isEventCompleted() {
-		return this.eventDuration.getEndTime().isAfter(LocalDateTime.now());
+		return !(this.eventDuration.getEndTime().isAfter(LocalDateTime.now()));
 	}	
 	
 	@Override

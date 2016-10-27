@@ -19,6 +19,10 @@
     -fx-background-color: red;
 }
 
+.status-complete {
+    -fx-background-color: lavender;
+}
+
 
 .tag-selector {
     -fx-border-width: 1;

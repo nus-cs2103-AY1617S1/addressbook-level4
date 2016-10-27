@@ -54,5 +54,12 @@ public interface ReadOnlyEvent {
     default String getDescriptionValue() {
         return getDescription().isPresent()? getDescription().get().toString() : "";
     }	
+    
+    /**
+     * Appends the name of a event with [PAST] if task is completed
+     */
+    default String getNameWithStatus() {
+        return isEventCompleted() ? getEvent().toString() + " [PAST]" : getEvent().toString();
+    }
 
 }

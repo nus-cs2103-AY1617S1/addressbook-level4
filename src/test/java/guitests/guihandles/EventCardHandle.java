@@ -38,15 +38,9 @@ public class EventCardHandle extends GuiHandle {
     public String getEventDuration() {
         return getTextFromLabel(DURATION_FIELD_ID);
     }
-    
-//    //TODO: check on this
-//    public Boolean getEventStatus() {
-//    	return false;
-//    }
 
     public boolean isSameEvent(ReadOnlyEvent event){
-
-    	return getFullEventName().equals(event.getEvent().fullName) 
+        return getFullEventName().equals(event.getNameWithStatus()) 
                 && getEventDuration().equals(event.getDuration().toString())
                 && getDescription().equals(event.getDescriptionValue());
     }

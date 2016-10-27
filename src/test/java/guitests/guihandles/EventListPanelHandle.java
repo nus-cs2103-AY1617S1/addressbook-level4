@@ -76,6 +76,7 @@ public class EventListPanelHandle extends GuiHandle {
             if (!TestUtil.compareCardAndEvent(getEventCardHandle(startPosition + i), events[i])) {
                 return false;
             }
+            
         }
         return true;
 	}

@@ -308,7 +308,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyEvent event) {
-			return event.isEventCompleted() != status;
+			return event.isEventCompleted() == status;
 		}
     	
     }

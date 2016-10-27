@@ -32,13 +32,22 @@ public class EventCard extends UiPart {
         return UiPartLoader.loadUiPart(card);
     }
 
+    //@@author-A0127570H
     @FXML
     public void initialize() {
-        name.setText(event.getEvent().fullName);
+        name.setText(event.getNameWithStatus());
         index.setText(displayedIndex + ". ");
         description.setText(event.getDescriptionValue());
         duration.setText(event.getDuration().toString());
-        
+        setCompletionBackgroundText();
+    }
+
+    //@@author-A0127570H
+    //Adds the lavender colour to the background if the task status is completed
+    private void setCompletionBackgroundText() {
+        if (event.isEventCompleted()) {
+            cardPane.getStyleClass().add("status-complete");
+        }
     }
 
     public HBox getLayout() {

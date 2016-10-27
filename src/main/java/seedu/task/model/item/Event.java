@@ -39,11 +39,11 @@ public class Event implements ReadOnlyEvent {
     
     /**
      * Return if an event has passed by comparing its endTime to the current time.
-     * @return false if event passed; true if otherwise. 
+     * @return true if event passed; false if otherwise. 
      */
     @Override
 	public boolean isEventCompleted() {
-		return getDuration().getEndTime().isAfter(LocalDateTime.now());
+		return !(getDuration().getEndTime().isAfter(LocalDateTime.now()));
 	}
 
     @Override

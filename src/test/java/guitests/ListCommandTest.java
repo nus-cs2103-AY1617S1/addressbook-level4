@@ -39,9 +39,8 @@ public class ListCommandTest extends TaskBookGuiTest {
 	}
 
 	private void assertListEventSuccess(boolean showAll, final TestEvent[] currentList) {
-		if (!showAll) {
+		if (!showAll) {		    
 			commandBox.runCommand("list -e");
-
 			// confirm result message is correct.
 			assertResultMessage(ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS);
 		} else {
