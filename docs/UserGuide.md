@@ -207,13 +207,13 @@ Examples:
 Undo a command executed by the user.  
 Format: `undo` 
 
-> Able to undo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
+> Able to undo all `add`, `delete`, `edit`, `rsv`, `confirm` and `del` commands from the time the app starts running.
 
 #### Redoing a command : `redo`
 Redo a command executed by the user.  
 Format: `redo` 
 
-> Able to redo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
+> Able to redo all `add`, `delete`, `edit`, `rsv`, `confirm` and `del` commands from the time the app starts running.
 
 #### Clearing the data storage file : `clear`
 Clears the whole To-Do List storage file.  
