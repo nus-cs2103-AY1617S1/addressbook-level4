@@ -57,11 +57,19 @@ We are a team based in the [School of Computing, National University of Singapor
   - Year 2 Computer Science Major
   - Roles:
   	- Components in charge of: [UI] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/DeveloperGuide.md#ui-component) [Model] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/DeveloperGuide.md#model-component)
-  	- Aspects/tools in charge of: Code Integration
+  	- Aspects/tools in charge of: 
+      - Code Integration: solving conflicts for pull requests, and integrate to master branch.
     - Features implemented:
       - [Find tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#finding-for-eventstasks)
       - [List tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#listing-tasks)
       - [Undo] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#undo-modifications)
-    - Code written: functional code test code docs
+      - [Show] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#toggle-calendar-view)
+    - Code written: [functional code](../collated/main/A0144702N.md) [test code](../collated/test/A0144702N.md) [docs](../collated/docs/A0144702N.md)
     - Other major contributions:
       - Refactored original AddressBookLevel4 to current TaskBook
+        - Fix bugs to enable first successful build on master
+        - [Morph Storage] (https://github.com/CS2103AUG2016-F09-C4/main/commit/d4bb05c1af061c3ce20fa2272965f0488d89ae67)
+        - [Morph UI] (https://github.com/CS2103AUG2016-F09-C4/main/commit/240085a79f81f4d83cc578175321255ef10b2d2f)
+      - Travis/Coverage setting up, build release.
+      - Integrate external libraries prettytime, jfxtras.
+
