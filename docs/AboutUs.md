@@ -26,9 +26,17 @@ Responsibilities: Codes about features.
 -----
 
 #### [Xie Jihui](https://github.com/xjh666) 
-<img src="images/XieJihui.JPG" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Codes about features.
+* Components in charge of: [Logic][Model]
+* Aspects/tools in charge of: Testing, Git
+* Features implemented:
+   * [Complete task]
+   * [Update]
+   * [Add tag]
+   * [Delete tag](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Undo]
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList [[#59](https://github.com/CS2103AUG2016-T16-C4/main/pull/59) ]
 
 -----
 
