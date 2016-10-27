@@ -7,6 +7,13 @@ import javafx.fxml.FXML;
 import seedu.cmdo.commons.core.LogsCenter;
 import java.util.logging.Logger;
 
+/**
+ * To implement welcome screen
+ * (in progress)
+ * 
+ * @@author A0141006B
+ */
+
 public class WelcomeMessage extends UiPart {
 	private static final Logger logger = LogsCenter.getLogger(WelcomeMessage.class);
 	private static final String FXML = "CMDoWelcome.fxml";

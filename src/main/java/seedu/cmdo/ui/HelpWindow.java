@@ -37,8 +37,8 @@ public class HelpWindow extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
-    }
-
+    }    
+    
     private void configure(){
         Scene scene = new Scene(mainPane);
         dialogStage = createDialogStage(TITLE, null, scene);

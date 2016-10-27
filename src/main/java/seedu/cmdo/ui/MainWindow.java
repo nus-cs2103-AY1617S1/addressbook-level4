@@ -5,7 +5,6 @@ import java.time.YearMonth;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +19,8 @@ import seedu.cmdo.model.UserPrefs;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * 
+ * @@author A0141006B
  */
 public class MainWindow extends UiPart {
 
@@ -96,7 +97,7 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
         
        
-        scene.getStylesheets().add("Labels.css");
+//        scene.getStylesheets().add("Labels.css");
         
         setAccelerators();
     }
