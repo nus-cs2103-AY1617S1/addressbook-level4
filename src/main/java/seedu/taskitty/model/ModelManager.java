@@ -42,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
     private ObservableValue<String> date;
     
     private final SessionTaskInfoStorage undoTaskInfo;
+    private final SessionTaskInfoStorage redoTaskInfo;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -60,6 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
         undoTaskInfo = new SessionTaskInfoStorage();
+        redoTaskInfo = new SessionTaskInfoStorage();
         taskManager.sortList();
     }
 
@@ -74,6 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
         undoTaskInfo = new SessionTaskInfoStorage();
+        redoTaskInfo = new SessionTaskInfoStorage();
         taskManager.sortList();
     }
 
@@ -131,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
         undoTaskInfo.storeTask(addedTask);
         undoTaskInfo.storeCommandText(AddCommand.COMMAND_WORD + commandText);
+        redoTaskInfo.clear();
     }
    	
    	@Override
@@ -139,6 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
    	    undoTaskInfo.storeTask(addedTask);
    	    undoTaskInfo.storeTask(deletedTask);
    	    undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
+   	    redoTaskInfo.clear();
    	}
    	
    	@Override
@@ -149,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         undoTaskInfo.storeNumberOfTasks(deletedTasks.size());
         undoTaskInfo.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
+        redoTaskInfo.clear();
     }
    	
    	@Override
@@ -159,6 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         undoTaskInfo.storeNumberOfTasks(markedTasks.size());
         undoTaskInfo.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
+        redoTaskInfo.clear();
     }
    	
    	@Override
@@ -166,6 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoTaskInfo.storeCommandWord(ClearCommand.COMMAND_WORD);
         undoTaskInfo.storeTaskManager(new TaskManager(taskManager));
         undoTaskInfo.storeCommandText(ClearCommand.COMMAND_WORD);
+        redoTaskInfo.clear();
     }
    	       
     public String undo() throws NoPreviousValidCommandException {
@@ -398,6 +406,13 @@ public class ModelManager extends ComponentManager implements Model {
             historyTaskManagers.push(taskManager);
         }
         
+        private void clear() {
+            historyCommandWords.clear();
+            historyCommandTexts.clear();
+            historyTasks.clear();
+            historyNumberOfTasks.clear();
+            historyTaskManagers .clear();
+        }
     }
     
     //========== Private methods used within ModelManager ==================================================
