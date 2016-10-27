@@ -2,6 +2,7 @@ package jym.manager.logic.commands;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import jym.manager.commons.core.Messages;
 import jym.manager.commons.core.UnmodifiableObservableList;
@@ -18,6 +19,8 @@ import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
  * Edits a task given its fields.
  * 
  */
+//@@author A0153440R
+
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "update";
     
@@ -51,6 +54,13 @@ public class EditCommand extends Command {
 	    		throw new IllegalArgumentException();
 	    	}
 	    	this.targetIndex = index;
+	    	for(Object o : objects){
+	    		if(o instanceof List){
+	    			List<LocalDateTime> d = (List<LocalDateTime>)o;
+	    			if(d.size() == 1)
+	    				o = d.get(0);
+	    		}
+	    	}
 //	      final Set<Tag> tagSet = new HashSet<>();
 //	      for (String tagName : tags) {
 //	          tagSet.add(new Tag(tagName));

@@ -8,8 +8,9 @@ import jym.manager.logic.parser.Parser;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Class for building tasks for testing purposes.
  */
+//@@author A0153440R
 public class TaskBuilder {
 
     private TestTask task;

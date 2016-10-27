@@ -2,9 +2,14 @@ package jym.manager.model.task;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Locale;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import jym.manager.commons.exceptions.IllegalValueException;
 
@@ -12,6 +17,7 @@ import jym.manager.commons.exceptions.IllegalValueException;
  * Represents a Task's deadline in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
+//@@author A0153440R
 public class Deadline {
 
     public static final String MESSAGE_DEADLINE_CONSTRAINTS =
@@ -58,27 +64,17 @@ public class Deadline {
     public boolean isValidDeadline(String test) {
     	if(test == null) return false;
     	if(test.equals("no deadline")) return true;
-		 LocalDateTime ldt = null;
-	     test.replaceAll("\\n", "");
-	     if(test.contains("T")){
-	    	 try{
-	 			ldt = LocalDateTime.parse(test);
-	 		} catch(DateTimeParseException dtpe){
-	 			dtpe.printStackTrace();
-	 		}
-	     } else {
-	     	try{
-		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-		     	ldt = LocalDateTime.parse(test, formatter);
-	    	}catch(DateTimeParseException dtpe){
-	    		dtpe.printStackTrace();
-	    	}
-	     }
     	
-		if(ldt != null){
-			this.date = ldt;
-		}
-	     return (ldt != null);
+    	Parser p = new Parser();
+    	List<DateGroup> dg = p.parse(test);
+    	if(dg.isEmpty()) return false;
+    	else {
+    		this.date = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), 
+					ZoneId.systemDefault());
+    		return true;
+    	}
+    	
+	
     }
 
     @Override
@@ -86,7 +82,7 @@ public class Deadline {
     	if(this.date == null)
     		return value;
     	else
-    		return this.date.toString();
+    		return this.date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a"));
     }
     
     public LocalDateTime getDate(){

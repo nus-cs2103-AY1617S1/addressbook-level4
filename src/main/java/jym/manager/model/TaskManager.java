@@ -118,6 +118,8 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+//@@author A0153440R
+
     public void updateTask(ReadOnlyTask oldTask, Task updatedTask) throws UniqueTaskList.TaskNotFoundException {
     	tasks.update(oldTask, updatedTask);
     }
@@ -131,6 +133,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     		throw new UniqueTaskList.TaskNotFoundException();
     	}
     }
+//@@author
+
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

@@ -8,7 +8,7 @@ import jym.manager.commons.exceptions.IllegalValueException;
  */
 public class Description {
 
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task descriptions should be spaces or alphanumeric characters";
     public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     private final String fullDescription;
