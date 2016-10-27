@@ -93,6 +93,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
 	final Task completedTask = internalList.get(taskIndex);
 	completedTask.markAsComplete();
+	internalList.set(taskIndex, completedTask);
 	
     	}
 
