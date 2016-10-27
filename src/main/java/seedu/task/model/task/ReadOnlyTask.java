@@ -20,6 +20,18 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the tasks's internal tags.
      */
     UniqueTagList getTags();
+    
+    /**
+     * Equality based on what is shown to the user. Useful for tests.
+     */
+    default boolean isSameVisualStateAs(ReadOnlyTask other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getOpenTime().toPrettyString().equals(this.getOpenTime().toPrettyString())
+                && other.getCloseTime().toPrettyString().equals(this.getCloseTime().toPrettyString())
+                && other.getImportance() == this.getImportance());
+    }
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

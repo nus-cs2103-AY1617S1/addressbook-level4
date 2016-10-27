@@ -34,7 +34,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(td.cs2103);
        
         //add a task which has endTime < openTime 
-        commandBox.runCommand("add testEvent s/tomorrow c/today r/0");
+        commandBox.runCommand("add testEvent s/tomorrow c/today");
         assertResultMessage(MESSAGE_DATETIME_CONSTRAINTS);
         
         //add test with only name
@@ -51,7 +51,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         
         //add task with same task name as previous task but different openTime and endTime
-        taskToAdd =td.same;
+        taskToAdd = td.same;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
@@ -80,7 +80,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         // recurring number of task is negative
         commandBox.runCommand("add testRecurring r/-1");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertResultMessage(AddCommand.MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
         
         //invalid recurring argument with alphanumeric is not allowed
         commandBox.runCommand("add testRecurring r/abc");
@@ -95,7 +95,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().taskName);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
