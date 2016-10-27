@@ -104,7 +104,6 @@ public class MainApp extends Application {
     }
 
     protected Config initConfig() {
-        Config initializedConfig;
         String configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
@@ -118,6 +117,12 @@ public class MainApp extends Application {
 
         logger.info("Using config file : " + configFilePathUsed);
 
+        return loadConfigFromFile(configFilePathUsed);
+    }
+    
+    protected Config loadConfigFromFile(String configFilePathUsed) {
+        Config initializedConfig;
+        
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());

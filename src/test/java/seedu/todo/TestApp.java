@@ -12,6 +12,7 @@ import seedu.todo.testutil.TestUtil;
 public class TestApp extends MainApp {
     
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("testData.json");
+    public static final String CONFIG_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("testConfig.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<TodoListDB> initialDataSupplier = () -> null;
@@ -38,7 +39,7 @@ public class TestApp extends MainApp {
 
     @Override
     protected Config initConfig() {
-        config = super.initConfig();
+        config = super.loadConfigFromFile(CONFIG_LOCATION_FOR_TESTING);
         config.setAppTitle(APP_TITLE);
         config.setDatabaseFilePath(saveFileLocation);
         return config;
