@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -39,7 +40,7 @@ public class DateTime {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
-        this.value = Optional.of(possibleDates.get(0).toInstant());
+        this.value = Optional.of(possibleDates.get(0).toInstant().truncatedTo(ChronoUnit.MINUTES));
     }
     
     public DateTime(Long epochMilli, boolean isEpoch) {
@@ -48,7 +49,7 @@ public class DateTime {
             return;
         }
         
-        this.value = Optional.of(Instant.ofEpochMilli(epochMilli));
+        this.value = Optional.of(Instant.ofEpochMilli(epochMilli).truncatedTo(ChronoUnit.MINUTES));
     }
 
     /**
