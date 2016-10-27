@@ -13,7 +13,7 @@ import seedu.todo.ui.views.IndexView;
 /**
  * Class to store rendering methods to be shared across controllers.
  * 
- * @author louietyj
+ * @@author A0093907W
  *
  */
 public class Renderer {
