@@ -49,11 +49,13 @@ Responsibilities: Code Quality/Deliverables/UI
 
 #### [Hong Bangwu](https://github.com/ndt93)
 <img src="images/Bangwu.jpg" width="150"><br> 
-* Components in charge of: 
-* Aspects/tools in charge of: 
+* Components in charge of: AddCommandTest
+* Aspects/tools in charge of: Junit
 * Features Implemented
-..*
 * Code Written:
+..* Test Activities, Test Task, Test Events
+..* Simple functions related to testing
 * Other major contributions:
-..* 
+..* Helped to identify errors for testing
+..* Helped update diagrams and aboutus.md
 -----
