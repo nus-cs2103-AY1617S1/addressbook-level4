@@ -240,7 +240,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-//@@author A0153467Y
+<!-- @@author A0153467Y-->
 ## Appendix A : User Stories
  
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -411,7 +411,7 @@ Use case ends.
  
 > Windows, Linux, Unix, OS-X
 
-//@@author
+<!-- @@author-->
 ## Appendix E : Product Survey
  
 ### Google Calendar
@@ -430,7 +430,7 @@ Use case ends.
 3. No anonymous use; must have a google account
 4. Calendar cannot display a filtered set, thus clutter when high volume of data
 
-//@@author A0153467Y
+<!-- @@author A0153467Y-->
 ### Todo.txt (laptop version)
 #### Strength:
 1. Simple editors(use CLI) to manage tasks
