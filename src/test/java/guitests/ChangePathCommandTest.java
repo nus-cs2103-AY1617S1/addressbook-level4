@@ -10,8 +10,19 @@ import seedu.task.testutil.TestUtil;
 public class ChangePathCommandTest extends TaskManagerGuiTest {
     @Test
     public void changePath() throws InterruptedException {
+        
+        
+        //Add successfully
+        String validPath = TestUtil.getFilePathInSandboxFolder("yxz.xml");
+        File writeableFolder = new File(validPath).getParentFile();
+        writeableFolder.setWritable(true);
+        Thread.sleep(300);
+        commandBox.runCommand("change-to "+validPath);
+        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_SUCCESS, validPath));
+        
+        
         //Try with non xml file
-        String nonXmlFilePath = "taskmanager.txt";
+        String nonXmlFilePath = TestUtil.getFilePathInSandboxFolder("taskmanager.txt");
         commandBox.runCommand("change-to " + nonXmlFilePath);
         assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, nonXmlFilePath));
         
@@ -27,13 +38,6 @@ public class ChangePathCommandTest extends TaskManagerGuiTest {
         String emptyPath = TestUtil.getFilePathInSandboxFolder("");
         commandBox.runCommand("change-to "+emptyPath);
         assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, emptyPath));
-        
-        //Add successfully
-        String validPath = TestUtil.getFilePathInSandboxFolder("yxz.xml");
-        File writeableFolder = new File(validPath).getParentFile();
-        writeableFolder.setWritable(true);
-        Thread.sleep(300);
-        commandBox.runCommand("change-to "+validPath);
-        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_SUCCESS, validPath));
+
     }
 }

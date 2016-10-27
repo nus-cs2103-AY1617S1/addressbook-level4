@@ -47,9 +47,6 @@ public class ChangePathCommand extends Command{
      */
     private boolean isValidFilePath(String newFilePath) {
         File file = new File(newFilePath);
-        System.out.println(file.getParentFile() != null);
-        System.out.println(file.canWrite());
-        System.out.println(newFilePath.endsWith(".xml"));
-        return (file.getParentFile() != null && file.canWrite() && newFilePath.endsWith(".xml"));         
+        return (file.getParentFile() != null && file.getParentFile().canWrite() && newFilePath.endsWith(".xml"));         
     }
 }
