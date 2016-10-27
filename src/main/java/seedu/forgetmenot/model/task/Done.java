@@ -3,8 +3,8 @@ package seedu.forgetmenot.model.task;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
 /**
- * @@author A0139198N
  * Represents a task's done status in the task manager.
+ * @@author A0139198N
  */
 public class Done {
 

@@ -9,8 +9,6 @@ import seedu.forgetmenot.storage.Storage;
 import seedu.forgetmenot.ui.TaskListPanel;
 
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
-import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_TIME;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -24,7 +22,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the ForgetMeNot. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to ForgetMeNot. "
             + "Parameters: TASKNAME DATE"
             + "Example: " + COMMAND_WORD
             + " Homework by tomorrow 6pm";

@@ -26,6 +26,6 @@ public class ClearCommandTest extends TaskManagerGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Task Manager has been cleared!");
+        assertResultMessage("ForgetMeNot has been cleared!");
     }
 }

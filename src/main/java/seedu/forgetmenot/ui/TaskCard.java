@@ -59,8 +59,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        address.setText("End Time: " + task.getEndTime().easyReadDateFormatForUI());
-        start.setText("Start Time: " + task.getStartTime().easyReadDateFormatForUI());
+        address.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
+        start.setText("Start: " + task.getStartTime().easyReadDateFormatForUI());
         if (task.getDone().getDoneValue() == true) {
         	stateicon.setImage(tickmark.getImage());
             cardPane.setStyle("-fx-background-color : #c1f0c1;");   
