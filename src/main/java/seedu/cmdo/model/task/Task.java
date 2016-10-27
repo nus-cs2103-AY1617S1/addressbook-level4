@@ -1,5 +1,6 @@
 package seedu.cmdo.model.task;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -150,6 +151,19 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * Marks a floating task via boolean
+     * 
+     * @author A0141006B
+     */
+    
+    public boolean isFloatingTask() {
+    	if(getDueByDate().start.equals(LocalDate.MIN)) {
+    		return true;
+    	}else
+    		return false;
     }
     
     /**

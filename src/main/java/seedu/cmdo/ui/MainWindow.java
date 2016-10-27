@@ -1,8 +1,11 @@
 package seedu.cmdo.ui;
 
+import java.time.YearMonth;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +26,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_WIDTH = 800;
 
     private Logic logic;
 
@@ -89,9 +92,12 @@ public class MainWindow extends UiPart {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
+        scene = new Scene(rootLayout);       
         primaryStage.setScene(scene);
-
+        
+       
+        scene.getStylesheets().add("Labels.css");
+        
         setAccelerators();
     }
 
@@ -101,7 +107,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	taskCategoryPlaceholder.getChildren().add((new TaskCategory(logic.getAllTaskList())).getTaskCategoryPane());
-    	//welcomePanePlaceholder.getChildren().add((new WelcomeMessage()).getWelcomePane());
+    	welcomePanePlaceholder.getChildren().add(new FullCalendarView(YearMonth.now()).getView());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(true));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
