@@ -133,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    //@author A0146682X
+    //@@author A0146682X
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.editTask(target, replacement);
