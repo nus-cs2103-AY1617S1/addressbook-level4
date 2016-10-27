@@ -38,6 +38,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
+    //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
@@ -56,6 +57,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
+  //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
@@ -90,6 +92,7 @@ public class EditCommand extends Command {
     /**
      * Constructor for undo
      */
+  //@@author A0139920A
     public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
     	this.taskToEdit = original;
     	this.toEdit = (Task) toEdit;
@@ -97,6 +100,7 @@ public class EditCommand extends Command {
     	this.dataType = dataType;
     }
 
+    //@@author A0139920A
     @Override
     public CommandResult execute() {
     	if(this.taskToEdit == null && this.targetIndex != -1) {
