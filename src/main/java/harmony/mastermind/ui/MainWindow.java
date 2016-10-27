@@ -750,6 +750,7 @@ public class MainWindow extends UiPart {
     // @@author A0138862W
     public void highlightLastActionedRow(Task task){
         taskTableHome.getSelectionModel().select(task);
+        taskTableHome.scrollTo(task);
     }
 
     /**
