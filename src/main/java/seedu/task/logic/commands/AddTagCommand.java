@@ -12,7 +12,7 @@ import seedu.task.model.tag.UniqueTagList.NotExistTagException;
 import seedu.task.model.task.*;
 
 /**
- * Adds a task to the task manager.
+ * Adds a tag to a task.
  */
 public class AddTagCommand extends Command{
 

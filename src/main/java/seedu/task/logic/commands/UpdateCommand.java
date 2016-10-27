@@ -1,8 +1,6 @@
 //@@ author A0147969E
 package seedu.task.logic.commands;
 
-import java.util.Set;
-
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -11,7 +9,7 @@ import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
 
 /**
- * update the details of a task.
+ * Updates the details of a task.
  */
 public class UpdateCommand extends Command{
 

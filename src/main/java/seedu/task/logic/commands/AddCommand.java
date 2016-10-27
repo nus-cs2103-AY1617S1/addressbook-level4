@@ -3,7 +3,6 @@ package seedu.task.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
@@ -34,8 +33,6 @@ public class AddCommand extends Command {
 
     private Time start;
     private Time end;
-
-    private boolean canUndo = false;
 
     /**
      * Convenience constructor using raw values.
