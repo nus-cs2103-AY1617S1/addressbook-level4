@@ -58,7 +58,8 @@ public class DoneCommand extends Command {
                     model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
-                    assert false : "The target task cannot be missing";
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
             else if (Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'D') {
@@ -73,7 +74,8 @@ public class DoneCommand extends Command {
                     model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
-                    assert false : "The target Deadline cannot be missing";
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
             else if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'T') {
@@ -88,7 +90,8 @@ public class DoneCommand extends Command {
                     model.addToUndoStack();
                     model.markDone(taskDone);
                 } catch (TaskNotFoundException e) {
-                    assert false : "The target Deadline cannot be missing";
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
         }
