@@ -34,24 +34,24 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
 
         // add new tags
         Tag tagToAdd = new Tag("urgent");
-        commandBox.runCommand("update " + targetIndex + " t/urgent");
+        commandBox.runCommand("update " + targetIndex + " tag urgent");
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
         assertTrue(newTask.getTags().contains(tagToAdd));
         
         // remove existing tags
-        commandBox.runCommand("update " + targetIndex + " rt/urgent");
+        commandBox.runCommand("update " + targetIndex + " remove-tag urgent");
         newTask = taskListPanel.getTask(targetIndex - 1);
         assertTrue(!newTask.getTags().contains(tagToAdd));
         
         // modify open time
-        commandBox.runCommand("update " + targetIndex + " s/2 hour later");
+        commandBox.runCommand("update " + targetIndex + " starts 2 hour later");
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         TestTask expectedTask = currentList[targetIndex - 1];
         expectedTask.setOpenTime(new DateTime("2 hour later"));
         assertMatching(expectedTask, updatedCard);
         
         // modify close time
-        commandBox.runCommand("update " + targetIndex + " c/the day after tomorrow");
+        commandBox.runCommand("update " + targetIndex + " ends the day after tomorrow");
         updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         expectedTask = currentList[targetIndex - 1];
         expectedTask.setCloseTime(new DateTime("the day after tomorrow"));
@@ -65,17 +65,17 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         
         // update own task without changing name
         targetIndex = 3;
-        commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
+        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // update task to a name that is duplicated
         targetIndex = 2;
-        commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
+        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
         assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // invalid index
-        commandBox.runCommand("update " + (currentList.length+1) + td.ida.getArgs());
+        commandBox.runCommand("update " + (currentList.length+1) + " name"+ td.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(taskListPanel.isListMatching(currentList));
         
@@ -90,7 +90,7 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
     }
 	
 	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
-		commandBox.runCommand("update " + targetIndex + taskToUpdate.getArgs() );
+		commandBox.runCommand("update " + targetIndex + " name"+ taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);

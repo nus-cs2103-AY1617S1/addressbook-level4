@@ -15,7 +15,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 
 public class AddParser extends BaseParser {
     
-    private final static String FLAG_NAME = "";
+    private final static String FLAG_NAME = "name";
     private final static String FLAG_START_TIME = "starts";
     private final static String FLAG_CLOSE_TIME = "ends";
     private final static String FLAG_TAGS = "tag";
@@ -60,7 +60,7 @@ public class AddParser extends BaseParser {
     protected void extractArguments(String args) {
         argumentsTable.clear();
         String[] segments = args.trim().split(" ");
-        String currentKey = "";
+        String currentKey = "name";
         StringJoiner joiner = new StringJoiner(" ");        
         for (String segment : segments) {
             if (isDelimiter(segment)) {
