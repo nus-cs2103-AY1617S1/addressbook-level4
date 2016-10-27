@@ -49,6 +49,13 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand(commandKey + " 5");
         assertUndoSuccess(commandKey,currentList,task);
         
+        //undo unmark command
+        commandBox.runCommand("mark 5");
+        commandKey = "unmark";
+        task = taskListPanel.getTask(4);
+        commandBox.runCommand(commandKey + " 5");
+        assertUndoSuccess(commandKey,currentList,task);
+        
         //undo multiple mixed commands
         assertUndoMixedCommandsSuccess(currentList);
         
