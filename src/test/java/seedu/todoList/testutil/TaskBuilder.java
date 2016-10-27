@@ -7,6 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  *
  */
+//@@author A0132157M
 public class TaskBuilder {
 
     private TestTask task;
@@ -25,8 +26,16 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withDate(String date) throws IllegalValueException {
-        this.task.setDate(new StartDate(date));
+    public TaskBuilder withStartDate(String date) throws IllegalValueException {
+        this.task.setStartDate(new StartDate(date));
+        return this;
+    }
+    public TaskBuilder withEndDate(String date) throws IllegalValueException {
+        this.task.setEndDate(new EndDate(date));
+        return this;
+    }
+    public TaskBuilder withDone(String dd) throws IllegalValueException {
+        this.task.setDone(dd);
         return this;
     }
 

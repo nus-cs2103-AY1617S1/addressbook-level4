@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -11,7 +12,7 @@ import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SU
 public class DeleteCommandTest extends ListGuiTest {
 
     @Test
-    public void delete() {
+    public void delete() throws IllegalValueException {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicaltasks();
@@ -43,7 +44,7 @@ public class DeleteCommandTest extends ListGuiTest {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removetaskFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("delete todo " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));

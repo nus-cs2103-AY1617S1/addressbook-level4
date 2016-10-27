@@ -6,6 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+//import seedu.address.model.AddressBook;
+//import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.person.Person;
+//import seedu.address.testutil.TypicalTestPersons;
+//import seedu.address.model.AddressBook;
+//import seedu.address.storage.XmlAddressBookStorage;
+//import seedu.address.testutil.TypicalTestPersons;
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.model.ReadOnlyTaskList;
@@ -13,7 +20,6 @@ import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.storage.XmlTodoListStorage;
-
 import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
@@ -68,7 +74,6 @@ public class XmlTodoListStorageTest {
     public void readAndSaveTodoList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTodoList.xml";
         TypicalTestTask td = new TypicalTestTask();
-
         TaskList original = td.getTypicalTodoList();
         XmlTodoListStorage xmlTodoListStorage = new XmlTodoListStorage(filePath);
 
@@ -85,7 +90,7 @@ public class XmlTodoListStorageTest {
         assertEquals(original, new TaskList(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Todo(TypicalTestTask.a7));
+        original.addTask(new Todo(TypicalTestTask.a1));
         xmlTodoListStorage.saveTaskList(original); //file path not specified
         readBack = xmlTodoListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new TaskList(readBack));

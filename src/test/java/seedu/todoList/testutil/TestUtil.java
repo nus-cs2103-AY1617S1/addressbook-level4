@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 /**
  * A utility class for test cases.
  */
+//@@author A0132157M
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
@@ -74,13 +75,13 @@ public class TestUtil {
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Todo(new Name("TT 11"), new StartDate("01-11-2016"), new Priority("1")),
-                    new Todo(new Name("Assignment 12"), new StartDate("02-11-2016"), new Priority("2")),
-                    new Todo(new Name("Assignment 13"), new StartDate("03-11-2016"), new Priority("3")),
-                    new Todo(new Name("Assignment 14"), new StartDate("04-11-2016"), new Priority("4")),
-                    new Todo(new Name("Assignment 15"), new StartDate("05-11-2016"), new Priority("5")),
-                    new Todo(new Name("Assignment 16"), new StartDate("06-11-2016"), new Priority("6")),
-                    new Todo(new Name("Assignment 17"), new StartDate("07-11-2016"), new Priority("7")),
+                    new Todo(new Name("TT 11"), new StartDate("01-11-2016"), new EndDate("02-11-2016"), new Priority("1"), "false"),
+                    new Todo(new Name("Assignment 12"), new StartDate("02-11-2016"), new EndDate("03-11-2016"), new Priority("2"), "false"),
+                    new Todo(new Name("Assignment 13"), new StartDate("03-11-2016"), new EndDate("03-11-2016"), new Priority("3"), "false"),
+                    new Todo(new Name("Assignment 14"), new StartDate("04-11-2016"), new EndDate("05-11-2016"), new Priority("4"), "false"),
+                    new Todo(new Name("Assignment 15"), new StartDate("05-11-2016"), new EndDate("06-11-2016"), new Priority("5"), "false"),
+                    new Todo(new Name("Assignment 16"), new StartDate("06-11-2016"), new EndDate("07-11-2016"), new Priority("6"), "false"),
+                    new Todo(new Name("Assignment 17"), new StartDate("07-11-2016"), new EndDate("08-11-2016"), new Priority("7"), "false"),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -92,13 +93,13 @@ public class TestUtil {
     private static Event[] getSampleeventData() {
         try {
             return new Event[]{
-                    new Event(new Name("EE 11"), new StartDate("01-11-2016"), new StartTime("1000"), new EndTime("1030")),
-                    new Event(new Name("Essignment 12"), new StartDate("02-11-2016"), new StartTime("1000"), new EndTime("1030")),
-                    new Event(new Name("Essignment 13"), new StartDate("03-11-2016"), new StartTime("1100"), new EndTime("1130")),
-                    new Event(new Name("Essignment 14"), new StartDate("04-11-2016"), new StartTime("1200"), new EndTime("1230")),
-                    new Event(new Name("Essignment 15"), new StartDate("05-11-2016"), new StartTime("1300"), new EndTime("1330")),
-                    new Event(new Name("Essignment 16"), new StartDate("06-11-2016"), new StartTime("1400"), new EndTime("1430")),
-                    new Event(new Name("Essignment 17"), new StartDate("07-11-2016"), new StartTime("1500"), new EndTime("1530")),
+                    new Event(new Name("EE 11"), new StartDate("01-11-2016"), new EndDate("02-11-2016"), new StartTime("1000"), new EndTime("1030"), "false"),
+                    new Event(new Name("Essignment 12"), new StartDate("02-11-2016"), new EndDate("02-11-2016"),  new StartTime("1000"), new EndTime("1030"), "false"),
+                    new Event(new Name("Essignment 13"), new StartDate("03-11-2016"), new EndDate("02-11-2016"),  new StartTime("1100"), new EndTime("1130"), "false"),
+                    new Event(new Name("Essignment 14"), new StartDate("04-11-2016"), new EndDate("02-11-2016"),  new StartTime("1200"), new EndTime("1230"), "false"),
+                    new Event(new Name("Essignment 15"), new StartDate("05-11-2016"), new EndDate("02-11-2016"),  new StartTime("1300"), new EndTime("1330"), "false"),
+                    new Event(new Name("Essignment 16"), new StartDate("06-11-2016"), new EndDate("02-11-2016"),  new StartTime("1400"), new EndTime("1430"), "false"),
+                    new Event(new Name("Essignment 17"), new StartDate("07-11-2016"), new EndDate("02-11-2016"),  new StartTime("1500"), new EndTime("1530"), "false"),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -110,13 +111,13 @@ public class TestUtil {
     private static Deadline[] getSampledeadlineData() {
         try {
             return new Deadline[]{
-                    new Deadline(new Name("DD 11"), new StartDate("01-11-2016"), new EndTime("1100")),
-                    new Deadline(new Name("Dssignment 12"), new StartDate("02-11-2016"), new EndTime("1200")),
-                    new Deadline(new Name("Dssignment 13"), new StartDate("03-11-2016"), new EndTime("1300")),
-                    new Deadline(new Name("Dssignment 14"), new StartDate("04-11-2016"), new EndTime("1400")),
-                    new Deadline(new Name("Dssignment 15"), new StartDate("05-11-2016"), new EndTime("1500")),
-                    new Deadline(new Name("Dssignment 16"), new StartDate("06-11-2016"), new EndTime("1600")),
-                    new Deadline(new Name("Dssignment 17"), new StartDate("07-11-2016"), new EndTime("1700")),
+                    new Deadline(new Name("DD 11"), new StartDate("01-11-2016"), new EndTime("1100"), "false"),
+                    new Deadline(new Name("Dssignment 12"), new StartDate("02-11-2016"), new EndTime("1200"), "false"),
+                    new Deadline(new Name("Dssignment 13"), new StartDate("03-11-2016"), new EndTime("1300"), "false"),
+                    new Deadline(new Name("Dssignment 14"), new StartDate("04-11-2016"), new EndTime("1400"), "false"),
+                    new Deadline(new Name("Dssignment 15"), new StartDate("05-11-2016"), new EndTime("1500"), "false"),
+                    new Deadline(new Name("Dssignment 16"), new StartDate("06-11-2016"), new EndTime("1600"), "false"),
+                    new Deadline(new Name("Dssignment 17"), new StartDate("07-11-2016"), new EndTime("1700"), "false"),
             };
         } catch (IllegalValueException e) {
             assert false;

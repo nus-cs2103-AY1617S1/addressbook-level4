@@ -7,6 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  *
  */
+//@@author A0132157M
 public class DeadlineBuilder {
 
     private TestDeadline task;
@@ -32,6 +33,10 @@ public class DeadlineBuilder {
 
     public DeadlineBuilder withEndTime(String et) throws IllegalValueException {
         this.task.setEndTime(new EndTime(et));
+        return this;
+    }
+    public DeadlineBuilder withDone(String et) throws IllegalValueException {
+        this.task.setDone(et);
         return this;
     }
 

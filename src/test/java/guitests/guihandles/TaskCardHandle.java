@@ -4,15 +4,18 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.Todo;
 
 /**
  * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#Name";
-    private static final String DATE_FIELD_ID = "#Date";
-    private static final String PRIORITY_FIELD_ID = "#Priority";
-    //private static final String ENDTIME_FIELD_ID = "#EndTime";
+    private static final String NAME_FIELD_ID = "#name";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
+    private static final String ENDDATE_FIELD_ID = "#endDate";
+    private static final String PRIORITY_FIELD_ID = "#priority";
+    private static final String DONE_FIELD_ID = "#isDone";
+
 
     private Node node;
 
@@ -28,13 +31,20 @@ public class TaskCardHandle extends GuiHandle {
     public String getName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
+    public String getDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
+    }
+    public String getEndDate() {
+        return getTextFromLabel(ENDDATE_FIELD_ID);
+    }
+    
 
     public String getPriority() {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
-    public String getDate() {
-        return getTextFromLabel(DATE_FIELD_ID);
+    public String getDone() {
+        return getTextFromLabel(DONE_FIELD_ID);
     }
 
 
@@ -49,13 +59,15 @@ public class TaskCardHandle extends GuiHandle {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
                     && getDate().equals(handle.getDate())
-                    && getPriority().equals(handle.getPriority());
+                    && getEndDate().equals(handle.getEndDate())
+                    && getPriority().equals(handle.getPriority())
+                    && getDone().equals(handle.getDone());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + " " + getDate() + " " + getPriority();
+        return getName() + " " + getDate() + " " + getEndDate() + " " + getPriority() + " " + getDone();
     }
 }

@@ -192,7 +192,6 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
 
     @Test
@@ -273,7 +272,7 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
-    @Test
+    /*@Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
@@ -292,7 +291,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTodoList().get(1), threetasks.get(1));
-    }
+    }*/
 
 
     @Test
@@ -329,6 +328,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@ Author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
@@ -389,6 +389,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
+    //@@ Author A0132157M
     class TestDataHelper{
 
         Todo a111() throws Exception {
@@ -397,6 +398,7 @@ public class LogicManagerTest {
             EndDate endDate = new EndDate("02-12-2016");
             Priority priority = new Priority("111");
             String isDone = "false";
+            
             //EndTime endTime = new EndTime("1111");
             //Tag tag1 = new Tag("tag1");
             //Tag tag2 = new Tag("tag2");
@@ -411,6 +413,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
+        //@@author A0132157M
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
@@ -424,14 +427,14 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
+        //@@author A0132157M
         String generateAddCommand(Todo p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
             cmd.append(p.getName().name);
-            cmd.append(" d/").append(p.getStartDate().date);
-            cmd.append(" e/").append(p.getEndDate().endDate);
+            cmd.append(" from/").append(p.getStartDate().date);
+            cmd.append(" to/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
             
 
@@ -513,13 +516,16 @@ public class LogicManagerTest {
         /**
          * Generates a task object with given name. Other fields will have some dummy values.
          */
+        //@@author A0132157M
         Task generatetaskWithToDo(String name) throws Exception {
             return new Todo(
                     new Name(name),
                     new StartDate("01-11-2016"),
-                    new EndDate("02-12-2016"),
+                    new EndDate("02-11-2016"),
                     new Priority("1"),
-                    "False"
+                    "false"
+                                    
+                    //new UniqueTagList(new Tag("tag"))
             );
         }
     }

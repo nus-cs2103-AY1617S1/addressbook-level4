@@ -30,13 +30,13 @@ public class XmlFileStorage {
     public static XmlSerializableTaskList loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
-        	if(file.getPath().equals("data/TodoList.xml")) {
+        	if(file.getPath().contains("TodoList.xml")) {
         		return XmlUtil.getDataFromFile(file, XmlSerializableTodoList.class);
         	}
-        	else if(file.getPath().equals("data/EventList.xml")) {
+        	else if(file.getPath().contains("EventList.xml")) {
         		return XmlUtil.getDataFromFile(file, XmlSerializableEventList.class);
         	}
-        	else if(file.getPath().equals("data/DeadlineList.xml")) {
+        	else if(file.getPath().contains("DeadlineList.xml")) {
         		return XmlUtil.getDataFromFile(file, XmlSerializableDeadlineList.class);
         	}
         	else {

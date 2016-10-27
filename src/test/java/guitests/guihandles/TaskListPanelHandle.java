@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.todoList.TestApp;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.testutil.TestUtil;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#todoCard";
+    public static final String CARD_PANE_ID = "#name";
 
     private static final String task_LIST_VIEW_ID = "#todoListView";
 
@@ -38,6 +39,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(task_LIST_VIEW_ID);
+        
     }
 
     /**
@@ -99,12 +101,16 @@ public class TaskListPanelHandle extends GuiHandle {
         return true;
     }
 
+    //@@author A0132157M
+    public TaskCardHandle navigateTotask(String name) {
+        //LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + name.toString());
 
-    public TaskCardHandle navigateTotask(String readOnlyTask) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task: " + task.toString());
+
         if (!task.isPresent()) {
-            throw new IllegalStateException("Task not found: " + readOnlyTask);
+            throw new IllegalStateException("Todo not found: " + name);
         }
 
         return navigateTotask(task.get());

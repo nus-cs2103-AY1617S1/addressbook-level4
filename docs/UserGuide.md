@@ -108,7 +108,7 @@ Clears all data in the given task type list.<br>
 > Example(Event): `clear event` <br>
 > Example(Deadline): `clear deadline`
 
-#### Undo the previous command: 'undo'
+#### Undo the previous command: `undo`
 Undo the latest command. If there is no previous command, nothing will happen.<br>
 > Format: `undo`
 
@@ -128,7 +128,7 @@ Task-list data are saved in the hard disk automatically after any command that c
 ## Command Summary
 
 Command 	| Format  
---------------- | :-------- 
+--------------- | :--------
 Add	Todo	| `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
 Add	Event	| `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`

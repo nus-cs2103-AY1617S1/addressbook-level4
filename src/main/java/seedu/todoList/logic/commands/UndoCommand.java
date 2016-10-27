@@ -13,7 +13,8 @@ public class UndoCommand extends Command {
     		+ ": Undo the latest command. If there is no previous command, nothing will happen.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Undone the latest task";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undone the latest task.";
+    public static final String MESSAGE_UNDO_FAIL = "There was no undoable command made before.";
 
     public UndoCommand() {}
 
@@ -22,7 +23,7 @@ public class UndoCommand extends Command {
         try {
             model.undoLatestCommand();
         } catch (EmptyStackException e) {
-            assert false : "There was no undoable command made before";
+        	return new CommandResult(MESSAGE_UNDO_FAIL);
         }
 
         return new CommandResult(MESSAGE_UNDO_SUCCESS);

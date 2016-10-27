@@ -7,6 +7,7 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 /**
  *
  */
+//@@ Author A0132157M
 public class TypicalTestDeadline {
 
    
@@ -14,14 +15,14 @@ public class TypicalTestDeadline {
 
     public TypicalTestDeadline() {
         try {
-            d1 = new DeadlineBuilder().withName("d 1").withDate("30-10-2016").withEndTime("1000").build();
-            d2 = new DeadlineBuilder().withName("dd 1").withDate("26-10-2016").withEndTime("1200").build();
-            d3 = new DeadlineBuilder().withName("deambuilding 3").withDate("27-10-2016").withEndTime("1300").build();
-            d4 = new DeadlineBuilder().withName("dssignment 4").withDate("27-10-2016").withEndTime("1400").build();
-            d5 = new DeadlineBuilder().withName("droject 5").withDate("28-10-2016").withEndTime("1500").build();
+            d1 = new DeadlineBuilder().withName("d 1").withDate("30-10-2017").withEndTime("1000").withDone("ND").build();
+            d2 = new DeadlineBuilder().withName("dd 1").withDate("26-10-2017").withEndTime("1200").build();
+            d3 = new DeadlineBuilder().withName("deambuilding 3").withDate("27-10-2017").withEndTime("1300").build();
+            d4 = new DeadlineBuilder().withName("dssignment 4").withDate("27-10-2017").withEndTime("1400").build();
+            d5 = new DeadlineBuilder().withName("droject 5").withDate("28-10-2017").withEndTime("1500").build();
             //Manually added
-            d6 = new DeadlineBuilder().withName("dssignment 6").withDate("28-10-2016").withEndTime("1600").build();
-            d7 = new DeadlineBuilder().withName("domework 7").withDate("29-10-2016").withEndTime("1700").build();
+            d6 = new DeadlineBuilder().withName("dssignment 6").withDate("28-10-2017").withEndTime("1600").build();
+            d7 = new DeadlineBuilder().withName("domework 7").withDate("29-10-2017").withEndTime("1700").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

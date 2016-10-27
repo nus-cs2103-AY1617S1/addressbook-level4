@@ -221,17 +221,6 @@ public class MainApp extends Application {
         String newDirectory = event.getNewDirectory();
         Config changedConfig = new Config(newDirectory);
         ConfigUtil.saveConfig(changedConfig, Config.DEFAULT_CONFIG_FILE);
-        
-        config = initConfig(Config.DEFAULT_CONFIG_FILE);
-        storage = new StorageManager(config);
-
-        userPrefs = initPrefs(config);
-
-        initLogging(config);
-
-        model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
 
         this.stop();
     }

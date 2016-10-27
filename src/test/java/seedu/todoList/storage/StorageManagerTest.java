@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
@@ -13,6 +14,7 @@ import seedu.todoList.model.ReadOnlyTaskList;
 //import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.UserPrefs;
+
 import seedu.todoList.storage.JsonUserPrefsStorage;
 import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
@@ -65,6 +67,7 @@ public class StorageManagerTest {
     @Test
     public void TodoListReadSave() throws Exception {
         TaskList original = new TypicalTestTask().getTypicalTodoList();
+        LogsCenter.getLogger(StorageManagerTest.class).info("XXXXXX: " + original.getTasks());
         storageManager.saveTodoList(original);
         ReadOnlyTaskList retrieved = storageManager.readTodoList().get();
         assertEquals(original, new TaskList(retrieved));
