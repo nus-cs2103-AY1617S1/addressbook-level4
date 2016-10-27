@@ -22,13 +22,6 @@ public class AddParserTest {
 
 	}
 
-	@Test
-	public void checkIsTask_returnsFalse(){
-		
-		String arguments = "complete 2103t by: 10-08-16 9999 n:important";
-		
-		assertFalse(AddParser.isTask(arguments));
-	}
 	
 	@Test
 	public void checkIsEvent_returnsTrue(){
@@ -86,7 +79,7 @@ public class AddParserTest {
 	@Test
 	public void checkEventArguments_returnsCorrectArguments(){
 		
-		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
+		String arguments = "meet prof damith from: 08-10-2016 1900 to: 08-11-2016 1900 n:he is fierce";
 		try {
 			assertEquals("meet prof damith", AddParser.parseCommand(arguments).get(1));
 			assertEquals("he is fierce", AddParser.parseCommand(arguments).get(2));
@@ -102,7 +95,7 @@ public class AddParserTest {
 	@Test
 	public void checkTaskArguments_returnsCorrectArguments(){
 	
-		String arguments = "complete cs2103t by : 08-10-2016 1900 n : important";
+		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 		try{
 			assertEquals("complete cs2103t", AddParser.parseCommand(arguments).get(1));
 			assertEquals("important", AddParser.parseCommand(arguments).get(2));
@@ -126,15 +119,7 @@ public class AddParserTest {
 		}
 		
 	}
-	
-	@Test
-	public void checkNattyReturnType() {
-		
-		String arguments = "next friday";
-		
-		AddParser.parseDate(arguments);
-	}
-	
+
 
 	
 }
