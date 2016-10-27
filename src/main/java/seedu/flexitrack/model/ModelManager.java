@@ -194,12 +194,12 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             if (nameKeyWords.toString().contains("f/")) {
                 return nameKeyWords.stream()
-                        .filter(keyword -> StringUtil.equalsIgnoreCase(task.getName().fullName, keyword)).findAny()
+                        .filter(keyword -> StringUtil.equalsIgnoreCase(task.getName().getNameOnly(), keyword)).findAny()
                         .isPresent();
             }
 
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword)).findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().getNameOnly(), keyword)).findAny()
                     .isPresent();
         }
 
@@ -258,9 +258,8 @@ public class ModelManager extends ComponentManager implements Model {
                 return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
             } else if (!dateInfo.equals("")){
                 return DateTimeInfo.isOnTheDate(dateInfo, task);
-            }
-            else {
-                return true;
+            } else { 
+                return true; 
             }
         }
         

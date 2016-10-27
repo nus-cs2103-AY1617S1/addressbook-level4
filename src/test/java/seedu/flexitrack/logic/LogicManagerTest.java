@@ -319,7 +319,7 @@ public class LogicManagerTest {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < currentList.size(); i++) {
-            if (!currentList.get(i).getName().fullName.equals(expectedList.get(i).getName().fullName)) {
+            if (!currentList.get(i).getName().toString().equals(expectedList.get(i).getName().toString())) {
                 return false;
             }
         }
