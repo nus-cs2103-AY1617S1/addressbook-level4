@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Circle?>
 
@@ -20,17 +21,29 @@
         <Insets right="10.0" />
       </HBox.margin>
     </ImageView>
-    <Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
-    <Text fx:id="taskTime" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS">
-      <HBox.margin>
-        <Insets left="10.0" />
-      </HBox.margin>
-    </Text>
-    <Text fx:id="taskTagListText" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS" >
-      <HBox.margin>
-        <Insets left ="10.0" />
-      </HBox.margin>
-    </Text>
+    <VBox maxHeight="40.0" maxWidth="Infinity" minHeight="0.0" minWidth="-Infinity">
+   		<children>
+   	      <HBox maxHeight="40.0" maxWidth="Infinity" minHeight="10.0" minWidth="-Infinity">
+   	        <children>
+   	        	<Text fx:id="taskText" styleClass="tasklist-taskitem-label" HBox.hgrow="ALWAYS" />
+			    <Text fx:id="taskTime" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS">
+			      <HBox.margin>
+			        <Insets left="10.0" />
+			      </HBox.margin>
+			    </Text>
+   	        </children>
+   	      </HBox>
+   		  <HBox maxHeight="10.0" maxWidth="Infinity" minHeight="0.0" minWidth="-Infinity">
+   		    <children>
+   		      <Text fx:id="taskTagListText" styleClass="tasklist-itemtime" HBox.hgrow="ALWAYS" >
+   		        <HBox.margin>
+   		          <Insets top = "5.0" />
+   		        </HBox.margin>
+   		        </Text>
+   		    </children>
+   		  </HBox>
+   		</children> 
+    </VBox>
   </children>
   <padding>
     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

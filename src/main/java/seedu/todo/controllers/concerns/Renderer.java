@@ -55,7 +55,7 @@ public class Renderer {
         if (events != null) {
             view.events = events;
         }
-        
+        view.tags = db.getTagList();
         UiManager.renderView(view);
         
         if (consoleMessage != null) {
@@ -73,7 +73,7 @@ public class Renderer {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = db.getIncompleteTasksAndTaskFromTodayDate();
         view.events = db.getAllCurrentEvents();
-        //view.tags = db.getTagList();
+        view.tags = db.getTagList();
         UiManager.renderView(view);
         
         if (consoleMessage != null) {

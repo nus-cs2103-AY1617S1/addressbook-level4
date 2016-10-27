@@ -43,7 +43,7 @@ public class TaskListTaskItem extends MultiComponent {
     public void componentDidMount() {
         rowIndex.setText(displayIndex.toString());
         taskText.setText(task.getName());
-        taskTagListText.setText(StringUtil.checkEmptyList(task.getTagList())); //TODO : Change FXML file to support TagList
+        taskTagListText.setText(StringUtil.checkEmptyList(task.getTagList())); 
         
         LocalDateTime dateTime = task.getCalendarDT();
         if (dateTime != null) {
