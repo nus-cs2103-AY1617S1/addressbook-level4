@@ -24,6 +24,7 @@ import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
+import harmony.mastermind.model.Model;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -875,7 +876,6 @@ public class MainWindow extends UiPart {
         switch (result) {
             case ListCommand.MESSAGE_SUCCESS:
                 tabPane.getSelectionModel().select(INDEX_HOME);
-
                 break;
             case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:
                 tabPane.getSelectionModel().select(INDEX_HOME);

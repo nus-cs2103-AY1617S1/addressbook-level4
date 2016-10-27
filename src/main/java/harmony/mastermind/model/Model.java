@@ -107,6 +107,9 @@ public interface Model {
     /** Updates the filter of the filtered task list for current tab to show all tasks */
     void updateFilteredListToShowAll();
     
+    /** Updates the filter of the filtered task list for specified tab to show all tasks */
+    void updateFilteredListToShow(String tab);
+    
     //@@author A0124797R
     /** Updates the filter of the filtered task list 
      * for Home tab to show all upcoming tasks */
