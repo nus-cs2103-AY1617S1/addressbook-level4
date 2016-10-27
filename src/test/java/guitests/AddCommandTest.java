@@ -9,6 +9,8 @@ import seedu.todoList.commons.core.Messages;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.logic.commands.*;
 import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.testutil.TypicalTestDeadline;
+import seedu.todoList.testutil.TypicalTestEvent;
 import seedu.todoList.testutil.TypicalTestTask;
 import seedu.todoList.testutil.TaskBuilder;
 import seedu.todoList.testutil.TestDeadline;
@@ -26,55 +28,55 @@ public class AddCommandTest extends ListGuiTest {
     public void add() throws IllegalValueException {
         //add one task
         TestTask[] currentList = td.getTypicaltasks();
-        TestTask taskToAdd = new TaskBuilder().withName("PROJECT 5").withStartDate("28-10-2018").withEndDate("29-10-2018").withPriority("3").withDone("false").build();
+        TestTask taskToAdd = new TaskBuilder().withName("PROJECT 5").withStartDate("28-10-2016").withEndDate("29-10-2016").withPriority("3").withDone("false").build();
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add one event
         TestEvent[] currentEventList = ed.getTypicalEvent();
-        TestEvent eventToAdd = ed.e6;
+        TestEvent eventToAdd = TypicalTestEvent.e6;
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add one deadline
         TestDeadline[] currentDeadlineList = dd.getTypicalDeadline();
-        TestDeadline ddToAdd = dd.d6;
+        TestDeadline ddToAdd = TypicalTestDeadline.d6;
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add another task
-        taskToAdd = td.a7;
+        taskToAdd = TypicalTestTask.a7;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add another event
-        eventToAdd = ed.e7;
+        eventToAdd = TypicalTestEvent.e7;
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add another deadline
-        ddToAdd = dd.d7;
+        ddToAdd = TypicalTestDeadline.d7;
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.a6.getAddCommand());
+        commandBox.runCommand(TypicalTestTask.a6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event
-        commandBox.runCommand(ed.e6.getAddCommand());
+        commandBox.runCommand(TypicalTestEvent.e6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(eventListPanel.isListMatching(currentEventList));
         
         //add duplicate deadline
-        commandBox.runCommand(dd.d6.getAddCommand());
+        commandBox.runCommand(TypicalTestDeadline.d6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(deadlineListPanel.isListMatching(currentEventList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.a1);
+        assertAddSuccess(TypicalTestTask.a1);
         //assertAddEventSuccess(ed.e1);
 
         //invalid command
@@ -86,10 +88,9 @@ public class AddCommandTest extends ListGuiTest {
         //LogsCenter.getLogger(AddCommandTest.class).info("task.length add command: " + taskToAdd.getName().name.toString());
 
         commandBox.runCommand(taskToAdd.getAddCommand());
-
+        //LogsCenter.getLogger(AddCommandTest.class).info("XXX: " + taskToAdd.getName().name.toString());
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getName().name);
-        LogsCenter.getLogger(AddCommandTest.class).info("XXX: " + taskToAdd.getName().name.toString());
 
         assertMatching(taskToAdd, addedCard);
 

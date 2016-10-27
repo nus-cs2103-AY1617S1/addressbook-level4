@@ -45,7 +45,7 @@ public class EventBuilder {
         return this;
     }
     public EventBuilder withDone(String e) throws IllegalValueException {
-        this.event.setDone(new Done(e));
+        this.event.setDone(e);
         return this;
     }
 

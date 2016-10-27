@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -11,7 +12,7 @@ import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SU
 public class DeleteCommandTest extends ListGuiTest {
 
     @Test
-    public void delete() {
+    public void delete() throws IllegalValueException {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicaltasks();

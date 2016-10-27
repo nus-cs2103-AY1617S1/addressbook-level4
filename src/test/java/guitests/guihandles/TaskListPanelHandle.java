@@ -39,6 +39,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public ListView<ReadOnlyTask> getListView() {
         return (ListView<ReadOnlyTask>) getNode(task_LIST_VIEW_ID);
+        
     }
 
     /**
@@ -101,15 +102,15 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     //@@ Author A0132157M
-    public TaskCardHandle navigateTotask(String readOnlyTask) {
-        LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + readOnlyTask.toString());
+    public TaskCardHandle navigateTotask(String name) {
+        //LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + name.toString());
 
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
         LogsCenter.getLogger(TaskListPanelHandle.class).info("task: " + task.toString());
 
         if (!task.isPresent()) {
-            throw new IllegalStateException("Task not found: " + readOnlyTask);
+            throw new IllegalStateException("Todo not found: " + name);
         }
 
         return navigateTotask(task.get());

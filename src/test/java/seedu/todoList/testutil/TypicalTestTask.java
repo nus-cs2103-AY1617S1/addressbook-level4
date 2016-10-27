@@ -34,7 +34,7 @@ public class TypicalTestTask {
     public static void loadTodoListWithSampleData(TaskList ab) {
 
         try {
-            ab.addTask(new Todo(new Name("PPP 1"), new StartDate("26-10-2017"), new EndDate("27-10-2017"), new Priority("2"), "false"));
+            ab.addTask(new TaskBuilder().withName("PROJECT 5").withStartDate("28-10-2016").withEndDate("29-10-2016").withPriority("3").withDone("false").build());
             ab.addTask(new Todo(new Name("todo 2"), new StartDate("11-11-2017"), new EndDate("12-11-2017"), new Priority("2"), "false"));
             ab.addTask(new Todo(new Name("todo 3"), new StartDate("11-11-2017"), new EndDate("12-11-2017"), new Priority("2"), "false"));
             ab.addTask(new Todo(new Name("todo 7"), new StartDate("11-11-2017"), new EndDate("12-11-2017"), new Priority("2"), "false"));

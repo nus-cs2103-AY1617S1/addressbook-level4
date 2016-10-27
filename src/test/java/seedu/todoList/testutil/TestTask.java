@@ -78,7 +78,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
         sb.append("from/ " + this.getStartDate().date + " ");
         sb.append("to/ " + this.getEndDate().endDate + " ");
         sb.append("p/ " + this.getPriority().priority + " ");
-        //sb.append("from " + this.getDone().isDone + " ");
+        sb.append(this.getDone());
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
