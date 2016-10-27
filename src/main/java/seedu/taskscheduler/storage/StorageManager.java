@@ -3,10 +3,14 @@ package seedu.taskscheduler.storage;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.taskscheduler.commons.core.ComponentManager;
+import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.DataSavingExceptionEvent;
+import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
 import seedu.taskscheduler.commons.exceptions.DataConversionException;
+import seedu.taskscheduler.commons.util.ConfigUtil;
+import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.model.ReadOnlyTaskScheduler;
 import seedu.taskscheduler.model.UserPrefs;
 
@@ -80,4 +84,10 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    //@@author A0138696L
+    @Subscribe
+    public void changeFilePathRequestEvent(FilePathChangedEvent event) {
+        setTaskSchedulerFilePath(event.toString());
+    }
+    //@@author
 }
