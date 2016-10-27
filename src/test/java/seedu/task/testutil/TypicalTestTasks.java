@@ -17,17 +17,17 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             eventWithoutParameters = new TaskBuilder().withName("Event without parameters")
-                    .withInterval("13/12/2016", "9:30am", "18/12/2016", "6:00pm")
+                    .withInterval("23/10/2016", "9:30am", "27/10/2016", "6:00pm")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
             eventWithLocation = new TaskBuilder().withName("Event with location")
-                    .withInterval("20 dec 2016", "11:00", "23 dec 2016", "23:59")
+                    .withInterval("28 oct 2016", "11:00", "1 nov 2016", "23:59")
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(false).build();
             eventWithRemarks = new TaskBuilder().withName("Event withRemarks")
-                    .withInterval("24/12/2016", "7:30pm", "24/12/2016", "9:00pm")
+                    .withInterval("24/12/2016", "7:30pm", "29/12/2016", "9:00pm")
                     .withLocation(null)
                     .withRemarks("buy present")
                     .withStatus(false).build();
