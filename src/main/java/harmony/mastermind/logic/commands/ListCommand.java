@@ -47,19 +47,32 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
+        assert tab != null;
+        
+        CommandResult cResult = null;
+        String tabToShow = null;
+        
         
         if (tab.equals(ModelManager.TAB_TASKS.toLowerCase())) {
-            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_TASKS);
+            tabToShow = ModelManager.TAB_TASKS;
+            cResult = new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_TASKS);
         } else if (tab.equals(ModelManager.TAB_EVENTS.toLowerCase())) {
-            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_EVENTS);
+            tabToShow = ModelManager.TAB_EVENTS;
+            cResult = new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_EVENTS);
         } else if (tab.equals(ModelManager.TAB_DEADLINES.toLowerCase())) {
-            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_DEADLINES);
+            tabToShow = ModelManager.TAB_DEADLINES;
+            cResult = new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_DEADLINES);
         } else if (tab.equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
-            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_ARCHIVES);
-        } else {
-            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
+            tabToShow = ModelManager.TAB_ARCHIVES;
+            cResult = new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_ARCHIVES);
+        } else if (tab.equals(ModelManager.TAB_HOME.toLowerCase())){
+            tabToShow = ModelManager.TAB_HOME;
+            cResult =  new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
         }
+        
+        model.updateFilteredListToShow(tabToShow);
+        
+        return cResult;
     }
 
     //@author A0143378Y

@@ -294,6 +294,29 @@ public class ModelManager extends ComponentManager implements Model {
                 break;
         }
     }
+    
+    @Override
+    // @@author A0124797R
+    public void updateFilteredListToShow(String tab) {
+        switch (tab) {
+            case TAB_HOME:
+                currentTab = TAB_HOME;
+                break;
+            case TAB_TASKS:
+                currentTab = TAB_TASKS;
+                break;
+            case TAB_EVENTS:
+                currentTab = TAB_EVENTS;
+                break;
+            case TAB_DEADLINES:
+                currentTab = TAB_DEADLINES;
+                break;
+            case TAB_ARCHIVES:
+                currentTab = TAB_ARCHIVES;
+                break;
+        }
+        updateFilteredListToShowAll();
+    }
 
     @Override
     //@@author A0124797R
