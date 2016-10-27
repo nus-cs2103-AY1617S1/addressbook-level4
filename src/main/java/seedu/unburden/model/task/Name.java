@@ -38,7 +38,7 @@ public class Name {
     
     public boolean contains (Set<String> args){
     	for(String name : args){
-    		if(fullName.toLowerCase().equals(name.toLowerCase())){
+    		if(fullName.toLowerCase().contains(name.toLowerCase())){
     			return true;
     		}
     	}

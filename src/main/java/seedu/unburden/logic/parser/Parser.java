@@ -511,10 +511,12 @@ public class Parser {
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
 				return new FindCommand(tomorrowKeyword, "date");
-			}
+			default:
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
 			final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
+			System.out.println(nameKeyword);
 			return new FindCommand(nameKeyword, "name");
+			}
 		}
 	}
 
