@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+  <tasks>
+      <description>go Japan for vacation</description>
+      <timeStart>WEDNESDAY, 28.12.2016 00:00</timeStart>
+      <timeEnd></timeEnd>
+      <priority>high</priority>
+      <tagged>comiket</tagged>
+  </tasks>
+  <tags>
+      <tagName>comiket</tagName>
+  </tags>
+</taskmanager>

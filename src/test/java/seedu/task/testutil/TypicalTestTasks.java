@@ -17,12 +17,12 @@ public class TypicalTestTasks {
             alice =  new TaskBuilder().withDescription("buy food").withPriority("high")
                     .withTimeStart("").withTimeEnd("")
                     .build();
-            benson = new TaskBuilder().withDescription("finish coding").withPriority("high")
+            benson = new TaskBuilder().withDescription("finish purchase").withPriority("high")
                     .withTimeStart("").withTimeEnd("Sat 23:59")
                     .withTags("homework").build();
             carl = new TaskBuilder().withDescription("bring cake").withPriority("")
                     .withTimeStart("").withTimeEnd("")
-                    .withTags("friends", "birthday").build();
+                    .withTags("birthday", "friends").build();
             daniel = new TaskBuilder().withDescription("purchase stationery").withPriority("high")
                     .withTimeStart("wed").withTimeEnd("")
                     .build();
@@ -31,7 +31,7 @@ public class TypicalTestTasks {
                     .build();
             fiona = new TaskBuilder().withDescription("teach math").withPriority("")
                     .withTimeStart("Sunday").withTimeEnd("")
-                    .withTags("student", "OLevels").build();
+                    .withTags("OLevels", "student").build();
             george = new TaskBuilder().withDescription("hang out").withPriority("")
                     .withTimeStart("Mon 9:00").withTimeEnd("Tues 10:00")
                     .withTags("friends").build();

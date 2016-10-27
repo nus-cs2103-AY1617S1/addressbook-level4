@@ -47,7 +47,7 @@ public class TaskCard extends UiPart {
         id.setText(displayedIndex + ". ");
         priority.setText("Priority: " + task.getPriority().toString());
         startTime.setText("Start Time: " + task.getTimeStart().toString());
-        endTime.setText("End Time: "+ task.getTimeEnd().toString());
+        endTime.setText("End Time: " + task.getTimeEnd().toString());
         tags.setText("Tags: " + task.tagsString());
         complete.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
     }

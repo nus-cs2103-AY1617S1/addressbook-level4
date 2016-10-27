@@ -1,6 +1,5 @@
 package seedu.task.model.task;
 
-import java.util.HashSet;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;

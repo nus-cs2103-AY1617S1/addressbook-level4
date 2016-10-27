@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <description>finish report</description>
+        <timeStart></timeStart>
+        <timeEnd>THURSDAY, 27.10.2016 15:00</timeEnd>
+        <priority>normal</priority>
+    </tasks>
+    <tasks>
+        <description>wedding anniversary</description>
+        <timeStart>SATURDAY, 22.10.2016 19:00</timeStart>
+        <timeEnd></timeEnd>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <description>meetup with friends</description>
+        <timeStart>SUNDAY, 23.10.2016 20:00</timeStart>
+        <timeEnd>SUNDAY, 23.10.2016 15:00</timeEnd>
+        <priority>normal</priority>
+    </tasks>
+    <tasks>
+        <description>organise room</description>
+        <timeStart></timeStart>
+        <timeEnd></timeEnd>
+        <priority>normal</priority>
+    </tasks>
+    <tasks>
+        <description>finish LN</description>
+        <timeStart>WEDNESDAY, 26.10.2016 09:00</timeStart>
+        <timeEnd></timeEnd>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <description>hospital checkup</description>
+        <timeStart>FRIDAY, 28.10.2016 15:00</timeStart>
+        <timeEnd></timeEnd>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <description>baking classes</description>
+        <timeStart>TUESDAY, 01.11.2016 17:00</timeStart>
+        <timeEnd>TUESDAY, 01.11.2016 15:00</timeEnd>
+        <priority>normal</priority>
+    </tasks>
+    <tasks>
+        <description>finish build</description>
+        <timeStart></timeStart>
+        <timeEnd>SUNDAY, 06.11.2016 00:00</timeEnd>
+        <priority>normal</priority>
+    </tasks>
+    <tasks>
+        <description>go Japan for vacation</description>
+        <timeStart>WEDNESDAY, 28.12.2016 00:00</timeStart>
+        <timeEnd></timeEnd>
+        <priority>high</priority>
+        <tagged>comiket</tagged>
+    </tasks>
+    <tags>
+        <tagName>comiket</tagName>
+    </tags>
+</taskmanager>
