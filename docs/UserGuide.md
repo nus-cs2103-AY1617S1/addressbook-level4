@@ -24,6 +24,7 @@
    * **`find`**`meeting `: searches the task named tutorial   
    * **`delete`**`1`: delete the first task in the list
    * **`complete`** `1`: mark the first task as completed
+   * **`uncomplete`** `1`: mark the completed first task on the list as not completed
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
@@ -62,7 +63,7 @@ Examples:
 Examples on date time flexibility:
 * `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
 
-//@@author A0153467Y
+<!-- @@author A0153467Y-->
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -84,6 +85,16 @@ FormatL `complete INDEX`
 Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
+   
+#### Unarking a completed task as not completed: `uncomplete`
+Unmarks a completed specific task as not completed by index from the to-do list.<br>
+FormatL `uncomplete INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `uncomplete 2`<br>
+   Unmarks the completed second task on the list as not completed.
    
 #### Pin: `pin`
 Pin an important task.<br>
@@ -125,7 +136,7 @@ Examples:
 * `find t/cs2103`<br>
   Returns tasks having tag `cs2103`
 
-//@@author A0141052Y
+<!-- @@author A0141052Y -->
 #### Activate real time search: `searchbox`
 Activates the real time search, which is located in the same input box used to input commands.<br/>
 Format: `searchbox`
@@ -133,7 +144,7 @@ Format: `searchbox`
 > * To exit from real time search, just hit <kbd>Enter</kbd>.
 > * Similar functionality to `find`
 
-//@@author
+<!-- @@author -->
 
 #### Update entries : `update`
 Update a specific task.<br>
@@ -157,7 +168,7 @@ Examples:
 * `update 2 t/family rt/friends` <br>  
    add a tag family to the second task and remove the tag named friends
 
-//@@author A0153467Y
+<!-- @@author A0153467Y-->
 #### Undo action : `undo`
 Undo the previous action.<br>
 Format: `undo`
@@ -195,6 +206,7 @@ Command | Format
 Add | `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 Delete | `delete TASK_NAME` or `delete INDEX`
 Complete | `complete INDEX`
+Uncomplete | `uncomplete INDEX`
 List | `list`
 Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
