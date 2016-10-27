@@ -3,7 +3,7 @@ package seedu.taskmanager.commons.events.ui;
 import seedu.taskmanager.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to the list of items
  */
 public class JumpToListRequestEvent extends BaseEvent {
 

@@ -643,7 +643,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -662,12 +662,17 @@ public class Parser {
             return new DeleteCommand(index.get());
         }
 
+        //@@author A0143641M
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
-            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.trim().split("[^0-9]*")));
-            for(String indexString : indexList) {
+            args = args.trim();
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]*")));
+            
+            // remove empty strings from split
+            for(Iterator<String> itr = indexList.iterator(); itr.hasNext(); ) {
+                String indexString = itr.next();
                 if(indexString.equals("")) {
-                    indexList.remove(indexString);
+                    itr.remove();
                 }
             }
             ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
@@ -683,6 +688,7 @@ public class Parser {
                 }
             }
             return new DeleteCommand(indexesToDelete);
+        //@@author
         }
         else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -726,7 +732,7 @@ public class Parser {
     
     //@@author
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -760,7 +766,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find item command.
      *
      * @param args full command args string
      * @return the prepared command

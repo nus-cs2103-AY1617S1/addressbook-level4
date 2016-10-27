@@ -24,6 +24,7 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 	* Initial and follow up refactoring of AddressBook to TaskManager/IvoryTasks (including test data)
 	* Set up Travis, Coveralls and Codacy
 	* Maintain Issue Tracker and work distribution
+	* Create Releases and tagging
 	* Documentation of
 		* [Logic Component](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 		* [User Stories](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
@@ -32,10 +33,17 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 
 -----
 [comment]: # (@@author )
-#### [Harsh Gadodia](http://github.com/harshgadodia)
+#### [Harsh Gadodia @harshgadodia](http://github.com/harshgadodia)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/13494763_10154200932218467_8223215693952856578_n.jpg?oh=19d8a20f1163b35c2b8f59908dc96588&oe=58AD397A" width="150"><br>
 Role: Testing / Documentation <br>
 Responsibilities: UI
+* Features implemented:
+	* Find task/deadline/event
+	* List data by task/deadline/event (List commands)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0135792X.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0135792X.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0135792X.md)]	
+* Other major contributions
+	* Maintaining and updating documentation
+	* Generating sample data 
 
 -----
 
@@ -51,10 +59,10 @@ Responsibilities: Model
 Role: Code Quality / Eclipse Expert <br>
 * Components in charge of: [Storage]
 * Aspects/tools in charge of: Code Quality, Eclipse
-* Features implemented: [functional code][test code][docs]
-	* Delete by two indexes at a time (extension)
+* Features implemented:
+	* Delete by multiple indexes (extension)
 	* Save to a specified location (end-to-end)
-* Code written:
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0143641M.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0143641M.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0143641M.md)]
 * Other major contributions:
 	* Maintaining consistent format of code in Developer Guide and User Guide
 	* Documentation of

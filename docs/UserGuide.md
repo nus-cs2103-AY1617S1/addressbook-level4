@@ -1,3 +1,5 @@
+[comment]: # (@@author A0135792X)
+
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -31,7 +33,6 @@
 
 7. Refer to the [Features](#features) section below for details of each command.<br>
 
-
 ## Features
 
 > **Command Format**
@@ -58,6 +59,8 @@
 2. The list of commands, their format and their function will be shown.
 
 ### When you have a new deadline, task or event
+
+[comment]: # (@@author )
 
 #### Add a deadline
 
@@ -231,7 +234,12 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console refreshes with all events displayed.
 
+[comment]: # (@@author A0143641M)
+
 ### When you want to delete a deadline, task or event
+* The index(es) specified refers to the index number(s) shown in the most recent listing.
+* The index(es) must be positive integers 1, 2, 3...
+* This action is irreversible.
 
 #### Delete one deadline, task or event
 
@@ -239,11 +247,13 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console displays deleted item in second box and refreshes list of items.
 
-#### Delete 2 deadlines, tasks or events
+#### Delete multiple deadlines, tasks or events
 
-1. Type `del[ete] INDEX1 INDEX2`. Press `Enter`.
+1. Type `del[ete] INDEX ...`. Press `Enter`.
 
 2. Console displays deleted item in second box and refreshes list of items.
+
+[comment]: # (@@author)
 
 ### When you are done with a deadline, task or event
 
@@ -289,7 +299,8 @@ For events, you can edit the name and both start and end dates and times.
 	> <div style="text-align:center"><img src="images/appResponses/redo_command_response.png" width="300"><br>
 	> App Response for `redo`
 
-[comment]: # (@@author )
+
+[comment]: # (@@author A0143641M)
 
 ### When you want to specify a custom save location for your data
 
@@ -298,10 +309,17 @@ For events, you can edit the name and both start and end dates and times.
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
 
-# FAQ
-
 [comment]: # (@@author A0140060A)
 
+# FAQ
+
+1. What if I have no Internet connection?
+> IvoryTasks is fully functional offline.
+
+2. What if I would like to edit a huge number of tasks, deadlines, events at once?
+ > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so.
+
+ 
 # Command Summary
 
 Command | Format  | Example
@@ -310,7 +328,7 @@ Add Task | `a[dd] t[ask] [n/]NAME [#TAG_TO_ADD]` | `add task tutorial`
 Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
 Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 lecture sdt/friday 2pm edt/friday 4pm`
 Clear | `cl[ear]` | `clear`
-Delete | `del[ete] INDEX [SECOND_INDEX]` | `delete 1`
+Delete | `del[ete] INDEX ...` | `delete 1`
 Done | `d[one] INDEX` | `done 1`
 Edit Task | `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 n/CS2103`
 Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm`
@@ -324,6 +342,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
+Specify custom save location | `save VALID_FILE_PATH` | `save C:\Users\Jim\data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 

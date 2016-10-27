@@ -185,6 +185,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author 
 
+    
+  //@@author A0135792X
     @Override
     public void updateFilteredListToShowTask() {
         final String[] itemType = {"task"}; 
@@ -205,6 +207,8 @@ public class ModelManager extends ComponentManager implements Model {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
         updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
+    
+  //@@author
 
     @Override
     public void updateFilteredItemList(Set<String> keywords){

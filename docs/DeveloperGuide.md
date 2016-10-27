@@ -11,6 +11,7 @@
 * [Appendix D: Glossary] (#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+[comment]: # (@@author A0135792X)
 
 ## Setting up
 
@@ -100,6 +101,8 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   coupling between components.
 
 The sections below give more details of each component.
+
+//@@author A0135792X
 
 ### UI component
 
@@ -294,6 +297,8 @@ Priority | As a ... | I want to ...           | So that I can...
 `*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
 [comment]: # (@@author )
 
+[comment]: # (@@author A0135792X)
+
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `taskmanager` and the **Actor** is the `user`, unless specified otherwise)
@@ -370,6 +375,8 @@ Use case ends.
 
 [comment]: # (@@author )
 
+[comment]: # (@@author A0135792X)
+
 #### Use case: List all tasks
 1.User requests to list all tasks
 2.TaskManager shows a list of tasks
@@ -438,7 +445,6 @@ Use case ends.
 
 More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
-
 ## Appendix D : Glossary
 
 ##### Deadline
@@ -470,6 +476,8 @@ More non functional requirements and project constraints can be found [here](htt
 > Windows, Linux, Unix, OS-X
 
 [comment]: # (@@author)
+
+[comment]: # (@@author A0135792X)
 
 ## Appendix E : Product Survey
 

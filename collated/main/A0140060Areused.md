@@ -1,5 +1,5 @@
 # A0140060Areused
-###### /java/seedu/taskmanager/logic/commands/SelectCommand.java
+###### \java\seedu\taskmanager\logic\commands\SelectCommand.java
 ``` java
 /**
  * Selects an item identified using it's last displayed index from the task manager
@@ -11,7 +11,7 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
     
 ```
-###### /java/seedu/taskmanager/model/item/Item.java
+###### \java\seedu\taskmanager\model\item\Item.java
 ``` java
 /**
  * Represents a Item in the task manager.
@@ -115,7 +115,7 @@ public class Item implements ReadOnlyItem {
     }
     
 ```
-###### /java/seedu/taskmanager/model/item/ItemType.java
+###### \java\seedu\taskmanager\model\item\ItemType.java
 ``` java
 /**
  * Represents a Item's type in the task manager.
@@ -132,7 +132,7 @@ public class ItemType {
     public final String value;
     
 ```
-###### /java/seedu/taskmanager/model/item/Name.java
+###### \java\seedu\taskmanager\model\item\Name.java
 ``` java
 /**
  * Represents a Item's name in the task manager.
@@ -167,7 +167,7 @@ public class Name {
     }
 
 ```
-###### /java/seedu/taskmanager/model/Model.java
+###### \java\seedu\taskmanager\model\Model.java
 ``` java
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
@@ -176,7 +176,7 @@ public class Name {
     void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException;
 
 ```
-###### /java/seedu/taskmanager/model/Model.java
+###### \java\seedu\taskmanager\model\Model.java
 ``` java
     /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredItemList(Set<String> keywords);

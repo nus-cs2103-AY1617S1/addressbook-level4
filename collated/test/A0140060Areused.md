@@ -1,5 +1,5 @@
 # A0140060Areused
-###### /java/seedu/taskmanager/logic/LogicManagerTest.java
+###### \java\seedu\taskmanager\logic\LogicManagerTest.java
 ``` java
         /**
          * Generates a TaskManager with auto-generated items.
@@ -37,7 +37,7 @@
         }
 
 ```
-###### /java/seedu/taskmanager/logic/LogicManagerTest.java
+###### \java\seedu\taskmanager\logic\LogicManagerTest.java
 ``` java
         /**
          * Generates a list of Items based on the flags.
@@ -72,7 +72,7 @@
     }
 }
 ```
-###### /java/seedu/taskmanager/testutil/ItemBuilder.java
+###### \java\seedu\taskmanager\testutil\ItemBuilder.java
 ``` java
 public class ItemBuilder {
 
@@ -125,7 +125,7 @@ public class ItemBuilder {
 
 }
 ```
-###### /java/seedu/taskmanager/testutil/TaskManagerBuilder.java
+###### \java\seedu\taskmanager\testutil\TaskManagerBuilder.java
 ``` java
 /**
  * A utility class to help with building TaskManager objects.
@@ -155,7 +155,7 @@ public class TaskManagerBuilder {
     }
 }
 ```
-###### /java/seedu/taskmanager/testutil/TestUtil.java
+###### \java\seedu\taskmanager\testutil\TestUtil.java
 ``` java
     private static Item[] getSampleItemData() {
         try {
@@ -180,7 +180,7 @@ public class TaskManagerBuilder {
         }
     }
 ```
-###### /java/seedu/taskmanager/testutil/TestUtil.java
+###### \java\seedu\taskmanager\testutil\TestUtil.java
 ``` java
     /**
      * Removes a subset from the list of items.
@@ -279,7 +279,7 @@ public class TaskManagerBuilder {
 
 }
 ```
-###### /java/seedu/taskmanager/testutil/TypicalTestItems.java
+###### \java\seedu\taskmanager\testutil\TypicalTestItems.java
 ``` java
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
