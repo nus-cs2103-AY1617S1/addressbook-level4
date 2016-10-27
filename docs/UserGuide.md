@@ -33,7 +33,7 @@ Sounds exciting? Then let's get started!
      * **`delete`**` 3` - deletes the 3<sup>rd</sup> task shown in the current list
      * **`exit`** - exits the app
      
-7. Refer to the [commands reference](#commands-reference) section below for details of each command.
+7. Refer to the [commands reference](#command-reference) section below for details of each command.
 
 
 ## Command Reference
