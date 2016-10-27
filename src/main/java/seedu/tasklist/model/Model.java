@@ -48,5 +48,8 @@ public interface Model {
 
     /** Updates the task list after change file path*/
     void updateFilePathChange();
+    
+    /** Gives the time remaining before a deadline/ an event*/
+    String timeTask(Task target) throws UniqueTaskList.TaskNotFoundException;
 
 }
