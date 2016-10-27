@@ -250,7 +250,7 @@ Examples:
 * `show monday`
 * `show completed`
 
-> <img src="images/Complete.png" width="600">
+> <img src="images/Show.png" width="600">
 
 <br><br> 
 
