@@ -13,7 +13,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_PARAMETER = COMMAND_WORD;
     public static final String MESSAGE_USAGE = "This command redos your previous undo action, Meow!";
 
-    public static final String MESSAGE_REDO_SUCCESS = "Undoed action undone: ";
+    public static final String MESSAGE_REDO_SUCCESS = "Undoed action restored: ";
     public static final String MESSAGE_NO_RECENT_UNDO_COMMANDS = "There is no recent undoed command in this session.";
     
     @Override

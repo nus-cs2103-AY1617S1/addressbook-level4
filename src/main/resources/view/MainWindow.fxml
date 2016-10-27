@@ -30,6 +30,7 @@
             <Menu mnemonicParsing="false" text="Edit">
               <items>
                 <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
+                  <MenuItem fx:id="redoMenuItem" mnemonicParsing="false" onAction="#handleRedo" text="Redo" />
                   <MenuItem fx:id="clearMenuItem" mnemonicParsing="false" onAction="#handleClear" text="Clear" />
               </items>
             </Menu>

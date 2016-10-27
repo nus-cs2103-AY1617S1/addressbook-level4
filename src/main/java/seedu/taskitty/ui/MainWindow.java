@@ -55,6 +55,9 @@ public class MainWindow extends UiPart {
     private MenuItem undoMenuItem;
     
     @FXML
+    private MenuItem redoMenuItem;
+    
+    @FXML
     private MenuItem viewMenuItem;
     
     @FXML
@@ -133,6 +136,7 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
         exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
         undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
+        redoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + Y"));
         viewMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + T"));
         viewAllMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
         viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
@@ -224,6 +228,11 @@ public class MainWindow extends UiPart {
     @FXML
     public void handleUndo() {
         commandBox.handleCommands("undo");
+    }
+    
+    @FXML
+    public void handleRedo() {
+        commandBox.handleCommands("redo");
     }
     
     @FXML

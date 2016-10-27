@@ -97,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
+    //@@author A0139052L
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
         for (ReadOnlyTask targetTask: taskList) {
@@ -139,10 +140,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
    	
    	@Override
-    public synchronized void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask, String commandText) {
+    public synchronized void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText) {
    	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
-   	    undoTaskInfo.storeTask(addedTask);
-   	    undoTaskInfo.storeTask(deletedTask);
+   	    undoTaskInfo.storeTask(taskAfterEdit);
+   	    undoTaskInfo.storeTask(taskBeforeEdit);
    	    undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
    	    redoTaskInfo.clear();
    	}
@@ -428,6 +429,14 @@ public class ModelManager extends ComponentManager implements Model {
 		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(today));
 	}
 	
+	//@@author A0139052L
+	/**
+	 * Reverts back to the previous state by undoing/redoing the previous action
+	 * @param toGetInfo the storage in which to get the info from
+	 * @param toStoreInfo the storage in which to store the info into
+	 * @param isRedo check if it is undo/redo calling this method
+	 * @return the commandText string for result message in Undo/Redo Command
+	 */
 	private String revertBackPreviousState(SessionTaskInfoStorage toGetInfo, SessionTaskInfoStorage toStoreInfo, boolean isRedo) {
         String commandWord = toGetInfo.getCommandWord();
         toStoreInfo.storeCommandWord(commandWord);

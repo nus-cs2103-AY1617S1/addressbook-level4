@@ -41,7 +41,6 @@ public interface Model {
     String undo() throws NoPreviousValidCommandException;
     
     /** Redoes the previous undo command if there is any 
-     * @throws NoPreviousValidCommandException 
      * @throws NoRecentUndoCommandException */
     String redo() throws NoRecentUndoCommandException;
     /**
@@ -52,7 +51,7 @@ public interface Model {
     /**
      * stores the info from an edit command that is needed for undoing/redoing functions
      */
-    public void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask, String commandText);
+    public void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText);
     
     /**
      * stores the info from a delete command that is needed for undoing/redoing functions
