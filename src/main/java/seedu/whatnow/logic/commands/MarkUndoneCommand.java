@@ -37,7 +37,7 @@ public class MarkUndoneCommand extends UndoAndRedo {
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredTaskList();
         } else {
-            model.updateFilteredScheduleListToShowAllIncomplete();
+            model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredScheduleList();
         }
         if (lastShownList.size() < targetIndex) {
