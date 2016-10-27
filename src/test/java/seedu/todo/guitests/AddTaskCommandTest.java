@@ -3,11 +3,13 @@ package seedu.todo.guitests;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.guitests.guihandles.TaskListDateItemHandle;
 import seedu.todo.models.Task;
 
 import static seedu.todo.testutil.AssertUtil.assertSameDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AddTaskCommandTest extends GuiTest {
 
@@ -18,6 +20,15 @@ public class AddTaskCommandTest extends GuiTest {
         Task task = new Task();
         task.setName("Buy milk");
         task.setCalendarDT(DateUtil.parseDateTime("2016-10-15 14:00:00"));
+        assertAddSuccess(command, task, currentList);
+    }
+
+    @Test
+    public void addFloatingTaskToEmptyList() {
+        Task[] currentList = {};
+        String command = "add task Buy milk";
+        Task task = new Task();
+        task.setName("Buy milk");
         assertAddSuccess(command, task, currentList);
     }
 
@@ -37,8 +48,18 @@ public class AddTaskCommandTest extends GuiTest {
         // Run the command in the console.
         console.runCommand(command);
         
+        // Get the task date.
+        LocalDateTime taskDateTime = taskToAdd.getCalendarDT();
+        if (taskDateTime == null) {
+            taskDateTime = DateUtil.NO_DATETIME_VALUE;
+        }
+        LocalDate taskDate = taskDateTime.toLocalDate();
+        
         // Check TaskList if it contains a TaskListDateItem with the date.
-        LocalDate taskDate = taskToAdd.getCalendarDT().toLocalDate();
-        assertSameDate(taskDate, taskList.getTaskListDateItem(taskDate));
+        TaskListDateItemHandle dateItem = taskList.getTaskListDateItem(taskDate);
+        assertSameDate(taskDate, dateItem);
+        
+        // Check TaskListDateItem if it contains the TaskListTaskItem with the same data.
+        // TODO
     }
 }
