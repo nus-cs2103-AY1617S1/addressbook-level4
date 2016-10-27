@@ -96,7 +96,7 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
         
        
-        scene.getStylesheets().add("Labels.css");
+//        scene.getStylesheets().add("Labels.css");
         
         setAccelerators();
     }
