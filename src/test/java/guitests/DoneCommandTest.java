@@ -16,7 +16,7 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 
 	@Test
 	public void done() {
-		TestTask[] currentList = td.getTypicalTasks();
+		TestTask[] currentList = td.getSortedTypicalTasks();
 		int[] doneIndices;
 		int[] notDoneIndices = new int[0];
 		
