@@ -117,6 +117,7 @@ public class ActivityManager {
 		task.setCompletionStatus(isComplete);
 	}
 
+    //@@author A0125680H
 	private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Name newTaskName;
 
@@ -129,6 +130,7 @@ public class ActivityManager {
         return newTaskName;
     }
 
+	//@@author A0125680H
     private static DueDate updateDueDate(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         DueDate newDueDate;
         
@@ -149,6 +151,7 @@ public class ActivityManager {
         return newDueDate;
     }
 
+    //@@author A0125680H
     private static Priority updatePriority(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Priority newPriority;
         
@@ -169,6 +172,7 @@ public class ActivityManager {
         return newPriority;
     }
 
+    //@@author A0125680H
     private static Reminder updateReminder(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         Reminder newReminder;
 
@@ -182,7 +186,7 @@ public class ActivityManager {
     }
     
     //Handle wrong time format in event instead of here?
-
+    //@@author A0125680H
     private static StartTime updateStartTime(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         StartTime newStartTime;
         
@@ -203,6 +207,7 @@ public class ActivityManager {
         return newStartTime;
     }
 
+    //@@author A0125680H
     private static EndTime updateEndTime(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         EndTime newEndTime;
         
@@ -223,6 +228,7 @@ public class ActivityManager {
         return newEndTime;
     }
    
+    //@@author A0125680H
     private static UniqueTagList updateTags(Activity oldTask, Activity newParams) {
         UniqueTagList newTags = new UniqueTagList(oldTask.getTags());
 

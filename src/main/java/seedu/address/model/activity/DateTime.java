@@ -6,6 +6,7 @@ import java.util.Calendar;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 
+//@@author A0125680H
 public abstract class DateTime {
     public final Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
@@ -46,6 +47,8 @@ public abstract class DateTime {
     public Calendar getCalendarValue() {
         return this.value;
     }
+    
+    public abstract String forDisplay();
 
     @Override
     public String toString() {

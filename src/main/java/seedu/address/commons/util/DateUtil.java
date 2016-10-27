@@ -46,6 +46,7 @@ public class DateUtil {
         DATE_FORMATS2.add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
     }
 
+    //@@author A0125680H
     /**
      * Validate date format with regular expression
      * 
@@ -380,12 +381,12 @@ public class DateUtil {
     	return formatter.format(dateTime.getTime());
     }
     
+    //@@author A0125680H
     /**
      * Checks whether the format entered will be accepted by LifeKeeper
      * @param format
      * @return boolean indicating whether format is accepted.
      */
-    
     public boolean isValidFormat (String format) {
     	SimpleDateFormat formatter = new SimpleDateFormat(format);
     	for (SimpleDateFormat a : DATE_FORMATS) {

@@ -188,11 +188,11 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
     
+    //@@author A0125680H
     @FXML
     private void handleSaveLoc() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("data/addressbook.xml"/*System.getProperty("user.home")
-         + System.getProperty("file.separator") + "Desktop"*/));
+        fileChooser.setCurrentDirectory(new File("data/addressbook.xml"));
         fileChooser.setFileFilter(new FileNameExtensionFilter("XML File", "xml"));
         fileChooser.setAcceptAllFileFilterUsed(false);
         int result = fileChooser.showSaveDialog(null);
