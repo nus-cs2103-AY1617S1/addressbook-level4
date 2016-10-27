@@ -1,18 +1,19 @@
 package seedu.flexitrack.storage;
 
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
-import seedu.flexitrack.model.task.ReadOnlyTask;
-import seedu.flexitrack.model.task.UniqueTaskList;
-import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.ReadOnlyFlexiTrack;
+import seedu.flexitrack.model.tag.Tag;
+import seedu.flexitrack.model.tag.UniqueTagList;
+import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.UniqueTaskList;
 
 /**
  * An Immutable FlexiTrack that is serializable to XML format

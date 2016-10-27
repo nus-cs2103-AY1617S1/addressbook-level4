@@ -1,15 +1,15 @@
 package seedu.flexitrack.storage;
 
-import seedu.flexitrack.commons.core.LogsCenter;
-import seedu.flexitrack.commons.exceptions.DataConversionException;
-import seedu.flexitrack.commons.util.FileUtil;
-import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.flexitrack.commons.core.LogsCenter;
+import seedu.flexitrack.commons.exceptions.DataConversionException;
+import seedu.flexitrack.commons.util.FileUtil;
+import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 
 /**
  * A class to access FlexiTrack data stored as an xml file on the hard disk.

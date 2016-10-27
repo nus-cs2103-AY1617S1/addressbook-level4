@@ -1,22 +1,20 @@
 package seedu.flexitrack.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.flexitrack.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.flexitrack.logic.Logic;
-import seedu.flexitrack.logic.commands.*;
-import seedu.flexitrack.commons.util.FxViewUtil;
 import seedu.flexitrack.commons.core.LogsCenter;
-import javafx.collections.ObservableList;
-
-import java.util.Observable;
-import java.util.logging.Logger;
+import seedu.flexitrack.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.flexitrack.commons.util.FxViewUtil;
+import seedu.flexitrack.logic.Logic;
+import seedu.flexitrack.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);

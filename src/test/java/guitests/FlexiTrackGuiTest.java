@@ -1,24 +1,30 @@
 package guitests;
 
-import guitests.guihandles.*;
-import javafx.stage.Stage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.TimeoutException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
+
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.MainGuiHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+import javafx.stage.Stage;
 import seedu.flexitrack.TestApp;
 import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.testutil.TestUtil;
 import seedu.flexitrack.testutil.TypicalTestTasks;
-
-import java.util.concurrent.TimeoutException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A GUI Test class for FlexiTrack.

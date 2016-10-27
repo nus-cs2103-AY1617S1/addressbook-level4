@@ -1,10 +1,10 @@
 package seedu.flexitrack.storage;
 
-import seedu.flexitrack.commons.exceptions.DataConversionException;
-import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-
 import java.io.IOException;
 import java.util.Optional;
+
+import seedu.flexitrack.commons.exceptions.DataConversionException;
+import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 
 /**
  * Represents a storage for {@link seedu.flexitrack.model.FlexiTrack}.

@@ -1,6 +1,11 @@
 package seedu.flexitrack.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import seedu.flexitrack.commons.core.ComponentManager;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
@@ -8,11 +13,6 @@ import seedu.flexitrack.commons.events.storage.DataSavingExceptionEvent;
 import seedu.flexitrack.commons.exceptions.DataConversionException;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of FlexiTrack data in local storage.

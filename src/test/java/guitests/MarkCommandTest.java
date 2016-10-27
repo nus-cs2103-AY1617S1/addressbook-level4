@@ -1,15 +1,12 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
-import seedu.flexitrack.logic.commands.AddCommand;
+
+import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.logic.commands.MarkCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
-import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class MarkCommandTest extends FlexiTrackGuiTest {
 

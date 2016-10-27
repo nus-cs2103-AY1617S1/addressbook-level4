@@ -1,15 +1,16 @@
 package seedu.flexitrack.commons.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.flexitrack.testutil.SerializableTestClass;
-import seedu.flexitrack.testutil.TestUtil;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.flexitrack.testutil.SerializableTestClass;
+import seedu.flexitrack.testutil.TestUtil;
 
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));

@@ -1,5 +1,11 @@
 package guitests.guihandles;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -9,12 +15,6 @@ import seedu.flexitrack.TestApp;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.testutil.TestUtil;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.

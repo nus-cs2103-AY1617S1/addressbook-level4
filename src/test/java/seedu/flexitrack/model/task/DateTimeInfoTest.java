@@ -1,12 +1,12 @@
 package seedu.flexitrack.model.task;
 
+import static org.junit.Assert.assertTrue;
+import static seedu.flexitrack.model.task.DateTimeInfo.MESSAGE_FROM_IS_AFTER_TO;
+
 import org.junit.Before;
 import org.junit.Test;
-import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
 
-import static org.junit.Assert.*;
-import static seedu.flexitrack.model.task.DateTimeInfo.MESSAGE_FROM_IS_AFTER_TO;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
 
 public class DateTimeInfoTest {
 

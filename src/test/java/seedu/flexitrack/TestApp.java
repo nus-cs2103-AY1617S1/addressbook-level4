@@ -1,5 +1,7 @@
 package seedu.flexitrack;
 
+import java.util.function.Supplier;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.flexitrack.commons.core.Config;
@@ -8,8 +10,6 @@ import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.model.UserPrefs;
 import seedu.flexitrack.storage.XmlSerializableFlexiTrack;
 import seedu.flexitrack.testutil.TestUtil;
-
-import java.util.function.Supplier;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be

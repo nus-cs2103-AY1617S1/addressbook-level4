@@ -1,13 +1,13 @@
 package seedu.flexitrack.commons.util;
 
-import seedu.flexitrack.commons.core.Config;
-import seedu.flexitrack.commons.core.LogsCenter;
-import seedu.flexitrack.commons.exceptions.DataConversionException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.flexitrack.commons.core.Config;
+import seedu.flexitrack.commons.core.LogsCenter;
+import seedu.flexitrack.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

@@ -1,6 +1,6 @@
 package seedu.flexitrack.commons.core;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 

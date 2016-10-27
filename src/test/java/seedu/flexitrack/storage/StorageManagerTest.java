@@ -1,22 +1,23 @@
 package seedu.flexitrack.storage;
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
 import seedu.flexitrack.commons.events.storage.DataSavingExceptionEvent;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 import seedu.flexitrack.model.UserPrefs;
-import seedu.flexitrack.testutil.TypicalTestTasks;
 import seedu.flexitrack.testutil.EventsCollector;
-
-import java.io.IOException;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class StorageManagerTest {
 

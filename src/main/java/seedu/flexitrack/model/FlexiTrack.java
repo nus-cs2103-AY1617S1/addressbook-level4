@@ -1,5 +1,16 @@
 package seedu.flexitrack.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
@@ -10,9 +21,6 @@ import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.IllegalEditException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the task-tracker level Duplicates are not allowed (by

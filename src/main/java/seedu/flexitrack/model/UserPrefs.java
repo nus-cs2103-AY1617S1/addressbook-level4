@@ -1,8 +1,8 @@
 package seedu.flexitrack.model;
 
-import seedu.flexitrack.commons.core.GuiSettings;
-
 import java.util.Objects;
+
+import seedu.flexitrack.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.

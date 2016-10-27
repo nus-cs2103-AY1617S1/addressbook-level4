@@ -3,7 +3,8 @@ package seedu.flexitrack.testutil;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
-import seedu.flexitrack.model.task.*;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.Name;
 
 //TODO: change the whole class 
 /**

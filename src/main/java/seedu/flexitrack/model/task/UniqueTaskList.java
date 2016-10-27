@@ -1,14 +1,14 @@
 package seedu.flexitrack.model.task;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.flexitrack.commons.util.CollectionUtil;
-import seedu.flexitrack.model.Model;
-import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.DuplicateDataException;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-
-import java.util.*;
+import seedu.flexitrack.commons.util.CollectionUtil;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not

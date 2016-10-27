@@ -1,13 +1,15 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import seedu.flexitrack.logic.commands.AddCommand;
+
+import guitests.guihandles.TaskCardHandle;
 import seedu.flexitrack.commons.core.Messages;
+import seedu.flexitrack.logic.commands.AddCommand;
 import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 public class AddCommandTest extends FlexiTrackGuiTest {
 
@@ -15,28 +17,28 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     public void add() {
         // add an event
         TestTask[] currentList = td.getTypicalSortedTasks();
-        TestTask taskToAdd = td.basketball;
+        TestTask taskToAdd = TypicalTestTasks.basketball;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         // add a deadline task
-        taskToAdd = td.lecture;
+        taskToAdd = TypicalTestTasks.lecture;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         // add a floating task
-        taskToAdd = td.job;
+        taskToAdd = TypicalTestTasks.job;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         // add duplicate task
-        commandBox.runCommand(td.basketball.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.basketball.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         // add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.homework1);
+        assertAddSuccess(TypicalTestTasks.homework1);
 
         // invalid command
         commandBox.runCommand("adds cs tutorial");

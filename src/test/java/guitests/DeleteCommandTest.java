@@ -1,11 +1,12 @@
 package guitests;
 
-import org.junit.Test;
-import seedu.flexitrack.testutil.TestTask;
-import seedu.flexitrack.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 import static seedu.flexitrack.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+
+import org.junit.Test;
+
+import seedu.flexitrack.testutil.TestTask;
+import seedu.flexitrack.testutil.TestUtil;
 
 public class DeleteCommandTest extends FlexiTrackGuiTest {
 

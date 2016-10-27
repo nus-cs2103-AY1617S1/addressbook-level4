@@ -1,17 +1,36 @@
 package seedu.flexitrack.logic.parser;
 
-import seedu.flexitrack.logic.commands.*;
-import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.DateTimeInfoParser;
-import seedu.flexitrack.commons.util.StringUtil;
-import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.commons.util.StringUtil;
+import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.logic.commands.BlockCommand;
+import seedu.flexitrack.logic.commands.ClearCommand;
+import seedu.flexitrack.logic.commands.Command;
+import seedu.flexitrack.logic.commands.DeleteCommand;
+import seedu.flexitrack.logic.commands.EditCommand;
+import seedu.flexitrack.logic.commands.ExitCommand;
+import seedu.flexitrack.logic.commands.FindCommand;
+import seedu.flexitrack.logic.commands.HelpCommand;
+import seedu.flexitrack.logic.commands.IncorrectCommand;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.logic.commands.MarkCommand;
+import seedu.flexitrack.logic.commands.SelectCommand;
+import seedu.flexitrack.logic.commands.UndoCommand;
+import seedu.flexitrack.logic.commands.UnmarkCommand;
+import seedu.flexitrack.model.task.DateTimeInfoParser;
 
 /**
  * Parses user input.

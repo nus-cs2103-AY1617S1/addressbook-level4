@@ -2,9 +2,9 @@ package seedu.flexitrack.logic.commands;
 
 import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.Messages;
+import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
 import seedu.flexitrack.model.task.ReadOnlyTask;
-import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 
 /**
  * Selects a task identified using it's last displayed index from the

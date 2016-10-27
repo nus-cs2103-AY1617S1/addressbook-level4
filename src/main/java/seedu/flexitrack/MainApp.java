@@ -1,6 +1,12 @@
 package seedu.flexitrack;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -10,21 +16,19 @@ import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.Version;
 import seedu.flexitrack.commons.events.ui.ExitAppRequestEvent;
 import seedu.flexitrack.commons.exceptions.DataConversionException;
+import seedu.flexitrack.commons.util.ConfigUtil;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.logic.LogicManager;
-import seedu.flexitrack.model.*;
-import seedu.flexitrack.commons.util.ConfigUtil;
+import seedu.flexitrack.model.FlexiTrack;
+import seedu.flexitrack.model.Model;
+import seedu.flexitrack.model.ModelManager;
+import seedu.flexitrack.model.ReadOnlyFlexiTrack;
+import seedu.flexitrack.model.UserPrefs;
 import seedu.flexitrack.storage.Storage;
 import seedu.flexitrack.storage.StorageManager;
 import seedu.flexitrack.ui.Ui;
 import seedu.flexitrack.ui.UiManager;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
