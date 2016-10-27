@@ -16,22 +16,20 @@ import java.time.LocalDateTime;
 public class AddTaskCommandTest extends GuiTest {
 
     @Test
-    public void addTaskDeadlineToEmptyList() {
-        Task[] currentList = {};
+    public void addTaskWithDeadline() {
         String command = "add task Buy milk by Oct 15 2016 2pm";
         Task task = new Task();
         task.setName("Buy milk");
         task.setCalendarDT(DateUtil.parseDateTime("2016-10-15 14:00:00"));
-        assertAddSuccess(command, task, currentList);
+        assertAddSuccess(command, task);
     }
 
     @Test
-    public void addFloatingTaskToEmptyList() {
-        Task[] currentList = {};
+    public void addFloatingTask() {
         String command = "add task Buy milk";
         Task task = new Task();
         task.setName("Buy milk");
-        assertAddSuccess(command, task, currentList);
+        assertAddSuccess(command, task);
     }
 
     /**
@@ -41,12 +39,8 @@ public class AddTaskCommandTest extends GuiTest {
      * 
      * TODO: Extract out method in AddController that can return task from command,
      *       and possibly remove the need to have taskToAdd.
-     * 
-     * @param command
-     * @param taskToAdd
-     * @param currentList
      */
-    private void assertAddSuccess(String command, Task taskToAdd, Task... currentList) {
+    private void assertAddSuccess(String command, Task taskToAdd) {
         // Run the command in the console.
         console.runCommand(command);
         
