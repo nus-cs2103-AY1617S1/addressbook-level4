@@ -1,5 +1,6 @@
 package seedu.address.model.activity.task;
 
+import javafx.scene.image.Image;
 //@@author A0125680H
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -65,5 +66,17 @@ public class Priority {
             return "Priority:\t\tNone";
         }
     }
-
+    
+    public Image getPriorityIcon() {
+        switch (value) {
+        case "1":
+            return new Image(getClass().getResourceAsStream("/images/priority1.png"));
+        case "2":
+            return new Image(getClass().getResourceAsStream("/images/priority2.png"));
+        case "3":
+            return new Image(getClass().getResourceAsStream("/images/priority3.png"));
+        default:
+            return null;
+        }
+    }
 }

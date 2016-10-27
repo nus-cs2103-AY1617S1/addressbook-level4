@@ -52,7 +52,7 @@ public class DueDate extends DateTime {
     }
     
     public String forDisplay() {
-        if (this.value.equals(null)) {
+        if (this.value == null) {
             return "Due:\t\t\t-";
         } else {
             return "Due:\t\t\t".concat(this.toString());

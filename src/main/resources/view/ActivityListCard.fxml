@@ -3,12 +3,15 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+
 <!-- @@author A0125097A -->
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -42,6 +45,11 @@
                         <Label fx:id="completion" styleClass="cell_small_label" text="\$completion" />
                     </children>
                 </VBox>
+            <ImageView fx:id="priorityIcon" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="34.0" top="15.0" />
+               </GridPane.margin>
+            </ImageView>
             </children>
          <rowConstraints>
             <RowConstraints />
