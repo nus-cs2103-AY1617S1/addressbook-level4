@@ -12,6 +12,8 @@ import java.util.Locale;
 
 /**
  * A utility class for Dates and LocalDateTimes
+ * 
+ * @@author A0139812A
  */
 public class DateUtil {
     
