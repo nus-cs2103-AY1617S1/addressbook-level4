@@ -37,6 +37,7 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
     public static final String MESSAGE_CONFIG_FILE_CANNOT_LOAD = "config.json file cannot be found.";
 	public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
+
     
     private final String dirPath;
 
@@ -52,9 +53,28 @@ public class SaveCommand extends Command {
 	
 	@Override
 	public CommandResult execute() {
+		String dirPathArgs = dirPath.trim();
+		
+        String operatingSystem = System.getProperty("os.name");
+        if (operatingSystem.startsWith("Windows")) { // windows formatting
+        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "\\\\\\\\");
+        	dirPathArgs = dirPathArgs.replaceAll("/", "\\\\\\\\");
+        	
+        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '\\') {
+        		dirPathArgs = dirPathArgs + "\\\\";
+        	}
+        } else { // unix formatting
+        	dirPathArgs = dirPathArgs.replaceAll("\\\\", "/");
+        	
+        	if (dirPathArgs.charAt(dirPathArgs.length()-1) != '/') {
+        		dirPathArgs = dirPathArgs + "/";
+        	}
+        }
+        
+		
+		File f = new File(dirPathArgs);
 		
 		// Creates the folder if the file does not exist
-		File f = new File(dirPath);
 		if (!f.exists()) {
 			try {
 				f.mkdirs();
@@ -62,8 +82,7 @@ public class SaveCommand extends Command {
 				return new CommandResult(MESSAGE_FOLDER_CANNOT_BE_CREATED);
 			}
 		}
-		String filePath = dirPath + "task.xml";
-		
+		String filePath = dirPathArgs + "task.xml";
 		
 		// Checks if the given path is a directory and not a file
 		if (!f.isDirectory())
@@ -83,7 +102,7 @@ public class SaveCommand extends Command {
 
 			changeConfigPaths(filePath);
 			
-			indicateStorageDataPathChangeCommand(oldDataPath.toString(), newDataPath.toString());
+			indicateStorageDataPathChangeCommand(newDataPath.toString());
 			
 		} catch (DataConversionException e) {
 			return new CommandResult(MESSAGE_CONFIG_FILE_CANNOT_LOAD);
