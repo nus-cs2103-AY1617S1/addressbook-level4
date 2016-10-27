@@ -98,6 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
 
+
     //@@author A0143095H
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
@@ -121,8 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
     	undoHistory.clear();
     }
     
-
-    //@@author A0139714B
+  //@@author A0139714B
     @Override
     public synchronized void loadFromPrevLists() throws NoSuchElementException {
     	ListOfTask oldCopy = prevLists.pop();
