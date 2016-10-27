@@ -111,7 +111,7 @@ Examples:
   Deletes the 1st task in the results of the `find` command.
 
 #### Edit task : `edit`
-Update existing tasks in the CMDo list, as you would entering a new task.<br>
+Update existing tasks in the CMDo list by just typing in the details you want to change.<br>
 Format: `edit INDEX details`  
 
 > Examples: 
@@ -119,7 +119,27 @@ Format: `edit INDEX details`
 >  Edit the 2nd task in the to do list to eat candy with date due as tomorrow 
 >  
 > * `edit 1 Bear`
-> Task 2 changes to Bear
+>  Edit task 1 details only
+>  
+> * `edit 1 1300 `
+> Edit task 1 time only
+>
+> * `edit 1 12/12/2016 `
+> Edit task 1 date only
+>
+> * `edit 1 /high `
+> Edit task 1 priority only
+>
+> * `edit 1 remove priority `
+> Removes Priority of task 1, alternatively, 'rp' can be typed in place of 'remove priority' 
+>
+> * `edit 1 floating `
+> Edit task 1 to a floating task
+>
+> * `edit 1 12/11/2016 1300 to 12/12/2016 1400 `
+> Edit task 1 to a task with time range
+
+
 
 
 ####  Mark a task as done : `done <index>`
@@ -211,12 +231,13 @@ Find | `find <keyword>`
 List All | `list all / la`
 List Done | `list done / ld`
 List Block | `list block / lb`
+Storage | `storage <new file path> `
 Help | `help`
 Undo | `undo`
 Redo | `redo`
-Edit | `edit <index> <task details>`
+Edit | `edit <index> <details to be edited>`
 Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd> (Mac)
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
 
-Last updated 20 Oct 2016. @author A0141128R
+Last updated 28 Oct 2016. @author A0141128R
