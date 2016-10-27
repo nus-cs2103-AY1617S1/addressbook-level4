@@ -12,7 +12,6 @@ import seedu.task.commons.util.AppUtil;
 /**
  * Base class for UI parts.
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
- * @@author generated
  */
 public abstract class UiPart {
 

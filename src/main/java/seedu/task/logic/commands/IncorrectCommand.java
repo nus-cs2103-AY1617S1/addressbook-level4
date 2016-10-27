@@ -3,7 +3,6 @@ package seedu.task.logic.commands;
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
- * @@author generated
  */
 public class IncorrectCommand extends Command {
 
