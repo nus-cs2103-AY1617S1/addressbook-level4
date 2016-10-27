@@ -23,10 +23,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_NOT_SUCCESS = "You have no command to undo!";
     
     static Stack<String> commandRecord = new Stack<String>(); 
-    static Stack<String> uiCommandRecord = new Stack<String>(); 
-    static Stack<String> argumentsRecord = new Stack<String>(); 
-    static String argumentsTemp = new String("");
-    static String uiCommandRecordTemp = new String("list");
 
     public UndoCommand() {
     }
@@ -56,19 +52,12 @@ public class UndoCommand extends Command {
         case "edit":   
             undo = new EditCommand(); 
             break;
-        case "list":
-        case "find":
-            if (uiCommandRecord.peek().equals("list")){
-                undo = new ListCommand(); 
-            } else {
-                undo =  Parser.prepareFind(argumentsRecord.peek()); 
-            }
-            break;
         }
         undo.setData(model);
         assert undo != null; 
         undo.executeUndo();
         commandRecord.pop();
+        model.indicateFlexiTrackerChanged();
         return new CommandResult(MESSAGE_SUCCESS);
     }
     

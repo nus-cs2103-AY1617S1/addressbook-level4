@@ -65,7 +65,9 @@ public interface Model {
      * 
      * @throws TaskNotFoundException
      */
-    String editTask(int taskToEdit, String[] args)
+    Task editTask(int taskToEdit, String[] args)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
+    
+    void indicateFlexiTrackerChanged();
 
 }

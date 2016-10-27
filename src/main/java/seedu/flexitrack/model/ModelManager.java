@@ -69,7 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateFlexiTrackerChanged() {
+    public void indicateFlexiTrackerChanged() {
     	flexiTracker.sort();
         raise(new FlexiTrackChangedEvent(flexiTracker));
     }
@@ -100,11 +100,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public String editTask(int taskToEdit, String[] args)
+    public Task editTask(int taskToEdit, String[] args)
             throws TaskNotFoundException, IllegalEditException, IllegalValueException {
-        String duration = flexiTracker.editTask(taskToEdit, args);
+        Task editedTask = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
-        return duration;
+        return editedTask;
     }
 
     // =========== Filtered Tasks List Accessors
@@ -124,21 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToFitUserInput(String args){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(args)));
     }
-    
-//    @Override
-//    public void updateFilteredListToShowPastTasks(){
-//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_PAST_COMMAND)));
-//    }
-//    
-//    @Override
-//    public void updateFilteredListToShowMarkTasks(){
-//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_MARK_COMMAND)));
-//    }
-//    
-//    @Override
-//    public void updateFilteredListToShowUnmarkTasks(){
-//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_UNMARK_COMMAND)));
-//    }
     
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
@@ -264,6 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
+
     
     
 
