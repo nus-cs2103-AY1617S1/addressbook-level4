@@ -13,8 +13,7 @@ import seedu.todo.ui.UiManager;
 /**
  * Controller to undo a database commit.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class UndoController implements Controller {
     

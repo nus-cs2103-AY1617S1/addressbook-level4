@@ -13,8 +13,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to declare aliases
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class AliasController implements Controller {
     

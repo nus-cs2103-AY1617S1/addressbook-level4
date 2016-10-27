@@ -13,8 +13,7 @@ import seedu.todo.ui.UiManager;
 /**
  * Controller to redo a database commit.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class RedoController implements Controller {
     
