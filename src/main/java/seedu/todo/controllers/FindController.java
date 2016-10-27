@@ -53,7 +53,7 @@ public class FindController implements Controller {
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
         tokenDefinitions.put("name", new String[] { "name" });
-        tokenDefinitions.put("tag", new String [] { "tag" }); //TODO
+        tokenDefinitions.put("tag", new String [] { "tag" }); 
         return tokenDefinitions;
     }
 
@@ -69,12 +69,12 @@ public class FindController implements Controller {
         }
         
         HashSet<String> itemNameList = new HashSet<String>();
+        HashSet<String> tagNameList = new HashSet<String>();
         
         parseExactFindCommand(parsedResult, itemNameList);
         
-        parseName(parsedResult, itemNameList); //parse addtional name enter by user
-        System.out.println(Arrays.toString(parsedResult.get("name")));
-        System.out.println(itemNameList);
+        parseName(parsedResult, itemNameList); //parse additional name enter by user
+        parseTag(parsedResult, tagNameList);
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
@@ -252,7 +252,7 @@ public class FindController implements Controller {
     
     /**
      * Extract the name keyword enter by the user and put in the hashset of name keywords
-     * @param parsedResult
+     * @param parsedResult, tagNameList to store all the keywords
      */
     
     private void parseName(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
@@ -260,6 +260,20 @@ public class FindController implements Controller {
             String[] result = parsedResult.get("name")[1].trim().split(" ");
             for (int i = 0; i < result.length; i ++) {
                 itemNameList.add(result[i]);
+            }
+        } 
+    }
+    
+    /**
+     * Extract the tag name keyword enter by the user and put in the hashset of tag keywords
+     * @param parsedResult, tagNameList to store all the keywords
+     */
+    
+    private void parseTag(Map<String, String[]> parsedResult, HashSet<String> tagNameList) {
+        if (parsedResult.get("tag") != null) {
+            String[] result = parsedResult.get("tag")[1].trim().split(",");
+            for (int i = 0; i < result.length; i ++) {
+                tagNameList.add(result[i].trim());
             }
         } 
     }
