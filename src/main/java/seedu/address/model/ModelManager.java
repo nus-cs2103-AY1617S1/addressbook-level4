@@ -69,9 +69,10 @@ public class ModelManager extends ComponentManager implements Model {
         
         for (Task target : tasks) {
             assert target.getDatetime().getStart() != null;
+            //Deadline
             if(target.getDatetime().getEnd() == null){
                 LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
-                if(dateTime.isBefore(currentTime)){
+                if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
                    try {
                        taskBook.overdueTask(target);
                     } catch (TaskNotFoundException e) {}                
@@ -82,10 +83,11 @@ public class ModelManager extends ComponentManager implements Model {
                     }catch(TaskNotFoundException e) {}
                 }
             }
+            //Event
             else if(target.getDatetime().getEnd() != null){
                 String endDateTime = target.getDatetime().toString().substring(21);
                 LocalDateTime dateTime = LocalDateTime.parse(endDateTime,formatter);
-                if(dateTime.isBefore(currentTime)){
+                if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
                     try {
                         taskBook.expireTask(target);
                      } catch (TaskNotFoundException e) {}                
