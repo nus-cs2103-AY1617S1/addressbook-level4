@@ -214,7 +214,7 @@ Format: `edit INDEX NEW_DETAILS`
 * Although all fields are optional, they can't all be empty!
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when editting: <br>
 
-Editting a | What to Type for `NEW_DETAILS` | Examples | What Jimi Will Do
+Editting A | What to Type for `NEW_DETAILS` | Examples | What Jimi Will Do
 -------- | :-------- | :-------- | :--------
 Dateless Task | ["NEW_TASK_DETAILS"] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "finish this user guide" | Edit just the name of task t1.
 Deadine Task | ["NEW_TASK_DETAILS"] [due NEW_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t4 t/bobz | Edit just the tag of task t4.
