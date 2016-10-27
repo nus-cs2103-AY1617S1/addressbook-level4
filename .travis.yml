@@ -11,3 +11,8 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
+
+# safelist
+branches:
+  only:
+  - master
