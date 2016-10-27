@@ -2,25 +2,27 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void filter_nonEmptyList() {
         assertFilterResult("filter d/12.10.2016"); //no results
-        commandBox.runCommand("list");
         assertFilterResult("filter d/11.10.2016", td.friendEvent, td.work); //multiple results
+        assertFilterResult("filter s/11.10.2016", td.travel);
+        assertFilterResult("filter e/11.10.2016-12", td.meeting);
+        assertFilterResult("filter t/friends", td.friend, td.friendEvent, td.lunch);
 
-        //find after deleting one result
-        commandBox.runCommand("delete 1");
-        assertFilterResult("filter d/11.10.2016",td.work);
+        //filter after add one result
+        TestTask taskToAdd = td.lecture;
+        commandBox.runCommand(taskToAdd.getAddCommand());
+        assertFilterResult("filter r/weekly", taskToAdd);
         
-        // Filter for event start date
-        commandBox.runCommand("list");
-        assertFilterResult("filter s/11.10.2016",td.travel);
     }
 
     @Test
@@ -33,6 +35,8 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     public void filter_invalidCommand_fail() {
         commandBox.runCommand("filterd/11.10.2016");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        commandBox.runCommand("filter");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
     private void assertFilterResult(String command, TestTask... expectedHits ) {
