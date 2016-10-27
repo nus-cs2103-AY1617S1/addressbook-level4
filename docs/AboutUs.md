@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Clear tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#clearing-of-tasks) 
       - [Delete task and event] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#deleting-a-taskevent)
       - [Mark task as completed] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-completed)
-    - Code written: functional code test code docs
+    - Code written: [functional code] (../collated/main/A0121608N.md) [test code] (../collated/test/A0121608N.md) [docs] (../collated/docs/A0121608N.md)
     - Other major contributions:
       - Refactored original AddressBookLevel4 to current TaskBook
 
@@ -26,7 +26,7 @@ We are a team based in the [School of Computing, National University of Singapor
     - Features implemented:
       - [Add task and event] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#adding-a-task)
       - [Edit task and event] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#editing-a-task)
-    - Code written: functional code test code docs
+    - Code written: [functional code] (../collated/main/A0127570H.md) [test code] (../collated/test/A0127570H.md) [docs] (../collated/docs/A0127570H.md)
     - Other major contributions:
       - Refactored original AddressBookLevel4 to current TaskBook
         - [Renaming Package] (https://github.com/CS2103AUG2016-F09-C4/main/commit/e93b297607533f33222103b1b9fc9d94b0dfa960)
@@ -46,7 +46,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - [Help] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#viewing-help)
       - [Select] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#selecting-a-taskevent)
       - [Save] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#changing-the-save-location)
-    - Code written: functional code test code docs
+    - Code written: [functional code] (../collated/main/A0125534L.md) [test code] (../collated/test/A0125534L.md) [docs] (../collated/docs/A0125534L.md)
     - Other major contributions: 
       - Refactored original AddressBookLevel4 to current TaskBook
         - [Morph UI.Package] (https://github.com/CS2103AUG2016-F09-C4/main/pull/12)
