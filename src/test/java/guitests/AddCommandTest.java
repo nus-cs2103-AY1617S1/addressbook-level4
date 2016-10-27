@@ -68,7 +68,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm
-        assertResultMessage(MESSAGE_SUCCESS);
+        assertResultMessage(String.format(MESSAGE_SUCCESS,taskToAdd));
     }
 
 }
