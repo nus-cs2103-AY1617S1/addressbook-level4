@@ -123,13 +123,9 @@ public class AliasController implements Controller {
     
     private static void renderDisambiguation(String aliasKey, String aliasValue, String message) {
         String sanitizedAliasKey = StringUtil.sanitize(aliasKey);
-        if (sanitizedAliasKey == null || sanitizedAliasKey.length() == 0) {
-            sanitizedAliasKey = "<alias key>";
-        }
+        sanitizedAliasKey = StringUtil.replaceEmpty(sanitizedAliasKey, "<alias key>");
         String sanitizedAliasValue = StringUtil.sanitize(aliasValue);
-        if (sanitizedAliasValue == null || sanitizedAliasValue.length() == 0) {
-            sanitizedAliasValue = "<alias value>";
-        }
+        sanitizedAliasValue = StringUtil.replaceEmpty(sanitizedAliasValue, "<alias value>");
         Renderer.renderDisambiguation(String.format("alias %s %s",
                 sanitizedAliasKey, sanitizedAliasValue), message);
     }
