@@ -2,6 +2,7 @@ package seedu.tasklist.model.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
@@ -69,5 +70,12 @@ public class Date {
     public int hashCode() {
         return localDate.hashCode();
     }
-
+    
+    //@@author A0153837X
+    public String daysFromNow(){
+    	// Calculate how many days in between
+    	long days = ChronoUnit.DAYS.between(LocalDate.now(), localDate);
+   		return Long.toString(days);
+    }
+    
 }
