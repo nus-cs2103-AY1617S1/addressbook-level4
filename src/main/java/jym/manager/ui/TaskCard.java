@@ -39,7 +39,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+  //@@author A0153440R
     @FXML
     public void initialize() {
     	try{

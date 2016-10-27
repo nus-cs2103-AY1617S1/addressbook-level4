@@ -2,7 +2,7 @@ package jym.manager.model.task;
 
 import java.util.Date;
 
-
+//@@author A0153440R
 public abstract class TaskManagerItem {
 
 	

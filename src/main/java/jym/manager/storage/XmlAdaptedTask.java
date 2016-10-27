@@ -54,6 +54,7 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
+  //@@author A0153440R
     public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {

@@ -16,6 +16,7 @@ import jym.manager.model.task.Priority;
  * Represents a task in the JYM program.
  * Guarantees: details are present and not null, field values are validated.
  */
+//@@author A0153440R
 public class Task extends TaskManagerItem implements ReadOnlyTask {
 	
 	private Description descr;

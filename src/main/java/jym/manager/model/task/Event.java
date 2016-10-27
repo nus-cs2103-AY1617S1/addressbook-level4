@@ -11,7 +11,7 @@ import java.util.Objects;
 import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.commons.util.CollectionUtil;
 import jym.manager.model.tag.UniqueTagList;
-
+//@@author A0153440R
 public class Event extends TaskManagerItem implements ReadOnlyTask {
 	
 	private Description descr;
