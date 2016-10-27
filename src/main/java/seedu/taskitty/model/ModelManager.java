@@ -132,6 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask) {
         undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
         undoTaskInfo.storeTask(addedTask);
+        undoTaskInfo.storeCommandText(AddCommand.COMMAND_WORD);
     }
    	
    	@Override
@@ -139,6 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
    	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
    	    undoTaskInfo.storeTask(addedTask);
    	    undoTaskInfo.storeTask(deletedTask);
+   	 undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD);
    	}
    	
    	@Override
@@ -148,6 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
             undoTaskInfo.storeTask(deletedTask);
         }
         undoTaskInfo.storeNumberOfTasks(deletedTasks.size());
+        undoTaskInfo.storeCommandText(DeleteCommand.COMMAND_WORD);
     }
    	
    	@Override
@@ -157,12 +160,14 @@ public class ModelManager extends ComponentManager implements Model {
             undoTaskInfo.storeTask(markedTask);
         }
         undoTaskInfo.storeNumberOfTasks(markedTasks.size());
+        undoTaskInfo.storeCommandText(DoneCommand.COMMAND_WORD);
     }
    	
    	@Override
     public synchronized void storeClearCommandInfo() {
         undoTaskInfo.storeCommandWord(ClearCommand.COMMAND_WORD);
         undoTaskInfo.storeTaskManager(new TaskManager(taskManager));
+        undoTaskInfo.storeCommandText(ClearCommand.COMMAND_WORD);
     }
    	
    	//@@author A0139052L    
@@ -172,7 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoPreviousValidCommandException(null);
         }
         
-        String previousCommand = undoTaskInfo.getCommand();
+        String previousCommand = undoTaskInfo.getCommandWord();
         
         try {
             switch(previousCommand) {
@@ -200,11 +205,11 @@ public class ModelManager extends ComponentManager implements Model {
                            
             default:
                 assert false: "Should not have an invalid previousCommand";
-            }
-            return message;
+            }            
         } catch (Exception e) {
             
         }
+        message = undoTaskInfo.getCommandText();
         return message;
     }
     
@@ -355,8 +360,12 @@ public class ModelManager extends ComponentManager implements Model {
             return !historyCommandWords.isEmpty();
         }
         
-        private String getCommand() {
+        private String getCommandWord() {
             return historyCommandWords.pop();
+        }
+        
+        private String getCommandText() {
+            return historyCommandTexts.pop();
         }
         
         private ReadOnlyTask getTask() {
@@ -373,6 +382,10 @@ public class ModelManager extends ComponentManager implements Model {
         
         private void storeCommandWord(String command) {
             historyCommandWords.push(command);
+        }
+        
+        private void storeCommandText(String commandText) {
+            historyCommandTexts.push(commandText);
         }
         
         private void storeTask(ReadOnlyTask task) {
