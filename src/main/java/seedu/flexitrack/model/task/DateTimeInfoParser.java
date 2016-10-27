@@ -40,9 +40,11 @@ public class DateTimeInfoParser {
         return timingInfo.getDates().toString();
     }
     
+    //@@author A0147092E
     public Date getParsedDateTime() {
         return timingInfo.getDates().get(0);
     }
+    //@@author
     
     public List<Date> getParsedTimingObject(){
         return timingInfo.getDates();

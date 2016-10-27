@@ -31,7 +31,8 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
-
+    
+    //@@author A0147092E
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
             Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
@@ -44,7 +45,8 @@ public class CommandBox extends UiPart {
         commandBox.addToPlaceholder();
         return commandBox;
     }
-
+    //@@author
+    
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
@@ -72,7 +74,8 @@ public class CommandBox extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
+    
+    //@@author A0147092E
     @FXML
     private void handleCommandInputChanged() {
      // Take a copy of the command text
@@ -96,7 +99,8 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
+    //@@author A0147092E
+    
     /**
      * Sets the command box style to indicate a correct command.
      */
