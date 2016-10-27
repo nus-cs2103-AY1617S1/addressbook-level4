@@ -4,13 +4,14 @@ package seedu.address.model.task;
 import java.time.LocalTime;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.author;
 
 /**
  * @@author A0138993L
  * Represents a task's end time in Simply
  * Guarantees: immutable; is valid as declared in {@link #isValidEnd(String)}
  */
-public class End {
+public class End implements Comparable<End> {
     
     public static final String MESSAGE_END_CONSTRAINTS = "Task end time can be entered in 24hour or 12hour format.";
     public static final String END_VALIDATION_REGEX = "([01]\\d{1}[0-5]\\d{1})|" +
@@ -121,6 +122,19 @@ public class End {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+  //@@author A0139430L JingRui
+    @Override
+    public int compareTo(End o) {
+        if(this.value.compareTo("no end") == 0 & o.toString().compareTo("no end") == 0) 
+            return 0;
+        else if(this.value.compareTo("no end") == 0 )
+            return -1;
+        else if(o.toString().compareTo("no end") == 0 )
+            return 1;
+        
+        return this.value.compareTo(o.toString());
     }
 
 }

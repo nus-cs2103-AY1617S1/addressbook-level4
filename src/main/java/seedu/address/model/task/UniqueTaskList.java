@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -13,6 +14,7 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.author;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -64,12 +66,14 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
+  //@@author A0139430L JingRui
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        FXCollections.sort(internalList);
     }
 
     /**

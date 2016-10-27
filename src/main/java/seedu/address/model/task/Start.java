@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.author;
 
 import java.time.LocalTime;
 
@@ -10,7 +11,7 @@ import java.time.LocalTime;
  * Represents a task's start time in Simply.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
-public class Start {
+public class Start implements Comparable<Start> {
 
     public static final String MESSAGE_START_CONSTRAINTS = "Task start time can be entered in 24hour or 12hour format.";
     public static final String START_VALIDATION_REGEX = "([01]\\d{1}[0-5]\\d{1})|" +
@@ -103,6 +104,19 @@ public class Start {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+  //@@author A0139430L JingRui
+    @Override
+    public int compareTo(Start o) {  
+        if(this.value.compareTo("no start") == 0 & o.toString().compareTo("no start") == 0) 
+            return 0;
+        else if(this.value.compareTo("no start") == 0)
+            return -1;
+        else if(o.toString().compareTo("no start") == 0)
+            return 1;
+            
+        return this.value.compareTo(o.toString());
     }
 
 }
