@@ -72,6 +72,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTask().fullName + " ");
         sb.append("/desc " + this.getDescriptionValue() + " ");
+        sb.append("/by" + this.getDeadlineValue());
         return sb.toString();
     }
     
