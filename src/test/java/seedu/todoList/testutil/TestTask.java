@@ -21,7 +21,6 @@ public class TestTask extends Todo implements ReadOnlyTask {
 
     public TestTask() {
         super(name, startDate, endDate, priority, done);
-        //tags = new UniqueTagList();
     }
 
     public void setTodo(Todo Todo) {

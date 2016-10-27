@@ -208,17 +208,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void doneTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
+    public synchronized void doneTask(ReadOnlyTask target, String dataType, int undoTarget) throws TaskNotFoundException {
     	switch(dataType) {
     		case "todo":
     			todoList.doneTask(target);
     			indicateTodoListChanged();
+    			undoer.prepareUndoDone("todo", undoTarget);
     		case "event":
     			eventList.doneTask(target);
     			indicateEventListChanged();
+    			undoer.prepareUndoDone("event", undoTarget);
     		case "deadline":
     			deadlineList.doneTask(target);
     			indicateDeadlineListChanged();
+    			undoer.prepareUndoDone("deadline", undoTarget);
     	}
     }
     
