@@ -10,14 +10,14 @@
     <tasks>
         <name>Groupwork Project</name>
         <startDateTime></startDateTime>
-        <endDateTime>14-Oct-2016, Fri</endDateTime>
+        <endDateTime>14-Oct-2016, Fri 08:00 AM</endDateTime>
         <address></address>
         <type>DEADLINE</type>
         <tagged>Deadline</tagged>
     </tasks>
     <tasks>
         <name>Project Discussion</name>
-        <startDateTime>14-Oct-2016, Fri</startDateTime>
+        <startDateTime>14-Oct-2016, Fri 01:00 PM</startDateTime>
         <endDateTime>21-Oct-2016, Fri</endDateTime>
         <address>Technoedge</address>
         <type>EVENT</type>
@@ -25,10 +25,11 @@
     </tasks>
     <tasks>
         <name>Groupwork Discussion</name>
-        <startDateTime></startDateTime>
-        <endDateTime></endDateTime>
-        <address></address>
-        <type>FLOATING</type>
+        <startDateTime>01-Jan-2018, Mon</startDateTime>
+        <endDateTime>31-Dec-2018, Mon</endDateTime>
+        <address>ICube Lecture Hall</address>
+        <type>EVENT</type>
+        <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>CS2103 Lecture</name>
@@ -48,11 +49,10 @@
     </tasks>
     <tasks>
         <name>Project Briefing</name>
-        <startDateTime>01-Jan-2034, Sun</startDateTime>
-        <endDateTime>01-Jan-2034, Sun</endDateTime>
+        <startDateTime></startDateTime>
+        <endDateTime></endDateTime>
         <address>ICube Lecture Hall</address>
-        <type>EVENT</type>
-        <tagged>Event</tagged>
+        <type>FLOATING</type>
     </tasks>
     <tags>
         <tagName>Deadline</tagName>
