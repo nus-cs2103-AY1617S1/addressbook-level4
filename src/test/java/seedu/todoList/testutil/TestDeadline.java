@@ -7,7 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  * A mutable task object. For testing only.
  */
-//@@ Author A0132157M
+//@@author A0132157M
 public class TestDeadline extends Deadline implements ReadOnlyTask {
 
     private Deadline deadline;

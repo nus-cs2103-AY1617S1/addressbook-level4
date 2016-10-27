@@ -194,7 +194,6 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
 
     @Test
@@ -397,9 +396,9 @@ public class LogicManagerTest {
 
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
-            StartDate sdate = new StartDate("04-11-2017");
-            EndDate edate = new EndDate("02-12-2017");
-            Priority priority = new Priority("111");
+            StartDate sdate = new StartDate("05-12-2017");
+            EndDate edate = new EndDate("06-12-2017");
+            Priority priority = new Priority("1");
             String done = "false";
             
             //EndTime endTime = new EndTime("1111");
@@ -416,12 +415,12 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        //@@ Author A0132157M
+        //@@author A0132157M
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new StartDate("4th October 2018"),
-                    new EndDate("4th October 2019"),
+                    new StartDate("04-10-2017"),
+                    new EndDate("05-10-2017"),
                     new Priority( "priority " + seed),
                     "false"
                     //new EndTime("EndTime " + seed)
@@ -430,15 +429,15 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
-      //@@ Author A0132157M
+        //@@author A0132157M
         String generateAddCommand(Todo p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
 
             cmd.append(p.getName().name);
-            cmd.append(" from").append(p.getStartDate().date);
-            cmd.append(" to").append(p.getEndDate().endDate);
+            cmd.append(" from/").append(p.getStartDate().date);
+            cmd.append(" to/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
             //cmd.append(" e/").append(p.getEndTime().endTime);
 
@@ -520,7 +519,7 @@ public class LogicManagerTest {
         /**
          * Generates a task object with given name. Other fields will have some dummy values.
          */
-        //@@ Author A0132157M
+        //@@author A0132157M
         Task generatetaskWithToDo(String name) throws Exception {
             return new Todo(
                     new Name(name),
