@@ -288,6 +288,8 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
+[//]: # (@@author A0097627N)
+
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
@@ -312,6 +314,8 @@ Priority | As a ... | I want to ... | So that I can...
 {More to be added}
 
 ## Appendix B : Use Cases
+
+[//]: # (@@author A0097627N)
 
 (For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -564,6 +568,8 @@ Use case ends.
 > A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
+
+[//]: # (@@author A0097627N)
 
 #### Competing product: Google Calendar
 

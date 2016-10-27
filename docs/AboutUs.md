@@ -56,10 +56,16 @@ Component SME: UI
 
 -----
 
-#### [Teh Ee Thai](http://github.com/tet54)
+#### [Teh Ee Thai](http://github.com/tet54)  <br>
 <img src="images/eethai.png" width="150"><br>
 **Role**: Developer <br>  
-Responsibilities: Integration <br>
-Component SME: Model, Storage
+* Components in charge of: -
+* Aspects/tools in charge of: Integration
+* Features implemented:
+   * [Mark task](UserGuide.md#mark-a-task-as-done--mark)
+   * [Unmark task](UserGuide.md#unmark-a-task-as-done--unmark)
+   * [Undo task](UserGuide.md#undo-the-most-recent-operation--undo)
+   * [Redo task](UserGuide.md#redo-the-most-recent-undo-operation--redo)
+* Code written: [[functional code](../collated/main/A0097627N.md)][[docs](../collated/docs/A0097627N.md)]
  
  -----

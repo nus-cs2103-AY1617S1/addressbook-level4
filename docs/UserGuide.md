@@ -151,7 +151,7 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 > <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
-[//]: # (@@author)
+[//]: # (@@author A0097627N)
 
 #### Mark a task as done : `mark`
 Marks the task as completed identified by the index number used in the last task listing. Completed task will be remove from the normal list and placed under archived list<br>
