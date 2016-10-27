@@ -4,7 +4,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.author;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -224,11 +223,12 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, date, start, end);//, tags);
     }
-
+    
     @Override
     public String toString() {
         return getAsText();
     }
+    
   //@@author A0139430L JingRui
     @Override
     public int compareTo(Task other) {

@@ -3,7 +3,6 @@ package seedu.address.model.task;
 import java.time.LocalDate;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.author;
 
 /**
  * @@author A0138993L

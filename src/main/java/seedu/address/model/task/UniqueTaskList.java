@@ -14,7 +14,6 @@ import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.author;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
