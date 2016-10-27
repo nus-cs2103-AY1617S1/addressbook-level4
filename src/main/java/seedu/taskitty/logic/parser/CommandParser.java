@@ -89,6 +89,9 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
             
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
