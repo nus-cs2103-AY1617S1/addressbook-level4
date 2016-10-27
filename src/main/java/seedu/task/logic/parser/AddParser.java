@@ -5,7 +5,6 @@ import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.AddCommand;
@@ -18,11 +17,13 @@ public class AddParser extends BaseParser {
     private final String FLAG_START_TIME = "s";
     private final String FLAG_CLOSE_TIME = "c";
     private final String FLAG_TAGS = "t";
+    private final String FLAG_RECURRING = "r";
     
     private final String[] KEYWORD_ARGS_REQUIRED = new String[]{FLAG_NAME};
     private final String[] KEYWORD_ARGS_OPTIONAL = new String[]{FLAG_START_TIME,
             FLAG_CLOSE_TIME,
-            FLAG_TAGS
+            FLAG_TAGS,
+            FLAG_RECURRING
     };
 
     @Override
@@ -32,11 +33,22 @@ public class AddParser extends BaseParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        int recurrentWeek = 0;
+        
+        if (getSingleKeywordArgValue(FLAG_RECURRING) != null) {
+            try {
+                recurrentWeek = Integer.parseInt(getSingleKeywordArgValue(FLAG_RECURRING));
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        }
+        
         try {
             return new AddCommand(getSingleKeywordArgValue(FLAG_NAME),
                     getSingleKeywordArgValue(FLAG_START_TIME),
                     getSingleKeywordArgValue(FLAG_CLOSE_TIME),
-                    getTags());
+                    getTags(),
+                    recurrentWeek);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

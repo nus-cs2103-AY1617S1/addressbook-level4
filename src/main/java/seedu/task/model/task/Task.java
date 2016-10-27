@@ -19,6 +19,7 @@ public class Task implements ReadOnlyTask {
     private DateTime closeTime;
     private boolean isCompleted;
     private boolean isImportant;
+    private int recurrentWeek;
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
@@ -26,7 +27,7 @@ public class Task implements ReadOnlyTask {
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
      */
-    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags) throws IllegalValueException {
+    public Task(Name name, DateTime openTime, DateTime closeTime, boolean isImportant, boolean isCompleted, UniqueTagList tags, int recurrentWeek) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.openTime = openTime;
@@ -34,6 +35,7 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = isCompleted;
         this.isImportant = isImportant;
+        this.recurrentWeek=recurrentWeek;
         if (!isValidDateTimePair()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
@@ -57,7 +59,7 @@ public class Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags());
+        this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags(), source.getRecurrentWeek());
     }
     @Override
     public Name getName() {
@@ -86,6 +88,11 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
 
+    @Override
+    public int getRecurrentWeek() {
+        return recurrentWeek;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);

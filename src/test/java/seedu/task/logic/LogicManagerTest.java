@@ -6,6 +6,7 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
+import seedu.task.commons.events.ui.SwitchCommandBoxFunctionEvent;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
 import seedu.task.logic.commands.*;
@@ -49,6 +50,7 @@ public class LogicManagerTest {
     private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
     private int targetedJumpIndex;
+    private boolean hasSwitchedToSearch;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -64,7 +66,14 @@ public class LogicManagerTest {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
         targetedJumpIndex = je.targetIndex;
     }
+    
+    //@@author A0141052Y
+    @Subscribe
+    private void handleSwitchCommandBoxFunctionEvent(SwitchCommandBoxFunctionEvent evt) {
+        hasSwitchedToSearch = true;
+    }
 
+    //@@author
     @Before
     public void setup() {
         model = new ModelManager();
@@ -75,6 +84,7 @@ public class LogicManagerTest {
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
+        hasSwitchedToSearch = false;
         targetedJumpIndex = -1; // non yet
     }
 
@@ -314,7 +324,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_matchesPartialWordInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -323,7 +333,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, p2, pTarget2);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -370,6 +380,13 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    //@@author A0141052Y
+    @Test
+    public void execute_find_swithCommandBoxInitiated() throws Exception {
+        assertCommandBehavior("searchbox", SearchCommand.MESSAGE_SEARCH_SUCCESS);
+        assertTrue(hasSwitchedToSearch);
+    }
+    //@@author
 
     /**
      * A utility class to generate test data.
@@ -384,7 +401,8 @@ public class LogicManagerTest {
 
             boolean isImportant = false;
             boolean isComplete = false;
-            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags);
+            int recurrenceWeek=0;
+            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags, recurrenceWeek);
         }
 
         /**
@@ -401,7 +419,8 @@ public class LogicManagerTest {
                     new DateTime(""),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    0
             );
         }
 
@@ -499,7 +518,8 @@ public class LogicManagerTest {
                     new DateTime("day after tomorrow"),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),
+                    0
             );
         }
     }

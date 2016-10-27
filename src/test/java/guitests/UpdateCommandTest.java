@@ -68,12 +68,6 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
         assertTrue(taskListPanel.isListMatching(currentList));
         
-        // update task to a name that is duplicated
-        targetIndex = 2;
-        commandBox.runCommand("update " + targetIndex + td.carl.getArgs());
-        assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
-        
         // invalid index
         commandBox.runCommand("update " + (currentList.length+1) + td.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

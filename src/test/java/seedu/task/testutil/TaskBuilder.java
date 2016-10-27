@@ -41,6 +41,12 @@ public class TaskBuilder {
         this.task.setCloseTime(new DateTime(closeTime));
         return this;
     }
+    
+    public TaskBuilder withRecurrentWeek(int recurrentWeek){
+        this.task.setRecurrentWeek(recurrentWeek);
+        return this;
+    }
+
     //@@author
     public TestTask build() {
         return this.task;
