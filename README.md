@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T14-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T14-C1/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C1/main/badge.svg?branch=v1.3)](https://coveralls.io/github/CS2103AUG2016-T14-C1/main?branch=v1.3)
+
 
 # Tdoo
 
