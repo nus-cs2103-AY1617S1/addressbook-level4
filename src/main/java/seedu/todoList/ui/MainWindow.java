@@ -111,6 +111,7 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
+    //@@author A0144061U
     void fillInnerParts() {
     	assert primaryStage != null;
     	assert getTodoListPlaceholder() != null;
@@ -198,14 +199,17 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    //@@author A0144061U
     public TodoListPanel getTaskListPanel() {
         return this.todoListPanel;
     }
     
+    //@@author A0144061U
     public EventListPanel getEventListPanel() {
         return this.eventListPanel;
     }
     
+    //@@author A0144061U
     public DeadlineListPanel getDeadlineListPanel() {
         return this.deadlineListPanel;
     }

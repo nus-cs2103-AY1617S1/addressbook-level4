@@ -71,6 +71,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
+    //@@author A0144061U
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> TodoListOptional;
         ReadOnlyTaskList initialTodoListData;
@@ -206,6 +207,7 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    //@@author A0144061U
     /*
      * Stop and restart the app with new storage file
      */

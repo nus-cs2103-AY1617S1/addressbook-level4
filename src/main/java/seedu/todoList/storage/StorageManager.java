@@ -62,6 +62,7 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
     
+    //@@author A0144061U
     @Override
     public void changeStorage(String path) throws IllegalValueException {
     	raise(new StorageLocationChangedEvent(path));
@@ -69,41 +70,47 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
     // ================ TodoList methods ==============================
-
+    
+    //@@author A0144061U
     @Override
     public String getTodoListFilePath() {
         return todoListStorage.getTaskListFilePath();
     }
     
+    //@@author A0144061U
     @Override
     public void setTodoListFilePath(String todoListFilePath) throws IllegalValueException {
         config.setTodoListFilePath(todoListFilePath);
         todoListStorage.setTaskListFilePath(todoListFilePath);
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readTodoList() throws DataConversionException, IOException {
         return readTodoList(todoListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readTodoList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return todoListStorage.readTaskList(filePath);
     }
 
+    //@@author A0144061U
     @Override
     public void saveTodoList(ReadOnlyTaskList TodoList) throws IOException {
         saveTodoList(TodoList, todoListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         todoListStorage.saveTaskList(TodoList, filePath);
     }
 
-
+    //@@author A0144061U
     @Override
     @Subscribe
     public void handleTodoListChangedEvent(TodoListChangedEvent event) {
@@ -117,40 +124,46 @@ public class StorageManager extends ComponentManager implements Storage {
     
  // ================ EventList methods ==============================
 
+    //@@author A0144061U
     @Override
     public String getEventListFilePath() {
         return eventListStorage.getTaskListFilePath();
     }
     
+    //@@author A0144061U
     @Override
     public void setEventListFilePath(String eventListFilePath) throws IllegalValueException {
         config.setEventListFilePath(eventListFilePath);
         eventListStorage.setTaskListFilePath(eventListFilePath);
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException {
         return readEventList(eventListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readEventList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return eventListStorage.readTaskList(filePath);
     }
 
+    //@@author A0144061U
     @Override
     public void saveEventList(ReadOnlyTaskList eventList) throws IOException {
         saveEventList(eventList, eventListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public void saveEventList(ReadOnlyTaskList eventList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         eventListStorage.saveTaskList(eventList, filePath);
     }
 
-
+    //@@author A0144061U
     @Override
     @Subscribe
     public void handleEventListChangedEvent(EventListChangedEvent event) {
@@ -164,40 +177,46 @@ public class StorageManager extends ComponentManager implements Storage {
     
  // ================ DeadlineList methods ==============================
 
+    //@@author A0144061U
     @Override
     public String getDeadlineListFilePath() {
         return deadlineListStorage.getTaskListFilePath();
     }
     
+    //@@author A0144061U
     @Override
     public void setDeadlineListFilePath(String deadlineListFilePath) throws IllegalValueException {
         config.setDeadlineListFilePath(deadlineListFilePath);
         deadlineListStorage.setTaskListFilePath(deadlineListFilePath);
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readDeadlineList() throws DataConversionException, IOException {
         return readTodoList(deadlineListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public Optional<ReadOnlyTaskList> readDeadlineList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return deadlineListStorage.readTaskList(filePath);
     }
 
+    //@@author A0144061U
     @Override
     public void saveDeadlineList(ReadOnlyTaskList taskList) throws IOException {
         saveDeadlineList(taskList, deadlineListStorage.getTaskListFilePath());
     }
 
+    //@@author A0144061U
     @Override
     public void saveDeadlineList(ReadOnlyTaskList taskList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         deadlineListStorage.saveTaskList(taskList, filePath);
     }
 
-
+    //@@author A0144061U
     @Override
     @Subscribe
     public void handleDeadlineListChangedEvent(DeadlineListChangedEvent event) {

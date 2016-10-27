@@ -2,8 +2,9 @@ package seedu.todoList.logic.commands;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
+//@@author A0144061U
 /**
- * Adds a task to the TodoList.
+ * Change the storage directory of the application
  */
 public class StorageCommand extends Command {
 

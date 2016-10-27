@@ -2,8 +2,9 @@ package seedu.todoList.commons.events.storage;
 
 import seedu.todoList.commons.events.BaseEvent;
 
+//@@author A0144061U
 /**
- * Indicates an exception during a file saving
+ * Indicates to observers when the location of the storage is changed
  */
 public class StorageLocationChangedEvent extends BaseEvent {
 

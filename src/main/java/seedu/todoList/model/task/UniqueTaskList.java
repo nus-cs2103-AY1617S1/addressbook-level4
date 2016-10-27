@@ -94,6 +94,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    //@@author A0144061U
     /**
      * Removes all task from the list.
      */
@@ -101,6 +102,7 @@ public class UniqueTaskList implements Iterable<Task> {
        internalList.remove(0, internalList.size());
     }
     
+    //@@author A0144061U
     /**
      * Replace all task from another list.
      */

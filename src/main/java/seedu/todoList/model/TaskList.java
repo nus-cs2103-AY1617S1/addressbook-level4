@@ -50,6 +50,7 @@ public class TaskList implements ReadOnlyTaskList {
     	this.tasks.getInternalList().setAll(tasks);
     }
     
+    //@@author A0144061U
     public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
     	Object[] typeCheck = newTasks.toArray();
     	if(typeCheck.length == 0) {
@@ -70,11 +71,13 @@ public class TaskList implements ReadOnlyTaskList {
         resetData(newData.getTaskList());
     }
     
+    //@@author A0144061U
     public void resetData() {
     	backupStack.push(new UniqueTaskList(tasks));
     	tasks.removeAll();
     }
     
+    //@@author A0144061U
     public void restoreData() {
     	UniqueTaskList backup = backupStack.pop();
     	tasks.setAll(backup);

@@ -6,6 +6,7 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;
 
+//@@author A0144061U-reused
 /**
  * JAXB-friendly version of the task.
  */

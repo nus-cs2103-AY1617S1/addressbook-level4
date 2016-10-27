@@ -2,8 +2,9 @@ package seedu.todoList.logic.commands;
 
 import java.util.EmptyStackException;
 
+//@@author A0144061U
 /**
- * Selects a task identified using it's last displayed index from the TodoList.
+ * Undo the most recent command by the user.
  */
 public class UndoCommand extends Command {
 

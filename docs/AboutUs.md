@@ -12,10 +12,11 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspect/tools in charge of: Documentation, Git
 * Features implemented:  
  * [Storage]()
- * [Undo]()
+ * [Ui]()
 * Code written: [[stub entry]()]
 * Other major contributions:
- * stub entry
+ * Application design
+ * Undo and clear commands
 
 -----
 

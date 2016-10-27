@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " event 1\n"
             + "Example: " + COMMAND_WORD + " deadline 1";
 
-    public static final String MESSAGE_DELETE_task_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
     public final String dataType;
     public final int targetIndex;
@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         this.taskToDelete = toDelete;
     }
 
-
+    //@@author A0144061U
     @Override
     public CommandResult execute() {
     	if(this.targetIndex != -1 && this.taskToDelete == null) {
@@ -56,7 +56,7 @@ public class DeleteCommand extends Command {
 	    	}
 	        if (lastShownList.size() < targetIndex) {
 	            indicateAttemptToExecuteIncorrectCommand();
-	            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 	        }
 	
 	        taskToDelete = lastShownList.get(targetIndex - 1);
@@ -68,7 +68,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_task_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }
