@@ -6,12 +6,15 @@ import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.AddressBookChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
+import seedu.todolist.model.parser.DateParser;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -82,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undoAddressBook() throws EmptyStackException {
     	addressBook.resetData(addressBookHistory.pop());
+    	updateFilteredListToShowAll();
     	indicateAddressBookChanged();
     }
     
@@ -170,6 +174,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks.setPredicate(expression::satisfies);
         filteredIncompleteTasks.setPredicate(expression::satisfies);
     }
+    
+    @Override
+    public void updateFilteredTaskList(String filter) throws DateTimeException {
+    	updateFilteredTaskList(new PredicateExpression(new DateQualifier(filter)));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -239,4 +248,68 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    private class DateQualifier implements Qualifier {
+        private String dateFilter;
+
+        DateQualifier(String dateFilter) {
+            this.dateFilter = dateFilter;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) throws DateTimeException {
+        	if (task.getInterval().isFloat()) {
+        		return false;
+        	}
+        	
+        	LocalDate currentDate = LocalDate.now();
+        	
+        	int currentDayOfWeek = currentDate.getDayOfWeek().getValue();
+        	LocalDate currentWeekStart = currentDate.minusDays(currentDayOfWeek);
+        	LocalDate currentWeekEnd = currentDate.plusDays(6-currentDayOfWeek);
+        	
+        	int currentDayOfMonth = currentDate.getDayOfMonth();
+        	LocalDate currentMonthStart = currentDate.minusDays(currentDayOfMonth+1);
+        	LocalDate currentMonthEnd = currentDate.plusDays(currentDate.lengthOfMonth()-currentDayOfMonth);
+        	
+        	if (task.getInterval().isDeadlineWithTime() || task.getInterval().isDeadlineWithoutTime()) {
+            	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
+            	if (dateFilter.equals("today")) {
+                	return taskEndDate.equals(currentDate);
+                }
+                else if (dateFilter.equals("week")) {
+                	return (!taskEndDate.isBefore(currentWeekStart) && !taskEndDate.isAfter(currentWeekEnd));
+                }
+                else if (dateFilter.equals("month")) {
+                	return (!taskEndDate.isBefore(currentMonthStart) && !taskEndDate.isAfter(currentMonthEnd));
+                } 
+                else {
+                    LocalDate date = DateParser.parseDate(dateFilter);
+                    return taskEndDate.equals(date);
+                }
+        	}
+        	else {
+        		LocalDate taskStartDate = task.getInterval().getStartDate().getDate();
+            	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
+            	if (dateFilter.equals("today")) {
+                	return (!taskEndDate.isBefore(currentDate) && !taskStartDate.isAfter(currentDate));
+                }
+                else if (dateFilter.equals("week")) {
+                	return (!taskEndDate.isBefore(currentWeekStart) && !taskStartDate.isAfter(currentWeekEnd));
+                }
+                else if (dateFilter.equals("month")) {
+                	return (!taskEndDate.isBefore(currentMonthStart) && !taskStartDate.isAfter(currentMonthEnd));
+                } 
+                else {
+                    LocalDate date = DateParser.parseDate(dateFilter);
+                	return (!taskEndDate.isBefore(date) && !taskStartDate.isAfter(date));
+                }  	
+        	}
+        }
+
+        @Override
+        public String toString() {
+            return "date=" + dateFilter;
+        }
+    }
+    
 }
