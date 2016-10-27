@@ -197,6 +197,7 @@ We use several external dependencies:
 The dependencies are bound into the jar release and will not require extra dependencies handling for end users. 
 
 
+<!-- @@author-->
 ## Appendix A : User Stories
 :bomb: Priorities:
 - High (Must Have): `* * *`

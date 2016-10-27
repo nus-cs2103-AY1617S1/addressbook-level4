@@ -218,6 +218,7 @@ Examples:
 * `find CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
+<!-- @@author-->
 
 #### Clearing of tasks
 Clears all completed tasks or clears all tasks. <br>
@@ -275,6 +276,7 @@ Examples:
 * `show next week 8pm /wk`  
  It will focus on the 8pm time frame of the next week's calendar. 
 
+<!-- @@author-->
   
 #### Exiting the program
 Format : `exit`
