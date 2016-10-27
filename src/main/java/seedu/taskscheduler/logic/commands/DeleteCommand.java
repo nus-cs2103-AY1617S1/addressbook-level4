@@ -4,6 +4,7 @@ import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
+import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0148145E
@@ -55,11 +56,12 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult revert() {
         try {
-            model.insertTask(targetIndex, taskToDelete);
+            model.addTask(taskToDelete);
+//            model.insertTask(targetIndex, taskToDelete);
             CommandHistory.setModTask(taskToDelete);
             CommandHistory.addRevertedCommand(this);
-        } catch (TaskNotFoundException e) {
-            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        } catch (DuplicateTaskException e) {
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;
         }
         return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + taskToDelete));
     }
