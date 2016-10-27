@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper functions for handling strings.
@@ -40,12 +41,39 @@ public class StringUtil {
     }
     
     /**
-     * Returns <code>string</code> if not null, <code>replaceString</code> otherwise.
+     * Returns <code>string</code> if empty, <code>replaceString</code> otherwise.
      * @param string String to check
-     * @param replaceString String to return if <code>string</code> is null
+     * @param replaceString String to return if <code>string</code> is empty
      */
-    public static String replaceNull(String string, String replaceString) {
-        return (string == null) ? replaceString : string;
+    public static String replaceEmpty(String string, String replaceString) {
+        return (string == null || string.isEmpty()) ? replaceString : string;
+    }
+    
+    /**
+     * Returns <code>string</code> with aliased keys replaced with their
+     * respective values. This method only matches complete words and not word
+     * partials.
+     * 
+     * @param string
+     * @param alias
+     * @return
+     */
+    public static String replaceAliases(String string, Map<String, String> alias) {
+        String newString = string;
+        for (Map.Entry<String, String> entry : alias.entrySet()) {
+            newString = newString.replaceAll(String.format("\\b%s\\b", entry.getKey()), entry.getValue());
+        }
+        return newString;
+    }
+    
+    /**
+     * Makes a best effort to sanitize input string.
+     * 
+     * @param alias     string to sanitize
+     * @return          sanitized string
+     */
+    public static String sanitize(String alias) {
+        return (alias == null) ? null : alias.replaceAll("[^A-Za-z]+", "");
     }
     
     public static String checkEmptyList(ArrayList<String> list) {

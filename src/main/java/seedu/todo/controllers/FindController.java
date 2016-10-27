@@ -12,7 +12,7 @@ import java.util.Map;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
-import seedu.todo.commons.exceptions.UnmatchedQuotesException;
+import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
@@ -58,15 +58,10 @@ public class FindController implements Controller {
     }
 
     @Override
-    public void process(String input) {
+    public void process(String input) throws ParseException {
         
         Map<String, String[]> parsedResult;
-        try {
-            parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
-        } catch (UnmatchedQuotesException e) {
-            System.out.println("Unmatched quote!");
-            return ;
-        }
+        parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
         HashSet<String> itemNameList = new HashSet<String>();
         HashSet<String> tagNameList = new HashSet<String>();
