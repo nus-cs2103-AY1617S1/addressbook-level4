@@ -103,29 +103,35 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+
+	@Override
+	public void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException {
+		taskManager.editTask(task, type, details);
+		updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+	}
+
     //@@LiXiaowei A0142325R
     @Override
     public synchronized void refreshTask(){
         taskManager.refreshTask();
-        //System.out.println("inside refreshTask");
-        //filteredTasks = new FilteredList<>(taskManager.getTasks());
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+
     @Override
     public synchronized void markTask(ReadOnlyTask task) {
         taskManager.markTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+
     @Override
     public void updateTaskManager(String filePath, boolean isToClearOld) {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
         indicateTaskManagerChanged();
     }
-    
+
     @Override
     public void changeBackTaskManager(boolean isToClearNew) {
         EventsCenter.getInstance().post(new StoragePathChangedBackEvent(isToClearNew));
@@ -142,19 +148,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void saveState(String message) {
         stateManager.saveState(new TaskManagerState(taskManager, message));
     }
-    
+
     @Override
     public String getPreviousState() throws StateLimitException {
         TaskManagerState previousState = stateManager.getPreviousState();
         return getState(previousState);
     }
-    
+
     @Override
     public String getNextState() throws StateLimitException {
         TaskManagerState nextState = stateManager.getNextState();
         return getState(nextState);
     }
-    
+
     private String getState(TaskManagerState state) {
         resetData(state.getTaskManager());
         return state.getMessage();
@@ -170,14 +176,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
-        
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void updateFilteredTaskList(String type) {
         switch (type) {
@@ -213,7 +218,7 @@ public class ModelManager extends ComponentManager implements Model {
             break;
         }
     }
-    
+
     @Override
     public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups){
         PredicateExpression[] predicate = new PredicateExpression[keywordsGroups.size()];
@@ -250,7 +255,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         filteredTasks.setPredicate(predicates);
     }
-    
+
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
@@ -340,15 +345,16 @@ public class ModelManager extends ComponentManager implements Model {
         EventQualifier(){}
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			
+
 			return task.isEvent();
 		}
 		@Override
 		public String toString(){
 			return "name";
 		}
-    	
+
     }
+
     //@@LiXiaowei A0142325R
     private class TaskQualifier implements Qualifier{
     	TaskQualifier(){}
@@ -364,7 +370,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@LiXiaowei A0142325R
     private class DoneQualifier implements Qualifier{
         private boolean isDone;
-        
+
         DoneQualifier(String isDone){
             this.isDone = isDone.equals(DONE);
         }
@@ -373,13 +379,13 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return task.isDone() == isDone;
         }
-        
+
         @Override
         public String toString(){
             return "done=" + isDone;
         }
     }
-    	
+
     private class DateQualifier implements Qualifier {
         private String dateValue;
         private String dateType;
@@ -456,5 +462,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "tags=" + String.join(", ", tagKeyWords);
         }
     }
-    
+
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd)  {
         assert toAdd != null;
-   
+
         internalList.add(toAdd);
     }
 
@@ -71,6 +72,15 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+
+	public void edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
+		assert toEdit != null;
+		for(Task t : internalList) {
+        	if(t.equals(toEdit)) {
+        		t.editDetail(type, details);
+       	}
+       }
+	}
 
     public ObservableList<Task> getInternalList() {
         return internalList;

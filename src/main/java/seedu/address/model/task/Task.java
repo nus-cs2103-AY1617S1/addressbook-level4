@@ -13,6 +13,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
@@ -29,13 +30,15 @@ public class Task implements ReadOnlyTask {
 
     private boolean isEvent;
     private Name name;
+    private StringProperty nameString;
     private Date date;
-    private SimpleStringProperty dateString;
+    private StringProperty dateString;
     private boolean isDone;
     private BooleanProperty done; // Use Observable so that listeners can know
                                   // when the task's done status is updated
     private boolean isRecurring;
     private Recurring recurring;
+    private StringProperty recurringString;
     private UniqueTagList tags;
     /*
      * public static void main(String[] args) throws IllegalValueException{ Task
@@ -58,11 +61,13 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Date date, UniqueTagList tags, Recurring recurring) {
         this(name, date, tags, false, true);
         this.recurring = recurring;
+        recurringString.set(recurring.recurringFrequency);
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
+        this.nameString = new SimpleStringProperty(name.taskName);
         this.date = date;
         this.dateString=new SimpleStringProperty(date.getValue());
         if (date instanceof EventDate) {
@@ -75,12 +80,13 @@ public class Task implements ReadOnlyTask {
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
         this.isRecurring = isRecurring;
-
+        recurringString = new SimpleStringProperty();
     }
-    
+
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
+        this.nameString = new SimpleStringProperty(name.taskName);
         this.date = date;
         this.dateString=new SimpleStringProperty(date.getValue());
         if (date instanceof EventDate) {
@@ -94,7 +100,7 @@ public class Task implements ReadOnlyTask {
         this.done = new SimpleBooleanProperty(isDone);
         this.isRecurring=true;
         this.recurring = Recurring;
-
+        recurringString = new SimpleStringProperty(recurring.recurringFrequency);
     }
 
     /**
@@ -102,8 +108,10 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring());
-        if (source.isRecurring())
+        if (source.isRecurring()) {
             this.recurring = source.getRecurring();
+            recurringString.set(recurring.recurringFrequency);
+        }
     }
 
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
@@ -210,19 +218,6 @@ public class Task implements ReadOnlyTask {
     public boolean isDone() {
         return isDone;
     }
-    
-    
-    public SimpleStringProperty getDateString(){
-        return dateString;
-    }
-
-    /**
-     * Returns the Observable wrapper of the done status
-     */
-    public BooleanProperty getDone() {
-        return done;
-    }
-    
 
     @Override
     public UniqueTagList getTags() {
@@ -265,12 +260,62 @@ public class Task implements ReadOnlyTask {
         isDone = true;
         done.set(true);
     }
+    
+    public void setName(Name newName) {
+        name = newName;
+        nameString.set(name.taskName);
+    }
+    
+    public void setDate(Date newDate) {
+        date = newDate;
+        dateString.set(date.getValue());
+    }
+    
+    public void setRecurring(Recurring newRecurring) {
+        recurring = newRecurring;
+        isRecurring = true;
+        recurringString.set(recurring.recurringFrequency);
+    }
+    
+    
+    /**
+     * Returns Observable wrappers of the task
+     */
+    public StringProperty getNameString(){
+        return nameString;
+    }
+    
+    public StringProperty getDateString(){
+        return dateString;
+    }
+
+    public BooleanProperty getDone() {
+        return done;
+    }
+    
+    public StringProperty getRecurringString(){
+        return recurringString;
+    } 
 
     /*
-     * Makes Task observable by its done status
+     * Makes Task observable by its status
      */
     public static Callback<Task, Observable[]> extractor() {
-        return (Task task) -> new Observable[] { task.getDone(),task.getDateString()};
+        return (Task task) -> new Observable[] { task.getNameString(), task.getDateString(), task.getDone(),
+                task.getRecurringString() };
     }
+
+	public boolean editDetail(String type, String details) throws IllegalValueException {
+		switch(type) {
+    	case "name": setName(new Name(details)); break;
+//    	case "tag": this.tag = new UniqueTagList(details); break;
+    	case "recurring": setRecurring(new Recurring(details)); break;
+    	case "startDate": setDate(new EventDate(details,((EventDate) date).getEndDate().substring(0, 10))); break;
+    	case "endDate": setDate(new EventDate(((EventDate) date).getEndDate().substring(0, 10), details)); break;
+    	case "deadline": setDate(new Deadline(details)); break;
+    	default: return false;
+		}
+		return true;
+	}
 
 }

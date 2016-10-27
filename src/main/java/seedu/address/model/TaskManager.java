@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -111,10 +112,11 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     public void markTask(ReadOnlyTask p)  {
         p.markAsDone();
     }
+
     //@@LiXiaowei A0142325R
     public void refreshTask(){
         for(Task e:tasks){
@@ -122,6 +124,11 @@ public class TaskManager implements ReadOnlyTaskManager {
             e.updateRecurringTask();
         }
     }
+
+	public void editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
+        tasks.edit(p, type, details);
+	}
+
 //
 //// tag-level operations
 
@@ -171,4 +178,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
 }
