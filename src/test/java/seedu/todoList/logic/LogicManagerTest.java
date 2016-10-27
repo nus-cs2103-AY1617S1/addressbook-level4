@@ -149,7 +149,9 @@ public class LogicManagerTest {
         model.addTask(helper.generatetask(2));
         model.addTask(helper.generatetask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear todo", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear event", ClearCommand.EVENT_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear deadline", ClearCommand.DEADLINE_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
 
@@ -420,7 +422,7 @@ public class LogicManagerTest {
                     new StartDate("04-10-2017"),
                     new EndDate("05-10-2017"),
                     new Priority( "priority " + seed),
-                    "done"
+                    "false"
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );

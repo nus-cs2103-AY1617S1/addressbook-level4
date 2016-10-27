@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todoList.ui.MainWindow">
+
+<VBox maxHeight="840.0" maxWidth="1246.0" minHeight="840.0" minWidth="1246.0" prefHeight="840.0" prefWidth="1246.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todoList.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
@@ -43,18 +44,24 @@
          <items>
             <VBox fx:id="todoList">
                <children>
-                  <AnchorPane fx:id="todoListPanelPlaceholder" VBox.vgrow="NEVER" />
+                  <AnchorPane fx:id="todoListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </VBox>
             <VBox fx:id="eventList">
                <children>
-                  <AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="NEVER" />
+                  <AnchorPane fx:id="eventListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox fx:id="deadlineList">
                <children>
-                  <AnchorPane fx:id="deadlineListPanelPlaceholder" VBox.vgrow="NEVER" />
+                  <AnchorPane fx:id="deadlineListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
             </VBox>
          </items>
       </SplitPane>

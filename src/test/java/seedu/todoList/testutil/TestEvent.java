@@ -10,12 +10,11 @@ import seedu.todoList.model.task.attributes.*;
 //@@author A0132157M
 public class TestEvent extends Event implements ReadOnlyTask {
 
-    //private Name name;
     private Event event;
     private static Name name;
     private static StartDate startDate;
-    private static StartTime startTime;
     private static EndDate endDate;
+    private static StartTime startTime;
     private static EndTime endTime;
     private static String done;
 
@@ -23,6 +22,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
     public TestEvent() {
         super(name, startDate, endDate, startTime, endTime, done);
         //tags = new UniqueTagList();
+
     }
 
     public void setEvent(Event event) {
