@@ -128,6 +128,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return getAsText();
     }
 
+    //@@author A0143884W
     @Override
     public int compareTo(Task other) {
         return Comparators.NAME.compare(this, other);

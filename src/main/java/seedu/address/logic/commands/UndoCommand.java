@@ -42,8 +42,8 @@ public class UndoCommand extends Command {
                 break;
 
             case EditCommand.COMMAND_WORD:
-                model.deleteTask(toUndo.getPostData());
-                model.addTask(toUndo.getPreData());
+            	model.addTask(toUndo.getPreData());
+                model.deleteTask(toUndo.getPostData());               
                 break;
 
             }

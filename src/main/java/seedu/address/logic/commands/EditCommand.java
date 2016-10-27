@@ -93,8 +93,8 @@ public class EditCommand extends Command implements Undoable{
         populateEditedTaskFields();
 
         try {
-            model.deleteTask(toEdit);
-            model.addTask(toAdd);
+        	model.addTask(toAdd);
+            model.deleteTask(toEdit);           
             populateUndo();
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     

@@ -465,16 +465,25 @@ public class LogicManagerTest {
         model.addTask(toBeEdited);
 
         // expected result after edit
-        toBeEdited.setName(new Name("new name"));
-        expectedAB.addTask(toBeEdited);
+        // NOTE: can't simply set description of toBeEdited; need to create new copy,
+        // since it will edit the task in model (model's task is simply a reference)
+        Task edited = copyTask(toBeEdited);
+        edited.setDescription(new Description("old name")); 
+        expectedAB.addTask(edited);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateEditCommand(1, 1, "new name"),
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
+        assertCommandBehavior(helper.generateEditCommand(1, 2, "old name"),
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, edited),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
     //@@author
+    
+    private Task copyTask(Task toBeEdited){
+    	Task edited = new Task(toBeEdited.getName(), toBeEdited.getDescription(), toBeEdited.getDatetime(),
+    			toBeEdited.getStatus(), toBeEdited.getTags());
+    	return edited;
+    }
     
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
