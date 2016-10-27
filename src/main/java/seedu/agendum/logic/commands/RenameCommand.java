@@ -14,8 +14,8 @@ public class RenameCommand extends Command {
 
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "rename";
-    public static String COMMAND_FORMAT = "rename <index> <new-name>";
-    public static String COMMAND_DESCRIPTION = "update the name of a task";
+    public static final String COMMAND_FORMAT = "rename <index> <new-name>";
+    public static final String COMMAND_DESCRIPTION = "update the name of a task";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rename an existing task. "
             + "Parameters: INDEX (must be a positive number) NAME\n"
             + "Example: " + COMMAND_WORD
@@ -26,8 +26,6 @@ public class RenameCommand extends Command {
 
     public int targetIndex = -1;;
     public Name newTaskName = null;
-
-    public RenameCommand() {};
 
     //@@author A0133367E
     /**
@@ -67,18 +65,15 @@ public class RenameCommand extends Command {
     }
 
     //@@author
-    @Override
-    public String getName() {
+    public static String getName() {
         return COMMAND_WORD;
     }
 
-    @Override
-    public String getFormat() {
+    public static String getFormat() {
         return COMMAND_FORMAT;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return COMMAND_DESCRIPTION;
     }
 

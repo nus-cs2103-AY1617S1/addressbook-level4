@@ -63,18 +63,15 @@ public class LoadCommand extends Command {
         return FileUtil.isFileExists(pathToFile);
     }
 
-    @Override
-    public String getName() {
+    public static String getName() {
         return COMMAND_WORD;
     }
         
-    @Override
-    public String getFormat() {
+    public static String getFormat() {
         return COMMAND_FORMAT;
     }
         
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return COMMAND_DESCRIPTION;
     }
     

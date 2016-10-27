@@ -15,8 +15,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static String COMMAND_FORMAT = "add <name> \nadd <name> by <deadline> \nadd <name> from <start-time> to <end-time>";
-    public static String COMMAND_DESCRIPTION = "adds a task to Agendum";
+    public static final String COMMAND_FORMAT = "add <name> \nadd <name> by <deadline> \nadd <name> from <start-time> to <end-time>";
+    public static final String COMMAND_DESCRIPTION = "adds a task to Agendum";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task with no time and date. \n"
             + "Parameters: NAME\n"
@@ -27,8 +27,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
 
     private Task toAdd = null;
-
-    public AddCommand() {}
 
 	//@@author A0003878Y
     /**
@@ -81,19 +79,16 @@ public class AddCommand extends Command {
         }
 
     }
-	
-    @Override
-    public String getName() {
+
+    public static String getName() {
         return COMMAND_WORD;
     }
-	
-    @Override
-    public String getFormat() {
+
+    public static String getFormat() {
         return COMMAND_FORMAT;
     }
-	
-    @Override
-    public String getDescription() {
+
+    public static String getDescription() {
         return COMMAND_DESCRIPTION;
     }
 

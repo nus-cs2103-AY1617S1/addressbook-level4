@@ -41,18 +41,15 @@ public class SelectCommand extends Command {
 
     }
 
-    @Override
-    public String getName() {
+    public static String getName() {
         return null;
     }
     
-    @Override
-    public String getFormat() {
+    public static String getFormat() {
         return null;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return null;
     }
 

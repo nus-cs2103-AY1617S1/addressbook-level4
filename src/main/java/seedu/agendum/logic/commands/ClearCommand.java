@@ -9,11 +9,9 @@ public class ClearCommand extends Command {
     
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "clear";
-    public static String COMMAND_FORMAT = "clear";
-    public static String COMMAND_DESCRIPTION = "clear all tasks in Agendum";
+    public static final String COMMAND_FORMAT = "clear";
+    public static final String COMMAND_DESCRIPTION = "clear all tasks in Agendum";
     public static final String MESSAGE_SUCCESS = "Your tasks have been cleared!";
-
-    public ClearCommand() {}
 
     @Override
     public CommandResult execute() {
@@ -22,18 +20,15 @@ public class ClearCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    @Override
-    public String getName() {
+    public static String getName() {
         return COMMAND_WORD;
     }
 
-    @Override
-    public String getFormat() {
+    public static String getFormat() {
         return COMMAND_FORMAT;
     }
 
-    @Override
-    public String getDescription() {
+    public static String getDescription() {
         return COMMAND_DESCRIPTION;
     }
 }
