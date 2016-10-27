@@ -14,7 +14,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/JohnervanLee.png", width="150"><br>
 
 * Components in charge of: [Model](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/DeveloperGuide.md#model-component)
-* Aspects/tools in charge of: Testing, Windows Environment Tester, EclEmma
+* Aspects/tools in charge of: Testing, Windows Environment Tester, EclEmma, Documentation
 * Features implemented: 
    * [Change File Storage Directory](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#changing-data-storage-location--cd)
    * [Reserve Timeslots for Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#reserving-timeslots-for-a-task--rsv)
@@ -24,7 +24,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Code Written:
 * Other Major Contributions:
    * Did the initial refactoring from AddressBook-Level4 to TARS
-
+   * User Guide
+   
 -----
 
 #### [Calvin Yang Jiawei](http://github.com/origiri) <br>
@@ -37,6 +38,8 @@ We are a team based in the [School of Computing, National University of Singapor
    * [List Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#listing-tasks--ls)
    * Result Summary
 * Code Written:
+* Other Major Contributions:
+    * User Guide
 
 -----
 
@@ -44,14 +47,22 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/ChiaWeiKang.png", width="150"><br>
 
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/DeveloperGuide.md#logic-component)
-* Aspects/tools in charge of: Travis, Codacy, Coveralls
+* Aspects/tools in charge of: Testing, Travis, Codacy, Coveralls
 * Features implemented: 
-    * [Undo](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#undoing-a-command--undo)
-    * [Redo](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#redoing-a-command--redo)
-    * [Tag](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#editing-a-tags-name--tag-e)
+    * [Undo Commands](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#undoing-a-command--undo)
+    * [Redo Commands](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#redoing-a-command--redo)
+    * [Edit Tags](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#editing-a-tags-name--tag-e)
+    * [Delete Tags from all Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-tag--tag-del)
+    * [List Tags](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#listing-all-tags--tag-ls)
     * [Help](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#displaying-a-list-of-available-commands--help)
+    * [Natural Date Input](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#supported-date-formats)
+    * Shortcut keys for undo and redo commands
 * Code Written:
 * Other Major Contributions:
+    * Did the initial refactoring from AddressBook-Level4 to TARS
+    * ArgumentTokenizer (flexible commands)
+    * Did the refactoring of parser
+    * Set up Travis, Codacy and Coveralls
 
 -----
 
@@ -63,6 +74,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented: 
     * [Editing Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#editing-a-task--edit)
     * [Marking Tasks Done & Undone](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#marking-tasks--mark)
+    * [Deleting Tasks](https://github.com/CS2103AUG2016-F10-C1/main/blob/develop/docs/UserGuide.md#deleting-a-task--del)
 * Code Written:
 * Other Major Contributions:
     * Designed App Logo
