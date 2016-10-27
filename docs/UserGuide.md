@@ -234,7 +234,7 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console refreshes with all events displayed.
 
-[comment]: # (@@author A0140060A)
+[comment]: # (@@author A0143641M)
 
 ### When you want to delete a deadline, task or event
 * The index(es) specified refers to the index number(s) shown in the most recent listing.
