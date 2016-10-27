@@ -198,9 +198,16 @@ Format: `redo`
 Clears all entries from the Savvy Task.<br>
 Format: `clear`  
 
+[//]: # (@@author A0139916U)
+
 #### Alias a keyword : `alias`
-Alias a keyword to mean another text. <br>
+Alias a keyword to represent another text. <br>
 Format: `alias k/KEYWORD r/REPRESENTATION`
+
+> Parameters | Description  
+> -------- | :-------- 
+> KEYWORD | Specifies the keyword that will be replaced when met in a command
+> REPRESENTATION | Specifies the text that will replace the keyword
 
 Examples: 
 * `alias k/pjm r/Project Meeting`<br>
@@ -217,6 +224,10 @@ Add "pjm2" to task list, and <b>not</b> "Project Meeting2"<br>
 #### Unalias a keyword : `unalias`
 Unalias a keyword <br>
 Format: `unalias KEYWORD`
+
+> Parameters | Description  
+> -------- | :-------- 
+> KEYWORD | Specifies the keyword to unaliased
 
 Examples: 
 * `unalias pjm`<br>
