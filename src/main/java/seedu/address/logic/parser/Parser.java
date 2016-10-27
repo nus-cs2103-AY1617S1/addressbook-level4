@@ -325,10 +325,14 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        // Group keywords by AND operator
+        final String[] keywords = matcher.group("keywords").split("AND");
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        final Set<Set<String>> keywordsGroup = new HashSet<Set<String>>();
+        for (String keyword: keywords) {
+            keywordsGroup.add(new HashSet<>(Arrays.asList(keyword.trim().split("\\s+"))));
+        }
+        return new FindCommand(keywordsGroup);
     }
 
     private Command prepareList(String args) {

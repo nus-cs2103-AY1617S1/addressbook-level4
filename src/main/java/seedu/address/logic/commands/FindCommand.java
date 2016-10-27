@@ -15,15 +15,17 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " horror night";
 
-    private final Set<String> keywords;
+    private final Set<Set<String>> keywordsGroups;
 
-    public FindCommand(Set<String> keywords) {
-        this.keywords = keywords;
+    public FindCommand(Set<Set<String>> keywordsGroups) {
+        this.keywordsGroups = keywordsGroups;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskListForFind(keywords);
+        for (Set<String> keywords: keywordsGroups) {
+            model.updateFilteredTaskListForFind(keywords);
+        }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
