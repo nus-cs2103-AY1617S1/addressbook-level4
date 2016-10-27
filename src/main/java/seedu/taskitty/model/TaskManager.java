@@ -108,7 +108,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throws UniqueTaskList.DuplicateMarkAsDoneException if task has already been previously marked as done
      */
     public void unMarkTaskAsDoneTask(ReadOnlyTask key) throws UniqueTaskList.DuplicateMarkAsDoneException, UniqueTaskList.TaskNotFoundException {
-        tasks.mark(key);
+        tasks.unmark(key);
     }
     
     //@@author A0130853L

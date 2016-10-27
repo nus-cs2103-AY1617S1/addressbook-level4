@@ -129,38 +129,38 @@ public class ModelManager extends ComponentManager implements Model {
    	
    	//@@author   	
    	@Override
-    public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask) {
+    public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText) {
         undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
         undoTaskInfo.storeTask(addedTask);
-        undoTaskInfo.storeCommandText(AddCommand.COMMAND_WORD);
+        undoTaskInfo.storeCommandText(AddCommand.COMMAND_WORD + commandText);
     }
    	
    	@Override
-    public synchronized void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask) {
+    public synchronized void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask, String commandText) {
    	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
    	    undoTaskInfo.storeTask(addedTask);
    	    undoTaskInfo.storeTask(deletedTask);
-   	 undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD);
+   	 undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
    	}
    	
    	@Override
-    public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks) {
+    public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText) {
         undoTaskInfo.storeCommandWord(DeleteCommand.COMMAND_WORD);
         for (ReadOnlyTask deletedTask: deletedTasks) {
             undoTaskInfo.storeTask(deletedTask);
         }
         undoTaskInfo.storeNumberOfTasks(deletedTasks.size());
-        undoTaskInfo.storeCommandText(DeleteCommand.COMMAND_WORD);
+        undoTaskInfo.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
     }
    	
    	@Override
-    public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks) {
+    public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText) {
         undoTaskInfo.storeCommandWord(DoneCommand.COMMAND_WORD);
         for (ReadOnlyTask markedTask: markedTasks) {
             undoTaskInfo.storeTask(markedTask);
         }
         undoTaskInfo.storeNumberOfTasks(markedTasks.size());
-        undoTaskInfo.storeCommandText(DoneCommand.COMMAND_WORD);
+        undoTaskInfo.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
     }
    	
    	@Override
@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
                 assert false: "Should not have an invalid previousCommand";
             }            
         } catch (Exception e) {
-            
+            assert false: "Should not be unable to undo previous command action";
         }
         message = undoTaskInfo.getCommandText();
         return message;

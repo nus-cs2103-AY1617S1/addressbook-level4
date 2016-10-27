@@ -44,13 +44,13 @@ public interface Model {
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
     
-    public void storeAddCommandInfo(ReadOnlyTask addedTask);
+    public void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText);
     
-    public void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask);
+    public void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask, String commandText);
     
-    public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks);
+    public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText);
     
-    public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks);
+    public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText);
     
     public void storeClearCommandInfo();
     

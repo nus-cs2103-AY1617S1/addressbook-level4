@@ -31,11 +31,14 @@ public class DeleteCommand extends Command {
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
-    public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes) {
+    private final String commandText;
+    
+    public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateIndexesProvided = false;
+        this.commandText = commandText;
     }
 
     @Override
@@ -86,7 +89,7 @@ public class DeleteCommand extends Command {
         
         try {
              model.deleteTasks(listOfTaskToDelete);
-             model.storeDeleteCommandInfo(listOfTaskToDelete);
+             model.storeDeleteCommandInfo(listOfTaskToDelete, commandText);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

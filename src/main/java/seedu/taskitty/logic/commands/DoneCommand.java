@@ -35,12 +35,15 @@ public class DoneCommand extends Command {
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
-    public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes) {
+    private final String commandText;
+    
+    public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateMarkAsDoneTask = false;
         this.hasDuplicateIndexesProvided = false;
+        this.commandText = commandText;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class DoneCommand extends Command {
                         
         try {
              model.markTasksAsDone(listOfTaskToMarkDone);
-             model.storeDoneCommandInfo(listOfTaskToMarkDone);
+             model.storeDoneCommandInfo(listOfTaskToMarkDone, commandText);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateMarkAsDoneException e) {
