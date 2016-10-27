@@ -5,11 +5,9 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
-import seedu.cmdo.model.ModelManager;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
@@ -97,6 +95,8 @@ public class EditCommand extends Command {
         );
         this.targetIndex = targetIndex;
         this.isUndoable = true;
+        floating = false;//since if range constructor is used, user would have keyed in a timing 
+        this.removePriority = removePriority; 
     }
     
     public ReadOnlyTask getTask() {
