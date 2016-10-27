@@ -53,6 +53,7 @@ public class HelpController implements Controller {
                                          ClearController.getCommandDefinition(),
                                          FindController.getCommandDefinition(),
                                          TagController.getCommandDefinition(),
+                                         UntagController.getCommandDefinition(),
                                          ExitController.getCommandDefinition() };
     }
 }

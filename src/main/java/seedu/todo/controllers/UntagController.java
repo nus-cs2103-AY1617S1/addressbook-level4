@@ -11,19 +11,18 @@ import seedu.todo.models.TodoListDB;
  * @author Tiong YaoCong
  *
  */
-public class TagController implements Controller {
+public class UntagController implements Controller {
     
-    private static final String NAME = "Tag";
-    private static final String DESCRIPTION = "Tag a task/event by listed index";
-    private static final String COMMAND_SYNTAX = "tag <index> <tag name>";
+    private static final String NAME = "Untag";
+    private static final String DESCRIPTION = "Untag a task/event by listed index";
+    private static final String COMMAND_SYNTAX = "untag <index> <tag name>";
     
-    private static final String MESSAGE_TAG_SUCCESS = "Item has been tagged successfully.";
-    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not tag task/event: Invalid index provided!";
-    private static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to tag.";
+    private static final String MESSAGE_UNTAG_SUCCESS = "Item has been untagged successfully.";
+    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not untag task/event: Invalid index provided!";
+    private static final String MESSAGE_MISSING_INDEX_AND_TAG_NAME = "Please specify the index of the item and the tag name to untag.";
     private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
-    private static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not tag task/event: Tag name not provided!";
-    private static final String MESSAGE_EXCEED_TAG_SIZE = "Could not tag task/event : Tag size exceed";
-    private static final String MESSAGE_TAG_NAME_EXIST = "Could not tag task/event: Tag name already exist!";
+    private static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not untag task/event: Tag name not found!";
+    private static final String MESSAGE_TAG_NAME_DOES_NOT_EXIST = "Could not untag task/event: Tag name does not exist!";
     
     private static final int ITEM_INDEX = 0;
     
@@ -37,7 +36,7 @@ public class TagController implements Controller {
     @Override
     public float inputConfidence(String input) {
         // TODO
-        return (input.toLowerCase().startsWith("tag") || input.startsWith("tags")) ? 1 : 0;
+        return (input.toLowerCase().startsWith("untag")) ? 1 : 0;
     }
 
     @Override
@@ -45,7 +44,7 @@ public class TagController implements Controller {
         // TODO: Example of last minute work
         
         // Extract param
-        String param = args.replaceFirst("(tag|tags)", "").trim();
+        String param = args.replaceFirst("untag", "").trim();
         
         if (param.length() <= 0) {
             Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_MISSING_INDEX_AND_TAG_NAME);
@@ -72,7 +71,7 @@ public class TagController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            Renderer.renderDisambiguation(String.format("tag %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
+            Renderer.renderDisambiguation(String.format("untag %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
             return;
         }
         
@@ -83,23 +82,16 @@ public class TagController implements Controller {
         }
         
         assert calendarItem != null;
-        
-        boolean isTagNameDuplicate = calendarItem.getTagList().contains(tagName);
-        
-        if (isTagNameDuplicate) {
-            Renderer.renderDisambiguation(String.format("tag %d", index), MESSAGE_TAG_NAME_EXIST);
-            return;
-        }
-        
-        boolean resultOfTagging = calendarItem.addTag(tagName);
+               
+        boolean resultOfTagging = calendarItem.removeTag(tagName);
         
         // Re-render
         if (resultOfTagging) {
-            Renderer.renderIndex(db, MESSAGE_TAG_SUCCESS);
-            db.updateTagList(tagName);
+            //db.updateTagList(tagName);
             db.save();
+            Renderer.renderIndex(db, MESSAGE_UNTAG_SUCCESS);
         } else {
-            Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_EXCEED_TAG_SIZE);
+            Renderer.renderDisambiguation(String.format("untag %d", index), MESSAGE_TAG_NAME_DOES_NOT_EXIST);
         }
     }
 
