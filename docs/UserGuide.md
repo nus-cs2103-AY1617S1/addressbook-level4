@@ -120,6 +120,7 @@ Examples:
 * `find activities Homework Assignment`<br>
   Returns Any activities with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
 
+<!-- @@author A0125680H -->
 Finding all activities containing a certain tag    
 * Finds activities which has tags of given keywords attached to it.<br>    
 * Format: `find tags KEYWORD [MORE_KEYWORDS]`   
@@ -164,6 +165,7 @@ Examples:
   `done 2`<br>
   Selects the 2nd activity in the results of the `find` command and then marks it as completed.
 
+<!-- @@author A0125680H -->
 #### Editing an activity: `edit`
 Edits the selected activity from Lifekeeper.<br>
 Format: `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 

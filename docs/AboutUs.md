@@ -40,13 +40,14 @@ Responsibilities: Code Quality/Deliverables/UI
 
 #### [Kevin Ong](https://github.com/Kevin-Ong)
 <img src="images/KevinOng.jpg" width="150"><br>
-* Components in charge of:  
+* Components in charge of:  [Logic](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#logic-component)
 * Aspects/tools in charge of: 
 * Features Implemented
-..*
-* Code Written:
+..* [Edit commands](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#editing-an-activity--edit)
+* Code Written:[functional code][test code][docs]
 * Other major contributions:
-..* 
+..* [Specifying save location]
+..* [Implemented floating activities]
 
 -----
 
