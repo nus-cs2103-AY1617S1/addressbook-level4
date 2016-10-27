@@ -27,12 +27,12 @@ Responsibilities: Codes about features.
 
 #### [Xie Jihui](https://github.com/xjh666) 
 <img src="images/XieJihui.JPG" width="150"><br>
-* Components in charge of: [Logic][Model]
+* Components in charge of: [logic] [model]
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-   * [Complete task]
-   * [Editing](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#features--Editing)
-   * [Undo]
+   * [Complete task](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#complete-a-task-complete)
+   * [Editing](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#editing)
+   * [Undo](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#undo-action-undo)
 * Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList [[#59](https://github.com/CS2103AUG2016-T16-C4/main/pull/59) ]
