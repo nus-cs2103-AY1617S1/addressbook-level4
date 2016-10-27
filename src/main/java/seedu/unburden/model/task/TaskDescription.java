@@ -8,6 +8,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
  * @@author A0143095H
  */
 
+//@@Gauri Joshi A0143095H
 public class TaskDescription {
 	private static final String MESSAGE_TASK_CONSTRAINTS = "Task descriptions should be spaces or alphanumeric characters.";
 	public static final String TASK_VALIDATION_REGEX = "[\\p{Alnum} ]+";

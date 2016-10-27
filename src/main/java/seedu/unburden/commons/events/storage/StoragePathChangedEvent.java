@@ -2,7 +2,7 @@ package seedu.unburden.commons.events.storage;
 
 import seedu.unburden.commons.events.BaseEvent;
 
-//@@author A0139714B
+//@@ Gary Goh A0139714B
 public class StoragePathChangedEvent extends BaseEvent {
 	
 	public String oldStoragePath;

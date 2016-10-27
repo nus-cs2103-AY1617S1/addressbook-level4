@@ -6,10 +6,14 @@ import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.UniqueTaskList.*;
 
+<<<<<<< HEAD
+//@@Gary Goh A0139714B
+=======
 /*
  * edit any field of the task\
  * @@author A0139714B
  */
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
 public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";

@@ -1,5 +1,10 @@
 # User Guide
 
+<br><br>
+<img src="images/UI_MainPage.JPG" width="700"><br>
+   <br><br>
+
+
 * [About](#about)
 * [Getting Started](#getting-started)
 * [Features](#features)

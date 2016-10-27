@@ -37,5 +37,6 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      */
     void handleListOfTaskChangedEvent(ListOfTaskChangedEvent abce);
     
+    //@@Gary Goh A0139714B
     void handleStoragePathChangeEvent(StoragePathChangedEvent abce);
 }
