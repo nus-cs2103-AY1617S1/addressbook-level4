@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -64,14 +65,14 @@ public class TestUtil {
     //@author A0124797R
     private static Task[] getSampleTaskData() {
             return new Task[]{
-                    new Task("do laundry", new UniqueTagList()),
-                    new Task("finish assignment", new UniqueTagList()),
-                    new Task("cs2105 assignment", new UniqueTagList()),
-                    new Task("complete lecture quiz", new UniqueTagList()),
-                    new Task("sweep floor", new UniqueTagList()),
-                    new Task("get groceries", new UniqueTagList()),
-                    new Task("submit user guide", new UniqueTagList()),
-                    new Task("submit developer guide", new UniqueTagList())
+                    new Task("do laundry", new UniqueTagList(), new Date()),
+                    new Task("finish assignment", new UniqueTagList(), new Date()),
+                    new Task("cs2105 assignment", new UniqueTagList(), new Date()),
+                    new Task("complete lecture quiz", new UniqueTagList(), new Date()),
+                    new Task("sweep floor", new UniqueTagList(), new Date()),
+                    new Task("get groceries", new UniqueTagList(), new Date()),
+                    new Task("submit user guide", new UniqueTagList(), new Date()),
+                    new Task("submit developer guide", new UniqueTagList(), new Date())
             };
     }
 

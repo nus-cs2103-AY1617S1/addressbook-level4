@@ -28,6 +28,8 @@ public class XmlAdaptedArchive {
     private Date endDate;
     @XmlElement(required = true)
     private String recur;
+    @XmlElement(required = true)
+    private Date createdDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -47,6 +49,7 @@ public class XmlAdaptedArchive {
         startDate = source.getStartDate();
         endDate = source.getEndDate();
         recur = source.getRecur();
+        createdDate = source.getCreatedDate();
         
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -70,7 +73,8 @@ public class XmlAdaptedArchive {
         final Date endDate = this.endDate;
         final String recur = this.recur;
         final UniqueTagList tags = new UniqueTagList(taskTags);
+        final Date createdDate = this.createdDate;
         
-        return new Task(name, startDate, endDate, tags, recur).mark();
+        return new Task(name, startDate, endDate, tags, recur, createdDate).mark();
     }
 }

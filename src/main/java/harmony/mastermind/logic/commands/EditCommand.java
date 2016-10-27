@@ -169,10 +169,12 @@ public class EditCommand extends Command implements Undoable, Redoable {
             }
             return tagSet;
         }).orElse(originalTask.getTags().toSet()));
+        Date toEditCreatedDate = originalTask.getCreatedDate();
+        
 
         // initialize the new task with edited values
         if (editedTask == null) {
-            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditRecur);
+            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditRecur, toEditCreatedDate);
         }
 
         model.deleteTask(originalTask);

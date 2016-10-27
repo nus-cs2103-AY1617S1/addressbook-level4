@@ -97,6 +97,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        Date createdDate = new Date();
         Date startTime = prettyTimeParser.parse(startDate).get(0);
         Date endTime = prettyTimeParser.parse(endDate).get(0);
         
@@ -104,7 +105,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
             throw new InvalidEventDateException();
         }
 
-        this.toAdd = new Task(name, startTime, endTime, new UniqueTagList(tagSet), recurVal);
+        this.toAdd = new Task(name, startTime, endTime, new UniqueTagList(tagSet), recurVal, createdDate);
 
     }
 
@@ -119,8 +120,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
         // fix for #132
         List<Date> endDates = prettyTimeParser.parse(endDateStr);
         Date endDate = (endDates.isEmpty())? null: endDates.get(0);
+        Date createdDate = new Date();
         
-        this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur);
+        this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur, createdDate);
 
     }
 
@@ -131,8 +133,10 @@ public class AddCommand extends Command implements Undoable, Redoable {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        Date createdDate = new Date();
 
-        this.toAdd = new Task(name, new UniqueTagList(tagSet));
+        this.toAdd = new Task(name, new UniqueTagList(tagSet), createdDate);
     }
 
     @Override
