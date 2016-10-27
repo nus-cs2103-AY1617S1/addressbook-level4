@@ -10,7 +10,7 @@ import java.util.Map;
 import com.joestelmach.natty.*;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
-import seedu.todo.commons.exceptions.UnmatchedQuotesException;
+import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.controllers.concerns.Renderer;
@@ -64,15 +64,10 @@ public class AddController implements Controller {
     }
 
     @Override
-    public void process(String input) {
+    public void process(String input) throws ParseException {
         
         Map<String, String[]> parsedResult;
-        try {
-            parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);            
-        } catch (UnmatchedQuotesException e) {
-            System.out.println("Unmatched quote!");
-            return;
-        }
+        parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
         // Task or event?
         boolean isTask = parseIsTask(parsedResult);
