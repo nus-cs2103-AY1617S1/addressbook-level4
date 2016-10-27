@@ -89,6 +89,9 @@ public class Parser {
 
 	case CompleteCommand.COMMAND_WORD:
 	    return prepareComplete(arguments);
+	    
+	case UndoCommand.COMMAND_WORD:
+	    return prepareUndo();
 
 	case ShowCommand.COMMAND_WORD:
 	    if (arguments.equals(""))
@@ -99,6 +102,11 @@ public class Parser {
 	default:
 	    return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 	}
+    }
+
+    private Command prepareUndo() {
+        // TODO Auto-generated method stub
+        return new UndoCommand();
     }
 
     private Command prepareComplete(String arguments) {

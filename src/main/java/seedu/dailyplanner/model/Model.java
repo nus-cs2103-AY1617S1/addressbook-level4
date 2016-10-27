@@ -3,6 +3,7 @@ package seedu.dailyplanner.model;
 import java.util.Set;
 
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
+import seedu.dailyplanner.logic.commands.Command;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
@@ -38,5 +39,11 @@ public interface Model {
     
     /** Updates the filter of the filtered person list to filter by the given date*/
     void updateFilteredPersonListByDate(Set<String> keywords);
+    
+    /**
+     * Gets the command that will revert the last change that was made. The command is
+     * removed from history.
+     */
+    Command getReverseCommandFromHistory();
 
 }

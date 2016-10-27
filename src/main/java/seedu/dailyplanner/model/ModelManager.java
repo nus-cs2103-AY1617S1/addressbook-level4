@@ -6,11 +6,14 @@ import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
 import seedu.dailyplanner.commons.util.StringUtil;
+import seedu.dailyplanner.logic.commands.Command;
+import seedu.dailyplanner.logic.commands.DeleteCommand;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Task> filteredPersons;
+    private ArrayList<Command> history;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -37,6 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        history = new ArrayList<Command>();
+        history.add(new DeleteCommand(1));
     }
 
     public ModelManager() {
@@ -46,6 +52,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        history = new ArrayList<Command>();
+        history.add(new DeleteCommand(1));
     }
 
     @Override
@@ -82,6 +90,29 @@ public class ModelManager extends ComponentManager implements Model {
 	updateFilteredListToShowAll();
 	indicateAddressBookChanged();
     }
+    
+    /*
+     * Adds the command that will revert the last change to the history of commands
+     */
+    public synchronized void addReverseCommandToHistory(Command command) {
+        history.add(command);
+    }
+    
+    /*
+     * Gets the command that will revert the last change that was made. The command is
+     * removed from history.
+     */
+    public synchronized Command getReverseCommandFromHistory() {
+        Command command = null;
+            command = history.get(history.size()-1);
+            history.remove(history.size()-1);
+         
+        return command;
+        
+    }
+    
+    
+    
 
     //=========== Filtered Person List Accessors ===============================================================
 
