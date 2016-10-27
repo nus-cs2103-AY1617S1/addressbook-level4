@@ -32,7 +32,7 @@
 ### Viewing help : `help`
 Format: **`help`**
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
+<!-- @@author A0146682X -->
 ### Adding a task : `add`
 Add a task to Task!t.<br>
 Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`<br>
@@ -198,7 +198,7 @@ Examples:
 * **`find`**` dinner` <br> 
   **`edit`**` 1 `**`at`**<br>
   Deletes the location parameter of the 1st task in the results of the **`find`** command.
-
+<!-- @@author -->
 
 ### Undoing last action performed : `undo`
 Undo the last action performed in Task!t. Irreversible.<br>
