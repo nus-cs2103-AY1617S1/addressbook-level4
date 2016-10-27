@@ -1,4 +1,4 @@
-//@@ author A0147969E
+//@@author A0147969E
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;

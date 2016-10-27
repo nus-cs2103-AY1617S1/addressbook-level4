@@ -51,7 +51,7 @@ public class Task implements ReadOnlyTask {
     public void setDescription(Description description){
     	this.description = description;
     }
-    //@@ author A0147969E
+    //@@author A0147969E
     public void undoTask(){
     	completeStatus = false;
     }
