@@ -39,7 +39,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * Delete tasks
    * Help command
    * Store command
-* Code written: [functional code][test code][docs] <br>
+* Code written: [[functional code](../collated/main/A0139498J.md)][[test code](../collated/test/A0139498J.md)][docs] <br>
 
 
 -----

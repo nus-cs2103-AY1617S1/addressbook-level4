@@ -30,7 +30,7 @@ Figure 1: GUI of DearJim
    * **`exit`** : exits the app.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+<br>
 ## Features
 
 > **Command Format**
@@ -39,6 +39,7 @@ Figure 1: GUI of DearJim
 > * Fields in `[]` are optional.
 > * The order of parameters is fixed.
 
+<br>
 ### Viewing help : `help`
 Opens the user guide with a new window.<br>
 Format: `help`<br>
@@ -96,6 +97,8 @@ Format: `NAME `
 Example:
 * `Buy coffee powder`
 
+<br/>
+
 **_Specifying task priority_**
 
 You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
@@ -117,6 +120,9 @@ Examples:
 * `Do something later -l`
 * `Buy coffee powder -med`
 * `Buy washing powder -high`
+
+<br/>
+
 
 **_Adding a task with deadline_**
 
@@ -170,6 +176,8 @@ Example:
 |`lower word count by 1500`|`add`|`lower word count`|`by 1500`|`add` a task with name `lower word count` and deadline `1500`|
 |`"add lower word count by 1500"`|`add`|`lower word count by 1500`| NONE| `add` a task with name `lower word count by 1500`|
 
+<br/>
+
 
 **_Adding a task with time interval_**
 
@@ -184,6 +192,9 @@ Example:
 * `Company meeting tonight at 7pm to 9pm`
 * `Family dinner at noon`
 * `Meet Akshay from 1pm to 2pm -h`
+
+<br/>
+
 
 **_Specifying repeated tasks_**
 
@@ -206,6 +217,8 @@ Examples:
 * `Go run at track at 7am repeat every 3 days`
 * `Go visit mum repeat every sun`
 
+<br/>
+
 
 ### Editing a task: `edit`
 Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim.  <br>
@@ -220,6 +233,8 @@ Examples:
 
 * `Buy coffee for boss by 8am repeat every day`
 * `edit 3 Buy coffee for boss by 7am repeat every 2 days`
+
+<br/>
 
 **_Editing out details in a task_**
 
@@ -239,6 +254,9 @@ Examples:
 
 >Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
+<br/>
+
+
 ### Deleting a task: `delete`
 Deletes an existing task in DearJim. This will remove them from the storage. <br>
 Format: `delete INDEX`
@@ -248,10 +266,14 @@ Example:
 * `delete 2`
 * `delete 3 5 9`
 
+<br/>
+
 
 ### Clearing the task in DearJim: `clear`
 Deletes all tasks in DearJim.<br>
 Format: `clear`
+
+<br/>
 
 
 ### Archiving a task: `done`
@@ -263,6 +285,9 @@ Example:
 * `done 3`
 * `done 1 5`
 
+<br/>
+
+
 ### Undoing a command: `undo`
 Reverses the effects of the previous command, if the command is reversible. Helps you get out of sticky situations! <br>
 Format: `undo`
@@ -273,8 +298,9 @@ Format: `undo`
 > * `clear`
 > * `done`
 
-Example:
-* `undo`
+<br/>
+
+
 
 ### Redoing a command: `redo`
 Reverses a previous `undo` command, if possible. <br>
@@ -283,8 +309,7 @@ Format: `redo`
 >
 > Note: `redo` only works if no `add`, `edit`, `delete`, `clear` or `done` commands have been entered after the last `undo`.
 
-Example: 
-* `redo`
+<br/>
 
 ### Finding a task : `find`
 Forgot the details about a task you added? Find an existing task by name.<br>
@@ -298,12 +323,25 @@ Examples:
 * `find company meeting`
 * `find`
 
+<br/>
+
+
+### Changing storage location: `store`
+Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
+Format: `store FILEPATH`
+> Your data will be saved inside the folder you choose as an XML file
+
+Examples:
+* `store data/onthemove.xml`
+
+<br/>
+
+
 ### Exiting the application: `exit`
 Closes the application.<br>
 Format: `exit`
 
-Example: 
-* `exit`
+<br/>
 
 
 ### Getting hints for command format
@@ -341,6 +379,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
+Help | `help`
 Add | `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Edit | `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]`
 Delete | `delete INDEX`
@@ -349,5 +388,5 @@ Redo | `redo`
 Done | `done INDEX`
 List | `list [done]`
 Find | `find NAME`
-Help | `help`
+Store| `store FILEPATH`
 Exit | `exit`
