@@ -430,6 +430,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     @Override
     public boolean equals(Object other) {
+//        System.out.println("========");
+//        for (Task t : this.tasks.getInternalList()) {
+//            System.out.println(t.getName());
+//        }
+//        System.out.println("++++++++");
+//        for (Task t : ((TaskManager) other).tasks.getInternalList()) {
+//            System.out.println(t.getName());
+//        }
+//        System.out.println(this.tasks.equals(((TaskManager) other).tasks));
+//        System.out.println(this.floatingTasks.equals(((TaskManager) other).floatingTasks));
+//        System.out.println(this.events.equals(((TaskManager) other).events));
+//        System.out.println(this.deadlines.equals(((TaskManager) other).deadlines));
+//        System.out.println(this.tags.equals(((TaskManager) other).tags));
+//        System.out.println(this.archives.equals(((TaskManager) other).archives));
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && this.tasks.equals(((TaskManager) other).tasks)
