@@ -32,7 +32,7 @@ public class UpdateCommand extends UndoAndRedo {
     public static final String MESSAGE_USAGE = COMMAND_WORD 
             + ": Updates the description/date/time/tag of the task identified by the index number used in the last task listing.\n"
             + "Parameters: todo/schedule INDEX (must be a positive integer) description/date/time/tag DESCRIPTION/DATE/TIME/TAG\n"
-            + "Example: " + COMMAND_WORD + " todo 1 tag priority low";
+            + "Example: " + COMMAND_WORD + " todo 1 date from 23/2/2017 to 22/9/2017";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
