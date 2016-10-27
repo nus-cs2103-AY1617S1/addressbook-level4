@@ -140,7 +140,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, uncompleteTask);
         history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, uncompleteTask.getImmutable()));
     }
-    
+    //@@author
     /**
      * Removes the equivalent task from the list.
      *

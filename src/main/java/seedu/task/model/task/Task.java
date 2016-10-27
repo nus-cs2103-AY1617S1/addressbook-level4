@@ -75,6 +75,7 @@ public class Task implements ReadOnlyTask {
         return closeTime;
     }
     
+    //@@author A0153467Y
     @Override
     public boolean getImportance() {
         return isImportant;
@@ -84,7 +85,7 @@ public class Task implements ReadOnlyTask {
     public boolean getComplete() {
         return isCompleted;
     }
-
+    //@@author
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);

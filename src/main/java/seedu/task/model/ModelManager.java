@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+    //@@author
     @Override
     public synchronized void rollback() {
         taskManager.rollback();
@@ -112,6 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    //@@author
     //=========== Filtered Task List Accessors ===============================================================
      
     @Override

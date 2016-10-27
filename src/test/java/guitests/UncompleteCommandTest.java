@@ -7,13 +7,12 @@ import static seedu.task.logic.commands.UncompleteCommand.MESSAGE_UNCOMPLETE_TAS
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
-import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestTask;
 
 public class UncompleteCommandTest extends TaskManagerGuiTest {
     @Test
-    public void uncomplete() throws IllegalValueException {
+    public void uncomplete() {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
 

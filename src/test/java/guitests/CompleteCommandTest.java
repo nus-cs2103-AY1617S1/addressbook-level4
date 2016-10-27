@@ -7,13 +7,12 @@ import static seedu.task.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SU
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
-import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestTask;
 
 public class CompleteCommandTest extends TaskManagerGuiTest {
     @Test
-    public void complete() throws IllegalValueException {
+    public void complete() {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
 

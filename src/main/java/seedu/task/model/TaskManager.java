@@ -121,7 +121,6 @@ public class TaskManager implements ReadOnlyTaskManager {
      */
     
     public void completeTask(ReadOnlyTask originalTask, Task completeTask) {
-    	syncTagsWithMasterList(completeTask);
     	tasks.complete(originalTask,completeTask); 
     }
     
@@ -133,10 +132,9 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @param uncompleteTask refers to task which is now marked as not complete
      */
     public void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask) {
-        syncTagsWithMasterList(uncompleteTask);
         tasks.uncomplete(originalTask,uncompleteTask); 
     }
-    
+    //@@author
     /**
      * Ensures that every tag in this task: - exists in the master list
      * {@link #tags} - points to a Tag object in the master list

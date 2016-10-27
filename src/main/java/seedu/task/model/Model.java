@@ -41,7 +41,7 @@ public interface Model {
     //@@author A0153467Y
     /** Unmark the given important task */
     void uncompleteTask(ReadOnlyTask originalTask, Task uncompletedTask);
-    
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
