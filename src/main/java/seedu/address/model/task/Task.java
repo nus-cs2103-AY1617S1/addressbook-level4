@@ -15,7 +15,7 @@ import java.util.Objects;
  * Represents a Task in the end book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask, ModifyTask {
+public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
 
     private Name name;
     private Date date;
@@ -227,5 +227,12 @@ public class Task implements ReadOnlyTask, ModifyTask {
     public String toString() {
         return getAsText();
     }
+
+    @Override
+    public int compareTo(Task other) {
+        
+        return this.date.compareTo(other.date);
+    }
+    
 
 }
