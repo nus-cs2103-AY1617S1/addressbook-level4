@@ -1,7 +1,6 @@
 package seedu.todolist.model;
 
 import seedu.todolist.commons.core.UnmodifiableObservableList;
-import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;

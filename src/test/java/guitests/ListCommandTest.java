@@ -55,7 +55,7 @@ public class ListCommandTest extends AddressBookGuiTest {
 	}
 	
 	@Test
-	public void list_invalidCommand_fail() {
+	public void listInvalidCommand() {
 		commandBox.runCommand("listtoday");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 	}
@@ -64,7 +64,7 @@ public class ListCommandTest extends AddressBookGuiTest {
 		commandBox.runCommand(command);
         assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
         assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
-        if (command.equals("list")) {
+        if ("list".equals(command)) {
         	assertResultMessage(ListCommand.MESSAGE_ALLTASKS_SUCCESS);
         }
         else {

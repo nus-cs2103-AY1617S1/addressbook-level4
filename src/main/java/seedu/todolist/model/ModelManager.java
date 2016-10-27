@@ -273,13 +273,13 @@ public class ModelManager extends ComponentManager implements Model {
         	
         	if (task.getInterval().isDeadlineWithTime() || task.getInterval().isDeadlineWithoutTime()) {
             	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
-            	if (dateFilter.equals("today")) {
+            	if ("today".equals(dateFilter)) {
                 	return taskEndDate.equals(currentDate);
                 }
-                else if (dateFilter.equals("week")) {
+                else if ("week".equals(dateFilter)) {
                 	return (!taskEndDate.isBefore(currentWeekStart) && !taskEndDate.isAfter(currentWeekEnd));
                 }
-                else if (dateFilter.equals("month")) {
+                else if ("month".equals(dateFilter)) {
                 	return (!taskEndDate.isBefore(currentMonthStart) && !taskEndDate.isAfter(currentMonthEnd));
                 } 
                 else {
@@ -290,13 +290,13 @@ public class ModelManager extends ComponentManager implements Model {
         	else {
         		LocalDate taskStartDate = task.getInterval().getStartDate().getDate();
             	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
-            	if (dateFilter.equals("today")) {
+            	if ("today".equals(dateFilter)) {
                 	return (!taskEndDate.isBefore(currentDate) && !taskStartDate.isAfter(currentDate));
                 }
-                else if (dateFilter.equals("week")) {
+                else if ("week".equals(dateFilter)) {
                 	return (!taskEndDate.isBefore(currentWeekStart) && !taskStartDate.isAfter(currentWeekEnd));
                 }
-                else if (dateFilter.equals("month")) {
+                else if ("month".equals(dateFilter)) {
                 	return (!taskEndDate.isBefore(currentMonthStart) && !taskStartDate.isAfter(currentMonthEnd));
                 } 
                 else {

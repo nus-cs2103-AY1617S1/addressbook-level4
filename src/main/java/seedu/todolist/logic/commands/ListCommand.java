@@ -29,10 +29,9 @@ public class ListCommand extends Command {
     		model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_ALLTASKS_SUCCESS);
     	}
-    	else if (!(dateFilter.equals("today") || dateFilter.equals("week") || dateFilter.equals("month"))) {
-            if (!isValidDate(dateFilter)) {
-                return new CommandResult(MESSAGE_FILTER_INVALID);
-            }
+    	else if (!(dateFilter.equals("today") || dateFilter.equals("week") || dateFilter.equals("month"))
+    			&& !isValidDate(dateFilter)) {
+            return new CommandResult(MESSAGE_FILTER_INVALID);
     	}
     	
 		try {
@@ -44,9 +43,6 @@ public class ListCommand extends Command {
     }
     
     private boolean isValidDate(String test) {
-        if (test.matches(TaskDate.DATE_VALIDATION_REGEX_FORMAT)) {
-            return true;
-        }
-        return false;
+        return (test.matches(TaskDate.DATE_VALIDATION_REGEX_FORMAT));
     }
 }
