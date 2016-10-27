@@ -111,6 +111,15 @@ public class ArgumentTokenizer {
         
         return outputValue;
     }
+    
+    
+    
+    /**
+     * Returns true if prefix exists.
+     */
+    public boolean hasPrefix(Prefix prefix) {
+    	return this.tokenizedArguments.containsKey(prefix);
+    }
 
     /**
      * Returns all values of given prefix.
@@ -138,6 +147,7 @@ public class ArgumentTokenizer {
         } else {
             return Optional.empty();
         }
+        
     }
 
     private void resetTokenizerState() {

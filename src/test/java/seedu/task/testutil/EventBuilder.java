@@ -17,8 +17,8 @@ public class EventBuilder {
 		return this;
 	}
 	
-	public EventBuilder withDuration(String duration) throws IllegalValueException {
-		this.event.setEventDuration(new EventDuration(duration,""));
+	public EventBuilder withDuration(String start, String end) throws IllegalValueException {
+		this.event.setEventDuration(new EventDuration(start,end));
 		return this;
 	}
 	

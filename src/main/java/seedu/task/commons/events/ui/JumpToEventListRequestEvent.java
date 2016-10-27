@@ -1,6 +1,7 @@
 package seedu.task.commons.events.ui;
 
 import seedu.task.commons.events.BaseEvent;
+import seedu.task.model.item.ReadOnlyEvent;
 
 /**
  * Indicates a request to jump to the list of items
@@ -8,9 +9,11 @@ import seedu.task.commons.events.BaseEvent;
 public class JumpToEventListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
-
-    public JumpToEventListRequestEvent(int targetIndex) {
+    public final ReadOnlyEvent targetEvent;
+    
+    public JumpToEventListRequestEvent(ReadOnlyEvent event, int targetIndex) {
         this.targetIndex = targetIndex;
+        this.targetEvent = event;
     }
 
     @Override

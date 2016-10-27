@@ -1,5 +1,8 @@
 package seedu.task.ui;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,7 +14,7 @@ import javafx.stage.Stage;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
-import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
 
@@ -25,6 +28,7 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+	
 
     private Logic logic;
 
@@ -36,6 +40,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private CalendarPanel calendarPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -60,6 +65,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane calendarPlaceholder;
 
 
     public MainWindow() {
@@ -82,6 +90,7 @@ public class MainWindow extends UiPart {
         mainWindow.configure(config.getAppTitle(), config.getTaskBookName(), config, prefs, logic);
         return mainWindow;
     }
+
 
     private void configure(String appTitle, String taskBookName, Config config, UserPrefs prefs,
                            Logic logic) {
@@ -108,7 +117,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-
+    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -116,7 +125,11 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
+    private AnchorPane getCalendarPlaceholder() {
+		return calendarPlaceholder;
+	}
+
+	private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
@@ -194,5 +207,18 @@ public class MainWindow extends UiPart {
     public EventListPanel getEventListPanel() {
         return this.eventListPanel;
     }
+    
+    public CalendarPanel getCalendarPanel() {
+        return this.calendarPanel;
+    }
+    
+	public void updateCalendarEvent(List<ReadOnlyEvent> eventList) {
+		this.calendarPanel.refresh(eventList);
+	}
+
+	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {
+		this.calendarPanel.updateCalendarMode(calendarViewMode);
+		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
+	}
 
 }

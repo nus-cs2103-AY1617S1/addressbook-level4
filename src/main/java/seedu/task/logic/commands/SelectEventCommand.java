@@ -28,8 +28,10 @@ public class SelectEventCommand extends SelectCommand {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		}
-
-		EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex - 1));
+		
+		ReadOnlyEvent targetEvent = model.getFilteredEventList().get(targetIndex-1);
+		
+		EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetEvent, targetIndex - 1));
 		return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex));
 
 	}

@@ -7,10 +7,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.task.MainApp;
+import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
+import seedu.task.commons.events.ui.UpdateCalendarEvent;
+import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
@@ -119,17 +122,21 @@ public class UiManager extends ComponentManager implements Ui {
 	}
 
 	@Subscribe
-	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) {
+	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) throws CalendarUnsyncException {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
+		mainWindow.getCalendarPanel().select(event.targetEvent);
 	}
-
-	// @Subscribe
-	// private void
-	// handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent
-	// event){
-	// logger.info(LogsCenter.getEventHandlingLogMessage(event));
-	// mainWindow.loadTaskPage(event.getNewSelection());
-	// }
-
+	
+	@Subscribe
+	private void handleEventListUpdatedEvent(TaskBookChangedEvent event) {
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		mainWindow.updateCalendarEvent(event.data.getEventList());
+	}
+	
+	@Subscribe 
+	private void handleCalendarViewUpdatedEvent(UpdateCalendarEvent event){
+		logger.info(LogsCenter.getEventHandlingLogMessage(event));
+		mainWindow.updateCalendarView(event.getDisplayedDateTime(), event.getCalendarViewMode());
+	}
 }

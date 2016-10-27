@@ -14,6 +14,8 @@ public class Flag {
     public static final String nameFlag = "/name";
     public static final String durationStartFlag = "/from";
     public static final String durationEndFlag = "/to";
+	public static final String calendarWeek = "/wk";
+	public static final String calendarDay = "/day";
 
 }
 

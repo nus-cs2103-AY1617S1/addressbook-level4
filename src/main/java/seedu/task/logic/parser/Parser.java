@@ -17,6 +17,8 @@ public interface Parser {
     public static final Prefix deadlinePrefix = new Prefix(Flag.deadlineFlag);
     public static final Prefix durationStartPrefix = new Prefix(Flag.durationStartFlag);
     public static final Prefix durationEndPrefix = new Prefix(Flag.durationEndFlag);  
+    public static final Prefix calendarViewWeekPrefix = new Prefix(Flag.calendarWeek);
+    public static final Prefix calendarViewDayPrefix = new Prefix(Flag.calendarDay);
     
     /**
      * Prepares the command and returns the prepared Command.

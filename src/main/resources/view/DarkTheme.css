@@ -1,31 +1,35 @@
+.root {
+	-fx-font-family: "Times New Roman";
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Times New Roman";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Century Gothic";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 20pt;
+    -fx-font-family: "Times New Roman";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Times New Roman";
 }
 
 .tab-pane {
@@ -283,6 +287,6 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #taskListPanel, #eventListPanel{
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

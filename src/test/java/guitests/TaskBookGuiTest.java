@@ -49,6 +49,7 @@ public abstract class TaskBookGuiTest {
     protected EventListPanelHandle eventListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
+    protected CalendarHandle calendar;
     private Stage stage;
 
     @BeforeClass
@@ -70,6 +71,7 @@ public abstract class TaskBookGuiTest {
             eventListPanel = mainGui.getEventListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
+            calendar = mainGui.getCalendar();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();

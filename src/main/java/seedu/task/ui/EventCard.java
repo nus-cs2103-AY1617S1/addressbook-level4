@@ -24,9 +24,6 @@ public class EventCard extends UiPart {
     private ReadOnlyEvent event;
     private int displayedIndex;
 
-    public EventCard(){
-
-    }
 
     public static EventCard load(ReadOnlyEvent event, int displayedIndex){
         EventCard card = new EventCard();
@@ -41,6 +38,7 @@ public class EventCard extends UiPart {
         index.setText(displayedIndex + ". ");
         description.setText(event.getDescriptionValue());
         duration.setText(event.getDuration().toString());
+        
     }
 
     public HBox getLayout() {
