@@ -107,16 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
         switch (operand) {
         case "pr/":
-            updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keywords)));
             break;
         case "t/":
-            updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
             break;
-        case "start/":
-            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("start", keywords)));    
+        case "st/":
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("start", keywords)));
             break;
-        case "end/":
-            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("end", keywords)));    
+        case "ed/":
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("end", keywords)));
             break;
         default:
             updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -238,7 +238,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     private class TimeQualifier implements Qualifier {
         private Time time;
         private String arg;
