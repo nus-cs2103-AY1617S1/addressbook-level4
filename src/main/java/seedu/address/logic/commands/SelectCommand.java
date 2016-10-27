@@ -39,21 +39,15 @@ public class SelectCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-        	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.DATED_LIST));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.DATED_LIST));
         }
         else {
-        	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.UNDATED_LIST));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.UNDATED_LIST));
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-
-    }
-
-    @Override
-    public boolean isMutating() {
-        return false;
     }
 
 }
