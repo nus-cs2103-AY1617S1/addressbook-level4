@@ -21,6 +21,7 @@ import seedu.taskscheduler.model.TaskScheduler;
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 import seedu.taskscheduler.storage.XmlSerializableTaskScheduler;
 
 import java.io.File;
@@ -30,7 +31,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -67,7 +67,7 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new TaskDateTime("090909"), new TaskDateTime("090909"), new Location("4th street"), new UniqueTagList(new Tag("Event")))
+                    new Task(new Name("Ali Muster"), new TaskDateTime("090909"), new TaskDateTime("090909"), new Location("4th street"), TaskType.EVENT, new UniqueTagList(new Tag("Event")))
 //                    new Task(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
 //                    new Task(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
 //                    new Task(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
@@ -334,7 +334,7 @@ public class TestUtil {
 
     public static Tag[] getTagList(String tags) {
 
-        if (tags.equals("")) {
+        if (tags.isEmpty()) {
             return new Tag[]{};
         }
 

@@ -57,7 +57,7 @@ public class ConfigUtil {
         assert config != null;
         assert configFilePath != null;
  
-        if (config.getAppTitle() == "Test App") {
+        if (config.getAppTitle().equals("Test App")) {
             FileUtil.serializeObjectToJsonFile(new File("ConfigTest.json"), config);
         }
         else {

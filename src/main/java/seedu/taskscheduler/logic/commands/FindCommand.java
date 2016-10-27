@@ -2,6 +2,8 @@ package seedu.taskscheduler.logic.commands;
 
 import java.util.Set;
 
+//@@author A0148145E
+
 /**
  * Finds and lists all tasks in task scheduler whose task name contains any of the argument keywords.
  * Keyword matching is not case sensitive.
@@ -15,7 +17,7 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD...\n"
             + "Example: " + COMMAND_WORD + " CS2103 Tutorial";
 
-    private final Set<String> keywords;
+    private Set<String> keywords;
 
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
@@ -24,7 +26,28 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
+        Set<String> temp = CommandHistory.getFilteredKeyWords();
+        CommandHistory.setFilteredKeyWords(keywords);
+        keywords = temp;
+        CommandHistory.addExecutedCommand(this);
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredTaskList().size()));
+    }
+
+    @Override
+    public CommandResult revert() {
+        String message;
+        if (keywords == null) {
+            model.updateFilteredListToShowAll();
+            message = ListCommand.MESSAGE_SUCCESS;
+        } else {
+            model.updateFilteredTaskList(keywords);
+            message = getMessageForPersonListShownSummary(model.getFilteredTaskList().size());
+        }
+        Set<String> temp = CommandHistory.getFilteredKeyWords();
+        CommandHistory.setFilteredKeyWords(keywords);
+        keywords = temp;
+        CommandHistory.addRevertedCommand(this);
+        return new CommandResult(message);
     }
 
 }

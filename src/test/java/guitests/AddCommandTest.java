@@ -10,25 +10,38 @@ import seedu.taskscheduler.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0140007B
+
 public class AddCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void add() {
-        //add one task
+        //add event task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.event;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another task
-        taskToAdd = td.ida;
+        //add deadline task
+        taskToAdd = td.deadline;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate task
-        commandBox.runCommand(td.hoon.getAddCommand());
+        //add floating task
+        taskToAdd = td.floating;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+        //add duplicate tasks
+        commandBox.runCommand(td.event.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.listContainsAll(currentList));
+        commandBox.runCommand(td.deadline.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.listContainsAll(currentList));
+        commandBox.runCommand(td.floating.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.listContainsAll(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -48,7 +61,7 @@ public class AddCommandTest extends TaskSchedulerGuiTest {
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.listContainsAll(expectedList));
     }
 
 }

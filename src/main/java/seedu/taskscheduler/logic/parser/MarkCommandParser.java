@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.logic.commands.MarkCommand;
 
+//@@author A0148145E
+
+/**
+* Parses mark command user input.
+*/
 public class MarkCommandParser extends CommandParser {
 
     /**

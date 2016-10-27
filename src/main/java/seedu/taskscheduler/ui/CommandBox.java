@@ -2,7 +2,6 @@ package seedu.taskscheduler.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -15,7 +14,8 @@ import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.taskscheduler.commons.util.FxViewUtil;
 import seedu.taskscheduler.logic.Logic;
-import seedu.taskscheduler.logic.commands.*;
+import seedu.taskscheduler.logic.commands.CommandHistory;
+import seedu.taskscheduler.logic.commands.CommandResult;
 
 import java.util.logging.Logger;
 
@@ -26,7 +26,7 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    String previousCommandTest;
+    private String previousCommandTest;
 
     private Logic logic;
 
@@ -75,7 +75,7 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
-
+        
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
@@ -85,6 +85,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
+    //@@author A0140007B
     @FXML
     private void handleKeyPressedEvent(KeyEvent keyEvent) {
     	if (keyEvent.getCode() == KeyCode.DOWN) {
@@ -93,6 +94,7 @@ public class CommandBox extends UiPart {
     		commandTextField.setText(CommandHistory.getPrevCmd());
     	}
     }
+    //@@author
 
 
     /**

@@ -42,8 +42,6 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-    public MainApp() {}
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing TaskScheduler ]===========================");
@@ -182,7 +180,8 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-
+    
+    //@@author A0138696L
     @Subscribe
     public void changeFilePathRequestEvent(FilePathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -192,8 +191,8 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
-        storage.setTaskSchedulerFilePath(event.toString());
     }
+    //@@author
     
     public static void main(String[] args) {
         launch(args);

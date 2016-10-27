@@ -1,3 +1,5 @@
+<!-- @@author A0140007B -->
+
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -139,7 +141,7 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/seedu/taskscheduler/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+`StatusBarFooter` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -299,7 +301,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task by task name | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task date | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task time| locate details of tasks without having to go through the entire task list
-`* * *` | user | select a task | see the full detail of the selected task 
+`* * *` | user | set the data file path | save the data to where i want 
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | clear all tasks | start a fresh task list 
 `* * *` | user | edit a task | edit details without re-entry
@@ -394,7 +396,6 @@ Use case ends.
 2. MustDoList shows a list of tasks
 3. User requests to select the index of a specific task in the list
 4. MustDoList highlight the selected task in the list
-5. MustDoList open the browser and search for task name <br>
 Use case ends.
 
 **Extensions**

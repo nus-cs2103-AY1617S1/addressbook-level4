@@ -13,7 +13,12 @@ public interface ReadOnlyTask {
     TaskDateTime getEndDate();
     Location getLocation();
     ReadOnlyTask copy();
-
+    boolean getCompleteStatus();
+    TaskType getType();
+    
+    public enum TaskType {
+        FLOATING, DEADLINE, EVENT
+    }
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -62,7 +67,8 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
+    
+    //@@author A0138696L
     /**  
      * For FindCommand to Formats the task as text,   
      * showing all parameters details.  
@@ -77,9 +83,12 @@ public interface ReadOnlyTask {
             .append(" ")  
             .append(getLocation())  
             .append(" ");  
-        getTags().forEach(b -> builder.append(b.tagName + " "));  
+        getTags().forEach(b -> builder.append(b.tagName + " ")); 
+        builder.append(getCompleteStatus() ? " completed" : " incomplete");
+        builder.append(" " + getType());
         return builder.toString();  
     }  
+    //@@author
     
     default boolean equals(ReadOnlyTask other) {
         return isSameStateAs(other);

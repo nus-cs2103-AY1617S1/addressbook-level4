@@ -1,12 +1,26 @@
 package seedu.taskscheduler.logic.parser;
 
+import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.commands.Command;
+import seedu.taskscheduler.model.task.DeadlineTask;
+import seedu.taskscheduler.model.task.EventTask;
+import seedu.taskscheduler.model.task.FloatingTask;
+import seedu.taskscheduler.model.task.Location;
+import seedu.taskscheduler.model.task.Name;
+import seedu.taskscheduler.model.task.Task;
+import seedu.taskscheduler.model.task.TaskDateTime;
 
+//@@author A0148145E
+
+/**
+ * Represents a command parser with hidden internal logic and the ability to be executed.
+ */
 public abstract class CommandParser {
 
     protected static final String START_DATE_DELIMITER = "s/";
@@ -18,22 +32,31 @@ public abstract class CommandParser {
 
     protected static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+   
     protected static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " "
-                    + START_DATE_DELIMITER
-                    + "(?<startDate>[^/]*)"
-                    + " "
-                    + END_DATE_DELIMITER
+            Pattern.compile("(?<name>.+)"
+                    + "(?>\\s+\\bfrom\\b)"
+                    + "(?<startDate>.*)"
+                    + "(?>\\s+\\bto\\b)"
                     + "(?<endDate>.*)"
                     + "(?>\\s+\\bat\\b)"
                     + "(?<address>.*)"
-                    ); 
- 
+                    );  
+//    protected static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+//            Pattern.compile("(?<name>[^/]+)"
+//                    + " "
+//                    + START_DATE_DELIMITER
+//                    + "(?<startDate>[^/]*)"
+//                    + " "
+//                    + END_DATE_DELIMITER
+//                    + "(?<endDate>.*)"
+//                    + "(?>\\s+\\bat\\b)"
+//                    + "(?<address>.*)"
+//                    ); 
+// 
     protected static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+?)"
-                    + "(?>(\\s+\\b(by|in|at|on)\\b))"
+                    + "(?>(\\s+\\b(by|on)\\b))"
                     + "(?<endDate>.*)"
                     );
     
@@ -62,4 +85,40 @@ public abstract class CommandParser {
     }
 
     public abstract Command prepareCommand(String args);
+    
+    /**
+     * @param args that represents a task string
+     * @return generated Task
+     * @throws IllegalValueException if Task parameters are incorrect
+     * @throws InputMismatchException if incorrect format
+     */
+    protected Task generateTaskFromArgs(String args) throws IllegalValueException, InputMismatchException{
+        Matcher taskMatcher;
+        
+        taskMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
+        if (taskMatcher.matches()) {
+            return new EventTask(new Name(taskMatcher.group("name")), new TaskDateTime(taskMatcher.group("startDate")),
+                    new TaskDateTime(taskMatcher.group("endDate")), new Location(taskMatcher.group("address")));
+        } else if (containsDelimiters(args)) {
+            throw new InputMismatchException();
+        }
+        
+        
+        taskMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
+        if (taskMatcher.matches()) {
+            return new DeadlineTask(new Name(taskMatcher.group("name")),
+                    new TaskDateTime(taskMatcher.group("endDate")));
+        }
+        
+        taskMatcher = FLOATING_DATA_ARGS_FORMAT.matcher(args);
+        if (taskMatcher.matches()) {
+            return new FloatingTask(new Name(taskMatcher.group("name")));
+        }
+        return null;
+    }
+    
+    private boolean containsDelimiters(String args) {
+        return (args.contains(START_DATE_DELIMITER) 
+                || args.contains(END_DATE_DELIMITER));
+    }
 }

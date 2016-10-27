@@ -24,11 +24,10 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
-        if (!isValidTagName(name)) {
+        if (!isValidTagName(name.trim())) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = name;
+        this.tagName = name.trim();
     }
 
     /**

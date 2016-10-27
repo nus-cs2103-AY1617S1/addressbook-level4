@@ -1,20 +1,18 @@
 package seedu.taskscheduler.ui;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 
+
+/**
+ * Represents task card in Ui
+ */
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
@@ -39,10 +37,6 @@ public class TaskCard extends UiPart{
 
     public static final String COMPLETED_INDICATION = "-fx-background-color: #ccffcc;";
     public static final String OVERDUE_INDICATION = "-fx-background-color:  #ffcce6;";
-    
-    public TaskCard(){
-
-    }
 
     public static TaskCard load(ReadOnlyTask person, int displayedIndex){
         TaskCard card = new TaskCard();
@@ -76,23 +70,23 @@ public class TaskCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
-    
+
+    //@@author A0148145E
     public void hideFieldsAccordingToType(ReadOnlyTask task) {
-        
-        if (task.tagsString().contains("Event")) {
-        } else if (task.tagsString().contains("Deadline")) {
+        if (task.getType() == TaskType.DEADLINE) {
             phone.setVisible(false);
             address.setVisible(false);
-        } else {
+        } else if (task.getType() == TaskType.FLOATING) {
             phone.setVisible(false);
             address.setVisible(false);
             email.setVisible(false);
         }
     }
-    
+
+    //@@author A0148145E
     public void indicatingColourByCondition(ReadOnlyTask task) {
         
-        if (task.tagsString().contains("Completed")) {
+        if (task.getCompleteStatus()) {
             // if task completed
             cardPane.setStyle(COMPLETED_INDICATION);
         } else if (task.getEndDate().getDate() != null && task.getEndDate().getDate().before(new Date())) {

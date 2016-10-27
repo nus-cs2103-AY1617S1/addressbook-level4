@@ -4,6 +4,8 @@ import seedu.taskscheduler.commons.util.CollectionUtil;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.*;
 
+//@@author A0148145E
+
 /**
  * A mutable person object. For testing only.
  */
@@ -14,6 +16,8 @@ public class TestTask implements ReadOnlyTask {
     private TaskDateTime startDateTime;
     private TaskDateTime endDateTime;
     private UniqueTagList tags;
+    private boolean completeStatus;
+    private TaskType type;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -25,6 +29,7 @@ public class TestTask implements ReadOnlyTask {
         this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
         this.tags = new UniqueTagList(tags);
+        this.completeStatus = false;
     }
     public TestTask(ReadOnlyTask source) {
         this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
@@ -77,19 +82,20 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("s/" + this.getStartDate() + " ");
-        sb.append("e/" + this.getEndDate() + " ");
-        sb.append("at" + " " + this.getLocation().value);
-//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
+        return "add " + getTaskString();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("add " + this.getName().fullName + " ");
+//        sb.append("s/" + this.getStartDate() + " ");
+//        sb.append("e/" + this.getEndDate() + " ");
+//        sb.append("at" + " " + this.getLocation().value);
+////        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+//        return sb.toString();
     }
     
     public String getTaskString() {
-        if (this.getEndDate() == null) {
+        if (this.getEndDate().toString().isEmpty()) {
             return getFloatingString();
-        } else if (this.getStartDate() == null) {
+        } else if (this.getStartDate().toString().isEmpty()) {
             return getDeadlineString();
         } else {
             return getEventString();
@@ -111,8 +117,8 @@ public class TestTask implements ReadOnlyTask {
     private String getEventString() {
         StringBuilder sb = new StringBuilder();
         sb.append(" " + this.getName().fullName + " ");
-        sb.append("s/" + this.getStartDate() + " ");
-        sb.append("e/" + this.getEndDate() + " ");
+        sb.append("from " + this.getStartDate() + " ");
+        sb.append("to " + this.getEndDate() + " ");
         sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -130,5 +136,18 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public TestTask copy() {
         return new TestTask(this);
+    }
+    @Override
+    public boolean getCompleteStatus() {
+        return completeStatus;
+    }
+    
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+
+    public void setType(TaskType type) {
+        this.type = type;
     }
 }

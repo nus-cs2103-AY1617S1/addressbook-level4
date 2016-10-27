@@ -10,11 +10,17 @@ import seedu.taskscheduler.ui.TaskCard;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MarkCommandTest extends TaskSchedulerGuiTest {
 
+public class MarkCommandTest extends TaskSchedulerGuiTest {
+    
+    //@@author A0138696L
     @Test
     public void mark() {
 
+        //mark without index given
+        commandBox.runCommand("mark");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        
         //mark the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
@@ -44,6 +50,7 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
 
     }
 
+    //@@author A0148145E
     /**
      * Runs the mark command to mark the task at specified index as completed and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to mark the first task in the list, 1 should be given as the target index.
@@ -56,7 +63,6 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand("mark " + targetIndexOneIndexed);
         
         //confirm the task card is now marked completed.
-        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getTags().contains("[Completed]"));
         assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
         assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
         //confirm the result message is correct

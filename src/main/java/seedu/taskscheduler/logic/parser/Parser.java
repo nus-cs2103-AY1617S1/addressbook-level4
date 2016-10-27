@@ -1,14 +1,15 @@
 package seedu.taskscheduler.logic.parser;
 
-import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.logic.commands.*;
 
 import static seedu.taskscheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskscheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.taskscheduler.logic.commands.Command;
+import seedu.taskscheduler.logic.commands.HelpCommand;
+import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
 /**
  * Parses user input.
@@ -22,6 +23,7 @@ public class Parser {
     
     public Parser() {}
 
+    //@@author A0148145E
     /**
      * Parses user input into command for execution.
      *
@@ -44,27 +46,28 @@ public class Parser {
                     +   "CommandParser";
                     
             CommandParser commandParser = (CommandParser)Class.forName(className).newInstance();
-            return commandParser.prepareCommand(arguments);
+            return commandParser.prepareCommand(arguments.trim());
             
         } catch (Exception e) {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         } 
 
     }
+    //@@author 
     
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
+//    /**
+//     * Extracts the new task's tags from the add command's tag arguments string.
+//     * Merges duplicate tag strings.
+//     */
+//    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+//        // no tags
+//        if (tagArguments.isEmpty()) {
+//            return Collections.emptySet();
+//        }
+//        // replace first delimiter prefix, then split
+//        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+//        return new HashSet<>(tagStrings);
+//    }
 
 
 }

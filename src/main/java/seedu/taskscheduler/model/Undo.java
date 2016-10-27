@@ -1,13 +1,11 @@
 package seedu.taskscheduler.model;
 
-import java.util.ArrayList;
-
-import seedu.taskscheduler.model.task.Task;
-
+//@@author A0140007B-unused
+//Unused due to changing UndoCommand to OCP format
 /**
  * Represents the undo model.
  */
-
+/*
 public class Undo {
 	
 	private final ArrayList<Task> taskList = new ArrayList<Task>();
@@ -61,3 +59,4 @@ public class Undo {
 		return commandKey;
 	}
 }
+*/

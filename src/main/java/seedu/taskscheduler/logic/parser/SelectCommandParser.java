@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.logic.commands.SelectCommand;
 
+//@@author A0148145E
+
+/**
+* Parses select command user input.
+*/
 public class SelectCommandParser extends CommandParser {
 
     /**

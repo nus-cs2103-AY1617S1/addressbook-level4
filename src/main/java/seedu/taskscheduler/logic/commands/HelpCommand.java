@@ -2,6 +2,7 @@ package seedu.taskscheduler.logic.commands;
 
 
 import seedu.taskscheduler.commons.core.EventsCenter;
+import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
 
 /**
@@ -22,5 +23,13 @@ public class HelpCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
+    }
+
+    //@@author A0148145E
+    @Override
+    public CommandResult revert() {
+        // This command not available for revert
+        assert false : Messages.MESSAGE_PROGRAM_ERROR;
+        return null;
     }
 }

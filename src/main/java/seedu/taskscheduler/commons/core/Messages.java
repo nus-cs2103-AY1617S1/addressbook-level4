@@ -13,4 +13,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Incorrect time format";
 
     public static final String MESSAGE_TASK_CANNOT_BE_MISSING = "The task cannot be missing";
+    public static final String MESSAGE_TASK_CANNOT_BE_DUPLICATED = "The task cannot be duplicated";
+    
+    public static final String MESSAGE_PROGRAM_ERROR = "Program not suppose to execute this!";
+    
+    public static final String MESSAGE_PREV_TASK_NOT_FOUND = "There is no previous modified task.";
 }

@@ -5,6 +5,11 @@ import java.util.Date;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.DateFormatter;
 
+//@@author A0148145E
+
+/**
+* Represents the Task date and time model.
+*/
 public class TaskDateTime {
 
     private Date date;

@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.logic.commands.SetpathCommand;
 
+//@@author A0138696L
+
+/**
+* Parses setpath command user input.
+*/
 public class SetpathCommandParser extends CommandParser {
 
     /**
@@ -17,8 +22,8 @@ public class SetpathCommandParser extends CommandParser {
      * @return the custom saved path
      */
 
+    @Override
     public Command prepareCommand(String args) {
-        args = args.trim();
         Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
         // Validate arg string format
         if (matcher.matches()) {

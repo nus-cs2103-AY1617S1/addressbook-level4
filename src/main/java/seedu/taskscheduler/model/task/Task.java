@@ -2,12 +2,11 @@ package seedu.taskscheduler.model.task;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
-import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
-import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.Objects;
 
+//@@author A0148145E
 /**
  * Represents a Task in the task scheduler.
  * Guarantees: details are present and not null, field values are validated.
@@ -18,26 +17,31 @@ public class Task implements ReadOnlyTask {
     private TaskDateTime startDateTime;
     private TaskDateTime endDateTime;
     private Location address;
+    private boolean completeStatus;
+    private TaskType type;
     
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
+    public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, TaskType type, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
         this.startDateTime = new TaskDateTime(startDateTime);
         this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
-        this.tags = new UniqueTagList(tags);
+        this.tags = tags;
+        this.type = type;
+        this.completeStatus = false;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getType(), source.getTags());
+        this.completeStatus = source.getCompleteStatus();
     }
 
     @Override
@@ -58,6 +62,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Location getLocation() {
         return address;
+    }
+    
+    @Override
+    public boolean getCompleteStatus() {
+        return completeStatus;
     }
     
     public void setName(Name name) {
@@ -85,24 +94,43 @@ public class Task implements ReadOnlyTask {
     
     /**
      * Add completed tag to indicate task done.
+     * @throws IllegalValueException 
      */
-    public void markComplete() throws DuplicateTagException {
-        try {
-            this.tags.add(new Tag("Completed"));
-        } catch (DuplicateTagException dte) { 
-            throw dte;
-        } catch (IllegalValueException ive) {
-            assert false : "The tag cannot be illegal value";
+    public void markComplete() throws IllegalValueException {
+        if (completeStatus) {
+            throw new IllegalValueException("");
+        } else {
+            completeStatus = true;
         }
+        
+//        try {
+//            this.tags.add(new Tag("Completed"));
+//        } catch (DuplicateTagException dte) { 
+//            throw dte;
+//        } catch (IllegalValueException ive) {
+//            assert false : "The tag cannot be illegal value";
+//        } 
     }
-    
-    public void copyField(Task task) {
-        setName(task.getName());
-        setStartDate(task.getStartDate());
-        setEndDate(task.getEndDate());
-        setLocation(task.getLocation());
-        setTags(task.getTags());
-     }
+
+    /**
+     * Add completed tag to indicate task done.
+     * @throws IllegalValueException 
+     */
+    public void unMarkComplete() throws IllegalValueException {
+        if (!completeStatus) {
+            throw new IllegalValueException("");
+        } else {
+            completeStatus = false;
+        }
+//        try {
+//            this.tags.remove(new Tag("Completed"));
+//        }
+//        catch (NullPointerException npe) { 
+//            throw npe;
+//        } catch (IllegalValueException ive) {
+//            assert false : "The tag cannot be illegal value";
+//        }
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -134,9 +162,19 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+    //@@author A0148145E 
     @Override
     public Task copy() {
         return new Task(this);
+    }
+
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+    
+    public void setType(TaskType type) {
+        this.type = type;
     }
 
 }
