@@ -74,38 +74,15 @@ public class TestPerson implements ReadOnlyTask {
         return sb.toString();
     }
 
-<<<<<<< HEAD
-    @Override
-    public boolean isComplete() {
-	// TODO Auto-generated method stub
-	return false;
-    }
-
-    @Override
-    public void setDate(Date date) {
-	// TODO Auto-generated method stub
-	
-    }
-
-    @Override
-    public void setStartTime(StartTime time) {
-	// TODO Auto-generated method stub
-	
-    }
-
-    @Override
-    public void setEndTime(EndTime time) {
-	// TODO Auto-generated method stub
-	
-    }
-
     @Override
     public void markAsComplete() {
 	// TODO Auto-generated method stub
 	
     }
-=======
 
-  
->>>>>>> d4e108625253240c38957191283928bf46b4f1f2
+    @Override
+    public String getCompletion() {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }
