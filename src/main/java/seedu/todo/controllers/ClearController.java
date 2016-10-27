@@ -18,6 +18,12 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.TodoListDB;
 
+/**
+ * Controller to clear task/event by type or status
+ * 
+ * @@author Tiong YaoCong A0139922Y
+ *
+ */
 public class ClearController implements Controller {
     
     private static final String NAME = "Clear";
