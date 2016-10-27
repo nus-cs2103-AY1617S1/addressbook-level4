@@ -735,10 +735,10 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2, threeTasks.get(1).getAsText()),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2, threeTasks.get(1).getAsText()),
+        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskComponentList());
         assertEquals(1, targetedJumpIndex);
