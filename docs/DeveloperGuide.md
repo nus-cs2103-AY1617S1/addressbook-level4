@@ -489,8 +489,9 @@ Cons:
 * Unable to check off completed event (only reminder can)
 * Unable to label event with categories
 * Event name gets truncated <br>
-<!-- @@author -->
+
 #### S Planner
+
 Pros:
 * Able to sync with another calendar product(i.e. Google calendar)
 * Able to set notifications
