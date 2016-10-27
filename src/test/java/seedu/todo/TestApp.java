@@ -29,11 +29,11 @@ public class TestApp extends MainApp {
     
     @Override
     public void init() throws Exception {
-        super.init();
-        
-        // Purge test JSON
+        // Purge old test JSON data before loading anything
         FileUtil.removeFile(new File(saveFileLocation));
         FileUtil.removeFile(new File(configFileLocation));
+        
+        super.init();
         
         // If some initial local data has been provided, load that data into TodoListDB instead.
         if (initialDataSupplier.get() != null) {
