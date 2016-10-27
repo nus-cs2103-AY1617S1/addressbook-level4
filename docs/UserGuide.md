@@ -136,6 +136,8 @@ list <category_name>
 > `Events`
 > `Deadlines`
 > `Archives`
+>
+> Quick Tip: You can also press <kbd>Ctrl</kbd> followed by '1', '2', '3', '4', '5' to switch to the respective tabs.
 
 ### Finding all tasks containing any keyword in their description: `find`
 
@@ -287,11 +289,12 @@ _Format:_
 upcoming
 ```
 
-> It shows all floating tasks as well.
+> Shows all floating tasks as well.
+> Does not show tasks that are already due.
 
 _Examples:_
 ```java
-// list all tasks that are due in a weeks time.
+// list all tasks that are due within a weeks time.
 > upcoming
 
 ```
@@ -325,6 +328,33 @@ _Examples:_
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
 ```
+### Unmarking a task : `unmark`
+
+Oh no! You realise that one of your task is not complete yet but you have marked it. Not to worry, you can `unmark` that task
+
+_Format:_
+```java
+unmark <index>
+```
+
+> ```mark``` only affects task that are not complete yet. It has no effect on completed task.
+
+_Examples:_
+```java
+// list all the task that are not completed
+> list archives
+
+// mark task at index 1 as completed
+> unmark 1
+```
+
+```java
+// use "find" command to look for a specific task
+> find CS2010
+
+// select the "find" result and mark the task at index 1 as completed
+> unmark 1
+
 ### Repeating a previous command: <kbd>↑</kdb>
 
 Lazy to retype a similar command? Want to paste the previous command back to the field?  
@@ -333,10 +363,6 @@ _Mastermind_ can do just that!
 _Format:_
 <kbd>↑</kdb>
 
-_Example:_
-```java
-// Successfully loaded previous input
-```
 
 ### Clearing all entries: `clear`
 
@@ -412,6 +438,7 @@ Undo | `undo`
 Redo | `redo`
 Upcoming | `upcoming`
 Mark | `mark <index>`
+Unmark | `unmark <index>`
 Previous | <kbd>↑</kdb>
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`

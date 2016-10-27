@@ -382,7 +382,7 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-upcoming-task) | Show upcoming Tasks  | Display floating tasks and task that is due in a weeks time. |
 | [UC10](#uc10-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC11](#uc11-repeat-command) | Repeat command  | Load the previous command as input  |
+| [UC11](#uc11-unmark-a-task) | Unmark a Task  | Unmark a task as done by index. The Archived task will add back to the respective tabs.|
 | [UC12](#uc12-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
 | [UC13](#uc13-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
 | [UC14](#uc14-exit-application) | Exit application  | Quit the application |
@@ -652,7 +652,29 @@ Redo an action performed in UC7.
 
 ---
 
-### UC9: Mark Task as done
+### UC9: Upcoming Tasks
+
+Shows all floating tasks and tasks/events that are due in a weeks time.
+
+##### Main Success Scenario
+
+1. User requests to load upcoming command.
+
+2. System filter and display upcoming tasks.
+
+4. Use case ends.
+
+##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+---
+
+### UC10: Mark Task as done
 
 Mark a task entry by index.
 
@@ -692,15 +714,17 @@ Mark a task entry by index.
 
 ---
 
-### UC10: Upcoming Tasks
+### UC11: Unmark a Task
 
-Shows all floating tasks and tasks/events that are due in a weeks time.
+Unmark a task entry by index.
 
 ##### Main Success Scenario
 
-1. User requests to load upcoming command.
+1. User request to unmark a task by index.
 
-2. System filter and display upcoming tasks.
+2. System find and unmark the task and remove from archives tab and add to the respective tab.
+
+3. System display successful message.
 
 4. Use case ends.
 
@@ -712,25 +736,21 @@ Shows all floating tasks and tasks/events that are due in a weeks time.
 
 * 1a2. Use case ends.
 
----
+2a. Invalid index.
 
-### UC11: Repeat command
+* 2a1. System cannot find the task associated with the index.
 
-Loads the previous input command into the text field.
+* 2a2. System display unsuccessful message.
 
-##### Main Success Scenario
+* 2a3. Use case ends.
 
-1. User requests to load previous command.
+2b. User tries to Unmark a Task that not marked yet.
 
-2. System finds and load previous command.
+* 2b1. System check that task associated with the index is not marked yet.
 
-4. Use case ends.
+* 2b2. System display unsuccessful message.
 
-##### Extensions
-
-1a. No previous command found.
-
-* 1a1. Use case ends.
+* 2b3. Use case ends.
 
 ---
 
