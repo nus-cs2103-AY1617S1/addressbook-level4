@@ -1,7 +1,6 @@
 package seedu.todo.guitests.guihandles;
 
 import javafx.stage.Stage;
-import seedu.todo.TestApp;
 import seedu.todo.guitests.GuiRobot;
 
 public class ConsoleHandle extends GuiHandle {
@@ -9,8 +8,8 @@ public class ConsoleHandle extends GuiHandle {
     private static final String CONSOLE_INPUT_ID = "#consoleInputTextField";
     private static final int COMMAND_WAIT_TIME = 500;
 
-    public ConsoleHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public ConsoleHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
+        super(guiRobot, primaryStage, stageTitle);
     }
 
     public String getConsoleInputText() {

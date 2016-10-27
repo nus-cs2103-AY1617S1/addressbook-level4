@@ -109,6 +109,31 @@ public class DateUtil {
     }
     
     /**
+     * Parses a short date (as defined in {@link formatShortDate}) back to a LocalDateTime.
+     * We ignore the day of week portion for simplicity, since the shortDate can optionally omit it.
+     * 
+     * @param shortDateString   Date string to format.
+     * @return                  Parsed LocalDateTime.
+     */
+    public static LocalDateTime parseShortDate(String shortDateString) {
+        String[] dateParts = shortDateString.split(" ");
+        String datePart;
+        
+        if (dateParts.length < 2 || dateParts.length > 3) {
+            return null;
+        }
+        
+        if (dateParts.length == 3) {
+            datePart = String.format("%s %s", dateParts[1], dateParts[2]);
+        } else {
+            datePart = String.format("%s %s", dateParts[0], dateParts[1]);
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM");
+        return LocalDateTime.parse(datePart, formatter);
+    }
+    
+    /**
      * Formats a LocalDateTime to a 24-hour time.
      * 
      * @param dateTime   LocalDateTime to format.
