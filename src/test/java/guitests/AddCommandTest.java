@@ -33,43 +33,52 @@ public class AddCommandTest extends ListGuiTest {
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add one event
+        //@@author A0132157M
         TestEvent[] currentEventList = ed.getTypicalEvent();
         TestEvent eventToAdd = TypicalTestEvent.e6;
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add one deadline
+        //@@author A0132157M
+
         TestDeadline[] currentDeadlineList = dd.getTypicalDeadline();
         TestDeadline ddToAdd = TypicalTestDeadline.d6;
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add another task
+        //@@author A0132157M
         taskToAdd = TypicalTestTask.a7;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add another event
+        //@@author A0132157M
         eventToAdd = TypicalTestEvent.e7;
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add another deadline
+        //@@author A0132157M
         ddToAdd = TypicalTestDeadline.d7;
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add duplicate task
+        //@@author A0132157M
         commandBox.runCommand(TypicalTestTask.a6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event
+        //@@author A0132157M
         commandBox.runCommand(TypicalTestEvent.e6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(eventListPanel.isListMatching(currentEventList));
         
         //add duplicate deadline
+        //@@author A0132157M
         commandBox.runCommand(TypicalTestDeadline.d6.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(deadlineListPanel.isListMatching(currentEventList));
@@ -98,7 +107,7 @@ public class AddCommandTest extends ListGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-    
+    //@@author A0132157M
     private void assertAddEventSuccess(TestEvent eventsToAdd, TestEvent... currentList) {
         commandBox.runCommand(eventsToAdd.getAddCommand());
 
@@ -110,7 +119,7 @@ public class AddCommandTest extends ListGuiTest {
         TestEvent[] expectedList = TestUtil.addEventsToList(currentList, eventsToAdd);
         assertTrue(eventListPanel.isListMatching(expectedList));
     }
-    
+    //@@author A0132157M
     private void assertAddDeadlineSuccess(TestDeadline eventsToAdd, TestDeadline... currentList) {
         commandBox.runCommand(eventsToAdd.getAddCommand());
 
