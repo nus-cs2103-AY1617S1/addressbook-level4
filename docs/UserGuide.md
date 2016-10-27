@@ -35,7 +35,7 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Adding a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`<br>
+> Format: `add TASK_NAME p/PRIORITY`<br>
 > Example: `add Assignment 3 from/25-12-2016 to/26-12-2016 p/1`
 
 ###### Adding an Event:
@@ -52,8 +52,8 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`<br>
-> Example: `edit todo 1 name/Assignment from/25-12-2016 to/26-12-2016 p/2`
+> Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME p/PRIORITY`<br>
+> Example: `edit todo 1 name/Assignment p/2`
 
 ###### Editing an Event:
 > Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
