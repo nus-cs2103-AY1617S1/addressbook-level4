@@ -29,7 +29,6 @@ public class AddParser {
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
 	private static final String FLOATING_TASK = "floating";
-	private static final String DATE_FORMAT = "dd-MM-yyyy";
 	private static final String MESSAGE_WRONG_ADD_FORMAT = "You have input the wrong add format.";
 
 	
@@ -83,8 +82,53 @@ public class AddParser {
 	}
 
 	
+	public static void parseDate (String args) {
+		
+		Parser parser = new Parser();
+		List<DateGroup>groups = parser.parse(args);	
+		DateGroup group = groups.get(0);
+		List<Date> dates = group.getDates();
+		Date date = dates.get(0);
+	
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		
+		String dateString = formatDate(calendar);
+		System.out.println(dateString);
+	}
 
-
+	/**
+	 * This method formats the date into a presentable String format.
+	 * @param Calendar object cal.
+	 * @return a format string in the form of dd-mm-yyyy
+	 */
+	private static String formatDate (Calendar cal){
+		
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int month = cal.get(Calendar.MONTH);
+		int year = cal.get(Calendar.YEAR);
+		
+		// Converts month into XX format
+		String monthString;
+		if (month + 1 < 10){
+			monthString = "0" + Integer.toString(month + 1);
+		}
+		else {
+			monthString = Integer.toString(month + 1);
+		}
+		
+		// Converts day into XX format
+		String dayString;
+		if (day< 10){
+			dayString = "0" + Integer.toString(day);
+			
+		}
+		else {
+			dayString = Integer.toString(day);
+		}
+		
+		return (dayString + "-" + monthString + "-" + Integer.toString(year));
+	}
 	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.

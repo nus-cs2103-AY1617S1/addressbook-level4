@@ -127,6 +127,14 @@ public class AddParserTest {
 		
 	}
 	
+	@Test
+	public void checkNattyReturnType() {
+		
+		String arguments = "next friday";
+		
+		AddParser.parseDate(arguments);
+	}
+	
 
 	
 }
