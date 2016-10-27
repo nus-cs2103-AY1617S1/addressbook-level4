@@ -123,7 +123,13 @@ public class InputHandler {
         
         // Process using best-matched controller.
         try {
-            selectedController.process(aliasedInput);
+            // Alias and unalias should not receive an aliasedInput for proper functioning.
+            if (selectedController.getClass() == AliasController.class ||
+                    selectedController.getClass() == UnaliasController.class) {
+                selectedController.process(input);
+            } else {
+                selectedController.process(aliasedInput);
+            }
         } catch (ParseException e) {
             return false;
         }
@@ -136,6 +142,7 @@ public class InputHandler {
     
     private Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
+                                  new UnaliasController(),
                                   new HelpController(),
                                   new AddController(),
                                   new ListController(),
