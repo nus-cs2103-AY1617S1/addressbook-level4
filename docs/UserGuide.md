@@ -129,7 +129,6 @@ Format: `find KEYWORD` or `find t/TAG`
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 > * Only task name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
 	e.g. `Hans` will match `Hans Bo`
 
@@ -138,8 +137,17 @@ Examples:
   Returns tasks having name `meeting` 
 * `find t/cs2103`<br>
   Returns tasks having tag `cs2103`
-  
+
+<!-- @@author A0141052Y -->
+#### Activate real time search: `searchbox`
+Activates the real time search, which is located in the same input box used to input commands.<br/>
+Format: `searchbox`
+
+> * To exit from real time search, just hit <kbd>Enter</kbd>.
+> * Similar functionality to `find`
+
 <!-- @@author -->
+
 #### Update entries : `update`
 Update a specific task.<br>
 Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
@@ -207,5 +215,6 @@ Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME
 Undo | `undo`
 Pin | `pin`
 Unpin | `unpin`
+Live Search | `searchbox`
 Help | `help`
 Exit | `exit`

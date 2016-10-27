@@ -34,6 +34,7 @@ public class ParserMapping {
         mappingTable.put("help", HelpParser.class);
         mappingTable.put("list", ListParser.class);
         mappingTable.put("pin", PinParser.class);
+        mappingTable.put("searchbox", SearchParser.class);
         mappingTable.put("select", SelectParser.class);
         mappingTable.put("undo", UndoParser.class);
         mappingTable.put("update", UpdateParser.class);
