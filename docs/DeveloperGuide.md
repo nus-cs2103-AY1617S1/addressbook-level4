@@ -313,7 +313,7 @@ Use Case ends
        >1a1. System show error message
        Use case ends.
        
-//@@author A0153411W       
+<!-- @@author A0153411W -->       
 #### Use case: UC02 Add an event 
 Actor: User<br>
 
@@ -396,7 +396,7 @@ Use Case end.
     2a. There are no upcoming task to be found
     >2a1. System shows a message no upcoming task are found.
     Use case ends
-//@@author 
+<!-- @@author --> 
 
 #### Use case: UC06 Delete task
    Actor: User<br>
@@ -419,7 +419,7 @@ Use Case end.
 
 
 
-//@@author A0153411W
+<!-- @@author A0153411W -->
 #### Use case: UC07 edit task details
    Actor: User<br>
 
@@ -499,9 +499,9 @@ Use Case end.
     1a. There is nothing to undo
     >1a1. System shows an error message
     Use case finishes.
-//@@author 
+<!-- @@author -->
 
-//@@author A0139932X
+<!-- @@author A0139932X -->
 #### Use case: UC10 Change save file path command
    Actor:User
    
@@ -516,7 +516,7 @@ Use Case end.
 	>1a1. System shows an error message
 	Use case ends.
 
-//author
+<!-- @@author -->
 
 {More to be added}
 

@@ -48,12 +48,14 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(STATUS_FIELD_ID);
     }
     
+    //@@author A0148083A
     public boolean isSameTask(ReadOnlyTask task){
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd-MM-yyyy HH:mm");
     	return getTitle().equals(task.getTitle().fullTitle) && getDescription().equals(task.getDescription().fullDescription)
                 && getStartDate().equals("Start Date: " + dateFormat.format(task.getStartDate().startDate)) && getDueDate().equals("Due Date: " + dateFormat.format(task.getDueDate().dueDate))
                 && getStatus().equals(task.getStatus().status);
     }
+    //@@author
 
     @Override
     public boolean equals(Object obj) {

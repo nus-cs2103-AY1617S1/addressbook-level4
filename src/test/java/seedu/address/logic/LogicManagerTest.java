@@ -180,12 +180,13 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add d/description", expectedMessage);
     }
-    
+    //@@author A0148083A
     @Test
     public void execute_add_event_noDueDate() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE);
         assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
     }
+    //@@author
     
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -530,6 +531,7 @@ public class LogicManagerTest {
     }
     //@@author
     
+    //@@author A0148083A
     @Test
     public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
@@ -557,7 +559,7 @@ public class LogicManagerTest {
         CommandResult result = logic.execute("done 1");
         assertEquals(expectedMessage, result.feedbackToUser);
     }
-
+    //@@author
 
     /**
      * A utility class to generate test data.

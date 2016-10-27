@@ -39,6 +39,8 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
+<!-- @@author A0148083A -->
+
 ### Adding a task: `add`
 Adds a task to the task management<br>
 Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [-t TAG 1, TAG 2...] ...` 
@@ -53,7 +55,7 @@ Adds a task which has a start time and end time.
 User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
 * `add Birthday Party d/Edwin's birthday party sd/08-01-2012 10:00 dd/08-01-2012 23:00`
 * `add Soccer match d/Champion League sd/08-01-2012 18:00 dd/08-01-2012 20:00 i/8 ti/7`
-	//@@author A0153411W
+	
 #### Adding a deadline
 Adds a task that have to be done before a specific deadline. 
 User has to specify TITLE, DESCRIPTION and DUE_DATE.
@@ -66,6 +68,10 @@ User has to specify TITLE, DESCRIPTION.
 * `add Homework d/ProgrammingEx1`
 * `add Assignment d/Math i/4 ti/7`
 
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
+
 <a id="adding-duplicated--add" class="anchor" href="#listing-all-persons--list" aria-hidden="true">
 #### Adding duplicated tasks
 Adds a task with specific interval. START_DATE and DUE_DATE(if specified) will by adjusted accordingly to interval. 
@@ -73,7 +79,8 @@ User has to specify INTERVAL or TIME_INTERVAL.
 * `add Homework d/ProgrammingEx1 i/2 dd/10-01-2012`
 * `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
 
-	//@@author 
+<!-- @@author -->
+
 ### List tasks : `list`
 Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
@@ -163,13 +170,13 @@ Undo | `undo`
 Save | `save`
 Help | `help`
 Color | `color`
-	//@@author A0153411W
+<!-- @@author A0153411W -->
 ## Parameters 
-Parameter     | Flag  |  Format           | Required                          | Meaning
-TITLE         |       |  Text             |   Yes                             | Title of a task 
-DESCRIPTION   |  /d   |  Text             |   Yes                             | Description of a task
-START_DATE    |  /sd  |  Date(DD-MM-YYYY) |   NO                              | Start date of a task
-DUE_DATE      |  /dd  |  Date(DD-MM-YYYY) |   YES(if START_DATE is specified) | Due Date of a task
-INTERVAL      |  /i   |  Integer Number   |   NO                              | Interval of a task specifies how many times should be duplicated
-TIME_INTERVAL |  /ti  |  Integer Number   |   NO                              | Time interval of a task specifies how many days are between duplicated tasks
-	//@@author
+Parameter     | Flag  |  Format           		| Required                          | Meaning
+TITLE         |       |  Text             		|   Yes                             | Title of a task 
+DESCRIPTION   |  /d   |  Text             		|   Yes                             | Description of a task
+START_DATE    |  /sd  |  Date(DD-MM-YYYY hh:mm) |   NO                              | Start date of a task
+DUE_DATE      |  /dd  |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DATE is specified) | Due Date of a task
+INTERVAL      |  /i   |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
+TIME_INTERVAL |  /ti  |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
+<!-- //@@author -->
