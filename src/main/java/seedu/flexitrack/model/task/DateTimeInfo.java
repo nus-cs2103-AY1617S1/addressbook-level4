@@ -24,7 +24,8 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
     private static final boolean FAIL_DUE_TO_EXCEPTION = false; 
     
     private String setTime;
-
+    private DateTimeInfoParser timeInfo;
+    
     public DateTimeInfo(String givenTime) throws IllegalValueException {
         setDateGroupTime(givenTime);
     }
@@ -42,11 +43,16 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
         DateTimeInfoParser parsedTiming;
         try {
             parsedTiming = new DateTimeInfoParser(matcher.group("info"));
+            timeInfo = parsedTiming;
             this.setTime = parsedTiming.getParsedTimingInfo();
             formatTiming(parsedTiming.isInferred());
         } catch (IllegalValueException e) {
             throw new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
+    }
+    
+    public DateTimeInfoParser getTimeInfo() {
+        return timeInfo;
     }
 
     /**

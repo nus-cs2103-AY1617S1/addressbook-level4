@@ -61,6 +61,10 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             
+            if(model.checkBlock(toAdd)) {
+                return new CommandResult(BlockCommand.MESSAGE_DUPLICATE_TIME);
+            }
+            
             model.addTask(toAdd);
             storeDataChanged.add(toAdd);
             recordCommand("add"); 
