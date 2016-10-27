@@ -14,10 +14,7 @@ import seedu.unburden.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 
-<<<<<<< HEAD
-=======
 //@@author A0139678J
->>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
 public interface Model {
 	/**
 	 * Clears existing backing model and replaces with the provided new data.
@@ -33,13 +30,11 @@ public interface Model {
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-<<<<<<< HEAD
-=======
+
     //@@author A0139714B
     void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
     
     //@@author A0139714B
->>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     void saveToPrevLists();
     
     //@@author A0139714B
@@ -48,15 +43,13 @@ public interface Model {
     //@@author A0139714B
     void loadFromUndoHistory();
 
-	void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
-
 	/**
 	 * Returns the filtered person list as an
 	 * {@code UnmodifiableObservableList<ReadOnlyTask>}
 	 */
 	UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-	// @@Nathanael Chan A0139678J
+	// @@author A0139678J
 	/** Updates the filter of the filtered task list to show all tasks */
 	void updateFilteredListToShowAll();
 
@@ -65,13 +58,10 @@ public interface Model {
 	 * keywords
 	 */
 	void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate);
-	// @@Nathanael Chan
 
-	// @@Gauri Joshi A0143095H
+	// @@author A0143095H
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
-
-	// @@Gauri Joshi
 	
 	/** Marks a task as undone when it is not completed. */
 	void undoneTask(ReadOnlyTask taskToDone, boolean isUnDone);
