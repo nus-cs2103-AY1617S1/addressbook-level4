@@ -22,16 +22,16 @@ public class FindCommand extends Command {
 
     private final Set<String> keywords;
 
-    public FindCommand(String args) throws IllegalCmdArgsException {
+    public FindCommand(Set<String> keywords) {
+        this.keywords = keywords;
+    }
+    
+    public static FindCommand createFromArgs(String args) throws IllegalCmdArgsException {
         Set<String> keywords = Parser.getKeywordsFromArgs(args);
         if (keywords == null) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        this.keywords = keywords;
-    }
-    
-    public FindCommand(Set<String> keywords) {
-        this.keywords = keywords;
+        return new FindCommand(keywords);
     }
 
     @Override

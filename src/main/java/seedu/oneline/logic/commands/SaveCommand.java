@@ -1,3 +1,4 @@
+//@@author A0121657H
 package seedu.oneline.logic.commands;
 
 import java.nio.file.Files;
@@ -8,6 +9,8 @@ import java.util.Optional;
 
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.events.storage.StorageLocationChangedEvent;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 
 public class SaveCommand extends Command {
 
@@ -30,7 +33,10 @@ public class SaveCommand extends Command {
         this.storageLocation = storageLocation.trim();
     }
 
-
+    public static SaveCommand createFromArgs(String args) {
+        return new SaveCommand(args);
+    }
+    
     @Override
     public CommandResult execute() {
         Optional<Path> path = getValidPath(storageLocation);

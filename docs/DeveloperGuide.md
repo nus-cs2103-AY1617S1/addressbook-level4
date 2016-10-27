@@ -1,3 +1,4 @@
+//@@author A0121657H
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -279,7 +280,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `*`      | user    | my commands to be auto-completed     | - |
 | `*`      | user    | to view my tasks on a calendar       | can have a good overview of my workflow |
 
+<<<<<<< HEAD
+//@@author 
+=======
 //@@author A0138848M
+>>>>>>> origin/master
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is `OneLine` and the **Actor** is the `user`, unless specified otherwise)
@@ -298,6 +303,7 @@ Use case ends
 >   1a1. OneLine requests for the correct data
 >   1a2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
+<<<<<<< HEAD
     Use case resumes from step 2.
     
 
@@ -317,6 +323,27 @@ Use case ends
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
     
+=======
+    Use case resumes from step 2.
+    
+
+#### Use case: Add task with deadline
+
+**MSS**
+
+1. User adds task with deadline
+2. OneLine creates the task <br>
+Use case ends
+
+**Extensions**
+
+1a. OneLine detects an error in the data entered
+>   1a1. OneLine requests for the correct data
+>   1a2. User enters new data <br>
+    Steps 1b1-1b2 are repeated until data contains no errors
+    Use case resumes from step 2.
+    
+>>>>>>> origin/master
 #### Use case: Add event-based task
 **MSS**
 
@@ -343,9 +370,15 @@ Use case ends
 1. User adds event-based task
 2. OneLine creates the event-based task <br>
 Use case ends
+<<<<<<< HEAD
 
 **Extensions**
 
+=======
+
+**Extensions**
+
+>>>>>>> origin/master
 1a. OneLine detects a time clash in task entered
 >   1a1. OneLine creates the task
 >   1a2. OneLine reports a time clash in affected tasks.<br>
@@ -536,7 +569,12 @@ Use case ends
 
 Some other project requirements can be seen [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints). 
 
+<<<<<<< HEAD
+//@@author
+
+=======
 //@@author A0138848M
+>>>>>>> origin/master
 ## Appendix D : Glossary
 
 ##### Mainstream OS

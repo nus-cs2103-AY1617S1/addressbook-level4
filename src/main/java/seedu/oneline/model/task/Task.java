@@ -1,8 +1,13 @@
 package seedu.oneline.model.task;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.Map.Entry;
 
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.CollectionUtil;
+import seedu.oneline.logic.commands.CommandResult;
+import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 
@@ -34,6 +39,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *  A task without a deadline
      * 
      */    
+
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) {
+        this(name, startTime, endTime, deadline, recurrence, tag, false);
+    }
 
     public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
@@ -108,9 +117,43 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return getAsText();
     }
 
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    //@@author A0140156R
+    public Task update(Map<TaskField, String> fields) throws IllegalValueException {
+        ReadOnlyTask oldTask = this;
+        
+        TaskName newName = oldTask.getName();
+        TaskTime newStartTime = oldTask.getStartTime();
+        TaskTime newEndTime = oldTask.getEndTime();
+        TaskTime newDeadline = oldTask.getDeadline();
+        TaskRecurrence newRecurrence = oldTask.getRecurrence();
+        Tag newTag = oldTask.getTag();
+
+        for (Entry<TaskField, String> entry : fields.entrySet()) {
+            switch (entry.getKey()) {
+            case NAME:
+                newName = new TaskName(entry.getValue());
+                break;
+            case START_TIME:
+                newStartTime = new TaskTime(entry.getValue());
+                break;
+            case END_TIME:
+                newEndTime = new TaskTime(entry.getValue());
+                break;
+            case DEADLINE:
+                newDeadline = new TaskTime(entry.getValue());
+                break;
+            case RECURRENCE:
+                newRecurrence = new TaskRecurrence(entry.getValue());
+                break;
+            case TAG:
+                newTag = Tag.getTag(entry.getValue());
+                break;
+            }
+        }
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
+        return newTask;
     }
+    //@@author
 
     //@@author A0138848M
     /**
@@ -163,5 +206,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public boolean isCompleted() {
         return isCompleted; 
+    }
+    
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }

@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.exceptions.StateNonExistentException;
@@ -11,7 +13,9 @@ public class RedoCommand extends Command {
     
     public RedoCommand() {}
 
-    public RedoCommand(String args) {}
+    public static RedoCommand createFromArgs(String args) {
+        return new RedoCommand();
+    }
     
     @Override
     public CommandResult execute() {
