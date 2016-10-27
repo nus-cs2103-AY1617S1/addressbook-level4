@@ -98,15 +98,21 @@ public class ModelManager extends ComponentManager implements Model {
         flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
-
+  //@@author A0127855W
     @Override
+    /**
+     * Edits a Task in the tasks tracker.
+     * 
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TaskNotFoundException if specified task is not found.
+     */
     public String editTask(int taskToEdit, String[] args)
             throws TaskNotFoundException, IllegalEditException, IllegalValueException {
         String duration = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
         return duration;
     }
-    
+  //@@author
     @Override
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         return flexiTracker.checkBlock(toCheck);

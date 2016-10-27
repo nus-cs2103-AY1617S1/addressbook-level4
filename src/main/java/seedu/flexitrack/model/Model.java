@@ -60,6 +60,7 @@ public interface Model {
      */
     void unmarkTask(ReadOnlyTask taskToMark) throws IllegalValueException;
 
+    //@@author A0127855W
     /**
      * Edits the given task
      * 
@@ -67,7 +68,8 @@ public interface Model {
      */
     String editTask(int taskToEdit, String[] args)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
-    
+
+    //@@author
     /**
      * 
      * @param Task toAdd

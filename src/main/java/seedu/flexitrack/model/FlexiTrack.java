@@ -88,18 +88,18 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         task.add(p);
     }
 
+    //@@author A0127855W
     /**
      * Edits a Task in the tasks tracker.
      * 
-     * @throws UniqueTaskList.DuplicateTaskException
-     *             if an equivalent task already exists.
-     * @throws TaskNotFoundException
-     *             if specified task is not found.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TaskNotFoundException if specified task is not found.
      */
     public String editTask(int taskToEdit, String[] args)
             throws TaskNotFoundException, IllegalEditException, IllegalValueException {
         return task.edit(taskToEdit, args);
     }
+  //@@author
 
     /**
      * Ensures that every tag in this task: - exists in the master list
@@ -171,10 +171,14 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 || (other instanceof FlexiTrack // instanceof handles nulls
                         && this.task.equals(((FlexiTrack) other).task) && this.tags.equals(((FlexiTrack) other).tags));
     }
-    
+  //@@author A0127855W
+    /**
+     * Sorts the flexitrack according to the ReadOnlyTask comparator
+     */
     public void sort(){
     	task.sort();
     }
+  //@@author
 
     @Override
     public int hashCode() {
