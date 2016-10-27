@@ -12,8 +12,6 @@ public class RedoCommand extends Command{
     public static final String MESSAGE_REDO_SUCCESS = "Redid the most receent undo action:\n";
     public static final String MESSAGE_REDO_FAILED = "No command to redo.";
 
-    public RedoCommand() {}
-
     @Override
     public CommandResult execute() {
         try {

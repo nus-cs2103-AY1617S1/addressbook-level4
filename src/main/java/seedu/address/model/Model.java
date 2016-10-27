@@ -47,6 +47,12 @@ public interface Model {
 
 	/** Update the task manager to the new file path */
 	void updateTaskManager(String filePath, boolean isToClearOld);
+	
+	/** Change the task manager back to the old file path*/
+    void changeBackTaskManager(boolean isToClearNew);
+    
+    /** Redo update the task manager back to the new file path*/
+    void redoUpdateTaskManager(boolean isToClearOld);
 
 	/** Saves the current state of the task manager. */
     public void saveState(String message);

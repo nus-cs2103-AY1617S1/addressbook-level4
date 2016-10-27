@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Indicates the path for the storage file has changed
  */
-public class StoragePathChangedEvent extends BaseEvent{
+public class StoragePathChangedEvent extends BaseEvent {
 
     public String newStorageFilePath;
     public boolean isToClearOld;

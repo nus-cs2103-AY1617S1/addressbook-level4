@@ -122,6 +122,12 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+        case UndoChangeCommand.COMMAND_WORD:
+            return new UndoChangeCommand(arguments);
+            
+        case RedoChangeCommand.COMMAND_WORD:
+            return new RedoChangeCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

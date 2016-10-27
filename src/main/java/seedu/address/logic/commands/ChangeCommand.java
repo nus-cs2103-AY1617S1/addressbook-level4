@@ -22,9 +22,11 @@ public class ChangeCommand extends Command{
             + " It must end with the file type extension, .xml";
     public static final String MESSAGE_INVALID_CLEAR_DATA = "The clear data argument provided is invalid.";
     
-    private String filePath;
-    private String clear;
-    private boolean isToClearOld;
+    private static final String CLEAR = "clear";
+    
+    private final String filePath;
+    private final String clear;
+    private final boolean isToClearOld;
     
     /**
      * Convenience constructor using raw values.
@@ -53,6 +55,9 @@ public class ChangeCommand extends Command{
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         model.updateTaskManager(filePath, isToClearOld);
+        UndoChangeCommand.undoable = true;
+        RedoChangeCommand.redoable = false;
+        RedoChangeCommand.isToClearOld = isToClearOld;
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
 
@@ -70,7 +75,7 @@ public class ChangeCommand extends Command{
     }
     
     private boolean isValidClear() {
-        return clear.equals("clear");
+        return clear.equals(CLEAR);
     }
     
 }
