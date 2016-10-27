@@ -79,6 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
 
+    //@@author A0121608N
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
@@ -125,6 +126,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void markTask(ReadOnlyTask target){
+        taskBook.markTask(target);
+        updateFilteredTaskListToShowWithStatus(false);
+        indicateTaskBookChanged();
+    }
+    
+    //@@author
+
+    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredTaskListToShowWithStatus(false);
@@ -135,13 +145,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addEvent(Event event) throws DuplicateEventException {
         taskBook.addEvent(event);
         updateFilteredEventListToShowWithStatus(false);
-        indicateTaskBookChanged();
-    }
-    
-    @Override
-    public synchronized void markTask(ReadOnlyTask target){
-        taskBook.markTask(target);
-        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
    

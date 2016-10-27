@@ -2,7 +2,7 @@ package seedu.task.logic.commands;
 
 /**
  * Deletes an item identified using it's last displayed index from the address book.
- * @author Tiankai
+ * @@author A0121608N
  * */
 public abstract class DeleteCommand extends UndoableCommand {
 
@@ -12,10 +12,10 @@ public abstract class DeleteCommand extends UndoableCommand {
     		+ "Deletes an existing task/event from the TaskBook storage completely.\n\n"
             + "Deletes a task at the specified INDEX in the most recent task listing.\n"
             + "Parameters: DELETE_TYPE + INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " -t" + " 1\n\n"
+            + "Example: " + COMMAND_WORD + " /t" + " 1\n\n"
             + "Deletes a event at the specified INDEX in the most recent event listing.\n"
             + "Parameters: DELETE_TYPE + INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " -e" + " 1";
+            + "Example: " + COMMAND_WORD + " /e" + " 1";
 
     public int lastShownListIndex;
 

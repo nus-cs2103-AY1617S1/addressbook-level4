@@ -8,7 +8,7 @@ import seedu.task.logic.commands.AddTaskCommand;
 
 /**
  * Deletes a Task identified using it's last displayed index from the address book.
- * @author Tiankai
+ * @@author A0121608N
  */
 public class DeleteTaskCommand extends DeleteCommand {
 

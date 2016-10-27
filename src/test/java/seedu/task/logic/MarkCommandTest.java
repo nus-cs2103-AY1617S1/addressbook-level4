@@ -13,7 +13,7 @@ import seedu.task.model.item.Task;
 
 /**
  * Responsible for testing the execution of MarkCommand
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class MarkCommandTest extends CommandTest{

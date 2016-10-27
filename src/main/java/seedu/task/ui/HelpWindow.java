@@ -20,9 +20,10 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
+    //@@author A0121608N
     private static final String USERGUIDE_URL =
             "file:///C:/Users/Chen/Desktop/NUS/Semesters/Semester%205/CS2103%20-%20Software%20Engineering/SourceTree%20Local%20Repo/Main/docs/Userguide.html";
-
+    //@@author
     private AnchorPane mainPane;
 
     private Stage dialogStage;

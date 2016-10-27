@@ -14,7 +14,7 @@ import seedu.task.model.item.Task;
 
 /**
  * Responsible for testing the execution of ClearCommand
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class ClearCommandTest extends CommandTest {

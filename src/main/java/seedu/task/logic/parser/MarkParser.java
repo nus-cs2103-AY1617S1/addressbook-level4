@@ -10,7 +10,7 @@ import seedu.task.logic.commands.MarkCommand;
 
 /**
  * Responsible for validating and preparing the arguments for MarkCommand execution
- * @author Tiankai
+ * @@author A0121608N
  */
 
 public class MarkParser implements Parser {

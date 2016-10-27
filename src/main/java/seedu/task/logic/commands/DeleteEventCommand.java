@@ -7,7 +7,7 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Deletes an Event identified using it's last displayed index from the address book.
- * @author Tiankai
+ * @@author A0121608N
  */
 public class DeleteEventCommand extends DeleteCommand {
 

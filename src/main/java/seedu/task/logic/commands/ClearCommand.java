@@ -9,7 +9,7 @@ import seedu.task.model.item.UniqueTaskList;
 
 /**
  * Clears the taskbook's tasks and events according to the tags called
- * @author Tiankai
+ * @@author A0121608N
  */
 public class ClearCommand extends UndoableCommand {
 
@@ -27,19 +27,19 @@ public class ClearCommand extends UndoableCommand {
             + "Clearing completed tasks.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
-            + " -t\n\n"
+            + " /t\n\n"
             + "Clearing completed and uncompleted tasks.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
-            + " -t -a\n\n"
+            + " /t /a\n\n"
             + "Clearing completed events.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
-            + " -e\n\n"
+            + " /e\n\n"
             + "Clearing completed and uncompleted events.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
-            + " -e -a\n\n"
+            + " /e /a\n\n"
             + "Clearing completed tasks and events.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
@@ -47,7 +47,7 @@ public class ClearCommand extends UndoableCommand {
             + "Clearing completed and uncompleted tasks and events.\n"
             + "Parameters: CLEAR_TYPE + CLEAR_ALL\n"
             + "Example: " + COMMAND_WORD
-            + " -a \n\n";
+            + " /a \n\n";
     
     public enum Type{ task,event,all}
     
