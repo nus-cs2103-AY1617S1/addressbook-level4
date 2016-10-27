@@ -21,7 +21,7 @@ Responsibilities: Team Mentor
    * <kbd>[Undo](docs/UserGuide.md#undo-the-modification--undo)</kbd> Command
    * <kbd>[Done](docs/UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](docs/UserGuide.md#undone-a-specific-task--undone)</kbd> Command
-* Code written: <kbd>[Functional code](https://github.com/CS2103AUG2016-T17-C3/main/collated/main/A0147335E.md)</kbd> <kbd>[Test code](https://github.com/CS2103AUG2016-T17-C3/main/collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](https://github.com/CS2103AUG2016-T17-C3/main/tree/master/collated/main/A0147335E.md)</kbd> <kbd>[Test code](https://github.com/CS2103AUG2016-T17-C3/main/tree/master/collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager
   * Did the initial refactoring of testing from AddressBook to TaskManager
