@@ -21,7 +21,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to clear CalendarItems.
  * 
- * @author Tiong Yaocong
+ * @@author Tiong Yaocong A0139922Y
  *
  */
 public class ClearController implements Controller {
@@ -123,7 +123,7 @@ public class ClearController implements Controller {
             dateTo = naturalTo == null ? (LocalDateTime) null : parseNatural(naturalTo);
         }
         
-        //invokey destroy command
+        //invoke destroy command
         destroyByDate(db, parsedDates, dateOn, dateFrom, dateTo, deleteAll, isTask, input);
     }
 
