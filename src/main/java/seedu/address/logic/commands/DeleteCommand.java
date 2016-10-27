@@ -10,7 +10,7 @@ import seedu.address.ui.PersonListPanel;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 
     public final int targetIndex;
+    private ReadOnlyTask target; 
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -39,30 +40,28 @@ public class DeleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask personToDelete;
+        
         if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            personToDelete = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+            target = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         }
         else {
-            personToDelete = lastUndatedTaskList.get(targetIndex - 1);
+            target = lastUndatedTaskList.get(targetIndex - 1);
         }
 
         try {
-            model.deleteTask(personToDelete);
-            if (isMutating()){
-                model.addUndo(COMMAND_WORD, personToDelete);
-            }
+            model.deleteTask(target);
+            populateUndo();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
     }
 
-
     @Override
-    public boolean isMutating() {
-        return true;
+    public void populateUndo(){
+        assert COMMAND_WORD != null;
+        assert target != null;
+        model.addUndo(COMMAND_WORD, target);
     }
 }

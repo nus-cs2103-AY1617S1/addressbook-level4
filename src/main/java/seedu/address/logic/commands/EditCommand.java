@@ -18,10 +18,12 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.ui.PersonListPanel;
 
+
+//@@author A0143884W
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements Undoable{
 
     public static final String COMMAND_WORD = "edit";
 
@@ -93,9 +95,7 @@ public class EditCommand extends Command {
         try {
             model.deleteTask(toEdit);
             model.addTask(toAdd);
-            if (isMutating()){
-                model.addUndo(COMMAND_WORD, toAdd, toEdit);
-            }
+            populateUndo();
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     
         } catch (TaskNotFoundException pnfe) {
@@ -125,8 +125,11 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public boolean isMutating() {
-        return true;
-    }   
+    public void populateUndo(){
+        assert COMMAND_WORD != null;
+        assert toAdd != null;
+        assert toEdit != null;
+        model.addUndo(COMMAND_WORD, toAdd, toEdit);
+    } 
 
 }

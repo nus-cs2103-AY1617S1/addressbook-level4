@@ -452,6 +452,7 @@ public class LogicManagerTest {
     }
     //@@author
 
+    //@@author A0143884W
     @Test
     public void execute_edit_name_successful() throws Exception {
         // setup expectations
@@ -473,7 +474,8 @@ public class LogicManagerTest {
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
-
+    //@@author
+    
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);

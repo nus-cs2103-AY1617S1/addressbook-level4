@@ -14,8 +14,21 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RefreshCommand;
+import seedu.address.logic.commands.SaveCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -61,7 +74,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -107,6 +120,7 @@ public class Parser {
         }
     }
 
+    //@@author A0143884W
     /**
      * Parses arguments in the context of the add person command.
      *
@@ -132,6 +146,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    //@@author
 
     /**
      * Extracts the new person's tags from the add command's tag arguments string.

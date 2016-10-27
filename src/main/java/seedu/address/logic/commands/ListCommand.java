@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author A0139145E 
 /**
  * Lists all persons in the address book to the user.
  */
@@ -41,7 +42,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         String taskStatus;
-        
+
         switch (keyword) {
         case LIST_KEYWORD_ALL:
             taskStatus = "all";
@@ -57,7 +58,7 @@ public class ListCommand extends Command {
             taskStatus = "overdue and expired";
             model.updateFilteredTaskList("OVERDUE", "EXPIRE");
             break;
-            
+
         default:
             //Not possible
             taskStatus = "";
@@ -65,11 +66,6 @@ public class ListCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskStatus));
-    }
-
-    @Override
-    public boolean isMutating() {
-        return false;
     }
 
 }

@@ -17,7 +17,7 @@ import seedu.address.model.task.UniqueTaskList;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "add";
 
@@ -54,18 +54,18 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if (isMutating()){
-                model.addUndo(COMMAND_WORD, toAdd);
-            }
+            populateUndo();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
     }
-
+    
     @Override
-    public boolean isMutating() {
-        return true;
+    public void populateUndo(){
+        assert COMMAND_WORD != null;
+        assert toAdd != null;
+        model.addUndo(COMMAND_WORD, toAdd);
     }
 }

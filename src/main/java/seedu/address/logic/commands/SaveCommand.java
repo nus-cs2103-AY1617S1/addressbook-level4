@@ -22,10 +22,10 @@ import seedu.address.commons.util.ConfigUtil;
 
 public class SaveCommand extends Command {
 
-	
-	private static final String configFilePath = Config.DEFAULT_CONFIG_FILE;
 
-	public static final String COMMAND_WORD = "save";
+    private static final String configFilePath = Config.DEFAULT_CONFIG_FILE;
+
+    public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": specify location of folder to save data in.\n"
             + "Parameters: DATA_STORAGE_FOLDER_PATH"
@@ -111,59 +111,52 @@ public class SaveCommand extends Command {
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
-	
-	
-	/**
+
+    /**
      * change the path fields in the config.json file
      * 
      * @param arguments
      */
     private void changeConfigPaths(String arguments) {
-    	FileReader configFileReader = null;
-    	FileWriter configFileWriter = null;
-		try {
-			configFileReader = new FileReader(configFilePath);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-    	String currLine = "";
-    	String newConfig = "";
-    	
-    	try {
-    		BufferedReader br = new BufferedReader(configFileReader);
-    		while ((currLine = br.readLine()) != null) {
-				if (currLine.contains("taskBookFilePath")) {
-        			currLine = currLine.replaceAll(currLine.substring(24, currLine.length()-2), (arguments));
-    			}
-    			if (!currLine.contains("}")) {
-    				currLine = currLine + "\n";
-    			}
-    			newConfig += currLine;
-    		}
-    		br.close();
-    	} catch (IOException e3){
-    		e3.printStackTrace();
-    	}
+        FileReader configFileReader = null;
+        FileWriter configFileWriter = null;
+        try {
+            configFileReader = new FileReader(configFilePath);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        String currLine = "";
+        String newConfig = "";
 
-		try {
-			configFileWriter = new FileWriter(configFilePath, false);
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
-		
-		BufferedWriter bw = new BufferedWriter(configFileWriter);
-		try {
-			bw.write(newConfig);
-			bw.close();
-		} catch (IOException e4) {
-			e4.printStackTrace();
-		}
-    		
+        try {
+            BufferedReader br = new BufferedReader(configFileReader);
+            while ((currLine = br.readLine()) != null) {
+                if (currLine.contains("taskBookFilePath")) {
+                    currLine = currLine.replaceAll(currLine.substring(24, currLine.length()-2), (arguments));
+                }
+                if (!currLine.contains("}")) {
+                    currLine = currLine + "\n";
+                }
+                newConfig += currLine;
+            }
+            br.close();
+        } catch (IOException e3){
+            e3.printStackTrace();
+        }
+
+        try {
+            configFileWriter = new FileWriter(configFilePath, false);
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(configFileWriter);
+        try {
+            bw.write(newConfig);
+            bw.close();
+        } catch (IOException e4) {
+            e4.printStackTrace();
+        }
+
     }
-
-	@Override
-	public boolean isMutating() {
-		return false;
-	}
-
 }

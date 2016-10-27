@@ -37,12 +37,7 @@ public abstract class Command {
     public void setData(Model model) {
         this.model = model;
     }
-
-    /**
-     * @return true if the Command makes changes to the data
-     */
-    public abstract boolean isMutating();
-
+    
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
