@@ -93,10 +93,10 @@ public class FindController implements Controller {
         
         String[] parsedDates = parseDates(parsedResult);
         if (parsedDates == null && listAllStatus == true && listAll == true 
-                && parsedResult.size() == 1 && itemNameList.size() == 0) {
+                && itemNameList.size() == 0 && tagNameList.size() == 0) {
             //display error message, no keyword provided
-            String disambiguationString = String.format("%s %s %s %s", COMMAND_WORD, "<name>" , 
-                    "<complete/incomplete>", "<task/event>");  
+            String disambiguationString = String.format("%s %s %s %s %s", COMMAND_WORD, "<name>" , 
+                    "<complete/incomplete>", "<task/event>", "<tag tagName>");  
             Renderer.renderDisambiguation(disambiguationString, input);
             return ;
         }
