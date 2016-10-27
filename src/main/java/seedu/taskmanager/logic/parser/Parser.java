@@ -1,10 +1,7 @@
 package seedu.taskmanager.logic.parser;
 
-import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.LogsCenter;
-import seedu.taskmanager.commons.exceptions.DataConversionException;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.commons.util.ConfigUtil;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.logic.commands.AddCommand;
 import seedu.taskmanager.logic.commands.ClearCommand;
@@ -18,12 +15,14 @@ import seedu.taskmanager.logic.commands.IncorrectCommand;
 import seedu.taskmanager.logic.commands.ListCommand;
 import seedu.taskmanager.logic.commands.ListDeadlineCommand;
 import seedu.taskmanager.logic.commands.ListEventCommand;
+import seedu.taskmanager.logic.commands.ListNotDoneCommand;
 import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.commands.SaveCommand;
 import seedu.taskmanager.logic.commands.UndoCommand;
+import seedu.taskmanager.logic.commands.RedoCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
@@ -46,6 +45,8 @@ import java.text.ParseException;
  * Parses user input.
  */
 public class Parser {
+    public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
+    
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     /**
@@ -56,21 +57,27 @@ public class Parser {
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s*([0-9]+\\s*)+)"); // variable number of indexes
 
-    public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
-    
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    public static final Prefix namePrefix = new Prefix("n/");
-    public static final Prefix startDatePrefix = new Prefix("sd/");
-    public static final Prefix startTimePrefix = new Prefix("st/");
-    public static final Prefix startDateTimePrefix = new Prefix("sdt/");
-    public static final Prefix endDatePrefix = new Prefix("ed/");
-    public static final Prefix endTimePrefix = new Prefix("et/");
-    public static final Prefix endDateTimePrefix = new Prefix("edt/");
-    public static final Prefix tagsPrefix = new Prefix("#");
-    public static final String removeTagPrefixString = "-";
     
-    //unused
+    //@@author A0140060A
+    /*
+     * Used to separate parameters from their delimiters
+     */
+    private static final Prefix namePrefix = new Prefix("n/");
+    private static final Prefix startDatePrefix = new Prefix("sd/");
+    private static final Prefix startTimePrefix = new Prefix("st/");
+    private static final Prefix startDateTimePrefix = new Prefix("sdt/");
+    private static final Prefix endDatePrefix = new Prefix("ed/");
+    private static final Prefix endTimePrefix = new Prefix("et/");
+    private static final Prefix endDateTimePrefix = new Prefix("edt/");
+    private static final Prefix tagPrefix = new Prefix("#");
+    private static final String removeTagPrefixString = "-";
+    
+    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    
+    //@@author A0140060A-unused
+    //Used in earlier version, functionality replaced by ArgumentTokenizer
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/#]+))");
     private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/#]+))");    
     private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/#]+))");
@@ -79,24 +86,22 @@ public class Parser {
     private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/#]+))");
     private static final Pattern END_DATETIME_ARG_FORMAT = Pattern.compile("edt/(?<endDateTime>[^/#]+)");
     
-    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
-    
+    //@@author A0065571A
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + END_DATE_ARG_FORMAT
                     + END_TIME_ARG_FORMAT + "?"
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
             		+ START_DATE_ARG_FORMAT
                     + START_TIME_ARG_FORMAT + "?"
                     + END_DATE_ARG_FORMAT
@@ -105,17 +110,18 @@ public class Parser {
     
     private static final Pattern DEADLINE_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
             		+ START_DATETIME_ARG_FORMAT
                     + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
     
+    //@@author
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
                                                                             + "(?<editCommandArguments>.+)");
 
@@ -165,6 +171,10 @@ public class Parser {
         case ListCommand.SHORT_COMMAND_WORD:
             return new ListCommand();
             
+        case ListNotDoneCommand.COMMAND_WORD:
+        case ListNotDoneCommand.SHORT_COMMAND_WORD:
+            return new ListNotDoneCommand();
+            
         case ListTaskCommand.COMMAND_WORD:
         case ListTaskCommand.SHORT_COMMAND_WORD:
         	return new ListTaskCommand();
@@ -192,19 +202,24 @@ public class Parser {
         case NotDoneCommand.COMMAND_WORD:
         case NotDoneCommand.SHORT_COMMAND_WORD:
             return prepareNotDone(arguments);
+        
+        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.SHORT_COMMAND_WORD:
+            return new RedoCommand();
             
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.SHORT_COMMAND_WORD:
         	return new UndoCommand();
         	
         case SaveCommand.COMMAND_WORD:
-            return prepareSaveAs(arguments);
+            return prepareSave(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
+    //@@author A0065571A
     /**
      * Parses arguments in the context of the add item command.
      *
@@ -257,7 +272,7 @@ public class Parser {
         Date processedStartDateTime = startDateTimes.get(0);
         Date processedEndDateTime = endDateTimes.get(0);
         if (processedEndDateTime.before(processedStartDateTime)) {
-	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
 	    }
         SimpleDateFormat dateFormat = new SimpleDateFormat(ItemDate.DATE_FORMAT);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -332,7 +347,7 @@ public class Parser {
 		        startTime = AddCommand.DEFAULT_START_TIME;
 		    }
 		    if (sdf.parse(endDateString + " " + endTime).before(sdf.parse(startDateString + " " + startTime))) {
-		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
 		    }
 		} catch (ParseException e) {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
@@ -368,11 +383,12 @@ public class Parser {
 		                      getTagsFromArgs(deadlineMatcher.group("tagArguments")));
 	}
 
+    //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
      *
      * @param args full command args string
-     * @return the prepared command
+     * @return the prepared EditCommand
      */
     private Command prepareEdit(String args) {
         assert args != null;
@@ -384,88 +400,37 @@ public class Parser {
                 String editCommandArgs = matcher.group("editCommandArguments");
                 ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
                                                                         startDateTimePrefix, endDatePrefix, endTimePrefix,
-                                                                        endDateTimePrefix, tagsPrefix);
+                                                                        endDateTimePrefix, tagPrefix);
                 logger.fine("In prepareEdit, before tokenize");
                 argsTokenizer.tokenize(editCommandArgs);
                 
-                String name = null;
-                String startDate = null;
-                String startTime = null;
-                String endDate = null;
-                String endTime = null;
-                String startDateTime = null;
-                String endDateTime = null;
-                List<String> tagsToAdd = null;
-                List<String> tagsToRemove = null;
+                //Capture argument values into their respective variables if available
+                String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+                String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
+                String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
+                String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+                String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+                String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+                String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+                List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+                List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
                 
                 try {
-                    name = argsTokenizer.getValue(namePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startDate = argsTokenizer.getValue(startDatePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startTime = argsTokenizer.getValue(startTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endDate = argsTokenizer.getValue(endDatePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endTime = argsTokenizer.getValue(endTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startDateTime = argsTokenizer.getValue(startDateTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endDateTime = argsTokenizer.getValue(endDateTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    List<String> tags = argsTokenizer.getAllValues(tagsPrefix).orElse(null);
-                    
-                    logger.fine("Before remove tags check");
-                    if (tags != null) {
-                        for (String tag : tags) {
-                            assert tag.length() > 0;
-                            if (isATagToBeRemoved(tag)) {
-                                if (tagsToRemove == null) {
-                                    tagsToRemove = new ArrayList<String>();
-                                }
-                                
-                                assert tagsToRemove instanceof ArrayList<?>;
-                                tagsToRemove.add(processTagToBeRemoved(tag));
-                            } else {
-                                if (tagsToAdd == null) {
-                                    tagsToAdd = new ArrayList<String>();
-                                }
-                                
-                                assert tagsToAdd instanceof ArrayList<?>;
-                                tagsToAdd.add(tag);
-                            }
-                        }
-                    }
-                } catch (NoSuchElementException nsee) {
-                }
-                
-                try {
+                    //Handle case where user enters start date and time using natural language via sdt/
                     if (startDateTime != null) {
                         String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
                         startDate = startDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
                         startTime = startDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
                     
+                    //Handle case where user enters end date and time using natural language via edt/
                     if (endDateTime != null) {
                         String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
                         endDate = endDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
                         endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
-
+                    
+                    //Ensure EditCommand is created with at least one non-null parameter other than targetIndex
                     if (name != null || startDate != null || startTime!= null || endDate != null 
                         || endTime != null || tagsToAdd != null || tagsToRemove != null) {
                         return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime, tagsToAdd, tagsToRemove);
@@ -479,19 +444,72 @@ public class Parser {
     }
 
     /**
-     * Parses argument in the context of the saveAs specified file command.
-     * @param arguments full argument args string
-     * @return the prepared command
+     * @param argsTokenizer
+     * @param argumentPrefix
+     * @return parsed argument value
      */
-    private Command prepareSaveAs(String args) {
-        args = args.trim();
-        if(!args.equals("") && args.endsWith(".xml")) {
-            return new SaveCommand(args);
+    private String getParsedArgumentFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix argumentPrefix) {
+        try {
+            return argsTokenizer.getValue(argumentPrefix).get();
+        } catch (NoSuchElementException nsee) { 
+            return null;
+        } 
+    }
+
+    /**
+     * @param argsTokenizer
+     * @param tagPrefix
+     * @return list of parsed tags to be removed
+     */
+    private List<String> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        try {
+            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
+            
+            if (tags == null) {
+                return null;
+            }
+            
+            logger.fine("Before remove tags check");
+            
+            List<String> tagsToRemove = new ArrayList<String>();
+            for (String tag : tags) {
+                if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
+                    tagsToRemove.add(processTagToBeRemoved(tag));
+                }
+            }
+            
+            return tagsToRemove;
+        } catch (NoSuchElementException nsee) {
+            return null;
         }
-        
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
     }
     
+    /**
+     * @param argsTokenizer
+     * @param tagPrefix
+     * @return list of parsed tags
+     */
+    private List<String> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        try {
+            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
+            
+            if (tags == null) {
+                return null;
+            }
+            
+            List<String> tagsToAdd = new ArrayList<String>();
+            for (String tag : tags) {
+                if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                    tagsToAdd.add(tag);
+                }
+            }
+            
+            return tagsToAdd;
+        } catch (NoSuchElementException nsee) {
+            return null;
+        }
+    }
+
     /**
      * @param tag
      * @return tag without tag removal prefix
@@ -504,7 +522,7 @@ public class Parser {
 
     /**
      * @param tag
-     * @return true if tag is to be removed from the item's tag list.
+     * @return true if tag is to be removed from the item's current tag list.
      */
     private boolean isATagToBeRemoved(String tag) {
         return tag.substring(0, removeTagPrefixString.length()).equals(removeTagPrefixString);
@@ -513,36 +531,36 @@ public class Parser {
     /**
      * Parses date and time from argument acquired through NLP input 
      * @param argument
-     * @param dateFormat the format the argument should be returned in
+     * @param dateFormat the format the date should be returned in
+     * @param timeFormat the format the time should be returned in
      * @return parsed argument as string or null if argument not parsed 
      */
     private String[] parseDateTime(String argument, String dateFormat, String timeFormat) throws IllegalValueException {
         assert dateFormat != null && !dateFormat.isEmpty();
         assert timeFormat != null && !timeFormat.isEmpty();
-
+        assert argument != null;
+    
+        List<Date> dateTimes = new PrettyTimeParser().parse(argument);
         
-        if (argument != null) {
-            List<Date> dateTimes = new PrettyTimeParser().parse(argument);
-            if (dateTimes.isEmpty()) {
-                throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
-            }
-            Date prettyParsedDateTime = dateTimes.get(0);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-            SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
-            String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
-            String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
-            
-            String[] parsedDateTime = new String[2];
-            parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
-            parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
-            
-            return parsedDateTime;
-        } else {
-            return null;
+        if (dateTimes.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
         }
+        
+        Date prettyParsedDateTime = dateTimes.get(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
+        String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
+        String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
+        
+        String[] parsedDateTime = new String[2];
+        parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
+        parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
+        
+        return parsedDateTime;
     }
     
-    //unused
+    //@@author A0140060A-unused
+    //Used in earlier version, functionality replaced due to ArgumentTokenizer
     /**
      * Extracts argument from a string containing command arguments
      * @param argumentPattern the pattern used to extract the argument from commandArgs
@@ -580,7 +598,31 @@ public class Parser {
         return argument;
     }
     
+    //@@author A0143641M
+    /**
+     * Parses argument in the context of the saveAs specified file command.
+     * @param arguments full argument args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        args = args.trim();
+        if(parseSaveCommandFormat(args)) {
+            return new SaveCommand(args);
+        }
+        
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+    }
 
+    /**
+     * Checks valid file path is given as argument for SaveCommand.
+     * @param args parameter input by user for save command
+     * @return true if parameter is valid
+     */
+    private boolean parseSaveCommandFormat(String args) {
+        return !args.equals("") && args.endsWith(".xml");
+    }
+    //@@author
+    
     /**
      * Extracts the new item's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -601,7 +643,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -620,12 +662,17 @@ public class Parser {
             return new DeleteCommand(index.get());
         }
 
+        //@@author A0143641M
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
-            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.trim().split("[^0-9]*")));
-            for(String indexString : indexList) {
+            args = args.trim();
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]*")));
+            
+            // remove empty strings from split
+            for(Iterator<String> itr = indexList.iterator(); itr.hasNext(); ) {
+                String indexString = itr.next();
                 if(indexString.equals("")) {
-                    indexList.remove(indexString);
+                    itr.remove();
                 }
             }
             ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
@@ -641,12 +688,14 @@ public class Parser {
                 }
             }
             return new DeleteCommand(indexesToDelete);
+        //@@author
         }
         else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
     
+    //@@author A0065571A
     /**
      * Parses arguments in the context of the done item command.
      *
@@ -681,8 +730,9 @@ public class Parser {
         return new NotDoneCommand(index.get());
     }    
     
+    //@@author
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select item command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -716,7 +766,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find item command.
      *
      * @param args full command args string
      * @return the prepared command

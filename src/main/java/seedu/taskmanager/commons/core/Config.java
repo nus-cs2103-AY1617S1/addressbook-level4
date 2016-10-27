@@ -11,7 +11,7 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Task Manager App";
+    private String appTitle = "IvoryTasks";
     private Level logLevel = Level.FINE;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/todo.xml";

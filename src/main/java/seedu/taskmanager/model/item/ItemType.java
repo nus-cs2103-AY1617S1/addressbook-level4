@@ -2,6 +2,7 @@ package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
+//@@author A0140060A-reused
 /**
  * Represents a Item's type in the task manager.
  */
@@ -15,7 +16,8 @@ public class ItemType {
     public static final String ITEMTYPE_VALIDATION_REGEX = EVENT_WORD + "|" + DEADLINE_WORD + "|" + TASK_WORD;
 
     public final String value;
-
+    
+    //@@author A0140060A
     /**
      * Validates given item type.
      *
@@ -37,7 +39,27 @@ public class ItemType {
         return test.matches(ITEMTYPE_VALIDATION_REGEX);
     }
 
-
+    /**
+     * Returns true if item type is 'task'.
+     */
+    public boolean isATask() {
+        return value.equals(TASK_WORD);
+    }
+    
+    /**
+     * Returns true if item type is 'event'.
+     */
+    public boolean isAnEvent() {
+        return value.equals(EVENT_WORD);
+    }
+    
+    /**
+     * Returns true if item type is 'deadline'.
+     */
+    public boolean isADeadline() {
+        return value.equals(DEADLINE_WORD);
+    }
+    
     @Override
     public String toString() {
         return value;

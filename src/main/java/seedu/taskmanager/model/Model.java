@@ -16,25 +16,34 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
-
+  
+    //@@author A0140060A-reused
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 
     /** Adds the given item */
     void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException;
 
+    //@@author A0140060A
     /** Replaces the given item */
     void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) throws UniqueItemList.ItemNotFoundException, UniqueItemList.DuplicateItemException;
+    //@@author 
     
     /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
     UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList();
 
     /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered item list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
     
+    //@@author A0140060A-reused
+    /** Updates the filter of the filtered item list to filter by the given keywords*/
+    void updateFilteredItemList(Set<String> keywords);
+    
+    //@@author A0140060A
+    /** Updates the filter of the filtered person list to show all not done (uncompleted) items */
+    void updateFilteredListToShowNotDone();
+    
+    //@@author A0135792X
     /**Updates the filter of the filtered item list to filter by task */
 	void updateFilteredListToShowTask();
 	
@@ -43,6 +52,8 @@ public interface Model {
 	
 	/**Updates the filter of the filtered item list to filter by event */
 	void updateFilteredListToShowEvent();
+	//@@author 
+	
 	
     /** Sets item as done */
     void setDone(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
@@ -52,5 +63,8 @@ public interface Model {
     
     /** Undo last action that changed todo list */
     String undoAction();
+    
+    /** Redo last undone action that changed todo list */
+    String redoAction();
 
 }

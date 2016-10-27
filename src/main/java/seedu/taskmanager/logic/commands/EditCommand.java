@@ -2,6 +2,9 @@ package seedu.taskmanager.logic.commands;
 
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
@@ -19,6 +22,8 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+
+//@@author A0140060A
 
 /**
  * Edits an item identified using it's last displayed index from the task manager.
@@ -45,14 +50,14 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag [%1$s] does not exist! Tags must exist in order to be deletable";
     
-    int targetIndex;
-    Name name;
-    ItemDate startDate;
-    ItemTime startTime;
-    ItemDate endDate;
-    ItemTime endTime;
-    UniqueTagList tagsToAdd;
-    UniqueTagList tagsToRemove;
+    private int targetIndex;
+    private Name name;
+    private ItemDate startDate;
+    private ItemTime startTime;
+    private ItemDate endDate;
+    private ItemTime endTime;
+    private UniqueTagList tagsToAdd;
+    private UniqueTagList tagsToRemove;
 
     /*
      * Edits deadline, task, or event by index.
@@ -122,6 +127,7 @@ public class EditCommand extends Command {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
+        
         if (this.name != null) {
             itemToReplace.setName(this.name);
         }
@@ -171,6 +177,14 @@ public class EditCommand extends Command {
             }
             itemToReplace.setTags(updatedTagList);
         }
+
+        if (itemToReplace.getItemType().isAnEvent() && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
+                                                                                        itemToReplace.getEndDate(), itemToReplace.getEndTime())) {
+            logger.fine("detected event end datetime before start datetime");
+            
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+        }
         
         try {
             model.replaceItem(itemToEdit, itemToReplace, String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
@@ -183,26 +197,101 @@ public class EditCommand extends Command {
     }
 
     /**
+     * @param startItemDate
+     * @param endItemDate
+     * @param startItemTime
+     * @param endItemTime
+     * @return true if end datetime comes before start datetime
+     */
+    private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, ItemDate endItemDate, ItemTime endItemTime) {
+        if (isEndDateEqualsStartDate(startItemDate, endItemDate)) {
+            return isEndTimeBeforeStartTime(startItemTime, endItemTime);
+        } else {
+            return isEndDateBeforeStartDate(startItemDate, endItemDate);
+        }
+    }
+    
+    /**
+     * @param startItemDate
+     * @param endItemDate
+     * @return true if endItemDate comes before startItemDate, false otherwise
+     */
+    private boolean isEndDateBeforeStartDate(ItemDate startItemDate, ItemDate endItemDate) {
+        return compareStartDateToEndDate(startItemDate, endItemDate) < 0;
+    }
+    
+    private boolean isEndDateEqualsStartDate(ItemDate startItemDate, ItemDate endItemDate) {
+        return compareStartDateToEndDate(startItemDate, endItemDate) == 0;
+    }
+    
+    /**
+     * @param startItemDate
+     * @param endItemDate
+     * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
+     */
+    private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
+        int result = 1;
+        
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(ItemDate.DATE_FORMAT);
+            Date startDate = sdf.parse(startItemDate.toString());
+            Date endDate = sdf.parse(endItemDate.toString());
+            if (endDate.before(startDate)) {
+                result = -1;
+            } else if (endDate.equals(startDate)) {
+                result = 0;
+            }
+        } catch (ParseException pe) {
+            assert false : "Given date(s) is/are not parsable by SimpleDateFormat";
+        }
+        
+        return result;
+    }
+    
+    
+    /**
+     * @param startItemTime
+     * @param endItemTime
+     * @return true if endItemTime comes before startItemTime, false otherwise
+     */
+    private boolean isEndTimeBeforeStartTime(ItemTime startItemTime, ItemTime endItemTime) {
+        boolean result = true;
+        
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(ItemTime.TIME_FORMAT);
+            Date startTime= sdf.parse(startItemTime.toString());
+            Date endTime = sdf.parse(endItemTime.toString());
+            result = endTime.before(startTime);
+        } catch (ParseException pe) {
+            assert false : "Given time(s) is not parsable by SimpleDateFormat";
+        }
+        
+        return result;
+    }
+
+    /**
      * @param itemToReplace
      * @return true if parameters input by user is not valid for the item that is being edited
      */
-    private boolean isInvalidInputForItemType(Item itemToReplace) { 
+    private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
         String itemType = itemToReplace.getItemType().toString();
         assert itemType.equals(ItemType.TASK_WORD) 
                || itemType.equals(ItemType.DEADLINE_WORD) 
                || itemType.equals(ItemType.EVENT_WORD);
         
+        boolean result = true;
+        
         if (itemType.equals(ItemType.TASK_WORD)) {
-            return startDate != null || startTime != null || endDate != null || endTime != null;
+            result = startDate != null || startTime != null || endDate != null || endTime != null;
         }
         if (itemType.equals(ItemType.DEADLINE_WORD)) {
-            return startDate != null || startTime != null;
+            result = startDate != null || startTime != null;
         }
         if (itemType.equals(ItemType.EVENT_WORD)) {
-            return false;
+            result = false;
         }
         
-        return true;
+        return result;
     }
 
 }

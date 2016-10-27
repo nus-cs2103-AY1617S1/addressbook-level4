@@ -11,6 +11,7 @@
 * [Appendix D: Glossary] (#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
+[comment]: # (@@author A0135792X)
 
 ## Setting up
 
@@ -74,23 +75,34 @@ For example, the `Logic` component (see the class diagram given below) defines i
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+[comment]: # (@@author A0140060A)
+
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `edit 1 n/Survive`.
 
 <img src="images\SDforEditItem.png" width="800">
+
+[comment]: # (@@author A0065571A)
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+
+[comment]: # (@@author A0140060A)
+
 <img src="images\SDforEditItemEventHandling.png" width="800">
+
+[comment]: # (@@author )
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
+
+//@@author A0135792X
 
 ### UI component
 
@@ -112,6 +124,8 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+[comment]: # (@@author A0140060A)
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -126,6 +140,8 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("edit 1 n/Survive 2103")`
  API call.<br>
 <img src="images/EditItemSdForLogic.png" width="800"><br>
+
+[comment]: # (@@author )
 
 ### Model component
 
@@ -229,7 +245,18 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+
+[comment]: # (@@author A0140060A)
+
+### Test Coverage
+
+We use [Coveralls](https://coveralls.io/) to track _Test Coverage_ of our code built using Travis CI
+
+### Code Quality
+
+We use [Codacy](https://www.codacy.com/) for _Static Analysis_ of our code.
+
+[comment]: # (@@author )
 
 ### Making a Release
 
@@ -240,38 +267,37 @@ Here are the steps to create a new release.
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
-### Managing Dependencies
-
-A project often depends on third-party libraries. For example, Taskmanager depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+[comment]: # (@@author A0140060A)
 
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ...           | So that I can...
 -------- | :------- | :---------------------- | :---------------
-`* * *`  | new user | see usage instructions  | use the app as intended
+`* * *`  | new user | see usage instructions  | learn how to use the app
 `* * *`  | user     | add a new task | add something to my todo list without a time restrictions
 `* * *`  | user     | add a new deadline      | add something to my todo list with a deadline
-`* * *`  | user     | add a new event         | add something to my todo list with a start and end time
+`* * *`  | user     | add a new event         | add something to my todo list with a start and end datetime
 `* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
-`* * *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
+`* *`  | user     | view all tasks   | view only my tasks
+`* *`  | user     | view all deadlines   | view only my deadlines
+`* *`  | user     | view all events   | view only my events
 `* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
-`* * *`  | user     | mark a task/deadline as done| know that a task/deadline is completed
+`* *`  | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
+`* *`  | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
+`* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
+`* *`  | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
 `* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary
-`* * *`  | user     | set a deadline for task | know when to finish the task by
 `* * *`  | user     | search tasks by name    | find the task that I need to do
 `* * *`  | user     | undo the last command   | undo an unintentional operation
-`* * *`  | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
 `* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
-`* *`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
+`* *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
+`*`  | user     | set a deadline for task | know when to finish the task by
+`*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
+[comment]: # (@@author )
 
+[comment]: # (@@author A0135792X)
 
 ## Appendix B : Use Cases
 
@@ -289,9 +315,14 @@ Use case ends.
 >1a1. TaskManager shows an error message. <br>
 >Use case resumes at step 1.
 
+[comment]: # (@@author A0140060A)
+
 #### Use case: Find an item
+**MSS**
+
 1. User requests to find an item by searching for a keyword
-2. TaskManager lists the specific item
+2. TaskManager lists the items containing the keyword. <br>
+Use case ends.
 
 #### Use case: Edit a task/deadline/event
 **MSS**
@@ -301,18 +332,6 @@ Use case ends.
 3. User requests to edit specific details of a specific TDE in the list.
 4. TaskManager edits the TDE. <br>
 Use case ends.
-
-#### Use case: List all tasks
-1.User requests to list all tasks
-2.TaskManager shows a list of tasks
-
-#### Use case: List all deadlines
-1.User requests to list all deadlines
-2.TaskManager shows a list of deadlines
-
-#### Use case: List all events
-1.User requests to list all events
-2.TaskManager shows a list of events
 
 **Extensions**
 
@@ -328,6 +347,47 @@ Use case ends.
 >3b The given parameter is invalid.
 >3b1 TaskManager shows an error message. <br>
 >Use case resumes at step 2.
+
+#### Use case: List all uncompleted tasks / deadlines / events
+**MSS**
+
+1. User requests to list all uncompleted tasks / deadlines / events
+2. TaskManager shows a list of uncompleted tasks / deadlines / events
+
+#### Use case: View details of a task/deadline/event
+**MSS**
+
+1. User requests to list task/deadline/event (TDE).
+2. TaskManager shows a list of TDEs.
+3. User requests to view details of a specific TDE in the list.
+4. TaskManager displays details of the TDE. <br>
+Use case ends.
+
+**Extensions**
+
+>2a. The TDE list is empty. <br>
+>Use case ends.
+
+
+>3a. The given index is invalid.
+>3a1. TaskManager shows an error message. <br>
+>Use case resumes at step 2.
+
+[comment]: # (@@author )
+
+[comment]: # (@@author A0135792X)
+
+#### Use case: List all tasks
+1.User requests to list all tasks
+2.TaskManager shows a list of tasks
+
+#### Use case: List all deadlines
+1.User requests to list all deadlines
+2.TaskManager shows a list of deadlines
+
+#### Use case: List all events
+1.User requests to list all events
+2.TaskManager shows a list of events
 
 #### Use case: Delete an task/deadline/event
 
@@ -345,14 +405,16 @@ Use case ends.
 >Use case ends.
 
 
->3a. The given index is invalid.
->3a1. TaskManager shows an error message. <br>
->Use case resumes at step 2.
+> 3a. The given index is invalid.
+> 3a1. TaskManager shows an error message. <br>
+> Use case resumes at step 2.
 
 
 >3b. User requests to delete two TDEs.
 >3b1. TaskManager deletes the TDEs. <br>
 >Use case ends.
+
+[comment]: # (@@author A0143641M)
 
 #### Use case: Save data to a specific location
 
@@ -374,8 +436,14 @@ Use case ends.
 2. Should be able to hold up to 10000 TDE.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should load the command result within 1 second of entering.
+6. Should execute all commands within 1 second after entering.
+7. Should save all command results on local disk within 1 second after entering command.
+7. Should not corrupt data if restarted after an unexpected crash.
+8. Should load app within 1 second of opening.
+9. Should not require an installer to run the app.
 
-
+More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
 ## Appendix D : Glossary
 
@@ -407,14 +475,30 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
+[comment]: # (@@author)
+
+[comment]: # (@@author A0135792X)
+
 ## Appendix E : Product Survey
 
-Product Name | Strength | Weakness  
+Product Name | Strengths | Weaknesses           | Remarks
+-------- | :------- | :---------------------- | :---------------
+Google Calendar  | Used worldwide, easy to use, understands NLP | Slow, requires internet access, has crashed in recent history  | Our application works offline and is both faster and has NLP as well
+Todo.txt        | Works across devices and operating systems    | Quite complicated for new users to pick up as it has a whole range of shortcut-commands | Our application accepts both short cut commands and normal commands, and syncs with Google Calendar to work across devices and platforms
+Swipes          | Simple, cross-platform                        | Unable to specify data storage location  | Our application allows users to specify a location to save data
+Fantastical     | Uses NLP, quick access in mini window         | Works only on Mac/iOS platform | Our application works on major computer operating systems, and since it allows syncing onto Google Calendar, one can even use mobile devices to view and update their task manager
+Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
+Sunrise  | Works across platforms and devices     | Requires internet access to work | Our application works both online and offline
 
-Google Calendar | Understands NLP | Very slow to use, requires a lot of steps to add a simple event
+[comment]: # (@@author A0140060A)
+### Acknowledgements & Dependencies
+This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4)
 
-Todo.txt | Simplistic, works across devices | Quite complicated for new users to pick up as it has a whole range of shortcut-commands
-
-Swipes | Simple, cross-platform | Unable to specify data storage location |
-
-Fantastical| Uses NLP, quick access in mini window | Works only on Mac/iOS platform
+##### Libraries used:
+* [ControlsFX](https://bitbucket.org/controlsfx/controlsfx/)
+* [Google Guava](https://github.com/google/guava)
+* [Jackson library](https://github.com/FasterXML/jackson)
+* [JUnit](http://junit.sourceforge.net/javadoc/cl)
+* [prettytime](https://github.com/ocpsoft/prettytime)
+* [prettytime-nlp](https://github.com/ocpsoft/prettytime)
+* [TestFX](https://github.com/TestFX/TestFX)

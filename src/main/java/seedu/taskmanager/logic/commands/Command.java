@@ -11,18 +11,21 @@ import seedu.taskmanager.model.Model;
 public abstract class Command {
     protected Model model;
     
+    //@@author A0140060A
+    public static final String MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME = "Start datetime must come before end datetime";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the task manager";
     
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of items.
      *
      * @param displaySize used to generate summary
-     * @return summary message for persons displayed
+     * @return summary message for items displayed
      */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
+    public static String getMessageForItemListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, displaySize);
     }
-
+    //@@author 
+    
     /**
      * Executes the command and returns the result message.
      *

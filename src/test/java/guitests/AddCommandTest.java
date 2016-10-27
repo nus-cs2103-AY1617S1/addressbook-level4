@@ -7,6 +7,7 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.logic.commands.AddCommand;
+import seedu.taskmanager.logic.commands.Command;
 import seedu.taskmanager.logic.commands.IncorrectCommand;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
@@ -42,7 +43,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add duplicate person
         commandBox.runCommand(td.deadline4.getAddCommand(false, false, false, false, false));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
-        assertTrue(itemListPanel.isListMatching(currentList));
+        assertTrue(shortItemListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -166,7 +167,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         if (itemType.equals(ItemType.EVENT_WORD)) {
             processedStartDateTime = startDateTimes.get(0);
             if (processedEndDateTime.before(processedStartDateTime)) {
-                assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+                assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
             }
             startDate = dateFormat.format(processedStartDateTime);
             startTime = timeFormat.format(processedStartDateTime);
@@ -186,7 +187,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         itemToAdd.setEndTime(new ItemTime(endTime));
 		itemToAdd.setItemType(new ItemType(itemType));
         
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemName);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemName);
         assertMatching(itemToAdd, addedCard);
 
     }
@@ -195,12 +196,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(itemToAdd.getAddCommand(false, false, false, false, false));
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemToAdd.getName().value);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemToAdd.getName().value);
         assertMatching(itemToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
         TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
-        assertTrue(itemListPanel.isListMatching(expectedList));
+        assertTrue(shortItemListPanel.isListMatching(expectedList));
     }
     
     private void assertAddSuccessWithDifferentCommand(TestItem itemToAdd,
@@ -209,7 +210,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(itemToAdd.getAddCommand(shortCommand, shortItemType, noNamePrefix, noStartTime, noEndTime));
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemToAdd.getName().value);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemToAdd.getName().value);
         if (noStartTime && itemToAdd.getItemType().value.equals(ItemType.EVENT_WORD)) {
             try {
 		        itemToAdd.setStartTime(new ItemTime(AddCommand.DEFAULT_START_TIME));
@@ -228,7 +229,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //confirm the list now contains all previous persons plus the new person
         TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
-        assertTrue(itemListPanel.isListMatching(expectedList));
+        assertTrue(shortItemListPanel.isListMatching(expectedList));
     }
 
 }

@@ -10,14 +10,15 @@ import seedu.taskmanager.commons.events.ui.ShowHelpRequestEvent;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    
+    //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "h";
-
+    //@@author 
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
-
-    public HelpCommand() {}
 
     @Override
     public CommandResult execute() {

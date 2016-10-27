@@ -16,7 +16,8 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueItemList implements Iterable<Item> {
-
+    private final ObservableList<Item> internalList = FXCollections.observableArrayList();
+    
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -31,13 +32,6 @@ public class UniqueItemList implements Iterable<Item> {
      * there is no such matching item in the list.
      */
     public static class ItemNotFoundException extends Exception {}
-
-    private final ObservableList<Item> internalList = FXCollections.observableArrayList();
-
-    /**
-     * Constructs empty ItemList.
-     */
-    public UniqueItemList() {}
 
     /**
      * Returns true if the list contains an equivalent item as the given argument.
@@ -60,6 +54,7 @@ public class UniqueItemList implements Iterable<Item> {
         internalList.add(toAdd);
     }
 
+    //@@author A0140060A
     /**
      * Replaces an item in the list.
      *     
@@ -78,6 +73,7 @@ public class UniqueItemList implements Iterable<Item> {
         }
         internalList.set(itemIndex, toReplace);
     }
+    //@@author 
     
     /**
      * Removes the equivalent item from the list.

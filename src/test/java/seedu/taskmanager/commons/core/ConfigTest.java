@@ -16,7 +16,7 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Task Manager App\n" +
+        String defaultConfigAsString = "App title : IvoryTasks\n" +
                 "Current log level : FINE\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/todo.xml\n" +

@@ -1,5 +1,7 @@
 package guitests;
 
+//@@author A0135792X
+
 import static org.junit.Assert.assertTrue;
 import static seedu.taskmanager.logic.commands.ListEventCommand.SHORT_COMMAND_WORD;
 
@@ -28,6 +30,7 @@ public class ListeventCommandTest extends TaskManagerGuiTest {
 	
 	private void assertListdeadlineCommandSuccess() {
         commandBox.runCommand("listevent");
+        commandBox.runCommand("le");
         assertResultMessage("Listed all events");
     }
 

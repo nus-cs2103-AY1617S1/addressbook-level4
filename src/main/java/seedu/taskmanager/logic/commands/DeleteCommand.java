@@ -1,6 +1,8 @@
 package seedu.taskmanager.logic.commands;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
+import java.lang.StringBuilder;
 
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
@@ -8,12 +10,15 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes an item identified using it's last displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
+    
+    //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "del";
+    //@@author 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the last item listing.\n"
@@ -44,6 +49,7 @@ public class DeleteCommand extends Command {
         hasMultipleIndexes = true;
     }
 
+    //@@author A0143641M
     /**
      * Deletes events, tasks, or deadlines by a single index or ascending multiple indexes.
      */
@@ -58,37 +64,62 @@ public class DeleteCommand extends Command {
                 return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
 
-            ReadOnlyItem personToDelete = lastShownList.get(targetIndex - 1);
+            ReadOnlyItem itemToDelete = lastShownList.get(targetIndex - 1);
             
             try {
-                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+                model.deleteItem(itemToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
             
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
         }
 
         else {
-            int numDeleted = 1;
-            for(int indexToDelete : targetIndexes) {
-                UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
-                if (lastShownList.size() < (indexToDelete - numDeleted + 1)) {
+            UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
+            ListIterator<ReadOnlyItem> lslIterator = lastShownList.listIterator();
+            int numItemsDeleted = 0;
+            
+            for(int index : targetIndexes) {
+                
+                if (lastShownList.size() < (index-numItemsDeleted)) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
                 }
+                
+                // reset iterator to point to first object when reach the end of list
+                if(lslIterator.nextIndex() >= lastShownList.size()) {
+                    lslIterator = lastShownList.listIterator();
+                }
 
-            ReadOnlyItem personToDelete = lastShownList.get(indexToDelete - numDeleted);
-            numDeleted += 1;
-            deletedItems.add(personToDelete);
-            
-            try {
-                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
-            } catch (ItemNotFoundException pnfe) {
-                assert false : "The target item cannot be missing";
+                while(lslIterator.nextIndex() != (index - numItemsDeleted - 1)) {
+                    if(lslIterator.nextIndex() > index) {
+                        lslIterator.previous();
+                    } else if(lslIterator.nextIndex() < (index - numItemsDeleted - 1)) {
+                        lslIterator.next();
+                    }
+                }
+
+                ReadOnlyItem itemToDelete = lastShownList.get(lslIterator.nextIndex());
+                    
+                try {
+                    model.deleteItem(itemToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
+                } catch (ItemNotFoundException pnfe) {
+                    assert false : "The target item cannot be missing";
+                }
+                
+                numItemsDeleted += 1;
+                deletedItems.add(itemToDelete);
+
             }
+            
+            StringBuilder printResult = new StringBuilder(MESSAGE_DELETE_ITEM_SUCCESS);
+            
+            for(ReadOnlyItem item : deletedItems) {
+                printResult.append(item.toString());
+            }
+            
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
-    }
     }
 }

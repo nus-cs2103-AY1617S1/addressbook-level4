@@ -15,18 +15,21 @@ public class ItemDate {
     public static final String ALTERNATE_DATE_FORMAT = "MM-dd";
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date input must be in YYYY-MM-DD or MM-DD";
     public static final String DATE_VALIDATION_REGEX = "\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])";
+    
+    //@@author A0140060A
     public static final String EMPTY_DATE = "";
 
 
     public final String value;
     
     /**
-     * Convenience constructor for empty Date
-     *
+     * Convenience constructor for empty ItemDate
      */
     public ItemDate() {
         value = EMPTY_DATE;
     }
+    
+    //@@author A0065571A 
     
     /**
      * Validates given date.

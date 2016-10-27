@@ -4,24 +4,26 @@ package seedu.taskmanager.model.item;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's time in the task maanger.
+ * Represents a Item's time in the task manager.
  * Can be startTime or endTime
  */
 public class ItemTime {
     public static final String TIME_FORMAT = "HH:mm";
     public static final String MESSAGE_TIME_CONSTRAINTS = "Time input must be in HH:MM";
     public static final String TIME_VALIDATION_REGEX = "(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])";
+
+    //@@author A0140060A
     public static final String EMPTY_TIME = "";
 
     public final String value;
 
     /**
-     * Validates given time.
-     *
+     * Convenience constructor for empty ItemTime
      */
     public ItemTime() {
         value = EMPTY_TIME;
     }
+    //@@author A0065571A
     
     /**
      * Validates given time.

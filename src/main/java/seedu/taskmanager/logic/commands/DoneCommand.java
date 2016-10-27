@@ -11,9 +11,12 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
+
+    //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "do";
     public static final String ALTERNATE_SHORT_COMMAND_WORD = "d";
-
+    
+    //@@author A0065571A
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Mark the item identified by the index number used in the last item listing as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"

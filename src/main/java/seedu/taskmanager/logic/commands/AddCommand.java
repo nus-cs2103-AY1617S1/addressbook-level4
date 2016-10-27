@@ -22,21 +22,20 @@ public class AddCommand extends Command {
     public static final String SHORT_COMMAND_WORD = "a";
     public static final String DEFAULT_END_TIME = "23:59";
     public static final String DEFAULT_START_TIME = "00:00";
-        
-    public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
-
+    
+    //@@author A0140060A
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
-            + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
-            + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/DATE et/TIME \n"
-            + "Event Parameters: " + ItemType.EVENT_WORD + " n/NAME sd/DATE st/TIME ed/DATE et/TIME \n"
-            + "Example (Task): " + COMMAND_WORD +  " " + ItemType.TASK_WORD 
-            + " n/Win Facebook hackathon" + "\n"
-            + "Example (Deadline): " + COMMAND_WORD +  " " + ItemType.DEADLINE_WORD 
-            + " n/Cheat death ed/2000-12-13 et/12:34" + "\n"
-            + "Example (Event): " + COMMAND_WORD +  " " + ItemType.EVENT_WORD
-            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34 \n"
-            + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
-            + "Note: n/ prefix for name is optional.";
+                                               + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
+                                               + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/DATE et/TIME \n"
+                                               + "Event Parameters: " + ItemType.EVENT_WORD + " n/NAME sd/DATE st/TIME ed/DATE et/TIME \n"
+                                               + "Example (Task): " + COMMAND_WORD +  " " + ItemType.TASK_WORD 
+                                               + " n/Win Facebook hackathon" + "\n"
+                                               + "Example (Deadline): " + COMMAND_WORD +  " " + ItemType.DEADLINE_WORD 
+                                               + " n/Cheat death ed/2000-12-13 et/12:34" + "\n"
+                                               + "Example (Event): " + COMMAND_WORD +  " " + ItemType.EVENT_WORD
+                                               + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34 \n"
+                                               + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
+                                               + "Note: n/ prefix for name is optional.";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s";
 
@@ -47,8 +46,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String itemType, String name, Set<String> tags) throws IllegalValueException {
     	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, tags);
     }
     
@@ -57,11 +55,11 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags) throws IllegalValueException {
     	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
     }
     
+    //@@author A0065571A
     /**
      * Convenience constructor using raw values.
      *

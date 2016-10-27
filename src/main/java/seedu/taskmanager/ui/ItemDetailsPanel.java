@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Logger;
 
+//@@author A0065571A
 /**
  * Panel containing the list of items.
  */

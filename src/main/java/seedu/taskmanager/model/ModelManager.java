@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Item> filteredItems;
     private Stack<HistoryTaskManager> history;
+    private Stack<HistoryTaskManager> undoneHistory;
     private final String initialHistory = "";
 
     /**
@@ -46,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(src);
         filteredItems = new FilteredList<>(taskManager.getItems());
         history = new Stack<HistoryTaskManager>();
+        undoneHistory = new Stack<HistoryTaskManager>();
         HistoryTaskManager newHistory = new HistoryTaskManager(src, initialHistory);
         history.push(newHistory);
     }
@@ -58,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredItems = new FilteredList<>(taskManager.getItems());
         history = new Stack<HistoryTaskManager>();
+        undoneHistory = new Stack<HistoryTaskManager>();
         HistoryTaskManager newHistory = new HistoryTaskManager(initialData, initialHistory);
         history.push(newHistory);
     }
@@ -73,6 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    //@@author A0065571A
     @Override
     public synchronized void setDone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.setDone(target);
@@ -92,6 +96,16 @@ public class ModelManager extends ComponentManager implements Model {
         ReadOnlyTaskManager newData = new TaskManager(taskManager);
         HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
         history.push(newHistory);
+        undoneHistory.clear();
+        raise(new TaskManagerChangedEvent(taskManager));
+        raise(new FilterEvent(filteredItems));
+    }
+    
+    /** Raises an event to indicate the model has changed because of a redo function */
+    private void indicateTaskManagerRedo(String actionTaken) {
+        ReadOnlyTaskManager newData = new TaskManager(taskManager);
+        HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
+        history.push(newHistory);
         raise(new TaskManagerChangedEvent(taskManager));
         raise(new FilterEvent(filteredItems));
     }
@@ -107,13 +121,27 @@ public class ModelManager extends ComponentManager implements Model {
             	return null;
             } else {
             	HistoryTaskManager oldData = history.pop();
+            	undoneHistory.push(currentData);
                 taskManager.resetData(oldData.getPastTaskManager());
-                indicateTaskManagerChanged(oldData.getActionTaken());
+                indicateTaskManagerRedo(oldData.getActionTaken());
                 return currentData.getActionTaken();
             }
     	}
     }
-
+    
+    @Override
+    public String redoAction() {
+    	if (undoneHistory.empty()) {
+    	    return null;
+    	} else {
+            HistoryTaskManager currentData = undoneHistory.pop();
+            taskManager.resetData(currentData.getPastTaskManager());
+            indicateTaskManagerRedo(currentData.getActionTaken());
+            return currentData.getActionTaken();
+    	}
+    }
+    
+    //@@author
     @Override
     public synchronized void deleteItem(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
         taskManager.removeItem(target);
@@ -126,7 +154,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged(actionTaken);
     }
-    
+
+    //@@author A0140060A
     @Override
     public synchronized void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) 
             throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
@@ -134,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged(actionTaken);
     }
+    //@@author 
 
     //=========== Filtered Item List Accessors ===============================================================
 
@@ -148,34 +178,44 @@ public class ModelManager extends ComponentManager implements Model {
     	raise(new FilterEvent(filteredItems));
     }
     
+    //@@author A0140060A
+    @Override
+    public void updateFilteredListToShowNotDone() {
+        updateFilteredItemList(new PredicateExpression(new StatusQualifier(false)));
+    }
+    //@@author 
+
     
+  //@@author A0135792X
     @Override
     public void updateFilteredListToShowTask() {
         final String[] itemType = {"task"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
     
     @Override
     public void updateFilteredListToShowDeadline() {
     	final String[] itemType = {"deadline"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
     
     @Override
     public void updateFilteredListToShowEvent() {
     	final String[] itemType = {"event"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
+    
+  //@@author
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredItemList(Set<String> keywords){
+        updateFilteredItemList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredItemList(Expression expression) {
         filteredItems.setPredicate(expression::satisfies);
         raise(new FilterEvent(filteredItems));
     }
@@ -187,6 +227,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
+    //@@author A0065571A
     private class HistoryTaskManager {
         
         private String actionTaken;
@@ -211,6 +252,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author
     private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;
@@ -231,7 +273,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyItem person);
+        boolean run(ReadOnlyItem item);
         String toString();
     }
     
@@ -243,9 +285,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyItem person) {
+        public boolean run(ReadOnlyItem item) {
             return itemType.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getItemType().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getItemType().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -264,9 +306,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyItem person) {
+        public boolean run(ReadOnlyItem item) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getName().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -276,5 +318,23 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    //@@author A0140060A
+    private class StatusQualifier implements Qualifier {
+        private boolean isDone;
 
+        StatusQualifier(boolean isDone) {
+            this.isDone = isDone;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyItem item) {
+            return item.getDone() == isDone;
+        }
+
+        @Override
+        public String toString() {
+            return "done=" + isDone;
+        }
+    }
 }

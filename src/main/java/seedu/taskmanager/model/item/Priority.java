@@ -2,6 +2,8 @@ package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
+//@@author A0140060A-unused
+//Functionality scrapped
 /**
  * Represents a Item's priority in the task manager.
  */

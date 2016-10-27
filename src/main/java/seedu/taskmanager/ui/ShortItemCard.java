@@ -1,5 +1,6 @@
 package seedu.taskmanager.ui;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -20,6 +21,7 @@ import java.util.Date;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+//@@author A0065571A
 public class ShortItemCard extends UiPart{
 
     private static final String FXML = "ShortItemListCard.fxml";

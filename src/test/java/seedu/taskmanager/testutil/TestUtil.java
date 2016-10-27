@@ -69,6 +69,7 @@ public class TestUtil {
 
     public static final Item[] sampleItemData = getSampleItemData();
 
+    //@@author A0140060A-reused
     private static Item[] getSampleItemData() {
         try {
             return new Item[]{
@@ -91,7 +92,8 @@ public class TestUtil {
             return null;
         }
     }
-
+    //@@author 
+    
     public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
@@ -126,9 +128,11 @@ public class TestUtil {
         return SANDBOX_FOLDER + fileName;
     }
     
+    //@@author A0143641M
     public static boolean changedFilePathInSandboxFolder(String oldFilePath, String newFilePath) { 
         return !oldFilePath.equals(newFilePath);
     }
+    //@@author
 
     public static void createDataFileWithSampleData(String filePath) {
         createDataFileWithData(generateSampleStorageTaskManager(), filePath);
@@ -286,11 +290,12 @@ public class TestUtil {
         return list.get(list.size() - 1);
     }
 
+    //@@author A0140060A-reused
     /**
-     * Removes a subset from the list of persons.
-     * @param items The list of persons
-     * @param itemsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of items.
+     * @param items The list of items
+     * @param itemsToRemove The subset of items.
+     * @return The modified items after removal of the subset from items.
      */
     public static TestItem[] removeItemsFromList(final TestItem[] items, TestItem... itemsToRemove) {
         List<TestItem> listOfItems = asList(items);
@@ -300,7 +305,7 @@ public class TestUtil {
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the item at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
@@ -357,7 +362,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndItem(TaskCardHandle card, ReadOnlyItem item) {
-        return card.isSamePerson(item);
+        return card.isSameItem(item);
     }
 
     public static Tag[] getTagList(String tags) {

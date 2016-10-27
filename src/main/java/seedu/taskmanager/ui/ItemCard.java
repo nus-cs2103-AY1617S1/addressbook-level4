@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import seedu.taskmanager.logic.commands.DoneCommand;
 import seedu.taskmanager.logic.commands.NotDoneCommand;
 import seedu.taskmanager.logic.Logic;
@@ -26,10 +27,12 @@ public class ItemCard extends UiPart{
 
     @FXML
     private HBox cardPane;
+    
+    //@@author A0140060A
     @FXML
-    private Label name;
-    @FXML
-    private Label id;
+    private Text name;
+    
+    //@@author A0065571A 
     @FXML
     private Label itemType;
     @FXML
@@ -92,7 +95,6 @@ public class ItemCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(item.getName().value);
-        id.setText(displayedIndex + ". ");
         itemType.setText(item.getItemType().value);
         endTime.setText(item.getEndTime().value);
         endDate.setText(item.getEndDate().value);

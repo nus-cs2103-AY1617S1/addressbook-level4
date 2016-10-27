@@ -2,6 +2,7 @@ package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.model.tag.UniqueTagList;
 
+//@@author A0140060A
 /**
  * A read-only immutable interface for a Item in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.

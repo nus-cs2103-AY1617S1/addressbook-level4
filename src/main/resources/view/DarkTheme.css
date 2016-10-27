@@ -24,7 +24,7 @@
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
@@ -96,6 +96,7 @@
     -fx-text-fill: #010504;
 }
 
+/*@@author A0140060A*/
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
@@ -108,6 +109,7 @@
     -fx-text-fill: #010504;
 	-fx-max-width:300;
 }
+/*@@author */
 
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20%);

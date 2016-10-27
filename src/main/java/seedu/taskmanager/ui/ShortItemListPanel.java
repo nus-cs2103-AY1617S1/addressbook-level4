@@ -18,6 +18,7 @@ import seedu.taskmanager.logic.Logic;
 
 import java.util.logging.Logger;
 
+//@@author A0065571A
 /**
  * Panel containing the list of items.
  */
