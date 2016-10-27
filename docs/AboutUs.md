@@ -28,13 +28,13 @@ Component SME: UI
 * Components in charge of: [Logic](DeveloperGuide.md#logic-component), [Parser](DeveloperGuide.md#parser-component)
 * Aspects/tools in charge of: Documentation, Code Quality
 * Features implemented:
-   * [Alias](UserGuide.md#alias-a-keyword-alias)
-   * [Unalias](UserGuide.md#unalias-a-keyword-unalias)
+   * [Alias](UserGuide.md##alias-a-keyword--alias)
+   * [Unalias](UserGuide.md#unalias-a-keyword--unalias)
 * Code written: [[functional code](../collated/main/A0139916U.md)][[test code](../collated/main/A0139916U.md)][[docs](../collated/docs/A0139916U.md)]
 * Other major contributions:
-  * Initial gradle natty dependency configuration 8360c0d66fc55f36bed0d0e9d4c6b63186aeb590
-  * Set up initial interface for undo/redo in Command classes and implement Logic-level undo/redo 4dfafa07337f731959bcd7e267e0de9a093ae285
-  * All parsing related code for all commands [`Package`](../src/main/java/seedu/savvytasker/logic/parser)
+  * Initial gradle natty dependency configuration [[8360c0d](https://github.com/CS2103AUG2016-T14-C2/main/commit/8360c0d66fc55f36bed0d0e9d4c6b63186aeb590)
+  * Set up initial interface for undo/redo in Command classes and implement Logic-level undo/redo [[4dfafa0](https://github.com/CS2103AUG2016-T14-C2/main/commit/4dfafa07337f731959bcd7e267e0de9a093ae285)
+  * All parsing related code for all commands [Parser](../src/main/java/seedu/savvytasker/logic/parser)
 
 -----
 
