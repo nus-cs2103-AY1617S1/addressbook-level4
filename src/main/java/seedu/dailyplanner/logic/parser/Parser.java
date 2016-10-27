@@ -153,7 +153,15 @@ public class Parser {
      */
     private Command prepareAdd(String args) {
 	String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
-	HashMap<String, String> mapArgs = parseAdd(args.trim());
+	String trimmedArgs = args.trim();
+	
+	
+	if(!(isValidAddArgumentFormat(trimmedArgs))){
+		return  new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+	}
+	
+	
+	HashMap<String, String> mapArgs = parseAdd(trimmedArgs);
 
 	// If arguments are in hashmap, pass them to addCommand, if not pass
 	// them as empty string
@@ -197,6 +205,27 @@ public class Parser {
 	    return new IncorrectCommand(ive.getMessage());
 	}
     }
+
+	private boolean isValidAddArgumentFormat(String trimmedArgs) {
+		if(trimmedArgs.charAt(1) == '/' || trimmedArgs.charAt(2) == '/'){
+			return  false;
+		}
+		for(int k =0; k <trimmedArgs.length(); k++){
+			if(trimmedArgs.charAt(k) == '/'){
+				if(!(k+1 == trimmedArgs.length())){				
+					if(trimmedArgs.charAt(k+1) == ' '){
+						return  false;
+					}
+				else{
+					if(trimmedArgs.charAt(k) == '/')
+						return false;					
+					}
+				
+				}
+			}
+		}
+		return true;
+	}
 
     /**
      * Parses the arguments given by the user in the add command and returns it
