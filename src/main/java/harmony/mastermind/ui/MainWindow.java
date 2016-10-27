@@ -276,6 +276,7 @@ public class MainWindow extends UiPart {
         sortedTasks.comparatorProperty().bind(taskTableHome.comparatorProperty());
         taskTableHome.setItems(sortedTasks);
         
+        taskTableTask.setItems(logic.getFilteredFloatingTaskList());
         taskTableEvent.setItems(logic.getFilteredEventList());
         taskTableDeadline.setItems(logic.getFilteredDeadlineList());
         taskTableArchive.setItems(logic.getFilteredArchiveList());
