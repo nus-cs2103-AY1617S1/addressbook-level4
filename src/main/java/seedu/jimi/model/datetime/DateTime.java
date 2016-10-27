@@ -67,6 +67,15 @@ public class DateTime implements Comparable<DateTime> {
         return ChronoUnit.MONTHS.between(dtInstance, other.getLocalDateTime());
     }
     
+    public boolean between(DateTime dt1, DateTime dt2) {
+        return compareTo(dt1) >= 0 && compareTo(dt2) <= 0;
+    }
+    
+    public static boolean isOverLapping(DateTime d11, DateTime d12, DateTime d21, DateTime d22) {
+        return !(d12.compareTo(d21) < 0 || d11.compareTo(d22) > 0);
+    }
+    
+    
     @Override
     public int compareTo(DateTime dt) {
         return dtInstance.compareTo(dt.getLocalDateTime());
