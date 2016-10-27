@@ -27,9 +27,12 @@ Role: Tutor <br>
 
 #### [Eddie Tan Yong Sheng](https://github.com/e-tys) 
 <img src="images/EddieTan.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Documentation, Testing, UI
-
+* Role: Developer <br>  
+* Responsibilities: Documentation, Command, UI
+* Features implemented:
+	* Find Command
+	* Add Command(Recurring task)
+* Code written: [functional code](A0147092E.md)
 -----
 
 #### [Antonia Devina](https://github.com/antoniadevina)
