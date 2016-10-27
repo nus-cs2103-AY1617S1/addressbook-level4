@@ -19,6 +19,7 @@ public class EndTime {
      *
      * @throws IllegalValueException if given address string is invalid.
      */
+    //@@author A0146749N
     public EndTime(String address) throws IllegalValueException {
         assert address != null;
         //if (!isValidAddress(address)) {

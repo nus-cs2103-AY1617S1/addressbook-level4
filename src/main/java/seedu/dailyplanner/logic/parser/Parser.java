@@ -97,7 +97,7 @@ public class Parser {
 	    return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 	}
     }
-
+ 	//@@author A0139102U
     private Command prepareEdit(String arguments) {
 		// TODO Auto-generated method stub
     	
@@ -151,6 +151,9 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    
+    
+    //@@author A0140124B
     private Command prepareAdd(String args) {
 	String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
 	String trimmedArgs = args.trim();
@@ -226,6 +229,7 @@ public class Parser {
 		}
 		return true;
 	}
+	
 
     /**
      * Parses the arguments given by the user in the add command and returns it
@@ -273,9 +277,11 @@ public class Parser {
     	return mapArgs;
         }
     
+    
     /*
      * Loops through arguments, adds them to hashmap if valid
      */
+    
     private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
         for (int i = 0; i < splitArgs.length; i++) {
         if (splitArgs[i].substring(0, 2).equals("d/")) {
@@ -316,7 +322,7 @@ public class Parser {
         }
         }
     }
-
+  //@@author A0146749N
     private boolean hasTaskName(String arguments) {
         if (arguments.substring(0,3).contains("/")) {
             return false;
@@ -333,7 +339,7 @@ public class Parser {
 	    return arguments;
 	}
     }
-
+    
     /**
      * Extracts the new person's tags from the add command's tag arguments
      * string. Merges duplicate tag strings.
@@ -347,7 +353,7 @@ public class Parser {
 	final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
 	return new HashSet<>(tagStrings);
     }
-
+  
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -381,7 +387,7 @@ public class Parser {
 	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 	return new ShowCommand(keywordSet);
     }
-       
+     
 
     /**
      * Parses arguments in the context of the select person command.

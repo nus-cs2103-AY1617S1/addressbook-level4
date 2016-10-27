@@ -58,7 +58,7 @@ next year
 3 days from now
 three weeks ago
 ```
-
+//@@author A0140124B
 #### `STARTTIME` and `ENDTIME` fields
 
 1. No `STARTTIME` or `ENDTIME` fields have to be entered for tasks with no specific timing
@@ -131,7 +131,7 @@ Examples:<br>
 3. `add math homework e/6pm` <br>
 > Task with a deadline is added, no date is specified so today’s date is assumed<br>
 
-
+//@@author A0146749N
 ### Viewing a schedule : `show`
 
 Shows tasks on a particular day
@@ -192,6 +192,7 @@ Examples:<br>
   `wednesday 4pm to 6pm`<br>
 (only changes date and time)<br>
   
+  //@@author A0140124B 
 #### Deleting a task : `delete`
 
 Description: Deletes a task from the planner. <br>
@@ -205,7 +206,7 @@ Format: `delete INDEX`
 Examples: <br>
 ```delete 5```
 >Deletes task 5 of current list being viewed
- 
+
 
 ### Exiting the program : `exit`
 Exits the program.<br>

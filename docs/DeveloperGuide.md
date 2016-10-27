@@ -242,6 +242,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
+//@@author A0146749N
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
@@ -265,6 +266,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+//@@author A0139102U
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -361,6 +363,7 @@ Use case ends
 6. Task manager makes the edits <br>
 Use case ends.
 
+
 **Extensions**
 
 2a. The list is empty
@@ -385,7 +388,7 @@ Use case ends.
     
 
  <br>
-
+//@@author A0146749N
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
