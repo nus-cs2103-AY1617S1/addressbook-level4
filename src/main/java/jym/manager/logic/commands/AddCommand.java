@@ -44,6 +44,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+//@@author A0153440R
     public AddCommand(String description, Object ... objects) throws IllegalValueException{
     	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser. max args is date(s), location, priority
     		throw new IllegalArgumentException();
@@ -99,6 +100,8 @@ public class AddCommand extends Command {
                 deadline
         );
     }
+ //@@author
+
     @Override
     public CommandResult execute() {
         assert model != null;

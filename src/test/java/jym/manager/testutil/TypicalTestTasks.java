@@ -10,7 +10,7 @@ import jym.manager.model.task.*;
 public class TypicalTestTasks {
 
     public static TestTask doLaundry, doHomework, washCar, writeProgram, goShopping, eatWithFriends, unpackThings, buyFan, goToWork;
-
+//@@author A0153440R
     public TypicalTestTasks() {
         try {
             doLaundry =  new TaskBuilder().withDescription("Do laundry")
@@ -57,7 +57,7 @@ public class TypicalTestTasks {
             assert false : "not possible";
         }
     }
-
+//@author
     public static void loadAddressBookWithSampleData(TaskManager ab) {
 
         try {

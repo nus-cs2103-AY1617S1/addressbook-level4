@@ -6,8 +6,9 @@ import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
+//@@author A0153440R
 public class TestTask implements ReadOnlyTask {
 
     private Description description;
