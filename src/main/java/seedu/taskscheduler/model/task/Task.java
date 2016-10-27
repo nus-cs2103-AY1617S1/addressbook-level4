@@ -38,7 +38,6 @@ public class Task implements ReadOnlyTask {
         this.tags = tags;
         this.type = type;
         this.completeStatus = status;
-        this.completeStatus = false;
     }
 
     /**

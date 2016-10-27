@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.GuiSettings;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
+import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.model.UserPrefs;
 
@@ -107,7 +108,8 @@ public class MainWindow extends UiPart {
 
     public void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), logic.getFilteredTaskList());
+        priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
+                logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskSchedulerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

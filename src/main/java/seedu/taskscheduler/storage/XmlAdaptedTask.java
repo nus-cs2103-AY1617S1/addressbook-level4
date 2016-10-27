@@ -52,7 +52,7 @@ public class XmlAdaptedTask {
         endDateTime = source.getEndDate().toString();
         address = source.getLocation().value;
         type = source.getType().toString();
-        type = String.valueOf(source.getCompleteStatus());
+        status = String.valueOf(source.getCompleteStatus());
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -74,7 +74,8 @@ public class XmlAdaptedTask {
         final TaskDateTime endDateTime = new TaskDateTime(this.endDateTime);
         final Location address = new Location(this.address);
         final TaskType type = TaskType.valueOf(this.type);
+        final boolean status = Boolean.parseBoolean(this.status);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startDateTime, endDateTime, address, type, tags);
+        return new Task(name, startDateTime, endDateTime, address,  type, status, tags);
     }
 }
