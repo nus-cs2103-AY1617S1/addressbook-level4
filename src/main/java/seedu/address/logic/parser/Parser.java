@@ -41,7 +41,9 @@ public class Parser {
             		+ "d/(?<deadline>[^/]+)"
                     + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    private static final Pattern REPEAT_DATE_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    		Pattern.compile("(?<targetIndex>.+)"
+    				+ " (?<timeInterval>[^/]+)");
     public Parser() {}
 
     /**
@@ -87,7 +89,7 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-	case ListAllCommand.COMMAND_WORD:
+        case ListAllCommand.COMMAND_WORD:
             return new ListAllCommand();
 
         case ExitCommand.COMMAND_WORD:
@@ -101,6 +103,12 @@ public class Parser {
         	
         case ClashCommand.COMMAND_WORD:
         	return new ClashCommand();
+        	
+        case RepeatCommand.COMMAND_WORD:
+        	return prepareRepeat(arguments);
+        	
+        case UpdateCommand.COMMAND_WORD:
+        	return new UpdateCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -293,6 +301,23 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private Command prepareRepeat(String args){
+    	 final Matcher matcher = REPEAT_DATE_ARGS_FORMAT.matcher(args.trim());
+    	 // Validate arg string format
+    	 if(!matcher.matches()) {
+    		 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepeatCommand.MESSAGE_USAGE));
+    	 }
+    	 try{
+    		 return new RepeatCommand(
+    				 parseIndex(matcher.group("targetIndex")).get(),
+    				 matcher.group("timeInterval")
+    				 );
+    	 } catch (IllegalValueException ive) {
+    		 return new IncorrectCommand(ive.getMessage());
+    	 }
+
     }
 
 }
