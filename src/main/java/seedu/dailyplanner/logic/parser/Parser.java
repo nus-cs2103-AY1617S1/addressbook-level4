@@ -86,6 +86,9 @@ public class Parser {
 
 	case HelpCommand.COMMAND_WORD:
 	    return new HelpCommand();
+	    
+	case CompleteCommand.COMMAND_WORD:
+	    return prepareComplete(arguments);
 
 	case ShowCommand.COMMAND_WORD:
 	    if (arguments.equals(""))
@@ -96,6 +99,15 @@ public class Parser {
 	default:
 	    return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 	}
+    }
+
+    private Command prepareComplete(String arguments) {
+	Optional<Integer> index = parseIndex(arguments);
+	if (!index.isPresent()) {
+	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+	}
+
+	return new CompleteCommand(index.get());
     }
 
     private Command prepareEdit(String arguments) {

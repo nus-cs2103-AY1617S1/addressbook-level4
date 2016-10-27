@@ -111,6 +111,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniqueTaskList.PersonNotFoundException();
         }
     }
+    
+    public void markTaskAsComplete(int targetIndex) throws UniqueTaskList.PersonNotFoundException {
+	persons.complete(targetIndex);
+    }
 
 //// tag-level operations
 

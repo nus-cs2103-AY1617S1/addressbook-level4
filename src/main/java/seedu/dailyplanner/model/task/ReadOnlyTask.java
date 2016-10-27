@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Date getPhone();
     StartTime getEmail();
     EndTime getAddress();
+    boolean isComplete();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -65,5 +66,6 @@ public interface ReadOnlyTask {
     void setDate(Date date);
     void setStartTime(StartTime time);
     void setEndTime(EndTime time);
+    void markAsComplete();
 
 }

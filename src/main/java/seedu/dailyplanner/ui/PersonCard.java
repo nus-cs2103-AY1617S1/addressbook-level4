@@ -24,6 +24,8 @@ public class PersonCard extends UiPart{
     private Label email;
     @FXML
     private Label tags;
+    @FXML
+    private Label isComplete;
 
     private ReadOnlyTask person;
     private int displayedIndex;
@@ -32,9 +34,9 @@ public class PersonCard extends UiPart{
 
     }
 
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
+    public static PersonCard load(ReadOnlyTask task, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.person = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
@@ -47,6 +49,8 @@ public class PersonCard extends UiPart{
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         tags.setText(person.tagsString());
+        if (person.isComplete())
+            isComplete.setText("COMPLETED");
     }
 
     public HBox getLayout() {

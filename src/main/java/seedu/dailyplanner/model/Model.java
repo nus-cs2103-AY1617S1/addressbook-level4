@@ -6,6 +6,7 @@ import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
+import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * The API of the Model component.
@@ -23,6 +24,10 @@ public interface Model {
     /** Adds the given person */
     void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
 
+    /** Marks the given task as coplete 
+     * @throws PersonNotFoundException */
+    void markTaskAsComplete(int targetIndex) throws PersonNotFoundException;
+    
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
 

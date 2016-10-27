@@ -76,6 +76,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    public synchronized void markTaskAsComplete(int targetIndex) throws PersonNotFoundException {
+	addressBook.markTaskAsComplete(targetIndex);
+	indicateAddressBookChanged();
+    }
 
     //=========== Filtered Person List Accessors ===============================================================
 
@@ -179,5 +184,6 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
     }
 }

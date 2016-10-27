@@ -15,6 +15,7 @@ public class Task implements ReadOnlyTask {
     private Date phone;
     private StartTime email;
     private EndTime address;
+    private boolean isComplete;
 
     private UniqueTagList tags;
 
@@ -28,6 +29,7 @@ public class Task implements ReadOnlyTask {
         this.email = email;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isComplete = false;
     }
 
     /**
@@ -55,6 +57,10 @@ public class Task implements ReadOnlyTask {
     @Override
     public void setEndTime(EndTime time) {
         this.address = time;
+    }
+    
+    public void markAsComplete() {
+	this.isComplete = true;
     }
     
     @Override
@@ -105,6 +111,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public boolean isComplete() {
+	return this.isComplete;
     }
 
 }
