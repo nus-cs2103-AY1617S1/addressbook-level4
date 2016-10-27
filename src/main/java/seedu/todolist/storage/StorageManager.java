@@ -47,6 +47,12 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AddressBook methods ==============================
 
     @Override
+    public void setFilePath(String filepath){
+    	String todolistFilePath = filepath + "/tolist.xml";
+    	addressBookStorage = new XmlAddressBookStorage(todolistFilePath);
+    }
+    
+    @Override
     public String getAddressBookFilePath() {
         return addressBookStorage.getAddressBookFilePath();
     }

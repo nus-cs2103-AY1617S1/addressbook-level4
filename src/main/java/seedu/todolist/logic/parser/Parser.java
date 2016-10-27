@@ -10,6 +10,7 @@ import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -90,6 +91,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+            
+        case SetstorageCommand.COMMAND_WORD:
+            return prepareSetstorage(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -328,6 +332,21 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the setstorage command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSetstorage(String args){
+        File file = new File(args.trim());    
+        if (!file.exists() && !file.isDirectory()){    
+        	file.mkdirs();
+        }  
+        
+        return new SetstorageCommand(args.trim());
     }
 
 }
