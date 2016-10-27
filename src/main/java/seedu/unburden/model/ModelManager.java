@@ -25,7 +25,7 @@ import com.google.common.base.Predicate;
  * All changes to any model should be synchronized.
  */
 
-//@@Nathanael Chan A0139678J
+//@@author A0139678J
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -57,7 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask = new ListOfTask(initialData);
         filteredTasks = new FilteredList<>(listOfTask.getTasks());
     }
-
+    
+    //@@author A0139714B	
     @Override
     public void resetData(ReadOnlyListOfTask newData) {
     	prevLists.push(listOfTask);
@@ -88,6 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@author A0139714B
     @Override
     public synchronized void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         listOfTask.editTask(target, args);
@@ -95,7 +97,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+<<<<<<< HEAD
     //@@Gauri Joshi A0143095H
+=======
+    //@@author A0143095H
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
@@ -103,6 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
+  //@@author A0143095H
     @Override 
     public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
     	listOfTask.doneTask(taskToDone,isunDone);
@@ -110,30 +117,34 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
+  //@@author A0139714B
     @Override
     public synchronized void saveToPrevLists() {
     	prevLists.push(new ListOfTask(listOfTask));
     	undoHistory.clear();
     }
     
+<<<<<<< HEAD
     public synchronized void saveToUndoHistory() {
     	if (undoHistory.size() == 0) 
     		undoHistory.push(new ListOfTask(listOfTask));
     }
     
+=======
+  //@@author A0139714B
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     @Override
     public synchronized void loadFromPrevLists() throws NoSuchElementException {
     	ListOfTask oldCopy = prevLists.pop();
-    	System.out.println(oldCopy.getTasks());
     	undoHistory.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();
     }
     
+  //@@author A0139714B
     @Override
     public synchronized void loadFromUndoHistory() throws NoSuchElementException {
     	ListOfTask oldCopy = undoHistory.pop();
-    	System.out.println(oldCopy.getTasks());
     	prevLists.push(new ListOfTask(listOfTask));
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();

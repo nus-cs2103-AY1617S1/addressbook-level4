@@ -14,6 +14,10 @@ import seedu.unburden.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 
+<<<<<<< HEAD
+=======
+//@@author A0139678J
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
 public interface Model {
 	/**
 	 * Clears existing backing model and replaces with the provided new data.
@@ -29,10 +33,19 @@ public interface Model {
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+<<<<<<< HEAD
+=======
+    //@@author A0139714B
+    void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+    
+    //@@author A0139714B
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
     void saveToPrevLists();
     
+    //@@author A0139714B
     void loadFromPrevLists();
     
+    //@@author A0139714B
     void loadFromUndoHistory();
 
 	void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;

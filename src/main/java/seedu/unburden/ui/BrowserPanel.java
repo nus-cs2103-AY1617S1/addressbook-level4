@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.
+ * @@author A0143095H
  */
 public class BrowserPanel extends UiPart{
 

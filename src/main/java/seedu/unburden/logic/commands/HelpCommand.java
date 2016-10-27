@@ -6,6 +6,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
  * Format full help instructions for every command for display.
+ * @@author A0139678J
  */
 //@@Nathanael Chan A0139678J
 public class HelpCommand extends Command {

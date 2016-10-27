@@ -7,6 +7,7 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
+ * @@author A0143095H
  */
 
 //@@Gauri Joshi A0143095H

@@ -30,6 +30,7 @@ public class Parser {
 
 	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
 
+	//@@author A0143095H
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
 
 	// Event
@@ -118,7 +119,7 @@ public class Parser {
 	 * @throws ParseException
 	 */
 	
-	//@@Nathanael Chan A0139678J
+	//@@author A0139678J
 	public Command parseCommand(String userInput) throws ParseException {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -182,6 +183,8 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
+	 * 
+	 * @@author A0139678J
 	 */
 	private Command prepareAdd(String args) {
 		Calendar calendar = Calendar.getInstance();
@@ -395,8 +398,9 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
+	 * 
+	 * @@author A0139714B
 	 */
-	//@@Gary Goh A0139714B
 	private Command prepareEdit(String args) {
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
@@ -423,8 +427,9 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
+	 * 
+	 * @@author A0139714B
 	 */
-	//@@Gary Goh A0139714B
 	private Command prepareSetDir(String args) {
 		final Matcher resetMatcher = SET_DIR_FORMAT_RESET.matcher(args.trim());
 		final Matcher pathMatcher = SET_DIR_FORMAT.matcher(args.trim());
@@ -482,9 +487,9 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
+	 * 
+	 * @@author A0139678J
 	 */
-	
-	//@@Nathanael Chan A0139678J
 	private Command prepareFind(String args) {
 		final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
 		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
@@ -519,6 +524,8 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return prepared doneCommand
+	 * 
+	 * @@author A0143095H
 	 */
 	//@@Gauri Joshi A0143095H
 	private Command prepareDone(String args) {
@@ -538,6 +545,8 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return prepared undoneCommand
+	 * 
+	 * @@author A0143095H
 	 */
 	private Command prepareUnDone(String args) {
 		Optional<Integer> index = parseIndex(args);

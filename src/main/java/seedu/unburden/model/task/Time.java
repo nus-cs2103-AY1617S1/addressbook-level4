@@ -5,6 +5,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's time in the Task Manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
+ * @@author A0143095H
  */
 
 //@@ Gauri Joshi A0143095H

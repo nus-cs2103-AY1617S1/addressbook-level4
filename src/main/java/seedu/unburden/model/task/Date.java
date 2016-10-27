@@ -8,8 +8,13 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's date in the task manager
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * @@author A0143095H
  */
+<<<<<<< HEAD
 //@@ Gauri Joshi A0143095H
+=======
+
+>>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd-mm-yyyy";
