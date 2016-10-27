@@ -73,7 +73,7 @@ Examples:
 <!--- @@author --->
 
 <!--- @@author a0126633j --->
-#### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
+#### Finding tasks: `find`
 Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>
 If the type is not specified, all entries containing the keyword will be displayed. <br>
 Format: `find [f|d|e] KEYWORD  [MORE KEYWORDS]`
