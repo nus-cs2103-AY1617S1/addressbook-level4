@@ -95,7 +95,7 @@ public class Parser {
                 return prepareList(arguments);
                 
             case UpcomingCommand.COMMAND_WORD:
-                return new UpcomingCommand();
+                return prepareUpcoming(arguments);
 
             case MarkCommand.COMMAND_WORD:
                 return prepareMark(arguments, currentTab);
@@ -400,6 +400,22 @@ public class Parser {
         return Optional.of(type);
 
     }
+    
+    private Optional<String> parseUpcoming(String command) {
+        if (command.isEmpty()) {
+            return Optional.of("empty");
+        }
+        
+        final Matcher matcher = UpcomingCommand.COMMAND_ARGUMENTS_PATTERN.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String type = matcher.group("taskType").toLowerCase();
+
+        return Optional.of(type);
+
+    }
 
     /**
      * Parses arguments in the context of the find task command.
@@ -418,6 +434,26 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0124797R
+    private Command prepareUpcoming(String args) {
+
+        Optional<String> taskType = parseUpcoming(args);
+        
+        if (taskType.isPresent()) {
+            return new UpcomingCommand(taskType.get());
+        } else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpcomingCommand.MESSAGE_USAGE));
+        }
+        
     }
 
     /**

@@ -110,7 +110,7 @@ public interface Model {
     //@@author A0124797R
     /** Updates the filter of the filtered task list 
      * for Home tab to show all upcoming tasks */
-    void updateFilteredListToShowUpcoming(long time);
+    void updateFilteredListToShowUpcoming(long time, String taskType);
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
