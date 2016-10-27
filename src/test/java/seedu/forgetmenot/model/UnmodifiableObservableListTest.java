@@ -1,17 +1,21 @@
 package seedu.forgetmenot.model;
 
-import javafx.collections.FXCollections;
-import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
+import static org.junit.Assert.assertSame;
+import static seedu.forgetmenot.testutil.TestUtil.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.*;
-
-import static org.junit.Assert.assertSame;
-import static seedu.forgetmenot.testutil.TestUtil.assertThrows;
+import javafx.collections.FXCollections;
+import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 
 public class UnmodifiableObservableListTest {
 

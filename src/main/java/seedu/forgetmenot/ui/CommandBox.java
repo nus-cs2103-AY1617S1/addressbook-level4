@@ -1,6 +1,9 @@
 package seedu.forgetmenot.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -11,9 +14,7 @@ import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.forgetmenot.commons.util.FxViewUtil;
 import seedu.forgetmenot.logic.Logic;
-import seedu.forgetmenot.logic.commands.*;
-
-import java.util.logging.Logger;
+import seedu.forgetmenot.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);

@@ -1,10 +1,10 @@
 package seedu.forgetmenot.commons.core;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.EventBus;
 
 import seedu.forgetmenot.commons.events.BaseEvent;
-
-import java.util.logging.Logger;
 
 /**
  * Manages the event dispatching of the app.

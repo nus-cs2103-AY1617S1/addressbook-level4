@@ -1,17 +1,14 @@
 package seedu.forgetmenot.logic.commands;
 
-import seedu.forgetmenot.commons.core.EventsCenter;
-import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.logic.LogicManager;
-import seedu.forgetmenot.model.task.*;
-import seedu.forgetmenot.storage.Storage;
-import seedu.forgetmenot.ui.TaskListPanel;
-
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Predicate;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.model.task.UniqueTaskList;
 
 
 

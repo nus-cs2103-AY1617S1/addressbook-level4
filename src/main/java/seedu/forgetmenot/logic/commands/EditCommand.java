@@ -1,14 +1,9 @@
 package seedu.forgetmenot.logic.commands;
 
-import java.util.function.Predicate;
-
-import org.apache.commons.lang.ObjectUtils.Null;
-
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 

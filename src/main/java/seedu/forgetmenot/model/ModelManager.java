@@ -1,15 +1,19 @@
 package seedu.forgetmenot.model;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.forgetmenot.commons.core.ComponentManager;
 import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.commons.util.StringUtil;
-import seedu.forgetmenot.logic.commands.ShowCommand;
-import seedu.forgetmenot.logic.commands.ShowDoneCommand;
 import seedu.forgetmenot.model.task.Done;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Task;
@@ -17,15 +21,6 @@ import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList;
 import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.ArrayDeque;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -162,7 +157,6 @@ public class ModelManager extends ComponentManager implements Model {
         
         //Recurring task with only end time.
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
-            System.out.println("adding a recurring tasks with only end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -173,7 +167,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task with only start time.
         else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
-            System.out.println("adding a recurring tasks with only start time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -184,7 +177,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task wth both start and end times  
         else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
-            System.out.println("adding a recurring tasks with start and end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),

@@ -1,10 +1,10 @@
 package seedu.forgetmenot.model.task;
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.commons.util.CollectionUtil;
-
 import java.util.Calendar;
 import java.util.Objects;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in ForgetMeNot.

@@ -1,11 +1,14 @@
 package seedu.forgetmenot.storage;
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.model.task.*;
-
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
 
 /**
  * JAXB-friendly version of the Task.

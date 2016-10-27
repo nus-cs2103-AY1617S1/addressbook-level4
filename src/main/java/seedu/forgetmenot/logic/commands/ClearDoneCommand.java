@@ -1,6 +1,5 @@
 package seedu.forgetmenot.logic.commands;
 
-import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 // @@author A0139198N

@@ -1,10 +1,10 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-
-import static org.junit.Assert.assertEquals;
 
 public class SelectCommandTest extends TaskManagerGuiTest {
 

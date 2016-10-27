@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import seedu.forgetmenot.model.task.Time;
-
 //@@author A0139671X
 public class ValidDateTest {
 	
@@ -37,14 +35,10 @@ public class ValidDateTest {
         invalidDates.add("29/a/20"); // invalid month
 
         for (int i = 0; i < validDates.size(); i++) {
-            // System.out.println(validDates.get(i) + " is " +
-            // Date.isValidDate(validDates.get(i)));
             assertTrue(Time.isValidDate(validDates.get(i)));
         }
 
         for (int i = 0; i < invalidDates.size(); i++) {
-            // System.out.println(invalidDates.get(i) + " is " +
-            // Date.isValidDate(invalidDates.get(i)));
             assertFalse(Time.isValidDate(invalidDates.get(i)));
         }
     }

@@ -45,7 +45,6 @@ public class DoneCommand extends Command {
             model.saveToHistory();
             model.doneTask(taskToMark);
             if (taskToMark.getRecurrence().getValue()) {
-                System.out.println(taskToMark.getRecurrence().getRecurFreq());
                 model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
             }
             model.updateFilteredTaskListToShowNotDone();

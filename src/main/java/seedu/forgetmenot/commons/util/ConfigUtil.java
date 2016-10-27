@@ -1,13 +1,13 @@
 package seedu.forgetmenot.commons.util;
 
-import seedu.forgetmenot.commons.core.Config;
-import seedu.forgetmenot.commons.core.LogsCenter;
-import seedu.forgetmenot.commons.exceptions.DataConversionException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.forgetmenot.commons.core.Config;
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

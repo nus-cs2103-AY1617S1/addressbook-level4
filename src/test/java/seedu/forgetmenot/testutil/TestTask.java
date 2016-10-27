@@ -2,7 +2,11 @@ package seedu.forgetmenot.testutil;
 
 import java.util.Calendar;
 
-import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Time;
 
 /**
  * A mutable task object. For testing only.

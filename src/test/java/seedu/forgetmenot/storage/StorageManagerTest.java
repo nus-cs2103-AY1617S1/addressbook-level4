@@ -1,6 +1,12 @@
 package seedu.forgetmenot.storage;
 
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,18 +17,8 @@ import seedu.forgetmenot.commons.events.storage.DataSavingExceptionEvent;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.UserPrefs;
-import seedu.forgetmenot.storage.JsonUserPrefsStorage;
-import seedu.forgetmenot.storage.Storage;
-import seedu.forgetmenot.storage.StorageManager;
-import seedu.forgetmenot.storage.XmlTaskManagerStorage;
 import seedu.forgetmenot.testutil.EventsCollector;
 import seedu.forgetmenot.testutil.TypicalTestTasks;
-
-import java.io.IOException;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class StorageManagerTest {
 

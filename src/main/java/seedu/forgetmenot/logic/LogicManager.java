@@ -1,18 +1,16 @@
 package seedu.forgetmenot.logic;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.core.ComponentManager;
 import seedu.forgetmenot.commons.core.LogsCenter;
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.logic.commands.Command;
 import seedu.forgetmenot.logic.commands.CommandResult;
 import seedu.forgetmenot.logic.parser.Parser;
 import seedu.forgetmenot.model.Model;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.storage.Storage;
-
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

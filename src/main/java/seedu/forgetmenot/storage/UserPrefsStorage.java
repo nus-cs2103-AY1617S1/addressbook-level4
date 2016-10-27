@@ -1,10 +1,10 @@
 package seedu.forgetmenot.storage;
 
-import seedu.forgetmenot.commons.exceptions.DataConversionException;
-import seedu.forgetmenot.model.UserPrefs;
-
 import java.io.IOException;
 import java.util.Optional;
+
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.model.UserPrefs;
 
 /**
  * Represents a storage for {@link seedu.forgetmenot.model.UserPrefs}.

@@ -1,26 +1,5 @@
 package seedu.forgetmenot.testutil;
 
-import com.google.common.io.Files;
-import guitests.guihandles.TaskCardHandle;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import junit.framework.AssertionFailedError;
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
-
-import seedu.forgetmenot.TestApp;
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.commons.util.FileUtil;
-import seedu.forgetmenot.commons.util.XmlUtil;
-import seedu.forgetmenot.model.TaskManager;
-import seedu.forgetmenot.model.task.*;
-import seedu.forgetmenot.storage.XmlSerializableTaskManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -31,6 +10,34 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+
+import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+
+import com.google.common.io.Files;
+
+import guitests.guihandles.TaskCardHandle;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import junit.framework.AssertionFailedError;
+import seedu.forgetmenot.TestApp;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.FileUtil;
+import seedu.forgetmenot.commons.util.XmlUtil;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.model.task.UniqueTaskList;
+import seedu.forgetmenot.storage.XmlSerializableTaskManager;
 
 /**
  * A utility class for test cases.

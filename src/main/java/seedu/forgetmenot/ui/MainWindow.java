@@ -16,7 +16,6 @@ import seedu.forgetmenot.commons.events.ui.ExitAppRequestEvent;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.model.UserPrefs;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing

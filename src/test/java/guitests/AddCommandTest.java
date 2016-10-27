@@ -1,14 +1,10 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
-import seedu.forgetmenot.commons.core.Messages;
-import seedu.forgetmenot.logic.commands.AddCommand;
+import guitests.guihandles.TaskCardHandle;
 import seedu.forgetmenot.testutil.TestTask;
 import seedu.forgetmenot.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 
@@ -43,13 +39,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        System.out.println("||" + addedCard.toString());
-        System.out.println(taskToAdd.toString() + "||");
         assertMatching(taskToAdd, addedCard);
-        System.out.println("4");
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        System.out.println("5");
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 

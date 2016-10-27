@@ -1,8 +1,8 @@
 package seedu.forgetmenot.commons.core;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
-import java.io.IOException;
 
 import com.google.common.eventbus.Subscribe;
 

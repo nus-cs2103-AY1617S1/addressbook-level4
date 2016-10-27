@@ -1,21 +1,20 @@
 package seedu.forgetmenot.commons.util;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.xml.bind.JAXBException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.forgetmenot.commons.util.FileUtil;
-import seedu.forgetmenot.commons.util.XmlUtil;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.storage.XmlSerializableTaskManager;
 import seedu.forgetmenot.testutil.TaskManagerBuilder;
 import seedu.forgetmenot.testutil.TestUtil;
-
-import javax.xml.bind.JAXBException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 

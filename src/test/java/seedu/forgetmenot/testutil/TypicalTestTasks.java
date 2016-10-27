@@ -2,7 +2,8 @@ package seedu.forgetmenot.testutil;
 
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.TaskManager;
-import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.UniqueTaskList;
 
 /**
  *
