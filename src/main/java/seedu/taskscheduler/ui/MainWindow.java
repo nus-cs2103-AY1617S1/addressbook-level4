@@ -105,13 +105,16 @@ public class MainWindow extends UiPart {
     }	
     
 
+    //@@author A0148145E
     public void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), logic.getFilteredTaskList());
+        priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
+                logic.getPriorityFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskSchedulerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
+    //@@author 
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;

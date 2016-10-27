@@ -18,4 +18,7 @@ public interface Logic {
     /** Returns the filtered list of task */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /** Returns the priority filtered list of task */
+    ObservableList<ReadOnlyTask> getPriorityFilteredTaskList();
+
 }

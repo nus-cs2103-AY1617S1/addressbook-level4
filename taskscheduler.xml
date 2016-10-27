@@ -6,6 +6,7 @@
         <endDateTime>11-Oct-2016, Tue</endDateTime>
         <address>NUS COM1</address>
         <type>EVENT</type>
+        <status>false</status>
     </tasks>
     <tasks>
         <name>Groupwork Project</name>
@@ -13,6 +14,7 @@
         <endDateTime>14-Oct-2016, Fri 08:00 AM</endDateTime>
         <address></address>
         <type>DEADLINE</type>
+        <status>false</status>
         <tagged>Deadline</tagged>
     </tasks>
     <tasks>
@@ -21,6 +23,7 @@
         <endDateTime>21-Oct-2016, Fri</endDateTime>
         <address>Technoedge</address>
         <type>EVENT</type>
+        <status>false</status>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
@@ -29,6 +32,7 @@
         <endDateTime>31-Dec-2018, Mon</endDateTime>
         <address>ICube Lecture Hall</address>
         <type>EVENT</type>
+        <status>false</status>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
@@ -37,6 +41,7 @@
         <endDateTime>31-Dec-2018, Mon</endDateTime>
         <address>ICube Lecture Hall</address>
         <type>EVENT</type>
+        <status>false</status>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
@@ -45,6 +50,7 @@
         <endDateTime>01-Jan-2038, Fri</endDateTime>
         <address>NUS</address>
         <type>EVENT</type>
+        <status>false</status>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
@@ -53,6 +59,7 @@
         <endDateTime></endDateTime>
         <address></address>
         <type>FLOATING</type>
+        <status>false</status>
     </tasks>
     <tags>
         <tagName>Deadline</tagName>

@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.taskscheduler.TestApp;
@@ -78,8 +80,8 @@ public class GuiHandle {
         guiRobot.type(KeyCode.DOWN).sleep(500);
     }
 
-    protected String getStyleFromHBox(String fieldId, Node parentNode) {
-        return ((HBox) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
+    protected Paint getPaintFromShape(String fieldId, Node parentNode) {
+        return ((Polygon) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getFill();
     }
 
     //@@author

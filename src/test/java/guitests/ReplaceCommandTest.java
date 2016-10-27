@@ -8,6 +8,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.logic.commands.Command;
+import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.testutil.TestTask;
 import seedu.taskscheduler.testutil.TestUtil;
 import seedu.taskscheduler.ui.TaskCard;
@@ -22,6 +23,8 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         int indexToReplace; 
         TestTask taskToCopy;
+        
+        CommandHistory.setModTask(null);
         
         //invalid command
         commandBox.runCommand("replace eee " + td.ida.getTaskString());
@@ -47,9 +50,9 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         indexToReplace = 1;
         assertReplaceSuccess(indexToReplace, taskToCopy, currentList);        
         //assert that overdue task is red
-        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
-        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
-
+        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.OVERDUE_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
+        
         currentList[indexToReplace - 1] = taskToCopy;
         currentList = TestUtil.addTasksToList(currentList);
 

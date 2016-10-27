@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -47,5 +48,15 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
+      <Polygon fx:id="completeStatus" fill="WHITE" opacity="0.5" rotate="180.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" translateX="20.0" translateY="-20.0">
+        <points>
+          <Double fx:value="-50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="0.0" />
+          <Double fx:value="-60.0" />
+        </points>
+      </Polygon>
     </children>
 </HBox>
