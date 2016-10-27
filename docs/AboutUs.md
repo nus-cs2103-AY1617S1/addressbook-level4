@@ -12,16 +12,16 @@ Role: Tutor <br>
 
 #### [Guo Shimin](https://github.com/shimin2016)
 <img src="images/GuoShiMin.jpg" width="150"><br>
-*Role: Developer <br>  
-*Responsibilities: Logic, Command
-*Features implemented:
-	*Mark Command
-	*Unmark Command
-	*Block Command
-*Code written: [[functional code](A0138455Y.md)][[test code](A0138455Y.md)][docs]
-*Other major contributions:
-	*Did the initial refactoring from AddressBook to FlexiTrack(Partially) [[#19 ](https://github.com/CS2103AUG2016-F09-C3/main/pull/19)]
-	*Set up Travis
+* Role: Developer <br>  
+* Responsibilities: Logic, Command
+* Features implemented:
+	* Mark Command
+	* Unmark Command
+	* Block Command
+* Code written: [[functional code](collated/main/A0138455Y.md)][[test code](collated/test/A0138455Y.md)][docs]
+* Other major contributions:
+	* Did the initial refactoring from AddressBook to FlexiTrack(Partially) [[#19 ](https://github.com/CS2103AUG2016-F09-C3/main/pull/19)]
+	* Set up Travis
 
 -----
 
