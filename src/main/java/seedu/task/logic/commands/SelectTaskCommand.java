@@ -12,6 +12,8 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * book.
  * @author Yee Heng
  */
+
+//@@author A0125534L
 public class SelectTaskCommand extends SelectCommand {
 
 	public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
