@@ -132,6 +132,7 @@ public class InputHandler {
                                   new ConfigController(),
                                   new ClearController(),
                                   new FindController(),
+                                  new TagController(),
                                   new ExitController() };
     }
 

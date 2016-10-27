@@ -68,10 +68,4 @@ public interface CalendarItem {
      */
     public boolean removeTag(String tagName);
 
-    /**
-     * Mainly use to check if the tag list is full 
-     * 
-     * @return the size of the tag list
-     */
-    public int getTagListSize();
 }

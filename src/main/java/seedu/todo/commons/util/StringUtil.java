@@ -2,6 +2,7 @@ package seedu.todo.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,5 +46,9 @@ public class StringUtil {
      */
     public static String replaceNull(String string, String replaceString) {
         return (string == null) ? replaceString : string;
+    }
+    
+    public static String checkEmptyList(ArrayList<String> list) {
+        return (list.size() == 0) ? "" : list.toString();
     }
 }

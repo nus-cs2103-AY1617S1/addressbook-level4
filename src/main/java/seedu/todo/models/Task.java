@@ -8,7 +8,7 @@ public class Task implements CalendarItem {
     private String name;
     private LocalDateTime dueDate;
     private boolean isCompleted = false;
-    private ArrayList<String> tagList;
+    private ArrayList<String> tagList = new ArrayList<String>();
     
     private static final int MAX_TAG_LIST_SIZE = 20;
 
@@ -81,13 +81,12 @@ public class Task implements CalendarItem {
 
     @Override
     public ArrayList<String> getTagList() {
-        // TODO Auto-generated method stub
-        return null;
+        return tagList;
     }
 
     @Override
     public boolean addTag(String tagName) {
-        if(getTagListSize() < 20) {
+        if(tagList.size() < MAX_TAG_LIST_SIZE) {
             tagList.add(tagName);
             return true;
         } else {
@@ -98,11 +97,6 @@ public class Task implements CalendarItem {
     @Override
     public boolean removeTag(String tagName) {
         return tagList.remove(tagName);
-    }
-
-    @Override
-    public int getTagListSize() {
-        return tagList.size();
     }
 
 }
