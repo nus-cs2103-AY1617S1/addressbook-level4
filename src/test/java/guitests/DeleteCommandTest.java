@@ -6,13 +6,8 @@ import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.cmdo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
-/**
- * 
- * @author A0141128R
- *
- */
+//@@author A0141128R
 public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test

@@ -65,7 +65,7 @@ public class MainParser {
      * 
      * Natty is a natural language parser for dates by Joe Stelmach
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private void init() {
     	parser = new Parser();
@@ -177,6 +177,8 @@ public class MainParser {
      *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0139661Y
      */
     private Command prepareAdd(String args){
     	datesAndTimes.clear();
@@ -225,9 +227,11 @@ public class MainParser {
     }
     /**
      * Parses arguments in the context of the block task command.
-     *@@author A0141128R
+     * 
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareBlock(String args){
     	datesAndTimes.clear();
@@ -277,10 +281,11 @@ public class MainParser {
     
     /**
      * Parses arguments in the context of the edit task command.
-     * @@author A0141128R
+     * 
      * @param args full command args string
      * @return the prepared command
-     * may have error as use the same array variable as add
+     * 
+     * @@author A0141128R
      */
     private Command prepareEdit(String args){
     	try {
@@ -380,9 +385,11 @@ public class MainParser {
 
     /**
      * Parses arguments in the context of the delete task command.
-     * @@author A0141128R
+	 *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareDelete(String args) {
 
@@ -435,6 +442,8 @@ public class MainParser {
      *
      * @param args full command args string
      * @return the prepared command
+     * 
+     * @@author A0141128R
      */
     private Command prepareFind(String args) {
         boolean taskStatus = false; // we assume the user is searching for undone tasks
@@ -460,7 +469,7 @@ public class MainParser {
      * @param args full command args string
      * @return the prepared command
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private Command prepareList(String args) {
         int type = 0; // we assume the user is searching for undone tasks
@@ -477,7 +486,7 @@ public class MainParser {
      * @param args an uncleaan string
      * @return a cleaned up string
      * 
-     * @author A0139661Y
+     * @@author A0139661Y
      */
     private String getCleanString(String args) {
     	return args.trim().replaceAll("\\s+", " ");
@@ -491,7 +500,6 @@ public class MainParser {
      * 
      * @@author A0139661Y
      */
-    
     private static String extractDetail(String args) throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
@@ -635,6 +643,8 @@ public class MainParser {
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
+     *   
+     * @@author A0139661Y
      */
     private Optional<Integer> parseLooseIndex(String command) {
         final Matcher matcher = TASK_LOOSE_INDEX_ARGS_FORMAT.matcher(command.trim());
