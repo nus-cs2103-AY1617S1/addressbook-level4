@@ -2,6 +2,7 @@ package seedu.todolist.model.task;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
 
+//@@author A0153736B
 /**
  * Represents a Task's remarks parameter in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidRemarksParameter(String)}

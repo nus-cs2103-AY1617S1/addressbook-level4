@@ -20,6 +20,7 @@ public class ListCommand extends Command {
     
     private final String dateFilter;
     
+    //@@author A0153736B
     public ListCommand(String dateFilter) {
     	this.dateFilter = dateFilter;
     }

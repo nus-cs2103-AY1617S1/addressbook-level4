@@ -82,12 +82,14 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook;
     }
 
+    //@@author A0153736B
     @Override
     public synchronized void undoAddressBook() throws EmptyStackException {
     	addressBook.resetData(addressBookHistory.pop());
     	updateFilteredListToShowAll();
     	indicateAddressBookChanged();
     }
+    //@@author
     
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
@@ -220,6 +222,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.findType = findType;
         }
 
+        //@@author A0153736B
         @Override
         public boolean run(ReadOnlyTask task) {
             if (findType.equals("all")) {
@@ -241,13 +244,15 @@ public class ModelManager extends ComponentManager implements Model {
             			.isPresent();
             }
         }
+     	//@@author
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    //@@author A0153736B
     private class DateQualifier implements Qualifier {
         private String dateFilter;
 
