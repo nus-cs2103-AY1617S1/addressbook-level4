@@ -140,7 +140,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |MM/DD/YYYY| `12/12/2016`| 12 December 2016
 |MM/DD/YY| `12/12/16`|12 December 2016|
 |MM/DD| `12/12` |12 December, Current Year|
-|Calendar|`12 December 2016`<br> `12 December 16`|12 December 2016
+|Calendar|`12 December 2016`, `12th December 2016`<br> `12 December 16`|12 December 2016
 |Calendar Day and Month|`12 December`|12 December, Current Year
 |Calendar Month only| `may`, `May`<br> `dec`, `Dec`, `December`| 1 May, Current Year<br> 1 December, Current Year|
 |Day|`monday`, `Monday`|Nearest upcoming Monday|
