@@ -128,7 +128,7 @@ public class Task implements ReadOnlyTask {
             updateRecurringTask(elapsedDays);
             break;
         case "weekly":
-            long numWeek = elapsedDays / 7 + 1;
+            long numWeek = (elapsedDays - 1) / 7 + 1;
             updateRecurringTask(numWeek * 7);
             break;
         case "monthly":

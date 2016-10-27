@@ -1,6 +1,5 @@
 package seedu.address.model.tag;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
