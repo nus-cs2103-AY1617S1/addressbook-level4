@@ -1,5 +1,6 @@
 package seedu.flexitrack.logic.commands;
 
+//@@author A0138455Y
 /**
  * Format full help instructions for every command for display.
  */
@@ -16,7 +17,7 @@ public class HelpCommand extends Command {
             + DeleteCommand.COMMAND_WORD + ", " + EditCommand.COMMAND_WORD + ", " + ExitCommand.COMMAND_WORD + ", "
             + FindCommand.COMMAND_WORD + ", " + ListCommand.COMMAND_WORD + ", " + MarkCommand.COMMAND_WORD + ", "
             + SelectCommand.COMMAND_WORD + ", " + UnmarkCommand.COMMAND_WORD + "\n" + "Example: " + COMMAND_WORD + " "
-            + ClearCommand.COMMAND_WORD;
+            + ClearCommand.COMMAND_WORD+ BlockCommand.COMMAND_WORD + UndoCommand.COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     private String userInput;
@@ -59,6 +60,12 @@ public class HelpCommand extends Command {
         case ExitCommand.COMMAND_WORD:
             return new CommandResult(ExitCommand.MESSAGE_USAGE);
 
+        case BlockCommand.COMMAND_WORD:
+            return new CommandResult(BlockCommand.MESSAGE_USAGE);
+            
+        case UndoCommand.COMMAND_WORD:
+            return new CommandResult(UndoCommand.MESSAGE_USAGE);
+        
         default:
             return new CommandResult(HELP_MESSAGE_USAGE);
         }
