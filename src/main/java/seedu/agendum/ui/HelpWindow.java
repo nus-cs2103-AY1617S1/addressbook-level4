@@ -20,6 +20,7 @@ import org.reflections.Reflections;
 import seedu.agendum.logic.commands.Command;
 import seedu.agendum.commons.core.LogsCenter;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -151,6 +152,8 @@ public class HelpWindow extends UiPart {
                 logger.severe("Java reflection for Command class failed");
             }
         }
+        
+        Collections.sort(commandList, (lhs, rhs) -> lhs.get(CommandColumns.COMMAND).compareTo(rhs.get(CommandColumns.COMMAND)));
     }
 
     public void show() {
