@@ -417,7 +417,10 @@ public class ModelManager extends ComponentManager implements Model {
             if (task.isFloating()) {
                 return true;
             }else{
-                return task.getEndDate().getTime() < oneWeekFromNow;
+                long taskTime = task.getEndDate().getTime();
+                long currTime = new Date().getTime();
+                boolean isUpcoming = taskTime < oneWeekFromNow && taskTime > currTime;
+                return isUpcoming;
             }
         }
 
