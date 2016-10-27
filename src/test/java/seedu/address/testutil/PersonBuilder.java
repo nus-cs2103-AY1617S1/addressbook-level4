@@ -28,17 +28,29 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
+<<<<<<< .merge_file_lsXesP
         this.person.setAddress(new EndTime(address));
+=======
+        this.person.setEndTime(new EndTime(address));
+>>>>>>> .merge_file_5vOuZE
         return this;
     }
 
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
+<<<<<<< .merge_file_lsXesP
         this.person.setPhone(new Date(phone));
+=======
+        this.person.setDate(new Date(phone));
+>>>>>>> .merge_file_5vOuZE
         return this;
     }
 
     public PersonBuilder withEmail(String email) throws IllegalValueException {
+<<<<<<< .merge_file_lsXesP
         this.person.setEmail(new StartTime(email));
+=======
+        this.person.setStartTime(new StartTime(email));
+>>>>>>> .merge_file_5vOuZE
         return this;
     }
 

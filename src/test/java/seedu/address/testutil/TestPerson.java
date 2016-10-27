@@ -22,15 +22,15 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(EndTime address) {
+    public void setEndTime(EndTime address) {
         this.address = address;
     }
 
-    public void setEmail(StartTime email) {
+    public void setStartTime(StartTime email) {
         this.email = email;
     }
 
-    public void setPhone(Date phone) {
+    public void setDate(Date phone) {
         this.phone = phone;
     }
 
@@ -74,6 +74,7 @@ public class TestPerson implements ReadOnlyTask {
         return sb.toString();
     }
 
+<<<<<<< HEAD
     @Override
     public boolean isComplete() {
 	// TODO Auto-generated method stub
@@ -103,4 +104,8 @@ public class TestPerson implements ReadOnlyTask {
 	// TODO Auto-generated method stub
 	
     }
+=======
+
+  
+>>>>>>> d4e108625253240c38957191283928bf46b4f1f2
 }
