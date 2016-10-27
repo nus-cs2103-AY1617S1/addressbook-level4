@@ -15,10 +15,10 @@ import seedu.task.logic.commands.IncorrectCommand;
  */
 public class ClearParser implements Parser {
 
-	private static final Pattern CLEAR_ARGS_FORMAT = Pattern.compile("(?<type>(?:(-t|-e|-a))*)" + "(?: (?<isAll>-a))*");
-	private static final String CLEAR_TYPE_TASK = "-t";
-	private static final String CLEAR_TYPE_EVENT = "-e";
-	private static final String CLEAR_TYPE_ALL = "-a";
+	private static final Pattern CLEAR_ARGS_FORMAT = Pattern.compile("(?<type>(?:(/t|/e|/a))*)" + "(?: (?<isAll>/a))*");
+	private static final String CLEAR_TYPE_TASK = "/t";
+	private static final String CLEAR_TYPE_EVENT = "/e";
+	private static final String CLEAR_TYPE_ALL = "/a";
 	
 	@Override
 	public Command prepare(String args) {
@@ -33,11 +33,11 @@ public class ClearParser implements Parser {
 		switch (matcher.group("type")) {
 		case "": // "clear"
 		    return new ClearCommand(Type.all, false);
-		case CLEAR_TYPE_TASK: // "clear -t" & "clear -t -a"
+		case CLEAR_TYPE_TASK: // "clear /t" & "clear /t /a"
 			return new ClearCommand(Type.task, isAll); 
-		case CLEAR_TYPE_EVENT: // "clear -e" & "clear -e -a"
+		case CLEAR_TYPE_EVENT: // "clear /e" & "clear /e /a"
 			return new ClearCommand(Type.event, isAll);
-		case CLEAR_TYPE_ALL: // "clear -a"
+		case CLEAR_TYPE_ALL: // "clear /a"
 		    return new ClearCommand(Type.all, true);
 		default:
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));

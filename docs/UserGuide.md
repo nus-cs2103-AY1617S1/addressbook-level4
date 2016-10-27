@@ -20,9 +20,9 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list /t`** : lists all tasks that are not done. 
+   * **`list /t`** : lists all tasks that are not completed. 
    * **`add`** `CS2103 Lab 6 /desc finish lab /by 12-30-16` : 
-     adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of `12-30-16`.
+     adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of 30th December.
    * **`mark`**` 3` : marks the 3rd task as complete.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -36,16 +36,16 @@ Adds a task to dowat<br>
 Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
  
 > Words in `UPPER_CASE` are the parameters, parameters will follow behind their corresponding keyword. 
-> With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters can be flexible. 
-> `DEADLINE_DATE_TIME` can be entered in natural language.
-> For date, entering words like today, tomorrow or day after are recognised.
-> Date format is MM-DD-YY.
+> With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
+> `DEADLINE_DATE_TIME` can be entered in any natural language format.
+> For date, entering words like today, tomorrow and day after are recognised.
+> Dates entered in numeric form must be in the format of MM-DD-YYYY.
+> Only valid dates are recognised correctly.
 > For time, entering 7pm, 1900 or 19.00 are recognised.
 > If no time is entered, it is assumed to be due at 23:59 hours.
 
 Examples: 
-* `add CS2103 Lab 6 /desc hand in through codecrunch` <br>
-   Adds a task "CS2103 Lab 4" with description "hand in through codecrunch"
+* `add CS2103 Lab 6 /desc hand in through codecrunch /by 12 midnight 12-30-16` <br>
 * `add CS2103 V0.4 /by 30 Dec` <br>
    Adds a task "CS2103 V0.4" with deadline "23:59 30 December 2016"
 
@@ -58,16 +58,15 @@ Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIP
 > With the exception of `EVENT_NAME` and `START_DATE_TIME`, all other parameters are optional. The order of parameters are not fixed. 
 > `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
-> Date format is MM-DD-YY.
+> Dates entered in numeric form must be in the format of MM-DD-YYYY.
+> Only valid dates are recognised correctly.
 > For time, entering 7pm, 1900 or 19.00 are recognised.
 > If no start time is entered, it is assumed to start at 00:00 hours.
 > If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
-* `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm /to 6pm` <br>
-   Adds an event "CS2103 Exam" with description "final examination @ MPSH3" with duration "16:00 1 December 2016 to 18:00 1 December 2016"
-* `add CS2103 Workshop /desc OOP workshop /from 12-1-16 /to 12-7-16` <br>
-   Adds an event "CS2103 Workshop" with description "OOP workshop" with duration "00:00 1 December 2016 to 23:59 7 December 2016"
+* `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
+* `add CS2103 Workshop /desc OOP workshop /from 12-01-16 > 12-07-16` <br>
 
 
 #### Listing tasks
@@ -76,7 +75,7 @@ Shows a list of tasks that are not marked done. <br>
 Format: `list /t [/a]`
 
 > Tasks that are marked done will not be shown by default.
-> An `/a` optional flag will request dowat to list all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
 
 Examples: 
 * `list /t` <br>
@@ -91,7 +90,7 @@ Shows a list of all events that are completed. <br>
 Format: `list /e [/a]` <br>
 
 > Events that are completed will not be shown by default.
-> An `/a` optional flag will request dowat to list all events, both completed and passed. 
+> An `/a` optional flag will request the TaskBook to list all events, both completed and passed. 
 
 Examples: 
 * `list /e `<br>
@@ -113,7 +112,7 @@ Format: `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by N
 
 Examples: 
 * `edit /t 1 /desc CS2103 Project /by 12-30-16`<br>
-  Edits the description of the 1st task to “CS2103 Project” and the deadline to "23:59 30 December 2016"
+  Edits the description of the 1st task to “CS2103 Project” and the deadline to 30 Sept
 * `edit /t 4 /desc CS2103 TaskBook`<br>
   Edits the description of the 4th task to “CS2103 TaskBook”
 
@@ -121,7 +120,7 @@ Examples:
 #### Editing an event
 Edits an existing event in dowat<br>
 
-Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME] [/to NEW_END_DATE_TIME]`
+Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 
 > Edits the event at the specified `INDEX`. The index refers to the index number shown in the most recent listing of events.
 > Edits any number of fields of the event. This includes name and/or description and/or start time and/or end time.
@@ -129,8 +128,10 @@ Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/fr
 > `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
 
 Examples:
-* `edit /e 1 /desc CS2103 Workshop /from 10-3-16 /to 10-5-16`  
-  Edits the description of the 1st event to “CS2103 Workshop” and the duration from "00:00 3 October 2016" to "23:59 5 October 2016"
+* `edit /e 1 /desc CS2103 Workshop /from 10-03-16 0000 > 10-05-16 2359`  
+  Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 0000 hours, 3-10-16 to 2359 hours, 5-10-16
+* `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
+  Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
 
 
 #### Marking a task as completed
@@ -219,7 +220,7 @@ Clears all completed tasks or clears all tasks. <br>
 
 Format: `clear /t [/a]`
 
-> An `/a` optional flag will request dowat to clear all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request the TaskBook to clear all tasks, both marked done and not yet marked done. 
 
 Examples: 
 * `clear /t` <br>
@@ -233,7 +234,7 @@ Clears all completed events or clears all events. <br>
 
 Format: `clear /e [/a]`
 
-> An `/a` optional flag will request dowat to clear all events. 
+> An `/a` optional flag will request the TaskBook to clear all events. 
 
 Examples: 
 * `clear /e` <br>
@@ -247,7 +248,7 @@ Clears all completed tasks and events or clears all tasks and events. <br>
 
 Format: `clear [/a]`
 
-> An `/a` optional flag will request dowat to clear all tasks and events.
+> An `/a` optional flag will request the TaskBook to clear all tasks and events.
 
 Examples: 
 * `clear` <br>
@@ -275,7 +276,7 @@ Format : `exit`
 [Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION] `
 [List Task or Event](#listing-tasks) | `list /t|/e [/a]`
 [Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
-[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME] [/to NEW_END_DATE_TIME]`
+[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-task/event) |`delete /t|/e INDEX`
 [Select Task or Event](#selecting-a-task/event) |`select /t|/e INDEX`

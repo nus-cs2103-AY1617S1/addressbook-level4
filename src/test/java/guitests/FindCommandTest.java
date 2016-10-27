@@ -39,14 +39,14 @@ public class FindCommandTest extends TaskBookGuiTest {
         assertFindResultEvent("find project", 2, 2, TypicalTestEvents.meeting1, TypicalTestEvents.meeting2);
         
         //find after deleting one result
-        commandBox.runCommand("delete -t 1");
+        commandBox.runCommand("delete /t 1");
         assertFindResultTask("find my part", 1, 0, TypicalTestTasks.music);
     }
 
     
     @Test
     public void find_emptyList(){
-        commandBox.runCommand("clear -a");
+        commandBox.runCommand("clear /a");
         assertFindResultTask("find cs1010", 0, 0); //no results
     }
 

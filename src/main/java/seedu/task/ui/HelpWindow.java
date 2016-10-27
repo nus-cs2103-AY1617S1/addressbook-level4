@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 /**
  * Controller for a help page
+ * TODO: add auto cache of new local html if internet access available
  */
 public class HelpWindow extends UiPart {
 
@@ -20,7 +21,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-F09-C4/Main/blob/master/docs/UserGuide.md";
+            "file:///C:/Users/Chen/Desktop/NUS/Semesters/Semester%205/CS2103%20-%20Software%20Engineering/SourceTree%20Local%20Repo/Main/docs/Userguide.html";
 
     private AnchorPane mainPane;
 
@@ -50,7 +51,7 @@ public class HelpWindow extends UiPart {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
 
-        WebView browser = new WebView();
+        WebView browser = new WebView();  
         browser.getEngine().load(USERGUIDE_URL);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);

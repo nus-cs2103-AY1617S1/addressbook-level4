@@ -24,17 +24,17 @@ public class DeleteCommandTest extends CommandTest {
     /*
      * Command input: "delete (type) (index)"
      * Equivalence partitions for type: valid arguments, word,
-     *          "-r", valid argument with space in between
+     *          invalid flags
      * Equivalence partitions for index: valid arguments, word, 
      *          signed integers, 0
      * 
      * 
      * Valid arguments
-     * type: "-t", "-e"
+     * type: "/t", "/e"
      * index: unsigned integer
      * 
      * Invalid arguments to test: 
-     * type: "rAndOm", "-r", "- t"
+     * type: "rAndOm", "/r", "/ t"
      * index: "+1", "-1", "0", "not_a_number"
      * 
      * The test cases below test 1 invalid argument at a time
@@ -44,20 +44,20 @@ public class DeleteCommandTest extends CommandTest {
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectTypeFormatBehaviorForCommand("delete rAndOm", expectedMessage);
-        assertIncorrectTypeFormatBehaviorForCommand("delete -r", expectedMessage);
-        assertIncorrectTypeFormatBehaviorForCommand("delete - t", expectedMessage);
+        assertIncorrectTypeFormatBehaviorForCommand("delete /r", expectedMessage);
+        assertIncorrectTypeFormatBehaviorForCommand("delete / t", expectedMessage);
     }
     
     @Test
     public void execute_deleteTaskInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE);
-        assertTaskIncorrectIndexFormatBehaviorForCommand("delete -t", expectedMessage);
+        assertTaskIncorrectIndexFormatBehaviorForCommand("delete /t", expectedMessage);
     }
 
     @Test
     public void execute_deleteEventInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
-        assertEventIncorrectIndexFormatBehaviorForCommand("delete -e", expectedMessage);
+        assertEventIncorrectIndexFormatBehaviorForCommand("delete /e", expectedMessage);
     }
     
   //------------------------Tests for index not found----------------
@@ -72,12 +72,12 @@ public class DeleteCommandTest extends CommandTest {
     
     @Test
     public void execute_deleteTaskIndexNotFound_errorMessageShown() throws Exception {
-        assertTaskIndexNotFoundBehaviorForCommand("delete -t");
+        assertTaskIndexNotFoundBehaviorForCommand("delete /t");
     }
     
     @Test
     public void execute_deleteEventIndexNotFound_errorMessageShown() throws Exception {
-        assertEventIndexNotFoundBehaviorForCommand("delete -e");
+        assertEventIndexNotFoundBehaviorForCommand("delete /e");
     }
 
     
@@ -105,7 +105,7 @@ public class DeleteCommandTest extends CommandTest {
         expectedAB.removeTask(threeTasks.get(1));
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("delete -t 2",
+        assertTaskCommandBehavior("delete /t 2",
                 String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -121,7 +121,7 @@ public class DeleteCommandTest extends CommandTest {
         expectedAB.removeEvent(threeEvents.get(1));
         helper.addEventToModel(model, threeEvents);
 
-        assertTaskCommandBehavior("delete -e 2",
+        assertTaskCommandBehavior("delete /e 2",
                 String.format(DeleteEventCommand.MESSAGE_DELETE_EVENT_SUCCESS, threeEvents.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());

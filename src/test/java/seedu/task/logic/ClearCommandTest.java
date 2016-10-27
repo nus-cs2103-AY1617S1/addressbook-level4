@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -23,18 +24,18 @@ public class ClearCommandTest extends CommandTest {
     /*
      * Command input: "clear (type) (isAll)"
      * Equivalence partitions for type: valid arguments, word,
-     *          "-r", valid argument with space in between
+     *          "/r", invalid flags
      * Equivalence partitions for isAll: valid arguments, word, 
      *          valid arguments for type, valid argument with space in between
      * 
      * 
      * Valid arguments
-     * type: "-t", "-e", "-a", ""
-     * isAll: "-a", ""
+     * type: "/t", "/e", "/a", ""
+     * isAll: "/a", ""
      * 
      * Invalid arguments to test: 
-     * type: "rAndOm", "-r", "- t"
-     * isAll: "rAndOm", "-e", "- a"
+     * type: "rAndOm", "/r", "/ t"
+     * isAll: "rAndOm", "/e", "/ a"
      * 
      * The test cases below test 1 invalid argument at a time
      */
@@ -43,12 +44,12 @@ public class ClearCommandTest extends CommandTest {
     public void execute_clear_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE);
         assertCommandBehavior_task("clear  rAndOm ", expectedMessage);
-        assertCommandBehavior_task("clear  -r   ", expectedMessage);
-        assertCommandBehavior_task("clear - t", expectedMessage);
-        assertCommandBehavior_task("clear -t rAndOm", expectedMessage);
-        assertCommandBehavior_task("clear -t  - a", expectedMessage);
-        assertCommandBehavior_task("clear -e rAndOm", expectedMessage);
-        assertCommandBehavior_task("clear -e -e", expectedMessage);
+        assertCommandBehavior_task("clear  /r   ", expectedMessage);
+        assertCommandBehavior_task("clear / t", expectedMessage);
+        assertCommandBehavior_task("clear /t rAndOm", expectedMessage);
+        assertCommandBehavior_task("clear /t  - a", expectedMessage);
+        assertCommandBehavior_task("clear /e rAndOm", expectedMessage);
+        assertCommandBehavior_task("clear /e /e", expectedMessage);
         assertCommandBehavior_task("clear -a -e", expectedMessage);
     }
 
@@ -63,6 +64,8 @@ public class ClearCommandTest extends CommandTest {
      * - clears completed and uncompleted events
      * - clears completed and uncompleted tasks and events
      * 
+     * - clear command executed on an empty list
+     * 
      * Corresponding expected result:
      * - task list contains only uncompleted tasks
      * - event list contains only uncompleted events
@@ -70,6 +73,8 @@ public class ClearCommandTest extends CommandTest {
      * - task list is empty
      * - event list is empty
      * - task and event list is empty
+     * 
+     * - list will remain empty with no errors/incorrect command thrown
      * 
      * The test cases below test each possible scenario and validates the result
      */
@@ -88,7 +93,7 @@ public class ClearCommandTest extends CommandTest {
 
         TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedList);
 
-        assertClearTaskCommandBehavior("clear -t", "mark 2", "list -t -a", 
+        assertClearTaskCommandBehavior("clear /t", "mark 2", "list -t -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED, ClearCommand.MESSAGE_TASKS)),
                 expectedAB,expectedList);
@@ -111,7 +116,7 @@ public class ClearCommandTest extends CommandTest {
 
         TaskBook expectedAB = helper.generateTaskBook_Events(expectedList);
 
-        assertClearEventCommandBehavior("clear -e", "list -e -a",
+        assertClearEventCommandBehavior("clear /e", "list -e -a",
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED, ClearCommand.MESSAGE_EVENTS)),
                 expectedAB,expectedList);
@@ -158,7 +163,7 @@ public class ClearCommandTest extends CommandTest {
 
         TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedList);
 
-        assertClearTaskCommandBehavior("clear -t -a", "mark 2", "list -t -a", 
+        assertClearTaskCommandBehavior("clear /t /a", "mark 2", "list -t -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS)),
                 expectedAB,expectedList);
@@ -178,7 +183,7 @@ public class ClearCommandTest extends CommandTest {
 
         TaskBook expectedAB = helper.generateTaskBook_Events(expectedList);
 
-        assertClearEventCommandBehavior("clear -e -a", "list -e -a",
+        assertClearEventCommandBehavior("clear /e /a", "list -e -a",
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_EVENTS)),
                 expectedAB,expectedList);
@@ -203,7 +208,24 @@ public class ClearCommandTest extends CommandTest {
         
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
 
-        assertClearTaskAndEventCommandBehavior("clear -a", "mark 2", "list -t -a", "list -e -a", 
+        assertClearTaskAndEventCommandBehavior("clear /a", "mark 2", "list -t -a", "list -e -a", 
+                String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
+                ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
+                expectedAB,expectedTaskList, expectedEventList);
+    }
+    
+    @Test
+    public void execute_clear_taskAndEvent_all_empty_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        List<Task> expectedTaskList = new ArrayList<Task>();
+        
+        List<Event> expectedEventList = new ArrayList<Event>();
+
+        
+        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(expectedTaskList, expectedEventList);
+
+        assertClearTaskAndEventCommandBehavior("clear /a", "mark 2", "list -t -a", "list -e -a", 
                 String.format(String.format(ClearCommand.MESSAGE_SUCCESS, 
                 ClearCommand.MESSAGE_COMPLETED_UNCOMPLETED, ClearCommand.MESSAGE_TASKS_EVENTS)),
                 expectedAB,expectedTaskList, expectedEventList);
