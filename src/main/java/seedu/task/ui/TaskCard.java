@@ -25,7 +25,7 @@ public class TaskCard extends UiPart {
     @FXML
     private Label tags;
     @FXML
-    private Label complete;
+    private Label completeStatus;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -49,7 +49,7 @@ public class TaskCard extends UiPart {
         startTime.setText("Start Time: " + task.getTimeStart().toString());
         endTime.setText("End Time: " + task.getTimeEnd().toString());
         tags.setText("Tags: " + task.tagsString());
-        complete.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
+        completeStatus.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
     }
 
     public HBox getLayout() {
