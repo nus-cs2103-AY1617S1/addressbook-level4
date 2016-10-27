@@ -105,7 +105,6 @@ Format: **`list`**` [filter]`<br>
 > * week - shows the list of tasks for this week
 > * month - shows the list of tasks for the current month
 > * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
-> * completed - shows a list of tasks that were mark as done.
 
 Examples:
 * **`list`**` today`
@@ -113,7 +112,7 @@ Examples:
 
 ### Finding all tasks containing keyword in the name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
-Format: **`find`**` [keywords]`
+Format: **`find`**` [findtype] [keywords]`
 
 > The search is case insensitive. <br>
 > the order of the keywords does not matter. <br>
