@@ -309,6 +309,11 @@ Use case ends.
 > 2b1. TARS shows an error message<br>
   Use case resumes at step 1
   
+2c. The task already exists<br>
+
+> 2c1. TARS shows an error message<br>
+  Use case resume at step 1
+  
 #### Use case: UC03- Delete task
 
 **MSS**
@@ -396,7 +401,8 @@ Use case ends.
 
 2a. The list is empty
 
-> 2a1. Use case ends
+> 2a1. TARS shows an empty list message<br>
+  Use case ends
 
 3a. The given index is invalid
 
@@ -422,7 +428,8 @@ Use case ends.
 
 2a. The list is empty
 
-> 2a1. Use case ends
+> 2a1. TARS shows an empty list message<br>
+  Use case ends
 
 3a. The given index is invalid
 
@@ -437,6 +444,13 @@ Use case ends.
 2. TARS shows a list of tags<br>
 Use case ends.
 
+**Extensions**
+
+2a. The list is empty
+
+> 2a1. TARS shows an empty list message<br>
+  Use case ends
+
 #### Use case: UC09 - Undo a previous command
 
 **MSS**
@@ -449,7 +463,8 @@ Use case ends.
 
 2a. The undo history list is empty
 
-> 2a1. Use case ends
+> 2a1. TARS shows an empty list message<br>
+  Use case ends
 
 #### Use case: UC10 - Redo a previous undo command
 
@@ -463,7 +478,8 @@ Use case ends.
 
 2a. The redo history list is empty
 
-> 2a1. Use case ends
+> 2a1. TARS shows an empty list message<br>
+  Use case ends
 
 {More to be added}
 
@@ -473,6 +489,21 @@ Use case ends.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should have a command line interface as the primary mode of input.
+6. Should not take more than 1 second to load the app.
+7. Should not take more than 3 seconds to execute any commands.
+8. Should not take more than 1 seconds to load the command result after a command execute.
+9. Should not consume memory of more than 512 MB.
+10. Should work without requiring an installer.
+11. Should work on desktop without network/Internet connection.
+12. Should be able to work stand-alone. It should not be a plug-in to another software.
+13. Should not use relational databases.
+14. Should store data locally and should be in human editable text file.
+15. Should follow the Object-oriented paradigm.
+16. Should not use third-party frameworks/libraries that
+  * are not free
+  * require installation
+  * violate other constraint
 
 {More to be added}
 
