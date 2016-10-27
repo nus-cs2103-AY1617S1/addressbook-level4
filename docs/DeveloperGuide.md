@@ -75,6 +75,7 @@ Two of those classes play important roles at the architecture level.
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
+* [**`Parser`**](#parser-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -128,6 +129,8 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+[//]: # (@@author A0139916U)
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -142,6 +145,16 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+
+### Parser component
+
+<img src="images/ParserClassDiagram.png" width="800"><br>
+
+**API** : [`MasterParser.java`](../src/main/java/seedu/savvytasker/logic/parser/MasterParser.java)
+
+The `Parser` component,
+* can parse text input into commands.
+* supports adding and removing of keyword aliases
 
 [//]: # (@@author A0139915W)
 
