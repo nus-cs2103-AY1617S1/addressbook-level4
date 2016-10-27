@@ -30,8 +30,8 @@
 }
 
 .table-row-cell:selected {
-   -fx-background-color: #003366;
-   -fx-table-cell-border-color: #003366;
+   -fx-background-color: #4d0000;
+   -fx-table-cell-border-color: #4d0000;
 }
 
 .text-field{
