@@ -29,39 +29,8 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    public AddCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
-        Map<TaskField, String> fields = null;
-        try {
-            fields = Parser.getTaskFieldsFromArgs(args);
-        } catch (IllegalCmdArgsException e) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
-        }
-        TaskName newName = new TaskName(fields.get(TaskField.NAME));
-        TaskTime newStartTime = fields.containsKey(TaskField.START_TIME) ? 
-                                    new TaskTime(fields.get(TaskField.START_TIME)) :
-                                    TaskTime.getDefault();
-        TaskTime newEndTime = fields.containsKey(TaskField.END_TIME) ? 
-                                    new TaskTime(fields.get(TaskField.END_TIME)) :
-                                    TaskTime.getDefault();
-        TaskTime newDeadline = fields.containsKey(TaskField.DEADLINE) ? 
-                                    new TaskTime(fields.get(TaskField.DEADLINE)) :
-                                    TaskTime.getDefault();
-        TaskRecurrence newRecurrence = fields.containsKey(TaskField.RECURRENCE) ? 
-                                    new TaskRecurrence(fields.get(TaskField.RECURRENCE)) :
-                                        TaskRecurrence.getDefault();
-        Tag newTag = fields.containsKey(TaskField.TAG) ?
-                                    new Tag(fields.get(TaskField.TAG)) :
-                                    Tag.getDefault();          
-        
-        this.toAdd = new Task(
-                newName,
-                newStartTime,
-                newEndTime,
-                newDeadline,
-                newRecurrence,
-                newTag,
-                false     
-        );
+    public AddCommand(Task toAdd) {
+        this.toAdd = toAdd;
     }
     
     /**
@@ -78,10 +47,22 @@ public class AddCommand extends Command {
                 new TaskTime(endTime),
                 new TaskTime(deadline),
                 new TaskRecurrence(recurrence),
-                new Tag(tag),
-                false
+                Tag.getTag(tag)
         );
     }
+    
+  //@@author A0140156R
+    public static AddCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        Map<TaskField, String> fields = null;
+        try {
+            fields = Parser.getTaskFieldsFromArgs(args);
+        } catch (IllegalCmdArgsException e) {
+            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+        }
+        Task blankTask = new Task(new TaskName("A"), TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), TaskRecurrence.getDefault(), Tag.EMPTY_TAG);
+        return new AddCommand(blankTask.update(fields));
+    }
+  //@@author
 
     @Override
     public CommandResult execute() {

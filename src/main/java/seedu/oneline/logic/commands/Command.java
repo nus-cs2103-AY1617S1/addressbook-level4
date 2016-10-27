@@ -22,6 +22,17 @@ public abstract class Command {
     }
 
     /**
+     * Creates a command object of current type from the given arguments.
+     * Placeholder to be overriden in classes
+     *
+     * @return feedback message of the operation result for display
+     */
+    public static Command createFromArgs(String args) throws Exception {
+        assert false : "createFromArgs not overriden for command being created";
+        return null;
+    }
+     
+    /**
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display

@@ -24,7 +24,7 @@ public class TestDataHelper{
         TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
         TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45");
         TaskRecurrence recurrence = new TaskRecurrence("X");
-        Tag tag = new Tag("tag1");
+        Tag tag = Tag.getTag("tag1");
         return new Task(name, startTime, endTime, deadline, recurrence, tag, false);
     }
 
@@ -42,7 +42,7 @@ public class TestDataHelper{
                 new TaskTime("" + seed),
                 new TaskTime("" + seed),
                 new TaskRecurrence("" + seed),
-                new Tag("tag" + Math.abs(seed)),
+                Tag.getTag("tag" + Math.abs(seed)),
                 false
         );
     }
@@ -140,7 +140,7 @@ public class TestDataHelper{
                 new TaskTime(""),
                 new TaskTime(""),
                 new TaskRecurrence(""),
-                new Tag("tag"),
+                Tag.getTag("tag"),
                 false
         );
     }

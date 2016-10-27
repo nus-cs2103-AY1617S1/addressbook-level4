@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.EventsCenter;
@@ -13,7 +15,9 @@ public class UndoCommand extends Command {
     
     public UndoCommand() {}
 
-    public UndoCommand(String args) {}
+    public static UndoCommand createFromArgs(String args) {
+        return new UndoCommand();
+    }
     
     @Override
     public CommandResult execute() {

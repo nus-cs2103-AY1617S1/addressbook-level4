@@ -2,6 +2,8 @@ package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.events.ui.ExitAppRequestEvent;
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 
 /**
  * Terminates the program.
@@ -14,7 +16,9 @@ public class ExitCommand extends Command {
 
     public ExitCommand() {}
 
-    public ExitCommand(String args) {}
+    public static ExitCommand createFromArgs(String args) {
+        return new ExitCommand();
+    }
     
     @Override
     public CommandResult execute() {
