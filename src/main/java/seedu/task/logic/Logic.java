@@ -8,7 +8,7 @@ import seedu.task.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
- * @@author A0147335E-reused
+ * @@author A0147335E reused
  */
 public interface Logic {
     /**
