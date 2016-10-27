@@ -1,5 +1,5 @@
-# A0147335E reused
-###### \src\main\java\seedu\task\logic\commands\AddCommand.java
+# A0147335Ereused
+###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
  */
 public class AddCommand extends Command {
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
 
 }
 ```
-###### \src\main\java\seedu\task\logic\commands\ClearCommand.java
+###### \java\seedu\task\logic\commands\ClearCommand.java
 ``` java
  */
 public class ClearCommand extends Command {
@@ -87,7 +87,7 @@ public class ClearCommand extends Command {
     }
 }
 ```
-###### \src\main\java\seedu\task\logic\commands\Command.java
+###### \java\seedu\task\logic\commands\Command.java
 ``` java
  */
 public abstract class Command {
@@ -133,7 +133,7 @@ public abstract class Command {
     }
 }
 ```
-###### \src\main\java\seedu\task\logic\commands\DeleteCommand.java
+###### \java\seedu\task\logic\commands\DeleteCommand.java
 ``` java
  */
 public class DeleteCommand extends Command {
@@ -184,7 +184,7 @@ public class DeleteCommand extends Command {
     }
 }
 ```
-###### \src\main\java\seedu\task\logic\Logic.java
+###### \java\seedu\task\logic\Logic.java
 ``` java
  */
 public interface Logic {
@@ -205,7 +205,7 @@ public interface Logic {
     ArrayList<String> getPreviousCommandList();
 }
 ```
-###### \src\main\java\seedu\task\logic\LogicManager.java
+###### \java\seedu\task\logic\LogicManager.java
 ``` java
  */
 public class LogicManager extends ComponentManager implements Logic {
@@ -229,7 +229,7 @@ public class LogicManager extends ComponentManager implements Logic {
         command.setData(model);
         command.setHistory(historyManager);
 ```
-###### \src\main\java\seedu\task\logic\LogicManager.java
+###### \java\seedu\task\logic\LogicManager.java
 ``` java
         logger.info("SUCCESS");
 
@@ -259,7 +259,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 }
 ```
-###### \src\main\java\seedu\task\model\Model.java
+###### \java\seedu\task\model\Model.java
 ``` java
  */
 public interface Model {
@@ -289,7 +289,7 @@ public interface Model {
 
 }
 ```
-###### \src\main\java\seedu\task\model\ModelManager.java
+###### \java\seedu\task\model\ModelManager.java
 ``` java
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -297,84 +297,8 @@ public interface Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
-    //=========== Filtered Task List Accessors ===============================================================
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
-    @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
-    }
-
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering ==================================================
-
-    interface Expression {
-        boolean satisfies(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
-        }
-
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            String name = task.getName().fullName.toLowerCase();
-            return nameKeyWords.stream()
-                    .filter(keyword -> name.indexOf(keyword.toLowerCase())>=0)
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
-
-}
 ```
-###### \src\main\java\seedu\task\model\task\UniqueTaskList.java
+###### \java\seedu\task\model\task\UniqueTaskList.java
 ``` java
  */
 public class UniqueTaskList implements Iterable<Task> {
@@ -428,94 +352,14 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
 ```
-###### \src\main\java\seedu\task\model\TaskManager.java
+###### \java\seedu\task\model\TaskManager.java
 ``` java
     public void addTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(index, p);
     }
-    /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
-    }
-
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
-    }
-
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
-//// util methods
-
-    @Override
-    public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
-    }
-
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
-    }
-}
 ```
-###### \src\main\java\seedu\task\ui\TaskCard.java
+###### \java\seedu\task\ui\TaskCard.java
 ``` java
 public class TaskCard extends UiPart{
 

@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * The API of the Model component.
- * @@author A0147335E reused
+ * @@author A0147335E-reused
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */

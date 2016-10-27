@@ -1,19 +1,5 @@
 # A0147944Ureused
-###### \src\main\java\seedu\task\logic\parser\CommandParser.java
-``` java
-        case DirectoryCommand.COMMAND_WORD:
-            return prepareDirectory(arguments);
-            
-        case DirectoryCommand.COMMAND_WORD_ALT:
-            return prepareDirectory(arguments);
-            
-        case BackupCommand.COMMAND_WORD:
-            return prepareBackup(arguments);
-            
-        case BackupCommand.COMMAND_WORD_ALT:
-            return prepareBackup(arguments);
-```
-###### \src\test\java\guitests\guihandles\TaskCardHandle.java
+###### \java\guitests\guihandles\TaskCardHandle.java
 ``` java
 package guitests.guihandles;
 
@@ -93,7 +79,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 }
 ```
-###### \src\test\java\seedu\task\logic\LogicManagerTest.java
+###### \java\seedu\task\logic\LogicManagerTest.java
 ``` java
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
@@ -125,7 +111,7 @@ public class TaskCardHandle extends GuiHandle {
 
     }
 ```
-###### \src\test\java\seedu\task\logic\LogicManagerTest.java
+###### \java\seedu\task\logic\LogicManagerTest.java
 ``` java
     @Test
     public void execute_find_matchesPartialWordsInNames() throws Exception {
@@ -146,7 +132,7 @@ public class TaskCardHandle extends GuiHandle {
                 expectedList);
     }
 ```
-###### \src\test\java\seedu\task\logic\LogicManagerTest.java
+###### \java\seedu\task\logic\LogicManagerTest.java
 ``` java
         Task revise() throws Exception {
             Name name = new Name("Revise CS2103");
@@ -196,7 +182,7 @@ public class TaskCardHandle extends GuiHandle {
             return cmd.toString();
         }
 ```
-###### \src\test\java\seedu\task\logic\LogicManagerTest.java
+###### \java\seedu\task\logic\LogicManagerTest.java
 ``` java
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
@@ -209,7 +195,7 @@ public class TaskCardHandle extends GuiHandle {
             );
         }
 ```
-###### \src\test\java\seedu\task\testutil\TestUtil.java
+###### \java\seedu\task\testutil\TestUtil.java
 ``` java
     private static Task[] getSampleTaskData() {
         try {
@@ -234,7 +220,7 @@ public class TaskCardHandle extends GuiHandle {
         }
     }
 ```
-###### \src\test\java\seedu\task\testutil\TypicalTestTasks.java
+###### \java\seedu\task\testutil\TypicalTestTasks.java
 ``` java
         try {
             taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withDeadline("2016-10-27 15:00")

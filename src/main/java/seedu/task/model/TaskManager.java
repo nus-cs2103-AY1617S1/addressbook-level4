@@ -81,11 +81,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
 
-    //@@author A0147335E reused
+    //@@author A0147335E-reused
     public void addTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(index, p);
     }
+    //@@author
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

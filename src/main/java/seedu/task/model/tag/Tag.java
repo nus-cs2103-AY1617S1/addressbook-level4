@@ -6,7 +6,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Tag in the task manager.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
- * @@author generated
  */
 public class Tag {
 

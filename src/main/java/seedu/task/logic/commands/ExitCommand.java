@@ -5,7 +5,6 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Terminates the program.
- * @@author generated
  */
 public class ExitCommand extends Command {
 

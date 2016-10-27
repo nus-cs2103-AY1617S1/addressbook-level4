@@ -1,4 +1,3 @@
-//@@author A0147944U
 package seedu.task.logic.commands;
 
 import java.io.File;
@@ -15,6 +14,7 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 
 /**
+ * @@author A0147944U
  * Changes working task manager data to data at specified directory.
  */
 public class DirectoryCommand extends Command {

@@ -1,4 +1,3 @@
-//@@author A0147944U
 package seedu.task.logic.commands;
 
 import java.io.File;
@@ -13,6 +12,7 @@ import seedu.task.commons.util.FileUtil;
 import org.apache.commons.io.FileUtils;
 
 /**
+ * @@author A0147944U
  * Saves task manager data at specified directory.
  */
 public class BackupCommand extends Command {

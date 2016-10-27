@@ -81,13 +81,14 @@ public class ModelManager extends ComponentManager implements Model {
        
     }
     
-    //@@author A0147335E reused
+    //@@author A0147335E-reused
     @Override
     public synchronized void addTask(int index, Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(index, task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    //@@author
     
     //=========== Filtered Task List Accessors ===============================================================
 

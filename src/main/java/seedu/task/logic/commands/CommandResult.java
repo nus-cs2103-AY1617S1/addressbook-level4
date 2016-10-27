@@ -2,7 +2,6 @@ package seedu.task.logic.commands;
 
 /**
  * Represents the result of a command execution.
- * @@author generated
  */
 public class CommandResult {
 

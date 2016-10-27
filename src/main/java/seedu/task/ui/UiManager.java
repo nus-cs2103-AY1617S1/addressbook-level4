@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.
- * @@author generated
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);

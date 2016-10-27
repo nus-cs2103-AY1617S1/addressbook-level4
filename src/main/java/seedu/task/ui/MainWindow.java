@@ -17,7 +17,6 @@ import seedu.task.model.UserPrefs;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
- * @@author generated
  */
 public class MainWindow extends UiPart {
 
