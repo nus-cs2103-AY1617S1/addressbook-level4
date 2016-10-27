@@ -388,7 +388,7 @@ Use case ends.
 > 3c1. Task!t shows a 'task already marked' message.<br>
 > Use case resumes at step 3
 
-###Use case: Remove the done mark of task
+<!-- ###Use case: Remove the done mark of task
 
 **MSS**
 
@@ -409,7 +409,7 @@ Use case ends.
 
 3b. The task is not marked as done
 > 3b1. Task!t shows a 'the task is not marked as done' message <br>
-> Use case resumes at step 2
+> Use case resumes at step 2 -->
 
 #### Use case: Delete task
 
