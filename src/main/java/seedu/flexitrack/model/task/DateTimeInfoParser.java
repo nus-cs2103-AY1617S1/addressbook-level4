@@ -40,6 +40,10 @@ public class DateTimeInfoParser {
         return timingInfo.getDates().toString();
     }
     
+    public Date getParsedDateTime() {
+        return timingInfo.getDates().get(0);
+    }
+    
     public List<Date> getParsedTimingObject(){
         return timingInfo.getDates();
     }
