@@ -1,7 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
@@ -68,6 +70,8 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.addTask((Task) toDelete);
 
             model.pushToRedoHistory(this);
+            
+            requestHighlightLastActionedRow((Task) toDelete);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, toDelete));
         } catch (DuplicateTaskException e) {
@@ -107,6 +111,11 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
         }else {
             model.deleteTask(toDelete);
         }
+    }
+    
+ // @@author A0138862W
+    private void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
 
 }

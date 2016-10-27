@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.model.tag.Tag;
@@ -151,6 +153,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
             // this is a new command entered by user (not undo/redo)
             // need to clear the redoHistory Stack 
             model.clearRedoHistory();
+            
+            requestHighlightLastActionedRow(toAdd);
 
             return new CommandResult(COMMAND_KEYWORD_ADD,String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -184,6 +188,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
             executeAdd();
             
             model.pushToUndoHistory(this);
+            
+            requestHighlightLastActionedRow(toAdd);
 
             return new CommandResult(COMMAND_KEYWORD_ADD,String.format(MESSAGE_REDO_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -192,8 +198,14 @@ public class AddCommand extends Command implements Undoable, Redoable {
     }
     
     /** extract method since it's reusable for execute() and redo()**/
+    // @@author A0138862W
     private void executeAdd() throws DuplicateTaskException {
         model.addTask(toAdd);
+    }
+    
+    // @@author A0138862W
+    private void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
 
 }

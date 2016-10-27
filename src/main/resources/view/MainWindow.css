@@ -30,8 +30,8 @@
 }
 
 .table-row-cell:selected {
-   -fx-background-color: transparent;
-   -fx-table-cell-border-color:transparent;
+   -fx-background-color: darkSlateGray;
+   -fx-table-cell-border-color: darkSlateGray;
 }
 
 .text-field{
