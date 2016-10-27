@@ -6,7 +6,11 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.LogicManager;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
+import seedu.task.model.task.Description;
+import seedu.task.model.task.Time;
+import seedu.task.model.task.Priority;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 /**
  * Updates the details of a task.
@@ -23,11 +27,6 @@ public class UpdateCommand extends Command{
 
     public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully: %1$s";
     public static final String MESSAGE_EDIT_FAIL = "Editing failed";
-    public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Time should either be in 24H format or given as a Day of the Week\n"
-          + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Priority should be high, normal or low";
 
     private final Task toUpdate;
     private int index;
@@ -60,8 +59,8 @@ public class UpdateCommand extends Command{
 	}
 
 	@Override
-    public CommandResult execute() throws IllegalValueException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < index) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -81,7 +80,7 @@ public class UpdateCommand extends Command{
         toUpdate.setTags(taskToUpdate.getTags());
         toUpdate.setCompleteStatus(taskToUpdate.getCompleteStatus());
 
-        if(toUpdate.getTimeEnd().isEndBeforeStart(toUpdate.getTimeStart()))
+        if(toUpdate.getTimeEnd().isBefore(toUpdate.getTimeStart()))
 			return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");
 
         LogicManager.tasks.push(new Task(taskToUpdate.getDescription(),
@@ -91,7 +90,6 @@ public class UpdateCommand extends Command{
         								 taskToUpdate.getTags(),
         								 taskToUpdate.getCompleteStatus()));
         LogicManager.indexes.push(index);
-
 
 		DeleteCommand delete = new DeleteCommand(index);
         delete.model = model;

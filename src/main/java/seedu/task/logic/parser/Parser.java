@@ -11,6 +11,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.*;
 
+
 /**
  * Parses user input.
  */
@@ -45,6 +46,10 @@ public class Parser {
     	            + "( pr/)?(?<priority>([^/]+)?)"
     	            + "( st/)?(?<timeStart>([^/]+)?)"
     	            + "( ed/)?(?<timeEnd>([^/]+)?)"));
+    private static final Pattern TASK_LIST_ARGS_FORMAT = Pattern.compile("(?<Modifier>(|-pr|-st|-ed))");
+
+
+
 
     public Parser() {}
 
@@ -93,7 +98,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -312,7 +317,22 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    //@@ author
 
+    //@@ author A0139860X
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareList(String args) {
+        final Matcher matcher = TASK_LIST_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListCommand.MESSAGE_USAGE));
+        }
+
+        return new ListCommand(matcher.group("Modifier"));
+    }
 
 }

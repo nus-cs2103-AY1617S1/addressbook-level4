@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
  * Represents a task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
-public class Time {
+public class Time{
 
     //@@ author A0139860X
     public static final String MESSAGE_TIME_CONSTRAINTS =
@@ -113,11 +113,11 @@ public class Time {
 
     }
 
-    public boolean isEndBeforeStart(Time other) {
-    	if(this.value==null ||other.value == null)
+    public boolean isBefore(Time other) {
+    	if (this.value == null || other.value == null)
     		return false;
 
-    	if(this.value.isBefore(other.value))
+    	if (this.value.isBefore(other.value))
     		return true;
 
 		return false;
@@ -150,7 +150,8 @@ public class Time {
     public int hashCode() {
         return Objects.hash(value);
     }
-
+    
+    
     private DayOfWeek convertToDayEnum(String day) {
     	assert day != null;
     	switch (day.toLowerCase().substring(0, Math.min(day.length(), 3))) {

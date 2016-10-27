@@ -14,7 +14,7 @@ public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
             "Default priority is normal, otherwise it should be high or low";
 
-    public final String value;
+    private final Integer value;
 
     /**
      * Validates given priority.
@@ -28,7 +28,17 @@ public class Priority {
         else if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
-        this.value = priority;
+        switch (priority) {
+        case "high":
+            value = 3;
+            break;
+        case "low":
+            value = 1;
+            break;
+        default:
+            value = 2;
+            break;
+        }
     }
 
     /**
@@ -41,10 +51,25 @@ public class Priority {
                || test.equals("normal")
                || test.equals("NOUPDATE");
     }
+    
+    public boolean isRankedHigher(Priority priority) {
+        return value > priority.value;
+    }
+    
+    public boolean isRankedLower(Priority priority) {
+        return value < priority.value;
+    }
 
     @Override
     public String toString() {
-        return value;
+        switch (value) {
+        case 1:
+            return "low";
+        case 3:
+            return "high";
+        default:
+            return "normal";
+        }
     }
 
     @Override
