@@ -393,7 +393,7 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             TaskType publicType = new TaskType("someday");
-            Status status = new Status("not done");
+            Status status = new Status("pending");
             //Tag tag1 = new Tag("tag1");
             //Tag tag2 = new Tag("tag2");
             //UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -412,7 +412,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new TaskType("someday"),
-                    new Status("not done"),
+                    new Status("pending"),
                     Optional.empty(),
                     Optional.empty(),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -509,7 +509,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new TaskType("someday"),
-                    new Status("not done"),
+                    new Status("pending"),
                     Optional.empty(),
                     Optional.empty(),
                     new UniqueTagList(new Tag("tag"))

@@ -40,7 +40,7 @@ public class DoneCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
         String doneMessage = changeStatus(lastShownList, fullList, doneIndices, "done");
-        String notDoneMessage = changeStatus(lastShownList, fullList, notDoneIndices, "not done");
+        String notDoneMessage = changeStatus(lastShownList, fullList, notDoneIndices, "pending");
         
         return new CommandResult(doneMessage + "\n" + notDoneMessage);
     }
@@ -49,7 +49,7 @@ public class DoneCommand extends Command {
     		UnmodifiableObservableList<ReadOnlyTask> fullList,
     		int[] indices, String status) {
     	
-    	assert status.equals("done") || status.equals("not done");
+    	assert status.equals("done") || status.equals("pending");
     	model.saveState();
     	
     	ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class DoneCommand extends Command {
         String successMessage = "";
         if(status.equals("done")) {
             successMessage = String.format(MESSAGE_DONE_TASK_SUCCESS, tasksList);
-        } else if(status.equals("not done")) {
+        } else if(status.equals("pending")) {
             successMessage =  String.format(MESSAGE_NOT_DONE_TASK_SUCCESS, tasksList);
         }
         

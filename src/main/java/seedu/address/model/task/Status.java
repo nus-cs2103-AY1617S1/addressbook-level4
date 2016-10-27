@@ -9,10 +9,10 @@ public class Status {
             }
         }, 
 	
-        NOT_DONE {
+        PENDING {
             @Override
             public String toString() {
-                return "Not done";
+                return "Pending";
             }
         },
         
@@ -32,8 +32,8 @@ public class Status {
 		case "done":
 			value = DoneStatus.DONE;
 			break;
-		case "not done":
-			value = DoneStatus.NOT_DONE;
+		case "pending":
+			value = DoneStatus.PENDING;
 			break;
 		case "overdue":
 			value = DoneStatus.OVERDUE;
@@ -48,7 +48,7 @@ public class Status {
 	}
 	
 	public boolean isNotDone() {
-		return value.equals(DoneStatus.NOT_DONE);
+		return value.equals(DoneStatus.PENDING);
 	}
 	
 	public boolean isOverdue() {

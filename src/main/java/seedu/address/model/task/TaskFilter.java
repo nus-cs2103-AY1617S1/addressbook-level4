@@ -50,7 +50,7 @@ public class TaskFilter {
 	}
 	
 	public static Predicate<Task> isNotDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.NOT_DONE);
+		return p -> p.getStatus().value.equals(Status.DoneStatus.PENDING);
 	}
 
 	public static Predicate<Task> isOverdue() {

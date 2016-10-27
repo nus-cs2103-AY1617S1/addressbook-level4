@@ -69,15 +69,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Attach documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Buy stationeries"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Cook"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Deal with boss"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Email client"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("File documents"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Grade attachments"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Handle list of files"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
-                    new Task(new Name("Idle around"), new TaskType("someday"), new Status("not done"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Attach documents"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Buy stationeries"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Cook"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Deal with boss"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Email client"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("File documents"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Grade attachments"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Handle list of files"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
+                    new Task(new Name("Idle around"), new TaskType("someday"), new Status("pending"), Optional.empty(), Optional.empty(), new UniqueTagList()),
             };
         } catch (IllegalValueException e) {
             assert false;
