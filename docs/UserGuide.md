@@ -213,11 +213,11 @@ Examples:
 * `alias k/pjm r/Project Meeting`<br>
 System will interpret subsequent keywords "pjm" as "Project Meeting"<br>
   `add pjm s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
-Add "Project Meeting" to task list<br><br>
+Add "Project Meeting" to task list<br>
 
 > Note that only keywords must be a single word by themselves, or they will not be replaced.
-> The below example shows 'pjm' as part of another word and it is not replaced with its representation.
-  `add pjm2 s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
+> The below example shows 'pjm' as part of another word and it is not replaced with its representation. <br>
+*  `add pjm2 s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 Add "pjm2" to task list, and <b>not</b> "Project Meeting2"<br>
 
   
