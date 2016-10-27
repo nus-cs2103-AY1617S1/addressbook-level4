@@ -97,14 +97,23 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //=========== Filtered Task List Accessors ===============================================================
-
+    //@@author A0153467Y
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
         taskManager.pinTask(originalTask, toPin);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    //@@author A0153467Y
+    @Override
+    public synchronized void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
+        taskManager.unpinTask(originalTask, toUnpin);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    //@@author
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {

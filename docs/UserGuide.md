@@ -27,6 +27,7 @@
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
+   * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -60,6 +61,7 @@ Examples:
 
 <!--@@author -->
 
+//@@author A0153467Y
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -83,7 +85,7 @@ Example:
    Marks the second task on the list as completed.
    
 #### Pin: `pin`
-Pin a important task.<br>
+Pin an important task.<br>
 Format: `pin INDEX`
 
 > * INDEX refers to the number appears on the list in front the task name.
@@ -91,6 +93,16 @@ Format: `pin INDEX`
 Example:
 * `pin 1`<br>
 pin the first task to show that it is an important task.
+
+#### Unpin: `unpin`
+Unpin a previously pinned task.<br>
+Format: `unpin INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `unpin 1`<br>
+unpin the pinned and first task on the list. 
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
@@ -141,6 +153,7 @@ Examples:
    
 <!-- @@author -->
 
+//@@author A0153467Y
 #### Undo action : `undo`
 Undo the previous action.<br>
 Format: `undo`
@@ -183,5 +196,6 @@ Find | `find KEYWORD` or `find t/TAG`
 Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
 Undo | `undo`
 Pin | `pin`
+Unpin | `unpin`
 Help | `help`
 Exit | `exit`
