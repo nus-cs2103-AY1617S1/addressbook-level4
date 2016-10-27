@@ -1,3 +1,4 @@
+//@@author A0139932X
 package seedu.task.logic.commands;
 
 import java.io.IOException;
@@ -6,9 +7,7 @@ import seedu.task.commons.core.Config;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.storage.StorageManager;
-//import seedu.task.storage.XmlTaskManagerStorage;
 
-//import seedu.task.storage.XmlTaskManagerStorage;
 
 /**
  * Save storage file to a specific folder.
@@ -48,7 +47,6 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
             
             return new CommandResult("Change save path:" + changePathLink + " Updated");
             
-            //new XmlTaskManagerStorage(config.getTaskManagerFilePath());
         }
         
         catch(IOException e){
@@ -58,6 +56,8 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
         }
         
     }
+    
+    //@@author
 
     //@@author A0153411W
 	/**
