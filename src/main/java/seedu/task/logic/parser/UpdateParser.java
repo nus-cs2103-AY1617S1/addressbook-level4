@@ -14,10 +14,10 @@ import seedu.task.logic.commands.UpdateCommand;
 
 public class UpdateParser extends BaseParser {
     private final String FLAG_NAME = "";
-    private final String FLAG_START_TIME = "s";
-    private final String FLAG_CLOSE_TIME = "c";
-    private final String FLAG_TAGS = "t";
-    private final String FLAG_REMOVE_TAGS = "rt";
+    private final String FLAG_START_TIME = "start";
+    private final String FLAG_CLOSE_TIME = "end";
+    private final String FLAG_TAGS = "tag";
+    private final String FLAG_REMOVE_TAGS = "remove-tag";
     
     @Override
     public Command parse(String command, String arguments) {
@@ -62,5 +62,10 @@ public class UpdateParser extends BaseParser {
     
     private String[] extractNameAndId(String combinedArgument) {
         return combinedArgument.split("\\s", 2);
+    }
+    
+    @Override
+    protected void extractArguments(String args) {
+        argumentsTable.clear();
     }
 }
