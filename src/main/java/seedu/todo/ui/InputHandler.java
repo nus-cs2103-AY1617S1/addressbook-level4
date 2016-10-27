@@ -2,7 +2,11 @@ package seedu.todo.ui;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Map;
 
+import seedu.todo.MainApp;
+import seedu.todo.commons.exceptions.ParseException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
 
 public class InputHandler {
@@ -77,8 +81,13 @@ public class InputHandler {
     }
 
     public boolean processInput(String input) {
+        
+        Map<String, String> aliases = MainApp.getConfig().getAliases();
+        String aliasedInput = StringUtil.replaceAliases(input, aliases);
+        Controller selectedController = null;
+        
         if (this.handlingController != null) {
-            handlingController.process(input);
+            selectedController = handlingController;
         } else {
             Controller[] controllers = instantiateAllControllers();
 
@@ -89,7 +98,7 @@ public class InputHandler {
             float maxConfidence = Integer.MIN_VALUE;
 
             for (int i = 0; i < controllers.length; i++) {
-                float confidence = controllers[i].inputConfidence(input);
+                float confidence = controllers[i].inputConfidence(aliasedInput);
 
                 // Don't consider controllers with non-positive confidence.
                 if (confidence <= 0) {
@@ -107,19 +116,33 @@ public class InputHandler {
                 return false;
             }
 
-            // Process using best-matched controller.
-            maxController.process(input);
+            // Select best-matched controller.
+            selectedController = maxController;
 
         }
         
+        // Process using best-matched controller.
+        try {
+            // Alias and unalias should not receive an aliasedInput for proper functioning.
+            if (selectedController.getClass() == AliasController.class ||
+                    selectedController.getClass() == UnaliasController.class) {
+                selectedController.process(input);
+            } else {
+                selectedController.process(aliasedInput);
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+        
         // Since command is not invalid, we push it to history
-        pushCommand(input);
+        pushCommand(aliasedInput);
 
         return true;
     }
     
     private Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
+                                  new UnaliasController(),
                                   new HelpController(),
                                   new AddController(),
                                   new ListController(),

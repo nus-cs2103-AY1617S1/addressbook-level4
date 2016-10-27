@@ -19,6 +19,11 @@ import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.models.TodoListDB;
 
+/**
+ * JSON Storage for persisting and loading from disk.
+ * 
+ * @@author A0093907W
+ */
 public class JsonStorage implements Storage {
     
     // Ideally this would be a single circular-queue, but there is no such built-in
