@@ -118,6 +118,7 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
+<!-- @@author A0138601M -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -130,6 +131,7 @@ The `Model`,
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
+<!-- @@author -->
 
 ### Storage component
 
