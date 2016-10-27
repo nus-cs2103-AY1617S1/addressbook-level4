@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Daily Planner";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/addressbook.xml";
+    private String addressBookFilePath = "data/dailyplanner.xml";
     private String addressBookName = "MyDailyPlanner";
 
 
