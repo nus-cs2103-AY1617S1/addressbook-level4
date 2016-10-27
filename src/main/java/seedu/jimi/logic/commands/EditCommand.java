@@ -129,6 +129,7 @@ public class EditCommand extends Command implements TaskBookEditor {
         try {
             newTask = determineNewTask(oldTask);
         } catch (IllegalValueException e) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(e.getMessage());
         }
         if (!newTask.isPresent()) {
