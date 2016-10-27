@@ -8,11 +8,12 @@ import tars.logic.commands.AddCommand;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.UndoCommand;
 import tars.testutil.TestTask;
-import tars.testutil.TestUtil;
 
+/**
+ * @@author A0139924W
+ */
 public class UndoCommandTest extends TarsGuiTest {
     
-    //@@author A0139924W
     @Test
     public void undo_add_successful() {
         // setup
@@ -26,7 +27,6 @@ public class UndoCommandTest extends TarsGuiTest {
                 String.format(AddCommand.MESSAGE_UNDO, taskToUndo)));
     }
     
-    //@@author A0139924W
     @Test
     public void undo_delete_successful() {
         // setup

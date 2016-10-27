@@ -73,10 +73,10 @@ public class DateTimeUtilTest {
         String modifiedMonth = DateTimeUtil.modifyDate(dateToModify, frequencyMonth);
         String modifiedYear = DateTimeUtil.modifyDate(dateToModify, frequencyYear);
 
-        Assert.assertEquals(expectedDay, modifiedDay);
-        Assert.assertEquals(expectedWeek, modifiedWeek);
-        Assert.assertEquals(expectedMonth, modifiedMonth);
-        Assert.assertEquals(expectedYear, modifiedYear);
+        assertEquals(expectedDay, modifiedDay);
+        assertEquals(expectedWeek, modifiedWeek);
+        assertEquals(expectedMonth, modifiedMonth);
+        assertEquals(expectedYear, modifiedYear);
     }
 
     @Test
