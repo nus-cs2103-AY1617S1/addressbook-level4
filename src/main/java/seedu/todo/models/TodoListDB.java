@@ -141,8 +141,6 @@ public class TodoListDB {
     /**
      * Destroys all Task in the DB and persists the commit.
      * 
-     * 
-     * @return true if the save was successful, false otherwise
      */
     public void destroyAllTask() {
         tasks = new LinkedHashSet<Task>();
@@ -151,8 +149,6 @@ public class TodoListDB {
     /**
      * Destroys all Task in the DB by date
      * 
-     * 
-     * @return true if the save was successful, false otherwise
      */
     public void destroyAllTaskByDate(LocalDateTime givenDate) {
         List<Task> selectedTasks = getTaskByDate(givenDate);
@@ -161,7 +157,6 @@ public class TodoListDB {
     
     /**
      * Destroys all Task in the DB by a range of date
-     * 
      * 
      */
     public void destroyAllTaskByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
@@ -196,8 +191,6 @@ public class TodoListDB {
     /**
      * Destroys all Event in the DB and persists the commit.
      * 
-     * 
-     * 
      */
     public void destroyAllEvent() {
         events = new LinkedHashSet<Event>();
@@ -205,7 +198,6 @@ public class TodoListDB {
     
     /**
      * Destroys all Event in the DB by date
-     * 
      * 
      */
     public void destroyAllEventByDate(LocalDateTime givenDate) {
@@ -216,8 +208,6 @@ public class TodoListDB {
     /**
      * Destroys all Event in the DB by a range of date
      * 
-     * 
-     * @return true if the save was successful, false otherwise
      */
     public void destroyAllEventByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
         List<Event> selectedEvents = getEventByRange(dateFrom, dateTo);
@@ -316,6 +306,11 @@ public class TodoListDB {
         }
     }
     
+    /**
+     * Get a list of current events that are not over in the DB.
+     * 
+     * @return list of events
+     */
     public List<Event> getAllCurrentEvents() {
         ArrayList<Event> currentEvents = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
@@ -329,7 +324,7 @@ public class TodoListDB {
     }
     
     /**
-     * Get a list of Incomplte Tasks in the DB.
+     * Get a list of Incomplete Tasks in the DB.
      * 
      * @return tasks
      */
@@ -350,6 +345,13 @@ public class TodoListDB {
         return incompleteTasks;
     }
 
+    
+    /**
+     * Filter the list of tasks with all the matching string provided
+     * 
+     * @param a list of tasks , a hashset of matching keywords
+     * @return list of tasks
+     */
     public List<Task> getTaskByName(List<Task> tasks, HashSet<String> itemNameList) {
         ArrayList<Task> taskByName = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
@@ -368,7 +370,7 @@ public class TodoListDB {
         return taskByName;
     }
 
-        /**
+   /**
      * Get a list of Task in the DB filtered by status , name and one date.
      * 
      * @return list of tasks
@@ -663,6 +665,12 @@ public class TodoListDB {
         return eventByRange;
     }
 
+    /**
+     * Filter the list of events with all the matching string provided
+     * 
+     * @param a list of events , a hashset of matching keyword
+     * @return list of events
+     */
     public List<Event> getEventByName(List<Event> events, HashSet<String> itemNameList) {
         ArrayList<Event> eventByName = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
