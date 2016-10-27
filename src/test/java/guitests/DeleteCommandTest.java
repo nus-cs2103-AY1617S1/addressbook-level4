@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
+import static seedu.cmdo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 import static org.junit.Assert.assertTrue;
 
