@@ -66,7 +66,7 @@ public interface Model {
      * 
      * @throws TaskNotFoundException
      */
-    String editTask(int taskToEdit, String[] args)
+    Task editTask(int taskToEdit, String[] args)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
 
     //@@author
@@ -76,4 +76,7 @@ public interface Model {
      * @return true if new event want to place at a period that reserve for other event
      */
     boolean checkBlock(Task toAdd) throws DuplicateTaskException;
+
+    void indicateFlexiTrackerChanged();
+
 }

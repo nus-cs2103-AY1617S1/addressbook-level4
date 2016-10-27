@@ -102,8 +102,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             if(type.equals("Float")){
                 return this.getName().toString().compareTo(task.getName().toString());    
             }else if(type.equals("TaskEvent")){
-                DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
-                DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
+                DateTimeInfo time1 = this.getStartingTimeOrDueDate();
+                DateTimeInfo time2 = task.getStartingTimeOrDueDate();
                 int c = time1.compareTo(time2);
                 if (c == 0){
                     return this.getName().toString().compareTo(task.getName().toString());

@@ -6,7 +6,12 @@ import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.tag.UniqueTagList;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.Task;
+import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 
@@ -27,8 +32,7 @@ public class MarkCommand extends Command {
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
     
-    private static Stack<Integer> storeDataChanged = new Stack<Integer>(); 
-    private static Stack<ReadOnlyTask> storeDataChangedTask = new Stack<ReadOnlyTask>(); 
+    private static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
 
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -38,7 +42,7 @@ public class MarkCommand extends Command {
      * Constructor for undo command
      */
     public MarkCommand() {
-        this.targetIndex = storeDataChanged.peek();
+        this.targetIndex = 0;
     }
 
     @Override
@@ -52,10 +56,9 @@ public class MarkCommand extends Command {
         }
         
         try {
-            ReadOnlyTask taskMarked = lastShownList.get(targetIndex - 1);
+            ReadOnlyTask taskToUnMarked = lastShownList.get(targetIndex - 1);
             model.markTask(lastShownList.get(targetIndex-1));
-            storeDataChanged.add(targetIndex);
-            storeDataChangedTask.add(taskMarked);
+            storeDataChanged.add(taskToUnMarked);
             recordCommand("mark"); 
             return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
         } catch (IllegalValueException e) {
@@ -66,15 +69,29 @@ public class MarkCommand extends Command {
     @Override
     //TODO: to be implemented 
     public void executeUndo() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            
-        }
+        Task toDelete = new Task (storeDataChanged.peek()); 
+        Task toAddBack = null;
         try {
-            model.unmarkTask(lastShownList.get(targetIndex - 1));
-        } catch (IllegalValueException e) {
+            toAddBack = new Task (new Name (storeDataChanged.peek().getName().toString()), 
+                    new DateTimeInfo (storeDataChanged.peek().getDueDate().toString()), 
+                    new DateTimeInfo ( storeDataChanged.peek().getStartTime().toString()), 
+                    new DateTimeInfo (storeDataChanged.peek().getEndTime().toString()), 
+                    new UniqueTagList (storeDataChanged.peek().getTags()));
+        } catch (IllegalValueException e1) {
+            assert false : "There Should not be any Illegal values s";
+        }
+        toAddBack.getName().setAsUnmark();
+
+        try {
+            model.deleteTask(toDelete);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+        
+        try {
+            model.addTask(toAddBack);
+        } catch (DuplicateTaskException e) {
+            indicateAttemptToExecuteIncorrectCommand();
         }
         
         storeDataChanged.pop();

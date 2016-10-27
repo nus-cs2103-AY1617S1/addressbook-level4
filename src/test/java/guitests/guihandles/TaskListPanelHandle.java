@@ -72,6 +72,8 @@ public class TaskListPanelHandle extends GuiHandle {
         }
 
         for (int i = 0; i < tasks.length; i++) {
+//            System.out.println("card handle:    " + tasksInList.get(startPosition + i).getName().toString());
+//            System.out.println("TASK:           " + tasks[i].getName().toString());
             if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())) {
                 return false;
             }
