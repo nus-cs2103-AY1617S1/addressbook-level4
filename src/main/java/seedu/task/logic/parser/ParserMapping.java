@@ -38,6 +38,7 @@ public class ParserMapping {
         mappingTable.put("undo", UndoParser.class);
         mappingTable.put("update", UpdateParser.class);
         mappingTable.put("uncomplete", UncompleteParser.class);
+        mappingTable.put("unpin", UnpinParser.class);
     }
 
     /**

@@ -97,7 +97,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.rollback();
         indicateTaskManagerChanged();
     }
-    
+
+    //@@author A0153467Y
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
         taskManager.pinTask(originalTask, toPin);
@@ -109,12 +110,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask){
         taskManager.uncompleteTask(originalTask, uncompleteTask);
+    }
+    
+    public synchronized void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
+        taskManager.unpinTask(originalTask, toUnpin);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
-     
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);

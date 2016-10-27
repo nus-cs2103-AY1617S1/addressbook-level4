@@ -31,8 +31,13 @@ public interface Model {
     /** Rollback the task list */
     void rollback();
     
+    //@@author A0153467Y
     /** Pins the given task as important */
     void pinTask(ReadOnlyTask originalTask, Task toPin);
+    
+    //@@author A0153467Y
+    /** Unpins the given task*/
+    void unpinTask(ReadOnlyTask originalTask, Task toUnpin);
 
     //@@author A0153467Y    
     /** Mark the given task as completed */
