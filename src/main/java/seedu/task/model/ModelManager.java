@@ -84,19 +84,20 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0153467Y
     @Override
     public synchronized void completeTask(ReadOnlyTask originalTask, Task completeTask){
         taskManager.completeTask(originalTask, completeTask);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+    //@@author
     @Override
     public synchronized void rollback() {
         taskManager.rollback();
         indicateTaskManagerChanged();
     }
-    
+
     //@@author A0153467Y
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
@@ -107,6 +108,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0153467Y
     @Override
+    public synchronized void uncompleteTask(ReadOnlyTask originalTask, Task uncompleteTask){
+        taskManager.uncompleteTask(originalTask, uncompleteTask);
+    }
+    
     public synchronized void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
         taskManager.unpinTask(originalTask, toUnpin);
         updateFilteredListToShowAll();
