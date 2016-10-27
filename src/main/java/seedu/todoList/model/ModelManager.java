@@ -151,6 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    //@@author A0139923X
     public synchronized void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, TaskNotFoundException {
     	
         /*
@@ -226,6 +227,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    //@@author A0139923X
     public synchronized void undoneTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
         switch(dataType) {
             case "todo":
