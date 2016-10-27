@@ -5,6 +5,10 @@ import org.junit.Test;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 
+import static seedu.todo.testutil.AssertUtil.assertSameDate;
+
+import java.time.LocalDate;
+
 public class AddTaskCommandTest extends GuiTest {
 
     @Test
@@ -22,7 +26,7 @@ public class AddTaskCommandTest extends GuiTest {
      * This runs a command and checks if TaskList contains TaskListTaskItem that matches
      * the task that was just added. <br><br>
      * 
-     * TODO: Abstract out method in AddController that can return task from command,
+     * TODO: Extract out method in AddController that can return task from command,
      *       and possibly remove the need to have taskToAdd.
      * 
      * @param command
@@ -33,7 +37,8 @@ public class AddTaskCommandTest extends GuiTest {
         // Run the command in the console.
         console.runCommand(command);
         
-        // Check TaskList if it contains a TaskListTaskItem with the task data.
-        // TODO 
+        // Check TaskList if it contains a TaskListDateItem with the date.
+        LocalDate taskDate = taskToAdd.getCalendarDT().toLocalDate();
+        assertSameDate(taskDate, taskList.getTaskListDateItem(taskDate));
     }
 }
