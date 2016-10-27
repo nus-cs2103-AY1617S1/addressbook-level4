@@ -81,7 +81,7 @@ public class AddCommand extends Command implements TaskBookEditor {
         // events do not always have an end date 
         DateTime endDateTimeToAdd = endDateTime.isEmpty() ? null : new DateTime(endDateTime.get(0));
                 
-        if (endDateTime != null
+        if (endDateTimeToAdd != null
                 && startDateTime.get(0).compareTo(endDateTime.get(0)) <= 0) {
             this.toAdd = new Event(new Name(name), new DateTime(startDateTime.get(0)), endDateTimeToAdd,
                     new UniqueTagList(tagSet), new Priority(priority));
