@@ -2,6 +2,7 @@ package seedu.taskitty.model;
 
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
+import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -40,8 +41,9 @@ public interface Model {
     String undo() throws NoPreviousValidCommandException;
     
     /** Redoes the previous undo command if there is any 
-     * @throws NoPreviousValidCommandException */
-    String redo() throws NoPreviousValidCommandException;
+     * @throws NoPreviousValidCommandException 
+     * @throws NoRecentUndoCommandException */
+    String redo() throws NoRecentUndoCommandException;
     /**
      * stores the info from an add command that is needed for undoing/redoing functions
      */
