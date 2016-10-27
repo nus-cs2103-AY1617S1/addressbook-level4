@@ -1,7 +1,5 @@
 package seedu.task.logic.commands;
 
-import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.HashSet;
 import java.util.Set;
 

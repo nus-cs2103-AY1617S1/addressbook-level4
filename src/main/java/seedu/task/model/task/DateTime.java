@@ -44,7 +44,7 @@ public class DateTime {
     }
     
     public DateTime(Long epochMilli, boolean isEpoch) {
-        if (epochMilli == null) {
+        if (epochMilli == null || !isEpoch) {
             this.value = Optional.empty();
             return;
         }
