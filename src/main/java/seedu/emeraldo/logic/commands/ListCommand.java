@@ -4,6 +4,7 @@ package seedu.emeraldo.logic.commands;
 /**
  * Lists all tasks in Emeraldo to the user.
  */
+//@@author A0139749L
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

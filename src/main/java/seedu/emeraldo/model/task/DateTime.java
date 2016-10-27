@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
  */
 public class DateTime {
     
+	//@@author A0139749L
     private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
             + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'";
 
@@ -124,7 +125,8 @@ public class DateTime {
                 return false;
         }
     }
-
+    
+    //@@author A0142290
     public String setContext(LocalDate valueDate, LocalTime valueTime) {
     	String context = ""; 
     	Boolean timeIsNow = valueTime != null && valueTime.getHour() == LocalTime.now().getHour() && valueTime.getMinute() == LocalTime.now().getMinute();
@@ -236,7 +238,8 @@ public class DateTime {
     public String toString() {
         return valueFormatted;
     }
-
+    //@@author
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -248,5 +251,4 @@ public class DateTime {
     public int hashCode() {
         return value.hashCode();
     }
-    
 }
