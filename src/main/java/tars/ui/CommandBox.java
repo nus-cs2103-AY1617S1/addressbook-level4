@@ -2,7 +2,6 @@ package tars.ui;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
