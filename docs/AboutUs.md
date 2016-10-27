@@ -16,6 +16,13 @@ Role: Project Mentor<br>
 <img src="images/Bartek.png" width="150"><br>
 **Role**: Team lead, Deliverables and deadline <br>
 Responsibilities: Logic
+* Features implemented:
+   * [Undo method](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#undo-method--undo)
+   * [Adding duplicated tasks](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md#adding-duplicated--add)
+   * Code written: [[functional code]((https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md)][[test code]((https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md)][[docs]((https://github.com/CS2103AUG2016-T15-C1/main/blob/master/docs/UserGuide.md)]
+  * Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList [(https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5) ]
+  * Set up Travis and Coveralls 
 
 -----
 
