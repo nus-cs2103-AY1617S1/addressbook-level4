@@ -20,10 +20,12 @@ Responsibilities: Codes about storage.
 
 #### [Yip Bing You @leaffriend](https://github.com/leaffriend)
 <img src="images/YipBingYou.jpg" width="150"><br>
+* Components in charge of: [logic](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) [model](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Features implemented:
  * [Add task](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#adding-a-task-add)
  * [Listing](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#listing)
  * [Finding](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#finding)
+* Code written: [functional code] [test code]
 
 -----
 
