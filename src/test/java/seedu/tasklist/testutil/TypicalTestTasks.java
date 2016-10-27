@@ -27,13 +27,15 @@ public class TypicalTestTasks {
             task6 = new TaskBuilder().withTitle("Quiz Failure").withStartDateTime("03032003")
                     .withDescription("keep trying").withEndDateTime("05012013").build();
             task7 = new TaskBuilder().withTitle("Task Name").withStartDateTime("04042004")
-                    .withDescription("Description Name").withEndDateTime("05062003").build();
+                    .withDescription("Description Name").withEndDateTime("").build();
 
             // Manually added
             task8 = new TaskBuilder().withTitle("Revision").withStartDateTime("05062001").withDescription("dont stop studying")
                     .withEndDateTime("01022004").build();
             task9 = new TaskBuilder().withTitle("Hard Labor").withStartDateTime("07062001 2359")
                     .withDescription("need to get strong").withEndDateTime("03042005 0000").build();
+            
+            
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
