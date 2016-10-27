@@ -70,9 +70,10 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask xmlt : floatingTasks) {
+        
+        for (XmlAdaptedDeadline xmld : deadlines) {
             try {
-                lists.add(xmlt.toModelType());
+                lists.add(xmld.toModelType());
             } catch (IllegalValueException e) {
 
             }
@@ -84,9 +85,9 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
             }
         }
-        for (XmlAdaptedDeadline xmld : deadlines) {
+        for (XmlAdaptedTask xmlt : floatingTasks) {
             try {
-                lists.add(xmld.toModelType());
+                lists.add(xmlt.toModelType());
             } catch (IllegalValueException e) {
 
             }

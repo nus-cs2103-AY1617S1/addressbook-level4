@@ -17,7 +17,7 @@ public class Task implements ReadOnlyTask {
     private Date createdDate;
     private UniqueTagList tags;
     private String recur;
-    private boolean marked;
+    private boolean isMarked;
 
     
     // event
@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask {
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.marked = false;
+        this.isMarked = false;
         this.recur = recur;
         this.createdDate = createdDate;
     }
@@ -47,7 +47,7 @@ public class Task implements ReadOnlyTask {
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur(), source.getCreatedDate());
-        this.marked = source.isMarked();
+        this.isMarked = source.isMarked();
     }
 
     @Override
@@ -141,18 +141,18 @@ public class Task implements ReadOnlyTask {
     @Override
     //@@author A0124797R
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
     }
 
     //@@author A0124797R
     public Task mark() {
-        this.marked = true;
+        this.isMarked = true;
         return this;
     }
     
     //@@author A0124797R
     public Task unmark() {
-        this.marked = false;
+        this.isMarked = false;
         return this;
     }
     

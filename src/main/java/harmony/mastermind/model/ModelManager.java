@@ -296,9 +296,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    // @@author A0124797R
-    public void updateFilteredListToShowUpcoming(long time) {
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(time)));
+    //@@author A0124797R
+    public void updateFilteredListToShowUpcoming(long time, String taskType) {
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(time, taskType)));
     }
 
     @Override
@@ -427,20 +427,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class DateQualifier implements Qualifier {
+        private final String NAME_DEADLINE = "deadlines";
+        private final String NAME_EVENT = "events";
+        
+        private long timeNow;
         private long oneWeekFromNow;
         private final long oneWeek = 604800000;
+        private String taskType;
 
-        DateQualifier(long time) {
-            this.oneWeekFromNow = time
-                                  + oneWeek;
+        DateQualifier(long time, String taskType) {
+            this.timeNow = new Date().getTime();
+            this.oneWeekFromNow = time + oneWeek;
+            this.taskType = taskType;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (task.isFloating()) {
-                return true;
-            } else {
-                return task.getEndDate().getTime() < oneWeekFromNow;
+            switch (taskType) {
+                case NAME_DEADLINE: return isUpcomingDeadline(task);
+                case NAME_EVENT:    return isUpcomingEvent(task);
+                default:            return isUpcomingAll(task);
             }
         }
 
@@ -448,6 +454,41 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "Date before:"
                    + oneWeekFromNow;
+        }
+        
+        private boolean isUpcomingAll(ReadOnlyTask task) {
+            if (task.isFloating()) {
+                return true;
+            } else {
+                return isUpcoming(task);
+            }
+        }
+        
+        private boolean isUpcomingEvent(ReadOnlyTask task) {
+            if (task.isFloating() || task.isDeadline()) {
+                return false;
+            } else {
+                return isUpcoming(task);
+            }
+        }
+        
+        
+        private boolean isUpcomingDeadline(ReadOnlyTask task) {
+            if (task.isFloating() || task.isEvent()) {
+                return false;
+            } else {
+                return isUpcoming(task);
+            }
+        }
+        
+        
+        /**
+         * Checks if end date of task is within one week from now.
+         */
+        private boolean isUpcoming(ReadOnlyTask task) {
+            long taskTime = task.getEndDate().getTime();
+            boolean isUpcoming = taskTime < oneWeekFromNow && taskTime > timeNow;
+            return isUpcoming;
         }
     }
 

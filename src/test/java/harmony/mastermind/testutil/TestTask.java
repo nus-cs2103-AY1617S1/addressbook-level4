@@ -19,7 +19,7 @@ public class TestTask implements ReadOnlyTask {
     private String endDate;
     private String recur;
     private UniqueTagList tags;
-    private boolean marked;
+    private boolean isMarked;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -133,7 +133,7 @@ public class TestTask implements ReadOnlyTask {
     @Override
     //@@author A0124797R
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
     }
     
     @Override
@@ -164,7 +164,7 @@ public class TestTask implements ReadOnlyTask {
     
     //@@author A0124797R
     public TestTask mark() {        
-        this.marked = true;
+        this.isMarked = true;
         return this;
     }
 

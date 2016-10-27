@@ -50,8 +50,7 @@ public class LogicManagerTest {
     private boolean helpShown;
     private int targetedJumpIndex;
     private static String TAB_HOME = "Home";
-    final Date startDate = new Date();
-    final Date endDate = new Date(startDate.getTime()+1000);
+    final Date endDate = new Date();
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -117,7 +116,6 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand, TAB_HOME);
 
         //Confirm the ui display elements should contain the right data
-        
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
         
@@ -177,7 +175,6 @@ public class LogicManagerTest {
     public void execute_undoAndRedo_add() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
-        String timeCheckStart = toBeAdded.parseForConsole(startDate);
         String timeCheckEnd = toBeAdded.parseForConsole(endDate);
         
         logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
@@ -185,7 +182,6 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Add Command] Task deleted: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
@@ -195,7 +191,6 @@ public class LogicManagerTest {
         assertCommandBehavior("redo", "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Add Command] Task added: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
@@ -208,7 +203,6 @@ public class LogicManagerTest {
     public void execute_undoAndRedo_edit() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheckStart = toBeEdited.parseForConsole(startDate);
         String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
@@ -222,7 +216,6 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Edit Command] Task reverted: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
@@ -233,7 +226,6 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Edit Command] Edit the following task: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
@@ -246,7 +238,6 @@ public class LogicManagerTest {
     public void execute_undo_delete() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheckStart = toBeEdited.parseForConsole(startDate);
         String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
@@ -260,7 +251,6 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Delete Command] Task added: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
@@ -271,7 +261,6 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Delete Command] Deleted Task: task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
@@ -284,7 +273,6 @@ public class LogicManagerTest {
     public void execute_undo_mark() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheckStart = toBeEdited.parseForConsole(startDate);
         String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
@@ -298,7 +286,6 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Mark Command] task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
@@ -309,7 +296,6 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Mark Command] task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
@@ -322,7 +308,6 @@ public class LogicManagerTest {
     public void execute_undo_unmark() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheckStart = toBeEdited.parseForConsole(startDate);
         String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
@@ -338,7 +323,6 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Mark Command] task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
@@ -349,7 +333,6 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Mark Command] task "
-                + "start:" + timeCheckStart + " "
                 + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
@@ -622,7 +605,7 @@ public class LogicManagerTest {
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             
-            return new Task(name, startDate, endDate, tags, recur, null);
+            return new Task(name, null, endDate, tags, recur, null);
         }
 
         /**
@@ -636,7 +619,7 @@ public class LogicManagerTest {
             
             return new Task(
                     "task"+seed,
-                    startDate,
+                    null,
                     endDate,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     null,
@@ -647,13 +630,11 @@ public class LogicManagerTest {
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
-            SimpleDateFormat sdf = new SimpleDateFormat();
 
             cmd.append("add");
 
             cmd.append(" ").append(p.getName().toString());
-            cmd.append(" from ").append(sdf.format(p.getStartDate()));
-            cmd.append(" to ").append(sdf.format(p.getEndDate()));
+            cmd.append(" by ").append(p.getEndDate());
             cmd.append(" #");
 
             UniqueTagList tags = p.getTags();
@@ -664,8 +645,6 @@ public class LogicManagerTest {
             
             cmd.deleteCharAt(cmd.length()-1);
             
-            System.out.println(cmd.toString());
-
             return cmd.toString();
         }
         

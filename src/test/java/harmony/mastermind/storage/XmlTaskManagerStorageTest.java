@@ -16,6 +16,7 @@ import harmony.mastermind.testutil.TypicalTestTasks;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -83,6 +84,7 @@ public class XmlTaskManagerStorageTest {
         original.removeTask(new Task(TypicalTestTasks.task3));
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
+        
         assertEquals(original, new TaskManager(readBack));
         
         //Save and read without specifying file path
