@@ -22,7 +22,7 @@ public class EditCommandTest extends ToDoListGuiTest {
         String change = "'Eat Buffet'";
         TestTask editedTask = td.editedGrocery;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask, targetIndex-1);
 
 
         //edit the priority of the last task in the list
@@ -30,65 +30,56 @@ public class EditCommandTest extends ToDoListGuiTest {
         change = "/low";
         editedTask = td.editedZika;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask, targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask, targetIndex-1);
         
         //make last task floating
         targetIndex = 1;
         change = "floating";
         editedTask = td.floatingGrocery;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
         //change tags of last task
         targetIndex = currentList.length;
         change = "-dangerous";
         editedTask = td.taggedZika;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
-        //remove priority of first task
+        //remove priority of first task using 'rp' or 'remove priority'
         targetIndex = 1;
+        change = "rp";
+        editedTask = td.noPriorityGrocery;
+        assertEditSuccess(targetIndex, currentList,change,editedTask);
         change = "remove priority";
         editedTask = td.noPriorityGrocery;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
         //change time of task 2
         targetIndex = 2;
         change = "1120";
         editedTask = td.editedHouse1;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
         //change date of task 2
         targetIndex = 2;
         change = "10/20/2016";
         editedTask = td.editedHouse2;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
         //change task 3 to a range task
         targetIndex = 3;
         change = "11/12/2016 1300 to 12/12/2016 1500";
-        editedTask = td.editedHouse2;
+        editedTask = td.editedCar;
         assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex);
-        
-        
-
-        //invalid detail parameter
-        commandBox.runCommand("edit 1 'ppp");
-        assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
-        commandBox.runCommand("edit 1 ppp'");
-        assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
-        commandBox.runCommand("edit 1 ''");
-        assertResultMessage(Messages.MESSAGE_BLANK_DETAIL_WARNING);
+        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
         
         //invalid priority parameter
         commandBox.runCommand("edit 1 'new' /yolo");
         assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY);
-        commandBox.runCommand("edit 1 'new'/high");
-        assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
         
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " /high");
@@ -112,7 +103,7 @@ public class EditCommandTest extends ToDoListGuiTest {
  
         commandBox.runCommand("edit " + targetIndexOneIndexed +" " + change);
         
-        TestTask[] expectedRemainder = TestUtil.replaceTaskFromList(currentList, editedTask ,targetIndexOneIndexed);
+        TestTask[] expectedRemainder = TestUtil.replaceTaskFromList(currentList, editedTask ,targetIndexOneIndexed-1);
         
         //confirm the new card contains the right data
         TaskCardHandle EditedCard = taskListPanel.navigateToTask(editedTask.getDetail().details);
