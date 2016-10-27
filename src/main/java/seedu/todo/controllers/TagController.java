@@ -23,6 +23,7 @@ public class TagController implements Controller {
     private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     private static final String MESSAGE_TAG_NAME_NOT_FOUND = "Could not tag task/event: Tag name not provided!";
     private static final String MESSAGE_EXCEED_TAG_SIZE = "Could not tag task/event : Tag size exceed";
+    private static final String MESSAGE_TAG_NAME_EXIST = "Could not tag task/event: Tag name already exist!";
     
     private static final int ITEM_INDEX = 0;
     
@@ -71,7 +72,7 @@ public class TagController implements Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            Renderer.renderDisambiguation(String.format("destroy %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
+            Renderer.renderDisambiguation(String.format("tag %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
             return;
         }
         
@@ -83,10 +84,18 @@ public class TagController implements Controller {
         
         assert calendarItem != null;
         
+        boolean isTagNameDuplicate = calendarItem.getTagList().contains(tagName);
+        
+        if (isTagNameDuplicate) {
+            Renderer.renderDisambiguation(String.format("tag %d", index), MESSAGE_TAG_NAME_EXIST);
+            return;
+        }
+        
         boolean resultOfTagging = calendarItem.addTag(tagName);
         
         // Re-render
         if (resultOfTagging) {
+            //db.updateTagList(tagName);
             db.save();
             Renderer.renderIndex(db, MESSAGE_TAG_SUCCESS);
         } else {

@@ -37,9 +37,36 @@ public class TodoListDB {
     private Set<Task> tasks = new LinkedHashSet<Task>();
     private Set<Event> events = new LinkedHashSet<Event>();
     private Map<String, String> aliases = new HashMap<String, String>();
+    private Set<String> tagList = new LinkedHashSet<String>();
     
     protected TodoListDB() {
         // Prevent instantiation.
+    }
+    
+    /**
+     * Update the overall Tags that exist in the DB.
+     * 
+     */
+    public void updateTagList(String tagName) {
+        tagList.add(tagName);
+    }
+    
+    /**
+     * Get a list of Tags in the DB.
+     * 
+     * @return tagList
+     */
+    public List<String> getTagList() {
+        return new ArrayList<String>(tagList);
+    }
+    
+    /**
+     * Count tags which are already inserted into the db
+     * 
+     * @return Number of tags
+     */
+    public int countTagList() {
+        return tagList.size();
     }
     
     public Map<String, String> getAliases() {
