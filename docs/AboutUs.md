@@ -10,6 +10,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ----- 
 
+[comment]: # (@@author A0124333U)
 #### [Lee Wenwei Johnervan](http://github.com/johnervan) <br>
 <img src="images/JohnervanLee.png", width="150"><br>
 
@@ -27,7 +28,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * User Guide
    
 -----
-
+[comment]: # (@@author A0140022H)
 #### [Calvin Yang Jiawei](http://github.com/origiri) <br>
 <img src="images/CalvinYang.png", width="150"><br>
 
@@ -43,6 +44,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
+[comment]: # (@@author A0139924W)
 #### [Chia Wei Kang](http://github.com/weikangchia) <br>
 <img src="images/ChiaWeiKang.png", width="150"><br>
 
@@ -66,6 +68,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
+[comment]: # (@@author A0121533W)
 #### [Foo En Teng Joel](http://github.com/jaeoheeail) <br>
 <img src="images/JoelFoo.png", width="150"><br>
 
