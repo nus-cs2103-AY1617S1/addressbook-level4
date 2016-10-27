@@ -248,7 +248,7 @@ Returns any tasks that have the tags `cheese` or `cake`
 Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
 
-> * Edits a parameter of your specified task (specified with `INDEX`) by replacing the parameter stored with the new parameter accordingly
+> * Edits a property of your specified task (specified with `INDEX`) by replacing the parameter stored with the new parameter accordingly
 > * Your `INPUT` should follow the same format as that of the respective parameter referenced by `PROPERTY`
 
 
@@ -256,6 +256,15 @@ Examples:
 * `list`<br>
   `update 3 des/ Go to SOC`<br>
   Edits the 3rd task listed in the task manager by replacing the previous description with `Go to SOC`.
+* `list`<br>
+  `update 3 pr/high`<br>
+  Edits the 3rd task listed in the task manager by replacing the previous priority with `high`.
+* `list`<br>
+  `update 3 st/10:00`<br>
+  Edits the 3rd task listed in the task manager by replacing the previous STARTTIME with `10:00`.
+* `list`<br>
+  `update 3 ed/12:00`<br>
+  Edits the 3rd task listed in the task manager by replacing the previous ENDTIME with `12:00`.
 
 #### Adding a tag: `addtag`
 Add a tag to a task with specific index in the list.<br>
