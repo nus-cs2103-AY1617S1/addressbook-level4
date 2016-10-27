@@ -21,7 +21,7 @@ Responsibilities: Team Mentor
    * <kbd>[Undo](docs/UserGuide.md#undo-the-modification--undo)</kbd> Command
    * <kbd>[Done](docs/UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](docs/UserGuide.md#undone-a-specific-task--undone)</kbd> Command
-* Code written: <kbd>[Functional code](collated/main/A0147335E.md)</kbd> <kbd>[Test code](collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](/main/collated/main/A0147335E.md)</kbd> <kbd>[Test code](/main/collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
 * Other major contributions:
   * Did the initial refactoring from AddressBook to TaskManager
   * Did the initial refactoring of testing from AddressBook to TaskManager
@@ -37,7 +37,7 @@ Responsibilities: Team Lead, Logic
 * Components in charge of: [Add command]
 * Features implemented:
    * <kbd>[Add](docs/UserGuide.md#add-the-modification--undo)</kbd> Command
-   * Natural input using natty
+   * <kbd>[Natural input using natty]</kbd>
 * Code written: <kbd>[Functional code](collated/main/A0152958R.md)</kbd>
 
 **Role**: Developer <br>
