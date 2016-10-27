@@ -102,13 +102,13 @@ public class UniqueTaskList implements Iterable<Task> {
        internalList.remove(0, internalList.size());
     }
     
-    //@@author A0144061U
     /**
      * Replace all task from another list.
      */
     public void setAll(UniqueTaskList taskList) {
        internalList.setAll(taskList.getInternalList());
     }
+    //@@author
 
     public ObservableList<Task> getInternalList() {
         return internalList;

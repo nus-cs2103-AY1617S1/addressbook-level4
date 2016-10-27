@@ -71,7 +71,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    //@@author A0144061U
+    //@@author A0144061U-reused
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> TodoListOptional;
         ReadOnlyTaskList initialTodoListData;
@@ -113,6 +113,7 @@ public class MainApp extends Application {
 
         return new ModelManager(initialTodoListData, initialEventListData, initialDeadlineListData, userPrefs);
     }
+    //@@author
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
@@ -230,4 +231,5 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    //@@author
 }
