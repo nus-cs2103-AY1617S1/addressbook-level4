@@ -4,6 +4,24 @@
 
 * [Getting Started](#getting-started)
 * [Features](#features)
+ * [Help](#viewing-help--help)
+ * [Add](#adding-a-task--add)
+ * [List](#listing-all-tasks--list)
+ * [Find](#find-a-task--find)
+ * [Select](#select-a-task--select)
+ * [Delete](#delete-a-task--delete)
+ * [Clear](#clear-all-entries--clear)
+ * [Edit](#edit-a-task--edit)
+ * [Replace](#replace-a-task--replace)
+ * [Undo](#undo-a-previous-task--undo)
+ * [Mark](#mark-a-completed-task--mark)
+ * [Umnark](#unmark-a-task--ummark)
+ * [SetPath](#set-storage-path--setpath)
+ * [Exit](#exit-the-program--exit)
+ * [Reuse](#reuse-previous-command)
+ * [Indicate task](#indicate-overdue-and-completed-task)
+ * [Recur](#recur-a-task--recur)
+ * [Save](#saving-the-data)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -100,23 +118,8 @@ Examples:<br>
 * **`find`**`CS2103` <br> 
   **`select`**`1`<br>
   Selects the 1st task in the results of the `find` command.
-  
-#### Set a path : `setpath`
-Set user specified filename and/or file directory.<br>
 
-Format: **`setpath`**`FILENAME`
-
-> FILENAME refers to the filename that you wants to save at.<br>
-
-Examples:<br> 
-* **`setpath`**`taskData`<br>
-  Filename taskData will be created at default location data/taskData.
-* **`setpath`**`backup/taskData`<br>
-  Filename taskData will be created at location data/backup/taskData.
-* **`setpath`**`c:/user/<name>/desktop/taskData`<br>
-  Filename "taskData" will be created at user desktop.
-
-#### Deleting a task: `delete`
+#### Delete a task: `delete`
 Deletes a task from the MustDoList by index. <br>
 
 Format: **`delete`**`INDEX`
@@ -128,7 +131,7 @@ Examples:<br>
   **`delete`**`2`<br>
   Deletes the 2nd task in the MustDoList.
 
-#### Clearing all entries : `clear`
+#### Clear all entries : `clear`
 Clears all entries from the TaskListPanel.<br>
 
 Format: `clear`  
@@ -188,6 +191,21 @@ Examples:<br>
 * **`find`**`CS2103`<br> 
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
+  
+#### Unmark a task : `ummark`
+Unmarks a task by index.<br>
+
+Format: **`unmark`**`INDEX`
+
+> INDEX refers to the index number shown in the most recent listing.<br>
+
+Examples:<br>
+* `list`<br>
+  **`unmark`**`2`<br>
+  Unmarks the 2nd task in the MustDoList as completed.
+* **`find`**`CS2103`<br> 
+  **`unmark`**`1`<br>
+  Unmarks the 1st task in the results of the `find` command as completed. 
 
 #### Set storage path : `setpath`
 Set path for saved data path.<br>
@@ -204,15 +222,15 @@ Examples:<br>
 * **`setpath`**`c:/user/<name>/desktop/taskData`<br>
   Filename taskData will be created at user desktop.<br>
 
-#### Exiting the program : `exit`
+#### Exit the program : `exit`
 Exits the program.<br>
 
 Format: `exit` 
 
-#### Reuse previous command : `up down arrow`
-Select and display previously typed command using up or down arrow.<br>
+#### Reuse previous command
+Select and display previously typed command using <kbd>Up</kbd> <kbd>Down</kbd> <br>
 
-#### Indicate overdue and completed task : `color code`
+#### Indicate overdue and completed task
 Indicate overdue and completed task with color code.<br>
 
 Overdue Task: Red Color Code<br>
@@ -284,6 +302,9 @@ e.g. **`replace`**`2 new task name from 8am 10-Oct-2016 to 9am 10-Oct-2016 at NU
 * Mark: **`mark`**`INDEX`<br>
 e.g. **`mark`**`1`
 
+* Unmark: **`unmark`**`INDEX`<br>
+e.g. **`ummark`**`1`
+
 * SetPath: **`setpath`**`FILENAME`<br>
 e.g. **`setpath`**`taskData`
 
@@ -292,7 +313,7 @@ e.g. **`recur`**`every 2 days until 19-Oct-2016`
 
 * Exit: `exit`
 
-* UpDownArrow: system display and select previously keyed commands
+* <kbd>Up</kbd><kbd>Down</kbd>: system display and select previously keyed commands
 
 * ColorCode: system indicate overdue(red) and completed(green) task by color code
 
