@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.logic.LogicManager;
+import seedu.flexitrack.logic.parser.Parser;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.tag.Tag;
 
@@ -20,8 +21,13 @@ public class UndoCommand extends Command {
             + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Your last command has been undo!";
     public static final String MESSAGE_NOT_SUCCESS = "You have no command to undo!";
-    public static Stack<String> commandRecord = new Stack<String>(); 
     
+    static Stack<String> commandRecord = new Stack<String>(); 
+    static Stack<String> uiCommandRecord = new Stack<String>(); 
+    static Stack<String> argumentsRecord = new Stack<String>(); 
+    static String argumentsTemp = new String("");
+    static String uiCommandRecordTemp = new String("list");
+
     public UndoCommand() {
     }
 
@@ -51,7 +57,12 @@ public class UndoCommand extends Command {
             undo = new EditCommand(); 
             break;
         case "list":
-            undo = new ListCommand(); 
+        case "find":
+            if (uiCommandRecord.peek().equals("list")){
+                undo = new ListCommand(); 
+            } else {
+                undo =  Parser.prepareFind(argumentsRecord.peek()); 
+            }
             break;
         }
         undo.setData(model);

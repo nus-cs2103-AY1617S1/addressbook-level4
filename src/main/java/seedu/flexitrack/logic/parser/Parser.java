@@ -365,7 +365,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    private Command prepareFind(String args) {
+    public static Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
@@ -379,7 +379,7 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 
-        return new FindCommand(keywordSet);
+        return new FindCommand(keywordSet, args);
     }
 
 }

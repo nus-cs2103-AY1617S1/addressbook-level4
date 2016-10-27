@@ -32,10 +32,7 @@ public class ListCommand extends Command {
     public static final String LIST_NEXT_WEEK_COMMAND = "next week";
     public static final String LIST_NEXT_MONTH_COMMAND = "next month";
     public static final String LIST_UNSPECIFIED_COMMAND = "";
-        
-    private static Stack<String> storeDataChanged = new Stack<String>(); 
-    private static String storeDataChangedTemp = new String("");
-    
+            
     public final String arguments;
     
     public ListCommand(String args) {
@@ -46,7 +43,7 @@ public class ListCommand extends Command {
      * Constructor for undo command
      */
     public ListCommand() {
-        this.arguments = storeDataChanged.peek();
+        this.arguments = UndoCommand.argumentsRecord.peek();
     }
 
     @Override
@@ -57,9 +54,13 @@ public class ListCommand extends Command {
         else {
             model.updateFilteredListToFitUserInput( arguments );
         }
-        storeDataChanged.add(storeDataChangedTemp);
-        storeDataChangedTemp = arguments; 
+        
+        UndoCommand.argumentsRecord.add(UndoCommand.argumentsTemp);
+        UndoCommand.argumentsTemp = arguments; 
+        UndoCommand.uiCommandRecord.add(UndoCommand.uiCommandRecordTemp);
+        UndoCommand.uiCommandRecordTemp = "list";
         recordCommand("list"); 
+        
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
@@ -71,6 +72,7 @@ public class ListCommand extends Command {
         else {
             model.updateFilteredListToFitUserInput( arguments );
         }
-        storeDataChangedTemp = storeDataChanged.pop();
+        UndoCommand.argumentsTemp = UndoCommand.argumentsRecord.pop();
+        UndoCommand.uiCommandRecordTemp = UndoCommand.uiCommandRecord.pop();
     }
 }
