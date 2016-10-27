@@ -149,7 +149,9 @@ public class LogicManagerTest {
         model.addTask(helper.generatetask(2));
         model.addTask(helper.generatetask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear todo", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear event", ClearCommand.EVENT_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear deadline", ClearCommand.DEADLINE_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
 
@@ -394,16 +396,16 @@ public class LogicManagerTest {
 
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
-            StartDate sdate = new StartDate("05-12-2017");
-            EndDate edate = new EndDate("06-12-2017");
-            Priority priority = new Priority("1");
-            String done = "false";
+            StartDate date = new StartDate("01-11-2016");
+            EndDate endDate = new EndDate("02-12-2016");
+            Priority priority = new Priority("111");
+            String isDone = "false";
             
             //EndTime endTime = new EndTime("1111");
             //Tag tag1 = new Tag("tag1");
             //Tag tag2 = new Tag("tag2");
             //UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Todo(name, sdate, edate, priority, done);
+            return new Todo(name, date, endDate, priority, isDone);
         }
 
         /**
@@ -417,10 +419,10 @@ public class LogicManagerTest {
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new StartDate("04-10-2017"),
-                    new EndDate("05-10-2017"),
-                    new Priority( "priority " + seed),
-                    "done"
+                    new StartDate("11-12-2016"),
+                    new EndDate("12-12-2016"),
+                    new Priority(seed + "10"),
+                    "false"
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -432,12 +434,11 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
             cmd.append(p.getName().name);
             cmd.append(" from/").append(p.getStartDate().date);
             cmd.append(" to/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
-            //cmd.append(" e/").append(p.getEndTime().endTime);
+            
 
             /*UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -525,8 +526,7 @@ public class LogicManagerTest {
                     new EndDate("02-11-2016"),
                     new Priority("1"),
                     "false"
-                    
-                    
+                                    
                     //new UniqueTagList(new Tag("tag"))
             );
         }

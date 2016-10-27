@@ -137,6 +137,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
+    //@@author A0139920A
     public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
     	assert key != null;
     	final boolean taskUpdated = internalList.contains(key);

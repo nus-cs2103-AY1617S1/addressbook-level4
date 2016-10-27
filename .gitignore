@@ -15,3 +15,7 @@ classes/
 /data/
 /bin/
 TodoList.jar
+todoList_v0.4.jar
+Collate-GUI.jar
+Collate-TUI.jar
+collate.sh
