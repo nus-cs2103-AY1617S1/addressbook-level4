@@ -29,6 +29,8 @@ public class XmlAdaptedTask {
     private String address;
     @XmlElement(required = true)
     private String type;
+    @XmlElement(required = true)
+    private String status;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -50,6 +52,7 @@ public class XmlAdaptedTask {
         endDateTime = source.getEndDate().toString();
         address = source.getLocation().value;
         type = source.getType().toString();
+        type = String.valueOf(source.getCompleteStatus());
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
