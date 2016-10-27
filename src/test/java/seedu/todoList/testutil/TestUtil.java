@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * A utility class for test cases.
  */
-//@@author A0132157M
+
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
@@ -89,7 +89,7 @@ public class TestUtil {
             return null;
         }
     }
-    
+    //@@author A0132157M reused
     private static Event[] getSampleeventData() {
         try {
             return new Event[]{
@@ -107,7 +107,7 @@ public class TestUtil {
             return null;
         }
     }
-    
+    //@@author A0132157M reused
     private static Deadline[] getSampledeadlineData() {
         try {
             return new Deadline[]{
@@ -129,11 +129,11 @@ public class TestUtil {
     public static List<Task> generateSampletaskData() {
         return Arrays.asList(sampletaskData);
     }
-    
+    //@@author A0132157M reused   
     public static List<Event> generateSampleeventData() {
         return Arrays.asList(sampleeventData);
     }
-    
+    //@@author A0132157M reused
     public static List<Deadline> generateSampledeadlineData() {
         return Arrays.asList(sampledeadlineData);
     }
@@ -175,19 +175,23 @@ public class TestUtil {
     public static TaskList generateEmptyTodoList() {
         return new TaskList(new UniqueTaskList());
     }
+    //@@author A0132157M reused
     public static TaskList generateEmptyEventList() {
         return new TaskList(new UniqueTaskList());
     }
+    //@@author A0132157M reused
     public static TaskList generateEmptyDeadlineList() {
         return new TaskList(new UniqueTaskList());
     }
 
     public static XmlSerializableTodoList generateSampleStorageTodoList() {
         return new XmlSerializableTodoList(generateEmptyTodoList());
-    }    
+    }   
+    //@@author A0132157M reused
     public static XmlSerializableEventList generateSampleStorageEventList() {
         return new XmlSerializableEventList(generateEmptyEventList());
     }
+    //@@author A0132157M reused
     public static XmlSerializableDeadlineList generateSampleStorageDeadlineList() {
         return new XmlSerializableDeadlineList(generateEmptyDeadlineList());
     }

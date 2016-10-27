@@ -7,7 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  *
  */
-//@@ Author A0132157M
+//@@author A0132157M
 public class EventBuilder {
 
     private TestEvent event;

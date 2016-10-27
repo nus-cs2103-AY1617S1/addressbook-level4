@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for List.
  */
+//@@author A0132157M reused
 public abstract class ListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
@@ -86,6 +87,7 @@ public abstract class ListGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
+  //@@author A0132157M reused
     protected TaskList getInitialData() {
         TaskList ab = TestUtil.generateEmptyTodoList();
         //TaskList cd = TestUtil.generateEmptyEventList();
@@ -116,11 +118,11 @@ public abstract class ListGuiTest {
     public void assertMatching(Todo task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
-    
+    //@@author A0132157M reused
     public void assertEventMatching(Event event, EventCardHandle card) {
         assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
-    
+    //@@author A0132157M reused
     public void assertDeadlineMatching(Deadline event, DeadlineCardHandle card) {
         assertTrue(TestUtil.compareCardAndDeadline(card, event));
     }
@@ -133,12 +135,12 @@ public abstract class ListGuiTest {
         int numberOfTask = taskListPanel.getNumberOfTasks();
         assertEquals(size, numberOfTask);
     }
-    
+    //@@author A0132157M reused
     protected void assertEventListSize(int size) {
         int numberOfTask = eventListPanel.getNumberOfEvents();
         assertEquals(size, numberOfTask);
     }
-    
+    //@@author A0132157M reused
     protected void assertDeadlineListSize(int size) {
         int numberOfTask = deadlineListPanel.getNumberOfDeadlines();
         assertEquals(size, numberOfTask);

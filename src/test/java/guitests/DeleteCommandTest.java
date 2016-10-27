@@ -12,6 +12,7 @@ import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SU
 public class DeleteCommandTest extends ListGuiTest {
 
     @Test
+    //@@author A0132157M reused
     public void delete() throws IllegalValueException {
 
         //delete the first in the list

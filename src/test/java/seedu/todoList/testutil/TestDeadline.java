@@ -23,8 +23,6 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         //tags = new UniqueTagList();
     }
 
-
-
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
     }

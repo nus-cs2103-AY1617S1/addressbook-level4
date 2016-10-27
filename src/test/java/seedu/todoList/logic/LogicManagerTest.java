@@ -66,6 +66,7 @@ public class LogicManagerTest {
     }
 
     @Before
+    //@@author A0132157M reused
     public void setup() {
         model = new ModelManager();
         String tempTodoListFile = saveFolder.getRoot().getPath() + "TempTodoList.xml";
@@ -330,7 +331,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    //@@ Author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
@@ -391,7 +391,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    //@@ Author A0132157M
+    //@@author A0132157M reused
     class TestDataHelper{
 
         Todo a111() throws Exception {
