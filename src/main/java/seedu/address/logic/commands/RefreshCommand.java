@@ -36,9 +36,4 @@ public class RefreshCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
-    @Override
-    public boolean isMutating() {
-        return false;
-    }
-
 }
