@@ -21,7 +21,7 @@ import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits the task associated with the intended index.
  * 
- * @author A0139661Y and A0141128R
+ * @@author A0141128R
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -72,6 +72,7 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      * 
+     * @@author A0141128R
      */
     public EditCommand(boolean removePriority, 
     				  int targetIndex,
@@ -103,6 +104,7 @@ public class EditCommand extends Command {
         return toEditWith;
     }
 
+    //@@author A0141128R
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -120,7 +122,6 @@ public class EditCommand extends Command {
         	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
         }
         
-        //@@author A0141128R
         //write a method for it
         //check for changes in detail and append
         if(toEditWith.getDetail().toString().equals(""))

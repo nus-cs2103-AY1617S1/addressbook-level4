@@ -121,6 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     }
     
+    //@@author A0139661Y
     @Override
     public synchronized void doneTask(ReadOnlyTask target, Task replacer) throws TaskNotFoundException, TaskAlreadyDoneException {
         toDoList.removeTask(target);
@@ -136,11 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     }
     
-    /**
-     * Edits a task
-     * 
-     * @author A0139661Y
-     */
+    //@@author A0139661Y
     @Override
     public synchronized void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
     	toDoList.editTask(taskToEdit, toEditWith);
@@ -177,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     	return initList;
     }
     
+    //@@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getBlockedList() {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);

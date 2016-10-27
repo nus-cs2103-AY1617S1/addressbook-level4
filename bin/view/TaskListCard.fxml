@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- @@author A0141006B -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Rectangle?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-               <Label fx:id="id" alignment="BOTTOM_CENTER" styleClass="cell_big_label" text="\$index" HBox.hgrow="ALWAYS">
+      <Rectangle fx:id="status" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="30.0" stroke="BLACK" strokeType="INSIDE" width="40.0">
          <HBox.margin>
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </HBox.margin>
-      </Label>
-               <Label fx:id="detail" styleClass="cell_big_label" text="\$task" HBox.hgrow="ALWAYS">
+      </Rectangle>
+               <Label fx:id="id" alignment="BOTTOM_CENTER" styleClass="cell_big_label" text="\$index" HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+            <Insets bottom="8.0" left="5.0" right="2.0" top="8.0" />
+         </HBox.margin>
+      </Label>
+               <Label fx:id="detail" styleClass="cell_big_label" stylesheets="@../CSS/Labels.css" text="\$task" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="8.0" />
          </HBox.margin>
       </Label>
               <Label fx:id="tags" alignment="CENTER" styleClass="cell_small_label" text="\$tags" HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+            <Insets bottom="2.0" left="5.0" right="5.0" top="8.0" />
          </HBox.margin>
       </Label>
       <Region HBox.hgrow="ALWAYS" />
@@ -27,25 +35,25 @@
          <children>
             <Label fx:id="sd" alignment="CENTER" prefWidth="75.0" text="10/19/2016">
                <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
                </HBox.margin>
             </Label>
             <Label fx:id="st" alignment="CENTER" prefWidth="38.0" text="2359">
                <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
                </HBox.margin>
             </Label>
                   <Label fx:id="dbd" alignment="CENTER" prefWidth="75.0" styleClass="cell_small_label" text="10/19/2016" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
                </HBox.margin></Label>
                   <Label fx:id="dbt" alignment="CENTER" prefWidth="38.0" styleClass="cell_small_label" text="2359" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
                </HBox.margin></Label>
                   <Label fx:id="priority" alignment="CENTER" prefWidth="49.0" styleClass="cell_small_label" text="medium" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
                </HBox.margin></Label>
          </children>
       </HBox>
