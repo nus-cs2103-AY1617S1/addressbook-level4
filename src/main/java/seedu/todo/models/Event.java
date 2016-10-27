@@ -74,11 +74,13 @@ public class Event implements CalendarItem {
     }
 
     @Override
+    //@@author Tiong YaoCong A0139922Y
     public ArrayList<String> getTagList() {
         return tagList;
     }
 
     @Override
+    //@@author Tiong YaoCong A0139922Y
     public boolean addTag(String tagName) {
         if(tagList.size() < MAX_TAG_LIST_SIZE) {
             tagList.add(tagName);
@@ -89,6 +91,7 @@ public class Event implements CalendarItem {
     }
 
     @Override
+    //@@author Tiong YaoCong A0139922Y
     public boolean removeTag(String tagName) {
         return tagList.remove(tagName);
     }

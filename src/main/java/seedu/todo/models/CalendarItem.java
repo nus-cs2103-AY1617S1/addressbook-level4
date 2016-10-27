@@ -49,6 +49,7 @@ public interface CalendarItem {
      * Returns the current tag list that belong to the CalendarItem, mainly for displaying purpose
      * 
      * @return ArrayList<String> tags
+     * @@author Tiong YaoCong A0139922Y
      */
     public ArrayList<String> getTagList();
    
@@ -57,6 +58,7 @@ public interface CalendarItem {
      * 
      * @param tagName <String>
      * @return true if it has not reached the max tag list size, false if tag list already reach the max size
+     * @@author Tiong YaoCong A0139922Y
      */
     public boolean addTag(String tagName);
     
@@ -65,6 +67,7 @@ public interface CalendarItem {
      * 
      * @param tagName <String>
      * @return true if tagName is removed successfully, false if failed to remove tagName due to unable to find
+     * @@author Tiong YaoCong A0139922Y
      */
     public boolean removeTag(String tagName);
 
