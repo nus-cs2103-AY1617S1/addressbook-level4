@@ -1,6 +1,7 @@
 package seedu.todo.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public interface CalendarItem {
     
@@ -43,5 +44,34 @@ public interface CalendarItem {
      * @return isOver
      */
     public boolean isOver();
+    
+    /**
+     * Returns the current tag list that belong to the CalendarItem, mainly for displaying purpose
+     * 
+     * @return ArrayList<String> tags
+     */
+    public ArrayList<String> getTagList();
+   
+    /**
+     * Add a new tag in the list of tag of the calendar item. 
+     * 
+     * @param tagName <String>
+     * @return true if it has not reached the max tag list size, false if tag list already reach the max size
+     */
+    public boolean addTag(String tagName);
+    
+    /**
+     * Remove a existing tag in the tag list of tag of the calendar item. 
+     * 
+     * @param tagName <String>
+     * @return true if tagName is removed successfully, false if failed to remove tagName due to unable to find
+     */
+    public boolean removeTag(String tagName);
 
+    /**
+     * Mainly use to check if the tag list is full 
+     * 
+     * @return the size of the tag list
+     */
+    public int getTagListSize();
 }

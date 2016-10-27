@@ -1,12 +1,16 @@
 package seedu.todo.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Task implements CalendarItem {
     
     private String name;
     private LocalDateTime dueDate;
     private boolean isCompleted = false;
+    private ArrayList<String> tagList;
+    
+    private static final int MAX_TAG_LIST_SIZE = 20;
 
     @Override
     public String getName() {
@@ -73,6 +77,32 @@ public class Task implements CalendarItem {
      */
     public void setIncomplete() {
         this.isCompleted = false;
+    }
+
+    @Override
+    public ArrayList<String> getTagList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean addTag(String tagName) {
+        if(getTagListSize() < 20) {
+            tagList.add(tagName);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeTag(String tagName) {
+        return tagList.remove(tagName);
+    }
+
+    @Override
+    public int getTagListSize() {
+        return tagList.size();
     }
 
 }
