@@ -1,4 +1,5 @@
-﻿# Developer Guide 
+
+# Developer Guide 
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -62,7 +63,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/savvytasker/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -91,7 +92,8 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `SavvyTaskerChangedEvent` when the Savvy Tasker data are changed,
+>Note how the `Model` simply raises a `
+ChangedEvent` when the Savvy Tasker data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -108,7 +110,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/savvytasker/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -116,7 +118,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/savvytasker/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -128,9 +130,9 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/savvytasker/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. `Logic` uses the `MasterParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -139,11 +141,21 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+### Parser component
+
+<img src="images/ParserClassDiagram.png" width="800"><br>
+
+**API** : [`MasterParser.java`](../src/main/java/seedu/savvytasker/logic/parser/MasterParser.java)
+
+The `Parser` component,
+* can parse text input into commands.
+* supports adding and removing of keyword aliases
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/savvytasker/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -156,7 +168,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/savvytasker/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -213,13 +225,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.savvytasker.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.savvytasker.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.savvytasker.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -457,10 +469,10 @@ Use case ends.
 **MSS**
 
 1. Savvy Tasker waits for user command
-2. User requests to alias a keyword (can be a command or any other frequently used word), with a shorten keyword
-3. Savvy Tasker store the shorten keyword associated with the keyword in its database
+2. User requests to alias a string (can be a command or any other frequently used word), with a shorten keyword
+3. Savvy Tasker store the string associated with the keyword in its database
 4. User request a command
-4. Savvy Tasker check if the command contain any shorten keyword, if it does, replace the shorten keyword with the associated keyword from its database
+4. Savvy Tasker check if the command contain any keywords, if it does, replace the keywords with the associated string from its database
 5. Savvy Tasker carry out the command <br>
 Use case ends.
 
@@ -479,13 +491,13 @@ Use case ends.
 **MSS**
 
 1. Savvy Tasker waits for user command
-2. User requests to unalias a shorten keyword
-3. Savvy Tasker remove the shorten keyword associated with the keyword in its database <br>
+2. User requests to unalias a keyword
+3. Savvy Tasker remove the keyword associated with the keyword in its database <br>
 Use case ends.
 
 **Extensions**
 
-2a. The shorten keyword could not be found in Savvy Tasker database
+2a. The keyword could not be found in Savvy Tasker database
 > 2a1. Savvy Tasker shows a 'not found' error message 
 > Use case resumes at step 1 <br>
 
