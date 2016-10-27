@@ -1,3 +1,4 @@
+//@@author A0140124B
 # About Us
 
 We are a team of 3 Year 2 NUS students from SoC.

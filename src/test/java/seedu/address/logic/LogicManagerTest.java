@@ -386,6 +386,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
+  //@@author A0140124B
     class TestDataHelper{
 
         Task adam() throws Exception {
@@ -399,6 +400,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tagSet);
             return new Task(name, privatePhone, email, privateAddress, tags);
         }
+        //@@author
 
         /**
          * Generates a valid person using the given seed.

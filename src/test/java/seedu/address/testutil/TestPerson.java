@@ -63,7 +63,7 @@ public class TestPerson implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    //@@author A0146749N
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");

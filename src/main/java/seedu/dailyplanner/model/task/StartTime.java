@@ -20,6 +20,7 @@ public class StartTime {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
+    //@@author A0139102U
     public StartTime(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
