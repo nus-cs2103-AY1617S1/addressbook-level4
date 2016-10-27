@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Task date in Simply.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Dates should be entered in the format DDMMYY, DD.MM.YY, DD/MM/YY, DD-MM-YY";
     public static final String DATE_VALIDATION_REGEX = "([3][01][1][012]\\d{2})|([3][01][0]\\d{3})|([012]\\d{1}[1][012]\\d{2})|"+ //6digits
@@ -124,6 +124,24 @@ public class Date {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    @Override
+    public int compareTo(Date o) { 
+        if(this.toString().compareTo("no date")==0 & o.toString().compareTo("no date")==0)
+            return 0;
+        else if(this.toString().compareTo("no date")==0 )
+            return -1;
+        else if(o.toString().compareTo("no date")==0 )
+            return 1;
+        
+        String[] temp = this.value.split("-");
+        String[] temp2 = o.toString().split("-");
+        
+        String date = temp[2].concat(temp[1]).concat(temp[0]);
+        String date2 = temp2[2].concat(temp2[1]).concat(temp2[0]);
+        
+        return date.compareTo(date2);
     }
 
 }
