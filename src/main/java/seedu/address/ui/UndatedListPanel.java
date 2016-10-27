@@ -74,7 +74,7 @@ public class UndatedListPanel extends UiPart {
     }
     
     private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
-    	String label = "Events / Deadlines : ";
+    	String label = "Floating : ";
     	label_count.setText(label + personList.size());
 	}
 
@@ -126,7 +126,7 @@ public class UndatedListPanel extends UiPart {
     @Subscribe 
     private void updateLabelCount(TaskBookChangedEvent e){
     	int listSize = e.data.getUndatedTaskList().size();
-    	String label = "Events / Deadlines : ";
+    	String label = "Floating : ";
     	label_count.setText(label + listSize);
     }
 
