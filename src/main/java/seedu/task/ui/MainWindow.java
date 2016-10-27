@@ -58,7 +58,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane sortedTaskListPanelPlaceholder;
-    
+
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
@@ -111,9 +111,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-//      browserPanel = BrowserPanel.load(browserPlaceholder);
-    	sortedTaskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+//        browserPanel = BrowserPanel.load(browserPlaceholder);
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getSortedFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
                                                config.getTaskManagerFilePath());
@@ -135,7 +134,7 @@ public class MainWindow extends UiPart {
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
-    
+
     public AnchorPane getSortedTaskListPanelPlaceholder() {
         return sortedTaskListPanelPlaceholder;
     }

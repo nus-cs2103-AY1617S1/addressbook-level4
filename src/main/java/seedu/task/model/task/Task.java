@@ -1,5 +1,6 @@
 package seedu.task.model.task;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
@@ -106,6 +107,14 @@ public class Task implements ReadOnlyTask {
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
+    }
+    
+    public boolean hasHigherPriorityThan(Task task) {
+        return priority.isRankedHigher(task.getPriority());
+    }
+    
+    public boolean hasLowerPriorityThan(Task task) {
+        return priority.isRankedLower(task.getPriority());
     }
 
     @Override

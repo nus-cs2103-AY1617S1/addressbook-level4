@@ -48,8 +48,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
+    public ObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
+        return model.getSortedFilteredTaskList();
     }
 
     public static CommandResult undo() throws IllegalValueException {

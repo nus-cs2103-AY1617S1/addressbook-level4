@@ -149,7 +149,7 @@ Adds a task with the description `finish LN`, with the tag `index` <br>
 ### Listing
 #### Listing all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
+Format: `list [-pr] [-st] [-ed]`
 
 > * Tasks are listed in the order of your input into the task manager by default.
 > * With different modifiers (i.e. `-pr`, `-st`, `-ed`), tasks is listed in different order.
@@ -331,5 +331,5 @@ Find Tasks with `PRIORITY` | `find pr/PRIORITY`
 Find Tasks with `TAG`s | `find t/TAG [MORE_TAGS]`
 Help | `help`
 List Tags | `list tags`
-List Tasks | `list [-pr] [-t/TAG]...`
+List Tasks | `list [-pr] [-st] [-ed]`
 Undo | `undo`
