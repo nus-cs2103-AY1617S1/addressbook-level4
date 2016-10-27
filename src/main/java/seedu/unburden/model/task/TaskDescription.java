@@ -5,6 +5,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's description in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
+ * @@author A0143095H
  */
 
 public class TaskDescription {

@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
+ * @@author A0143095H
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);

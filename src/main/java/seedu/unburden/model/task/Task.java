@@ -9,6 +9,7 @@ import seedu.unburden.model.tag.UniqueTagList;
 /**
  * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated.
+ * @@author A0143095H
  */
 public class Task implements ReadOnlyTask {
 

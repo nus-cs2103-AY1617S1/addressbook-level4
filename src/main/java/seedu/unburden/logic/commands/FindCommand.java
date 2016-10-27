@@ -10,6 +10,7 @@ import seedu.unburden.model.task.Task;
 /**
  * Finds and lists all persons in address book whose name contains any of the
  * argument keywords. Keyword matching is case sensitive.
+ * @@author A0139678J
  */
 public class FindCommand extends Command {
 

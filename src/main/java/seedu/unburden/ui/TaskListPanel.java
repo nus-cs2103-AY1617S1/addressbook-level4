@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.
+ * @@author A0143095H 
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);

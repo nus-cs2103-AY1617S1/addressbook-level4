@@ -18,6 +18,7 @@ import seedu.unburden.model.task.ReadOnlyTask;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * @@author A0143095H
  */
 public class MainWindow extends UiPart {
 

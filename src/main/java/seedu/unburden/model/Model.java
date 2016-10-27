@@ -14,7 +14,7 @@ import seedu.unburden.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 
-//@@Nathanael Chan A0139678J
+//@@author A0139678J
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyListOfTask newData);
@@ -28,12 +28,16 @@ public interface Model {
     /** Adds the given person */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    //@@author A0139714B
     void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
     
+    //@@author A0139714B
     void saveToPrevLists();
     
+    //@@author A0139714B
     void loadFromPrevLists();
     
+    //@@author A0139714B
     void loadFromUndoHistory();
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

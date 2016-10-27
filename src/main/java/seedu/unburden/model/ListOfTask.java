@@ -114,6 +114,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
     }
     
+  //@@author A0139714B
     public boolean editTask(ReadOnlyTask key, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
         if (tasks.edit(key, args))
             return true;
@@ -122,11 +123,12 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
                     
     }
-    //@@ Gauri Joshi A0143095H
+    //@@author A0143095H
     public void doneTask(ReadOnlyTask key, boolean isDone){
     	tasks.done(key,isDone);
     }
     
+  //@@author A0143095H
     public void undoneTask(ReadOnlyTask key, boolean isDone){
     	tasks.done(key,isDone);
     }

@@ -25,7 +25,7 @@ import com.google.common.base.Predicate;
  * All changes to any model should be synchronized.
  */
 
-//@@Nathanael Chan A0139678J
+//@@author A0139678J
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -57,7 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask = new ListOfTask(initialData);
         filteredTasks = new FilteredList<>(listOfTask.getTasks());
     }
-
+    
+    //@@author A0139714B	
     @Override
     public void resetData(ReadOnlyListOfTask newData) {
     	prevLists.push(listOfTask);
@@ -88,6 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@author A0139714B
     @Override
     public synchronized void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         listOfTask.editTask(target, args);
@@ -95,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@author A0143095H
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
@@ -102,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
+  //@@author A0143095H
     @Override 
     public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
     	listOfTask.doneTask(taskToDone,isunDone);

@@ -7,6 +7,7 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
+ * @@author A0143095H
  */
 public class DoneCommand extends Command {
 

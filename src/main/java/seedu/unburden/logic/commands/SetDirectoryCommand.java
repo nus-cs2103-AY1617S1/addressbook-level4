@@ -7,6 +7,10 @@ import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.commons.util.ConfigUtil;
 import seedu.unburden.commons.util.FileUtil;
 
+/*
+ * changes the save directory to the user desired directory
+ * @@author A0139714B
+ */
 public class SetDirectoryCommand extends Command{
 	
 	public static final String COMMAND_WORD = "setdir";
