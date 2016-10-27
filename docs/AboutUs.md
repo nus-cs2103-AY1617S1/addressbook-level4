@@ -41,7 +41,7 @@ Component SME: Logic, Parsing
    * [Find task](UserGuide.md#finding-all-task-containing-any-keyword-in-its-name-find)
    * [Delete task](UserGuide.md#deleting-a-task--delete)
    * [Modify task](UserGuide.md#modifies-a-task--modify)
-* Code written: [[functional code](../collated/main/A1019915W.md)][[test code](../collated/main/A1019915W.md)][[docs](../collated/docs/A1019915W.md)]
+* Code written: [[functional code](../collated/main/A0139915W.md)][[test code](../collated/main/A0139915W.md)][[docs](../collated/docs/A0139915W.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to SavvyTasker [[#34](https://github.com/CS2103AUG2016-T14-C2/main/pull/34) ]
   * Set up Travis and Coveralls 
