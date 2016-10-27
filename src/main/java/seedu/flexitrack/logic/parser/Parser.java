@@ -4,14 +4,17 @@ import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
@@ -31,6 +34,8 @@ import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.task.DateTimeInfoParser;
+import seedu.flexitrack.model.Model;
+
 
 /**
  * Parses user input.
@@ -63,6 +68,10 @@ public class Parser {
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>[^/dd]+)" + "ty/(?<occurrenceType>[^/].+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -78,9 +87,17 @@ public class Parser {
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
 
     //@@author
+    
+    private Model model;
+   
     public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
-
+    
+    
     public Parser() {
+    }
+    
+    public Parser(Model model) {
+        this.model = model;
     }
 
     /**
@@ -307,20 +324,23 @@ public class Parser {
         return new MarkCommand(index.get());
     }
 
+    
     /**
      * Parses arguments in the context of the add task command.
-     *
      * @param args
-     *            full command args string
+     * full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
         final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcherRecurring = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         try {
-            if (matcherEvent.matches()) {
+            if (matcherRecurring.matches()) {
+                return addRecurringEvent(matcherRecurring);
+            }else if (matcherEvent.matches()) {
                 return addEventTask(matcherEvent);
             } else if (matcherDeadline.matches()) {
                 return addDeadlineTask(matcherDeadline);
@@ -345,9 +365,74 @@ public class Parser {
     }
 
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
+        System.out.println("normal start: " + matcher.group("startTime"));
+        System.out.println("normal end: " + matcher.group("endTime"));
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
                 matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
     }
+    
+    private Command addRecurringEvent(Matcher matcher) throws IllegalValueException{
+        String formattedStartTime;
+        String formattedEndTime;
+        int numOfOccurrrence = Integer.parseInt(matcher.group("numOfOccurrence").trim());
+        String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
+        Date initialStartTime = new DateTimeInfoParser(matcher.group("startTime")).getParsedDateTime();
+        Date initialEndTime = new DateTimeInfoParser(matcher.group("endTime")).getParsedDateTime();
+       
+        if (occurrenceType.equalsIgnoreCase("day")) {
+
+            for(int index=1; index < numOfOccurrrence; index++){
+                Calendar calendar = Calendar.getInstance();
+                //increment startTime
+                calendar.setTime(initialStartTime);
+                calendar.add(Calendar.DATE, index);
+                Date newStartTime = calendar.getTime();
+                //increment endTime
+                calendar.add(Calendar.DATE, index);
+                calendar.setTime(initialEndTime);
+                Date newEndTime = calendar.getTime();
+                
+                // Format the new startTime and endTime for adding
+                formattedStartTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newStartTime);
+                formattedEndTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newEndTime);
+                
+                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime, getTagsFromArgs(matcher.group("tagArguments")));
+                command.setData(model);
+                command.execute();
+            }
+            
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
+        }     
+        else{
+
+            for(int index=1; index < numOfOccurrrence; index++){
+
+                Calendar calendar = Calendar.getInstance();
+                // increment startTime
+                calendar.setTime(initialStartTime);
+                calendar.add(Calendar.MONTH, index);
+                Date newStartTime = calendar.getTime();
+                // increment endTime
+                calendar.setTime(initialEndTime);
+                calendar.add(Calendar.MONTH, index);
+                Date newEndTime = calendar.getTime();
+                
+                // format the new startTime and endTime for adding
+                formattedStartTime = new SimpleDateFormat("MM-dd-yyyy hhmm").format(newStartTime);
+                formattedEndTime = new SimpleDateFormat("MM-dd-yyyy hhmm").format(newEndTime);
+                
+                System.out.println("Formatted start: " + formattedStartTime);
+                System.out.println("Formatted end: " + formattedEndTime);
+                
+                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime, getTagsFromArgs(matcher.group("tagArguments")));
+                command.setData(model);
+                command.execute();
+            }
+            
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
+        }
+    }
+    
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
