@@ -47,7 +47,18 @@ Responsibilities: Testing, GUI
 
 #### [Lim Jun Hao](http://github.com/evilmtv)
 <img src="images/junhao.jpg" width="150"><br>
+
+* Components in charge of: [Storage]
+* Features implemented:
+   * [Backup Command]
+   * [Directory Commmand]
+* Code written: [functional code](collated/main/A0147944U.md)[test code](collated/test/A0147944U.md)[docs](collated/docs/A0147944U.md)
+* Other major contributions:
+  * Organize and manage github repository
+  * Improve Regex for CommandParser
+  * Edit and ensure formatting of documentations
+  
 **Role**: Developer <br>
-Responsibilities: Integration, Storage
+Responsibilities: Integration, Storage Commands
 
 -----
