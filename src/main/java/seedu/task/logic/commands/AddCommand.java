@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Adds a task to the task manager.
- * @@author A0147335E reused
+ * @@author A0147335E-reused
  */
 public class AddCommand extends Command {
 

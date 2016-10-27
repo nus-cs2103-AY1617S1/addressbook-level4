@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
- * @@author A0147335E reused
+ * @@author A0147335E-reused
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
