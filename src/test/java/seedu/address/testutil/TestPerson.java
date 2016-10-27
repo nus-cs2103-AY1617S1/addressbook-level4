@@ -22,15 +22,15 @@ public class TestPerson implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(EndTime address) {
+    public void setEndTime(EndTime address) {
         this.address = address;
     }
 
-    public void setEmail(StartTime email) {
+    public void setStartTime(StartTime email) {
         this.email = email;
     }
 
-    public void setPhone(Date phone) {
+    public void setDate(Date phone) {
         this.phone = phone;
     }
 
@@ -73,4 +73,7 @@ public class TestPerson implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+
+  
 }
