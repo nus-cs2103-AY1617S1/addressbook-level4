@@ -1,25 +1,58 @@
-package seedu.task.ui;
+# A0144702Nreused
+###### /java/seedu/task/ui/EventCard.java
+``` java
+public class EventCard extends UiPart {
+    private static final String FXML = "EventListCard.fxml";
 
-import java.util.logging.Logger;
+    @FXML
+    private HBox cardPane;
+    @FXML
+    private Label name;
+    @FXML
+    private Label index;
+    @FXML
+    private Label description;
+    @FXML
+    private Label duration;
+    
 
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import seedu.task.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.ui.TaskListPanel.TaskListViewCell;
-import seedu.taskcommons.core.LogsCenter;
+    private ReadOnlyEvent event;
+    private int displayedIndex;
 
-//@@author A0144702N-reused
+
+    public static EventCard load(ReadOnlyEvent event, int displayedIndex){
+        EventCard card = new EventCard();
+        card.event = event;
+        card.displayedIndex = displayedIndex;
+        return UiPartLoader.loadUiPart(card);
+    }
+
+    @FXML
+    public void initialize() {
+        name.setText(event.getEvent().fullName);
+        index.setText(displayedIndex + ". ");
+        description.setText(event.getDescriptionValue());
+        duration.setText(event.getDuration().toString());
+        
+    }
+
+    public HBox getLayout() {
+        return cardPane;
+    }
+
+    @Override
+    public void setNode(Node node) {
+        cardPane = (HBox)node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
+}
+```
+###### /java/seedu/task/ui/EventListPanel.java
+``` java
 public class EventListPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";
@@ -107,3 +140,23 @@ public class EventListPanel extends UiPart{
     }
 
 }
+```
+###### /resources/view/EventListPanel.fxml
+``` fxml
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.task.ui.EventListPanel">
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+    <children>
+        <ListView fx:id="eventListView" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>
+```

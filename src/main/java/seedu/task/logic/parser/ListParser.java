@@ -1,37 +1,44 @@
 package seedu.task.logic.parser;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.ListEventCommand;
 import seedu.task.logic.commands.ListTaskCommand;
-
+//@@author A0144702N
+/**
+ * Parses list command argument
+ * @author xuchen
+ *
+ */
 public class ListParser implements Parser {
-
-	private static final Pattern LIST_ARGS_FORMAT = Pattern.compile("(?<type>-t|-e)" + "(?: (?<showAll>-a))*");
-	private static final String LIST_TYPE_TASK = "-t";
-	private static final String LIST_TYPE_EVENT = "-e";
 
 	@Override
 	public Command prepare(String args) {
-		final Matcher matcher = LIST_ARGS_FORMAT.matcher(args.trim());
+		//empty field is not allowed
+		if (args.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
 
-		if (!matcher.matches()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE));
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(taskPresencePrefix, eventPresencePrefix, allPrefix);
+		argsTokenizer.tokenize(args.trim());
+		boolean showEvent = argsTokenizer.hasPrefix(eventPresencePrefix);
+		boolean showTask = argsTokenizer.hasPrefix(taskPresencePrefix);
+		boolean showAll = argsTokenizer.hasPrefix(allPrefix);
+		
+		//list with both flags are not supported
+		if(showEvent && showTask) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-
-		boolean showAll = (matcher.group("showAll") == null) ? false : true;
-
-		switch (matcher.group("type")) {
-		case LIST_TYPE_TASK:
-			return new ListTaskCommand(showAll);
-		case LIST_TYPE_EVENT:
+		
+		if(showEvent) {
 			return new ListEventCommand(showAll);
-		default:
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE));
+		} else if (showTask) {
+			return new ListTaskCommand(showAll);
+		} else {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
 	}
-
 }

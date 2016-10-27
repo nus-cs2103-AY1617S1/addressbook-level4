@@ -19,12 +19,18 @@ import seedu.task.model.item.EventDuration;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+	
+	//@@author A0144702N
 	/**
 	 * DateTimeFormatter for LocalTimeDate fields. 
 	 */
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
 	private static final int DATE_INDEX = 0;
-	
+	public static final String TIME_CONSTRAINTS = "No abbreviation is allowed for relative, ie: tmrw. \n"
+			+ "But Fri, Mon, etc is okay.\n"
+			+ "MM DD YY is the expected numerical sequence. \n"
+			+ "Possible event duration could be:"
+			+ "today 4pm /to tomorrow 4pm"; 
 	/**
 	 * Parse a String argument into date format. 
 	 * @param parser
@@ -36,16 +42,17 @@ public class StringUtil {
 		PrettyTimeParser parser = new PrettyTimeParser();
 		
 		//invalid start date
-		if(dateArg == null) throw new IllegalValueException(EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+		if(dateArg == null) throw new IllegalValueException(TIME_CONSTRAINTS);
 		
 		List<Date> parsedResult = parser.parse(dateArg);
 		
 		//cannot parse
-		if(parsedResult.isEmpty()) throw new IllegalValueException(EventDuration.MESSAGE_DURATION_CONSTRAINTS);
+		if(parsedResult.isEmpty()) throw new IllegalValueException(TIME_CONSTRAINTS);
 		
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
+	//@@author
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);

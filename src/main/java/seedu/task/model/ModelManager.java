@@ -166,6 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
    
     //=========== Filtered Task List Accessors ===============================================================
 
+    //@@author A0144702N
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
@@ -212,7 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredEvents.setPredicate(null);
 	}
     
-
+  //@@author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
@@ -288,7 +289,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .isPresent();
 		}
     }
-    
+    //@@author A0144702N
     private class StatusQualifier implements Qualifier {
     	private Boolean status;
     	

@@ -1,12 +1,14 @@
 package seedu.task.logic.commands;
 
-import java.util.Locale;
 import java.util.Set;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
+ * @author xuchen
  */
+
+//@@author A0144702N
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
@@ -30,11 +32,9 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords);
         model.updateFilteredEventList(keywords);
         
-        //TODO: check on coding convention
         return new CommandResult(String.format(MESSAGE_SUCCESS_FIND, 
         		getMessageForTaskListShownSummary(model.getFilteredTaskList().size()),
-        		getMessageForEventListShownSummary(model.getFilteredEventList().size()))
-        		);
+        		getMessageForEventListShownSummary(model.getFilteredEventList().size())));
     }
 
 }

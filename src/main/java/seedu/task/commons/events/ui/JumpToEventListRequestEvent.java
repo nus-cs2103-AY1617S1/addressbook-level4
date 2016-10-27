@@ -10,6 +10,7 @@ public class JumpToEventListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
     public final ReadOnlyEvent targetEvent;
+    //@@author A0144702N
     
     public JumpToEventListRequestEvent(ReadOnlyEvent event, int targetIndex) {
         this.targetIndex = targetIndex;

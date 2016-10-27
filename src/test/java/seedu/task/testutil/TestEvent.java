@@ -8,6 +8,8 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
 
+//@@author A0144702N
+
 public class TestEvent implements ReadOnlyEvent {
 	private Name name;
 	private Optional <Description> description;

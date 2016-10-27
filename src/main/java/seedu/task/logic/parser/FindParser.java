@@ -12,6 +12,13 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.FindCommand;
 
+
+//@@author A0144702N
+/**
+ * Parser to prepare FindCommand
+ * @author xuchen
+ *
+ */
 public class FindParser implements Parser {
 	private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace

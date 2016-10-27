@@ -4,11 +4,11 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.task.model.item.ReadOnlyEvent;
-
+//@@author A0144702N-reused
 /**
  * Provides a handle to an event card in the event list panel.
  * (Morphed from TaskCardHandle) 
- * @author xuchen
+ * @author 
  */
 public class EventCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";

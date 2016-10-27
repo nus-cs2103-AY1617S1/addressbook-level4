@@ -121,13 +121,13 @@ public class UiManager extends ComponentManager implements Ui {
 		mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
 	}
 
+	//@@author A0144702N
 	@Subscribe
 	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) throws CalendarUnsyncException {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
 		mainWindow.getCalendarPanel().select(event.targetEvent);
 	}
-	
 	@Subscribe
 	private void handleEventListUpdatedEvent(TaskBookChangedEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));

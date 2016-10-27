@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertFalse;
+import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
@@ -12,10 +13,13 @@ import javafx.scene.control.Skin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaysFromDisplayedSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
+import seedu.task.commons.util.StringUtil;
+import seedu.task.logic.commands.CalendarCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 
+//@@author A0144702N
 public class CalendarTest extends TaskBookGuiTest {
 	
 	/*
@@ -51,6 +55,16 @@ public class CalendarTest extends TaskBookGuiTest {
 		//mismached of views.
 		assertFalse(calendarViewMatch("show now /day", agendaWeekView));
 		assertFalse(calendarViewMatch("show now /wk", agendaDayView));
+	}
+	
+	@Test
+	public void show_invalidArgs() {
+		//empty arg not allowed
+		commandBox.runCommand("show");
+		assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
+		
+		commandBox.runCommand("show haha /day");
+		assertResultMessage(StringUtil.TIME_CONSTRAINTS);
 	}
 	
 	@Test

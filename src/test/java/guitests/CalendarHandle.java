@@ -19,7 +19,7 @@ import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.testutil.TestUtil;
 import seedu.task.ui.CalendarHelper;
 
-
+//@@author A0144702N
 public class CalendarHandle extends GuiHandle {
 	
 	private static final String PANE_ID = "#calendar";
@@ -103,7 +103,4 @@ public class CalendarHandle extends GuiHandle {
 		
 		return agenda;
 	}
-	
-	
-
 }

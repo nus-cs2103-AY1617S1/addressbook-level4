@@ -13,8 +13,13 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
 
+//@@author A0144702N
+
 public class FindCommandTest extends CommandTest {
-    
+	/*
+	 * Test heuristics refer to FindCommand GuiTest
+	 */
+	
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);

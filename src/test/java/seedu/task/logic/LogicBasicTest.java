@@ -31,6 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.taskcommons.core.Messages.*;
 
+//@@author A0144702N-reused
 public class LogicBasicTest {
 	 /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule

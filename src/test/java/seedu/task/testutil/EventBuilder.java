@@ -5,6 +5,8 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 
+//@@author A0144702N
+
 public class EventBuilder {
 	private TestEvent event;
 	

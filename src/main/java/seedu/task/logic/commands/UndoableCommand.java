@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+
+//@@author A0144702N
 public abstract class UndoableCommand extends Command {
     
 	protected UndoableCommand reverseCommand;
@@ -8,11 +10,4 @@ public abstract class UndoableCommand extends Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult undo();
-    
-//    /**
-//     * Prepare the command that will undo this command
-//     * @return command that returns to the previous state
-//     */
-//    public abstract UndoableCommand prepareUndoCommand();
-    
 }

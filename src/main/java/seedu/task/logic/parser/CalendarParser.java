@@ -9,12 +9,16 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Optional;;
 
+//@@author A0144702N
+/**
+ * Parses which parses command argument for show calendar command
+ * @author xuchen
+ */
 public class CalendarParser implements Parser{
 
 	@Override
 	public Command prepare(String args) {
 		if(args.isEmpty()) {
-			//TODO: show calendar view?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
 		}
 		
@@ -29,7 +33,7 @@ public class CalendarParser implements Parser{
 			
 			return new CalendarCommand(displayedDateTime.orElse(""), toggleToWeekView, toggleToDayView);
 		} catch (EmptyValueException e) {
-			return new IncorrectCommand(e.getMessage()); //TODO: better handling of messages
+			return new IncorrectCommand(e.getMessage());
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}

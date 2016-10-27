@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import seedu.task.commons.events.BaseEvent;
 import seedu.task.commons.util.StringUtil;
 
+//@@author A0144702N
 public class UpdateCalendarEvent extends BaseEvent {
 	private LocalDateTime displayedDateTime;
 	private int calendarViewMode;

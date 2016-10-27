@@ -1,21 +1,66 @@
-package guitests.guihandles;
+# A0144702Nreused
+###### /java/guitests/guihandles/EventCardHandle.java
+``` java
+/**
+ * Provides a handle to an event card in the event list panel.
+ * (Morphed from TaskCardHandle) 
+ * @author 
+ */
+public class EventCardHandle extends GuiHandle {
+    private static final String NAME_FIELD_ID = "#name";
+    private static final String DESCRIPTION_FIELD_ID = "#description";
+    private static final String DURATION_FIELD_ID = "#duration";
+    
 
-import static org.junit.Assert.assertTrue;
+    private Node node;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+    public EventCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+        super(guiRobot, primaryStage, null);
+        this.node = node;
+    }
 
-import guitests.GuiRobot;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import seedu.task.TestApp;
-import seedu.task.model.item.Event;
-import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.testutil.TestUtil;
-//@@author A0144702N-reused
+    protected String getTextFromLabel(String fieldId) {
+        return getTextFromLabel(fieldId, node);
+    }
+
+    public String getFullEventName() {
+        return getTextFromLabel(NAME_FIELD_ID);
+    }
+
+    public String getDescription() {
+        return getTextFromLabel(DESCRIPTION_FIELD_ID);
+    }
+
+    public String getEventDuration() {
+        return getTextFromLabel(DURATION_FIELD_ID);
+    }
+
+    public boolean isSameEvent(ReadOnlyEvent event){
+
+    	return getFullEventName().equals(event.getEvent().fullName) 
+                && getEventDuration().equals(event.getDuration().toString())
+                && getDescription().equals(event.getDescriptionValue());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof EventCardHandle) {
+            EventCardHandle handle = (EventCardHandle) obj;
+            return getFullEventName().equals(handle.getFullEventName())
+                    && getDescription().equals(handle.getDescription())
+                    && getEventDuration().equals(handle.getEventDuration());
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return getFullEventName() + " " + getDescription();
+    }
+}
+```
+###### /java/guitests/guihandles/EventListPanelHandle.java
+``` java
 /**
  * Provides a handle for the panel containing the event list
  * @author xuchen
@@ -76,7 +121,6 @@ public class EventListPanelHandle extends GuiHandle {
             if (!TestUtil.compareCardAndEvent(getEventCardHandle(startPosition + i), events[i])) {
                 return false;
             }
-            
         }
         return true;
 	}
@@ -173,3 +217,65 @@ public class EventListPanelHandle extends GuiHandle {
 	
 	
 }
+```
+###### /java/seedu/task/logic/LogicBasicTest.java
+``` java
+public class LogicBasicTest {
+	 /**
+     * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
+     */
+    @Rule
+    public TemporaryFolder saveFolder = new TemporaryFolder();
+
+    protected Model model;
+    protected Logic logic;
+
+    //These are for checking the correctness of the events raised
+    protected ReadOnlyTaskBook latestSavedTaskBook;
+    protected boolean helpShown;
+    protected int targetedJumpIndex;
+
+    /******************************Event Subscription********************/
+    
+    @Subscribe
+    private void handleLocalModelChangedEvent(TaskBookChangedEvent abce) {
+        latestSavedTaskBook = new TaskBook(abce.data);
+    }
+
+    @Subscribe
+    private void handleShowHelpEvent(ShowHelpEvent she) {
+        helpShown = true;
+    }
+
+    @Subscribe
+    private void handleJumpToTaskListRequestEvent(JumpToTaskListRequestEvent je) {
+        targetedJumpIndex = je.targetIndex;
+    }
+    
+    @Subscribe
+    private void handleJumpToEventListRequestEvent(JumpToTaskListRequestEvent je) {
+        targetedJumpIndex = je.targetIndex;
+    }
+    
+    
+    /******************************Pre and Post set up*****************************/
+    @Before
+    public void setup() {
+        model = new ModelManager();
+        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.xml";
+        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
+        logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
+        EventsCenter.getInstance().registerHandler(this);
+
+        latestSavedTaskBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
+        helpShown = false;
+        targetedJumpIndex = -1; // non yet
+    }
+
+    @After
+    public void teardown() {
+        EventsCenter.clearSubscribers();
+    }
+
+}
+```

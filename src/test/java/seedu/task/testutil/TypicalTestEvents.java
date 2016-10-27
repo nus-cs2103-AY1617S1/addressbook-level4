@@ -5,6 +5,7 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.UniqueEventList;
 
+//@@author A0144702N
 /**
  * Constructing events for GUI testing
  * @author xuchen

@@ -13,9 +13,13 @@ import seedu.task.logic.commands.ListTaskCommand;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
-
+//@@author A0144702N
 public class ListCommandTest extends CommandTest{
 
+	/*
+	 * Test Heuristics refer to ListCommand Guitest
+	 */
+	
     @Test
     public void execute_list_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
@@ -23,9 +27,7 @@ public class ListCommandTest extends CommandTest{
         // not indicating which list not allowed
         assertCommandBehavior_task("list", expectedMessage);
         
-        assertCommandBehavior_task("list -wrongFlag", expectedMessage);
-        
-        assertCommandBehavior_task("list -e -wrongFlag", expectedMessage);
+        assertCommandBehavior_task("list /wrongFlag", expectedMessage);
     }
 
     @Test
@@ -43,7 +45,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list -t",
+        assertTaskCommandBehavior("list /t",
                 ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -64,7 +66,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list -e",
+        assertEventCommandBehavior("list /e",
                 ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -85,7 +87,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addTaskToModel(model, threeTasks);
 
-        assertTaskCommandBehavior("list -t -a",
+        assertTaskCommandBehavior("list /t /a",
                 ListTaskCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);
@@ -107,7 +109,7 @@ public class ListCommandTest extends CommandTest{
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 
-        assertEventCommandBehavior("list -e -a",
+        assertEventCommandBehavior("list /e /a",
                 ListEventCommand.MESSAGE_ALL_SUCCESS,
                 expectedTB,
                 expectedList);

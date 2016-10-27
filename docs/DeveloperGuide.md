@@ -3,9 +3,6 @@
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
-* [Testing](#testing)
-* [Continuous Integration](#continuous-integration)
-* [Making a Release](#making-a-release)
 * [Managing Dependencies](#managing-dependencies)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
@@ -94,8 +91,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `EventListPanel`, `CalendarView`,
+`StatusBarFooter` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -108,6 +105,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0144702N -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -118,6 +116,9 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+5. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the Taskbook. 
+6. We did not choose to store a list of events/tasks, or copies of taskbooks as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
+<!-- @@author  -->
 
 ### Model component
 
@@ -128,7 +129,7 @@ The `UI` component,
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
 * Stores the Address Book data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` as well as `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
@@ -144,7 +145,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.taskbook.commans` package. 
 
 ## Implementation
 
@@ -184,64 +185,17 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-## Testing
-
-**In Eclipse**: 
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
-
-* To run all tests, right-click on the `src/test/java` folder and choose 
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
-  to run as a JUnit test.
-  
-**Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
-
-Tests can be found in the `./src/test/java` folder.
-
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
-  
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
-  
-**Headless GUI Testing** :
-Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
-## Continuous Integration
-
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
-
-## Making a Release
-
-Here are the steps to create a new release.
- 
- 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
-   
+<!-- @@author A0144702N -->
 ## Managing Dependencies
+We use several external dependencies:
+1. [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing.
+2. [Guava](https://github.com/google/guava)
+3. [Controlsfx](http://fxexperience.com/controlsfx/) for javafx controls.
+4. [testfx](https://github.com/TestFX/TestFX) for javafx testing. 
+5. [prettytime](https://github.com/ocpsoft/prettytime/tree/master/nlp) for natural language processing of time and date. 
+6. [jfxtras](http://jfxtras.org) for calendar view controls. 
+The dependencies are bound into the jar release and will not require extra dependencies handling for end users. 
 
-A project often depends on third party libraries. For example, Address Book depends on the 
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
 :bomb: Priorities:
@@ -263,12 +217,12 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able to specify my storage location to save my files | keep my files saved in different responsories
 `* * *` | user | be able to seek help with the operations and commands of the program | keep the program user friendly
 `* * *` | user | be able to exit the program | keep a proper shutdown of the program
-`* * *` | user | be able to simple search for tasks using keywords that are in the description | retrieve tasks easily
+`* * *` | user | be able to simple search for tasks using keywords that are in the name and description | retrieve tasks easily
 `* * *` | user | be able undo the most recent modification | revert from unintended modifications. 
 `* * *` | user | be able to use flexible commands when adding tasks | have greater flexibility in adding tasks.
 `* *` | user | be able to edit the category of an existing task or event in the program | correct any changes in categorization
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
-
+`* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
 
 
 ## Appendix B : Use Cases
@@ -305,6 +259,7 @@ Use case ends.
     Use case resumes at step 1
 
 <br>
+<!-- @@author A0144702N -->
 #### Use case 3: List tasks/events
 
 **MSS**
@@ -420,7 +375,7 @@ The SD for list events is similiar to task.
   Use case resumes at step 1
 
 <br>
-
+<!-- @@author A0144702N -->
 #### Use case 10: Simple find for tasks  
 
 **MSS**
@@ -440,6 +395,7 @@ The SD for list events is similiar to task.
 
 <br>
 
+<!-- @@author A0144702N -->
 #### Use case 11: Undo modification
 
 **MSS**
@@ -455,12 +411,31 @@ Extensions
   > 1a1. Taskbook displays displays a message indicating no commands can be undone
   Use case ends
 
-Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below:
+Besides the abstract SD as shown in the section [Design](#design). A more detailed Sequence Diagram of undo a deletion of task is shown below. 
 
 <img src="images/UndoOverall.png" width="800"><br>
 <img src="images/UndoRefSD.png" width="800"><br>
 
+#### Use case 12: Show calendar views
 
+**MSS**
+1. User requests to show a certain time period with a certain view.
+2. Calendar view is updated in the TaskBook. 
+  
+  Use Case ends
+
+
+**Extensions**
+1a. User key in invalid time or date. 
+  > 1a1. Taskbook feedbacks time is not valid.
+
+  Use Case ends
+
+Notice how this command does not involve the Model Component at all. Since it does not need to retrieve or modidfy data in the model. 
+
+<img src="images/ShowSD.png" width="800"><br>
+
+<!-- @@author --> 
 
 ## Appendix C : Non Functional Requirements
 - Storage
@@ -509,6 +484,7 @@ are
 
 ## Appendix E : Product Survey
 
+<!-- @@author A0144702N -->
 ####iCalendar 
 ------
 **Summary** 
@@ -552,6 +528,8 @@ are
 **Feedback**
 > Highly recommended for all memebrs to use it. 
 
+<!-- @@author -->
+
 ------
 ####Todo.txt
 **Summary:**
@@ -593,6 +571,7 @@ are
 > 2. Requires user to use Apple products for mobile phones and laptop as the app is limited to the Apple community
 
 
+<!-- @@author A0144702N -->
 ## Appendix F : Pull Request
 
 None of the parts below are compulsory for a PR, but a good template to follow in general. Developers are free to add in or remove sections as stated below. 

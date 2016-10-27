@@ -26,6 +26,7 @@ public interface Logic {
     /** Returns the filtered list of events */
     ObservableList<ReadOnlyEvent> getFilteredEventList();
     
+    //@@author A0144702N
     /** Returns all the events */
     List<ReadOnlyEvent> getAllEvents();
 }

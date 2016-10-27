@@ -68,9 +68,9 @@ Examples:
 * `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
 * `add CS2103 Workshop /desc OOP workshop /from 12-01-16 > 12-07-16` <br>
 
-
+<!-- @@author A0144702N -->
 #### Listing tasks
-Shows a list of tasks that are not marked done. <br>
+Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
 
 Format: `list /t [/a]`
 
@@ -85,7 +85,7 @@ Examples:
 
 
 #### Listing events
-Shows a list of all events that are completed. <br>
+Shows a list of events that are not completed. Or shows a list of all events. <br>
 
 Format: `list /e [/a]` <br>
 
@@ -112,7 +112,7 @@ Format: `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by N
 
 Examples: 
 * `edit /t 1 /desc CS2103 Project /by 12-30-16`<br>
-  Edits the description of the 1st task to “CS2103 Project” and the deadline to 30 Sept
+  Edits the description of the 1st task to “CS2103 Project” and the deadline to 30 Dec
 * `edit /t 4 /desc CS2103 TaskBook`<br>
   Edits the description of the 4th task to “CS2103 TaskBook”
 
@@ -128,7 +128,7 @@ Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/fr
 > `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
 
 Examples:
-* `edit /e 1 /desc CS2103 Workshop /from 10-03-16 0000 > 10-05-16 2359`  
+* `edit /e 1 /desc CS2103 Workshop /from 10-03-16 0000 /to 10-05-16 2359`  
   Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 0000 hours, 3-10-16 to 2359 hours, 5-10-16
 * `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
   Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
@@ -198,20 +198,20 @@ Can go back to historical versions of dowat with the use of undo commands. Only 
 
 Format: `undo`
 
-
+<!-- @@author A0144702N -->
 #### Finding for events/tasks
-With the find command, you can find for tasks or events which contain some keywords in their name as well as in their descriptions. 
+With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
 Format: `find [/e|/t] KEYWORD [MORE_KEYWORDS]`
 
-> `KEYWORDS` are case sensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
+> `KEYWORDS` are case insensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
-* `find CS2103`
+* `find cs2103`
   Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
-* `find /e CS2103`
-  Returns relevant information of "CS2103 Exam" but not "cs2103 Exam"
-* `find /t CS2106 CS2103`
+* `find CS`
+  Partial match is not supported. Will not return any other tasks or events unless they contain "CS" (ignoring cases) in the names or description.
+* `find CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
 
@@ -256,6 +256,21 @@ Examples:
 * `clear /a` <br>
   Clears all tasks and events.
   
+<!-- @@author A0144702N -->
+#### Toggle calendar view
+Toggle the view of calendar and focus to certain time time as user specified. 
+
+Format: `show TIME [/day|/wk]`
+
+> TIME parameter indicates the time you wanna jump to in the calendar, it can be "today", "tomorrow", etc... It follows the general rule of date and time of the rest of applications.
+> An optional `/day` or `/wk` flag indicates which view mode you wanna toggle to. The default will be week view.
+
+Examples:
+* `show today /day`  
+ It will focus on the current time of today's calendar in the day mode. 
+* `show next week 8pm /wk`  
+ It will focus on the 8pm time frame of the next week's calendar. 
+
   
 #### Exiting the program
 Format : `exit`
@@ -283,8 +298,9 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find /t|/e KEYWORD [MORE_KEYWORDS]`
+[Find](#finding-for-events/tasks) | `find KEYWORD [MORE_KEYWORDS]`
 [Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear /t|/e [/a]`
 [Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [/a]`
+[Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`
 [Exit](#exiting-the-program) | `exit`
 

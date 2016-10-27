@@ -159,7 +159,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks";
-        // TODO: refine later
+        
     }
 
     @Override

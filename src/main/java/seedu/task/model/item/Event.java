@@ -79,6 +79,7 @@ public class Event implements ReadOnlyEvent {
         return getAsText();
     }
     
+    //@@author A0144702N
     /**
 	 * Sort duration from earliest to latest
 	 * @param o

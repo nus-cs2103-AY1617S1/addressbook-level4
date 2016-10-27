@@ -11,6 +11,7 @@ import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 
+//@@author A0144702N
 public class CalendarHelper extends AppointmentImplBase implements Appointment {
 	private static final String DEFAULT_GROUP = "group1";
 	private static Map<String, AppointmentGroup> groupMap;
