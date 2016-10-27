@@ -20,8 +20,9 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 /**
  * A mutable Activity object. For testing only.
  * 
- * @author Bangwu
  */
+
+//@@author a0125284
 public class TestActivity implements ReadOnlyActivity {
 
     protected Name name;
@@ -100,6 +101,8 @@ public class TestActivity implements ReadOnlyActivity {
 	}   
     
     //TestActivity specific commands
+	 
+	
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();

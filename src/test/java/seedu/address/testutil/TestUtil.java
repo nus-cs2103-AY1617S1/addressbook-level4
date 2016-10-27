@@ -335,8 +335,10 @@ public class TestUtil {
  * @param card
  * @param activity
  * @return whether card and activity contains the same attributes
- * @author bangwu
  */
+    
+//@@author a0125284
+    
     public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
     	String classOfActivity = activity.getClass().getSimpleName();
 

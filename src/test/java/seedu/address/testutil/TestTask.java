@@ -19,8 +19,9 @@ import seedu.address.commons.util.DateUtil;
 /**
  * A mutable Task object. For testing only.
  *
- * @author Bangwu
  */
+
+//@@author a0125284
 
 public class TestTask extends TestActivity implements ReadOnlyTask{
 
