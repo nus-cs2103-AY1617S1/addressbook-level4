@@ -1,3 +1,4 @@
+//@author A0144939R
 package seedu.task.model.task;
 
 import java.time.Instant;
@@ -22,7 +23,6 @@ public class Task implements ReadOnlyTask {
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
-
     /**
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
@@ -61,7 +61,6 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags(), source.getRecurrentWeek());
     }
-
     @Override
     public Name getName() {
         return name;
@@ -88,6 +87,7 @@ public class Task implements ReadOnlyTask {
         return isCompleted;
     }
     //@@author
+
     @Override
     public int getRecurrentWeek() {
         return recurrentWeek;
@@ -104,7 +104,7 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    
+    //@@author A0153467Y
     /**
      * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
      */
@@ -116,7 +116,7 @@ public class Task implements ReadOnlyTask {
             return null;
         }
     }
-    //@@author A0153467Y
+    
     /**
      * Sets the task's importance flag
      * @param isImportant is a variable to show whether the task is important or not
@@ -132,7 +132,7 @@ public class Task implements ReadOnlyTask {
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    
+	//@@author 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

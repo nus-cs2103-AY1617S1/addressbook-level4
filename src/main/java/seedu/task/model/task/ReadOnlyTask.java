@@ -9,6 +9,7 @@ import seedu.task.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
+    //@@author A0144939R
     DateTime getOpenTime();
     DateTime getCloseTime();
     boolean getImportance();

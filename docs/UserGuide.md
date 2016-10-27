@@ -28,6 +28,7 @@
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
+   * **'change-to'**`1`: change the storage location
    * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -188,6 +189,15 @@ Format: `exit`
 #### Saving the data
 To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+<!-- @@author A0144939R -->
+
+#### Change storage location : `change-to`
+Shows a list of tasks and events in the todo list.<br>
+Format: `change-to NEWFILEPATH`
+Example: 'change-to data/taskmanager.xml'
+
+<!-- @@author -->
 
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>

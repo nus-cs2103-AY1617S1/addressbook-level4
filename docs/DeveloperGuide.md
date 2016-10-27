@@ -392,8 +392,26 @@ Use case ends.
 > Nothing will be returned. <br>
 Use case ends.
 
+<!-- @@author A0144939R -->
+#### Use case: Change storage location
 
+**MSS**
 
+1. User requests to change storage file location
+2. MESS changes storage file location and saves in that location
+
+**Extensions**
+2a. The file path may not be valid
+
+> Error message will be displayed <br>
+Use case ends.
+
+2b. The folder may not be writable(Lack permission)
+
+> Error message will be displayed <br>
+Use case ends.
+
+<!-- @@author -->
 ## Appendix C : Non Functional Requirements
  
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
