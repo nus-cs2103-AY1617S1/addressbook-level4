@@ -1,3 +1,4 @@
+<!-- @@author A0139661Y -->
 # About Us
 
 We are a team F11-C2, a CS2103 team based in [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -6,38 +7,65 @@ We are a team F11-C2, a CS2103 team based in [School of Computing, National Univ
 
 #### [Chiang Weng Kiat](http://github.com/wengkiat) <br>
 <img src="images/ChiangWengKiat.jpg" width="150"><br>
-**Role**: Team Lead, Project Coordinator
-Responsibilities: 
-* Responsible for overall project coordination.
-* Documentation
-* Responsible for the quality of various project documents
 
+* Components in charge of: [Logic]()
+* Aspects/tools in charge of: Testing
+* Features implemented:
+    * [Block tasks]()
+    * [Edit tasks]()
+    * [Delete tasks]()
+    * [Done tasks]()
+* Code written: [[functional code](A0141128R.md)][[test code](A0141128R.md)][[docs](A0141128R.md)]
+* Other major contributions:
+    * Did up the user guide
+    * Did up the developer guide
+    * Wrote all the test codes except the AddCommandTest
 -----
 
 #### [Justin Ng](http://github.com/njyjn)
 <img src="images/JustinNg.jpg" width="150"><br>
-Role: Integration Lead <br>  
-Responsibilities: Integration
-* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
-* Scheduling and tracking: In charge of defining, assigning, and tracking project tasks.
-* [Git/Eclipse] expert: e.g. Eclipse expert, Git expert, etc. Helps other team member with matters related to the specific tool.
+
+* Components in charge of: [Storage](), [Model]()
+* Aspects/tools in charge of: Git, Integration
+* Features implemented:
+    * [Add tasks]()
+    * [Find tasks (Fuzzy Search)]()
+    * [List tasks by all/done]()
+    * [Change file storage]()
+    * [Undo]()
+* Code written: [[functional code](A0139661Y.md)][[test code](A0139661Y.md)][[docs](A0139661Y.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList [[#]()]
+  * Set up Travis and Coveralls
+  * Wrote AddCommandTest. 
+
  
 -----
 #### [Rahumathmarini](http://github.com/marinirah)
 <img src="images/Rahumathmarini.jpg" width="150"><br>
-Role: Quality Lead <br>  
-Responsibilities:
-* Looks after code quality, ensures adherence to coding standards, etc.
-* Deliverables and deadlines: Ensure project deliverables are done on time and in the right format.
+
+* Components in charge of: [Model]()
+* Aspects/tools in charge of: Quality
+* Features implemented: -
+* Code written: [[functional code]()][[test code]()][[docs]()]
+* Other major contributions:
+    * Refactored initial `Task` model
 
 -----
 
 #### [Lim Hong Wei](http://github.com/imhongw)
 <img src="images/LimHongWei.jpg" width="150"><br>
-Role: Chief Designer, Lead Tester <br>  
-Responsibilities:
-* Takes care of the UI, UX and design of the project.
-* Ensures the testing of the project is done properly (all passing), extensively, and on time.
+
+* Components in charge of: [UI]()
+* Aspects/tools in charge of: Design
+* Features implemented:
+    * [Help]()
+    * [Redo]()
+* Code written: [[functional code](A0141006B.md)][[test code](A0141006B.md)][[docs](A0141006B.md)]
+* Other major contributions:
+    * Restructuring of the UI 
+    * Advising on other implementions
+    * Engaged public and friends to dogfood CMDo
 
 -----
 
