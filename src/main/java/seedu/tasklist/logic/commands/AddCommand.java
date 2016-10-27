@@ -81,6 +81,9 @@ public class AddCommand extends Command {
 
 	}
 	public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
+		if(endtime.time.getTimeInMillis()==0){
+			return false;
+		}
 		boolean finalres;
 		finalres = starttime.getAsCalendar().after(endtime.getAsCalendar());
 		if(finalres){
