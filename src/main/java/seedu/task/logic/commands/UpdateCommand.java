@@ -94,6 +94,8 @@ public class UpdateCommand extends Command{
 		DeleteCommand delete = new DeleteCommand(index);
         delete.model = model;
 		delete.execute();
+		LogicManager.tasks.pop();
+        LogicManager.indexes.pop();
 		AddCommand add;
 		try {
 			add = new AddCommand(toUpdate,index-1);
@@ -113,7 +115,7 @@ public class UpdateCommand extends Command{
 
 	@Override
 	 public CommandResult undo() throws IllegalValueException{
-		Task task = LogicManager.tasks.pop();
+		 Task task = LogicManager.tasks.pop();
 		 int index = LogicManager.indexes.pop();
 
 		 DeleteCommand delete = new DeleteCommand(index);
