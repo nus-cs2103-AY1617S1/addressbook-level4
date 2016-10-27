@@ -81,19 +81,22 @@ public class EditCommand extends Command {
             if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
             	LocalDateTime startDateTime = newStartDateTime.get();
             	LocalDateTime endDateTime = taskToEdit.getEndDate().get();
-            	
+            		
             	if(startDateTime.isAfter(endDateTime)){
-            		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-            	}            	
+                	return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+            	}           	
             }
             
             if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
-            	LocalDateTime startDateTime = taskToEdit.getStartDate().get();
             	LocalDateTime endDateTime = newEndDateTime.get();
             	
-            	if(!endDateTime.isAfter(startDateTime)){
-            		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-            	}      
+            	if(taskToEdit.getStartDate().isPresent()){
+            		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
+            		
+                	if(!endDateTime.isAfter(startDateTime)){
+                		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+                	}      
+            	}
             }     
             
             if(newStartDateTime.isPresent()) {
