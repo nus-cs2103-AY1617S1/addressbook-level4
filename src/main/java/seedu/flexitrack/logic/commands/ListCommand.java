@@ -1,5 +1,11 @@
 package seedu.flexitrack.logic.commands;
 
+import java.util.Stack;
+
+import seedu.flexitrack.commons.core.UnmodifiableObservableList;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.task.ReadOnlyTask;
+
 /**
  * Lists all task in the FlexiTrack to the user.
  */
@@ -26,11 +32,18 @@ public class ListCommand extends Command {
     public static final String LIST_NEXT_WEEK_COMMAND = "next week";
     public static final String LIST_NEXT_MONTH_COMMAND = "next month";
     public static final String LIST_UNSPECIFIED_COMMAND = "";
-    
+            
     public final String arguments;
     
     public ListCommand(String args) {
         this.arguments = args; 
+    }
+
+    /** 
+     * Constructor for undo command
+     */
+    public ListCommand() {
+        this.arguments = UndoCommand.argumentsRecord.peek();
     }
 
     @Override
@@ -41,7 +54,25 @@ public class ListCommand extends Command {
         else {
             model.updateFilteredListToFitUserInput( arguments );
         }
+        
+        UndoCommand.argumentsRecord.add(UndoCommand.argumentsTemp);
+        UndoCommand.argumentsTemp = arguments; 
+        UndoCommand.uiCommandRecord.add(UndoCommand.uiCommandRecordTemp);
+        UndoCommand.uiCommandRecordTemp = "list";
+        recordCommand("list"); 
+        
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    @Override
+    public void executeUndo() {
+        if (arguments.equals(LIST_UNSPECIFIED_COMMAND)){
+            model.updateFilteredListToShowAll();
+        }
+        else {
+            model.updateFilteredListToFitUserInput( arguments );
+        }
+        UndoCommand.argumentsTemp = UndoCommand.argumentsRecord.pop();
+        UndoCommand.uiCommandRecordTemp = UndoCommand.uiCommandRecord.pop();
+    }
 }
