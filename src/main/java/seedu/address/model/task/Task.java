@@ -77,7 +77,7 @@ public class Task implements ReadOnlyTask {
         this.isRecurring = isRecurring;
 
     }
-    
+
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
@@ -111,7 +111,7 @@ public class Task implements ReadOnlyTask {
         this.recurring = null;
     }
 
-    
+
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar currentDateTime = Calendar.getInstance();
@@ -210,8 +210,8 @@ public class Task implements ReadOnlyTask {
     public boolean isDone() {
         return isDone;
     }
-    
-    
+
+
     public SimpleStringProperty getDateString(){
         return dateString;
     }
@@ -222,7 +222,7 @@ public class Task implements ReadOnlyTask {
     public BooleanProperty getDone() {
         return done;
     }
-    
+
 
     @Override
     public UniqueTagList getTags() {
@@ -272,5 +272,18 @@ public class Task implements ReadOnlyTask {
     public static Callback<Task, Observable[]> extractor() {
         return (Task task) -> new Observable[] { task.getDone(),task.getDateString()};
     }
+
+	public boolean editDetail(String type, String details) throws IllegalValueException {
+		switch(type) {
+    	case "name": this.name = new Name(details); break;
+//    	case "tag": this.tag = new UniqueTagList(details); break;
+    	case "recurring": this.recurring = new Recurring(details); break;
+    	case "startDate": this.date = new EventDate(details,((EventDate) date).getEndDate().substring(0, 10)); break;
+    	case "endDate": this.date = new EventDate(((EventDate) date).getEndDate().substring(0, 10), details); break;
+    	case "deadline": this.date = new Deadline(details); break;
+    	default: return false;
+		}
+		return true;
+	}
 
 }

@@ -22,7 +22,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
                                                                                                            // or
@@ -48,6 +48,11 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)" + "s/(?<startDate>[^/]+)" + "e/(?<endDate>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
                                                          // tags
+
+//    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^.*?(?=[dsenr][/])])" + "(?<edit>[^/]+)" + "?[i][/](?<index>([^/]+)*)");
+    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<edit>(?: [dsenr]/[^/]+)?)"
+			+ "((i/(?<index>([0-9])+)*)?)" );
 
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
@@ -107,7 +112,7 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareMarkAsDone(arguments);
-            
+
         case RefreshCommand.COMMAND_WORD:
             return new RefreshCommand();
 
@@ -161,7 +166,7 @@ public class Parser {
         argsTokenizer.tokenize(args);
         try {
             if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-                
+
                    if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                             && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
                         // non-recurring task
@@ -178,7 +183,7 @@ public class Parser {
                     return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                             argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
                             "");
-                } 
+                }
                  else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
                     if (!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
@@ -200,7 +205,6 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-
     }
 
     /**
@@ -277,7 +281,7 @@ public class Parser {
      * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -373,23 +377,70 @@ public class Parser {
     }
 
     private Command prepareEdit(String args) {
-        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format if it is a valid add task command
-        try {
-            if (taskMatcher.matches()) {
-                return new AddCommand(taskMatcher.group("name"), getDeadlineFromArg(taskMatcher.group("deadline")),
-                        getTagsFromArgs(taskMatcher.group("tagArguments")), "");
-            }
-            final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
-            // Validate arg string format if it is a valid add event command
-            if (eventMatcher.matches()) {
-                return new AddCommand(eventMatcher.group("name"), eventMatcher.group("startDate"),
-                        eventMatcher.group("endDate"), getTagsFromArgs(eventMatcher.group("tagArguments")), "");
-            }
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+//    	Optional<Integer> index = parseIndex(args);
+
+//    	final String[] edit = args.split("\\s+");
+//    	       String detailType = keywords[1];
+//    	       String newDetail = keywords[2];
+//    	       int targetIndex = Integer.parseInt(keywords[0]);
+//
+//    	       return new EditCommand(targetIndex, detailType, newDetail);
+//    	String name = edit[0];
+//        if (name == null || name.equals("")) {
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+//        }
+//        String type = edit[1];
+//        String details = edit[2];
+    	final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
+    	 if (!matcher.matches()) {
+             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    	 if(!matcher.group("name").isEmpty() && !matcher.group("edit").isEmpty())
+    	 {
+    	    	String name = matcher.group("name");
+    	    	String type = matcher.group("edit");
+    	    	String index = matcher.group("index");
+    	        String detailsType = null;
+    	        String details;
+    	        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
+    	                endDatePrefix, recurringPrefix);
+    	        argsTokenizer.tokenize(type);
+    	        if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
+    	        	detailsType = "name";
+    	        	details = argsTokenizer.getValue(namePrefix).get();
+    	        }
+//    	        else if(argsTokenizer.getTokenizedArguments().containsKey(tagPrefix)) {
+//    	        	detailsType = "tag";
+//    	        	toSet(argsTokenizer.getAllValues(tagPrefix))
+//    	        }
+    	        else if(argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
+    	        	detailsType = "recurring";
+    	        	details = argsTokenizer.getValue(recurringPrefix).get();
+    	        }
+    	        else if(argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+    	        	detailsType = "startDate";
+    	        	details = argsTokenizer.getValue(startDatePrefix).get();
+    	        }
+    	        else if(argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+    	        	detailsType = "endDate";
+    	        	details = argsTokenizer.getValue(endDatePrefix).get();
+    	        }
+    	        else if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+    	        	detailsType = "deadline";
+    	        	details = argsTokenizer.getValue(deadlinePrefix).get();
+    	        }
+    	        else
+    	        {
+    	            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    	        }
+
+    	    	if (index == null) {
+    	            return new EditCommand(name, detailsType, details);
+    	        }
+    	        return new EditCommand(name, detailsType, details, Integer.parseInt(index));
+    	 }
+    	 else
+    		 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
 }

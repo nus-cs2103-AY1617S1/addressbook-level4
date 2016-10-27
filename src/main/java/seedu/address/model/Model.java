@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.task.ReadOnlyTask;
@@ -22,9 +23,13 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Edit the given task
+     * @throws IllegalValueException */
+	void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException;
+
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
+
     /** Marks the given task as done*/
     void markTask(ReadOnlyTask task);
 
@@ -38,23 +43,22 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
 	void updateFilteredTaskList(String keyword);
-	
+
 	/** Updates the filter of the filtered task list to filter by the given date*/
 	void updateFilteredTaskList(String dateValue, boolean isEventDate);
-	
+
 	/** Update the task manager to the new file path*/
 	void updateTaskManager(String filePath, boolean isToClearOld);
 
 	/** Saves the current state of the task manager. */
     public void saveState(String message);
-	
+
 	/** Update the task manager to the previous state. */
 	String getPreviousState() throws StateLimitException;
-    
+
     /** Update the task manager to the next state. */
     String getNextState() throws StateLimitException;
-    
-    /**Update the task manager to show all up-to-date tasks. */
+
+    /** Update the task manager to show all up-to-date tasks. */
     void refreshTask();
-	
 }
