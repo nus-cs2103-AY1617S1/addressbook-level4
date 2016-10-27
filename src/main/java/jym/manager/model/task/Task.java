@@ -21,10 +21,10 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	
 	private Description descr;
 	private Location loc;
-	private Deadline dueDate;
+	private Deadline dueDate; //doubles as start time for now.
 	private Priority pri;
 	private Complete compl;
-
+	private Deadline endTime;
     private UniqueTagList tags;
 
     

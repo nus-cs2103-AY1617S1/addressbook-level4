@@ -60,11 +60,11 @@ public class AddCommand extends Command {
 //      for (String tagName : tags) {
 //          tagSet.add(new Tag(tagName));
 //      }
-    	if(isTask){
+ //   	if(isTask){
         	this.toAdd = new Task(new Description(description), objects);
-    	} else {
-    		this.toAdd = new Event(new Description(description), objects);
-    	}
+  //  	} else {
+   // 		this.toAdd = new Event(new Description(description), objects);
+ //   	}
     }
     public AddCommand(String description, Set<String> tags) throws IllegalValueException
     {
