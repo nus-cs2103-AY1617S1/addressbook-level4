@@ -14,10 +14,12 @@ public class TestTask extends Todo implements ReadOnlyTask {
     private static Name name;
     private static Priority priority;
     private static StartDate date;
+    private static EndDate endDate;
+    private static String isDone;
 
 
     public TestTask() {
-        super(name, date, priority);
+        super(name, date, endDate, priority, isDone);
         //tags = new UniqueTagList();
     }
 

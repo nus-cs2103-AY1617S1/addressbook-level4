@@ -9,16 +9,15 @@ import seedu.todoList.model.task.attributes.*;
  */
 public class TestDeadline extends Deadline implements ReadOnlyTask {
 
-    //private Name name;
     private Deadline deadline;
     private static Name name;
     private static StartDate date;
     private static EndTime endTime;
+    private static String isDone;
 
 
     public TestDeadline() {
-        super(name, date, endTime);
-        //tags = new UniqueTagList();
+        super(name, date, endTime, isDone);
     }
 
     public void setDeadline(Deadline deadline) {
