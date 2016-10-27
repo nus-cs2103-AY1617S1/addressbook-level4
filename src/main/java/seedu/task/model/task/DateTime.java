@@ -40,7 +40,15 @@ public class DateTime {
         }
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
         this.value = Optional.of(possibleDates.get(0).toInstant());
+    }
+    
+    public DateTime(Long epochMilli) {
+        if (epochMilli == null) {
+            this.value = Optional.empty();
+            return;
+        }
         
+        this.value = Optional.of(Instant.ofEpochMilli(epochMilli));
     }
 
     /**
@@ -76,6 +84,14 @@ public class DateTime {
             return p.format(Date.from(this.value.get()));
         } else {
             return "";
+        }
+    }
+    
+    public Long getSaveableValue() {
+        if(value.isPresent()) {
+            return this.value.get().getEpochSecond();
+        } else {
+            return null;
         }
     }
 
