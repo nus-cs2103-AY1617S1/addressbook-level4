@@ -13,13 +13,13 @@
  * [Edit](#how-to-edit-a-task--edit)
  * [Replace](#how-to-replace-a-task--replace)
  * [Undo](#how-to-undo-a-task--undo)
- * [Redo](#how-to-redo-a-task)
  * [Mark](#how-to-mark-a-task--mark)
  * [Unmark](#how-to-unmark-a-task--ummark)
  * [Recur](#how-to-recur-a-task--recur)
- * [Set Path](#how-to-set-storage-path--setpath)
- * [Indicate task](#how-to-identify-overdue-and-completed-task)
+ * [Set Path](#how-to-set-a-storage-path--setpath
  * [Exit](#how-to-exit-the-program--exit)
+ * [Redo](#how-to-redo-a-task)
+ * [Identify task](#how-to-identify-overdue-and-completed-task)
  * [Save](#how-to-save-the-data)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
@@ -166,9 +166,6 @@ The `undo` command allows you to undo the previous entered commands into the Mus
 
 Undo format: `undo`
 
-#### How to redo a task : <kbd>Up</kbd> and <kbd>Down</kbd>
-The <kbd>Up</kbd> <kbd>Down</kbd> allows you to select and display previous typed command in the command box.<br>
-
 #### How to mark a task : `mark`
 The `mark` command allows you to mark a completed task by the task's index.<br>
 
@@ -236,6 +233,9 @@ Examples:<br>
 The `exit` command allows you to exits the program.<br>
 
 Exit format: `exit` 
+
+#### How to redo a task
+The <kbd>Up</kbd> <kbd>Down</kbd> allows you to select and display previous typed command in the command box.<br>
 
 #### How to identify overdue and completed task
 Overdue and completed tasks can be identified by the color codes.<br>
