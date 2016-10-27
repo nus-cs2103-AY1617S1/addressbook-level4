@@ -53,6 +53,11 @@ public class Parser {
     
     public Parser() {}
 
+    /**
+     * helper function for parsing date string. Deprecated.
+     * @param date
+     * @return
+     */
     public static LocalDateTime parseDate(String date){
     	
     	if(date == null || date.equals("no deadline")) return null;
@@ -65,26 +70,6 @@ public class Parser {
     		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
     	}
     	return ldt;
-    	
-//    	dg.forEach(g -> System.out.println("group: "+ g.getFullText()));
-//    	if(date.contains(DayOfWeek.FRIDAY.toString()));
-//    	
-//    	LocalDateTime ldt = null;
-//    	if(date.contains("T")){
-//	    	try{
-//	 			ldt = LocalDateTime.parse(date);
-//	 		} catch(DateTimeParseException dtpe) {
-//	 			dtpe.printStackTrace();
-//	 		}
-//	    } else {
-//	     	try{
-//		     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-//		     	ldt = LocalDateTime.parse(date, formatter);
-//	    	} catch(DateTimeParseException dtpe) {
-//	    		dtpe.printStackTrace();
-//	    	}
-//	     }
-//	     return ldt;
     }
     /**
      * Parses user input into command for execution.

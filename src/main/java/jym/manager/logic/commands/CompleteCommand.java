@@ -9,6 +9,8 @@ import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Complete a task identified using it's last displayed index from the task manager.
  */
+
+//@@author a0153617e
 public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";

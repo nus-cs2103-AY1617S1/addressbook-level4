@@ -28,6 +28,8 @@ Refer to the [Features](#features) section below for details of each command.<br
 
 ## Features
 
+<!--- @@author A0153440R -->
+
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.

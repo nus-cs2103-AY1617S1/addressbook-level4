@@ -44,6 +44,8 @@
 
 ## Design
 
+<!--- @@author a0153617e -->
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -252,6 +254,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
+<!--- @@author A0153440R -->
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
@@ -375,9 +378,14 @@ Contains a description, event date and time, priority, and location.
 > Satisfies many stories, but cannot add multiple events simultaneously, and does not hold support for both tasks and events. <br>
 > Everything is an event, and although one can create them in a certain way to make them act like tasks, it can be tedious and not optimal to do so.
 
+<!--- @@author a0153617e -->
+
 ##### iStudiez Pro
 
 > Satisfies many stories, in particular having a nice GUI and being able to view the task list in many formats. However, there is no shortcut to add tasks, and you cannot type everything in one line without tabbing over to a separate text box.
+
+<!--- @@author A0116137M -->
+
 
 ##### S Planner (Samsung Phone Calendar, Android 4.2.2)
 
