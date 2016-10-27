@@ -53,14 +53,14 @@ Examples:
 
 #### Reserving timeslots for a task : `rsv` 
 Reserves one or more timeslot for a task  
-Format: `rsv <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
+Format: `rsv <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> [/dt <START_DATE/TIME> to <END_DATE/TIME> /dt...]`
 
 > Words in `UPPER_CASE` are the parameters. 
 >
 > More than one datetime can be added.
 
 Examples:
-* `rsv Meet John Doe /dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
+* `rsv Meet John Doe /dt 26/09/2016 0900 to 1030 /dt 28/09/2016 1000 to 1130`
 
 #### Deleting a task with reserved timeslots : `rsv /del`
 Deletes a task with all its reserved time slots  
@@ -69,9 +69,11 @@ Format: `rsv /del <INDEX>`
 > Deletes the task at the specific `<INDEX>`. 
 > The index refers to the index number shown in the task list.
 > The index **must be a positive integer** 1, 2, 3, ...
+> Delete multiple reserved tasks by typing ".." in between the range of index.
 
 Examples:
 * `rsv /del 5`
+* `rsv /del 1..4`
 
 #### Confirming a reserved timeslot : `confirm`  
 Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots.  
@@ -104,7 +106,7 @@ Edits a tag’s name
 Format: `tag /e <INDEX> <TAG>`
 
 > Edits the name of the tag at the specific `<INDEX>`. 
-> The index refers to the index number shown in the tag list.
+> The index refers to the index number shown in the tag list
 > The index **must be a positive integer** 1, 2, 3, ... 
 
 Examples:
