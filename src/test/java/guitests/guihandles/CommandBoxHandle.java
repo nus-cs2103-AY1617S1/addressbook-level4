@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
+import tars.commons.core.KeyCombinations;
 import tars.ui.CommandBox;
 
 /**
@@ -61,11 +62,11 @@ public class CommandBoxHandle extends GuiHandle{
     }
     
     public void pressCtrlRightArrowKeys() {
-        guiRobot.push((KeyCodeCombination) CommandBox.KEY_COMB_CTRL_RIGHT_ARROW);
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW);
     }
     
     public void pressCtrlLeftArrowKeys() {
-        guiRobot.push((KeyCodeCombination) CommandBox.KEY_COMB_CTRL_LEFT_ARROW);
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW);
     }
     
 }

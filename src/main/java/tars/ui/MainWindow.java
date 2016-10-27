@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.Config;
 import tars.commons.core.GuiSettings;
+import tars.commons.core.KeyCombinations;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.ExitAppRequestEvent;
@@ -300,9 +301,9 @@ public class MainWindow extends UiPart {
     @Subscribe
     private void KeyCombinationPressedEventHandler(KeyCombinationPressedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getKeyCombination().getDisplayText()));
-        if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_RIGHT_ARROW) {
+        if (event.getKeyCombination() == KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW) {
             cycleTabPaneRight();
-        } else if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_LEFT_ARROW) {
+        } else if (event.getKeyCombination() == KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW) {
             cycleTabPaneLeft();
         }
     }

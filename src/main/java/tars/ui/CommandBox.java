@@ -13,6 +13,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import tars.commons.core.KeyCombinations;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -31,11 +32,6 @@ public class CommandBox extends UiPart {
 
     private final Stack<String> prevCmdTextHistStack = new Stack<String>();
     private final Stack<String> nextCmdTextHistStack = new Stack<String>();
-
-    public static final KeyCombination KEY_COMB_CTRL_RIGHT_ARROW = new KeyCodeCombination(KeyCode.RIGHT,
-            KeyCombination.CONTROL_DOWN);
-    public static final KeyCombination KEY_COMB_CTRL_LEFT_ARROW = new KeyCodeCombination(KeyCode.LEFT,
-            KeyCombination.CONTROL_DOWN);
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -82,11 +78,11 @@ public class CommandBox extends UiPart {
                     setTextToShowPrevCmdText(ke);
                 } else if (ke.getCode().equals(KeyCode.DOWN)) {
                     setTextToShowNextCmdText(ke);
-                } else if (KEY_COMB_CTRL_RIGHT_ARROW.match(ke)) {
-                    raise(new KeyCombinationPressedEvent(KEY_COMB_CTRL_RIGHT_ARROW));
+                } else if (KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW.match(ke)) {
+                    raise(new KeyCombinationPressedEvent(KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW));
                     ke.consume();
-                } else if (KEY_COMB_CTRL_LEFT_ARROW.match(ke)) {
-                    raise(new KeyCombinationPressedEvent(KEY_COMB_CTRL_LEFT_ARROW));
+                } else if (KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW.match(ke)) {
+                    raise(new KeyCombinationPressedEvent(KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW));
                     ke.consume();
                 }
             }
