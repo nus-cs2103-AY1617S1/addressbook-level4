@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 
 /**
  * API of UI component
+ * @@author generated
  */
 public interface Ui {
 

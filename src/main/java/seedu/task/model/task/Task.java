@@ -8,6 +8,7 @@ import java.util.Objects;
 /**
  * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
+ * @@author
  */
 public class Task implements ReadOnlyTask {
 

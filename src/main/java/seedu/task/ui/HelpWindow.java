@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 /**
  * Controller for a help page
+ * @@author generated
  */
 public class HelpWindow extends UiPart {
 

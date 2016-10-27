@@ -8,6 +8,7 @@ import seedu.task.MainApp;
 
 /**
  * A utility class to load UiParts from FXML files.
+ * @@author generated
  */
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/view/";

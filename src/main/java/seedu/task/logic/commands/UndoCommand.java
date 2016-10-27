@@ -101,10 +101,10 @@ public class UndoCommand extends Command {
 
         int size = history.getUndoList().size() - 1; 
 
-        while(history.getUndoList().get(size).getCommandWord().equals("clear")){
+        while (history.getUndoList().get(size).getCommandWord().equals("clear")) {
             HashSet<Tag> tagSet = new HashSet<>(history.getUndoList().get(size).getNewTask().getTags().toSet());
             HashSet<String> tagStringSet = new HashSet<>(tagSet.size());
-            for(Tag tags: tagSet){
+            for (Tag tags: tagSet) {
                 tagStringSet.add(tags.tagName);
             }
 
@@ -123,10 +123,10 @@ public class UndoCommand extends Command {
             }
             history.getUndoList().remove(size);
             size--;
-            if(size == -1){
+            if (size == -1) {
                 break;
             }
-            if(!(history.getUndoList().get(size).getCommandWord().equals("clear"))){
+            if (!(history.getUndoList().get(size).getCommandWord().equals("clear"))) {
                 break;
             }
         }
@@ -134,8 +134,8 @@ public class UndoCommand extends Command {
     }
 
     private void checkCommandListSize() {
-        if(history.getPreviousCommandList().size() != 0){
-            history.getPreviousCommandList().remove(history.getPreviousCommandList().size()-1);
+        if (history.getPreviousCommandList().size() != 0) {
+            history.getPreviousCommandList().remove(history.getPreviousCommandList().size() - 1);
         }
     }
 
@@ -157,8 +157,6 @@ public class UndoCommand extends Command {
             command.setData(model);
             command.execute(true);
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
         history.getUndoList().remove(size);
 
@@ -166,27 +164,22 @@ public class UndoCommand extends Command {
 
     private void prepareUndoAdd() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
         Command command = new DeleteCommand(1);     
         command.setData(model);
         command.execute(true);
 
         history.getUndoList().remove(history.getUndoList().size() - 1);
 
-
     }
 
     private void prepareUndoDelete(String[] previousCommandDetails) {
 
         int index = Integer.parseInt(previousCommandDetails[1]) - 1;
-
-
         int size = history.getUndoList().size() - 1; 
 
         HashSet<Tag> tagSet = new HashSet<>(history.getUndoList().get(size).getNewTask().getTags().toSet());
         HashSet<String> tagStringSet = new HashSet<>(tagSet.size());
-        for(Tag tags: tagSet){
+        for (Tag tags: tagSet) {
             tagStringSet.add(tags.tagName);
         }
 
@@ -200,19 +193,13 @@ public class UndoCommand extends Command {
             command.setData(model);
             command.execute(index);
 
-
-
         } catch (IllegalValueException e) {
-
         }
         history.getUndoList().remove(size);
-
-
     }
 
     @Override
     public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
         return null;
     }
 

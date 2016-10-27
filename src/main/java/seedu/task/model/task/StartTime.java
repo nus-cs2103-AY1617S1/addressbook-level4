@@ -5,6 +5,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task start time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStartTime(String)}
+ * @@author 
  */
 public class StartTime {
 

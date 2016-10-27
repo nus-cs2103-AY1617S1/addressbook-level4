@@ -14,6 +14,7 @@ import java.util.*;
  *
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
+ * @@author A0147335E reused
  */
 public class UniqueTaskList implements Iterable<Task> {
 
@@ -65,6 +66,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
+    //@@author A0147335E
     public void add(int index, Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {

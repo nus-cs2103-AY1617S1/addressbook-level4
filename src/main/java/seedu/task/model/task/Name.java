@@ -5,6 +5,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * @@author 
  */
 public class Name {
 

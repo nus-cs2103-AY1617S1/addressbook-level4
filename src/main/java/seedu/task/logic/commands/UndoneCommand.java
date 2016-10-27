@@ -1,6 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
+
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.logic.RollBackCommand;
 import seedu.task.model.task.ReadOnlyTask;
@@ -8,6 +9,10 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Undone a task from the task manager.
+ * @@author A0147335E
+ */
 public class UndoneCommand extends Command {
     public static final String COMMAND_WORD = "undone";
 

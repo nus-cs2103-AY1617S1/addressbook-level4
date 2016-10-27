@@ -6,6 +6,7 @@ import seedu.task.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.
+ * @@author generated
  */
 public class UserPrefs {
 

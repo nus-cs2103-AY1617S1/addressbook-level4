@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Unmodifiable view of an task manager
+ * @@author generated
  */
 public interface ReadOnlyTaskManager {
 

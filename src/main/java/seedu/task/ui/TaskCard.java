@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import seedu.task.model.task.ReadOnlyTask;
 
+//@@author A0147335E reused
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
@@ -40,7 +41,7 @@ public class TaskCard extends UiPart{
         TaskCard card = new TaskCard();
         TaskCard.task = task;
         card.displayedIndex = displayedIndex;
-        
+
         return UiPartLoader.loadUiPart(card);
     }
 
@@ -49,33 +50,28 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         if(!task.getDeadline().value.equals("now") && !task.getDeadline().value.equals(" from now")){
-        	startTimeLabel.setText(" from " + task.getStartTime().value);
+            startTimeLabel.setText(" from " + task.getStartTime().value);
         }else{
-        	startTimeLabel.setText("");
+            startTimeLabel.setText("");
         }
         if(!task.getEndTime().value.equals("no endtime") && !task.getEndTime().value.equals(" to no endtime")){
-        	endTimeLabel.setText(" to " + task.getEndTime().value);
+            endTimeLabel.setText(" to " + task.getEndTime().value);
         }else{
-        	endTimeLabel.setText("");
+            endTimeLabel.setText("");
         }
         if(!task.getDeadline().value.equals("no deadline") && !task.getDeadline().value.equals(" to no deadline")){
-        	deadlineLabel.setText(" ends " + task.getDeadline().value);
+            deadlineLabel.setText(" ends " + task.getDeadline().value);
         }else{
-        	deadlineLabel.setText("");
+            deadlineLabel.setText("");
         }
         tags.setText(task.tagsString());
     }
 
+    //@@author A0147335E 
     public HBox getLayout() {
-        if(task.getStatus().getNewlyAddedStatus() == true) {
-            
+        if (task.getStatus().getNewlyAddedStatus() == true) {
+
             cardPane.setStyle("-fx-background-color: #FFFE00");
-            //cardPane.setStyle("-fx-background-color: #FFFE00");
-            
-                    
-                   
-           
-            
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
@@ -85,18 +81,19 @@ public class TaskCard extends UiPart{
                 }
             });
             delay.play();
-            
-            //
+
         }
-        if(task.getStatus().getDoneStatus() == true) {
+        if (task.getStatus().getDoneStatus() == true) {
             cardPane.setStyle("-fx-background-color: #ADDBAC");
         }
         return cardPane;
     }
 
-    public static boolean isAdded(){
+    //@@author A0147335E 
+    public static boolean isAdded() {
         return task.getStatus().getNewlyAddedStatus();
     }
+
     @Override
     public void setNode(Node node) {
         cardPane = (HBox)node;

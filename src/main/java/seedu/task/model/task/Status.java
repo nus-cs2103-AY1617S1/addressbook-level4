@@ -1,46 +1,50 @@
 package seedu.task.model.task;
 
+/**
+ * Represents a Task status in the task manager.
+ * @@author A0147335E
+ */
 public class Status {
 
     private boolean isDone;
-    
+
     private boolean isOverdue;
-    
+
     private boolean newlyAdded;
-    
-    public Status(){
+
+    public Status() {
         this.isDone = false;
         this.isOverdue = false;
         this.newlyAdded = false;
     }
-    
-    public Status(boolean isDone, boolean isOverdue, boolean newlyAdded){
+
+    public Status(boolean isDone, boolean isOverdue, boolean newlyAdded) {
         this.isDone = isDone;
         this.isOverdue = isOverdue;
         this.newlyAdded = newlyAdded;
     }
-    
-    public void setDoneStatus(boolean doneStatus){
+
+    public void setDoneStatus(boolean doneStatus) {
         this.isDone = doneStatus;
     }
-    
-    public void setOverdueStatus(boolean overdueStatus){
+
+    public void setOverdueStatus(boolean overdueStatus) {
         this.isDone = overdueStatus;
     }
-    
-    public void setNewlyAdded(boolean newlyAdded){
+
+    public void setNewlyAdded(boolean newlyAdded) {
         this.newlyAdded = newlyAdded;
     }
-    
-    public boolean getDoneStatus(){
+
+    public boolean getDoneStatus() {
         return isDone;
     }
-    
-    public boolean getOverdueStatus(){
+
+    public boolean getOverdueStatus() {
         return isOverdue;
     }
-    
-    public boolean getNewlyAddedStatus(){
+
+    public boolean getNewlyAddedStatus() {
         return newlyAdded;
     }
 }

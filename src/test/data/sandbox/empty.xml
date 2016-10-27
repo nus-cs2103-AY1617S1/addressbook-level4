@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<taskmanager/>
+<taskmanager>
+    <tasks>
+        <name>DO</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <deadline>no deadline</deadline>
+        <doneStatus>true</doneStatus>
+        <overdueStatus>false</overdueStatus>
+        <newlyAdded>false</newlyAdded>
+    </tasks>
+    <tasks>
+        <name>do nothing</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <deadline>no deadline</deadline>
+        <doneStatus>true</doneStatus>
+        <overdueStatus>false</overdueStatus>
+        <newlyAdded>false</newlyAdded>
+    </tasks>
+</taskmanager>

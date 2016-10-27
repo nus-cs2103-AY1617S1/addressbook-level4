@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>party week</name>
-        <startTime>2016-12-25</startTime>
-        <endTime>2017-01-01</endTime>
-        <location>no deadline</location>
+        <name>DO</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <deadline>no deadline</deadline>
+        <doneStatus>true</doneStatus>
+        <overdueStatus>false</overdueStatus>
+        <newlyAdded>false</newlyAdded>
+    </tasks>
+    <tasks>
+        <name>do nothing</name>
+        <startTime>now</startTime>
+        <endTime>no endtime</endTime>
+        <deadline>no deadline</deadline>
+        <doneStatus>true</doneStatus>
+        <overdueStatus>false</overdueStatus>
+        <newlyAdded>false</newlyAdded>
     </tasks>
 </taskmanager>

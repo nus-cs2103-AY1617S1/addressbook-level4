@@ -15,6 +15,7 @@ import seedu.task.logic.commands.*;
 
 import java.util.logging.Logger;
 
+//@@author generated
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
