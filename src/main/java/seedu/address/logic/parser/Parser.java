@@ -72,9 +72,9 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
 	
 	private static final Pattern[] EDIT_ARGS_FORMAT = new Pattern[] { 
-			Pattern.compile("(?<index>\\d*)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
-			Pattern.compile("(?<index>\\d*)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
-			Pattern.compile("(?<index>\\d*)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?(\\s+'(?<taskName>.+)')?")
+			Pattern.compile("(?<index>\\d+)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
+			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by)\\s+(?<!(from | by))[^']+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
+			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?")
 	};
 	
 	public Command parseCommand(String userInput) {
@@ -472,7 +472,6 @@ public class Parser {
 		for(int i = 0; i < EDIT_ARGS_FORMAT.length; i++) {
 			matchers.add(EDIT_ARGS_FORMAT[i].matcher(arguments.trim()));
 		}
-		
 		for(Matcher matcher : matchers) {
 			if(matcher.matches()) {
 				indexString = matcher.group("index");
