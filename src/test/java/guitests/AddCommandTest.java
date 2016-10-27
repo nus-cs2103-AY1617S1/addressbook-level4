@@ -10,7 +10,7 @@ import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
-//@@author A00139661Y
+//@@author A0139661Y
 public class AddCommandTest extends ToDoListGuiTest {
 
     @Test

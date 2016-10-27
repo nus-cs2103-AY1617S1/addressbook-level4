@@ -1,3 +1,4 @@
+<!-- @@author A0141128R-->
 # User Guide
 
 <br><img align="center" src="images/Logo.jpeg" width="600"><br>
@@ -240,4 +241,4 @@ Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kb
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
 
-Last updated 28 Oct 2016. @author A0141128R
+_Last updated 28 Oct 2016_

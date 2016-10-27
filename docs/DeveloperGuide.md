@@ -1,3 +1,4 @@
+<!-- @@author A0141128R-->
 # Developer Guide 
 
 * [Setting Up](#setting-up)
@@ -584,4 +585,4 @@ Use case ends.
 
 ---
 
-_Last updated 26 Oct 2016 by @author A0141128R_
+_Last updated 28 Oct 2016_
