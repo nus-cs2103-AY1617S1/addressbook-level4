@@ -73,17 +73,12 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             model.updateToDefaultList();
+            model.storeAddCommandInfo(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            model.removeUnchangedState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
-    }
-
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
     }
 
 }

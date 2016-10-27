@@ -87,24 +87,22 @@ public class DoneCommand extends Command {
         }
         
         if (hasInvalidIndex) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(invalidIndexMessageBuilder.toString());
         }
         
         if (hasDuplicateIndexesProvided) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
         }
         
         if (hasDuplicateMarkAsDoneTask) {
-            model.removeUnchangedState();
             return new CommandResult(duplicateMarkAsDoneMessageBuilder.toString());
         }
                         
         try {
-             model.markTasksAsDone(listOfTaskToMarkDone);            
+             model.markTasksAsDone(listOfTaskToMarkDone);
+             model.storeDoneCommandInfo(listOfTaskToMarkDone);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateMarkAsDoneException e) {
@@ -112,10 +110,5 @@ public class DoneCommand extends Command {
         }
 
         return new CommandResult(resultMessageBuilder.toString());
-    }
-    
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
     }
 }

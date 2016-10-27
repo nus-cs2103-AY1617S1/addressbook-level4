@@ -28,7 +28,4 @@ public class UndoCommand extends Command {
         }       
     }
 
-    @Override
-    public void saveStateIfNeeded(String commandText) {}
-
 }

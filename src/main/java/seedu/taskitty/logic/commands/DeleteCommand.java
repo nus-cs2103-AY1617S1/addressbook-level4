@@ -75,29 +75,23 @@ public class DeleteCommand extends Command {
         }
         
         if (hasInvalidIndex) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();            
             return new CommandResult(invalidIndexMessageBuilder.toString());
         }
         
         if (hasDuplicateIndexesProvided) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
         } 
         
         try {
-             model.deleteTasks(listOfTaskToDelete);           
+             model.deleteTasks(listOfTaskToDelete);
+             model.storeDeleteCommandInfo(listOfTaskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
         return new CommandResult(resultMessageBuilder.toString());
-    }
-
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
     }
 
 }

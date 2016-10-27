@@ -2,6 +2,11 @@ package seedu.taskitty.model;
 
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
+import seedu.taskitty.logic.commands.AddCommand;
+import seedu.taskitty.logic.commands.ClearCommand;
+import seedu.taskitty.logic.commands.DeleteCommand;
+import seedu.taskitty.logic.commands.DoneCommand;
+import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -39,11 +44,15 @@ public interface Model {
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
     
-    /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
-    void saveState(String command);
+    public void storeAddCommandInfo(ReadOnlyTask addedTask);
     
-    /** Removes the current state saved when an invalid command is given */
-    void removeUnchangedState();
+    public void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask);
+    
+    public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks);
+    
+    public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks);
+    
+    public void storeClearCommandInfo();
     
     //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

@@ -22,7 +22,6 @@ import seedu.taskitty.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -44,10 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredEvents;
     private ObservableValue<String> date;
     
-    private final Stack<ReadOnlyTaskManager> historyTaskManagers;
-    private final Stack<String> historyCommands;
-    private final Stack<Predicate> historyPredicates;
-    private final TaskManagerState taskManagerState;
+    private final SessionTaskInfoStorage undoTaskInfo;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -65,10 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        historyTaskManagers = new Stack<ReadOnlyTaskManager>();
-        historyCommands = new Stack<String>();
-        historyPredicates = new Stack<Predicate>();
-        taskManagerState = new TaskManagerState();
+        undoTaskInfo = new SessionTaskInfoStorage();
         taskManager.sortList();
     }
 
@@ -82,10 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        historyTaskManagers = new Stack<ReadOnlyTaskManager>();
-        historyCommands = new Stack<String>();
-        historyPredicates = new Stack<Predicate>();
-        taskManagerState = new TaskManagerState();
+        undoTaskInfo = new SessionTaskInfoStorage();
         taskManager.sortList();
     }
 
@@ -117,62 +107,8 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {        
         taskManager.addTask(task);
         indicateTaskManagerChanged();
-    }
-    
-    //@@author A0139052L
-    public synchronized String undo() throws NoPreviousValidCommandException {
-        if (!hasPreviousValidCommand()) {            
-            throw new NoPreviousValidCommandException(null);
-        }
-        assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
-        resetData(getPreviousTaskManager());   
-        updateFilteredTaskList(getPreviousPredicate());
-        return getPreviousValidCommand();
-    }
-    
-    public void undos() throws TaskNotFoundException, DuplicateTaskException, DuplicateMarkAsDoneException {
-        String previousCommand = taskManagerState.getCommand();
-        
-        switch(previousCommand) {
-        
-        case AddCommand.COMMAND_WORD:
-            taskManager.removeTask(taskManagerState.getAddedTask());
-            
-        case DeleteCommand.COMMAND_WORD:
-            int numberOfTasksDeleted = taskManagerState.getNumberOfTasks();
-            for (int i = 0; i < numberOfTasksDeleted; i++) {
-                taskManager.addTask((Task) taskManagerState.getDeletedTask());
-            }
-        case EditCommand.COMMAND_WORD:
-            taskManager.addTask((Task) taskManagerState.getDeletedTask());
-            taskManager.removeTask(taskManagerState.getAddedTask());
-       
-        case ClearCommand.COMMAND_WORD:
-            resetData(taskManagerState.getTaskManager());
-        
-        case DoneCommand.COMMAND_WORD:
-            int numberOfTasksMarkedAsDone = taskManagerState.getNumberOfTasks();
-            for (int i = 0; i < numberOfTasksMarkedAsDone; i++) {
-                taskManager.unMarkTaskAsDoneTask(taskManagerState.getMarkedTask());
-            }
-                       
-        default:
-            assert false: "Should not have an invalid previousCommand";
-        }
-    }
-    
-    public synchronized void saveState(String command) {
-        historyTaskManagers.push(new TaskManager(taskManager));
-        historyCommands.push(command);
-        historyPredicates.push(filteredTodos.getPredicate());
-    }
-    
-    public synchronized void removeUnchangedState() {
-        historyTaskManagers.pop();
-        historyCommands.pop();
-        historyPredicates.pop();
     }    
-    
+        
     //@@author A0130853L
     @Override
     public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
@@ -192,35 +128,86 @@ public class ModelManager extends ComponentManager implements Model {
     }
    	
    	//@@author   	
-   	private void storeAddCommandInfo(ReadOnlyTask addedTask) {
-        taskManagerState.storeCommand(AddCommand.COMMAND_WORD);
-        taskManagerState.storeAddedTask(addedTask);
+   	@Override
+    public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask) {
+        undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
+        undoTaskInfo.storeTask(addedTask);
     }
    	
-   	private void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask) {
-   	    taskManagerState.storeCommand(EditCommand.COMMAND_WORD);
-   	    taskManagerState.storeAddedTask(addedTask);
-   	    taskManagerState.storeDeletedTask(deletedTask);
+   	@Override
+    public synchronized void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask) {
+   	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
+   	    undoTaskInfo.storeTask(addedTask);
+   	    undoTaskInfo.storeTask(deletedTask);
    	}
    	
-   	private void storeDeleteCommandInfo(ReadOnlyTask deletedTask, int numberOfTask) {
-        taskManagerState.storeCommand(DeleteCommand.COMMAND_WORD);
-        taskManagerState.storeDeletedTask(deletedTask);
-        taskManagerState.storeNumberOfTasks(numberOfTask);
+   	@Override
+    public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks) {
+        undoTaskInfo.storeCommandWord(DeleteCommand.COMMAND_WORD);
+        for (ReadOnlyTask deletedTask: deletedTasks) {
+            undoTaskInfo.storeTask(deletedTask);
+        }
+        undoTaskInfo.storeNumberOfTasks(deletedTasks.size());
     }
    	
-   	private void storeDoneCommandInfo(ReadOnlyTask markedTask, int numberOfTask) {
-        taskManagerState.storeCommand(DoneCommand.COMMAND_WORD);
-        taskManagerState.storeMarkedTask(markedTask);
-        taskManagerState.storeNumberOfTasks(numberOfTask);
+   	@Override
+    public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks) {
+        undoTaskInfo.storeCommandWord(DoneCommand.COMMAND_WORD);
+        for (ReadOnlyTask markedTask: markedTasks) {
+            undoTaskInfo.storeTask(markedTask);
+        }
+        undoTaskInfo.storeNumberOfTasks(markedTasks.size());
     }
    	
-   	private void storeClearCommandInfo() {
-        taskManagerState.storeCommand(ClearCommand.COMMAND_WORD);
-        taskManagerState.storeTaskManager(new TaskManager(taskManager));
+   	@Override
+    public synchronized void storeClearCommandInfo() {
+        undoTaskInfo.storeCommandWord(ClearCommand.COMMAND_WORD);
+        undoTaskInfo.storeTaskManager(new TaskManager(taskManager));
     }
    	
-
+   	//@@author A0139052L    
+    public String undo() throws NoPreviousValidCommandException {
+        String message = null;
+        if (!undoTaskInfo.hasPreviousValidCommand()) {
+            throw new NoPreviousValidCommandException(null);
+        }
+        
+        String previousCommand = undoTaskInfo.getCommand();
+        
+        try {
+            switch(previousCommand) {
+            
+            case AddCommand.COMMAND_WORD:
+                taskManager.removeTask(undoTaskInfo.getTask());
+                
+            case DeleteCommand.COMMAND_WORD:
+                int numberOfTasksDeleted = undoTaskInfo.getNumberOfTasks();
+                for (int i = 0; i < numberOfTasksDeleted; i++) {
+                    taskManager.addTask((Task) undoTaskInfo.getTask());
+                }
+            case EditCommand.COMMAND_WORD:
+                taskManager.addTask((Task) undoTaskInfo.getTask());
+                taskManager.removeTask(undoTaskInfo.getTask());
+           
+            case ClearCommand.COMMAND_WORD:
+                resetData(undoTaskInfo.getTaskManager());
+            
+            case DoneCommand.COMMAND_WORD:
+                int numberOfTasksMarkedAsDone = undoTaskInfo.getNumberOfTasks();
+                for (int i = 0; i < numberOfTasksMarkedAsDone; i++) {
+                    taskManager.unMarkTaskAsDoneTask(undoTaskInfo.getTask());
+                }
+                           
+            default:
+                assert false: "Should not have an invalid previousCommand";
+            }
+            return message;
+        } catch (Exception e) {
+            
+        }
+        return message;
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -348,72 +335,56 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    private class TaskManagerState {
+    private class SessionTaskInfoStorage {
         
-        private final Stack<String> commands;
-        private final Stack<String> commandTexts;
-        private final Stack<ReadOnlyTask> addedTasks;
-        private final Stack<ReadOnlyTask> markedTasks;
-        private final Stack<ReadOnlyTask> deletedTasks;
-        private final Stack<Integer> numberOfTasks;
-        private final Stack<ReadOnlyTaskManager> taskManagers;
+        private final Stack<String> historyCommandWords;
+        private final Stack<String> historyCommandTexts;
+        private final Stack<ReadOnlyTask> historyTasks;
+        private final Stack<Integer> historyNumberOfTasks;
+        private final Stack<ReadOnlyTaskManager> historyTaskManagers;
         
-        TaskManagerState() {
-            commands = new Stack<String>();
-            commandTexts = new Stack<String>();
-            addedTasks = new Stack<ReadOnlyTask>();
-            markedTasks = new Stack<ReadOnlyTask>();
-            deletedTasks = new Stack<ReadOnlyTask>();
-            numberOfTasks = new Stack<Integer>();
-            taskManagers = new Stack<ReadOnlyTaskManager>();
+        SessionTaskInfoStorage() {
+            historyCommandWords = new Stack<String>();
+            historyCommandTexts = new Stack<String>();
+            historyTasks = new Stack<ReadOnlyTask>();
+            historyNumberOfTasks = new Stack<Integer>();
+            historyTaskManagers = new Stack<ReadOnlyTaskManager>();
+        }
+        
+        private boolean hasPreviousValidCommand() {
+            return !historyCommandWords.isEmpty();
         }
         
         private String getCommand() {
-            return commands.pop();
+            return historyCommandWords.pop();
         }
         
-        private ReadOnlyTask getAddedTask() {
-            return addedTasks.pop();
-        }
-        
-        private ReadOnlyTask getMarkedTask() {
-            return markedTasks.pop();
-        }
-        
-        private ReadOnlyTask getDeletedTask() {
-            return deletedTasks.pop();
-        }
+        private ReadOnlyTask getTask() {
+            return historyTasks.pop();
+        }       
         
         private int getNumberOfTasks() {
-            return numberOfTasks.pop();
+            return historyNumberOfTasks.pop();
         }
         
         private ReadOnlyTaskManager getTaskManager() {
-            return taskManagers.pop();
+            return historyTaskManagers.pop();
         }
         
-        private void storeCommand(String command) {
-            commands.push(command);
+        private void storeCommandWord(String command) {
+            historyCommandWords.push(command);
         }
         
-        private void storeAddedTask(ReadOnlyTask addedTask) {
-            addedTasks.push(addedTask);
-        }
-        
-        private void storeMarkedTask(ReadOnlyTask markedTask) {
-            markedTasks.push(markedTask);
-        }
-        
-        private void storeDeletedTask(ReadOnlyTask deletedTask) {
-            deletedTasks.push(deletedTask);
+        private void storeTask(ReadOnlyTask task) {
+            historyTasks.push(task);
         }
         
         private void storeNumberOfTasks(int numberOfTask) {
-            numberOfTasks.push(numberOfTask);
+            historyNumberOfTasks.push(numberOfTask);
         }
         
         private void storeTaskManager(ReadOnlyTaskManager taskManager) {
-            taskManagers.push(taskManager);
+            historyTaskManagers.push(taskManager);
         }
         
     }
@@ -452,34 +423,55 @@ public class ModelManager extends ComponentManager implements Model {
 		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(today));
 	}
 	
-	//@@author A0139052L
-    /**
-     *  returns the Task Manager from the previous state
-     */
-    private ReadOnlyTaskManager getPreviousTaskManager() {
-        return historyTaskManagers.pop();
-    }
-    
-    /**
-     * returns the Predicate from the previous state
-     */
-    private Predicate getPreviousPredicate() {
-        return historyPredicates.pop();
-    }
-    
-    /**
-     * returns the previous valid command input by the user
-     */
-    private String getPreviousValidCommand() {
-        return historyCommands.pop();
-    }
-    
-    /**
-     *  returns true is there is a previous valid command input by user
-     *  and false otherwise
-     */
-    private boolean hasPreviousValidCommand() {
-        return !historyCommands.isEmpty();
-    }
-
+//	/**
+//     *  returns true is there is a previous valid command input by user
+//     *  and false otherwise
+//     */
+//    private boolean hasPreviousValidCommand() {
+//        return !historyCommands.isEmpty();
+//    }
+//    
+//	//@@author A0139052L
+//    /**
+//     *  returns the Task Manager from the previous state
+//     */	
+//    private ReadOnlyTaskManager getPreviousTaskManager() {
+//        return historyTaskManagers.pop();
+//    }
+//    
+//    /**
+//     * returns the Predicate from the previous state
+//     */
+//    private Predicate getPreviousPredicate() {
+//        return historyPredicates.pop();
+//    }
+//    
+//    /**
+//     * returns the previous valid command input by the user
+//     */
+//    private String getPreviousValidCommand() {
+//        return historyCommands.pop();
+//    }
+//        
+//    public synchronized void saveState(String command) {
+//        historyTaskManagers.push(new TaskManager(taskManager));
+//        historyCommands.push(command);
+//        historyPredicates.push(filteredTodos.getPredicate());
+//    }
+//    
+//    public synchronized void removeUnchangedState() {
+//        historyTaskManagers.pop();
+//        historyCommands.pop();
+//        historyPredicates.pop();
+//    }
+//    
+//    public synchronized String undo() throws NoPreviousValidCommandException {
+//        if (!hasPreviousValidCommand()) {            
+//            throw new NoPreviousValidCommandException(null);
+//        }
+//        assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
+//        resetData(getPreviousTaskManager());   
+//        updateFilteredTaskList(getPreviousPredicate());
+//        return getPreviousValidCommand();
+//    }
 }
