@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 //@@author A0138601M
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test
     public void delete() {

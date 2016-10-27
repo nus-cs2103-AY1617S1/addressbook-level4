@@ -14,7 +14,7 @@ We are a group of students in the [School of Computing, National University of S
   * [Delete task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#deleting-a-task--delete)
   * [Sort task list displayed] (https://github.com/CS2103AUG2016-T15-C3/main/pull/75)
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2) ]
+  * Did the initial refactoring from ToDoList to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2) ]
   * Set up Travis, Coveralls and Codacy
 
 -----

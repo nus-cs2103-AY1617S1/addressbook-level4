@@ -6,7 +6,7 @@ import seedu.task.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends AddressBookGuiTest {
+public class ClearCommandTest extends ToDoListGuiTest {
 
     @Test
     public void clear() {

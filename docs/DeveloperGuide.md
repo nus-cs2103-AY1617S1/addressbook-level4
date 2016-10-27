@@ -145,7 +145,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.ToDoList.commans` package. 
 
 ## Implementation
 
