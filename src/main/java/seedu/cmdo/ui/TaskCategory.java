@@ -13,13 +13,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
 import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import javafx.scene.Node;
 
-
+//@@author A0141006B
 
 public class TaskCategory extends UiPart {
 	private static final Logger logger = LogsCenter.getLogger(WelcomeMessage.class);
@@ -30,7 +32,7 @@ public class TaskCategory extends UiPart {
 	private static final String ICON4 = "/images/thismonth.png";
 	private static final String ICON5 = "/images/someday.png";
 	private static final String ICON6 = "/images/totaltask.png";
-	private static final Integer LABEL_WIDTH = 100;
+	private static final Integer LABEL_WIDTH = 110;
 	private static final Integer LABEL_HEIGHT = 30;
 	private ObservableList<ReadOnlyTask> allTasksList;
 	
@@ -67,6 +69,8 @@ public class TaskCategory extends UiPart {
 	@FXML
 	private Label totalTask;
 	@FXML
+	private Label totalDone;
+	@FXML
 	private Label overDueNo;
 	@FXML
 	private Label todayNo;
@@ -78,6 +82,10 @@ public class TaskCategory extends UiPart {
 	private Label somedayNo;
 	@FXML
 	private Label totalTaskNo;
+	@FXML
+	private Label totalDoneNo;
+	@FXML
+	private Region emptySpace;
 	
 	@Override
 	public void setNode(Node node) {
@@ -98,8 +106,8 @@ public class TaskCategory extends UiPart {
 		taskCategoryPane.getChildren().addAll(
 				//overDueImg, todayImg, thisWeekImg,
 				//thisMonthImg, somedayImg, totalTaskImg,
-				overDue, today, thisWeek, thisMonth, someday, totalTask,
-				overDueNo, todayNo, thisWeekNo, thisMonthNo, somedayNo, totalTaskNo
+				overDue, today, thisWeek, thisMonth, someday, totalTask, totalDone, emptySpace,
+				overDueNo, todayNo, thisWeekNo, thisMonthNo, somedayNo, totalTaskNo, totalDoneNo
 				);		
 		updateTasksOverviewPanel(allTasksList);
 		logger.info("" + allTasksList.size());
@@ -123,7 +131,11 @@ public class TaskCategory extends UiPart {
 		GridPane.setConstraints(somedayNo, 2, 4);		
 		
 		totalTaskNo = new Label();
-		GridPane.setConstraints(totalTaskNo, 2, 5);				
+		GridPane.setConstraints(totalTaskNo, 2, 5);		
+		
+		totalDoneNo = new Label();
+		GridPane.setConstraints(totalDoneNo, 2, 7);
+		
 	}
 	
 	public void setGridPictures() {
@@ -150,32 +162,51 @@ public class TaskCategory extends UiPart {
 		overDue = new Label();
 		overDue.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(overDue, 1, 0);
-		overDue.setText("Overdue");		
+		overDue.setText("Overdue");	
+		overDue.setFont(new Font("Gothic", 18));
 		
 		today = new Label();
 		today.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(today, 1, 1);		
 		today.setText("Today");
+		today.setFont(new Font("Gothic", 18));
 		
 		thisWeek = new Label();
 		thisWeek.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisWeek, 1, 2);		
 		thisWeek.setText("This Week");
+		thisWeek.setFont(new Font("Gothic", 18));
 		
 		thisMonth = new Label();
 		thisMonth.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(thisMonth, 1, 3);		
 		thisMonth.setText("This Month");	
+		thisMonth.setFont(new Font("Gothic", 18));
+		
 		
 		someday = new Label();
 		someday.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(someday, 1, 4);		
 		someday.setText("Someday");	
+		someday.setFont(new Font("Gothic", 18));
 		
 		totalTask = new Label();
 		totalTask.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
 		GridPane.setConstraints(totalTask, 1, 5);		
-		totalTask.setText("Total Tasks");	
+		totalTask.setText("Total Tasks");
+		totalTask.setFont(new Font("Gothic", 18));
+		
+		emptySpace = new Region();
+		emptySpace.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
+		GridPane.setConstraints(emptySpace, 1, 6);
+		
+		totalDone = new Label();
+		totalDone.setPrefSize(LABEL_WIDTH, LABEL_HEIGHT);
+		GridPane.setConstraints(totalDone, 1, 7);		
+		totalDone.setText("Total Done");
+		totalDone.setFont(new Font("Gothic", 18));
+		
+		
 	}
 	
 	//@@author A0139661Y
@@ -188,10 +219,14 @@ public class TaskCategory extends UiPart {
         Integer thisWeekNumber = 0;
         Integer thisMonthNumber = 0;
         Integer somedayNumber = 0;
-        Integer totalTasksNumber = taskObservableList.size();
+        Integer doneNumber = 0;
+        Integer totalTasksNumber = 0;
         
         for (Integer i:countMap) {
         	switch (i) {
+        	case 666:
+        		doneNumber++;
+        		break;
         	case -1:
         		overdueNumber++;
         		break;
@@ -211,8 +246,10 @@ public class TaskCategory extends UiPart {
         thisWeekNo.setText("[" + Integer.toString(thisWeekNumber) + "]");
         thisMonthNo.setText("[" + Integer.toString(thisMonthNumber) + "]");
         somedayNo.setText("[" + Integer.toString(somedayNumber) + "]");
+        totalTasksNumber = taskObservableList.size() - doneNumber;
         totalTaskNo.setText("[" + Integer.toString(totalTasksNumber) + "]");
-     }
+        totalDoneNo.setText("[" + Integer.toString(doneNumber) + "]"); 
+    }
 
      /**
      * Determines the time-state of the task in question
@@ -220,7 +257,8 @@ public class TaskCategory extends UiPart {
      * =======TIME-STATE TABLE=======
      * |    state   |   due         |
      * |------------|---------------|
-     * |    666     |   error       |
+     * |    404     |   error       |
+     * |    666     |   done        |
      * |    -1      |   overdue     |
      * |    0       |   no due date |
      * |    1       |   today       |
@@ -228,13 +266,18 @@ public class TaskCategory extends UiPart {
      * |    3       |   this month  |
      * ==============================
      * 
-     * @param task in question
+     * @param task (undone) in question
      * @return Integer based on the time-state
      * 
      * @@author A0139661Y
      */
     public Integer getTaskTimeState(ReadOnlyTask task) {
     	assert task != null;
+    	
+    	if (task.checkDone().value) {
+    		return 666;
+    	}
+    	
         DueByDate dbd = task.getDueByDate();
         
         LocalDate nowDate = LocalDate.now();
@@ -252,7 +295,7 @@ public class TaskCategory extends UiPart {
         if (dueDate.isBefore(weekDate)) return 2;
         if (dueDate.isBefore(monthDate)) return 3;
         
-        return 666;
+        return 404;
     }
     
     //@@author A0139661Y

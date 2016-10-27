@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.MainWindow">
+<VBox prefHeight="600.0" prefWidth="500.0" stylesheets="@../CSS/Labels.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.cmdo.ui.MainWindow">
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
@@ -51,7 +51,7 @@
             </VBox>
             <ScrollPane fitToHeight="true" fitToWidth="true">
                <content>
-                  <AnchorPane fx:id="taskListPanelPlaceholder">
+                  <AnchorPane fx:id="taskListPanelPlaceholder" prefWidth="250.0">
                      <padding>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                      </padding>
