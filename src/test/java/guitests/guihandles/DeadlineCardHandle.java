@@ -12,8 +12,9 @@ import seedu.todoList.model.task.ReadOnlyTask;
 //@@author A0132157M
 public class DeadlineCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#Name";
-    private static final String DATE_FIELD_ID = "#Date";
-    private static final String ET_FIELD_ID = "#EndTime";
+    private static final String STARTDATE_FIELD_ID = "#Date";
+    private static final String END_FIELD_ID = "#EndTime";
+    private static final String DONE_FIELD_ID = "#Done";
     
     private Node node;
 
@@ -30,12 +31,15 @@ public class DeadlineCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getDate() {
-        return getTextFromLabel(DATE_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
     }
     
     public String getEndTime() {
-        return getTextFromLabel(ET_FIELD_ID);
+        return getTextFromLabel(END_FIELD_ID);
+    }
+    public String getDone() {
+        return getTextFromLabel(DONE_FIELD_ID);
     }
 
 
@@ -49,14 +53,15 @@ public class DeadlineCardHandle extends GuiHandle {
         if(obj instanceof DeadlineCardHandle) {
             DeadlineCardHandle handle = (DeadlineCardHandle) obj;
             return getName().equals(handle.getName())
-                    && getDate().equals(handle.getDate())
-                    && getEndTime().equals(handle.getEndTime()); 
+                    && getStartDate().equals(handle.getStartDate())
+                    && getEndTime().equals(handle.getEndTime())
+                    && getDone().equals(handle.getDone()); 
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + getDate() + " " + getEndTime();
+        return getName() + " " + getStartDate() + " " + getEndTime() + " " + getDone();
     }
 }
