@@ -62,14 +62,20 @@ public class EditCommand extends Command {
             storeDataChanged.add(new Task(lastShownList.get(targetIndex - 1))); 
         } catch (TaskNotFoundException pnfe) {
             indicateAttemptToExecuteIncorrectCommand();
-            storeDataChanged.pop();
+            if(!storeDataChanged.isEmpty()) {
+                storeDataChanged.pop(); 
+            }
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalEditException iee) {
             indicateAttemptToExecuteIncorrectCommand();
-            storeDataChanged.pop();
+            if(!storeDataChanged.isEmpty()){
+                storeDataChanged.pop();
+            }
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
-            storeDataChanged.pop();
+            if(!storeDataChanged.isEmpty()){
+                storeDataChanged.pop();
+            }
             assert false : "Illegal value entered";
         }
         
