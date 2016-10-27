@@ -3,6 +3,8 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
@@ -29,6 +31,8 @@ public class ActivityCard extends UiPart {
     private Label tags;
     @FXML
     private Label completion;
+    @FXML
+    private ImageView priorityIcon;
 
     private ReadOnlyActivity activity;
     private int displayedIndex;
@@ -47,14 +51,14 @@ public class ActivityCard extends UiPart {
     @FXML
     public void initialize() {
         
-        
         name.setText(activity.getName().fullName);
         id.setText(displayedIndex + ". ");
         
         if(activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
             line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
-            line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());  
-        
+            line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
+            System.out.println(priorityIcon);
+            priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
         } else if(activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
             line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
             line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());   
