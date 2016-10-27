@@ -27,7 +27,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_EDIT = "edit";
     public static final String COMMAND_KEYWORD_UPDATE = "update";
-
+    // @@author A0138862W
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
                                                         + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"

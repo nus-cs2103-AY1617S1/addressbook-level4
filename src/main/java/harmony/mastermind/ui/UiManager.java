@@ -93,8 +93,10 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    // @@author A0138862W
     @Subscribe
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
         mainWindow.pushToActionHistory(event.title, event.description);
     }
+    // @@author
 }

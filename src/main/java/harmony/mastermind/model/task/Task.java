@@ -189,6 +189,7 @@ public class Task implements ReadOnlyTask {
         return false;
     }
     
+    // @@author A0138862W
     public Duration getEventDuration(){
         if(isEvent()){
             long differencel = endDate.getTime() - startDate.getTime();

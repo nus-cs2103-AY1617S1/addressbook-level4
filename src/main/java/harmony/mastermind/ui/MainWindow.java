@@ -9,6 +9,7 @@ import java.util.Collections;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.time.DurationFormatUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -92,7 +93,10 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
     
+    // @@author A0138862W
+    // init only one parser for all parsing, save memory and computation time
     private static final PrettyTime prettyTime = new PrettyTime();
+    // @@author
     
     private Logic logic;
 
@@ -239,6 +243,7 @@ public class MainWindow extends UiPart {
         mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
+    // @@author
 
     private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs, Logic logic) {
 
@@ -283,6 +288,7 @@ public class MainWindow extends UiPart {
         actionHistory.getItems().add(aHistory);
         actionHistory.scrollTo(actionHistory.getItems().size()-1);
     }
+    // @@author
 
     /**
      * Sets the default size based on user preferences.
@@ -522,12 +528,12 @@ public class MainWindow extends UiPart {
                     
                     if(readOnlyTask.isEvent()){
                         Button eventDuration = new Button();
-                        eventDuration.setText(readOnlyTask.getEventDuration().toDays()+" DAY(S) EVENT");
+                        eventDuration.setText("DURATION: " + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
                         eventDuration.getStyleClass().add("tag-event-duration");
                         hBox.getChildren().add(eventDuration);
                     }else if(readOnlyTask.isDeadline() && !readOnlyTask.isDue()){
                         Button dueDuration = new Button();
-                        dueDuration.setText("DUE IN "+readOnlyTask.getDueDuration().toDays()+" DAY(S)");
+                        dueDuration.setText("DUE IN "+DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
                         dueDuration.getStyleClass().add("tag-due-duration");
                         hBox.getChildren().add(dueDuration);
                     }

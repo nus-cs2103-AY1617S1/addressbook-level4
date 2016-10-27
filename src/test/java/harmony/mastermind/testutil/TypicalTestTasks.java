@@ -18,7 +18,7 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         
         try {
-            task1 =  new TaskBuilder().withName("do laundry")
+            task1 =  new TaskBuilder().withName("laundry")
                     .withTags("chores").build();
             task2 = new TaskBuilder().withName("finish assignment").build();
             task3 = new TaskBuilder().withName("cs2105 assignment")
@@ -30,7 +30,7 @@ public class TypicalTestTasks {
             
             
             //manual inputs
-            task5 = new TaskBuilder().withName("do past year papers")
+            task5 = new TaskBuilder().withName("past year papers")
                     .withEndDate("22 oct at 2359")
                     .withTags("homework").build();
             task6 = new TaskBuilder().withName("sweep floor").withEndDate("21 oct at 2359").build();

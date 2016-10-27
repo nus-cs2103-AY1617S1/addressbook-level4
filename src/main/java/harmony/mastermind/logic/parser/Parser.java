@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+import org.ocpsoft.prettytime.nlp.parse.DateGroup;
+
 import com.google.common.base.Strings;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;
@@ -148,9 +151,27 @@ public class Parser {
 
             // optionals
             final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
-            final Optional<String> startDate = Optional.ofNullable(matcher.group("startDate"));
-            final Optional<String> endDate = Optional.ofNullable(matcher.group("endDate"));
+            final Optional<String> dates = Optional.ofNullable(matcher.group("dates"));
+            Optional<String> startDate = Optional.empty();
+            Optional<String> endDate = Optional.empty();
             final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
+            
+            if(dates.isPresent()){
+                PrettyTimeParser ptp = new PrettyTimeParser();
+                List<DateGroup> dateGroups = ptp.parseSyntax(dates.get());
+                
+                if(!dateGroups.isEmpty()){
+                    List<Date> startEndDates = dateGroups.get(0).getDates();
+                    
+                    if(startEndDates.size() == 1){ // only 1 date is found, assume deadline
+                        startDate = Optional.empty();
+                        endDate = Optional.ofNullable(startEndDates.get(0).toString());
+                    }else if(startEndDates.size() == 2){ // 2 date value is found, assume event
+                        startDate = Optional.ofNullable(startEndDates.get(0).toString());
+                        endDate = Optional.ofNullable(startEndDates.get(1).toString());
+                    }
+                }
+            }
            
             
             // return internal value if present. else, return empty string
@@ -159,10 +180,6 @@ public class Parser {
             
             //check if recur has a valid keyword
             if (recur.isPresent()) {
-                String key = recur.get().split(" ")[0];
-                if (!Arrays.asList(AddCommand.COMMAND_KEYWORDS_RECUR).contains(key)) {
-                    return new IncorrectCommand("invalid recurring value");
-                }
                 recurVal = recur.get();
             }
             
@@ -206,6 +223,7 @@ public class Parser {
                 // floating
                 return new AddCommand(name, tagSet);
             }
+            
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -219,6 +237,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    // @@author A0138862W
     private Command prepareEdit(String args) {
         final Matcher matcher = EditCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
         // Validate arg string format
@@ -253,6 +272,7 @@ public class Parser {
         }
 
     }
+    // @@author
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.

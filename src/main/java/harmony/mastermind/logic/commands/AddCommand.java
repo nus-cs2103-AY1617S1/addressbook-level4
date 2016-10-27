@@ -24,7 +24,6 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
-    public static final String[] COMMAND_KEYWORDS_RECUR = {"daily", "weekly", "biweekly", "monthly", "yearly"};
 
     // The main idea of capturing parameters in any order is inspired by (author
     // velop):
@@ -36,22 +35,36 @@ public class AddCommand extends Command implements Undoable, Redoable {
     // We wrote the regular expression and tested at:
     // https://regex101.com/r/bFQrP6/1
     // @@author A0138862W
+    //
+    // the following regex is no longer in used, replaced by better one (NLP)
+    /*
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
-                                                         + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
-                                                         + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
-                                                         + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
-                                                         + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-                                                         + ".*";
+            + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
+            + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
+            + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
+            + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
+            + ".*";
+     */
+    
+    // Better regex, support better NLP:
+    // general form: add some task name from tomorrow 8pm to next friday 8pm daily #recurring,awesome
+    // https://regex101.com/r/M2A3tB/8
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=\\s(?<name>(?:.(?!by|from|#))+))"
+                                                        + "(?:(?=.*(?:by|from)\\s(?<dates>(?:.(?!#))+)?))?"
+                                                        + "(?:(?=.*(?<recur>daily|weekly|monthly|yearly)))?"
+                                                        + "(?:(?=.*#(?<tags>.+)))?.*";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_FORMAT = "(add|do) [r/'<recur>'] '<name>' [sd/'<startDate>'] [ed/'<endDate>'] [t/'<tags>...']";
+    public static final String COMMAND_FORMAT = "Floating Task: (add|do) <task_name> #[<comma_separated_tags>]\n"
+                                                + "Deadline: (add|do) <task_name> by <end_date> [daily|weekly|monthly|yearly] #[comma_separated_tags]\n"
+                                                + "Event: (add|do) <task_name> from <start_date> to <end_date> [daily|weekly|monthly|yearly] #[comma_separated_tags]";
 
-    public static final String MESSAGE_EXAMPLE_EVENT = "add 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'";
-    public static final String MESSAGE_EXAMPLE_DEADLINE = "add 'submit homework' ed/'next sunday 11pm' t/'math,physics'";
-    public static final String MESSAGE_EXAMPLE_FLOATING = "do 'chores' t/'cleaning'";
-    public static final String MESSAGE_EXAMPLE_RECUR_DEADLINE = "add r/'weekly' 'submit homework' ed/'next sunday 11pm' t/'math,physics'";
-    public static final String MESSAGE_EXAMPLE_RECUR_EVENT = "add r/'daily 2' 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'";
+    public static final String MESSAGE_EXAMPLE_EVENT = "add attend workshop from today 7pm to next monday 1pm #programming,java";
+    public static final String MESSAGE_EXAMPLE_DEADLINE = "add submit homework by next sunday 11pm #math,physics";
+    public static final String MESSAGE_EXAMPLE_FLOATING = "do chores #cleaning";
+    public static final String MESSAGE_EXAMPLE_RECUR_DEADLINE = "add submit homework by next sunday 11pm weekly #math,physics";
+    public static final String MESSAGE_EXAMPLE_RECUR_EVENT = "add attend workshop from today 7pm to next monday 1pm monthly #programming,java";
     
     public static final String MESSAGE_EXAMPLES = new StringBuilder()
                                                     .append("[Format]\n")
@@ -59,9 +72,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
                                                     .append("[Examples]:\n")
                                                     .append("Event: "+ MESSAGE_EXAMPLE_EVENT+"\n")
                                                     .append("Deadline: "+MESSAGE_EXAMPLE_DEADLINE+"\n")
-                                                    .append("Floating: "+MESSAGE_EXAMPLE_FLOATING)
-                                                    .append("Recurring Deadline: "+MESSAGE_EXAMPLE_RECUR_DEADLINE)
-                                                    .append("Recur Event twice: "+MESSAGE_EXAMPLE_RECUR_EVENT)
+                                                    .append("Floating: "+MESSAGE_EXAMPLE_FLOATING+"\n")
+                                                    .append("Recurring Deadline: "+MESSAGE_EXAMPLE_RECUR_DEADLINE+"\n")
+                                                    .append("Recurring Event: "+MESSAGE_EXAMPLE_RECUR_EVENT+"\n")
                                                     .toString();
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
