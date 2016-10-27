@@ -20,6 +20,8 @@ public class XmlAdaptedTask {
     @XmlElement(required = false)
     private String deadline;
     @XmlElement(required = false)
+    private String endTime;
+    @XmlElement(required = false)
     private String address;
 
     @XmlElement
@@ -39,7 +41,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         description = source.getDescription().toString();
         deadline = source.getDate().toString();
- 
+        endTime = (source.getEndTime() != null)? source.getEndTime().toString() : null;
         address = source.getLocation().toString();
 //        tagged = new ArrayList<>();
 //        for (Tag tag : source.getTags()) {
@@ -61,6 +63,13 @@ public class XmlAdaptedTask {
         final Deadline dline = new Deadline(this.deadline);
         final Location addr = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
+        if(endTime != null){
+        	final Deadline etime = new Deadline(this.endTime);
+        	List<Deadline> l = new ArrayList();
+        	l.add(dline);
+        	l.add(etime);
+        	return new Task(desc, l, addr, tags);
+        }
         return new Task(desc, dline, addr, tags);
     }
 }

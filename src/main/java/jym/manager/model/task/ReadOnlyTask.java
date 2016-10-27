@@ -11,8 +11,10 @@ public interface ReadOnlyTask {
     Description getDescription();
     Location getLocation();
 	Deadline getDate();
+	Deadline getEndTime();
 	Priority getPriority();
 	Complete getComplete();
+	String getDateString();
 	
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +30,8 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
-                && other.getLocation().equals(this.getLocation()));
+                && other.getLocation().equals(this.getLocation())
+                && other.getEndTime().equals(this.getEndTime()));
     }
 
     /**

@@ -12,7 +12,7 @@ import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.commons.util.CollectionUtil;
 import jym.manager.model.tag.UniqueTagList;
 
-public class Event extends TaskManagerItem implements ReadOnlyTMItem {
+public class Event extends TaskManagerItem implements ReadOnlyTask {
 	
 	private Description descr;
 	private Location loc;
@@ -76,13 +76,13 @@ public class Event extends TaskManagerItem implements ReadOnlyTMItem {
 	public LocalTime getStartTime(){
 		return this.startTime.getDate().toLocalTime();
 	}
-	public LocalTime getEndTime(){
+	public Deadline getEndTime(){
 		//this is bad form, fix when you can (when you're not strapped for time for a deadline two days away)
 		long numHours = (long)duration;
 		long numMins = (long) ((duration - (long)duration) * 60);
 		long numSecs =  (long) (((duration - (long)duration) * 60) - (long)((duration - (long)duration) * 60));
 		
-		return this.startTime.getDate().plusHours(numHours).plusMinutes(numMins).plusSeconds(numSecs).toLocalTime();
+		return endTime;//this.startTime.getDate().plusHours(numHours).plusMinutes(numMins).plusSeconds(numSecs).toLocalTime();
 	}
 	public String toString(){
 		return getAsText();
@@ -104,6 +104,12 @@ public class Event extends TaskManagerItem implements ReadOnlyTMItem {
 	}
 	@Override
 	public Complete getComplete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDateString() {
 		// TODO Auto-generated method stub
 		return null;
 	}

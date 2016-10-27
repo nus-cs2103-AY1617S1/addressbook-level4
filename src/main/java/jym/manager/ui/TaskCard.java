@@ -50,7 +50,7 @@ public class TaskCard extends UiPart{
 	        	address.setText(task.getLocation().toString());
 	        }
 	        if(task.getDate() != null) {
-	        	deadline.setText("" + task.getDate().toString());
+	        	deadline.setText("" + task.getDateString());
 	        } else {
 	        	deadline.setText("No deadline");
 	        }

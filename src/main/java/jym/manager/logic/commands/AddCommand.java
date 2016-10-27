@@ -54,6 +54,8 @@ public class AddCommand extends Command {
     			List<LocalDateTime> d = (List<LocalDateTime>)o;
     			if(d.size() > 1)
     				isTask = false;
+    			else
+    				o = d.get(0);
     		}
     	}
 //      final Set<Tag> tagSet = new HashSet<>();

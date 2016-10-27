@@ -93,4 +93,16 @@ public class TestTask implements ReadOnlyTask {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getDateString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Deadline getEndTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

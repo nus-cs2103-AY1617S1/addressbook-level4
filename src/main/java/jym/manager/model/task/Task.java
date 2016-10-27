@@ -1,6 +1,7 @@
 package jym.manager.model.task;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import jym.manager.commons.exceptions.IllegalValueException;
@@ -16,8 +17,6 @@ import jym.manager.model.task.Priority;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task extends TaskManagerItem implements ReadOnlyTask {
-
-	
 	
 	private Description descr;
 	private Location loc;
@@ -33,6 +32,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 		this.descr = description;
 		this.loc = new Location();
 		this.dueDate = new Deadline();
+		this.endTime = null;
 		this.pri = new Priority(0);
 		for(int i = 0; i < objects.length; i++){
     		Object o = objects[i];
@@ -44,6 +44,26 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     			this.dueDate = new Deadline((LocalDateTime)o);
     		} else if(o instanceof Deadline){ 
     			this.dueDate = (Deadline)o;
+    		} else if(o instanceof List){
+    			if(((List) o).size() == 1){
+    				if(((List)o).get(0) instanceof LocalDateTime){
+        				List<LocalDateTime> l = (List<LocalDateTime>)o;
+    					this.dueDate = new Deadline(l.get(0));
+    				} else {
+    					this.dueDate = ((List<Deadline>) o).get(0);
+    				}
+    			} else {
+    				if(((List) o).get(0) instanceof LocalDateTime){
+        				List<LocalDateTime> l = (List<LocalDateTime>)o;
+            			this.dueDate = new Deadline(l.get(0));
+            			this.endTime = new Deadline(l.get(1));
+        			} else {
+        				//must be of type deadline
+        				List<Deadline> l = (List<Deadline>)o;
+        				this.dueDate = l.get(0);
+        				this.endTime = l.get(1);
+        			}
+    			}
     		} else if(o instanceof Priority){
     			this.pri = (Priority)o;
     		} else if(o instanceof Integer){
@@ -63,11 +83,12 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
      * Every field must be present and not null.
      */
 
-    public Task(Description description, Location location, Deadline due, Priority p, UniqueTagList tags) {
+    public Task(Description description, Location location, Deadline due, Deadline end, Priority p, UniqueTagList tags) {
     //	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
     	this.loc = (location == null)? new Location():location;
     	this.dueDate = (due == null) ? new Deadline():due;
+    	this.endTime = (end == null) ? null : end;
     	this.pri = p;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -76,7 +97,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags());
+        this(source.getDescription(), source.getLocation(), source.getDate(), source.getEndTime(), source.getPriority(), source.getTags());
     }
    
     public Task update(ReadOnlyTask source){
@@ -86,6 +107,9 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     	}
     	if(source.getDate().hasDeadline()){
     		this.dueDate = source.getDate();
+    	}
+    	if(source.getEndTime() != null){
+    		this.endTime = source.getEndTime();
     	}
     	
     	return this;
@@ -113,6 +137,9 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	@Override
 	public Deadline getDate() {
 		return this.dueDate;
+	}
+	public Deadline getEndTime(){
+		return this.endTime;
 	}
 
 	@Override
@@ -173,7 +200,15 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	public void setCompl(Complete compl) {
 		this.compl = compl;
 	}
-
+	public boolean isEvent(){
+		return this.endTime != null;
+	}
+	public String getDateString(){
+		if(this.endTime != null){
+			return this.dueDate + " -> " + this.endTime; 
+		}
+		return this.dueDate.toString();
+	}
 
 
 }

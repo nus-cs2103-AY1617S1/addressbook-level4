@@ -296,10 +296,10 @@ public class Parser {
          String date = null;
          String description = null;
          String location = null;
-         
+         List<LocalDateTime> dates = null;
      	if(!dg.isEmpty() && dg.get(0) != null){
-     		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
-
+     		dates = getDates(dg.get(0));
+     		
      		sections = args.split(dg.get(0).getText());
      		if(sections.length > 1){
              	location = sections[1];
@@ -341,7 +341,7 @@ public class Parser {
              return new EditCommand(
                      index.get(),
                      description,
-                     ldt,
+                     dates,
                      location
              );
          } catch (IllegalValueException ive) {
