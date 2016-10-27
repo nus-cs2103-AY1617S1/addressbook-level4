@@ -4,15 +4,16 @@ import javafx.collections.transformation.FilteredList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
 import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
 import seedu.cmdo.model.task.UniqueTaskList.TaskAlreadyDoneException;
 import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -26,7 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
     private final UserPrefs userPrefs;
-
+    private final Undoer undoer;
+    
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -41,6 +43,10 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
+        
+        //@@author A0139661Y
+        this.undoer = Undoer.getInstance();
+        logger.info("Saved new toDoList into Undoer stack. " + toDoList.toString());
     }
 
     public ModelManager() {
@@ -51,11 +57,15 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         this.userPrefs = userPrefs;
+
+        //@@author A0139661Y
+        this.undoer = Undoer.getInstance();
+        logger.info("Saved last stable toDoList into Undoer stack. " + toDoList.toString());
     }
 
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-        toDoList.resetData(newData);
+    	toDoList.resetData(newData);
         indicateToDoListChanged();
     }
 
@@ -68,27 +78,61 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(toDoList));
     }
+    
+    /**
+     * Undo functionality
+     * 
+     * @@author A0139661Y
+     */
+    @Override
+    public synchronized void undo() throws CannotUndoException {
+    	try {
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.undo(currentState));
+    		logger.info("Undo operation called.");
+    	} catch (EmptyStackException ese) {
+    		throw new CannotUndoException("Nothing to undo.");
+    	}
+    	indicateToDoListChanged();
+    	updateFilteredListToShowAll();
+    }
+    
+    /**
+     * Redo functionality
+     * 
+     * @@author A0141006B
+     */
+    @Override
+    public synchronized void redo() throws CannotUndoException {
+    	try {
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.redo(currentState));
+    		logger.info("Redo operation called.");
+    	} catch (EmptyStackException ese) {
+    		throw new CannotUndoException("Nothing to redo.");
+    	}
+    	indicateToDoListChanged();
+    	updateFilteredListToShowAll();
+    }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        toDoList.removeTask(target);
+    	toDoList.removeTask(target);
         indicateToDoListChanged();
     }
     
     @Override
-    public synchronized void doneTask(Task target) throws TaskNotFoundException, TaskAlreadyDoneException {
-        if (target.checkDone().value) {
-        	throw new TaskAlreadyDoneException();
-        }
-    	target.checkDone().setDone();
+    public synchronized void doneTask(ReadOnlyTask target, Task replacer) throws TaskNotFoundException, TaskAlreadyDoneException {
+        toDoList.removeTask(target);
+    	toDoList.addTask(replacer);
         indicateToDoListChanged();
-        updateFilteredListToShowAll();
+    	updateFilteredListToShowAll();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) {
         toDoList.addTask(task);
-        updateFilteredListToShowAll(); 
+        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
     

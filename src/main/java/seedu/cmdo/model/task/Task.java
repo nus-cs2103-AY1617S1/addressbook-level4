@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.cmdo.commons.util.CollectionUtil;
 import seedu.cmdo.model.tag.UniqueTagList;
@@ -12,7 +13,7 @@ import seedu.cmdo.model.tag.UniqueTagList;
 /**
  * Represents a Task in the To Do List.
  * Guarantees: details are present and not null, field values are validated.
- */
+ **/
 public class Task implements ReadOnlyTask {
 
 	
@@ -23,6 +24,8 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private UniqueTagList tags;
     private Boolean block = false;
+    // ObjectID assign each Task instance a distinct ID
+    private String objectID = null;
 
     /**
      * Every field must be present and not null.
@@ -62,6 +65,17 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
+    
+    /**
+     * Copy constructor with dereferencing Done value. This ensures that source's value does not get modified along with the new task's.
+     * 
+     * @@author A0139661Y
+     */
+    public Task(ReadOnlyTask source, Done done) {
+        this(source.getDetail(), done, source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
+    }
+
+
     
     //@@author A0141128R
     //to edit it to a floating task
@@ -112,6 +126,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    public void updateObjectID() {
+        objectID = UUID.randomUUID().toString();
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -157,6 +175,7 @@ public class Task implements ReadOnlyTask {
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
     }
+    
     /*
      * @@author A0141128R
      * To set task to blocked time slot

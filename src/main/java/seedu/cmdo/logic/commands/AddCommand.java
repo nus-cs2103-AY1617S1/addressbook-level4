@@ -34,7 +34,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in CMDo";
 
     private final Task toAdd;
-
+    
     /**
      * Created an add command for SINGULAR NON-RANGE DATE AND TIME
      *
@@ -58,6 +58,7 @@ public class AddCommand extends Command {
                 new Priority(priority),
                 new UniqueTagList(tagSet)
         );
+        isUndoable = true;
     }
     
     /**
@@ -85,6 +86,7 @@ public class AddCommand extends Command {
                 new Priority(priority),
                 new UniqueTagList(tagSet)
         );
+        isUndoable = true;
     }
 
 
@@ -104,8 +106,6 @@ public class AddCommand extends Command {
     		blocker.checkBlocked(toAdd, model.getBlockedList());
         	model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskBlockedException tbe) {
     		return new CommandResult(tbe.getMessage());
         }

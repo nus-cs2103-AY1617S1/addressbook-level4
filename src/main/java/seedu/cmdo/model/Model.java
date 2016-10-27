@@ -3,6 +3,7 @@ package seedu.cmdo.model;
 import java.util.Set;
 
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList;
@@ -22,10 +23,10 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Done the given task. */
-    void doneTask(Task target) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.TaskAlreadyDoneException;
+    void doneTask(ReadOnlyTask target, Task replacer) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.TaskAlreadyDoneException;
     
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservaibleList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -51,4 +52,9 @@ public interface Model {
 	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
 
 	void changeStorageFilePath(String filePath);
+
+	void undo() throws CannotUndoException;
+
+	void redo() throws CannotUndoException;
+
 }

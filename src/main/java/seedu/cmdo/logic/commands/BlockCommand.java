@@ -64,11 +64,13 @@ public class BlockCommand extends Command {
         );
         //makes the task a block time slot
         toBlock.setBlock();
+        this.isUndoable = true;
     }
 
 
     public BlockCommand(Task toBlock) {
         this.toBlock = toBlock;
+        this.isUndoable = true;
     }
 
     public ReadOnlyTask getBlock() {
@@ -82,8 +84,6 @@ public class BlockCommand extends Command {
     		blocker.checkBlocked(toBlock, model.getBlockedList());
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
-        } catch (UniqueTaskList.DuplicateTaskException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskBlockedException tbe) {
         	return new CommandResult (tbe.getMessage());
         }

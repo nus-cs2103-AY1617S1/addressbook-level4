@@ -18,7 +18,6 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
-import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.logic.commands.*;
 import seedu.cmdo.model.ModelManager;
 import seedu.cmdo.model.task.Priority;
@@ -125,6 +124,12 @@ public class MainParser {
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
             
@@ -424,6 +429,17 @@ public class MainParser {
 
         return new DeleteCommand(index.get());
     }
+
+//    private String RedoCommand() {
+//        if (statusSaver.isRedoMasterStackEmpty()) {
+//            return REDO_LIMIT;
+//        }
+//        statusSaver.retrieveRedoStatus();
+//        taskMasterList = statusSaver.getLastTaskMasterList();
+//        taskObservableList = statusSaver.getLastTaskObservableList();
+//        taskOrganiser.updateFile(taskMasterList);
+//        return REDO_MESSAGE;
+//    }
     
     /**
      * Parses arguments in the context of the done task command.

@@ -63,15 +63,10 @@ public class TypicalTestTasks {
     }
 
     public static void loadToDoListWithSampleData(ToDoList td) {
-
-        try {
-            td.addTask(new Task(grocery));
-            td.addTask(new Task(house));
-            td.addTask(new Task(car));
-            td.addTask(new Task(zika));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+    	td.addTask(new Task(grocery));
+        td.addTask(new Task(house));
+        td.addTask(new Task(car));
+        td.addTask(new Task(zika));
     }
 
     public TestTask[] getTypicalTasks() {

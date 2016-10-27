@@ -16,6 +16,7 @@ public class Messages {
 	public static final String MESSAGE_ENCAPSULATE_DETAIL_WARNING = "Encapsulate your task details in ' '.";
 	public static final String MESSAGE_BLANK_DETAIL_WARNING = "Blank task? Did you mean to block out a date? Type help to see usage.";
 	public static final String MESSAGE_INVALID_PRIORITY_SPACE = "Did you remember to add a space before the /priority?";
+	public static final String MESSAGE_UNDO_LIMIT = "No more actions to undo";
 	public static final String MESSAGE_INVALID_TIME_SPACE = "What time do you want to block?";
 	public static final String MESSAGE_TIMESLOT_BLOCKED = "Time slot blocked! Here is a list of all your blocked slots.";
 	public static final String MESSAGE_CANNOT_DONE = "You can't do a blocked timeslot... Right?";

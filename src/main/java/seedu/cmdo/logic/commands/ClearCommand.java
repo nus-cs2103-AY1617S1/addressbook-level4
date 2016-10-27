@@ -12,8 +12,10 @@ public class ClearCommand extends Command {
 			+ "Example: clear";
 								
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
-
-    public ClearCommand() {}
+    
+    public ClearCommand() {
+    	this.isUndoable = true;
+    }
 
 
     @Override

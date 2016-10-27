@@ -96,8 +96,7 @@ public class EditCommand extends Command {
                 new UniqueTagList(tagSet)
         );
         this.targetIndex = targetIndex;
-        floating = false;//since if range constructor is used, user would have keyed in a timing
-        this.removePriority = removePriority;
+        this.isUndoable = true;
     }
     
     public ReadOnlyTask getTask() {

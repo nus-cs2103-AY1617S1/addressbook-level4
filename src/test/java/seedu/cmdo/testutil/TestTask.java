@@ -7,6 +7,7 @@ import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
 import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
 
 /**
  * A mutable person object. For testing only.
