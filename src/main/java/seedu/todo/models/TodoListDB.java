@@ -26,7 +26,7 @@ import seedu.todo.storage.Storage;
  * serialization.</li>
  * </ul>
  * 
- * @author louietyj
+ * @@author A0093907W
  *
  */
 public class TodoListDB {
@@ -170,6 +170,8 @@ public class TodoListDB {
      * called.</i>
      * 
      * @return event
+     * 
+     * @@author A0093907W
      */
     public Event createEvent() {
         Event event = new Event();
@@ -225,6 +227,8 @@ public class TodoListDB {
      * Gets the singleton instance of the TodoListDB.
      * 
      * @return TodoListDB
+     * 
+     * @@author A0093907W
      */
     public static TodoListDB getInstance() {
         if (instance == null) {
