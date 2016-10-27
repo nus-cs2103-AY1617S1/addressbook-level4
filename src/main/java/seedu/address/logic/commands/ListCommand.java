@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_ALIAS = "ls";
 
     public static final String LIST_KEYWORD_ALL = "all";
     public static final String LIST_KEYWORD_OD = "od";

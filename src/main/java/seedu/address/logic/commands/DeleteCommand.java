@@ -13,6 +13,7 @@ import seedu.address.ui.PersonListPanel;
 public class DeleteCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_ALIAS = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number given in the most recent listing.\n"

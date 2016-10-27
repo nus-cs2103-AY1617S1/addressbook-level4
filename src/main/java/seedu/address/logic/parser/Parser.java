@@ -80,12 +80,14 @@ public class Parser {
             return prepareAdd(arguments);
 
         case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ALIAS:
             return prepareSelect(arguments);
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_ALIAS:
             return prepareDelete(arguments);
 
         case EditCommand.COMMAND_WORD:
@@ -101,6 +103,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS:
             return prepareList(arguments);
             
         case SaveCommand.COMMAND_WORD:
