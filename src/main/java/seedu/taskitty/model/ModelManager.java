@@ -18,14 +18,12 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
-import seedu.taskitty.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -127,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
    	
-   	//@@author   	
+    //@@author A0139052L   	
    	@Override
     public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText) {
         undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
@@ -140,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
    	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
    	    undoTaskInfo.storeTask(addedTask);
    	    undoTaskInfo.storeTask(deletedTask);
-   	 undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
+   	    undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
    	}
    	
    	@Override
@@ -169,10 +167,9 @@ public class ModelManager extends ComponentManager implements Model {
         undoTaskInfo.storeTaskManager(new TaskManager(taskManager));
         undoTaskInfo.storeCommandText(ClearCommand.COMMAND_WORD);
     }
-   	
-   	//@@author A0139052L    
+   	       
     public String undo() throws NoPreviousValidCommandException {
-        String message = null;
+        String commandText = null;
         if (!undoTaskInfo.hasPreviousValidCommand()) {
             throw new NoPreviousValidCommandException(null);
         }
@@ -209,10 +206,10 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (Exception e) {
             assert false: "Should not be unable to undo previous command action";
         }
-        message = undoTaskInfo.getCommandText();
-        return message;
+        commandText = undoTaskInfo.getCommandText();
+        return commandText;
     }
-    
+    //@@author
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -278,13 +275,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines.setPredicate(expression::satisfies);
         filteredEvents.setPredicate(expression::satisfies);
     }
-    
-    private void updateFilteredTaskList(Predicate previousPredicate) {
-        allTasks.setPredicate(previousPredicate);
-        filteredTodos.setPredicate(previousPredicate);
-        filteredDeadlines.setPredicate(previousPredicate);
-        filteredEvents.setPredicate(previousPredicate);
-    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -340,6 +330,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    
+  //========== Inner class used for storing info needed for undoing/redoing functions ==================================================
+    //@@author A0139052L
     private class SessionTaskInfoStorage {
         
         private final Stack<String> historyCommandWords;
@@ -361,22 +354,27 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
         private String getCommandWord() {
+            assert !historyCommandWords.isEmpty();
             return historyCommandWords.pop();
         }
         
         private String getCommandText() {
+            assert !historyCommandTexts.isEmpty();
             return historyCommandTexts.pop();
         }
         
         private ReadOnlyTask getTask() {
+            assert !historyTasks.isEmpty();
             return historyTasks.pop();
         }       
         
         private int getNumberOfTasks() {
+            assert !historyNumberOfTasks.isEmpty();
             return historyNumberOfTasks.pop();
         }
         
         private ReadOnlyTaskManager getTaskManager() {
+            assert !historyTaskManagers.isEmpty();
             return historyTaskManagers.pop();
         }
         

@@ -2,11 +2,6 @@ package seedu.taskitty.model;
 
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
-import seedu.taskitty.logic.commands.AddCommand;
-import seedu.taskitty.logic.commands.ClearCommand;
-import seedu.taskitty.logic.commands.DeleteCommand;
-import seedu.taskitty.logic.commands.DoneCommand;
-import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -44,14 +39,29 @@ public interface Model {
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
     
+    /**
+     * stores the info from an add command that is needed for undoing/redoing functions
+     */
     public void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText);
     
+    /**
+     * stores the info from an edit command that is needed for undoing/redoing functions
+     */
     public void storeEditCommandInfo(ReadOnlyTask deletedTask, ReadOnlyTask addedTask, String commandText);
     
+    /**
+     * stores the info from a delete command that is needed for undoing/redoing functions
+     */
     public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText);
     
+    /**
+     * stores the info from a done command that is needed for undoing/redoing functions
+     */
     public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText);
     
+    /**
+     * stores the info from a clear command that is needed for undoing/redoing functions
+     */
     public void storeClearCommandInfo();
     
     //@@author
