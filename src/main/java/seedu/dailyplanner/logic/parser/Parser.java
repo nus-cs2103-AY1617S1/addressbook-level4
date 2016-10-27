@@ -175,9 +175,9 @@ public class Parser {
 	String trimmedArgs = args.trim();
 	
 	
-	if(!(isValidAddArgumentFormat(trimmedArgs))){
+	/*if(!(isValidAddArgumentFormat(trimmedArgs))){
 		return  new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-	}
+	}*/
 	
 	
 	HashMap<String, String> mapArgs = parseAdd(trimmedArgs);
@@ -220,7 +220,7 @@ public class Parser {
     }
 
 	private boolean isValidAddArgumentFormat(String trimmedArgs) {
-		if(trimmedArgs.charAt(1) == '/' || trimmedArgs.charAt(2) == '/'){
+		if(trimmedArgs.charAt(1) == '/'){
 			return  false;
 		}
 		for(int k =0; k <trimmedArgs.length(); k++){
@@ -229,12 +229,12 @@ public class Parser {
 					if(trimmedArgs.charAt(k+1) == ' '){
 						return  false;
 					}
+				}	
 				else{
 					if(trimmedArgs.charAt(k) == '/')
 						return false;					
 					}
-				
-				}
+								
 			}
 		}
 		return true;
