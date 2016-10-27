@@ -47,7 +47,9 @@ Format: `exit`
 #### Saving the data 
 Savvy Tasker data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
- 
+
+[//]: # (@@author A0139915W)
+
 #### Adding a task: `add`
 Adds a task to Savvy Tasker.<br>
 Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
@@ -149,6 +151,8 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 > <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
+[//]: # (@@author)
+
 #### Mark a task as done : `mark`
 Marks the task as completed identified by the index number used in the last task listing. Completed task will be remove from the normal list and placed under archived list<br>
 Format: `mark INDEX [MORE_INDEX]`
@@ -227,6 +231,9 @@ Add task named "pjm" to task list
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Savvy Tasker folder.
        
+
+[//]: # (@@author A0139915W)
+
 ## Command Summary
 
 Command | Format  
