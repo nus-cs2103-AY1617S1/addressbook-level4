@@ -622,7 +622,7 @@ public class LogicManagerTest {
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             
-            return new Task(name, startDate, endDate, tags, recur);
+            return new Task(name, startDate, endDate, tags, recur, null);
         }
 
         /**
@@ -639,6 +639,7 @@ public class LogicManagerTest {
                     startDate,
                     endDate,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    null,
                     null
                     );
         }
@@ -755,6 +756,7 @@ public class LogicManagerTest {
                     new Date(),
                     new Date(),
                     new UniqueTagList(new Tag("tag1"), new Tag("tag2")),
+                    null,
                     null
             );
         }

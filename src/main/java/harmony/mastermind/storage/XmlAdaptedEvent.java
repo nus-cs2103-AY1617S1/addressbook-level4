@@ -27,6 +27,8 @@ public class XmlAdaptedEvent {
     private Date endDate;
     @XmlElement(required = true)
     private String recur;
+    @XmlElement(required = true)
+    private Date createdDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -46,6 +48,7 @@ public class XmlAdaptedEvent {
         startDate = source.getStartDate();
         endDate = source.getEndDate();
         recur = source.getRecur();
+        createdDate = source.getCreatedDate();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -68,8 +71,9 @@ public class XmlAdaptedEvent {
         final Date startDate = this.startDate;
         final Date endDate = this.endDate;
         final String recur = this.recur;
+        final Date createdDate = this.createdDate;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags, recur);
+        return new Task(name, startDate, endDate, tags, recur, createdDate);
     }
 }

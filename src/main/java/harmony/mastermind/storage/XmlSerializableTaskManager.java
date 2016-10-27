@@ -9,10 +9,12 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @XmlElement
     private List<Tag> tags;
     
+    private TaskListComparator comparator;
+    
 
     {
         floatingTasks = new ArrayList<>();
@@ -40,6 +44,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         deadlines= new ArrayList<>();
         archives = new ArrayList<>();
         tags = new ArrayList<>();
+        comparator = new TaskListComparator();
     }
 
     /**
@@ -86,6 +91,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
             }
         }
+        
+        lists.getInternalList().sort(comparator);
         return lists;
     }
 
