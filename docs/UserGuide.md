@@ -24,6 +24,7 @@
 
 
 ## Features
+//@@author A0140156R
 ### Foreword
 All commands have a standard format so that you can easily remember them. A typical command will take the form:
 
@@ -48,7 +49,7 @@ Words within the square brackets "[" and "]" are optional fields. You can choose
 1. Help: `help`  
 If you are ever lost, you can bring up the help menu to display all possible commands.
 > Displays list of available commmands and their descriptions 
-
+//@@author A0142605N 
 2. Add a Task / Event: `add`  
 <img src="images/add.png" width="600">  
 
@@ -229,7 +230,7 @@ Command format: `save <new path>`
 
 //@@author A0142605N 
 ## Supported Formats
-
+//@@author A0138848M
 ### Supported Date Formats
 You can choose to enter only the first 3 letters of any month or day when entering commands, and dates are not case-sensitive. For example, `oct` and `October` are both accepted for October.  
 
