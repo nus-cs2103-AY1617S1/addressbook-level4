@@ -60,7 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoableTasks = new UndoList();
     }
 
-
+    //@@author A0139024M 
     public void checkStatus(){
         UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
         UniqueTaskList floating = taskBook.getUniqueUndatedTaskList();
@@ -106,6 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
+    //@@author
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
@@ -178,13 +179,15 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList() {
         return new UnmodifiableObservableList<>(filteredUndatedTasks);
     }
-
+    
+    //@@author A0139145E
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredTaskList("NONE", "OVERDUE", "EXPIRE");
         //filteredDatedTasks.setPredicate(null);
         //filteredUndatedTasks.setPredicate(null);
     }
+    //@@author
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
@@ -242,7 +245,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskQualifier(Set<String> taskKeyWords) {
             this.taskKeyWords = taskKeyWords;
         }
-
+        
+        //@@author A0139528W
         @Override
         public boolean run(ReadOnlyTask task) {
             return (taskKeyWords.stream()
@@ -262,6 +266,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent());
         }
+        //@@author 
 
         @Override
         public String toString() {
