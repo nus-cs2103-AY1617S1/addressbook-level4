@@ -71,7 +71,9 @@ public class ActivityCard extends UiPart {
         	cardPane.setStyle("-fx-background-color: springgreen;");
         } else if(activity.passedDueDate()){
             cardPane.setStyle("-fx-background-color: red;");
-        } /*else if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
+        } 
+        //too many colours, idea for priority colours put on hold
+        /*else if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
 
             switch (((ReadOnlyTask) activity).getPriority().value) {
 
