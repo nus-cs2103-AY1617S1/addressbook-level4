@@ -36,14 +36,9 @@ public class TodoListDB {
     
     private Set<Task> tasks = new LinkedHashSet<Task>();
     private Set<Event> events = new LinkedHashSet<Event>();
-    private Map<String, String> aliases = new HashMap<String, String>();
     
     protected TodoListDB() {
         // Prevent instantiation.
-    }
-    
-    public Map<String, String> getAliases() {
-        return aliases;
     }
     
     /**

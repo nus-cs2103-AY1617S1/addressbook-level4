@@ -2,7 +2,9 @@ package seedu.todo.commons.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -17,7 +19,7 @@ public class Config {
     private String appTitle = "GetShitDone";
     private Level logLevel = Level.INFO;
     private String databaseFilePath = "database.json";
-
+    private Map<String, String> aliases = new HashMap<String, String>();
 
     public Config() {
     }
@@ -44,6 +46,10 @@ public class Config {
 
     public void setDatabaseFilePath(String databaseFilePath) {
         this.databaseFilePath = databaseFilePath;
+    }
+    
+    public Map<String, String> getAliases() {
+        return aliases;
     }
 
 

@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper functions for handling strings.
@@ -87,4 +88,20 @@ public class StringUtil {
         return String.format("%d %s", numTasks, pluralizer(numTasks, "task", "tasks"));
     }
     
+    /**
+     * Returns <code>string</code> with aliased keys replaced with their
+     * respective values. This method only matches complete words and not word
+     * partials.
+     * 
+     * @param string
+     * @param alias
+     * @return
+     */
+    public static String replaceAliases(String string, Map<String, String> alias) {
+        String newString = string;
+        for (Map.Entry<String, String> entry : alias.entrySet()) {
+            newString = newString.replaceAll(String.format("\\b%s\\b", entry.getKey()), entry.getValue());
+        }
+        return newString;
+    }
 }

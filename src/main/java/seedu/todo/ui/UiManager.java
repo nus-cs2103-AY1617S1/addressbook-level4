@@ -23,6 +23,9 @@ public class UiManager extends ComponentManager implements Ui {
     
     // Only one currentView.
     public static View currentView;
+    
+    private static String currentConsoleMessage = "";
+    private static String currentConsoleInputValue = "";
 
     private Config config;
     private MainWindow mainWindow;
@@ -52,7 +55,8 @@ public class UiManager extends ComponentManager implements Ui {
 
         // Show main window.
         try {
-            mainWindow = MainWindow.load(primaryStage, config);
+            mainWindow = UiPartLoader.loadUiPart(primaryStage, null, MainWindow.class);
+            mainWindow.configure(config);
             mainWindow.render();
             mainWindow.show();
         } catch (Throwable e) {
@@ -89,12 +93,20 @@ public class UiManager extends ComponentManager implements Ui {
             currentView = view;
             
             // Clear console values first
-            View.consoleInputValue = "";
-            View.consoleMessage = "";
+            currentConsoleInputValue = "";
+            currentConsoleMessage = "";
             
             // Render view
             view.render();
         }
+    }
+    
+    public static String getConsoleMessage() {
+        return currentConsoleMessage;
+    }
+    
+    public static String getConsoleInputValue() {
+        return currentConsoleInputValue;
     }
     
     /**
@@ -105,7 +117,7 @@ public class UiManager extends ComponentManager implements Ui {
      */
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {
-            View.consoleMessage = consoleMessage;
+            currentConsoleMessage = consoleMessage;
             instance.mainWindow.loadComponents();
         }
     }
@@ -118,7 +130,7 @@ public class UiManager extends ComponentManager implements Ui {
      */
     public static void updateConsoleInputValue(String consoleInputValue) {
         if (currentView != null) {
-            View.consoleInputValue = consoleInputValue;
+            currentConsoleInputValue = consoleInputValue;
             instance.mainWindow.loadComponents();
         }
     }

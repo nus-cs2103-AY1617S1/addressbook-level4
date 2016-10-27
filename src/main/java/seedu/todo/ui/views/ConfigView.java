@@ -7,11 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.ConfigItem;
 
 public class ConfigView extends View {
@@ -28,10 +26,6 @@ public class ConfigView extends View {
     private ImageView configImageView;
     @FXML
     private Pane configsPlaceholder;
-
-    public static ConfigView load(Stage primaryStage, Pane placeholder) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholder, new ConfigView());
-    }
 
     @Override
     public String getFxmlPath() {
@@ -57,7 +51,7 @@ public class ConfigView extends View {
 
         // Load items
         for (ConfigDefinition definition : configDefinitions) {
-            ConfigItem item = ConfigItem.load(primaryStage, configsPlaceholder);
+            ConfigItem item = load(primaryStage, configsPlaceholder, ConfigItem.class);
             item.configDefinition = definition;
             item.render();
         }

@@ -12,12 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.AliasDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.AliasItem;
 
 public class AliasView extends View {
@@ -36,10 +34,6 @@ public class AliasView extends View {
     @FXML
     private Pane aliasesPlaceholder;
 
-    public static AliasView load(Stage primaryStage, Pane placeholder) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholder, new AliasView());
-    }
-
     @Override
     public String getFxmlPath() {
         return FXML_PATH;
@@ -57,7 +51,7 @@ public class AliasView extends View {
         aliasImageView.setImage(new Image(ICON_PATH));
         
         // Get definitions
-        Map<String, String> aliasMap = TodoListDB.getInstance().getAliases();
+        Map<String, String> aliasMap = MainApp.getConfig().getAliases();
         List<Map.Entry<String, String>> aliasDefinitions =
                 new ArrayList<Map.Entry<String, String>>(aliasMap.entrySet());
         
@@ -74,7 +68,7 @@ public class AliasView extends View {
 
         // Load items
         for (Map.Entry<String, String> aliasPair : aliasDefinitions) {
-            AliasItem item = AliasItem.load(primaryStage, aliasesPlaceholder);
+            AliasItem item = load(primaryStage, aliasesPlaceholder, AliasItem.class);
             item.aliasDefinition = new AliasDefinition(aliasPair.getKey(), aliasPair.getValue());
             item.render();
         }
