@@ -29,7 +29,8 @@ Role: Developer <br>
    * [List Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#listing-tasks-list) <br>
    * [Mark Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#marking-as-priority--mark) <br>
    * [Unmark Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#marking-as-priority--unmark) <br>
-* Code written: [[functional code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/main/A0153006W.md) [[test code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/docs/A0153006W.md) [[docs]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/test/A0153006W.md) <br>
+* Code written: [[functional code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/main/A0153006W.md) [[test code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/docs/A0153006W.md) [[docs]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/test/A0153006W.md)
+
 -----
 
 #### [Desmond Khoo](http://github.com/DesmondKhoo) 
@@ -45,6 +46,7 @@ Role: Developer <br>
 * Other major contributions: <br>
  * Implemented natty.
  * Did the initial refactoring from AddressBook to Malitio for test cases.
+ 
 -----
 
 #### [Ng Huan Ran](https://github.com/shusiner)
