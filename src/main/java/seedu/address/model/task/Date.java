@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.time.LocalDate;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.author;
 
 /**
  * @@author A0138993L
@@ -126,6 +127,7 @@ public class Date implements Comparable<Date> {
         return value.hashCode();
     }
     
+  //@@author A0139430L JingRui
     @Override
     public int compareTo(Date o) { 
         if(this.toString().compareTo("no date")==0 & o.toString().compareTo("no date")==0)

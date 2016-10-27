@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.author;
 
 import java.time.LocalTime;
 
@@ -104,6 +105,8 @@ public class Start implements Comparable<Start> {
     public int hashCode() {
         return value.hashCode();
     }
+    
+  //@@author A0139430L JingRui
     @Override
     public int compareTo(Start o) {  
         if(this.value.compareTo("no start") == 0 & o.toString().compareTo("no start") == 0) 

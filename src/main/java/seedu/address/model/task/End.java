@@ -4,6 +4,7 @@ package seedu.address.model.task;
 import java.time.LocalTime;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.author;
 
 /**
  * @@author A0138993L
@@ -122,6 +123,8 @@ public class End implements Comparable<End> {
     public int hashCode() {
         return value.hashCode();
     }
+    
+  //@@author A0139430L JingRui
     @Override
     public int compareTo(End o) {
         if(this.value.compareTo("no end") == 0 & o.toString().compareTo("no end") == 0) 

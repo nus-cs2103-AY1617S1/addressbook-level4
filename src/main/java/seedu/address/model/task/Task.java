@@ -4,6 +4,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.author;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -196,6 +197,7 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
      * @throws IllegalValueException 
 
      */
+  //@@author A0139430L JingRui
     public boolean setTags(String specific_tag, String replacement) throws IllegalValueException{        
         Tag tempTag = new Tag(specific_tag);
         System.out.println(tags.contains(tempTag));
@@ -227,7 +229,7 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
     public String toString() {
         return getAsText();
     }
-
+  //@@author A0139430L JingRui
     @Override
     public int compareTo(Task other) {
         if(this.date.compareTo(other.date)==0){
