@@ -10,7 +10,6 @@ import tars.model.task.*;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.DateTimeException;
 
-
 /**
  * Edits a task identified using it's last displayed index from tars.
  * 
@@ -73,8 +72,10 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
+    /**
+     * @@author A0139924W
+     */
     @Override
-    /** @@author A0139924W */
     public CommandResult undo() {
         assert model != null;
         try {
@@ -82,10 +83,14 @@ public class EditCommand extends UndoableCommand {
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
                     String.format(MESSAGE_UNDO, toEdit)));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
     
+    /**
+     * @@author A0139924W
+     */
     @Override
     public CommandResult redo() {
         assert model != null;

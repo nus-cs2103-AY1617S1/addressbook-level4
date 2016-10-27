@@ -1,10 +1,10 @@
 package tars.logic.parser;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -152,11 +152,17 @@ public class ArgumentTokenizer {
         }
 
         tagArguments = tagArguments.trim();
+        
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings =
-                Arrays.asList(tagArguments.replaceFirst(prefix.prefix + EMPTY_SPACE_ONE, EMPTY_STRING)
+        List<String> multipleArgList = Arrays
+                .asList(tagArguments.replaceFirst(prefix.prefix + EMPTY_SPACE_ONE, EMPTY_STRING)
                         .split(EMPTY_SPACE_ONE + prefix.prefix + EMPTY_SPACE_ONE));
-        return new HashSet<>(tagStrings);
+        
+        for(int i = 0; i < multipleArgList.size(); i++) {
+            multipleArgList.set(i, multipleArgList.get(i).trim());
+        }
+        
+        return new HashSet<>(multipleArgList);
     }
     
 }
