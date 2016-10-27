@@ -26,6 +26,10 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label start;
+    @FXML
+    private Label end;
+    @FXML
     private Label startDate;
     @FXML
     private Label endDate;
@@ -125,15 +129,19 @@ public class TaskCard extends UiPart{
      */
     private void setTextFill() {
         if (task.getStatus().toString().equals(STATUS_UNDONE)) {
-            id.setStyle("-fx-text-fill: black");
-            name.setStyle("-fx-text-fill: black");
-            startDate.setStyle("-fx-text-fill: black");
-            endDate.setStyle("-fx-text-fill: black");
+            id.setStyle("-fx-text-fill: #212121");
+            name.setStyle("-fx-text-fill: #212121");
+            start.setStyle("-fx-text-fill: #212121");
+            startDate.setStyle("-fx-text-fill: #212121");
+            end.setStyle("-fx-text-fill: #212121");
+            endDate.setStyle("-fx-text-fill: #212121");
         } else {
-            id.setStyle("-fx-text-fill: lightgrey");
-            name.setStyle("-fx-text-fill: lightgrey");
-            startDate.setStyle("-fx-text-fill: lightgrey");
-            endDate.setStyle("-fx-text-fill: lightgrey");
+            id.setStyle("-fx-text-fill: #BDBDBD");
+            name.setStyle("-fx-text-fill: #BDBDBD");
+            start.setStyle("-fx-text-fill: #BDBDBD");
+            startDate.setStyle("-fx-text-fill: #BDBDBD");
+            end.setStyle("-fx-text-fill: #BDBDBD");
+            endDate.setStyle("-fx-text-fill: #BDBDBD");
         }
     }
 
