@@ -6,6 +6,7 @@ import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.CannotUndoException;
 import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
+import seedu.cmdo.commons.util.SearchUtil;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
@@ -286,7 +287,10 @@ public class ModelManager extends ComponentManager implements Model {
         	if (task.checkDone().value != taskStatus)
         		return false;
             return detailKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDetail().details, keyword))
+                    .filter(keyword -> (SearchUtil.containsIgnoreCase(task.getDetail().details, keyword)
+                    					|| SearchUtil.containsIgnoreCase(task.getPriority().value, keyword)
+                    					|| SearchUtil.containsIgnoreCase(task.getTags(), keyword)
+                    					|| SearchUtil.containsTimeAndDate(task.getDueByDate(), task.getDueByTime(), keyword)))
                     .findAny()
                     .isPresent();
         }
