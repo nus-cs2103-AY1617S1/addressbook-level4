@@ -25,6 +25,7 @@ Responsibilities: Integration, Git Expert, Scheduling and Tracking
 -----
 
 #### [Yaquan Wang](https://github.com/A0116137M) 
+<img src="images/yaquan.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Documentation, Testing, Deliverables and Deadlines
  
