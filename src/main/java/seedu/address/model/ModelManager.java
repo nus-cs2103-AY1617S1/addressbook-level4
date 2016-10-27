@@ -199,9 +199,14 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
-			return nameKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword)).findAny()
-					.isPresent();
+			boolean isContained = false;
+			
+			for (String temp : nameKeyWords){
+				if (person.getName().toString().toLowerCase().contains(temp.toLowerCase()))
+				    isContained = true;
+				
+			}
+			return isContained;
 		}
 
 		@Override
