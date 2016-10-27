@@ -1,4 +1,5 @@
 package seedu.taskscheduler.logic.commands;
+
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
@@ -12,9 +13,6 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
  * Unmarks a task in task scheduler as uncompleted.
  */
 public class UnmarkCommand extends Command{
-
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Un-Completed Task: %1$s";
-    public static final String MESSAGE_UNMARK_TASK_FAIL = "This task is not completed.";
     
     public static final String COMMAND_WORD = "unmark";
 
@@ -22,11 +20,13 @@ public class UnmarkCommand extends Command{
             + ": Unmarks the task identified by the index number used in the last tasks listing as uncompleted.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+    
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Un-Completed Task: %1$s";
+    public static final String MESSAGE_UNMARK_TASK_FAIL = "This task is not completed.";
 
     private final int targetIndex;
     private Task taskToUnmark;
     
-
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -67,4 +67,3 @@ public class UnmarkCommand extends Command{
         return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + taskToUnmark));
     }
 }
-
