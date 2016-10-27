@@ -50,8 +50,8 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         indexToReplace = 1;
         assertReplaceSuccess(indexToReplace, taskToCopy, currentList);        
         //assert that overdue task is red
-        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
-        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.OVERDUE_INDICATION));
+        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.OVERDUE_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
         
         currentList[indexToReplace - 1] = taskToCopy;
         currentList = TestUtil.addTasksToList(currentList);
