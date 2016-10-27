@@ -229,6 +229,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskBook` and the **Actor** is the `user`, unless specified otherwise)
 
+<!-- @@author A0127570H -->
+
 #### Use case 1: Add task
 
 **MSS**
@@ -276,6 +278,7 @@ The Use case can be elaborated by the SD as below in addition the SD mentioned i
 The SD for list events is similiar to task. 
 
 <br>
+<!-- @@author A0127570H -->
 
 #### Use case 4: Edit task details
 
@@ -308,6 +311,7 @@ The SD for list events is similiar to task.
   Use case resumes at step 2
 
 <br>
+<!-- @@author -->
 
 #### Use case 6: Mark task as completed
 
@@ -529,6 +533,7 @@ are
 > Highly recommended for all memebrs to use it. 
 
 <!-- @@author -->
+<!-- @@author A0127570H -->
 
 ------
 ####Todo.txt

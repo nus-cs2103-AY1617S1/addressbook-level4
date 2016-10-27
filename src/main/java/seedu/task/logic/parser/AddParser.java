@@ -21,6 +21,7 @@ import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
  * @author kian ming
  */
 
+//@@author A0127570H
 public class AddParser implements Parser {
     
     public AddParser() {}
@@ -55,7 +56,6 @@ public class AddParser implements Parser {
                 return new AddTaskCommand(name, description.orElse(""), deadline.orElse(""));             
             }
         } catch (IllegalValueException ive) {
-            System.out.println("thrown");
             return new IncorrectCommand(ive.getMessage());
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

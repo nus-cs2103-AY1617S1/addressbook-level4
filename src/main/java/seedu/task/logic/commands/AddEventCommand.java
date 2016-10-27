@@ -13,6 +13,7 @@ import seedu.task.model.item.UniqueEventList;
  * @author kian ming
  */
 
+//@@author A0127570H
 public class AddEventCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";

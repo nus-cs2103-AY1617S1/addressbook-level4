@@ -8,6 +8,7 @@ import org.junit.Test;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Description;
 
+//@@author A0127570H
 public class DescriptionTest {
     
     @Test

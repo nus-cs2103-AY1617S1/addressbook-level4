@@ -47,6 +47,7 @@ public class UniqueEventList implements Iterable<Event> {
         return internalList.contains(toCheck);
     }
 
+    //@@author A0127570H
     /**
      * Adds a event to the begining of list.
      *
@@ -59,6 +60,7 @@ public class UniqueEventList implements Iterable<Event> {
         }
         internalList.add(toAdd);
     }
+    //@@author
 
     /**
      * Removes the equivalent event from the list.
@@ -74,6 +76,7 @@ public class UniqueEventList implements Iterable<Event> {
         return taskFoundAndDeleted;
     }
     
+    //@@author A0127570H
     /**
      * Edits an event in the list.
      *
@@ -87,7 +90,7 @@ public class UniqueEventList implements Iterable<Event> {
         int index = internalList.indexOf(targetEvent);
         internalList.set(index, toEdit); 
     }
-
+    //@@author
 
     public ObservableList<Event> getInternalList() {
         return internalList;

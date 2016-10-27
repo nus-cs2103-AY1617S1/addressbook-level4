@@ -47,7 +47,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.contains(toCheck);
     }
 
-    
+    //@@author A0127570H  
     /**
      * Adds a task to the list at the end.
      *
@@ -74,6 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int index = internalList.indexOf(targetTask);
         internalList.set(index, toEdit);
     }
+    //@@author
     
     /**
      * Marks a task in the list
