@@ -231,7 +231,9 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
     @Override
     public int compareTo(Task other) {
         if(this.date.compareTo(other.date)==0){
-
+            if (this.start.compareTo(other.start)==0)
+                return this.end.compareTo(other.end);
+            else
                 return this.start.compareTo(other.start);
         }
         
