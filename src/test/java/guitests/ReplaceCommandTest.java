@@ -22,7 +22,7 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         int indexToReplace; 
         TestTask taskToCopy;
-        
+
         //invalid command
         commandBox.runCommand("replace eee " + td.ida.getTaskString());
         assertResultMessage(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
@@ -47,9 +47,9 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         indexToReplace = 1;
         assertReplaceSuccess(indexToReplace, taskToCopy, currentList);        
         //assert that overdue task is red
-        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
-        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
-
+        assertTrue(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(indexToReplace - 1).getPaintFromShape().equals(TaskCard.OVERDUE_INDICATION));
+        
         currentList[indexToReplace - 1] = taskToCopy;
         currentList = TestUtil.addTasksToList(currentList);
 
