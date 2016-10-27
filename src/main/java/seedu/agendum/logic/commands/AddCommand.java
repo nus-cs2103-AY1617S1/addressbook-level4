@@ -1,6 +1,7 @@
 package seedu.agendum.logic.commands;
 
 import seedu.agendum.commons.exceptions.IllegalValueException;
+import seedu.agendum.logic.parser.DateTimeUtils;
 import seedu.agendum.model.task.*;
 
 import java.time.LocalDateTime;
@@ -61,6 +62,9 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, Optional<LocalDateTime> startDateTime, Optional<LocalDateTime> endDateTime)
             throws IllegalValueException {
+        if (startDateTime.isPresent() && endDateTime.isPresent()) {
+            endDateTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startDateTime.get(), endDateTime.get()));
+        }
         this.toAdd = new Task(
                 new Name(name),
                 startDateTime,

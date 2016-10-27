@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public class DateTimeParser {
+public class DateTimeUtils {
 
-    public static Optional<LocalDateTime> parseString(String input) {
+    public static Optional<LocalDateTime> parseNaturalLanguageDateTimeString(String input) {
         if(input == null || input.isEmpty()) {
             return Optional.empty();
         }
@@ -34,7 +34,15 @@ public class DateTimeParser {
         return Optional.ofNullable(localDateTime);
     }
 
+    public static LocalDateTime balanceStartAndEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        LocalDateTime newEndDateTime = endDateTime;
+        while (startDateTime.compareTo(newEndDateTime) >= 1) {
+            newEndDateTime = newEndDateTime.plusDays(1);
+        }
+        return newEndDateTime;
+    }
+
     public static boolean containsTime(String input) {
-        return parseString(input).isPresent();
+        return parseNaturalLanguageDateTimeString(input).isPresent();
     }
 }

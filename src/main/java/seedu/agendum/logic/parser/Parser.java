@@ -143,8 +143,8 @@ public class Parser {
                     String s = matcher.group(0).toLowerCase();
                     if (s.startsWith(token)) {
                         String time = s.substring(token.length(), s.length());
-                        if (DateTimeParser.containsTime(time)) {
-                            dateTimeMap.put(token, DateTimeParser.parseString(time));
+                        if (DateTimeUtils.containsTime(time)) {
+                            dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
                         } else {
                             taskTitle = taskTitle + s;
                         }
@@ -200,8 +200,8 @@ public class Parser {
                 String s = matcher.group(0).toLowerCase();
                 if (s.startsWith(token)) {
                     String time = s.substring(token.length(), s.length());
-                    if (DateTimeParser.containsTime(time)) {
-                        dateTimeMap.put(token, DateTimeParser.parseString(time));
+                    if (DateTimeUtils.containsTime(time)) {
+                        dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
                     }
                 }
             }

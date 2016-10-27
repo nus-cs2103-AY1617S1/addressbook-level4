@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.commons.core.UnmodifiableObservableList;
+import seedu.agendum.logic.parser.DateTimeUtils;
 import seedu.agendum.model.task.*;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -35,6 +36,9 @@ public class ScheduleCommand extends Command {
     //@@author A0133367E
     public ScheduleCommand(int targetIndex, Optional<LocalDateTime> startTime,
             Optional<LocalDateTime> endTime) {
+        if (startTime.isPresent() && endTime.isPresent()) {
+            endTime = Optional.of(DateTimeUtils.balanceStartAndEndDateTime(startTime.get(), endTime.get()));
+        }
         this.targetIndex = targetIndex;
         this.newStartDateTime = startTime;
         this.newEndDateTime = endTime;
