@@ -36,6 +36,7 @@ Responsibilities: Code Quality/Deliverables/UI
 * Code Written:[functional code][test code][docs]
 * Other major contributions:
 [Took on Project Management role]
+
 -----
 
 #### [Kevin Ong](https://github.com/Kevin-Ong)
