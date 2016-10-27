@@ -4,9 +4,6 @@ import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -168,6 +165,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    //@@author A0153837X
+    public String timeTask(){
+    	return (this.getEndDateTime().timeLeft());
     }
 
 }
