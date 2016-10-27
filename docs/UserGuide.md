@@ -89,17 +89,19 @@ Examples:
 
 #### Editing a task : `edit`
 Edits any component of a particular task  
-Format: `edit <INDEX> /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> /t <TAG(s)>`
+Format: `edit <INDEX> /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> /ta <TAG(s)> /tr <TAG(s)>`
 
 > Edits the task at the specific `<INDEX>`. 
 > The index refers to the index number shown in the task list.
 > The index **must be a positive integer** 1, 2, 3, ... 
+> `/ta` adds the tags to the task
+> `/tr` removes the tags from the task
 >
 > Words in `UPPER_CASE` are the parameters. Other than `<INDEX>`, all parameters are optional.  
 > Order of parameters are **not** fixed.
 
 Examples:
-* `edit 3 /n Meet John Tan /dt 08/10/2016 1000 to 1200 /p h /t friend`
+* `edit 3 /n Meet John Tan /dt 08/10/2016 1000 to 1200 /p h /ta friend`
 
 #### Editing a tag's name : `tag /e`
 Edits a tag’s name  
