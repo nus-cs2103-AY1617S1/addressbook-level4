@@ -1,3 +1,4 @@
+//@@ author A0147969E
 package seedu.task.model.task;
 
 
@@ -47,7 +48,8 @@ public class Priority {
     public static boolean isValidPriority(String test) {
         return test.equals("high")
                || test.equals("low")
-               || test.equals("normal");
+               || test.equals("normal")
+               || test.equals("NOUPDATE");
     }
     
     public boolean isRankedHigher(Priority priority) {

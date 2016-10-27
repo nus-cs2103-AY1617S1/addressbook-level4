@@ -1,13 +1,12 @@
+//@@ author A0147969E
 package seedu.task.logic.commands;
 
 
-import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.LogicManager;
 
 /**
- * Format full help instructions for every command for display.
+ * Undo the last operation.
  */
 public class UndoCommand extends Command {
 

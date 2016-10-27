@@ -9,11 +9,11 @@ import seedu.task.model.tag.UniqueTagList.NotExistTagException;
 import seedu.task.model.task.*;
 
 /**
- * Adds a task to the task manager.
+ * Deletes a tag from a task.
  */
 public class DeleteTagCommand extends Command{
 
-    public static final String COMMAND_WORD = "deleteTag";
+    public static final String COMMAND_WORD = "deletetag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": delete a tag of the task identified by the index number used in the last task listing.\n"

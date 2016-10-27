@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart {
@@ -46,6 +47,8 @@ public class TaskCard extends UiPart {
         name.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
         priority.setText("Priority: " + task.getPriority().toString());
+	    priority.setTextFill(Color.RED);
+
         startTime.setText("Start Time: " + task.getTimeStart().toString());
         endTime.setText("End Time: " + task.getTimeEnd().toString());
         tags.setText("Tags: " + task.tagsString());
