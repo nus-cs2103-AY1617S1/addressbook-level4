@@ -168,22 +168,22 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] pr/high start/11:11 end/11:11", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add []\\[;] pr/high st/11:11 ed/11:11", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/not_high start/11:11 end/11:11", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Name pr/not_high st/11:11 ed/11:11", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low start/111:11 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low st/111:11 ed/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low start/11:111 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low st/11:111 ed/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low start/111:111 end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low st/111:111 ed/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/low start/sum end/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name pr/low st/sum ed/11:11", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name pr/ start/mon end/11:11 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name pr/ st/mon ed/11:11 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
-    //@@author 
+    //@@author
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -398,7 +398,7 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
-        
+
         // The following Tasks are to individually debug the respective task property fields
 
         //@@author A0139860X
@@ -412,7 +412,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(description, priority, timeStart, timeEnd, tags);
         }
-        
+
         Task bravo() throws Exception {
             Description description = new Description("Bravo Christ");
             Time timeStart = new Time("");
@@ -421,7 +421,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList();
             return new Task(description, priority, timeStart, timeEnd, tags);
         }
-        
+
         Task charlie() throws Exception {
             Description description = new Description("Charlie Denver");
             Time timeStart = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 15:30");
@@ -430,7 +430,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList();
             return new Task(description, priority, timeStart, timeEnd, tags);
         }
-        
+
         Task desmond() throws Exception {
             Description description = new Description("Desmond Exteli");
             Time timeStart = new Time("");
@@ -439,7 +439,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList();
             return new Task(description, priority, timeStart, timeEnd, tags);
         }
-        
+
         Task elize() throws Exception {
             Description description = new Description("Elize Faraday");
             Time timeStart = new Time("");
@@ -448,7 +448,7 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList();
             return new Task(description, priority, timeStart, timeEnd, tags);
         }
-        
+
         Task fiona() throws Exception {
             Description description = new Description("Fiona Gandalf");
             Time timeStart = new Time("");
@@ -476,7 +476,7 @@ public class LogicManagerTest {
             );
         }
 
-        //@@author 
+        //@@author
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -485,8 +485,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getDescription().toString());
             cmd.append(" pr/").append(p.getPriority());
-            cmd.append(" start/").append(p.getTimeStart());
-            cmd.append(" end/").append(p.getTimeEnd());
+            cmd.append(" st/").append(p.getTimeStart());
+            cmd.append(" ed/").append(p.getTimeEnd());
 
 
             UniqueTagList tags = p.getTags();

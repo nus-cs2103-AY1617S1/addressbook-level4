@@ -29,7 +29,7 @@ This user guide covers the features of the application and has a short summary o
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`** `Midterms pr/high start/wednesday t/important` : adds a task "Midterms" to the Task Manger.
+   * **`add`** `Midterms pr/high st/wednesday t/important` : adds a task "Midterms" to the Task Manger.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -120,7 +120,7 @@ All other parameters are empty
 Format: `add DESCRIPTION ed/ENDTIME` <br>
 
 Example:
-* `add project end/27.10.2016` <br>
+* `add project ed/27.10.2016` <br>
 Adds a task with the description `project` due on (i.e. with `ENDTIME` entered as) `27.10.2016` <br>
 `PRIORITY` is set to normal, all other parameters are empty
 
@@ -129,7 +129,7 @@ Adds a task with the description `project` due on (i.e. with `ENDTIME` entered a
 Format: `add DESCRIPTION st/STARTTIME ed/ENDTIME` <br>
 
 Example:
-* `add AFA start/25.11.2016 end/27.11.2016` <br>
+* `add AFA st/25.11.2016 ed/27.11.2016` <br>
 Adds a task with the description `AFA` <br>
 starting from (i.e with `STARTTIME` entered as) `25.11.2016` till (i.e. with `ENDTIME` entered as) `27.11.2016` <br>
 `PRIORITY` is set to normal, all other parameters are empty
@@ -206,7 +206,7 @@ Example:
 * `find pr/high`<br>
 Returns any tasks with high priority
 
-#### Find tasks starting after given time: `find start/`
+#### Find tasks starting after given time: `find st/`
 Format: `find st/STARTTIME`
 
 > * When only DayOfWeek is inputted, tasks that start on that day, current time is listed
@@ -220,7 +220,7 @@ Returns any task that starts after `27.10.2016`, `00:00`
 Returns any tasks that starts after `16:00` `today`
 
 
-#### Finding tasks due before given time: `find end/`
+#### Finding tasks due before given time: `find ed/`
 Format: `find ed/ENDTIME`
 
 > * When only DayOfWeek is inputted, tasks that are due by that day, current time is listed
