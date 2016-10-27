@@ -109,13 +109,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
         
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Data storage file path changed, updating.."));
-/*
-        try {
-            saveMalitio(dataToBeTransferred.get(), this.malitioStorage.getMalitioFilePath()); 
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
-        */
+
         try {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "Old data file is being deleted."));
             FileUtil.deleteFile(oldDataFilePath);
