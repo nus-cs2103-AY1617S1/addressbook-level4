@@ -10,7 +10,6 @@ We are just four students trying to make a decent todo app.
 
 ### [Jasmine](https://github.com/jasminish) 
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Jasmine%20Ang.jpg" width="166" height="213" />
-<<<<<<< HEAD
 Components in charge of: User Interface
 Aspects/tools in charge of: UI, Documentation
 Features implemented: 
@@ -18,10 +17,6 @@ Features implemented:
 Code written: [functional code][test code][docs]
 Other major contributions:
 - Collating User Guide & Developer Guide with Deshun 
-=======
-- User Interface 
-- Documentation 
->>>>>>> origin/master
 
 ### [Kenneth](https://github.com/Kenneth-LJS) 
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Kenneth%20Loh.jpg" width="166" height="213" />
@@ -34,11 +29,7 @@ Features implemented:
 - Categories
 Code written: [functional code][test code]
 Other major contributions:
-<<<<<<< HEAD
-Initial refactoring from AddressBook to OneLine
-=======
 - Final refactoring from AddressBook to OneLine
->>>>>>> origin/master
 
 ### [Ka-Shing](https://github.com/ongks)
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" />
@@ -53,10 +44,7 @@ Initial refactoring from AddressBook to OneLine
 * Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList 
-<<<<<<< HEAD
   * Copy-editing the bulk of the Developer's Guide 
-=======
->>>>>>> origin/master
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)
