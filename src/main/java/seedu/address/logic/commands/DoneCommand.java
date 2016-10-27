@@ -6,7 +6,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
-
+//@@author A0125097A
 /**
  * Marks the completion of a task identified using it's last displayed index
  * from the Lifekeeper.

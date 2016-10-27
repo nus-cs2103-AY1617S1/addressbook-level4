@@ -4,7 +4,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
-
+//@@author A0125097A
 /**
  * Deletes a task identified using it's last displayed index from the Lifekeeper.
  */

@@ -8,6 +8,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 
+// @@author A0125097A
 public class ActivityCard extends UiPart {
 
     private static final String FXML = "ActivityListCard.fxml";

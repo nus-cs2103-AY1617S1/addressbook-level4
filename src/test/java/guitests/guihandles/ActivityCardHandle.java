@@ -10,6 +10,7 @@ import seedu.address.model.activity.task.ReadOnlyTask;
 /**
  * Provides a handle to a person card in the person list panel.
  */
+//@@author A0125097A
 public class ActivityCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String REMINDER_FIELD_ID = "#reminder";

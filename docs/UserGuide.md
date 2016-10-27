@@ -1,3 +1,5 @@
+<!-- @@author A0125097A -->
+
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -46,7 +48,7 @@ Format: `help`
 Adds an activity to Lifekeeper<br>
 Format: `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
 
-> Activities can have only either {[d/DUEDATE] [p/PRIORITY_LEVEL]} or {[s/START_TIME] [e/END_TIME]} 
+> Activities can have only either `[d/DUEDATE] [p/PRIORITY_LEVEL]` or `[s/START_TIME] [e/END_TIME]` 
 > Activities can have any number of tags (including 0)
 
 `DUEDATE` accepts `Date Time` format input and variable inputs namely:
@@ -80,9 +82,19 @@ Examples:
 
 #### Listing activities : `list`
 Shows a list of activites in Lifekeeper, if any.<br>
-Format: `list`
+Format: `list [TYPE]`
 
-> All the activites in Lifekeeper will be listed
+
+> If TYPE is not given, all the activites in Lifekeeper will be listed
+> If TYPE is given only activities of that type will be listed
+
+`TYPE` accepts the following `activities`, `events` or `tasks`
+
+Examples:
+* `list event`
+
+> shows all events in the list.
+
 
 #### Listing tags: `listtag`
 Shows a list of all tags in LifeKeeper.<br>
