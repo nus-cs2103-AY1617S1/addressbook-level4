@@ -3,6 +3,8 @@ package tars.commons.util;
 import static org.junit.Assert.*;
 
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -14,10 +16,10 @@ import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
 public class DateTimeUtilTest {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    
+
     @Test
     public void natty_parser_invalid_date() {
         thrown.expect(DateTimeException.class);
@@ -32,7 +34,7 @@ public class DateTimeUtilTest {
 
     @Test
     public void natty_parser_empty_args() {
-        String[] expected = new String[] {"", ""};
+        String[] expected = new String[] { "", "" };
         String[] actual = DateTimeUtil.getDateTimeFromArgs(" ");
 
         assertEquals(expected[0], actual[0]);
@@ -71,18 +73,65 @@ public class DateTimeUtilTest {
         String modifiedMonth = DateTimeUtil.modifyDate(dateToModify, frequencyMonth);
         String modifiedYear = DateTimeUtil.modifyDate(dateToModify, frequencyYear);
 
-        Assert.assertEquals(expectedDay, modifiedDay);
-        Assert.assertEquals(expectedWeek, modifiedWeek);
-        Assert.assertEquals(expectedMonth, modifiedMonth);
-        Assert.assertEquals(expectedYear, modifiedYear);
+        assertEquals(expectedDay, modifiedDay);
+        assertEquals(expectedWeek, modifiedWeek);
+        assertEquals(expectedMonth, modifiedMonth);
+        assertEquals(expectedYear, modifiedYear);
+    }
+
+    @Test
+    public void isWithinWeek_dateTimeNullValue_returnFalse() {
+        LocalDateTime nullDateTime = null;
+        assertFalse(DateTimeUtil.isWithinWeek(nullDateTime));
+    }
+
+    @Test
+    public void isWithinWeek_dateTimeWithinWeek_returnTrue() {
+        LocalDateTime today = LocalDateTime.now();
+        assertTrue(DateTimeUtil.isWithinWeek(today));
+    }
+
+    @Test
+    public void isWithinWeek_dateTimeNotWithinWeek_returnFalse() {
+        LocalDateTime nextMonth = LocalDateTime.now().plus(1, ChronoUnit.MONTHS);
+        LocalDateTime lastMonth = LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
+        assertFalse(DateTimeUtil.isWithinWeek(nextMonth));
+        assertFalse(DateTimeUtil.isWithinWeek(lastMonth));
+    }
+
+    @Test
+    public void isOverDue_dateTimeNullValue_returnFalse() {
+        LocalDateTime nullDateTime = null;
+        assertFalse(DateTimeUtil.isOverDue(nullDateTime));
+    }
+
+    @Test
+    public void isOverDue_dateTimeOverDue_returnTrue() {
+        LocalDateTime yesterday = LocalDateTime.now().minus(1, ChronoUnit.DAYS);
+        assertTrue(DateTimeUtil.isOverDue(yesterday));
+    }
+
+    @Test
+    public void isOverDue_dateTimeNotOverDue_returnFalse() {
+        LocalDateTime tomorrow = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
+        assertFalse(DateTimeUtil.isOverDue(tomorrow));
+    }
+
+    @Test
+    public void isDateTimeWithinRange_emptyDateTimeSource() throws DateTimeException, IllegalDateException {
+        DateTime dateTimeSource = new DateTime("", "");
+        DateTime dateTimeQuery = new DateTime("17/01/2016 1200", "18/01/2016 1200");
+        assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQuery));
     }
 
     @Test
     public void isDateTimeWithinRange_dateTimeOutOfRange() throws DateTimeException, IllegalDateException {
         DateTime dateTimeSource = new DateTime("15/01/2016 1200", "16/01/2016 1200");
+        DateTime dateTimeSource2 = new DateTime("19/01/2016 1200", "20/01/2016 1200");
         DateTime dateTimeQuery = new DateTime("17/01/2016 1200", "18/01/2016 1200");
 
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQuery));
+        assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource2, dateTimeQuery));
     }
 
     @Test
@@ -109,4 +158,5 @@ public class DateTimeUtilTest {
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate));
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate2));
     }
+
 }

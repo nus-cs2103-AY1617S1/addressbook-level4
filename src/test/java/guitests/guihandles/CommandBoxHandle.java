@@ -1,7 +1,10 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
+import tars.commons.core.KeyCombinations;
 
 /**
  * A handle to the Command Box in the GUI.
@@ -31,9 +34,46 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200); //Give time for the command to take effect
     }
 
-    public HelpWindowHandle runHelpCommand() {
+    public HelpPanelHandle runHelpCommand() {
         enterCommand("help");
         pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
+        return getHelpPanelHandle();
     }
+    
+    public HelpPanelHandle getHelpPanelHandle() {
+        return new HelpPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public OverviewPanelHandle getOverviewPanelHandle() {
+        return new OverviewPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public RsvTaskListPanelHandle getRsvTaskListPanelHandle() {
+        return new RsvTaskListPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public void pressUpKey() {
+        guiRobot.type(KeyCode.UP).sleep(500);
+    }
+    
+    public void pressDownKey() {
+        guiRobot.type(KeyCode.DOWN).sleep(500);
+    }
+    
+    public void pressCtrlRightArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW);
+    }
+    
+    public void pressCtrlLeftArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW);
+    }
+    
+    public void pressCtrlZArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_Z);
+    }
+    
+    public void pressCtrlYArrowKeys() {
+        guiRobot.push((KeyCodeCombination) KeyCombinations.KEY_COMB_CTRL_Y);
+    }
+    
 }

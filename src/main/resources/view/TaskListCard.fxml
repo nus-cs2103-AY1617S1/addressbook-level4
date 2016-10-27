@@ -8,25 +8,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints percentWidth="20.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0" prefHeight="75.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@TarsTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
 
-                    <children>
+                          <children>
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
@@ -34,20 +33,23 @@
                                     <Label fx:id="name" styleClass="cell_big_label" text="\$first">
                               <HBox.margin>
                                  <Insets bottom="5.0" />
-                              </HBox.margin></Label>
+                              </HBox.margin>
+                           </Label>
                                 </HBox>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
                            <HBox.margin>
                               <Insets bottom="5.0" />
-                           </HBox.margin></Label>
+                           </HBox.margin>
+                        </Label>
                             </children>
                         </HBox>
                   <Label fx:id="startDate" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$startDate">
                      <graphic>
-                        <Label styleClass="cell_medium_label" text="Start:">
+                        <Label fx:id="start" styleClass="cell_medium_label" text="Start:">
                            <padding>
                               <Insets left="5.0" right="5.0" />
-                           </padding></Label>
+                           </padding>
+                        </Label>
                      </graphic>
                      <VBox.margin>
                         <Insets />
@@ -55,27 +57,41 @@
                   </Label>
                         <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
                      <graphic>
-                        <Label styleClass="cell_medium_label" text="End:">
+                        <Label fx:id="end" styleClass="cell_medium_label" text="End:">
                            <padding>
                               <Insets left="5.0" right="5.0" />
-                           </padding></Label>
-                     </graphic></Label>
-                        <Label fx:id="priority" styleClass="cell_small_label" text="\$priority">
-                     <graphic>
-                        <Label styleClass="cell_medium_label" text="Priority:">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding></Label>
-                     </graphic></Label>
-                        <Label fx:id="status" styleClass="cell_small_label" text="\$status">
-                     <graphic>
-                        <Label styleClass="cell_medium_label" text="Status:">
-                           <padding>
-                              <Insets left="5.0" right="5.0" />
-                           </padding></Label>
-                     </graphic></Label>
+                           </padding>
+                        </Label>
+                     </graphic>
+                  </Label>
                     </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
                 </VBox>
+            <Label fx:id="status" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <Label fx:id="priority" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <Circle fx:id="priorityCircle" fill="#8d9194" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="15.0" />
+               </GridPane.margin>
+            </Circle>
+            <Label fx:id="statusTick" prefHeight="15.0" prefWidth="18.0" text="✔" textAlignment="CENTER" textFill="#8d9194" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="13.0" top="2.0" />
+               </GridPane.margin>
+            </Label>
             </children>
          <rowConstraints>
             <RowConstraints />

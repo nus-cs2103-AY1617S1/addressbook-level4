@@ -6,18 +6,20 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
+import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,7 +27,7 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -44,20 +46,21 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
-	private static final String LIST_ARG_DATETIME = "-dt";
-	private static final String LIST_ARG_PRIORITY = "-p";
+	private static final String LIST_ARG_DATETIME = "/dt";
+	private static final String LIST_ARG_PRIORITY = "/p";
 	private static final String LIST_KEYWORD_DESCENDING = "dsc";
 
-	/**
-	 * Initializes a ModelManager with the given Tars Tars and its variables
-	 * should not be null
-	 */
-	public ModelManager(Tars src, UserPrefs userPrefs) {
-		super();
-		assert src != null;
-		assert userPrefs != null;
 
-		logger.fine("Initializing with tars: " + src + " and user prefs " + userPrefs);
+    /**
+     * Initializes a ModelManager with the given Tars Tars and its variables
+     * should not be null
+     */
+    public ModelManager(Tars src, UserPrefs userPrefs) {
+        super();
+        assert src != null;
+        assert userPrefs != null;
+
+        logger.fine("Initializing with tars: " + src + " and user prefs " + userPrefs);
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
@@ -66,9 +69,9 @@ public class ModelManager extends ComponentManager implements Model {
         redoableCmdHistStack = new Stack<>();
     }
 
-	public ModelManager() {
-		this(new Tars(), new UserPrefs());
-	}
+    public ModelManager() {
+        this(new Tars(), new UserPrefs());
+    }
 
     public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
         tars = new Tars(initialData);
@@ -78,27 +81,27 @@ public class ModelManager extends ComponentManager implements Model {
         redoableCmdHistStack = new Stack<>();
     }
 
-	@Override
-	public void resetData(ReadOnlyTars newData) {
-		tars.resetData(newData);
-		indicateTarsChanged();
-	}
+    @Override
+    public void resetData(ReadOnlyTars newData) {
+        tars.resetData(newData);
+        indicateTarsChanged();
+    }
 
-	@Override
-	public ReadOnlyTars getTars() {
-		return tars;
-	}
+    @Override
+    public ReadOnlyTars getTars() {
+        return tars;
+    }
 
     @Override
     public Stack<Command> getUndoableCmdHist() {
         return undoableCmdHistStack;
     }
-    
+
     @Override
     public Stack<Command> getRedoableCmdHist() {
         return redoableCmdHistStack;
     }
-    
+
     @Override
     public ObservableList<? extends ReadOnlyTag> getUniqueTagList() {
         return tars.getUniqueTagList().getInternalList();
@@ -113,22 +116,32 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
-            throws TaskNotFoundException, DateTimeException, IllegalDateException,
-            DuplicateTagException, TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, argsToEdit);
+    public synchronized Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
+            throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
+            TagNotFoundException, IllegalValueException {
+        Task editedTask = tars.editTask(toEdit, argsTokenizer);
         indicateTarsChanged();
         return editedTask;
     }
-    
+
     @Override
     /** @@author A0139924W */
     public synchronized void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
         Tag newTag = new Tag(newTagName);
 
-        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.renameTag(oldTag, newTag);
         tars.getUniqueTagList().update(oldTag, newTag);
+
+        indicateTarsChanged();
+    }
+
+    @Override
+    /** @@author A0139924W */
+    public synchronized void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
+        tars.deleteTag(toBeDeleted);
+        tars.getUniqueTagList().remove(new Tag(toBeDeleted));
 
         indicateTarsChanged();
     }
@@ -149,16 +162,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
+        raise(new TaskAddedEvent(tars.getTaskList().size(), task));
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
-    
+
     @Override
     public synchronized void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException {
         tars.removeRsvTask(target);
         indicateTarsChanged();
     }
-    
+
     @Override
     public synchronized void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException {
         tars.addRsvTask(rsvTask);
@@ -169,100 +183,136 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status)
-            throws DuplicateTaskException {
+    public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
 
-	}
+    }
 
-	// =========== Filtered Task List Accessors ===========
+    public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck) {
+        StringBuilder conflictingTasksStringBuilder = new StringBuilder("");
+        int taskCount = 1;
+        int rsvCount = 1;
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-		return new UnmodifiableObservableList<>(filteredTasks);
-	}
-	
-	@Override
+        if (dateTimeToCheck.getEndDate() == null) {
+            return "";
+        }
+
+        for (ReadOnlyTask t : tars.getTaskList()) {
+
+            if (DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateTimeToCheck)) {
+                conflictingTasksStringBuilder.append("\nTask ").append(taskCount).append(": ").append(t.getAsText());
+                taskCount++;
+            }
+        }
+
+        for (RsvTask rt : tars.getRsvTaskList()) {
+            if (rt.getDateTimeList().stream()
+                    .filter(dateTimeSource -> DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeToCheck))
+                    .count() > 0) {
+                conflictingTasksStringBuilder.append("\nRsvTask ").append(rsvCount).append(": ").append(rt.toString());
+                rsvCount++;
+
+            }
+        }
+
+        return conflictingTasksStringBuilder.toString();
+    }
+
+    // =========== Filtered Task List Accessors ===========
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks);
+    }
+
+    @Override
     public UnmodifiableObservableList<RsvTask> getFilteredRsvTaskList() {
         return new UnmodifiableObservableList<>(filteredRsvTasks);
     }
 
-	@Override
-	public void updateFilteredListToShowAll() {
-		filteredTasks.setPredicate(null);
-	}
-	
-	@Override
-	public void updateFilteredTaskList(Set<String> keywords) {
-		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-	}
-    
-	public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearchKeywords) {
-            updateFilteredTaskList(new PredicateExpression(new QuickSearchQualifier(quickSearchKeywords)));
-        }
+    @Override
+    public void updateFilteredListToShowAll() {
+        filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords) {
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    public void updateFilteredTaskListUsingQuickSearch(ArrayList<String> quickSearchKeywords) {
+        updateFilteredTaskList(new PredicateExpression(new QuickSearchQualifier(quickSearchKeywords)));
+    }
 
     public void updateFilteredTaskListUsingFlags(TaskQuery taskQuery) {
         updateFilteredTaskList(new PredicateExpression(new FlagSearchQualifier(taskQuery)));
     }
 
-	private void updateFilteredTaskList(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
-	
-	/**
-	 * Sorts filtered list based on keywords
-	 * 
-	 * @@author A0140022H
-	 */
-	public void sortFilteredTaskList(Set<String> keywords) {
-		if (keywords.contains(LIST_ARG_PRIORITY)) {
-			if (keywords.contains(LIST_KEYWORD_DESCENDING)) {
-				tars.sortByPriorityDescending();
-			} else {
-				tars.sortByPriority();
-			}
-		} else if (keywords.contains(LIST_ARG_DATETIME)){
-			if (keywords.contains(LIST_KEYWORD_DESCENDING)) {
-				tars.sortByDatetimeDescending();
-			} else {
-				tars.sortByDatetime();;
-			}
-		}
-	}
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    /**
+     * @@author A0140022H
+     */
+    public void updateFilteredTaskListUsingDate(DateTime dateTime) {
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateTime)));
+    }
+    
+    /**
+     * Sorts filtered list based on keywords
+     * 
+     * @@author A0140022H
+     */
+    public void sortFilteredTaskList(Set<String> keywords) {
+        if (keywords.contains(LIST_ARG_PRIORITY)) {
+            if (keywords.contains(LIST_KEYWORD_DESCENDING)) {
+                tars.sortByPriorityDescending();
+            } else {
+                tars.sortByPriority();
+            }
+        } else if (keywords.contains(LIST_ARG_DATETIME)) {
+            if (keywords.contains(LIST_KEYWORD_DESCENDING)) {
+                tars.sortByDatetimeDescending();
+            } else {
+                tars.sortByDatetime();
+            }
+        }
+    }
 
-	// ========== Inner classes/interfaces used for filtering ==========
+    // ========== Inner classes/interfaces used for filtering ==========
 
-	interface Expression {
-		boolean satisfies(ReadOnlyTask task);
+    interface Expression {
+        boolean satisfies(ReadOnlyTask task);
 
-		String toString();
-	}
+        String toString();
+    }
 
-	private class PredicateExpression implements Expression {
+    private class PredicateExpression implements Expression {
 
-		private final Qualifier qualifier;
+        private final Qualifier qualifier;
 
-		PredicateExpression(Qualifier qualifier) {
-			this.qualifier = qualifier;
-		}
+        PredicateExpression(Qualifier qualifier) {
+            this.qualifier = qualifier;
+        }
 
-		@Override
-		public boolean satisfies(ReadOnlyTask task) {
-			return qualifier.run(task);
-		}
+        @Override
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifier.run(task);
+        }
 
-		@Override
-		public String toString() {
-			return qualifier.toString();
-		}
-	}
+        @Override
+        public String toString() {
+            return qualifier.toString();
+        }
+    }
 
-	interface Qualifier {
-		boolean run(ReadOnlyTask task);
+    interface Qualifier {
+        boolean run(ReadOnlyTask task);
 
-		String toString();
-	}
+        String toString();
+    }
 
     private class QuickSearchQualifier implements Qualifier {
         private final ArrayList<String> quickSearchKeywords;
@@ -287,7 +337,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class FlagSearchQualifier implements Qualifier {
-        TaskQuery taskQuery;
+        private TaskQuery taskQuery;
         private final static String EMPTY_STRING = "";
 
         FlagSearchQualifier(TaskQuery taskQuery) {
@@ -348,26 +398,55 @@ public class ModelManager extends ComponentManager implements Model {
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
-		NameQualifier(Set<String> nameKeyWords) {
-			this.nameKeyWords = nameKeyWords;
-		}
+        NameQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+        }
 
-		/**
-		 * @@author A0124333U
-		 * @param task
-		 * @return true if ALL keywords are found in the task name
-		 */
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return nameKeyWords.stream()
-			        .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
-					.count() == nameKeyWords.size();
-		}
+        /**
+         * @@author A0124333U
+         * @param task
+         * @return true if ALL keywords are found in the task name
+         */
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
+                    .count() == nameKeyWords.size();
+        }
 
-		@Override
-		public String toString() {
-			return "name=" + String.join(", ", nameKeyWords);
-		}
-	}
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+
+    /**
+     * @@author A0140022H
+     */
+    private class DateQualifier implements Qualifier {
+        private final LocalDateTime startDateTime;
+        private final LocalDateTime endDateTime;
+        private final DateTime dateTimeQuery;
+
+        DateQualifier(DateTime dateTime) {
+            if(dateTime.getStartDate() != null) {
+                startDateTime = DateTimeUtil.setLocalTime(dateTime.getStartDate(), 0, 0, 0);
+                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            } else {
+                startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 0, 0, 0);
+                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            }
+
+            dateTimeQuery = new DateTime();
+            dateTimeQuery.setStartDateTime(startDateTime);
+            dateTimeQuery.setEndDateTime(endDateTime);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(), dateTimeQuery);
+        }
+
+    }
 
 }

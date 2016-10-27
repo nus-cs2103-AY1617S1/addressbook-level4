@@ -1,14 +1,7 @@
 .error {
-    -fx-background-color: darkgrey;
-}
-
-.tag-selector {
-    -fx-border-width: 1;
-    -fx-border-color: white;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
+    -fx-background-color: #F44336;
 }
 
 .tooltip-text {
-    -fx-text-fill: white;
+    -fx-text-fill: #F5F5F5;
 }

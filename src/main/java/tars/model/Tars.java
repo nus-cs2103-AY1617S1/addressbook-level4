@@ -14,9 +14,10 @@ import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
-import tars.commons.util.ExtractorUtil;
+import tars.logic.parser.ArgumentTokenizer;
+import tars.logic.parser.Prefix;
+import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
@@ -32,13 +33,14 @@ import java.util.stream.Collectors;
  */
 public class Tars implements ReadOnlyTars {
 
-
 	private final UniqueTaskList tasks;
 	private final UniqueTagList tags;
     private final UniqueRsvTaskList rsvTasks;
 
 	private static final int DATETIME_INDEX_OF_ENDDATE = 1;
 	private static final int DATETIME_INDEX_OF_STARTDATE = 0;
+	
+	private static final String EMPTY_STRING = "";
 
 	{
 		tasks = new UniqueTaskList();
@@ -162,65 +164,64 @@ public class Tars implements ReadOnlyTars {
 	 * @throws IllegalValueException
 	 *             if argument(s) in argsToEdit is/are invalid.
 	 */
-	public Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit) throws TaskNotFoundException,
+	public Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer) throws TaskNotFoundException,
 			DateTimeException, DuplicateTagException, TagNotFoundException, IllegalValueException {
 		if (!tasks.getInternalList().contains(toEdit)) {
 			throw new TaskNotFoundException();
 		}
 
-		Flag nameFlag = new Flag(Flag.NAME, false);
-		Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-		Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
-		Flag addTagFlag = new Flag(Flag.ADDTAG, true);
-		Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
+        Prefix namePrefix = new Prefix("/n");
+        Prefix priorityPrefix = new Prefix("/p");
+        Prefix dateTimePrefix = new Prefix("/dt");
+        Prefix addTagPrefix = new Prefix("/ta");
+        Prefix removeTagPrefix = new Prefix("/tr");
 
 		Task taskToEdit = new Task(toEdit);
 
 		// Edit Name
-		String nameData = argsToEdit.get(nameFlag).replace(Flag.NAME + " ", "");
-		if (nameData != "") {
-			Name editedName = new Name(nameData);
+		if (!argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
+			Name editedName = new Name(argsTokenizer.getValue(namePrefix).get());
 			taskToEdit.setName(editedName);
 		}
 
-		// Edit Priority
-		String priorityData = argsToEdit.get(priorityFlag).replace(Flag.PRIORITY + " ", "");
-		if (priorityData != "") {
-			Priority editedPriority = new Priority(priorityData);
-			taskToEdit.setPriority(editedPriority);
-		}
+        // Edit Priority
+        if (!argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
+            Priority editedPriority = new Priority(argsTokenizer.getValue(priorityPrefix).get());
+            taskToEdit.setPriority(editedPriority);
+        }
 
 		// Edit DateTime
-		String dateTimeData = argsToEdit.get(dateTimeFlag).replace(Flag.DATETIME + " ", "");
-		if (dateTimeData != "") {
-			String[] dateTimeArray = DateTimeUtil.getDateTimeFromArgs(dateTimeData);
-			DateTime editedDateTime = new DateTime(dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
-					dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
-			taskToEdit.setDateTime(editedDateTime);
-		}
+        if (!argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
+            String[] dateTimeArray =
+                    DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).get());
+            DateTime editedDateTime = new DateTime(dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
+                    dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
+            taskToEdit.setDateTime(editedDateTime);
+        }
 
 		// Add Tags
-		String tagsToAddData = argsToEdit.get(addTagFlag);
-		Set<String> tagsToAdd = ExtractorUtil.getTagsFromArgs(tagsToAddData, addTagFlag);
-		for (String t : tagsToAdd) {
-			Tag toAdd = new Tag(t);
-			UniqueTagList replacement = taskToEdit.getTags();
-			replacement.add(toAdd);
-			taskToEdit.setTags(replacement);
-		}
+        Set<String> tagsToAdd =
+                argsTokenizer.getMultipleValues(addTagPrefix).orElse(new HashSet<>());
+        for (String t : tagsToAdd) {
+            Tag toAdd = new Tag(t);
+            UniqueTagList replacement = taskToEdit.getTags();
+            replacement.add(toAdd);
+            taskToEdit.setTags(replacement);
+        }
 
 		// Remove Tags
-		String tagsToRemoveData = argsToEdit.get(removeTagFlag);
-		Set<String> tagsToRemove = ExtractorUtil.getTagsFromArgs(tagsToRemoveData, removeTagFlag);
-		for (String t : tagsToRemove) {
-			Tag toRemove = new Tag(t);
-			UniqueTagList replacement = taskToEdit.getTags();
-			replacement.remove(toRemove);
-			taskToEdit.setTags(replacement);
-		}
+        Set<String> tagsToRemove =
+                argsTokenizer.getMultipleValues(removeTagPrefix).orElse(new HashSet<>());
+        for (String t : tagsToRemove) {
+            Tag toRemove = new Tag(t);
+            UniqueTagList replacement = taskToEdit.getTags();
+            replacement.remove(toRemove);
+            taskToEdit.setTags(replacement);
+        }
 
 		replaceTask(toEdit, taskToEdit);
 		syncTagsWithMasterList(taskToEdit);
+		
 		return taskToEdit;
 	}
 
@@ -231,7 +232,7 @@ public class Tars implements ReadOnlyTars {
 	 * @throws DuplicateTaskException
 	 */
 	public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
-		if (status.equals(Flag.DONE)) {
+		if ("/do".equals(status)) {
 			Status done = new Status(true);
 			for (ReadOnlyTask t : toMarkList) {
 				if (!t.getStatus().equals(done)) {
@@ -241,7 +242,7 @@ public class Tars implements ReadOnlyTars {
 					replaceTask(t, toMark);
 				}
 			}
-		} else if (status.equals(Flag.UNDONE)) {
+		} else if ("/ud".equals(status)) {
 			Status undone = new Status(false);
 			for (ReadOnlyTask t : toMarkList) {
 				if (!t.getStatus().equals(undone)) {
@@ -357,13 +358,56 @@ public class Tars implements ReadOnlyTars {
 	public void removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
 		tags.remove(t);
 	}
+	
+	/**
+     * Rename all task which has the old tag with the new tag
+     * 
+     * @param oldTag tag to be replaced with new tag name
+     * @param tagToUpdate new tag name
+     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws TagNotFoundException if there is no matching tags.
+     */
+    public void renameTag(ReadOnlyTag oldTag, Tag newTag)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
+        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+            Task toEdit = new Task(tasks.getInternalList().get(i));
+            UniqueTagList tags = toEdit.getTags();
+            if (tags.contains(new Tag(oldTag))) {
+                tags.remove(new Tag(oldTag));
+                tags.add(newTag);
+                toEdit.setTags(tags);
+                tasks.getInternalList().set(i, toEdit);
+            }
+        }
+    }
+    
+    /**
+     * Delete tag from all tasks
+     * 
+     * @param toBeDeleted
+     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws TagNotFoundException if there is no matching tags.
+     */
+    public void deleteTag(ReadOnlyTag toBeDeleted)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
+        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+            Task toEdit = new Task(tasks.getInternalList().get(i));
+            UniqueTagList tags = toEdit.getTags();
+            if (tags.contains(new Tag(toBeDeleted))) {
+                tags.remove(new Tag(toBeDeleted));
+                toEdit.setTags(tags);
+                tasks.getInternalList().set(i, toEdit);
+            }
+        }
+    }
 
 	//// util methods
 
 	@Override
 	public String toString() {
 		return tasks.getInternalList().size() + " tasks, " + rsvTasks.getInternalList().size() + " reserved tasks," + tags.getInternalList().size() + " tags";
-		// TODO: refine later
 	}
 
 	@Override

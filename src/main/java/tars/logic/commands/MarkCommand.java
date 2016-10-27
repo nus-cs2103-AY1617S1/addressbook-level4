@@ -5,7 +5,6 @@ import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.InvalidRangeException;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
-import tars.commons.flags.Flag;
 import tars.commons.util.MarkTaskTracker;
 import tars.model.task.*;
 
@@ -24,10 +23,10 @@ public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": mark a task as done or undone."
-            + "Parameters: -do <INDEX>[  <INDEX> <INDEX> ...] -ud <INDEX>[ <INDEX> <INDEX> …]\n" 
-            + "Parameters: -do <START_INDEX>..<END_INDEX> -ud <START_INDEX>..<END_INDEX>\n"
-            + "Example: " + COMMAND_WORD + " -do 3 5 7 -ud 2 4 6\n"
-            + "OR " + COMMAND_WORD + " -do 1..3 -ud 4..6";
+            + "Parameters: /do <INDEX>[  <INDEX> <INDEX> ...] /ud <INDEX>[ <INDEX> <INDEX> …]\n" 
+            + "Parameters: /do <START_INDEX>..<END_INDEX> /ud <START_INDEX>..<END_INDEX>\n"
+            + "Example: " + COMMAND_WORD + " /do 3 5 7 /ud 2 4 6\n"
+            + "OR " + COMMAND_WORD + " /do 1..3 /ud 4..6";
 
     private String markDone;
     private String markUndone;
@@ -67,7 +66,7 @@ public class MarkCommand extends Command {
         if (!this.markDone.equals("")) {
             Status done = new Status(true);
             ArrayList<ReadOnlyTask> markDoneTasks = getTasksFromIndexes(this.markDone.split(" "), done);
-            model.mark(markDoneTasks, Flag.DONE);
+            model.mark(markDoneTasks, "/do");
         }
     }
     
@@ -75,7 +74,7 @@ public class MarkCommand extends Command {
         if (!this.markUndone.equals("")) {
             Status undone = new Status(false);
             ArrayList<ReadOnlyTask> markUndoneTasks = getTasksFromIndexes(this.markUndone.split(" "), undone);
-            model.mark(markUndoneTasks, Flag.UNDONE);
+            model.mark(markUndoneTasks, "/ud");
         }
     }
         

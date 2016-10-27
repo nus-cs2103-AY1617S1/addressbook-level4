@@ -8,27 +8,25 @@ import tars.logic.commands.AddCommand;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.UndoCommand;
 import tars.testutil.TestTask;
-import tars.testutil.TestUtil;
 
+/**
+ * @@author A0139924W
+ */
 public class UndoCommandTest extends TarsGuiTest {
     
-    //@@author A0139924W
     @Test
     public void undo_add_successful() {
         // setup
-        TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToUndo = td.taskH;
-        currentList = TestUtil.addTasksToList(currentList, taskToUndo);
         commandBox.runCommand(taskToUndo.getAddCommand());
         
         commandBox.runCommand("undo");
-        currentList = td.getTypicalTasks();
-        assertTrue(taskListPanel.isListMatching(currentList));
+        TestTask[] expectedList = {td.taskG};
+        assertTrue(taskListPanel.isListMatching(expectedList));
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.format(AddCommand.MESSAGE_UNDO, taskToUndo)));
     }
     
-    //@@author A0139924W
     @Test
     public void undo_delete_successful() {
         // setup

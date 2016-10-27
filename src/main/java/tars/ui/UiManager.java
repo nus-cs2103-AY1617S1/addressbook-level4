@@ -6,13 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import tars.MainApp;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
 import tars.commons.events.storage.DataSavingExceptionEvent;
-import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.util.StringUtil;
@@ -110,16 +108,10 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-    }
-    
+        
     @Subscribe
     private void handleTaskAddedEvent(TaskAddedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Scrolling to newly added task"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 

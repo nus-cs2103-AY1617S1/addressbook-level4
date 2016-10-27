@@ -345,6 +345,31 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    
+    /**
+     * Appends Reserved Tasks to the array of rsvTasks
+     * @param rsvTasks
+     * @param rsvTasksToAdd
+     * @return The modified array of rsv tasks
+     */
+    public static TestRsvTask[] addRsvTasksToList(final TestRsvTask[] rsvTasks, TestRsvTask... rsvTasksToAdd) {
+        List<TestRsvTask> listOfRsvTasks = asList(rsvTasks);
+        listOfRsvTasks.addAll(asList(rsvTasksToAdd));
+        return listOfRsvTasks.toArray(new TestRsvTask[listOfRsvTasks.size()]);
+    }
+    
+    /**
+     * Removes a reserved task from the array of rsvTasks
+     * @param rsvTasks
+     * @param rsvTaskToDel
+     * @return The modifed array of rsv tasks
+     */
+
+    public static TestRsvTask[] delRsvTaskFromList(final TestRsvTask[] rsvTasks, TestRsvTask rsvTaskToDel) {
+        List<TestRsvTask> listOfRsvTasks = asList(rsvTasks);
+        listOfRsvTasks.remove(rsvTaskToDel);
+        return listOfRsvTasks.toArray(new TestRsvTask[listOfRsvTasks.size()]);
+    }
 
     /**
      * Edits the task with index 1 on the list of tasks.
@@ -358,7 +383,7 @@ public class TestUtil {
      * @param nameToEdit
      *            Name of the task to edit.
      * @param priorityToEdit
-     *            Priority of the task to edit.            
+     *            Priority of the task to edit.
      * @return The modified array of tasks.
      */
     public static TestTask[] editTask(final TestTask[] tasks, int indexToEdit, Name nameToEdit,
@@ -369,7 +394,7 @@ public class TestUtil {
 
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    
+
     /**
      * Marks the task as done with index 1 in the list of tasks.
      * 
@@ -401,7 +426,7 @@ public class TestUtil {
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
-    
+
     public static boolean compareCardAndRsvTask(RsvTaskCardHandle card, RsvTask tasks) {
         return card.isSameRsvTask(tasks);
     }

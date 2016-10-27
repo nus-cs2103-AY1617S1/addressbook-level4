@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tars.model.tag.ReadOnlyTag;
+import tars.model.task.DateTime;
+import tars.model.task.rsv.RsvTask;
 
 public class Formatter {
     /** Format of indexed list item */
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d. %2$s";
 
     /** A decorative prefix added to the beginning of lines printed by TARS */
     private static final String LINE_PREFIX = " ";
@@ -53,5 +55,20 @@ public class Formatter {
      */
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
+    }
+
+    public static String formatDateTimeList(RsvTask rsvTask) {
+        String formatted = "";
+        ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
+        int count = 1;
+        for (DateTime dt : dateTimeArrayList) {
+            String topSeparator = "-------- " + String.valueOf(count) + " --------" + "\n";
+            String bottomSeparator = new String(new char[topSeparator.length()-2]).replace("\0", "-");
+            formatted += topSeparator
+                    + dt.toString() + "\n"
+                    + bottomSeparator + "\n";
+            count++;
+        }
+        return formatted;
     }
 }

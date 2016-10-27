@@ -3,20 +3,20 @@ package tars.model;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.logic.commands.Command;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
+import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -34,7 +34,7 @@ public interface Model {
     ReadOnlyTars getTars();
 
     /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+    Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
             throws UniqueTaskList.TaskNotFoundException, DateTimeException, IllegalValueException,
             TagNotFoundException;
     
@@ -52,10 +52,17 @@ public interface Model {
     
     /** Adds the given reserved task */
     void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
+    
+    /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
+    public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
     /** Rename all tag with the new tag name */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
+    
+    /** Delete the tag from all task */
+    void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;
@@ -89,11 +96,16 @@ public interface Model {
     /** Returns the unique tag list as an {@code ObservableList<? extends ReadOnlyTag>} */
     ObservableList<? extends ReadOnlyTag> getUniqueTagList();
 
-   /**
+    /**
      * Sorts the filtered task list by the given keywords
      * 
      * @@author A0140022H
      */
-	void sortFilteredTaskList(Set<String> keywords);  
+	void sortFilteredTaskList(Set<String> keywords);
+
+	/**
+     * @@author A0140022H
+     */
+	void updateFilteredTaskListUsingDate(DateTime dateTime);  
 
 }
