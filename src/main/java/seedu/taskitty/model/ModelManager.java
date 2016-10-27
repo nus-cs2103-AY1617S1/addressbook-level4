@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (!undoTaskInfo.hasPreviousValidCommand()) {
             throw new NoPreviousValidCommandException(null);
         }
-        return revertBackPreviousState(undoTaskInfo, redoTaskInfo);        
+        return revertBackPreviousState(undoTaskInfo, redoTaskInfo, false);        
     }        
     
    	@Override     
@@ -190,7 +190,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (!redoTaskInfo.hasRecentUndoCommand()) {
             throw new NoRecentUndoCommandException(null);
         }
-        return revertBackPreviousState(redoTaskInfo, undoTaskInfo);        
+        return revertBackPreviousState(redoTaskInfo, undoTaskInfo, true);        
     } 
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
@@ -428,7 +428,7 @@ public class ModelManager extends ComponentManager implements Model {
 		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(today));
 	}
 	
-	private String revertBackPreviousState(SessionTaskInfoStorage toGetInfo, SessionTaskInfoStorage toStoreInfo) {
+	private String revertBackPreviousState(SessionTaskInfoStorage toGetInfo, SessionTaskInfoStorage toStoreInfo, boolean isRedo) {
         String commandWord = toGetInfo.getCommandWord();
         toStoreInfo.storeCommandWord(commandWord);
         
@@ -436,49 +436,72 @@ public class ModelManager extends ComponentManager implements Model {
             switch(commandWord) {
             
             case AddCommand.COMMAND_WORD:
-                ReadOnlyTask taskAddedToRemove = toGetInfo.getTask();
-                taskManager.removeTask(taskAddedToRemove);
-                toStoreInfo.storeTask(taskAddedToRemove);
+                ReadOnlyTask taskAdded = toGetInfo.getTask();
+                if (isRedo) {
+                    taskManager.addTask((Task) taskAdded);
+                } else {
+                    taskManager.removeTask(taskAdded); 
+                } 
+                toStoreInfo.storeTask(taskAdded);
                 
             case DeleteCommand.COMMAND_WORD:
                 int numberOfTasksDeleted = toGetInfo.getNumberOfTasks();
                 toStoreInfo.storeNumberOfTasks(numberOfTasksDeleted);
-                ReadOnlyTask taskDeletedToRestore;
+                ReadOnlyTask taskDeleted;
                 for (int i = 0; i < numberOfTasksDeleted; i++) {
-                    taskDeletedToRestore = toGetInfo.getTask();
-                    taskManager.addTask((Task) taskDeletedToRestore);
-                    toStoreInfo.storeTask(taskDeletedToRestore);
+                    taskDeleted = toGetInfo.getTask();
+                    if (isRedo) {
+                        taskManager.removeTask(taskDeleted);
+                    } else {
+                        taskManager.addTask((Task) taskDeleted);
+                    }                    
+                    toStoreInfo.storeTask(taskDeleted);
                 }
+                
             case EditCommand.COMMAND_WORD:
                 ReadOnlyTask taskBeforeEdit = toGetInfo.getTask();
                 ReadOnlyTask taskAfterEdit = toGetInfo.getTask();
-                taskManager.addTask((Task) taskBeforeEdit);
-                taskManager.removeTask(taskAfterEdit);
-                toStoreInfo.storeTask(taskBeforeEdit);
+                if (isRedo) {
+                    taskManager.addTask((Task) taskAfterEdit);
+                    taskManager.removeTask(taskBeforeEdit);                    
+                } else {
+                    taskManager.addTask((Task) taskBeforeEdit);
+                    taskManager.removeTask(taskAfterEdit);
+                }
                 toStoreInfo.storeTask(taskAfterEdit);
+                toStoreInfo.storeTask(taskBeforeEdit);
            
             case ClearCommand.COMMAND_WORD:
                 ReadOnlyTaskManager previousTaskManager = toGetInfo.getTaskManager();
-                resetData(previousTaskManager);
+                if (isRedo) {
+                    resetData(TaskManager.getEmptyTaskManager());
+                } else {
+                    resetData(previousTaskManager);
+                }
                 toStoreInfo.storeTaskManager(previousTaskManager);
             
             case DoneCommand.COMMAND_WORD:
-                int numberOfTasksMarkedAsDone = toGetInfo.getNumberOfTasks();
-                ReadOnlyTask taskToBeUnmarked;
-                for (int i = 0; i < numberOfTasksMarkedAsDone; i++) {
-                    taskToBeUnmarked = toGetInfo.getTask();
-                    taskManager.unMarkTaskAsDoneTask(taskToBeUnmarked);
-                    toStoreInfo.storeTask(taskToBeUnmarked);
+                int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
+                ReadOnlyTask taskToRevertMark;
+                for (int i = 0; i < numberOfTasksMarked; i++) {
+                    taskToRevertMark = toGetInfo.getTask();
+                    if (isRedo) {
+                        taskManager.markTaskAsDoneTask(taskToRevertMark);
+                    } else {
+                        taskManager.unMarkTaskAsDoneTask(taskToRevertMark);
+                    }
+                    toStoreInfo.storeTask(taskToRevertMark);
                 }
                            
             default:
-                assert false: "Should not have an invalid previousCommand";
+                assert false: "Should not have an invalid Command Word";
             }            
         } catch (Exception e) {
-            assert false: "Should not be unable to undo previous command action";
+            assert false: "Should not be unable to undo/redo previous command action";
         }
         String commandText = toGetInfo.getCommandText();
-        toStoreInfo.storeCommandText(commandText);        
+        toStoreInfo.storeCommandText(commandText);
+        indicateTaskManagerChanged();
         return commandText;
     }
 	

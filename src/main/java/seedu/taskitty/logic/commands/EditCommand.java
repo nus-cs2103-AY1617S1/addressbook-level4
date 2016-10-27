@@ -95,7 +95,7 @@ public class EditCommand extends Command{
             return new CommandResult(ive.getMessage());
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex], toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex, toEdit));
     }
     
     /**
