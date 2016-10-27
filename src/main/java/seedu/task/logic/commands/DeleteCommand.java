@@ -9,7 +9,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
- * @@author A0147335E-reused
+ * @@author A0147335E reused
  */
 public class DeleteCommand extends Command {
 

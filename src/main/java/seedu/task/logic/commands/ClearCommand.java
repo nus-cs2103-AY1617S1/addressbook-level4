@@ -8,7 +8,7 @@ import seedu.task.model.task.Task;
 
 /**
  * Clears the task manager.
- * @@author A0147335E-reused
+ * @@author A0147335E reused
  */
 public class ClearCommand extends Command {
 
