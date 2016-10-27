@@ -24,6 +24,7 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 	* Initial and follow up refactoring of AddressBook to TaskManager/IvoryTasks (including test data)
 	* Set up Travis, Coveralls and Codacy
 	* Maintain Issue Tracker and work distribution
+	* Create Releases and tagging
 	* Documentation of
 		* [Logic Component](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 		* [User Stories](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
