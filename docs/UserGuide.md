@@ -58,7 +58,8 @@ Command | Format
 <br>
 
 <!--- @@author A0140133B -->
-**General Information About Command Format**
+### General Information About Command Format
+
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
 * Items in `[]` are optional.
@@ -86,7 +87,7 @@ Exit | `exit` | None
 
 **Input of Task/Event Name**
 * You have to always surround task/event names with double quotation marks, `"`.
-* Other than that, you can type anything within those double quotes.
+* Other than that, you can type anything within those double quotation marks.
 
 <!--- @@author -->
 <br>
