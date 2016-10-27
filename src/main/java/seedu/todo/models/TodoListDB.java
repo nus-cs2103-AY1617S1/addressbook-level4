@@ -249,17 +249,30 @@ public class TodoListDB {
         ArrayList<Task> taskByName = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         Iterator<String> hashIterator = itemNameList.iterator();
+        boolean isFound = false;
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
             String currTaskName = currTask.getName().toLowerCase();
             String[] currTaskStartingNameBetweenSpace = currTaskName.split(" ");
-            while(hashIterator.hasNext()) {
+            while (hashIterator.hasNext()) {
                 String currentMatchingString = hashIterator.next().toLowerCase();
+                if (currTaskName.startsWith(currentMatchingString)) {
+                    taskByName.add(currTask);
+                    break;
+                }
+                
                 for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
+                    
                     if (currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingString)) {
                         taskByName.add(currTask);
+                        isFound = true;
                         break;
                     }   
+                }
+                
+                if (isFound) {
+                    isFound = false;
+                    break;
                 }
             }
             hashIterator = itemNameList.iterator();
