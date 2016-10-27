@@ -194,10 +194,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         Date nextEndDate = getNextDate(t.getEndDate(),recurVal[0]);
         
         if (t.isDeadline()) {
-            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur);
+            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur, new Date());
         }else if (t.isEvent()) {
             Date nextStartDate = getNextDate(t.getStartDate(), recurVal[0]);
-            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur, null);
+            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur, new Date());
         }
         
         return newT;

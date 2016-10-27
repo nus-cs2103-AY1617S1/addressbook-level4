@@ -34,14 +34,14 @@ public class Task implements ReadOnlyTask {
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, String recur) {
-        this(name, null, endDate, tags, recur, null);
+    public Task(String name, Date endDate, UniqueTagList tags, String recur, Date createdDate) {
+        this(name, null, endDate, tags, recur, createdDate);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags) {
-        this(name, null, null, tags, null, null);
+    public Task(String name, UniqueTagList tags, Date createdDate) {
+        this(name, null, null, tags, null, createdDate);
     }
 
     // @@author A0138862W

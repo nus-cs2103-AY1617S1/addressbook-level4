@@ -20,6 +20,10 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    
+    @XmlElement(required = true)
+    private Date createdDate;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -37,6 +41,7 @@ public class XmlAdaptedTask {
     //@@author A0138862W
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName();
+        createdDate = source.getCreatedDate();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -59,6 +64,6 @@ public class XmlAdaptedTask {
         final String name = this.name;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, tags);
+        return new Task(name, tags, createdDate);
     }
 }
