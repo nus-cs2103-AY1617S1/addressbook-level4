@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 
 // @@author A0125097A
@@ -50,50 +51,51 @@ public class ActivityCard extends UiPart {
 
     @FXML
     public void initialize() {
-        
+
         name.setText(activity.getName().fullName);
         id.setText(displayedIndex + ". ");
-        
-        if(activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
+
+        if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
             line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
             line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
-            System.out.println(priorityIcon);
             priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
-        } else if(activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
+        } else if (activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
             line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
-            line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());   
+            line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());
         } else {
             line1.setText("");
             line2.setText("");
         }
 
         reminder.setText(activity.getReminder().forDisplay());
-        
+
         tags.setText(activity.tagsString());
         completion.setText(activity.toStringCompletionStatus());
-        if(activity.getCompletionStatus() == true) {
-        	cardPane.setStyle("-fx-background-color: springgreen;");
-        } else if(activity.passedDueDate()){
-            cardPane.setStyle("-fx-background-color: red;");
-        } 
-        //too many colours, idea for priority colours put on hold
-        /*else if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
 
-            switch (((ReadOnlyTask) activity).getPriority().value) {
-
-            case "1":
-                cardPane.setStyle("-fx-background-color: lightyellow;");
-                break;
-            case "2":
-                cardPane.setStyle("-fx-background-color: moccasin;");
-                break;
-            case "3":
-                cardPane.setStyle("-fx-background-color: salmon;");
-                break;
+        if (activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
+            if (((Event) activity).isOngoing()) {
+                cardPane.setStyle("-fx-background-color: lightskyblue;");
             }
-        }*/
-        
-        
+        } else {
+            if (activity.getCompletionStatus() == true) {
+                cardPane.setStyle("-fx-background-color: springgreen;");
+            } else if (activity.passedDueDate()) {
+                cardPane.setStyle("-fx-background-color: red;");
+            }
+        }
+        // too many colours, idea for priority colours put on hold
+        /*
+         * else if
+         * (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
+         * 
+         * switch (((ReadOnlyTask) activity).getPriority().value) {
+         * 
+         * case "1": cardPane.setStyle("-fx-background-color: lightyellow;");
+         * break; case "2": cardPane.setStyle("-fx-background-color: moccasin;"
+         * ); break; case "3": cardPane.setStyle("-fx-background-color: salmon;"
+         * ); break; } }
+         */
+
     }
 
     public HBox getLayout() {

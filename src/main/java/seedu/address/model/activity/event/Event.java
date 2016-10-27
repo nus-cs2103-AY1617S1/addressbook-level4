@@ -1,23 +1,19 @@
 package seedu.address.model.activity.event;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.task.DueDate;
-import seedu.address.model.activity.task.Priority;
-import seedu.address.model.activity.task.ReadOnlyTask;
-import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 //@@author A0131813R
 public class Event extends Activity implements ReadOnlyEvent{
 
     private StartTime startTime;
     private EndTime endTime;
-    private boolean isCompleted;
     
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
         super(name, reminder, tags);
@@ -25,7 +21,6 @@ public class Event extends Activity implements ReadOnlyEvent{
 //        assert !CollectionUtil.isAnyNull(start, end);
         this.startTime = start;
         this.endTime = end;
-        isCompleted = false;
     }
     
     /**
@@ -52,25 +47,37 @@ public class Event extends Activity implements ReadOnlyEvent{
     public void setEndTime(EndTime endtime) {
         this.endTime= endtime;
     }
-
-
-
-    @Override
-    public boolean getCompletionStatus() {
-        return isCompleted;
-    }
     
-    public void setCompletionStatus(boolean isComplete) {
-        this.isCompleted = isCompleted;
+    /**
+     * Checks if this event is currently ongoing.
+     * @return true if the current time is between the start and end time.
+     */
+    @Override
+    public boolean isOngoing() {
+        Date now = Calendar.getInstance().getTime();
+        return now.after(startTime.getCalendarValue().getTime())
+                && now.before(endTime.getCalendarValue().getTime());
+    }
+
+    /**
+     * Checks if this event is over.
+     * @return true if the current time is after the end time.
+     */
+    @Override
+    public boolean isOver() {
+        Date now = Calendar.getInstance().getTime();
+        return now.after(endTime.getCalendarValue().getTime());
     }
     
     @Override
     public String toStringCompletionStatus() {
-        if(isCompleted) {
-            return "Over";
-        } 
-        
-            return "";  
+        if(this.isOver()) {
+            return "Event Over";
+        } else if (this.isOngoing()) {
+            return "Event Ongoing";
+        } else {
+            return "";
+        }
     }
     
     @Override

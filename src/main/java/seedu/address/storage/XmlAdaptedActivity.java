@@ -34,8 +34,6 @@ public class XmlAdaptedActivity {
     private String reminder;
     @XmlElement
     private boolean completion;
-    @XmlElement
-    private Image priorityIcon;
     
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -79,7 +77,6 @@ public class XmlAdaptedActivity {
     		type = "task";
             line1 = ((ReadOnlyTask) source).getDueDate().toSave();
             line2 = ((ReadOnlyTask) source).getPriority().value;
-            priorityIcon = ((ReadOnlyTask) source).getPriority().getPriorityIcon();
             break;
     	
     	case "event" :
@@ -101,7 +98,6 @@ public class XmlAdaptedActivity {
         name = source.getName().fullName;
         line1 = source.getDueDate().toString();
         line2 = source.getPriority().value;
-        priorityIcon = ((ReadOnlyTask) source).getPriority().getPriorityIcon();
         reminder = source.getReminder().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
