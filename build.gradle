@@ -36,6 +36,7 @@ allprojects {
         testFxVersion = '4.0.+'
         monocleVersion = '1.8.0_20'
         nattyVersion = '0.12'
+		reflectionsVersion = '0.9.10'
 
         libDir = 'lib'
     }
@@ -54,6 +55,7 @@ allprojects {
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
         compile "com.joestelmach:natty:$nattyVersion"
+		compile "org.reflections:reflections:$reflectionsVersion"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
