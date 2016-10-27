@@ -98,8 +98,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilePathChange(){
+    public void updateFilePathChange() {
     	indicateTaskListChanged();
+    }
+    
+    //@@author A0153837X
+    @Override
+    public String timeTask (Task target) {
+    	return target.timeTask();
     }
     
     //=========== Filtered Task List Accessors ===============================================================
