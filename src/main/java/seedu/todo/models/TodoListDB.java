@@ -3,12 +3,10 @@ package seedu.todo.models;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
@@ -39,6 +37,10 @@ public class TodoListDB {
     
     protected TodoListDB() {
         // Prevent instantiation.
+    }
+    
+    public void setStorage(Storage storageToSet) {
+        storage = storageToSet;
     }
     
     /**

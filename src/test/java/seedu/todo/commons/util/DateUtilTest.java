@@ -101,6 +101,11 @@ public class DateUtilTest {
 	}
 	
 	@Test
+	public void parseShortDateTests() {
+	    // TODO
+	}
+	
+	@Test
 	public void formatTimeTests() {
 	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 0, 0)), "00:00");
 	    assertEquals(DateUtil.formatTime(LocalDateTime.of(2016, 1, 1, 2, 0)), "02:00");

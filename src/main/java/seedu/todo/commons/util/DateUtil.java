@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -13,6 +14,9 @@ import java.util.Locale;
  * A utility class for Dates and LocalDateTimes
  */
 public class DateUtil {
+    
+    public static final LocalDateTime NO_DATETIME_VALUE = LocalDateTime.MIN;
+    public static final LocalDate NO_DATE_VALUE = NO_DATETIME_VALUE.toLocalDate();
 
     private static final String FROM_NOW = "later";
     private static final String TILL_NOW = "ago";
@@ -109,6 +113,34 @@ public class DateUtil {
     }
     
     /**
+     * Parses a short date (as defined in {@link formatShortDate}) back to a LocalDateTime.
+     * We ignore the day of week portion for simplicity, since the shortDate can optionally omit it.
+     * 
+     * @param shortDateToParse   Date string to format.
+     * @return                  Parsed LocalDateTime.
+     */
+    public static LocalDate parseShortDate(String shortDateToParse) {
+        String[] dateParts = shortDateToParse.split(" ");
+        String dateString;
+        
+        // Get the current year to add to the parsing since we cannot parse without a year...
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        
+        if (dateParts.length < 2 || dateParts.length > 3) {
+            return null;
+        }
+        
+        if (dateParts.length == 3) {
+            dateString = String.format("%s %s %d", dateParts[1], dateParts[2], currentYear);
+        } else {
+            dateString = String.format("%s %s %d", dateParts[0], dateParts[1], currentYear);
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        return LocalDate.parse(dateString, formatter);
+    }
+    
+    /**
      * Formats a LocalDateTime to a 24-hour time.
      * 
      * @param dateTime   LocalDateTime to format.
@@ -151,6 +183,17 @@ public class DateUtil {
         } else {
             return String.format("%s - %s", formatDateTime(dateFrom), formatDateTime(dateTo));
         }
+    }
+    
+    /**
+     * Parses a dateTime string with the standard ISO format {@code yyyy-MM-dd HH:mm:ss}.
+     * 
+     * @param dateTimeString
+     * @return
+     */
+    public static LocalDateTime parseDateTime(String dateTimeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(dateTimeString, formatter);
     }
 
 }
