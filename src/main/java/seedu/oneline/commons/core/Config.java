@@ -62,7 +62,8 @@ public class Config {
     public void setTaskBookFilePath(String taskBookFilePath) {
         this.taskBookFilePath = taskBookFilePath;
     }
-
+    
+    //@@author A0121657H
     public String getTaskBookName() {
         return taskBookName;
     }
@@ -70,11 +71,11 @@ public class Config {
     public void setTaskBookName(String taskBookName) {
         this.taskBookName = taskBookName;
     }
-    
+
     public void setStorageLocation(String storagePath) {
         this.setTaskBookFilePath(Paths.get(storagePath, taskBookFileName).toString());
     }
-
+    //@@author 
 
     @Override
     public boolean equals(Object other) {
