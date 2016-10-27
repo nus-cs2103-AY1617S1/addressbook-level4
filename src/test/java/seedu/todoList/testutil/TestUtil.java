@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * A utility class for test cases.
  */
-//@@ Author A0132157M
+//@@author A0132157M
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
