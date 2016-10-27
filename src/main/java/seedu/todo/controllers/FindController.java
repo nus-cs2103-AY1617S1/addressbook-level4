@@ -116,7 +116,7 @@ public class FindController implements Controller {
             dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         }
         //setting up view
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList);
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, tagNameList);
         
     }
 
@@ -139,10 +139,14 @@ public class FindController implements Controller {
      *            Due date for Task or start date for Event
      * @param dateTo
      *            End date for Event
+     * @param itemNameList 
+     *            String of Calendar Item name that user enter as keyword
+     * @param tagNameList 
+     *            String of Tag Name that user enter as keyword                      
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, HashSet<String> itemNameList) {
+            LocalDateTime dateTo, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
@@ -150,14 +154,14 @@ public class FindController implements Controller {
         if (listAll) {
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, tagNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, tagNameList, db);
         }
         
         if (isTask) {
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, tagNameList, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, tagNameList, db);
         }
         
         // Update console message
@@ -200,40 +204,41 @@ public class FindController implements Controller {
     }
     
     private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
-            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, HashSet<String> tagNameList, TodoListDB db) {
         final LocalDateTime NO_DATE = null;
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus && itemNameList.size() == 0) {
+            if (listAllStatus && itemNameList.size() == 0 && tagNameList.size() == 0) {
                 System.out.println("error"); //TODO : Nothing found
                 return null;
-            } else if (listAllStatus && itemNameList.size() != 0) {
-                return db.getEventByName(db.getAllEvents(), itemNameList);
+            } else if (listAllStatus && (itemNameList.size() != 0 || tagNameList.size() != 0)) {
+                return db.getEventByName(db.getAllEvents(), itemNameList, tagNameList);
             }
             else if (isCompleted) {
-                return db.getEventByRangeWithName(NO_DATE, LocalDateTime.now(), itemNameList);
+                return db.getEventByRangeWithName(NO_DATE, LocalDateTime.now(), itemNameList, tagNameList);
             } else {
-                return db.getEventByRangeWithName(LocalDateTime.now(), NO_DATE, itemNameList);
+                return db.getEventByRangeWithName(LocalDateTime.now(), NO_DATE, itemNameList, tagNameList);
             } 
         } else if (dateOn != null) { //by keyword found
-            return db.getEventbyDateWithName(dateOn, itemNameList);
+            return db.getEventbyDateWithName(dateOn, itemNameList, tagNameList);
         } else {
-            return db.getEventByRangeWithName(dateFrom, dateTo, itemNameList);
+            return db.getEventByRangeWithName(dateFrom, dateTo, itemNameList, tagNameList);
         }
     }
 
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
-            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, HashSet<String> tagNameList, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus && itemNameList.size() == 0) {
+            if (listAllStatus && itemNameList.size() == 0 && tagNameList.size() == 0) {
                 System.out.println("error"); //TODO : Nothing found
                 return null;
             } else {
-                return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
+                //getting all task by the name, dateFrom and dateTo will be null
+                return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList, tagNameList);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getTaskByDateWithStatusAndName(dateOn, isCompleted, listAllStatus, itemNameList);
+            return db.getTaskByDateWithStatusAndName(dateOn, isCompleted, listAllStatus, itemNameList, tagNameList);
         } else {
-            return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
+            return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList, tagNameList);
         }
     }
     
@@ -256,7 +261,7 @@ public class FindController implements Controller {
      */
     
     private void parseName(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
-        if (parsedResult.get("name") != null) {
+        if (parsedResult.get("name") != null && parsedResult.get("name")[1] != null) {
             String[] result = parsedResult.get("name")[1].trim().split(" ");
             for (int i = 0; i < result.length; i ++) {
                 itemNameList.add(result[i]);
@@ -270,7 +275,7 @@ public class FindController implements Controller {
      */
     
     private void parseTag(Map<String, String[]> parsedResult, HashSet<String> tagNameList) {
-        if (parsedResult.get("tag") != null) {
+        if (parsedResult.get("tag") != null && parsedResult.get("tag")[1] != null) {
             String[] result = parsedResult.get("tag")[1].trim().split(",");
             for (int i = 0; i < result.length; i ++) {
                 tagNameList.add(result[i].trim());
