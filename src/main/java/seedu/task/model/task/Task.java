@@ -77,6 +77,8 @@ public class Task implements ReadOnlyTask {
         return closeTime;
     }
     
+    
+    //@@author A0153467Y
     @Override
     public boolean getImportance() {
         return isImportant;
@@ -115,13 +117,18 @@ public class Task implements ReadOnlyTask {
             return null;
         }
     }
-
+    //@@author A0153467Y
+    /**
+     * Sets the task's importance flag
+     * @param isImportant is a variable to show whether the task is important or not
+     */
     public void setIsImportant(boolean isImportant) {
         this.isImportant = isImportant;
     }
 
     /**
      * Sets the task's completion flag
+     * @param isCompleted is a variable which shows whether the task is completed or not
      */
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
