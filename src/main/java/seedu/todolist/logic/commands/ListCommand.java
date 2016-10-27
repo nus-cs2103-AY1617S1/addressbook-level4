@@ -12,6 +12,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
             + "Displays the list of tasks corresponding to the filter provided.\n"
+    		+ "Parameter: [FILTER]\n"
             + "Example: " + COMMAND_WORD + " today";
     public static final String MESSAGE_ALLTASKS_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_FILTER_SUCCESS = "Listed filtered tasks";
