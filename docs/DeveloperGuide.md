@@ -418,8 +418,8 @@ Use Case end.
        Use case resume at step 1.
 
 
+<!-- @@author A0153411W -->
 
-//@@author A0153411W
 #### Use case: UC07 edit task details
    Actor: User<br>
 
@@ -499,9 +499,9 @@ Use Case end.
     1a. There is nothing to undo
     >1a1. System shows an error message
     Use case finishes.
-//@@author 
+<!-- @@author -->
 
-//@@author A0139932X
+<!-- @@author A0139932X -->
 #### Use case: UC10 Change save file path command
    Actor:User
    
@@ -516,7 +516,7 @@ Use Case end.
 	>1a1. System shows an error message
 	Use case ends.
 
-//author
+<!-- @@author -->
 
 {More to be added}
 
@@ -547,7 +547,8 @@ Use Case end.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
-//@@author A0139932X
+
+<!-- @@author A0139932X -->
 ## Appendix E : Product Survey
 
 Product 1: Google Keep
