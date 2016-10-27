@@ -64,4 +64,14 @@ public class StringUtil {
         }
         return newString;
     }
+    
+    /**
+     * Makes a best effort to sanitize input string.
+     * 
+     * @param alias     string to sanitize
+     * @return          sanitized string
+     */
+    public static String sanitize(String alias) {
+        return (alias == null) ? null : alias.replaceAll("[^A-Za-z]+", "");
+    }
 }
