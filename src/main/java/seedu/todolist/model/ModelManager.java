@@ -131,12 +131,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    //@author A0146682X
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
     	AddressBook previousAddressBook = new AddressBook(this.addressBook);
     	addressBook.editTask(target, replacement);
     	addressBookHistory.push(previousAddressBook);
         indicateAddressBookChanged();
     }
+    //@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

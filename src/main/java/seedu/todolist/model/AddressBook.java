@@ -87,6 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.add(p);
     }
     
+    /**@author A0146682X
+     */
     public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.edit(key, replacement)) {
             return true;
@@ -94,6 +96,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    //@author
     
     public boolean markTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.mark(keys)) {

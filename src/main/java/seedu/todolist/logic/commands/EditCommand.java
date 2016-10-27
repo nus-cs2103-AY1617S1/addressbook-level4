@@ -15,7 +15,7 @@ import seedu.todolist.model.task.TaskTime;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
-/**
+/**@author A0146682X
  * Edits the information of an existing task.
  */
 
