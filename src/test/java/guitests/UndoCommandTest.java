@@ -17,54 +17,64 @@ public class UndoCommandTest extends FlexiTrackGuiTest {
     public void list() {
         TestTask[] currentList = td.getTypicalSortedTasks();
 
-       // list all future tasks
-        String listCommand = "list future";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-
-        // list all past tasks
-        listCommand = "list past";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-
-        // list all tasks
-        listCommand = "list";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-
-        currentList = TestUtil.markTasksToList(currentList, 6);
-        currentList = TestUtil.markTasksToList(currentList, 4);
-        currentList = TestUtil.markTasksToList(currentList, 3);
-        currentList = TestUtil.markTasksToList(currentList, 1);
         
-        commandBox.runCommand("mark 6");
-        commandBox.runCommand("mark 4");
+        // undo unmark command 
+        commandBox.runCommand("mark 2");
+        commandBox.runCommand("unmark 2");
+        commandBox.runCommand("undo");
+        commandBox.runCommand("unmark 8");
+        assertUndoSuccess();
+        
+       // undo add command 
+        commandBox.runCommand("add a task");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+
+        // undo delete command 
+        commandBox.runCommand("delete 4");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+        
+        // undo mark command 
         commandBox.runCommand("mark 3");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+
+        
+        // undo edit command 
+        commandBox.runCommand("edit 5 n/ play bridge with friends");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+        
+        // undo clear command 
+        commandBox.runCommand("clear");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+        
+        // undo add command 
+        commandBox.runCommand("list future");
+        commandBox.runCommand("mark 2");
+        commandBox.runCommand("list");
+        commandBox.runCommand("undo");
+        assertUndoSuccess();
+        
+        // undo add command 
+        commandBox.runCommand("list past");
+        commandBox.runCommand("mark 2");
         commandBox.runCommand("mark 1");
-        
-        // list all marked tasks
-        listCommand = "list mark";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-        
-        // list all unmarked tasks
-        listCommand = "list unmark";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-        
-        // list future tasks that are marked
-        listCommand = "list future mark";
-        assertFindSuccess(listCommand, currentList);
-        currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
-        
+        commandBox.runCommand("undo");
+        commandBox.runCommand("list");
+        commandBox.runCommand("undo");
+
+        assertUndoSuccess();
     }
 
-    private void assertFindSuccess(String listCommand, TestTask... currentList) {
-        commandBox.runCommand(listCommand);
+    private void assertUndoSuccess() {
 
         // confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
+        TestTask[] expectedList = td.getTypicalSortedTasks();
         assertTrue(taskListPanel.isListMatching(expectedList));
+        
     }
 
 }

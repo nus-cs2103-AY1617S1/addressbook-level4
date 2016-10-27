@@ -56,6 +56,7 @@ public class UnmarkCommand extends Command {
             model.unmarkTask(lastShownList.get(targetIndex - 1));
             storeDataChanged.add(lastShownList.get(targetIndex - 1));
             recordCommand("unmark"); 
+            model.indicateFlexiTrackerChanged();
             return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, targetIndex));
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
@@ -91,5 +92,6 @@ public class UnmarkCommand extends Command {
         }
         
         storeDataChanged.pop();
+        
     }
 }

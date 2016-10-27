@@ -62,15 +62,17 @@ public class EditCommand extends Command {
         String duration = null; 
         
         try {
-            Task oldData = new Task(new Name (lastShownList.get(targetIndex - 1).getName().toString()), 
-                    new DateTimeInfo (lastShownList.get(targetIndex - 1).getDueDate().toString()), 
-                    new DateTimeInfo ( lastShownList.get(targetIndex - 1).getStartTime().toString()), 
-                    new DateTimeInfo (lastShownList.get(targetIndex - 1).getEndTime().toString()), 
-                    new UniqueTagList (lastShownList.get(targetIndex - 1).getTags()));
-            if (lastShownList.get(targetIndex - 1).getIsDone()){
-                oldData.getName().setAsMark();
+            if (targetIndex<lastShownList.size()+1 && targetIndex>0){
+                Task oldData = new Task(new Name (lastShownList.get(targetIndex - 1).getName().toString()), 
+                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getDueDate().toString()), 
+                        new DateTimeInfo ( lastShownList.get(targetIndex - 1).getStartTime().toString()), 
+                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getEndTime().toString()), 
+                        new UniqueTagList (lastShownList.get(targetIndex - 1).getTags()));
+                if (lastShownList.get(targetIndex - 1).getIsDone()){
+                    oldData.getName().setAsMark();
+                }
+                storeOldDataChanged.add(oldData); 
             }
-            storeOldDataChanged.add(oldData); 
             editedTask = model.editTask(targetIndex - 1, arguments);
         } catch (TaskNotFoundException pnfe) {
             indicateAttemptToExecuteIncorrectCommand();
