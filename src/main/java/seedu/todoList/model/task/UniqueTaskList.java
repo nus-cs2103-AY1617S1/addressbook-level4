@@ -94,6 +94,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    //@@author A0144061U
     /**
      * Removes all task from the list.
      */
@@ -107,6 +108,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setAll(UniqueTaskList taskList) {
        internalList.setAll(taskList.getInternalList());
     }
+    //@@author
 
     public ObservableList<Task> getInternalList() {
         return internalList;
@@ -135,6 +137,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
+    //@@author A0139920A
     public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
     	assert key != null;
     	final boolean taskUpdated = internalList.contains(key);

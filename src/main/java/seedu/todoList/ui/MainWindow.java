@@ -23,8 +23,10 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/Tdoo_icon.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 850;
+
+    public static final int MIN_HEIGHT = 830;
+    public static final int MIN_WIDTH = 1245;
+
 
     private Logic logic;
 
@@ -111,6 +113,7 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
+    //@@author A0144061U
     void fillInnerParts() {
     	assert primaryStage != null;
     	assert getTodoListPlaceholder() != null;
@@ -122,6 +125,7 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
+    //@@author
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
@@ -198,14 +202,17 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    //@@author A0144061U
     public TodoListPanel getTaskListPanel() {
         return this.todoListPanel;
     }
     
+    //@@author A0144061U
     public EventListPanel getEventListPanel() {
         return this.eventListPanel;
     }
     
+    //@@author A0144061U
     public DeadlineListPanel getDeadlineListPanel() {
         return this.deadlineListPanel;
     }

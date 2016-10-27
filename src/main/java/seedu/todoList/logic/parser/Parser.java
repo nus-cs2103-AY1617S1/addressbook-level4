@@ -28,19 +28,22 @@ public class Parser {
     /*
      * Add Command, task,event,deadline pattern
      */
+    //@@author A0139923X
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
                     + " from/(?<date>[^/]+)" 
                     + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
-
+    
+    //@@author A0139923X
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
                     + " from/(?<date>[^/]+)" 
                     + "( to/(?<endDate>[^/]+))?"
                     + " at/(?<startTime>[^/]+)"
                     + " to/(?<endTime>[^/]+)");
-
+    
+    //@@author A0139923X
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
                     + " on/(?<date>[^/]+)" 
@@ -49,6 +52,7 @@ public class Parser {
     /*
      * Edit Command, task,event,deadline pattern
      */
+    //@@author A0139923X
     private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
@@ -56,7 +60,8 @@ public class Parser {
                     + " from/(?<date>[^/]+)"
                     + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
-
+    
+    //@@author A0139923X
     private static final Pattern event_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
@@ -66,6 +71,7 @@ public class Parser {
                     + " at/(?<startTime>[^/]+)" 
                     + " to/(?<endTime>[^/]+)");
 
+    //@@author A0139923X
     private static final Pattern deadline_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
@@ -103,9 +109,6 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -152,6 +155,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0139923X
     private Command prepareAdd(String args) {
         final Matcher matcher_task = task_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_event = event_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -225,6 +229,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0139920A
     private Command prepareDone(String args) {
         Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
@@ -243,6 +248,7 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0139923X
     private Command prepareUndone(String args) {
         Optional<String> dataType = parseDataType(args);
         Optional<Integer> index = parseIndex(args);
@@ -252,22 +258,6 @@ public class Parser {
         }
 
         return new UndoneCommand(dataType.get(), index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
     }
 
     /**
@@ -293,6 +283,7 @@ public class Parser {
      * Returns the specified dataType in the {@code command} Returns an
      * {@code Optional.empty()} otherwise.
      */
+    //@@author A0139923X
     private Optional<String> parseDataType(String command) {
         final Matcher matcher = task_DELETE_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
@@ -326,7 +317,8 @@ public class Parser {
 
         return new FindCommand(keywordSet, dataType.get());
     }
-
+    
+    //@@author A0139923X
     private Command prepareEdit(String args) {
         final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
@@ -486,6 +478,7 @@ public class Parser {
     /*
      *  Check whether the attribute is set
      */
+    //@@author A0139923X
     private String isInputPresent(String input){
         return input == null ? "No End Date" : input;
     }

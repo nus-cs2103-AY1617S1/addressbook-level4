@@ -256,7 +256,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_task_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generatetaskList(2);
 
@@ -289,7 +289,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_task_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -318,7 +318,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_task_SUCCESS, threetasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threetasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -396,16 +396,16 @@ public class LogicManagerTest {
 
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
-            StartDate sdate = new StartDate("05-12-2017");
-            EndDate edate = new EndDate("06-12-2017");
-            Priority priority = new Priority("1");
-            String done = "false";
+            StartDate date = new StartDate("01-11-2016");
+            EndDate endDate = new EndDate("02-12-2016");
+            Priority priority = new Priority("111");
+            String isDone = "false";
             
             //EndTime endTime = new EndTime("1111");
             //Tag tag1 = new Tag("tag1");
             //Tag tag2 = new Tag("tag2");
             //UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Todo(name, sdate, edate, priority, done);
+            return new Todo(name, date, endDate, priority, isDone);
         }
 
         /**
@@ -419,9 +419,9 @@ public class LogicManagerTest {
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new StartDate("04-10-2017"),
-                    new EndDate("05-10-2017"),
-                    new Priority( "priority " + seed),
+                    new StartDate("11-12-2016"),
+                    new EndDate("12-12-2016"),
+                    new Priority(seed + "10"),
                     "false"
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -434,12 +434,11 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
             cmd.append(p.getName().name);
             cmd.append(" from/").append(p.getStartDate().date);
             cmd.append(" to/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
-            //cmd.append(" e/").append(p.getEndTime().endTime);
+            
 
             /*UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -527,8 +526,7 @@ public class LogicManagerTest {
                     new EndDate("02-11-2016"),
                     new Priority("1"),
                     "false"
-                    
-                    
+                                    
                     //new UniqueTagList(new Tag("tag"))
             );
         }

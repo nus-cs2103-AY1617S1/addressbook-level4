@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.todoList.model.task.*;
 
+//@@author A0144061U-reused
 public class DeadlineCard extends UiPart{
 
     private static final String FXML = "DeadlineCard.fxml";

@@ -30,6 +30,7 @@ public class StringUtil {
      *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
      * @param s Should be trimmed.
      */
+    //@@author A0139923X
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^\\d+$");
     }
@@ -39,10 +40,12 @@ public class StringUtil {
      *   Will return false for null, empty string, numbers, " ABC " (untrimmed) "A B" (contains whitespace).
      * @param s Should be trimmed.
      */
+    //@@author A0139923X
     public static boolean isUnsignedString(String s){
         return s != null && s.matches("^[a-zA-Z]+$");
     }
     
+    //@@author A0139923X
     public static boolean isUnsignedDate(String s){
         return s != null && s.matches("^(\\d{2}-\\d{2}-\\d{4})$");
     }
