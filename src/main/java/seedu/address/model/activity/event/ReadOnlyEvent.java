@@ -7,7 +7,7 @@ import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
 import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.tag.UniqueTagList;
-//@@author A0131813R
+//@@author A0125680H
 public interface ReadOnlyEvent extends ReadOnlyActivity {
     StartTime getStartTime();
     EndTime getEndTime();
