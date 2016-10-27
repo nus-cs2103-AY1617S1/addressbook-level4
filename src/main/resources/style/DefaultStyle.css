@@ -278,12 +278,6 @@
     -fx-image: url("../images/clock_white.png");
 }
 
-.overdue .locationImage,
-.ongoing .locationImage,
-.selected .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
 /*Overdue*/
 .overdue {
     primary-color: #e53935;
@@ -317,6 +311,10 @@
 
 .selected .pinImage {
     -fx-image: url("../images/star_white.png");
+}
+
+.selected .locationImage {
+    -fx-image: url("../images/location_white.png");
 }
 
 /*Collapse*/
