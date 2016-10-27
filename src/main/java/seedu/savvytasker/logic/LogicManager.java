@@ -62,6 +62,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         CommandResult result = command.execute();
         
+        //@@author A0097627N
         if (command.isUndo()){
             if (!undo()) {
                 result = new CommandResult("Cannot Undo");
@@ -76,6 +77,7 @@ public class LogicManager extends ComponentManager implements Logic {
             undoStack.push(command);
             redoStack.clear();
         }
+        //@@author
         
         return result;
     }
@@ -109,7 +111,7 @@ public class LogicManager extends ComponentManager implements Logic {
             parser.addAliasSymbol(symbol);
         }
     }
-
+    
     private boolean undo() {
         boolean undone = false;
         

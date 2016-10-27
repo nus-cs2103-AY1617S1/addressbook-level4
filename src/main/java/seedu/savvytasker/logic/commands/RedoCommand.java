@@ -5,6 +5,7 @@ package seedu.savvytasker.logic.commands;
  */
 public class RedoCommand extends Command {
 
+    //@@author A0097627N
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_REDO_ACKNOWLEDGEMENT = "Last command redone";
@@ -62,4 +63,5 @@ public class RedoCommand extends Command {
     public boolean isRedo(){
         return true;
     }
+    //@@author
 }

@@ -41,6 +41,7 @@ public class SelectCommand extends ModelRequiringCommand {
 
     }
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -87,4 +88,5 @@ public class SelectCommand extends ModelRequiringCommand {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

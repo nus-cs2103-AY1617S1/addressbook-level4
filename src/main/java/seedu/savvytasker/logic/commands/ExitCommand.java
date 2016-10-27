@@ -20,6 +20,7 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -66,4 +67,5 @@ public class ExitCommand extends Command {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

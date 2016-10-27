@@ -19,6 +19,7 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -65,5 +66,6 @@ public class IncorrectCommand extends Command {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }
 
