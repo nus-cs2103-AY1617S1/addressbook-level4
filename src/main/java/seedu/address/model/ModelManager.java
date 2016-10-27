@@ -11,6 +11,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
@@ -139,7 +140,30 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.addTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
+        scrollToAddedTask(target);
     }
+
+    // after task is added, scroll to it in the UndatedListPanel || DatedListPanel
+	private void scrollToAddedTask(Task target) {
+		int [] result = indexOfAddedTask(target);       
+        raise (new JumpToListRequestEvent(result[0], result[1]));
+	}
+
+	private int[] indexOfAddedTask(Task target) {
+		int datedTaskIndex = filteredDatedTasks.indexOf(target);
+        int undatedTaskIndex = filteredUndatedTasks.indexOf(target);
+        int [] result = new int[2];
+        // indexOf returns -1 if task not found in the list
+        if (datedTaskIndex == -1){
+        	result[0] = undatedTaskIndex;
+        	result[1] = JumpToListRequestEvent.UNDATED_LIST;
+        }
+        else if (undatedTaskIndex == -1){
+        	result[0] = datedTaskIndex;
+        	result[1] = JumpToListRequestEvent.DATED_LIST;
+        }
+        return result;
+	}
 
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
