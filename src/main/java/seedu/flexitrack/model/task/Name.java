@@ -10,9 +10,12 @@ public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = ".+";
-
-    public String fullName;
-
+    public static final String DONE_PREFIX = "(Done) ";
+        
+    private String isDonePrefix;
+    private String fullName;
+    
+    
     /**
      * Validates given name.
      *
@@ -25,7 +28,13 @@ public class Name {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        if (name.contains(DONE_PREFIX)){
+            this.isDonePrefix = name.substring(0, 7); 
+            this.fullName = name.substring(7);
+        } else {
+            this.fullName = name;
+            this.isDonePrefix = ""; 
+        }
     }
 
     /**
@@ -40,11 +49,6 @@ public class Name {
     }
 
     @Override
-    public String toString() {
-        return fullName;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
@@ -56,5 +60,25 @@ public class Name {
     public int hashCode() {
         return fullName.hashCode();
     }
+    
+    public boolean getIsDone(){ 
+        return isDonePrefix.equals(DONE_PREFIX);
+    }
+    
+    @Override
+    public String toString(){ 
+        return isDonePrefix + fullName; 
+    }
 
+    public String getNameOnly(){ 
+        return fullName; 
+    }
+
+    public String setAsMark(){ 
+        return isDonePrefix = DONE_PREFIX; 
+    }
+
+    public String setAsUnmark(){ 
+        return isDonePrefix = ""; 
+    }
 }

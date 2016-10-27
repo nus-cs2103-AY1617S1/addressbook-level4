@@ -126,7 +126,7 @@ public class EditCommandTest extends FlexiTrackGuiTest {
         int index = indexOneIndexed - 1;
        
         commandBox.runCommand("edit " + indexOneIndexed + command);
-         TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getName().fullName);
+         TaskCardHandle editedCard = taskListPanel.navigateToTask(editedTask.getName().toString());
         
         assertMatching(editedTask, editedCard);
 

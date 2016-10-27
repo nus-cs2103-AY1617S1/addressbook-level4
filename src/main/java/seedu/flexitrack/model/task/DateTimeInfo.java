@@ -45,7 +45,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
             this.setTime = parsedTiming.getParsedTimingInfo();
             formatTiming(parsedTiming.isInferred());
         } catch (IllegalValueException e) {
-            throw new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
+            new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
         }
     }
 

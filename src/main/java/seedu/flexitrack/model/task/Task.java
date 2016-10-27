@@ -35,7 +35,7 @@ public class Task implements ReadOnlyTask{
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
         this.endTime.isEndTimeInferred();
-        this.isDone = name.fullName.contains("(Done)");
+        this.isDone = name.getIsDone();
     }
 
     /**
@@ -62,7 +62,7 @@ public class Task implements ReadOnlyTask{
 
     @Override
     public boolean getIsDone() {
-        return isDone;
+        return name.getIsDone();
     }
 
     @Override
@@ -113,18 +113,14 @@ public class Task implements ReadOnlyTask{
 
     private void setIsDone(boolean isDone) {     
         if (isDone && !this.isDone) {
-            name.setName("(Done) " + name.toString());
-            this.isDone = true;
+            name.setAsMark();
         } else if (!isDone && this.isDone) {
-            name.setName(name.toString().replace("(Done) ", ""));
-            name.setName(name.toString().replace("(Done)", ""));
-            this.isDone = false;
+            name.setAsUnmark();
         }
-        //this.isDone = isDone;//
     }
 
     public void markTask(boolean isDone) throws IllegalValueException {
-        this.isDone = this.name.toString().contains("(Done) ") || this.name.toString().contains("(Done)"); 
+        this.isDone = this.name.getIsDone(); 
         if(this.isDone && isDone) {
             throw new IllegalValueException("Task already marked!");
         } else if(!this.isDone && !isDone) {

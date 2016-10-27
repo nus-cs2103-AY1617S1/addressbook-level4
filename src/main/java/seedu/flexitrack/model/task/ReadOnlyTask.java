@@ -82,8 +82,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     }
 
     default int compareByMark(ReadOnlyTask task, String type) {
-        String name1 = this.getName().fullName;
-        String name2 = task.getName().fullName;
+        String name1 = this.getName().toString();
+        String name2 = task.getName().toString();
         
         if(name1.contains("(Done)") && !name2.contains("(Done)")){
             return 1;
@@ -91,13 +91,13 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             return -1;
         }else{
             if(type.equals("Float")){
-                return this.getName().fullName.compareTo(task.getName().fullName);    
+                return this.getName().toString().compareTo(task.getName().toString());    
             }else if(type.equals("TaskEvent")){
                 DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
                 DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
                 int c = time1.compareTo(time2);
                 if (c == 0){
-                    return this.getName().fullName.compareTo(task.getName().fullName);
+                    return this.getName().toString().compareTo(task.getName().toString());
                 }else{
                     return c;
                 }
