@@ -64,6 +64,10 @@ Format: `show TYPE`
 > * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
 
 Examples:
+* `show incomplete`<br>
+
+> * Lists all incomplete tasks
+
 * `show p/high`<br>
 
 > * Lists all tasks marked as high priority

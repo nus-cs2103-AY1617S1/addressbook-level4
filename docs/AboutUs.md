@@ -57,7 +57,8 @@ We are a group of highly motivated and hardworking students working on our CS210
   *  [Clearing tasks](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#clear-all-tasks--clear)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0142102E.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0142102E.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0142102E.md)]
 * Other major contributions:
-  *  Wrote JUnit test cases for Add, Clear and Show commands
+  *  Wrote JUnit test cases for Clear and Show commands
+  *  Implementation of recurring tasks and checking for overlapping tasks
 
 -----
 

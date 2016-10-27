@@ -199,6 +199,10 @@ The information in an `UndoInfo` instance is used to undo the relevant operation
 * We use a redo stack to store a list of all those `UndoInfo` instances that were popped from the undo stack and pushed into this stack. These changes are redone in a manner similar to how changes are undone in Undo operation. 
 * Note that if an operation following an undo operation mutates the list, then the redo stack is cleared at that point.
 
+/* @@author A0142102E */
+### Recurring Tasks
+The recurring feature allows a task to recur in a specified frequency, and its dates will be updated to the next recurring date once it is marked as done. `RecurringUtil` is used to check and update a task's start and end dates. The `Task` class also contains information on whether this particular task is a recurring one and its relevant recurring frequency (daily, weekly, monthly or yearly). The checking and updating of a recurring task's dates occurs when the task is updated, marked as done, or when it undergoes undo and redo operations.
+
 /* @@author */
 
 ## Testing
@@ -552,7 +556,7 @@ Weaknesses:
 2. Fixed format for entering dates, thus users have to remember a specific format each time they enter a date.
 3. No feature to search for free slots, thus users have to manually look for an empty slot before adding a task in.
 
-/* @@author */
+/* @@author A0142102E*/
 #### Fantastical (studied by Fionna Tong)
 
 Strengths:
