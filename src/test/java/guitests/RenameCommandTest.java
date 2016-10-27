@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.agendum.logic.commands.RenameCommand;
+import seedu.agendum.model.task.Name;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.commons.exceptions.IllegalValueException;
 import seedu.agendum.testutil.TaskBuilder;
@@ -51,7 +52,8 @@ public class RenameCommandTest extends ToDoListGuiTest {
         String newTaskName = taskToRename.getName().toString() + " renamed";
 
         try {
-            TestTask renamedTask = new TaskBuilder(taskToRename).withName(newTaskName).build();
+            TestTask renamedTask = new TestTask(taskToRename);
+            renamedTask.setName(new Name(newTaskName));
             TestTask[] expectedList = TestUtil.replaceTaskFromList(currentList, renamedTask, targetIndexOneIndexed - 1);
 
             commandBox.runCommand("rename " + targetIndexOneIndexed + " " + newTaskName);

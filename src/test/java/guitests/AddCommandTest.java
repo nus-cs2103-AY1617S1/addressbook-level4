@@ -46,6 +46,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
+        taskToAdd.setLastUpdatedTimeToNow();
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }

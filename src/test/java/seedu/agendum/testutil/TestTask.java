@@ -1,6 +1,7 @@
 package seedu.agendum.testutil;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import seedu.agendum.model.task.*;
@@ -8,7 +9,7 @@ import seedu.agendum.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private static final int UPCOMING_DAYS_THRESHOLD = 7;
 
@@ -16,12 +17,13 @@ public class TestTask implements ReadOnlyTask {
     private boolean isCompleted;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private LocalDateTime lastUpdatedTime = LocalDateTime.of(2016, 10, 10, 10, 10);
+    private LocalDateTime lastUpdatedTime;
 
     public TestTask() {
         isCompleted = false;
         startDateTime = null;
         endDateTime = null;
+        setLastUpdatedTimeToNow();
     }
 
     /**
@@ -37,22 +39,35 @@ public class TestTask implements ReadOnlyTask {
 
     public void setName(Name name) {
         this.name = name;
+        setLastUpdatedTimeToNow();
     }
     
     public void markAsCompleted() {
         this.isCompleted = true;
+        setLastUpdatedTimeToNow();
     }
 
     public void markAsUncompleted() {
         this.isCompleted = false;
+        setLastUpdatedTimeToNow();
     }
 
     public void setStartDateTime(Optional<LocalDateTime> startDateTime) {
         this.startDateTime = startDateTime.orElse(null);
+        setLastUpdatedTimeToNow();
     }
     
     public void setEndDateTime(Optional<LocalDateTime> endDateTime) {
         this.endDateTime = endDateTime.orElse(null);
+        setLastUpdatedTimeToNow();
+    }
+
+    public void setLastUpdatedTimeToNow() {
+        this.lastUpdatedTime = LocalDateTime.now();
+    }
+
+    public void setLastUpdatedTime(LocalDateTime updatedTime) {
+        this.lastUpdatedTime = updatedTime;
     }
 
     @Override
@@ -114,5 +129,54 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         return sb.toString();
     }
+
+    public int compareTo(TestTask other) {
+        int comparedCompletionStatus = compareCompletionStatus(other);
+        if (comparedCompletionStatus != 0) {
+            return comparedCompletionStatus;
+        }
+
+        int comparedTime = compareTime(other);
+        if (comparedTime != 0) {
+            return comparedTime;
+        }
+
+        int comparedLastUpdatedTime = compareLastUpdatedTime(other);
+        if (comparedLastUpdatedTime != 0) {
+            return comparedLastUpdatedTime;
+        }
+        
+        return compareName(other);
+    }
+
+    public int compareCompletionStatus(TestTask other) {
+        return Boolean.compare(this.isCompleted(), other.isCompleted());
+    }
+
+    public int compareTime(TestTask other) {
+        if (this.hasTime() && other.hasTime()) {
+            return this.getTaskTime().compareTo(other.getTaskTime());
+        } else if (this.hasTime()) {
+            return -1;
+        } else if (other.hasTime()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int compareLastUpdatedTime(TestTask other) {
+        // to fix erratic behavior for logic manager tests
+        long seconds = ChronoUnit.SECONDS.between(this.getLastUpdatedTime(), other.getLastUpdatedTime());
+        if (Math.abs(seconds) < 2) {
+            return 0;
+        }
+        return other.getLastUpdatedTime().compareTo(this.getLastUpdatedTime());
+    }
+
+    public int compareName(TestTask other) {
+        return this.getName().toString().compareTo(other.getName().toString());
+    }
+
 
 }

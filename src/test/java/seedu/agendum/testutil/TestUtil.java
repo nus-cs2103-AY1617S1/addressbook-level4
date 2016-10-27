@@ -286,6 +286,7 @@ public class TestUtil {
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
         tasks[index] = task;
+        sortTasks(tasks);
         return tasks;
     }
 
@@ -298,7 +299,9 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+        TestTask[] newTasks = listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+        sortTasks(newTasks);
+        return newTasks;
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -307,6 +310,10 @@ public class TestUtil {
             list.add(obj);
         }
         return list;
+    }
+
+    private static void sortTasks(TestTask[] tasks) {
+        Arrays.sort(tasks);
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
