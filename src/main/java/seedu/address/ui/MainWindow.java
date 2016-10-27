@@ -222,10 +222,6 @@ public class MainWindow extends UiPart {
     public BrowserPanel getBrowserPanel() {
         return this.browserPanel;
     }
-    
-    public ResultDisplay getResultDisplay(){
-    	return this.resultDisplay;
-    }
 
     public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
