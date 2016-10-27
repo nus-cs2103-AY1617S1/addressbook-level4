@@ -10,11 +10,9 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  * @@author A0143095H
  */
-<<<<<<< HEAD
-//@@ Gauri Joshi A0143095H
-=======
 
->>>>>>> 8d8e4ba9ff12a062a4380758728d06dbc71c916d
+//@@ Gauri Joshi A0143095H
+
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd-mm-yyyy";
