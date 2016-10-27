@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
 import tars.commons.core.KeyCombinations;
-import tars.ui.CommandBox;
 
 /**
  * A handle to the Command Box in the GUI.
