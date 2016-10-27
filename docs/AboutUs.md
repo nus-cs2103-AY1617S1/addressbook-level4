@@ -23,8 +23,13 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Nathan Kwon](https://github.com/kwonn)
 <img src="images/NathanKwon.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Integration
-
+* Component in charge of: [Logic](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/DeveloperGuide.md#logic-component) <br>
+* Aspects/tools in charge of: Integration, GitHub <br>
+* Features implemented: <br>
+   * [List Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#listing-tasks-list) <br>
+   * [Mark Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#marking-as-priority--mark) <br>
+   * [Unmark Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#marking-as-priority--unmark) <br>
+* Code written: [[functional code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/main/A0153006W.md) [[test code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/docs/A0153006W.md) [[docs]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/test/A0153006W.md) <br>
 -----
 
 #### [Desmond Khoo](http://github.com/DesmondKhoo) 
