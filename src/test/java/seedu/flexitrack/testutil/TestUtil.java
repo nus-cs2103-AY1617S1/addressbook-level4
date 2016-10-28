@@ -31,8 +31,6 @@ import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.FileUtil;
 import seedu.flexitrack.commons.util.XmlUtil;
 import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -73,41 +71,29 @@ public class TestUtil {
         try {
             Task[] sampleTasks = new Task[] {
                     new Task(new Name("Go shopping"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("13 Jan 4pm"),
-                            new DateTimeInfo("13 Jan 6pm"), new UniqueTagList()),
+                            new DateTimeInfo("13 Jan 6pm")),
                     new Task(new Name("Buy books"), new DateTimeInfo("11 May"), new DateTimeInfo("29 Feb 23.23"),
-                            new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
+                            new DateTimeInfo("29 Feb 23.23")),
                     new Task(new Name("Go for jogging"), new DateTimeInfo("29 Feb 23.23"),
-                            new DateTimeInfo("8 Apr 5.30"), new DateTimeInfo("8 Apr 6.30"), new UniqueTagList()),
+                            new DateTimeInfo("8 Apr 5.30"), new DateTimeInfo("8 Apr 6.30")),
                     new Task(new Name("Dinner with friends"), new DateTimeInfo("29 Feb 23.23"),
-                            new DateTimeInfo("10 Dec 8.30am"), new DateTimeInfo("10 Dec 11am"), new UniqueTagList()),
+                            new DateTimeInfo("10 Dec 8.30am"), new DateTimeInfo("10 Dec 11am")),
                     new Task(new Name("CS2103 homework"), new DateTimeInfo("12 Jun 7.30"),
-                            new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
+                            new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("29 Feb 23.23")),
                     new Task(new Name("Cs2103 exam"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("7 Jun 3pm"),
-                            new DateTimeInfo("7 Jun 5pm"), new UniqueTagList()),
+                            new DateTimeInfo("7 Jun 5pm")),
                     new Task(new Name("Ma1505 midterm"), new DateTimeInfo("29 Feb 23.23"),
-                            new DateTimeInfo("9 Aug 7pm"), new DateTimeInfo("9 Aug 11pm"), new UniqueTagList()),
+                            new DateTimeInfo("9 Aug 7pm"), new DateTimeInfo("9 Aug 11pm")),
                     new Task(new Name("Cycling"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("14 Nov 10.30"),
-                            new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
+                            new DateTimeInfo("14 Nov 12.30")),
                     new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"),
-                            new DateTimeInfo("today 6pm"), new UniqueTagList()) };
+                            new DateTimeInfo("today 6pm")) };
             Arrays.sort(sampleTasks);
             return sampleTasks;
         } catch (IllegalValueException e) {
             assert false;
             // not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[] { new Tag("relatives"), new Tag("friends") };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            // not possible
         }
     }
 
@@ -150,7 +136,7 @@ public class TestUtil {
     }
 
     public static FlexiTrack generateEmptyFlexiTrack() {
-        return new FlexiTrack(new UniqueTaskList(), new UniqueTagList());
+        return new FlexiTrack(new UniqueTaskList());
     }
 
     public static XmlSerializableFlexiTrack generateSampleStorageFlexiTrack() {
@@ -371,26 +357,6 @@ public class TestUtil {
         return card.isSameTask(task);
     }
 
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[] {};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                // not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }
 
     /**
      * Mark a task as done.

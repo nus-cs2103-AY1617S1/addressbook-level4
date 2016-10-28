@@ -3,7 +3,6 @@ package seedu.flexitrack.testutil;
 import java.util.Objects;
 
 import seedu.flexitrack.commons.util.CollectionUtil;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -21,19 +20,15 @@ public class TestTask implements ReadOnlyTask {
     private boolean isTask;
     private boolean isDone = false;
 
-    private UniqueTagList tags;
-
     /**
      * Every field must be present and not null.
      */
-    public TestTask(Name name, DateTimeInfo dueDate, DateTimeInfo startTime, DateTimeInfo endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+    public TestTask(Name name, DateTimeInfo dueDate, DateTimeInfo startTime, DateTimeInfo endTime) {
+        assert !CollectionUtil.isAnyNull(name);
         this.name = name;
         this.dueDate = dueDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from
-                                             // changes in the arg list
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
     }
@@ -46,7 +41,7 @@ public class TestTask implements ReadOnlyTask {
      * Copy constructor.
      */
     public TestTask(ReadOnlyTask source) {
-        this(source.getName(), source.getDueDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getDueDate(), source.getStartTime(), source.getEndTime());
     }
 
     public void setName(Name name) {
@@ -105,18 +100,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
@@ -127,7 +110,7 @@ public class TestTask implements ReadOnlyTask {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-        return Objects.hash(name, dueDate, startTime, endTime, isTask, isEvent, tags);
+        return Objects.hash(name, dueDate, startTime, endTime, isTask, isEvent);
     }
 
     @Override
@@ -145,7 +128,6 @@ public class TestTask implements ReadOnlyTask {
             sb.append("from/" + this.getStartTime().toString() + " ");
             sb.append("to/" + this.getEndTime().toString() + " ");
         }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 

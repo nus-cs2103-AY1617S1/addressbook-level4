@@ -1,8 +1,6 @@
 package seedu.flexitrack.testutil;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 
@@ -28,13 +26,6 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String... tags) throws IllegalValueException {
-        for (String tag : tags) {
-            task.getTags().add(new Tag(tag));
-        }
-        return this;
-    }
-
     public TaskBuilder withDueDate(String dueDate) throws IllegalValueException {
         // this.task.setDueDate(new DateTimeInfo(dueDate));
         this.dueDate = new DateTimeInfo(dueDate);
@@ -54,7 +45,7 @@ public class TaskBuilder {
     }
 
     public TestTask build() {
-        return this.task = new TestTask(this.name, this.dueDate, this.startTime, this.endTime, new UniqueTagList());
+        return this.task = new TestTask(this.name, this.dueDate, this.startTime, this.endTime);
     }
 
 }
