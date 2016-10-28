@@ -7,21 +7,34 @@ import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
 
+/**
+ * Container for formatting
+ * 
+ * @author A0139924W
+ */
+
 public class Formatter {
     /** Format of indexed list item */
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d. %2$s";
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d.\t%2$s";
 
     /** A decorative prefix added to the beginning of lines printed by TARS */
     private static final String LINE_PREFIX = " ";
 
     /** A platform independent line separator. */
     private static final String LS = System.lineSeparator();
+    
+    private static final String EMPTY_LIST_MESSAGE = "0 %1$s listed.";
 
     /** Offset required to convert between 1-indexing and 0-indexing. */
-    private static final int DISPLAYED_INDEX_OFFSET = 1;
+    public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     public String formatTags(List<? extends ReadOnlyTag> tags) {
         final List<String> formattedTags = new ArrayList<>();
+        
+        if(tags.size() == 0) {
+            return String.format(EMPTY_LIST_MESSAGE, "tags");
+        }
+        
         for (ReadOnlyTag tag : tags) {
             formattedTags.add(tag.getAsText());
         }
