@@ -6,7 +6,7 @@ public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority should only contain 1, 2 or 3\n"
                                                                + "1 is HIGH, 2 is MEDIUM , 3 is LOW";
-    public static final String PRIORITY_VALIDATION_REGEX = "^[1-3]$";
+    public static final String PRIORITY_VALIDATION_REGEX = "^[1-3|HIGH|MEDIUM|LOW]+$";
     
     public final String priority;
     public String level = "HIGH";
@@ -20,11 +20,15 @@ public class Priority {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
         
-        switch(Integer.parseInt(priority)){
-            case 1: level = "HIGH"; break;
-            case 2: level = "MEDIUM"; break;
-            case 3: level = "LOW"; break;
+        switch(priority){
+            case "1": level = "HIGH"; break;
+            case "2": level = "MEDIUM"; break;
+            case "3": level = "LOW"; break;
+            case "HIGH": level = "HIGH"; break;
+            case "MEDIUM": level = "MEDIUM"; break;
+            case "LOW": level = "LOW"; break;
         }
+
 	    this.priority = level;
 	}
     
