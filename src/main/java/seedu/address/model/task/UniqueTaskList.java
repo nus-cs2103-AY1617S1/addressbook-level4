@@ -119,8 +119,10 @@ public class UniqueTaskList implements Iterable<Task> {
     		overduedTask.setOverdue(1);
     		return true;
     	}
-    	else
+    	else {
+    		overduedTask.setOverdue(0);;
     		return false;
+    	}
     }
 
   //@@author A0139430L JingRui

@@ -601,20 +601,20 @@ public class LogicManagerTest {
 
         assertCommandBehavior(commandWord , expectedMessage, model.getAddressBook(), personList, Collections.emptyList(), Collections.emptyList());
     }
-/*
+    //@@author A0138993L
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
-
+  //@@author A0138993L
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommand("select E6");
     }
-
+  //@@author A0138993L
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectEvent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
@@ -622,7 +622,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons, Collections.emptyList(), Collections.emptyList());
 
         assertCommandBehavior("select E2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getEventList(),
         		expectedAB.getDeadlineList(),
@@ -630,7 +630,7 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredEventList().get(1), threePersons.get(1));
     }
-*/
+
   //@@author A0139430L JingRui
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {

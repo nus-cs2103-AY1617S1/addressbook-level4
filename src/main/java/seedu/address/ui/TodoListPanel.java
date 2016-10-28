@@ -84,6 +84,13 @@ public class TodoListPanel extends UiPart {
             todoListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void clear() {
+        Platform.runLater(() -> {
+            todoListView.getSelectionModel().clearSelection();
+        });
+    }
+
 
     class TodoListViewCell extends ListCell<ReadOnlyTask> {
 
