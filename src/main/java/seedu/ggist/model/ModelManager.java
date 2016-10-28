@@ -8,7 +8,7 @@ import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
-import seedu.ggist.commons.events.ui.AddTaskEvent;
+import seedu.ggist.commons.events.ui.JumpToListRequestEvent;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
@@ -63,10 +63,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
-        lastListing = today;
+        setTodayDate();
         updateListing();
-        EventsCenter.getInstance().post(new ChangeListingEvent(lastListing));
+        raise(new ChangeListingEvent(lastListing));
     }
     
     @Override
@@ -89,20 +88,23 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
-
+    //@@author A0138411N
+    /**Create a Date object with today's date*/
+    private void setTodayDate() {
+        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
+        lastListing = today;
+    }
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
     /** Raises an event to indicate the new task added */
-    private void indicateNewTaskAdded(Task task) {
-        getFilteredTaskList().indexOf(task);
+    private void indicateTaskChanges(Task task) {
         indicateTaskManagerChanged();
-        raise(new AddTaskEvent(getFilteredTaskList().indexOf(task)));
-        System.out.println(getFilteredTaskList().indexOf(task));
+        raise(new JumpToListRequestEvent(getFilteredTaskList().indexOf(task)));
     }
-
+//@@author 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -116,7 +118,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException, IllegalValueException {
+    public synchronized void editTask(Task target, String field, String value) throws TaskNotFoundException, IllegalValueException {
         taskManager.editTask(target, field, value);
         updateListing();
     	indicateTaskManagerChanged();
@@ -126,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
         updateListing();
-        indicateNewTaskAdded(task);
+        indicateTaskChanges(task);
 
     }
 
@@ -335,5 +337,11 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", taskDateKeyWords);
         }
+    }
+    @Override
+    public void editTask(ReadOnlyTask target, String field, String value)
+            throws TaskNotFoundException, IllegalValueException {
+        // TODO Auto-generated method stub
+        
     }
 }
