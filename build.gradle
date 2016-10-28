@@ -23,6 +23,10 @@ allprojects {
         mavenCentral()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+
+        flatDir {
+            dirs 'libs'
+        }
     }
 
     // This part is similar to global variables
@@ -52,18 +56,8 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-        compile files('libs/antlr-2.7.7.jar')
-        compile files('libs/antlr-runtume-3.5.2.jar')
-        compile files('libs/backport-util-concurrent-3.1.jar')
-        compile files('libs/commons-codec-1.5.jar')
-        compile files('libs/commons-lang-2.6.jar')
-        compile files('libs/commons-logging-1.1.1.jar')
-        compile files('libs/ical4j-1.0.2.jar')
-        compile files('libs/logback-classic-0.9.jar')
-        compile files('libs/logback-core-0.9.6.jar')
-        compile files('libs/natty-0.12.jar')
-        compile files('libs/slf4j-api-1.7.10.jar')
-        compile files('libs/stringtemplate-3.2.jar')
+        
+        compile fileTree(dir: 'libs', include: ['*.jar'])
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
