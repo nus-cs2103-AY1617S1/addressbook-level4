@@ -119,6 +119,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd); 
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(toAdd);
+            indicateCorrectCommandExecuted();
             return new CommandResult(String.format(MESSAGE_SUCCESS, taskType, toAdd.getTaskName()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

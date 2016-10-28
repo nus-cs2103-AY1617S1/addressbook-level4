@@ -53,7 +53,7 @@ public class DeleteCommand extends Command {
                 sb.append(", ");
             }
         }
-
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,sb.toString()));
     }
   //@@author

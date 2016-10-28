@@ -93,8 +93,9 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
+        taskListView.getFocusModel().focus(index);
+        taskListView.getSelectionModel().select(index);
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {

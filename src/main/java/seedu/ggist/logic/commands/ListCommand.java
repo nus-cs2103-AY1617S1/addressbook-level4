@@ -43,6 +43,7 @@ public class ListCommand extends Command {
         }
         model.setLastListing(listing);
         EventsCenter.getInstance().post(new ChangeListingEvent(listing));
+        indicateCorrectCommandExecuted();
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

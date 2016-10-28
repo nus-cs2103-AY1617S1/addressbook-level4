@@ -75,7 +75,7 @@ public class EditCommand extends Command {
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
         }
-
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 

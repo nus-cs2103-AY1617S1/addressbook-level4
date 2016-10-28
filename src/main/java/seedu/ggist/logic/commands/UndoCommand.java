@@ -86,6 +86,7 @@ public class UndoCommand extends Command {
             }
         }
         model.updateListing();
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousCommand));
     }
     
