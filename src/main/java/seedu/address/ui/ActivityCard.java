@@ -90,19 +90,6 @@ public class ActivityCard extends UiPart {
                 cardPane.setStyle("-fx-background-color: springgreen;");
             }
         }
-        // too many colours, idea for priority colours put on hold
-        /*
-         * else if
-         * (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
-         * 
-         * switch (((ReadOnlyTask) activity).getPriority().value) {
-         * 
-         * case "1": cardPane.setStyle("-fx-background-color: lightyellow;");
-         * break; case "2": cardPane.setStyle("-fx-background-color: moccasin;"
-         * ); break; case "3": cardPane.setStyle("-fx-background-color: salmon;"
-         * ); break; } }
-         */
-
     }
 
     public HBox getLayout() {
