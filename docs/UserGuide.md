@@ -16,7 +16,7 @@
  * [Mark](#how-to-mark-a-task--mark)
  * [Unmark](#how-to-unmark-a-task--ummark)
  * [Recur](#how-to-recur-a-task--recur)
- * [Set Path](#how-to-set-a-storage-path--setpath
+ * [Set Path](#how-to-set-a-storage-path--setpath)
  * [Exit](#how-to-exit-the-program--exit)
  * [Redo](#how-to-redo-a-task)
  * [Identify task](#how-to-identify-overdue-and-completed-task)
@@ -235,7 +235,7 @@ The `exit` command allows you to exits the program.<br>
 Exit format: `exit` 
 
 #### How to redo a task
-The <kbd>Up</kbd> <kbd>Down</kbd> allows you to select and display previous typed command in the command box.<br>
+The <kbd>&uparrow</kbd> <kbd>&downarrow</kbd> allows you to select and display previous typed command in the command box.<br>
 
 #### How to identify overdue and completed task
 Overdue and completed tasks can be identified by the color codes.<br>
@@ -303,7 +303,7 @@ e.g. **`setpath`**`taskData`
 
 * Exit: `exit`
 
-* <kbd>Up</kbd> <kbd>Down</kbd>: system display and select previously keyed commands
+* <kbd>&uparrow</kbd> <kbd>&downarrow</kbd>: system display and select previously keyed commands
 
 * ColorCode: system indicate overdue(red) and completed(green) task by color code
 
