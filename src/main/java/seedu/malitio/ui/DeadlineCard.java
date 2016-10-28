@@ -42,6 +42,9 @@ public class DeadlineCard extends UiPart{
     public void initialize() {
     	if (deadline.getCompleted()){
     		name.setText(deadline.getName().fullName);
+    		id.setStyle("-fx-text-fill: gray;");
+    		name.setStyle("-fx-text-fill: gray;");
+    		due.setStyle("-fx-text-fill: gray;");
     		name.getStylesheets().addAll(getClass().getResource("/view/strikethrough.css").toExternalForm());
     	} else {
     		name.setText(deadline.getName().fullName);
