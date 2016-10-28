@@ -490,6 +490,7 @@ Cons:
 * Unable to label event with categories
 * Event name gets truncated <br>
 
+<!-- @@author -->
 #### S Planner
 
 Pros:
@@ -539,6 +540,7 @@ Cons:
 * Does not display a calendar
 * Does not allow the addition of venue to a task
 
+<!-- @@author -->
 #### Cal
 Pros:
 * With a very convenient interface for setting events’ date and time quickly
