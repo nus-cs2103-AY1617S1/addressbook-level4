@@ -27,7 +27,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         testTaskListStack.push(addTask(taskToAdd, testTaskListStack.peek()));
         
         int targetIndex = testTaskListStack.peek().size() / 2;
-        testTaskListStack.push(deleteTask(testTaskListStack.peek().size() / 2, testTaskListStack.peek()));
+        testTaskListStack.push(deleteTask(targetIndex, testTaskListStack.peek()));
         
         commandBox.runCommand("clear");
         assertUndoSuccess(testTaskListStack.pop(), "clear");
@@ -39,9 +39,10 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         
         TestTask taskToEdit = td.event;
         testTaskListStack.push(editTask(1, taskToEdit, 't', testTaskListStack.peek()));
-        commandBox.runCommand("find xmas");        
+        targetIndex = testTaskListStack.peek().size('t');
+        commandBox.runCommand("done t" + targetIndex);        
                            
-        assertUndoSuccess(testTaskListStack.pop(), "find xmas");
+        assertUndoSuccess(testTaskListStack.pop(), "done t" + targetIndex);
         assertUndoUsingAcceleratorSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, 't'));
         assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
@@ -79,7 +80,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
 
         assertTrue(expectedList.isListMatching(taskListPanel));
         
-        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText);
+        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText.trim());
     }
     
     private void assertUndoUsingAcceleratorSuccess(TestTaskList expectedList, String commandText) {
@@ -87,7 +88,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
 
         assertTrue(expectedList.isListMatching(taskListPanel));
         
-        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText);
+        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText.trim());
     }
     
     private void assertNoMoreUndos() {

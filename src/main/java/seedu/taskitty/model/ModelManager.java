@@ -452,6 +452,7 @@ public class ModelManager extends ComponentManager implements Model {
                     taskManager.removeTask(taskAdded); 
                 } 
                 toStoreInfo.storeTask(taskAdded);
+                break;
                 
             case DeleteCommand.COMMAND_WORD:
                 int numberOfTasksDeleted = toGetInfo.getNumberOfTasks();
@@ -466,6 +467,7 @@ public class ModelManager extends ComponentManager implements Model {
                     }                    
                     toStoreInfo.storeTask(taskDeleted);
                 }
+                break;
                 
             case EditCommand.COMMAND_WORD:
                 ReadOnlyTask taskBeforeEdit = toGetInfo.getTask();
@@ -479,7 +481,8 @@ public class ModelManager extends ComponentManager implements Model {
                 }
                 toStoreInfo.storeTask(taskAfterEdit);
                 toStoreInfo.storeTask(taskBeforeEdit);
-           
+                break;
+                
             case ClearCommand.COMMAND_WORD:
                 ReadOnlyTaskManager previousTaskManager = toGetInfo.getTaskManager();
                 if (isRedo) {
@@ -488,7 +491,8 @@ public class ModelManager extends ComponentManager implements Model {
                     resetData(previousTaskManager);
                 }
                 toStoreInfo.storeTaskManager(previousTaskManager);
-            
+                break;
+                
             case DoneCommand.COMMAND_WORD:
                 int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
                 ReadOnlyTask taskToRevertMark;
@@ -501,7 +505,8 @@ public class ModelManager extends ComponentManager implements Model {
                     }
                     toStoreInfo.storeTask(taskToRevertMark);
                 }
-                           
+                break;
+                
             default:
                 assert false: "Should not have an invalid Command Word";
             }            
