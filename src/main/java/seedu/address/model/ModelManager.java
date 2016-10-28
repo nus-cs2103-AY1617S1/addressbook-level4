@@ -67,15 +67,15 @@ public class ModelManager extends ComponentManager implements Model {
         UniqueTaskList floating = taskBook.getUniqueUndatedTaskList();
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");       
-        
+
         for (Task target : tasks) {
             assert target.getDatetime().getStart() != null;
             //Deadline
             if(target.getDatetime().getEnd() == null){
                 LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
                 if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
-                   try {
-                       taskBook.overdueTask(target);
+                    try {
+                        taskBook.overdueTask(target);
                     } catch (TaskNotFoundException e) {}                
                 }
                 else if(dateTime.isAfter(currentTime) && (target.getStatus().toString() == "OVERDUE" || target.getStatus().toString() == "EXPIRE")){
@@ -91,16 +91,16 @@ public class ModelManager extends ComponentManager implements Model {
                 if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
                     try {
                         taskBook.expireTask(target);
-                     } catch (TaskNotFoundException e) {}                
-                 }
-                 else if(dateTime.isAfter(currentTime) && (target.getStatus().toString() == "EXPIRE" || target.getStatus().toString() == "OVERDUE")){
-                     try{
-                         taskBook.postponed(target);
-                     }catch(TaskNotFoundException e) {}
-                 }                                
+                    } catch (TaskNotFoundException e) {}                
+                }
+                else if(dateTime.isAfter(currentTime) && (target.getStatus().toString() == "EXPIRE" || target.getStatus().toString() == "OVERDUE")){
+                    try{
+                        taskBook.postponed(target);
+                    }catch(TaskNotFoundException e) {}
+                }                                
             }
         }
-        
+
         for(Task undatedTarget : floating){
             if(undatedTarget.getStatus().toString() == "EXPIRE" || undatedTarget.getStatus().toString() == "OVERDUE" ){
                 try{
@@ -144,30 +144,37 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     // after task is added, scroll to it in the UndatedListPanel || DatedListPanel
-	private void scrollToAddedTask(Task target) {
-		int [] result = indexOfAddedTask(target);       
+    private void scrollToAddedTask(Task target) {
+        int [] result = indexOfAddedTask(target);       
         raise (new JumpToListRequestEvent(result[0], result[1]));
-	}
+    }
 
-	private int[] indexOfAddedTask(Task target) {
-		int datedTaskIndex = filteredDatedTasks.indexOf(target);
+    private int[] indexOfAddedTask(Task target) {
+        int datedTaskIndex = filteredDatedTasks.indexOf(target);
         int undatedTaskIndex = filteredUndatedTasks.indexOf(target);
         int [] result = new int[2];
         // indexOf returns -1 if task not found in the list
         if (datedTaskIndex == -1){
-        	result[0] = undatedTaskIndex;
-        	result[1] = JumpToListRequestEvent.UNDATED_LIST;
+            result[0] = undatedTaskIndex;
+            result[1] = JumpToListRequestEvent.UNDATED_LIST;
         }
         else if (undatedTaskIndex == -1){
-        	result[0] = datedTaskIndex;
-        	result[1] = JumpToListRequestEvent.DATED_LIST;
+            result[0] = datedTaskIndex;
+            result[1] = JumpToListRequestEvent.DATED_LIST;
         }
         return result;
-	}
+    }
 
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
+        updateFilteredListToShowAll();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void uncompleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        taskBook.uncompleteTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
@@ -205,7 +212,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList() {
         return new UnmodifiableObservableList<>(filteredUndatedTasks);
     }
-    
+
     //@@author A0139145E
     @Override
     public void updateFilteredListToShowAll() {
@@ -271,7 +278,7 @@ public class ModelManager extends ComponentManager implements Model {
         TaskQualifier(Set<String> taskKeyWords) {
             this.taskKeyWords = taskKeyWords;
         }
-        
+
         //@@author A0139528W
         @Override
         public boolean run(ReadOnlyTask task) {

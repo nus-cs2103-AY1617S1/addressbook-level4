@@ -46,6 +46,10 @@ public class UndoCommand extends Command {
                 model.deleteTask(toUndo.getPostData());               
                 break;
 
+            case DoneCommand.COMMAND_WORD:
+                model.uncompleteTask(toUndo.getPostData());               
+                break;
+            
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
         }

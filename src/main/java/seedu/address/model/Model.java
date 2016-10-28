@@ -33,6 +33,9 @@ public interface Model {
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Marks the given task as uncompleted */
+    void uncompleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Undoes the last reversible action */
     UndoTask undoTask();
     

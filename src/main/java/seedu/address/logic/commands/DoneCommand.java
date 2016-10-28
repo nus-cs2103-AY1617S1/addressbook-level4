@@ -12,9 +12,10 @@ import seedu.address.ui.PersonListPanel;
 /**
  * Sets as completed a task identified using it's last displayed index from the address book.
  */
-public class DoneCommand extends Command {
+public class DoneCommand extends Command implements Undoable{
 
     public final int targetIndex;
+    public ReadOnlyTask toComplete;
 
     public static final String COMMAND_WORD = "done";
 
@@ -42,22 +43,21 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask readTaskToComplete;
         if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            readTaskToComplete = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+            toComplete = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         }
         else {
-            readTaskToComplete = lastUndatedTaskList.get(targetIndex - 1);
+            toComplete = lastUndatedTaskList.get(targetIndex - 1);
         }
 
-        if (!readTaskToComplete.getStatus().equals(new Status(Status.State.DONE))){
+        if (!toComplete.getStatus().equals(new Status(Status.State.DONE))){
             try {
-                model.completeTask(readTaskToComplete);
-                
+                model.completeTask(toComplete);
+                populateUndo();
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be found";
             }
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, readTaskToComplete));
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toComplete));
         }
         else {
             return new CommandResult(String.format(MESSAGE_TASK_ALREADY_DONE));
@@ -67,5 +67,12 @@ public class DoneCommand extends Command {
 
     }
 
+    @Override
+    public void populateUndo(){
+        assert COMMAND_WORD != null;
+        assert toComplete != null;
+        model.addUndo(COMMAND_WORD, toComplete);
+    } 
+    
 }
 //@@author

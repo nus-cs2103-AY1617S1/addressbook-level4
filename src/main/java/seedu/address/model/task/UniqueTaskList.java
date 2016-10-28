@@ -75,8 +75,8 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Removes the equivalent task from the list.
-     *
+     * Completes the equivalent task from the list.
+     * (Set status to DONE)
      * @throws TaskNotFoundException if no such person could be found in the list.
      */
     public boolean complete(ReadOnlyTask toComplete) throws TaskNotFoundException {
@@ -86,6 +86,59 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         Task taskFoundAndCompleted = internalList.get(internalList.indexOf(toComplete));
         return taskFoundAndCompleted.setAsDone();
+    }
+    
+    /**
+     * Uncompletes the equivalent task from the list.
+     * (Set status to NONE)
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean uncomplete(ReadOnlyTask toUncomplete) throws TaskNotFoundException {
+        assert toUncomplete != null;
+        if (!internalList.contains(toUncomplete)) {
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndCompleted = internalList.get(internalList.indexOf(toUncomplete));
+        return taskFoundAndCompleted.setAsNorm();
+    }
+    
+    /**
+     * Overdues the equivalent task from the list.
+     *(Set status to OVERDUE)
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean overdue(ReadOnlyTask target) throws TaskNotFoundException {
+        if (!internalList.contains(target)) {
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndSetAsOverdue = internalList.get(internalList.indexOf(target));
+        return taskFoundAndSetAsOverdue.setAsOverdue();
+    }
+    
+    /**
+     * Postpone the equivalent task from the list.
+     * (Set status to NONE)
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean postponed(Task target) throws TaskNotFoundException {
+        if (!internalList.contains(target)) {
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndSetAsPostponed = internalList.get(internalList.indexOf(target));
+        return taskFoundAndSetAsPostponed.setAsNorm();       
+    }
+
+    /**
+     * Expire the equivalent task from the list.
+     * (Set status to EXPIRE)
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean expire(Task target) throws TaskNotFoundException {
+        if(!internalList.contains(target)){
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndSetAsExpired = internalList.get(internalList.indexOf(target));
+        return taskFoundAndSetAsExpired.setAsExpire();
     }
     
     public ObservableList<Task> getInternalList() {
@@ -113,29 +166,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public void sort(Comparator<Task> c){
     	internalList.sort(c);
     }
-
-    public boolean overdue(ReadOnlyTask target) throws TaskNotFoundException {
-        if (!internalList.contains(target)) {
-            throw new TaskNotFoundException();
-        }
-        Task taskFoundAndSetAsOverdue = internalList.get(internalList.indexOf(target));
-        return taskFoundAndSetAsOverdue.setAsOverdue();
-    }
-
-    public boolean postponed(Task target) throws TaskNotFoundException {
-        if (!internalList.contains(target)) {
-            throw new TaskNotFoundException();
-        }
-        Task taskFoundAndSetAsPostponed = internalList.get(internalList.indexOf(target));
-        return taskFoundAndSetAsPostponed.setAsNorm();       
-    }
-
-    public boolean expire(Task target) throws TaskNotFoundException {
-        if(!internalList.contains(target)){
-            throw new TaskNotFoundException();
-        }
-        Task taskFoundAndSetAsExpired = internalList.get(internalList.indexOf(target));
-        return taskFoundAndSetAsExpired.setAsExpire();
-    }	
 
 }
