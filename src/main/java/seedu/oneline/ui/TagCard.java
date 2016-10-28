@@ -38,7 +38,7 @@ public class TagCard extends UiPart{
     @FXML
     public void initialize() {
         if (tag == Tag.getDefault()) {
-            name.setText("[Uncategorised]");
+            name.setText("#uncategorised");
         } else {
             name.setText("#" + tag.tagName);
         }
