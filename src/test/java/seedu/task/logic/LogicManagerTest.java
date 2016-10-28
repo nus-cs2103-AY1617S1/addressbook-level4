@@ -8,16 +8,16 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.todolist.commons.core.EventsCenter;
-import seedu.todolist.commons.events.model.AddressBookChangedEvent;
+import seedu.todolist.commons.events.model.ToDoListChangedEvent;
 import seedu.todolist.commons.events.ui.JumpToListRequestEvent;
 import seedu.todolist.commons.events.ui.ShowHelpEvent;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.logic.LogicManager;
 import seedu.todolist.logic.commands.*;
-import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.Model;
 import seedu.todolist.model.ModelManager;
-import seedu.todolist.model.ReadOnlyAddressBook;
+import seedu.todolist.model.ReadOnlyToDoList;
 import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.task.*;
 import seedu.todolist.storage.StorageManager;
@@ -43,13 +43,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyToDoList latestSavedToDoList;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
+    private void handleLocalModelChangedEvent(ToDoListChangedEvent abce) {
+        latestSavedToDoList = new ToDoList(abce.data);
     }
 
     @Subscribe
@@ -65,12 +65,12 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -90,21 +90,21 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyToDoList, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new ToDoList(), Collections.emptyList());
     }
 
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal address book data are same as those in the {@code expectedToDoList} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     *      - {@code expectedToDoList} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyToDoList expectedToDoList,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -115,8 +115,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredAllTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedToDoList, model.getToDoList());
+        assertEquals(expectedToDoList, latestSavedToDoList);
     }
 
 
@@ -144,7 +144,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(2));
         model.addTask(helper.generateTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
     }
 
 
@@ -170,7 +170,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -186,7 +186,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
+        ToDoList expectedAB = helper.generateToDoList(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
@@ -223,12 +223,12 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new AddressBook());
+        model.resetData(new ToDoList());
         for (Task p : taskList) {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), taskList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), taskList);
     }
 
     @Test
@@ -247,7 +247,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threeTasks);
+        ToDoList expectedAB = helper.generateToDoList(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
@@ -273,7 +273,7 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ToDoList expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
@@ -292,7 +292,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ToDoList expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
@@ -311,7 +311,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAB = helper.generateAddressBook(fourTasks);
+        ToDoList expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
@@ -372,37 +372,37 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated tasks.
+         * Generates an ToDoList with auto-generated tasks.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        ToDoList generateToDoList(int numGenerated) throws Exception{
+            ToDoList ToDoList = new ToDoList();
+            addToToDoList(ToDoList, numGenerated);
+            return ToDoList;
         }
 
         /**
-         * Generates an AddressBook based on the list of Tasks given.
+         * Generates an ToDoList based on the list of Tasks given.
          */
-        AddressBook generateAddressBook(List<Task> tasks) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, tasks);
-            return addressBook;
+        ToDoList generateToDoList(List<Task> tasks) throws Exception{
+            ToDoList ToDoList = new ToDoList();
+            addToToDoList(ToDoList, tasks);
+            return ToDoList;
         }
 
         /**
-         * Adds auto-generated Task objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Tasks will be added
+         * Adds auto-generated Task objects to the given ToDoList
+         * @param ToDoList The ToDoList to which the Tasks will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generateTaskList(numGenerated));
+        void addToToDoList(ToDoList ToDoList, int numGenerated) throws Exception{
+            addToToDoList(ToDoList, generateTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Tasks to the given AddressBook
+         * Adds the given list of Tasks to the given ToDoList
          */
-        void addToAddressBook(AddressBook addressBook, List<Task> tasksToAdd) throws Exception{
+        void addToToDoList(ToDoList ToDoList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                addressBook.addTask(p);
+                ToDoList.addTask(p);
             }
         }
 

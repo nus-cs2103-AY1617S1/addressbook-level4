@@ -9,7 +9,7 @@ import seedu.todolist.commons.core.Messages;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0153736B
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends ToDoListGuiTest {
 
     @Test
     public void findAny_nonEmptyList() {

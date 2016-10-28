@@ -2,7 +2,7 @@ package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
-import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;

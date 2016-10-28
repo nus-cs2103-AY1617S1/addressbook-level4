@@ -17,11 +17,11 @@ import seedu.task.TestApp;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.FileUtil;
 import seedu.todolist.commons.util.XmlUtil;
-import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.tag.Tag;
 import seedu.todolist.model.tag.UniqueTagList;
 import seedu.todolist.model.task.*;
-import seedu.todolist.storage.XmlSerializableAddressBook;
+import seedu.todolist.storage.XmlSerializableToDoList;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,7 +118,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageToDoList(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -135,12 +135,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static ToDoList generateEmptyToDoList() {
+        return new ToDoList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableToDoList generateSampleStorageToDoList() {
+        return new XmlSerializableToDoList(generateEmptyToDoList());
     }
 
     /**

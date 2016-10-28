@@ -10,7 +10,7 @@ import seedu.todolist.commons.core.Messages;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0138601M
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends ToDoListGuiTest {
 
     @Test
     public void add() {

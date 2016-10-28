@@ -8,7 +8,7 @@
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
-* The base code is taken from [Address Book (level 4)](https://github.com/nus-cs2103-AY1617S1/addressbook-level4). Below are some         description about Address Book (level 4):
+* The base code is taken from [Address Book (level 4)](https://github.com/nus-cs2103-AY1617S1/ToDoList-level4). Below are some         description about Address Book (level 4):
   * It is a Java sample application intended for students learning Software Engineering while using Java as 
     the main programming language. 
   * It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 

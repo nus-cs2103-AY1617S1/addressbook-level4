@@ -145,7 +145,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.ToDoList.commans` package. 
 
 ## Implementation
 
@@ -490,6 +490,7 @@ Cons:
 * Unable to label event with categories
 * Event name gets truncated <br>
 
+<!-- @@author -->
 #### S Planner
 
 Pros:
@@ -509,7 +510,7 @@ Cons:
 * Unable to color-code different events <br>
 
 #### Wunderlist
-
+<!-- @@author A0146682X -->
 Pros:
 * Able to create many layers - folders, lists, tasks, and subtasks, which allow the user to organize their multi-layered tasks systematically
 * Able to add alarm to a task
@@ -539,6 +540,7 @@ Cons:
 * Does not display a calendar
 * Does not allow the addition of venue to a task
 
+<!-- @@author -->
 #### Cal
 Pros:
 * With a very convenient interface for setting events’ date and time quickly

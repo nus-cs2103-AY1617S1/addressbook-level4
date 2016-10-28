@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ToDoList implements ReadOnlyToDoList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -25,24 +25,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public ToDoList() {}
 
     /**
      * Tasks and Tags are copied into this to-do list
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ToDoList(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this to-do list
      */
-    public AddressBook(UniqueTaskList tasks, UniqueTagList tags) {
+    public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
+    public static ReadOnlyToDoList getEmptyToDoList() {
+        return new ToDoList();
     }
 
 //// list overwrite operations
@@ -74,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyToDoList newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
@@ -87,7 +87,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.add(p);
     }
     
-    /**@author A0146682X
+    //@@author A0146682X
+    /**
+     * Edits a task in the to-do list
      */
     public boolean editTask(ReadOnlyTask key, Task replacement) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.edit(key, replacement)) {
@@ -146,9 +148,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.tasks.equals(((AddressBook) other).tasks)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof ToDoList // instanceof handles nulls
+                && this.tasks.equals(((ToDoList) other).tasks)
+                && this.tags.equals(((ToDoList) other).tags));
     }
 
     @Override

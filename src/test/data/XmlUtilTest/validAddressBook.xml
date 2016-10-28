@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook>
+<ToDoList>
     <tasks>
         <name>Student Campaign</name>
         <startDate>13 Oct 2016</startDate>
@@ -40,4 +40,4 @@
         <remarks>make reservation</remarks>
         <status>incomplete</status>
     </tasks>
-</addressbook>
+</ToDoList>

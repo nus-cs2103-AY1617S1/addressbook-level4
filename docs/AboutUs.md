@@ -10,12 +10,13 @@ We are a group of students in the [School of Computing, National University of S
 * Aspects/tools in charge of: Testing, Git
 * Features implemented: 
   * [Add task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#adding-a-task--add)
-  * [Mark task as done] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#marking-task-as-done--done)
-  * [Delete task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#deleting-a-task--delete)
-  * [Sort task list displayed] (https://github.com/CS2103AUG2016-T15-C3/main/pull/75)
+  * [Mark task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#marking-task-as-done--done)
+  * [Delete task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#deleting-a-task--delete) 
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2) ]
   * Set up Travis, Coveralls and Codacy
+  * Did the initial refactoring from AddressBook to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2)]
+  * Sort task list displayed by date and time [#74] (https://github.com/CS2103AUG2016-T15-C3/main/pull/75)
+  * UI [#58] (https://github.com/CS2103AUG2016-T15-C3/main/issues/58)
 
 -----
 

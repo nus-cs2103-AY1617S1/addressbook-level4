@@ -1,7 +1,7 @@
 package seedu.task.testutil;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.AddressBook;
+import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.task.*;
 
 /**
@@ -85,7 +85,7 @@ public class TypicalTestTasks {
     }
     //@@author
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static void loadToDoListWithSampleData(ToDoList ab) {
 
         try {
             ab.addTask(new Task(eventWithoutParameters));
@@ -104,9 +104,9 @@ public class TypicalTestTasks {
                 eventWithLocationAndRemarks, deadlineWithoutParameter, deadlineWithLocation};
     }
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
+    public ToDoList getTypicalToDoList(){
+        ToDoList ab = new ToDoList();
+        loadToDoListWithSampleData(ab);
         return ab;
     }
 }

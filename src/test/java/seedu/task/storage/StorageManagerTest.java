@@ -7,8 +7,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.todolist.model.AddressBook;
-import seedu.todolist.model.ReadOnlyAddressBook;
+import seedu.todolist.model.ToDoList;
+import seedu.todolist.model.ReadOnlyToDoList;
 import seedu.todolist.model.UserPrefs;
 import seedu.todolist.storage.StorageManager;
 
@@ -49,12 +49,12 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestTasks().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+    public void ToDoListReadSave() throws Exception {
+        ToDoList original = new TypicalTestTasks().getTypicalToDoList();
+        storageManager.saveToDoList(original);
+        ReadOnlyToDoList retrieved = storageManager.readToDoList().get();
+        assertEquals(original, new ToDoList(retrieved));
+        //More extensive testing of ToDoList saving/reading is done in XmlToDoListStorageTest
     }
 
 

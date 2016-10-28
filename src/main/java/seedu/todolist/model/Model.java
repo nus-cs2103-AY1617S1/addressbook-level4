@@ -14,13 +14,13 @@ import java.util.Set;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyToDoList newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ToDoList */
+    ReadOnlyToDoList getToDoList();
     
-    /** Reverts the previous state of the AddressBook */
-    void undoAddressBook() throws EmptyStackException;
+    /** Reverts the previous state of the ToDoList */
+    void undoToDoList() throws EmptyStackException;
     
     /** Marks the given task(s) as done. */
     void markTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
