@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ConfigTest {
-	private String defaultConfigAsString = "App title : Smart Scheduler\n" +
+	private String defaultConfigAsString = "App title : Lazyman's Friend\n" +
             "Current log level : INFO\n" +
             "Preference file Location : preferences.json\n" +
             "Local data file location : data/tasklist.xml\n" +

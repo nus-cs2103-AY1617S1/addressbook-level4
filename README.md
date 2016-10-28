@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T11-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T11-C1/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T11-C1/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T11-C1/main?branch=master)
 
-# Smart Scheduler
+# Lazyman's Friend
 
 <img src="docs/images/Ui.png" width="600"><br>
 

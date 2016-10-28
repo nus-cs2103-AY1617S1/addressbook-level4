@@ -27,6 +27,6 @@ public class ClearCommandTest extends TaskListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Your Smart Scheduler has been cleared!");
+        assertResultMessage("Your task list has been cleared!");
     }
 }

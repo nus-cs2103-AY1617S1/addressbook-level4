@@ -16,7 +16,7 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Smart Scheduler";
+    private String appTitle = "Lazyman's Friend";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskListFilePath = "data/tasklist.xml";
@@ -62,7 +62,7 @@ public class Config {
     	    	JSONObject obj = new JSONObject();
     			obj.put("taskListFilePath", taskListFilePath);
     			obj.put("userPrefsFilePath", "preferences.json");
-    			obj.put("appTitle", "Smart Scheduler");
+    			obj.put("appTitle", "Lazyman's Friend");
     			obj.put("logLevel", "INFO");
     			obj.put("taskListName", "MyTaskList");
     			try (FileWriter file = new FileWriter("config.json")) {

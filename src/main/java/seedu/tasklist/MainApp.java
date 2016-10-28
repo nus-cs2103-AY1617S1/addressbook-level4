@@ -51,7 +51,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing Smart Scheduler ]===========================");
+        logger.info("=============================[ Initializing Lazyman's Friend ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -189,13 +189,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Smart Scheduler " + MainApp.VERSION);
+        logger.info("Starting Lazyman's Friend " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Smart Scheduler ] =============================");
+        logger.info("============================ [ Stopping Lazyman's Friend ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
