@@ -20,6 +20,7 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  <MenuItem fx:id="clearCommandBoxMenuItem" mnemonicParsing="false" onAction="#clearCommandBox" text="Clear Command Box" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">

@@ -65,6 +65,13 @@ public class CommandBox extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
+    
+    /**
+     * Clears the command box
+     */
+    public void clearCommandBox() {
+        commandTextField.clear();
+    }
 
 
     @FXML
@@ -110,5 +117,5 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
     }
-
+    
 }
