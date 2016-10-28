@@ -285,11 +285,43 @@ public class Activity implements ReadOnlyActivity {
    //@@author A0139277U
     @Override
     public boolean equals(Object o){
-    	return o == this || 
-    			(o instanceof ReadOnlyActivity &&
-    					(this.isFloatingTaskSameStateAs((ReadOnlyActivity) o)
-    					|| this.isTaskSameStateAs((ReadOnlyActivity) o)
-    					|| this.isEventSameStateAs((ReadOnlyActivity) o)));
+    	
+    	if (this.getActivityType().equals(Activity.EVENT_TYPE) && o!= null &&
+    			checkActivityType((ReadOnlyActivity) o).equals(this.getActivityType())){
+    		
+    		return o == this ||
+    				(o instanceof ReadOnlyActivity &&
+    						this.isEventSameStateAs((ReadOnlyActivity)o));
+    		
+    	}
+    	
+    	else if (this.getActivityType().equals(Activity.FLOATING_TASK_TYPE) && o!= null &&
+    			checkActivityType((ReadOnlyActivity) o ).equals(this.getActivityType())){
+    		
+    		return o == this ||
+    				(o instanceof ReadOnlyActivity && 
+    						this.isFloatingTaskSameStateAs((ReadOnlyActivity)o));
+    				
+    	}
+    	
+    	else if (this.getActivityType().equals(Activity.TASK_TYPE) && o!= null &&
+    			checkActivityType((ReadOnlyActivity) o ).equals(this.getActivityType())){
+    		
+    		return o == this ||
+    				(o instanceof ReadOnlyActivity &&
+    						this.isTaskSameStateAs((ReadOnlyActivity)o));
+    	}
+    	
+    	else {
+    		return false;
+    	}
+    	
+    }
+    
+    private String checkActivityType(ReadOnlyActivity activityToCheck){
+    	
+    	return activityToCheck.getActivityType();
+    	
     }
     
 }
