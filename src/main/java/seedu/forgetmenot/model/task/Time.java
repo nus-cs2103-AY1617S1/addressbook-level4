@@ -213,10 +213,10 @@ public class Time {
      * @return true only if time1 < time2
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {  
+    public static boolean checkOrderOfDates(String time1, String time2) throws IllegalValueException {  
     	
-    	Time start = new Time(startTime);
-    	Time end = new Time(endTime);
+    	Time start = new Time(time1);
+    	Time end = new Time(time2);
     	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
 	}
