@@ -614,7 +614,7 @@ public class LogicManagerTest {
     }
   //@@author A0138993L
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectEvent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
