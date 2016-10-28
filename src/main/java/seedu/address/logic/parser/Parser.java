@@ -64,6 +64,9 @@ public class Parser {
             Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
                     + "([E|D|T]\\d+-[E|D|T]\\d+)");
     
+    private static final Pattern SELECT_ARGS_FORMAT = 
+    		Pattern.compile("[E|D|T]\\d{1}");
+    
     public Parser() {}
 
     /**
@@ -442,38 +445,29 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the select task command.
-     *
+     * @@author A0138993L
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
+    	final Matcher matcher = SELECT_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        }
         
-        final Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(","));
-        Iterator<String> itr = indexes.iterator();
-        ArrayList<Integer> pass = new ArrayList<Integer>();
+        args = args.trim();
         
-        Optional<Integer> index = parseIndex(itr.next());
+        char category = args.charAt(0);
+        Optional<Integer> index = parseIndex(Character.toString(args.charAt(1)));
+        args = args.substring(args.indexOf(' ') + 1);
         
-        //System.out.println(index.isPresent() + args);
-        
-        if(!index.isPresent()){
+        if(!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
         
-        pass.add(index.get());
-
-        while(itr.hasNext()){
-            index = parseIndex(itr.next());
-           // System.out.println(index.isPresent() + args);
-            if(!index.isPresent()){
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
-            }           
-            pass.add(index.get());
-        }
-        
-        return new SelectCommand(pass);
+        Integer pass = index.get();
+        return new SelectCommand(pass, args, category);
 
     }
 

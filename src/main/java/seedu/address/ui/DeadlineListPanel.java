@@ -84,6 +84,13 @@ public class DeadlineListPanel extends UiPart {
             deadlineListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void clear() {
+        Platform.runLater(() -> {
+            deadlineListView.getSelectionModel().clearSelection();
+        });
+    }
+
 
     class DeadlineListViewCell extends ListCell<ReadOnlyTask> {
 

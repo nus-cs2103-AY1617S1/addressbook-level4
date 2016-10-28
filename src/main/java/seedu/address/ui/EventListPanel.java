@@ -86,6 +86,12 @@ public class EventListPanel extends UiPart {
             eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void clear() {
+        Platform.runLater(() -> {
+            eventListView.getSelectionModel().clearSelection();
+        });
+    }
 
     class EventListViewCell extends ListCell<ReadOnlyTask> {
 
