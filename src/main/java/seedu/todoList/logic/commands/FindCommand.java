@@ -33,6 +33,9 @@ public class FindCommand extends Command {
         this.dataType = dataType;
     }
     
+    /*
+     *  If keyword cannot be found, the list will remain unchange.
+     */
     @Override
     public CommandResult execute() {
     	CommandResult result = new CommandResult(INVALID_DATA_TYPE_MESSAGE);;
@@ -40,14 +43,24 @@ public class FindCommand extends Command {
     		case "todo":
 				model.updateFilteredTodoList(keywords);
 				result = new CommandResult(getMessageFortaskListShownSummary(model.getFilteredTodoList().size()));
+				if(model.getFilteredTodoList().size() == 0){
+				   model.updateFilteredTodoListToShowAll();
+				}
 				break;
     		case "event":
 				model.updateFilteredEventList(keywords);
 				result = new CommandResult(getMessageFortaskListShownSummary(model.getFilteredEventList().size()));
+				if(model.getFilteredEventList().size() == 0){
+	                   model.updateFilteredEventListToShowAll();
+	            }
 				break;
     		case "deadline":
 				model.updateFilteredDeadlineList(keywords);
 				result = new CommandResult(getMessageFortaskListShownSummary(model.getFilteredDeadlineList().size()));
+				if(model.getFilteredDeadlineList().size() == 0){
+                    model.updateFilteredDeadlineListToShowAll();
+				}
+				break;
     		case "all":
     		    model.updateFilteredTodoList(keywords);
     		    model.updateFilteredEventList(keywords);
@@ -55,7 +68,13 @@ public class FindCommand extends Command {
                 int todoSize = model.getFilteredTodoList().size();
                 int eventSize = model.getFilteredEventList().size();
                 int deadlineSize = model.getFilteredDeadlineList().size();
-                result = new CommandResult(getMessageFortaskListShownSummary(todoSize+eventSize+deadlineSize));
+                int totalSize = todoSize + eventSize + deadlineSize;
+                result = new CommandResult(getMessageFortaskListShownSummary(totalSize));
+                if(totalSize == 0){
+                    model.updateFilteredTodoListToShowAll();
+                    model.updateFilteredEventListToShowAll();
+                    model.updateFilteredDeadlineListToShowAll();
+                }
     	}
     	return result;
     }
