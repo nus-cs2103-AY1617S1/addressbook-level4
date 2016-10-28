@@ -211,6 +211,23 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    /*
+    @Test
+    public void execute_edit_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.adam();
+        AddressBook expectedAB = helper.generateAddressBook(2);
+        expectedAB.editTask(1, toBeEdited);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateEditCommand(toBeEdited),
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    */
 
 
     @Test
@@ -429,6 +446,16 @@ public class LogicManagerTest {
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add command based on the task given */
+        String generateEditCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("edit ");
+            cmd.append(" d/").append(p.getDueDate());
 
             return cmd.toString();
         }

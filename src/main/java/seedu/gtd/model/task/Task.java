@@ -2,6 +2,7 @@ package seedu.gtd.model.task;
 
 import java.util.Objects;
 
+import seedu.gtd.commons.exceptions.IllegalValueException;
 import seedu.gtd.commons.util.CollectionUtil;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.tag.UniqueTagList;
@@ -61,6 +62,31 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setDueDate(DueDate dueDate) {
+        this.dueDate = dueDate;
+    }
+    
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+    
+    public void edit(String detailType, String newDetail) throws IllegalValueException {
+    	switch(detailType) {
+    	case "dueDate": setDueDate(new DueDate(newDetail)); break;
+    	case "address": setAddress(new Address(newDetail)); break;
+    	case "priority": setPriority(new Priority(newDetail)); break;
+    	default: setName(new Name(newDetail));
+    	}
     }
 
     /**
