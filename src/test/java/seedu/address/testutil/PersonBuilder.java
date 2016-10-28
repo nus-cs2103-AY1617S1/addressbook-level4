@@ -42,6 +42,13 @@ public class PersonBuilder {
         this.person.setStartTime(new StartTime(email));
         return this;
     }
+    
+    public PersonBuilder withCompletion(boolean completion) throws IllegalValueException {
+        this.person.setCompletion(false);
+        return this;
+    }
+  
+
 
     public TestPerson build() {
         return this.person;

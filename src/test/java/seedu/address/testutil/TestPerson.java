@@ -13,6 +13,7 @@ public class TestPerson implements ReadOnlyTask {
     private StartTime email;
     private Date phone;
     private UniqueTagList tags;
+    private boolean isComplete;
 
     public TestPerson() {
         tags = new UniqueTagList();
@@ -33,6 +34,10 @@ public class TestPerson implements ReadOnlyTask {
     public void setDate(Date phone) {
         this.phone = phone;
     }
+    
+    public void setCompletion(boolean completion) {
+        this.isComplete = completion;
+    }
 
     @Override
     public Name getName() {
@@ -52,6 +57,11 @@ public class TestPerson implements ReadOnlyTask {
     @Override
     public EndTime getAddress() {
         return address;
+    }
+    
+    @Override
+    public String getCompletion() {
+        return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
     }
 
     @Override
@@ -80,9 +90,5 @@ public class TestPerson implements ReadOnlyTask {
 	
     }
 
-    @Override
-    public String getCompletion() {
-	// TODO Auto-generated method stub
-	return null;
-    }
+  
 }
