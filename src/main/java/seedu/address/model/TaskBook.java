@@ -175,6 +175,20 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
+    public boolean uncompleteTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (datedTasks.contains(key)) {
+            datedTasks.uncomplete(key);
+            return true;
+        } 
+        else if (undatedTasks.contains(key)){
+            undatedTasks.uncomplete(key);
+            return true;
+        }
+        else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
     public boolean overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         if(datedTasks.contains(target)){
             datedTasks.overdue(target);
