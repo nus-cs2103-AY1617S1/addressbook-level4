@@ -13,47 +13,53 @@ public class DateTimeParser {
 
     public static final String ON_KEYWORD_VALIDATION_REGEX = "on "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?<DayMonthSeparator>( |/|-))"
-            + "(?<month>((0?[1-9]|[1][0-2])|[\\p{Alpha}]+))"
-            + "(?<MonthYearSeparator>( |/|-))"
-            + "(?<year>(([0-9][0-9])?[0-9][0-9]))";
+            + "(?:( |/|-))"
+            + "(?<monthInNumbers>([0][1-9]|[1][0-2])?)"
+            + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
+            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)";
 
     public static final String BY_KEYWORD_VALIDATION_REGEX = "by "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "/(?<month>(0?[1-9]|[1][0-2]))/"
-            + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
-            + "( (?<hour>([01][0-9]|[2][0-3])))"
+            + "(?:( |/|-))"
+            + "(?<monthInNumbers>([0][1-9]|[1][0-2])?)"
+            + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
+            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))"
             + "(:(?<minute>([0-5][0-9])))";
 
     public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "/(?<month>(0?[1-9]|[1][0-2]))/"
-            + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
-            + "( (?<hour>([01][0-9]|[2][0-3])))"
+            + "(?:( |/|-))"
+            + "(?<monthInNumbers>([0][1-9]|[1][0-2])?)"
+            + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
+            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))"
             + "(:(?<minute>([0-5][0-9])))"
             + "( (?<aftKeyword>(to )))"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)"
-            + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))"
-            + "( (?<hourEnd>([01][0-9]|[2][0-3])))"
+            + "(?:( |/|-))"
+            + "(?<monthEndInNumbers>([0][1-9]|[1][0-2])?)"
+            + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
+            + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))"
             + "(:(?<minuteEnd>([0-5][0-9])))";
 
     public static final Pattern DATETIME_VALIDATION_REGEX = Pattern.compile(
             "(?<preKeyword>((by )|(on )|(from )))"
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?<DayMonthSeparator>( |/|-))"       //Supports separator to be " ", "/" or "-"
-            + "(?<monthInNumbers>(0?[1-9]|[1][0-2])?)"
+            + "(?:( |/|-))"
+            + "(?<monthInNumbers>([0][1-9]|[1][0-2])?)"
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<MonthYearSeparator>( |/|-))"
-            + "(?<year>(([0-9][0-9])?[0-9][0-9]))"
-            + "( (?<hour>([01][0-9]|[2][0-3])))?"
+            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))?"
             + "(:(?<minute>([0-5][0-9])))?"
             + "( (?<aftKeyword>(to )))?"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
-            + "(?<monthEndInNumbers>(0?[1-9]|[1][0-2])?)"
+            + "(?:( |/|-)?)"
+            + "(?<monthEndInNumbers>([0][1-9]|[1][0-2])?)"
             + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"
-            + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"
+            + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))?"
             + "(:(?<minuteEnd>([0-5][0-9])))?"
             );
     
@@ -68,7 +74,7 @@ public class DateTimeParser {
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
         String year = matcher.group("year");
-
+System.out.println(day + " " + month + " " + year);
         int yearParsed;
         int monthParsed;
         int dayParsed;
@@ -78,6 +84,9 @@ public class DateTimeParser {
             month = matcher.group("monthEndInNumbers");
             year = matcher.group("yearEnd");
         }
+        
+        if(!year.isEmpty())
+        	year = year.substring(1);
         
         //TODO: catch monthWords and monthEndWords that are shorter than 3 characters
         if(month.isEmpty()){
@@ -110,7 +119,7 @@ public class DateTimeParser {
         
         String hour = matcher.group("hour");
         String minute = matcher.group("minute");
-        
+System.out.println(hour + " " + minute);        
         if(keyword.equals("to")){
             hour = matcher.group("hourEnd");
             minute = matcher.group("minuteEnd");
@@ -141,6 +150,9 @@ public class DateTimeParser {
             minute = matcher.group("minuteEnd");
         }
         
+        if(!year.isEmpty())
+        	year = year.substring(1);
+        
         if(month.isEmpty()){
             month = matcher.group("monthInWords").toLowerCase().substring(0,3);
             if(keyword.equals("to"))
@@ -150,10 +162,10 @@ public class DateTimeParser {
         
         int monthParsed = Integer.parseInt(month);
         
-        //For years input with only the last 2 digit
-        if(Integer.parseInt(year) < 100)
+        if(year.isEmpty())
+        	year = String.valueOf(LocalDate.now().getYear());
+        else if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
         	year = String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year;
-
         
         if(keyword.equals("on"))
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) + " " + year;
