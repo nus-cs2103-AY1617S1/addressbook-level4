@@ -175,9 +175,9 @@ public class Parser {
 	String trimmedArgs = args.trim();
 	
 	
-	/*if(!(isValidAddArgumentFormat(trimmedArgs))){
+	if(!(isValidAddArgumentFormat(trimmedArgs))){
 		return  new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-	}*/
+	}
 	
 	
 	HashMap<String, String> mapArgs = parseAdd(trimmedArgs);
