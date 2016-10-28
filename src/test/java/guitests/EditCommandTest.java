@@ -76,15 +76,7 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertInvalidEventFromDateTime(event, 1, "03-02-2016 1100"); // Invalid from date
         assertInvalidEventToDateTime(event, 1, "10-01-2016 0959"); // Invalid to time
         assertInvalidEventToDateTime(event, 1, "09-01-2016 1000"); // Invalid to date
-        
-        // Edit with invalid params for date/time
-        assertInvalidDateFormat(task, 1, "02-02-20160");
-        assertInvalidDateFormat(task, 1, "10-");
-        assertInvalidDateInput(task, 1, "02-13-2016"); // Invalid month
-        assertInvalidDateInput(task, 1, "32-02-2016"); //Invalid day
-        assertInvalidTimeInput(task, 1, "2400");
-
-        
+      
     }
     
     private void refresh(int numTimes) {
@@ -237,23 +229,4 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertResultMessage(String.format(ActivityTime.ACTIVITY_TIME_CONSTRAINTS));
     }
     
-    private void assertInvalidDateFormat(TestActivity task, int index, String changes) {
-        commandBox.runCommand(task.getEditTaskDateTimeCommand(index, changes));
-        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update Task with new changes
-        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
-        assertTaskMatching(task, editedCard);
-        
-        // Confirms the result message is correct
-        assertResultMessage(String.format(ActivityDate.MESSAGE_ACTIVITYDATE_INVALID));
-    }
-    
-    private void assertInvalidDateInput(TestActivity task, int index, String changes) {
-        commandBox.runCommand(task.getEditTaskDateTimeCommand(index, changes));
-        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update Task with new changes
-        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
-        assertTaskMatching(task, editedCard);
-        
-        // Confirms the result message is correct
-        assertResultMessage(String.format(ActivityDate.MESSAGE_ACTIVITYDATE_INVALID));
-    }
 }

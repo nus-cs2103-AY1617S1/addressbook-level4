@@ -1,7 +1,6 @@
 //@@author A0139164A
 package seedu.menion.model.activity;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

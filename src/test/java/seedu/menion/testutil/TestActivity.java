@@ -203,7 +203,7 @@ public class TestActivity implements ReadOnlyActivity {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" by: ");
-            build.append(this.getActivityStartDate().value);
+            build.append(changeDateFormat(this.getActivityStartDate().value));
             build.append(" ");
             build.append(this.getActivityStartTime().value);
             build.append(" n:");
@@ -212,11 +212,11 @@ public class TestActivity implements ReadOnlyActivity {
             build.append("add ");
             build.append(this.name.toString());
             build.append(" from: ");
-            build.append(this.getActivityStartDate().value);
+            build.append(changeDateFormat(this.getActivityStartDate().value));
             build.append(" ");
             build.append(this.getActivityStartTime().value);
             build.append(" to: ");
-            build.append(this.getActivityEndDate().value);
+            build.append(changeDateFormat(this.getActivityEndDate().value));
             build.append(" ");
             build.append(this.getActivityEndTime().value);
             build.append(" n:");
@@ -225,7 +225,20 @@ public class TestActivity implements ReadOnlyActivity {
         
         return build.toString();
     }
+    //@@author A0139277U
+    /**
+     * This method changes the format of date from dd-mm-yyyy to mm-dd-yyyy
+     * @param dateToChange
+     * @return a date String in the format of mm-dd-yyyy
+     */
+    private static String changeDateFormat(String dateToChange){
     
+    	String[] parts = dateToChange.split("-");
+    	return parts[1] + "-" + parts[0] + "-" + parts[2]; 
+    	
+    }
+    
+    //@@author
     /**
      * @param index of the Activity to complete
      * @return complete command for the given Activity.
