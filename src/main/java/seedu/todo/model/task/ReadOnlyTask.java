@@ -33,8 +33,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName())
                 && other.getDetail().equals(this.getDetail())
                 && other.getPriority().equals(this.getPriority())
-                && (other.getOnDate().equals(this.getOnDate())
-                && other.getByDate().equals(this.getByDate())));
+                && other.getOnDate().equals(this.getOnDate())
+                && other.getByDate().equals(this.getByDate()));
     }
 
     /**

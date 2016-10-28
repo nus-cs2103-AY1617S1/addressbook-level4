@@ -31,7 +31,7 @@ public class TestDataHelper{
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
                 new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
-                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new TaskDate("2/3/2018 12:34 pm", TaskDate.TASK_DATE_BY),
                 new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
@@ -152,9 +152,25 @@ public class TestDataHelper{
         }
         return tasks;
     }
+    
+    public List<Task> generateReverseTaskList(int numGenerated) throws Exception {
+        List<Task> tasks = new ArrayList<>();
+        for (int i = 1; i <= numGenerated; i++){
+            tasks.add(0, generateFullTask(i));
+        }
+        return tasks;
+    }
 
     public List<Task> generateTaskList(Task... tasks) {
         return Arrays.asList(tasks);
+    }
+    
+    public List<Task> generateReverseTaskList(Task... tasks) {
+        Task[] temp = new Task[tasks.length];
+        for (int i = 0; i < tasks.length; i++) {
+            temp[tasks.length - i - 1] = tasks[i];
+        }
+        return Arrays.asList(temp);
     }
 
     /**
@@ -165,7 +181,7 @@ public class TestDataHelper{
                 new Name(name),
                 new Detail("1"),
                 new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_ON),
-                new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_BY),
+                new TaskDate("5/3/2018 12:44 pm", TaskDate.TASK_DATE_BY),
                 new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );

@@ -349,7 +349,9 @@ public class TestUtil {
      */
     public static TestTask[] addTasksToList(final TestTask[] persons, TestTask... personsToAdd) {
         List<TestTask> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
+        for (TestTask t : personsToAdd) {
+           listOfPersons.add(0, t); 
+        }
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
     }
 

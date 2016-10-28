@@ -27,10 +27,10 @@ public class TypicalTestTasks {
                     .withOnDate("12/11/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyNoodles = new TaskBuilder().withName("Buy Noodles").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("12/11/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             buyCheese = new TaskBuilder().withName("Buy Cheese").withByDate("12/12/2016")
-                    .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withOnDate("12/11/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").withPriority("mid").build();
             
             
@@ -51,7 +51,11 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{buyGroceries, buyMilk, buyRice, buyChilli};
+        return new TestTask[]{buyGroceries, buyChilli, buyMilk, buyCheese};
+    }
+    
+    public TestTask[] getTypicalTasksReverse() {
+        return new TestTask[]{buyCheese, buyMilk, buyChilli, buyGroceries};
     }
     
     public TestTask[] getEmptyTaskList() {

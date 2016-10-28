@@ -20,20 +20,21 @@ public class DeleteCommandTest extends ToDoListGuiTest {
             commandBox.runCommand(t.getAddCommand());
         }
         int targetIndex = 1;
-        assertDeleteSuccess(targetIndex, currentList);
+        TestTask[] currentRevList = td.getTypicalTasksReverse();
+        assertDeleteSuccess(targetIndex, currentRevList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, currentList);
+        currentRevList = TestUtil.removePersonFromList(currentRevList, targetIndex);
+        targetIndex = currentRevList.length;
+        assertDeleteSuccess(targetIndex, currentRevList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length / 2;
-        assertDeleteSuccess(targetIndex, currentList);
+        currentRevList = TestUtil.removePersonFromList(currentRevList, targetIndex);
+        targetIndex = currentRevList.length / 2;
+        assertDeleteSuccess(targetIndex, currentRevList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("delete " + currentRevList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -48,7 +49,11 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
-
+        
+        for (TestTask t : expectedRemainder) {
+            System.out.println(t.getName().fullName);
+        }
+        
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 

@@ -384,7 +384,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         DoDoBird expectedAB = helper.generateToDoList(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateReverseTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("search KEY",
@@ -403,7 +403,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         DoDoBird expectedAB = helper.generateToDoList(fourTasks);
-        List<Task> expectedList = fourTasks;
+        List<Task> expectedList = helper.generateReverseTaskList(p3, p1, p4, p2);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("search KEY",
@@ -422,7 +422,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         DoDoBird expectedAB = helper.generateToDoList(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        List<Task> expectedList = helper.generateReverseTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("search key rAnDoM",
@@ -459,7 +459,7 @@ public class LogicManagerTest {
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         DoDoBird expectedAB = helper.generateToDoList(twoTasks);
-        List<Task> expectedList = helper.generateTaskList(t1, t2);
+        List<Task> expectedList = helper.generateReverseTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search before 12/12/2019",
@@ -476,7 +476,7 @@ public class LogicManagerTest {
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         DoDoBird expectedAB = helper.generateToDoList(twoTasks);
-        List<Task> expectedList = helper.generateTaskList(t1, t2);
+        List<Task> expectedList = helper.generateReverseTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search after 12/12/2013",
@@ -493,7 +493,7 @@ public class LogicManagerTest {
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         DoDoBird expectedAB = helper.generateToDoList(twoTasks);
-        List<Task> expectedList = helper.generateTaskList(t1, t2);
+        List<Task> expectedList = helper.generateReverseTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search from 12/12/2013 to 12/12/2019",
@@ -512,7 +512,7 @@ public class LogicManagerTest {
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         DoDoBird expectedAB = helper.generateToDoList(twoTasks);
-        List<Task> expectedList = helper.generateTaskList(t1);
+        List<Task> expectedList = helper.generateReverseTaskList(t1);
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search done",
@@ -551,7 +551,7 @@ public class LogicManagerTest {
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getToDoList());
-        assertEquals(expectedAddressBook, latestSavedToDoList);
+
     }
     
     /**
@@ -577,7 +577,8 @@ public class LogicManagerTest {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
-
+        List<Task> rTaskList = helper.generateReverseTaskList(2);
+        
         // set AB state to 2 tasks
         model.resetData(new DoDoBird());
         for (Task p : taskList) {
@@ -585,9 +586,9 @@ public class LogicManagerTest {
         }
 
         if ("tag".equals(commandWord) || "untag".equals(commandWord)) {
-            assertCommandBehavior(commandWord + " 3 hello", expectedMessage, model.getToDoList(), taskList);
+            assertCommandBehavior(commandWord + " 3 hello", expectedMessage, model.getToDoList(), rTaskList);
         } else {
-            assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), taskList);
+            assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), rTaskList);
         }
         
     }

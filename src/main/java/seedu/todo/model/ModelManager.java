@@ -136,7 +136,9 @@ public class ModelManager extends ComponentManager implements Model {
     } 
     
     //@@author A0138967J
+    @Override
     public void updateTodayListToShowAll() {
+        todayTasks.setPredicate(null);
         todayTasks.setPredicate((new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())))::satisfies);
     }
 

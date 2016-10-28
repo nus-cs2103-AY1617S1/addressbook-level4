@@ -58,6 +58,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
+    /** Updates today list to show all today tasks */
+    void updateTodayListToShowAll();
+    
     /** Updates the filter of the filtered task list to show all completed tasks */
     void updateFilteredListToShowAllCompleted();
 
