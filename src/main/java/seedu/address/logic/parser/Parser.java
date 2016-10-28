@@ -20,14 +20,13 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.PendingCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 
@@ -86,11 +85,11 @@ public class Parser {
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
 			
-		case DoneCommand.COMMAND_WORD:
-			return prepareDone(arguments);
+		case ChangeStatusCommand.COMMAND_WORD_DONE:
+			return prepareChangeStatus(arguments, "done");
 			
-		case PendingCommand.COMMAND_WORD:
-			return preparePending(arguments);
+		case ChangeStatusCommand.COMMAND_WORD_PENDING:
+			return prepareChangeStatus(arguments, "pending");
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
@@ -353,7 +352,7 @@ public class Parser {
 		try {
 			indices = parseIndices(arguments);
 		} catch (IllegalArgumentException e) {
-			return new IncorrectCommand(e.getMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(e.getMessage());
 		}
 		return new DeleteCommand(indices);
 	}
@@ -475,37 +474,17 @@ public class Parser {
 	 * tasks to be marked not done missing keyword "not" means all indices are
 	 * for tasks to be marked done
 	 */
-	private Command prepareDone(String arguments) {
-		String[] args = arguments.split("not");
-		int[] doneIndices = new int[0];
-		int[] notDoneIndices = new int[0];
-		try {
-			if (!args[0].equals("")) {
-				doneIndices = parseIndices(args[0]);
-			}
-			if (args.length > 1) {
-				notDoneIndices = parseIndices(args[1].trim());
-			}
-		} catch (IllegalArgumentException e) {
-			return new IncorrectCommand(e.getMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-		}
-
-		return new DoneCommand(doneIndices, notDoneIndices);
-	}
-
-	//@@author A0141019U-reused
-	private Command preparePending(String arguments) {
-		int[] pendingIndices;
+	private Command prepareChangeStatus(String arguments, String newStatus) {
+		int[] doneIndices;
 
 		try {
-			pendingIndices = parseIndices(arguments);
+			doneIndices = parseIndices(arguments);
 		} catch (IllegalArgumentException e) {
-			return new IncorrectCommand(e.getMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, PendingCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(e.getMessage());
 		}
 
-		return new PendingCommand(pendingIndices);
+		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
-	
 
 	//@@author A0141019U
 	/**

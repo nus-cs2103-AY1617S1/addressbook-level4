@@ -290,7 +290,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
