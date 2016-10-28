@@ -38,8 +38,8 @@ public class CommandBox extends UiPart {
 	private String currHistLine;
 	private boolean hasTempEnd;
 
-	String[] commands = {"add ", "done ", "update ", "delete ", "show ", "find ", "exit "
-			, "undo ", "redo ", "help ", "clear ", "setstorage "};
+	String[] commands = {"add", "done", "update", "delete", "show", "find", "exit"
+			, "undo", "redo", "help", "clear", "setstorage"};
 	//@@author
 
 	private Logic logic;
@@ -76,7 +76,7 @@ public class CommandBox extends UiPart {
 					getDownLine();
 					keyEvent.consume();
 				}
-				if (keyEvent.getCode() == KeyCode.TAB) {
+				if (keyEvent.getCode() == KeyCode.TAB || keyEvent.getCode() == KeyCode.SPACE) {
 					autoComplete();
 					keyEvent.consume();
 				}

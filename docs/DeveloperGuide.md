@@ -199,6 +199,10 @@ The information in an `UndoInfo` instance is used to undo the relevant operation
 * We use a redo stack to store a list of all those `UndoInfo` instances that were popped from the undo stack and pushed into this stack. These changes are redone in a manner similar to how changes are undone in Undo operation. 
 * Note that if an operation following an undo operation mutates the list, then the redo stack is cleared at that point.
 
+/* @@author A0142102E */
+### Recurring Tasks
+The recurring feature allows a task to recur in a specified frequency, and its dates will be updated to the next recurring date once it is marked as done. `RecurringUtil` is used to check and update a task's start and end dates. The `Task` class also contains information on whether this particular task is a recurring one and its relevant recurring frequency (daily, weekly, monthly or yearly). The checking and updating of a recurring task's dates occurs when the task is updated, marked as done, or when it undergoes undo and redo operations.
+
 /* @@author */
 
 ## Testing
@@ -468,8 +472,8 @@ Guarantees:
 5. Should not lose task/event details in the event that the App crashes.
 6. Should have fast response time, results added and retrieved in less than a second.
 7. Should not have bugs that interfere with the functionalities of the device.
-8. There should be back up of documentations and code.
-9. Should store data in encrypted form as a form of data security.
+8. Should have back up of task data.
+9. Should work without requiring internet connectivity.
 10. Should not require an installer to run the application.
 
 More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
@@ -552,7 +556,7 @@ Weaknesses:
 2. Fixed format for entering dates, thus users have to remember a specific format each time they enter a date.
 3. No feature to search for free slots, thus users have to manually look for an empty slot before adding a task in.
 
-/* @@author */
+/* @@author A0142102E*/
 #### Fantastical (studied by Fionna Tong)
 
 Strengths:
