@@ -136,10 +136,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139342H
     @Override
-    public synchronized void editTask(Task target, int index, Description description, DateTime dateTime) 
+    public synchronized void editTask(Task target, Description description, DateTime dateTime) 
             throws TaskNotFoundException {
         try {
-            emeraldo.editTask(target, index, description, dateTime);
+            emeraldo.editTask(target, description, dateTime);
             saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -149,10 +149,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142290N
     @Override 
-    public synchronized void completedTask(Task target, int index)
+    public synchronized void completedTask(Task target)
     		throws TaskNotFoundException {
     	try {
-    		emeraldo.completedTask(target, index);
+    		emeraldo.completedTask(target);
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}

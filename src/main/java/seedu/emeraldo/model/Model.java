@@ -36,11 +36,11 @@ public interface Model {
     
     //@@author A0139342H
     /** Edits given task */
-    void editTask(Task target, int index, Description description, DateTime dateTime) throws TaskNotFoundException;
+    void editTask(Task target, Description description, DateTime dateTime) throws TaskNotFoundException;
 
     //@@author A0142290N
     /** Marks given task as complete */
-    void completedTask(Task target, int index) throws TaskNotFoundException;
+    void completedTask(Task target) throws TaskNotFoundException;
     //@@author
     
     /** Adds the given task */
