@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- @@author A0093960X -->
 
 <?import java.net.URL?>
@@ -12,6 +13,6 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="taskListView" style="-fx-background-color: D3D6DB;" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
