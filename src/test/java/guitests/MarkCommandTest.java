@@ -21,7 +21,7 @@ public class MarkCommandTest extends FlexiTrackGuiTest {
         currentList = TestUtil.markTasksToList(currentList, 4);
         
         
-        // mark a task
+        // mark a floating task
         assertMarkSuccess(1, currentList);
         currentList = TestUtil.markTasksToList(currentList, 1);
 
@@ -31,15 +31,15 @@ public class MarkCommandTest extends FlexiTrackGuiTest {
         //assertTrue(taskListPanel.isListMatching(currentList));
 
         // mark an already marked task
-        assertMarkFail(2, currentList);
+        assertMarkFail(7, currentList);
         currentList = TestUtil.markTasksToList(currentList, 4);
 
-        // un-mark a marked test
+        // un-mark a marked task
         assertUnMarkSuccess(8, currentList);
         currentList = TestUtil.unMarkTasksToList(currentList, 1);
         //assertTrue(taskListPanel.isListMatching(currentList));
 
-        // un-mark an unmarked test
+        // un-mark an unmarked task
         assertUnMarkFail(3, currentList);
         currentList = TestUtil.unMarkTasksToList(currentList, 3);
         //assertTrue(taskListPanel.isListMatching(currentList));

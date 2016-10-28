@@ -36,6 +36,7 @@ public class TestTask implements ReadOnlyTask {
                                              // changes in the arg list
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
+        this.isDone = name.getIsDone();
     }
 
     public TestTask() {
@@ -160,30 +161,6 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("unmark " + taskToUnMark);
         return sb.toString();
-    }
-    
-
-    @Override
-    public boolean getIsNotFloatingTask() {
-        return !( this.isEvent || this.isTask );
-    }
-
-    @Override
-    public DateTimeInfo getStartingTimeOrDueDate(){
-        if (this.getIsTask()){
-            return this.getDueDate();
-        } else {
-            return  this.getStartTime();
-        }
-    }
-    
-    @Override
-    public DateTimeInfo getEndingTimeOrDueDate(){
-        if (this.getIsTask()){
-            return this.getDueDate();
-        } else {
-            return  this.getEndTime();
-        }
     }
 
 }
