@@ -105,7 +105,7 @@ public class CommandBox extends UiPart {
 
 	private void autoComplete(){
 		String currentString = commandTextField.getText();
-		String completedCommand = "";
+		String completedCommand = commandTextField.getText();
 		boolean found = false;
 		for (String command: commands){
 			if (command.startsWith(currentString)){
