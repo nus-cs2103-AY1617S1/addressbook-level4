@@ -118,10 +118,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask(Task target, String field, String value) throws TaskNotFoundException, IllegalValueException {
-        taskManager.editTask(target, field, value);
+    public synchronized void editTask(Task task, String field, String value) throws TaskNotFoundException, IllegalValueException {
+        taskManager.editTask(task, field, value);
         updateListing();
-    	indicateTaskManagerChanged();
+        indicateTaskChanges(task);
     }
   //@@author
     @Override
@@ -337,11 +337,5 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", taskDateKeyWords);
         }
-    }
-    @Override
-    public void editTask(ReadOnlyTask target, String field, String value)
-            throws TaskNotFoundException, IllegalValueException {
-        // TODO Auto-generated method stub
-        
     }
 }

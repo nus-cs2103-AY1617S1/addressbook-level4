@@ -32,7 +32,7 @@ public class UndoCommand extends Command {
         String previousCommand = listOfCommands.pop();
         if (previousCommand.equals("add")){
             redoListOfTasks.push(listOfTasks.peek());
-            ReadOnlyTask toDelete = listOfTasks.pop();
+            Task toDelete = (Task)listOfTasks.pop();
             try {
                 model.deleteTask(toDelete);
             } catch (TaskNotFoundException e) {
@@ -53,13 +53,13 @@ public class UndoCommand extends Command {
         
         else if (previousCommand.equals("done")){
             redoListOfTasks.push(listOfTasks.peek());
-            ReadOnlyTask undoDone = listOfTasks.pop();
+            Task undoDone = (Task)listOfTasks.pop();
             undoDone.setUndone();
         }
         
         else if (previousCommand.equals("edit")){
             redoListOfTasks.push(listOfTasks.peek());
-            ReadOnlyTask undoEdit = listOfTasks.pop();
+            Task undoEdit = (Task)listOfTasks.pop();
          
             try {
                 
