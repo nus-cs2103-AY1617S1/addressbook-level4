@@ -14,17 +14,28 @@ public class DateTime {
     
 	//@@author A0139749L
     private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
-            + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'";
+            + "'from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM'\n"
+            + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
+            + "Accepted time formats:  14:20  (time in 24 hours format)\n"
+    		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
     private static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
-            + "'by DD/MM/YYYY HH:MM'";
+            + "'by DD/MM/YYYY, HH:MM'\n"
+            + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
+            + "Accepted time formats:  14:20  (time in 24 hours format)\n"
+    		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
     private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
-            + "'on DD/MM/YYYY'";
+            + "'on DD/MM/YYYY'\n"
+            + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
+            + "Type 'help' to see the full list of accepted formats in the user guide";
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY "
-            + "and time must follow this format HH:MM in 24 hours format";
-    
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Command format is invalid! "
+    		+ "It must be one of the following:\n"
+            + "Keyword 'on' : on DD/MM/YYYY\n"
+            + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
+            + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
+
     public final String value;
     public final String context;
     public final String overdueContext;
