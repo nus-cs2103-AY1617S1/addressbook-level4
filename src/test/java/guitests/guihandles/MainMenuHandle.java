@@ -24,12 +24,13 @@ public class MainMenuHandle extends GuiHandle {
         clickOn("Help", "F1");
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
-
+        
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
         useAccelerator("F1");
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
     
+    //@@author A0139052L
     public void useClearCommandUsingAccelerator() {
         useAccelerator("Ctrl", "Shift", "C");
         guiRobot.sleep(500);
@@ -37,6 +38,11 @@ public class MainMenuHandle extends GuiHandle {
     
     public void useUndoCommandUsingAccelerator() {
         useAccelerator("Ctrl", "Shift", "U");
+        guiRobot.sleep(500);
+    }
+    
+    public void useRedoCommandUsingAccelerator() {
+        useAccelerator("Ctrl", "Shift", "Y");
         guiRobot.sleep(500);
     }
     
