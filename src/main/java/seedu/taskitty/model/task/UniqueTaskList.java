@@ -89,8 +89,12 @@ public class UniqueTaskList implements Iterable<Task> {
             assert false: "Task should not be missing";
         }
         Task editableToUnmark = (Task) toUnmark;
-        editableToUnmark.unmarkAsDone();
-        internalList.add(editableToUnmark);
+        editableToUnmark.unmarkAsDone();        
+        try {
+            add(editableToUnmark);
+        } catch (DuplicateTaskException e) {
+            assert false: "Should not have duplicate task";
+        }
     }  
     
   //@@author A0130853L
@@ -107,7 +111,11 @@ public class UniqueTaskList implements Iterable<Task> {
     	final boolean taskFoundAndMarkedAsDone = internalList.remove(toMark);
     	Task editableToMark = (Task) toMark;
     	editableToMark.markAsDone();
-    	internalList.add(editableToMark);
+    	try {
+            add(editableToMark);
+        } catch (DuplicateTaskException e) {
+            assert false: "Should not have duplicate task";
+        }
     	if (!taskFoundAndMarkedAsDone) {
     		throw new TaskNotFoundException();
     	}

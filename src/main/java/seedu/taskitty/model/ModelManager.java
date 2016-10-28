@@ -495,6 +495,7 @@ public class ModelManager extends ComponentManager implements Model {
                 
             case DoneCommand.COMMAND_WORD:
                 int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
+                toStoreInfo.storeNumberOfTasks(numberOfTasksMarked);
                 ReadOnlyTask taskToRevertMark;
                 for (int i = 0; i < numberOfTasksMarked; i++) {
                     taskToRevertMark = toGetInfo.getTask();
