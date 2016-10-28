@@ -431,17 +431,38 @@ public class TodoListDB {
                 }
                 
                 if (currentMatchingNameString != null && currentMatchingTagNameString != null) {
-                    if (currTaskName.contains(currentMatchingNameString) || currTaskTagList.contains(currentMatchingTagNameString)){
+                    if (currTaskName.startsWith(currentMatchingNameString) || currTaskTagList.contains(currentMatchingTagNameString)){
                         taskByName.add(currTask);
+                        isFound = true;
+                    } else {
+                        for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
+                            if(currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingNameString)) {
+                                taskByName.add(currTask);
+                                isFound = true;
+                                break;
+                            }
+                        }
                     }
                 } else if (currentMatchingNameString != null) {
-                    if (currTaskName.contains(currentMatchingNameString)) {
+                    if (currTaskName.startsWith(currentMatchingNameString)) {
                         taskByName.add(currTask);
+                    } else {
+                        for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
+                            if(currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingNameString)) {
+                                taskByName.add(currTask);
+                                isFound = true;
+                                break;
+                            }
+                        }
                     }
                 } else {
                     if (currTaskTagList.contains(currentMatchingTagNameString)) {
                         taskByName.add(currTask);
                     }
+                }
+                if (isFound) {
+                    isFound = false;
+                    break;
                 }
             }
             tagNameIterator = tagNameList.iterator();
