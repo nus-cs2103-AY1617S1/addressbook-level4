@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         savvyTasker = new SavvyTasker(src);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
 
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlySavvyTasker initialData) {
         savvyTasker = new SavvyTasker(initialData);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
     //@@author
@@ -95,23 +95,25 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139915W
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        savvyTasker.removeTask(target);
+    public synchronized Task deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        Task taskDeleted = savvyTasker.removeTask(target);
         indicateSavvyTaskerChanged();
+        return taskDeleted;
     }
 
     @Override
-    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
-        savvyTasker.replaceTask(target, replacement);
+    public synchronized Task modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
+        Task taskModified = savvyTasker.replaceTask(target, replacement);
         indicateSavvyTaskerChanged();
+        return taskModified;
     }
 
     @Override
-    public synchronized void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
-        t.setId(savvyTasker.getNextTaskId());
-        savvyTasker.addTask(t);
+    public synchronized Task addTask(Task t) throws DuplicateTaskException, InvalidDateException {
+        Task taskAdded = savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
+        return taskAdded;
     }
     //@@author
     

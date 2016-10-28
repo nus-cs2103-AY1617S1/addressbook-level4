@@ -22,16 +22,27 @@ public interface Model {
     ReadOnlySavvyTasker getSavvyTasker();
 
     //@@author A0139915W
-    /** Deletes the given Task. */
-    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
+    /** 
+     * Deletes the given Task. 
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @return Returns a Task if the delete operation is successful, an exception is thrown otherwise.
+     * */
+    Task deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
-    /** Modifies the given Task. */
-    void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException;
+    /** 
+     * Modifies the given Task. 
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns a Task if the modify operation is successful, an exception is thrown otherwise.
+     * */
+    Task modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException;
 
     /** Adds the given Task. 
      * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns a Task if the add operation is successful, an exception is thrown otherwise.
      * */
-    void addTask(Task task) throws DuplicateTaskException, InvalidDateException;
+    Task addTask(Task task) throws DuplicateTaskException, InvalidDateException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

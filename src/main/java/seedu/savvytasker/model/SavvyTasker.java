@@ -67,40 +67,35 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 //// symbol/task-level operations
 
     //@@author A0139915W
-    /**
-     * Returns the next available id for use to uniquely identify a task.
-     * @author A0139915W
-     * @return The next available id.
-     */
-    public int getNextTaskId() {
-        return tasks.getNextId();
-    }
 
     /**
      * Adds a task to savvy tasker.
-     * @throws TaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws DuplicateTaskException if an equivalent task already exists.
+     * @throws InvalidDateException if the end date is earlier than the start date.
      */
-    public void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
-        tasks.add(t);
+    public Task addTask(Task t) throws DuplicateTaskException, InvalidDateException {
+        t.setId(tasks.getNextId());
+        return tasks.add(t);
     }
     
     /**
      * Removes a task from savvy tasker.
      * @param key the task to be removed
-     * @return true if the task is removed successfully
-     * @throws TaskNotFoundException if the task to be removed does not exist
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @return Returns a Task if the remove operation is successful, an exception is thrown otherwise.
      */
-    public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
+    public Task removeTask(ReadOnlyTask key) throws TaskNotFoundException {
         return tasks.remove(key);
     }
     
     /**
      * Replaces a task from savvy tasker.
      * @param key the task to be replaced
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
      * @return true if the task is removed successfully
-     * @throws TaskNotFoundException if the task to be removed does not exist
      */
-    public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
+    public Task replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
         return tasks.replace(key, replacement);
     }
     //@@author
