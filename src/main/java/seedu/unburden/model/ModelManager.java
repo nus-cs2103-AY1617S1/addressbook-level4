@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139714B	
     @Override
     public void resetData(ReadOnlyListOfTask newData) {
-    	prevLists.push(listOfTask);
+    	prevLists.push(new ListOfTask(listOfTask));
         listOfTask.resetData(newData);
         indicateTaskListChanged();
     }
