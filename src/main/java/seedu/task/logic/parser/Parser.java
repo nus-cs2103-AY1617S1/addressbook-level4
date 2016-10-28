@@ -166,7 +166,7 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
-    //@@ author A0147969E
+    //@@author A0147969E
     /**
      * Parses arguments in the context of the complete task command.
      *
@@ -257,7 +257,7 @@ public class Parser {
     }
 
 
-    //@@ author A0147969E
+    //@@author A0147969E
     private Command prepareAddTag(String args){
     	final Matcher matcher = TAG_ADD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -331,7 +331,7 @@ public class Parser {
         }
     }
 
-    //@@ author A0139860X
+    //@@author A0139860X
     /**
      * Parses arguments in the context of the list task command.
      *

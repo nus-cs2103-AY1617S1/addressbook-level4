@@ -147,6 +147,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
+        assert getListView().getItems() != null;
         return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 

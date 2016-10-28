@@ -23,6 +23,8 @@ public class XmlAdaptedTask {
     private String timeEnd;
     @XmlElement(required = true)
     private String priority;
+    @XmlElement(required = true)
+    private boolean completeStatus;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -43,6 +45,7 @@ public class XmlAdaptedTask {
         timeStart = source.getTimeStart().toString();
         timeEnd = source.getTimeEnd().toString();
         priority = source.getPriority().toString();
+        completeStatus = source.getCompleteStatus();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -63,7 +66,8 @@ public class XmlAdaptedTask {
         final Time timeStart = new Time(this.timeStart);
         final Time timeEnd = new Time(this.timeEnd);
         final Priority priority = new Priority(this.priority);
+        final boolean completeStatus = this.completeStatus;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(description, priority, timeStart, timeEnd, tags);
+        return new Task(description, priority, timeStart, timeEnd, tags, completeStatus);
     }
 }

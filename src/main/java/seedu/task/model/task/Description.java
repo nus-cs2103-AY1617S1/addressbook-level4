@@ -1,4 +1,4 @@
-//@@ author A0147969E
+//@@author A0147969E
 package seedu.task.model.task;
 
 import seedu.task.commons.exceptions.IllegalValueException;

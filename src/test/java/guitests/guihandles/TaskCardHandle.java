@@ -13,6 +13,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String STARTTIME_FIELD_ID = "#startTime";
     private static final String PRIORITY_FIELD_ID = "#priority";
     private static final String ENDTIME_FIELD_ID = "#endTime";
+    private static final String COMPLETESTATUS_FIELD_ID = "#completeStatus";
 
     private Node node;
 
@@ -37,13 +38,19 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
-    public String getEmail() {
+    public String getEndTime() {
         return getTextFromLabel(ENDTIME_FIELD_ID);
+    }
+    
+    public boolean getCompleteStatus() {
+        return getTextFromLabel(COMPLETESTATUS_FIELD_ID).equals("  [Completed]") ? true : false;
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getDescription().toString()) && getPriority().equals(task.getPriority().toString())
-                && getEmail().equals(task.getTimeEnd().toString()) && getStartTime().equals(task.getTimeEnd().toString());
+        return getFullName().equals(task.getDescription().toString()) && getPriority().equals("Priority: " + task.getPriority().toString())
+                && getEndTime().equals("End Time: " + task.getTimeEnd().toString()) 
+                && getStartTime().equals("Start Time: " + task.getTimeStart().toString())
+                && getCompleteStatus() == task.getCompleteStatus();
     }
 
     @Override

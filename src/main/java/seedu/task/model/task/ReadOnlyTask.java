@@ -29,7 +29,8 @@ public interface ReadOnlyTask {
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getPriority().equals(this.getPriority())
                 && other.getTimeStart().equals(this.getTimeStart())
-                && other.getTimeEnd().equals(this.getTimeEnd()));
+                && other.getTimeEnd().equals(this.getTimeEnd())
+                && other.getCompleteStatus() == this.getCompleteStatus());
     }
 
     /**

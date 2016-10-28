@@ -1,6 +1,5 @@
 package seedu.task.model.task;
 
-import java.util.HashSet;
 import java.util.Objects;
 
 import seedu.task.commons.util.CollectionUtil;
@@ -16,7 +15,7 @@ public class Task implements ReadOnlyTask {
     private Time timeStart;
     private Time timeEnd;
     private Priority priority;
-    private	boolean completeStatus = false;
+    private	boolean completeStatus;
 
     private UniqueTagList tags;
 
@@ -24,12 +23,7 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Description description, Priority priority, Time timeStart, Time timeEnd, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(description, priority, timeStart, timeEnd, tags);
-        this.description = description;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.priority = priority;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this(description, priority, timeStart, timeEnd, tags, false);
     }
 
     public Task(Description description, Priority priority, Time timeStart, Time timeEnd, UniqueTagList tags, boolean completeStatus) {
@@ -46,7 +40,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getDescription(), source.getPriority(), source.getTimeStart(), source.getTimeEnd(), source.getTags());
+        this(source.getDescription(), source.getPriority(), source.getTimeStart(), source.getTimeEnd(), source.getTags(), source.getCompleteStatus());
     }
 
     @Override
@@ -57,7 +51,7 @@ public class Task implements ReadOnlyTask {
     public void setDescription(Description description){
     	this.description = description;
     }
-    //@@ author A0147969E
+    //@@author A0147969E
     public void undoTask(){
     	completeStatus = false;
     }
