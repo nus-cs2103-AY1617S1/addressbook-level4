@@ -183,4 +183,50 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
                 ? this.name.compareTo(o.name)
                 : result;
     }
+
+    //@@author A0121657H
+    /**
+     * Copies data over to new Task and marks it as done
+     * @param taskToDone
+     * @return
+     */
+    @Override
+    public Task markDone(ReadOnlyTask task) {
+        assert task != null;
+        ReadOnlyTask oldTask = task;
+        
+        TaskName newName = oldTask.getName();
+        TaskTime newStartTime = oldTask.getStartTime();
+        TaskTime newEndTime = oldTask.getEndTime();
+        TaskTime newDeadline = oldTask.getDeadline();
+        TaskRecurrence newRecurrence = oldTask.getRecurrence();
+        Tag newTag = oldTask.getTag();
+
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, true);
+        return newTask;
+    }
+    
+    /**
+     * Copies data over to new Task and marks it as not done
+     * @param taskToDone
+     * @return
+     */
+    @Override
+    public Task markUndone(ReadOnlyTask task) {
+        assert task != null;
+        ReadOnlyTask oldTask = task;
+        
+        TaskName newName = oldTask.getName();
+        TaskTime newStartTime = oldTask.getStartTime();
+        TaskTime newEndTime = oldTask.getEndTime();
+        TaskTime newDeadline = oldTask.getDeadline();
+        TaskRecurrence newRecurrence = oldTask.getRecurrence();
+        Tag newTag = oldTask.getTag();
+
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+        return newTask;
+    }
+    
+    //@@author
+
 }

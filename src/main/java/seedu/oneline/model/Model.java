@@ -16,6 +16,8 @@ import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap; 
+import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -36,11 +38,8 @@ public interface Model {
     /** Updates the given task */
     void replaceTask(ReadOnlyTask oldTask, Task newTask) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
-    /** Marks a given task as done */
-    void doneTask(int index) throws UniqueTaskList.TaskNotFoundException;
-    
-    /** Marks a given task as not done */
-    void undoneTask(int index) throws UniqueTaskList.TaskNotFoundException;
+    /** Updates the given task, for use to mark task as undone */
+    void replaceUndoneTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Returns the tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getTagList(); 
@@ -86,5 +85,6 @@ public interface Model {
     
     /** Reverts to the state before the last undone*/
     void redo() throws StateNonExistentException;
+
 
 }

@@ -7,6 +7,8 @@ import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.task.Task;
+import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -30,17 +32,18 @@ public class UndoneCommand extends Command {
     public UndoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-    
-    public static UndoneCommand createFromArgs(String args) throws IllegalCmdArgsException {
+
+    public static UndoneCommand createFromArgs(String args) throws IllegalCmdArgsException, IllegalValueException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
         } catch (IllegalValueException e) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
         if (index == null) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
+
         return new UndoneCommand(index);
     }
 
@@ -56,18 +59,26 @@ public class UndoneCommand extends Command {
         }
 
         ReadOnlyTask taskToUndone = lastShownList.get(targetIndex - 1);
+        Task undoneTask = null;
+        undoneTask = taskToUndone.markUndone(taskToUndone);
 
         if(!taskToUndone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));
         } else {
             try {
-                model.undoneTask(targetIndex - 1);
+                model.replaceUndoneTask(taskToUndone, undoneTask);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
+            } catch (UniqueTaskList.DuplicateTaskException e) {
+                assert false : "The task should not have the same completed status as before";
             }
 
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
         }
     }
 
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 }

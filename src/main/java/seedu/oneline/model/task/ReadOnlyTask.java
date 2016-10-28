@@ -60,5 +60,20 @@ public interface ReadOnlyTask {
     }
 
     Task update(Map<TaskField, String> fields) throws IllegalValueException;
-
+    
+    //@@author A0121657H
+    /**
+     * Copies data over to new Task and marks it as done
+     * @param taskToDone
+     * @return
+     */
+    public Task markDone(ReadOnlyTask taskToDone);
+    
+    /**
+     * Copies data over to new Task and marks it as not done
+     * @param taskToDone
+     * @return
+     */
+    public Task markUndone(ReadOnlyTask taskToDone);
+    //@@author
 }
