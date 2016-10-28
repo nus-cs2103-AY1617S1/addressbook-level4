@@ -184,12 +184,12 @@ Example:
 * `select 2`
 
 
-#### Set storage: `set storage`
+#### Set storage: `setstorage`
 Allows the user to change the storage location to a different folder
-Format: `set storage <folder name>`
+Format: `setstorage <folder name>`
 
 Example:
-* `set storage task manager`
+* `setstorage data/newFile.xml`
 
 #### Saving the data 
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
@@ -222,4 +222,4 @@ Following is the list of all commands:
 | `clear`     | `clear`                                            | Clears all the tasks in the task manager       |
 |             | `clear done`                                       | Clears all the done tasks from the done list   |
 | `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
-|`set storage`| `set storage` `<folder name>`                      | Set storage to a particular folder             |
+|`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             |
