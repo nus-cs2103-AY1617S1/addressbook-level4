@@ -32,12 +32,13 @@ public class CommandBoxTest extends ToDoListGuiTest {
     
     @Test
     public void commandBox_CommandHistory_exists() {
-        commandBox.runCommand("clear");
+		String addCommand = "add commandhistorytestevent";
+        commandBox.runCommand(addCommand);
         commandBox.runCommand("undo");
         commandBox.scrollToPreviousCommand();
         assertEquals(commandBox.getCommandInput(), "undo");
         commandBox.scrollToPreviousCommand();
-        assertEquals(commandBox.getCommandInput(), "clear");
+        assertEquals(commandBox.getCommandInput(), addCommand);
         commandBox.scrollToNextCommand();
         assertEquals(commandBox.getCommandInput(), "undo");
         commandBox.scrollToNextCommand();

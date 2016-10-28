@@ -20,7 +20,7 @@ public class FindCommandTest extends ToDoListGuiTest {
 
     @Test
     public void find_emptyList(){
-        commandBox.runCommand("clear");
+        commandBox.runCommand("delete 1-7");
         assertFindResult("find Jean"); //no results
     }
 

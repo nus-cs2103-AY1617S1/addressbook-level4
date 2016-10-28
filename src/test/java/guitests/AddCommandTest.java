@@ -30,7 +30,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
-        commandBox.runCommand("clear");
+        commandBox.runCommand("delete 1-9");
         assertAddSuccess(td.alice);
 
         //invalid command
