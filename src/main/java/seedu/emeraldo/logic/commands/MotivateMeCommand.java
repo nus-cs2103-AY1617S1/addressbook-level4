@@ -4,7 +4,7 @@ import java.util.Random;
 
 //@@author A0139196U
 /**
- * Motivates the user upon request in the task manager.
+ * Motivates the user with motivational quotes upon request in the task manager.
  */
 public class MotivateMeCommand extends Command {
     
@@ -24,21 +24,32 @@ public class MotivateMeCommand extends Command {
             "Stop counting the days. Start making the days count.",
             "The secret to getting ahead is getting started. Start on one of your tasks today!"
     };
+    
+    public static final String [] TEXT_EMOJI_LIST = {
+            "  ＼（○＾ω＾○）／",
+            "  ﾍ(￣▽￣*)ﾉ",
+            "  ٩(^ᴗ^)۶",
+            "  ﾟ╲(｡◕‿◕｡)╱ﾟ",
+            "  (ง °◡° )ง",
+            "  (▰˘◡˘▰)",
+            "  ( ง '̀-'́) ง",
+            "  (๑˃̵ᴗ˂̵)و",
+            "  (๑•̀ㅂ•́)و✧",
+            "  ೕ(•̀ᴗ•́)",
+    };
+    
     public static final String COMMAND_WORD = "motivateme";
 
     public MotivateMeCommand() {}
     
     public CommandResult execute() {
         
-        Random rand = new Random();
+        Random randMessage = new Random();
+        Random randTextEmoji = new Random();
+        int msgShuffler = randMessage.nextInt(MESSAGE_MOTIVATE_LIST.length);
+        int emojiShuffler = randTextEmoji.nextInt(TEXT_EMOJI_LIST.length);
         
-        int shuffler = rand.nextInt(MESSAGE_MOTIVATE_LIST.length);
-        
-        return new CommandResult(String.format(MESSAGE_MOTIVATE_LIST[shuffler]));
-    }
-
-    public static String [] getMessageMotivateList() {
-        return MESSAGE_MOTIVATE_LIST;
+        return new CommandResult(String.format(MESSAGE_MOTIVATE_LIST[msgShuffler] + TEXT_EMOJI_LIST[emojiShuffler]));
     }
     
 }
