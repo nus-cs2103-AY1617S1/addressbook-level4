@@ -7,6 +7,9 @@ import javafx.scene.text.Text;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Event;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskListEventItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TaskListEventItem.fxml";

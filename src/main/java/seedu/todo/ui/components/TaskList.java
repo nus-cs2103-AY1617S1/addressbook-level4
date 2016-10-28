@@ -16,6 +16,9 @@ import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskList extends Component {
     
     public static final LocalDateTime NO_DATE_VALUE = LocalDateTime.MIN;

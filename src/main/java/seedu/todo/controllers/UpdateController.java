@@ -18,8 +18,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to update a CalendarItem.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class UpdateController implements Controller {
     

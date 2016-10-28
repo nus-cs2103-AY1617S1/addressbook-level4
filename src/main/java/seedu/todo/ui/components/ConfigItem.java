@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import seedu.todo.commons.core.ConfigDefinition;
 
+/**
+ * @@author A0139812A
+ */
 public class ConfigItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/ConfigItem.fxml";

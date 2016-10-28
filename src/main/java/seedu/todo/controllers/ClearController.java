@@ -19,9 +19,9 @@ import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.TodoListDB;
 
 /**
- * Controller to clear CalendarItems.
+ * Controller to clear task/event by type or status
  * 
- * @@author Tiong Yaocong A0139922Y
+ * @@author Tiong YaoCong A0139922Y
  *
  */
 public class ClearController implements Controller {

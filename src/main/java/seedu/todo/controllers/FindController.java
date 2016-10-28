@@ -21,6 +21,12 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+/**
+ * Controller to find task/event by keyword
+ * 
+ * @@author Tiong YaoCong A0139922Y
+ *
+ */
 public class FindController implements Controller {
     
     private static final String NAME = "Find";

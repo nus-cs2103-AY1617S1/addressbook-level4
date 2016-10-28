@@ -2,6 +2,12 @@ package seedu.todo.models;
 
 import java.time.LocalDateTime;
 
+/**
+ * Event model
+ * 
+ * @@author A0093907W
+ *
+ */
 public class Event implements CalendarItem {
     
     private String name;

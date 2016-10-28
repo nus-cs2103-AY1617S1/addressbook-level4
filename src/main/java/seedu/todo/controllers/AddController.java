@@ -21,8 +21,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to add an event or task.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class AddController implements Controller {
     
@@ -235,18 +234,18 @@ public class AddController implements Controller {
     }
     
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
-        name = StringUtil.replaceNull(name, "<name>");
-        naturalTo = StringUtil.replaceNull(name, "<end time>");
+        name = StringUtil.replaceEmpty(name, "<name>");
+        naturalTo = StringUtil.replaceEmpty(name, "<end time>");
 
         String disambiguationString;
         String errorMessage = ""; // TODO
         
         if (isTask) {
-            naturalFrom = StringUtil.replaceNull(naturalFrom, "<deadline>");
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, "<deadline>");
             disambiguationString = String.format("add task \"%s\" by \"%s\"", name, naturalFrom);
         } else {
-            naturalFrom = StringUtil.replaceNull(naturalFrom, "<start time>");
-            naturalTo = StringUtil.replaceNull(naturalTo, "<end time>");
+            naturalFrom = StringUtil.replaceEmpty(naturalFrom, "<start time>");
+            naturalTo = StringUtil.replaceEmpty(naturalTo, "<end time>");
             disambiguationString = String.format("add event \"%s\" from \"%s\" to \"%s\"", name, naturalFrom, naturalTo);
         }
         
