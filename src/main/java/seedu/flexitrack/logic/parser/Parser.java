@@ -30,6 +30,7 @@ import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.logic.commands.MarkCommand;
+import seedu.flexitrack.logic.commands.RedoCommand;
 import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
@@ -136,6 +137,9 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
