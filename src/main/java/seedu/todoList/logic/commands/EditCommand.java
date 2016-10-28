@@ -16,8 +16,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits information of the task in the task-list.\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE(Optional) p/PRIORITY\n"
-            + "Example: " + COMMAND_WORD + " todo 1 name/Assignment 1 from/25-12-2016 p/2\n"
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME p/PRIORITY\n"
+            + "Example: " + COMMAND_WORD + " todo 1 name/Assignment 1 p/2\n"
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME\n"
             + "Example: " + COMMAND_WORD + " event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600\n"
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME\n"

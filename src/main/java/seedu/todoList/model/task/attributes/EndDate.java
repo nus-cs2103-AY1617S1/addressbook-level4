@@ -32,10 +32,12 @@ public class EndDate {
     	saveEndDate = endDate.trim();
         endDate = endDate.trim();
         String [] dateArr = endDate.split("-");
-        if (!endDate.equals("No End Date") && !isValidDate(endDate)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
+        
         if(!endDate.equals("No End Date")){
+            if (!isValidDate(endDate)) {
+                throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            }
+
             //Check if day is first(st),second(nd) or third(rd)
             day_lastdigit = Integer.parseInt(dateArr[0])%10;        
             switch(day_lastdigit){

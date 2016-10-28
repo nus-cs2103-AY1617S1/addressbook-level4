@@ -31,7 +31,7 @@ public class Parser {
     //@@author A0139923X
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
-                    + " from/(?<date>[^/]+)" 
+                    + "( from/(?<date>[^/]+))?" 
                     + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
     
@@ -57,7 +57,7 @@ public class Parser {
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
                     + " name/(?<name>.+)" 
-                    + " from/(?<date>[^/]+)"
+                    + "( from/(?<date>[^/]+))?"
                     + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
     
@@ -169,8 +169,8 @@ public class Parser {
             try {
                 return new AddCommand(
                         matcher_task.group("name").trim(), 
-                        matcher_task.group("date").trim(),
-                        isInputPresent(matcher_task.group("endDate")),
+                        isInputPresent(matcher_task.group("date"), 1).trim(),
+                        isInputPresent(matcher_task.group("endDate"), 2).trim(),
                         matcher_task.group("priority").trim()
                         );
             } catch (IllegalValueException ive) {
@@ -181,7 +181,7 @@ public class Parser {
                 return new AddCommand(
                         matcher_event.group("name").trim(), 
                         matcher_event.group("date").trim(),
-                        isInputPresent(matcher_event.group("endDate")).trim(),
+                        isInputPresent(matcher_event.group("endDate"), 2).trim(),
                         matcher_event.group("startTime").trim(), 
                         matcher_event.group("endTime").trim()
                         );
@@ -342,8 +342,8 @@ public class Parser {
                 try {
                     return new EditCommand(
                             matcher_task.group("name").trim(), 
-                            matcher_task.group("date").trim(),
-                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            isInputPresent(matcher_task.group("date"), 1).trim(),
+                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
                             matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get().trim()
@@ -356,7 +356,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name").trim(), 
                             matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
                             matcher_event.group("startTime").trim(), 
                             matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
@@ -388,7 +388,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name").trim(), 
                             matcher_task.group("date").trim(),
-                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
                             matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get().trim()
@@ -401,7 +401,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name").trim(), 
                             matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
                             matcher_event.group("startTime").trim(), 
                             matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
@@ -433,7 +433,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name").trim(), 
                             matcher_task.group("date").trim(),
-                            isInputPresent(matcher_task.group("endDate")).trim(),
+                            isInputPresent(matcher_task.group("endDate"), 2).trim(),
                             matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get().trim()
@@ -446,7 +446,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name").trim(), 
                             matcher_event.group("date").trim(),
-                            isInputPresent(matcher_event.group("endDate")).trim(),
+                            isInputPresent(matcher_event.group("endDate"), 2).trim(),
                             matcher_event.group("startTime").trim(), 
                             matcher_event.group("endTime").trim(),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
@@ -479,7 +479,18 @@ public class Parser {
      *  Check whether the attribute is set
      */
     //@@author A0139923X
-    private String isInputPresent(String input){
-        return input == null ? "No End Date" : input;
+    private String isInputPresent(String input, int num){
+        switch(num){
+            case 1: if(input == null){
+                input = "No Start Date";
+            }
+            break;
+            case 2: if(input == null){
+                input = "No End Date";
+            }
+            break;
+            default: input = input;
+        }
+        return input;
     }
 }

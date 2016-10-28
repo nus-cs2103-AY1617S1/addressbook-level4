@@ -32,38 +32,40 @@ public class StartDate {
         assert date != null;
         saveDate = date.trim();
         date = date.trim(); 
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        } 
-
-        //Check if day is first(st),second(nd) or third(rd)
-        String [] dateArr = date.split("-");
-        day_lastdigit = Integer.parseInt(dateArr[0])%10;        
-        switch(day_lastdigit){
-            case 1:  day = dateArr[0] + "st"; break;
-            case 2:  day = dateArr[0] + "nd"; break;
-            case 3:  day = dateArr[0] + "rd"; break;
-            default: day = dateArr[0] + "th";
+        if(!date.equals("No Start Date")){
+            if (!isValidDate(date)) {
+                throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            } 
+    
+            //Check if day is first(st),second(nd) or third(rd)
+            String [] dateArr = date.split("-");
+            day_lastdigit = Integer.parseInt(dateArr[0])%10;        
+            switch(day_lastdigit){
+                case 1:  day = dateArr[0] + "st"; break;
+                case 2:  day = dateArr[0] + "nd"; break;
+                case 3:  day = dateArr[0] + "rd"; break;
+                default: day = dateArr[0] + "th";
+            }
+            
+            //Convert month number value to string value
+            switch(dateArr[1]){
+                case "01" : month = " January "; break;
+                case "02" : month = " Febuary "; break;
+                case "03" : month = " March "; break;
+                case "04" : month = " April "; break;
+                case "05" : month = " May "; break;
+                case "06" : month = " June "; break;
+                case "07" : month = " July "; break;
+                case "08" : month = " August "; break;
+                case "09" : month = " September "; break;
+                case "10" : month = " October "; break;
+                case "11" : month = " November "; break;
+                default: month = " December ";
+            }
+            
+            //Concatenate day month and year
+            date = day+month+dateArr[2];
         }
-        
-        //Convert month number value to string value
-        switch(dateArr[1]){
-            case "01" : month = " January "; break;
-            case "02" : month = " Febuary "; break;
-            case "03" : month = " March "; break;
-            case "04" : month = " April "; break;
-            case "05" : month = " May "; break;
-            case "06" : month = " June "; break;
-            case "07" : month = " July "; break;
-            case "08" : month = " August "; break;
-            case "09" : month = " September "; break;
-            case "10" : month = " October "; break;
-            case "11" : month = " November "; break;
-            default: month = " December ";
-        }
-        
-        //Concatenate day month and year
-        date = day+month+dateArr[2];
         this.date = date;
     }
     

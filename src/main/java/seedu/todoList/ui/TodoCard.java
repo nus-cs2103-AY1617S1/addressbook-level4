@@ -44,8 +44,8 @@ public class TodoCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText("Start Date: " + task.getStartDate().date);
-        endDate.setText("End Date: " + task.getEndDate().endDate);
+        //date.setText("Start Date: " + task.getStartDate().date);
+        //endDate.setText("End Date: " + task.getEndDate().endDate);
         priority.setText("Priority: " + task.getPriority().toString());
         done.setText("Completed: " + task.getDone().toString());
     }
