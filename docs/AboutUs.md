@@ -6,7 +6,7 @@ We are just four students trying to make a decent todo app.
 <img src ="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Cai%20Deshun.jpg" width="166" height="213" /><br>
 Team lead
 Components in charge of: Task, Time
-Aspects/Tools in charge of: Natty Parser
+Aspects/Tools in charge of: Natty Parser, Gradle
 Features implemented: 
 - Date/time parser
 - [List today/week/float command](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4)
