@@ -25,6 +25,7 @@ public class InputHandler {
     
     /**
      * Gets the current input handler instance.
+     * @@author A0139812A
      */
     public static InputHandler getInstance() {
         if (instance == null) {
@@ -40,6 +41,7 @@ public class InputHandler {
      * are at the start of the List and will be popped off first.
      * 
      * @param command   Command string
+     * @@author A0139812A
      */
     private void pushCommand(String command) {
         // Adds to the end of the LinkedList.
@@ -58,6 +60,7 @@ public class InputHandler {
      * Gets the previous command from the command history. Successive calls will return commands earlier in history.
      * 
      * @return  The input command earlier than what was previously retrieved
+     * @@author A0139812A
      */
     public String getPreviousCommandFromHistory() {
         if (!commandHistoryIterator.hasPrevious()) {
@@ -71,6 +74,7 @@ public class InputHandler {
      * Gets the next command from the command history. Successive calls will return commands later in history.
      * 
      * @return  The input command later than what was previously retrieved
+     * @@author A0139812A
      */
     public String getNextCommandFromHistory() {
         if (!commandHistoryIterator.hasNext()) {
@@ -80,6 +84,12 @@ public class InputHandler {
         return commandHistoryIterator.next();
     }
 
+    /**
+     * Processes the command. Returns true if the command was intercepted by a controller, false if otherwise.
+     * If the command was not intercepted by a controller, it means that the command is not recognizd.
+     * 
+     * @@author A0093907W
+     */
     public boolean processInput(String input) {
         
         Map<String, String> aliases = MainApp.getConfig().getAliases();
@@ -123,7 +133,13 @@ public class InputHandler {
         
         // Process using best-matched controller.
         try {
-            selectedController.process(aliasedInput);
+            // Alias and unalias should not receive an aliasedInput for proper functioning.
+            if (selectedController.getClass() == AliasController.class ||
+                    selectedController.getClass() == UnaliasController.class) {
+                selectedController.process(input);
+            } else {
+                selectedController.process(aliasedInput);
+            }
         } catch (ParseException e) {
             return false;
         }
@@ -136,6 +152,7 @@ public class InputHandler {
     
     private Controller[] instantiateAllControllers() {
         return new Controller[] { new AliasController(),
+                                  new UnaliasController(),
                                   new HelpController(),
                                   new AddController(),
                                   new ListController(),

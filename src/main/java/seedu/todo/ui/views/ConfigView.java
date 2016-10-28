@@ -12,6 +12,11 @@ import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.ConfigItem;
 
+/**
+ * Config View, which shows the list of settings that can be configured.
+ * 
+ * @@author A0139812A
+ */
 public class ConfigView extends View {
 
     private static final String FXML_PATH = "views/ConfigView.fxml";

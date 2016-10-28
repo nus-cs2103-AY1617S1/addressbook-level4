@@ -3,6 +3,12 @@ package seedu.todo.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Task model
+ * 
+ * @@author A0093907W
+ *
+ */
 public class Task implements CalendarItem {
     
     private String name;

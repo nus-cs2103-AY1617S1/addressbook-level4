@@ -21,8 +21,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to add an event or task.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class AddController implements Controller {
     

@@ -11,6 +11,11 @@ import seedu.todo.models.Task;
 import seedu.todo.ui.components.Sidebar;
 import seedu.todo.ui.components.TaskList;
 
+/**
+ * Index View, which shows the list of tasks and tags in a two-column format.
+ * 
+ * @@author A0139812A
+ */
 public class IndexView extends View {
 
     private static final String FXML_PATH = "views/IndexView.fxml";

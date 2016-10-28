@@ -1,5 +1,8 @@
 package seedu.todo.commons.core;
 
+/**
+ * @@author A0139812A
+ */
 public class ConfigDefinition {
     private String configName;
     private String configDescription;

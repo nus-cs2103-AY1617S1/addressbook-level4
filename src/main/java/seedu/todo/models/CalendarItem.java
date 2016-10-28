@@ -3,6 +3,11 @@ package seedu.todo.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * CalendarItem interface
+ * 
+ * @@author A0093907W
+ */
 public interface CalendarItem {
     
     /**

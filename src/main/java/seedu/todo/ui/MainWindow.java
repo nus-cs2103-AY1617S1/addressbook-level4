@@ -20,6 +20,8 @@ import seedu.todo.ui.views.View;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * 
+ * @@author A0139812A
  */
 public class MainWindow extends Component {
 

@@ -16,6 +16,11 @@ import seedu.todo.commons.util.DateUtil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+/**
+ * Test cases for {@link DateUtil}.
+ * 
+ * @@author A0139812A
+ */
 public class DateUtilTest {
 	
 	@Test
@@ -98,6 +103,11 @@ public class DateUtilTest {
 	    // Test dates in the past
 	    LocalDateTime pastDate = fromEpoch(946656000000l); // 1 Jan 2000 UTC+8
 	    assertEquals(DateUtil.formatShortDate(pastDate), pastDate.format(DateTimeFormatter.ofPattern("E dd MMM")));
+	}
+	
+	@Test
+	public void parseShortDateTests() {
+	    // TODO
 	}
 	
 	@Test

@@ -74,6 +74,11 @@ public class UiManager extends ComponentManager implements Ui {
         return mainWindow;
     }
 
+    /**
+     * Helper function to load view into the MainWindow.
+     * 
+     * @@author A0139812A
+     */
     public static <T extends View> T loadView(Class<T> viewClass) {
         if (instance == null) {
             logger.warning(LOAD_VIEW_ERROR);
@@ -87,6 +92,7 @@ public class UiManager extends ComponentManager implements Ui {
      * Updates the currentView and renders it.
      * 
      * @param view   View to render.
+     * @@author A0139812A
      */
     public static void renderView(View view) {
         if (view != null && view.getNode() != null) {
@@ -101,10 +107,12 @@ public class UiManager extends ComponentManager implements Ui {
         }
     }
     
+    // @@author A0139812A
     public static String getConsoleMessage() {
         return currentConsoleMessage;
     }
     
+    // @@author A0139812A
     public static String getConsoleInputValue() {
         return currentConsoleInputValue;
     }
@@ -114,6 +122,7 @@ public class UiManager extends ComponentManager implements Ui {
      * Does not do anything if no views have been loaded yet.
      * 
      * @param consoleMessage   Message to display in the console.
+     * @@author A0139812A
      */
     public static void updateConsoleMessage(String consoleMessage) {
         if (currentView != null) {
@@ -127,6 +136,7 @@ public class UiManager extends ComponentManager implements Ui {
      * Does not do anything if no views have been loaded yet.
      * 
      * @param consoleInputValue   Message to display in the console input box.
+     * @@author A0139812A
      */
     public static void updateConsoleInputValue(String consoleInputValue) {
         if (currentView != null) {

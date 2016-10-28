@@ -11,6 +11,9 @@ import seedu.todo.commons.util.DateUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Task;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskListTaskItem extends MultiComponent {
 
     private static final String COMPLETED_ICON_PATH = "/images/icon-tick.png";

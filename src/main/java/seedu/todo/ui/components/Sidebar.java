@@ -8,6 +8,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.todo.models.TodoListDB;
 
+/**
+ * @@author A0139812A
+ */
 public class Sidebar extends Component {
 
     private static final String FXML_PATH = "components/Sidebar.fxml";

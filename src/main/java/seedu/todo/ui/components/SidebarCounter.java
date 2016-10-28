@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * @@author A0139812A
+ */
 public class SidebarCounter extends MultiComponent {
 
     private static final String FXML_PATH = "components/SidebarCounter.fxml";
