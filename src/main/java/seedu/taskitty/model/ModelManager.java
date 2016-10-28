@@ -24,7 +24,6 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -42,8 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredEvents;
     private ObservableValue<String> date;
     
-    private final SessionTaskInfoStorage undoTaskInfo;
-    private final SessionTaskInfoStorage redoTaskInfo;
+    private final HistoryManager undoHistory;
+    private final HistoryManager redoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -61,8 +60,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        undoTaskInfo = new SessionTaskInfoStorage();
-        redoTaskInfo = new SessionTaskInfoStorage();
+        undoHistory = new HistoryManager();
+        redoHistory = new HistoryManager();
         taskManager.sortList();
     }
 
@@ -76,8 +75,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        undoTaskInfo = new SessionTaskInfoStorage();
-        redoTaskInfo = new SessionTaskInfoStorage();
+        undoHistory = new HistoryManager();
+        redoHistory = new HistoryManager();
         taskManager.sortList();
     }
 
@@ -133,66 +132,67 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139052L   	
    	@Override
     public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText) {
-        undoTaskInfo.storeCommandWord(AddCommand.COMMAND_WORD);
-        undoTaskInfo.storeTask(addedTask);
-        undoTaskInfo.storeCommandText(AddCommand.COMMAND_WORD + commandText);
-        redoTaskInfo.clear();
+        undoHistory.storeCommandWord(AddCommand.COMMAND_WORD);
+        undoHistory.storeTask(addedTask);
+        undoHistory.storeCommandText(AddCommand.COMMAND_WORD + commandText);
+        redoHistory.clear();
     }
    	
    	@Override
     public synchronized void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText) {
-   	    undoTaskInfo.storeCommandWord(EditCommand.COMMAND_WORD);
-   	    undoTaskInfo.storeTask(taskAfterEdit);
-   	    undoTaskInfo.storeTask(taskBeforeEdit);
-   	    undoTaskInfo.storeCommandText(EditCommand.COMMAND_WORD + commandText);
-   	    redoTaskInfo.clear();
+   	    undoHistory.storeCommandWord(EditCommand.COMMAND_WORD);
+   	    undoHistory.storeTask(taskAfterEdit);
+   	    undoHistory.storeTask(taskBeforeEdit);
+   	    undoHistory.storeCommandText(EditCommand.COMMAND_WORD + commandText);
+   	    redoHistory.clear();
    	}
    	
    	@Override
     public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText) {
-        undoTaskInfo.storeCommandWord(DeleteCommand.COMMAND_WORD);
+        undoHistory.storeCommandWord(DeleteCommand.COMMAND_WORD);
         for (ReadOnlyTask deletedTask: deletedTasks) {
-            undoTaskInfo.storeTask(deletedTask);
+            undoHistory.storeTask(deletedTask);
         }
-        undoTaskInfo.storeNumberOfTasks(deletedTasks.size());
-        undoTaskInfo.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
-        redoTaskInfo.clear();
+        undoHistory.storeNumberOfTasks(deletedTasks.size());
+        undoHistory.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
+        redoHistory.clear();
     }
    	
    	@Override
     public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText) {
-        undoTaskInfo.storeCommandWord(DoneCommand.COMMAND_WORD);
+        undoHistory.storeCommandWord(DoneCommand.COMMAND_WORD);
         for (ReadOnlyTask markedTask: markedTasks) {
-            undoTaskInfo.storeTask(markedTask);
+            undoHistory.storeTask(markedTask);
         }
-        undoTaskInfo.storeNumberOfTasks(markedTasks.size());
-        undoTaskInfo.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
-        redoTaskInfo.clear();
+        undoHistory.storeNumberOfTasks(markedTasks.size());
+        undoHistory.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
+        redoHistory.clear();
     }
    	
    	@Override
     public synchronized void storeClearCommandInfo() {
-        undoTaskInfo.storeCommandWord(ClearCommand.COMMAND_WORD);
-        undoTaskInfo.storeTaskManager(new TaskManager(taskManager));
-        undoTaskInfo.storeCommandText(ClearCommand.COMMAND_WORD);
-        redoTaskInfo.clear();
+        undoHistory.storeCommandWord(ClearCommand.COMMAND_WORD);
+        undoHistory.storeTaskManager(new TaskManager(taskManager));
+        undoHistory.storeCommandText(ClearCommand.COMMAND_WORD);
+        redoHistory.clear();
     }
    	
    	@Override     
     public synchronized String undo() throws NoPreviousValidCommandException {
-        if (!undoTaskInfo.hasPreviousValidCommand()) {
+        if (!undoHistory.hasPreviousValidCommand()) {
             throw new NoPreviousValidCommandException(null);
         }
-        return revertBackPreviousState(undoTaskInfo, redoTaskInfo, false);        
+        return revertBackPreviousState(undoHistory, redoHistory, false);        
     }        
     
    	@Override     
     public synchronized String redo() throws NoRecentUndoCommandException {
-        if (!redoTaskInfo.hasRecentUndoCommand()) {
+        if (!redoHistory.hasPreviousValidCommand()) {
             throw new NoRecentUndoCommandException(null);
         }
-        return revertBackPreviousState(redoTaskInfo, undoTaskInfo, true);        
-    } 
+        return revertBackPreviousState(redoHistory, undoHistory, true);        
+    }
+   	
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -312,88 +312,7 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
-    }
-    
-    
-  //========== Inner class used for storing info needed for undoing/redoing functions ==================================================
-    //@@author A0139052L
-    private class SessionTaskInfoStorage {
-        
-        private final Stack<String> historyCommandWords;
-        private final Stack<String> historyCommandTexts;
-        private final Stack<ReadOnlyTask> historyTasks;
-        private final Stack<Integer> historyNumberOfTasks;
-        private final Stack<ReadOnlyTaskManager> historyTaskManagers;
-        
-        SessionTaskInfoStorage() {
-            historyCommandWords = new Stack<String>();
-            historyCommandTexts = new Stack<String>();
-            historyTasks = new Stack<ReadOnlyTask>();
-            historyNumberOfTasks = new Stack<Integer>();
-            historyTaskManagers = new Stack<ReadOnlyTaskManager>();
-        }
-        
-        private boolean hasPreviousValidCommand() {
-            return !historyCommandWords.isEmpty();
-        }
-        
-        private boolean hasRecentUndoCommand() {
-            return !historyCommandWords.isEmpty();
-        }
-        
-        private String getCommandWord() {
-            assert !historyCommandWords.isEmpty();
-            return historyCommandWords.pop();
-        }
-        
-        private String getCommandText() {
-            assert !historyCommandTexts.isEmpty();
-            return historyCommandTexts.pop();
-        }
-        
-        private ReadOnlyTask getTask() {
-            assert !historyTasks.isEmpty();
-            return historyTasks.pop();
-        }       
-        
-        private int getNumberOfTasks() {
-            assert !historyNumberOfTasks.isEmpty();
-            return historyNumberOfTasks.pop();
-        }
-        
-        private ReadOnlyTaskManager getTaskManager() {
-            assert !historyTaskManagers.isEmpty();
-            return historyTaskManagers.pop();
-        }
-        
-        private void storeCommandWord(String command) {
-            historyCommandWords.push(command);
-        }
-        
-        private void storeCommandText(String commandText) {
-            historyCommandTexts.push(commandText);
-        }
-        
-        private void storeTask(ReadOnlyTask task) {
-            historyTasks.push(task);
-        }
-        
-        private void storeNumberOfTasks(int numberOfTask) {
-            historyNumberOfTasks.push(numberOfTask);
-        }
-        
-        private void storeTaskManager(ReadOnlyTaskManager taskManager) {
-            historyTaskManagers.push(taskManager);
-        }
-        
-        private void clear() {
-            historyCommandWords.clear();
-            historyCommandTexts.clear();
-            historyTasks.clear();
-            historyNumberOfTasks.clear();
-            historyTaskManagers .clear();
-        }
-    }
+    }                
     
     //========== Private methods used within ModelManager ==================================================
     
@@ -437,7 +356,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 * @param isRedo check if it is undo/redo calling this method
 	 * @return the commandText string for result message in Undo/Redo Command
 	 */
-	private String revertBackPreviousState(SessionTaskInfoStorage toGetInfo, SessionTaskInfoStorage toStoreInfo, boolean isRedo) {
+	private String revertBackPreviousState(HistoryManager toGetInfo, HistoryManager toStoreInfo, boolean isRedo) {
         String commandWord = toGetInfo.getCommandWord();
         toStoreInfo.storeCommandWord(commandWord);
         
