@@ -60,6 +60,9 @@ Role: Tutor <br>
 	* Sort the Task
 	* Shortcut commands
 * Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0127855W.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0127855W.md)][[docs](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0127855W.md)]
+* Other major contributions:
+	* Cleaninging up code
+	* Bug fixing
  -----
 
 
