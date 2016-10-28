@@ -55,4 +55,5 @@ Responsibilities: Logic
    * Convert the initial attributes of Person in AddressBook into Task in TaskManager (https://github.com/CS2103AUG2016-T15-C1/main/commit/0679a7ef0496a7e15c3e4fa6ba5a54d2986c8677)
    * Include Status into Task to keep track of task and format the display task card (https://github.com/CS2103AUG2016-T15-C1/main/commit/4a16a164159a7a3787b8ffc394750dea35a709cd)
    * Convert parser to add Task (https://github.com/CS2103AUG2016-T15-C1/main/commit/f8b7c4acadc05022e57952445c3e1b4d806c8eca)
+   
 -----
