@@ -122,6 +122,7 @@ Format: `Assign TASKID c/CATEGORY`
 Example:
 * `Assign 1 c/Work`
 
+<a id="done_task" class="anchor" aria-hidden="true">
 #### Complete a task: `done`
 Set Task as completed
 Format: `done TASKID`
