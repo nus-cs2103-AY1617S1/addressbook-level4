@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import com.joestelmach.natty.*;
@@ -14,6 +15,24 @@ import com.joestelmach.natty.*;
 public class DateUtil {
 	// Format for displaying dates
 	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+	
+	// Valid words that can be used to describe dates. Unsigned integers are valid as well.
+	public static final HashSet<String> validWords;
+	
+	// Putting the list of valid words into the validWords hashset
+	static { 
+		validWords = new HashSet<String>();
+		String[] validWordsArray = {
+			"today", "tdy", "tomorrow", "tmr", "next", "this", "following",  // Descriptors
+			"jan", "january", "feb", "february", "mar", "march", "apr", "april", "may", "jun", "june", // Months
+			"jul", "july", "aug", "august", "sep", "september", "oct", "october", "nov", "november", "dec", "december",
+			"mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", "thu", "thurs", "thursday", "fri", "friday", // Days of the week
+			"st", "nd", "rd", "th", "pm", "am"  // Decorators
+		};
+		for (int i = 0; i < validWordsArray.length; i++) {
+			validWords.add(validWordsArray[i]);
+		}
+	}
 	
 	/**
      * Checks if a string follows a valid date format.
@@ -84,6 +103,22 @@ public class DateUtil {
     	}
     	return validateDateIsSensible(dates.get(0), dateString);
 	}
+    
+    /**
+     * Given a dateString, will return whether the words in the string are all valid words
+     */
+    public static boolean areValidWords(String dateString) {
+    	// Add spaces between numbers and words before processing
+    	dateString = StringUtil.addSpacesBetweenNumbersAndWords(dateString).trim().toLowerCase();
+    	
+    	String[] tokens = dateString.split(" ");
+    	for (String token : tokens) {
+    		if (!validWords.contains(token)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    }
     
     /**
      * After receiving a Date from Natty, do a sanity check to ensure that the Date given by Natty is sensible
