@@ -45,6 +45,7 @@ public class SelectCommand extends Command {
         		indicateAttemptToExecuteIncorrectCommand();
         		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         	}
+        	model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
         }
         else if (category == 'D') {
@@ -52,6 +53,7 @@ public class SelectCommand extends Command {
         		indicateAttemptToExecuteIncorrectCommand();
         		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         	}
+        	model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
         }
         else {
@@ -59,6 +61,7 @@ public class SelectCommand extends Command {
            		indicateAttemptToExecuteIncorrectCommand();
            		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
            	}
+            model.addToUndoStack();
            	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
         }
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownEventList.get(0).toString()));
