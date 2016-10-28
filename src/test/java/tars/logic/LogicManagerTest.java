@@ -231,6 +231,20 @@ public class LogicManagerTest {
     }
 
     // ---------------- Tests for undo and redo command ----------------
+    
+    @Test
+    public void execute_undo_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE);
+        assertCommandBehavior("undo EXTRA ARGUMENTS", expectedMessage);
+        assertCommandBehavior("undo 123", expectedMessage);
+    }
+    
+    @Test
+    public void execute_redo_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE);
+        assertCommandBehavior("redo EXTRA ARGUMENTS", expectedMessage);
+        assertCommandBehavior("redo 123", expectedMessage);
+    }
 
     @Test
     public void execute_undo_and_redo_add_successful() throws Exception {
