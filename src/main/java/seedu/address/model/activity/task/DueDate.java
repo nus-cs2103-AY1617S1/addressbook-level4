@@ -42,9 +42,9 @@ public class DueDate extends DateTime {
 
             if (taskDate == null) {
                 assert false : "Date should not be null";
-            } else if (DateUtil.hasPassed(taskDate)) {
+            } /*else if (DateUtil.hasPassed(taskDate)) {
                 throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-            }
+            }*/
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);

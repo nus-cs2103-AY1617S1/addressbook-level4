@@ -96,7 +96,7 @@ public class TestActivity implements ReadOnlyActivity {
 	}
 
 	@Override
-	public boolean passedDueDate() {
+	public boolean hasPassedDueDate() {
 		return false;
 	}   
     

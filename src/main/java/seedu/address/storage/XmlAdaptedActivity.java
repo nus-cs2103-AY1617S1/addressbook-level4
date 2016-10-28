@@ -113,7 +113,7 @@ public class XmlAdaptedActivity {
     }
     
     /**
-     * Converts a given Tasl into this class for JAXB use.
+     * Converts a given Task into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created XmlAdaptedActivity
      */

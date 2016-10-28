@@ -52,7 +52,7 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
     }
     
 	@Override
-	public boolean passedDueDate() {
+	public boolean hasPassedDueDate() {
 		return false;
 	}
 	

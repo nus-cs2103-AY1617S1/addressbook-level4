@@ -1,6 +1,7 @@
 package seedu.address.model.activity.task;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -15,6 +16,8 @@ public class Task extends Activity implements ReadOnlyTask {
     private DueDate duedate;
     private Priority priority;
     private boolean isCompleted;
+    
+    private static int DAYS_WARNING = -3;
     
     /**
      * Every field must be present and not null.
@@ -68,21 +71,45 @@ public class Task extends Activity implements ReadOnlyTask {
     public String toStringCompletionStatus() {
         if(isCompleted) {
             return "Completed";
-        } else if(!isCompleted && passedDueDate()){
-            return "Passed Due Date";
+        } else if (!isCompleted && this.isDueDateApproaching()) {
+            return "Task Deadline Approaching";
+        } else if(!isCompleted && this.hasPassedDueDate()){
+            return "Task Overdue!";
         }
         
         return "";  
     }
     
-    public boolean passedDueDate() {
-        if(duedate.value == null) {
-        	return false;        	
-        } else if(duedate.value.before(Calendar.getInstance())) {
-            return true;       
+    /**
+     * Checks if the due date is approaching and returns true if so.
+     * @return true if the current time is a certain number of days before the due date (default 3).
+     */
+    @Override
+    public boolean isDueDateApproaching() {
+        if(duedate.getCalendarValue() == null) {
+            return false;           
+        } else {
+            Calendar cal = Calendar.getInstance();
+            Date now = cal.getTime();
+            cal.add(Calendar.DAY_OF_MONTH, DAYS_WARNING);
+            Date warningDate = cal.getTime();
+            return warningDate.before(now)
+                    && duedate.getCalendarValue().getTime().after(now);       
         }
-        
-        return false;
+    }
+    
+    /**
+     * Returns true if the task is overdue.
+     * @return true if the current time is after the task's due date.
+     */
+    @Override
+    public boolean hasPassedDueDate() {
+        if(duedate.getCalendarValue() == null) {
+        	return false;        	
+        } else {
+            Date now = Calendar.getInstance().getTime();
+            return duedate.getCalendarValue().getTime().before(now);       
+        }
     }
 
     

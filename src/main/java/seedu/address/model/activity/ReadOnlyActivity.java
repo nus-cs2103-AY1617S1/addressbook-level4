@@ -69,7 +69,7 @@ public interface ReadOnlyActivity {
         }
     }
     
-    boolean passedDueDate();
+    boolean hasPassedDueDate();
     
  
     

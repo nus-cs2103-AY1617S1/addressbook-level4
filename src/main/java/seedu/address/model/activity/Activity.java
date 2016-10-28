@@ -113,7 +113,7 @@ public class Activity implements ReadOnlyActivity {
     }
 
 	@Override
-	public boolean passedDueDate() {
+	public boolean hasPassedDueDate() {
 		return false;
 	}
     

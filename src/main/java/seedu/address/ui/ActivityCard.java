@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 
@@ -77,10 +78,16 @@ public class ActivityCard extends UiPart {
                 cardPane.setStyle("-fx-background-color: lightskyblue;");
             }
         } else {
-            if (activity.getCompletionStatus() == true) {
+            if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
+                if (((Task) activity).isDueDateApproaching()) {
+                    cardPane.setStyle("-fx-background-color: gold;");
+                } else if (((Task) activity).hasPassedDueDate()) {
+                    cardPane.setStyle("-fx-background-color: red;");
+                }
+            }
+            
+            if (activity.getCompletionStatus()) {
                 cardPane.setStyle("-fx-background-color: springgreen;");
-            } else if (activity.passedDueDate()) {
-                cardPane.setStyle("-fx-background-color: red;");
             }
         }
         // too many colours, idea for priority colours put on hold
