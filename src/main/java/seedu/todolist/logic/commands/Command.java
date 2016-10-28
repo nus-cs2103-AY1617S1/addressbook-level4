@@ -39,6 +39,7 @@ public abstract class Command {
         this.model = model;
     }
     
+    //@@author A0158963M
     public void setStorage(Storage storage) {
         this.storage = storage;
     }

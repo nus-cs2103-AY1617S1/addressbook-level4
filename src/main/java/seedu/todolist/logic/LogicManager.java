@@ -21,13 +21,15 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Parser parser;
     private final Storage storage;
-
+    
+    //@@author A0158963M
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.parser = new Parser();
     }
-
+    
+    
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");

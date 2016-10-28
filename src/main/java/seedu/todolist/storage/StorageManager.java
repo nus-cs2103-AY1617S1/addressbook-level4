@@ -45,10 +45,11 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
     // ================ ToDoList methods ==============================
-
+  
+    //@@author A0158963M 
     @Override
     public void setFilePath(String filepath){
-    	String todolistFilePath = filepath + "/tolist.xml";
+    	String todolistFilePath = filepath + "/todolist.xml";
     	ToDoListStorage = new XmlToDoListStorage(todolistFilePath);
     }
     

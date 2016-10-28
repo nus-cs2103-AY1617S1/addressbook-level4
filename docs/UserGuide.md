@@ -32,7 +32,9 @@
 ### Viewing help : `help`
 Format: **`help`**
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
 <!-- @@author A0138601M -->
+
 ### Adding a task : `add`
 Add a task to Task!t.<br>
 Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`<br>
