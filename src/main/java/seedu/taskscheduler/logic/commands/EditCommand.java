@@ -23,13 +23,13 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
-            + "Parameters: INDEX TASK from START_DATE to END_DATE at LOCATION \n"
+            + "Parameters: INDEX TASK from START_TIME_DATE to END_TIME_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
             + " 1 Must Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD
             + " 2 at NUS COM1-B103\n"
             + "Example: " + COMMAND_WORD
-            + " 1 from 11-Oct-2016 8am to 11-Oct-2016 9am\n";
+            + " 1 from 8am 11-Oct-2016 to 9am 11-Oct-2016\n";
 
     public static final String MESSAGE_SUCCESS = "Task editted: %1$s";
 

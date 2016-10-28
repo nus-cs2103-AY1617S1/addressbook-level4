@@ -13,13 +13,13 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the scheduler. "
-            + "Parameters: TASK_NAME from START_DATE to END_DATE at LOCATION  [t/TAG]...\n"
+            + "Parameters: TASK_NAME from START_TIME_DATE to END_TIME_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
             + " Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD
-            + " Do CS2103 Pretut by 8am 01-Oct-16\n"
+            + " Do CS2103 Pretut by 8am 01-Oct-2016\n"
             + "Example: " + COMMAND_WORD
-            + " CS2103 Tutorial from today 8am to tomorrow 9am at NUS COM1-B103\n";
+            + " CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 

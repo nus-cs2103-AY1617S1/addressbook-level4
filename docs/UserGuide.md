@@ -2,15 +2,32 @@
 
 # User Guide
 
-* [Quick Start](#quick-start)
+* [Getting Started](#getting-started)
 * [Features](#features)
+ * [Help](#getting-help--help)
+ * [Add](#how-to-add-a-task--add)
+ * [List](#how-to-list-tasks--list)
+ * [Find](#how-to-find-a-task--find)
+ * [Delete](#how-to-delete-a-task--delete)
+ * [Clear](#how-to-clear-all-entries--clear)
+ * [Edit](#how-to-edit-a-task--edit)
+ * [Replace](#how-to-replace-a-task--replace)
+ * [Undo](#how-to-undo-a-task--undo)
+ * [Mark](#how-to-mark-a-task--mark)
+ * [Unmark](#how-to-unmark-a-task--ummark)
+ * [Recur](#how-to-recur-a-task--recur)
+ * [Set Path](#how-to-set-a-storage-path--setpath)
+ * [Exit](#how-to-exit-the-program--exit)
+ * [Redo](#how-to-redo-a-task)
+ * [Identify task](#how-to-identify-overdue-and-completed-task)
+ * [Save](#how-to-save-the-data)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-## Quick Start
+## Getting Started
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
+   > Having any Java 8 version is not enough.<br>
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `MustDoList.jar` from the 'releases' tab.
@@ -22,52 +39,64 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all task
-   * **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103` : 
+   * **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103` : 
      adds a task named `CS2103 Tutorial` to the MustDoList.
    * **`delete`**` 1` : deletes the 1st task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
 ## Features
 
-#### Viewing help : `help`
-Format: `help`
+> Command Format
+* Words in `UPPER_CASE` are the parameters.<br>
+* Items in `SQUARE_BRACKETS` are optional.<br>
+* Items in `...` after them can have multiple instances.<br>
+* Parameters can be in any order.<br>
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+#### Getting help : `help`
+The `help` command provides the user guide to guide the user through the application.
+
+Help format: `help`
+
+> Help is also shown if you click on help on the menu bar.
  
-#### Adding a task: `add`
-Adds a floating task, task or an event to the MustDoList.<br>
+#### How to add a task : `add`
+The `Add` command allows you to create a floating task, task or an event into the MustDoList.<br>
 
-Format 1: **`add`**`FLOATING TASK_NAME`<br>
-Format 2: **`add`**`TASK NAME by END_TIME END_DATE`<br>
-Format 3: **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`<br>
+Floating task format: **`add`**`FLOATING TASK_NAME`<br>
+Deadline task format: **`add`**`TASK NAME by END_TIME END_DATE`<br>
+Event format		: **`add`**`EVENT NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
 
-> Date Format: DD-MMM-YYYY<br>
-> Time Format: HH:MM am/pm<br> 
+> The command format requires the following date and time format.<br>
+> Date Format: DD-MMM-YYYY<br> 
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+> Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
 Examples:<br> 
 * **`add`**`Do CS2103 Pretut`<br>
-	Adding a floating task.<br>
-* **`add`**`Do CS2103 Pretut by 8am 01-Oct-16 `<br>
-	Adding a task.<br>
-* **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9pm at NUS COM1-B103`<br>
-* **`add`**`CS2103 Tutorial s/today 0800 e/tomorrow 2100 at NUS COM1-B103`<br>
-	Adding an event.<br>	
+	Adding a floating task.
+* **`add`**`Do CS2103 Pretut by 8am 01-Oct-2016`<br>
+	Adding a task.
+* **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103`<br>
+	Adding an event.	
 
-#### Listing all tasks: `list`
-Shows a list of all tasks in the MustDoList.<br>
+#### How to list tasks : `list`
+The `list` command allows you to show a list of all the tasks that are present in the MustDoList.<br>
 
 Format: `list`
 
-#### Find a task : `find`
-Finds a task by keywords.<br>
+#### How to find a task : `find`
+The `find` command allows you to find existing tasks in the MustDoList by keywords.<br>
 
-Format: **`find`**`KEYWORD`
+Find format: **`find`**`KEYWORD`
 
-> KEYWORD refers to: task name, location, date, time, mark<br> 
+> The KEYWORD in the command format refers to parameters that you want to search for. Some examples of KEYWORD are task name, location, date, time, completed and incomplete tasks.<br> 
+> The command format requires the following date and time format.<br>
 > Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
 > Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
@@ -77,80 +106,72 @@ Examples:<br>
 * **`find`**`completed`<br>
   Returns Any task(s) are marked as completed<br>
 
-#### Select a task : `select`
-Selects a task from MustDoList by index.<br>
+#### How to delete a task : `delete`
+The `delete` command allows you to delete any existing task from the MustDoList by index. <br>
 
-Format: **`select`**`INDEX`
+Delete format: **`delete`**`INDEX`
 
-> Index refers to the index number shown in the most recent listing.<br>
-
-Examples:<br> 
-* `list`<br>
-  **`select`**`2`<br>
-  Selects the 2nd task in the MustDoList.
-* **`find`**`CS2103` <br> 
-  **`select`**`1`<br>
-  Selects the 1st task in the results of the `find` command.
-  
-#### Select a task : `setpath`
-Set user specified filename and/or file directory.<br>
-
-Format: **`setpath`**`FILENAME`
-
-> FILENAME refers to the filename that you wants to save at.<br>
-
-Examples:<br> 
-* **`setpath`**`taskData`<br>
-  Filename taskData will be created at default location data/taskData .
-* **`setpath`**`backup/taskData`<br>
-  Filename taskData will be created at location data/backup/taskData .
-* **`setpath`**`c:/user/<name>/desktop/taskData`<br>
-  Filename "taskData" will be created at user desktop.
-
-#### Deleting a task: `delete`
-Deletes a task from the MustDoList by index. <br>
-
-Format: **`delete`**`INDEX`
-
-> INDEX refers to the index number shown in the most recent listing.<br>
+> The Index in the command format refers to the index number shown in the most recent listing.<br>
 
 Examples:<br>
 * `list`<br>
   **`delete`**`2`<br>
   Deletes the 2nd task in the MustDoList.
 
-#### Clearing all entries : `clear`
-Clears all entries from the TaskListPanel.<br>
+#### How to clear all entries : `clear`
+The `clear` command allows you to clear all entries present in the MustDoList.<br>
 
-Format: `clear`  
+Clear format: `clear`  
 
-#### Edit a task : `edit`
-Edits a task parameter from the MustDoList by index.<br>
+#### How to edit a task : `edit`
+The `edit` command allows you to edit a specific task's parameter from the MustDoList by the task's index.<br>
 
-Format: **`edit`**`INDEX TASK_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
+Edit format: **`edit`**`INDEX [TASK_NAME][from START_TIME_DATE to END_TIME_DATE][at LOCATION]`
+
+Examples:<br>
+* **`edit`**`1 Must Do CS2103 Pretut`<br>
+  Edit the 1st task's task name in the MustDoList.<br>
+* **`edit`**`2 at NUS COM1-B103` <br>
+  Edit the 2nd task's location in the MustDoList.<br>
+* **`edit`**`1 from 8am 11-Oct-2016 to 9am 11-Oct-2016`<br>
+  Edit the 1st task's time and date in the MustDoList.<br>
+  
+> The command format requires the following date and time format.<br>
+> Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+> Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
+
+#### How to replace a task : `replace`
+The `replace` command allows you to replace the entire task's parameter from the MustDoList by task's index.<br>
+
+Replace format: **`replace`**`INDEX TASK_NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 new task name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS`<br>
-  Edit the 2nd task in the MustDoList by the given PARAMETERS.<br>
+  **`replace`**`2 new task name from 8am 10-Oct-2016 to 9am 10-Oct-2016 at NUS`<br>
+  Replace the 2nd task's parameters in the MustDoList.<br>
 * **`find`**`CS2103` <br>
-  **`edit`**`1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there `<br>
-  Edit the 1st task in the results of the `find` command by PARAMETERS.<br>
+  **`replace`**`1 another new task name from 8am 11-Oct-2016 to 9 am 11-Oct-2016 at there `<br>
+  Replace the 1st task's parameters in the results of the `find` command.<br>
   
+> The command format requires the following date and time format.<br>
 > Date Format: DD-MMM-YYYY<br>
-Time Format: HH:MM am/pm<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+> Time Format: HH:MM am/pm<br>
+where `HH` refers to hours and `MM` refers to minutes.<br> 
 
-#### Undo a previous task : `undo`
-Undo a previously add, edit, delete, mark, clear and recur command in the MustdoList.<br>
+#### How to undo a task : `undo`
+The `undo` command allows you to undo the previous entered commands into the MustdoList.<br>
 
-Format: `undo`
+Undo format: `undo`
 
-#### Mark a completed task : `mark`
-Marks a completed task by index.<br>
+#### How to mark a task : `mark`
+The `mark` command allows you to mark a completed task by the task's index.<br>
 
-Format: **`mark`**`INDEX`
+Mark format: **`mark`**`INDEX`
 
-> INDEX refers to the index number shown in the most recent listing.<br>
+> The INDEX in the command format refers to the index number shown in the most recent listing.<br>
 
 Examples:<br>
 * `list`<br>
@@ -159,13 +180,46 @@ Examples:<br>
 * **`find`**`CS2103`<br> 
   **`mark`**`1`<br>
   Marks the 1st task in the results of the `find` command as completed.  
+  
+#### How to unmark a task : `ummark`
+The `unmark` command allows you to unmark a task by the task's index.<br>
 
-#### Set storage path : `setpath`
-Set path for saved data path.<br>
+Unmark format: **`unmark`**`INDEX`
 
-Format: **`setpath`**`FILENAME`<br>
+> The INDEX in the command format refers to the index number shown in the most recent listing.<br>
 
-> FILENAME refers to the filename that you wants to save at.<br>
+Examples:<br>
+* `list`<br>
+  **`unmark`**`2`<br>
+  Unmarks the 2nd task in the MustDoList as completed.
+* **`find`**`CS2103`<br> 
+  **`unmark`**`1`<br>
+  Unmarks the 1st task in the results of the `find` command as completed. 
+  
+#### How to recur a task : `recur`
+The `recur` command allows you to recur a task for a specific numbers of days.<br>
+
+Recur previous format: **`recur`**`every INTERVAL until END_DATE`<br>
+Recur index format: **`recur`**`INDEX every INTERVAL until END_DATE`<br>
+
+> The INTERVAL in the command format refers to the number of days you want to recur.<br> 
+> The INDEX in the command format refers to the index number shown in the most recent listing.<br>
+> The command format requires the following date format.<br>
+> Date Format: DD-MMM-YYYY<br>
+where `DD` refers to the day, `MMM` refers to the first 3 letters of the month and `YYYY` refers to the year.<br>
+
+Examples:<br>
+* **`recur`**`every 2 days until 19-Oct-2016`<br>
+  Recur the latest task for 2 days until 19-Oct-2016 in the MustDoList.
+* **`recur`**`1 every 2 months until 1 year later`<br>
+  Recur the task with index 1 for 2 months until 1 year from current date in the MustDoList.
+
+#### How to set a storage path : `setpath`
+The `setpath` command allows you to save your file to your desire set path.<br>
+
+Set path format: **`setpath`**`FILENAME`<br>
+
+> The FILENAME in the command format refers to the path that you wants to save your file to.<br>
 
 Examples:<br>
 * **`setpath`**`taskData`<br>
@@ -175,16 +229,16 @@ Examples:<br>
 * **`setpath`**`c:/user/<name>/desktop/taskData`<br>
   Filename taskData will be created at user desktop.<br>
 
-#### Exiting the program : `exit`
-Exits the program.<br>
+#### How to exit the program : `exit`
+The `exit` command allows you to exits the program.<br>
 
-Format: `exit` 
+Exit format: `exit` 
 
-#### Reuse previous command : `up down arrow`
-Select and display previously typed command using up or down arrow.<br>
+#### How to redo a task
+The <kbd>Up</kbd> <kbd>Down</kbd> allows you to select and display previous typed command in the command box.<br>
 
-#### Indicate overdue and completed task : `color code`
-Indicate overdue and completed task with color code.<br>
+#### How to identify overdue and completed task
+Overdue and completed tasks can be identified by the color codes.<br>
 
 Overdue Task: Red Color Code<br>
 Completed Task: Green Color Code<br>
@@ -192,23 +246,7 @@ Completed Task: Green Color Code<br>
 > Overdue Task refers to task that has date and time that passes the current date and time.<br>
 Completed Task refers to task that are marked as "completed".
 
-####Recur a task : `recur`
-Recur a task for a specific numbers of days.<br>
-
-Format 1: **`recur`**`every INTERVAL until END_DATE`<br>
-Format 2: **`recur`**`INDEX every INTERVAL until END_DATE`<br>
-
->INTERVAL refers to the number of days to recur.<br> 
-INDEX refers to the index number shown in the most recent listing.<br>
-Date Format: DD-MMM-YYYY
-
-Examples:<br>
-* **`recur`**`every 2 days until 19-Oct-2016`<br>
-  Recur the latest task for 2 days until 19-Oct-2016 in the MustDoList.
-* **`recur`**`1 every 2 months until 1 year later`<br>
-  Recur the task with index 1 for 2 months until 1 year from current date in the MustDoList.
-
-####Saving the data 
+#### How to save the data 
 MustDoList data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
@@ -219,25 +257,54 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Help | `help`
-Add | **`add`**`FLOATING TASK NAME`
-| 	| **`add`**`TASK NAME by END_DATE END_TIME`
-|	| **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-List | **`list`**
-Find | **`find`**`KEYWORD`
-Select | **`select`**`INDEX`
-Delete | **`delete`**`INDEX`
-Clear | **`clear`**
-Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-Undo | **`undo`**
-|	 | `undo modification commands to task such as `
-|	 | `add, clear, delete, edit, mark, recur.`
-Mark | **`mark`**`INDEX` 
-SetPath | **`setpath`**`FILENAME`
-Exit | **`exit`**
-UpDownArrow | `system display and select previously keyed commands`
-ColorCode | `system indicate overdue(red) and completed(green) task by color code`
-Recur | **`recur`**`INDEX every INTERVAL until END_DATE`
-Save | system save automatically
+* Help: `help`
+
+* Add: **`add`**`FLOATING TASK NAME`<br>
+**`add`**`TASK NAME by END_TIME END_DATE`<br> 
+**`add`**`EVENT NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
+e.g. **`add`**`Do CS2103 Pretut`<br>
+e.g. **`add`**`Do CS2103 Pretut by 8am 01-Oct-2016`<br>
+e.g. **`add`**`CS2103 Tutorial from 8am today to 9am tomorrow at NUS COM1-B103`
+
+* List: `list`
+
+* Find: **`find`**`KEYWORD`<br>
+e.g. **`find`**`CS2103`
+
+* Select: **`select`**`INDEX`<br>
+e.g. **`select`**`1`
+
+* Delete: **`delete`**`INDEX`<br>
+e.g. **`delete`**`1`
+
+* Clear: `clear`
+
+* Edit: **`edit`**`[INDEX EVENT_NAME][from START_TIME_DATE to END_TIME_DATE][at LOCATION]`<br>
+e.g. **`edit`**`1 Must Do CS2103 Pretut`<br>
+e.g. **`edit`**`2 at NUS COM1-B103`<br>
+e.g. **`edit`**`1 from 8am 11-Oct-2016 to 9am 11-Oct-2016`
+
+* Replace: **`replace`**`INDEX EVENT_NAME from START_TIME_DATE to END_TIME_DATE at LOCATION`<br>
+e.g. **`replace`**`2 new task name from 8am 10-Oct-2016 to 9am 10-Oct-2016 at NUS`<br>
+
+* Undo: `undo`
+
+* Mark: **`mark`**`INDEX`<br>
+e.g. **`mark`**`1`
+
+* Unmark: **`unmark`**`INDEX`<br>
+e.g. **`ummark`**`1`
+
+* Recur: **`recur`**`INDEX every INTERVAL until END_DATE`<br>
+e.g. **`recur`**`every 2 days until 19-Oct-2016`
+
+* SetPath: **`setpath`**`FILENAME`<br>
+e.g. **`setpath`**`taskData`
+
+* Exit: `exit`
+
+* <kbd>Up</kbd> <kbd>Down</kbd>: system display and select previously keyed commands
+
+* ColorCode: system indicate overdue(red) and completed(green) task by color code
+
+* Save: system save automatically
