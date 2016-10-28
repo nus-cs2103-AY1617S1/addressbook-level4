@@ -49,7 +49,7 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
 Examples: 
 * `add CS2103 Lab 6 /desc hand in through codecrunch /by 12 midnight 12-30-16` <br>
 * `add CS2103 V0.4 /by 30 Dec` <br>
-   Adds a task "CS2103 V0.4" with deadline "23:59 30 December 2016"
+   Adds a task "CS2103 Lab 6" with deadline "23:59 30 December 2016"
 
 
 #### Adding an event
