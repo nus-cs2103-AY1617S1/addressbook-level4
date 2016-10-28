@@ -111,11 +111,7 @@ The `delete` command allows you to delete any existing task from the MustDoList 
 
 Delete format: **`delete`**`INDEX`
 
-<<<<<<< HEAD
-> The INDEX in the command format refers to the index number shown in the most recent listing.<br>
-=======
-> Index refers to the index number shown in the most recent listing.<br>
->>>>>>> 0839c1252a695fe44c3e85810cff81e7fbf4fc0c
+> The Index in the command format refers to the index number shown in the most recent listing.<br>
 
 Examples:<br>
 * `list`<br>
