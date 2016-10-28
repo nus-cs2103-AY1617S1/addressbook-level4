@@ -36,7 +36,6 @@ public class ActivityDate {
         assert date != null;
         date = date.trim();
 
-        isValidDate(date);
          
         extractMonth(date);
         this.formattedValue = formatNiceDate(date);
@@ -51,21 +50,7 @@ public class ActivityDate {
     	this.month = month;
     }
 
-    
-    //@@author A0139164A
-    /**
-     * Returns true if a given string is a valid activity date.
-     * @throws IllegalValueException 
-     */
-    public static void isValidDate(String test) throws IllegalValueException {
-//        DateChecker dateCheck = new DateChecker();
-        
-        if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
-            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_INVALID);
-        }
- //       dateCheck.validDate(test);
-        return;
-    }
+   
    
     
     //@@author A0139277U
