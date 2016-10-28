@@ -62,9 +62,9 @@ public class Parser {
             Pattern.compile("(?<index>\\d+?)"
                     + "\\s+?(?<field>(task|start date|start time|end date|end time|priority))"
                     + "\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
-  //@@author
+
     public static final Pattern PRIORITY_MATCHER_REGEX = Pattern.compile("(?:.*-\\s*(?<priority>.+))");
-    
+//@@author   
     public Parser() {}
     /**
      * Parses user input into command for execution.

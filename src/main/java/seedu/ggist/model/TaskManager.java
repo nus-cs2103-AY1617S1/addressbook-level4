@@ -79,10 +79,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// task-level operations
 
     /**
-     * Adds a task to the task manager. Also checks the new task's tags and
-     * updates {@link #tags} with any new tags found, and updates the Tag
-     * objects in the task to point to those in {@link #tags}.
-     *
+     * Adds a task to the task manager. 
+     
      * @throws UniqueTaskList.DuplicateTaskException
      *             if an equivalent task already exists.
      */
