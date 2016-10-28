@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.commons.events.storage.StorageDataPathChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.storage.XmlTaskBookStorage;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -95,4 +97,12 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    
+    //@@author A0139528W
+    @Subscribe
+    public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Saving task.xml in a new location."));
+        setSaveLocation(event.newDataPath);
+    }
+    //@@author
 }
