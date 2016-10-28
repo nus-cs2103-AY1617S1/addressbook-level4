@@ -15,6 +15,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your last command has been redone!";
     public static final String MESSAGE_NOT_SUCCESS = "You have no command to redo!";
     
+    //Stores the undone commands
     static Stack<Command> undoneCommandStack = new Stack<Command>(); 
 
     public RedoCommand() {
@@ -28,6 +29,7 @@ public class RedoCommand extends Command {
         }
         redo = undoneCommandStack.pop();
         redo.execute();
+        UndoCommand.doneCommandStack.push(redo);
         model.indicateFlexiTrackerChanged();
         return new CommandResult(MESSAGE_SUCCESS);
     }

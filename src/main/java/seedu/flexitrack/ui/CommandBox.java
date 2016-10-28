@@ -2,6 +2,8 @@ package seedu.flexitrack.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.TextFields;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
@@ -15,7 +17,6 @@ import seedu.flexitrack.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.flexitrack.commons.util.FxViewUtil;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.logic.commands.CommandResult;
-import org.controlsfx.control.textfield.TextFields;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);

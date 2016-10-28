@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.testutil.TestTask;
 
 //@@author A0127686R
@@ -13,6 +14,9 @@ public class UndoCommandTest extends FlexiTrackGuiTest {
     public void list() {
         TestTask[] currentList = td.getTypicalSortedTasks();
 
+        // undo fail
+        commandBox.runCommand("undo");
+        assertResultMessage(UndoCommand.MESSAGE_NOT_SUCCESS);
         
         // undo unmark command 
         commandBox.runCommand("mark 2");

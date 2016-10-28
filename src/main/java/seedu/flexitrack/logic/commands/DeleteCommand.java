@@ -1,7 +1,5 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.Stack;
-
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.model.task.ReadOnlyTask;

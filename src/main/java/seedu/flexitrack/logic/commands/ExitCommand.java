@@ -20,6 +20,8 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        UndoCommand.doneCommandStack.clear();
+        RedoCommand.undoneCommandStack.clear();
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }

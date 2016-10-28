@@ -15,6 +15,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Your last command has been undone!";
     public static final String MESSAGE_NOT_SUCCESS = "You have no command to undo!";
     
+    //Stores all the commands done from app launch
     static Stack<Command> doneCommandStack = new Stack<Command>(); 
 
     public UndoCommand() {

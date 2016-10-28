@@ -1,14 +1,7 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.Stack;
-
-import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-import seedu.flexitrack.model.task.ReadOnlyTask;
-import seedu.flexitrack.model.task.Task;
-import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Clears the FlexiTrack.

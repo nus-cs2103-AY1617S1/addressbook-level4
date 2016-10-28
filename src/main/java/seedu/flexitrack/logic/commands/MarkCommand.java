@@ -1,13 +1,8 @@
 package seedu.flexitrack.logic.commands;
 
-//@@author A0138455Y
-import java.util.Stack;
-
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
