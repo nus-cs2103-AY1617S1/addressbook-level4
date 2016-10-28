@@ -16,7 +16,7 @@ public class MarkCommand extends Command {
 
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "mark";
-    public static final String COMMAND_FORMAT = "mark <index> \nmark <index> <more-indexes>";
+    public static final String COMMAND_FORMAT = "mark <index> \nmark <indexes>";
     public static final String COMMAND_DESCRIPTION ="mark task(s) as completed";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the tasks(s) identified by their index numbers used in the last task listing.\n"

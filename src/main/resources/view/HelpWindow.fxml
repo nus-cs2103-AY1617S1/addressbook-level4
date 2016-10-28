@@ -10,13 +10,14 @@
 <?import javafx.scene.text.Text?>
 
 <!-- @@author A0148031R -->
+
 <AnchorPane fx:id="helpWindowRoot" styleClass="pane" stylesheets="@HelpWindow.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.agendum.ui.HelpWindow">
    <children>
       <TableView fx:id="commandTable" styleClass="pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
         <columns>
           <TableColumn fx:id="commandColumn" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Command" />
-          <TableColumn fx:id="descriptionColumn" maxWidth="-1.0" minWidth="400.0" prefWidth="-1.0" text="Description" />
-            <TableColumn fx:id="formatColumn" maxWidth="-1.0" minWidth="450.0" prefWidth="-1.0" text="Format" />
+          <TableColumn fx:id="descriptionColumn" maxWidth="-1.0" minWidth="350.0" prefWidth="-1.0" text="Description" />
+            <TableColumn fx:id="formatColumn" maxWidth="-1.0" minWidth="350.0" prefWidth="-1.0" text="Format" />
         </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="130.0" layoutY="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

@@ -18,7 +18,7 @@ public class ScheduleCommand extends Command {
     public static final String COMMAND_WORD = "schedule";
     public static final String COMMAND_FORMAT = "schedule <name> "
                                             + "\nschedule <name> by <deadline> "
-                                            + "\nschedule <name> from <start-time> to <end-time>";
+                                            + "\nschedule <name> from <start-time>\nto <end-time>";
     public static final String COMMAND_DESCRIPTION = "update the time of a task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Re-schedule an existing task. "
