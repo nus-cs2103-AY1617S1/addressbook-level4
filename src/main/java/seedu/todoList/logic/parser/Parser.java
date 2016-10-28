@@ -24,7 +24,6 @@ public class Parser {
 
     //one or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
-
     /*
      * Add Command, task,event,deadline pattern
      */
@@ -304,18 +303,16 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0139923X
     private Command prepareFind(String args) {
-        final Matcher matcher_keywords = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        String[] keywordArr = args.trim().split(" ",2);
         Optional<String> dataType = parseDataType(args);
+        
         if (!dataType.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher_keywords.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-
-        return new FindCommand(keywordSet, dataType.get());
+        }else {    
+            return new FindCommand(keywordArr[1], keywordArr[0]);
+        }        
     }
     
     //@@author A0139923X

@@ -1,5 +1,6 @@
 package seedu.todoList.logic.commands;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -23,7 +24,15 @@ public class FindCommand extends Command {
         this.keywords = keywords;
         this.dataType = dataType;
     }
-
+    
+    //@@author A0139923X
+    public FindCommand(String keywords, String dataType) {
+        Set<String> keyword2 = new HashSet<String>();
+        keyword2.add(keywords);
+        this.keywords = keyword2;
+        this.dataType = dataType;
+    }
+    
     @Override
     public CommandResult execute() {
     	CommandResult result = new CommandResult(INVALID_DATA_TYPE_MESSAGE);;
@@ -39,6 +48,14 @@ public class FindCommand extends Command {
     		case "deadline":
 				model.updateFilteredDeadlineList(keywords);
 				result = new CommandResult(getMessageFortaskListShownSummary(model.getFilteredDeadlineList().size()));
+    		case "all":
+    		    model.updateFilteredTodoList(keywords);
+    		    model.updateFilteredEventList(keywords);
+    		    model.updateFilteredDeadlineList(keywords);
+                int todoSize = model.getFilteredTodoList().size();
+                int eventSize = model.getFilteredEventList().size();
+                int deadlineSize = model.getFilteredDeadlineList().size();
+                result = new CommandResult(getMessageFortaskListShownSummary(todoSize+eventSize+deadlineSize));
     	}
     	return result;
     }

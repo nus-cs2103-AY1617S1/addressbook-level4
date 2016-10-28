@@ -14,6 +14,12 @@ public class StringUtil {
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
+    
+    //@@author A0139923X
+    public static boolean equalsIgnoreCase(String source, String query) {
+        List<String> strings = Arrays.asList(source.toLowerCase());
+        return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
+    }
 
     /**
      * Returns a detailed message of the t, including the stack trace.
