@@ -1,5 +1,7 @@
 package seedu.flexitrack.model.task;
 
+import java.util.Date;
+
 import seedu.flexitrack.model.tag.UniqueTagList;
 
 /**
@@ -14,13 +16,11 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     DateTimeInfo getDueDate();
     DateTimeInfo getStartTime();
     DateTimeInfo getEndTime();
-    DateTimeInfo getStartingTimeOrDueDate();
-    DateTimeInfo getEndingTimeOrDueDate();
-
+    
     boolean getIsTask();
     boolean getIsEvent();
     boolean getIsDone();
-    boolean getIsNotFloatingTask();
+    
     
     /**
      * The returned TagList is a deep copy of the internal TagList, changes on
@@ -74,48 +74,74 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
      * Comparator for ReadOnlyTask and its children classes
      * Sorts by whether the task is a floating task, then by whether the task is done, then by start time/due date, then by name
      */
-    default int compareTo(ReadOnlyTask task) {
-        if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
-            if (!task.getIsEvent() && !task.getIsTask()){
-                return compareByMarkThenByType(task, "Float");
-            }else{
-                return -1;
-            }
-        }else{
-            return compareByMarkThenByType(task, "TaskEvent");
+    default public int compareTo(ReadOnlyTask task) {
+        int c = compareByDone(task);
+        if(c != 0){
+            return c;
         }
+        c = compareByType(task);
+        if(c != 0){
+            return c;
+        }
+        if(this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
+            c = compareByDate(task);
+            if(c != 0){
+                return c;
+            }
+        }
+       c = compareByName(task);
+       return c;
     }
 
-    /**
-     * Compares whether the task is done, then proceeds to compare by start date/due date (if both are nor floating tasks) then by name
-     * @param task
-     * @param type
-     * @return compare result
-     */
-    default int compareByMarkThenByType(ReadOnlyTask task, String type) {
-      
+    default int compareByDone(ReadOnlyTask task) {
         if(this.getIsDone() && !task.getIsDone()){
             return 1;
         }else if(!this.getIsDone() && task.getIsDone()){
             return -1;
         }else{
-            if(type.equals("Float")){
-                return this.getName().toString().compareTo(task.getName().toString());    
-            }else if(type.equals("TaskEvent")){
-                DateTimeInfo time1 = this.getStartingTimeOrDueDate();
-                DateTimeInfo time2 = task.getStartingTimeOrDueDate();
-                int c = time1.compareTo(time2);
-                if (c == 0){
-                    return this.getName().toString().compareTo(task.getName().toString());
-                }else{
-                    return c;
-                }
-            }else{
-                return 0;
-            }
+            return 0;
         }
     }
-
-
-
+    
+    default int compareByType(ReadOnlyTask task) {
+        if(this.getIsNotFloatingTask() && !task.getIsNotFloatingTask()){
+            return 1;
+        }else if(!this.getIsNotFloatingTask() && task.getIsNotFloatingTask()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+    default int compareByDate(ReadOnlyTask task) {
+        Date date1 = this.getStartingTimeOrDueDate().getTimeInfo().getTimingInfo().getDates().get(0);
+        Date date2 = task.getStartingTimeOrDueDate().getTimeInfo().getTimingInfo().getDates().get(0);
+        return date1.compareTo(date2);
+    }
+    default int compareByName(ReadOnlyTask task) {
+        String name1 = this.getName().getNameOnly();
+        String name2 = task.getName().getNameOnly();
+        return name1.compareTo(name2);
+    }
+    
+  //@@author A0127686R
+    default public boolean getIsNotFloatingTask(){
+        return (this.getIsEvent() || this.getIsTask());
+    }
+    
+    default public DateTimeInfo getStartingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getStartTime();
+        }
+    }
+    
+    default public DateTimeInfo getEndingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getEndTime();
+        }
+    }
+    
 }
