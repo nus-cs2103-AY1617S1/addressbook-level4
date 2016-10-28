@@ -68,8 +68,8 @@ public interface Model {
      * 
      * @throws TaskNotFoundException
      */
-    Task editTask(int taskToEdit, String[] args)
-            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
+    Task editTask(ReadOnlyTask taskToEdit, String[] args)
+            throws UniqueTaskList.IllegalEditException, IllegalValueException;
 
     //@@author
     /**

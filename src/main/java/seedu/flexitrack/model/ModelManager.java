@@ -105,8 +105,8 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      * @throws TaskNotFoundException if specified task is not found.
      */
-    public Task editTask(int taskToEdit, String[] args)
-            throws TaskNotFoundException, IllegalEditException, IllegalValueException {
+    public Task editTask(ReadOnlyTask taskToEdit, String[] args)
+            throws IllegalEditException, IllegalValueException {
         Task editedTask = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
         return editedTask;

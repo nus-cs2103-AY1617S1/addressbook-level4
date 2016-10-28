@@ -80,8 +80,8 @@ public class EditCommand extends Command {
                 }
                 storeOldDataChanged.add(oldData); 
             }
-            editedTask = model.editTask(targetIndex - 1, arguments);
-        } catch (TaskNotFoundException pnfe) {
+            editedTask = model.editTask(lastShownList.get(targetIndex - 1), arguments);
+        } catch (IndexOutOfBoundsException ioobe) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalEditException iee) {
