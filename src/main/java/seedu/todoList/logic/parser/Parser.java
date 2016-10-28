@@ -306,13 +306,13 @@ public class Parser {
     //@@author A0139923X
     private Command prepareFind(String args) {
         String[] keywordArr = args.trim().split(" ",2);
-        Optional<String> dataType = parseDataType(args);
 
-        if (!dataType.get().equals("todo") || !dataType.get().equals("event") || !dataType.get().equals("deadline")) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }else {    
-            return new FindCommand(keywordArr[1], keywordArr[0]);
-        }        
+        if(keywordArr[0].equals("todo") || keywordArr[0].equals("event") || keywordArr[0].equals("deadline") 
+                || keywordArr[0].equals("all")){  
+           return new FindCommand(keywordArr[1], keywordArr[0]);  
+        }else{
+           return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
     }
     
     //@@author A0139923X
