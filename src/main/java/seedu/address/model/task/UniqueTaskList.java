@@ -62,7 +62,7 @@ public class UniqueTaskList implements Iterable<Task> {
             Task temp = internalList.get(i);
             if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
                 if(temp.getIsCompleted() == true){
-                    return false;
+                    continue;
                 }
                 else 
                     return true;
