@@ -4,6 +4,7 @@ public class MotivateMeCommand extends Command {
 
     
     private static final String MESSAGE_MOTIVATE_ME_SUCCESS = null;
+    public static final String COMMAND_WORD = "motivate me";
 
     public CommandResult execute() {
 
