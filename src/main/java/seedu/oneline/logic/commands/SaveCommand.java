@@ -86,4 +86,9 @@ public class SaveCommand extends Command {
     private boolean isReadable(Path path) {
         return Files.isReadable(path);
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 }

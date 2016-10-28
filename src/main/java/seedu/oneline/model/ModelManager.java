@@ -102,7 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
 
