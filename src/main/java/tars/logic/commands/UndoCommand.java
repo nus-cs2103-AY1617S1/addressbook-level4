@@ -8,10 +8,11 @@ package tars.logic.commands;
 public class UndoCommand extends Command {
     
     public static final String COMMAND_WORD = "undo";
-
     public static final String MESSAGE_SUCCESS = "Undo successfully.";
     public static final String MESSAGE_UNSUCCESS = "Undo unsuccessfully.";
     public static final String MESSAGE_EMPTY_UNDO_CMD_HIST = "No more actions that can be undo.";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Undo a previous command\n" + "Example: " + COMMAND_WORD;
 
     @Override
     public CommandResult execute() {
