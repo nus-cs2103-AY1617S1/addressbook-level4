@@ -64,9 +64,9 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.saveToHistory();
+            model.addTask(toAdd);
             if (toAdd.getRecurrence().getValue())
                 model.addRecurringTask(toAdd);
-            model.addTask(toAdd);
             model.updateFilteredTaskListToShowNotDone();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
