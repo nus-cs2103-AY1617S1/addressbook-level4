@@ -386,6 +386,7 @@ public class ModelManager extends ComponentManager implements Model {
                 
             default:
                 assert false: "Should not have an invalid Command Word";
+                break;
             }            
         } catch (Exception e) {
             assert false: "Should not be unable to undo/redo previous command action";

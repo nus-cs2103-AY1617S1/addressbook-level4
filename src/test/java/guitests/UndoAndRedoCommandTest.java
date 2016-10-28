@@ -14,11 +14,11 @@ import seedu.taskitty.testutil.TestTaskList;
 //@@ author A0139052L
 public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
     
-    Stack<TestTaskList> undoTestTaskListStack;
-    Stack<TestTaskList> redoTestTaskListStack;
-    Stack<String> undoCommandTextStack;
-    Stack<String> redoCommandTextStack;
-    TestTaskList currentList;
+    private Stack<TestTaskList> undoTestTaskListStack;
+    private Stack<TestTaskList> redoTestTaskListStack;
+    private Stack<String> undoCommandTextStack;
+    private Stack<String> redoCommandTextStack;
+    private TestTaskList currentList;
     
     @Test
     public void undoAndRedo() {
