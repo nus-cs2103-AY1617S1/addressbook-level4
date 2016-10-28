@@ -82,8 +82,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    Tag.getTag("relatives"),
+                    Tag.getTag("friends")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -335,7 +335,7 @@ public class TestUtil {
 
         final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
             try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
+                return Tag.getTag(e.replaceFirst("Tag: ", ""));
             } catch (IllegalValueException e1) {
                 //not possible
                 assert false;

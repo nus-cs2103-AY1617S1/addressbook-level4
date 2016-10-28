@@ -72,7 +72,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-        if (internalList.contains(newTask)) {
+        if (internalList.contains(newTask) && !oldTask.getName().equals(newTask.getName())) {
             throw new DuplicateTaskException();
         }
         internalList.remove(index);

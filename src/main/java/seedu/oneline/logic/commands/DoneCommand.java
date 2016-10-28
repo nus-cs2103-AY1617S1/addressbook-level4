@@ -1,3 +1,4 @@
+//@@author A0121657H
 package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.Messages;
@@ -26,21 +27,21 @@ public class DoneCommand extends Command {
 
     public final int targetIndex;
 
-    public DoneCommand(String args) throws IllegalCmdArgsException {
+    public DoneCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+    
+    public static DoneCommand createFromArgs(String args) throws IllegalValueException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
         } catch (IllegalValueException e) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
         if (index == null) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
+            throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        this.targetIndex = index;
-    }
-
-    public DoneCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+        return new DoneCommand(index);
     }
 
 

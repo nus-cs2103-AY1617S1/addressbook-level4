@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.ui;
 
 import seedu.oneline.model.task.ReadOnlyTask;
@@ -27,6 +29,10 @@ public class TaskCardParser {
         } else {
             return "From " + task.getStartTime().toString() + " to " + task.getEndTime().toString();
         }
+    }
+    
+    public String getTag() {
+        return task.getTag().toString();
     }
     
     public String getRecurrence() {

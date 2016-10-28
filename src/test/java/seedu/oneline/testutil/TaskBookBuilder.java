@@ -25,7 +25,7 @@ public class TaskBookBuilder {
     }
 
     public TaskBookBuilder withTag(String tagName) throws IllegalValueException {
-        taskBook.addTag(new Tag(tagName));
+        taskBook.addTag(Tag.getTag(tagName));
         return this;
     }
 

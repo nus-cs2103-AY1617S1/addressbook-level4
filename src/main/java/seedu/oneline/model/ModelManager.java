@@ -37,9 +37,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
+    //@@author A0140156R
     private final Stack<ModelState> prevState = new Stack<ModelState>();
     private final Stack<ModelState> nextState = new Stack<ModelState>();
-    
+    //@@author
     
     /**
      * Initializes a ModelManager with the given Task book
@@ -105,13 +106,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+  //@@author A0140156R
     @Override
     public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
+  //@@author
     
+    //@@author A0121657H
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
         Task done = filteredTasks.get(index);
@@ -129,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
+    //@@author 
 
     //=========== Filtered Task List Accessors ===============================================================
     
@@ -143,7 +148,8 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks.sorted());
     }
-    //@@author:
+    
+    //@@author A0121657H
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -199,7 +205,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(t -> t.isFloating());
     }
     
-    //@@author
+    //@@author A0121657H
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
     }
@@ -207,6 +213,8 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Task> getDonePredicate() {
         return task -> task.isCompleted();
     }
+    
+    //@@author 
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
@@ -269,6 +277,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
   //@@author
+  //@@author A0140156R
   //========== Inner functions and classes used for undo/redo ==================================================
     
     public void undo() throws StateNonExistentException {
@@ -308,5 +317,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
+  //@@author
 
 }

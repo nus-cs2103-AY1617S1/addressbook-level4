@@ -1,3 +1,4 @@
+//@@author A0121657H
 package seedu.oneline.logic.commands;
 
 import seedu.oneline.commons.core.Messages;
@@ -26,7 +27,11 @@ public class UndoneCommand extends Command {
 
     public final int targetIndex;
 
-    public UndoneCommand(String args) throws IllegalCmdArgsException {
+    public UndoneCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+    
+    public static UndoneCommand createFromArgs(String args) throws IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -36,11 +41,7 @@ public class UndoneCommand extends Command {
         if (index == null) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        this.targetIndex = index;
-    }
-
-    public UndoneCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+        return new UndoneCommand(index);
     }
 
 
