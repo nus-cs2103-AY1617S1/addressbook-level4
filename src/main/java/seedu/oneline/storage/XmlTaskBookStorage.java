@@ -39,7 +39,7 @@ public class XmlTaskBookStorage implements TaskBookStorage {
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+            logger.info("TaskBook file "  + addressBookFile + " not found");
             return Optional.empty();
         }
 

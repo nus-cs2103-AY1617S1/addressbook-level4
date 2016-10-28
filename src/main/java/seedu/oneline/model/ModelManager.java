@@ -13,18 +13,23 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.oneline.model.tag.Tag; 
+import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.time.DateUtils;
+
+import com.sun.javafx.collections.UnmodifiableObservableMap;
 
 
 /**
@@ -110,6 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
+        taskBook.updateTags();
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
@@ -134,12 +140,27 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
     //@@author 
-
-    //=========== Filtered Task List Accessors ===============================================================
     
     @Override
     public UnmodifiableObservableList<Tag> getTagList() {
         return new UnmodifiableObservableList<>(new FilteredList<>(taskBook.getTags()));
+    }
+
+    @Override
+    public synchronized TagColor getTagColor(Tag t) {
+        return taskBook.getTagColor(t);
+    }
+    
+    @Override
+    public synchronized void setTagColor(Tag t, TagColor c) {
+        taskBook.setTagColor(t, c);
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized TagColorMap getTagColorMap() {
+        return taskBook.getTagColorMap();
+//        return new UnmodifiableObservableMap<Tag, TagColor>(taskBook.getTagColorMap().getInternalMap());
     }
     
     //=========== Filtered Task List Accessors ===============================================================
