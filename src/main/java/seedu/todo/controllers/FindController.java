@@ -74,8 +74,6 @@ public class FindController implements Controller {
         parseExactFindCommand(parsedResult, itemNameList);
         
         parseName(parsedResult, itemNameList); //parse addtional name enter by user
-        System.out.println(Arrays.toString(parsedResult.get("name")));
-        System.out.println(itemNameList);
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
@@ -258,9 +256,9 @@ public class FindController implements Controller {
     
     private void parseName(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
         if (parsedResult.get("name") != null) {
-            String[] result = parsedResult.get("name")[1].trim().split(" ");
+            String[] result = parsedResult.get("name")[1].trim().split(",");
             for (int i = 0; i < result.length; i ++) {
-                itemNameList.add(result[i]);
+                itemNameList.add(result[i].trim());
             }
         } 
     }
