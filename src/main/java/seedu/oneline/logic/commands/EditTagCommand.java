@@ -2,6 +2,7 @@
 
 package seedu.oneline.logic.commands;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap;
 import seedu.oneline.model.tag.TagField;
 import seedu.oneline.model.task.*;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
@@ -36,7 +38,7 @@ public class EditTagCommand extends EditCommand {
     public static final String MESSAGE_DUPLICATE_TAG = "The tag %1$s already exists in the task book";
 
     
-    public EditTagCommand(String name, Map<TagField, String> fields) throws IllegalValueException {
+    public EditTagCommand(String name, Map<TagField, String> fields) throws IllegalValueException, IllegalCmdArgsException {
         if (!Tag.isValidTagName(name)) {
             throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + name);
         }
@@ -45,6 +47,9 @@ public class EditTagCommand extends EditCommand {
         }
         if (fields.containsKey(TagField.COLOR) && !TagColor.isValidColor(fields.get(TagField.COLOR))) {
             throw new IllegalValueException(TagColor.MESSAGE_COLOR_CONSTRAINTS + " : " + fields.get(TagField.COLOR));
+        }
+        if (fields.size() == 0) {
+            throw new IllegalCmdArgsException(EditCommand.MESSAGE_USAGE);
         }
         this.name = name;
         this.fields = fields;
@@ -57,6 +62,8 @@ public class EditTagCommand extends EditCommand {
 
     @Override
     public CommandResult execute() {
+        String name = this.name; // Mutability
+        List<String> results = new ArrayList<String>();
         if (fields.containsKey(TagField.NAME)) {
             String newName = fields.get(TagField.NAME);
             Tag oldTag = null;
@@ -72,21 +79,41 @@ public class EditTagCommand extends EditCommand {
             List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
             Map<TaskField, String> fields = new HashMap<TaskField, String>();
             fields.put(TaskField.TAG, newTag.getTagName());
-            int taskCount = 0;
             for (ReadOnlyTask t : taskList) {
                 if (t.getTag().equals(oldTag)) {
                     try {
                         Task newTask = t.update(fields);
                         model.replaceTask(t, newTask);
-                        taskCount++;
                     } catch (TaskNotFoundException | IllegalValueException e) {
                         assert false : e.getMessage();
                     }
                 }
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskCount));
+            TagColor color = model.getTagColor(oldTag);
+            model.setTagColor(oldTag, TagColor.getDefault());
+            model.setTagColor(newTag, color);
+            name = newName;
+            results.add("renamed to " + newTag.getTagName());
         }
-        return null;
+        if (fields.containsKey(TagField.COLOR)) {
+            try {
+                TagColor color = new TagColor(fields.get(TagField.COLOR));
+                model.setTagColor(Tag.getTag(name), color);
+                results.add(String.format("color updated to " + color.toString()));
+            } catch (Exception e) {
+                assert false;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(MESSAGE_SUCCESS, name));
+        sb.append(" ");
+        for (int i = 0; i < results.size(); i++) {
+            sb.append(results.get(i));
+            if (i < results.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return new CommandResult(sb.toString());
     }
     
     @Override
