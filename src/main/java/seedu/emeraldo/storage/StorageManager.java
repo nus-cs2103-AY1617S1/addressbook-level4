@@ -54,6 +54,10 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getEmeraldoFilePath() {
         return emeraldoStorage.getEmeraldoFilePath();
     }
+    
+    public void changeEmeraldoFilePath(String filepath) {
+        
+    }
 
     @Override
     public Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException {

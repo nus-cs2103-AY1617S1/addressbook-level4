@@ -23,6 +23,8 @@ public interface Storage extends EmeraldoStorage, UserPrefsStorage {
 
     @Override
     String getEmeraldoFilePath();
+    
+    void changeEmeraldoFilePath(String filepath);
 
     @Override
     Optional<ReadOnlyEmeraldo> readEmeraldo() throws DataConversionException, IOException;
