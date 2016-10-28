@@ -1,10 +1,10 @@
-<!-- @@author A0139812A -->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author A0139812A -->
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.views.IndexView">
   <children>
     <SplitPane fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
