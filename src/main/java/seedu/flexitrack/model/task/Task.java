@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.CollectionUtil;
-import seedu.flexitrack.model.tag.UniqueTagList;
 
 /**
  * Represents a Person in the address book. Guarantees: details are present and
@@ -20,18 +19,15 @@ public class Task implements ReadOnlyTask{
     private boolean isTask;
     private boolean isDone = false;
 
-    private UniqueTagList tags;
-
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DateTimeInfo dueDate, DateTimeInfo startTime, DateTimeInfo endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+    public Task(Name name, DateTimeInfo dueDate, DateTimeInfo startTime, DateTimeInfo endTime) {
+        assert !CollectionUtil.isAnyNull(name);
         this.name = name;
         this.dueDate = dueDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
         this.endTime.isEndTimeInferred();
@@ -42,7 +38,7 @@ public class Task implements ReadOnlyTask{
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDueDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getDueDate(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
@@ -81,18 +77,6 @@ public class Task implements ReadOnlyTask{
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this person's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
@@ -103,7 +87,7 @@ public class Task implements ReadOnlyTask{
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-        return Objects.hash(name, dueDate, startTime, endTime, isTask, isEvent, tags);
+        return Objects.hash(name, dueDate, startTime, endTime, isTask, isEvent);
     }
 
     @Override

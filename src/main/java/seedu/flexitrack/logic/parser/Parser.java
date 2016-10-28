@@ -360,19 +360,17 @@ public class Parser {
     }
 
     private AddCommand addFloatingTask(Matcher matcher) throws IllegalValueException {
-        return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO,
-                getTagsFromArgs(matcher.group("tagArguments")));
+        return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO);
     }
 
     private AddCommand addDeadlineTask(Matcher matcher) throws IllegalValueException {
-        return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO,
-                getTagsFromArgs(matcher.group("tagArguments")));
+        return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
     }
     
     
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
-                matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
+                matcher.group("endTime"));
     }
     
     //@@author A0147092E
@@ -401,12 +399,12 @@ public class Parser {
                 formattedStartTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newStartTime);
                 formattedEndTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newEndTime);
                 
-                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime, getTagsFromArgs(matcher.group("tagArguments")));
+                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime);
                 command.setData(model);
                 command.execute();
             }
             
-            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
         }     
         else{
 
@@ -429,12 +427,12 @@ public class Parser {
                 System.out.println("Formatted start: " + formattedStartTime);
                 System.out.println("Formatted end: " + formattedEndTime);
                 
-                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime, getTagsFromArgs(matcher.group("tagArguments")));
+                Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime);
                 command.setData(model);
                 command.execute();
             }
             
-            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
+            return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
         }
     }
 

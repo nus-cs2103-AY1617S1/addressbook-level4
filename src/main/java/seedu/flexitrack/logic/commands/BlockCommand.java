@@ -4,8 +4,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -41,12 +39,8 @@ public static final String COMMAND_WORD = "block";
      */
     public BlockCommand(String name, String dueDate, String startTime, String endTime, Set<String> tags)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toBlock = new Task(new Name(name), new DateTimeInfo(dueDate), new DateTimeInfo(startTime),
-                new DateTimeInfo(endTime), new UniqueTagList(tagSet));
+                new DateTimeInfo(endTime));
     }
     
     public BlockCommand() {

@@ -9,7 +9,6 @@ import java.util.Stack;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -75,8 +74,7 @@ public class EditCommand extends Command {
                 Task oldData = new Task(new Name (lastShownList.get(targetIndex - 1).getName().toString()), 
                         new DateTimeInfo (lastShownList.get(targetIndex - 1).getDueDate().toString()), 
                         new DateTimeInfo ( lastShownList.get(targetIndex - 1).getStartTime().toString()), 
-                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getEndTime().toString()), 
-                        new UniqueTagList (lastShownList.get(targetIndex - 1).getTags()));
+                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getEndTime().toString()));
                 if (lastShownList.get(targetIndex - 1).getIsDone()){
                     oldData.getName().setAsMark();
                 }

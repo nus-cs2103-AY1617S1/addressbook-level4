@@ -1,7 +1,5 @@
 package seedu.flexitrack.model.task;
 
-import seedu.flexitrack.model.tag.UniqueTagList;
-
 /**
  * A read-only immutable interface for a Task in FlexiTrack. Implementations
  * should guarantee: details are present and not null, field values are
@@ -22,12 +20,6 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     boolean getIsDone();
     boolean getIsNotFloatingTask();
     
-    /**
-     * The returned TagList is a deep copy of the internal TagList, changes on
-     * the returned list will not affect the person's internal tags.
-     */
-    UniqueTagList getTags();
-
     /**
      * Returns true if both have the same state. (interfaces cannot override
      * .equals)
@@ -50,26 +42,11 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         final StringBuilder builder = new StringBuilder();
         String text = (getIsTask() || getIsEvent())
                 ? getIsTask() ? " by/" + getDueDate() : " from/" + getStartTime() + " to/" + getEndTime() : "";
-        builder.append(getIsDone() ? "(Done)" : "" + getName()).append(text).append(" Tags: ");
-        getTags().forEach(builder::append);
+        builder.append(getIsDone() ? "(Done)" : "" + getName()).append(text);
         return builder.toString();
     }
-
-    /**
-     * Returns a string representation of this Person's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }
     
-//@@author A0127855W
+    //@@author A0127855W
     /**
      * Comparator for ReadOnlyTask and its children classes
      * Sorts by whether the task is a floating task, then by whether the task is done, then by start time/due date, then by name
