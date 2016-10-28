@@ -99,6 +99,13 @@
     -fx-padding: 5 5 5 5;
 }
 
+.list-cell:selected {
+    -fx-background-color: black;
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 5 5 5 5;
+}
+
 .list-cell .label {
     -fx-text-fill: black;
 }
