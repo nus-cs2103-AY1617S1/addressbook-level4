@@ -37,8 +37,6 @@ import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.Model;
 import seedu.flexitrack.model.ModelManager;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -439,8 +437,7 @@ public class LogicManagerTest {
             DateTimeInfo dueDate = new DateTimeInfo("Mar 23 2017 09:00");
             DateTimeInfo startingTime = new DateTimeInfo("Feb 29 2000 00:00");
             DateTimeInfo endingTime = new DateTimeInfo("Feb 29 2000 00:00");
-            UniqueTagList tags = new UniqueTagList();
-            return new Task(name, dueDate, startingTime, endingTime, tags);
+            return new Task(name, dueDate, startingTime, endingTime);
         }
 
         /**
@@ -454,8 +451,7 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new Task(new Name("Person " + seed), new DateTimeInfo("" + Math.abs(seed)),
-                    new DateTimeInfo(seed + "@email"), new DateTimeInfo("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
+                    new DateTimeInfo(seed + "@email"), new DateTimeInfo("House of " + seed));
         }
 
         /** Generates the correct add command based on the person given */
@@ -471,12 +467,6 @@ public class LogicManagerTest {
                 cmd.append(" from/ ").append(p.getStartTime());
                 cmd.append(" to/ ").append(p.getEndTime());
             }
-
-            UniqueTagList tags = p.getTags();
-            for (Tag t : tags) {
-                cmd.append(" t/").append(t.tagName);
-            }
-
             return cmd.toString();
         }
 
@@ -557,7 +547,7 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new Task(new Name(name), new DateTimeInfo("1/1/2011"), new DateTimeInfo("2/2/2012"),
-                    new DateTimeInfo("3/3/2013"), new UniqueTagList(new Tag("tag")));
+                    new DateTimeInfo("3/3/2013"));
         }
     }
 }

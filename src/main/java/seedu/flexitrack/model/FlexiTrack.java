@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -29,12 +27,10 @@ import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 public class FlexiTrack implements ReadOnlyFlexiTrack {
 
     private final UniqueTaskList task;
-    private final UniqueTagList tags;
     private UniqueTaskList blockList = new UniqueTaskList();
     
     {
         task = new UniqueTaskList();
-        tags = new UniqueTagList();
     }
 
     public FlexiTrack() {
@@ -44,14 +40,14 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      * Tasks are copied into this taskstracker
      */
     public FlexiTrack(ReadOnlyFlexiTrack toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * Tasks are copied into this taskstracker
      */
-    public FlexiTrack(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public FlexiTrack(UniqueTaskList tasks) {
+        resetData(tasks.getInternalList());
     }
 
     public static ReadOnlyFlexiTrack getEmptyFlexiTrack() {
@@ -68,31 +64,23 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         this.task.getInternalList().setAll(tasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
     }
 
     public void resetData(ReadOnlyFlexiTrack newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList());
     }
 
     //// task-level operations
 
     /**
-     * Adds a task to the tasks tracker. Also checks the new task's tags and
-     * updates {@link #tags} with any new tags found, and updates the Tag
-     * objects in the task to point to those in {@link #tags}.
+     * Adds a task to the tasks tracker.
      *
      * @throws UniqueTaskList.DuplicateTaskException
      *             if an equivalent task already exists.
      */
     public void addTask(Task p) throws DuplicateTaskException {
-        syncTagsWithMasterList(p);
         task.add(p);
     }
 
@@ -109,28 +97,6 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
   //@@author
 
-    /**
-     * Ensures that every tag in this task: - exists in the master list
-     * {@link #tags} - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
-    }
-
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (task.remove(key)) {
             return true;
@@ -138,18 +104,12 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
+    
     //// util methods
 
     @Override
     public String toString() {
-        return task.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
+        return task.getInternalList().size() + " tasks.";
         // TODO: refine later
     }
 
@@ -159,25 +119,15 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
 
     @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.task;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FlexiTrack // instanceof handles nulls
-                        && this.task.equals(((FlexiTrack) other).task) && this.tags.equals(((FlexiTrack) other).tags));
+                        && this.task.equals(((FlexiTrack) other).task));
     }
   //@@author A0127855W
     /**
@@ -192,7 +142,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-        return Objects.hash(task, tags);
+        return Objects.hash(task);
     }
     
     //@@author A0138455Y

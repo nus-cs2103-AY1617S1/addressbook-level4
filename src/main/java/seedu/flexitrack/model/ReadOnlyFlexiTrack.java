@@ -2,8 +2,6 @@ package seedu.flexitrack.model;
 
 import java.util.List;
 
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.UniqueTaskList;
 
@@ -12,7 +10,6 @@ import seedu.flexitrack.model.task.UniqueTaskList;
  */
 public interface ReadOnlyFlexiTrack {
 
-    UniqueTagList getUniqueTagList();
 
     UniqueTaskList getUniqueTaskList();
 
@@ -20,10 +17,5 @@ public interface ReadOnlyFlexiTrack {
      * Returns an unmodifiable view of persons list
      */
     List<ReadOnlyTask> getTaskList();
-
-    /**
-     * Returns an unmodifiable view of tags list
-     */
-    List<Tag> getTagList();
 
 }

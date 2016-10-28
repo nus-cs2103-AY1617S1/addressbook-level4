@@ -2,7 +2,6 @@ package seedu.flexitrack.testutil;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.FlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
 
@@ -21,11 +20,6 @@ public class FlexiTrackBuilder {
 
     public FlexiTrackBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
         flexiTrack.addTask(person);
-        return this;
-    }
-
-    public FlexiTrackBuilder withTag(String tagName) throws IllegalValueException {
-        flexiTrack.addTag(new Tag(tagName));
         return this;
     }
 

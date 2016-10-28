@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.UniqueTaskList;
 
@@ -23,12 +21,9 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -42,18 +37,6 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
      */
     public XmlSerializableFlexiTrack(ReadOnlyFlexiTrack src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            // TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -81,10 +64,4 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
-
 }

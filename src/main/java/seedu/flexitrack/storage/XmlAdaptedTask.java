@@ -6,8 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.Tag;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -31,9 +29,6 @@ public class XmlAdaptedTask {
     @XmlElement
     private String endTime;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
     /**
      * No-arg constructor for JAXB use.
      */
@@ -52,10 +47,6 @@ public class XmlAdaptedTask {
         dueDate = source.getDueDate().toString();
         startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
     }
 
     /**
@@ -67,15 +58,10 @@ public class XmlAdaptedTask {
      *             task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
-        }
         final Name name = new Name(this.name);
         final DateTimeInfo dueDate = new DateTimeInfo(this.dueDate);
         final DateTimeInfo startTime = new DateTimeInfo(this.startTime);
         final DateTimeInfo endTime = new DateTimeInfo(this.endTime);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, dueDate, startTime, endTime, tags);
+        return new Task(name, dueDate, startTime, endTime);
     }
 }

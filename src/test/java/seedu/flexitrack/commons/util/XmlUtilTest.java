@@ -55,7 +55,6 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableFlexiTrack dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableFlexiTrack.class);
         assertEquals(9, dataFromFile.getTaskList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
     }
 
     @Test
@@ -87,7 +86,7 @@ public class XmlUtilTest {
 
         FlexiTrackBuilder builder = new FlexiTrackBuilder(new FlexiTrack());
         dataToWrite = new XmlSerializableFlexiTrack(
-                builder.withPerson(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+                builder.withPerson(TestUtil.generateSampleTaskData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFlexiTrack.class);

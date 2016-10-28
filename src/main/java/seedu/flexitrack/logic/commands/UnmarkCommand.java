@@ -6,7 +6,6 @@ import java.util.Stack;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -74,8 +73,7 @@ public class UnmarkCommand extends Command {
             toAddBack = new Task (new Name (storeDataChanged.peek().getName().toString()), 
                     new DateTimeInfo (storeDataChanged.peek().getDueDate().toString()), 
                     new DateTimeInfo ( storeDataChanged.peek().getStartTime().toString()), 
-                    new DateTimeInfo (storeDataChanged.peek().getEndTime().toString()), 
-                    new UniqueTagList (storeDataChanged.peek().getTags()));
+                    new DateTimeInfo (storeDataChanged.peek().getEndTime().toString()));
         } catch (IllegalValueException e1) {
             assert false : "There Should not be any Illegal values s";
         }
