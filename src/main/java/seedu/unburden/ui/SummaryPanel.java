@@ -11,7 +11,7 @@ import seedu.unburden.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * The Browser Panel of the App.
+ * The Summary Panel of the App.
  * @@author A0143095H
  */
 public class SummaryPanel extends UiPart{
@@ -20,7 +20,7 @@ public class SummaryPanel extends UiPart{
     private WebView browser;
 
     /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
+     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a SummaryPanel.
      */
     private SummaryPanel() {
 
@@ -42,7 +42,7 @@ public class SummaryPanel extends UiPart{
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
     public static SummaryPanel load(AnchorPane placeholder){
-        logger.info("Initializing browser");
+        logger.info("Initializing SummaryPanel");
         SummaryPanel browserPanel = new SummaryPanel();
         browserPanel.browser = new WebView();
         placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.

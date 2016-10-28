@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!--@@Gauri Joshi A0143095H  -->
+
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -32,12 +33,12 @@
       </MenuBar>
       <SplitPane dividerPositions="0.9331395348837209" prefHeight="200.0" prefWidth="200.0">
          <items>
-            <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
+            <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" SplitPane.resizableWithParent="false">
                <padding>
                   <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                </padding>
             </AnchorPane>
-             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="199.0" minHeight="100" prefHeight="198.0" prefWidth="114.0" styleClass="anchor-pane-with-border">
+             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="199.0" minHeight="100.0" prefHeight="120.0" prefWidth="114.0" styleClass="anchor-pane-with-border">
                  <padding>
                      <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                  </padding>
