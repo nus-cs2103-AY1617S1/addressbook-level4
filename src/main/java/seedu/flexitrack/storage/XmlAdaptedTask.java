@@ -1,8 +1,5 @@
 package seedu.flexitrack.storage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;

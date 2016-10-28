@@ -1,13 +1,8 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
-
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
-import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
@@ -31,9 +26,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
     
-    static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
-
-    private final Task toAdd;
+    private Task toAdd;
 
     /**
      * Convenience constructor using raw values.
@@ -61,8 +54,8 @@ public class AddCommand extends Command {
             }
             
             model.addTask(toAdd);
-            storeDataChanged.add(toAdd);
-            recordCommand("add"); 
+            toAdd = toAdd.copy();
+            recordCommand(this); 
             
             if (toAdd.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n" + DateTimeInfo
@@ -79,15 +72,13 @@ public class AddCommand extends Command {
     //@@author A0127686R
     @Override
     public void executeUndo() {
-        Task toDelete = new Task (storeDataChanged.peek());
+        Task toDelete = toAdd;
 
         try {
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        
-        storeDataChanged.pop();
     }
 
 }

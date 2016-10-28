@@ -4,13 +4,11 @@ package seedu.flexitrack.logic.commands;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashMap;
-import java.util.Stack;
 
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
@@ -45,8 +43,8 @@ public class EditCommand extends Command {
     public final int targetIndex;
     public final String[] arguments;
 
-    private static Stack<ReadOnlyTask> storeOldDataChanged = new Stack<ReadOnlyTask>(); 
-    private static Stack<ReadOnlyTask> storeNewDataChanged = new Stack<ReadOnlyTask>(); 
+    private Task taskStore; 
+    private Task editedTask;
 
     public EditCommand(int targetIndex, String[] arguments) {
         this.targetIndex = targetIndex;
@@ -66,21 +64,13 @@ public class EditCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        Task editedTask = null;
         String duration = null; 
-        
+
         try {
-            if (targetIndex<lastShownList.size()+1 && targetIndex>0){
-                Task oldData = new Task(new Name (lastShownList.get(targetIndex - 1).getName().toString()), 
-                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getDueDate().toString()), 
-                        new DateTimeInfo ( lastShownList.get(targetIndex - 1).getStartTime().toString()), 
-                        new DateTimeInfo (lastShownList.get(targetIndex - 1).getEndTime().toString()));
-                if (lastShownList.get(targetIndex - 1).getIsDone()){
-                    oldData.getName().setAsMark();
-                }
-                storeOldDataChanged.add(oldData); 
-            }
+            taskStore = lastShownList.get(targetIndex - 1).copy(); 
             editedTask = model.editTask(lastShownList.get(targetIndex - 1), arguments);
+            editedTask = editedTask.copy();
+            recordCommand(this); 
         } catch (IndexOutOfBoundsException ioobe) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -97,10 +87,7 @@ public class EditCommand extends Command {
         } else {
             duration = "";
         }
-        
-        recordCommand("edit"); 
-        storeNewDataChanged.add(editedTask); 
-        
+       
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1).getName())
                 + "\n" + duration);
     }
@@ -108,8 +95,8 @@ public class EditCommand extends Command {
     //@@author A0127686R
     @Override
     public void executeUndo() {
-        Task toDelete = new Task (storeNewDataChanged.peek()); 
-        Task toAddBack = new Task (storeOldDataChanged.peek());
+        Task toDelete = editedTask; 
+        Task toAddBack = taskStore;
 
         try {
             model.deleteTask(toDelete);
@@ -122,10 +109,5 @@ public class EditCommand extends Command {
         } catch (DuplicateTaskException e) {
             indicateAttemptToExecuteIncorrectCommand();
         }
-        
-        model.indicateFlexiTrackerChanged();
-
-        storeNewDataChanged.pop();
-        storeOldDataChanged.pop();
     }
 }

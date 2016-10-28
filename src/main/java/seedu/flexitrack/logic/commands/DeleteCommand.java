@@ -1,7 +1,5 @@
 package seedu.flexitrack.logic.commands;
 
-import java.util.Stack;
-
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.model.task.ReadOnlyTask;
@@ -25,8 +23,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
     public final int targetIndex;
-
-    static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
+    private ReadOnlyTask taskStore;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -49,30 +46,26 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
         try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
+            taskStore = lastShownList.get(targetIndex - 1);
+            model.deleteTask(taskStore);
+            recordCommand(this); 
+        } catch (IndexOutOfBoundsException ioobe) {
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
-        
-        storeDataChanged.add(taskToDelete);
-        recordCommand("delete"); 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskStore));
     }
     
     @Override
     public void executeUndo() {
-        Task toAdd = new Task (storeDataChanged.peek());
         assert model != null;
+        Task toAdd = (Task) taskStore;
         try {
             model.addTask(toAdd);
         } catch (DuplicateTaskException e) {
             e.printStackTrace();
         }
-
-        storeDataChanged.pop();
     }
-
 }

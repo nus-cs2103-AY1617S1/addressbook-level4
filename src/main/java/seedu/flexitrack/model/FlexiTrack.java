@@ -3,12 +3,8 @@ package seedu.flexitrack.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -146,12 +142,12 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
     
     //@@author A0138455Y
-    public void markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
-        task.mark(targetIndex, Boolean.TRUE);
+    public Task markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
+        return task.mark(targetIndex, Boolean.TRUE);
     }
 
-    public void unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
-        task.mark(targetIndex, Boolean.FALSE);
+    public Task unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
+        return task.mark(targetIndex, Boolean.FALSE);
     }
     
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {

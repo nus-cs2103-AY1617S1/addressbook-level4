@@ -2,6 +2,8 @@ package seedu.flexitrack.model.task;
 
 import java.util.Date;
 
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
+
 /**
  * A read-only immutable interface for a Task in FlexiTrack. Implementations
  * should guarantee: details are present and not null, field values are
@@ -27,7 +29,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName()) // state
+                        && other.getName().getNameOnly().equals(this.getName().getNameOnly()) // state
                                                                   // checks here
                                                                   // onwards
                         && other.getDueDate().equals(this.getDueDate())
@@ -98,6 +100,18 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         String name1 = this.getName().getNameOnly();
         String name2 = task.getName().getNameOnly();
         return name1.compareTo(name2);
+    }
+    
+    default Task copy(){
+        Task clonedTask = null;
+        try{
+            clonedTask = new Task(new Name (this.getName().toString()), 
+                    new DateTimeInfo (this.getDueDate().toString()), 
+                    new DateTimeInfo (this.getStartTime().toString()), 
+                    new DateTimeInfo (this.getEndTime().toString()));
+        }catch(IllegalValueException ive){
+        }
+        return clonedTask;
     }
     
   //@@author A0127686R

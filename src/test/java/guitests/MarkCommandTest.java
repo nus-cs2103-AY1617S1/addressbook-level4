@@ -8,9 +8,6 @@ import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
 
-//@@author A0138455Y
-import static org.junit.Assert.assertTrue;
-
 public class MarkCommandTest extends FlexiTrackGuiTest {
 
     @Test

@@ -1,12 +1,9 @@
 package seedu.flexitrack.logic.commands;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.Name;
-import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
@@ -28,8 +25,7 @@ public static final String COMMAND_WORD = "block";
     public static final String MESSAGE_SUCCESS = "Block the date for %1$s";
     public static final String MESSAGE_DUPLICATE_TIME = "This period of time has already taken by other event, Please choose another time.";
 
-    private final Task toBlock;
-    static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>();
+    private Task toBlock;
     
     /**
      * Convenience constructor using raw values.
@@ -55,8 +51,8 @@ public static final String COMMAND_WORD = "block";
                 return new CommandResult(BlockCommand.MESSAGE_DUPLICATE_TIME);
             }
             model.addTask(toBlock);
-            storeDataChanged.add(toBlock);
-            recordCommand("block");
+            toBlock = toBlock.copy();
+            recordCommand(this);
             if (toBlock.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toBlock)) + "\n" + DateTimeInfo
                         .durationOfTheEvent(toBlock.getStartTime().toString(), toBlock.getEndTime().toString()));
@@ -70,13 +66,12 @@ public static final String COMMAND_WORD = "block";
     }
     @Override
     public void executeUndo() {
-        Task toDelete = new Task (storeDataChanged.peek());
+        Task toDelete = toBlock;
         try {
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }      
-        storeDataChanged.pop();
     }
 
 }

@@ -3,6 +3,7 @@ package seedu.flexitrack.logic.parser;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -14,7 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.text.SimpleDateFormat;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.commons.util.StringUtil;
@@ -30,11 +30,12 @@ import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.logic.commands.MarkCommand;
+import seedu.flexitrack.logic.commands.RedoCommand;
 import seedu.flexitrack.logic.commands.SelectCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
-import seedu.flexitrack.model.task.DateTimeInfoParser;
 import seedu.flexitrack.model.Model;
+import seedu.flexitrack.model.task.DateTimeInfoParser;
 
 
 /**
@@ -63,6 +64,8 @@ public class Parser {
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(UndoCommand.COMMAND_SHORTCUT, UndoCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(RedoCommand.COMMAND_SHORTCUT, RedoCommand.COMMAND_WORD);
     }  
 
     //@@author A0127686R
@@ -136,6 +139,9 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);

@@ -81,7 +81,16 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+        boolean taskFoundAndDeleted = false;
+        for(Task task : internalList){
+            System.out.println(task.getName().toString());
+            System.out.println(toRemove.getName().toString());
+            if(task.equals(toRemove)){
+                internalList.remove(task);
+                taskFoundAndDeleted = true;
+                break;
+            }
+        }
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
@@ -110,12 +119,13 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
   //@@author A0138455Y
-    public void mark(ReadOnlyTask targetTask, boolean isDone) throws IllegalValueException {
+    public Task mark(ReadOnlyTask targetTask, boolean isDone) throws IllegalValueException {
         assert targetTask != null;      
         int targetIndex = internalList.indexOf(targetTask);
         Task markTask = internalList.get(targetIndex);
         markTask.markTask(isDone);
         internalList.set(targetIndex, markTask);
+        return markTask;
 
     }
   //@@author

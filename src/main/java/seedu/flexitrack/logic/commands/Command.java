@@ -56,7 +56,7 @@ public abstract class Command {
     }
     
     //@@author A0127686R
-    public void recordCommand(String command){
-        UndoCommand.commandRecord.add(command); 
+    public void recordCommand(Command command){
+        UndoCommand.doneCommandStack.add(command); 
     }
 }

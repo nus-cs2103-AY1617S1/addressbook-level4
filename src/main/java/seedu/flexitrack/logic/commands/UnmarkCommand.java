@@ -1,13 +1,8 @@
 package seedu.flexitrack.logic.commands;
 
-//@@author A0138455Y
-import java.util.Stack;
-
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
-import seedu.flexitrack.model.task.DateTimeInfo;
-import seedu.flexitrack.model.task.Name;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
@@ -29,8 +24,9 @@ public class UnmarkCommand extends Command {
 
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmark Task: %1$s";
     
-    private static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
-
+    private Task taskStore; 
+    private Task unMarkedTask;
+    
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -53,10 +49,10 @@ public class UnmarkCommand extends Command {
         }
 
         try {
-            model.unmarkTask(lastShownList.get(targetIndex - 1));
-            storeDataChanged.add(lastShownList.get(targetIndex - 1));
-            recordCommand("unmark"); 
-            model.indicateFlexiTrackerChanged();
+            taskStore = lastShownList.get(targetIndex - 1).copy();             
+            unMarkedTask = model.unmarkTask(lastShownList.get(targetIndex-1));
+            unMarkedTask = unMarkedTask.copy();
+            recordCommand(this); 
             return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, targetIndex));
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
@@ -67,18 +63,9 @@ public class UnmarkCommand extends Command {
     //@@author A0127686R
     @Override
     public void executeUndo() {
-        Task toDelete = new Task (storeDataChanged.peek()); 
-        Task toAddBack = null;
-        try {
-            toAddBack = new Task (new Name (storeDataChanged.peek().getName().toString()), 
-                    new DateTimeInfo (storeDataChanged.peek().getDueDate().toString()), 
-                    new DateTimeInfo ( storeDataChanged.peek().getStartTime().toString()), 
-                    new DateTimeInfo (storeDataChanged.peek().getEndTime().toString()));
-        } catch (IllegalValueException e1) {
-            assert false : "There Should not be any Illegal values s";
-        }
-        toAddBack.getName().setAsMark();
-
+        Task toDelete = unMarkedTask; 
+        Task toAddBack = taskStore;
+        
         try {
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException pnfe) {
@@ -90,8 +77,5 @@ public class UnmarkCommand extends Command {
         } catch (DuplicateTaskException e) {
             indicateAttemptToExecuteIncorrectCommand();
         }
-        
-        storeDataChanged.pop();
-        
     }
 }
