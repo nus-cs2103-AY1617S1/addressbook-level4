@@ -307,8 +307,8 @@ public class Parser {
     private Command prepareFind(String args) {
         String[] keywordArr = args.trim().split(" ",2);
         Optional<String> dataType = parseDataType(args);
-        
-        if (!dataType.isPresent()) {
+
+        if (!dataType.get().equals("todo") || !dataType.get().equals("event") || !dataType.get().equals("deadline")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }else {    
             return new FindCommand(keywordArr[1], keywordArr[0]);
