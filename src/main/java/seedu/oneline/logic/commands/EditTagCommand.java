@@ -16,6 +16,7 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap;
 import seedu.oneline.model.tag.TagField;
 import seedu.oneline.model.task.*;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
@@ -61,16 +62,8 @@ public class EditTagCommand extends EditCommand {
 
     @Override
     public CommandResult execute() {
+        String name = this.name; // Mutability
         List<String> results = new ArrayList<String>();
-        if (fields.containsKey(TagField.COLOR)) {
-            try {
-                TagColor color = new TagColor(fields.get(TagField.COLOR));
-                model.setTagColor(Tag.getTag(name), color);
-                results.add(String.format("color updated to " + color.toString()));
-            } catch (Exception e) {
-                assert false;
-            }
-        }
         if (fields.containsKey(TagField.NAME)) {
             String newName = fields.get(TagField.NAME);
             Tag oldTag = null;
@@ -96,7 +89,20 @@ public class EditTagCommand extends EditCommand {
                     }
                 }
             }
+            TagColor color = model.getTagColor(oldTag);
+            model.setTagColor(oldTag, TagColor.getDefault());
+            model.setTagColor(newTag, color);
+            name = newName;
             results.add("renamed to " + newTag.getTagName());
+        }
+        if (fields.containsKey(TagField.COLOR)) {
+            try {
+                TagColor color = new TagColor(fields.get(TagField.COLOR));
+                model.setTagColor(Tag.getTag(name), color);
+                results.add(String.format("color updated to " + color.toString()));
+            } catch (Exception e) {
+                assert false;
+            }
         }
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(MESSAGE_SUCCESS, name));

@@ -2,6 +2,7 @@ package seedu.oneline.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -10,14 +11,22 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.LogsCenter;
+import seedu.oneline.commons.core.UnmodifiableObservableList;
+import seedu.oneline.commons.events.model.TaskBookChangedEvent;
+import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
 import seedu.oneline.commons.events.ui.TagPanelSelectionChangedEvent;
+import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap;
 
+import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 //@@author A0142605N
 
@@ -58,6 +67,7 @@ public class TagListPanel extends UiPart {
         TagListPanel tagListPanel =
                 UiPartLoader.loadUiPart(primaryStage, tagListPlaceholder, new TagListPanel());
         tagListPanel.configure(tagList, colorMap);
+        tagListPanel.initEventsCenter();
         return tagListPanel;
     }
 
@@ -110,5 +120,17 @@ public class TagListPanel extends UiPart {
                 setGraphic(TagCard.load(tag, colorMap.getTagColor(tag)).getLayout());
             }
         }
+    }
+    
+    private void initEventsCenter() {
+        EventsCenter.getInstance().registerHandler(this);
+    }
+    
+    @Subscribe
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
+        System.out.println("I hear you");
+        ObservableList<Tag> tagList = new UnmodifiableObservableList<Tag>(new FilteredList<Tag>((ObservableList<Tag>) event.data.getUniqueTagList().getInternalList()));
+        TagColorMap colorMap = event.data.getTagColorMap();
+        configure(tagList, colorMap);
     }
 }
