@@ -472,8 +472,8 @@ Guarantees:
 5. Should not lose task/event details in the event that the App crashes.
 6. Should have fast response time, results added and retrieved in less than a second.
 7. Should not have bugs that interfere with the functionalities of the device.
-8. There should be back up of documentations and code.
-9. Should store data in encrypted form as a form of data security.
+8. Should have back up of task data.
+9. Should work without requiring internet connectivity.
 10. Should not require an installer to run the application.
 
 More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
