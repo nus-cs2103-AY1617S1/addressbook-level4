@@ -50,7 +50,7 @@ Role: Editor <br>
 	* [find](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#find-a-task--find)
 	* [setpath](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#select-a-task--setpath)
 	* [Unmark] ()
-* Code written: [[functional code](../collated/main/A0138969L.md)][[test code](../collated/test/A0138969L.md)][[docs](../collated/docs/A0138969L.md)]
+* Code written: [[functional code](../collated/main/A0138696L.md)][[test code](../collated/test/A0138696L.md)][[docs](../collated/docs/A0138696L.md)]
 * Other major contributions:
 	*
 	*
