@@ -46,15 +46,15 @@ public class TaskFilter {
 	}
 	
 	public static Predicate<Task> isDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.StatusType.DONE);
 	}
 	
 	public static Predicate<Task> isNotDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.PENDING);
+		return p -> p.getStatus().value.equals(Status.StatusType.PENDING);
 	}
 
 	public static Predicate<Task> isOverdue() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.OVERDUE);
+		return p -> p.getStatus().value.equals(Status.StatusType.OVERDUE);
 	}
 	
 	public static Predicate<Task> isDeadlineTask() {

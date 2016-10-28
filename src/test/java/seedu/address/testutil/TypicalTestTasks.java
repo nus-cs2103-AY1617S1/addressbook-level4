@@ -23,15 +23,15 @@ public class TypicalTestTasks {
             deadline1 =  new TaskBuilder().withName("hw 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.of(2012, 1, 2, 3, 4)).build();
             deadline2 =  new TaskBuilder().withName("hw 3").withStatus("overdue").withTaskType("deadline").withEndDate(LocalDateTime.of(2014, 1, 2, 3, 4)).build();
             deadlineToday =  new TaskBuilder().withName("lab 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
-            deadlineTomorrow = new TaskBuilder().withName("lab 3").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
-            deadlineIn7Days = new TaskBuilder().withName("lab 4").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(4)).build();
-            deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();
+            deadlineTomorrow = new TaskBuilder().withName("lab 3").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
+            deadlineIn7Days = new TaskBuilder().withName("lab 4").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(5)).build();
+            deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();
             event1 =  new TaskBuilder().withName("hw 4").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.of(2013, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2013, 2, 3, 4, 6)).build();
             event2 =  new TaskBuilder().withName("hw 5").withStatus("overdue").withTaskType("event").withStartDate(LocalDateTime.of(2014, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2014, 2, 3, 4, 6)).build();
-            eventIn7Days =  new TaskBuilder().withName("lab 6").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
-            eventTomorrow =  new TaskBuilder().withName("lab 7").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
-            eventToday =  new TaskBuilder().withName("hw 6").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.now()).withEndDate(LocalDateTime.now().plusDays(2)).build();
-            eventIn30Days =  new TaskBuilder().withName("hw 7").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(20)).withEndDate(LocalDateTime.now().plusDays(22)).build();
+            eventToday = new TaskBuilder().withName("attend meeting").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().withHour(23)).withEndDate(LocalDateTime.now().plusDays(1)).build();
+            eventIn7Days =  new TaskBuilder().withName("lab 6").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
+            eventTomorrow =  new TaskBuilder().withName("lab 7").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
+            eventIn30Days =  new TaskBuilder().withName("hw 7").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(20)).withEndDate(LocalDateTime.now().plusDays(22)).build();
 
             //Manually added
             deadlineTodayAdd =  new TaskBuilder().withName("report 1").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
@@ -77,8 +77,14 @@ public class TypicalTestTasks {
         return new TestTask[]{someday1, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, someday2, deadline1, deadline2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, event1, event2};
     }
     
+    //@@author A0141019U
+    public TestTask[] getSortedTypicalTasks() {
+    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, eventIn30Days, someday2, deadline1, event1, deadlineToday, someday1};
+    }
+    
+    //@@author
     public TestTask[] getTodayTasks() {
-        return new TestTask[] {deadlineToday, eventToday};
+        return new TestTask[] {eventToday, deadlineToday};
     }
     
     public TestTask[] getTomorrowTasks() {
@@ -86,7 +92,7 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getIn7DaysTasks() {
-        return new TestTask[] {deadlineIn7Days, eventIn7Days};
+        return new TestTask[] {eventIn7Days, deadlineIn7Days};
     }
     
     public TestTask[] getIn30DaysTasks() {
@@ -94,9 +100,33 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getSomedayTasks() {
-        return new TestTask[] {someday1, someday2};
+        return new TestTask[] {someday2, someday1};
     }
-
+    
+    public TestTask[] getDeadlineTasks() {
+        return new TestTask[] {deadline2, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, deadline1, deadlineToday};
+    }
+    
+    public TestTask[] getEventTasks() {
+        return new TestTask[] {event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, event1};
+    }
+    
+    public TestTask[] getDoneTasks() {
+        return new TestTask[] {deadline1, event1, deadlineToday, someday1};
+    }
+    
+    public TestTask[] getNotDoneTasks() {
+        return new TestTask[] {eventToday, deadlineTomorrow, eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, eventIn30Days, someday2};
+    }
+    
+    public TestTask[] getOverdueTasks() {
+    	return new TestTask[] {deadline2, event2};
+    }
+    
+    public TestTask[] getDoneAndDeadlineTasks() {
+        return new TestTask[] {deadline1, deadlineToday};
+    }
+    
     public TaskManager getTypicalTaskManager(){
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);

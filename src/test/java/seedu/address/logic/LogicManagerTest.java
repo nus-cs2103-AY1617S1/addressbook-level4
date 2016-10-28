@@ -113,7 +113,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getFilteredTaskList().sorted());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskManager, model.getTaskManager());
@@ -338,6 +338,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        Collections.sort(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -356,6 +357,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
+        Collections.sort(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 

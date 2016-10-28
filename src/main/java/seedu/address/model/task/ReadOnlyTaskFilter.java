@@ -45,15 +45,15 @@ public class ReadOnlyTaskFilter {
 	}
 	
 	public static Predicate<ReadOnlyTask> isDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.StatusType.DONE);
 	}
 	
 	public static Predicate<ReadOnlyTask> isNotDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.PENDING);
+		return p -> p.getStatus().value.equals(Status.StatusType.PENDING);
 	}
 	
 	public static Predicate<ReadOnlyTask> isOverdue() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.OVERDUE);
+		return p -> p.getStatus().value.equals(Status.StatusType.OVERDUE);
 	}
 
 	public static Predicate<ReadOnlyTask> isDeadlineTask() {

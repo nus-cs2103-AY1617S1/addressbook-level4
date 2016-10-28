@@ -33,7 +33,7 @@ public class SomedayTaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getTaskName().equals(task.getName().fullName)
+        return getTaskName().equals(task.getName().value)
                 && getTaskType().equals(task.getTaskType().toString());
     }
 
