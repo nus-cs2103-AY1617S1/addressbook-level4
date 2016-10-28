@@ -63,7 +63,7 @@ public class DateParser {
 			if (matcher.matches()) {
 				Optional<String> dayOpt = Optional.ofNullable(matcher.group("day"));
 				System.out.println(dayOpt);
-				String dayWord = dayOpt.orElse("today").trim();
+				String dayWord = dayOpt.orElse("today");
 				LocalDateTime dayMonthYear = parseDayWord(dayWord);
 				
 				Optional<String> meridiemOpt = Optional.ofNullable(matcher.group("meridiem"));
@@ -109,6 +109,8 @@ public class DateParser {
 	
 
 	private static int parseYear(String yearString) {
+		yearString = yearString.trim();
+		
 		int year;
 		if (yearString.length() == 2) {
 			year = 2000 + Integer.parseInt(yearString);
@@ -120,9 +122,11 @@ public class DateParser {
 		return year;
 	}
 
-	private static int parseMonth(String wordMonth) throws ParseException {
+	private static int parseMonth(String monthString) throws ParseException {
+		monthString = monthString.trim();
+		
 		try {
-			int month = Integer.parseInt(wordMonth);
+			int month = Integer.parseInt(monthString);
 
 			if (month < 1 || month > 12) {
 				throw new ParseException("Month is not within valid bounds 1 - 12 inclusive", -1);
@@ -133,7 +137,7 @@ public class DateParser {
 		}
 		catch (NumberFormatException e) {
 
-			switch (wordMonth.toLowerCase()) {
+			switch (monthString.toLowerCase()) {
 			case "jan":
 				return 1;
 			case "feb":
@@ -166,6 +170,8 @@ public class DateParser {
 	}
 	
 	private static LocalDateTime parseDayWord(String dayString) throws ParseException {
+		dayString = dayString.trim();
+		
 		LocalDateTime now = LocalDateTime.now();
 		
 		switch (dayString.toLowerCase()) {
@@ -204,6 +210,8 @@ public class DateParser {
 	}
 
 	private static int parseDayNumber(String dayString) throws ParseException {
+		dayString = dayString.trim();
+		
 		int day = Integer.parseInt(dayString);
 
 		if (day < 1 || day > 31) {
@@ -215,6 +223,9 @@ public class DateParser {
 	}
 
 	private static int parseHour(String hour12, String meridiem) throws ParseException {
+		hour12 = hour12.trim();
+		meridiem = meridiem.trim();
+		
 		meridiem = meridiem.toLowerCase();
 		int hour;
 		
@@ -237,6 +248,8 @@ public class DateParser {
 	}
 
 	private static int parseMinute(String minuteString) throws ParseException {
+		minuteString = minuteString.trim();
+		
 		int minute = Integer.parseInt(minuteString);
 
 		if (minute < 0 || minute > 60) {
