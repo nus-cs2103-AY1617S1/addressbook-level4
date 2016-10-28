@@ -84,6 +84,7 @@ public class TagListPanel extends UiPart {
     }
 
     private void addToPlaceholder() {
+        placeHolderPane.getChildren().clear();
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }

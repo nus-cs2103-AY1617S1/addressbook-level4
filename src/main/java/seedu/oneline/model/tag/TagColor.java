@@ -5,7 +5,7 @@ import seedu.oneline.model.task.TaskName;
 
 public class TagColor {
 
-    public static final String EMPTY_COLOR_VALUE = "No color";
+    public static final String EMPTY_COLOR_VALUE = "";
     
     private String value;
     
