@@ -5,9 +5,12 @@ package seedu.forgetmenot.model.task;
  * @@author A0139671X
  */
 public class Recurrence {
+
+    public static final int DEFAULT_OCCURENCE = 10;
     
     private boolean value;
     public String days;
+    public int occurences;
     
     public Recurrence (String numOfDays) {
         if (numOfDays.equals("")) {

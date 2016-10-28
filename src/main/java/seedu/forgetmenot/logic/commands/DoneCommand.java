@@ -44,20 +44,14 @@ public class DoneCommand extends Command {
         try {
             model.saveToHistory();
             model.doneTask(taskToMark);
-            if (taskToMark.getRecurrence().getValue()) {
-                model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
-            }
+//            if (taskToMark.getRecurrence().getValue()) {
+//                model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
+//            }
             model.updateFilteredTaskListToShowNotDone();
             
             
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } catch (DuplicateTaskException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
 
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));

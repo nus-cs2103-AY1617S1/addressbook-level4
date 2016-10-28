@@ -64,10 +64,16 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.saveToHistory();
+            if (toAdd.getRecurrence().getValue())
+                model.addRecurringTask(toAdd);
             model.addTask(toAdd);
             model.updateFilteredTaskListToShowNotDone();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+            System.out.println("wow");
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (IllegalValueException e) {
+            System.out.println("hello");
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }

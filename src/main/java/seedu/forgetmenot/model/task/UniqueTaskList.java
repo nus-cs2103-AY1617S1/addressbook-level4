@@ -127,7 +127,6 @@ public class UniqueTaskList implements Iterable<Task> {
     				}
     				
     				if(!end1IsMissing) {
-    					System.out.println("9");
     					return end1.time.compareTo(start2.time);
     				}
     				else {
@@ -148,9 +147,11 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
+//        if (contains(toAdd)) {
+//            throw new DuplicateTaskException();
+//        }
+        System.out.println(toAdd.getStartTime().easyReadDateFormatForUI());
+        System.out.println(toAdd.getEndTime().easyReadDateFormatForUI());
         internalList.add(toAdd);
     }
 

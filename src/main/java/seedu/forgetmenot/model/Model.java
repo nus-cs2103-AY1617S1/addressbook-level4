@@ -29,7 +29,7 @@ public interface Model {
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
  
     /** Adds the given recurring task again with the correct date and time*/
-    void addRecurringTask(ReadOnlyTask taskToMark, String recurringDays) throws DuplicateTaskException, IllegalValueException;
+    void addRecurringTask(ReadOnlyTask taskToMark) throws DuplicateTaskException, IllegalValueException;
     
     /** Edits the given task */
     void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;
