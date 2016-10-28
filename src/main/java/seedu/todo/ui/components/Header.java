@@ -3,12 +3,12 @@ package seedu.todo.ui.components;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.ui.UiPartLoader;
 
+/**
+ * @@author A0139812A
+ */
 public class Header extends Component {
 
     private static final String LOGO_IMAGE_PATH = "/images/logo-64x64.png";
@@ -26,10 +26,6 @@ public class Header extends Component {
     private Text headerVersionText;
     @FXML
     private ImageView headerLogoImageView;
-
-    public static Header load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new Header());
-    }
 
     @Override
     public String getFxmlPath() {

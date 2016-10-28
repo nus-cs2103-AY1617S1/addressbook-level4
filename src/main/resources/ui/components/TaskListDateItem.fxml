@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox styleClass="tasklist-dateitem" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+<!-- @@author A0139812A -->
+<VBox id="taskListDateItem" fx:id="taskListDateItem" styleClass="tasklist-dateitem" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
   xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
   fx:controller="seedu.todo.ui.components.TaskListDateItem">
   <children>

@@ -5,12 +5,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.InputHandler;
-import seedu.todo.ui.UiPartLoader;
 
+/**
+ * @@author A0139812A
+ */
 public class Console extends Component {
 
     private static final String FXML_PATH = "components/Console.fxml";
@@ -31,10 +31,6 @@ public class Console extends Component {
     @FXML
     private TextArea consoleTextArea;
 
-
-    public static Console load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new Console());
-    }
 
     @Override
     public String getFxmlPath() {

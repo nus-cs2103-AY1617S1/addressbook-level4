@@ -9,8 +9,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to mark a task as completed.
  * 
- * @author louietyj
- *
+ * @@author A0139812A
  */
 public class CompleteTaskController implements Controller {
     

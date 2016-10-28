@@ -5,12 +5,15 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.controllers.CommandDefinition;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.HelpCommandItem;
 
+/**
+ * Help View, which shows all the commands available.
+ * 
+ * @@author A0139812A
+ */
 public class HelpView extends View {
 
     private static final String FXML_PATH = "views/HelpView.fxml";
@@ -21,10 +24,6 @@ public class HelpView extends View {
     // FXML
     @FXML
     private Pane helpCommandsPlaceholder;
-    
-    public static HelpView load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new HelpView());
-    }
 
     @Override
     public String getFxmlPath() {
@@ -41,7 +40,7 @@ public class HelpView extends View {
         
         // Load help commands
         for (CommandDefinition command : commandDefinitions) {
-            HelpCommandItem item = HelpCommandItem.load(primaryStage, helpCommandsPlaceholder);
+            HelpCommandItem item = load(primaryStage, helpCommandsPlaceholder, HelpCommandItem.class);
             item.commandName = command.getCommandName();
             item.commandDescription = command.getCommandDescription();
             item.commandSyntax = command.getCommandSyntax();

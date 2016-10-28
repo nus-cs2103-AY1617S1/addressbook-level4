@@ -72,6 +72,15 @@ public class FileUtil {
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
+    
+    /**
+     * Remove file if it exists.
+     */
+    public static void removeFile(File file) throws IOException {
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 
     /**
      * Converts a string to a platform-specific file path

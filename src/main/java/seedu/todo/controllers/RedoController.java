@@ -3,7 +3,7 @@ package seedu.todo.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import seedu.todo.commons.exceptions.UnmatchedQuotesException;
+import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
@@ -13,8 +13,7 @@ import seedu.todo.ui.UiManager;
 /**
  * Controller to redo a database commit.
  * 
- * @author louietyj
- *
+ * @@author A0093907W
  */
 public class RedoController implements Controller {
     
@@ -41,15 +40,10 @@ public class RedoController implements Controller {
     }
 
     @Override
-    public void process(String input) {
+    public void process(String input) throws ParseException {
         
         Map<String, String[]> parsedResult;
-        try {
-            parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);            
-        } catch (UnmatchedQuotesException e) {
-            System.out.println("Unmatched quote!");
-            return;
-        }
+        parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
         
         int numRedo = 1;
         if (parsedResult.get("default")[1] != null) {

@@ -9,8 +9,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to mark a task as uncompleted.
  * 
- * @author louietyj
- *
+ * @@author A0139812A
  */
 public class UncompleteTaskController implements Controller {
     

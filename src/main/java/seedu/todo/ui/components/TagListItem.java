@@ -1,13 +1,13 @@
 package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seedu.todo.ui.UiPartLoader;
 
+/**
+ * @@author A0139812A
+ */
 public class TagListItem extends MultiComponent {
 
     private static final String FXML_PATH = "components/TagListItem.fxml";
@@ -21,10 +21,6 @@ public class TagListItem extends MultiComponent {
     private Text labelText;
     @FXML
     private Circle labelBullet;
-
-    public static TagListItem load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TagListItem());
-    }
 
     @Override
     public String getFxmlPath() {

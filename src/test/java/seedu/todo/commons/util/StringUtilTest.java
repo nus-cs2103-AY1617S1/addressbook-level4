@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.todo.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,5 +50,32 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
-
+    @Test
+    public void test_pluralizer_singular() {
+        String singular = "apple";
+        String plural = "apples";
+        assertEquals(StringUtil.pluralizer(1, singular, plural), singular);
+    }
+    
+    @Test
+    public void test_pluralizer_plural() {
+        String singular = "apple";
+        String plural = "apples";
+        assertEquals(StringUtil.pluralizer(0, singular, plural), plural);
+        assertEquals(StringUtil.pluralizer(2, singular, plural), plural);
+    }
+    
+    @Test
+    public void test_replacenull_no_replace() {
+        String first = "firstString";
+        String last = "lastString";
+        assertEquals(StringUtil.replaceEmpty(first, last), first);
+    }
+    
+    @Test
+    public void test_replacenull_replace() {
+        String first = null;
+        String last = "lastString";
+        assertEquals(StringUtil.replaceEmpty(first, last), last);
+    }
 }

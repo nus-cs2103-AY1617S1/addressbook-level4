@@ -11,6 +11,13 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 
+/**
+ * Controller to configure app settings.
+ * Has side effects, since it has to perform
+ * updates on the UI or file sources on update.
+ * 
+ * @@author A0139812A
+ */
 public class ConfigController implements Controller {
 
     private static final String NAME = "Configure";

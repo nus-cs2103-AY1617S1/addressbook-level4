@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
-import seedu.todo.ui.UiPartLoader;
 
+/**
+ * @@author A0139812A
+ */
 public class TaskList extends Component {
     
     public static final LocalDateTime NO_DATE_VALUE = LocalDateTime.MIN;
@@ -42,10 +42,6 @@ public class TaskList extends Component {
     @Override
     public void componentDidMount() {
         loadTasks();
-    }
-
-    public static TaskList load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskList());
     }
 
     private void loadTasks() {
@@ -73,7 +69,7 @@ public class TaskList extends Component {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
             List<Event> eventsForDate = eventsByDate.get(dateTime);
             
-            TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
+            TaskListDateItem item = load(primaryStage, taskListDateItemsPlaceholder, TaskListDateItem.class);
             item.dateTime = dateTime;
             
             if (tasksForDate != null) {
