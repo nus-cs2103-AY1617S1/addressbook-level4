@@ -68,8 +68,8 @@ public class Deadline implements ReadOnlyDeadline{
         return completed;
     }
 
-    public void setCompleted() {
-        this.completed = true;
+    public void setCompleted(boolean complete) {
+        this.completed = complete;
     }
 
     public boolean isMarked() {

@@ -7,35 +7,12 @@ import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
 
-import seedu.malitio.model.task.DateTime;
-import seedu.malitio.model.task.Deadline;
-import seedu.malitio.model.task.Event;
-import seedu.malitio.model.task.FloatingTask;
-import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
-import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
-import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
-import seedu.malitio.model.history.InputAddHistory;
-import seedu.malitio.model.history.InputClearHistory;
-import seedu.malitio.model.history.InputDeleteHistory;
-import seedu.malitio.model.history.InputEditHistory;
-import seedu.malitio.model.history.InputHistory;
-import seedu.malitio.model.history.InputMarkHistory;
+import seedu.malitio.model.task.*;
+import seedu.malitio.model.task.UniqueDeadlineList.*;
+import seedu.malitio.model.task.UniqueEventList.*;
+import seedu.malitio.model.task.UniqueFloatingTaskList.*;
+import seedu.malitio.model.history.*;
 
-import java.util.LinkedList;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -194,8 +171,22 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
-		malitio.completeDeadline(deadlineToEdit);
+	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
+		malitio.completeDeadline(deadlineToComplete);
+		updateFilteredDeadlineListToShowAll();
+        indicateMalitioChanged();
+	}
+	
+	@Override
+	public void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
+		malitio.uncompleteTask(taskToUncomplete);
+		updateFilteredTaskListToShowAll();
+        indicateMalitioChanged();
+	}
+	
+	@Override
+	public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
+		malitio.uncompleteDeadline(deadlineToUncomplete);
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
 	}

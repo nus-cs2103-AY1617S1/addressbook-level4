@@ -4,9 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 import java.util.*;
 
@@ -37,6 +34,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     public static class FloatingTaskNotFoundException extends Exception {}
     
     public static class FloatingTaskCompletedException extends Exception {}
+    
+    public static class FloatingTaskUncompletedException extends Exception {}
     
     public static class FloatingTaskMarkedException extends Exception {}
     
@@ -117,6 +116,14 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         internalList.add(indexToReplace, edited);
     }
     
+    //@@author A0122460W
+    /**
+     * Completes the task in the list.
+     *
+     * @throws FloatingTaskCompletedException if the task to add is a duplicate of an existing task in the list.
+     * @throws FloatingTaskNotFoundException if the deadline is already marked.
+     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     */
     public void complete(ReadOnlyFloatingTask toComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         assert toComplete != null;
         if (toComplete.getCompleted()) {
@@ -126,10 +133,31 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         if (!contains(toComplete)) {
             throw new FloatingTaskNotFoundException();
         }
-        toComplete.setCompleted();
+        toComplete.setCompleted(true);
         updateFloatingTaskList(toComplete);
     }
     
+    /**
+     * Marks the task in the list.
+     *
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws FloatingTaskMarkedException if the deadline is already marked.
+     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     */
+    public void uncomplete(ReadOnlyFloatingTask toUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
+        assert toUncomplete != null;
+        if (!toUncomplete.getCompleted()) {
+            throw new FloatingTaskUncompletedException();
+        }
+        
+        if (!contains(toUncomplete)) {
+            throw new FloatingTaskNotFoundException();
+        }
+        toUncomplete.setCompleted(false);
+        updateFloatingTaskList(toUncomplete);
+    }
+    
+    //@@author 
     /**
      * Marks the task in the list.
      *

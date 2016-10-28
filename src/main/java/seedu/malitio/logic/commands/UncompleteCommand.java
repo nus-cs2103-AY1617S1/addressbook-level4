@@ -1,6 +1,5 @@
 package seedu.malitio.logic.commands;
 
-
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.exceptions.IllegalValueException;
@@ -14,32 +13,32 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
 
 //@@author A0122460W
 /**
- * Complete a floating task/ deadline identified using it's last displayed index from Malitio.
- * strikeout the completed floating task/ deadline
+ * Uncomplete a floating task/ deadline identified using it's last displayed index from Malitio.
+ * unstrikeout the completed floating task/ deadline
  * 
  */
-public class CompleteCommand extends Command{
+public class UncompleteCommand extends Command{
 
-    public static final String COMMAND_WORD = "complete";
+    public static final String COMMAND_WORD = "uncomplete";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": complete the task or deadline identified by the index number used in the last task listing.\n"
+            + ": uncomplete the task or deadline identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be either 'f'/'d' and a positive integer) "
             + "Example: " + COMMAND_WORD + " f1";
     
-    public static final String MESSAGE_COMPLETED_TASK = "The floating task is completed in Malitio";
+    public static final String MESSAGE_UNCOMPLETED_TASK = "The floating task is uncompleted in Malitio";
  
-    public static final String MESSAGE_COMPLETED_DEADLINE = "The deadline is completed in Malitio";
+    public static final String MESSAGE_UNCOMPLETED_DEADLINE = "The deadline is uncompleted in Malitio";
     
-    public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Successfully completed floating task.";
+    public static final String MESSAGE_UNCOMPLETED_TASK_SUCCESS = "Successfully uncomplete floating task.";
 
-    public static final String MESSAGE_COMPLETED_DEADLINE_SUCCESS = "Successfully completed deadline.";
+    public static final String MESSAGE_UNCOMPLETED_DEADLINE_SUCCESS = "Successfully uncomplete deadline.";
     
     private final char taskType;
     
     private final int targetIndex;
       
-    public CompleteCommand(char taskType, int targetIndex) throws IllegalValueException {
+    public UncompleteCommand(char taskType, int targetIndex) throws IllegalValueException {
         assert taskType == 'd' || taskType == 'f';
         this.taskType = taskType;
         this.targetIndex = targetIndex;
@@ -49,55 +48,55 @@ public class CompleteCommand extends Command{
     public CommandResult execute() {
         CommandResult result;
         if (taskType=='f') {
-            result = executeCompleteFloatingTask();
+            result = executeUncompleteFloatingTask();
             model.getFuture().clear();
             return result;
         }
         else {
-            result = executeCompleteDeadline();
+            result = executeUncompleteDeadline();
             model.getFuture().clear();
             return result;
         }
     }
     
-    private CommandResult executeCompleteFloatingTask() {
+    private CommandResult executeUncompleteFloatingTask() {
         UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyFloatingTask taskToComplete = lastShownList.get(targetIndex - 1);
+        ReadOnlyFloatingTask taskToUncomplete = lastShownList.get(targetIndex - 1);
                 
         try {
             assert model != null;
-            model.completeFloatingTask(taskToComplete);
+            model.uncompleteFloatingTask(taskToUncomplete);
         } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
-        } catch (UniqueFloatingTaskList.FloatingTaskCompletedException e) {
-            return new CommandResult(MESSAGE_COMPLETED_TASK);
+        } catch (UniqueFloatingTaskList.FloatingTaskUncompletedException e) {
+            return new CommandResult(MESSAGE_UNCOMPLETED_TASK);
         }
-        return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToComplete));
+        return new CommandResult(String.format(MESSAGE_UNCOMPLETED_TASK_SUCCESS, taskToUncomplete));
     }
     
-    private CommandResult executeCompleteDeadline() {
+    private CommandResult executeUncompleteDeadline() {
         UnmodifiableObservableList<ReadOnlyDeadline> lastShownList = model.getFilteredDeadlineList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX);
         }
 
-        ReadOnlyDeadline deadlineToComplete = lastShownList.get(targetIndex - 1);
+        ReadOnlyDeadline deadlineToUncomplete = lastShownList.get(targetIndex - 1);
                 
         try {
             assert model != null;
-            model.completeDeadline(deadlineToComplete);
+            model.uncompleteDeadline(deadlineToUncomplete);
         } catch (DeadlineNotFoundException pnfe) {
             assert false : "The target deadline cannot be missing";
-        } catch (UniqueDeadlineList.DeadlineCompletedException e) {
-            return new CommandResult(MESSAGE_COMPLETED_DEADLINE);
+        } catch (UniqueDeadlineList.DeadlineUncompletedException e) {
+            return new CommandResult(MESSAGE_UNCOMPLETED_DEADLINE);
         }
-        return new CommandResult(String.format(MESSAGE_COMPLETED_DEADLINE_SUCCESS, deadlineToComplete));
+        return new CommandResult(String.format(MESSAGE_UNCOMPLETED_DEADLINE_SUCCESS, deadlineToUncomplete));
     }
     
 }

@@ -37,6 +37,8 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     
     public static class DeadlineCompletedException extends Exception {}
     
+    public static class DeadlineUncompletedException extends Exception {}
+    
     public static class DeadlineMarkedException extends Exception {}
     
     public static class DeadlineUnmarkedException extends Exception {}
@@ -98,6 +100,13 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.add(edited);
     }
     
+    //@@author A0122460W
+    /**
+     * Complete the deadline in the list.
+     *
+     * @throws DeadlineNotFoundException if the deadline is not found.
+     * @throws DeadlineCompletedException if the deadline is already completed.
+     */
 	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
         assert deadlineToComplete!=null;
         
@@ -109,10 +118,32 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
             throw new DeadlineNotFoundException();
         }
         
-        deadlineToComplete.setCompleted();
+        deadlineToComplete.setCompleted(true);
         updateDeadlineList(deadlineToComplete);
 	}
 	
+	/**
+     * Uncomplete the deadline in the list.
+     *
+     * @throws DeadlineNotFoundException if the deadline is not found.
+     * @throws DeadlineUncompletedException if the deadline is already uncompleted.
+     */
+	public void uncomplete(ReadOnlyDeadline deadlineToComplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
+        assert deadlineToComplete!=null;
+        
+        if (!deadlineToComplete.getCompleted()) {
+        	throw new DeadlineUncompletedException();
+        }
+
+        if (!contains(deadlineToComplete)) {
+            throw new DeadlineNotFoundException();
+        }
+        
+        deadlineToComplete.setCompleted(false);
+        updateDeadlineList(deadlineToComplete);
+	}
+	
+	//@@author
 	/**
      * Marks the deadline in the list.
      *

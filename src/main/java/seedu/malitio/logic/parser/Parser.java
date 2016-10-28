@@ -3,14 +3,10 @@ package seedu.malitio.logic.parser;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.logic.commands.*;
-import seedu.malitio.model.task.Name;
 
 import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.malitio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,6 +69,9 @@ public class Parser {
 
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
+            
+        case UncompleteCommand.COMMAND_WORD:
+            return prepareUncomplete(arguments);
 
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
@@ -239,7 +238,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    //@@author A0122460W
     /**
      * Parses arguments in the context of the complete task command.
      *
@@ -265,7 +265,34 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    /**
+     * Parses arguments in the context of the uncomplete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUncomplete(String args) {
+        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UncompleteCommand.MESSAGE_USAGE));
+        }
+        try {
+            String index = parseIndex(matcher.group("targetIndex"));
+            if (index.isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UncompleteCommand.MESSAGE_USAGE));
+            }
+            char taskType = index.charAt(0);
+            int taskNum = Integer.parseInt(index.substring(1));
 
+            return new UncompleteCommand(taskType,taskNum);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    //@@author
     /**
      * Parses arguments in the context of the delete task command.
      *
