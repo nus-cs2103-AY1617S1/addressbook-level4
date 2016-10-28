@@ -80,8 +80,8 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         undoCommandTextStack.push(commandText);
         
         // run undo for all the commands until we get back original list and check no more undos after that
-        runUndo();        
-        runUndoUsingAccelerator();        
+        runUndo();
+        runUndoUsingAccelerator();
         runUndo();
         runUndoUsingAccelerator();
         assertNoMoreUndos();

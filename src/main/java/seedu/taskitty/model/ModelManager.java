@@ -151,10 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
    	@Override
     public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText) {
         undoHistory.storeCommandWord(DeleteCommand.COMMAND_WORD);
-        for (ReadOnlyTask deletedTask: deletedTasks) {
-            undoHistory.storeTask(deletedTask);
-        }
-        undoHistory.storeNumberOfTasks(deletedTasks.size());
+        undoHistory.storeListOfTasks(deletedTasks);
         undoHistory.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
         redoHistory.clear();
     }
@@ -162,10 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
    	@Override
     public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText) {
         undoHistory.storeCommandWord(DoneCommand.COMMAND_WORD);
-        for (ReadOnlyTask markedTask: markedTasks) {
-            undoHistory.storeTask(markedTask);
-        }
-        undoHistory.storeNumberOfTasks(markedTasks.size());
+        undoHistory.storeListOfTasks(markedTasks);
         undoHistory.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
         redoHistory.clear();
     }
@@ -416,20 +410,15 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void revertDeleteCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
             throws TaskNotFoundException, DuplicateTaskException {
-        int numberOfTasksDeleted = toGetInfo.getNumberOfTasks();
-        toStoreInfo.storeNumberOfTasks(numberOfTasksDeleted);
-        ReadOnlyTask taskDeleted;
+        List<ReadOnlyTask> listOfDeletedTasks = toGetInfo.getListOfTasks();
+        toStoreInfo.storeListOfTasks(listOfDeletedTasks);
         if (isRedo) {
-            for (int i = 0; i < numberOfTasksDeleted; i++) {
-                taskDeleted = toGetInfo.getTask();
+            for (ReadOnlyTask taskDeleted: listOfDeletedTasks) {
                 taskManager.removeTask(taskDeleted);
-                toStoreInfo.storeTask(taskDeleted);
             }
        } else {
-           for (int i = 0; i < numberOfTasksDeleted; i++) {
-               taskDeleted = toGetInfo.getTask();
+           for (ReadOnlyTask taskDeleted: listOfDeletedTasks) {
                taskManager.addTask((Task) taskDeleted);
-               toStoreInfo.storeTask(taskDeleted);
            }
        }
     }
@@ -471,20 +460,15 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void revertDoneCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
             throws DuplicateMarkAsDoneException, TaskNotFoundException {
-        int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
-        toStoreInfo.storeNumberOfTasks(numberOfTasksMarked);
-        ReadOnlyTask taskToRevertMark;
+        List<ReadOnlyTask> listOfTasksMarked = toGetInfo.getListOfTasks();
+        toStoreInfo.storeListOfTasks(listOfTasksMarked);
         if (isRedo) {
-            for (int i = 0; i < numberOfTasksMarked; i++) {
-                taskToRevertMark = toGetInfo.getTask();
+            for (ReadOnlyTask taskToRevertMark: listOfTasksMarked) {
                 taskManager.markTaskAsDoneTask(taskToRevertMark);
-                toStoreInfo.storeTask(taskToRevertMark);
             }
         } else {
-            for (int i = 0; i < numberOfTasksMarked; i++) {
-                taskToRevertMark = toGetInfo.getTask();
+            for (ReadOnlyTask taskToRevertMark: listOfTasksMarked) {
                 taskManager.unMarkTaskAsDoneTask(taskToRevertMark);
-                toStoreInfo.storeTask(taskToRevertMark);
             }    
         }
     }

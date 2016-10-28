@@ -1,5 +1,6 @@
 package seedu.taskitty.model;
 
+import java.util.List;
 import java.util.Stack;
 
 import seedu.taskitty.model.task.ReadOnlyTask;
@@ -13,14 +14,14 @@ public class CommandHistoryManager {
     private final Stack<String> historyCommandWords;
     private final Stack<String> historyCommandTexts;
     private final Stack<ReadOnlyTask> historyTasks;
-    private final Stack<Integer> historyNumberOfTasks;
+    private final Stack<List<ReadOnlyTask>> historyListOfTasks;
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     
     public CommandHistoryManager() {
         historyCommandWords = new Stack<String>();
         historyCommandTexts = new Stack<String>();
         historyTasks = new Stack<ReadOnlyTask>();
-        historyNumberOfTasks = new Stack<Integer>();
+        historyListOfTasks = new Stack<List<ReadOnlyTask>>();
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
     }
     
@@ -43,9 +44,9 @@ public class CommandHistoryManager {
         return historyTasks.pop();
     }       
     
-    public int getNumberOfTasks() {
-        assert !historyNumberOfTasks.isEmpty();
-        return historyNumberOfTasks.pop();
+    public List<ReadOnlyTask> getListOfTasks() {
+        assert !historyListOfTasks.isEmpty();
+        return historyListOfTasks.pop();
     }
     
     public ReadOnlyTaskManager getTaskManager() {
@@ -65,8 +66,8 @@ public class CommandHistoryManager {
         historyTasks.push(task);
     }
     
-    public void storeNumberOfTasks(int numberOfTask) {
-        historyNumberOfTasks.push(numberOfTask);
+    public void storeListOfTasks(List<ReadOnlyTask> listOfTasks) {
+        historyListOfTasks.push(listOfTasks);
     }
     
     public void storeTaskManager(ReadOnlyTaskManager taskManager) {
@@ -77,7 +78,7 @@ public class CommandHistoryManager {
         historyCommandWords.clear();
         historyCommandTexts.clear();
         historyTasks.clear();
-        historyNumberOfTasks.clear();
+        historyListOfTasks.clear();
         historyTaskManagers .clear();
     }
     
