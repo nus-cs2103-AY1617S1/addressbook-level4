@@ -10,7 +10,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    //@@author A0139860X
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
             "Default priority is normal, otherwise it should be high or low";
 
@@ -35,11 +34,15 @@ public class Priority {
         case "low":
             value = 1;
             break;
+        case "NOUPDATE":
+        	value = 4;
+        	break;
         default:
             value = 2;
             break;
         }
     }
+
 
     /**
      * Returns if a given string is a valid priority.
@@ -51,14 +54,16 @@ public class Priority {
                || test.equals("normal")
                || test.equals("NOUPDATE");
     }
-    
+
     public boolean isRankedHigher(Priority priority) {
         return value > priority.value;
     }
-    
+
     public boolean isRankedLower(Priority priority) {
         return value < priority.value;
     }
+
+    //@@author A0139860X
 
     @Override
     public String toString() {
@@ -67,6 +72,8 @@ public class Priority {
             return "low";
         case 3:
             return "high";
+        case 4:
+        	return "NOUPDATE";
         default:
             return "normal";
         }
