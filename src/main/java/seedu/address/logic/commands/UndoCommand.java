@@ -38,14 +38,14 @@ public class UndoCommand extends Command {
             Config config = saveToResetTo.getSaveStateConfig();
             model.setConfig(config);
             
-            System.out.println(config.getAddressBookFilePath());
+     //       System.out.println(config.getAddressBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-                System.out.println("This is supposed to print");
+               // System.out.println("This is supposed to print");
             } catch (IOException e) {
-                System.out.println("oops i did it again");
+               // System.out.println("oops i did it again");
             }
-            System.out.println(config.getAddressBookFilePath());
+         //   System.out.println(config.getAddressBookFilePath());
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
             model.getRedoStack().push(saveToBeAdded);
         }
