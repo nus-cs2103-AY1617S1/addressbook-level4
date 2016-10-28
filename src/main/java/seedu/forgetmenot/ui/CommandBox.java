@@ -1,5 +1,7 @@
 package seedu.forgetmenot.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.event.EventHandler;
@@ -15,7 +17,7 @@ import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.forgetmenot.commons.util.FxViewUtil;
 import seedu.forgetmenot.logic.Logic;
-import seedu.forgetmenot.logic.commands.*;
+import seedu.forgetmenot.logic.commands.CommandResult;
 
 import java.util.Stack;
 import java.util.logging.Logger;

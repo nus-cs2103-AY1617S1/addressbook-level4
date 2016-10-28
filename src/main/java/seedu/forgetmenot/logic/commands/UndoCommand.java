@@ -13,8 +13,8 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the most recent command in ForgetMeNot. "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Command undone!";
-    public static final String MESSAGE_UNDO_INVALID = "There were no recent commands to be undone.";
+    public static final String MESSAGE_SUCCESS = "Your recent command was undone!";
+    public static final String MESSAGE_UNDO_INVALID = "There were no recent commands to be undone. ";
     
     @Override
     public CommandResult execute() {

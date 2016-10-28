@@ -1,35 +1,55 @@
 package seedu.forgetmenot.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
-import seedu.forgetmenot.commons.core.EventsCenter;
-import seedu.forgetmenot.commons.core.Messages;
-import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
-import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
-import seedu.forgetmenot.commons.events.ui.ShowHelpRequestEvent;
-import seedu.forgetmenot.logic.Logic;
-import seedu.forgetmenot.logic.LogicManager;
-import seedu.forgetmenot.logic.commands.*;
-import seedu.forgetmenot.model.Model;
-import seedu.forgetmenot.model.ModelManager;
-import seedu.forgetmenot.model.ReadOnlyTaskManager;
-import seedu.forgetmenot.model.TaskManager;
-import seedu.forgetmenot.model.task.*;
-import seedu.forgetmenot.storage.StorageManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.forgetmenot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.forgetmenot.commons.core.Messages.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.core.Messages;
+import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
+import seedu.forgetmenot.commons.events.ui.ShowHelpRequestEvent;
+import seedu.forgetmenot.logic.commands.AddCommand;
+import seedu.forgetmenot.logic.commands.ClearCommand;
+import seedu.forgetmenot.logic.commands.Command;
+import seedu.forgetmenot.logic.commands.CommandResult;
+import seedu.forgetmenot.logic.commands.DeleteCommand;
+import seedu.forgetmenot.logic.commands.DoneCommand;
+import seedu.forgetmenot.logic.commands.EditCommand;
+import seedu.forgetmenot.logic.commands.ExitCommand;
+import seedu.forgetmenot.logic.commands.FindCommand;
+import seedu.forgetmenot.logic.commands.HelpCommand;
+import seedu.forgetmenot.logic.commands.SelectCommand;
+import seedu.forgetmenot.logic.commands.ShowAllCommand;
+import seedu.forgetmenot.logic.commands.ShowCommand;
+import seedu.forgetmenot.logic.commands.ShowDateCommand;
+import seedu.forgetmenot.logic.commands.UndoCommand;
+import seedu.forgetmenot.model.Model;
+import seedu.forgetmenot.model.ModelManager;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.storage.StorageManager;
 
 public class LogicManagerTest {
 

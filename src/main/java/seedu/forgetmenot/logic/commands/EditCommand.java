@@ -1,14 +1,9 @@
 package seedu.forgetmenot.logic.commands;
 
-import java.util.function.Predicate;
-
-import org.apache.commons.lang.ObjectUtils.Null;
-
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -27,7 +22,7 @@ public class EditCommand extends Command {
             + " 1 name oranges";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "You've successfully editted the task!\n"
             + "Editted Task: %1$s";
-    public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Invalid edit details";
+    public static final String MESSAGE_EDIT_TASK_NOT_SUCCESSFUL = "Sorry! The edit details are invalid. Please try again.";
     
     private int targetIndex;
     private String newName;

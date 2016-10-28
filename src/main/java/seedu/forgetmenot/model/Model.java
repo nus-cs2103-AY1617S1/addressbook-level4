@@ -1,5 +1,7 @@
 package seedu.forgetmenot.model;
 
+import java.util.Set;
+
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
@@ -7,9 +9,6 @@ import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.UniqueTaskList;
 import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Set;
-import java.util.function.Predicate;
 
 /**
  * The API of the Model component.
@@ -53,21 +52,21 @@ public interface Model {
     /** Clears the contents of the undo and redo collections from the task manager*/
     void clearHistory();
 
+    /** Clears all the done tasks in the list
+     * @throws TaskNotFoundException */
+    void clearDone() throws TaskNotFoundException;
+
+    /**  Sorts all the tasks in the list according to date with floating tasks below */
+    void sortTasks();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
-
+    
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-    
-    /** Clears all the done tasks in the list
-     * @throws TaskNotFoundException */
-    void clearDone() throws TaskNotFoundException;
-    
-    //@@author A0147619W
-    void sortTasks();
     
     /** Updates the filter of the filtered task list to show done tasks */
 	void updateFilteredTaskListToShowDone();

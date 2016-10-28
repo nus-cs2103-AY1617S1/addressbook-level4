@@ -1,10 +1,10 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-
-import static org.junit.Assert.assertEquals;
 
 public class SelectCommandTest extends TaskManagerGuiTest {
 
@@ -36,7 +36,7 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The task index provided is invalid");
+        assertResultMessage("Sorry! The task index provided is invalid.");
     }
 
     private void assertSelectionSuccess(int index) {

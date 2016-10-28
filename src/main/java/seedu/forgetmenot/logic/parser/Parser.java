@@ -1,17 +1,41 @@
 package seedu.forgetmenot.logic.parser;
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.commons.util.StringUtil;
-import seedu.forgetmenot.logic.commands.*;
-
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.StringUtil;
+import seedu.forgetmenot.logic.commands.AddCommand;
+import seedu.forgetmenot.logic.commands.ClearCommand;
+import seedu.forgetmenot.logic.commands.ClearDoneCommand;
+import seedu.forgetmenot.logic.commands.Command;
+import seedu.forgetmenot.logic.commands.DeleteCommand;
+import seedu.forgetmenot.logic.commands.DoneCommand;
+import seedu.forgetmenot.logic.commands.EditCommand;
+import seedu.forgetmenot.logic.commands.ExitCommand;
+import seedu.forgetmenot.logic.commands.FindCommand;
+import seedu.forgetmenot.logic.commands.HelpCommand;
+import seedu.forgetmenot.logic.commands.IncorrectCommand;
+import seedu.forgetmenot.logic.commands.RedoCommand;
+import seedu.forgetmenot.logic.commands.SelectCommand;
+import seedu.forgetmenot.logic.commands.SetStorageCommand;
+import seedu.forgetmenot.logic.commands.ShowAllCommand;
+import seedu.forgetmenot.logic.commands.ShowCommand;
+import seedu.forgetmenot.logic.commands.ShowDateCommand;
+import seedu.forgetmenot.logic.commands.ShowDoneCommand;
+import seedu.forgetmenot.logic.commands.ShowOverdueCommand;
+import seedu.forgetmenot.logic.commands.UndoCommand;
+import seedu.forgetmenot.logic.commands.UndoneCommand;
 
 /**
  * Parses user input.

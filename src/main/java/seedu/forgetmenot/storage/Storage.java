@@ -1,14 +1,13 @@
 package seedu.forgetmenot.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.commons.events.storage.DataSavingExceptionEvent;
 import seedu.forgetmenot.commons.exceptions.DataConversionException;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
 import seedu.forgetmenot.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
 
 /**
  * API of the Storage component

@@ -1,16 +1,15 @@
 package seedu.forgetmenot;
 
+import java.util.function.Supplier;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.forgetmenot.MainApp;
 import seedu.forgetmenot.commons.core.Config;
 import seedu.forgetmenot.commons.core.GuiSettings;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
 import seedu.forgetmenot.model.UserPrefs;
 import seedu.forgetmenot.storage.XmlSerializableTaskManager;
 import seedu.forgetmenot.testutil.TestUtil;
-
-import java.util.function.Supplier;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for

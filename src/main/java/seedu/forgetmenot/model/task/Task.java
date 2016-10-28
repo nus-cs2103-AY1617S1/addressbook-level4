@@ -1,10 +1,10 @@
 package seedu.forgetmenot.model.task;
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.commons.util.CollectionUtil;
-
 import java.util.Calendar;
 import java.util.Objects;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.commons.util.CollectionUtil;
 
 /**
  * Represents a Task in ForgetMeNot.
@@ -96,10 +96,25 @@ public class Task implements ReadOnlyTask {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, done, start, end);
     }
-
+    
+    //@@author A0139671X
     @Override
     public String toString() {
-        return getAsText();
+        final StringBuilder builder = new StringBuilder();
+        
+        builder.append(getName());
+        builder.append(System.lineSeparator());
+        
+        if (!getStartTime().isMissing())
+            builder.append("Start: " + getStartTime().easyReadDateFormatForUI());
+        
+        if (!getEndTime().isMissing())
+            builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
+        
+        if (getRecurrence().getValue())
+            builder.append(" Recurrence: Every " + getRecurrence());
+        
+        return builder.toString();
     }
     
     /**

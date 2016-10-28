@@ -1,7 +1,10 @@
 package seedu.forgetmenot.testutil;
 
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.model.task.*;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Time;
 
 /**
  *

@@ -1,12 +1,10 @@
 package seedu.forgetmenot.commons.util;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import seedu.forgetmenot.commons.util.AppUtil;
-
-import static org.junit.Assert.assertNotNull;
 
 public class AppUtilTest {
 

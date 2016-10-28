@@ -1,14 +1,12 @@
 package seedu.forgetmenot.commons.util;
 
-import org.junit.Test;
-
-import seedu.forgetmenot.commons.util.UrlUtil;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  * Tests the UrlUtil methods.

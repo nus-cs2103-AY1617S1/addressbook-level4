@@ -1,5 +1,9 @@
 package seedu.forgetmenot.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.forgetmenot.commons.core.ComponentManager;
@@ -10,11 +14,6 @@ import seedu.forgetmenot.commons.events.storage.StorageLocationChangedEvent;
 import seedu.forgetmenot.commons.exceptions.DataConversionException;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
 import seedu.forgetmenot.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of TaskManager data in local storage.

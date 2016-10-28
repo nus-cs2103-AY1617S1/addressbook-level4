@@ -1,7 +1,10 @@
 package guitests;
 
-import guitests.guihandles.*;
-import javafx.stage.Stage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.TimeoutException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,17 +12,19 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.MainGuiHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+import javafx.stage.Stage;
 import seedu.forgetmenot.TestApp;
 import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.testutil.TestUtil;
 import seedu.forgetmenot.testutil.TypicalTestTasks;
-
-import java.util.concurrent.TimeoutException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * A GUI Test class for TaskManager.
@@ -98,9 +103,6 @@ public abstract class TaskManagerGuiTest {
      * Asserts the task shown in the card is same as the given task
      */
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
-        System.out.println("??" + card.toString());
-        System.out.println(task.toString() + "??");
-        
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 

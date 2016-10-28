@@ -34,6 +34,8 @@ public class Recurrence {
     
     @Override
     public String toString() {
+        if (!value)
+            return "NIL";
         return days;
     }
     

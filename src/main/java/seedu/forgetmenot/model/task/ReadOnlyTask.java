@@ -33,14 +33,13 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
+        
         builder.append(getName())
-//                .append(" Date: ")
-//                .append(getDone())
-                .append(" StartTime: ")
-                .append(getStartTime())
-                .append(" EndTime: ")
-                .append(getEndTime())
-                .append("Recurrence: ")
+                .append(" Start: ")
+                .append(getStartTime().easyReadDateFormatForUI())
+                .append(" End: ")
+                .append(getEndTime().easyReadDateFormatForUI())
+                .append(" Recurrence: ")
                 .append(getRecurrence());
         return builder.toString();
     }

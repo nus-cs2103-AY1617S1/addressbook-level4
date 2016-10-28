@@ -1,6 +1,12 @@
 package seedu.forgetmenot;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,19 +20,15 @@ import seedu.forgetmenot.commons.util.ConfigUtil;
 import seedu.forgetmenot.commons.util.StringUtil;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.logic.LogicManager;
-import seedu.forgetmenot.model.*;
-import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.Model;
+import seedu.forgetmenot.model.ModelManager;
+import seedu.forgetmenot.model.ReadOnlyTaskManager;
+import seedu.forgetmenot.model.TaskManager;
+import seedu.forgetmenot.model.UserPrefs;
 import seedu.forgetmenot.storage.Storage;
 import seedu.forgetmenot.storage.StorageManager;
 import seedu.forgetmenot.ui.Ui;
 import seedu.forgetmenot.ui.UiManager;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.

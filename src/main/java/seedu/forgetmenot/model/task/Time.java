@@ -1,17 +1,19 @@
 package seedu.forgetmenot.model.task;
 
 
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.logic.parser.DatePreParse;
-
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import com.joestelmach.natty.*;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.logic.parser.DatePreParse;
 
 
 /**
@@ -79,6 +81,22 @@ public class Time {
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy h:mm a");
     		return dateFormat.format(time.getTime());
     	}
+    }
+    
+    /**
+     * @return a String for a date and time thats easy to read. Example, "Thu, Feb 17, 2016, 10:11 AM"
+     * @@author A0139671X
+     */
+    public String easyReadDateFormatForUI() {
+        if(time.getTime().equals(new Date(0))) {
+            return "-";
+        }
+        
+        else {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
+            return dateFormatter.format(time.getTime());
+        }
+        
     }
     
     //@@author A0139198N

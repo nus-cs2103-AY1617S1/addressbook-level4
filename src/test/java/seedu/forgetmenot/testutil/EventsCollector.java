@@ -1,12 +1,12 @@
 package seedu.forgetmenot.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.events.BaseEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that collects events raised by other classes.

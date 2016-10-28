@@ -1,19 +1,20 @@
 package seedu.forgetmenot.ui;
 
+import java.util.Date;
+import java.util.logging.Logger;
+
+import org.controlsfx.control.StatusBar;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.StatusBar;
-
 import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
 import seedu.forgetmenot.commons.util.FxViewUtil;
-
-import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

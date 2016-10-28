@@ -1,6 +1,11 @@
 package seedu.forgetmenot.storage;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.IOException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,13 +16,7 @@ import seedu.forgetmenot.commons.util.FileUtil;
 import seedu.forgetmenot.model.ReadOnlyTaskManager;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.Task;
-import seedu.forgetmenot.storage.XmlTaskManagerStorage;
 import seedu.forgetmenot.testutil.TypicalTestTasks;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class XmlTaskManagerStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");

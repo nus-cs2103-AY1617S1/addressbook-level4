@@ -1,4 +1,4 @@
-//@@author A0147619W
+<!-- @@author A0147619W -->
 # About Us
 
 We are a team of four 2nd Year Computer Engineering students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).

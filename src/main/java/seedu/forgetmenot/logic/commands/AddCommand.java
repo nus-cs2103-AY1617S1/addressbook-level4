@@ -1,19 +1,14 @@
 package seedu.forgetmenot.logic.commands;
 
-import seedu.forgetmenot.commons.core.EventsCenter;
-import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
-import seedu.forgetmenot.commons.exceptions.IllegalValueException;
-import seedu.forgetmenot.logic.LogicManager;
-import seedu.forgetmenot.model.task.*;
-import seedu.forgetmenot.storage.Storage;
-import seedu.forgetmenot.ui.TaskListPanel;
-
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
-import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_TIME;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Predicate;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
+import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.model.task.UniqueTaskList;
 
 
 
@@ -24,7 +19,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the ForgetMeNot. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to ForgetMeNot. "
             + "Parameters: TASKNAME DATE"
             + "Example: " + COMMAND_WORD
             + " Homework by tomorrow 6pm";

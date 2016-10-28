@@ -1,6 +1,13 @@
 package seedu.forgetmenot.storage;
 
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,14 +16,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.forgetmenot.commons.exceptions.DataConversionException;
 import seedu.forgetmenot.commons.util.FileUtil;
 import seedu.forgetmenot.model.UserPrefs;
-import seedu.forgetmenot.storage.JsonUserPrefsStorage;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class JsonUserPrefsStorageTest {
 

@@ -1,6 +1,9 @@
 package seedu.forgetmenot.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -14,12 +17,9 @@ import seedu.forgetmenot.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.forgetmenot.commons.events.storage.DataSavingExceptionEvent;
 import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
 import seedu.forgetmenot.commons.events.ui.ShowHelpRequestEvent;
-import seedu.forgetmenot.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.forgetmenot.commons.util.StringUtil;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.model.UserPrefs;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.

@@ -1,6 +1,12 @@
 package guitests.guihandles;
 
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -10,12 +16,6 @@ import seedu.forgetmenot.TestApp;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.testutil.TestUtil;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Provides a handle for the panel containing the task list.
@@ -101,14 +101,11 @@ public class TaskListPanelHandle extends GuiHandle {
 
 
     public TaskCardHandle navigateToTask(String name) {
-        System.out.println("10");
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
-            System.out.println("101");
             throw new IllegalStateException("Name not found: " + name);
         }
-        System.out.println("20");
         return navigateToTask(task.get());
     }
 

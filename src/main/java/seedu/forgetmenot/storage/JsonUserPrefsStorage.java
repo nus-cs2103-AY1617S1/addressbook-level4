@@ -1,14 +1,14 @@
 package seedu.forgetmenot.storage;
 
-import seedu.forgetmenot.commons.core.LogsCenter;
-import seedu.forgetmenot.commons.exceptions.DataConversionException;
-import seedu.forgetmenot.commons.util.FileUtil;
-import seedu.forgetmenot.model.UserPrefs;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.forgetmenot.commons.core.LogsCenter;
+import seedu.forgetmenot.commons.exceptions.DataConversionException;
+import seedu.forgetmenot.commons.util.FileUtil;
+import seedu.forgetmenot.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

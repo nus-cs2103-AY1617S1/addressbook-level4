@@ -1,5 +1,7 @@
 package seedu.forgetmenot.ui;
 
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,8 +15,6 @@ import javafx.stage.Stage;
 import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
