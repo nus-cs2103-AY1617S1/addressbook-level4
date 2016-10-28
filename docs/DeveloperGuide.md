@@ -16,7 +16,7 @@
 
 ## 0. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; Hello new developer! We are pleased to welcome you into our team and we hope that you will enjoy your time working with us. DoMePlease is a reliable task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This application caters to users who prefer using the command-line interface. Our Developer Guide introduces you to our code base so that you can dive straight into code without much lead-time. The documents listed provide details about how to extend our application using Java's various APIs. 
+&nbsp;&nbsp;&nbsp;&nbsp; Hello new developer! We are pleased to welcome you into our team and we hope that you will enjoy your time working with us. sTask is a reliable task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This application caters to users who prefer using the command-line interface. Our Developer Guide introduces you to our code base so that you can dive straight into code without much lead-time. The documents listed provide details about how to extend our application using Java's various APIs. 
 
 Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away
 --Antoine de Saint-Exupery
@@ -140,7 +140,7 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores DoMePlease data
+* Stores sTask data
 * Exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
@@ -153,7 +153,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the DoMePlease data in xml format and read it back.
+* can save the sTask data in xml format and read it back.
 
 ## 3. Implementation
 
@@ -243,7 +243,7 @@ Here are the steps to create a new release.
    
 ## 7. Managing Dependencies
 
-A project often depends on third party libraries. For example, DoMePlease depends on the 
+A project often depends on third party libraries. For example, sTask depends on the 
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -258,7 +258,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use DoMePlease.
+`* * *` | new user | see usage instructions | refer to instructions when I forget how to use sTask.
 `* * *` | user | add a new floating task | record the priority.
 `* * *` | user | add a new deadline | record the date, time of the deadline.
 `* * *` | user | add a new event| record the date, time and duration of the event.
@@ -279,20 +279,20 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `DoMePlease` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `sTask` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Add task
 
 **MSS**
 
 1. User adds a deadline
-2. DoMePlease shows the added deadline
+2. sTask shows the added deadline
 3. Use case ends
 
 **Extensions**
 
 &nbsp;&nbsp;&nbsp;&nbsp;1a. The given date and time is invalid
-> 1a1. DoMePlease shows an error message<br>
+> 1a1. sTask shows an error message<br>
 > 1a2. Use case resumes at step 1
 
 #### Use case: Delete task
@@ -300,10 +300,10 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to list all Tasks
-2. DoMePlease shows a list of tasks
+2. sTask shows a list of tasks
 3. User requests to delete a specific task in the list
-4. DoMePlease prompt confirmation from user
-5. DoMePlease deletes the task 
+4. sTask prompt confirmation from user
+5. sTask deletes the task 
 6. Use case ends.
 
 
@@ -315,7 +315,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 &nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
 
-> 3a1. DoMePlease shows an error message <br>
+> 3a1. sTask shows an error message <br>
 > 3a2. Use case resumes at step 2
 
 #### Use case: Edit Task
@@ -323,9 +323,9 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to list all Tasks
-2. DoMePlease shows a list of tasks
+2. sTask shows a list of tasks
 3. User requests to edit certain FIELDS of the task at INDEX 
-4. DoMePlease shows the result of edit 
+4. sTask shows the result of edit 
 5. Use case ends
 
 **Extensions**
@@ -335,11 +335,11 @@ Priority | As a ... | I want to ... | So that I can...
 > 2a1. Use case ends
 
 &nbsp;&nbsp;&nbsp;&nbsp;3a. The given index is invalid
-> 3a1. DoMePlease shows an error message<br>
+> 3a1. sTask shows an error message<br>
 > 3a2. Use case resumes at step 2
 
 &nbsp;&nbsp;&nbsp;&nbsp;3b. The given fields are invalid
-> 3b1. DoMePlease shows an error message<br>
+> 3b1. sTask shows an error message<br>
 > 3b2. Use case resumes at step 2
 
 
@@ -348,20 +348,20 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to view tasks on a specific date
-2. DoMePlease shows the tasks on the given date and month
+2. sTask shows the tasks on the given date and month
 3. Use case ends
 
 **Extensions**
 
 &nbsp;&nbsp;&nbsp;&nbsp;1a. The given date has no month
-> 1a1. DoMePlease shows the tasks on the given date on the current month
+> 1a1. sTask shows the tasks on the given date on the current month
 
 #### Use case: Help
 
 **MSS**
 
 1. User requests to see UserGuide
-2. DoMePlease shows a web view of the UserGuide
+2. sTask shows a web view of the UserGuide
 3. Use case ends
 
 **Extensions**
@@ -374,33 +374,33 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to undo the previous command
-2. DoMePlease displays a message that the previous reversible command is undone
+2. sTask displays a message that the previous reversible command is undone
 3. Use case ends
 
 **Extensions**
 
 &nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
-> 2a1. DoMePlease shows an error message
+> 2a1. sTask shows an error message
 
 #### Use case: Save
 
 **MSS**
 
 1. User requests to change the data storage location
-2. DoMePlease displays a message that the data storage file is saved in the new location
+2. sTask displays a message that the data storage file is saved in the new location
 3. Use case ends
 
 **Extensions**
 
 &nbsp;&nbsp;&nbsp;&nbsp;2a. User has no previous reversible command
-> 2a1. DoMePlease shows an error message
+> 2a1. sTask shows an error message
 
 #### Use case: Exit
 
 **MSS**
 
-1. User requests to exit DoMePlease
-2. DoMePlease application window close
+1. User requests to exit sTask
+2. sTask application window close
 3. Use case ends
 
 ## Appendix C : Non Functional Requirements
