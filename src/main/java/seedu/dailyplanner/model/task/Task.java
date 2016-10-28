@@ -60,6 +60,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.address = time;
 	}
 
+	public void setCompletion(boolean completion) {
+		this.isComplete = completion;
+	}
 	public void markAsComplete() {
 		this.isComplete = true;
 	}
