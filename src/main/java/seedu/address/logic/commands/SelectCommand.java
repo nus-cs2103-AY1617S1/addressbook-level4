@@ -47,6 +47,7 @@ public class SelectCommand extends Command {
         	}
         	model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
+        	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownEventList.get(targetIndex-1).toString()));            
         }
         else if (category == 'D') {
         	if (lastShownDeadlineList.size() < targetIndex) {
@@ -55,6 +56,7 @@ public class SelectCommand extends Command {
         	}
         	model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
+        	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownDeadlineList.get(targetIndex-1).toString()));
         }
         else {
             if (lastShownTodoList.size() < targetIndex) {
@@ -63,8 +65,8 @@ public class SelectCommand extends Command {
            	}
             model.addToUndoStack();
            	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
+           	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownTodoList.get(targetIndex-1).toString()));    
         }
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownEventList.get(0).toString()));
         
     }
 
