@@ -21,7 +21,11 @@ import seedu.unburden.logic.Logic;
 import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.model.task.ReadOnlyTask;
 
-
+/**
+ * The Summary panel
+ * which will show different types of tasks
+ * @@author A0147986H
+ */
 public class SummaryPanel extends UiPart{
 
     private static final String FXML = "summaryPanel.fxml";
