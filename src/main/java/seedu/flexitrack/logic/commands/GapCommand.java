@@ -16,17 +16,19 @@ public class GapCommand extends Command {
             ": Find the earliest specified timing available.\n" 
             + COMMAND_WORD + " [specified timing]\n"
             + "Example: " + COMMAND_WORD + " 3 hours \n";
-    public static final String MESSAGE_SUCCESS = "The earliest %1%s gap is on: ";
+    public static final String MESSAGE_SUCCESS = "The earliest %1$s gap are found... ";
     public static final String DAY_WORD = "day";
     public static final String HOUR_WORD = "hour";
     public static final String MINUTE_WORD = "minute";
 
     public final int keyword;
     public final int length; 
+//    public final int numberOfSlot; 
 
     public GapCommand(int keyword, int length) {
         this.keyword = keyword; 
         this.length = length; 
+//        this.numberOfSlot =numberOfSlot; 
     }
 
     @Override
@@ -36,11 +38,32 @@ public class GapCommand extends Command {
         
         List<DateTimeInfo> listOfTiming = model.findSpecifiedGapTiming(keyword,length);
 
-        for (DateTimeInfo time: listOfTiming){
-            System.out.println(time.toString());
+        String theListOfDates = "";
+        for (int i = 0; i<listOfTiming.size() ; i++){
+            System.out.println("END LIST: " + listOfTiming.get(i).toString());
+            theListOfDates = theListOfDates + "\nBetween: " + listOfTiming.get(i).toString();
+            i=i+1;
+            theListOfDates = theListOfDates + "     to: " + listOfTiming.get(i).toString();
+
         }
         
-        return new CommandResult((MESSAGE_SUCCESS));
+        String keywordString="";
+        switch (keyword){
+        case 0: 
+            keywordString = "minute";
+            break; 
+        case 1: 
+            keywordString = "hour"; 
+            break; 
+        case 2: 
+            keywordString = "day"; 
+            break;
+        }
+        keywordString = length + " " + keywordString; 
+        if (length>1){
+            keywordString = keywordString +"s";
+        }
+        return new CommandResult((String.format(MESSAGE_SUCCESS, keywordString) + theListOfDates));
     }
 
 }

@@ -67,6 +67,8 @@ public class Parser {
     }  
 
     //@@author A0127686R
+    private static final Pattern TASK_FIND_GAP_ARGS_FORMAT = Pattern.compile("(?<info>.+)"+"n/(?<index>[0-9]+)");
+    
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -164,19 +166,34 @@ public class Parser {
         }
     }
 
-    private Command prepareGap(String arguments) {
-        arguments.toLowerCase(); 
-        if( isGapArgumentValid(arguments)){
-            int keyword = extractKeywordFromArgs(arguments);
-            int length = extractLength(arguments);
+    private Command prepareGap(String args) {
+        args.toLowerCase(); 
+//        final Matcher matcher = TASK_FIND_GAP_ARGS_FORMAT.matcher(args.trim());
+//        int numberOfSlot = findNumberOfAvailableGaps(matcher,args);
+        if( isGapArgumentValid(args)){
+            int keyword = extractKeywordFromArgs(args);
+            int length = extractLength(args);
             System.out.println("does it find any of this :6");
             return new GapCommand(keyword, length);
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
     }
 
-    private int extractLength(String arguments) {
-        String length = arguments.replace(GapCommand.DAY_WORD+"s", "").
+    /**
+     * @param matcher
+     */
+    private int findNumberOfAvailableGaps(final Matcher matcher, String args) {
+        if (matcher.matches()){
+            args = matcher.group("info").trim();
+ System.out.println(matcher.group("numberOfGaps").trim());
+            return 2; 
+        } else { 
+            return 3;
+        }
+    }
+
+    private int extractLength(String args) {
+        String length = args.replace(GapCommand.DAY_WORD+"s", "").
         replace(GapCommand.HOUR_WORD + "s", "").replace(GapCommand.MINUTE_WORD+"s", "").
         replace(GapCommand.DAY_WORD, ""). replace(GapCommand.HOUR_WORD, "").
         replace(GapCommand.MINUTE_WORD, "");
@@ -189,11 +206,11 @@ public class Parser {
         }
     }
 
-    private int extractKeywordFromArgs(String arguments) {
-        if (arguments.contains(GapCommand.DAY_WORD)||arguments.contains(GapCommand.DAY_WORD + "s")){
+    private int extractKeywordFromArgs(String args) {
+        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")){
             return 2;
         }
-        if (arguments.contains(GapCommand.HOUR_WORD)||arguments.contains(GapCommand.HOUR_WORD + "s")){
+        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")){
             return 1; 
         }
 //        if (arguments.contains(GapCommand.MINUTE_WORD)||arguments.contains(GapCommand.MINUTE_WORD + "s")){

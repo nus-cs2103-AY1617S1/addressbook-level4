@@ -198,21 +198,31 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         List<DateTimeInfo> listOfPossibleTiming= new ArrayList<DateTimeInfo>();
         int[] differenceInTime = new int[5];
         for (Task task: task.getInternalList()){
-            if (listOfPossibleTiming.size()>4){
+//            System.out.println("CHECK POINT 1" +task.getStartTime().toString());
+            if (listOfPossibleTiming.size()>(5*2)){
+//                System.out.println("CHECK POINT END");    
+                listOfPossibleTiming.add(dateNow);
                 return listOfPossibleTiming; 
             }
             if (task.getIsEvent()){
+//                System.out.println("CHECK POINT 2");
                 if (DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
+//                    System.out.println("CHECK POINT 2");
                     differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
-                    if (differenceInTime[0]<0){
+//                    System.out.println("CHECK POINT 3:" + differenceInTime[0] + differenceInTime[1] +differenceInTime[2]+differenceInTime[3]+differenceInTime[4]);
+                    if (differenceInTime[0]>=0){
+//                        System.out.println("CHECK POINT 4: not less than ");
                         differenceInTime[keyword] = differenceInTime[keyword]-length;
                         for(int i=keyword; i<5 ; i++){
+//                            System.out.println("CHECK POINT 4: not less than ");
+
                             if (differenceInTime[i]>0) {
                                 listOfPossibleTiming.add(dateNow);
+                                listOfPossibleTiming.add(task.getStartTime());
+                                dateNow = task.getEndTime();
                                 break;
                             }
                         }
-                        dateNow = task.getEndTime();
                     }
                 }
             }
