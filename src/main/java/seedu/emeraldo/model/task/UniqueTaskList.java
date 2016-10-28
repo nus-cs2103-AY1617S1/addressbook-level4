@@ -79,7 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     //@@author A0139196U
-    public void edit(Task toEditObj, int index, Description description, DateTime dateTime) throws IllegalValueException {
+    public void edit(Task toEditObj, Description description, DateTime dateTime) throws IllegalValueException {
         assert description != null;
         assert dateTime != null;
         if(!description.toString().isEmpty()){
@@ -88,15 +88,18 @@ public class UniqueTaskList implements Iterable<Task> {
         if(!dateTime.value.isEmpty()){
             toEditObj.setDateTime(dateTime);
         }
-        internalList.set(index, toEditObj);
+        
+        int mainListIndex = internalList.indexOf(toEditObj);
+        internalList.set(mainListIndex, toEditObj);
     }
     
     //@@author A0142290N
-    public void complete(Task toCompleteObj, int index) throws IllegalValueException {
+    public void complete(Task toCompleteObj) throws IllegalValueException {
     	Tag completedTag = new Tag("Completed");
     	UniqueTagList completedTagList = new UniqueTagList(completedTag);
     	toCompleteObj.setTags(completedTagList);
-    	internalList.set(index, toCompleteObj);
+    	int mainListIndex = internalList.indexOf(toCompleteObj);
+    	internalList.set(mainListIndex, toCompleteObj);
     }
     //@@author
     

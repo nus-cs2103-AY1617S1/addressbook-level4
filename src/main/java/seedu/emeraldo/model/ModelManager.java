@@ -1,5 +1,11 @@
 package seedu.emeraldo.model;
 
+import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
@@ -130,10 +136,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139342H
     @Override
-    public synchronized void editTask(Task target, int index, Description description, DateTime dateTime) 
+    public synchronized void editTask(Task target, Description description, DateTime dateTime) 
             throws TaskNotFoundException {
         try {
-            emeraldo.editTask(target, index, description, dateTime);
+            emeraldo.editTask(target, description, dateTime);
             saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -143,13 +149,14 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142290N
     @Override 
-    public synchronized void completedTask(Task target, int index)
+    public synchronized void completedTask(Task target)
     		throws TaskNotFoundException {
     	try {
-    		emeraldo.completedTask(target, index);
+    		emeraldo.completedTask(target);
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
+    	updateFilteredListToShowAll();
     	indicateEmeraldoChanged();
     }
 
@@ -159,15 +166,20 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    	filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredListToShowUncompleted() {
+        updateFilteredTaskList(new PredicateExpression(new ListQualifier()));
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-            updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
     
     //@@author A0139749L
@@ -266,6 +278,33 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "tag=" + String.join(", ", tagKeyWord);
+        }
+    }
+    
+    private class ListQualifier implements Qualifier {
+    	private String completedTag = "Completed";
+    	
+        ListQualifier() {}
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean completedFinder = false;
+            Tag tag;
+            Iterator<Tag> tagIterator = task.getTags().iterator();
+            while(tagIterator.hasNext()){
+                tag = tagIterator.next();
+                completedFinder = completedFinder || run(tag);
+            }
+            return !completedFinder;
+        }
+        
+        private boolean run(Tag tag){
+            return tag.tagName.equalsIgnoreCase(completedTag);
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", completedTag);
         }
     }
 }
