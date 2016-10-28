@@ -90,6 +90,7 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         runRedoUsingAccelerator();
         runRedo();
         runRedoUsingAccelerator();
+        commandBox.runCommand("view all");
         runRedo();
         assertNoMoreRedos();
                         
