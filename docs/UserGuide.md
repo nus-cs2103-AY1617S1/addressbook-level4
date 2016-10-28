@@ -50,19 +50,20 @@ Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/
 Examples: 
 * `add Homework d/ProgrammingEx1`
 
-#### Adding an event
+<a id="add_task" class="anchor" aria-hidden="true">
+#### Adding an Event
 Adds a task which has a start time and end time. 
 User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
 * `add Birthday Party d/Edwin's birthday party sd/08-01-2012 10:00 dd/08-01-2012 23:00`
 * `add Soccer match d/Champion League sd/08-01-2012 18:00 dd/08-01-2012 20:00 i/8 ti/7`
 	
-#### Adding a deadline
+#### Adding a Deadline
 Adds a task that have to be done before a specific deadline. 
 User has to specify TITLE, DESCRIPTION and DUE_DATE.
 * `add Homework d/ProgrammingEx1 dd/10-01-2012`
 * `add Take home Lab d/ProgrammingEx1 dd/10-01-2012 23:59 i/4 ti/7`
 
-#### Adding a floating task
+#### Adding a Floating Task
 Adds a task without specific times. 
 User has to specify TITLE, DESCRIPTION.
 * `add Homework d/ProgrammingEx1`
