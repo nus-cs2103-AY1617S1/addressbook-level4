@@ -1,15 +1,27 @@
 package seedu.oneline.model.tag;
 
+import java.util.HashMap; 
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.task.TaskName;
+
 
 public class TagColor {
 
     public static final String EMPTY_COLOR_VALUE = "";
     
     private String value;
+    private static final HashMap<String, String> colorValues = new HashMap<String, String>() {{
+        put("", "#FFFFFF");
+        put("white", "#FFFFFF");
+        put("red", "#FF9D93");
+        put("orange", "#FFBE76");
+        put("yellow", "#FFEE90"); 
+        put("green", "#B2EA76");
+        put("blue", "#AAC3E2");
+        put("purple", "#CAB8DF");
+    }}; 
     
-    public static final String MESSAGE_COLOR_CONSTRAINTS = "Valid colors: <red, blue, green>";
+    public static final String MESSAGE_COLOR_CONSTRAINTS = "Valid colors: <white, red, orange, yellow, green, blue, purple>";
     
     public TagColor(String color) throws IllegalValueException {
         if (!isValidColor(color)) {
@@ -19,7 +31,7 @@ public class TagColor {
     }
     
     public static boolean isValidColor(String color) {
-        return true;
+        return colorValues.containsKey(color);
     }
     
     public static TagColor getDefault() {
@@ -57,7 +69,7 @@ public class TagColor {
     }
     
     public String toHTMLColor() {
-        return value;
+        return colorValues.get(value);
     }
     
 }
