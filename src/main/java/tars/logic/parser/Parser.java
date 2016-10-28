@@ -12,16 +12,17 @@ import tars.logic.commands.ClearCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.DeleteCommand;
+import tars.logic.commands.DoCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
-import tars.logic.commands.MarkCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.RsvCommand;
 import tars.logic.commands.TagCommand;
+import tars.logic.commands.UdCommand;
 import tars.logic.commands.UndoCommand;
 
 /**
@@ -58,7 +59,8 @@ public class Parser {
         commandParserMap.put(ListCommand.COMMAND_WORD, ListCommandParser.class);
         commandParserMap.put(UndoCommand.COMMAND_WORD, UndoCommandParser.class);
         commandParserMap.put(RedoCommand.COMMAND_WORD, RedoCommandParser.class);
-        commandParserMap.put(MarkCommand.COMMAND_WORD, MarkCommandParser.class);
+        commandParserMap.put(DoCommand.COMMAND_WORD, DoCommandParser.class);
+        commandParserMap.put(UdCommand.COMMAND_WORD, UdCommandParser.class);
         commandParserMap.put(CdCommand.COMMAND_WORD, CdCommandParser.class);
         commandParserMap.put(TagCommand.COMMAND_WORD, TagCommandParser.class);
         commandParserMap.put(ExitCommand.COMMAND_WORD, ExitCommandParser.class);

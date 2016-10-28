@@ -1503,7 +1503,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * Logic tests for mark command
+     * Logic tests for do_ud command
      * 
      * @@author A0121533W
      */
@@ -1527,7 +1527,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /do 1 2", "Task: 1, 2 marked done successfully.\n", expectedTars,
+        assertCommandBehavior("do 1 2", "Task: 1, 2 marked done successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1553,7 +1553,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /do 1 2", "Task: 1, 2 already marked done.\n", expectedTars,
+        assertCommandBehavior("do 1 2", "Task: 1, 2 already marked done.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1578,7 +1578,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /ud 1 2", "Task: 1, 2 marked undone successfully.\n", expectedTars,
+        assertCommandBehavior("ud 1 2", "Task: 1, 2 marked undone successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1599,7 +1599,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /ud 1 2", "Task: 1, 2 already marked undone.\n", expectedTars,
+        assertCommandBehavior("ud 1 2", "Task: 1, 2 already marked undone.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1628,7 +1628,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task2Expected);
         expectedTars.addTask(task3Expected);
 
-        assertCommandBehavior("mark /do 1..3", "Task: 1, 2, 3 marked done successfully.\n", expectedTars,
+        assertCommandBehavior("do 1..3", "Task: 1, 2, 3 marked done successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1658,7 +1658,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task2Expected);
         expectedTars.addTask(task3Expected);
 
-        assertCommandBehavior("mark /ud 1..3", "Task: 1, 2, 3 marked undone successfully.\n", expectedTars,
+        assertCommandBehavior("ud 1..3", "Task: 1, 2, 3 marked undone successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 

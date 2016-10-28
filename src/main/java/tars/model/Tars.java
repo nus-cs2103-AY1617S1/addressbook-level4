@@ -231,26 +231,13 @@ public class Tars implements ReadOnlyTars {
 	 * @@author A0121533W
 	 * @throws DuplicateTaskException
 	 */
-	public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
-		if ("/do".equals(status)) {
-			Status done = new Status(true);
-			for (ReadOnlyTask t : toMarkList) {
-				if (!t.getStatus().equals(done)) {
-					// prevent marking tasks as done when it is done
-					Task toMark = new Task(t);
-					toMark.setStatus(done);
-					replaceTask(t, toMark);
-				}
-			}
-		} else if ("/ud".equals(status)) {
-			Status undone = new Status(false);
-			for (ReadOnlyTask t : toMarkList) {
-				if (!t.getStatus().equals(undone)) {
-					// prevent marking tasks as undone when it is undone
-					Task toMark = new Task(t);
-					toMark.setStatus(undone);
-					replaceTask(t, toMark);
-				}
+	public void mark(ArrayList<ReadOnlyTask> toMarkList, Status status) throws DuplicateTaskException {
+		for (ReadOnlyTask t : toMarkList) {
+			if (!t.getStatus().equals(status)) {
+				// prevent marking tasks which are already marked
+				Task toMark = new Task(t);
+				toMark.setStatus(status);
+				replaceTask(t, toMark);
 			}
 		}
 	}
