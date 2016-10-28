@@ -8,7 +8,7 @@ Team lead
 Components in charge of: Task, Time
 Aspects/Tools in charge of: Natty Parser
 Features implemented: 
-- [Date/time parser]()
+- Date/time parser
 - [List today/week/float command](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4)
 - Sort tasks by date
 Code written: [functional code][test code][docs]
