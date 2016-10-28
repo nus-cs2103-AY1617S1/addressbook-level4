@@ -13,14 +13,15 @@ public class ConfigTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Agendum\n" +
-                "Current log level : INFO\n" +
-                "Preference file Location : preferences.json\n" +
-                "Local data file location : data/todolist.xml\n" +
-                "ToDoList name : MyToDoList";
+    public void toString_defaultObject_stringReturned() {        
+        StringBuilder sb = new StringBuilder();
+        sb.append("App title : Agendum");
+        sb.append("\nCurrent log level : INFO");
+        sb.append("\nPreference file Location : " + Config.DEFAULT_USER_PREFS_FILE);
+        sb.append("\nLocal data file location : " + Config.DEFAULT_SAVE_LOCATION);
+        sb.append("\nToDoList name : MyToDoList");
 
-        assertEquals(defaultConfigAsString, new Config().toString());
+        assertEquals(sb.toString(), new Config().toString());
     }
 
     @Test

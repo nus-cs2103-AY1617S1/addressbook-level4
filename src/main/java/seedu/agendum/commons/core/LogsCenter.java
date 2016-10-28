@@ -1,7 +1,9 @@
 package seedu.agendum.commons.core;
 
 import seedu.agendum.commons.events.BaseEvent;
+import seedu.agendum.commons.util.FileUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.*;
 
@@ -15,6 +17,7 @@ import java.util.logging.*;
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
+    private static final String LOG_DIR = "data/logs/";
     private static final String LOG_FILE = "todolist.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
@@ -68,7 +71,8 @@ public class LogsCenter {
     }
 
     private static FileHandler createFileHandler() throws IOException {
-        FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
+        FileUtil.createDirs(new File(LOG_DIR));
+        FileHandler fileHandler = new FileHandler(LOG_DIR+LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);
         return fileHandler;

@@ -56,6 +56,9 @@ public class ConfigUtil {
         assert config != null;
         assert configFilePath != null;
 
-        FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+        File file = new File(configFilePath);
+        
+        FileUtil.createIfMissing(file);
+        FileUtil.serializeObjectToJsonFile(file, config);
     }
 }

@@ -68,6 +68,9 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
         assert userPrefs != null;
         assert prefsFilePath != null;
 
+        File file = new File(prefsFilePath);
+        
+        FileUtil.createIfMissing(file);
         FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
     }
 }
