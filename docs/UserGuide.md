@@ -26,7 +26,7 @@
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+//@@author A0127686R
 ## Features
 
 > **Command Format**

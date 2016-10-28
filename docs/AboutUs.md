@@ -40,7 +40,6 @@ Responsibilities: Documentation, Testing, UI
 	> * Mark Command 
 	> * Undo Command 
 	> * List Command 
-	
 * Code written: [functional code][test code][docs]
 * Other major contributions:
 	> * Did the initial refactoring from AddressBook to FlexiTrack 
