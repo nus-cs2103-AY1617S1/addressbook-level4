@@ -1,6 +1,6 @@
 package guitests;
 
-//@@LiXiaowei A0142325R
+//@@author A0142325R
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 import seedu.address.commons.core.Messages;

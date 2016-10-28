@@ -1,7 +1,6 @@
 package seedu.address.model.task;
 
-
-
+//@@author A0146123R
 /**
  * Represents a Task's date
  * It can be deadline for tasks or event date for events.

@@ -1,5 +1,5 @@
 package guitests;
-//@@LiXiaowei A0142325R
+//@@author A0142325R
 import org.junit.Test;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;

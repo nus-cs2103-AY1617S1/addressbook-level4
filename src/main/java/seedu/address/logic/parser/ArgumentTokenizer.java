@@ -1,5 +1,5 @@
 package seedu.address.logic.parser;
- //@@LiXiaowei A0142325R-reused
+ //@@author A0142325R-reused
  import java.util.*;
  
  /**

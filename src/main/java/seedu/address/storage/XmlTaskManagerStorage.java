@@ -98,9 +98,11 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         saveTaskManager(addressBook, filePath);
     }
     
+    //@@author A0146123R
     @Override
     public void deleteTaskManager() throws IOException {
         deleteTaskManager(filePath);
     }
+    //@@author
     
 }

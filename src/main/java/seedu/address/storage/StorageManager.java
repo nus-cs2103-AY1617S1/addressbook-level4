@@ -56,15 +56,18 @@ public class StorageManager extends ComponentManager implements Storage {
         return taskManagerStorage.getTaskManagerFilePath();
     }
     
+    //@@author A0146123R
     @Override
     public String getTaskManagerPreviousFilePath() {
         return taskManagerStorage.getTaskManagerPreviousFilePath();
     }
     
+    
     @Override
     public void setTaskManagerFilePath(String filePath) {
         taskManagerStorage.setTaskManagerFilePath(filePath);
     }
+    //@@author
 
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
@@ -88,6 +91,7 @@ public class StorageManager extends ComponentManager implements Storage {
         taskManagerStorage.saveTaskManager(taskManager, filePath);
     }
     
+    //@@author A0146123R
     @Override
     public void deleteTaskManager() throws IOException {
         deleteTaskManager(taskManagerStorage.getTaskManagerFilePath());
@@ -110,6 +114,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
+    //@@author A0146123R
     @Override
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {

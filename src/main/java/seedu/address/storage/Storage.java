@@ -45,6 +45,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      */
     void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce);
     
+    //@@author A0146123R
     /**
      * Saves the current version of the Task Manager to a new file in hard disk.
      *   Delete the old data file if it is specified.

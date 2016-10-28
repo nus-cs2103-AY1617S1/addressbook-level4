@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+//@@author A0146123R-reused
 /**
  * Stemmer, implementing the Porter Stemming Algorithm
  *
@@ -7,7 +8,8 @@ package seedu.address.commons.util;
  * word can be provided a character at time (by calling add()), or at once
  * by calling one of the various stem(something) methods.
  * 
- * Copy from https://tartarus.org/martin/PorterStemmer/java.txt
+ * Copy from https://tartarus.org/martin/PorterStemmer/java.txt 
+ * except for method public String stem (String word)
  */
 public class Stemmer {
     

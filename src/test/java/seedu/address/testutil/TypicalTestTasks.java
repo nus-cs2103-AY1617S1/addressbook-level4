@@ -16,6 +16,7 @@ public class TypicalTestTasks {
 
     public static TestTask friend, friendEvent,lunch, book, work, movie, meeting, travel, project, workshop,lecture,lectureVerifier;
 
+    //@@author A0146123R
     public TypicalTestTasks() {
         try {
             friend =  new TaskBuilder().withName("Meet old friends").withDeadline("")
@@ -45,9 +46,6 @@ public class TypicalTestTasks {
     }
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
-
-
-       
             ab.addTask(new Task(friend));
             ab.addTask(new Task(friendEvent));
             ab.addTask(new Task(lunch));
@@ -56,20 +54,19 @@ public class TypicalTestTasks {
             ab.addTask(new Task(movie));
             ab.addTask(new Task(meeting));
             ab.addTask(new Task(travel));
-       
     }
 
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{friend, friendEvent,lunch, book, work, movie, meeting, travel};
-
     }
+    //@@author
 
     public TaskManager getTypicalTaskManager(){
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);
         return ab;
     }
-   //@@LiXiaowei A0142325R 
+   //@@author A0142325R 
     private static String getNextFriday() {
         Calendar c = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

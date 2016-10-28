@@ -18,7 +18,7 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+    //@@author A0146123R
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add an event with a starting and ending date or a task (with or without deadline) to the task manager.\n"
             + "Parameters: EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... or TASK_NAME [d/DEADLINE] [t/TAG]...\n"// [p/PRIORITY_LEVEL]
@@ -31,7 +31,7 @@ public class AddCommand extends Command {
     public static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9].[0-1]?[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
 
     private final Task toAdd;
-    //@@LiXiaowei A0142325R
+    //@@author A0142325R
     /**
      * Convenience constructor using raw values.
      *

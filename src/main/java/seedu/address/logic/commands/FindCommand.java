@@ -2,8 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+//@@author A0146123R
 /**
- * Finds and lists all tasks in address book whose name contains any of the argument keywords
+ * Finds and lists all tasks in task manager whose name contains any of the argument keywords
  * or all of the argument keywords.
  * Keyword matching is not case sensitive.
  */

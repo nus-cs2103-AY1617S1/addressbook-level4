@@ -189,6 +189,7 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    //@@author A0146123R
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -201,6 +202,7 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
     }
+    //@@author 
 
     public static void main(String[] args) {
             launch(args);
