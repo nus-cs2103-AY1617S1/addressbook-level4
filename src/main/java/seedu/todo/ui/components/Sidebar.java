@@ -1,5 +1,6 @@
 package seedu.todo.ui.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ public class Sidebar extends Component {
     private static final String TAG_LABEL = "Tags";
     
     // Props
-    public List<String> tags; // stub
+    public List<String> tags = new ArrayList<>();
 
     // FXML
     @FXML

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Task;
 
 /**
@@ -33,6 +34,8 @@ public class TaskListTaskItem extends MultiComponent {
     private Circle taskCheckMarkCircle;
     @FXML
     private ImageView taskCheckMarkImage;
+    @FXML
+    private Text taskTagListText;
 
     @Override
     public String getFxmlPath() {
@@ -43,6 +46,7 @@ public class TaskListTaskItem extends MultiComponent {
     public void componentDidMount() {
         rowIndex.setText(displayIndex.toString());
         taskText.setText(task.getName());
+        taskTagListText.setText(StringUtil.checkEmptyList(task.getTagList())); 
         
         LocalDateTime dateTime = task.getCalendarDT();
         if (dateTime != null) {

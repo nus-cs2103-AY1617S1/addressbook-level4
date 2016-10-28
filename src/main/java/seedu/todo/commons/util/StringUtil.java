@@ -2,6 +2,7 @@ package seedu.todo.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -113,5 +114,9 @@ public class StringUtil {
      */
     public static String sanitize(String alias) {
         return (alias == null) ? null : alias.replaceAll("[^A-Za-z]+", "");
+    }
+    
+    public static String checkEmptyList(ArrayList<String> list) {
+        return (list.size() == 0) ? "" : list.toString();
     }
 }

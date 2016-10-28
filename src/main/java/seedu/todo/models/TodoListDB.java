@@ -3,10 +3,13 @@ package seedu.todo.models;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
@@ -34,6 +37,8 @@ public class TodoListDB {
     
     private Set<Task> tasks = new LinkedHashSet<Task>();
     private Set<Event> events = new LinkedHashSet<Event>();
+    private Map<String, String> aliases = new HashMap<String, String>();
+    private Set<String> tagList = new LinkedHashSet<String>();
     
     protected TodoListDB() {
         // Prevent instantiation.
@@ -41,6 +46,36 @@ public class TodoListDB {
     
     public void setStorage(Storage storageToSet) {
         storage = storageToSet;
+    }
+    
+    /**
+     * Update the overall Tags that exist in the DB.
+     * 
+     */
+    public void updateTagList(String tagName) {
+        tagList.add(tagName);
+    }
+    
+    /**
+     * Get a list of Tags in the DB.
+     * 
+     * @return tagList
+     */
+    public List<String> getTagList() {
+        return new ArrayList<String>(tagList);
+    }
+    
+    /**
+     * Count tags which are already inserted into the db
+     * 
+     * @return Number of tags
+     */
+    public int countTagList() {
+        return tagList.size();
+    }
+    
+    public Map<String, String> getAliases() {
+        return aliases;
     }
     
     /**
@@ -368,37 +403,70 @@ public class TodoListDB {
      * @return tasks
      * @@author Tiong YaoCong A0139922Y
      */
-    public List<Task> getTaskByName(List<Task> tasks, HashSet<String> itemNameList) {
+    public List<Task> getTaskByName(List<Task> tasks, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Task> taskByName = new ArrayList<Task>();
-        Iterator<Task> iterator = tasks.iterator();
-        Iterator<String> hashIterator = itemNameList.iterator();
+        Iterator<Task> tagIterator = tasks.iterator();
+        Iterator<String> taskNameIterator = itemNameList.iterator();
+        Iterator<String> tagNameIterator = tagNameList.iterator();
         boolean isFound = false;
-        while (iterator.hasNext()) {
-            Task currTask = iterator.next();
+        while (tagIterator.hasNext()) {
+            Task currTask = tagIterator.next();
             String currTaskName = currTask.getName().toLowerCase();
+            ArrayList<String> currTaskTagList = currTask.getTagList();
             String[] currTaskStartingNameBetweenSpace = currTaskName.split(" ");
-            while (hashIterator.hasNext()) {
-                String currentMatchingString = hashIterator.next().toLowerCase();
-                if (currTaskName.startsWith(currentMatchingString)) {
-                    taskByName.add(currTask);
-                    break;
+            while(taskNameIterator.hasNext() || tagNameIterator.hasNext()) {
+                String currentMatchingNameString = "";
+                String currentMatchingTagNameString = "";
+                
+                try {
+                    currentMatchingNameString = taskNameIterator.next().toLowerCase();
+                } catch (NoSuchElementException e) {
+                    currentMatchingNameString = null;
                 }
                 
-                for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
-                    
-                    if (currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingString)) {
+                try {
+                    currentMatchingTagNameString = tagNameIterator.next().toLowerCase();
+                } catch  (NoSuchElementException e) {
+                    currentMatchingTagNameString = null;
+                }
+                
+                if (currentMatchingNameString != null && currentMatchingTagNameString != null) {
+                    if (currTaskName.startsWith(currentMatchingNameString) || currTaskTagList.contains(currentMatchingTagNameString)){
                         taskByName.add(currTask);
                         isFound = true;
-                        break;
-                    }   
+                    } else {
+                        for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
+                            if(currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingNameString)) {
+                                taskByName.add(currTask);
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                } else if (currentMatchingNameString != null) {
+                    if (currTaskName.startsWith(currentMatchingNameString)) {
+                        taskByName.add(currTask);
+                    } else {
+                        for (int i = 0; i < currTaskStartingNameBetweenSpace.length; i ++) {
+                            if(currTaskStartingNameBetweenSpace[i].startsWith(currentMatchingNameString)) {
+                                taskByName.add(currTask);
+                                isFound = true;
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    if (currTaskTagList.contains(currentMatchingTagNameString)) {
+                        taskByName.add(currTask);
+                    }
                 }
-                
                 if (isFound) {
                     isFound = false;
                     break;
                 }
             }
-            hashIterator = itemNameList.iterator();
+            tagNameIterator = tagNameList.iterator();
+            taskNameIterator = itemNameList.iterator();
         }
         return taskByName;
     }
@@ -418,7 +486,7 @@ public class TodoListDB {
      * @@author Tiong YaoCong A0139922Y
      */
     public List<Task> getTaskByDateWithStatusAndName(LocalDateTime givenDate, boolean isCompleted, 
-            boolean listAllStatus, HashSet<String> itemNameList) {
+            boolean listAllStatus, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Task> taskByDate = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
@@ -443,7 +511,7 @@ public class TodoListDB {
         if (itemNameList.size() == 0) {
             return taskByDate;
         } else {
-            return getTaskByName(taskByDate, itemNameList);
+            return getTaskByName(taskByDate, itemNameList, tagNameList);
         }
     }
 
@@ -526,7 +594,7 @@ public class TodoListDB {
      * @@author Tiong YaoCong A0139922Y
      */
     public List<Task> getTaskByRangeWithName (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, 
-            boolean listAllStatus, HashSet<String> itemNameList) {
+            boolean listAllStatus, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Task> taskByRange = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         if (fromDate == null) {
@@ -555,10 +623,10 @@ public class TodoListDB {
             }
         }
         
-        if (itemNameList.size() == 0) {
+        if (itemNameList.size() == 0 && tagNameList.size() == 0) {
             return taskByRange;
         } else {
-            return getTaskByName(taskByRange, itemNameList);
+            return getTaskByName(taskByRange, itemNameList, tagNameList);
         }
     }
     
@@ -653,7 +721,7 @@ public class TodoListDB {
      * @return list of events
      * @@author Tiong YaoCong A0139922Y
      */
-    public List<Event> getEventbyDateWithName(LocalDateTime givenDate, HashSet<String> itemNameList) {
+    public List<Event> getEventbyDateWithName(LocalDateTime givenDate, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
@@ -666,7 +734,7 @@ public class TodoListDB {
         if (itemNameList.size() == 0) {
             return eventByDate;
         } else {
-            return getEventByName(eventByDate, itemNameList);
+            return getEventByName(eventByDate, itemNameList, tagNameList);
         }
     }
     
@@ -704,7 +772,7 @@ public class TodoListDB {
      * @return list of events
      * @@author Tiong YaoCong A0139922Y
      */
-    public List<Event> getEventByRangeWithName (LocalDateTime fromDate , LocalDateTime toDate, HashSet<String> itemNameList) {
+    public List<Event> getEventByRangeWithName (LocalDateTime fromDate , LocalDateTime toDate, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Event> eventByRange = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         
@@ -727,7 +795,7 @@ public class TodoListDB {
         if (itemNameList.size() == 0) {
             return eventByRange;
         } else {
-            return getEventByName(eventByRange, itemNameList);
+            return getEventByName(eventByRange, itemNameList, tagNameList);
         }
     }
     
@@ -774,21 +842,47 @@ public class TodoListDB {
      * @return list of events
      * @@author Tiong YaoCong A0139922Y
      */    
-    public List<Event> getEventByName(List<Event> events, HashSet<String> itemNameList) {
+    public List<Event> getEventByName(List<Event> events, HashSet<String> itemNameList, HashSet<String> tagNameList) {
         ArrayList<Event> eventByName = new ArrayList<Event>();
-        Iterator<Event> iterator = events.iterator();
-        Iterator<String> hashIterator = itemNameList.iterator();
-        while (iterator.hasNext()) {
-            Event currEvent = iterator.next();
+        Iterator<Event> eventIterator = events.iterator();
+        Iterator<String> eventNameIterator = itemNameList.iterator();
+        Iterator<String> tagNameIterator = tagNameList.iterator();
+        while (eventIterator.hasNext()) {
+            Event currEvent = eventIterator.next();
             String currEventName = currEvent.getName().toLowerCase();
-            while(hashIterator.hasNext()) {
-                String currentMatchingString = hashIterator.next().toLowerCase();
-                if (currEventName.contains(currentMatchingString)) {
-                    eventByName.add(currEvent);
-                } 
+            ArrayList<String> currEventTagList = currEvent.getTagList();
+            while(eventNameIterator.hasNext() || tagNameIterator.hasNext()) {
+                String currentMatchingNameString = "";
+                String currentMatchingTagNameString = "";
+                
+                try {
+                    currentMatchingNameString = eventNameIterator.next().toLowerCase();
+                } catch (NoSuchElementException e) {
+                    currentMatchingNameString = null;
+                }
+                
+                try {
+                    currentMatchingTagNameString = tagNameIterator.next().toLowerCase();
+                } catch  (NoSuchElementException e) {
+                    currentMatchingTagNameString = null;
+                }
+                
+                if (currentMatchingNameString != null && currentMatchingTagNameString != null) {
+                    if (currEventName.contains(currentMatchingNameString) || currEventTagList.contains(currentMatchingTagNameString)){
+                        eventByName.add(currEvent);
+                    }
+                } else if (currentMatchingNameString != null) {
+                    if (currEventName.contains(currentMatchingNameString)) {
+                        eventByName.add(currEvent);
+                    }
+                } else {
+                    if (currEventTagList.contains(currentMatchingTagNameString)) {
+                        eventByName.add(currEvent);
+                    }
+                }
             }
-            
-            hashIterator = itemNameList.iterator();
+            tagNameIterator = tagNameList.iterator();
+            eventNameIterator = itemNameList.iterator();
         }
         return eventByName;
     }

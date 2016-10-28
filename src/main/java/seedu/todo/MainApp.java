@@ -72,6 +72,7 @@ public class MainApp extends Application {
         IndexView view = UiManager.loadView(IndexView.class);
         view.tasks = TodoListDB.getInstance().getIncompleteTasksAndTaskFromTodayDate();
         view.events = TodoListDB.getInstance().getAllCurrentEvents();
+        view.tags = TodoListDB.getInstance().getTagList();
         UiManager.renderView(view);
         
         // Show welcome message

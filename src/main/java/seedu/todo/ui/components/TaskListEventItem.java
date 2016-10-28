@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.models.Event;
 
 /**
@@ -28,7 +29,9 @@ public class TaskListEventItem extends MultiComponent {
     private Text rowIndex;
     @FXML
     private ImageView rowIconImageView;
-
+    @FXML
+    private Text eventTagListText;
+    
     @Override
     public String getFxmlPath() {
         return FXML_PATH;
@@ -39,6 +42,7 @@ public class TaskListEventItem extends MultiComponent {
         eventText.setText(event.getName());
         eventTime.setText(DateUtil.formatDateFromTo(event.getStartDate(), event.getEndDate()));
         rowIndex.setText(displayIndex.toString());
+        eventTagListText.setText(StringUtil.checkEmptyList(event.getTagList())); //TODO : Change FXML file to support TagList
         
         // Set image
         rowIconImageView.setImage(new Image(ICON_PATH));

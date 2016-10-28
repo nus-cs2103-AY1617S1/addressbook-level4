@@ -65,6 +65,45 @@ public class CalendarItemTests {
     }
     
     @Test
+    public void test_event_tag_list_not_null() {
+        Event event = new Event();
+        assertNotNull(event.getTagList());
+    }
+    
+    @Test
+    public void test_event_tag_list_add_tag() {
+        Event event = new Event();
+        assertEquals(event.getTagList().size(), 0);
+        assertTrue(event.addTag("A"));
+        assertTrue(event.addTag("B"));
+        assertEquals(event.getTagList().size(), 2);
+    }
+    
+    @Test
+    public void test_event_tag_list_add_tag_to_boundary() {
+        Event event = new Event();
+        for (int i = 0; i < 20; i ++) {
+            event.addTag(Integer.toString(i));
+        }
+        assertEquals(event.getTagList().size(), 20);
+        assertFalse(event.addTag("A"));
+    }
+    
+    @Test
+    public void test_event_tag_list_remove_tag_succesfully() {
+        Event event = new Event();
+        event.addTag("A");
+        event.addTag("B");
+        assertTrue(event.removeTag("A"));
+    }
+    
+    @Test
+    public void test_event_tag_list_remove_tag_unsuccessfully() {
+        Event event = new Event();
+        assertFalse(event.removeTag("A"));
+    }
+    
+    @Test
     public void test_task_duedate() {
         Task task = new Task();
         LocalDateTime time = LocalDateTime.now();
@@ -120,5 +159,44 @@ public class CalendarItemTests {
         
         task.setIncomplete();
         assertEquals(task.isCompleted(), false);
+    }
+    
+    @Test
+    public void test_task_tag_list_not_null() {
+        Task task = new Task();
+        assertNotNull(task.getTagList());
+    }
+    
+    @Test
+    public void test_task_tag_list_add_tag() {
+        Task task = new Task();
+        assertEquals(task.getTagList().size(), 0);
+        assertTrue(task.addTag("A"));
+        assertTrue(task.addTag("B"));
+        assertEquals(task.getTagList().size(), 2);
+    }
+    
+    @Test
+    public void test_task_tag_list_add_tag_to_boundary() {
+        Task task = new Task();
+        for (int i = 0; i < 20; i ++) {
+            task.addTag(Integer.toString(i));
+        }
+        assertEquals(task.getTagList().size(), 20);
+        assertFalse(task.addTag("A"));
+    }
+    
+    @Test
+    public void test_task_tag_list_remove_tag_succesfully() {
+        Task task = new Task();
+        task.addTag("A");
+        task.addTag("B");
+        assertTrue(task.removeTag("A"));
+    }
+    
+    @Test
+    public void test_task_tag_list_remove_tag_unsuccessfully() {
+        Task task = new Task();
+        assertFalse(task.removeTag("A"));
     }
 }
