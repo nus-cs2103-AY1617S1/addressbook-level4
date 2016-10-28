@@ -1,7 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.TaskAlreadyUnmarkedException;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -48,6 +50,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             model.pushToUndoHistory(this);
             
             model.clearRedoHistory();
+            
+            requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
@@ -81,6 +85,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             executeUnmark();
             
             model.pushToUndoHistory(this);
+            
+            requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
@@ -109,5 +115,10 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
         
         model.unmarkTask(taskToUnmark);
+    }
+    
+    // @@author A0138862W
+    private void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
 }

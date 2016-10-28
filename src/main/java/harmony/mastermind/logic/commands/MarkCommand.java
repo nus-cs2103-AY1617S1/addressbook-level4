@@ -1,6 +1,8 @@
 package harmony.mastermind.logic.commands;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
@@ -69,6 +71,8 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             model.unmarkTask(taskToMark);
 
             model.pushToRedoHistory(this);
+            
+            requestHighlightLastActionedRow(taskToMark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
         } catch (DuplicateTaskException e) {
@@ -121,5 +125,10 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             model.addNextTask(taskToMark);
         }
 
+    }
+    
+    // @@author A0138862W
+    private void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
 }

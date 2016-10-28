@@ -30,8 +30,8 @@
 }
 
 .table-row-cell:selected {
-   -fx-background-color: transparent;
-   -fx-table-cell-border-color:transparent;
+   -fx-background-color: #4d0000;
+   -fx-table-cell-border-color: #4d0000;
 }
 
 .text-field{
@@ -138,6 +138,13 @@
 .task-name-column{
     -fx-font-weight: bold;
     -fx-font-size: 18px;
+}
+
+.index-column{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-fill: white;
+    -fx-font-style: oblique;
 }
 
 .pretty-date{

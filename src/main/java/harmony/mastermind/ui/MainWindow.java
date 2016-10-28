@@ -28,6 +28,7 @@ import harmony.mastermind.model.Model;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskListComparator;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -51,6 +52,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -500,13 +502,16 @@ public class MainWindow extends UiPart {
             @Override
             public void updateIndex(int index) {
                 super.updateIndex(index);
+                
+                Text indexText = new Text(Integer.toString(index+ 1)+".");
+                indexText.getStyleClass().add("index-column");
+                
 
                 if (isEmpty()
                     || index < 0) {
-                    setText(null);
+                    this.setGraphic(null);
                 } else {
-                    setText(Integer.toString(index
-                                             + 1));
+                    this.setGraphic(indexText);
                 }
             }
 
@@ -743,6 +748,12 @@ public class MainWindow extends UiPart {
                 }
             }
         });
+    }
+    
+    // @@author A0138862W
+    public void highlightLastActionedRow(Task task){
+        taskTableHome.getSelectionModel().select(task);
+        taskTableHome.scrollTo(task);
     }
 
     /**
