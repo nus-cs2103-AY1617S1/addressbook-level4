@@ -13,7 +13,6 @@ import seedu.taskscheduler.commons.core.GuiSettings;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.model.UserPrefs;
-import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -29,8 +28,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+//    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private PriorityListPanel priorityListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -41,11 +41,6 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String taskSchedulerName;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
-
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
@@ -53,8 +48,11 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
+    private AnchorPane priorityListPanelPlaceholder;
+    
+    @FXML
     private AnchorPane taskListPanelPlaceholder;
-
+    
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
@@ -88,7 +86,6 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskSchedulerName = taskSchedulerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -108,13 +105,16 @@ public class MainWindow extends UiPart {
     }	
     
 
+    //@@author A0148145E
     public void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
+                logic.getPriorityFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskSchedulerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
+    //@@author 
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
@@ -128,6 +128,10 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
+    public AnchorPane getPriorityListPlaceholder() {
+        return priorityListPanelPlaceholder;
+    }
+    
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
@@ -186,12 +190,12 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
+//
+//    public void loadTaskPage(ReadOnlyTask task) {
+//        browserPanel.loadTaskPage(task);
+//    }
 
     public void releaseResources() {
-        browserPanel.freeResources();
+//        browserPanel.freeResources();
     }
 }

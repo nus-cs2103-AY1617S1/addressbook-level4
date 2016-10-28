@@ -111,7 +111,11 @@ The `delete` command allows you to delete any existing task from the MustDoList 
 
 Delete format: **`delete`**`INDEX`
 
+<<<<<<< HEAD
 > The INDEX in the command format refers to the index number shown in the most recent listing.<br>
+=======
+> Index refers to the index number shown in the most recent listing.<br>
+>>>>>>> 0839c1252a695fe44c3e85810cff81e7fbf4fc0c
 
 Examples:<br>
 * `list`<br>
@@ -235,7 +239,7 @@ The `exit` command allows you to exits the program.<br>
 Exit format: `exit` 
 
 #### How to redo a task
-The <kbd>&uparrow</kbd> <kbd>&downarrow</kbd> allows you to select and display previous typed command in the command box.<br>
+The <kbd>Up</kbd> <kbd>Down</kbd> allows you to select and display previous typed command in the command box.<br>
 
 #### How to identify overdue and completed task
 Overdue and completed tasks can be identified by the color codes.<br>
@@ -303,7 +307,7 @@ e.g. **`setpath`**`taskData`
 
 * Exit: `exit`
 
-* <kbd>&uparrow</kbd> <kbd>&downarrow</kbd>: system display and select previously keyed commands
+* <kbd>Up</kbd> <kbd>Down</kbd>: system display and select previously keyed commands
 
 * ColorCode: system indicate overdue(red) and completed(green) task by color code
 

@@ -10,6 +10,8 @@ import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.testutil.TestUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -96,6 +98,26 @@ public class TaskListPanelHandle extends GuiHandle {
             }
         }
         return true;
+    }
+    
+    /**
+     * Returns true if the list is showing all the task details correctly and in no order.
+     * @param tasks A list of task.
+     */
+    public boolean listContainsAll(ReadOnlyTask... tasks) throws IllegalArgumentException {
+        ArrayList<ReadOnlyTask> list = new ArrayList<ReadOnlyTask>(Arrays.asList(tasks));
+        for (int i = 0; i < tasks.length; i++) {
+            final int scrollTo = i;
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            for (int j = 0; j < list.size(); j++) {
+                if (TestUtil.compareCardAndTask(getTaskCardHandle(scrollTo), list.get(j))) {
+                    list.remove(j);
+                    break;
+                }
+            }
+        }
+        return list.size() == 0;
     }
 
 

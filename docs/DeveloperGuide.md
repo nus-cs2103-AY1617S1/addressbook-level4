@@ -70,14 +70,18 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
+### Sequence Diagram
+
+#### Delete Command
+
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
-
+ 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
@@ -85,6 +89,48 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
+ 
+#### Replace Command 
+ 
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `replace 1 do homework by today`.
+  
+<img src="images\SDforEditTask.png" width="800">
+
+#### Undo Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `undo`.
+
+<img src="images\SDforUndoTask.png" width="800">
+
+#### Mark Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `mark 1`.
+
+<img src="images\SDforMarkTask.png" width="800">
+
+#### Setpath Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `setpath filename`.
+
+<img src="images\SDforSetpath.png" width="800">
+
+#### Exit Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `exit`.
+
+<img src="images\SDforExit.png" width="800">
+
+#### Recur Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `recur 1 every 3 days until next week`.
+
+<img src="images\SDforRecurTask.png" width="800">
 
 The sections below give more details of each component.
 
@@ -95,7 +141,7 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/seedu/taskscheduler/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+`StatusBarFooter` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -250,18 +296,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | list all tasks | 
+`* * *` | user | add a new task | create a new task 
+`* * *` | user | list all tasks | see all the tasks
 `* * *` | user | find a task by task name | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task date | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task time| locate details of tasks without having to go through the entire task list
-`* * *` | user | select a task | open the browser without using the mouse 
 `* * *` | user | set the data file path | save the data to where i want 
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | clear all tasks | start a fresh task list 
 `* * *` | user | edit a task | edit details without re-entry
 `* * *` | user | undo a command | revert the previous action 
-`* * *` | user | mark a task as complete | manage my Task list easily
+`* * *` | user | mark a task as complete | manage my task list easily
 `* * *` | user | have flexibility in the command format | type a few natural variations of the command format 
 `* * *` | user | create floating tasks | tasks can be created without specific times
 `* * *` | user | change the default storage path | sync the cloud services to access data from multiple computers
@@ -270,6 +315,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | indicate overdue tasks with color code (red) | easily to track overdue task
 `* *` | user | indicate a completed task with color code (green) | easily to track done task  
 `* *` | user | make a task recurring | duplicate a task for specific number of days  
+`* *` | user | have a ui that display useful information | manage my task list easily
+`* *` | user | have powerful search function | find tasks easily
+`* *` | user | sort my task by date/time | see the task that needs to be done first
+`*` | user | redo a command | revert the previous command
+`*` | user | unmark a task | unmark the task that is accidentally marked as completed
 `*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
@@ -346,7 +396,6 @@ Use case ends.
 2. MustDoList shows a list of tasks
 3. User requests to select the index of a specific task in the list
 4. MustDoList highlight the selected task in the list
-5. MustDoList open the browser and search for task name <br>
 Use case ends.
 
 **Extensions**
@@ -400,8 +449,6 @@ Use case ends.
 4. MustDoList edits the task <br>
 Use case ends.
 
-<img src="images\SDforEditTask.png" width="800">
-
 **Extensions**
 
 2a. The list is empty
@@ -427,8 +474,6 @@ Use case ends.
 2. MustDoList undo the task <br>
 Use case ends.
 
-<img src="images\SDforUndoTask.png" width="800">
-
 **Extensions**
 
 2a. The task list is at initial stage
@@ -445,14 +490,13 @@ Use case ends.
 4. MustDoList marks the task as completed <br>
 Use case ends.
 
-<img src="images\SDforMarkTask.png" width="800">
-
 **Extensions**
 
 2a. The list is empty
 Use case ends
 
 3a. The given index is invalid
+
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
@@ -463,10 +507,6 @@ Use case ends
 1. User requests to change default storage path
 2. MustDoList changes the path of default storage <br>
 Use case ends.
-
-<img src="images\SDforSetpath.png" width="800">
-
-<img src="images\SDforFilePathChangedEventHandling.png" width="800">
 
 **Extensions**
 
@@ -483,12 +523,7 @@ Use case ends.
 2. MustDoList closes the task list <br>
 Use case ends.
 
-<img src="images\SDforExit.png" width="800">
-
-<img src="images\SDforExitAppRequestHandling.png" width="800">
-
 #### Use case 13: Recur a task
-
 
 **MSS**
 
@@ -497,8 +532,6 @@ Use case ends.
 3. User requests to recur a specific task in the list by the task's index
 4. MustDoList recurs the task with a specific numbers of days <br>
 Use case ends
-
-<img src="images\SDforRecurTask.png" width="800">
 
 **Extensions**
 
@@ -515,6 +548,40 @@ Use case ends
 
 > 3b1. MustDoList shows an error message <br>
   Use case resumes at step 3
+  
+#### Use case 14: Redo task
+
+**MSS**
+
+1. User requests to redo task
+2. MustDoList redo the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The task list is at initial stage
+> 2a1. MustDoList shows an error message <br>
+  Use case ends.
+  
+#### Use case 15: Unmark task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to unmark a specific task as completed in the list by the task's index
+4. MustDoList unmarks the task as completed <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+Use case ends
+
+3a. The given index is invalid
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements
 

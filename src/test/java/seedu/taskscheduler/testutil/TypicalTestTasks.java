@@ -4,6 +4,8 @@ import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.TaskScheduler;
 import seedu.taskscheduler.model.task.*;
 
+//@@author A0148145E
+
 /**
  *
  */
@@ -14,30 +16,30 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Career Fair").withAddress("NUS COM1")
-                    .withEndDate("11 Oct 2016").withStartDate("07 Oct 2016").withType("EVENT").build();
+                    .withStartDate("07 Oct 2016").withEndDate("11 Oct 2016").withType("EVENT").build();
             benson = new TaskBuilder().withName("Groupwork Project").withAddress("")
-                    .withEndDate("14 Oct 2016").withStartDate("").withType("DEADLINE").withTags("Deadline").build(); // deadline task
+                    .withStartDate("").withEndDate("14 Oct 2016 at 8 am").withType("DEADLINE").withTags("Deadline").build(); // deadline task
             carl = new TaskBuilder().withName("Project Discussion").withAddress("Technoedge")
-                    .withEndDate("21 Oct 2016").withStartDate("14 Oct 2016").withType("EVENT").withTags("Event").build();
-            daniel = new TaskBuilder().withName("Groupwork Discussion").withAddress("")
-                    .withEndDate("").withStartDate("").withType("FLOATING").withTags().build(); // floating task
+                    .withStartDate("14 Oct 2016 at 1 pm").withEndDate("21 Oct 2016").withType("EVENT").withTags("Event").build();
+            daniel = new TaskBuilder().withName("Groupwork Discussion").withAddress("ICube Lecture Hall")
+                    .withStartDate("01 Jan 2018").withEndDate("31 Dec 2018").withType("EVENT").withTags("Event").build();
             elle = new TaskBuilder().withName("CS2103 Lecture").withAddress("ICube Lecture Hall")
-                    .withEndDate("31 Dec 2018").withStartDate("01 Jan 2018").withType("EVENT").withTags("Event").build();
+                    .withStartDate("01 Jan 2018").withEndDate("31 Dec 2018").withType("EVENT").withTags("Event").build();
             fiona = new TaskBuilder().withName("Send kid to NUS").withAddress("NUS")
-                    .withEndDate("01 Apri 2038").withStartDate("01 Jan 2034").withType("EVENT").withTags("Event").build();
-            george = new TaskBuilder().withName("Project Briefing").withAddress("ICube Lecture Hall")
-                    .withEndDate("01 Jan 2034").withStartDate("01 Jan 2034").withType("EVENT").withTags("Event").build();
+                    .withStartDate("01 Jan 2034").withEndDate("01 Apri 2038").withType("EVENT").withTags("Event").build();
+            george = new TaskBuilder().withName("Project Briefing").withAddress("")
+                    .withStartDate("").withEndDate("").withType("FLOATING").withTags().build(); // floating task
             //Manually added
             ida = new TaskBuilder().withName("University Graduation").withAddress("University Cultural Centre")
-                    .withEndDate("15 July 2016").withStartDate("7 July 2016").withType("EVENT").build();
+                    .withStartDate("7 July 2016").withEndDate("15 July 2016").withType("EVENT").build();
             overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
-                    .withEndDate("10 years ago").withStartDate("10 years ago").withType("EVENT").build();
+                    .withStartDate("10 years ago").withEndDate("10 years ago").withType("EVENT").build();
             event = new TaskBuilder().withName("Wildlife Photoshoot").withAddress("Wildlife Reserves")
-                    .withEndDate("today").withStartDate("yesterday").withType("EVENT").build(); // event task
+                    .withStartDate("yesterday").withEndDate("today").withType("EVENT").build(); // event task
             floating = new TaskBuilder().withName("Floating Task").withAddress("")
-                    .withEndDate("").withStartDate("").withType("FLOATING").withTags().build(); // floating task
+                    .withStartDate("").withEndDate("").withType("FLOATING").withTags().build(); // floating task
             deadline = new TaskBuilder().withName("Deadline Task").withAddress("")
-                    .withEndDate("tomorrow").withStartDate("").withType("DEADLINE").withTags("Deadline").build(); // deadline task
+                    .withStartDate("").withEndDate("tomorrow").withType("DEADLINE").withTags("Deadline").build(); // deadline task
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

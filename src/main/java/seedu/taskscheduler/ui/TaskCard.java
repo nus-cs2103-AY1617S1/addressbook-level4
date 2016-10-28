@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 
@@ -31,12 +33,14 @@ public class TaskCard extends UiPart{
     private Label address;
     @FXML
     private Label tags;
+    @FXML
+    private Polygon completeStatus;
 
     private ReadOnlyTask person;
     private int displayedIndex;
 
-    public static final String COMPLETED_INDICATION = "-fx-background-color: #ccffcc;";
-    public static final String OVERDUE_INDICATION = "-fx-background-color:  #ffcce6;";
+    public static final Paint COMPLETED_INDICATION = Paint.valueOf("#47fc00");
+    public static final Paint OVERDUE_INDICATION = Paint.valueOf("#fc0000");
 
     public static TaskCard load(ReadOnlyTask person, int displayedIndex){
         TaskCard card = new TaskCard();
@@ -87,11 +91,9 @@ public class TaskCard extends UiPart{
     public void indicatingColourByCondition(ReadOnlyTask task) {
         
         if (task.getCompleteStatus()) {
-            // if task completed
-            cardPane.setStyle(COMPLETED_INDICATION);
+            completeStatus.setFill(COMPLETED_INDICATION);
         } else if (task.getEndDate().getDate() != null && task.getEndDate().getDate().before(new Date())) {
-            // if task overdue
-            cardPane.setStyle(OVERDUE_INDICATION);
+            completeStatus.setFill(OVERDUE_INDICATION);
         }
         
     }

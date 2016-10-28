@@ -36,7 +36,7 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     
     @Test
     public void find_address() {
-        assertFindResult("find hall", td.elle, td.george);
+        assertFindResult("find hall", td.daniel, td.elle);
     }
     
     @Test
