@@ -13,6 +13,6 @@
     </stylesheets>
     <children>
       <Label fx:id="label_count" alignment="CENTER" styleClass="label-bright" text="Floating" textAlignment="CENTER" />
-        <ListView fx:id="undatedListView" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="undatedListView" styleClass="cardPaneBackground" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

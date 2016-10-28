@@ -1,36 +1,37 @@
 .background {
-    -fx-background-color: black;
+    -fx-background-color: lightslategrey;
 }
 
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: black;
+    -fx-text-fill: lightslategrey;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: limegreen;
+    -fx-text-fill: black;
     -fx-opacity: 1;
     -fx-padding: 0 10 10 10;
 }
 
 .label-header {
-	-fx-background-color: limegreen;
+	-fx-background-color: black;
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
+    -fx-text-fill: lightslategrey;
     -fx-opacity: 1;
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-background-color: black;
-    -fx-text-fill: limegreen;
-    -fx-border-color: limegreen;
+    -fx-background-color: midnightblue;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
 }
 
 .tab-pane {
@@ -53,7 +54,7 @@
 }
 
 .table-view .column-header-background {
-    -fx-background-color: limegreen;
+    -fx-background-color: black;
 }
 
 .table-view .column-header, .table-view .filler {
@@ -81,25 +82,25 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: limegreen	;
-    -fx-background-color: limegreen	;
+    -fx-border-color: lightskyblue	;
+    -fx-background-color: lightskyblue	;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: black;
+    -fx-background-color: lightskyblue;
 }
 
 .list-cell {
-	-fx-background-color: black;
+	-fx-background-color: lightskyblue;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 5 5 5 5;
 }
 
 .list-cell .label {
-    -fx-text-fill: limegreen;
+    -fx-text-fill: black;
 }
 
 .cell_big_label {
@@ -113,75 +114,75 @@
 }
 
 .anchor-pane {
-     -fx-background-color: black;
+     -fx-background-color: lightslategrey;
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: black;
-     -fx-border-color: black;
+     -fx-background-color: midnightblue;
+     -fx-border-color: midnightblue;
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: black;
-    -fx-text-fill: limegreen;
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }
 
 .result-display {
-    -fx-background-color: limegreen;
+    -fx-background-color: midnightblue;
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
-    -fx-background-color: black;   
+    -fx-text-fill: lightslategrey !important;
+    -fx-background-color: yellow;   
 }
 
 .status-bar .label {
-    -fx-text-fill: limegreen;
+    -fx-text-fill: black;
 }
 
 .status-bar-with-border {
-    -fx-background-color: limegreen;
-    -fx-border-color: limegreen;
+    -fx-background-color: black;
+    -fx-border-color: black;
     -fx-border-width: 5px;
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: limegreen;
+    -fx-text-fill: black;
     -fx-border-with: 10px;
 }
 
 .grid-pane {
-    -fx-background-color: limegreen;
-    -fx-border-color: limegreen;
+    -fx-background-color: black;
+    -fx-border-color: midnightblue;
     -fx-border-width: 5px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: black;
+    -fx-background-color: lightslategrey;
 }
 
 .context-menu {
-    -fx-background-color: black;
+    -fx-background-color: lightslategrey;
 }
 
 .context-menu .label {
-    -fx-text-fill: black;
+    -fx-text-fill: lightslategrey;
 }
 
 .menu-bar {
-    -fx-background-color: black;
+    -fx-background-color: lightslategrey;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: black;
+    -fx-text-fill: lightslategrey;
     -fx-opacity: 0.9;
 }
 
 .menu .left-container {
-    -fx-background-color: black;
+    -fx-background-color: lightslategrey;
 }
 
 /*
@@ -234,28 +235,28 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: black;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: black;
 }
 
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: indigo;
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: indigo;
 }
 
 .dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
-    -fx-fill: limegreen;
-    -fx-text-fill: limegreen;
+    -fx-fill: indigo;
+    -fx-text-fill: indigo;
 }
 
 .scroll-bar .thumb {
@@ -281,9 +282,10 @@
 }
 
 #cardPane {
-    -fx-background-color: black;
-    -fx-border-color: limegreen;
+    -fx-border-color: lightskyblue;
     -fx-border-width: 1 1 1 1;
+    -fx-border-radius: 0px;
+    -fx-background-color: white;
 }
 
 #commandTypeLabel {
@@ -293,4 +295,8 @@
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+.cardPaneBackground {
+	-fx-background-color: lightskyblue;
 }

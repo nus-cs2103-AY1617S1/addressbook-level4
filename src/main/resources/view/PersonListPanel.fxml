@@ -12,7 +12,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label fx:id="label_count" prefHeight="17.0" prefWidth="247.0" styleClass="label-bright" text="Events / Deadlines" wrapText="true" />
-        <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+      <Label fx:id="label_count" alignment="TOP_LEFT" prefHeight="17.0" prefWidth="247.0" styleClass="label-bright" text="Events / Deadlines" wrapText="true" />
+        <ListView fx:id="personListView" styleClass="cardPaneBackground" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

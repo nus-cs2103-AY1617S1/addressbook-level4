@@ -74,16 +74,36 @@ public class PersonCard extends UiPart{
     private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
         String status = task.getStatus().toString();
         if(status.equals("OVERDUE")){
-        	cardPane.setStyle("-fx-background-color: red;");
+            name.setStyle("-fx-text-fill: red");
+            id.setStyle("-fx-text-fill: red");
+            description.setStyle("red");
+            date.setStyle("-fx-text-fill: red");
+            time.setStyle("-fx-text-fill: red");
+            tags.setStyle("-fx-text-fill: red");
         }
         else if(status.equals("DONE")){
-        	cardPane.setStyle("-fx-background-color: midnightblue ;");
+            name.setStyle("-fx-text-fill: blue");
+            id.setStyle("-fx-text-fill: blue");
+            description.setStyle("blue");
+            date.setStyle("-fx-text-fill: blue");
+            time.setStyle("-fx-text-fill: blue");
+            tags.setStyle("-fx-text-fill: blue");
         }
         else if(status.equals("NONE")){
-        	cardPane.setStyle("-fx-background-color: black");
+        	name.setStyle("-fx-text-fill: black");
+        	id.setStyle("-fx-text-fill: black");
+        	description.setStyle("-fx-text-fill: black");
+        	date.setStyle("-fx-text-fill: black");
+        	time.setStyle("-fx-text-fill: black");
+        	tags.setStyle("-fx-text-fill: black");
         }
         else if(status.equals("EXPIRE")){
-            cardPane.setStyle("-fx-background-color: deeppink");
+            name.setStyle("-fx-text-fill: deeppink");
+            id.setStyle("-fx-text-fill: deeppink");
+            description.setStyle("deeppink");
+            date.setStyle("-fx-text-fill: deeppink");
+            time.setStyle("-fx-text-fill: deeppink");
+            tags.setStyle("-fx-text-fill: deeppink");
         }
         
     }   
