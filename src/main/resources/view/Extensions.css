@@ -40,7 +40,7 @@
 
 /* @@author A0138411N */
 .correct:focused {
-    -fx-focus-color: #009b5f	;
+    -fx-focus-color: #00cc99;
     -fx-faint-focus-color: #d3524422;
 
     -fx-highlight-fill: -fx-accent;
@@ -56,7 +56,7 @@
 }
 
 .correct:focused:hover {
-    -fx-focus-color: #009b5f;
+    -fx-focus-color: #00cc99;
     -fx-faint-focus-color: #d3524422;
 
     -fx-highlight-fill: -fx-accent;

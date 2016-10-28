@@ -14,8 +14,8 @@
 .label-date {
 	-fx-font-size: 42pt;
 	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	-fx-text-fill: #649fbc;
-	-fx-opacity: 0.6;
+	-fx-text-fill: #4D7DA7;
+	-fx-opacity: 0.9;
 }
 
 .label-date:hover {
@@ -175,7 +175,7 @@
 }
 /* @@author A0138411N */
 .list-view .list-cell:selected:focused {
-    -fx-background-color: derive(#b25838, 40%);
+    -fx-background-color: derive(#A366B0, 40%);
 }
 /* @@author A0144727B */
 .cell_name_label {

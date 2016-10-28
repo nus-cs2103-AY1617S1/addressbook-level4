@@ -118,10 +118,10 @@ public class CommandBox extends UiPart {
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
-    
+ /*   
     @Subscribe
     private void handleCorrectCommandExecuted(CorrectCommandExecutedEvent event){
         setStyleToIndicateCorrectCommand();
     }
-
+*/
 }
