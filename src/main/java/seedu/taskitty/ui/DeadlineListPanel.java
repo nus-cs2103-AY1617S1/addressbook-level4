@@ -19,6 +19,8 @@ public class DeadlineListPanel extends TaskListPanel {
     @FXML
     private ListView<ReadOnlyTask> deadlineListView;
     
+    public static final int DEADLINE_CARD_ID = 1;
+    
     public DeadlineListPanel() {
         super();
     }
@@ -27,7 +29,13 @@ public class DeadlineListPanel extends TaskListPanel {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    @Override
+    public int getTaskCardID() {
+        return DEADLINE_CARD_ID;
+    }
+    
+    @Override
     public void configure(ObservableList<ReadOnlyTask> deadlineList) {
     	header.setText("DEADLINES [d]");
     	header.setStyle("-fx-text-fill: white");
