@@ -3,6 +3,9 @@ package seedu.emeraldo.logic.commands;
 import java.util.Random;
 
 //@@author A0139196U
+/**
+ * Motivates the user upon request in the task manager.
+ */
 public class MotivateMeCommand extends Command {
     
     public static final String [] MESSAGE_MOTIVATE_LIST = {

@@ -10,6 +10,9 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0139196U
+/**
+ * Edits a task in the task manager.
+ */
 public class EditCommand extends Command{
     
     public static final String COMMAND_WORD = "edit";
