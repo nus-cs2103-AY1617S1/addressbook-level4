@@ -62,7 +62,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/savvytasker/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -75,6 +75,7 @@ Two of those classes play important roles at the architecture level.
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
+* [**`Parser`**](#parser-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -88,6 +89,8 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
+
+[//]: # (@@author A0139915W)
 
 <img src="images\SDforDeletePerson.png" width="800">
 
@@ -104,11 +107,13 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
+[//]: # (@@author)
+
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/savvytasker/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -116,7 +121,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/savvytasker/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -124,11 +129,13 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+[//]: # (@@author A0139916U)
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/savvytasker/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -139,11 +146,23 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+### Parser component
+
+<img src="images/ParserClassDiagram.png" width="800"><br>
+
+**API** : [`MasterParser.java`](../src/main/java/seedu/savvytasker/logic/parser/MasterParser.java)
+
+The `Parser` component,
+* can parse text input into commands.
+* supports adding and removing of keyword aliases
+
+[//]: # (@@author A0139915W)
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/savvytasker/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -156,11 +175,13 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/savvytasker/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Saavy Tasker data in xml format and read it back.
+
+[//]: # (@@author)
 
 ### Common classes
 
@@ -267,6 +288,8 @@ b. Require developers to download those libraries manually (this creates extra w
 
 ## Appendix A : User Stories
 
+[//]: # (@@author A0097627N)
+
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
@@ -291,6 +314,8 @@ Priority | As a ... | I want to ... | So that I can...
 {More to be added}
 
 ## Appendix B : Use Cases
+
+[//]: # (@@author A0097627N)
 
 (For all use cases below, the **System** is the `Savvy Tasker` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -544,6 +569,8 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
+[//]: # (@@author A0097627N)
+
 #### Competing product: Google Calendar
 
 **Pros:**
@@ -582,6 +609,7 @@ Use case ends.
 5. Email notifications, autoprocess
 6. API <br>
 
+[//]: # (@@author A0139916U)
 
 #### Competing product: MIUI Calendar
 
@@ -597,6 +625,8 @@ Use case ends.
 1. Unable to check(tick) completed event
 2. Does not cater for tasks, only events
 
+
+[//]: # (@@author A0139915W)
 
 #### Competing product: WunderList
 
