@@ -490,7 +490,7 @@ Cons:
 * Unable to label event with categories
 * Event name gets truncated <br>
 
-<!-- @@author -->
+<!-- @@author A0158963M -->
 #### S Planner
 
 Pros:
