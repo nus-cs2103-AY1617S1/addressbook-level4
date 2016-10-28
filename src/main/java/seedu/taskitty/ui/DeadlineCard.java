@@ -33,10 +33,6 @@ public class DeadlineCard extends UiPart
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public DeadlineCard(){
-
-    }
-
     public static DeadlineCard load(ReadOnlyTask task, int displayedIndex){
        	DeadlineCard card = new DeadlineCard();
         card.task = task;

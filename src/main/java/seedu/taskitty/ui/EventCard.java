@@ -33,10 +33,6 @@ public class EventCard extends UiPart
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public EventCard(){
-
-    }
-
     public static EventCard load(ReadOnlyTask task, int displayedIndex){
         EventCard card = new EventCard();
         card.task = task;

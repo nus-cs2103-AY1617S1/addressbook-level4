@@ -94,6 +94,9 @@ public abstract class TaskListPanel extends UiPart {
                     setGraphic(EventCard.load(task, getIndex() + 1).getLayout());
                     break;
                 
+                default:
+                    setGraphic(TodoCard.load(task, getIndex() + 1).getLayout());
+                    break;
                 }                
             }
         }

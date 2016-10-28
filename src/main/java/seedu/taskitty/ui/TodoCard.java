@@ -32,10 +32,6 @@ public class TodoCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TodoCard(){
-
-    }
-
     public static TodoCard load(ReadOnlyTask task, int displayedIndex){
         TodoCard card = new TodoCard();
         card.task = task;
