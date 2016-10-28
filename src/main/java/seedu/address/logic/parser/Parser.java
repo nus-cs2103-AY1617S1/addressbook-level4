@@ -537,6 +537,8 @@ public class Parser {
 	public static void main(String[] args) {
 		Parser p = new Parser();
 		p.parseCommand("find bob, oh my darling, clementine");
+		
+		System.out.println(Math.floorMod((3-1 - 2), 7) + 1);
 	}
 	
 }

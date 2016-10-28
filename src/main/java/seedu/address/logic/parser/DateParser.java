@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -25,8 +27,8 @@ public class DateParser {
 	};
 
 	private static final Pattern[] NATURAL_LANGUAGE = new Pattern[] {
-			Pattern.compile("(?<day>today|tomorrow|next week)?\\s*(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // tomorrow 2:30 pm
-			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s*(?<day>today|tomorrow|next week)?") // 2pm tomorrow
+			Pattern.compile("(?<day>[a-zA-Z\\s]+)?\\s*(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // tomorrow 2:30 pm
+			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s*(?<day>[a-zA-Z\\s]+)?") // 2pm tomorrow
 	};
 
 	
@@ -57,33 +59,12 @@ public class DateParser {
 			matchers.add(NATURAL_LANGUAGE[i].matcher(dateString));
 		}
 		
-		LocalDateTime now = LocalDateTime.now();
-		
 		for (Matcher matcher : matchers) {
 			if (matcher.matches()) {
 				Optional<String> dayOpt = Optional.ofNullable(matcher.group("day"));
-				String parsedDay = dayOpt.orElse("today");
-				
-				int year, month, day;
-				switch(parsedDay) {
-				case "today":
-					year = now.getYear();
-					month = now.getMonthValue();
-					day = now.getDayOfMonth();
-					break;
-				case "tomorrow":
-					year = now.getYear();
-					month = now.plusDays(1).getMonthValue();
-					day = now.plusDays(1).getDayOfMonth();
-					break;
-				case "next week":
-					year = now.getYear();
-					month = now.plusDays(7).getMonthValue();
-					day = now.plusDays(7).getDayOfMonth();
-					break;
-				default:
-					throw new ParseException("Day phrase is not today, tomorrow, or next week.", -1);
-				}
+				System.out.println(dayOpt);
+				String dayWord = dayOpt.orElse("today").trim();
+				LocalDateTime dayMonthYear = parseDayWord(dayWord);
 				
 				Optional<String> meridiemOpt = Optional.ofNullable(matcher.group("meridiem"));
 				int hour = parseHour(matcher.group("hour"), meridiemOpt.orElse(""));
@@ -91,7 +72,7 @@ public class DateParser {
 				Optional<String> minuteOpt = Optional.ofNullable(matcher.group("minute"));
 				int minute = parseMinute(minuteOpt.orElse("0"));
 
-				return LocalDateTime.of(year, month, day, hour, minute);
+				return LocalDateTime.of(dayMonthYear.getYear(), dayMonthYear.getMonth(), dayMonthYear.getDayOfMonth(), hour, minute);
 			}
 		}
 
@@ -110,7 +91,7 @@ public class DateParser {
 			if (matcher.matches()) {
 				int year = parseYear(matcher.group("year"));
 				int month = parseMonth(matcher.group("month"));
-				int day = parseDay(matcher.group("day"));
+				int day = parseDayNumber(matcher.group("day"));
 				
 				Optional<String> meridiemOpt = Optional.ofNullable(matcher.group("meridiem"));
 				int hour = parseHour(matcher.group("hour"), meridiemOpt.orElse(""));
@@ -183,8 +164,46 @@ public class DateParser {
 
 		}
 	}
+	
+	private static LocalDateTime parseDayWord(String dayString) throws ParseException {
+		LocalDateTime now = LocalDateTime.now();
+		
+		switch (dayString.toLowerCase()) {
+		case "today":
+			return now;
+		case "tmr":
+		case "tomorrow":
+			return now.plusDays(1);
+		case "next week":
+			return now.plusDays(7);
+		
+		case "mon":
+		case "monday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+		case "tue":
+		case "tuesday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+		case "wed":
+		case "wednesday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+		case "thu":
+		case "thursday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+		case "fri":
+		case "friday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+		case "sat":
+		case "saturday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+		case "sun":
+		case "sunday":
+			return now.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+		default:
+			throw new ParseException("Day is not today, tomorrow, next week or day of week.", -1);
+		}
+	}
 
-	private static int parseDay(String dayString) throws ParseException {
+	private static int parseDayNumber(String dayString) throws ParseException {
 		int day = Integer.parseInt(dayString);
 
 		if (day < 1 || day > 31) {
