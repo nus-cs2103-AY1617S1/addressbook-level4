@@ -13,6 +13,7 @@ import seedu.malitio.model.task.UniqueEventList.*;
 import seedu.malitio.model.task.UniqueFloatingTaskList.*;
 import seedu.malitio.model.history.*;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -262,12 +263,12 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredDeadlineListToShowAll() {
-        filteredDeadlines.setPredicate(null);
+        filteredDeadlines.setPredicate(p->!p.getCompleted() || p.getDue().compareTo(new Date())>0);
     }
     
     @Override
     public void updateFilteredEventListToShowAll() {
-        filteredEvents.setPredicate(null);
+        filteredEvents.setPredicate(p ->p.getStart().compareTo(new Date())>0);
     }
 
     @Override
