@@ -53,6 +53,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
+    //@@author A0142325R
     public Task(Name name, Date date, UniqueTagList tags) {
         this(name, date, tags, false, false);
         recurring = null;
@@ -119,7 +120,6 @@ public class Task implements ReadOnlyTask {
         this.recurring = null;
     }
 
-    //@@author A0142325R
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar currentDateTime = Calendar.getInstance();

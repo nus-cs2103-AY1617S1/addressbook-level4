@@ -15,13 +15,9 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        //@@author A0146123R
-        assertFindResult("find friend",td.friendEvent,td.lunch); // near match search
-        assertFindResult("find lunch AND friend",td.lunch); // AND operator
-        assertFindResult("find exact! friend"); //no results
+        assertFindResult("find friends",td.friendEvent,td.lunch);
     }
 
-    //@@author A0142325R
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
@@ -33,7 +29,15 @@ public class FindCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-
+    
+    //@@author A0146123R
+    public void find_advancedCommand() {
+        assertFindResult("find friend",td.friendEvent,td.lunch); // near match search
+        assertFindResult("find lunch AND friend",td.lunch); // AND operator
+        assertFindResult("find exact! friend"); //no results
+    }
+    
+    //@@author A0142325R
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

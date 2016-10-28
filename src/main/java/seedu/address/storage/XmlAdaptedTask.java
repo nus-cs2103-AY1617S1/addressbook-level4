@@ -77,6 +77,7 @@ public class XmlAdaptedTask {
             date = new Deadline(this.date);
         } else {
             String[] dates = this.date.trim().split(" ");
+            assert dates.length == 3;
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
         final UniqueTagList tags = new UniqueTagList(personTags);

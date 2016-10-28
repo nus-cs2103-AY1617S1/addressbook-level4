@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+//@@author A0146123R
 public class ChangeCommandTest extends TaskManagerGuiTest {
     private static String newFile = "./src/test/data/XmlAddressBookStorageTest/newFile.xml";
     private static String testData = TestUtil.getFilePathInSandboxFolder("sampleData.xml");

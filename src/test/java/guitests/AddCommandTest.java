@@ -8,6 +8,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0142325R
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test

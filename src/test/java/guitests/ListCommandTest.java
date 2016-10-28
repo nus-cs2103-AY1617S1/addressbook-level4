@@ -1,14 +1,13 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.testutil.TestTask;
 
-
 import static org.junit.Assert.assertTrue;
 
+//@@author A0142325R
 public class ListCommandTest extends TaskManagerGuiTest {
 
     @Test

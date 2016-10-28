@@ -114,7 +114,6 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //@@author A0146123R
     @Override
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
