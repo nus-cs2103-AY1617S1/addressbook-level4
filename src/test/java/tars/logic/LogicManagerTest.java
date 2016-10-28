@@ -239,6 +239,7 @@ public class LogicManagerTest {
         assertCommandBehavior("undo 123", expectedMessage);
     }
     
+    @Test
     public void execute_redo_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE);
         assertCommandBehavior("redo EXTRA ARGUMENTS", expectedMessage);
