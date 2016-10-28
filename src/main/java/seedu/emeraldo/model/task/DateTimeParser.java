@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
+
 //@@author A0139749L
 /**
  * Parses the date and time, and check for the validity of the inputs
@@ -62,6 +64,8 @@ public class DateTimeParser {
             + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))?"
             + "(:(?<minuteEnd>([0-5][0-9])))?"
             );
+
+	private static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
     
     /*
      * TODO: LocalDate.of() throws DateTimeException for out of range field and invalid
@@ -69,7 +73,7 @@ public class DateTimeParser {
      * 
      * Format the date for creation of LocalDate object
      */
-    public static LocalDate valueDateFormatter(Matcher matcher, String keyword){
+    public static LocalDate valueDateFormatter(Matcher matcher, String keyword) throws IllegalValueException{
         
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
@@ -133,7 +137,7 @@ public class DateTimeParser {
     /*
      * Formats the date and time for display
      */
-    public static String valueFormatter(Matcher matcher, String keyword){
+    public static String valueFormatter(Matcher matcher, String keyword) throws IllegalValueException{
         
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
@@ -149,6 +153,10 @@ public class DateTimeParser {
             minute = matcher.group("minuteEnd");
         }
 
+        //Append the leading '0' if not present
+        if(Integer.parseInt(day) < 10 && day.length() == 1)
+        	day = "0" + day;
+        
         //Check for month in words when month not in numbers
         if(month.isEmpty()){
             month = matcher.group("monthInWords").toLowerCase().substring(0,3);
@@ -223,7 +231,9 @@ public class DateTimeParser {
         return monthInWords;
     }
     
-    private static String convertMonthFromWordsToNumbers(String monthInWords){
+    //TODO: throws exception if month is not of a valid form
+    
+    private static String convertMonthFromWordsToNumbers(String monthInWords)  throws IllegalValueException{
         String monthInNumbers;
         switch(monthInWords){
             case "jan":
@@ -262,7 +272,8 @@ public class DateTimeParser {
             case "dec":
                 monthInNumbers = "12";
                 break;             
-            default: monthInNumbers = "Invalid month";
+            default:
+            	throw new IllegalValueException(MESSAGE_INVALID_MONTH_IN_WORDS);
         }
     
         return monthInNumbers;
