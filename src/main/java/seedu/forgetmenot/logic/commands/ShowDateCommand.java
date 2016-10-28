@@ -13,7 +13,8 @@ public class ShowDateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": Shows the list identified by date";
     
-    public static String date;
+    public String date;
+
     
     public ShowDateCommand(String date) {
     	this.date = date;
