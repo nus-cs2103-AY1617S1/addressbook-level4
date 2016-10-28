@@ -50,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         savvyTasker = new SavvyTasker(src);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
 
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlySavvyTasker initialData) {
         savvyTasker = new SavvyTasker(initialData);
         filteredTasks = new FilteredList<>(savvyTasker.getTasks());
-        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
+        sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDueDate());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
     //@@author
