@@ -135,6 +135,7 @@ public class TestTask implements ReadOnlyTask {
         return getAsText();
     }
 
+    //@@author A0127686R
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().toString() + " ");
@@ -154,6 +155,7 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+    //@@author 
     public static String getUnMarkCommand(int taskToUnMark) {
         StringBuilder sb = new StringBuilder();
         sb.append("unmark " + taskToUnMark);

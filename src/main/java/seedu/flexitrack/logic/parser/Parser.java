@@ -63,30 +63,27 @@ public class Parser {
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(BlockCommand.COMMAND_SHORTCUT, BlockCommand.COMMAND_WORD);
-    }
-    
+    }  
+
+    //@@author A0127686R
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     //@@author A0147092E
     private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>[^/dd]+)" + "ty/(?<occurrenceType>[^/].+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    //@@author
-    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
+    //@@author 
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
-
     private static final Pattern EDIT_ARGS_NAME = Pattern.compile("n/\\s*(?<name>.+)");
     private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("by/\\s*(?<dueDate>[^/]+)");
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
-
-    //@@author
     
     private Model model;
    
@@ -176,7 +173,12 @@ public class Parser {
         return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
     }
 
-  //@@author
+    //@@author A0127686R
+    /**
+     * Check if the arguments are valid for list Command
+     * @param arguments
+     * @return new List Command containing arguments
+     */
     private Command prepareList(String arguments) {
         arguments=arguments.trim();
         try {
@@ -205,8 +207,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-  //@@author
-    
+
+    //@@author A0127686R
     /**
      * @param arguments
      * @return
@@ -291,7 +293,6 @@ public class Parser {
             passing[EditCommand.EDIT_PARAMETER_PASSING_MASK.get(typeGroupID)] = null;
         }
     }
-  //@@author
 
   //@@author A0138455Y
     /**
@@ -326,13 +327,11 @@ public class Parser {
 
         return new MarkCommand(index.get());
     }
-  //@@author
-
     
+    //@@author A0127686R
     /**
      * Parses arguments in the context of the add task command.
-     * @param args
-     * full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
@@ -341,7 +340,7 @@ public class Parser {
         final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         //@@author A0147092E
         final Matcher matcherRecurring = TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
-        //@@author
+        //@@author A0127686R
         // Validate arg string format
         try {
             if (matcherRecurring.matches()) {
@@ -438,8 +437,8 @@ public class Parser {
             return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
         }
     }
-    //@@author
 
+    //@@author 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.

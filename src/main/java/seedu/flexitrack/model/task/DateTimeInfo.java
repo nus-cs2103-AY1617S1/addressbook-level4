@@ -1,3 +1,4 @@
+//@@author A0127686R
 package seedu.flexitrack.model.task;
 
 import java.util.Date;
@@ -10,7 +11,6 @@ import com.joestelmach.natty.DateGroup;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.logic.commands.ListCommand;
 
-//@@author A0127686R
 /**
  * Represents a DateTimeInfo class in FlexiTrack
  */

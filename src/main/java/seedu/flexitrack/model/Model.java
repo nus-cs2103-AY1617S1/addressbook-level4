@@ -37,9 +37,11 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
+    //@@author A0127686R
     /** Updates the filter of the filtered task list to show future tasks */
     void updateFilteredListToFitUserInput( String args );
         
+    //@@author 
     /**
      * Updates the filter of the filtered task list to filter by the given
      * keywords
