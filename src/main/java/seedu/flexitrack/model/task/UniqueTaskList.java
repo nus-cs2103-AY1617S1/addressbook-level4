@@ -132,24 +132,18 @@ public class UniqueTaskList implements Iterable<Task> {
      * edit
      * -----------------------------------------------------
      * finds the target task to be edited by the specified index and edits the task using the given argument array
-     * @param targetIndex
+     * @param taskToEdit
      * @param args: Array of edit parameters
      * @return The new duration if the item being edited is an event, or "" if it is a floating task or task
      * @throws IllegalEditException
      * @throws TaskNotFoundException
      * @throws IllegalValueException
      */
-    public Task edit(int targetIndex, String[] args)
-            throws IllegalEditException, TaskNotFoundException, IllegalValueException {
-        assert targetIndex >= 0;
-        Task editTask;
-
-        try {
-            editTask = internalList.get(targetIndex);
-        } catch (IndexOutOfBoundsException ioobe) {
-            throw new TaskNotFoundException();
-        }
-
+    public Task edit(ReadOnlyTask taskToEdit, String[] args)
+            throws IllegalEditException, IllegalValueException {
+        assert taskToEdit != null;
+        int targetIndex = internalList.indexOf(taskToEdit);
+        Task editTask = internalList.get(targetIndex);
         checkForIllegalFloatingTaskEdit(args, editTask);
         editTaskParameters(editTask, args);
         internalList.set(targetIndex, editTask);
