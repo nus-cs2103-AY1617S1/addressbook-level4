@@ -1,3 +1,5 @@
+<!--@@A0139678J	-->
+
 #
 # Developer Guide
 
@@ -8,6 +10,7 @@
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Testing](#testing)
+* [Future Works](#future-works)
 * [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
@@ -242,7 +245,7 @@ Problem: Tests fail because NullPointException when AssertionError is expected
 
 
 
-## **Dev Ops**
+## **Future Works**
 
 While this app has been extensively developed, we feel that there is still room for improvement and can therefore be improved further. As such, the main reason for this section of the developer guide is to suggest possible improvements to _Unburden._
 
@@ -254,6 +257,35 @@ Some possible additions to be made:
 - Create a login system which will protect each user&#39;s data and allow them to access their data from any device
 - Add animations so as to appeal to a larger audience
 - Implement a synchronous system based on a clock that will remind the user (possibly even when the application is not running) when he/she has a deadline approaching
+
+## **Dev Ops**
+
+###**Build Automation**
+
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
+###**Continuous Integration**
+
+We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+See [UsingTravis.md](UsingTravis.md) for more details.
+
+###**Making a Release**
+
+Here are the steps to create a new release.
+ 
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+    and upload the JAR file your created.
+   
+###**Managing Dependencies**
+
+A project often depends on third-party libraries. For example, Address Book depends on the
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than these alternatives.<br>
+a. Include those libraries in the repo (this bloats the repo size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 
 ## **Appendix A : User Stories**

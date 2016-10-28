@@ -14,6 +14,7 @@ import seedu.unburden.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 
+
 //@@author A0139678J
 public interface Model {
 	/**

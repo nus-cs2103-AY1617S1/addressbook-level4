@@ -1,3 +1,5 @@
+<!--@@A0143095H	-->
+
 # User Guide
 
 <br><br>
@@ -10,28 +12,28 @@
 * [Features](#features)
     * [Help Command](#1-help-command)
     * [Add Command](#2-add-command-add)
-    * [Delete Command](#3-delete-command--delete)
+    * [Delete Command](#3-delete-command-delete)
     * [List Command](#4-list-command)
     * [Find Command](#5-find-command)
     * [Done Command](#6-done-command)
-    * [Undone Command](#7-find-command)
+    * [Undone Command](#7-undone-command)
     * [Undo Command](#8-undo-command)
     * [Redo Command](#9-redo-command)
     * [Clear Command](#10-clear-command)
     * [Edit Command](#11-edit-command)
-    * [Exit Command](#12-exitting-the-program--exit)
+    * [Exit Command](#12-exiting-the-program-exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 
 ## About
-In this modern day, we’re all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out where’s the add button or how to edit our tasks. 
+In this modern day, we're all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out where's the add button or how to edit our tasks. 
 
-Well, fret not! Here’s introducing Unburden! With Unburden, you won’t need to trouble yourself with what or where to click. It utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
+Well, fret not! Here's introducing Unburden! With Unburden, you won't need to trouble yourself with what or where to click. It utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
 
-Unburden features a clean interface with colour coding to prioritize your tasks. It’s simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to Unburden! What’s more is that Unburden works offline! So now you can even use it when your WIFI is down. 
+Unburden features a clean interface with colour coding to prioritize your tasks. It's simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to Unburden! What's more is that Unburden works offline! So now you can even use it when your WIFI is down. 
 
-Need to unburden? Let’s get started!
+Need to unburden? Let's get started!
 
 
 ## Getting Started
@@ -52,12 +54,13 @@ Need to unburden? Let’s get started!
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
+## Features
 
 ### Command Format
 
-1. Commands are not case sensitive and can be entered as both “Add” or “add.”
-2. Dates can be entered in the format DD-MM-YYYY or in words limited to “today” or “tomorrow.”
-3. Time should be entered in the 24 hour clock format such as “2330” to represent 11:30pm or “0520” to represent 05:20am.
+1. Commands are not case sensitive and can be entered as both "Add" or "add."
+2. Dates can be entered in the format DD-MM-YYYY or in words limited to "todaY" or "tomorrow."
+3. Time should be entered in the 24 hour clock format such as "2330" to represent 11:30pm or "0520" to represent 05:20am.
 
 
 
@@ -81,7 +84,7 @@ are the formats. <br>
    Examples : <br>
    add CS2103 project d/09-07-2016 s/1700 e/1900 t/CS2103 <br>
    add FC2020 tutorial d/03-05-2008 s/1800 e/2000 <br>
-   add Dance rehersal d/19-09-2015 s/1300 e/1500 <br>
+   add Dance rehearsal d/19-09-2015 s/1300 e/1500 <br>
    
 You may type the command as shown below
    > <img src="UserGuideImages/UG_3.JPG" width="400">
@@ -153,8 +156,8 @@ You can then see all of the tasks in the application in the display as shown bel
    find workout <br>
    find gym <br>
 				
-You can then see all of the tasks with that keyword or name  in the application’s display window. 
-For example, i keyed in “find workout” in the command line and the task with the keyword “workout” is displayed as shown below. 
+You can then see all of the tasks with that keyword or name  in the application's display window. 
+For example, i keyed in "find workout" in the command line and the task with the keyword "workout" is displayed as shown below. 
    > <img src="UserGuideImages/UG_14.JPG" width="500">
 
 
@@ -166,7 +169,7 @@ For example, i keyed in “find workout” in the command line and the task with
    find today <br>
    find tomorrow <br>
    
-You can then see all of the tasks with that date in the application’s display window.   
+You can then see all of the tasks with that date in the application's display window.   
 <br><br>
 
 
@@ -182,7 +185,7 @@ If you wish to enter certain tasks as done, you may key them in the format as sh
 You can then view the color change in the task that you have marked as done.
 <br><br>
 
-## 7. Done Command
+## 7. UnDone Command
 
 If you wish to enter certain tasks as undone, you may key them in the format as shown below. <br>
 #### Format: ` undone <INDEX> `
@@ -219,11 +222,11 @@ The task manager would then 'redo' its previous action and revert back to origin
 
 ## 10. Clear Command
 
-If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
+If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the "clear" command. 
 <br>
 #### Format: `clear`
 				
-Simple type the command “clear” as shown above and all tasks will be automatically deleted and the message that “Unburden has been cleared!” would appear as shown below. 
+Simple type the command "clear" as shown above and all tasks will be automatically deleted and the message that "Unburden has been cleared!" would appear as shown below. 
    > <img src="UserGuideImages/UG_16.JPG" width="500">
    
 <br>
