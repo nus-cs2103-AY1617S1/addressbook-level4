@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  * Undo a unmark command in the task scheduler.
  */
 
-public class UnMarkCommandTest extends TaskSchedulerGuiTest {
+public class UnmarkCommandTest extends TaskSchedulerGuiTest {
     
     @Test
     public void unmark() {
@@ -80,8 +80,8 @@ public class UnMarkCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand("mark " + targetIndexOneIndexed);
         
         //confirm the task card is now marked completed.
-        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
-        assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
+        assertTrue(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getPaintFromShape().equals(TaskCard.OVERDUE_INDICATION));
         //confirm the result message is correct
         assertResultMessage(String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
@@ -98,7 +98,7 @@ public class UnMarkCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand("unmark " + targetIndexOneIndexed);
         
         //confirm the task card is now marked uncompleted.
-        assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getHBoxStyle().equals(TaskCard.COMPLETED_INDICATION));
+        assertFalse(taskListPanel.navigateToTask(targetIndexOneIndexed - 1).getPaintFromShape().equals(TaskCard.COMPLETED_INDICATION));
         //confirm the result message is correct
         assertResultMessage(String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, taskToUnMark));
     }

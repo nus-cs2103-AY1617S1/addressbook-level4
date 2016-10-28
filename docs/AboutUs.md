@@ -17,11 +17,11 @@ Role: Team lead <br>
 	* [mark] (https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#mark-a-completed-task--mark)
 	* [recur] (https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#recur-a-task--recur)
 	* [Indicate overdue and completed task] (Indicate overdue and completed task)
-* Code written: [[functional code](A0148145E.md)][[test code](A0148145E.md)][[docs](A0148145E.md)]
+* Code written: [[functional code](collated/main/A0148145E.md) ][[test code](collated/test/A0148145E.md)][[docs](collated/docs/A0148145E.md)]
 * Other major contributions:
 	* Did initial refactoring from AddressBook to MustDoList
-	* Set up Travis, Coveralls and Reviewable (code-review)
-	* Enhancing Undo command.
+	* Set up Travis, Coveralls and Codacy
+	* Managing the team planning.
 
 -----
 
@@ -33,7 +33,7 @@ Role: Project Manager <br>
 * Features implemented:
 	* [undo](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#undo-a-previous-task--undo)
 	* [up down arrow](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#reuse-previous-command--up-down-arrow)
-* Code written: [[functional code](A0140007B.md)][[test code](A0140007B.md)][[docs](A0140007B.md)]	
+* Code written: [[functional code](collated/main/A0140007B.md) ][[test code](collated/test/A0140007B.md)][[docs](collated/docs/A0140007B.md)]
 * Other major contributions:
 	* Implemented Undo command initially
 	* In-charge of maintaining the documentation
@@ -50,7 +50,7 @@ Role: Editor <br>
 	* [find](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#find-a-task--find)
 	* [setpath](https://github.com/CS2103AUG2016-F09-C2/main/blob/master/docs/UserGuide.md#select-a-task--setpath)
 	* [Unmark] ()
-* Code written: [[functional code](A0138969L.md)][[test code](A0138969L.md)][[docs](A0138969L.md)]	
+* Code written: [[functional code](collated/main/A0138969L.md) ][[test code](collated/test/A0138969L.md)][[docs](collated/docs/A0138969L.md)]
 * Other major contributions:
 	*
 	*
