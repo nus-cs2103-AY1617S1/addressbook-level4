@@ -43,7 +43,6 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
-
 //    @FXML
 //    private AnchorPane browserPlaceholder;
 

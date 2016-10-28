@@ -44,9 +44,10 @@ Responsibilities: Codes about storage.
 
 #### [Xu Tianyu](https://github.com/yeetee179)
 <img src="images/XuTianyu.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Codes about user interface.
-
+* Components in charge of: [ui]
+* Aspects/tools in charge of: 
+* Features implemented:
+   * Change of User Interface
 -----
 
 # Contributors
