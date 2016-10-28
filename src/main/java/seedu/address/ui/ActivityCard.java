@@ -80,7 +80,7 @@ public class ActivityCard extends UiPart {
         } else {
             if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
                 if (((Task) activity).isDueDateApproaching()) {
-                    cardPane.setStyle("-fx-background-color: gold;");
+                    cardPane.setStyle("-fx-background-color: yellow;");
                 } else if (((Task) activity).hasPassedDueDate()) {
                     cardPane.setStyle("-fx-background-color: red;");
                 }
