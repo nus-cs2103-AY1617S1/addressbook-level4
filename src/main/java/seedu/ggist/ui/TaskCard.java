@@ -48,7 +48,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-  
+  //@@author A0138411N
     @FXML
     public void initialize() {
         taskName.setText(task.getTaskName().taskName);
@@ -105,7 +105,7 @@ public class TaskCard extends UiPart{
             endDate.textFillProperty().bind(none.valueProperty());
         }
     }
-
+//@@author A0138411N
     public HBox getLayout() {
         return cardPane;
     }

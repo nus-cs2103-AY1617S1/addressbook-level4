@@ -8,6 +8,7 @@ import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
+import seedu.ggist.commons.events.ui.AddTaskEvent;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
@@ -93,6 +94,14 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
+    
+    /** Raises an event to indicate the new task added */
+    private void indicateNewTaskAdded(Task task) {
+        getFilteredTaskList().indexOf(task);
+        indicateTaskManagerChanged();
+        raise(new AddTaskEvent(getFilteredTaskList().indexOf(task)));
+        System.out.println(getFilteredTaskList().indexOf(task));
+    }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -117,7 +126,8 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
         updateListing();
-        indicateTaskManagerChanged();
+        indicateNewTaskAdded(task);
+
     }
 
     //=========== Filtered Task List Accessors ===============================================================
