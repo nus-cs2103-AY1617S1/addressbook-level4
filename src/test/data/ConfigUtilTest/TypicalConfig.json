@@ -2,6 +2,6 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "ToDoListFilePath" : "ToDoList.xml",
+  "ToDoListFilePath" : "todolist.xml",
   "ToDoListName" : "TypicalToDoListName"
 }

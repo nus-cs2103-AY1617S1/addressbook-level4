@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores ToDoList data in an XML file
+ * Stores todolist data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given ToDoList data to the specified file.
+     * Saves the given todolist data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableToDoList ToDoList)
             throws FileNotFoundException {
