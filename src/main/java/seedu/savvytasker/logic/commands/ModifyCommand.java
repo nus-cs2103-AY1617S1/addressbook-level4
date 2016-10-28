@@ -85,7 +85,7 @@ public class ModifyCommand extends ModelRequiringCommand {
             if (targetIndex > 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
             } else {
-                assert false; // will never get here.
+                // GUI should never ever get here
             }
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";

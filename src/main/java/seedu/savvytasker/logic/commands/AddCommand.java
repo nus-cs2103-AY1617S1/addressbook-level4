@@ -79,7 +79,7 @@ public class AddCommand extends ModelRequiringCommand {
             if (targetIndex > 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
             } else {
-                assert false; // will never get here.
+                // GUI should never ever get here
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
@@ -96,6 +96,7 @@ public class AddCommand extends ModelRequiringCommand {
      * @return Returns the index of the task in the list, -1 if not found.
      */
     private int getIndexOfTask(Task task) {
+        model.updateFilteredListToShowActive(); //because newly added tasks are all active.
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         return lastShownList.indexOf(task);
     }
