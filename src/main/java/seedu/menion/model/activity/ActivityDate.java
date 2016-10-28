@@ -58,12 +58,12 @@ public class ActivityDate {
      * @throws IllegalValueException 
      */
     public static void isValidDate(String test) throws IllegalValueException {
-        DateChecker dateCheck = new DateChecker();
+//        DateChecker dateCheck = new DateChecker();
         
         if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
             throw new IllegalValueException(MESSAGE_ACTIVITYDATE_INVALID);
         }
-        dateCheck.validDate(test);
+ //       dateCheck.validDate(test);
         return;
     }
    

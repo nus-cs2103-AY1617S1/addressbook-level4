@@ -3,6 +3,7 @@ package seedu.menion.logic.parser;
 import com.joestelmach.natty.*;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.AddCommand;
+import seedu.menion.model.activity.Activity;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -62,17 +63,17 @@ public class AddParser {
 	public static void checkActivityType(String args) throws IllegalValueException {
 
 		if (isEvents(args)) {
-			parsedArguments.add(EVENTS);
+			parsedArguments.add(Activity.EVENT_TYPE);
 			inputEventArguments();
 		}
 
 		else if (isTask(args)) {
-			parsedArguments.add(REGULAR_TASK);
+			parsedArguments.add(Activity.TASK_TYPE);
 			inputTaskArguments();
 		}
 
 		else if (isFloatingTask(args)){
-			parsedArguments.add(FLOATING_TASK);
+			parsedArguments.add(Activity.FLOATING_TASK_TYPE);
 			inputFloatingTaskArguments();
 		}
 		else {

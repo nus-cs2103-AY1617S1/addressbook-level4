@@ -11,6 +11,7 @@ import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.ui.JumpToListRequestEvent;
 import seedu.menion.commons.events.ui.ShowHelpRequestEvent;
+import seedu.menion.commons.util.DateChecker;
 import seedu.menion.logic.Logic;
 import seedu.menion.logic.LogicManager;
 import seedu.menion.logic.commands.*;
@@ -159,9 +160,7 @@ public class LogicManagerTest {
     public void execute_add_invalidActivityData() throws Exception {
        
         assertCommandBehavior(
-                "add Valid Name by: 40-13-2016 1900 n: hello", ActivityDate.MESSAGE_ACTIVITYDATE_INVALID);
-        assertCommandBehavior(
-        		"add Valid Name by: 12-12-2016 2600 n: hello", ActivityTime.ACTIVITY_TIME_CONSTRAINTS);
+                "add Valid Name from: 09-10-2016 2100 to: 09-09-2016 2200 n: hi", DateChecker.END_DATE_BEFORE_START_DATE_ERROR);
        
     }
 
@@ -296,9 +295,14 @@ public class LogicManagerTest {
         String generateAddCommand(Activity p) {
             StringBuffer cmd = new StringBuffer();
 
+            // Swapping the position of day and month to fit natty
+            String activityDate = p.getActivityStartDate().toString();
+            String[] parts = activityDate.split("-");
+            activityDate = parts[1] + "-" + parts[0] + "-" + parts[2];
+            
             cmd.append("add ");
             cmd.append(p.getActivityName().toString());
-            cmd.append(" by: ").append(p.getActivityStartDate().toString());
+            cmd.append(" by: ").append(activityDate);
             cmd.append(" ").append(p.getActivityStartTime().toString());
             cmd.append(" n:").append(p.getNote().toString());
 
@@ -380,7 +384,7 @@ public class LogicManagerTest {
             		"task",
                     new ActivityName(taskName),
                     new Note("test note"),
-                    new ActivityDate("18-06-2016"),
+                    new ActivityDate("06-18-2016"),
                     new ActivityTime("1900"),
                     new Completed(Completed.UNCOMPLETED_ACTIVITY));
         }
