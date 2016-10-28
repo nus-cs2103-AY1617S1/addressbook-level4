@@ -35,13 +35,12 @@ We are a group of students in the [School of Computing, National University of S
 <img src="images/TsaiTi.jpg" width="150"><br>
 * Components in charge of: [Storage] 
 (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
-* Aspects/tools in charge of: Code quality, Developer <br>  
+* Aspects/tools in charge of: Code quality, Developer
 * Features implemented:
   * [View Help ]
 (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#Viewing-help--help) 
   * [Set storage location ]
 (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#Setting-the-storage-location--setstorage)
------
 
 #### [Lai Yingchen](https://github.com/yingchen0505) <br>
 <img src="images/Yingchen.JPG" width="150"><br>
