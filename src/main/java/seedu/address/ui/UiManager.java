@@ -114,7 +114,12 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getEventListPanel().scrollTo(event.targetIndex);
+        if (event.category == 'E')
+        	mainWindow.getEventListPanel().scrollTo(event.targetIndex);
+        else if (event.category == 'D')
+        	mainWindow.getDeadlineListPanel().scrollTo(event.targetIndex);
+        else
+        	mainWindow.getTodoListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
