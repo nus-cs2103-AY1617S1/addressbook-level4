@@ -53,14 +53,14 @@ public interface Model {
      * 
      * @throws TaskNotFoundException
      */
-    void markTask(ReadOnlyTask taskToMark) throws IllegalValueException;
+    Task markTask(ReadOnlyTask taskToMark) throws IllegalValueException;
 
     /**
      * Unmarks the given task as done
      * 
      * @throws TaskNotFoundException
      */
-    void unmarkTask(ReadOnlyTask taskToMark) throws IllegalValueException;
+    Task unmarkTask(ReadOnlyTask taskToMark) throws IllegalValueException;
 
     //@@author A0127855W
     /**

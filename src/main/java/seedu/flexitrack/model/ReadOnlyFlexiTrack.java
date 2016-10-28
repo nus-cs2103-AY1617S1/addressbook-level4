@@ -8,7 +8,7 @@ import seedu.flexitrack.model.task.UniqueTaskList;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyFlexiTrack {
+public interface ReadOnlyFlexiTrack{
 
 
     UniqueTaskList getUniqueTaskList();

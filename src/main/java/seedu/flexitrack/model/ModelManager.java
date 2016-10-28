@@ -56,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyFlexiTrack newData) {
         flexiTracker.resetData(newData);
+        updateFilteredListToShowAll();
         indicateFlexiTrackerChanged();
     }
 
@@ -85,15 +86,17 @@ public class ModelManager extends ComponentManager implements Model {
 
   //@@author A0138455Y
     @Override
-    public void markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
-        flexiTracker.markTask(targetIndex);
+    public Task markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
+        Task markedTask = flexiTracker.markTask(targetIndex);
         indicateFlexiTrackerChanged();
+        return markedTask;
     }
 
     @Override
-    public void unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
-        flexiTracker.unmarkTask(targetIndex);
+    public Task unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
+        Task unMarkedTask = flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
+        return unMarkedTask;
     }
   //@@author
     

@@ -30,7 +30,8 @@ public class MarkCommand extends Command {
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s";
     
-    private static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
+    private Task taskStore; 
+    private Task markedTask;
 
     public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -54,11 +55,14 @@ public class MarkCommand extends Command {
         }
         
         try {
-            ReadOnlyTask taskToUnMarked = lastShownList.get(targetIndex - 1);
-            model.markTask(lastShownList.get(targetIndex-1));
-            storeDataChanged.add(taskToUnMarked);
-            recordCommand("mark"); 
+            taskStore = lastShownList.get(targetIndex - 1).copy();             
+            markedTask = model.markTask(lastShownList.get(targetIndex-1));
+            markedTask = markedTask.copy();
+            recordCommand(this); 
             return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
+        } catch (IndexOutOfBoundsException ioobe) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
         }
@@ -67,18 +71,9 @@ public class MarkCommand extends Command {
     //@@author A0127686R
     @Override
     public void executeUndo() {
-        Task toDelete = new Task (storeDataChanged.peek()); 
-        Task toAddBack = null;
-        try {
-            toAddBack = new Task (new Name (storeDataChanged.peek().getName().toString()), 
-                    new DateTimeInfo (storeDataChanged.peek().getDueDate().toString()), 
-                    new DateTimeInfo ( storeDataChanged.peek().getStartTime().toString()), 
-                    new DateTimeInfo (storeDataChanged.peek().getEndTime().toString()));
-        } catch (IllegalValueException e1) {
-            assert false : "There Should not be any Illegal values s";
-        }
-        toAddBack.getName().setAsUnmark();
-
+        Task toDelete = markedTask; 
+        Task toAddBack = taskStore;
+        
         try {
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException pnfe) {
@@ -90,7 +85,5 @@ public class MarkCommand extends Command {
         } catch (DuplicateTaskException e) {
             indicateAttemptToExecuteIncorrectCommand();
         }
-        
-        storeDataChanged.pop();
     }
 }
