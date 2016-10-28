@@ -1,50 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <!-- @@author A0142605N -->
 
-<HBox id="cardPane" fx:id="taskCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="70.0" prefHeight="70.0" styleClass="taskCard" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@DefaultTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
-
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="card-title" text="\$first" />
-                                </HBox>
-                                <Label fx:id="recurrence" styleClass="card-text" text="\$recurrence" />
-                            </children>
+<HBox id="cardPane" fx:id="taskCardPane" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <Label fx:id="color" alignment="BASELINE_CENTER" text="  ⚫ ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="309.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="119.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="80.0">
+                           <children>
+                              <Label fx:id="id" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$id" />
+                              <Label fx:id="name" prefHeight="18.0" prefWidth="56.0" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$name" />
+                           </children>
                         </HBox>
-                        <Label fx:id="line1" styleClass="card-text" text="\$line1" />
-                    </children>
-                </VBox>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-    </children>
+                        <Label fx:id="recurrence" prefHeight="14.0" prefWidth="70.0" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$recurrence" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="line1" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$time" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
 </HBox>

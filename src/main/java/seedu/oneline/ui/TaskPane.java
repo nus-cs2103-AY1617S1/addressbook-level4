@@ -17,6 +17,7 @@ import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.oneline.commons.util.FxViewUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.ui.TagListPanel.TagListViewCell;
+import seedu.oneline.model.tag.TagColorMap; 
 
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class TaskPane extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(TaskPane.class);
     private String FXML = "TaskPane.fxml";
+    private TagColorMap colorMap; 
     
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -54,15 +56,16 @@ public class TaskPane extends UiPart{
     }
 
     public static TaskPane load(Stage primaryStage, AnchorPane taskPanePlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<ReadOnlyTask> taskList, TagColorMap colorMap) {
         TaskPane taskPane =
                 UiPartLoader.loadUiPart(primaryStage, taskPanePlaceholder, new TaskPane());
-        taskPane.configure(taskList);
+        taskPane.configure(taskList, colorMap);
         return taskPane;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    private void configure(ObservableList<ReadOnlyTask> taskList, TagColorMap colorMap) {
         setConnections(taskList);
+        this.colorMap = colorMap; 
         addToPlaceholder();
     }
 
@@ -106,7 +109,7 @@ public class TaskPane extends UiPart{
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, colorMap.getTagColor(task.getTag()), getIndex() + 1).getLayout());
             }
         }
     }
