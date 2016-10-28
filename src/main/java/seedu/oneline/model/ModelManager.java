@@ -113,23 +113,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
-  //@@author
     
     //@@author A0121657H
+    /** Updates the given task, for use to mark task as undone */
     @Override
-    public synchronized void doneTask(int index) throws TaskNotFoundException {
-        Task done = filteredTasks.get(index);
-        assert done != null;
-        done.setCompleted(true);
-        updateFilteredListToShowAllNotDone();
-        indicateTaskBookChanged();
-    }
-    
-    @Override
-    public synchronized void undoneTask(int index) throws TaskNotFoundException {
-        Task undone = filteredTasks.get(index);
-        assert undone != null;
-        undone.setCompleted(false);
+    public synchronized void replaceUndoneTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+        taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
