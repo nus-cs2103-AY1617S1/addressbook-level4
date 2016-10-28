@@ -41,8 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredEvents;
     private ObservableValue<String> date;
     
-    private final HistoryManager undoHistory;
-    private final HistoryManager redoHistory;
+    private final CommandHistoryManager undoHistory;
+    private final CommandHistoryManager redoHistory;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -60,8 +60,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        undoHistory = new HistoryManager();
-        redoHistory = new HistoryManager();
+        undoHistory = new CommandHistoryManager();
+        redoHistory = new CommandHistoryManager();
         taskManager.sortList();
     }
 
@@ -75,8 +75,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
-        undoHistory = new HistoryManager();
-        redoHistory = new HistoryManager();
+        undoHistory = new CommandHistoryManager();
+        redoHistory = new CommandHistoryManager();
         taskManager.sortList();
     }
 
@@ -356,7 +356,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 * @param isRedo check if it is undo/redo calling this method
 	 * @return the commandText string for result message in Undo/Redo Command
 	 */
-	private String revertBackPreviousState(HistoryManager toGetInfo, HistoryManager toStoreInfo, boolean isRedo) {
+	private String revertBackPreviousState(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo) {
         String commandWord = toGetInfo.getCommandWord();
         toStoreInfo.storeCommandWord(commandWord);
         
@@ -439,7 +439,9 @@ public class ModelManager extends ComponentManager implements Model {
         return commandText;
     }
 	
-//	/**
+	//@@author A0139052L unused
+	// swap over to different undo function
+//	/**//@@author A0139052L
 //     *  returns true is there is a previous valid command input by user
 //     *  and false otherwise
 //     */
@@ -447,7 +449,7 @@ public class ModelManager extends ComponentManager implements Model {
 //        return !historyCommands.isEmpty();
 //    }
 //    
-//	//@@author A0139052L
+//	  
 //    /**
 //     *  returns the Task Manager from the previous state
 //     */	

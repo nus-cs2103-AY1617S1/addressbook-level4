@@ -8,7 +8,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
  * Class to store information of commands executed by user that is required for undo/redo function
  *
  */
-public class HistoryManager {
+public class CommandHistoryManager {
     
     private final Stack<String> historyCommandWords;
     private final Stack<String> historyCommandTexts;
@@ -16,7 +16,7 @@ public class HistoryManager {
     private final Stack<Integer> historyNumberOfTasks;
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     
-    public HistoryManager() {
+    public CommandHistoryManager() {
         historyCommandWords = new Stack<String>();
         historyCommandTexts = new Stack<String>();
         historyTasks = new Stack<ReadOnlyTask>();
