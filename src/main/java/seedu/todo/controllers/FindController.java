@@ -76,6 +76,7 @@ public class FindController implements Controller {
         
         parseName(parsedResult, itemNameList); //parse additional name enter by user
         parseTag(parsedResult, tagNameList);
+        
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
@@ -265,7 +266,7 @@ public class FindController implements Controller {
         if (parsedResult.get("name") != null && parsedResult.get("name")[1] != null) {
             String[] result = parsedResult.get("name")[1].trim().split(" ");
             for (int i = 0; i < result.length; i ++) {
-                itemNameList.add(result[i]);
+                itemNameList.add(result[i].trim());
             }
         } 
     }

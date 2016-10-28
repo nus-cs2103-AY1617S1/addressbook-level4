@@ -408,10 +408,12 @@ public class TodoListDB {
         Iterator<Task> tagIterator = tasks.iterator();
         Iterator<String> taskNameIterator = itemNameList.iterator();
         Iterator<String> tagNameIterator = tagNameList.iterator();
+        boolean isFound = false;
         while (tagIterator.hasNext()) {
             Task currTask = tagIterator.next();
             String currTaskName = currTask.getName().toLowerCase();
             ArrayList<String> currTaskTagList = currTask.getTagList();
+            String[] currTaskStartingNameBetweenSpace = currTaskName.split(" ");
             while(taskNameIterator.hasNext() || tagNameIterator.hasNext()) {
                 String currentMatchingNameString = "";
                 String currentMatchingTagNameString = "";
