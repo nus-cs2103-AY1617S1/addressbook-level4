@@ -125,6 +125,15 @@ public class Parser {
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
                                                                             + "(?<editCommandArguments>.+)");
 
+    private static final Pattern ADD_TASK_COMMAND_ARGS_FORMAT = Pattern.compile("(T|t)((A|a)(S|s)(K|k))?" 
+            																+ "(?<addCommandArguments>.+)");
+    
+    private static final Pattern ADD_DEADLINE_COMMAND_ARGS_FORMAT = Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?" 
+																			+ "(?<addCommandArguments>.+)");
+    
+    private static final Pattern ADD_EVENT_COMMAND_ARGS_FORMAT = Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?" 
+																			+ "(?<addCommandArguments>.+)");
+    
     public Parser() {}
 
     /**
@@ -227,42 +236,49 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher deadlineMatcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher deadlineNlpMatcher = DEADLINE_NLP_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher eventNlpMatcher = EVENT_NLP_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!taskMatcher.matches() && !deadlineMatcher.matches() && !eventMatcher.matches() && 
-                !deadlineNlpMatcher.matches() && !eventNlpMatcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        final Matcher taskMatcher = ADD_TASK_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        final Matcher deadlineMatcher = ADD_DEADLINE_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        final Matcher eventMatcher = ADD_EVENT_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        
+        if (taskMatcher.matches()) {
+        	try {
+		    	return addTask(taskMatcher);
+		    } catch (IllegalValueException e) {
+		        e.printStackTrace();
+		    }
+        } else if (deadlineMatcher.matches()) {
+            try {
+		    	return addDeadline(deadlineMatcher);
+		    } catch (IllegalValueException e) {
+		        e.printStackTrace();
+		    }
+        } else if (eventMatcher.matches()) {
+            try {
+		        return addEvent(eventMatcher);
+		    } catch (IllegalValueException e) {
+		        e.printStackTrace();
+		    }
+        } else {
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        try {
-            if (taskMatcher.matches()) {
-                return new AddCommand(
-                    ItemType.TASK_WORD,
-                    taskMatcher.group("name"),
-                    getTagsFromArgs(taskMatcher.group("tagArguments"))
-                );
-            } else if (deadlineMatcher.matches()) {
-                return addDeadline(deadlineMatcher);
-            } else if (eventMatcher.matches()) {
-                return addEvent(eventMatcher);
-            } else if (deadlineNlpMatcher.matches()) {
-                return addNlpDeadline(deadlineNlpMatcher);
-            } else if (eventNlpMatcher.matches()) {
-                return addNlpEvent(eventNlpMatcher);
-            } else {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
     
     private Command addNlpEvent(final Matcher eventNlpMatcher) throws IllegalValueException {
-        String endDateTime = eventNlpMatcher.group("endDateTime");
-        String startDateTime = eventNlpMatcher.group("startDateTime");
+    	String addCommandArgs = eventNlpMatcher.group("addCommandArguments");
+    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDateTimePrefix, endDateTimePrefix, tagPrefix);
+    	argsTokenizer.tokenize(addCommandArgs);
+        String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+        String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        if (name == null || startDateTime == null || endDateTime == null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        if (tagsToAdd == null) {
+            tagsToAdd = new ArrayList<String>();
+        }
+
         List<Date> startDateTimes = new PrettyTimeParser().parse(startDateTime); 
         List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
         // Just Take First Value for Start and End
@@ -281,23 +297,32 @@ public class Parser {
         String endDate = dateFormat.format(processedEndDateTime);
         String endTime = timeFormat.format(processedEndDateTime);
     	return new AddCommand(ItemType.EVENT_WORD,
-                eventNlpMatcher.group("name"), 
+                name, 
                 startDate, 
                 startTime, 
                 endDate, 
                 endTime, 
-                getTagsFromArgs(eventNlpMatcher.group("tagArguments")));
+                tagsToAdd);
     }
     
     private Command addNlpDeadline(final Matcher deadlineNlpMatcher) throws IllegalValueException {
-    	String endDateTime = deadlineNlpMatcher.group("endDateTime");
+    	String addCommandArgs = deadlineNlpMatcher.group("addCommandArguments");
+    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDateTimePrefix, tagPrefix);
+        argsTokenizer.tokenize(addCommandArgs);
+        String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        if (name == null || endDateTime == null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        if (tagsToAdd == null) {
+            tagsToAdd = new ArrayList<String>();
+        }
+        
         List<Date> endDateTimes = new PrettyTimeParser().parse(endDateTime);
         // Just Take First Value for Start and End
         if (endDateTimes.isEmpty()) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DATETIME_PARSE_FAILURE));
-        }
-        for (int i=0; i<endDateTimes.size(); ++i) {
-            System.out.println(endDateTimes.get(i));
         }
         Date processedEndDateTime = endDateTimes.get(0);
         SimpleDateFormat dateFormat = new SimpleDateFormat(ItemDate.DATE_FORMAT);
@@ -305,83 +330,157 @@ public class Parser {
         String endDate = dateFormat.format(processedEndDateTime);
         String endTime = timeFormat.format(processedEndDateTime);
     	return new AddCommand(ItemType.DEADLINE_WORD,
-                deadlineNlpMatcher.group("name"),
+                name,
                 endDate, 
                 endTime, 
-                getTagsFromArgs(deadlineNlpMatcher.group("tagArguments")));
+                tagsToAdd);
     }
 
 	private Command addEvent(final Matcher eventMatcher) throws IllegalValueException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
-		String endTime = eventMatcher.group("endTime");
-		String startTime = eventMatcher.group("startTime");
-		try {	
-		    df.setLenient(false);
-		    // If yyyy-MM-dd
-		    String startDateString;
-		    String endDateString;
-		    String[] parts = eventMatcher.group("endDate").split("-");
-		    if (parts.length == 3) {
-		        endDateString = eventMatcher.group("endDate");
-		        df.parse(eventMatcher.group("endDate"));
-		    } else { // MM-dd
-		        LocalDateTime ldt = LocalDateTime.now();
-		        endDateString = ldt.getYear() + "-" + eventMatcher.group("endDate");
-		        df.parse(endDateString);
-		    }
-		    String[] parts2 = eventMatcher.group("startDate").split("-");
-		    // If yyyy-MM-dd
-		    if (parts2.length == 3) {
-		        startDateString = eventMatcher.group("startDate");
-		        df.parse(eventMatcher.group("startDate"));
-		    } else { // MM-dd
-		        LocalDateTime ldt = LocalDateTime.now();
-		        startDateString = ldt.getYear() + "-" + eventMatcher.group("startDate");
-		        df.parse(startDateString);
-		    }
-		    if (endTime == null) {
-		        endTime = AddCommand.DEFAULT_END_TIME;
-		    }
-		    if (startTime == null) {
-		        startTime = AddCommand.DEFAULT_START_TIME;
-		    }
-		    if (sdf.parse(endDateString + " " + endTime).before(sdf.parse(startDateString + " " + startTime))) {
-		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
-		    }
-		} catch (ParseException e) {
-		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
-		}
-		return new AddCommand(ItemType.EVENT_WORD, 
-		                      eventMatcher.group("name"), 
-		                      eventMatcher.group("startDate"), 
-		                      startTime, 
-		                      eventMatcher.group("endDate"), 
-		                      endTime, 
-		                      getTagsFromArgs(eventMatcher.group("tagArguments")));
+        String addCommandArgs = eventMatcher.group("addCommandArguments");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDatePrefix, endTimePrefix,
+                                                                endDateTimePrefix, startDatePrefix, startTimePrefix,
+                                                                startDateTimePrefix, tagPrefix);
+        argsTokenizer.tokenize(addCommandArgs);
+        
+        //Capture argument values into their respective variables if available
+        String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+        String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+        String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
+        String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
+        String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        if (tagsToAdd == null) {
+            tagsToAdd = new ArrayList<String>();
+        }
+        if (endDateTime != null || startDateTime != null) {
+        	return addNlpEvent(eventMatcher);
+        } else {
+        	if (name == null || startDate == null || endDate == null) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        	try { 
+            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        		SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
+        		try {
+        		    df.setLenient(false);
+        		    // If yyyy-MM-dd
+        		    String startDateString;
+        		    String endDateString;
+        		    String[] parts = endDate.split("-");
+        		    if (parts.length == 3) {
+        		        endDateString = endDate;
+        		        df.parse(endDate);
+        		    } else { // MM-dd
+        		        LocalDateTime ldt = LocalDateTime.now();
+        		        endDateString = ldt.getYear() + "-" + endDate;
+        		        df.parse(endDateString);
+        		    }
+        		    String[] parts2 = startDate.split("-");
+        		    // If yyyy-MM-dd
+        		    if (parts2.length == 3) {
+        		        startDateString = startDate;
+        		        df.parse(startDate);
+        		    } else { // MM-dd
+        		        LocalDateTime ldt = LocalDateTime.now();
+        		        startDateString = ldt.getYear() + "-" + startDate;
+        		        df.parse(startDateString);
+        		    }
+        		    if (endTime == null) {
+        		        endTime = AddCommand.DEFAULT_END_TIME;
+        		    }
+        		    if (startTime == null) {
+        		        startTime = AddCommand.DEFAULT_START_TIME;
+        		    }
+        		    if (sdf.parse(endDateString + " " + endTime).before(sdf.parse(startDateString + " " + startTime))) {
+        		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+        		    } else {
+	        		    return new AddCommand(ItemType.EVENT_WORD, 
+	    	                      name, 
+	    	                      startDate, 
+	    	                      startTime, 
+	    	                      endDate, 
+	    	                      endTime, 
+	    	                      tagsToAdd);
+        		    }
+        		} catch (ParseException e) {
+        		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
+        		}
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        }
 	}
 
 	private Command addDeadline(final Matcher deadlineMatcher) throws IllegalValueException {
-		try {
-		    SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
-		    SimpleDateFormat df2 = new SimpleDateFormat(ItemDate.ALTERNATE_DATE_FORMAT);
-		    df.setLenient(false);
-		    String[] parts = deadlineMatcher.group("endDate").split("-");
-		    // If yyyy-MM-dd
-		    if (parts.length == 3) {
-		        df.parse(deadlineMatcher.group("endDate"));
-		    } else { // MM-dd
-		        df2.parse(deadlineMatcher.group("endDate"));
-		    }
-		} catch (ParseException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
-		}
-		return new AddCommand(ItemType.DEADLINE_WORD,
-		                      deadlineMatcher.group("name"), 
-		                      deadlineMatcher.group("endDate"),
-		                      deadlineMatcher.group("endTime"),
-		                      getTagsFromArgs(deadlineMatcher.group("tagArguments")));
-	}
+        String addCommandArgs = deadlineMatcher.group("addCommandArguments");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDatePrefix, endTimePrefix,
+                                                                endDateTimePrefix, tagPrefix);
+        argsTokenizer.tokenize(addCommandArgs);
+        
+        //Capture argument values into their respective variables if available
+        String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+        String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+        String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+        String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        if (tagsToAdd == null) {
+            tagsToAdd = new ArrayList<String>();
+        }
+        
+        try {
+            //Handle case where user enters end date and time using natural language via edt/
+            if (endDateTime != null) {
+                return addNlpDeadline(deadlineMatcher);
+            } else {
+            	if (name == null || endDate == null) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+        	    try {
+                    SimpleDateFormat df = new SimpleDateFormat(ItemDate.DATE_FORMAT);
+                    SimpleDateFormat df2 = new SimpleDateFormat(ItemDate.ALTERNATE_DATE_FORMAT);
+                    df.setLenient(false);
+                    String[] parts = endDate.split("-");
+                    // If yyyy-MM-dd
+                    if (parts.length == 3) {
+                        df.parse(endDate);
+                    } else { // MM-dd
+                        df2.parse(endDate);
+                    }
+                } catch (ParseException e) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
+                }
+                return new AddCommand(ItemType.DEADLINE_WORD,
+                                      name, 
+                                      endDate,
+                                      endTime,
+                                      tagsToAdd);
+            }
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+	
+	private Command addTask(final Matcher taskDeadline) throws IllegalValueException {
+		String addCommandArgs = taskDeadline.group("addCommandArguments");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, tagPrefix);
+        argsTokenizer.tokenize(addCommandArgs);
+        
+        //Capture argument values into their respective variables if available
+        String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+        if (name == null) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+        if (tagsToAdd == null) {
+            tagsToAdd = new ArrayList<String>();
+        }
+        return new AddCommand(ItemType.TASK_WORD,
+                              name,
+                              tagsToAdd);
+    }
 
     //@@author A0140060A	
     /**

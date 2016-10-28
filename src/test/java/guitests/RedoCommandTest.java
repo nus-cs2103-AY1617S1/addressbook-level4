@@ -44,7 +44,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         for (int i=0; i<numTimes; i++) {
             String itemName = UUID.randomUUID().toString();
             itemName = itemName.replaceAll("\\-", "");
-            commandBox.runCommand("add task " + itemName);
+            commandBox.runCommand("add task n/" + itemName);
             TestItem itemToAdd = new TestItem();
 	        try {
 	            ItemType typeTask = new ItemType(ItemType.TASK_WORD);
