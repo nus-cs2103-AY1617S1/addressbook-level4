@@ -151,6 +151,7 @@ public class UniqueTaskList implements Iterable<Task> {
             else
                 toEdit.setDate(new Date(args));          
             internalList.set(editIndex, toEdit);
+            FXCollections.sort(internalList);
             return true;
         } else if (keyword.equals(EditCommand.START_WORD)) {
             if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
@@ -170,6 +171,7 @@ public class UniqueTaskList implements Iterable<Task> {
             else
                 toEdit.setStart(new Start(args));
             internalList.set(editIndex, toEdit);
+            FXCollections.sort(internalList);
             return true;
         } else if (keyword.equals(EditCommand.END_WORD)) {
             if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
@@ -184,6 +186,7 @@ public class UniqueTaskList implements Iterable<Task> {
             else
                 toEdit.setEnd(new End(args));
             internalList.set(editIndex, toEdit);
+            FXCollections.sort(internalList);
             return true;
 
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
