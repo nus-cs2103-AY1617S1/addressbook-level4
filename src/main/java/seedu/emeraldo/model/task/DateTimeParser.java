@@ -27,7 +27,8 @@ public class DateTimeParser {
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
             + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))"
-            + "(:(?<minute>([0-5][0-9])))";
+            + "(:(?<minute>([0-5][0-9])))"
+            + "(?<timePostFix>(([a]|[p])[m])?)";
 
     public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
@@ -55,6 +56,7 @@ public class DateTimeParser {
             + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))?"
             + "(:(?<minute>([0-5][0-9])))?"
+            + "(?<timePostFix>(([a]|[p])[m])?)"
             + "( (?<aftKeyword>(to )))?"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
             + "(?:( |/|-)?)"
@@ -63,6 +65,7 @@ public class DateTimeParser {
             + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))?"
             + "(:(?<minuteEnd>([0-5][0-9])))?"
+            + "(?<timeEndPostFix>(([a]|[p])[m])?)"
             );
 
 	private static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
@@ -122,14 +125,24 @@ public class DateTimeParser {
     public static LocalTime valueTimeFormatter(Matcher matcher, String keyword){
         
         String hour = matcher.group("hour");
-        String minute = matcher.group("minute");     
+        String minute = matcher.group("minute");
+        String timePostFix = matcher.group("timePostFix");
+System.out.println(hour + " " + minute + " " + timePostFix);
+        
+        int hourParsed;
+        int minuteParsed;
+        
         if(keyword.equals("to")){
             hour = matcher.group("hourEnd");
             minute = matcher.group("minuteEnd");
+            timePostFix = matcher.group("timeEndPostFix");
         }
         
-        int hourParsed = Integer.parseInt(hour);
-        int minuteParsed = Integer.parseInt(minute);
+        hourParsed = Integer.parseInt(hour);
+        minuteParsed = Integer.parseInt(minute);
+        
+        if(!timePostFix.isEmpty())
+        	hourParsed = convert12HoursFormatTo24HoursFormat(hourParsed, timePostFix);
         
         return LocalTime.of(hourParsed, minuteParsed);
     }
@@ -144,6 +157,7 @@ public class DateTimeParser {
         String year = matcher.group("year");
         String hour = matcher.group("hour");
         String minute = matcher.group("minute");
+        String timePostFix = matcher.group("timePostFix");
         
         if(keyword.equals("to")){
             day = matcher.group("dayEnd");
@@ -151,6 +165,7 @@ public class DateTimeParser {
             year = matcher.group("yearEnd");
             hour = matcher.group("hourEnd");
             minute = matcher.group("minuteEnd");
+            timePostFix = matcher.group("timeEndPostFix");
         }
 
         //Append the leading '0' if not present
@@ -175,13 +190,20 @@ public class DateTimeParser {
         
         if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
         	year = String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year;
-
+        
+        //Format time in 24 hours format into 12 hours format for display
+        String[] formattedInto12Hours = new String[2];
+        if(timePostFix.isEmpty() && hour != null){
+        	formattedInto12Hours = convert24HoursFormatTo12HoursFormat(hour);
+        	hour = formattedInto12Hours[0];
+        	timePostFix = formattedInto12Hours[1];
+        }
         
         if(keyword.equals("on"))
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) + " " + year;
         else{
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) +  " " 
-                    + year + ", " + hour + ":" + minute;
+                    + year + ", " + hour + "." + minute + timePostFix;
         }
     }
     
@@ -278,4 +300,47 @@ public class DateTimeParser {
     
         return monthInNumbers;
     }
+    
+    /**
+     * Convert hours in 12 hours format to 24 hours format
+     * 
+     * @param int hours
+     * @param String timePostFix
+     * @return int convertedHour
+     */
+    private static int convert12HoursFormatTo24HoursFormat(int hour, String timePostFix){
+    	
+    	if(timePostFix.equalsIgnoreCase("pm") && hour != 12)
+    		return hour + 12;
+    	else if(timePostFix.equalsIgnoreCase("am") && hour == 12)
+    		return 0;
+    	else
+    		return hour;
+    }
+    
+    /**
+     * Convert hours in 24 hours into 12 hours format
+     * 
+     * @param String hours
+     * @param String timePostFix
+     * @return String[] formattedInto12Hours
+     */
+    private static String[] convert24HoursFormatTo12HoursFormat(String hour){
+    	int hourInInt = Integer.parseInt(hour);
+    	String[] formattedInto12Hours = new String[2];
+    	
+    	if(hourInInt >= 0 && hourInInt <= 11){
+    		formattedInto12Hours[0] = String.valueOf(hourInInt);
+    		formattedInto12Hours[1] = "am";
+    	}else if(hourInInt == 12){
+    		formattedInto12Hours[0] = String.valueOf(hourInInt);
+    		formattedInto12Hours[1] = "pm";
+    	}else{
+    		formattedInto12Hours[0] = String.valueOf(hourInInt - 12);
+    		formattedInto12Hours[1] = "pm";
+    	}
+    	
+    	return formattedInto12Hours;
+    }
+   
 }
