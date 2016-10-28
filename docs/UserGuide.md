@@ -10,11 +10,11 @@
 
 ## 1. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, DoMePlease, is here to save your day!
+&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, sTask, is here to save your day!
 
-DoMePlease manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. DoMePlease also manages your list of ad-hoc tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.
+sTask manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. sTask also manages your list of ad-hoc tasks, which are non-dated tasks such as "Read the new Harry Potter book!", and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.
 
-Love typing? You will love DoMePlease, as you only need to use the keyboard to type simple commands to manage your tasks.
+Love typing? You will love sTask, as you only need to use the keyboard to type simple commands to manage your tasks.
 
 #### 
 
@@ -24,8 +24,8 @@ Love typing? You will love DoMePlease, as you only need to use the keyboard to t
  > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2</b> Download the latest `DoMePlease.jar` from the 'releases' tab. <br>
-&nbsp;&nbsp;&nbsp;&nbsp; <b>2.3</b> Copy the file to the folder you want to use as the home folder for DoMePlease. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2</b> Download the latest `sTask.jar` from the 'releases' tab. <br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>2.3</b> Copy the file to the folder you want to use as the home folder for sTask. <br>
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.4</b> Double-click the file to start the app. The GUI should appear in a few seconds. <br>
    <img src="images/Ui.png" width="600"> <br>
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.5</b> Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
@@ -47,13 +47,13 @@ Love typing? You will love DoMePlease, as you only need to use the keyboard to t
  Help is also shown if you enter an incorrect command e.g. `abcd`
  
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.2 Adding a task: `add` </b><br>
->Adds a floating task to DoMePlease<br>
+>Adds a floating task to sTask<br>
 Format: `add TASKNAME d/TASK_DESCRIPTION t/TAG...` 
 
->Adds a deadline to DoMePlease<br>
+>Adds a deadline to sTask<br>
 Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE TIME [t/TAG...]` 
 
->Adds an event to DoMePlease<br>
+>Adds an event to sTask<br>
 Format: `add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]` <br>
 Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG...]` <br>
 
@@ -94,7 +94,7 @@ Format: `edit INDEX [FIELDS]`
 >Example:
 * `list all`<br>
 *  `edit 2 d/Pilot 2B`<br><br>
-Edits the 2nd floating task in DoMePlease. Example Buy Pencil. <br>
+Edits the 2nd floating task in sTask. Example Buy Pencil. <br>
 A message will be displayed to inform the user that the task is edited.
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find` </b><br>
@@ -126,7 +126,7 @@ This command doesn't require you to be at the selected month.
 Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
->Deletes the specified task from DoMePlease. <br>
+>Deletes the specified task from sTask. <br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -159,7 +159,7 @@ Format: `done INDEX`
 >Examples: 
 * `list all` <br>
   `done 2` <br>
-   Mark the 2nd task in DoMePlease as completed.
+   Mark the 2nd task in sTask as completed.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.12 Change location of the data storage file: `save` </b><br>
 >Moves the data storage file to the specified location if possible. <br>
@@ -186,7 +186,7 @@ Format: `exit`
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous DoMePlease.
+       the file that contains the data of your previous sTask.
        
 ## 5. Command Summary
 
@@ -197,10 +197,10 @@ Help | `help`
 - Shows a help file
 
 Add | `add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]`
-- Inserts a task into DoMePlease
+- Inserts a task into sTask
 
 Delete | `delete INDEX`
-- Deletes a task from DoMePlease
+- Deletes a task from sTask
 
 Edit | `edit INDEX [FIELDS]`
 - Edits the field of the task at the specified `INDEX`
@@ -209,7 +209,7 @@ Find | `find KEYWORD [MORE_KEYWORDS]`
 - Finds an existing task based on the TASK_NAME or TASK_TAG
 
 List | `list all` , `list od`, `list done`
-- Lists all/overdue/completed tasks in DoMePlease
+- Lists all/overdue/completed tasks in sTask
 
 View | `view DATE`
 - Populates the list of deadlines and events of the selected DATE
