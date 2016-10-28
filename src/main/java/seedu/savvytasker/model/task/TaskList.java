@@ -116,10 +116,11 @@ public class TaskList implements Iterable<Task> {
 
     /**
      * Adds a task to the list.
-     *
-     * @throws DuplicateTaskException if the person to add is a duplicate of an existing task in the list.
+     * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns the Task added if the add is successful, an exception is thrown otherwise.
      */
-    public void add(Task toAdd) throws DuplicateTaskException, InvalidDateException {
+    public Task add(Task toAdd) throws DuplicateTaskException, InvalidDateException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -128,28 +129,36 @@ public class TaskList implements Iterable<Task> {
             throw new InvalidDateException();
         }
         internalList.add(toAdd);
+        return toAdd;
     }
 
     /**
      * Removes the equivalent task from the list.
-     *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @return Returns a Task if the delete operation is successful, an exception is thrown otherwise.
      */
-    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
+    public Task remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
+        int index = internalList.indexOf(toRemove);
+        if (index >= 0) {
+            final Task taskToDelete = internalList.get(index);
+            final boolean taskFoundAndDeleted = internalList.remove(toRemove);
+            if (!taskFoundAndDeleted) {
+                throw new TaskNotFoundException();
+            }
+            return taskToDelete;
+        } else {
             throw new TaskNotFoundException();
         }
-        return taskFoundAndDeleted;
     }
 
     /**
      * Replaces the equivalent task from the list.
-     *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws {@link TaskNotFoundException} if the task does not exist
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns the Task replaced if the replace is successful, an exception is thrown otherwise.
      */
-    public boolean replace(ReadOnlyTask toReplace, Task replacement) throws TaskNotFoundException, InvalidDateException {
+    public Task replace(ReadOnlyTask toReplace, Task replacement) throws TaskNotFoundException, InvalidDateException {
         assert toReplace != null;
         assert replacement != null;
         if (internalList.contains(toReplace)) {
@@ -157,7 +166,7 @@ public class TaskList implements Iterable<Task> {
                 throw new InvalidDateException();
             }
             internalList.set(internalList.indexOf(toReplace), replacement);
-            return true;
+            return replacement;
         }
         else {
             throw new TaskNotFoundException();

@@ -1,7 +1,9 @@
 package seedu.savvytasker.logic.commands;
 
+import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.events.ui.JumpToListRequestEvent;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -78,7 +80,13 @@ public class ModifyCommand extends ModelRequiringCommand {
 
         try {
             originalTask = (Task)taskToModify;
-            model.modifyTask(taskToModify, replacement);
+            Task taskModified = model.modifyTask(taskToModify, replacement);
+            int targetIndex = getIndexOfTask(taskModified);
+            if (targetIndex > 0) {
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+            } else {
+                assert false; // will never get here.
+            }
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         } catch (InvalidDateException ex) {
@@ -86,6 +94,16 @@ public class ModifyCommand extends ModelRequiringCommand {
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
+    }
+    
+    /**
+     * Helper method to retrieve the index of the task in the tasklist that was added.
+     * @param task The task to find
+     * @return Returns the index of the task in the list, -1 if not found.
+     */
+    private int getIndexOfTask(Task task) {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        return lastShownList.indexOf(task);
     }
     //@@author
     
