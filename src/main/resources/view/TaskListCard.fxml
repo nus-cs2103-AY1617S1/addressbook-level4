@@ -18,7 +18,7 @@
             </Label>
             <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="309.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="119.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="219.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="20.0" minHeight="20.0" prefHeight="20.0" prefWidth="80.0">
                            <children>
