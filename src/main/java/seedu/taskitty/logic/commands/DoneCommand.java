@@ -35,12 +35,15 @@ public class DoneCommand extends Command {
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
-    public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes) {
+    private final String commandText;
+    
+    public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
         this.hasInvalidIndex = false;
         this.hasDuplicateMarkAsDoneTask = false;
         this.hasDuplicateIndexesProvided = false;
+        this.commandText = commandText;
     }
 
     @Override
@@ -87,24 +90,22 @@ public class DoneCommand extends Command {
         }
         
         if (hasInvalidIndex) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(invalidIndexMessageBuilder.toString());
         }
         
         if (hasDuplicateIndexesProvided) {
-            model.removeUnchangedState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
         }
         
         if (hasDuplicateMarkAsDoneTask) {
-            model.removeUnchangedState();
             return new CommandResult(duplicateMarkAsDoneMessageBuilder.toString());
         }
                         
         try {
-             model.markTasksAsDone(listOfTaskToMarkDone);            
+             model.markTasksAsDone(listOfTaskToMarkDone);
+             model.storeDoneCommandInfo(listOfTaskToMarkDone, commandText);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateMarkAsDoneException e) {
@@ -112,10 +113,5 @@ public class DoneCommand extends Command {
         }
 
         return new CommandResult(resultMessageBuilder.toString());
-    }
-    
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
     }
 }

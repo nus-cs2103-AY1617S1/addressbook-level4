@@ -73,10 +73,5 @@ public class ViewCommand extends Command {
     			return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
     	}
     }
-
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
-    }
-
+    
 }

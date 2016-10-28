@@ -87,6 +87,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         tags.setTags(replacement);
     }
     
+    /** 
+     * Marks task as done.
+     */
+    public void unmarkAsDone() {
+        if (isDone) {
+            this.isDone = false;
+        }
+    }
+    
     //@@author A0130853L
     /** 
      * Marks task as done.

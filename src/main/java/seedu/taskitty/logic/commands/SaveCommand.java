@@ -54,9 +54,4 @@ public class SaveCommand extends Command{
         }
     }
 
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        // This constructor is intentionally empty, because something something
-    }
-
 }

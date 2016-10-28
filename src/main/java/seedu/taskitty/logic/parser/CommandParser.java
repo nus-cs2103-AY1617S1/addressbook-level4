@@ -89,6 +89,9 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
             
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
@@ -163,7 +166,8 @@ public class CommandParser {
             
             return new AddCommand(
                     extractTaskDetailsNatty(taskDetailArguments),
-                    getTagsFromArgs(tagArguments)
+                    getTagsFromArgs(tagArguments),
+                    args
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -377,8 +381,8 @@ public class CommandParser {
      */
     private Command prepareDelete(String args) {
         
-        args = args.trim();
-        String[] indexes = args.split("\\s");
+        String dataArgs = args.trim();
+        String[] indexes = dataArgs.split("\\s");
         Pair<Integer, Integer> categoryAndIndex = null;
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
@@ -392,7 +396,7 @@ public class CommandParser {
             listOfIndexes.add(categoryAndIndex);
         }
         
-        return new DeleteCommand(listOfIndexes);
+        return new DeleteCommand(listOfIndexes, args);
     }
     
     //@@author A0135793W
@@ -404,8 +408,8 @@ public class CommandParser {
      */
     private Command prepareDone(String args) {
         
-        args = args.trim();                
-        String[] indexes = args.split("\\s");
+        String dataArgs = args.trim();                
+        String[] indexes = dataArgs.split("\\s");
         Pair<Integer, Integer> categoryAndIndex = null;
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
@@ -419,7 +423,7 @@ public class CommandParser {
             listOfIndexes.add(categoryAndIndex);
         }
         
-        return new DoneCommand(listOfIndexes);
+        return new DoneCommand(listOfIndexes, args);
     }
     
     /**
@@ -457,7 +461,8 @@ public class CommandParser {
                     extractTaskDetailsNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
                     categoryAndIndexPair.getValue(),
-                    categoryAndIndexPair.getKey());            
+                    categoryAndIndexPair.getKey(),
+                    args);            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

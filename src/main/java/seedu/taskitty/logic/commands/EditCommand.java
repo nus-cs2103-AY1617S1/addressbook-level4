@@ -46,17 +46,14 @@ public class EditCommand extends Command{
     private ReadOnlyTask taskToEdit;
     private String[] data;
     private final Set<Tag> tagSet;
+    private final String commandText;
     
-    public EditCommand(String[] data, Set<String> tags, int targetIndex) 
-            throws IllegalValueException {
-        this(data, tags, targetIndex, Task.DEFAULT_CATEGORY_INDEX);
-    }
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex)
+    public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex, String commandText)
             throws IllegalValueException {
 
         assert categoryIndex >= 0 && categoryIndex < 3;
@@ -64,6 +61,7 @@ public class EditCommand extends Command{
         this.targetIndex = targetIndex;
         this.categoryIndex = categoryIndex;
         this.data = data;
+        this.commandText = commandText;
         tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -77,7 +75,6 @@ public class EditCommand extends Command{
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model,categoryIndex);
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            model.removeUnchangedState();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
@@ -89,17 +86,16 @@ public class EditCommand extends Command{
                 return result.get();
             }
             model.editTask(taskToEdit, toEdit);
+            model.storeEditCommandInfo(taskToEdit, toEdit, commandText);
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            model.removeUnchangedState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
-            model.removeUnchangedState();
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex], toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex, toEdit));
     }
     
     /**
@@ -155,8 +151,4 @@ public class EditCommand extends Command{
         return Optional.empty();
     }
 
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
-    }
 }

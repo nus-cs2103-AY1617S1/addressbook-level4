@@ -26,14 +26,16 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
+    private final String commandText;
 
     /**
      * Convenience constructor using values parsed from Natty
      *
      * @throws IllegalValueException if any of the values are invalid or there are too many inputs
      */
-    public AddCommand(String[] data, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String[] data, Set<String> tags, String commandText) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
+        this.commandText = commandText;
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
@@ -73,17 +75,12 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             model.updateToDefaultList();
+            model.storeAddCommandInfo(toAdd, commandText);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            model.removeUnchangedState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
-    }
-
-    @Override
-    public void saveStateIfNeeded(String commandText) {
-        model.saveState(commandText);
     }
 
 }

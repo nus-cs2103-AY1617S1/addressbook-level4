@@ -2,6 +2,7 @@ package seedu.taskitty.model;
 
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
+import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -39,11 +40,33 @@ public interface Model {
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
     
-    /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
-    void saveState(String command);
+    /** Redoes the previous undo command if there is any 
+     * @throws NoRecentUndoCommandException */
+    String redo() throws NoRecentUndoCommandException;
+    /**
+     * stores the info from an add command that is needed for undoing/redoing functions
+     */
+    public void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText);
     
-    /** Removes the current state saved when an invalid command is given */
-    void removeUnchangedState();
+    /**
+     * stores the info from an edit command that is needed for undoing/redoing functions
+     */
+    public void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText);
+    
+    /**
+     * stores the info from a delete command that is needed for undoing/redoing functions
+     */
+    public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText);
+    
+    /**
+     * stores the info from a done command that is needed for undoing/redoing functions
+     */
+    public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText);
+    
+    /**
+     * stores the info from a clear command that is needed for undoing/redoing functions
+     */
+    public void storeClearCommandInfo();
     
     //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

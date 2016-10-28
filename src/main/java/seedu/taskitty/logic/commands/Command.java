@@ -15,8 +15,8 @@ public abstract class Command {
                 FindCommand.COMMAND_WORD, EditCommand.COMMAND_WORD,
                 DeleteCommand.COMMAND_WORD, DoneCommand.COMMAND_WORD,
                 SaveCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, 
-                ClearCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, 
-                ExitCommand.COMMAND_WORD,
+                ClearCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+                HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             };
     
     public static final String[] ALL_COMMAND_MESSAGE_PARAMETER = {
@@ -24,8 +24,8 @@ public abstract class Command {
                 FindCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_PARAMETER,
                 DeleteCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_PARAMETER,
                 SaveCommand.MESSAGE_PARAMETER, UndoCommand.MESSAGE_PARAMETER, 
-                ClearCommand.MESSAGE_PARAMETER, HelpCommand.MESSAGE_PARAMETER, 
-                ExitCommand.MESSAGE_PARAMETER,
+                ClearCommand.MESSAGE_PARAMETER, RedoCommand.MESSAGE_PARAMETER,  
+                HelpCommand.MESSAGE_PARAMETER, ExitCommand.MESSAGE_PARAMETER,
             };
     
     public static final String[] ALL_COMMAND_MESSAGE_USAGE = {
@@ -33,8 +33,8 @@ public abstract class Command {
                 FindCommand.MESSAGE_USAGE, EditCommand.MESSAGE_USAGE,
                 DeleteCommand.MESSAGE_USAGE, DoneCommand.MESSAGE_USAGE,
                 SaveCommand.MESSAGE_USAGE, UndoCommand.MESSAGE_USAGE, 
-                ClearCommand.MESSAGE_USAGE, HelpCommand.MESSAGE_USAGE, 
-                ExitCommand.MESSAGE_USAGE,
+                ClearCommand.MESSAGE_USAGE, RedoCommand.MESSAGE_USAGE, 
+                HelpCommand.MESSAGE_USAGE, ExitCommand.MESSAGE_USAGE,
             };
     
     public static final String MESSAGE_FORMAT = "Format: ";
@@ -57,13 +57,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-    
-    /**
-     * Saves the current state of TaskManager and filteredList to 
-     * allow for undoing of previous commands if command has mutated
-     * the TaskManager or filteredList.
-     */
-    public abstract void saveStateIfNeeded(String commandText);
     
     /**
      * Provides any needed dependencies to the command.
