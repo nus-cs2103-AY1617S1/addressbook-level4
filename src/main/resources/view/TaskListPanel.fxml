@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.TaskListPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.TaskListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Index" />
+          <Menu mnemonicParsing="false" text="      Task" />
+          <Menu mnemonicParsing="false" text="                                     Date" />
+            <Menu mnemonicParsing="false" text="       Start Time" />
+            <Menu mnemonicParsing="false" text="       End Time" />
+            <Menu mnemonicParsing="false" text="       Tags" />
+            <Menu mnemonicParsing="false" text="       Status" />
+        </menus>
+      </MenuBar>
+        <ListView fx:id="taskListView" prefWidth="248.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
