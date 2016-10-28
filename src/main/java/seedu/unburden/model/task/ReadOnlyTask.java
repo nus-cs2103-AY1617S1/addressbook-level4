@@ -40,38 +40,48 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         
-        if(getDate().fullDate == "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
+        if(getDate().fullDate == "  " && getStartTime().fullTime == "  " && getEndTime().fullTime == "  "){
         	builder.append(getName());
+        	builder.append("\n");
         	getTags().forEach(builder::append);
         }
         
-        else if(getDate().fullDate != "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
-        	builder.append(getName());
-            builder.append("   Deadline : ");        
+        else if(getDate().fullDate != "  " && getStartTime().fullTime == "  " && getEndTime().fullTime == "  "){
+        	builder.append(getName()); 
+        	builder.append("\n");
+            builder.append("Deadline : ");        
             builder.append(getDate());
+            builder.append("\n");
             getTags().forEach(builder::append);
         }
         
-        else if(getTaskDescription().fullTaskDescriptions != "NIL" && getDate().fullDate != "NIL" && getStartTime().fullTime != "NIL" && getEndTime().fullTime != "NIL"){       
+        else if(getTaskDescription().fullTaskDescriptions != "  " && getDate().fullDate != "  " && getStartTime().fullTime != "  " && getEndTime().fullTime != "  "){       
 	        builder.append(getName());
-	        builder.append("   Task Description : ");        
+	        builder.append("\n");
+	        builder.append("Task Description : ");        
 	        builder.append(getTaskDescription());
-	        builder.append("   Deadline : ");        
+	        builder.append("\n");
+	        builder.append("Deadline : ");        
 	        builder.append(getDate());
-	        builder.append("   Start Time - End time : ");  
+	        builder.append("\n");
+	        builder.append("Start Time - End time : ");  
 	        builder.append(getStartTime() + " - ");
 	        builder.append(getEndTime() + "   ");
+	        builder.append("\n");
 	        getTags().forEach(builder::append);
         }
         
         
         else {       
 	        builder.append(getName());
-	        builder.append("   Deadline : ");        
+	        builder.append("\n");
+	        builder.append("Deadline : ");        
 	        builder.append(getDate());
-	        builder.append("   Start Time - End time : ");  
+	        builder.append("\n");
+	        builder.append("Start Time - End time : ");  
 	        builder.append(getStartTime() + " - ");
 	        builder.append(getEndTime() + "   ");
+	        builder.append("\n");
 	        getTags().forEach(builder::append);
         }
         
