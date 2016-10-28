@@ -3,6 +3,8 @@ package seedu.todoList.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.todoList.commons.core.EventsCenter;
+import seedu.todoList.commons.events.model.DeadlineListChangedEvent;
+import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.todoList.commons.events.ui.ShowHelpRequestEvent;
@@ -47,12 +49,24 @@ public class LogicManagerTest {
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskList latestSavedTodoList;
+    private ReadOnlyTaskList latestSavedEventList;
+    private ReadOnlyTaskList latestSavedDeadlineList;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TodoListChangedEvent abce) {
         latestSavedTodoList = new TaskList(abce.data);
+    }
+    @Subscribe
+    //@@author A0132157
+    private void handleLocalModelChangedEvent(EventListChangedEvent abce) {
+        latestSavedEventList = new TaskList(abce.data);
+    }
+    @Subscribe
+    //@@author A0132157
+    private void handleLocalModelChangedEvent(DeadlineListChangedEvent abce) {
+        latestSavedDeadlineList = new TaskList(abce.data);
     }
 
     @Subscribe
@@ -77,6 +91,8 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTodoList = new TaskList(model.getTodoList()); // last saved assumed to be up to date before.
+        latestSavedEventList = new TaskList(model.getEventList()); // last saved assumed to be up to date before.
+        latestSavedDeadlineList = new TaskList(model.getDeadlineList()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -181,28 +197,63 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_addTodo_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
 
-        Todo toBeAdded = helper.a111();
+        Todo toBeAdded = helper.todoHelper();
         TaskList expectedAB = new TaskList();
 
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_addEvent_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        Event toBeAdded = helper.eventHelper();
+        TaskList expectedAB = new TaskList();
+
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddEventCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    @Test
+    //@@author A0132157M
+    public void execute_addDeadline_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        Deadline toBeAdded = helper.deadlineHelper();
+        TaskList expectedAB = new TaskList();
+
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddDeadlineCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void execute_addTodoDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
 
-        Todo toBeAdded = helper.a111();
+        Todo toBeAdded = helper.todoHelper();
         TaskList expectedAB = new TaskList();
 
         expectedAB.addTask(toBeAdded);
@@ -212,11 +263,54 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                helper.generateAddTodoCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_addEventDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
 
+        Event toBeAdded = helper.eventHelper();
+        TaskList expectedAB = new TaskList();
+
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal TodoList
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddEventCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_addDeadlineDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+
+        Deadline toBeAdded = helper.deadlineHelper();
+        TaskList expectedAB = new TaskList();
+
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal TodoList
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddDeadlineCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB,
+                expectedAB.getTaskList());
     }
 
 
@@ -269,11 +363,11 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTodoList(), taskList);
     }
 
-    @Test
+    /*@Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
+    }*/
 
     /*@Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
@@ -333,10 +427,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
-        Task pTarget2 = helper.generatetaskWithToDo("bla KEY bla bceofeia");
-        Task p1 = helper.generatetaskWithToDo("KE Y");
-        Task p2 = helper.generatetaskWithToDo("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generatetask("bla bla KEY bla");
+        Task pTarget2 = helper.generatetask("bla KEY bla bceofeia");
+        Task p1 = helper.generatetask("KE Y");
+        Task p2 = helper.generatetask("KEYKEYKEY sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p1, pTarget1, p2, pTarget2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -352,10 +446,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generatetaskWithToDo("bla bla KEY bla");
-        Task p2 = helper.generatetaskWithToDo("bla KEY bla bceofeia");
-        Task p3 = helper.generatetaskWithToDo("key key");
-        Task p4 = helper.generatetaskWithToDo("KEy sduauo");
+        Task p1 = helper.generatetask("bla bla KEY bla");
+        Task p2 = helper.generatetask("bla KEY bla bceofeia");
+        Task p3 = helper.generatetask("key key");
+        Task p4 = helper.generatetask("KEy sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p3, p1, p4, p2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -371,10 +465,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
-        Task pTarget2 = helper.generatetaskWithToDo("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generatetaskWithToDo("key key");
-        Task p1 = helper.generatetaskWithToDo("sduauo");
+        Task pTarget1 = helper.generatetask("bla bla KEY bla");
+        Task pTarget2 = helper.generatetask("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generatetask("key key");
+        Task p1 = helper.generatetask("sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
@@ -394,18 +488,31 @@ public class LogicManagerTest {
     //@@author A0132157M reused
     class TestDataHelper{
 
-        Todo a111() throws Exception {
-            Name name = new Name("Assignment 111");
-            StartDate date = new StartDate("01-11-2016");
-            EndDate endDate = new EndDate("02-12-2016");
-            Priority priority = new Priority("111");
+        Todo todoHelper() throws Exception {
+            Name name = new Name("TODO 111");
+            StartDate date = new StartDate("01-01-2017");
+            EndDate endDate = new EndDate("02-01-2017");
+            Priority priority = new Priority("1");
             String isDone = "false";
-            
-            //EndTime endTime = new EndTime("1111");
-            //Tag tag1 = new Tag("tag1");
-            //Tag tag2 = new Tag("tag2");
-            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Todo(name, date, endDate, priority, isDone);
+        }
+        
+        Event eventHelper() throws Exception {
+            Name name = new Name("EVENT 111");
+            StartDate startDate = new StartDate("01-12-2016");
+            EndDate endDate = new EndDate("02-12-2016");
+            StartTime startTime = new StartTime("01:00");
+            EndTime endTime = new EndTime("02:00");
+            String isDone = "false";
+            return new Event(name, startDate, endDate, startTime, endTime, isDone);
+        }
+        
+        Deadline deadlineHelper() throws Exception {
+            Name name = new Name("DEADLINE 111");
+            StartDate startDate = new StartDate("28-11-2016");
+            EndTime endTime = new EndTime("02:00");
+            String isDone = "false";
+            return new Deadline(name, startDate, endTime, isDone);
         }
 
         /**
@@ -419,18 +526,17 @@ public class LogicManagerTest {
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new StartDate("11-12-2016"),
-                    new EndDate("12-12-2016"),
-                    new Priority(seed + "10"),
+                    new StartDate("" + seed),
+                    new EndDate("" + seed),
+                    new Priority("" + seed),
                     "false"
-                    //new EndTime("EndTime " + seed)
-                    //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
+
         /** Generates the correct add command based on the task given */
         //@@author A0132157M
-        String generateAddCommand(Todo p) {
+        String generateAddTodoCommand(Todo p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
@@ -438,15 +544,34 @@ public class LogicManagerTest {
             cmd.append(" from/").append(p.getStartDate().date);
             cmd.append(" to/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
-            
-
-            /*UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }*/
-
+            //cmd.append("false");
             return cmd.toString();
         }
+        //@@author A0132157M
+        String generateAddEventCommand(Event p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+            cmd.append(p.getName().name);
+            cmd.append(" from/").append(p.getStartDate().date);
+            cmd.append(" to/").append(p.getEndDate().endDate);
+            cmd.append(" at/").append(p.getStartTime().startTime);
+            cmd.append(" to/").append(p.getEndTime().endTime);
+            //cmd.append("false");
+            return cmd.toString();
+        }
+        //@@author A0132157M
+        String generateAddDeadlineCommand(Deadline toBeAdded) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+            cmd.append(toBeAdded.getName().name);
+            cmd.append(" on/").append(toBeAdded.getDate().date);
+            cmd.append(" at/").append(toBeAdded.getEndTime().endTime);
+            //cmd.append("false");
+            return cmd.toString();
+        }
+
 
         /**
          * Generates an TodoList with auto-generated tasks.
@@ -519,12 +644,12 @@ public class LogicManagerTest {
          * Generates a task object with given name. Other fields will have some dummy values.
          */
         //@@author A0132157M
-        Task generatetaskWithToDo(String name) throws Exception {
+        Task generatetask(String name) throws Exception {
             return new Todo(
                     new Name(name),
-                    new StartDate("01-11-2016"),
-                    new EndDate("02-11-2016"),
-                    new Priority("1"),
+                    new StartDate(""),
+                    new EndDate(""),
+                    new Priority(""),
                     "false"
                                     
                     //new UniqueTagList(new Tag("tag"))

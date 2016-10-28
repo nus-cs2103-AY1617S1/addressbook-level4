@@ -28,6 +28,7 @@ public class StartDate {
      * @throws IllegalValueException if given date is invalid.
      */
     public StartDate(String date) throws IllegalValueException {
+
         assert date != null;
         saveDate = date.trim();
         date = date.trim(); 
