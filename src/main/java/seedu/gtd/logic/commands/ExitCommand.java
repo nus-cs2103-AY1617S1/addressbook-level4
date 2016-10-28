@@ -9,8 +9,8 @@ import seedu.gtd.commons.events.ui.ExitAppRequestEvent;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exits the program.";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task List as requested ...";
 
     public ExitCommand() {}
 
