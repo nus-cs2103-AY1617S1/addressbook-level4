@@ -76,6 +76,7 @@ public class SaveCommand extends Command{
             updateConfig = new Config();
         }
         EventsCenter.getInstance().post(new ChangeSaveFileEvent(filePath));
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_SUCCESS , filePath));
     }
     

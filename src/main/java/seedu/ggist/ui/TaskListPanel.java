@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
-import seedu.ggist.commons.events.ui.AddTaskEvent;
 import seedu.ggist.commons.events.ui.ChangeFileLocationEvent;
 import seedu.ggist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -94,15 +93,9 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-    
-    //@@author A0138411N
-    @Subscribe
-    public void handleAddTaskEvent(AddTaskEvent event) {
-        taskListView.scrollTo(event.index);
-        System.out.println("JHKJHF");
+        taskListView.getFocusModel().focus(index);
+        taskListView.getSelectionModel().select(index);
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {

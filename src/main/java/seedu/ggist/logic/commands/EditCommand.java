@@ -50,7 +50,7 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
         }
         
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        Task taskToEdit = (Task)lastShownList.get(targetIndex - 1);
         try {
             editTaskField.push(field);
             
@@ -75,7 +75,7 @@ public class EditCommand extends Command {
         } catch (IllegalValueException ive) {
             return new CommandResult(ive.getMessage());
         }
-
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 

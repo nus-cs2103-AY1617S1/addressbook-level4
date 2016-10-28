@@ -30,7 +30,7 @@ public interface Model {
     
     /** Edits the given task
      * @throws IllegalValueException */
-    void editTask(ReadOnlyTask target, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+    void editTask(Task target, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

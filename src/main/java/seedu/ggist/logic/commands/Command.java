@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.events.ui.CorrectCommandExecutedEvent;
 import seedu.ggist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.ggist.model.Model;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -56,5 +57,12 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+ //@@author A0138411N
+    /**
+     * Raises an event to indicate a correct command
+     */
+    protected void indicateCorrectCommandExecuted() {
+        EventsCenter.getInstance().post(new CorrectCommandExecutedEvent(this));
     }
 }

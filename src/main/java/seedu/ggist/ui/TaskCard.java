@@ -1,12 +1,16 @@
 package seedu.ggist.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
+import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.events.ui.JumpToListRequestEvent;
 import seedu.ggist.model.task.ReadOnlyTask;
 //@@author A0144727B
 public class TaskCard extends UiPart{
@@ -118,5 +122,10 @@ public class TaskCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        
     }
 }

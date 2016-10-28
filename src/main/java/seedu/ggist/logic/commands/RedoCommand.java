@@ -33,7 +33,7 @@ public class RedoCommand extends Command {
         String previousUndoCommand = redoListOfCommands.pop();
         if (previousUndoCommand.equals("delete")){
             listOfTasks.push(redoListOfTasks.peek());
-            ReadOnlyTask toDelete = redoListOfTasks.pop();
+            Task toDelete = (Task) redoListOfTasks.pop();
             try {
                 model.deleteTask(toDelete);
             } catch (TaskNotFoundException e) {
@@ -61,7 +61,7 @@ public class RedoCommand extends Command {
         
         else if (previousUndoCommand.equals("edit")){
             listOfTasks.push(redoListOfTasks.peek());
-            ReadOnlyTask redoEdit = redoListOfTasks.pop();
+            Task redoEdit = (Task)redoListOfTasks.pop();
          
             try {
                 
@@ -88,7 +88,7 @@ public class RedoCommand extends Command {
             }
         }
 
-
+        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousUndoCommand));
     }
     
