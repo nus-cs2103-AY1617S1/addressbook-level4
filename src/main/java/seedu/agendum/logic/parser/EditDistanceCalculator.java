@@ -3,12 +3,14 @@
 package seedu.agendum.logic.parser;
 
 import org.reflections.Reflections;
-import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.core
+        .LogsCenter;
 import seedu.agendum.logic.commands.Command;
 
-import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 public class EditDistanceCalculator {
@@ -16,35 +18,66 @@ public class EditDistanceCalculator {
     private static final Logger logger = LogsCenter.getLogger(EditDistanceCalculator.class);
     private static final int EDIT_DISTANCE_THRESHOLD = 3;
 
-    public static Optional<String> parseString(String input) {
+    public static Optional<String> closestCommandMatch(String input) {
         Reflections reflections = new Reflections("seedu.agendum");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
-        String bestCommand = "";
-        int bestCommandDistance = Integer.MAX_VALUE;
+        final String[] bestCommand = {""};
+        final int[] bestCommandDistance = {Integer.MAX_VALUE};
 
-        for (Class<? extends Command> c :classes) {
-            try {
-                String commandWord = c.getMethod("getName").invoke(null).toString();
-                int commandWordDistance = distance(input, commandWord);
+        Consumer<String> consumer = (commandWord) -> {
+            int commandWordDistance = distance(input, commandWord);
 
-                if (commandWordDistance < bestCommandDistance) {
-                    bestCommand = commandWord;
-                    bestCommandDistance = commandWordDistance;
-                }
-            } catch (NullPointerException e) {
-                continue;
-            } catch (Exception e) {
-                logger.severe("Java reflection for Command class failed");
+            if (commandWordDistance < bestCommandDistance[0]) {
+                bestCommand[0] = commandWord;
+                bestCommandDistance[0] = commandWordDistance;
             }
-        }
+        };
 
-        if (bestCommandDistance < EDIT_DISTANCE_THRESHOLD) {
-            return Optional.of(bestCommand);
+        executeOnAllCommands(consumer);
+
+        if (bestCommandDistance[0] < EDIT_DISTANCE_THRESHOLD) {
+            return Optional.of(bestCommand[0]);
         } else {
             return Optional.empty();
         }
     }
+
+    public static Optional<String> commandCompletion(String input) {
+        ArrayList<String> matchedCommands = new ArrayList<String>();
+
+        Consumer<String> consumer = (commandWord) -> {
+            if (commandWord.startsWith(input)) {
+                matchedCommands.add(commandWord);
+            }
+        };
+
+        executeOnAllCommands(consumer);
+
+        if (matchedCommands.size() == 1) {
+            return Optional.of(matchedCommands.get(0));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private static void executeOnAllCommands(Consumer f) {
+        new Reflections("seedu.agendum").getSubTypesOf(Command.class)
+                .stream()
+                .map(s -> {
+                    try {
+                        return s.getMethod("getName").invoke(null).toString();
+                    } catch (NullPointerException e) {
+                        return null;
+                    } catch (Exception e) {
+                        logger.severe("Java reflection for Command class failed");
+                        throw new RuntimeException();
+                    }
+                })
+                .filter(p -> p != null) // remove nulls
+                .forEach(f); // execute given lambda on each nonnull String.
+    }
+
 
     // Code from https://rosettacode.org/wiki/Levenshtein_distance#Java
     private static int distance(String a, String b) {

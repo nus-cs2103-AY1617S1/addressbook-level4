@@ -136,24 +136,26 @@ public class HelpWindow extends UiPart {
 
     //@@author A0003878Y
     private void loadHelpList() {
-        Reflections reflections = new Reflections("seedu.agendum");
-        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
-        for (Class<? extends Command> c :classes) {
-            try {
-                Map<CommandColumns, String> map = new HashMap<CommandColumns, String>();
-                map.put(CommandColumns.COMMAND, c.getMethod("getName").invoke(null).toString());
-                map.put(CommandColumns.FORMAT, c.getMethod("getFormat").invoke(null).toString());
-                map.put(CommandColumns.DESCRIPTION, c.getMethod("getDescription").invoke(null).toString());
-                commandList.add(map);
-            } catch (NullPointerException e) {
-                    continue;
-            } catch (Exception e) {
-                logger.severe("Java reflection for Command class failed");
-            }
-        }
-        
-        Collections.sort(commandList, (lhs, rhs) -> lhs.get(CommandColumns.COMMAND).compareTo(rhs.get(CommandColumns.COMMAND)));
+        new Reflections("seedu.agendum").getSubTypesOf(Command.class)
+                .stream()
+                .map(s -> {
+                    try {
+                        Map<CommandColumns, String> map = new HashMap<CommandColumns, String>();
+                        map.put(CommandColumns.COMMAND, s.getMethod("getName").invoke(null).toString());
+                        map.put(CommandColumns.FORMAT, s.getMethod("getFormat").invoke(null).toString());
+                        map.put(CommandColumns.DESCRIPTION, s.getMethod("getDescription").invoke(null).toString());
+                        return map;
+                    } catch (NullPointerException e) {
+                        return null;
+                    } catch (Exception e) {
+                        logger.severe("Java reflection for Command class failed");
+                        throw new RuntimeException();
+                    }
+                })
+                .filter(p -> p != null) // remove nulls
+                .sorted((lhs, rhs) -> lhs.get(CommandColumns.COMMAND).compareTo(rhs.get(CommandColumns.COMMAND)))
+                .forEach(m -> commandList.add(m));
     }
 
     public void show() {

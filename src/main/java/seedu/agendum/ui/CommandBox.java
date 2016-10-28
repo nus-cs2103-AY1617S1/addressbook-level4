@@ -14,9 +14,11 @@ import javafx.stage.Stage;
 import seedu.agendum.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.agendum.logic.Logic;
 import seedu.agendum.logic.commands.*;
+import seedu.agendum.logic.parser.EditDistanceCalculator;
 import seedu.agendum.commons.util.FxViewUtil;
 import seedu.agendum.commons.core.LogsCenter;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 //@@author A0148031R
@@ -48,7 +50,8 @@ public class CommandBox extends UiPart {
         this.resultPopUp = resultPopUp;
         this.logic = logic;
         registerAsAnEventHandler(this);
-        registerKeyEventFilter();
+        registerArrowKeyEventFilter();
+        registerTabKeyEventFilter();
     }
 
     private void addToPlaceholder() {
@@ -82,7 +85,6 @@ public class CommandBox extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        System.out.println("command executed!");
         
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
@@ -92,7 +94,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-    private void registerKeyEventFilter() {
+    private void registerArrowKeyEventFilter() {
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             public void handle(KeyEvent event) {
                 KeyCode keyCode = event.getCode();
@@ -109,6 +111,24 @@ public class CommandBox extends UiPart {
                 event.consume();
             }
         });  
+    }
+    
+    private void registerTabKeyEventFilter() {
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent event) {
+                KeyCode keyCode = event.getCode();
+                if (keyCode.equals(KeyCode.TAB)) {
+                    Optional<String> parsedString = EditDistanceCalculator.commandCompletion(commandTextField.getText());
+                    if(parsedString.isPresent()) {
+                        commandTextField.setText(parsedString.get());
+                    }
+                } else {
+                    return;
+                }
+                commandTextField.end();
+                event.consume();
+            }
+        });
     }
 
     /**
