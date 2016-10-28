@@ -83,7 +83,7 @@ public class CommandParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return prepareHelp(arguments);
+            return new HelpCommand();
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -263,13 +263,13 @@ public class CommandParser {
         return new ListCommand(isListDoneCommand);
     }
     
-    //@@author A0139498J
     /**
      * Parses arguments in the context of the help command.
      *
      * @param args full command args string
      * @return the prepared command
      */
+    /*
     private Command prepareHelp(String args) {
         
         if (args != null) {
@@ -278,6 +278,7 @@ public class CommandParser {
         
         return new HelpCommand(HelpCommand.COMMAND_WORD);
     }
+    */
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
