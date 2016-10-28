@@ -133,6 +133,41 @@ public class LogicManagerTest {
         assertCommandBehavior("help", HelpCommand.MESSAGE_USAGE+"/n"+HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
+    
+    @Test
+    public void execute_addhelp() throws Exception {
+        assertCommandBehavior("help add", AddCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_selecthelp() throws Exception {
+        assertCommandBehavior("help select", SelectCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_deletehelp() throws Exception {
+        assertCommandBehavior("help delete", DeleteCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_clearhelp() throws Exception {
+        assertCommandBehavior("help clear", ClearCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_findhelp() throws Exception {
+        assertCommandBehavior("help find", FindCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_listhelp() throws Exception {
+        assertCommandBehavior("help list", ListCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void execute_exithelp() throws Exception {
+        assertCommandBehavior("help exit", ExitCommand.MESSAGE_USAGE);
+    }
 
     @Test
     public void execute_exit() throws Exception {
