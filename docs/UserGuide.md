@@ -133,11 +133,13 @@ Data will be automatically save to the default location after any command that c
 If user has changed the file location using the ‘change’ command, data will be save to the file path that user indicate.<br>
 There is no need to save manually.
 
-####Chaning default storage location: `change`
-Default storage location will be changed to the location specified by the user. Any data saved in the previous location will be automatically cleared.<br>
-Format: `change FILEPATH`
+####Changing default storage location: `change`
+Default storage location will be changed to the location specified by the user. Any data saved in the previous location will be cleared if specified.<br>
+Format: `change FILE_PATH`
 
-Example: `change /Desktop/folder/`
+> The file path must end with the file type extension, .xml
+
+Example: `change /Desktop/folder/taskManager.xml clear`
 
 #### Undo operations: `undo`
 Undo the most recent action.<br>

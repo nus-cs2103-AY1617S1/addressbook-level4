@@ -25,4 +25,6 @@ public abstract class ComponentManager {
     protected void raise(BaseEvent event){
         eventsCenter.post(event);
     }
+
+    
 }

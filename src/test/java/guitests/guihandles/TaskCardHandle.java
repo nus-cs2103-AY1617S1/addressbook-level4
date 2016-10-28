@@ -11,6 +11,9 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DATE_FIELD_ID = "#date";
+    private static final String DONE_FIELD_ID = "#done";
+    private static final String RECURRING_FIELD_ID="#recurring";
+    private static final String RECURRING_FREQUENCY_FIELD_ID="#frequency";
 
     private Node node;
 
@@ -30,9 +33,24 @@ public class TaskCardHandle extends GuiHandle {
     public String getDate() {
         return getTextFromLabel(DATE_FIELD_ID);
     }
+    
+    public String getFrequency(){
+        return getTextFromLabel(RECURRING_FREQUENCY_FIELD_ID);
+    }
+    
+    // Temporary design
+    public boolean isDone() {
+        return getTextFromLabel(DONE_FIELD_ID).equals("done");
+    }
+    
+    public boolean isRecurring(){
+        return getTextFromLabel(RECURRING_FIELD_ID).equals("recurring");
+    }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue());
+        return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue())
+                && isDone() == task.isDone()&&isRecurring()==task.isRecurring()
+               &&(isRecurring()?getFrequency().equals(task.getRecurring().recurringFrequency):true);
     }
 
     @Override
@@ -40,13 +58,16 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
-                    && getDate().equals(handle.getDate()); //TODO: compare the rest
+                    && getDate().equals(handle.getDate())
+                    && isDone() == handle.isDone()
+                    && isRecurring()==handle.isRecurring()
+                    && getFrequency()==handle.getFrequency(); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + getDate();
+        return getName() + " " + getDate() + " " + isDone()+" "+isRecurring()+" "+getFrequency();
     }
 }

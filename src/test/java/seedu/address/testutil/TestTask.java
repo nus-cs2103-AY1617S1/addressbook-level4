@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -10,12 +11,16 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Date date;
+    private Recurring recurring;
     private boolean isEvent;
+    private boolean isDone;
+    private boolean isRecurring;
     
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
+        isDone=false;
     }
 
     public void setName(Name name) {
@@ -32,6 +37,11 @@ public class TestTask implements ReadOnlyTask {
         }
     }
     
+    public void setRecurringFrequency(String freq) throws IllegalValueException{
+        this.isRecurring=true;
+        this.recurring=new Recurring(freq);
+    }
+    
     @Override
     public Name getName() {
         return name;
@@ -42,6 +52,7 @@ public class TestTask implements ReadOnlyTask {
         return date;
     }
     
+    
     @Override 
     public boolean isEvent() {
         return isEvent;
@@ -51,7 +62,12 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
-
+    
+    @Override
+    public boolean isDone() {
+    	return isDone;
+    }
+    
     @Override
     public String toString() {
         return getAsText();
@@ -73,9 +89,17 @@ public class TestTask implements ReadOnlyTask {
             }
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        if(isRecurring)
+            sb.append("r/"+recurring.recurringFrequency);
         return sb.toString();
     }
-    
+
+	@Override
+	public void markAsDone() {
+		isDone=true;
+		
+	}
+//@@author A0142325R
     public String getFlexiAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add ");
@@ -95,4 +119,17 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+    @Override
+    public Recurring getRecurring() {
+      
+        return recurring;
+    }
+
+    @Override
+    public boolean isRecurring() {
+
+        return isRecurring;
+    }
+    
 }

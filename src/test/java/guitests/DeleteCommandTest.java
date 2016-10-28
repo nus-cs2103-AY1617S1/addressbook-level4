@@ -1,5 +1,5 @@
 package guitests;
-
+//@@author A0142325R
 import org.junit.Test;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -13,7 +13,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
 import java.util.ArrayList;
 
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void delete_by_index() {

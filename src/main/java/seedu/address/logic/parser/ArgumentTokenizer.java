@@ -1,5 +1,5 @@
 package seedu.address.logic.parser;
- 
+ //@@author A0142325R-reused
  import java.util.*;
  
  /**
@@ -212,6 +212,7 @@ package seedu.address.logic.parser;
          values.add(value);
          this.tokenizedArguments.put(prefix, values);
      }
+     //@@LiXiaowei
      public int getNumMappings(){
     	 return this.tokenizedArguments.size();
      }

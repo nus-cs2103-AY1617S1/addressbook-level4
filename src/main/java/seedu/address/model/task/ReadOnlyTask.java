@@ -10,8 +10,12 @@ public interface ReadOnlyTask {
 
     Name getName();
     Date getDate();
+    Recurring getRecurring();
     boolean isEvent();
-
+    boolean isDone();
+    boolean isRecurring();
+    void markAsDone();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -25,7 +29,8 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDate().equals(this.getDate()));
+                && other.getDate().equals(this.getDate())
+                && other.isDone() == this.isDone()&&other.isRecurring()==this.isRecurring());
     }
 
     /**
@@ -47,6 +52,12 @@ public interface ReadOnlyTask {
             builder.append(" Tags: ");
             getTags().forEach(builder::append);
         }
+        if(isDone()){
+        	builder.append(" done ");
+        }
+        if(isRecurring()){
+            builder.append(" recurring "+getRecurring().recurringFrequency);
+        }
         return builder.toString();
     }
 
@@ -63,5 +74,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
 
 }

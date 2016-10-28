@@ -1,6 +1,12 @@
 package seedu.address.logic.commands;
+//@@author A0142325R
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
@@ -24,13 +30,14 @@ public class DeleteCommand extends Command {
     		+"Example: "+COMMAND_WORD+" 1";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-    
+    private static final Pattern KEYWORDS_ARGS_FORMAT =
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     public final int targetIndex;
     public final String name;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
-        this.name = null;   
+        this.name = null; 
     }
 
     public DeleteCommand(String name,Pattern k){
@@ -58,7 +65,15 @@ public class DeleteCommand extends Command {
                 }
             }
             if(shownList.size()>1){
-            	model.updateFilteredTaskList(name);
+            	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
+            	 if (!matcher.matches()) {
+                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                             DeleteCommand.MESSAGE_USAGE));
+                 }
+                 // keywords delimited by whitespace
+                 final String[] keywords = matcher.group("keywords").split("\\s+");
+                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+            	model.updateFilteredTaskList(keywordSet);
             	return new CommandResult(MESSAGE_DELETE_SAME_NAME);
             }else if(shownList.size()==1){
             	TaskToDelete=shownList.get(0);
@@ -71,7 +86,9 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        return new CommandResult(String.format(getDeleteSuccessMessage(TaskToDelete), TaskToDelete));
+        String message = String.format(getDeleteSuccessMessage(TaskToDelete), TaskToDelete);
+        model.saveState(message);
+        return new CommandResult(message);
     }
 
     public static String getDeleteSuccessMessage(ReadOnlyTask TaskToDelete) {

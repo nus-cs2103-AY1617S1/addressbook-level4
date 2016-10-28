@@ -1,6 +1,9 @@
 package seedu.address;
 
 import com.google.common.eventbus.Subscribe;
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -8,6 +11,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -22,6 +26,8 @@ import seedu.address.ui.UiManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -40,6 +46,8 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    
+    private String configFilePathUsed;
 
     public MainApp() {}
 
@@ -95,7 +103,6 @@ public class MainApp extends Application {
 
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
@@ -181,8 +188,25 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
+    
+    //@@author A0146123R
+    @Subscribe
+    public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        //Update config file
+        this.config.setTaskManagerFilePath(event.newStorageFilePath);
+        try {
+            ConfigUtil.saveConfig(config, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+    }
+    //@@author 
 
     public static void main(String[] args) {
-        launch(args);
-    }
+            launch(args);
+    
 }
+}
+

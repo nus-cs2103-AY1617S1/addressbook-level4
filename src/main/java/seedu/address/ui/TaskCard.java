@@ -18,6 +18,12 @@ public class TaskCard extends UiPart{
 //    private Label id;
     @FXML
     private Label date;
+    @FXML
+    private Label done;
+    @FXML
+    private Label recurring;
+    @FXML
+    private Label frequency;
 //    @FXML
 //    private Label tags;
 //    @FXML
@@ -46,7 +52,13 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
 //        id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());
+        // Temporary design
+        done.setText(task.isDone() ? "done" : "");
 //        tags.setText(task.tagsString());
+        recurring.setText(task.isRecurring()? "recurring":"");
+       frequency.setText(task.isRecurring()?task.getRecurring().recurringFrequency:"");
+       // frequency.setText("not yet");
+        
     }
 
     public HBox getLayout() {
