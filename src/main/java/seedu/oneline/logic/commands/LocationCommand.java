@@ -5,16 +5,22 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 
+import seedu.oneline.commons.core.Config;
 import seedu.oneline.commons.core.EventsCenter;
+import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.events.storage.StorageLocationChangedEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.parser.Parser;
+import seedu.oneline.storage.Storage;
 
-public class SaveCommand extends Command {
+public class LocationCommand extends Command {
 
-    public static final String COMMAND_WORD = "save";
+    public static final String COMMAND_WORD = "loc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD 
             + ": Sets the folder to be used for storage\n" 
@@ -22,23 +28,30 @@ public class SaveCommand extends Command {
             + "Example: " + COMMAND_WORD + " C:/Users/Bob/Desktop/";
 
     public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s.";
+    public static final String MESSAGE_LOCATION = "Storage location is currently at";
     public static final String MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID = "Cannot set storage location to \"%1$s\", path is invalid!";
     public static final String MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY = "Cannot set storage location to \"%1$s\", this is not a directory!";
     public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!"; 
     public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE = "Cannot set storage location to \"%1$s\", cannot write to here!"; 
 
     String storageLocation;
+    protected Storage storage;
 
-    public SaveCommand(String storageLocation) {
+    public LocationCommand(String storageLocation) {
         this.storageLocation = storageLocation.trim();
     }
 
-    public static SaveCommand createFromArgs(String args) {
-        return new SaveCommand(args);
+    public static LocationCommand createFromArgs(String args) {
+        return new LocationCommand(args);
     }
-    
+
     @Override
     public CommandResult execute() {
+        if (storageLocation == null || storageLocation.isEmpty()) {
+            String currentPath = storage.getTaskBookFilePath();
+            return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS + currentPath + "."));            
+        }
+
         Optional<Path> path = getValidPath(storageLocation);
         if (!path.isPresent()) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -59,10 +72,6 @@ public class SaveCommand extends Command {
     }
 
     private Optional<Path> getValidPath(String folderpath) {
-        if (folderpath == null || folderpath.isEmpty()) {
-            return Optional.empty();
-        }
-
         try {
             Path path = Paths.get(folderpath);
             return Optional.of(path);
@@ -73,7 +82,6 @@ public class SaveCommand extends Command {
         }
 
     }
-
 
     private boolean isDirectory(Path path) {
         return Files.isDirectory(path);
@@ -86,7 +94,7 @@ public class SaveCommand extends Command {
     private boolean isReadable(Path path) {
         return Files.isReadable(path);
     }
-    
+
     @Override
     public boolean canUndo() {
         return true;

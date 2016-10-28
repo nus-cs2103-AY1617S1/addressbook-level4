@@ -16,7 +16,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFileName = "taskbook.xml";
-    private String taskBookFilePath = "data/taskbook.xml";
+    private String taskBookFilePath = "data/" + taskBookFileName;
     private String taskBookName = "MyTaskBook";
 
 
