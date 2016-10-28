@@ -23,7 +23,7 @@ public class EditCommand extends Command {
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME\n"
             + "Example: " + COMMAND_WORD + " deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400";
 
-    public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
     public static final String MISSING_TASK = "The target task cannot be missing";
     public static final String MESSAGE_EDIT_DUPLICATE_TASK = "This task already exists in the Task-list";
@@ -38,6 +38,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
+    //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
@@ -56,6 +57,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
+  //@@author A0139920A
     public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
@@ -90,6 +92,7 @@ public class EditCommand extends Command {
     /**
      * Constructor for undo
      */
+  //@@author A0139920A
     public EditCommand(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
     	this.taskToEdit = original;
     	this.toEdit = (Task) toEdit;
@@ -97,6 +100,7 @@ public class EditCommand extends Command {
     	this.dataType = dataType;
     }
 
+    //@@author A0139920A
     @Override
     public CommandResult execute() {
     	if(this.taskToEdit == null && this.targetIndex != -1) {
@@ -113,7 +117,7 @@ public class EditCommand extends Command {
 	    	}
 	        if (lastShownList.size() < targetIndex) {
 	            indicateAttemptToExecuteIncorrectCommand();
-	            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 	        }
 	        
 	        taskToEdit = lastShownList.get(targetIndex - 1);
@@ -122,7 +126,7 @@ public class EditCommand extends Command {
         assert model != null;
         try {
             model.editTask(taskToEdit, dataType, toEdit);
-            return new CommandResult(String.format(MESSAGE_EDIT_task_SUCCESS, toEdit));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);
         }catch (TaskNotFoundException pnfe) {

@@ -7,7 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  * A mutable task object. For testing only.
  */
-//@@ Author A0132157M
+//@@author A0132157M
 public class TestEvent extends Event implements ReadOnlyTask {
 
     private Event event;
@@ -84,10 +84,10 @@ public class TestEvent extends Event implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
-        sb.append("from" + this.getStartDate().date + " ");
-        sb.append("to" + this.getEndDate().endDate + " ");
-        sb.append("at" + this.getStartTime().startTime + " ");
-        sb.append("to" + this.getEndTime().endTime + " ");
+        sb.append("from/" + this.getStartDate().date + " ");
+        sb.append("to/" + this.getEndDate().endDate + " ");
+        sb.append("at/" + this.getStartTime().startTime + " ");
+        sb.append("to/" + this.getEndTime().endTime);
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

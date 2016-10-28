@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class FindCommandTest extends ListGuiTest {
 
     @Test
+  //@@author A0132157M reused
     public void find_nonEmptyList() {
         assertFindResult("find priority 999"); //no results
         assertFindResult("find project", td.a2, td.a5); //multiple results

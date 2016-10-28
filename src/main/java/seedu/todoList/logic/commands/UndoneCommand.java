@@ -21,7 +21,7 @@ public class UndoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " event 1\n"
             + "Example: " + COMMAND_WORD + " deadline 1";
 
-    public static final String MESSAGE_DONE_task_SUCCESS = "Resumed task: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Resumed task: %1$s";
     
     public final String dataType;
     public final int targetIndex;
@@ -47,7 +47,7 @@ public class UndoneCommand extends Command {
         }
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
@@ -58,7 +58,7 @@ public class UndoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DONE_task_SUCCESS, taskToDone));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
 
 }

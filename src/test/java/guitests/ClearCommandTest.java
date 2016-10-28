@@ -7,8 +7,9 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ListGuiTest {
-
+    
     @Test
+  //@@author A0132157M reused
     public void clear() throws IllegalValueException {
 
         //verify a non-empty list can be cleared

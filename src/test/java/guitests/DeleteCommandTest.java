@@ -7,11 +7,12 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SUCCESS;
+import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends ListGuiTest {
 
     @Test
+    //@@author A0132157M reused
     public void delete() throws IllegalValueException {
 
         //delete the first in the list
@@ -50,7 +51,7 @@ public class DeleteCommandTest extends ListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_task_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

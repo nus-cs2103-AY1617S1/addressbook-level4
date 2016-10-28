@@ -16,6 +16,7 @@ public abstract class Task implements ReadOnlyTask {
     	return this.name;
     }
     
+    //@@author A0139920A
     public String getDone() {
     	return this.isDone;
     }

@@ -1,7 +1,7 @@
 package seedu.todoList.logic.commands;
 
 /**
- * Clears the TodoList.
+ * Restore the TaskList.
  */
 public class RestoreListCommand extends Command {
 
@@ -17,7 +17,7 @@ public class RestoreListCommand extends Command {
     	this.dataType = args.trim();
     }
 
-
+    //@@author A0144061U
     @Override
     public CommandResult execute() {
         assert model != null;

@@ -50,6 +50,7 @@ public class TaskList implements ReadOnlyTaskList {
     	this.tasks.getInternalList().setAll(tasks);
     }
     
+    //@@author A0144061U
     public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
     	Object[] typeCheck = newTasks.toArray();
     	if(typeCheck.length == 0) {
@@ -79,6 +80,7 @@ public class TaskList implements ReadOnlyTaskList {
     	UniqueTaskList backup = backupStack.pop();
     	tasks.setAll(backup);
     }
+    //@@author
     
 
 //// task-level operations
@@ -110,6 +112,7 @@ public class TaskList implements ReadOnlyTaskList {
         }
     }
 
+    //@@author A0139920A
     public boolean doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
     	if(tasks.doneTask(target)){
     		return true;

@@ -1,7 +1,7 @@
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
-
+<!-- @@author A0139920A -->
 ## Project Team
 
 #### [OH HAN GYEOL](https://github.com/Leook0209)
@@ -12,10 +12,11 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspect/tools in charge of: Documentation, Git
 * Features implemented:  
  * [Storage]()
- * [Undo]()
+ * [Ui]()
 * Code written: [[stub entry]()]
 * Other major contributions:
- * stub entry
+ * Application design
+ * Undo and clear commands
 
 -----
 

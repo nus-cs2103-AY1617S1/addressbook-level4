@@ -39,6 +39,7 @@ public class StorageManagerTest {
 
 
     @Before
+    //@@author A0132157M reused
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("cd"), getTempFilePath("ef"), getTempFilePath("prefs"));
     }
@@ -75,6 +76,7 @@ public class StorageManagerTest {
     }
     
     @Test
+    //@@author A0132157M reused
     public void EventListReadSave() throws Exception {
         TaskList original = new TypicalTestEvent().getTypicalEventList();
         storageManager.saveEventList(original);
@@ -83,6 +85,7 @@ public class StorageManagerTest {
     }
     
     @Test
+    //@@author A0132157M reused
     public void DeadlineListReadSave() throws Exception {
         TaskList original = new TypicalTestDeadline().getTypicalDeadlineList();
         storageManager.saveDeadlineList(original);
@@ -96,11 +99,13 @@ public class StorageManagerTest {
     }
     
     @Test
+    //@@author A0132157M reused
     public void getEventListFilePath(){
         assertNotNull(storageManager.getEventListFilePath());
     }
     
     @Test
+    //@@author A0132157M reused
     public void getDeadlineListFilePath(){
         assertNotNull(storageManager.getDeadlineListFilePath());
     }
@@ -115,6 +120,7 @@ public class StorageManagerTest {
     }
     
     @Test
+    //@@author A0132157M reused
     public void handleEventListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(null, new XmlEventListStorageExceptionThrowingStub("dummy"), null, new JsonUserPrefsStorage("dummy"));
@@ -124,6 +130,7 @@ public class StorageManagerTest {
     }
     
     @Test
+    //@@author A0132157M reused
     public void handleDeadlineListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(null, null, new XmlDeadlineListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
@@ -148,7 +155,7 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-    
+    //@@author A0132157M reused
     class XmlEventListStorageExceptionThrowingStub extends XmlEventListStorage{
 
         public XmlEventListStorageExceptionThrowingStub(String filePath) {
@@ -160,7 +167,7 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-    
+    //@@author A0132157M reused
     class XmlDeadlineListStorageExceptionThrowingStub extends XmlDeadlineListStorage{
 
         public XmlDeadlineListStorageExceptionThrowingStub(String filePath) {

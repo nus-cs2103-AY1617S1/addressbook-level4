@@ -79,6 +79,7 @@ public class XmlUtilTest {
     }
 
     @Test
+  //@@author A0132157M reused
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
 

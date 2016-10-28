@@ -66,6 +66,7 @@ public class LogicManagerTest {
     }
 
     @Before
+    //@@author A0132157M reused
     public void setup() {
         model = new ModelManager();
         String tempTodoListFile = saveFolder.getRoot().getPath() + "TempTodoList.xml";
@@ -255,7 +256,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_task_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generatetaskList(2);
 
@@ -288,7 +289,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_task_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -317,7 +318,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_task_SUCCESS, threetasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threetasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -330,7 +331,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    //@@ Author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
@@ -391,7 +391,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    //@@ Author A0132157M
+    //@@author A0132157M reused
     class TestDataHelper{
 
         Todo a111() throws Exception {

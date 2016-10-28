@@ -23,8 +23,6 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         //tags = new UniqueTagList();
     }
 
-
-
     public void setDeadline(Deadline deadline) {
         this.deadline = deadline;
     }
@@ -71,8 +69,8 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
-        sb.append("on" + this.getDate().date + " ");
-        sb.append("at" + this.getEndTime().endTime + " ");
+        sb.append("on/" + this.getDate().date + " ");
+        sb.append("at/" + this.getEndTime().endTime);
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
