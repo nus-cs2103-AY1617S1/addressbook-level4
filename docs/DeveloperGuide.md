@@ -362,34 +362,8 @@ Use case ends.
 
 > 3b1. TARS shows an error message<br>
   Use case resumes at step 2
-  
-#### Use case: UC05 - Edit task by appending details
-
-**MSS**
-
-1. User requests to list tasks
-2. TARS shows a list of tasks
-3. User requests to edit a specific task in the list by appending details
-4. TARS updates the task<br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-
-> 2a1. Use case ends
-
-3a. The given index is invalid
-
-> 3a1. TARS shows an error message<br>
-  Use case resumes at step 2
-  
-3b. The format is invalid
-
-> 3b1. TARS shows an error message<br>
-  Use case resumes at step 2
-  
-#### Use case: UC06 - Edit tag name
+    
+#### Use case: UC05 - Edit tag name
   
 **MSS**
 
@@ -416,7 +390,7 @@ Use case ends.
 > 3b1. TARS shows an error message<br>
   Use case resumes at step 2
   
-#### Use case: UC07 - Delete tag
+#### Use case: UC06 - Delete tag
 
 **MSS**
 
@@ -438,7 +412,7 @@ Use case ends.
 > 3a1. TARS shows an error message<br>
   Use case resumes at step 2
   
-#### Use case: UC08 - List tags
+#### Use case: UC07 - List tags
 
 **MSS**
 
@@ -453,7 +427,7 @@ Use case ends.
 > 2a1. TARS shows an empty list message<br>
   Use case ends
 
-#### Use case: UC09 - Undo a previous command
+#### Use case: UC08 - Undo a previous command
 
 **MSS**
 
@@ -468,7 +442,7 @@ Use case ends.
 > 2a1. TARS shows an empty list message<br>
   Use case ends
 
-#### Use case: UC10 - Redo a previous undo command
+#### Use case: UC09 - Redo a previous undo command
 
 **MSS**
 
