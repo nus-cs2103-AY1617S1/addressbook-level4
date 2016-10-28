@@ -9,7 +9,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
 
 	private TaskType taskType;
 	private Name name;
@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, TaskType taskType, Status status, Optional<LocalDateTime> startDate, 
     		Optional<LocalDateTime> endDate, UniqueTagList tags) throws IllegalArgumentException {
     	
-    	assert !CollectionUtil.isAnyNull(name, status, tags);
+    	assert !CollectionUtil.isAnyNull(name, taskType, status, startDate, endDate, tags);
     	
     	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
     		throw new IllegalArgumentException("Only events can have start dates");
@@ -131,5 +131,27 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
-    }   
+    }
+
+	@Override
+	public int compareTo(ReadOnlyTask other) {
+		int statusCompare = this.getStatus().compareTo(other.getStatus());
+		if (statusCompare != 0) {
+			return statusCompare;
+		}
+		else {
+			LocalDateTime thisDate = this.getStartDate().orElse(this.getEndDate().orElse(LocalDateTime.MAX));
+			LocalDateTime otherDate = other.getStartDate().orElse(other.getEndDate().orElse(LocalDateTime.MAX));
+			
+			int dateCompare = thisDate.compareTo(otherDate);
+			
+			if (dateCompare != 0) {
+				return dateCompare;
+			}
+			else {
+				return this.getName().compareTo(other.getName());
+			}
+		}
+	}
+  
 }

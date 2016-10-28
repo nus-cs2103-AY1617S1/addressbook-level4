@@ -10,7 +10,7 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
   
     public Name getName();
     public TaskType getTaskType();
@@ -68,5 +68,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
+    
+    public int compareTo(ReadOnlyTask other);
 }

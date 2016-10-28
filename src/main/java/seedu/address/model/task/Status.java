@@ -1,7 +1,7 @@
 package seedu.address.model.task;
 
-public class Status {
-    public enum DoneStatus {
+public class Status implements Comparable<Status> {
+    public enum StatusType {
         DONE {
             @Override
             public String toString() {
@@ -24,19 +24,21 @@ public class Status {
         }
     }
 	
-	public DoneStatus value;
+	public StatusType value;
 	
-	
+
 	public Status(String string) {
+		assert string != null;
+		
 		switch (string.trim().toLowerCase()) {
 		case "done":
-			value = DoneStatus.DONE;
+			value = StatusType.DONE;
 			break;
 		case "not done":
-			value = DoneStatus.NOT_DONE;
+			value = StatusType.NOT_DONE;
 			break;
 		case "overdue":
-			value = DoneStatus.OVERDUE;
+			value = StatusType.OVERDUE;
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
@@ -44,15 +46,15 @@ public class Status {
 	}
 	
 	public boolean isDone() {
-		return value.equals(DoneStatus.DONE);
+		return value.equals(StatusType.DONE);
 	}
 	
 	public boolean isNotDone() {
-		return value.equals(DoneStatus.NOT_DONE);
+		return value.equals(StatusType.NOT_DONE);
 	}
 	
 	public boolean isOverdue() {
-		return value.equals(DoneStatus.OVERDUE);
+		return value.equals(StatusType.OVERDUE);
 	}
 	
     @Override
@@ -71,4 +73,19 @@ public class Status {
     public int hashCode() {
         return value.hashCode();
     }
+
+    //@@author A0141019U
+    // overdue < not done < done
+	@Override
+	public int compareTo(Status other) {
+		if (this.equals(other)) {
+			return 0;
+		}
+		else if (this.isOverdue() || other.isDone()) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
+	}
 }
