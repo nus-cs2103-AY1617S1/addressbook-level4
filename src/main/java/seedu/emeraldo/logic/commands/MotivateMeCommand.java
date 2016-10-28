@@ -2,10 +2,9 @@ package seedu.emeraldo.logic.commands;
 
 import java.util.Random;
 
+//@@author A0139196U
 public class MotivateMeCommand extends Command {
-
     
-    public static final String MESSAGE_MOTIVATE_ME_SUCCESS = null;
     public static final String [] MESSAGE_MOTIVATE_LIST = {
             "Don't wish it was easier, wish you were better.", 
             "If not now, when?",
