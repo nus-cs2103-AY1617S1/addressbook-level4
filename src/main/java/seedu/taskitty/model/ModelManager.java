@@ -19,6 +19,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
@@ -364,67 +365,23 @@ public class ModelManager extends ComponentManager implements Model {
             switch(commandWord) {
             
             case AddCommand.COMMAND_WORD:
-                ReadOnlyTask taskAdded = toGetInfo.getTask();
-                if (isRedo) {
-                    taskManager.addTask((Task) taskAdded);
-                } else {
-                    taskManager.removeTask(taskAdded); 
-                } 
-                toStoreInfo.storeTask(taskAdded);
+                revertAddCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
                 
             case DeleteCommand.COMMAND_WORD:
-                int numberOfTasksDeleted = toGetInfo.getNumberOfTasks();
-                toStoreInfo.storeNumberOfTasks(numberOfTasksDeleted);
-                ReadOnlyTask taskDeleted;
-                for (int i = 0; i < numberOfTasksDeleted; i++) {
-                    taskDeleted = toGetInfo.getTask();
-                    if (isRedo) {
-                        taskManager.removeTask(taskDeleted);
-                    } else {
-                        taskManager.addTask((Task) taskDeleted);
-                    }                    
-                    toStoreInfo.storeTask(taskDeleted);
-                }
+                revertDeleteCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
                 
             case EditCommand.COMMAND_WORD:
-                ReadOnlyTask taskBeforeEdit = toGetInfo.getTask();
-                ReadOnlyTask taskAfterEdit = toGetInfo.getTask();
-                if (isRedo) {
-                    taskManager.addTask((Task) taskAfterEdit);
-                    taskManager.removeTask(taskBeforeEdit);                    
-                } else {
-                    taskManager.addTask((Task) taskBeforeEdit);
-                    taskManager.removeTask(taskAfterEdit);
-                }
-                toStoreInfo.storeTask(taskAfterEdit);
-                toStoreInfo.storeTask(taskBeforeEdit);
+                revertEditCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
                 
             case ClearCommand.COMMAND_WORD:
-                ReadOnlyTaskManager previousTaskManager = toGetInfo.getTaskManager();
-                if (isRedo) {
-                    resetData(TaskManager.getEmptyTaskManager());
-                } else {
-                    resetData(previousTaskManager);
-                }
-                toStoreInfo.storeTaskManager(previousTaskManager);
+                revertClearCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
                 
             case DoneCommand.COMMAND_WORD:
-                int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
-                toStoreInfo.storeNumberOfTasks(numberOfTasksMarked);
-                ReadOnlyTask taskToRevertMark;
-                for (int i = 0; i < numberOfTasksMarked; i++) {
-                    taskToRevertMark = toGetInfo.getTask();
-                    if (isRedo) {
-                        taskManager.markTaskAsDoneTask(taskToRevertMark);
-                    } else {
-                        taskManager.unMarkTaskAsDoneTask(taskToRevertMark);
-                    }
-                    toStoreInfo.storeTask(taskToRevertMark);
-                }
+                revertDoneCommand(toGetInfo, toStoreInfo, isRedo);
                 break;
                 
             default:
@@ -439,9 +396,102 @@ public class ModelManager extends ComponentManager implements Model {
         return commandText;
     }
 	
+	/**
+     * Reverts an AddCommand depending on whether is redo/undo calling it
+     */
+    private void revertAddCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
+            throws DuplicateTaskException, TaskNotFoundException {
+        ReadOnlyTask taskAdded = toGetInfo.getTask();
+        if (isRedo) {
+            taskManager.addTask((Task) taskAdded);
+        } else {
+            taskManager.removeTask(taskAdded); 
+        } 
+        toStoreInfo.storeTask(taskAdded);
+    }
+    
+	/**
+     * Reverts a DeleteCommand depending on whether is redo/undo calling it
+     */
+    private void revertDeleteCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
+            throws TaskNotFoundException, DuplicateTaskException {
+        int numberOfTasksDeleted = toGetInfo.getNumberOfTasks();
+        toStoreInfo.storeNumberOfTasks(numberOfTasksDeleted);
+        ReadOnlyTask taskDeleted;
+        if (isRedo) {
+            for (int i = 0; i < numberOfTasksDeleted; i++) {
+                taskDeleted = toGetInfo.getTask();
+                taskManager.removeTask(taskDeleted);
+                toStoreInfo.storeTask(taskDeleted);
+            }
+       } else {
+           for (int i = 0; i < numberOfTasksDeleted; i++) {
+               taskDeleted = toGetInfo.getTask();
+               taskManager.addTask((Task) taskDeleted);
+               toStoreInfo.storeTask(taskDeleted);
+           }
+       }
+    }
+	
+	/**
+     * Reverts an EditCommand depending on whether is redo/undo calling it
+     */
+    private void revertEditCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
+            throws DuplicateTaskException, TaskNotFoundException {
+        ReadOnlyTask taskBeforeEdit = toGetInfo.getTask();
+        ReadOnlyTask taskAfterEdit = toGetInfo.getTask();
+        if (isRedo) {
+            taskManager.addTask((Task) taskAfterEdit);
+            taskManager.removeTask(taskBeforeEdit);                    
+        } else {
+            taskManager.addTask((Task) taskBeforeEdit);
+            taskManager.removeTask(taskAfterEdit);
+        }
+        toStoreInfo.storeTask(taskAfterEdit);
+        toStoreInfo.storeTask(taskBeforeEdit);
+    }
+    
+	/**
+     * Reverts a ClearCommand depending on whether is redo/undo calling it
+     */
+    private void revertClearCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo,
+            boolean isRedo) {
+        ReadOnlyTaskManager previousTaskManager = toGetInfo.getTaskManager();
+        if (isRedo) {
+            resetData(TaskManager.getEmptyTaskManager());
+        } else {
+            resetData(previousTaskManager);
+        }
+        toStoreInfo.storeTaskManager(previousTaskManager);
+    }
+    
+	/**
+     * Reverts a DoneCommand depending on whether is redo/undo calling it
+     */
+    private void revertDoneCommand(CommandHistoryManager toGetInfo, CommandHistoryManager toStoreInfo, boolean isRedo)
+            throws DuplicateMarkAsDoneException, TaskNotFoundException {
+        int numberOfTasksMarked = toGetInfo.getNumberOfTasks();
+        toStoreInfo.storeNumberOfTasks(numberOfTasksMarked);
+        ReadOnlyTask taskToRevertMark;
+        if (isRedo) {
+            for (int i = 0; i < numberOfTasksMarked; i++) {
+                taskToRevertMark = toGetInfo.getTask();
+                taskManager.markTaskAsDoneTask(taskToRevertMark);
+                toStoreInfo.storeTask(taskToRevertMark);
+            }
+        } else {
+            for (int i = 0; i < numberOfTasksMarked; i++) {
+                taskToRevertMark = toGetInfo.getTask();
+                taskManager.unMarkTaskAsDoneTask(taskToRevertMark);
+                toStoreInfo.storeTask(taskToRevertMark);
+            }    
+        }
+    }
+}
+
 	//@@author A0139052L unused
 	// swap over to different undo function
-//	/**//@@author A0139052L
+//
 //     *  returns true is there is a previous valid command input by user
 //     *  and false otherwise
 //     */
@@ -492,4 +542,3 @@ public class ModelManager extends ComponentManager implements Model {
 //        updateFilteredTaskList(getPreviousPredicate());
 //        return getPreviousValidCommand();
 //    }
-}
