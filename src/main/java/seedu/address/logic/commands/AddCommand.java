@@ -58,6 +58,7 @@ public class AddCommand extends Command {
                 new End(end),
                 1,
                 0,
+                false,
                 new UniqueTagList(tagSet)
         );
         if (!startBeforeEnd(toAdd.getStart().toString(), toAdd.getEnd().toString())){
@@ -80,6 +81,7 @@ public class AddCommand extends Command {
                 new End(end),
                 2,
                 0,
+                false,
                 new UniqueTagList(tagSet)
         );
         if (this.toAdd.getOverdue()==1)
@@ -99,6 +101,7 @@ public class AddCommand extends Command {
                 new End("no end"),
                 3,
                 0,
+                false,
                 new UniqueTagList(tagSet)
         );
     }
