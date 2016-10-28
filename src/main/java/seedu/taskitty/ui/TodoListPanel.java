@@ -16,8 +16,11 @@ public class TodoListPanel extends TaskListPanel {
 
     @FXML
     private Label header;
+    
     @FXML
     private ListView<ReadOnlyTask> todoListView;
+    
+    public static final int TODO_CARD_ID = 0;
 
     public TodoListPanel() {
         super();
@@ -27,7 +30,13 @@ public class TodoListPanel extends TaskListPanel {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    @Override
+    public int getTaskCardID() {
+        return TODO_CARD_ID;
+    }
+    
+    @Override
     public void configure(ObservableList<ReadOnlyTask> taskList) {
     	header.setText("TODOS [t]");
     	header.setStyle("-fx-text-fill: white");

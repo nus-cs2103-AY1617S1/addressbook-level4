@@ -8,9 +8,9 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class EventCard //extends UiPart
+public class EventCard extends UiPart
 {
-/*
+
     private static final String FXML = "EventListCard.fxml";
 
     @FXML
@@ -32,10 +32,6 @@ public class EventCard //extends UiPart
 
     private ReadOnlyTask task;
     private int displayedIndex;
-
-    public EventCard(){
-
-    }
 
     public static EventCard load(ReadOnlyTask task, int displayedIndex){
         EventCard card = new EventCard();
@@ -72,19 +68,38 @@ public class EventCard //extends UiPart
             endTime.setText(taskEndTime.toString());
         }
         
+        String indexPrefix;
+        if(task.isTodo()) {
+            indexPrefix = "t";
+        } else if (task.isDeadline()) {
+            indexPrefix = "d";
+        } else {
+            indexPrefix = "e";
+        }
+        //@@author A0130853L
         boolean isDone = task.getIsDone();
         if (isDone) {
-        	cardPane.setStyle("-fx-background-color: grey");
-        	name.setStyle("-fx-text-fill: white");
-        	id.setStyle("-fx-text-fill: white");
-        	startDate.setStyle("-fx-text-fill: white");
-        	endDate.setStyle("-fx-text-fill: white");
-        	startTime.setStyle("-fx-text-fill: white");
-        	endTime.setStyle("-fx-text-fill: white");
-        	
+            cardPane.setStyle("-fx-background-color: grey");
+            name.setStyle("-fx-text-fill: white");
+            id.setStyle("-fx-text-fill: white");
+            startDate.setStyle("-fx-text-fill: white");
+            endDate.setStyle("-fx-text-fill: white");
+            startTime.setStyle("-fx-text-fill: white");
+            endTime.setStyle("-fx-text-fill: white");
+            
+        } else {
+            
+            boolean isOverdue = task.isOverdue();
+            boolean isOver = task.isOver();
+            if (isOverdue) {
+                cardPane.setStyle("-fx-background-color: red");
+            } else if (isOver) {
+                cardPane.setStyle("-fx-background-color: orange");
+            }
         }
         
-        id.setText(displayedIndex + ". ");
+        //@@author
+        id.setText(indexPrefix + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 
@@ -101,5 +116,4 @@ public class EventCard //extends UiPart
     public String getFxmlPath() {
         return FXML;
     }
-    */
 }

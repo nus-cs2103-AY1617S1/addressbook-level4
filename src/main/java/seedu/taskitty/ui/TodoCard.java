@@ -8,9 +8,9 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class TaskCard extends UiPart{
+public class TodoCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
+    private static final String FXML = "TodoListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -32,12 +32,8 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
-
-    }
-
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
+    public static TodoCard load(ReadOnlyTask task, int displayedIndex){
+        TodoCard card = new TodoCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);

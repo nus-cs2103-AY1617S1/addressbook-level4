@@ -28,6 +28,8 @@ public class EventListPanel extends TaskListPanel {
     @FXML
     private ListView<ReadOnlyTask> eventListView;
     
+    public static final int EVENT_CARD_ID = 2;
+    
     public EventListPanel() {
         super();
     }
@@ -36,7 +38,13 @@ public class EventListPanel extends TaskListPanel {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    @Override
+    public int getTaskCardID() {
+        return EVENT_CARD_ID;
+    }
+    
+    @Override
     public void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
