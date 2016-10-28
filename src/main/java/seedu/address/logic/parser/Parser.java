@@ -73,7 +73,7 @@ public class Parser {
 	
 	private static final Pattern[] EDIT_ARGS_FORMAT = new Pattern[] { 
 			Pattern.compile("(?<index>\\d+)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
-			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by)\\s+(?<!(from | by))[^']+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
+			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by)\\s+([^'](?!(from | by)))+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
 			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?")
 	};
 	
