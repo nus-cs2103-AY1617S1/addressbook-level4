@@ -112,12 +112,13 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+    
+    //@@author A0146123R
     public void markTask(ReadOnlyTask p)  {
         p.markAsDone();
     }
 
-    //@@LiXiaowei A0142325R
+    //@@author A0142325R
     public void refreshTask(){
         for(Task e:tasks){
             if(e.isRecurring())

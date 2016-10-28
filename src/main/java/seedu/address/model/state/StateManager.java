@@ -3,6 +3,7 @@ package seedu.address.model.state;
 import java.util.LinkedList;
 import seedu.address.commons.exceptions.StateLimitException;
 
+//@@author A0146123R
 /**
  * Saves the states of the task manager.
  */

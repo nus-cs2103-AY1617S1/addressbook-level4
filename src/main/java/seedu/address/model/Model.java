@@ -41,6 +41,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
 
+    //@@author A0146123R
     /** Updates the filter of the filtered task list to filter by the given type */
 	void updateFilteredTaskList(String type);
 	
@@ -74,6 +75,7 @@ public interface Model {
     /** Update the task manager to the next state. */
     String getNextState() throws StateLimitException;
 
+    //@@author A0142325R
     /** Update the task manager to show all up-to-date tasks. */
     void refreshTask();
 }

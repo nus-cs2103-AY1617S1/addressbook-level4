@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author A0146123R
 /**
  * Represents a Event's dates
  * Guarantees: is valid as declared in {@link #isValidDate(String)}
@@ -72,10 +73,12 @@ public class EventDate implements Date{
         return endDate;
     }
     
+    //@@author A0142325R
     public void updateDate(String start,String end){
         this.startDate=start;
         this.endDate=end;
         this.date=start+" to "+end;
     }
+    //@@author
     
 }

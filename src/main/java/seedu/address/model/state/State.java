@@ -2,6 +2,7 @@ package seedu.address.model.state;
 
 import seedu.address.commons.exceptions.StateLimitException;
 
+//@@author A0146123R
 /**
  * The API of the State component.
  */

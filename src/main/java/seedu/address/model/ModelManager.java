@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    //@@author A0146123R
     private static final String EVENTS = "events";
     private static final String TASKS = "tasks";
     private static final String DONE = "done";
@@ -44,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String END_DATE = "endDate";
     private static final String DEADLINE = "deadline";
     private static final String RECURRING = "recurring";
-    
+    //@@author
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
     private final StateManager stateManager;
@@ -111,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
 
-    //@@LiXiaowei A0142325R
+    //@@author A0142325R
     @Override
     public synchronized void refreshTask(){
         taskManager.refreshTask();
@@ -125,7 +126,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
+    
+    //@@author A0146123R
     @Override
     public void updateTaskManager(String filePath, boolean isToClearOld) {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
@@ -165,6 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
         resetData(state.getTaskManager());
         return state.getMessage();
     }
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -183,6 +186,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    //@@author A0142325R
     @Override
     public void updateFilteredTaskList(String type) {
         switch (type) {
@@ -201,7 +205,8 @@ public class ModelManager extends ComponentManager implements Model {
             break;
         }
     }
-
+    
+    //@@author A0146123R
     @Override
     public void updateFilteredTaskList(String keyword, String type) {
         switch (type) {
@@ -255,6 +260,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         filteredTasks.setPredicate(predicates);
     }
+    //@@author
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -308,6 +314,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0146123R
     private class StemmedNameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -340,7 +347,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    //@@LiXiaowei A0142325R
+    //@@author A0142325R
     private class EventQualifier implements Qualifier{
         EventQualifier(){}
 		@Override
@@ -355,7 +362,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    //@@LiXiaowei A0142325R
     private class TaskQualifier implements Qualifier{
     	TaskQualifier(){}
     	@Override
@@ -367,7 +373,7 @@ public class ModelManager extends ComponentManager implements Model {
     		return "name";
     	}
     }
-    //@@LiXiaowei A0142325R
+
     private class DoneQualifier implements Qualifier{
         private boolean isDone;
 
@@ -385,7 +391,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "done=" + isDone;
         }
     }
-
+    
+    //@@author A0146123R
     private class DateQualifier implements Qualifier {
         private String dateValue;
         private String dateType;
@@ -415,7 +422,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "date type=" + dateType +  " date=" + dateValue;
         }
     }
-    //@@LiXiaowei A0142325R
+    
+    //@@author A0142325R
     private class RecurringQualifier implements Qualifier{
         private String recurring;
         private static final String EMPTY = "";
@@ -439,6 +447,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0146123R
     private class TagQualifier implements Qualifier {
         private Set<String> tagKeyWords;
 

@@ -119,7 +119,7 @@ public class Task implements ReadOnlyTask {
         this.recurring = null;
     }
 
-    //@@LiXiaowei A0142325R
+    //@@author A0142325R
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar currentDateTime = Calendar.getInstance();
@@ -192,18 +192,21 @@ public class Task implements ReadOnlyTask {
         }
         dateString.set(date.getValue());
     }
+    //@@author
 
     @Override
     public Name getName() {
         return name;
     }
-
+    
+    //@@author A0142325R
     @Override
     public Recurring getRecurring() {
         // assert recurring!=null;
         return this.recurring;
     }
-//
+    
+    //@@author A0146123R
     @Override
     public Date getDate() {
         return date;
@@ -213,21 +216,24 @@ public class Task implements ReadOnlyTask {
     public boolean isEvent() {
         return isEvent;
     }
-
-    @Override
-    public boolean isDone() {
-        return isDone;
-    }
+    //@@author
 
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    //@@LiXiaowei A0142325R
+    
+    //@@author A0142325R
+    @Override
+    public boolean isDone() {
+        return isDone;
+    }
+    
     @Override
     public boolean isRecurring() {
         return isRecurring;
     }
+    //@@author
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -254,13 +260,15 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    
+    //@@author A0142325R
     @Override
     public void markAsDone() {
         isDone = true;
         done.set(true);
     }
     
+    //@@author A0146123R
     public void setName(Name newName) {
         name = newName;
         nameString.set(name.taskName);
@@ -304,7 +312,8 @@ public class Task implements ReadOnlyTask {
         return (Task task) -> new Observable[] { task.getNameString(), task.getDateString(), task.getDone(),
                 task.getRecurringString() };
     }
-
+    
+    //@@author
 	public boolean editDetail(String type, String details) throws IllegalValueException {
 		switch(type) {
     	case "name": setName(new Name(details)); break;

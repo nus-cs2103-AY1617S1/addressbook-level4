@@ -3,6 +3,7 @@ package seedu.address.model.state;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 
+//@@author A0146123R
 /**
  * Represent the state of task manager.
  */

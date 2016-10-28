@@ -34,35 +34,20 @@ public class Parser {
 
     private static final Pattern TASK_NAME_ARGS_FORMAT = Pattern.compile("[\\p{Alnum} ]+");
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes
-                                                         // are reserved for
-                                                         // delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)" + "(?<deadline>(?: d/[^/]+)?)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
-                                                                                                                 // number
-                                                                                                                 // of
-                                                                                                                 // tags
-
-    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes
-                                                          // are reserved for
-                                                          // delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)" + "s/(?<startDate>[^/]+)" + "e/(?<endDate>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-                                                         // tags
-
-//    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^.*?(?=[dsenr][/])])" + "(?<edit>[^/]+)" + "?[i][/](?<index>([^/]+)*)");
+    //    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^.*?(?=[dsenr][/])])" + "(?<edit>[^/]+)" + "?[i][/](?<index>([^/]+)*)");
     private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
 			+ "(?<edit>(?: [dsenr]/[^/]+)?)"
 			+ "((i/(?<index>([0-9])+)*)?)" );
 
     private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
-//@LiXiaowei A0142325R
+//@@author A0142325R
     public static final Prefix deadlinePrefix = new Prefix("d/");
     public static final Prefix tagPrefix = new Prefix("t/");
     public static final Prefix startDatePrefix = new Prefix("s/");
     public static final Prefix endDatePrefix = new Prefix("e/");
     public static final Prefix namePrefix = new Prefix("n/");
     public static final Prefix recurringPrefix = new Prefix("r/");
-
+  //@@author
     public Parser() {
     }
 
@@ -140,7 +125,7 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
+//@@author A0142325R
     private Command prepareMarkAsDone(String args) {
         Optional<Integer> index = parseIndex(args);
         String name = args;
@@ -160,7 +145,7 @@ public class Parser {
         }
         return new DoneCommand(index.get());
     }
-//@@LiXiaowei A0142325R
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -215,39 +200,12 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_INVALID_DATE);
         }
     }
-    //@@LiXiaowei A0142325R-reused
-
-    /**
-     * Extracts the new task's deadline from the add command's deadline argument
-     * string. Merges duplicate tag strings.
-     */
-    private static String getDeadlineFromArg(String deadlineArgument) throws IllegalValueException {
-        // no deadline
-        if (deadlineArgument.isEmpty()) {
-            return "";
-        }
-        return deadlineArgument.replace(" d/", "");
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
 
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
-//@@LiXiaowei A0142325R
+
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -268,6 +226,7 @@ public class Parser {
         return new DeleteCommand(index.get());
 
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the select person command.
@@ -305,28 +264,13 @@ public class Parser {
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned
-     * integer is given as the index. Returns an {@code Optional.empty()}
-     * otherwise.
-     */
-    private Optional<String> parseString(String command) {
-        final Matcher matcher = TASK_NAME_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String name = matcher.group("targetName");
-        return Optional.of(name);
-
-    }
-
-    /**
      * Parses arguments in the context of the find person command.
      *
      * @param args
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0146123R
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -342,13 +286,15 @@ public class Parser {
         }
         return new FindCommand(keywordsGroup, matcher.group("keywords").contains("exact!"));
     }
-
+    
+    //@@author A0142325R
     private Command prepareList(String args) {
         if (args.equals(""))
             return new ListCommand();
         return new ListCommand(args);
     }
-
+    
+    //@@author A0146123R
     /**
      * Parses arguments in the context of the change storage location command.
      *
@@ -392,7 +338,8 @@ public class Parser {
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
-
+    
+    //@@author
     private Command prepareEdit(String args) {
 //    	Optional<Integer> index = parseIndex(args);
 

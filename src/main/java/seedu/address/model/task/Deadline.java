@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+//@@author A0146123R
 /**
  * Represents a Task's deadline
  * Empty String "" means no deadline (floating task)
@@ -43,9 +44,11 @@ public class Deadline implements Date{
         return date;
     }
     
+    //@@author A0142325R
     public void updateDate(String deadline){
         this.date=deadline;
     }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

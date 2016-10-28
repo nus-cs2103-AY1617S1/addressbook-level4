@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-//@@LiXiaowei A0142325R
+//@@author A0142325R
 /**
  * Refresh tasks or events in the task manager to the user.
  * For outdated recurring tasks, its date and time will be shown based on its next occurrence 
