@@ -96,7 +96,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList());
-        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList(), logic.getTagColorMap());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }

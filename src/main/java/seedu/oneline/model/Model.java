@@ -1,6 +1,9 @@
 package seedu.oneline.model;
 
+import java.util.Map.Entry;
 import java.util.Set;
+
+import com.sun.javafx.collections.UnmodifiableObservableMap;
 
 import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.exceptions.StateNonExistentException;
@@ -10,7 +13,9 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
-import seedu.oneline.model.tag.Tag; 
+import seedu.oneline.model.tag.Tag;
+import seedu.oneline.model.tag.TagColor;
+import seedu.oneline.model.tag.TagColorMap; 
 
 /**
  * The API of the Model component.
@@ -42,6 +47,15 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Get the assigned color to the tag */
+    TagColor getTagColor(Tag t);
+    
+    /** Assigns a color to the tag */
+    void setTagColor(Tag t, TagColor c);
+    
+    /** Returns the tag color mapping as an {@code UnmodifiableObservableMap<Tag, TagColor>} */
+    TagColorMap getTagColorMap();
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

@@ -196,11 +196,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public int compareTo(Task o) {
         assert o != null;
-        if (deadline.compareTo(o.deadline) == 0){
-            return name.compareTo(o.name);
+        int result;
+        if (this.isEvent()){
+            result = o.isEvent() 
+                    ? this.endTime.compareTo(o.endTime) 
+                    : this.endTime.compareTo(o.deadline);
         } else {
-            return deadline.compareTo(o.deadline);
+            result = o.isEvent() 
+                    ? this.deadline.compareTo(o.endTime) 
+                    : this.deadline.compareTo(o.deadline);
         }
+        return result == 0 
+                ? this.name.compareTo(o.name)
+                : result;
     }
 
     @Override
