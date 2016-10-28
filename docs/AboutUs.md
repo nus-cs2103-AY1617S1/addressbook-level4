@@ -40,14 +40,14 @@ Role: Tutor <br>
 * Role: Developer <br>  
 * Responsibilities: Integration, Scheduling and tracking
 * Features implemented:
-	> * Mark Command 
-	> * Undo Command 
-	> * List Command 
-* Code written: [functional code][test code][docs]
+	* Mark Command 
+	* Undo Command 
+	* List Command 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0127686R.md))[[test code(https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0127686R.md)][[docs(https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0127686R.md)]
 * Other major contributions:
-	> * Did the initial refactoring from AddressBook to FlexiTrack 
-	> * Fix the Initial test cases to fit FlexiTrack 
-	> * Implement natty and the DateTimeInfo class
+	* Did the initial refactoring from AddressBook to FlexiTrack 
+	* Fix the Initial test cases to fit FlexiTrack 
+	* Implement natty and the DateTimeInfo class
 
 -----
 
@@ -55,7 +55,10 @@ Role: Tutor <br>
 <img src="images/JingMin.jpg" width="150"><br>
  Role: Developer <br>  
  Responsibilities: Threading, Testing
- 
+ * Features implemented:
+	* Edit Command 
+	* Sort the Task 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0127855W.md))[[test code(https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0127855W.md)][[docs(https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0127855W.md)]
  -----
 
 
