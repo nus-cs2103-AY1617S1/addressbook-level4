@@ -35,7 +35,7 @@ public class CommandBox extends UiPart {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
     
-    private CommandHistoryManager commandHistoryManager = new CommandHistoryManager();
+    private CommandHistoryManager commandHistoryManager = CommandHistoryManager.getInstance();
 
     
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,

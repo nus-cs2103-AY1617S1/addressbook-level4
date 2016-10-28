@@ -2,15 +2,25 @@ package seedu.address.ui;
 
 import java.util.Stack;
 
+
 //@@author A0141019U
 public class CommandHistoryManager {
+	
+	private static CommandHistoryManager instance;
 	
 	private Stack<String> previousCommands = new Stack<>();;
 	private Stack<String> nextCommands = new Stack<>();;
 	private String firstEnteredCommand = "";
 	private boolean isFirstCommand = true;
 	
-	public CommandHistoryManager() {}
+	private CommandHistoryManager() {}
+	
+	public static CommandHistoryManager getInstance() {
+		if (instance == null) {
+            instance = new CommandHistoryManager();
+        }
+        return instance;
+	}
 	
 	public void rememberCommand(String command) {
 		if (isFirstCommand) {
