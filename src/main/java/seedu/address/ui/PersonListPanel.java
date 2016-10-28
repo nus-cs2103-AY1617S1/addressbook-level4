@@ -16,8 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.UpdateListCountEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
@@ -124,8 +124,8 @@ public class PersonListPanel extends UiPart {
     }
     
     @Subscribe 
-    private void updateLabelCount(TaskBookChangedEvent e){
-    	int listSize = e.data.getDatedTaskList().size();
+    private void updateLabelCount(UpdateListCountEvent e){
+    	int listSize = e.model.getFilteredDatedTaskList().size();
     	String label = "Events / Deadlines : ";
     	label_count.setText(label + listSize);
     }
