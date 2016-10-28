@@ -94,7 +94,13 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         assertNoMoreRedos();
                         
     }
-
+        
+    @Test
+    public void invalidCommand_noUndos() {
+        commandBox.runCommand("adds party");
+        assertNoMoreUndos(); 
+    }
+    
     private void runRedo() {
         TestTaskList undoneList = redoTestTaskListStack.pop();
         String undoneCommandText = redoCommandTextStack.pop();
@@ -137,12 +143,6 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         redoTestTaskListStack.push(currentList.copy());
         redoCommandTextStack.push(previousCommandText);
         currentList = previousList;
-    }
-    
-    @Test
-    public void invalidCommand_noUndos() {
-        commandBox.runCommand("adds party");
-        assertNoMoreUndos(); 
     }
     
     private void assertUndoSuccess(TestTaskList expectedList, String commandText) {
