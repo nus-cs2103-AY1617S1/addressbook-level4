@@ -15,6 +15,7 @@ Role: Tutor <br>
 * Role: Developer <br>  
 * Responsibilities: Logic, Command
 * Features implemented:
+	* Help Command
 	* Mark Command
 	* Unmark Command
 	* Block Command
