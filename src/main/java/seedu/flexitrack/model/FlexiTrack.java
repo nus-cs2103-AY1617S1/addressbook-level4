@@ -1,5 +1,6 @@
 package seedu.flexitrack.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -189,5 +191,32 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
-  //@@author
+    
+  //@@author A0127686R
+    public List<DateTimeInfo> findNextAvailableSlot(int keyword, int length) {
+        DateTimeInfo dateNow = DateTimeInfo.getCurrentTime();
+        List<DateTimeInfo> listOfPossibleTiming= new ArrayList<DateTimeInfo>();
+        int[] differenceInTime = new int[5];
+        for (Task task: task.getInternalList()){
+            if (listOfPossibleTiming.size()>4){
+                return listOfPossibleTiming; 
+            }
+            if (task.getIsEvent()){
+                if (DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
+                    differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
+                    if (differenceInTime[0]<0){
+                        differenceInTime[keyword] = differenceInTime[keyword]-length;
+                        for(int i=keyword; i<5 ; i++){
+                            if (differenceInTime[i]>0) {
+                                listOfPossibleTiming.add(dateNow);
+                                break;
+                            }
+                        }
+                        dateNow = task.getEndTime();
+                    }
+                }
+            }
+        }
+        return listOfPossibleTiming;
+    }
 }

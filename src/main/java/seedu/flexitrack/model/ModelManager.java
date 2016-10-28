@@ -1,5 +1,6 @@
 package seedu.flexitrack.model;
 
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -95,7 +96,6 @@ public class ModelManager extends ComponentManager implements Model {
         flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
-  //@@author
     
   //@@author A0127855W
     @Override
@@ -111,15 +111,21 @@ public class ModelManager extends ComponentManager implements Model {
         indicateFlexiTrackerChanged();
         return editedTask;
     }
-  //@@author
+
     
   //@@author A0138455Y
     @Override
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         return flexiTracker.checkBlock(toCheck);
     }
-  //@@author
+    
+    //@@author
 
+    @Override
+    public List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length) {
+        return flexiTracker.findNextAvailableSlot(keyword,length);
+    }
+    
     // =========== Filtered Tasks List Accessors
     // ===============================================================
 
@@ -283,7 +289,7 @@ public class ModelManager extends ComponentManager implements Model {
          * @return true if task is within the stated time
          */
         private boolean isTaskWithinTheSpecifiedTiming(ReadOnlyTask task) {
-            return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
+            return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTime().toString());
         }
 
         /**
@@ -292,7 +298,7 @@ public class ModelManager extends ComponentManager implements Model {
          * @return true if it has passed
          */
         private boolean isTaskInThePast(ReadOnlyTask task) {
-            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
         }
 
         /**
@@ -302,12 +308,13 @@ public class ModelManager extends ComponentManager implements Model {
          */
         private boolean isTaskInTheFuture(ReadOnlyTask task) {
             if (task.getIsNotFloatingTask()){ 
-                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
             }else { 
                 return !task.getIsDone();
             }
         }
         
     }
+
 
 }

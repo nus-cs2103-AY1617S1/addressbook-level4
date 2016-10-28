@@ -144,7 +144,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
      * @param endingTime
      * @return the duration of the event in an array. 0 represents minutes and 4 represents years
      */
-    private static int[] durationBetweenTwoTiming(String startingTime, String endingTime) {
+    public static int[] durationBetweenTwoTiming(String startingTime, String endingTime) {
         int years = yearsOfTheEvent(startingTime, endingTime);
         int months = monthsOfTheEvent(startingTime, endingTime);
         int days = daysOfTheEvent(startingTime, endingTime);
@@ -449,7 +449,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
      * Provide an easy access to the current timing in String 
      * @return String of the current time MMM DD YYYY HH:MM format. 
      */
-    public static DateTimeInfo getCurrentTimeInString() {
+    public static DateTimeInfo getCurrentTime() {
         DateTimeInfo dateNow = null;
         try {
             dateNow = new DateTimeInfo ("now");

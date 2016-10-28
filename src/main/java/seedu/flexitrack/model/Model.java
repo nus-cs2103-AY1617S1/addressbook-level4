@@ -1,9 +1,11 @@
 package seedu.flexitrack.model;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -80,5 +82,7 @@ public interface Model {
     boolean checkBlock(Task toAdd) throws DuplicateTaskException;
 
     void indicateFlexiTrackerChanged();
+
+    List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length);
 
 }
