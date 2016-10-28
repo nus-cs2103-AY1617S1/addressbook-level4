@@ -26,6 +26,7 @@ import seedu.flexitrack.logic.commands.DeleteCommand;
 import seedu.flexitrack.logic.commands.EditCommand;
 import seedu.flexitrack.logic.commands.ExitCommand;
 import seedu.flexitrack.logic.commands.FindCommand;
+import seedu.flexitrack.logic.commands.GapCommand;
 import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
@@ -148,6 +149,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
+            
+        case GapCommand.COMMAND_WORD:
+            return prepareGap(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -160,7 +164,62 @@ public class Parser {
         }
     }
 
-  //@@author A0127855W
+    private Command prepareGap(String arguments) {
+        arguments.toLowerCase(); 
+        if( isGapArgumentValid(arguments)){
+            int keyword = extractKeywordFromArgs(arguments);
+            int length = extractLength(arguments);
+            System.out.println("does it find any of this :6");
+            return new GapCommand(keyword, length);
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
+    }
+
+    private int extractLength(String arguments) {
+        String length = arguments.replace(GapCommand.DAY_WORD+"s", "").
+        replace(GapCommand.HOUR_WORD + "s", "").replace(GapCommand.MINUTE_WORD+"s", "").
+        replace(GapCommand.DAY_WORD, ""). replace(GapCommand.HOUR_WORD, "").
+        replace(GapCommand.MINUTE_WORD, "");
+        if (length.trim().equals("")){
+            System.out.println("does it find any of this :1");
+            return 1; 
+        } else {
+            System.out.println("does it find any of this :2");
+            return Integer.parseInt(length.trim());
+        }
+    }
+
+    private int extractKeywordFromArgs(String arguments) {
+        if (arguments.contains(GapCommand.DAY_WORD)||arguments.contains(GapCommand.DAY_WORD + "s")){
+            return 2;
+        }
+        if (arguments.contains(GapCommand.HOUR_WORD)||arguments.contains(GapCommand.HOUR_WORD + "s")){
+            return 1; 
+        }
+//        if (arguments.contains(GapCommand.MINUTE_WORD)||arguments.contains(GapCommand.MINUTE_WORD + "s")){
+        else {
+            return 0; 
+        }
+    }
+
+    private boolean isGapArgumentValid(String arguments) {
+        int numberOfMatch = 0; 
+        if (arguments.contains(GapCommand.DAY_WORD)||arguments.contains(GapCommand.DAY_WORD + "s")){
+            numberOfMatch = numberOfMatch + 1; 
+            System.out.println("does it find any of this :3");
+        }
+        if (arguments.contains(GapCommand.HOUR_WORD)||arguments.contains(GapCommand.HOUR_WORD + "s")){
+            numberOfMatch = numberOfMatch + 1; 
+            System.out.println("does it find any of this :4");
+        }
+        if (arguments.contains(GapCommand.MINUTE_WORD)||arguments.contains(GapCommand.MINUTE_WORD + "s")){
+            numberOfMatch = numberOfMatch + 1; 
+            System.out.println("does it find any of this :5");
+        }
+        return numberOfMatch == 1;
+    }
+
+    //@@author A0127855W
     /**
      * parseCommandWord
      * -------------------------------------------

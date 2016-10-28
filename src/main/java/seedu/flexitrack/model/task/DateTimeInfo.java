@@ -135,23 +135,50 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
      * @return the duration of the event
      */
     public static String durationOfTheEvent(String startingTime, String endingTime) {
-        return durationBetweenTwoTiming(startingTime,endingTime);
+        return timeDifferenceInString(durationBetweenTwoTiming(startingTime,endingTime));
     }
 
     /** 
      * prepare variables needed to calculate the duration between two timing 
      * @param startingTime
      * @param endingTime
-     * @return the duration of the event in a string
+     * @return the duration of the event in an array. 0 represents minutes and 4 represents years
      */
-    private static String durationBetweenTwoTiming(String startingTime, String endingTime) {
+    private static int[] durationBetweenTwoTiming(String startingTime, String endingTime) {
         int years = yearsOfTheEvent(startingTime, endingTime);
         int months = monthsOfTheEvent(startingTime, endingTime);
         int days = daysOfTheEvent(startingTime, endingTime);
         int hours = hoursOfTheEvent(startingTime, endingTime);
         int minutes = minutesOfTheEvent(startingTime, endingTime);
 
-        return combineDuratingOfEvent(years, months, days, hours, minutes);        
+        return combineDuratingOfEvent(years, months, days, hours, minutes);
+    }
+
+    
+    private static String timeDifferenceInString(int[] timeDifference) {
+        String duration = new String ("");    
+        if (timeDifference[0]==-1){
+            return MESSAGE_FROM_IS_AFTER_TO; 
+        } else if (timeDifference[0]>0){
+            duration = " " + timeDifference[0] + " minute" + ((timeDifference[0] == 1) ? "" : "s");
+        }
+        if (timeDifference[1]>0){
+            duration = " " + timeDifference[1] + " hour" + ((timeDifference[1] == 1) ? "" : "s" + duration);
+        }
+        if (timeDifference[2]>0){
+            duration = " " + timeDifference[2] + " day" + ((timeDifference[2] == 1) ? "" : "s" + duration);  
+        }
+        if (timeDifference[3]>0){
+            duration = " " + timeDifference[3] + " month" + ((timeDifference[3] == 1) ? "" : "s" + duration);
+        }
+        if (timeDifference[4]>0){
+            duration = " " + timeDifference[4] + " year" + ((timeDifference[4] == 1) ? "" : "s" + duration);
+        }
+        if (duration.equals("")) {
+            return "Event starts and end at the same time.";
+        } else {
+            return "Duration of the event is: " + duration.trim() + ".";
+        }
     }
 
     /**
@@ -163,49 +190,38 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
      * @param minutes
      * @return the duration of the event in a string 
      */
-    private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
-        String duration1 = new String("");
+    private static int[] combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
+        int[] timeDifference = new int[5]; 
 
         if (minutes > 0 || minutes < 0) {
             if (minutes < 0) {
                 minutes = Math.floorMod(minutes, 60);
                 hours=hours-1;
             }
-            duration1 = " " + minutes + " minute" + ((minutes == 1) ? "" : "s");
+            timeDifference[0]=minutes; 
         }
-        if (hours < 0) {
+        if (hours < 0) { 
             hours = Math.floorMod(hours, 24);
             days=days-1;
         } 
-        if(hours > 0){
-            duration1 = " " + hours + " hour" + ((hours == 1) ? "" : "s" + duration1);
-        }
+        timeDifference[1]=hours; 
         if (days < 0) {
             days = Math.floorMod(days, 31);
             months=months-1;
         }
-        if(days>0){
-            duration1 = " " + days + " day" + ((days == 1) ? "" : "s" + duration1);
-        }
+        timeDifference[2]=days; 
         if (months < 0) {
             months = Math.floorMod(months, 12);
             years=years-1;
         }
-        if(months>0){
-            duration1 = " " + months + " month" + ((months == 1) ? "" : "s" + duration1);
-        }
+        timeDifference[3]=months; 
         if (years < 0) {
-            return MESSAGE_FROM_IS_AFTER_TO;
+            timeDifference[0]=-1;
+            return timeDifference;
         } else if (years > 0) {
-            duration1 = " " + years + " year" + ((years == 1) ? "" : "s" + duration1);
+            timeDifference[4]=years; 
         }
-
-        if (minutes == 0 && hours == 0 && days == 0 && months == 0) {
-            duration1 = "Event starts and end at the same time.";
-        } else {
-            duration1 = "Duration of the event is: " + duration1.trim() + ".";
-        }
-        return duration1;
+        return timeDifference;
 
     }
 
@@ -315,9 +331,8 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
      * @return true if the timing timeNow is after the timing Date
      */
     public static boolean isInTheFuture(DateTimeInfo timeNow, DateTimeInfo Date) {
-        String result = MESSAGE_FROM_IS_AFTER_TO;
-        result = durationBetweenTwoTiming(timeNow.toString(),Date.toString());
-        return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
+        int[] duration = durationBetweenTwoTiming(timeNow.toString(),Date.toString());
+        return duration[0]!=-1;
     }
 
     /**
