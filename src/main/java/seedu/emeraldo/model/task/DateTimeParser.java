@@ -74,7 +74,6 @@ public class DateTimeParser {
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
         String year = matcher.group("year");
-System.out.println(day + " " + month + " " + year);
         int yearParsed;
         int monthParsed;
         int dayParsed;
@@ -84,10 +83,7 @@ System.out.println(day + " " + month + " " + year);
             month = matcher.group("monthEndInNumbers");
             year = matcher.group("yearEnd");
         }
-        
-        if(!year.isEmpty())
-        	year = year.substring(1);
-        
+
         //TODO: catch monthWords and monthEndWords that are shorter than 3 characters
         if(month.isEmpty()){
             month = matcher.group("monthInWords").toLowerCase().substring(0,3);
@@ -95,13 +91,17 @@ System.out.println(day + " " + month + " " + year);
                 month = matcher.group("monthEndInWords").toLowerCase().substring(0,3);
             month = convertMonthFromWordsToNumbers(month);
         }
-        
+
         if(year.isEmpty())
         	yearParsed = LocalDate.now().getYear();
-        else if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
-        	yearParsed = Integer.parseInt(String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year);
-        else
-        	yearParsed = Integer.parseInt(year);
+        else{
+        	year = year.substring(1);
+        
+        	if(Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
+        		yearParsed = Integer.parseInt(String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year);
+        	else
+        		yearParsed = Integer.parseInt(year);
+        }
         
         monthParsed = Integer.parseInt(month);
         dayParsed = Integer.parseInt(day);
@@ -118,8 +118,7 @@ System.out.println(day + " " + month + " " + year);
     public static LocalTime valueTimeFormatter(Matcher matcher, String keyword){
         
         String hour = matcher.group("hour");
-        String minute = matcher.group("minute");
-System.out.println(hour + " " + minute);        
+        String minute = matcher.group("minute");     
         if(keyword.equals("to")){
             hour = matcher.group("hourEnd");
             minute = matcher.group("minuteEnd");
@@ -149,10 +148,8 @@ System.out.println(hour + " " + minute);
             hour = matcher.group("hourEnd");
             minute = matcher.group("minuteEnd");
         }
-        
-        if(!year.isEmpty())
-        	year = year.substring(1);
-        
+
+        //Check for month in words when month not in numbers
         if(month.isEmpty()){
             month = matcher.group("monthInWords").toLowerCase().substring(0,3);
             if(keyword.equals("to"))
@@ -161,11 +158,16 @@ System.out.println(hour + " " + minute);
         }
         
         int monthParsed = Integer.parseInt(month);
-        
+
+        //If no year is read in, the year will be current year
         if(year.isEmpty())
         	year = String.valueOf(LocalDate.now().getYear());
-        else if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
+        else
+        	year = year.substring(1);
+        
+        if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
         	year = String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year;
+
         
         if(keyword.equals("on"))
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) + " " + year;
