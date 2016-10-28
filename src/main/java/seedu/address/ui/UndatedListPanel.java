@@ -16,8 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.UndatedPanelSelectionChangedEvent;
+import seedu.address.model.UpdateListCountEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
@@ -125,8 +125,8 @@ public class UndatedListPanel extends UiPart {
     }
     
     @Subscribe 
-    private void updateLabelCount(TaskBookChangedEvent e){
-    	int listSize = e.data.getUndatedTaskList().size();
+    private void updateLabelCount(UpdateListCountEvent e){
+    	int listSize = e.model.getFilteredUndatedTaskList().size();
     	String label = "Floating : ";
     	label_count.setText(label + listSize);
     }

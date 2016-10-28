@@ -239,6 +239,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredDatedTasks.setPredicate(expression::satisfies);
         filteredUndatedTasks.setPredicate(expression::satisfies);
+        raise(new UpdateListCountEvent(this));
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
