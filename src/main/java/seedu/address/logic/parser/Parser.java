@@ -507,7 +507,8 @@ public class Parser {
 				try{
 					String[] newDate = newDateTime.get(i).get().split(" ", 2);
 					System.out.println("newDate[0]: " + newDate[0]);
-					assert newDate[0].equals("from") || newDate[0].equals("to") || newDate[0].equals("by");
+					assert newDate[0].equals("from") || newDate[0].equals("to") 
+						|| newDate[0].equals("by");
 					switch(newDate[0]) {
 					case "from":
 						newStartDate = Optional.ofNullable(DateParser.parse(newDate[1]));
