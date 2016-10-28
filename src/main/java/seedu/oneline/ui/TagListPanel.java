@@ -128,7 +128,6 @@ public class TagListPanel extends UiPart {
     
     @Subscribe
     public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
-        System.out.println("I hear you");
         ObservableList<Tag> tagList = new UnmodifiableObservableList<Tag>(new FilteredList<Tag>((ObservableList<Tag>) event.data.getUniqueTagList().getInternalList()));
         TagColorMap colorMap = event.data.getTagColorMap();
         configure(tagList, colorMap);

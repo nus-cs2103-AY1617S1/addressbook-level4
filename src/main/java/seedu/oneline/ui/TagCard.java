@@ -37,7 +37,11 @@ public class TagCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText("#" + tag.tagName + " [" + color.toString() + "]");
+        if (tag == Tag.getDefault()) {
+            name.setText("[Uncategorised]");
+        } else {
+            name.setText("#" + tag.tagName);
+        }
         tagCardPane.setStyle("-fx-background-color: " + color.toHTMLColor());
     }
 
