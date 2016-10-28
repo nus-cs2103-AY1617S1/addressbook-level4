@@ -31,7 +31,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.748546511627907" prefHeight="200.0" prefWidth="200.0">
+      <SplitPane dividerPositions="0.8451519536903039" prefHeight="200.0" prefWidth="200.0">
          <items>
             <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" SplitPane.resizableWithParent="false">
                <padding>
@@ -45,7 +45,7 @@
              </AnchorPane>
          </items>
       </SplitPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.748546511627907" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.8437047756874095" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340.0" SplitPane.resizableWithParent="false">
                 <padding>
@@ -55,7 +55,7 @@
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" SplitPane.resizableWithParent="false">
+            <AnchorPane fx:id="summaryPlaceholder" prefHeight="40.0" prefWidth="343.0" SplitPane.resizableWithParent="false">
                 <padding>
                     <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                 </padding>

@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private SummaryPanel summaryPanel;
+    private SummaryPanel  summaryPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -45,7 +45,7 @@ public class MainWindow extends UiPart {
     private String addressBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane summaryPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        summaryPanel = summaryPanel.load(browserPlaceholder);
+        summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic);
         taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
@@ -187,12 +187,21 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
+    public void releaseResources() {
+    }
+    
+    public AnchorPane getSummaryPlaceholder(){
+        return summaryPlaceholder;
+    }
+    
+
     /*public void loadPersonPage(ReadOnlyTask person) {
         summaryPanel.loadPersonPage(person);
     }
     */
 
-    public void releaseResources() {
+    /*public void releaseResources() {
         summaryPanel.freeResources();
     }
+    */
 }

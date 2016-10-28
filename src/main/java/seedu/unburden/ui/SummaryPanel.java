@@ -1,69 +1,104 @@
 package seedu.unburden.ui;
 
-import javafx.event.Event;
+import java.text.ParseException;
+
+import com.google.common.eventbus.Subscribe;
+
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import seedu.unburden.commons.core.LogsCenter;
+import seedu.unburden.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.unburden.commons.util.FxViewUtil;
+import seedu.unburden.logic.Logic;
+import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.model.task.ReadOnlyTask;
 
-import java.util.logging.Logger;
 
-/**
- * The Summary Panel of the App.
- * @@author A0143095H
- */
 public class SummaryPanel extends UiPart{
 
-    private static Logger logger = LogsCenter.getLogger(SummaryPanel.class);
-    private WebView browser;
+    private static final String FXML = "summaryPanel.fxml";
 
-    /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a SummaryPanel.
-     */
-    private SummaryPanel() {
+    private AnchorPane summary;
+    @FXML
+    private TitledPane today;
+    @FXML
+    private TitledPane tomorrow;
+    @FXML
+    private TitledPane importance;
+    @FXML
+    private TitledPane completeness;
+    @FXML
+    private Label urgent;
+    @FXML
+    private Label normal;
+    @FXML
+    private Label nonurgent;
+    @FXML
+    private Label done;
+    @FXML
+    private Label undone;
 
+    private Logic logic;
+
+    private AnchorPane placeHolderPane;    
+
+
+    public SummaryPanel(){
+
+    }
+
+    public static SummaryPanel load(){
+        SummaryPanel summaryPanel = new SummaryPanel();
+        return summaryPanel;           
+    }
+
+    public static SummaryPanel load(Stage primaryStage, AnchorPane summaryPanelPlaceholder,
+            Logic logic) {
+        SummaryPanel summaryPanel = UiPartLoader.loadUiPart(primaryStage, summaryPanelPlaceholder, new SummaryPanel());
+        summaryPanel.configure( logic);
+        summaryPanel.addToPlaceholder();
+        return summaryPanel;
+    }
+
+    public  void configure(Logic logic) {
+        this.logic = logic;
+    }
+
+    private  void addToPlaceholder() {
+        
+        SplitPane.setResizableWithParent(placeHolderPane, false);
+        FxViewUtil.applyAnchorBoundaryParameters(summary, 0.0, 0.0, 0.0, 0.0);
+        placeHolderPane.getChildren().add(summary);
+    
     }
 
     @Override
     public void setNode(Node node) {
-        //not applicable
+       summary = (AnchorPane) node;
     }
 
     @Override
     public String getFxmlPath() {
-        return null; //not applicable
+        return FXML;
     }
 
-    /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
-     */
-    public static SummaryPanel load(AnchorPane placeholder){
-        logger.info("Initializing SummaryPanel");
-        SummaryPanel browserPanel = new SummaryPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
-        return browserPanel;
+    @Override
+    public void setPlaceholder(AnchorPane pane) {
+        this.placeHolderPane = pane;
     }
-
-    public void loadPersonPage(ReadOnlyTask person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
-    }
-
-    public void loadPage(String url){
-        browser.getEngine().load(url);
-    }
-
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
-    }
-
+    
 }
+
+
+ 
+
+  
+
