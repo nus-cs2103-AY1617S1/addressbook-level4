@@ -130,7 +130,37 @@ public class Task implements ReadOnlyTask {
             return start.time.compareTo(Calendar.getInstance()) < 0;
         
         return false;
-            
+    }
+    
+    /**
+     * Checks if a task is an event, i.e. a start time and an end time.
+     * @return true if task has both start and end time.
+     */
+    public boolean isEventTask() {
+        return !start.isMissing() && !end.isMissing();
+    }
+    /**
+     * Checks if a task is a start time event, i.e. only has start time.
+     * @return true if only start time is present for the task.
+     */
+    public boolean isStartTask() {
+        return !start.isMissing() && end.isMissing();
+    }
+    
+    /**
+     * Checks if a task is a deadline, i.e. only has an end time.
+     * @return true if only end time is present.
+     */
+    public boolean isDeadlineTask() {
+        return start.isMissing() && !end.isMissing();
+    }
+    
+    /**
+     * Checks if a task is a floating task, i.e. no start time and no end time.
+     * @return true if both start and end times are not present.
+     */
+    public boolean isFloatingTask() {
+        return start.isMissing() && end.isMissing();
     }
     
 }
