@@ -100,7 +100,7 @@ public class PersonCard extends UiPart{
         else if(status.equals("EXPIRE")){
             name.setStyle("-fx-text-fill: deeppink");
             id.setStyle("-fx-text-fill: deeppink");
-            description.setStyle("deeppink");
+            description.setStyle("-fx-text-fill: deeppink");
             date.setStyle("-fx-text-fill: deeppink");
             time.setStyle("-fx-text-fill: deeppink");
             tags.setStyle("-fx-text-fill: deeppink");
