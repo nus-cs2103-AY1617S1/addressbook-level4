@@ -494,8 +494,6 @@ public class Parser {
                 endTime = dateSet.get(END_TIME_INDEX);
             }
             tagSet = getTagsFromArgs(m.group("tagArguments"));
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -734,7 +732,7 @@ public class Parser {
         Date date;
         try {
             date = getDateFromString(arguments);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
         return new ViewCommand(new TaskDate(date));
@@ -742,17 +740,24 @@ public class Parser {
     // @@author
 
     // @@author A0147995H
-    public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalArgumentException {
+    public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalValueException{
         ArrayList<Date> resultSet = new ArrayList<Date>();
         try {
             String[] time = m.group("startTime").replace(" from ", "").split(" to ");
             resultSet.clear();
-            resultSet.add(getDateFromString(time[START_TIME_INDEX]));
-            resultSet.add(getDateFromString(time[END_TIME_INDEX]));
-
-        } catch (IllegalStateException ise) {
+            try {
+                resultSet.add(getDateFromString(time[START_TIME_INDEX]));
+                resultSet.add(getDateFromString(time[END_TIME_INDEX]));
+            } catch (IllegalValueException e) {              
+                throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
+            }
+        } catch (Exception ise) {
             resultSet.clear();
-            resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
+            try {
+                resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
+            } catch (Exception e) {
+                throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
+            }
         }
         return resultSet;
     }
@@ -764,13 +769,14 @@ public class Parser {
      * @param dateInput
      *            The date that we want to convert from string to Date
      * @return A single Date from the string
+     * @throws IllegalValueException 
      */
-    public static Date getDateFromString(String dateInput) {
+    public static Date getDateFromString(String dateInput) throws IllegalValueException {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         try {
             return dateGroups.get(0).getDates().get(0);
         } catch (Exception e) {
-            throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
+            throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
         }
     }
 

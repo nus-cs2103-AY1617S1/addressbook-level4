@@ -807,6 +807,12 @@ public class LogicManagerTest {
 
     // @@author A0147967J
     @Test
+    public void execute_find_invalidDateFormat() throws Exception {
+        String expectedMessage = Messages.MESSAGE_ILLEGAL_DATE_INPUT;
+        assertCommandBehavior("find from xx to xx", expectedMessage);
+        assertCommandBehavior("find by xx", expectedMessage);
+    }
+    @Test
     public void execute_findByDateTimeBoundary() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");

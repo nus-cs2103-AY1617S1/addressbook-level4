@@ -42,6 +42,7 @@ public class FindCommandTest extends TaskMasterGuiTest {
         }
     }
 
+    
     @Test
     public void find_byTimeSlot() {
         // Cover multiple
