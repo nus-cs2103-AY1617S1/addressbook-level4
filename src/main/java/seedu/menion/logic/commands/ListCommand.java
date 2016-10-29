@@ -16,9 +16,10 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
+    public static final String LIST_BLANK = "";
     public static final String LIST_ALL = "all";
-    public static final String LIST_COMPLETED = "completed";
-    public static final String LIST_UNCOMPLETED = "uncompleted";
+    public static final String LIST_COMPLETED = "Completed";
+    public static final String LIST_UNCOMPLETED = "Uncompleted";
     public static final String LIST_MONTH = "month";
     public static final String LIST_DATE = "date";
     public static final String LIST_KEYWORDS = "keywords";
@@ -29,6 +30,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS_ALL = "Listed all activities";
     public static final String MESSAGE_SUCCESS_DATE_MONTH = "Menion lists all activities that falls on ";
     public static final String MESSAGE_SUCCESS_LIST_KEYWORDS = "Menion has found these activities with the keyword : ";
+    public static final String MESSAGE_SUCCESS_LIST_COMPLETE = "Menion lists all completed activities : ";
     
     private String listArgument;
     private String listType;
@@ -41,8 +43,8 @@ public class ListCommand extends Command {
     
     
     public ListCommand(String args){
-    	argumentsToList = new HashSet<String>();
-    	this.listArgument = args;
+        argumentsToList = new HashSet<String>();
+        this.listArgument = args;  
     }
 
     /**
@@ -53,9 +55,13 @@ public class ListCommand extends Command {
      */
     public String checkListType(String args){
     	
-    	if (args.equals("") || args.toLowerCase().equals(LIST_ALL)){
-    		return LIST_ALL;
+    	if (args.isEmpty()){
+    		return LIST_BLANK;
     	}
+    	
+    	if (args.toLowerCase().equals(LIST_ALL)) {
+            return LIST_ALL;
+        }
     	
     	else if (isMonth(args)){
     		
@@ -145,7 +151,7 @@ public class ListCommand extends Command {
 
 			model.updateFilteredListToShowAll();
 			return new CommandResult(MESSAGE_SUCCESS_ALL);
-
+			
 		case LIST_DATE:
 
 			model.updateFilteredTaskList(this.argumentsToList);
@@ -167,6 +173,20 @@ public class ListCommand extends Command {
 			model.updateFilteredFloatingTaskList(this.argumentsToList);
 			return new CommandResult(MESSAGE_SUCCESS_LIST_KEYWORDS + this.keywordToList); 
 			
+		case LIST_COMPLETED:
+			
+		    model.updateFilteredTaskList(this.argumentsToList);
+            model.updateFilteredEventList(this.argumentsToList);
+            model.updateFilteredFloatingTaskList(this.argumentsToList);
+            return new CommandResult(MESSAGE_SUCCESS_LIST_COMPLETE + this.keywordToList); 
+            
+		case LIST_UNCOMPLETED:
+            
+            model.updateFilteredTaskList(this.argumentsToList);
+            model.updateFilteredEventList(this.argumentsToList);
+            model.updateFilteredFloatingTaskList(this.argumentsToList);
+            return new CommandResult(MESSAGE_SUCCESS_LIST_COMPLETE + this.keywordToList);
+            
 		default:
 			return new CommandResult(WRONG_ARGUMENT);
 
