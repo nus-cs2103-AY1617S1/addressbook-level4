@@ -1,5 +1,8 @@
 package seedu.unburden.model.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -12,7 +15,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS = "Task time should be in the format XXYY where X represents the number of hours and Y represents the number of minutes";
-    public static final String TIME_VALIDATION_REGEX = ".+";
+    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
     
     //\\[0-9]{2}[0-9]{2}
 
@@ -25,19 +28,25 @@ public class Time {
      */
     public Time(String time) throws IllegalValueException {
         assert time != null;
-       // time = time.trim();
-        /*if (!isValidTime(time)) {
+       time = time.trim();
+        if (!isValidTime(time) && !time.equals("Thisisanemptystring")) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
-        */
-        this.fullTime = time;
+        if(time.equals("Thisisanemptystring")){
+        	this.fullTime = "";
+        }
+        else{
+        	this.fullTime = time;
+        }
     }
 
     /**
      * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String test) {
-        return test.matches(TIME_VALIDATION_REGEX);
+    	final Pattern pattern = Pattern.compile(TIME_VALIDATION_REGEX);
+    	final Matcher matcher = pattern.matcher(test);
+        return matcher.matches();
     }
 
 
