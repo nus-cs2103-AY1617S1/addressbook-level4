@@ -52,12 +52,12 @@ public class ListCommand extends Command {
 
         case LIST_KEYWORD_DONE:
             taskStatus = "completed";
-            model.updateFilteredTaskList("DONE");
+            model.updateFilteredTaskListByStatus("DONE");
             break;
 
         case LIST_KEYWORD_OD:
             taskStatus = "overdue and expired";
-            model.updateFilteredTaskList("OVERDUE", "EXPIRE");
+            model.updateFilteredTaskListByStatus("OVERDUE", "EXPIRE");
             break;
 
         default:
