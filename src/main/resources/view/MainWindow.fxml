@@ -38,7 +38,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TextField style="-fx-background-color: #015166;" />
+                        <TextField editable="false" style="-fx-background-color: #015166;" />
                          <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="235.0" minHeight="200.0" prefHeight="200.0" styleClass="anchor-pane-with-border">
                              <padding>
                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
