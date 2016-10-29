@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -13,15 +14,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -33,7 +32,7 @@ import seedu.address.logic.commands.UndoCommand;
 
 
 public class Parser {
-	// @@author A0141019U
+	// @@author A0141019U	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
 	// Different regexps for different permutations of arguments
@@ -41,7 +40,6 @@ public class Parser {
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
 			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|ev|deadline|dl|someday|sd)");
-
 	
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
 			"(?i)'(?<taskName>.*\\S+.*)'(\\s+on\\s+)?(?<date>\\S+)?\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)");
@@ -49,13 +47,11 @@ public class Parser {
 			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
 			"(?i)from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?\\s+'(?<taskName>.*\\S+.*)'");
-
 	
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
 			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
-
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
 
@@ -76,6 +72,9 @@ public class Parser {
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
 			return prepareAdd(arguments);
+			
+		case FindCommand.COMMAND_WORD:
+			return prepareFind(arguments);
 
 		case ListCommand.COMMAND_WORD:
 			return prepareList(arguments);
@@ -86,14 +85,14 @@ public class Parser {
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
 			
-		case DoneCommand.COMMAND_WORD:
-			return prepareDone(arguments);
+		case ChangeStatusCommand.COMMAND_WORD_DONE:
+			return prepareChangeStatus(arguments, "done");
+			
+		case ChangeStatusCommand.COMMAND_WORD_PENDING:
+			return prepareChangeStatus(arguments, "pending");
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
-
-		case FindCommand.COMMAND_WORD:
-			return prepareFind(arguments);
 
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
@@ -112,49 +111,7 @@ public class Parser {
 		}
 	}
 	
-	//@@author A0139339W
-	/**
-	 * parse the argument based on first occurrence of keyword "not"
-	 * indices before not are for tasks to be marked done
-	 * indices after not are for tasks to be marked not done
-	 * missing keyword "not" means all indices are for tasks to be marked done
-	 */
-	private Command prepareDone(String arguments) {
-		String[] args = arguments.split("not");
-		int[] doneIndices = new int[0];
-		int[] notDoneIndices = new int[0];
-		try {
-			if(!args[0].equals("")) {
-			    doneIndices = prepareIndexList(args[0]);
-			}
-			if(args.length > 1) {
-				notDoneIndices = prepareIndexList(args[1].trim());
-			}
-		} catch (IncorrectCommandException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-		}
-
-		return new DoneCommand(doneIndices, notDoneIndices);
-	}
-
-
-	private int[] prepareIndexList(String arguments) throws IncorrectCommandException{
-		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
-
-		int[] indices = new int[indexOptionals.size()];
-		int i = 0;
-		for (Optional<Integer> index : indexOptionals) {
-			if (!index.isPresent()) {
-				throw new IncorrectCommandException("Incorrect Command");
-			}
-			indices[i] = index.get();
-			i++;
-		}
-
-		System.out.println("indices: " + Arrays.toString(indices));
-		return indices;
-	}
-
+	
 	//@@author A0141019U
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -393,9 +350,9 @@ public class Parser {
 	private Command prepareDelete(String arguments) {
 		int[] indices;
 		try {
-			indices = prepareIndexList(arguments);
-		} catch (IncorrectCommandException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+			indices = parseIndices(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 		return new DeleteCommand(indices);
 	}
@@ -509,36 +466,53 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
-	
-	//@@author A0141019U
+
+	//@@author A0139339W
 	/**
-	 * Returns an ArrayList of the specified indices in the {@code command} IF
-	 * positive unsigned integers are given. Returns an ArrayList with a single
-	 * element {@code Optional.empty()} otherwise.
+	 * parse the argument based on first occurrence of keyword "not" indices
+	 * before not are for tasks to be marked done indices after not are for
+	 * tasks to be marked not done missing keyword "not" means all indices are
+	 * for tasks to be marked done
 	 */
-	private ArrayList<Optional<Integer>> parseIndices(String args) {
-		String[] indexStrings = args.split(" ");
-		ArrayList<Optional<Integer>> optionals = new ArrayList<>();
+	private Command prepareChangeStatus(String arguments, String newStatus) {
+		int[] doneIndices;
 
-		for (int i = 0; i < indexStrings.length; i++) {
-			System.out.println("parseIndices: " + indexStrings[i].trim());
-			if (!StringUtil.isUnsignedInteger(indexStrings[i].trim())) {
-				optionals = new ArrayList<>();
-				optionals.add(Optional.empty());
-				return optionals;
-			}
-
-			optionals.add(Optional.of(Integer.parseInt(indexStrings[i])));
+		try {
+			doneIndices = parseIndices(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 
-		return optionals;
+		return new ChangeStatusCommand(doneIndices, newStatus);
+	}
+
+	//@@author A0141019U
+	/**
+	 * @return an array of the specified indices in the {@code command} if
+	 * positive unsigned integers are given. 
+	 * @throws IllegalArgumentException otherwise
+	 */
+	private int[] parseIndices(String args) throws IllegalArgumentException {
+		String[] indexStrings = args.split(" ");
+		int[] indices = new int[indexStrings.length];
+
+		for (int i = 0; i < indexStrings.length; i++) {
+			String index = indexStrings[i].trim();
+			
+			if (!StringUtil.isUnsignedInteger(index)) {
+				throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+			else {
+				indices[i] = Integer.parseInt(index);
+			}
+		}
+
+		return indices;
 	}
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
 		p.parseCommand("find bob, oh my darling, clementine");
-		
-		System.out.println(Math.floorMod((3-1 - 2), 7) + 1);
 	}
 	
 }

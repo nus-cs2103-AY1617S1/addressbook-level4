@@ -16,8 +16,8 @@ public class ReadOnlyTaskTest {
     private ReadOnlyTask deadline;
 
     public ReadOnlyTaskTest() throws Exception {
-        someday = new Task(new Name("Read 50 shades of grey"), new TaskType("someday"), new Status("not done"), Optional.empty(),  Optional.empty(), new UniqueTagList());
-        deadline = new Task(new Name("Read 50 shades of grey"), new TaskType("deadline"), new Status("not done"), Optional.empty(), Optional.of(LocalDateTime.parse("2016-12-25T12:13:14")), new UniqueTagList());
+        someday = new Task(new Name("Read 50 shades of grey"), new TaskType("someday"), new Status("pending"), Optional.empty(),  Optional.empty(), new UniqueTagList());
+        deadline = new Task(new Name("Read 50 shades of grey"), new TaskType("deadline"), new Status("pending"), Optional.empty(), Optional.of(LocalDateTime.parse("2016-12-25T12:13:14")), new UniqueTagList());
     }
     
     /*
@@ -25,7 +25,7 @@ public class ReadOnlyTaskTest {
      */
     @Test
     public void someday_printAsString() {
-        String expected = "Read 50 shades of grey Task type: Someday Status: Not done Tags: ";
+        String expected = "Read 50 shades of grey Task type: Someday Status: Pending Tags: ";
         assertEquals(expected, someday.getAsText());
     }
 
@@ -37,7 +37,7 @@ public class ReadOnlyTaskTest {
 
     @Test
     public void someday_getStatus() {
-        Status expected = new Status("not done");
+        Status expected = new Status("pending");
         assertEquals(expected, someday.getStatus());
     }
 

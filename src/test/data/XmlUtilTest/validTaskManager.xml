@@ -3,7 +3,7 @@
     <tasks>
         <name>Read that book</name>
         <taskType>Someday</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate></startDate>
         <endDate></endDate>
     </tasks>
@@ -17,14 +17,14 @@
     <tasks>
         <name>Cook for potluck dinner</name>
         <taskType>Deadline</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate></startDate>
         <endDate>2016-10-16T18:20:01.895</endDate>
     </tasks>
     <tasks>
         <name>Meeting with boss</name>
         <taskType>Event</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate>2016-10-26T16:00:00.000</startDate>
         <endDate>2016-10-26T18:00:00.000</endDate>
     </tasks>
@@ -38,7 +38,7 @@
     <tasks>
         <name>File documents</name>
         <taskType>Someday</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate></startDate>
         <endDate></endDate>
     </tasks>
@@ -52,14 +52,14 @@
     <tasks>
         <name>Handle list of files</name>
         <taskType>Someday</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate></startDate>
         <endDate></endDate>
     </tasks>
     <tasks>
         <name>Idle around</name>
         <taskType>Deadline</taskType>
-        <status>Not done</status>
+        <status>Pending</status>
         <startDate></startDate>
         <endDate>2016-10-16T18:20:01.895</endDate>
     </tasks>
