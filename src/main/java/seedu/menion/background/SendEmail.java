@@ -9,12 +9,12 @@ import javax.crypto.SealedObject;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import seedu.menion.commons.core.MotivationalQuotes;
 import seedu.menion.logic.commands.RemindCommand;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
-//@@author A0139164A -reused
-
+//@@author A0139164A
 public class SendEmail {
 
     public static final String MESSAGE_BODY = "Hey you missed a task deadline! Here is the info: ";
@@ -29,6 +29,7 @@ public class SendEmail {
      */
     String userEmail = null;
     String emailBody = null;
+    String motivationalQuote = null;
     
     String emailSubject = "Menion! You missed a deadline!";
     String remind = RemindCommand.REMINDER_OFF;
@@ -89,8 +90,7 @@ public class SendEmail {
         StringBuilder build = new StringBuilder();
         
         build.append(MESSAGE_BODY);
-        build.append("\n");
-        build.append("\n");
+        build.append("\n\n");
         build.append("Task name: " + outdated.getActivityName().toString());
         build.append("\n");
         build.append("Task note: " + outdated.getNote().toString());
@@ -98,7 +98,10 @@ public class SendEmail {
         build.append("Task date: " + outdated.getActivityStartDate().toString());
         build.append("\n");
         build.append("Task time: " + outdated.getActivityStartTime().toString());
-
+        build.append("\n\n");
+        build.append("Quote of the day: ");
+        build.append(MotivationalQuotes.getRandomQuote());
+        
         return build.toString();
     }
     
