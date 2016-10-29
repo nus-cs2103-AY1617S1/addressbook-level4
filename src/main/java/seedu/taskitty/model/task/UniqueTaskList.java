@@ -85,11 +85,18 @@ public class UniqueTaskList implements Iterable<Task> {
     public void unmark(ReadOnlyTask toUnmark) {
         assert toUnmark != null && toUnmark.getIsDone();
         final boolean taskFoundAndUnmarkedAsDone = internalList.remove(toUnmark);
+        
         if (!taskFoundAndUnmarkedAsDone) {
             assert false: "Task should not be missing";
         }
+        
         Task editableToUnmark = (Task) toUnmark;
-        editableToUnmark.unmarkAsDone();        
+        editableToUnmark.unmarkAsDone();
+        
+        if (editableToUnmark.isDeadline() && editableToUnmark.isOverdue()) {
+            editableToUnmark.markAsOverdue();
+        }
+        
         try {
             add(editableToUnmark);
         } catch (DuplicateTaskException e) {
@@ -156,11 +163,10 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param filter according to Task.
      */
     private void checkAndSetOverdue() {
-    	boolean hasOverdue = false;
-    	LocalDateTime currentTime = TimeUtil.createCurrentTime();
+    	boolean hasOverdue = false;    	
     	for (Task t: internalList) {
     		if (t.isDeadline() && !t.getIsDone()) {
-    			if (isOverdue(t, currentTime)) {
+    			if (isOverdue(t)) {
     				t.markAsOverdue();
     				hasOverdue = true;
     			}
@@ -175,20 +181,17 @@ public class UniqueTaskList implements Iterable<Task> {
      * When an event is over, automatically mark it as done.
      */
     private void checkAndSetIsOverToday() {
-    	LocalDateTime currentTime = TimeUtil.createCurrentTime();
     	for (Task t: internalList) {
-    		if (t.isEvent() && isOverdue(t, currentTime)) {
+    		if (t.isEvent() && isOverdue(t)) {
     			t.markAsDone();
     		}
     	}
     }
     
-    private boolean isOverdue(Task t, LocalDateTime currentTime) {
+    private boolean isOverdue(Task t) {
+        LocalDateTime currentTime = TimeUtil.createCurrentTime();
     	LocalDateTime taskTime = t.getPeriod().getEndDate().getDate().atTime(t.getPeriod().getEndTime().getTime());
-    	if (currentTime.isAfter(taskTime)) {
-    		return true;
-    	}
-    	return false;
+    	return currentTime.isAfter(taskTime);
     }
     
     //@@author A0139930B
