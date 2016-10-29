@@ -8,7 +8,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
@@ -40,40 +39,36 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <AnchorPane fx:id="tagListPanelPlaceholder" prefHeight="200.0" prefWidth="200.0" />
-            <SplitPane id="splitPane" dividerPositions="0.6" style="-fx-background-color: #FFFFFF;" stylesheets="@Extensions.css">
-               <items>
-                  <VBox minWidth="340" prefWidth="340" style="-fx-background-color: #FFFFFF;">
+      <SplitPane id="splitPane" dividerPositions="0.6, 0.5" style="-fx-background-color: #FFFFFF;" stylesheets="@Extensions.css">
+         <items>
+            <AnchorPane fx:id="tagListPanelPlaceholder" maxWidth="200.0" minWidth="200.0" />
+            <VBox minWidth="340.0" prefWidth="340.0" style="-fx-background-color: #FFFFFF;">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+               <children>
+                  <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                   <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" style="-fx-background-color: #FFFFFF;" styleClass="anchor-pane" VBox.vgrow="NEVER">
+                       <padding>
+                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                       </padding>
+                   </AnchorPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+               <!-- @@author A0138967J -->
+                  <AnchorPane fx:id="summaryPlaceholder" minHeight="250.0" prefWidth="340.0">
                       <padding>
-                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                          <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
-                     <children>
-                        <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                         <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" style="-fx-background-color: #FFFFFF;" styleClass="anchor-pane" VBox.vgrow="NEVER">
-                             <padding>
-                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                             </padding>
-                         </AnchorPane>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                     <!-- @@author A0138967J -->
-                        <AnchorPane fx:id="summaryPlaceholder" minHeight="250.0" prefWidth="340.0">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10" />
-                            </padding>
-                        </AnchorPane>
-                        <!-- @@author A0142421X -->
-                        <AnchorPane prefWidth="200.0" />
-                     </children>
-                  </VBox>
-               </items>
-            </SplitPane>
-         </children>
-      </HBox>
+                  </AnchorPane>
+                  <!-- @@author A0142421X -->
+                  <AnchorPane prefWidth="200.0" />
+               </children>
+            </VBox>
+         </items>
+      </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
