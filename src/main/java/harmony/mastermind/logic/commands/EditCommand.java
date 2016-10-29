@@ -29,14 +29,24 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_EDIT = "edit";
     public static final String COMMAND_KEYWORD_UPDATE = "update";
+    public static final String COMMAND_KEYWORD_CHANGE = "change";
     // @@author A0138862W
+    /*
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
                                                         + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
                                                         + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
                                                         + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
                                                         + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-                                                        + ".*";
+                                                        + ".*";*/
+    
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
+                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:;|$)))?"
+                                                        + ".+";
 
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
