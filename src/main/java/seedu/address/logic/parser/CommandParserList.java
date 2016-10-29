@@ -21,6 +21,7 @@ public class CommandParserList {
 				AddAliasCommandParser.class, 
 				DeleteAliasCommandParser.class,
 				HelpCommandParser.class,
-				SetStorageCommandParser.class};
+				SetStorageCommandParser.class,
+				ExitCommandParser.class};
 	}
 }
