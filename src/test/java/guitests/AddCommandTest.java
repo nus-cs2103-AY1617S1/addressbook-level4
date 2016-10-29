@@ -47,15 +47,6 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         commandBox.runCommand("add bad start-end pair s/" + getLocaleDateString(start) + 
                 " e/" + getLocaleDateString(end));
         assertResultMessage(String.format(AddCommand.MESSAGE_INVALID_START_END));
-        
-        commandBox.runCommand("clear");
-        //add recurring tasks
-        start = getDate("04/11/2016");
-        end = getDate("05/11/2016");
-        commandBox.runCommand("add recurring yall s/" + getLocaleDateString(start) + 
-                " e/" + getLocaleDateString(end) + " l/home r/daily p/high n/5 c/recurs d/AHAHA");
-        assertResultMessage("New task added:  Id: 0 Task Name: recurring yall Archived: false Start: Fri Nov 04 00:00:00 SGT 2016 End: Sat Nov 05 23:59:59 SGT 2016 Location: home Priority: High Category: recurs Description: AHAHA");
-        
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
@@ -69,7 +60,6 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-
 
     private DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
     private String getLocaleDateString(Date date) {
