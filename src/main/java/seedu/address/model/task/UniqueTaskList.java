@@ -76,7 +76,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 && internalList.contains(toCheck);
     }
 
-    // @@author A0147967J
+    //@@author A0147967J
     /**
      * Returns true if the given task requests to use a blocked time slot.
      */
@@ -85,34 +85,46 @@ public class UniqueTaskList implements Iterable<Task> {
         // ignore floating and deadline tasks
         if (toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
             return false;
+
         // Only compare tasks with blocked time slots.
+        // Or if it is block command, check with existing tasks
+        return isOverlappingWithBlock(toCheck) || isBlockOverlappingWithTask(toCheck);
+
+    }
+
+    public boolean isBlockOverlappingWithTask(ReadOnlyTask toCheck) {
+        if (!toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
+            return false;
+        }
         for (Task t : internalList) {
-            if (t.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
-                if (!(!t.getComponentForNonRecurringType().getEndDate().getDate()
-                        .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
-                        || !t.getComponentForNonRecurringType().getStartDate().getDate()
-                                .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
-                    return true;
+            if (t.getTaskType() == TaskType.NON_FLOATING && !t.getLastAppendedComponent().hasOnlyEndDate()
+                    && isWithinSlot(toCheck, t)) {
+                return true;
             }
         }
-        // Or if it is block command, check with existing tasks
-        if (toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
-            for (Task t : internalList) {
-                if (t.getTaskType() == TaskType.NON_FLOATING && t.getComponentForNonRecurringType().getStartDate()
-                        .getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
-                    if (!(!t.getComponentForNonRecurringType().getEndDate().getDate()
-                            .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
-                            || !t.getComponentForNonRecurringType().getStartDate().getDate()
-                                    .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
-                        return true;
-                }
+
+        return false;
+    }
+
+    public boolean isOverlappingWithBlock(ReadOnlyTask toCheck) {
+        for (Task t : internalList) {
+            if (t.getName().fullName.equals(BlockCommand.DUMMY_NAME) && isWithinSlot(toCheck, t)) {
+                return true;
             }
         }
         return false;
     }
-    // @@author
 
-    // @@author A0135782Y
+    /** Returns true if the toCheck slot overlaps with the given one. */
+    public boolean isWithinSlot(ReadOnlyTask toCheck, ReadOnlyTask given) {
+        return !(!given.getComponentForNonRecurringType().getEndDate().getDate()
+                .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
+                || !given.getComponentForNonRecurringType().getStartDate().getDate()
+                        .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate()));
+    }
+    //@@author
+
+    //@@author A0135782Y
     /**
      * Adds a task to the list.
      *

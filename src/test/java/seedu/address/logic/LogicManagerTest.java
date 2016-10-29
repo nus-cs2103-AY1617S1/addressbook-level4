@@ -232,14 +232,21 @@ public class LogicManagerTest {
 
     }
 
+    // @@author A0147967J
     @Test
-    public void execute_nonFloatingUnrecognizableDate_notAllowed() throws Exception {
+    public void execute_addNonFloatingUnrecognizableDate_notAllowed() throws Exception {
         String expectedMessage = Messages.MESSAGE_ILLEGAL_DATE_INPUT;
         assertCommandBehavior("add task from not a date to not a date", expectedMessage);
         assertCommandBehavior("add task by not a date", expectedMessage);
     }
 
-    // @@author A0147967J
+    @Test
+    public void execute_addNonFloatingIlleagalName_notAllowed() throws Exception {
+        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
+        assertCommandBehavior("add #$%^&* from 2am to 3am", expectedMessage);
+        assertCommandBehavior("add #$%^&*( by 3am", expectedMessage);
+    }
+
     @Test
     public void execute_addNonFloating_sucessful() throws Exception {
         // setup expectations
@@ -507,8 +514,9 @@ public class LogicManagerTest {
             Task t = helper.generateTask(i);
             logic.execute(helper.generateAddCommand(t));
         }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) {
             logic.execute("u");
+        }
 
         expectedAB.addTask(helper.generateTask(1));
         assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());

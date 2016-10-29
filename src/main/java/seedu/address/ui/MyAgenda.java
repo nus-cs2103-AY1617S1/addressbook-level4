@@ -91,11 +91,13 @@ public class MyAgenda extends Agenda {
     private void addAllOccurrencesInWeek(ReadOnlyTask task) {
 
         // Ignore floating tasks
-        if (task.getTaskType() == TaskType.FLOATING)
+        if (task.getTaskType() == TaskType.FLOATING) {
             return;
+        }
         // Ignore deadline tasks
-        if (task.getTaskDateComponent().get(0).hasOnlyEndDate())
+        if (task.getTaskDateComponent().get(0).hasOnlyEndDate()) {
             return;
+        }
 
         int i = 0;
         List<TaskOccurrence> list = task.getTaskDateComponent();
@@ -117,6 +119,9 @@ public class MyAgenda extends Agenda {
      * recurring type.
      */
     private void addCopiesToAgenda(TaskOccurrence taskComponent, AppointmentImplLocal appointment) {
+        if (isOutsideAgenda(appointment)) {
+            return;
+        }
         switch (taskComponent.getTaskReference().getRecurringType()) {
         case YEARLY:
             addYearlyOccurrences(appointment);
@@ -156,11 +161,10 @@ public class MyAgenda extends Agenda {
 
     /** Computes and adds all occurrences of this daily task to agenda. */
     private void addDailyOccurrences(AppointmentImplLocal appointment) {
-        if (isOutsideAgenda(appointment))
-            return;
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
-        if (appointment.getEndLocalDateTime().truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime))
+        if (appointment.getEndLocalDateTime().truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime)) {
             dayOfWeek = 0;
+        }
         for (int i = dayOfWeek; i <= 6; i++) {
             LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
             LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), i, appointment);
@@ -170,8 +174,6 @@ public class MyAgenda extends Agenda {
 
     /** Computes and adds all occurrences of this weekly task to agenda. */
     private void addWeeklyOccurrences(AppointmentImplLocal appointment) {
-        if (isOutsideAgenda(appointment))
-            return;
         int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
         LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOfWeek, appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOfWeek, appointment);
@@ -180,11 +182,10 @@ public class MyAgenda extends Agenda {
 
     /** Computes and adds all occurrences of this monthly task to agenda. */
     private void addMonthlyOccurrences(AppointmentImplLocal appointment) {
-        if (isOutsideAgenda(appointment))
-            return;
         int dayOffset = appointment.getStartLocalDateTime().getDayOfMonth() - agendaStartTime.getDayOfMonth();
-        if (dayOffset < 0)
+        if (dayOffset < 0) {
             dayOffset = 6 - (agendaEndTime.getDayOfMonth() - appointment.getStartLocalDateTime().getDayOfMonth());
+        }
         LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset,
                 appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS), dayOffset, appointment);
@@ -193,11 +194,10 @@ public class MyAgenda extends Agenda {
 
     /** Computes and adds all occurrences of this yearly task to agenda. */
     private void addYearlyOccurrences(AppointmentImplLocal appointment) {
-        if (isOutsideAgenda(appointment))
-            return;
         if (appointment.getStartLocalDateTime().getDayOfYear() > agendaStartTime.getDayOfYear() + 6
-                || appointment.getStartLocalDateTime().getDayOfYear() < agendaStartTime.getDayOfYear())
+                || appointment.getStartLocalDateTime().getDayOfYear() < agendaStartTime.getDayOfYear()) {
             return;
+        }
         int dayOffset = appointment.getStartLocalDateTime().getDayOfYear() - agendaStartTime.getDayOfYear();
         LocalDateTime start = getAppointmentStartTime(agendaStartTime, dayOffset, appointment);
         LocalDateTime end = getAppointmentEndTime(agendaStartTime, dayOffset, appointment);
