@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.menion.background.BackgroundDateCheck;
 import seedu.menion.commons.core.Config;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.core.LogsCenter;
@@ -72,7 +73,7 @@ public class MainApp extends Application {
         	    		
         	        @Override
         	        public void run() {
-        	            System.out.println("ping");
+        	        	BackgroundDateCheck.checkActivities(model);
         	        }
         	        
         	    }, 0, 5000);
