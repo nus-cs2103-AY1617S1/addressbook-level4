@@ -6,6 +6,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.core.SortedObservableArrayList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -73,6 +74,31 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    
+    //@@author A0135812L
+    /**
+     * Edits the equivalent task from the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     */
+    public Task edit(ReadOnlyTask toEdit, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        assert toEdit != null;
+        final boolean taskFound = internalList.contains(toEdit);
+        if (!taskFound) {
+            throw new TaskNotFoundException();
+        }else{
+            final int taskFoundAt = internalList.indexOf(toEdit);
+            Task original = internalList.get(taskFoundAt);
+            Task edited = original.setFields(changes);
+            internalList.set(taskFoundAt, edited);
+            return edited;
+        }
+    }
+    //@@author
 
     /**
      * Marks the equivalent task from the list.

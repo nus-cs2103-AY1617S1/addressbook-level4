@@ -7,7 +7,9 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -169,5 +171,11 @@ public class ToDo implements ReadOnlyToDo {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
+    }
+
+    public Task editTask(ReadOnlyTask task, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        Task editedTask = tasks.edit(task, changes);
+        syncTagsWithMasterList(editedTask);
+        return editedTask;
     }
 }

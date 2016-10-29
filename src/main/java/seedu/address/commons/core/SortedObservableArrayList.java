@@ -86,7 +86,6 @@ public class SortedObservableArrayList<E extends Comparable<? super E>> implemen
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        // TODO Auto-generated method stub
         return false;
     }
 

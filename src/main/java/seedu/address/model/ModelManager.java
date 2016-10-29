@@ -18,11 +18,13 @@ import seedu.address.commons.core.ComponentManager;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
-
+import java.lang.reflect.Field;
 /**
  * Represents the in-memory model of the SmartyDo data.
  * All changes to any model should be synchronized.
@@ -88,6 +90,13 @@ public class ModelManager extends ComponentManager implements Model {
         toDo.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
+        ReadOnlyTask editedTask = toDo.editTask(task, changes);
+        indicateAddressBookChanged();
+        return editedTask;
     }
 
     @Override
