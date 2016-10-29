@@ -74,7 +74,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "ToDoList.jar"
+        archiveName = "todolist.jar"
 
         manifest {
             attributes "Main-Class": "seedu.address.MainApp"

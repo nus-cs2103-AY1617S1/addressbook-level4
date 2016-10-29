@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String ToDoListFilePath = "data/ToDoList.xml";
+    private String ToDoListFilePath = "data/todolist.xml";
     private String ToDoListName = "MyToDoList";
 
 
