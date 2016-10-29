@@ -6,7 +6,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -148,21 +148,19 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
-     * @param index
+     * @param activityToComplete
      */
-    public void completeTask(int index) {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToComplete;
         dub.setCompleted();
-        tasks.getInternalList().set(index, dub);  
+        tasks.getInternalList().set(tasks.getIndexOf(activityToComplete), dub);  
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
-    public void completeFloatingTask(int index) {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void completeFloatingTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToComplete;
         dub.setCompleted();
-        floatingTasks.getInternalList().set(index, dub);  
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(activityToComplete), dub);
         Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     

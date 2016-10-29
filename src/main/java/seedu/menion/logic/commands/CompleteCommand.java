@@ -77,7 +77,7 @@ public class CompleteCommand extends Command {
             if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
                 model.completeFloatingTask(activityToComplete);
             } else {
-                model.completeTask(targetIndex);
+                model.completeTask(activityToComplete);
             }
         }catch (ActivityNotFoundException pnfe) {
             assert false : "The target activity cannot be missing";

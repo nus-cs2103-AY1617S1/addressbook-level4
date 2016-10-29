@@ -5,6 +5,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.Set;
 import java.util.Stack;
@@ -24,8 +25,8 @@ public interface Model {
     
     //@@author A0139164A
     /** Completes the given Activity, given it's index. */
-    void completeFloatingTask(int index);
-    void completeTask(int index);
+    void completeFloatingTask(ReadOnlyActivity activityToBeCompleted) throws ActivityNotFoundException;
+    void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException;
     
     /** Uncompletes the given Activity, given it's index. */
     void UncompleteFloatingTask(int index);
