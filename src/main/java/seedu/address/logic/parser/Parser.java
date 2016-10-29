@@ -394,7 +394,7 @@ public class Parser {
         }
 
         char cat = args.charAt(1);
-        Collection<String> indexes = Arrays.asList(args.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
+        ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(args.trim().replaceAll(" ", "").split(","))); 
               
         if(args.contains("-")){          
             String[] temp = args.replaceAll(" ", "").replaceAll(Character.toString(cat),"").split("-");
@@ -412,14 +412,14 @@ public class Parser {
                 newArgs = newArgs.concat(",".concat(Character.toString(cat)));        
                 newArgs = newArgs.concat(Integer.toString(i));
             }
-            indexes = Arrays.asList(newArgs.trim().replaceAll(" ", "").split(",")); //might need to change split regex to ; instead of ,
+            indexes = new ArrayList<String>(Arrays.asList(newArgs.trim().replaceAll(" ", "").split(","))); 
         }
 
         Iterator<String> itr = indexes.iterator();
-        ArrayList<String> pass = new ArrayList<String>();
-        pass.addAll(indexes);
-        Optional<Integer> index = parseIndex(Character.toString(itr.next().charAt(1)));
-        //System.out.println(index.isPresent() + args);
+        String tempIndex = itr.next();
+        String indexToDone = tempIndex.substring(1, tempIndex.length());
+        Optional<Integer> index = parseIndex(indexToDone); 
+        
         
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -427,16 +427,21 @@ public class Parser {
         }     
         
         while(itr.hasNext()){
-            index = parseIndex(Character.toString(itr.next().charAt(1)));
-            // System.out.println(index.isPresent() + args + indexes.size());
+            tempIndex = itr.next();
+            indexToDone = tempIndex.substring(1, tempIndex.length());
+            index = parseIndex(indexToDone);
+            
             if(!index.isPresent()){
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));             
             }           
         }
-       
-        System.out.println(pass);
-        return new DoneCommand(pass);
+        
+        try {
+            return new DeleteCommand(indexes);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
         
     }
 

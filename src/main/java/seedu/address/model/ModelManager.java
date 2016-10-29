@@ -243,13 +243,13 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0147890U
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
-        System.out.println("here");
+        //System.out.println("here");
         filteredEvents.setPredicate(task -> {
             if (!task.getIsCompleted()) {
-                System.out.println("please");
+                //System.out.println("please");
                 return true;
             }
-            System.out.println("no");
+            //System.out.println("no");
             return false;
         });
         filteredDeadlines.setPredicate(task -> {
