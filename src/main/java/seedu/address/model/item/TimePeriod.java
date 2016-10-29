@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Optional;
 
 //@@author A0139655U
+/**
+ * Represents a RecurrenceRate's time period.  
+ * Guarantees: is valid as declared in {@link #convertStringToTimePeriod(String)}
+ */
 public enum TimePeriod {
     HOUR,
     DAY,
@@ -50,13 +54,13 @@ public enum TimePeriod {
     }};
     
     /**
-     * Validates user input and converts it into TimePeriod.
+     * Converts user input into TimePeriod if valid.
      *
      * @param timePeriodString  user input of time period
      * @return  Optional.empty() if user input does not match any time period.
      * Else, returns the corresponding TimePeriod value.
      */
-    public static Optional<TimePeriod> validateTimePeriodInput(String timePeriodString) {
+    public static Optional<TimePeriod> convertStringToTimePeriod(String timePeriodString) {
         assert timePeriodString != null;
         
         Optional<TimePeriod> timePeriod = Optional.empty();

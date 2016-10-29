@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 //@@author A0139655U
 /**
  * Represents a Task's recurrence rate in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #RecurrenceRate(String, String)}
  */
 public class RecurrenceRate {
     
@@ -31,9 +31,9 @@ public class RecurrenceRate {
     public RecurrenceRate(String rate, String timePeriodString) throws IllegalValueException {
         assert rate != null && timePeriodString != null;
         
-        Optional<TimePeriod> timePeriod = TimePeriod.validateTimePeriodInput(timePeriodString.trim());
+        Optional<TimePeriod> timePeriod = TimePeriod.convertStringToTimePeriod(timePeriodString.trim());
         this.timePeriod = timePeriod.orElseThrow(() -> new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS));
-        this.rate = convertRateStringToInteger(rate);
+        this.rate = convertStringToRateInteger(rate);
     }
     
     public RecurrenceRate(String timePeriod) throws IllegalValueException {
@@ -48,7 +48,7 @@ public class RecurrenceRate {
      * @throws IllegalValueException if rate cannot be converted into an Integer
      * or rate is <= 0.
      */
-    private Integer convertRateStringToInteger(String rate) throws IllegalValueException {
+    private Integer convertStringToRateInteger(String rate) throws IllegalValueException {
         assert rate != null;
         int rateInteger;
         

@@ -8,6 +8,9 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 //@@author A0139655U
+/**
+ * Contains methods that works with Date objects in addition to what is given in Java Date API.
+ */
 public abstract class DateTime {
 
     private static final int NEGATIVE_ONE = -1;

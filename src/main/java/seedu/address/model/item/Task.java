@@ -7,9 +7,11 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 
+/**
+ * Represents a Task in the task manager.
+ * Guarantees: field values are validated.
+ */
 public class Task implements ReadOnlyTask, Comparable<Task> {
-
-    public static final String VARIABLE_CONNECTOR = ", Priority: ";
 
     protected Name taskName;
     private Date startDate;
