@@ -75,22 +75,26 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 
     /**
      * Adds a task to savvy tasker.
-     * @throws {@link DuplicateTaskException} if a duplicate is found
      * @throws {@link InvalidDateException} if the end date is earlier than the start date
      * @return Returns the task added if the operation succeeds, an exception is thrown otherwise.
      */
-    public Task addTask(Task t) throws DuplicateTaskException, InvalidDateException {
+    public Task addTask(Task t) throws InvalidDateException {
+        // guarantees unique ID
         t.setId(tasks.getNextId());
-        return tasks.add(t);
+        try {
+            return tasks.add(t);
+        } catch (DuplicateTaskException e) {
+            // should never get here.
+            return null;
+        }
     }
 
     /**
      * Adds a group of recurring tasks to savvy tasker.
-     * @throws {@link DuplicateTaskException} if a duplicate is found
      * @throws {@link InvalidDateException} if the end date is earlier than the start date
      * @return Returns the list of recurring tasks if the operation succeeds, an exception is thrown otherwise
      */
-    public LinkedList<Task> addRecurringTasks(Task recurringTask) throws DuplicateTaskException, InvalidDateException {
+    public LinkedList<Task> addRecurringTasks(Task recurringTask) throws InvalidDateException {
         LinkedList<Task> tasksToAdd = 
                 createRecurringTasks(recurringTask, recurringTask.getRecurringType(), 
                         recurringTask.getNumberOfRecurrence());
@@ -102,7 +106,12 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
             // if the start/end dates are invalid,
             // the first task to be added will fail immediately, 
             // subsequent tasks will not be added
-            tasks.add(itr.next()); 
+            try {
+                tasks.add(itr.next());
+            } catch (DuplicateTaskException e) {
+                // should never get here.
+                return null;
+            } 
         }
         return tasksToAdd;
     }
@@ -123,6 +132,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         
         for (int i = 0; i < numberOfRecurrences; ++i) {
             Task t = recurringTask.clone();
+            // guarantees uniqueness
             t.setId(tasks.getNextId());
             listOfTasks.add(setDatesForRecurringType(t, recurringType, i));
         }

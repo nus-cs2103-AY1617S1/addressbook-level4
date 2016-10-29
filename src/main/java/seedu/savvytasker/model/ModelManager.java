@@ -23,7 +23,6 @@ import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
@@ -110,7 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized Task addTask(Task t) throws DuplicateTaskException, InvalidDateException {
+    public synchronized Task addTask(Task t) throws InvalidDateException {
         Task taskAdded = savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
@@ -118,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized LinkedList<Task> addRecurringTask(Task recurringTask) throws DuplicateTaskException, InvalidDateException {
+    public synchronized LinkedList<Task> addRecurringTask(Task recurringTask) throws InvalidDateException {
         LinkedList<Task> recurringTasks = savvyTasker.addRecurringTasks(recurringTask);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
@@ -148,11 +147,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<Task> getFilteredTaskListTask() {
-        return new UnmodifiableObservableList<Task>(sortedAndFilteredTasks);
     }
 
     @Override
@@ -475,18 +469,7 @@ public class ModelManager extends ComponentManager implements Model {
             else if (task1 == null) return 1;
             else if (task2 == null) return -1;
             else {
-                // Priority Level can be nulls
-                // Check for existence of priorityLevel before comparing
-                if (task1.getPriority() == null &&
-                    task2.getPriority() == null) {
-                    return 0;
-                } else if (task1.getPriority() == null) {
-                    return 1;
-                } else if (task2.getPriority() == null) {
-                    return -1;
-                } else {
-                    return task2.getPriority().compareTo(task1.getPriority());
-                }
+                return task2.getPriority().compareTo(task1.getPriority());
             }
         }
         

@@ -46,8 +46,6 @@ public class ListCommand extends ModelRequiringCommand {
         case Archived:
             model.updateFilteredListToShowArchived();
             break;
-        default:
-            assert false; // should not reach here
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }

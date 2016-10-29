@@ -196,7 +196,6 @@ public class LogicManagerTest {
         // the following commands outputs a different expected message dealing with
         // invalid indices.
         expectedMessage = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.COMMAND_FORMAT) + ": " + IndexParser.INDEX_MUST_BE_POSITIVE;
-        //assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned [NOT SUPPORTED]
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);

@@ -2,7 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.testutil.TestTask;
 
@@ -21,6 +20,12 @@ public class ListCommandTest extends SavvyTaskerGuiTest {
         commandBox.runCommand("delete 1");
         assertListResult("list", td.nearerDue, td.notSoNearerDue, td.furthestDue,
                 td.highPriority, td.medPriority, td.lowPriority);
+    }
+    
+    @Test
+    public void list_nonEmptyList_byInvalidSwitch() {
+        commandBox.runCommand("list t/badswitch");
+        assertResultMessage("LIST_TYPE: Unknown type \'badswitch\'");
     }
     
     @Test

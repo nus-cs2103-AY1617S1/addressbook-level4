@@ -1,5 +1,6 @@
 package seedu.savvytasker.testutil;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import seedu.savvytasker.model.task.PriorityLevel;
@@ -151,8 +152,32 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public String getAddCommand() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HHmm");
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskName());
+        if (startDateTime != null) {
+            sb.append(" s/ ").append(sdf.format(startDateTime));
+        }
+        if (endDateTime != null) {
+            sb.append(" e/ ").append(sdf.format(endDateTime));
+        }
+        if (location != null && !location.isEmpty()) {
+            sb.append(" l/ ").append(location);
+        }
+        if (priority != null && priority != PriorityLevel.Medium) {
+            // p/ defaults to medium, if set to medium, take as non-existent
+            sb.append(" p/ ").append(priority.toString());
+        }
+        if (recurringType != null && recurringType != RecurrenceType.None) {
+            // r/ defaults to none, if set to none, take as non-existent
+            sb.append(" r/ ").append(recurringType.toString());
+        }
+        if (category != null && !category.isEmpty()) {
+            sb.append(" c/ ").append(category);
+        }
+        if (description != null && !description.isEmpty()) {
+            sb.append(" d/ ").append(description);
+        }
         return sb.toString();
     }
 }

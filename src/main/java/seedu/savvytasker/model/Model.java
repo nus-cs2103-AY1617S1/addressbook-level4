@@ -44,20 +44,17 @@ public interface Model {
      * @throws {@link InvalidDateException} if the end date is earlier than the start date
      * @return Returns a Task if the add operation is successful, an exception is thrown otherwise.
      * */
-    Task addTask(Task task) throws DuplicateTaskException, InvalidDateException;
+    Task addTask(Task task) throws InvalidDateException;
     
     /** Adds the given Task as a recurring task. The task's recurrence type must not be null.
      * @throws {@link DuplicateTaskException} if a duplicate is found
      * @throws {@link InvalidDateException} if the end date is earlier than the start date
      * @return Returns the list of Tasks added if the add operation is successful, an exception is thrown otherwise.
      * */
-    LinkedList<Task> addRecurringTask(Task task) throws DuplicateTaskException, InvalidDateException;
+    LinkedList<Task> addRecurringTask(Task task) throws InvalidDateException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-    
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
-    UnmodifiableObservableList<Task> getFilteredTaskListTask();
 
     /** Updates the filter of the filtered task list to show all active tasks sorted by due date */
     void updateFilteredListToShowActiveSortedByDueDate();

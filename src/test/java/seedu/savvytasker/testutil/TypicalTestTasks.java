@@ -7,7 +7,6 @@ import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
 //@@author A0139915W
@@ -23,11 +22,11 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             highPriority =  new TaskBuilder().withId(1).withTaskName("High Priority Task")
-                                .withPriority(PriorityLevel.High).build();
+                                .withPriority(PriorityLevel.High).withCategory("priority").build();
             medPriority =  new TaskBuilder().withId(2).withTaskName("Medium Priority Task")
-                                .withPriority(PriorityLevel.Medium).build();
+                                .withPriority(PriorityLevel.Medium).withCategory("priority").build();
             lowPriority =  new TaskBuilder().withId(3).withTaskName("Low Priority Task")
-                                .withPriority(PriorityLevel.Low).build();
+                                .withPriority(PriorityLevel.Low).withCategory("priority").build();
             furthestDue =  new TaskBuilder().withId(4).withTaskName("Furthest Due Task")
                                 .withEndDateTime(getDate("01/12/2016")).build();
             nearerDue =  new TaskBuilder().withId(5).withTaskName("Nearer Due Task")
@@ -59,8 +58,6 @@ public class TypicalTestTasks {
             st.addTask(new Task(td.notSoNearerDue));
             st.addTask(new Task(td.earliestDue));
             st.addTask(new Task(td.longDue));
-        } catch (DuplicateTaskException e) {
-            assert false : "not possible";
         } catch (InvalidDateException e) {
             assert false : "not possible";
         }
