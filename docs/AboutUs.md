@@ -22,10 +22,20 @@ In-Charge: UI
 
 #### [Liu Zhen Dong](http://github.com/dongxuandong) 
 <img src="images/zhendong.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Code Quality, Time Keeper <br>
-In-Charge: Storage
 
+* Components in charge of: [Storage](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
+* Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
+* Features implemented:
+   * [Undo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#undo-undo)
+   * [Redo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#redo-redo) 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138420N.md)][[test code]][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0138420N.md)] 
+* Other major contributions:
+  * Aided in the initial refactoring from AddressBook test cases to GGist test cases
+  * Developed and edited the user guide to make it user friendly
+  * Edited and proofread the developer guide
+  * Enhanced the functionality of delete command to delete multiple tasks[[#106](https://github.com/CS2103AUG2016-W13-C2/main/issues/106)]
+  * Enhanced the functionality of done command to mark multiple tasks as done[[#109](https://github.com/CS2103AUG2016-W13-C2/main/issues/109)]
+  * Improved the functionality of edit command to edit multiple fields
 -----
 
 #### [Li Wang Huan](http://github.com/liwanghuan)
