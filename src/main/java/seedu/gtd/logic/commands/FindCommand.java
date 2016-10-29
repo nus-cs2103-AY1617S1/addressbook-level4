@@ -23,18 +23,20 @@ public class FindCommand extends Command {
         this.keywordSet = keywordSet;
     }
     
-    public String getMessageForTaskListShownSummaryIfExactPhraseNotFound(int displaySize) {
+    public String getMessageForTaskListShownSummaryIfExactPhraseNotFound() {
     	String MESSAGE_IF_EXACT_PHRASE_NOT_FOUND = "The exact phrase '" + keywords + "' was not found. Listing all tasks containing the keywords entered instead.";
-    	return String.format(MESSAGE_IF_EXACT_PHRASE_NOT_FOUND, displaySize);
+    	return String.format(MESSAGE_IF_EXACT_PHRASE_NOT_FOUND);
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredTaskList(keywords, keywordSet);
+        
         if(model.getFilteredTaskList().isEmpty()) {
         	model.updateFilteredTaskList(keywordSet);
-        	return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
+        	if(!model.getFilteredTaskList().isEmpty()) return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound());
         }        
+        
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

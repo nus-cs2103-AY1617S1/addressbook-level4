@@ -90,12 +90,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(String keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskList(String keywords, Set<String> keywordSet){
+        updateFilteredTaskList(new PredicateExpression(new orderedNameQualifier(keywords, keywordSet)));
     }
     
+    @Override
     public void updateFilteredTaskList(Set<String> keywordSet) {
-    	updateFilteredTaskList(new PredicateExpression(new detailedNameQualifier(keywordSet)));
+    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -132,30 +133,11 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
-
-    private class NameQualifier implements Qualifier {
-        private String nameKeyWords;
-
-        NameQualifier(String keywords) {
-            this.nameKeyWords = keywords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-        	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
-            return taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
     
-    private class detailedNameQualifier implements Qualifier {
-        private Set<String> keywordSet;
+    private class NameQualifier implements Qualifier {
+        protected Set<String> keywordSet;
 
-        detailedNameQualifier(Set<String> keywordSet) {
+        NameQualifier(Set<String> keywordSet) {
             this.keywordSet = keywordSet;
         }
 
@@ -170,6 +152,28 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", keywordSet);
+        }
+    }
+    
+    private class orderedNameQualifier extends NameQualifier implements Qualifier {
+		private String nameKeyWords;
+
+        orderedNameQualifier(String keywords, Set<String> keywordSet) {
+        	super(keywordSet);
+            this.nameKeyWords = keywords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
+        	boolean orderMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	
+        	boolean eachWordMatch = keywordSet.stream()
+            .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            .findAny()
+            .isPresent();
+        	
+            return eachWordMatch && orderMatch;
         }
     }
 }
