@@ -3,6 +3,7 @@ package seedu.oneline.logic;
 import javafx.collections.ObservableList;
 import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.storage.Storage;
 import seedu.oneline.model.tag.Tag; 
 
 /**
@@ -20,5 +21,9 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Returns list of all tags */ 
-    ObservableList<Tag> getTagList(); 
+    ObservableList<Tag> getTagList();
+
+    //@@author A0121657H
+    /** Middle-man that communicates the current save location to Model */
+    void setTaskBookFilePath(Storage storage); 
 }

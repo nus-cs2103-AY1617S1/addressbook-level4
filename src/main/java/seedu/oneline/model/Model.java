@@ -72,5 +72,12 @@ public interface Model {
     /** Reverts to the state before the last undone*/
     void redo() throws StateNonExistentException;
 
+    //@@author A0121657H
+    /** Stores the current save location */
+    void setTaskBookFilePath(String filePath);
+    
+    /** Returns the current save location */
+    String getTaskBookFilePath();
+
 
 }

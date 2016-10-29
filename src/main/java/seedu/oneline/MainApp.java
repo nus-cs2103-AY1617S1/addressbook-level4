@@ -207,6 +207,7 @@ public class MainApp extends Application {
             // Save the current status of taskBook into the new location
             // This is if we close the app without adding new tasks
             storage.saveTaskBook(tasks);
+            logic.setTaskBookFilePath(storage);
         
         } catch (IOException iox) {
             EventsCenter.getInstance().post(new DataSavingExceptionEvent(iox));

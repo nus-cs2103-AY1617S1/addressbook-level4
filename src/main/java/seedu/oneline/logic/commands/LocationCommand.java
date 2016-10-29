@@ -27,8 +27,8 @@ public class LocationCommand extends Command {
             + "Parameters: FOLDERPATH\n"
             + "Example: " + COMMAND_WORD + " C:/Users/Bob/Desktop/";
 
-    public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s.";
-    public static final String MESSAGE_LOCATION = "Storage location is currently at";
+    public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s\\taskbook.xml";
+    public static final String MESSAGE_LOCATION = "Storage location is currently at ";
     public static final String MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID = "Cannot set storage location to \"%1$s\", path is invalid!";
     public static final String MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY = "Cannot set storage location to \"%1$s\", this is not a directory!";
     public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!"; 
@@ -48,8 +48,8 @@ public class LocationCommand extends Command {
     @Override
     public CommandResult execute() {
         if (storageLocation == null || storageLocation.isEmpty()) {
-            String currentPath = storage.getTaskBookFilePath();
-            return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS + currentPath + "."));            
+            String currentPath = model.getTaskBookFilePath();
+            return new CommandResult(MESSAGE_LOCATION + currentPath + ".");            
         }
 
         Optional<Path> path = getValidPath(storageLocation);

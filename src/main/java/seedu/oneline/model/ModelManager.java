@@ -13,8 +13,11 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.oneline.model.tag.Tag; 
+import seedu.oneline.storage.Storage;
+import seedu.oneline.model.tag.Tag;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -36,6 +39,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
+    
+    //@@author A0121657H
+    private Path currentRelativePath = Paths.get("");
+    private String taskBookFilePath = currentRelativePath.toAbsolutePath().toString() + "\\data\\taskbook.xml";
 
     //@@author A0140156R
     private final Stack<ModelState> prevState = new Stack<ModelState>();
@@ -121,6 +128,17 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
+    }
+    
+    @Override
+    public void setTaskBookFilePath(String filePath) {
+        this.taskBookFilePath = filePath;
+    }
+
+    
+    @Override
+    public String getTaskBookFilePath() {
+        return taskBookFilePath;
     }
     //@@author 
 
