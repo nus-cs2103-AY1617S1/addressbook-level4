@@ -346,9 +346,24 @@ public class Parser {
 
         if(TYPES_OF_TASKS.contains(keywords[0])) {
             typeOfTask = keywords[0];
+            keywords = removeFirstFromArray(keywords);
         }
+        if (keywords.length < 1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+        
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(typeOfTask, keywordSet);
+    }
+
+    //@@author a0126633j
+    private String[] removeFirstFromArray(String[] arg) {
+        String[] result = new String[arg.length - 1];
+        for(int i = 1; i < arg.length; i++) {
+            result[i - 1] = arg[i];
+        }
+        return result;
     }
 
     /**
