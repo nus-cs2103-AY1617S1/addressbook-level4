@@ -17,10 +17,6 @@ public class Config {
     private String tarsFilePath = "data/tars.xml";
     private String tarsName = "MyTars";
 
-
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }

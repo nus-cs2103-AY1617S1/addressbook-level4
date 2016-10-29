@@ -99,10 +99,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane helpTabAnchorPane;
 
-    public MainWindow() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;

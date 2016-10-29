@@ -32,10 +32,6 @@ public class TaskListPanel extends UiPart {
     @FXML
     private VBox panel;
 
-    public TaskListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
