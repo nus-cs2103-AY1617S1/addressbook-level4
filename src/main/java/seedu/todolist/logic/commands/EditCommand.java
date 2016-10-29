@@ -66,7 +66,7 @@ public class EditCommand extends Command {
             lastShownList = model.getFilteredIncompleteTaskList();
         }
         
-		if (lastShownList.size() < targetIndex) {
+		if (targetIndex < 1 || lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
@@ -106,7 +106,7 @@ public class EditCommand extends Command {
 					new Status(originalStatus.toString())
 					);
 		} catch (IllegalValueException ive) {
-			return new CommandResult(String.format(ive.getMessage()));
+			return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_USAGE);
 		}
 
 		try {

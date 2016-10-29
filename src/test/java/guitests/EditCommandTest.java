@@ -3,6 +3,7 @@ package guitests;
 import static org.junit.Assert.*;
 import static seedu.todolist.logic.commands.EditCommand.MESSAGE_SUCCESS;
 import static seedu.todolist.logic.commands.EditCommand.MESSAGE_USAGE;
+import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import org.junit.Test;
 
@@ -38,20 +39,22 @@ public class EditCommandTest extends ToDoListGuiTest {
 	private void assertEditSuccess(int targetIndex, String partialCommand, TestTaskList currentList, boolean isFromIncompleteList) {
 
 		int listLength = isFromIncompleteList ? currentList.getIncompleteList().length : currentList.getCompleteList().length;
-		assertTrue(targetIndex > 0 && targetIndex <= listLength);
+		if(targetIndex < 1 || targetIndex > listLength) assertResultMessage(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		else {
 
-		TestTask newTask = isFromIncompleteList ? currentList.getIncompleteList()[targetIndex-1] : currentList.getCompleteList()[targetIndex-1];
-		try {
-			newTask.setName(new Name(partialCommand));
-		} catch (IllegalValueException ive) {
-			System.out.println(MESSAGE_USAGE);
+			TestTask newTask = isFromIncompleteList ? currentList.getIncompleteList()[targetIndex-1] : currentList.getCompleteList()[targetIndex-1];
+			try {
+				newTask.setName(new Name(partialCommand));
+			} catch (IllegalValueException ive) {
+				System.out.println(MESSAGE_USAGE);
+			}
+
+			commandBox.runCommand(getCommand(targetIndex, partialCommand));
+
+			assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
+			assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
+			assertResultMessage(String.format(MESSAGE_SUCCESS, newTask));
 		}
-
-		commandBox.runCommand(getCommand(targetIndex, partialCommand));
-
-		assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
-		assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
-		assertResultMessage(String.format(MESSAGE_SUCCESS, newTask));
 	}
 
 	/**
