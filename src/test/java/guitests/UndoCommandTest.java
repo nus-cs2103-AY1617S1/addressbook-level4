@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.cmdo.testutil.TestTask;
 
-//@@author A0141128R
+//@@author A0141128R tested and passed
 public class UndoCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -64,7 +64,6 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("clear");
         assertUndoSuccess(expectedList, currentList);
         
-        //failed all edit tests
         //undo the edit the time of the first task in the list  
         commandBox.runCommand("edit " + "2 " + "'Eat Buffet'");
         assertUndoSuccess(expectedList, currentList);
