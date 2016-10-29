@@ -1,11 +1,20 @@
 package seedu.menion.background;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Properties;
+import java.util.Scanner;
+
+import javax.crypto.SealedObject;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import seedu.menion.logic.commands.RemindCommand;
+
 //@@author A0139164A -reused
+
 public class SendEmail {
+
     final String senderEmailID = "menioncena@gmail.com";
     final String senderPassword = "johncena2103";
     final String emailSMTPserver = "smtp.gmail.com";
@@ -14,8 +23,21 @@ public class SendEmail {
     String receiverEmailID = null;
     String emailSubject = null;
     String emailBody = null;
+    boolean remindOn = false;
 
-    public void Send(String receiverEmailID, String emailSubject, String emailBody) {
+    // public void send(ReadOnlyActivity dub) {
+
+    public void send(String receiverEmailID, String emailSubject, String emailBody) {
+
+        // Retrieve the email of the user from the txt file.
+        try {
+            Scanner fromFile = new Scanner(new File(RemindCommand.MESSAGE_FILE));
+            String userEmail = fromFile.nextLine();
+            fromFile.close(); // close input file stream
+        } catch (FileNotFoundException fnfe) {
+            return; // If no file found. Return.
+        }
+        
         this.receiverEmailID = receiverEmailID;
         this.emailSubject = emailSubject;
         this.emailBody = emailBody;
