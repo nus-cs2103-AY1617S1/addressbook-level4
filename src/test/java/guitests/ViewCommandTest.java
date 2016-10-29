@@ -57,10 +57,10 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	// no tasks are done
     	assertViewDoneOrDateResult("view done", new TestTask[0], new TestTask[0], new TestTask[0]); 
 
-        // mark one task as done and then view done
+        // mark two events as done and then view done to confirm done list is in opposite date-sorted order (i.e. latest first)
         commandBox.runCommand("view all");
-    	commandBox.runCommand("done e1");
-    	TestTask[] expectedEventsAfterDoneCommand = {td.shop};
+    	commandBox.runCommand("done e1 e2");
+    	TestTask[] expectedEventsAfterDoneCommand = {td.dinner, td.shop};
     	assertViewDoneWithAcceleratorResult(new TestTask[0], new TestTask[0], expectedEventsAfterDoneCommand);
     }
     

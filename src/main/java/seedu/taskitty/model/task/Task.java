@@ -41,7 +41,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private TaskPeriod period;
     private boolean isDone;
     private boolean isOverdue;
-    private boolean isOver;
 
     private UniqueTagList tags;
 
@@ -66,7 +65,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this(source.getName(), source.getPeriod(), source.getTags());
         this.isDone = source.getIsDone();
         this.isOverdue = source.isOverdue();
-        this.isOver = source.isOver();
     }
 
     @Override
@@ -98,7 +96,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     //@@author A0130853L
     /** 
-     * Marks task as done.
+     * Marks task as done or event as over.
      */
     public void markAsDone() {
     	if (!isDone) {
@@ -116,14 +114,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     	}
     }
     
-    /**
-     *  Marks an event as past.
-     */
-    public void markAsIsOver() {
-    	if (!isOver) {
-    		this.isOver = true;
-    	}
-    }
     
     //@@author
     @Override
@@ -175,12 +165,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return isOverdue;
 	}
 	
-
-	// only for events
-	@Override
-	public boolean isOver() {
-		return isOver;
-	}
 	
 	//@@author A0139052L
 
@@ -191,15 +175,24 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	        return 1;
 	    } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
 	        return -1;
-	    } else {        
-	        int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
-	        //If no difference is found in period, compare using name
-	        if (periodCompare == 0) {
-	            return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
-	        } else {
-	            return periodCompare;
-	        }
-	    }
+	    } else if (!this.getIsDone() &&!taskToCompare.getIsDone()) {
+       	 int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
+            //If no difference is found in period, compare using name
+            if (periodCompare == 0) {
+                return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
+            } else {
+                return periodCompare;
+            }
+       
+       } else {
+       	int periodCompare = taskToCompare.getPeriod().compareTo(this.period);
+           //If no difference is found in period, compare using name
+           if (periodCompare == 0) {
+               return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
+           } else {
+               return periodCompare;
+           }
+       }
         
     }
 	

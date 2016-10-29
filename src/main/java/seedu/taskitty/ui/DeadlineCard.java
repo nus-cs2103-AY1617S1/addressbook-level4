@@ -89,12 +89,10 @@ public class DeadlineCard extends UiPart
             
         } else {
             
+        	// only deadline tasks have isOverdue attribute
             boolean isOverdue = task.isOverdue();
-            boolean isOver = task.isOver();
             if (isOverdue) {
                 cardPane.setStyle("-fx-background-color: red");
-            } else if (isOver) {
-                cardPane.setStyle("-fx-background-color: orange");
             }
         }
         
