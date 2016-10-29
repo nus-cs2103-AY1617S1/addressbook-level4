@@ -33,7 +33,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2 ");
         
         //duplicate index provided
-        commandBox.runCommand("delete e1 e1");
+        commandBox.runCommand("done e1 e1");
         assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
         
         //duplicate mark as done

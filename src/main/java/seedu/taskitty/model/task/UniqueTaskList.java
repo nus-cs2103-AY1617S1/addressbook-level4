@@ -171,11 +171,14 @@ public class UniqueTaskList implements Iterable<Task> {
     	}
     }
     
+    /**
+     * When an event is over, automatically mark it as done.
+     */
     private void checkAndSetIsOverToday() {
     	LocalDateTime currentTime = TimeUtil.createCurrentTime();
     	for (Task t: internalList) {
     		if (t.isEvent() && isOverdue(t, currentTime)) {
-    			t.markAsIsOver();
+    			t.markAsDone();
     		}
     	}
     }

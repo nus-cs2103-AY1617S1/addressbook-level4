@@ -96,11 +96,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 	}
 	
 	//@@author A0130853L
-	@Override
-	public boolean isOver() {
-		return isOver;
-	}
-	
 	public void markAsDone() {
 		isDone = true;
 	}
@@ -118,8 +113,17 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             return 1;
         } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
             return -1;
-        } else {        
-            int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
+        } else if (!this.getIsDone() &&!taskToCompare.getIsDone()) {
+        	 int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
+             //If no difference is found in period, compare using name
+             if (periodCompare == 0) {
+                 return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
+             } else {
+                 return periodCompare;
+             }
+        
+        } else {
+        	int periodCompare = taskToCompare.getPeriod().compareTo(this.period);
             //If no difference is found in period, compare using name
             if (periodCompare == 0) {
                 return this.getName().fullName.compareTo(taskToCompare.getName().fullName);

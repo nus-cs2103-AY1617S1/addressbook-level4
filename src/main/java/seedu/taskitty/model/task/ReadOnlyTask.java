@@ -17,7 +17,6 @@ public interface ReadOnlyTask {
     boolean isDeadline();
     boolean isEvent();
     boolean isOverdue();
-	boolean isOver();
 	
 	//@@author A0139930B
     /**
