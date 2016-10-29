@@ -7,6 +7,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -47,6 +48,9 @@ public interface Model {
 	
 	/** Updates the filter of the filtered task list to filter by the given keywords of the given type */
 	void updateFilteredTaskList(String keyword, String type);
+	
+	/** Updates the filter of the filtered task list to filter by multiple qualifications */
+    void updateFilteredTaskList(Map<String, String> qualifications, Set<String> tags);
 	
 	/** Updates the filter of the filtered task list to filter by the the given keywords (for find command) */
     void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups);
