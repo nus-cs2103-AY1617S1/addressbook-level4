@@ -1,6 +1,7 @@
 <!-- @@author A0139920A -->
 [![Build Status](https://travis-ci.org/CS2103AUG2016-T14-C1/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-T14-C1/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T14-C1/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T14-C1/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b11d80ca7ecb4b82862cb5924230322b)](https://www.codacy.com/app/hazzymeii/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-T14-C1/main&amp;utm_campaign=Badge_Grade)
 
 # Tdoo
 
