@@ -512,7 +512,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("pending 1 4 5");
+		p.parseCommand("find bob, oh my darling, clementine");
 	}
 	
 }
