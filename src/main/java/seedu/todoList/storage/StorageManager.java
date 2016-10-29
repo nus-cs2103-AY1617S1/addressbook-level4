@@ -28,6 +28,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private TaskListStorage eventListStorage;
     private TaskListStorage deadlineListStorage;
     private UserPrefsStorage userPrefsStorage;
+    
+    private boolean subscribed = true;
 
 
     public StorageManager(TaskListStorage todoListStorage, TaskListStorage eventListStorage,
@@ -66,6 +68,12 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void changeStorage(String path) throws IllegalValueException {
     	raise(new StorageLocationChangedEvent(path));
+    }
+    
+    //@@author A0144061U
+    @Override
+    public void unsubscribe() {
+    	this.subscribed = false;
     }
 
 
@@ -114,12 +122,14 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleTodoListChangedEvent(TodoListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveTodoList(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+    	if(subscribed) {
+	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+	        try {
+	            saveTodoList(event.data);
+	        } catch (IOException e) {
+	            raise(new DataSavingExceptionEvent(e));
+	        }
+    	}
     }
     
  // ================ EventList methods ==============================
@@ -167,12 +177,14 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleEventListChangedEvent(EventListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveEventList(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+    	if(subscribed) {
+	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+	        try {
+	            saveEventList(event.data);
+	        } catch (IOException e) {
+	            raise(new DataSavingExceptionEvent(e));
+	        }
+    	}
     }
     
  // ================ DeadlineList methods ==============================
@@ -220,11 +232,13 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleDeadlineListChangedEvent(DeadlineListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-        try {
-            saveDeadlineList(event.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e));
-        }
+    	if(subscribed) {
+	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+	        try {
+	            saveDeadlineList(event.data);
+	        } catch (IOException e) {
+	            raise(new DataSavingExceptionEvent(e));
+	        }
+    	}
     }
 }

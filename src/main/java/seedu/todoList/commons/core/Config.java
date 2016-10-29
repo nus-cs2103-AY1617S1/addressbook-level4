@@ -15,6 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     
+    private String storagePath = "data";
     private String todoListFilePath = "data/TodoList.xml";
     private String todoListName = "MyTodoList";
     private String eventListFilePath = "data/EventList.xml";
@@ -28,6 +29,7 @@ public class Config {
     
     public Config(String newDirectory) {
     	newDirectory = newDirectory.trim();
+    	this.storagePath = newDirectory;
     	this.todoListFilePath = newDirectory + "/" + "TodoList.xml";
     	this.eventListFilePath = newDirectory + "/" + "EventList.xml";
     	this.deadlineListFilePath = newDirectory + "/" + "DeadlineList.xml";
@@ -55,6 +57,14 @@ public class Config {
 
     public void setUserPrefsFilePath(String userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
+    }
+    
+    public String getStorageFolderPath() {
+    	return this.storagePath;
+    }
+    
+    public void setStorageFolderPath(String newPath) {
+    	this.storagePath = newPath;
     }
 
     

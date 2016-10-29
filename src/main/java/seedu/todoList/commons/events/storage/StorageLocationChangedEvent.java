@@ -11,7 +11,7 @@ public class StorageLocationChangedEvent extends BaseEvent {
     public String newDirectory;
 
     public StorageLocationChangedEvent(String directory) {
-        this.newDirectory = directory;
+        this.newDirectory = directory.trim();
     }
     
     public String getNewDirectory() {

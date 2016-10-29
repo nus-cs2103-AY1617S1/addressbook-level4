@@ -1,6 +1,8 @@
 package seedu.todoList;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.common.io.Files;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -23,10 +25,12 @@ import seedu.todoList.storage.StorageManager;
 import seedu.todoList.ui.Ui;
 import seedu.todoList.ui.UiManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.nio.file.StandardCopyOption.*;
 
 /**
  * The main entry point to the application.
@@ -42,6 +46,8 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    
+    private Stage primaryStage;
 
     public MainApp() {}
 
@@ -186,6 +192,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting TodoList " + MainApp.VERSION);
+        setPrimaryStage(primaryStage);
         ui.start(primaryStage);
     }
 
@@ -200,6 +207,10 @@ public class MainApp extends Application {
         }
         Platform.exit();
         System.exit(0);
+    }
+    
+    private void setPrimaryStage(Stage primaryStage) {
+    	this.primaryStage = primaryStage;
     }
 
     @Subscribe
@@ -216,16 +227,40 @@ public class MainApp extends Application {
     private void handleStorageLocationChangedEvent (StorageLocationChangedEvent event) throws Exception {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
     	
-    	// ui.stop();
+    	File from;
+    	File to;
     	
-    	logger.info("=============================[ Reinitializing TodoList ]===========================");
-        super.init();
-        
+    	from = new File(config.getTodoListFilePath());
+    	to = new File(event.getNewDirectory() + "/TodoList.xml");
+    	from.renameTo(to);
+    	
+    	from = new File(config.getEventListFilePath());
+    	to = new File(event.getNewDirectory() + "/EventList.xml");
+    	from.renameTo(to);
+    	
+    	from = new File(config.getDeadlineListFilePath());
+    	to = new File(event.getNewDirectory() + "/DeadlineList.xml");
+    	from.renameTo(to);
+    	
         String newDirectory = event.getNewDirectory();
         Config changedConfig = new Config(newDirectory);
         ConfigUtil.saveConfig(changedConfig, Config.DEFAULT_CONFIG_FILE);
+        
+        //this.primaryStage.close();
+        
+        config = initConfig(getApplicationParameter("config"));
+        storage.unsubscribe();
+        storage = new StorageManager(config);
 
-        this.stop();
+        userPrefs = initPrefs(config);
+
+        initLogging(config);
+
+        model = initModelManager(storage, userPrefs);
+
+        logic = new LogicManager(model, storage);
+        
+        ui = new UiManager(logic, config, userPrefs);
     }
 
     public static void main(String[] args) {

@@ -23,6 +23,8 @@ public interface Storage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
     
     void changeStorage(String path) throws IllegalValueException;
+    
+    void unsubscribe();
 
     
     // ================ TodoList methods ==============================

@@ -10,6 +10,7 @@ import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.events.model.DeadlineListChangedEvent;
 import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
+import seedu.todoList.commons.events.storage.StorageLocationChangedEvent;
 import seedu.todoList.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -58,7 +59,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+        this.saveLocationStatus.setText("Storage Location: " + location);
     }
 
     private void addSaveLocation() {
@@ -111,5 +112,14 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    //@@author A0144061U
+    @Subscribe
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent slce) {
+        String lastUpdated = (new Date()).toString();
+        logger.info(LogsCenter.getEventHandlingLogMessage(slce, "Setting last updated status to " + lastUpdated));
+        setSyncStatus("Last Updated: " + lastUpdated);
+        setSaveLocation(slce.getNewDirectory());
     }
 }
