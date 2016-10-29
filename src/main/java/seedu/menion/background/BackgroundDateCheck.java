@@ -43,8 +43,9 @@ public class BackgroundDateCheck {
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
 			if (isActivityOver(currentTime, taskToCheck)){
-				SendEmailStub.send(taskToCheck);
-			};	
+				SendEmail sender = new SendEmail();
+				sender.send(taskToCheck);
+			}
 		}
 	}
 	
@@ -62,7 +63,7 @@ public class BackgroundDateCheck {
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
 			if (isActivityOver(currentTime, eventToCheck)){
-				SendEmailStub.send(eventToCheck);
+			    
 			}
 			
 		}

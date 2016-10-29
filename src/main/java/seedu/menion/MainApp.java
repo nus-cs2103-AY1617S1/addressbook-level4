@@ -76,7 +76,7 @@ public class MainApp extends Application {
         	        	BackgroundDateCheck.checkActivities(model);
         	        }
         	        
-        	    }, 0, 5000);
+        	    }, 0, 20000);
     }
 
     private String getApplicationParameter(String parameterName){
