@@ -436,16 +436,12 @@ public class Parser {
             
             if(!index.isPresent()){
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));             
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));             
             }           
         }
-        
-        try {
-            return new DeleteCommand(indexes);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-        
+
+        return new DoneCommand(indexes);
+
     }
 
     /**
