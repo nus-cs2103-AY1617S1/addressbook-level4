@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,12 +23,29 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField maxWidth="90.0" minWidth="90.0" prefHeight="0.0" prefWidth="150.0" text="Done" GridPane.rowIndex="1" />
-            <TextField maxWidth="90.0" minWidth="90.0" text="Undone" GridPane.rowIndex="2" />
-            <TextField maxWidth="90.0" minWidth="90.0" prefHeight="23.0" prefWidth="95.0" text="Today" />
+            <MenuBar>
+               <menus>
+                  <Menu mnemonicParsing="false" text="Today" />
+               </menus>
+            </MenuBar>
             <Label fx:id="today" text="#Today" GridPane.columnIndex="1" />
             <Label fx:id="done" text="#Done" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="undone" text="#Undone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <MenuBar prefHeight="25.0" prefWidth="74.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Today" />
+              </menus>
+            </MenuBar>
+            <MenuBar GridPane.rowIndex="1">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Done" />
+               </menus>
+            </MenuBar>
+            <MenuBar GridPane.rowIndex="2">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Undone" />
+               </menus>
+            </MenuBar>
          </children>
       </GridPane>
    </children>

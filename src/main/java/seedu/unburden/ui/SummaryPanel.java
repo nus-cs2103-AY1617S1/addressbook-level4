@@ -24,7 +24,7 @@ import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * The Summary panel
- * which will show different types of tasks
+ * which will show the number of different types of tasks
  * @@author A0147986H
  */
 public class SummaryPanel extends UiPart{
