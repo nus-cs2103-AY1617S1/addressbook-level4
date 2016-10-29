@@ -102,19 +102,9 @@ public class UndoCommand extends Command {
 
     private String executeEdit(InputEditHistory previous) {
         try {
-            if (previous.getType().equals("floating task")) {
-                model.editFloatingTask(previous.getEditedTask(), previous.getTaskToEdit());
+                model.editTask(previous.getEditedTask(), previous.getTaskToEdit());
                 return ("Undo edit successful. Revert edit from " + previous.getTaskToEdit().toString() + " to "
                         + previous.getEditedTask().toString());
-            } else if (previous.getType().equals("deadline")) {
-                model.editDeadline(previous.getEditedDeadline(), previous.getDeadlineToEdit());
-                return ("Undo edit successful. Revert edit from " + previous.getDeadlineToEdit().toString() + " to "
-                        + previous.getEditedDeadline().toString());
-            } else {
-                model.editEvent(previous.getEditedEvent(), previous.getEventToEdit());
-                return ("Undo edit successful. Revert edit from " + previous.getEventToEdit().toString() + " to "
-                        + previous.getEditedEvent().toString());
-            }
         } catch (Exception e) {
             assert false : "Not possible";
         }
@@ -123,38 +113,24 @@ public class UndoCommand extends Command {
 
     public String executeAdd(InputDeleteHistory previous) {
         try {
-            if (previous.getType().equals("floating task")) {
-                model.addFloatingTaskAtSpecificPlace(previous.getFloatingTask(), previous.getPositionOfFloatingTask());
-                return "Successful. Undo delete Floating Task: " + previous.getFloatingTask().toString();
-            } else if (previous.getType().equals("deadline")) {
-                model.addTask(previous.getDeadline());
-                return "Successful. Undo delete Deadline: " + previous.getDeadline().toString();
+            if (previous.getPositionOfFloatingTask() != -1) {
+                model.addFloatingTaskAtSpecificPlace(previous.getTask(), previous.getPositionOfFloatingTask());
             } else {
-                model.addTask(previous.getEvent());
-                return "Successful. Undo delete Event: " + previous.getEvent().toString();
+                model.addTask(previous.getTask());
             }
         } catch (Exception e) {
             assert false : "Not possible";
         }
-        return "Undo Failed";
+        return "Undo successful. Undo delete " + previous.getTask().toString();
     }
 
-    public String executeDelete(InputAddHistory previous) {
+    public String executeDelete(InputAddHistory previous) {        
         try {
-            if (previous.getType().equals("floating task")) {
-                model.deleteTask(previous.getFloatingTask());
-                return "Successful: Undo add Floating Task: " + previous.getFloatingTask().toString();
-            } else if (previous.getType().equals("deadline")) {
-                model.deleteTask(previous.getDeadline());
-                return "Successful. Undo add Deadline: " + previous.getDeadline().toString();
-            } else {
-                model.deleteTask(previous.getEvent());
-                return "Successful. Undo add Event: " + previous.getEvent().toString();
-            }
-        } catch (Exception e) {
-            assert false : "Not possible";
+            model.deleteTask(previous.getTask());  
+        } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+            assert false : "Not Possible";
         }
-        return "Undo Failed";
+        return "Successful. Undo add: " + previous.getTask().toString();
     }
     
     /**

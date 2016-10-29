@@ -161,10 +161,10 @@ public class Malitio implements ReadOnlyMalitio {
         }
     }
 
-    public void addFloatingTask(FloatingTask p, int index)
+    public void addTask(Object p, int index)
             throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
         syncTagsWithMasterList(p);
-        tasks.add(p, index);
+        tasks.add((FloatingTask)p, index);
     }
 
     /**
@@ -191,11 +191,11 @@ public class Malitio implements ReadOnlyMalitio {
 
 
     private boolean isFloatingTask(Object p) {
-        return p instanceof FloatingTask;
+        return p instanceof FloatingTask || p instanceof ReadOnlyFloatingTask;
     }
 
     private boolean isDeadline(Object p) {
-        return p instanceof Deadline;
+        return p instanceof Deadline || p instanceof ReadOnlyDeadline;
     }
     
     /**
@@ -230,48 +230,68 @@ public class Malitio implements ReadOnlyMalitio {
         return taskTags;
     }
 
-    public boolean removeTask(ReadOnlyFloatingTask key) throws UniqueFloatingTaskList.FloatingTaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
+    public boolean removeTask(Object key) throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException {
+        if (isFloatingTask(key)) {
+            return removeFloatingTask(key);
+        } else if (isDeadline(key)) {
+            return removeDeadline(key);
         } else {
-            throw new UniqueFloatingTaskList.FloatingTaskNotFoundException();
+            return removeEvent(key);
         }
     }
 
-    public boolean removeDeadline(ReadOnlyDeadline key) throws UniqueDeadlineList.DeadlineNotFoundException {
-        if (deadlines.remove(key)) {
+    private boolean removeEvent(Object key) throws EventNotFoundException {
+        if (events.remove((ReadOnlyEvent)key)) {
             return true;
         } else {
-            throw new UniqueDeadlineList.DeadlineNotFoundException();
+            throw new EventNotFoundException();
         }
     }
 
-    public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
-        if (events.remove(key)) {
+    private boolean removeDeadline(Object key) throws DeadlineNotFoundException {
+        if (deadlines.remove((ReadOnlyDeadline)key)) {
             return true;
         } else {
-            throw new UniqueEventList.EventNotFoundException();
+            throw new DeadlineNotFoundException();
         }
     }
 
-    public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit)
-            throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
-        syncTagsWithMasterList(edited);
-        tasks.edit(edited, beforeEdit);
+    private boolean removeFloatingTask(Object key) throws FloatingTaskNotFoundException {
+        if (tasks.remove((ReadOnlyFloatingTask)key)) {
+            return true;
+        } else {
+            throw new FloatingTaskNotFoundException();
+        }
     }
 
-    public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit)
-            throws DuplicateDeadlineException, DeadlineNotFoundException {
+    public void editTask(Object edited, Object beforeEdit)
+            throws FloatingTaskNotFoundException, DuplicateFloatingTaskException, DuplicateDeadlineException,
+            DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
         syncTagsWithMasterList(edited);
-        deadlines.edit(edited, beforeEdit);
-        sortDeadline();
+        editTaskAccordingToTaskType(edited, beforeEdit);
     }
 
-    public void editEvent(Event edited, ReadOnlyEvent beforeEdit)
-            throws DuplicateEventException, EventNotFoundException {
-        syncTagsWithMasterList(edited);
-        events.edit(edited, beforeEdit);
-        sortEvent();
+    /**
+     * Checks for the task type of the edited and beforeEdit objects and assign the editing accordingly.
+     * @param edited the edited task
+     * @param beforeEdit the task to be edited
+     * @throws DuplicateFloatingTaskException
+     * @throws FloatingTaskNotFoundException
+     * @throws DuplicateDeadlineException
+     * @throws DeadlineNotFoundException
+     * @throws DuplicateEventException
+     * @throws EventNotFoundException
+     */
+    private void editTaskAccordingToTaskType(Object edited, Object beforeEdit)
+            throws DuplicateFloatingTaskException, FloatingTaskNotFoundException, DuplicateDeadlineException,
+            DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
+        if (edited instanceof FloatingTask && beforeEdit instanceof ReadOnlyFloatingTask) {
+            tasks.edit((FloatingTask) edited, (ReadOnlyFloatingTask) beforeEdit);
+        } else if (edited instanceof Deadline && beforeEdit instanceof ReadOnlyDeadline) {
+            deadlines.edit((Deadline) edited, (ReadOnlyDeadline) beforeEdit);
+        } else {
+            events.edit((Event) edited, (Event) beforeEdit);
+        }
     }
 
     public void completeTask(ReadOnlyFloatingTask taskToComplete)

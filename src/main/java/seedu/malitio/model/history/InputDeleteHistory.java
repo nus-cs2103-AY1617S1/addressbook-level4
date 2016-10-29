@@ -12,66 +12,48 @@ import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 //@@author A0129595N
 public class InputDeleteHistory extends InputHistory {
-    private String name;
-    private String due;
-    private String start;
-    private String end;
-    private UniqueTagList tags;
-    private String type;
-    private int initialPositionOfFloatingTask;
+    private Object task;
+    private int initialPositionOfFloatingTask = -1;
     
-    public InputDeleteHistory(ReadOnlyFloatingTask target, ObservableList<FloatingTask> observableList) {
+    public InputDeleteHistory(Object target, ObservableList<FloatingTask> observableList) {
         this.commandForUndo = "add";
-        this.name = target.getName().fullName;
-        this.tags = target.getTags();
-        this.type = "floating task";
+        String name = ((ReadOnlyFloatingTask)target).getName().fullName;
+        UniqueTagList tags = ((ReadOnlyFloatingTask)target).getTags();
         this.initialPositionOfFloatingTask = observableList.indexOf(target);
+        this.task = new FloatingTask(new Name(name), new UniqueTagList(tags));
     }
     
-    public InputDeleteHistory(ReadOnlyDeadline target) {
+    public InputDeleteHistory(Object target) {
+        String name, due, start, end;
+        UniqueTagList tags;
         this.commandForUndo = "add";
-        this.name = target.getName().fullName;
-        this.due = target.getDue().toString();
-        this.tags = target.getTags();
-        this.type = "deadline";
+        try {
+            if (isDeadline(target)) {
+                name = ((Deadline) target).getName().fullName;
+                due = ((Deadline) target).getDue().toString();
+                tags = ((Deadline) target).getTags();
+                this.task = new Deadline(new Name(name), new DateTime(due), new UniqueTagList(tags));
+            } else {
+                name = ((Event) target).getName().fullName;
+                start = ((Event) target).getStart().toString();
+                end = ((Event) target).getEnd().toString();
+                tags = ((Event) target).getTags();
+                this.task = new Event(new Name(name), new DateTime(start), new DateTime(end), new UniqueTagList(tags));
+            }
+        } catch (Exception e) {
+            assert false : "Not possible";
+        }
     }
     
-    public InputDeleteHistory(ReadOnlyEvent target) {
-        this.commandForUndo = "add";
-        this.name = target.getName().fullName;
-        this.start = target.getStart().toString();
-        this.end = target.getEnd().toString();
-        this.tags = target.getTags();
-        this.type = "event";        
+    private boolean isDeadline(Object target) {
+        return target instanceof ReadOnlyDeadline;
     }
-    
-    public String getType() {
-        return type;
-    }
-    
-    public FloatingTask getFloatingTask() {
-        return new FloatingTask(new Name(name), new UniqueTagList(tags));
+   
+    public Object getTask() {
+        return task;
     }
     
     public int getPositionOfFloatingTask() {
         return initialPositionOfFloatingTask;
-    }
-    
-    public Deadline getDeadline() {
-        try {
-            return new Deadline(new Name(name), new DateTime(due), new UniqueTagList(tags));
-        } catch (IllegalValueException e) {
-            assert false: "not possible";
-        }
-        return null;
-    }
-    
-    public Event getEvent() {
-        try {
-            return new Event(new Name(name), new DateTime(start), new DateTime(end), new UniqueTagList(tags));
-        } catch (IllegalValueException e) {
-            assert false: "not possible";
-        }
-        return null;
     }
 }

@@ -14,79 +14,69 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
 //@@author A0129595N
 public class InputEditHistory extends InputHistory {
 
-    private ReadOnlyFloatingTask taskToEdit;
-    private ReadOnlyDeadline deadlineToEdit;
-    private ReadOnlyEvent eventToEdit;
-    private FloatingTask editedTask;
-    private Deadline editedDeadline;
-    private Event editedEvent;
-    private String type;
+    private Object taskToEdit;
+
+    private Object editedTask;
     
-    public InputEditHistory(FloatingTask editedTask, ReadOnlyFloatingTask taskToEdit) {
-        this.type = "floating task";
+    public InputEditHistory(Object edited, Object beforeEdit) {
         this.commandForUndo = "edit";
-        this.taskToEdit = editedTask;
-        String name = taskToEdit.getName().fullName;
-        UniqueTagList tags = taskToEdit.getTags();
+        this.taskToEdit = edited;
+        if (isFloatingTask(edited)) {
+            createEditedFloatingTask(beforeEdit);
+        } else if (isDeadline(edited)) {
+            createEditedDeadline(beforeEdit);
+        } else {
+            createEditedEvent(beforeEdit);
+        }
+    }
+
+
+    private void createEditedEvent(Object beforeEdit) {
+        String name = ((Event)beforeEdit).getName().fullName;
+        String start = ((Event)beforeEdit).getStart().toString();
+        String end = ((Event)beforeEdit).getEnd().toString();
+        UniqueTagList tags = ((Event)beforeEdit).getTags();
+        try {
+            this.editedTask = new Event(new Name(name), new DateTime(start), new DateTime(end), tags);
+        } catch (IllegalValueException e) {
+            assert false: "not possible";
+        }
+    }
+
+
+    private void createEditedDeadline(Object beforeEdit) {
+        String name = ((ReadOnlyDeadline) beforeEdit).getName().fullName;
+        String due = ((ReadOnlyDeadline) beforeEdit).getDue().toString();
+        UniqueTagList tags = ((ReadOnlyDeadline) beforeEdit).getTags();
+        try {
+            this.editedTask = new Deadline(new Name(name), new DateTime(due), tags);
+        } catch (IllegalValueException e) {
+            assert false : "not possible";
+        }
+    }
+
+
+    private void createEditedFloatingTask(Object beforeEdit) {
+        String name = ((ReadOnlyFloatingTask) beforeEdit).getName().fullName;
+        UniqueTagList tags = ((ReadOnlyFloatingTask) beforeEdit).getTags();
         this.editedTask = new FloatingTask(new Name(name), tags);
     }
         
     
-    public InputEditHistory(Deadline editedDeadline, ReadOnlyDeadline deadlineToEdit) {
-        this.type = "deadline";
-        this.commandForUndo = "edit";
-        this.deadlineToEdit = editedDeadline;
-        String name = deadlineToEdit.getName().fullName;
-        String due = deadlineToEdit.getDue().toString();
-        UniqueTagList tags = deadlineToEdit.getTags();
-        try {
-            this.editedDeadline = new Deadline(new Name(name), new DateTime(due), tags);
-        } catch (IllegalValueException e) {
-            assert false: "not possible";
-        }
+    private boolean isDeadline(Object edited) {
+        return edited instanceof Deadline;
+    }
+
+
+    private boolean isFloatingTask(Object edited) {
+        return edited instanceof FloatingTask;
     }
     
-    public InputEditHistory(Event editedEvent, ReadOnlyEvent eventToEdit) {
-        this.type = "event";
-        this.commandForUndo = "edit";
-        this.eventToEdit = editedEvent;
-        String name = eventToEdit.getName().fullName;
-        String start = eventToEdit.getStart().toString();
-        String end = eventToEdit.getEnd().toString();
-        UniqueTagList tags = eventToEdit.getTags();
-        try {
-            this.editedEvent = new Event(new Name(name), new DateTime(start), new DateTime(end), tags);
-        } catch (IllegalValueException e) {
-            assert false: "not possible";
-        }
-    }
-    
-    public String getType() {
-        return type;
-    }
-    
-    public ReadOnlyFloatingTask getTaskToEdit() {
+    public Object getTaskToEdit() {
         return taskToEdit;
     }
     
-    public ReadOnlyDeadline getDeadlineToEdit() {
-        return deadlineToEdit;
-    }
-    
-    public ReadOnlyEvent getEventToEdit() {
-        return eventToEdit;
-    }
-    
-    public FloatingTask getEditedTask() {
+    public Object getEditedTask() {
         return editedTask;
-    }
-    
-    public Deadline getEditedDeadline() {
-        return editedDeadline;
-    }
-    
-    public Event getEditedEvent() {
-        return editedEvent;
-    }
-    
+    }    
 }

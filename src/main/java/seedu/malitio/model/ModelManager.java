@@ -108,26 +108,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
-        history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
+    public void deleteTask(Object target) throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException {
+        addCorrectInputDeleteHistory(target);
         malitio.removeTask(target);
         indicateMalitioChanged();        
     }
 
-    @Override
-    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
-        malitio.removeDeadline(target);
-        history.add(new InputDeleteHistory(target));
-        indicateMalitioChanged();        
+    private void addCorrectInputDeleteHistory(Object target) {
+        if (target instanceof ReadOnlyFloatingTask) {
+        history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
+        } else {
+            history.add(new InputDeleteHistory(target));
+        }
     }
-
-    @Override
-    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
-        malitio.removeEvent(target);
-        history.add(new InputDeleteHistory(target));
-        indicateMalitioChanged();        
-    }
-
 
     //@@author A0129595N
  
@@ -142,36 +135,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void addFloatingTaskAtSpecificPlace(FloatingTask task, int index) throws DuplicateFloatingTaskException {
-        malitio.addFloatingTask(task, index);
+    public void addFloatingTaskAtSpecificPlace(Object task, int index) throws DuplicateFloatingTaskException {
+        malitio.addTask(task, index);
         history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
     }
 
     @Override
-    public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
-        malitio.editFloatingTask(edited, beforeEdit);
+    public void editTask(Object edited, Object beforeEdit) throws FloatingTaskNotFoundException, DuplicateFloatingTaskException, DuplicateDeadlineException,
+    DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
+        malitio.editTask(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
     }
     
-    @Override
-    public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
-        malitio.editDeadline(edited, beforeEdit);
-        history.add(new InputEditHistory(edited, beforeEdit));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-    
-    @Override
-    public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
-        malitio.editEvent(edited, beforeEdit);
-        history.add(new InputEditHistory(edited, beforeEdit));
-        updateFilteredEventListToShowAll();
-        indicateMalitioChanged();
-    }
     //@@author A0122460W
 	@Override
 	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {

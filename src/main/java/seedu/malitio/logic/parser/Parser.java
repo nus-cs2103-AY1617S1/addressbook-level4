@@ -210,31 +210,16 @@ public class Parser {
             if (!end.isEmpty()) {
                 name = name.replaceAll(" end " + end, "");
             }
-            
-            if (taskType == 'd') {
                 return new EditCommand(
                         taskType,
                         taskNum,
                         name,
                         deadline,
-                        getTagsFromArgs(matcher.group("tagArguments"))
-                        );
-            } else if (taskType == 'e') {
-                return new EditCommand(
-                        taskType,
-                        taskNum,
-                        name,
                         start,
                         end,
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
-            }
-            return new EditCommand(
-                    taskType,
-                    taskNum,
-                    name,
-                    getTagsFromArgs(matcher.group("tagArguments"))
-                    );
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

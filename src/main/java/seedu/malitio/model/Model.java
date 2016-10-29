@@ -41,19 +41,13 @@ public interface Model {
     ReadOnlyMalitio getMalitio();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyFloatingTask target) throws UniqueFloatingTaskList.FloatingTaskNotFoundException;
-
-    /** Deletes the given deadline. */
-    void deleteTask(ReadOnlyDeadline target) throws UniqueDeadlineList.DeadlineNotFoundException;
+    void deleteTask(Object target) throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException;
     
-    /** Deletes the given event. */
-    void deleteTask(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
-    
-    /** Adds the given floating task */
+    /** Adds the given task */
     void addTask(Object task) throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException;
     
     /** Adds the given floating task at a specific index */
-    void addFloatingTaskAtSpecificPlace(FloatingTask task, int index) throws DuplicateFloatingTaskException;
+    void addFloatingTaskAtSpecificPlace(Object task, int index) throws DuplicateFloatingTaskException;
     
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
@@ -95,13 +89,9 @@ public interface Model {
     void updateFilteredEventList(DateTime keyword);
     
     /** Replaces the floating task with the intended edit.*/
-    void editFloatingTask(FloatingTask editedTask, ReadOnlyFloatingTask taskToEdit) throws FloatingTaskNotFoundException, DuplicateFloatingTaskException;
-    
-    /** Replaces the deadline with the intended edit.*/
-    void editDeadline(Deadline editedDeadline, ReadOnlyDeadline deadlineToEdit) throws DuplicateDeadlineException, DeadlineNotFoundException;
-
-    /** Replaces the event with the intended edit.*/
-    void editEvent(Event editedTask, ReadOnlyEvent eventToEdit) throws DuplicateEventException, EventNotFoundException;
+    void editTask(Object editedTask, Object taskToEdit)
+            throws FloatingTaskNotFoundException, DuplicateFloatingTaskException, DuplicateDeadlineException,
+            DeadlineNotFoundException, DuplicateEventException, EventNotFoundException;
     
     /** Complete the floating task.*/
 	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
