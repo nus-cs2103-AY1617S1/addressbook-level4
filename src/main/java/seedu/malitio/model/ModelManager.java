@@ -129,7 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
         malitio.addTask(task);
         history.add(new InputAddHistory(task));
-        updateFilteredTaskListToShowAll();
+        UpdateAllListToShowALl();
         indicateMalitioChanged();
         
     }
@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
     DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
         malitio.editTask(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
-        updateFilteredTaskListToShowAll();
+        UpdateAllListToShowALl();
         indicateMalitioChanged();
     }
     
@@ -165,8 +165,22 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
 	}
+	
+	@Override
+	public void markTask(Object taskToMark, boolean marked) throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException, DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException, EventNotFoundException, EventMarkedException, EventUnmarkedException {
+	    malitio.markTask(taskToMark, marked);
+	    history.add(new InputMarkHistory(taskToMark, marked));
+	    UpdateAllListToShowALl();
+	}
+	
+	private void UpdateAllListToShowALl() {
+        updateFilteredTaskListToShowAll();
+        updateFilteredDeadlineListToShowAll();
+        updateFilteredEventListToShowAll();
+        
+    }
 
-	//@@author A0153006W
+    //@@author A0153006W
 	@Override
 	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
 	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {

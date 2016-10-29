@@ -117,6 +117,7 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         internalList.add(indexToReplace, edited);
     }
     
+    //@@author
     public void complete(ReadOnlyFloatingTask toComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         assert toComplete != null;
         if (toComplete.getCompleted()) {

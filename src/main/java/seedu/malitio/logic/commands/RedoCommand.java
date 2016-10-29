@@ -67,20 +67,11 @@ public class RedoCommand extends Command {
     
     private String executeMark(InputMarkHistory previous) {
         try {
-            if (previous.getType().equals("floating task")) {
-                model.markFloatingTask(previous.getTaskToMark(), previous.getMarkWhat());
-                return "Redo mark Floating Task successful";
-            } else if (previous.getType().equals("deadline")) {
-                model.markDeadline(previous.getDeadlineToMark(), previous.getMarkWhat());
-                return "Redo mark Deadline successful";
-            } else {
-                model.markEvent(previous.getEventToMark(), previous.getMarkWhat());
-                return "Redo mark Event successful";
-            }
+            model.markTask(previous.getTaskToMark(), previous.getMarkWhat());
         } catch (Exception e) {
             assert false : "Not possible";
         }
-        return "Redo Failed";
+        return "Redo mark sucessful.";
     }
     
     private String executeClear(InputClearHistory previous) {
@@ -93,14 +84,11 @@ public class RedoCommand extends Command {
 
     private String executeEdit(InputEditHistory previous) {
         try {
-            
-                model.editTask(previous.getEditedTask(), previous.getTaskToEdit());
-                return redoEditSuccessfulMessage(previous.getTaskToEdit().toString(), previous.getEditedTask().toString());
-           
+            model.editTask(previous.getEditedTask(), previous.getTaskToEdit());
         } catch (Exception e) {
             assert false : "Not possible";
         }
-        return "Redo Failed";
+        return redoEditSuccessfulMessage(previous.getTaskToEdit().toString(), previous.getEditedTask().toString());
     }
 
     public String executeAdd(InputDeleteHistory previous) {

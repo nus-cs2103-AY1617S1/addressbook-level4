@@ -99,6 +99,11 @@ public interface Model {
 	 /** Complete the deadline.*/
 	void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException;
 	
+	/** Marks the task as a priority */
+    void markTask(Object taskToMark, boolean marked) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
+    FloatingTaskUnmarkedException, DeadlineNotFoundException, DeadlineMarkedException,
+    DeadlineUnmarkedException, EventNotFoundException, EventMarkedException, EventUnmarkedException; 
+	
 	/** Marks the floating task as a prority.*/
 	void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
 	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException;
@@ -112,5 +117,6 @@ public interface Model {
             throws EventNotFoundException, EventMarkedException, EventUnmarkedException;
     
     /** Indicate the directory of data file has changed. Save data into new directory*/
-    void dataFilePathChanged(); 
+    void dataFilePathChanged();
+
 }

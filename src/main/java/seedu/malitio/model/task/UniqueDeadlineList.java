@@ -98,6 +98,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.add(edited);
     }
     
+    //@@author
 	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
         assert deadlineToComplete!=null;
         

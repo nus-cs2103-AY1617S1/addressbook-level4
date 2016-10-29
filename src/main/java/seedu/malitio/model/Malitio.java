@@ -135,17 +135,20 @@ public class Malitio implements ReadOnlyMalitio {
      *
      * @throws UniqueFloatingTaskList.DuplicateFloatingTaskException
      *             if an equivalent task already exists.
-     * @throws DuplicateDeadlineException 
-     * @throws DuplicateEventException 
+     * @throws DuplicateDeadlineException
+     * @throws DuplicateEventException
      */
-    public void addTask(Object p) throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
+    public void addTask(Object p)
+            throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
         addToCorrectList(p);
         syncTagsWithMasterList(p);
     }
 
     /**
      * Checks for the type of the p and adds to the correct list in Malitio.
-     * @param p task which can be FloatingTask, Deadline or Event
+     * 
+     * @param p
+     *            task which can be FloatingTask, Deadline or Event
      * @throws DuplicateFloatingTaskException
      * @throws DuplicateDeadlineException
      * @throws DuplicateEventException
@@ -153,18 +156,17 @@ public class Malitio implements ReadOnlyMalitio {
     private void addToCorrectList(Object p)
             throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
         if (isFloatingTask(p)) {
-            tasks.add((FloatingTask)p);
+            tasks.add((FloatingTask) p);
         } else if (isDeadline(p)) {
-            deadlines.add((Deadline)p);
+            deadlines.add((Deadline) p);
         } else {
-            events.add((Event)p);
+            events.add((Event) p);
         }
     }
 
-    public void addTask(Object p, int index)
-            throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+    public void addTask(Object p, int index) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
         syncTagsWithMasterList(p);
-        tasks.add((FloatingTask)p, index);
+        tasks.add((FloatingTask) p, index);
     }
 
     /**
@@ -189,7 +191,6 @@ public class Malitio implements ReadOnlyMalitio {
         setTagsToTask(task, commonTagReferences);
     }
 
-
     private boolean isFloatingTask(Object p) {
         return p instanceof FloatingTask || p instanceof ReadOnlyFloatingTask;
     }
@@ -197,11 +198,14 @@ public class Malitio implements ReadOnlyMalitio {
     private boolean isDeadline(Object p) {
         return p instanceof Deadline || p instanceof ReadOnlyDeadline;
     }
-    
+
     /**
      * Check for the correct task type and set tags to it.
-     * @param task task can be either FloatingTask, Deadline or Event
-     * @param commonTagReferences set of tags to be added to the task
+     * 
+     * @param task
+     *            task can be either FloatingTask, Deadline or Event
+     * @param commonTagReferences
+     *            set of tags to be added to the task
      */
     private void setTagsToTask(Object task, final Set<Tag> commonTagReferences) {
         if (isFloatingTask(task)) {
@@ -215,7 +219,9 @@ public class Malitio implements ReadOnlyMalitio {
 
     /**
      * Check for the correct task type andget tag list from it.
-     * @param task task can be either FloatingTask, Deadline or Event
+     * 
+     * @param task
+     *            task can be either FloatingTask, Deadline or Event
      * @return UniqueTagList of the task
      */
     private UniqueTagList getTagsListFromTask(Object task) {
@@ -230,7 +236,8 @@ public class Malitio implements ReadOnlyMalitio {
         return taskTags;
     }
 
-    public boolean removeTask(Object key) throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException {
+    public boolean removeTask(Object key)
+            throws FloatingTaskNotFoundException, DeadlineNotFoundException, EventNotFoundException {
         if (isFloatingTask(key)) {
             return removeFloatingTask(key);
         } else if (isDeadline(key)) {
@@ -241,7 +248,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     private boolean removeEvent(Object key) throws EventNotFoundException {
-        if (events.remove((ReadOnlyEvent)key)) {
+        if (events.remove((ReadOnlyEvent) key)) {
             return true;
         } else {
             throw new EventNotFoundException();
@@ -249,7 +256,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     private boolean removeDeadline(Object key) throws DeadlineNotFoundException {
-        if (deadlines.remove((ReadOnlyDeadline)key)) {
+        if (deadlines.remove((ReadOnlyDeadline) key)) {
             return true;
         } else {
             throw new DeadlineNotFoundException();
@@ -257,7 +264,7 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     private boolean removeFloatingTask(Object key) throws FloatingTaskNotFoundException {
-        if (tasks.remove((ReadOnlyFloatingTask)key)) {
+        if (tasks.remove((ReadOnlyFloatingTask) key)) {
             return true;
         } else {
             throw new FloatingTaskNotFoundException();
@@ -272,9 +279,13 @@ public class Malitio implements ReadOnlyMalitio {
     }
 
     /**
-     * Checks for the task type of the edited and beforeEdit objects and assign the editing accordingly.
-     * @param edited the edited task
-     * @param beforeEdit the task to be edited
+     * Checks for the task type of the edited and beforeEdit objects and assign
+     * the editing accordingly.
+     * 
+     * @param edited
+     *            the edited task
+     * @param beforeEdit
+     *            the task to be edited
      * @throws DuplicateFloatingTaskException
      * @throws FloatingTaskNotFoundException
      * @throws DuplicateDeadlineException
@@ -303,6 +314,19 @@ public class Malitio implements ReadOnlyMalitio {
             throws DeadlineCompletedException, DeadlineNotFoundException {
         deadlines.complete(deadlineToComplete);
 
+    }
+
+    public void markTask(Object taskToMark, boolean marked)
+            throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException,
+            DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException, EventNotFoundException,
+            EventMarkedException, EventUnmarkedException {
+        if (isFloatingTask(taskToMark)) {
+            tasks.mark((ReadOnlyFloatingTask) taskToMark, marked);
+        } else if (isDeadline(taskToMark)) {
+            deadlines.mark((ReadOnlyDeadline) taskToMark, marked);
+        } else {
+            events.mark((ReadOnlyEvent) taskToMark, marked);
+        }
     }
 
     public void markTask(ReadOnlyFloatingTask taskToMark, boolean marked)
