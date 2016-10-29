@@ -137,7 +137,7 @@ public class Parser {
      */
     // @@author A0138862W
     private Command prepareAdd(String args) {
-        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args);
+        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
 
         // Validate arg string format
         if (!matcher.matches()) {
