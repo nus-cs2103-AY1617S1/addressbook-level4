@@ -122,5 +122,9 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }
+    
+    private void refresh() {
+        mainWindow.refresh();
+    }
 
 }
