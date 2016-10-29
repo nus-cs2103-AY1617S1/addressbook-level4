@@ -76,11 +76,7 @@ public class CdCommand extends Command {
 
     private boolean isFileSavedSuccessfully(String filePath) {
         Path path = Paths.get(filePath);
-        if (!Files.exists(path)) {
-            return false;
-        }
-
-        return true;
+        return Files.exists(path);
     }
 
 }

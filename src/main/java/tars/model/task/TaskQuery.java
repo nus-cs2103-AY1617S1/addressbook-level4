@@ -17,6 +17,7 @@ import tars.model.task.DateTime.IllegalDateException;
  */
 public class TaskQuery extends Task {
 
+    private static final String EMPTY_STRING = "";
     private String tagQuery = "";
     private String statusString = "";
     public final static String MESSAGE_BOTH_STATUS_SEARCHED_ERROR = "Both '-do (Done)' and '-ud (Undone)' flags "
@@ -106,19 +107,19 @@ public class TaskQuery extends Task {
         final StringBuilder builder = new StringBuilder();
         builder.append("Filter Search Keywords: ");
 
-        if (!getName().toString().equals("")) {
+        if (!EMPTY_STRING.equals(getName().toString())) {
             builder.append("[Task Name: ").append(getName()).append("] ");
         }
         if (getDateTime().getEndDate() != null) {
             builder.append("[DateTime: ").append(getDateTime()).append("] ");
         }
-        if (!priorityString().equals("")) {
+        if (!EMPTY_STRING.equals(priorityString())) {
             builder.append("[Priority: ").append(priorityString()).append("] ");
         }
-        if (!statusString.equals("")) {
+        if (!EMPTY_STRING.equals(statusString)) {
             builder.append("[Status: ").append(statusString).append("] ");
         }
-        if (!tagQuery.equals("")) {
+        if (!EMPTY_STRING.equals(tagQuery)) {
             builder.append("[Tags: ").append(tagQuery).append("]");
         }
 

@@ -20,7 +20,7 @@ import static tars.logic.commands.ListCommand.MESSAGE_USAGE;
  */
 public class ListCommandTest extends TarsGuiTest{
 	
-	TestTask[] currentList = td.getTypicalTasks();;
+	private TestTask[] currentList = td.getTypicalTasks();;
 	
 	@Test
 	public void listAllTask() {

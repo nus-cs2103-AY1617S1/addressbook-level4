@@ -6,12 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.Assert;
 import org.junit.rules.TemporaryFolder;
 
 import tars.commons.core.Config;
 import tars.commons.core.EventsCenter;
-import tars.commons.core.Messages;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.exceptions.DataConversionException;
@@ -374,7 +372,7 @@ public class LogicManagerTest {
         model.addTask(toBeRemoved);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, MESSAGE_DUPLICATE_TASK),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
@@ -1867,8 +1865,8 @@ public class LogicManagerTest {
         Task taskA = helper.meetAdam();
         Task taskB = taskA;
 
-        Assert.assertEquals(taskA, taskB);
-        Assert.assertEquals(taskA.hashCode(), taskB.hashCode());
+        assertEquals(taskA, taskB);
+        assertEquals(taskA.hashCode(), taskB.hashCode());
     }
 
     @Test
@@ -1877,8 +1875,8 @@ public class LogicManagerTest {
         Task taskA = helper.meetAdam();
         Task taskB = taskA;
 
-        Assert.assertEquals(taskA.getName(), taskB.getName());
-        Assert.assertEquals(taskA.getName().hashCode(), taskB.getName().hashCode());
+        assertEquals(taskA.getName(), taskB.getName());
+        assertEquals(taskA.getName().hashCode(), taskB.getName().hashCode());
     }
 
     /*
@@ -1893,7 +1891,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper {
 
-        Task meetAdam() throws Exception {
+        protected Task meetAdam() throws Exception {
             Name name = new Name("Meet Adam Brown");
             DateTime dateTime = new DateTime("01/09/2016 1400", "01/09/2016 1500");
             Priority priority = new Priority("m");
@@ -1904,7 +1902,7 @@ public class LogicManagerTest {
             return new Task(name, dateTime, priority, status, tags);
         }
 
-        Task floatTask() throws Exception {
+        protected Task floatTask() throws Exception {
             Name name = new Name("Do homework");
             DateTime dateTime = new DateTime("", "");
             Priority priority = new Priority("");
@@ -1921,7 +1919,7 @@ public class LogicManagerTest {
          * @param seed
          *            used to generate the task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        protected Task generateTask(int seed) throws Exception {
             int seed2 = (seed + 1) % 31 + 1; // Generate 2nd seed for DateTime
                                              // value
             return new Task(new Name("Task " + seed), new DateTime(seed + "/01/2016 1400", seed2 + "/01/2016 2200"),
@@ -1930,7 +1928,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        protected String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ").append(p.getName().toString());
@@ -1954,7 +1952,7 @@ public class LogicManagerTest {
         /**
          * Generates an Tars with auto-generated undone tasks.
          */
-        Tars generateTars(int numGenerated) throws Exception {
+        protected Tars generateTars(int numGenerated) throws Exception {
             Tars tars = new Tars();
             addToTars(tars, numGenerated);
             return tars;
@@ -1963,7 +1961,7 @@ public class LogicManagerTest {
         /**
          * Generates an Tars based on the list of Tasks given.
          */
-        Tars generateTars(List<Task> tasks) throws Exception {
+        protected Tars generateTars(List<Task> tasks) throws Exception {
             Tars tars = new Tars();
             addToTars(tars, tasks);
             return tars;
@@ -1974,14 +1972,14 @@ public class LogicManagerTest {
          * 
          * @param tars The Tars to which the Tasks will be added
          */
-        void addToTars(Tars tars, int numGenerated) throws Exception {
+        protected void addToTars(Tars tars, int numGenerated) throws Exception {
             addToTars(tars, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given Tars
          */
-        void addToTars(Tars tars, List<Task> tasksToAdd) throws Exception {
+        protected void addToTars(Tars tars, List<Task> tasksToAdd) throws Exception {
             for (Task p : tasksToAdd) {
                 tars.addTask(p);
             }
@@ -1992,14 +1990,14 @@ public class LogicManagerTest {
          * 
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception {
+        protected void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception {
+        protected void addToModel(Model model, List<Task> tasksToAdd) throws Exception {
             for (Task p : tasksToAdd) {
                 model.addTask(p);
             }
@@ -2008,7 +2006,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception {
+        protected List<Task> generateTaskList(int numGenerated) throws Exception {
             List<Task> tasks = new ArrayList<>();
             for (int i = 1; i <= numGenerated; i++) {
                 tasks.add(generateTask(i));
@@ -2016,7 +2014,7 @@ public class LogicManagerTest {
             return tasks;
         }
 
-        List<Task> generateTaskList(Task... tasks) {
+        protected List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
 
@@ -2024,7 +2022,7 @@ public class LogicManagerTest {
          * Generates a Task object with given name. Other fields will have some
          * dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        protected Task generateTaskWithName(String name) throws Exception {
             return new Task(new Name(name), new DateTime("05/09/2016 1400", "06/09/2016 2200"), new Priority("h"),
                     new Status(false), new UniqueTagList(new Tag("tag")));
         }
@@ -2033,7 +2031,7 @@ public class LogicManagerTest {
          * Generates a Task object with given name. Other fields will have some
          * dummy values.
          */
-        Task generateTaskWithEndDateOnly(String name) throws Exception {
+        protected Task generateTaskWithEndDateOnly(String name) throws Exception {
             return new Task(new Name(name), new DateTime(null, "06/09/2016 2200"), new Priority("h"), new Status(false),
                     new UniqueTagList(new Tag("tag")));
         }
@@ -2042,7 +2040,7 @@ public class LogicManagerTest {
          * @@author A0124333U Generates a Task object with given name and
          *          datetime
          */
-        Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
+        protected Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
             assert (dateTime != null && name != null);
             return new Task(new Name(name), dateTime, new Priority("h"), new Status(false),
                     new UniqueTagList(new Tag("tag")));
@@ -2051,7 +2049,7 @@ public class LogicManagerTest {
         /**
          * Generates a RsvTask object with given name and datetime(s)
          */
-        RsvTask generateReservedTaskWithNameAndDate(String name, DateTime... dateTimes) throws Exception {
+        protected RsvTask generateReservedTaskWithNameAndDate(String name, DateTime... dateTimes) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             for (DateTime dt : dateTimes) {
                 dateTimeList.add(dt);
@@ -2062,13 +2060,13 @@ public class LogicManagerTest {
         /**
          * Generates a RsvTask object with given name and a dummy dateTime
          */
-        RsvTask generateReservedTaskWithOneDateTimeOnly(String name) throws Exception {
+        protected RsvTask generateReservedTaskWithOneDateTimeOnly(String name) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             dateTimeList.add(new DateTime("05/09/2016 1400", "06/09/2016 2200"));
             return new RsvTask(new Name(name), dateTimeList);
         }
 
-        Tars fillModelAndTarsForFreeCommand() throws Exception {
+        protected Tars fillModelAndTarsForFreeCommand() throws Exception {
             RsvTask rsvTask1 = generateReservedTaskWithNameAndDate("rsvTask1",
                     new DateTime("29/10/2016 1400", "29/10/2016 1500"),
                     new DateTime("30/10/2016 1400", "30/10/2016 1500"));

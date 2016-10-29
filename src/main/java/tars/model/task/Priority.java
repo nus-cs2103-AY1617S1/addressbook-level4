@@ -43,15 +43,17 @@ public class Priority implements Comparable<Priority> {
         this.priorityLevel = priorityLevel;
 
         switch (this.priorityLevel) {
-        case PRIORITY_LEVEL_LOW:
-            level = PRIORITY_LEVEL_ONE;
-            break;
-        case PRIORITY_LEVEL_MEDIUM:
-            level = PRIORITY_LEVEL_TWO;
-            break;
-        case PRIORITY_LEVEL_HIGH:
-            level = PRIORITY_LEVEL_THREE;
-            break;
+            case PRIORITY_LEVEL_LOW :
+                level = PRIORITY_LEVEL_ONE;
+                break;
+            case PRIORITY_LEVEL_MEDIUM :
+                level = PRIORITY_LEVEL_TWO;
+                break;
+            case PRIORITY_LEVEL_HIGH :
+                level = PRIORITY_LEVEL_THREE;
+                break;
+            default :
+                break;
         }
     }
 
