@@ -1,14 +1,11 @@
 package seedu.oneline.logic;
 
-import java.util.Map.Entry;
-
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.tag.Tag;
-import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap; 
+import seedu.oneline.storage.Storage;
 
 /**
  * API of the Logic component
@@ -29,4 +26,8 @@ public interface Logic {
     
     /** Returns tag colors */ 
     TagColorMap getTagColorMap(); 
+
+    //@@author A0121657H
+    /** Middle-man that communicates the current save location to Model */
+    void setTaskBookFilePath(Storage storage);
 }
