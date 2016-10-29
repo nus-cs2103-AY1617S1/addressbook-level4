@@ -7,6 +7,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 
 import java.util.Set;
+import seedu.address.commons.exceptions.FinishStateException;
 
 /**
  * The API of the Model component.
@@ -40,4 +41,13 @@ public interface Model {
 	void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException;
 
 	void updateFilteredPersonGroup(String keywords);
+	
+	/** Saves the task manager's current state*/
+	public void currentState(String message);
+	
+	/** Updates the task manager a previous state.*/
+	String getPreviousState() throws FinishStateException;
+	
+	/** Update the task manager back to the initial state.*/
+	String getInitialState() throws FinishStateException;
 }

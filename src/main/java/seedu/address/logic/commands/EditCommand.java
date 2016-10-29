@@ -102,7 +102,9 @@ public class EditCommand extends Command {
         assert model != null;
         try {
             model.addPerson(toAdd);
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+            String point = String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd);
+            model.currentState(point);
+            return new CommandResult(point);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
