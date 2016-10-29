@@ -19,7 +19,7 @@ public class TypicalTestTasks {
             laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").withImportance(false).withTags("urgent", "important").build();
             carl = new TaskBuilder().withName("Meet Carl").withOpenTime("5 days from now")
-                    .withCloseTime("13 days from now").build();
+                    .withCloseTime("14 days from now").build();
             daniel = new TaskBuilder().withName("Have lunch with Meier").withOpenTime("6 hours from now")
                     .withCloseTime("8 hours from now").build();
             elle = new TaskBuilder().withName("Take Ellie out on a date").withOpenTime("6 hours from now")
