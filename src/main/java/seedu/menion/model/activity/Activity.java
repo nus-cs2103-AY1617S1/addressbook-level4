@@ -1,4 +1,3 @@
-//@@author A0139164A
 package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
@@ -12,6 +11,7 @@ import java.util.Objects;
  * Represents a Person in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
+//@@author A0139164A
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
@@ -45,6 +45,8 @@ public class Activity implements ReadOnlyActivity {
     private Note note;
     private String activityType;
     private Completed status;
+    private Boolean emailSent;
+    private Boolean activityTimePassed;
     
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
@@ -73,6 +75,8 @@ public class Activity implements ReadOnlyActivity {
         this.startDate = startDate;
         this.startTime = startTime;
         this.status = status;
+        this.emailSent = false;
+        this.activityTimePassed = false;
         setActivityDetails();
     }
     
@@ -91,6 +95,7 @@ public class Activity implements ReadOnlyActivity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.status = status;
+        this.activityTimePassed = false;
         setActivityDetails();
     }
     
@@ -106,6 +111,7 @@ public class Activity implements ReadOnlyActivity {
             name = source.getActivityName();
             note = source.getNote();
             status = source.getActivityStatus();
+            
         } else if (source.getActivityType().equals(TASK_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -113,6 +119,8 @@ public class Activity implements ReadOnlyActivity {
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
             status = source.getActivityStatus();
+            emailSent = source.isEmailSent();
+            activityTimePassed = source.isTimePassed();
         } else if (source.getActivityType().equals(EVENT_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -122,6 +130,8 @@ public class Activity implements ReadOnlyActivity {
             endDate = source.getActivityEndDate();
             endTime = source.getActivityEndTime();
             status = source.getActivityStatus();
+            activityTimePassed = source.isTimePassed();
+
         }
         this.status = source.getActivityStatus();
         this.activityDetails = source.getActivityDetails();
@@ -234,7 +244,22 @@ public class Activity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-
+    public Boolean isEmailSent(){
+    	return this.emailSent;
+    }
+    
+    public Boolean isTimePassed(){
+    	return this.activityTimePassed;
+    }
+    
+    public void setEmailSent(Boolean sentStatus){
+    	this.emailSent = sentStatus;
+    }
+    
+    public void setTimePassed(Boolean timePassed){
+    	this.activityTimePassed = timePassed;
+    }
+    
     @Override
     public Activity get() {
         return this;

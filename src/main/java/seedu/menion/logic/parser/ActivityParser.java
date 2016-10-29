@@ -50,8 +50,6 @@ public class ActivityParser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-
-
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -77,6 +75,9 @@ public class ActivityParser {
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
             
+        case RemindCommand.COMMAND_WORD:
+            return prepareRemind(arguments);
+            
         case ModifyStoragePathCommand.COMMAND_WORD:
         	return new ModifyStoragePathCommand(arguments);
             
@@ -101,6 +102,18 @@ public class ActivityParser {
     }
     
     //@@author A0139164A
+    private Command prepareRemind(String args) {
+        String[] splited = args.split("\\s+");
+        
+        // Should only contain a space, and Email of the user.
+        if (splited.length != 2) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
+        }
+        // Checks that it is a valid email. Include regex here.
+        
+        return new RemindCommand(splited[1]);    
+    }
+    
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
