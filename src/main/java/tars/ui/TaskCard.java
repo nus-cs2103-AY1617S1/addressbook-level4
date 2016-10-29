@@ -132,6 +132,7 @@ public class TaskCard extends UiPart{
             id.setStyle("-fx-text-fill: #212121");
             name.setStyle("-fx-text-fill: #212121");
             start.setStyle("-fx-text-fill: #212121");
+            tags.setStyle("-fx-text-fill: #212121");
             startDate.setStyle("-fx-text-fill: #212121");
             end.setStyle("-fx-text-fill: #212121");
             endDate.setStyle("-fx-text-fill: #212121");
@@ -139,6 +140,7 @@ public class TaskCard extends UiPart{
             id.setStyle("-fx-text-fill: #BDBDBD");
             name.setStyle("-fx-text-fill: #BDBDBD");
             start.setStyle("-fx-text-fill: #BDBDBD");
+            tags.setStyle("-fx-text-fill: #BDBDBD");
             startDate.setStyle("-fx-text-fill: #BDBDBD");
             end.setStyle("-fx-text-fill: #BDBDBD");
             endDate.setStyle("-fx-text-fill: #BDBDBD");

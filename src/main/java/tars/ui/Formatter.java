@@ -86,11 +86,7 @@ public class Formatter {
         ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
         int count = 1;
         for (DateTime dt : dateTimeArrayList) {
-            String topSeparator = "-------- " + String.valueOf(count) + " --------" + "\n";
-            String bottomSeparator = new String(new char[topSeparator.length()-2]).replace("\0", "-");
-            formatted += topSeparator
-                    + dt.toString() + "\n"
-                    + bottomSeparator + "\n";
+            formatted += "[" + count + "] " + dt.toString() + "\n\n";
             count++;
         }
         return formatted;
