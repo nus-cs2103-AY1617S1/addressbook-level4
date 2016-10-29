@@ -28,9 +28,9 @@
 .text-field {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-background-color: midnightblue;
-    -fx-text-fill: white;
-    -fx-border-color: white;
+    -fx-background-color: #252580;
+    -fx-text-fill: lightskyblue;
+    -fx-border-color: #252580;
     -fx-border-width: 1px;
 }
 
@@ -131,8 +131,8 @@
 }
 
 .status-bar {
-    -fx-background-color: white;
-    -fx-text-fill: black;
+    -fx-background-color: #7eaacd;
+    -fx-text-fill: midnightblue;
 }
 
 .result-display {
@@ -145,13 +145,13 @@
 }
 
 .status-bar .label {
-    -fx-text-fill: black;
+    -fx-text-fill: midnightblue;
 }
 
 .status-bar-with-border {
     -fx-background-color: black;
     -fx-border-color: black;
-    -fx-border-width: 5px;
+    -fx-border-width: 2px;
 }
 
 .status-bar-with-border .label {
@@ -289,10 +289,10 @@
 }
 
 #cardPane {
-    -fx-border-color: lightskyblue;
+    -fx-border-color: aliceblue;
     -fx-border-width: 1 1 1 1;
     -fx-border-radius: 0px;
-    -fx-background-color: white;
+    -fx-background-color: aliceblue;
 }
 
 #commandTypeLabel {

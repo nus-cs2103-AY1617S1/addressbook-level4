@@ -74,36 +74,36 @@ public class PersonCard extends UiPart{
     private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
         String status = task.getStatus().toString();
         if(status.equals("OVERDUE")){
-            name.setStyle("-fx-text-fill: red");
-            id.setStyle("-fx-text-fill: red");
-            description.setStyle("red");
-            date.setStyle("-fx-text-fill: red");
-            time.setStyle("-fx-text-fill: red");
-            tags.setStyle("-fx-text-fill: red");
+            name.setStyle("-fx-text-fill: #f52510");
+            id.setStyle("-fx-text-fill: #f52510");
+            description.setStyle("-fx-text-fill: orangered");
+            date.setStyle("-fx-text-fill: orangered");
+            time.setStyle("-fx-text-fill: orangered");
+            tags.setStyle("-fx-text-fill: orangered");
         }
         else if(status.equals("DONE")){
-            name.setStyle("-fx-text-fill: blue");
-            id.setStyle("-fx-text-fill: blue");
-            description.setStyle("blue");
-            date.setStyle("-fx-text-fill: blue");
-            time.setStyle("-fx-text-fill: blue");
-            tags.setStyle("-fx-text-fill: blue");
+            name.setStyle("-fx-text-fill: #2149f1");
+            id.setStyle("-fx-text-fill: #2149f1");
+            description.setStyle("-fx-text-fill: royalblue");
+            date.setStyle("-fx-text-fill: royalblue");
+            time.setStyle("-fx-text-fill: royalblue");
+            tags.setStyle("-fx-text-fill: royalblue");
         }
         else if(status.equals("NONE")){
         	name.setStyle("-fx-text-fill: black");
         	id.setStyle("-fx-text-fill: black");
-        	description.setStyle("-fx-text-fill: black");
-        	date.setStyle("-fx-text-fill: black");
-        	time.setStyle("-fx-text-fill: black");
-        	tags.setStyle("-fx-text-fill: black");
+        	description.setStyle("-fx-text-fill: #202020");
+        	date.setStyle("-fx-text-fill: #202020");
+        	time.setStyle("-fx-text-fill: #202020");
+        	tags.setStyle("-fx-text-fill: #202020");
         }
         else if(status.equals("EXPIRE")){
-            name.setStyle("-fx-text-fill: deeppink");
-            id.setStyle("-fx-text-fill: deeppink");
-            description.setStyle("-fx-text-fill: deeppink");
-            date.setStyle("-fx-text-fill: deeppink");
-            time.setStyle("-fx-text-fill: deeppink");
-            tags.setStyle("-fx-text-fill: deeppink");
+            name.setStyle("-fx-text-fill: mediumvioletred");
+            id.setStyle("-fx-text-fill: mediumvioletred");
+            description.setStyle("-fx-text-fill: palevioletred");
+            date.setStyle("-fx-text-fill: palevioletred");
+            time.setStyle("-fx-text-fill: palevioletred");
+            tags.setStyle("-fx-text-fill: palevioletred");
         }
         
     }   
