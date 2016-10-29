@@ -89,8 +89,7 @@ public class PersonListPanel extends UiPart {
     
     public void refresh() {
         ObservableList<ReadOnlyActivity> items = personListView.<ReadOnlyActivity>getItems();
-        personListView.<ReadOnlyActivity>setItems(null);
-        personListView.<ReadOnlyActivity>setItems(items);
+        setConnections(items);
     }
 
     class PersonListViewCell extends ListCell<ReadOnlyActivity> {
