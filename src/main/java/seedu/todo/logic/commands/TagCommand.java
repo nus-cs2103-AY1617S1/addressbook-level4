@@ -1,7 +1,10 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.eventbus.EventBus;
 import org.apache.commons.lang3.BooleanUtils;
+import seedu.todo.commons.core.EventsCenter;
+import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.CollectionUtil;
@@ -36,15 +39,20 @@ public class TagCommand extends BaseCommand {
             = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR
             = "Tags may only include alphanumeric characters, including dashes and underscores.";
+    private static final String ERROR_TWO_PARAMS
+            = "You may only provide two tag names.";
 
     private static final String SUCCESS_ADD_TAGS = " - tagged successfully";
     private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
+    private static final String SUCCESS_RENAME_TAGS = " renamed to  ";
 
+    private static final String DESCRIPTION_SHOW_TAGS = "Shows a global list of tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
     private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
 
-    private static final String ARGUMENTS_ADD_TAGS = "index /a tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_SHOW_TAGS = "";
+    private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
 
@@ -102,6 +110,7 @@ public class TagCommand extends BaseCommand {
     @Override
     public List<CommandSummary> getCommandSummary() {
         return ImmutableList.of(
+            new CommandSummary(DESCRIPTION_SHOW_TAGS, getCommandName(), ARGUMENTS_SHOW_TAGS),
             new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
             new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS),
             new CommandSummary(DESCRIPTION_RENAME_TAGS, getCommandName(), ARGUMENTS_RENAME_TAGS)
@@ -110,8 +119,10 @@ public class TagCommand extends BaseCommand {
 
     @Override
     protected void validateArguments() {
+        if (isShowTags()) {
+            // No arguments to check.
 
-        if (isAddTagsToTask()) {
+        } else if (isAddTagsToTask()) {
             //Check arguments for add tags case
             String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
             checkForIllegalCharInTagNames(addTags.getName(), tagsToAdd);
@@ -123,10 +134,15 @@ public class TagCommand extends BaseCommand {
             checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
 
         } else if (isDeleteTagsFromAllTasks()) {
-
+            //Check arguments for delete tags case
+            String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+            checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
 
         } else if (isRenamingTag()) {
-
+            //Check arguments for rename tags case
+            String[] renameTagsParam = StringUtil.splitString(deleteTags.getValue());
+            checkForDuplicatedTagNames(renameTag.getName(), renameTagsParam);
+            checkForTwoParams(renameTag.getName(), renameTagsParam);
 
         } else {
             //We do not have sufficient inputs.
@@ -142,15 +158,29 @@ public class TagCommand extends BaseCommand {
         Integer displayedIndex = index.getValue();
         String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
         String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+        String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
 
         //Performs the actual execution with the data
-        if (isAddTagsToTask()) {
+        if (isShowTags()) {
+            ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGloablTagsList());
+            EventsCenter.getInstance().post(tagsEvent);
+            return new CommandResult();
+
+        } else if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
             return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+
+        } else if (isDeleteTagsFromAllTasks()) {
+            model.deleteTags(tagsToDelete);
+            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+
+        } else if (isRenamingTag()) {
+            model.renameTag(renameTagsParam[0], renameTagsParam[1]);
+            return new CommandResult(renameTagsParam[0] + SUCCESS_DELETE_TAGS + renameTagsParam[1]);
 
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
@@ -160,6 +190,14 @@ public class TagCommand extends BaseCommand {
     }
 
     /* Input Parameters Validation */
+    /**
+     * Returns true if the command parameters matches the action of show global tags
+     */
+    private boolean isShowTags() {
+        return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
+                && !renameTag.hasBoundValue();
+    }
+
     /**
      * Returns true if the command parameters matches the action of adding tag(s) to a task.
      */
@@ -242,6 +280,12 @@ public class TagCommand extends BaseCommand {
             if (!isValidTagName(tagName)) {
                 errors.put(argumentName, ERROR_TAGS_ILLEGAL_CHAR);
             }
+        }
+    }
+
+    private void checkForTwoParams(String argumentName, String[] params) {
+        if (params != null && params.length != 2) {
+            errors.put(argumentName, ERROR_TWO_PARAMS);
         }
     }
 
