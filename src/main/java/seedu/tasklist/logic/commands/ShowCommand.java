@@ -29,7 +29,7 @@ public class ShowCommand extends Command {
 	private final String keyword;
 
 	public ShowCommand(String keyword) {
-		this.keyword = keyword;
+		this.keyword = keyword.toLowerCase();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class ShowCommand extends Command {
 		case "all":
 			model.updateFilteredListToShowAll(); break;
 
-		case "incomplete": case "":
+		case "incomplete": case "": case "upcoming":
 			model.updateFilteredListToShowIncomplete(); break;
 
 		case "complete": case "done":
