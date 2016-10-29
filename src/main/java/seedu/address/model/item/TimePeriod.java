@@ -18,6 +18,9 @@ public enum TimePeriod {
     SATURDAY,
     SUNDAY;
     
+    /**
+     * Map containing valid user inputs and which values these inputs are mapped to.
+     */
     public static final HashMap<String, TimePeriod> INPUT_TO_TIME_PERIOD_MAP = new HashMap<String, TimePeriod>() {{
         put("hour", TimePeriod.HOUR);
         put("hours", TimePeriod.HOUR);
@@ -49,7 +52,9 @@ public enum TimePeriod {
     /**
      * Validates user input and converts it into TimePeriod.
      *
-     * @return true if user input is recognised as a valid TimePeriod.
+     * @param timePeriodString  user input of time period
+     * @return  Optional.empty() if user input does not match any time period.
+     * Else, returns the corresponding TimePeriod value.
      */
     public static Optional<TimePeriod> validateTimePeriodInput(String timePeriodString) {
         assert timePeriodString != null;

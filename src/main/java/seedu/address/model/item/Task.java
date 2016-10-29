@@ -61,6 +61,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *             if given value is invalid.
      */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
+        // TODO: is the code below necessary? (comment by ZY)
         assert !CollectionUtil.isAnyNull(taskName);
         assert taskName != null;
         assert priorityValue != null;
@@ -72,8 +73,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     //@@author A0139655U
-    //TODO: Comments - Zhi Yuan
+    /**
+     * Updates the startDate and/or endDate of the completed recurring task.
+     */
+    //TODO: Not sure to put this here or at DoneCommand
     public void updateRecurringTask() {
+        if (recurrenceRate == null || (startDate == null && endDate == null)) {
+            
+        }
         assert recurrenceRate != null && recurrenceRate.timePeriod != null && recurrenceRate.rate != null &&
                 (startDate != null || endDate != null);
 
