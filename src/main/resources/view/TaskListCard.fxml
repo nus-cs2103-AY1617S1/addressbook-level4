@@ -11,7 +11,7 @@
    <children>
       <HBox alignment="CENTER_LEFT">
          <children>
-            <Label fx:id="color" alignment="BASELINE_CENTER" text="  ⚫ ">
+            <Label fx:id="color" alignment="TOP_CENTER" prefHeight="33.0" text="  ⚫ " HBox.hgrow="NEVER">
                <font>
                   <Font size="18.0" />
                </font>
