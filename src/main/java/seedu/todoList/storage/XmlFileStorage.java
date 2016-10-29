@@ -41,9 +41,11 @@ public class XmlFileStorage {
         		return XmlUtil.getDataFromFile(file, XmlSerializableDeadlineList.class);
         	}
         	else {
+
         		return XmlUtil.getDataFromFile(file, XmlSerializableTaskList.class);
         	}
         } catch (JAXBException e) {
+            System.out.println(e.getMessage());
             throw new DataConversionException(e);
         }
     }

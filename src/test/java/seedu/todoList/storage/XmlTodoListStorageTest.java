@@ -19,6 +19,7 @@ import seedu.todoList.model.ReadOnlyTaskList;
 //import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Todo;
+import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.storage.XmlTodoListStorage;
 import seedu.todoList.testutil.TypicalTestTask;
 
@@ -84,14 +85,14 @@ public class XmlTodoListStorageTest {
         assertEquals(original, new TaskList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Todo(TypicalTestTask.a6));
-        original.removeTask(new Todo(TypicalTestTask.a1));
+        original.addTask(new Todo(new Name("todo 123"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
+        original.removeTask(new Todo(new Name("todo 123"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
         xmlTodoListStorage.saveTaskList(original, filePath);
         readBack = xmlTodoListStorage.readTaskList(filePath).get();
         assertEquals(original, new TaskList(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Todo(TypicalTestTask.a1));
+        original.addTask(new Todo(new Name("todo 123"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
         xmlTodoListStorage.saveTaskList(original); //file path not specified
         readBack = xmlTodoListStorage.readTaskList().get(); //file path not specified
         assertEquals(original, new TaskList(readBack));

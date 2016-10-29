@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import seedu.todoList.TestApp;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.commons.util.XmlUtil;
@@ -420,10 +421,13 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
-        return card.isSametask(task); //something wrong. Always return false
+        
+        return card.isSametask(task);
     }
     
     public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyTask event) {
+        //LogsCenter.getLogger(TestUtil.class).info("task of currentlist: " + card.toString());
+        //LogsCenter.getLogger(TestUtil.class).info("task of currentlist: " + event.toString());
         return card.isSameEvent(event); //something wrong. Always return false
     }
     

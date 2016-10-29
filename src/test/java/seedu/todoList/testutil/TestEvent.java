@@ -8,9 +8,9 @@ import seedu.todoList.model.task.attributes.*;
  * A mutable task object. For testing only.
  */
 //@@author A0132157M
-public class TestEvent extends Event implements ReadOnlyTask {
+public class TestEvent extends Event {
 
-    private Event event;
+    //private Event event;
     private static Name name;
     private static StartDate startDate;
     private static EndDate endDate;
@@ -25,9 +25,6 @@ public class TestEvent extends Event implements ReadOnlyTask {
 
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public void setName(Name name) {
         TestEvent.name = name;
@@ -51,10 +48,6 @@ public class TestEvent extends Event implements ReadOnlyTask {
         TestEvent.endTime = et;
     }
 
-    //@Override
-    public Event getEvent() {
-        return event;
-    }
     
     //@Override
     public StartTime getStartTime() {
@@ -84,10 +77,10 @@ public class TestEvent extends Event implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
-        sb.append("from/" + this.getStartDate().date + " ");
-        sb.append("to/" + this.getEndDate().endDate + " ");
-        sb.append("at/" + this.getStartTime().startTime + " ");
-        sb.append("to/" + this.getEndTime().endTime);
+        sb.append("from/11-12-2016 ");// + this.getStartDate().date + " ");
+        sb.append("to/12-12-2016 ");// + this.getEndDate().endDate + " ");
+        sb.append("at/01:00 ");// + this.getStartTime().startTime + " ");
+        sb.append("to/01:30");// + this.getEndTime().endTime);
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

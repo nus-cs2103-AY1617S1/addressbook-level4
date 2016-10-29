@@ -4,6 +4,7 @@ import guitests.guihandles.*;
 import javafx.stage.Stage;
 import seedu.todoList.TestApp;
 import seedu.todoList.commons.core.EventsCenter;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Deadline;
 import seedu.todoList.model.task.Event;
@@ -120,11 +121,13 @@ public abstract class ListGuiTest {
     }
     //@@author A0132157M reused
     public void assertEventMatching(Event event, EventCardHandle card) {
+      //LogsCenter.getLogger(ListGuiTest.class).info("task of currentlist: " + card.toString());
+        //LogsCenter.getLogger(ListGuiTest.class).info("task of currentlistdvsdvdsv: " + event.toString());
         assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
     //@@author A0132157M reused
-    public void assertDeadlineMatching(Deadline event, DeadlineCardHandle card) {
-        assertTrue(TestUtil.compareCardAndDeadline(card, event));
+    public void assertDeadlineMatching(Deadline dd, DeadlineCardHandle card) {
+        assertTrue(TestUtil.compareCardAndDeadline(card, dd));
     }
     
 

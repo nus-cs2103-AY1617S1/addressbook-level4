@@ -16,10 +16,6 @@ public class DeadlineBuilder {
         this.task = new TestDeadline();
     }
 
-    public DeadlineBuilder withDeadline(Deadline dl) throws IllegalValueException {
-        this.task.setDeadline(new Deadline(dl));
-        return this;
-    }
     
     public DeadlineBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));

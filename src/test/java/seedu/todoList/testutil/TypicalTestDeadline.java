@@ -46,12 +46,12 @@ public class TypicalTestDeadline {
     }
 
     public TestDeadline[] getTypicalDeadline() throws IllegalValueException {
-        return new TestDeadline[]{
-                new DeadlineBuilder().withName("deadlinegtt 1").withStartDate("30-11-2017").withEndTime("10:00").withDone("false").build(),
-                new DeadlineBuilder().withName("deadlinegtt 2").withStartDate("26-11-2017").withEndTime("12:00").withDone("false").build(),
-                new DeadlineBuilder().withName("deadlinegtt 3").withStartDate("27-11-2017").withEndTime("13:00").withDone("false").build(),
-                new DeadlineBuilder().withName("deadlinegtt 4").withStartDate("27-11-2017").withEndTime("13:00").withDone("false").build(),
-                new DeadlineBuilder().withName("deadlinegtt 5").withStartDate("28-11-2017").withEndTime("15:00").withDone("false").build()};
+        return new TestDeadline[]{};
+//                new DeadlineBuilder().withName("deadlinegtt 1").withStartDate("30-11-2017").withEndTime("10:00").withDone("false").build(),
+//                new DeadlineBuilder().withName("deadlinegtt 2").withStartDate("26-11-2017").withEndTime("12:00").withDone("false").build(),
+//                new DeadlineBuilder().withName("deadlinegtt 3").withStartDate("27-11-2017").withEndTime("13:00").withDone("false").build(),
+//                new DeadlineBuilder().withName("deadlinegtt 4").withStartDate("27-11-2017").withEndTime("13:00").withDone("false").build(),
+//                new DeadlineBuilder().withName("deadlinegtt 5").withStartDate("28-11-2017").withEndTime("15:00").withDone("false").build()};
     }
 
     public TaskList getTypicalDeadlineList(){

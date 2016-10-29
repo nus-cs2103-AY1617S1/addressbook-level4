@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class DeadlineListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#deadlineCard";
+    public static final String CARD_PANE_ID = "#name";
 
     private static final String task_LIST_VIEW_ID = "#deadlineListView";
 

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.todoList.testutil.TaskBuilder;
 import seedu.todoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -16,7 +17,9 @@ public class DeleteCommandTest extends ListGuiTest {
     public void delete() throws IllegalValueException {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicaltasks();
+        TestTask[] currentList = new TestTask[] {new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("1").withDone("false").build(),
+                new TaskBuilder().withName("TODO 456").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("1").withDone("false").build(),
+                new TaskBuilder().withName("TODO 789").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("1").withDone("false").build()};//td.getTypicaltasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -31,7 +34,7 @@ public class DeleteCommandTest extends ListGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("delete todo" + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }

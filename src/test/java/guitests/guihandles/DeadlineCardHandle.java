@@ -11,10 +11,10 @@ import seedu.todoList.model.task.ReadOnlyTask;
  */
 //@@author A0132157M
 public class DeadlineCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#Name";
-    private static final String STARTDATE_FIELD_ID = "#Date";
-    private static final String END_FIELD_ID = "#EndTime";
-    private static final String DONE_FIELD_ID = "#Done";
+    private static final String NAME_FIELD_ID = "#name";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
+    private static final String END_FIELD_ID = "#endTime";
+    private static final String DONE_FIELD_ID = "#isDone";
     
     private Node node;
 

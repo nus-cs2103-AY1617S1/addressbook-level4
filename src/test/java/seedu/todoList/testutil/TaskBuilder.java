@@ -16,10 +16,6 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
-    public TaskBuilder withTodo(Todo todo) throws IllegalValueException {
-        this.task.setTodo(new Todo(todo));
-        return this;
-    }
     
     public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));

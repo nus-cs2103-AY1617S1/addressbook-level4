@@ -45,12 +45,12 @@ public class TypicalTestEvent {
     }
 
     public TestEvent[] getTypicalEvent() throws IllegalValueException {
-        return new TestEvent[]{
-                new EventBuilder().withName("eventgtt 1").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
-                new EventBuilder().withName("eventgtt 2").withStartDate("01-11-2016").withEndDate("02-11-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
-                new EventBuilder().withName("eventgtt 3").withStartDate("02-11-2016").withEndDate("03-11-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
-                new EventBuilder().withName("eventgtt 4").withStartDate("03-12-2016").withEndDate("04-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
-                new EventBuilder().withName("eventgtt 5").withStartDate("05-12-2016").withEndDate("06-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build()};
+        return new TestEvent[]{};
+//                new EventBuilder().withName("eventgtt 1").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
+//                new EventBuilder().withName("eventgtt 2").withStartDate("01-11-2016").withEndDate("02-11-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
+//                new EventBuilder().withName("eventgtt 3").withStartDate("02-11-2016").withEndDate("03-11-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
+//                new EventBuilder().withName("eventgtt 4").withStartDate("03-12-2016").withEndDate("04-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build(),
+//                new EventBuilder().withName("eventgtt 5").withStartDate("05-12-2016").withEndDate("06-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build()};
     }
 
     public TaskList getTypicalEventList(){

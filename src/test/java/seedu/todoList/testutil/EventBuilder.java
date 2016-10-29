@@ -15,11 +15,6 @@ public class EventBuilder {
     public EventBuilder() {
         this.event = new TestEvent();
     }
-
-    public EventBuilder withEvent(Event e) throws IllegalValueException {
-        this.event.setEvent(new Event(e));
-        return this;
-    }
     
     public EventBuilder withName(String name) throws IllegalValueException {
         this.event.setName(new Name(name));

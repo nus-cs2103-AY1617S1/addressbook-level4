@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.todoList.TestApp;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.testutil.TestUtil;
@@ -24,9 +25,9 @@ import static org.junit.Assert.assertTrue;
 public class EventListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#eventCard";
+    public static final String CARD_PANE_ID = "#name";
 
-    private static final String task_LIST_VIEW_ID = "#eventListView";
+    private static final String event_LIST_VIEW_ID = "#eventListView";
 
     public EventListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -38,7 +39,7 @@ public class EventListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(task_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(event_LIST_VIEW_ID);
     }
 
     /**
@@ -100,12 +101,16 @@ public class EventListPanelHandle extends GuiHandle {
         return true;
     }
 
+    //@@author A0132157M
+    public EventCardHandle navigateToevent(String name) {
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + name.toString());
 
-    public EventCardHandle navigateToevent(String readOnlyTask) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(name)).findAny();
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task: " + task.toString());
+
         if (!task.isPresent()) {
-            throw new IllegalStateException("Task not found: " + readOnlyTask);
+            throw new IllegalStateException("Todo not found: " + name);
         }
 
         return navigateToevent(task.get());
@@ -114,8 +119,9 @@ public class EventListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the task.
      */
-    public EventCardHandle navigateToevent(ReadOnlyTask event) {
-        int index = geteventIndex(event); //SOmething wrong. Always return 0
+    //@@author A0132157M
+    public EventCardHandle navigateToevent(ReadOnlyTask task) {
+        int index = geteventIndex(task); //SOmething wrong. Always return 0
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -123,7 +129,7 @@ public class EventListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         }); 
         guiRobot.sleep(100);
-        return getEventCardHandle(event);
+        return getEventCardHandle(task);
     }
 
 
