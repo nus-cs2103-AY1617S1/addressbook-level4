@@ -63,6 +63,7 @@ Format: `show [TYPE]`
 > * If TYPE is not specified and only `show` is entered, then the incomplete tasks are shown as the default view.
 > * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
 > * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
+> * The user can also enter the keywords today, tomorrow, floating and overdue without specifying the show keyword to quickly retrieve the corresponding tasks.
 
 Examples:
 * `show incomplete`<br>
