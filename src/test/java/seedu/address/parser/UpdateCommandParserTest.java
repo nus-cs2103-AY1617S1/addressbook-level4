@@ -3,6 +3,7 @@ package seedu.address.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
@@ -158,17 +159,11 @@ public class UpdateCommandParserTest {
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 		
-		Calendar firstDate = Calendar.getInstance();
-		firstDate.add(Calendar.DATE, 1);
-		firstDate.set(Calendar.HOUR, 5);
-		firstDate.set(Calendar.MINUTE, 10);
-		Calendar secondDate = Calendar.getInstance();
-		secondDate.add(Calendar.DATE, 2);
-		secondDate.set(Calendar.HOUR, 6);
-		secondDate.set(Calendar.MINUTE, 25);
+		Date firstDate = DateUtil.createDateAfterToday(1, 17, 10);  // Tomorrow 5.10pm
+		Date secondDate = DateUtil.createDateAfterToday(2, 18, 25); // The day after tomorrow 6.25pm
 		command = (UpdateTaskCommand) parser.prepareCommand("1 task overseas from tmr 5.10pm to the day after tmr 6.25pm");
 		String eventTask = String.format("[Event Task][Description: overseas][Start date: %s][End date: %s]",
-				DateUtil.dateFormatWithTime.format(firstDate.getTime()), DateUtil.dateFormatWithTime.format(secondDate.getTime()));
+				DateUtil.dateFormatWithTime.format(firstDate), DateUtil.dateFormatWithTime.format(secondDate));
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_TASK, eventTask);
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
@@ -225,10 +220,7 @@ public class UpdateCommandParserTest {
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 		
-		Calendar firstDate = Calendar.getInstance();
-		firstDate.add(Calendar.DATE, 1);
-		firstDate.set(Calendar.HOUR, 5);
-		firstDate.set(Calendar.MINUTE, 10);
+		Date firstDate = DateUtil.createDateAfterToday(1, 17, 10);
 		command = (UpdateTaskCommand) parser.prepareCommand("1 date tmr 5.10pm");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DEADLINE, 
 				DateUtil.dateFormatWithTime.format(firstDate.getTime()));
@@ -260,17 +252,11 @@ public class UpdateCommandParserTest {
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 		
-		Calendar firstDate = Calendar.getInstance();
-		firstDate.add(Calendar.DATE, 1);
-		firstDate.set(Calendar.HOUR, 5);
-		firstDate.set(Calendar.MINUTE, 10);
-		Calendar secondDate = Calendar.getInstance();
-		secondDate.add(Calendar.DATE, 2);
-		secondDate.set(Calendar.HOUR, 6);
-		secondDate.set(Calendar.MINUTE, 25);
+		Date firstDate = DateUtil.createDateAfterToday(1, 17, 10); // Tomorrow 5.10pm
+		Date secondDate = DateUtil.createDateAfterToday(2, 18, 25); // The day after tomorrow 6.25pm
 		command = (UpdateTaskCommand) parser.prepareCommand("1 date tmr 5.10pm to the day after tmr 6.25pm");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_START_END_DATE, 
-				DateUtil.dateFormatWithTime.format(firstDate.getTime()), DateUtil.dateFormatWithTime.format(secondDate.getTime()));
+				DateUtil.dateFormatWithTime.format(firstDate), DateUtil.dateFormatWithTime.format(secondDate));
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 	}

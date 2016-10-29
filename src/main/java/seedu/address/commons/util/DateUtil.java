@@ -55,6 +55,19 @@ public class DateUtil {
 	}
 	
 	/**
+	 * Creates a Date object that is "daysAfterToday" days from today's date for testing relative dates.
+	 * Hours and minutes of the Date object can also be specified.
+	 */
+	public static Date createDateAfterToday(int daysAfterToday, int hours, int minutes) {
+		Calendar newDate = Calendar.getInstance();
+		newDate.add(Calendar.DATE, daysAfterToday);
+		newDate.set(Calendar.AM_PM, Calendar.AM);
+		newDate.set(Calendar.HOUR, hours);
+		newDate.set(Calendar.MINUTE, minutes);
+		return newDate.getTime();
+	}
+	
+	/**
      * Given a dateString, will return whether the words in the string are all valid words
      */
     public static boolean areValidWords(String dateString) {

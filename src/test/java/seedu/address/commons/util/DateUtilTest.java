@@ -336,16 +336,13 @@ public class DateUtilTest {
 		assertEquals(dateFormatWithTime.format(DateUtil.getDate("31 Oct 5.30pm")), expectedTime);
 		
 		// Relative dates
-		Calendar tomorrow = Calendar.getInstance();
-		tomorrow.add(Calendar.DATE, 1);
-		expected = dateFormat.format(tomorrow.getTime());
+		Date tomorrow = DateUtil.createDateAfterToday(1, 5, 30);
+		expected = dateFormat.format(tomorrow);
 		assertEquals(dateFormat.format(DateUtil.getDate("tomorrow")), expected);
 		
 		// With time
-		tomorrow.set(Calendar.HOUR, 5);
-		tomorrow.set(Calendar.MINUTE, 30);
-		expectedTime = dateFormatWithTime.format(tomorrow.getTime());
-		assertEquals(dateFormatWithTime.format(DateUtil.getDate("tomorrow 5.30pm")), expectedTime);
+		expected = dateFormatWithTime.format(tomorrow);
+		assertEquals(dateFormatWithTime.format(DateUtil.getDate("tomorrow 5.30am")), expected);
 	}
 	
 	@Test
@@ -413,19 +410,12 @@ public class DateUtilTest {
 		assertEquals(dateFormat.format(actual[1]), expected2);
 		
 		// Relative dates
-		Calendar tomorrow = Calendar.getInstance();
-		tomorrow.add(Calendar.DATE, 1);
-		tomorrow.set(Calendar.HOUR, 5);
-		tomorrow.set(Calendar.MINUTE, 30);
-		
-		Calendar dayAfterTomorrow = Calendar.getInstance();
-		dayAfterTomorrow.add(Calendar.DATE, 2);
-		dayAfterTomorrow.set(Calendar.HOUR, 8);
-		dayAfterTomorrow.set(Calendar.MINUTE, 20);
+		Date firstDate = DateUtil.createDateAfterToday(1, 17, 30);		// Tomorrow 5.30pm
+		Date secondDate = DateUtil.createDateAfterToday(2, 20, 20); 	// The day after tomorrow 8.20pm
 		
 		actual = DateUtil.getStartAndEndDates("tmr 5.30pm to day after tmr 8.20pm");
-		expected1 = dateFormatWithTime.format(tomorrow.getTime());
-		expected2 = dateFormatWithTime.format(dayAfterTomorrow.getTime());
+		expected1 = dateFormatWithTime.format(firstDate);
+		expected2 = dateFormatWithTime.format(secondDate);
 		assertEquals(dateFormatWithTime.format(actual[0]), expected1);
 		assertEquals(dateFormatWithTime.format(actual[1]), expected2);
 	}

@@ -3,6 +3,7 @@ package seedu.address.parser;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -59,13 +60,10 @@ public class AddCommandParserTest {
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016 06:30PM]";
 		actualTask = command.getTaskDetails(true);
 		
-		Calendar tomorrow = Calendar.getInstance();
-		tomorrow.add(Calendar.DATE, 1);
-		tomorrow.set(Calendar.HOUR, 1);
-		tomorrow.set(Calendar.MINUTE, 59);
+		Date tomorrow = DateUtil.createDateAfterToday(1, 13, 59);
 		command = (AddTaskCommand) parser.prepareCommand("homework by tmr 1:59pm");
 		expectedTask = String.format("[Deadline Task][Description: homework][Deadline: %s]", 
-				DateUtil.dateFormatWithTime.format(tomorrow.getTime()));
+				DateUtil.dateFormatWithTime.format(tomorrow));
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 	}
@@ -153,12 +151,8 @@ public class AddCommandParserTest {
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 		
-		Calendar startDate = Calendar.getInstance(); // Today 5.15pm
-		startDate.set(Calendar.HOUR, 5);
-		startDate.set(Calendar.MINUTE, 15);
-		Calendar endDate = Calendar.getInstance();   // Today 6.45pm
-		endDate.set(Calendar.HOUR, 6);
-		endDate.set(Calendar.MINUTE, 45);
+		Date startDate = DateUtil.createDateAfterToday(0, 17, 15); // Today 5.15pm
+		Date endDate = DateUtil.createDateAfterToday(0, 18, 45);   // Today 6.45pm
 		command = (AddTaskCommand) parser.prepareCommand("project from today 5.15pm - 6.45pm");
 		expectedTask = String.format("[Event Task][Description: project][Start date: %s][End date: %s]",
 				DateUtil.dateFormatWithTime.format(startDate.getTime()), DateUtil.dateFormatWithTime.format(endDate.getTime()));
