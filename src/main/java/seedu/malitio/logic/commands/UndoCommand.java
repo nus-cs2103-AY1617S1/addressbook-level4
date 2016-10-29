@@ -37,37 +37,31 @@ public class UndoCommand extends Command {
             return new CommandResult("No action to undo!");
         }
         InputHistory previous = history.pop();
-
+        updateMalitio(history);
         switch (previous.getUndoCommand()) {
 
         case AddCommand.COMMAND_WORD:
             result = executeAdd((InputDeleteHistory) previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         case DeleteCommand.COMMAND_WORD:
             result = executeDelete((InputAddHistory) previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         case EditCommand.COMMAND_WORD:
             result = executeEdit((InputEditHistory) previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         case ClearCommand.COMMAND_WORD:
             result = executeClear((InputClearHistory)previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         case MarkCommand.COMMAND_WORD:
             result = executeMark((InputMarkHistory)previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         case UnmarkCommand.COMMAND_WORD:
             result = executeMark((InputMarkHistory)previous);
-            updateMalitio(history);
             return new CommandResult(result);
 
         }
