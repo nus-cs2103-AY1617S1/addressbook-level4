@@ -75,6 +75,10 @@ public class Parser {
 
     enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
 
+    public static final int TASK_DATE_ONLY = 0;
+    public static final int TASK_START_TIME = 1;
+    public static final int TASK_END_TIME = 2;
+
     private static final Prefix namePrefix = new Prefix("n;");
     private static final Prefix datePrefix = new Prefix("t;");
     private static final Prefix periodPrefix = new Prefix("s;");
@@ -192,22 +196,20 @@ public class Parser {
             }
             Optional<String> validateDateTimeArgs = argsTokenizer.getValue(datePrefix);
             if(validateDateTimeArgs.isPresent()) {
-                validateDateTimeArgs = Optional.of(validateDateTimeArgs.get().toUpperCase());
-//                if(!validateDateTimeArgs.get().matches(DATE_TIME_VALIDATION_FORMAT)){
-//                TODO: FIX System.out.println("line 197 parser: " + farthestPoint(Pattern.compile(DATE_TIME_VALIDATION_FORMAT), validateDateTimeArgs.get()));;
-//                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
-//                }
-                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get());
+                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get().toUpperCase());
+                if(!isValidDateTimeFormat(dateTimeArgs))
+                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+
                 taskType = TaskType.values()[(dateTimeArgs.length-1)];
             }else {
-                taskType = TaskType.values()[0];
+                taskType = TaskType.values()[TASK_DATE_ONLY];
             }
 
             switch (taskType) {
                 case UNTIMED:
                     return new AddCommand(
                             taskName.get(),
-                            validateDateTimeArgs.isPresent() ? dateTimeArgs[0] : null,
+                            validateDateTimeArgs.isPresent() ? dateTimeArgs[TASK_DATE_ONLY] : null,
                             getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
@@ -217,7 +219,7 @@ public class Parser {
                     assert dateTimeArgs != null;
                     return new AddCommand(
                             taskName.get(),
-                            dateTimeArgs[0], dateTimeArgs[1],
+                            dateTimeArgs[TASK_DATE_ONLY], dateTimeArgs[TASK_START_TIME],
                             getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
@@ -227,7 +229,8 @@ public class Parser {
                     assert dateTimeArgs != null;
                     return new AddCommand(
                             taskName.get(),
-                            dateTimeArgs[0], dateTimeArgs[1], dateTimeArgs[2],
+                            dateTimeArgs[TASK_DATE_ONLY], dateTimeArgs[TASK_START_TIME],
+                            dateTimeArgs[TASK_END_TIME],
                             getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
@@ -241,6 +244,44 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    private boolean isValidDateTimeFormat(String[] dateTimeArgs) {
+        int args = dateTimeArgs.length-1; // adjust for Array and eNum count from 0.
+        TaskType taskType = TaskType.values()[args];
+
+        switch (taskType) {
+            case TIMERANGE:
+                if(!isValidTime(dateTimeArgs[TASK_END_TIME])) {
+                    return false;
+                }
+            case DEADLINE:
+                if(!isValidTime(dateTimeArgs[TASK_START_TIME])) {
+                    return false;
+                }
+            case UNTIMED:
+                if (!isValidDate(dateTimeArgs[TASK_DATE_ONLY])) {
+                    return false;
+                }
+                break;
+            default:
+                assert false : "Not suppose to happen";
+        }
+        return true;
+    }
+
+    private boolean isValidTime(String time) {
+        if(time.matches(TIME_VALIDATION_FORMAT)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidDate(String date) {
+        if(date.matches(DATE_VALIDATION_FORMAT)) {
+            return true;
+        }
+        return false;
     }
 
     /**
