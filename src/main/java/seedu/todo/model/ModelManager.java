@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final DoDoBird dodobird;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> todayTasks;
+    private final FilteredList<Task> weekTasks;
     private final FilteredList<Tag> tagList;
     
     //@@author A0138967J
@@ -45,9 +46,10 @@ public class ModelManager extends ComponentManager implements Model {
         dodobird = new DoDoBird(src);
         filteredTasks = new FilteredList<>(dodobird.getTasks());
         todayTasks = new FilteredList<>(dodobird.getTasks());
+        weekTasks = new FilteredList<>(dodobird.getTasks());
         tagList = new FilteredList<>(dodobird.getTags());
         updateTodayListToShowAll();
- 
+        updateWeekListToShowAll();
     }
     //@@author
     
@@ -129,6 +131,9 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodayTaskList() {
         return new UnmodifiableObservableList<>(todayTasks);
     } 
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredWeekTaskList() {
+        return new UnmodifiableObservableList<>(weekTasks);
+    } 
     
     //@@author A0142421X
     public UnmodifiableObservableList<Tag> getUnmodifiableTagList() {
@@ -140,6 +145,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateTodayListToShowAll() {
         todayTasks.setPredicate(null);
         todayTasks.setPredicate((new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())))::satisfies);
+    }
+    @Override
+    public void updateWeekListToShowAll() {
+        weekTasks.setPredicate(null);
+        weekTasks.setPredicate((new PredicateExpression(new WeekDateQualifier(LocalDateTime.now())))::satisfies);
     }
 
     //@@author A0093896H

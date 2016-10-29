@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
@@ -10,7 +16,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
 
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -63,13 +69,16 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                <!-- @@author A0138967J -->
-                  <AnchorPane fx:id="summaryPlaceholder" minHeight="250.0" prefWidth="340.0">
+                  <AnchorPane fx:id="summaryPlaceholder" prefHeight="500.0" prefWidth="340.0">
                       <padding>
                           <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
                   </AnchorPane>
-                  <!-- @@author A0142421X -->
-                  <AnchorPane prefWidth="200.0" />
+                  <AnchorPane fx:id="weekSummaryPlaceholder" minHeight="200.0" prefHeight="500.0" prefWidth="340.0">
+                     <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                     </padding>
+                  </AnchorPane>
                </children>
             </VBox>
          </items>

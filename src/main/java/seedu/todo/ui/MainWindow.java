@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     //@@author A0138967J
     private SummaryPanel summaryPanel;
+    private WeekSummaryPanel weekSummaryPanel;
     //@@author
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -59,6 +60,8 @@ public class MainWindow extends UiPart {
     //@@author A0138967J
     @FXML
     private AnchorPane summaryPlaceholder;
+    @FXML
+    private AnchorPane weekSummaryPlaceholder;
 
     //@@author 
     @FXML
@@ -124,7 +127,10 @@ public class MainWindow extends UiPart {
 
     //@@author A0142421X
     public void fillInnerParts() {
+        //@@author A0138967J
         summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic.getUnmodifiableTodayTaskList());
+        weekSummaryPanel = WeekSummaryPanel.load(primaryStage, getWeekSummaryPlaceholder(), logic.getUnmodifiableWeekTaskList());
+        //@@author
         tagListPanel = TagListPanel.load(primaryStage, getTagListPanelPlaceholder(), logic.getUnmodifiableTagList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getUnmodifiableFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -134,6 +140,9 @@ public class MainWindow extends UiPart {
     //@@author A0138967J
     private AnchorPane getSummaryPlaceholder(){
         return summaryPlaceholder;
+    }
+    private AnchorPane getWeekSummaryPlaceholder(){
+        return weekSummaryPlaceholder;
     }
     //@@author A0142421X
     private AnchorPane getTagListPanelPlaceholder() {
