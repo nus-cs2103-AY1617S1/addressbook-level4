@@ -6,6 +6,7 @@ import java.util.List;
 import seedu.menion.model.Model;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.Completed;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
@@ -42,9 +43,26 @@ public class BackgroundDateCheck {
 		for (int i = 0 ; i < taskList.size(); i++){	
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
-			if (isActivityOver(currentTime, taskToCheck)){
+			// Yet to send but passed due to no internet connection.
+			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed()){
+				
 				SendEmailStub.send(taskToCheck);
-			};	
+				taskToCheck.setEmailSent(true);
+				
+			}
+			
+			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().equals(Completed.UNCOMPLETED_ACTIVITY)){
+				
+				if (isActivityOver(currentTime, taskToCheck)){
+					
+					taskToCheck.setTimePassed(true);
+					SendEmailStub.send(taskToCheck);
+					taskToCheck.setEmailSent(true);
+					
+				};	
+				
+			}
+			
 		}
 	}
 	
@@ -62,7 +80,9 @@ public class BackgroundDateCheck {
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
 			if (isActivityOver(currentTime, eventToCheck)){
-				SendEmailStub.send(eventToCheck);
+
+				eventToCheck.setTimePassed(true);
+				
 			}
 			
 		}

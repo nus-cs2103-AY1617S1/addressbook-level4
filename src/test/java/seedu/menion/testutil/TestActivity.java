@@ -23,6 +23,8 @@ public class TestActivity implements ReadOnlyActivity {
     private Note note;
     private String activityType;
     private Completed status;
+    private Boolean emailSent;
+    private Boolean activityTimePassed;
     
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
@@ -52,6 +54,8 @@ public class TestActivity implements ReadOnlyActivity {
         this.startDate = startDate;
         this.startTime = startTime;
         this.status = status;
+        this.emailSent = false;
+        this.activityTimePassed = false;
         setActivityDetails();
     }
     
@@ -68,6 +72,7 @@ public class TestActivity implements ReadOnlyActivity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.status = status;
+        this.activityTimePassed = false;
         setActivityDetails();
     }
     
@@ -499,6 +504,22 @@ public class TestActivity implements ReadOnlyActivity {
             return getEventAsText();
         }
         return null;
+    }
+
+    public Boolean isEmailSent(){
+    	return this.emailSent;
+    }
+    
+    public Boolean isTimePassed(){
+    	return this.activityTimePassed;
+    }
+    
+    public void setEmailSent(Boolean sentStatus){
+    	this.emailSent = sentStatus;
+    }
+    
+    public void setTimePassed(Boolean timePassed){
+    	this.activityTimePassed = timePassed;
     }
 
 }

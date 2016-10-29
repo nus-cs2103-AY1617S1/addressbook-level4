@@ -23,6 +23,7 @@ public class BackgroundTest {
 
 	Model model;
 	ReadOnlyActivityManager testManager;
+
 	@Test
 	public void test() {
 		
@@ -63,7 +64,6 @@ public class BackgroundTest {
 			System.out.println(e);
 			
 		}
-		
 		
 	}
 	

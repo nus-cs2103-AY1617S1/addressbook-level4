@@ -35,9 +35,11 @@ import java.util.logging.Logger;
  */
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-
+  
+    private static final int BACKGROUND_REFRESH_RATE = 20000;
+    
     public static final Version VERSION = new Version(1, 0, 0, true);
-
+    
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
@@ -76,7 +78,7 @@ public class MainApp extends Application {
         	        	BackgroundDateCheck.checkActivities(model);
         	        }
         	        
-        	    }, 0, 5000);
+        	    }, 0, BACKGROUND_REFRESH_RATE);
     }
 
     private String getApplicationParameter(String parameterName){
