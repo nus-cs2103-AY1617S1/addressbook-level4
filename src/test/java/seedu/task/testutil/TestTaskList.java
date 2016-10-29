@@ -84,7 +84,25 @@ public class TestTaskList {
             numberOfTask--;
         }
     }
+    //@@author
     
+    //@@author A0146682X
+    /**
+     * edits a task in the list tasks.
+     * @param index the index of task to edit
+     * @param isFromIncompleteList Whether to edit from incomplete list or complete list
+     */
+    public void editTask(int index, TestTask newTask, boolean isFromIncompleteList) {
+    	if (isFromIncompleteList) {
+    		testIncompleteTasks.set(index-1, newTask);
+    	}
+    	else {
+    		testCompleteTasks.set(index-1, newTask);
+    	}
+    }
+    //@@author
+    
+    //@@author A0138601M
     /**
      * Marks a subset from the list of incomplete tasks.
      * @param tasksToMark The subset of tasks.
@@ -97,5 +115,6 @@ public class TestTaskList {
         }
         Collections.sort(testCompleteTasks);
     }
+    //@@author
     
 }
