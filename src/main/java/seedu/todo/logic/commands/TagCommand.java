@@ -23,13 +23,15 @@ import java.util.regex.Pattern;
 public class TagCommand extends BaseCommand {
     /* Constants */
     private static final String ERROR_INCOMPLETE_PARAMETERS
-            = "You have not supplied sufficient parameters to run a Tag command.";
+            = "The tag command is unable to recognise your commands.";
     private static final String ERROR_INPUT_INDEX_REQUIRED
             = "A task index is required.";
     private static final String ERROR_INPUT_ADD_TAGS_REQUIRED
             = "A list of tags \"tag1, tag2, ...\" to add is required.";
     private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED
             = "A list of tags \"tag1, tag2, ...\" to delete is required.";
+    private static final String ERROR_INPUT_RENAME_TAGS_REQUIRED
+            = "An existing tag name, and a new tag name is required.";
     private static final String ERROR_TAGS_DUPLICATED
             = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR
@@ -40,37 +42,54 @@ public class TagCommand extends BaseCommand {
 
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
     private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from tasks";
+    private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
+
     private static final String ARGUMENTS_ADD_TAGS = "index /a tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
 
-    private Argument<String> addTags = new StringArgument("/a")
-            .flag("a");
+    private Argument<String> addTags = new StringArgument("");
 
     private Argument<String> deleteTags = new StringArgument("/d")
             .flag("d");
 
+    private Argument<String> renameTag = new StringArgument("/r")
+            .flag("r");
+
     @Override
     public Parameter[] getArguments() {
         return new Parameter[] {
-            index, deleteTags, addTags
+            index, deleteTags, addTags, renameTag
         };
     }
 
+    /**
+     * Partitions two flag-less parameters index and list of tags by overriding this method.
+     */
     @Override
     protected void setPositionalArgument(String argument) {
         String[] tokens = argument.trim().split(" ", 2);
         boolean isFirstArgNumber = StringUtil.isUnsignedInteger(tokens[0]);
+        boolean isSecondArgAvailable = tokens.length == 2;
 
         if (isFirstArgNumber) {
             try {
                 index.setValue(tokens[0]);
             } catch (IllegalValueException e) {
                 errors.put(index.getName(), e.getMessage());
+            }
+        }
+
+        if (isSecondArgAvailable) {
+            try {
+                addTags.setValue(tokens[1]);
+            } catch (IllegalValueException e) {
+                errors.put(addTags.getName(), e.getMessage());
             }
         }
     }
@@ -84,29 +103,36 @@ public class TagCommand extends BaseCommand {
     public List<CommandSummary> getCommandSummary() {
         return ImmutableList.of(
             new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
-            new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS)
+            new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS),
+            new CommandSummary(DESCRIPTION_RENAME_TAGS, getCommandName(), ARGUMENTS_RENAME_TAGS)
         );
     }
 
     @Override
     protected void validateArguments() {
-        //Check if we have enough input arguments
-        if (!isInputParametersAvailable()) {
-            handleUnavailableInputParameters();
-        }
 
-        //Check arguments for add tags case
         if (isAddTagsToTask()) {
+            //Check arguments for add tags case
             String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
             checkForIllegalCharInTagNames(addTags.getName(), tagsToAdd);
             checkForDuplicatedTagNames(addTags.getName(), tagsToAdd);
-        }
 
-        //Check arguments for delete tags case
-        if (isDeleteTagsFromTask()) {
+        } else if (isDeleteTagsFromTask()) {
+            //Check arguments for delete tags case
             String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
             checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
+
+        } else if (isDeleteTagsFromAllTasks()) {
+
+
+        } else if (isRenamingTag()) {
+
+
+        } else {
+            //We do not have sufficient inputs.
+            handleUnavailableInputParameters();
         }
+
         super.validateArguments();
     }
 
@@ -135,33 +161,35 @@ public class TagCommand extends BaseCommand {
 
     /* Input Parameters Validation */
     /**
-     * Returns true if the command matches the action of adding tag(s) to a task.
+     * Returns true if the command parameters matches the action of adding tag(s) to a task.
      */
     private boolean isAddTagsToTask() {
-        return index.hasBoundValue() && addTags.hasBoundValue();
+        return index.hasBoundValue() && addTags.hasBoundValue() && !deleteTags.hasBoundValue()
+                && !renameTag.hasBoundValue();
     }
 
     /**
-     * Returns true if the command matches the action of deleting tag(s) from a task.
+     * Returns true if the command parameters matches the action of deleting tag(s) from a task.
      */
     private boolean isDeleteTagsFromTask() {
-        return index.hasBoundValue() && deleteTags.hasBoundValue();
+        return index.hasBoundValue() && !addTags.hasBoundValue() && deleteTags.hasBoundValue()
+                && !renameTag.hasBoundValue();
     }
 
     /**
-     * Returns true if the command matches the action of deleting tag(s) from all tasks.
+     * Returns true if the command parameters matches the action of deleting tag(s) from all tasks.
      */
     private boolean isDeleteTagsFromAllTasks() {
-        return !index.hasBoundValue() && deleteTags.hasBoundValue();
+        return !index.hasBoundValue() && !addTags.hasBoundValue() && deleteTags.hasBoundValue()
+                && !renameTag.hasBoundValue();
     }
 
     /**
-     * Returns true if the correct input parameters are available.
-     * This method do not check validity of each input.
+     * Returns true if the command parameters matches the action of renaming tags.
      */
-    private boolean isInputParametersAvailable() {
-        return BooleanUtils.xor(
-                new boolean[] {isAddTagsToTask(), isDeleteTagsFromTask(), isDeleteTagsFromAllTasks()});
+    private boolean isRenamingTag() {
+        return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
+                && renameTag.hasBoundValue();
     }
 
     /**
@@ -169,21 +197,31 @@ public class TagCommand extends BaseCommand {
      */
     private void handleUnavailableInputParameters() {
         boolean hasIndex = index.hasBoundValue();
-        boolean hasAddTags = addTags.hasBoundValue();
-        boolean hasDeleteTags = deleteTags.hasBoundValue();
+        boolean hasAdd = addTags.hasBoundValue();
+        boolean hasDelete = deleteTags.hasBoundValue();
+        boolean hasRename = renameTag.hasBoundValue();
 
-        //Validation for all inputs.
-        if (!hasIndex && !hasAddTags && !hasDeleteTags) {
+        if (getNumberOfTruth(hasAdd, hasDelete, hasRename) > 1) {
+            //Only one set of tags can be available.
+            errors.put("You have supplied too many parameters.");
+
+        } else if (hasAdd && !hasIndex) {
+            //Add requires an index
             errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+
+        } else if (hasRename && !hasIndex) {
+            //Rename requires an index
+            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+
+        } else if (hasIndex && !hasAdd && !hasDelete && !hasRename) {
+            //Has an index and nothing else
             errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
             errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
+            errors.put(renameTag.getName(), ERROR_INPUT_RENAME_TAGS_REQUIRED);
 
-        } else if (!hasIndex && hasAddTags) {
-            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
-
-        } else if (hasIndex && !hasAddTags && !hasDeleteTags) {
-            errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
-            errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
+        } else {
+            //Falls into none of the cases above. Throw a generic error.
+            errors.put(ERROR_INCOMPLETE_PARAMETERS);
         }
     }
 
@@ -214,5 +252,18 @@ public class TagCommand extends BaseCommand {
      */
     private static boolean isValidTagName(String test) {
         return TAG_VALIDATION_REGEX.matcher(test).matches();
+    }
+
+    /**
+     * Returns number of true booleans.
+     */
+    private static int getNumberOfTruth(boolean... booleans) {
+        int count = 0;
+        for (boolean bool : booleans) {
+            if (bool) {
+                count += 1;
+            }
+        }
+        return count;
     }
 }
