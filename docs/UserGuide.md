@@ -115,17 +115,16 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 *  Returns “EE2020” and “ee2020” <br><br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: `view` </b><br>
->Populate the list of deadlines and events of the selected DATE <br>
+>Populate the list of tasks happening on the selected DATE  <br>
 Format: `view DATE`
 
 > The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br>
 
 >Examples:
-* `view 5` <br>
-* Output the full list of deadlines on the day and events that start, ends or is on-going on 5th of the current month view
+* `view today` <br>
+* Output the full list of deadlines on the day and events that start, ends or is on-going today.
 
 >* `view 5-10-2016` <br><br>
-This command doesn't require you to be at the selected month.
 Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
