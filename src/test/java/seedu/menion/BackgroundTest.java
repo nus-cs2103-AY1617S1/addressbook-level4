@@ -34,7 +34,6 @@ public class BackgroundTest {
 		BackgroundDateCheck.checkActivities(model);
 		assertBackgroundCheckSuccess();
 		
-		
 	}
 
 	private void assertBackgroundCheckSuccess(){
@@ -42,16 +41,20 @@ public class BackgroundTest {
 		ReadOnlyActivityManager menion = this.model.getActivityManager();
 		
 		List<ReadOnlyActivity> taskList = menion.getTaskList();
-		ReadOnlyActivity testTask = taskList.get(0);
-				
-		assertTrue(testTask.isTimePassed());
-		assertTrue(testTask.isEmailSent());
+		ReadOnlyActivity testOldTask = taskList.get(0);
+		ReadOnlyActivity testNewTask = taskList.get(1);		
+		
+		assertTrue(testOldTask.isTimePassed());
+		assertTrue(testOldTask.isEmailSent());
+		assertFalse(testNewTask.isTimePassed());
+		assertFalse(testNewTask.isEmailSent());
 		
 		List<ReadOnlyActivity> eventList = menion.getEventList();
-		ReadOnlyActivity testEvent = eventList.get(0);
+		ReadOnlyActivity testOldEvent = eventList.get(0);
+		ReadOnlyActivity testNewEvent = eventList.get(1);
 		
-		assertTrue(testEvent.isTimePassed());
-		
+		assertTrue(testOldEvent.isTimePassed());
+		assertFalse(testNewEvent.isTimePassed());
 		
 	}
 	
@@ -76,11 +79,22 @@ public class BackgroundTest {
 					new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			model.addTask(testOldActivity);
 			
+			Activity testNewActivity = new Activity(Activity.TASK_TYPE, new ActivityName("Test New Task"),
+					new Note("Hope this works :)"), new ActivityDate("09-09-2050"), new ActivityTime("0001"),
+					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+			model.addTask(testNewActivity);
+			
 			Activity testOldEvent = new Activity(Activity.EVENT_TYPE, new ActivityName("Test Past Event"),
 					new Note("Hope this works too"), new ActivityDate("09-09-1999"), new ActivityTime("0001"),
 					new ActivityDate("09-11-1999"), new ActivityTime("0001"),
 					new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			model.addEvent(testOldEvent);
+			
+			Activity testNewEvent = new Activity(Activity.EVENT_TYPE, new ActivityName("Test New Event"),
+					new Note("Hope this works too"), new ActivityDate("09-09-2050"), new ActivityTime("0001"),
+					new ActivityDate("09-11-2050"), new ActivityTime("0001"),
+					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+			model.addEvent(testNewEvent);
 			
 		} catch (IllegalValueException e) {
 			
