@@ -29,6 +29,11 @@ public class EditCommandTest extends ToDoListGuiTest {
 		targetIndex = currentList.getIncompleteList().length;
 		partialCommand = "test task last";
 		assertEditSuccess(targetIndex, partialCommand, currentList, true);
+
+		//invalid index
+		targetIndex = (currentList.getIncompleteList().length + 1);
+		partialCommand = "test task to fail";
+		assertEditSuccess(targetIndex, partialCommand, currentList, true);
 	}
 
 	/**
@@ -39,6 +44,8 @@ public class EditCommandTest extends ToDoListGuiTest {
 	private void assertEditSuccess(int targetIndex, String partialCommand, TestTaskList currentList, boolean isFromIncompleteList) {
 
 		int listLength = isFromIncompleteList ? currentList.getIncompleteList().length : currentList.getCompleteList().length;
+
+		commandBox.runCommand(getCommand(targetIndex, partialCommand));
 		if(targetIndex < 1 || targetIndex > listLength) assertResultMessage(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		else {
 
@@ -48,8 +55,6 @@ public class EditCommandTest extends ToDoListGuiTest {
 			} catch (IllegalValueException ive) {
 				System.out.println(MESSAGE_USAGE);
 			}
-
-			commandBox.runCommand(getCommand(targetIndex, partialCommand));
 
 			assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
 			assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
