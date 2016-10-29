@@ -98,12 +98,12 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
 }
 
