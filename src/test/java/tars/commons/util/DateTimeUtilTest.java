@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -51,7 +50,7 @@ public class DateTimeUtilTest {
         String[] expectedDateTime = { "", "01/01/2016 1500" };
         String[] actualDateTime = DateTimeUtil.getDateTimeFromArgs("1/1/2016 1500");
 
-        Assert.assertArrayEquals(expectedDateTime, actualDateTime);
+        assertArrayEquals(expectedDateTime, actualDateTime);
     }
 
     // @@author A0140022H

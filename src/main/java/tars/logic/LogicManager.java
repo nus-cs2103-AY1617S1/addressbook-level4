@@ -49,11 +49,7 @@ public class LogicManager extends ComponentManager implements Logic {
      * @param command
      */
     private boolean isReUndoAbleCommand(Command command) {
-        if (command instanceof UndoCommand || command instanceof RedoCommand) {
-            return true;
-        } else {
-            return false;
-        }
+        return (command instanceof UndoCommand || command instanceof RedoCommand);
     }
 
     @Override

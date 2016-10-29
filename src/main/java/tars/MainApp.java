@@ -12,6 +12,7 @@ import tars.commons.core.Version;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.commons.exceptions.DataConversionException;
 import tars.commons.util.ConfigUtil;
+import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.*;
 import tars.storage.Storage;
@@ -40,8 +41,6 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-    public MainApp() {}
-
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing Tars ]===========================");
@@ -59,6 +58,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
+        
+        // to improve the natty parser runtime for the first query
+        new Thread(() -> DateTimeUtil.getDateTimeFromArgs("today")).start();
 
         initEventsCenter();
     }

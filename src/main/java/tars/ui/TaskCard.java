@@ -103,17 +103,18 @@ public class TaskCard extends UiPart{
         if (task.getStatus().toString().equals(STATUS_UNDONE)) {
             String tickColor = "";
             switch (task.priorityString()) {
-            case PRIORITY_HIGH:
-                tickColor = "red";
-                break;
-            case PRIORITY_MEDIUM:
-                tickColor = "orange";
-                break;
-            case PRIORITY_LOW:
-                tickColor = "green";
-                break;  
-            default:
-                tickColor = "darkgrey";
+                case PRIORITY_HIGH :
+                    tickColor = "red";
+                    break;
+                case PRIORITY_MEDIUM :
+                    tickColor = "orange";
+                    break;
+                case PRIORITY_LOW :
+                    tickColor = "green";
+                    break;
+                default :
+                    tickColor = "darkgrey";
+                    break;
             }
             statusTick.setStyle("-fx-text-fill: " + tickColor);
         } else {
