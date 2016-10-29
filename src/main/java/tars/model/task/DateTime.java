@@ -11,21 +11,21 @@ import tars.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task's dateTime in tars.
  */
-public class DateTime implements Comparable<DateTime>{
+public class DateTime implements Comparable<DateTime> {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Task datetime should be spaces or alphanumeric characters";
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm")
             .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm");
-    
+
     private static final String DATETIME_STRING_TO = " to ";
     private static final String DATETIME_STRING_EMPTY = "";
-    
+
     private static final int DATETIME_SIZE_EMPTY = 0;
-    
+
     private static final int DATETIME_COMPARE_NULL = 1;
-    
+
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -59,6 +59,15 @@ public class DateTime implements Comparable<DateTime>{
                 throw new IllegalDateException(Messages.MESSAGE_INVALID_END_DATE);
             }
         }
+    }
+    
+    public DateTime(LocalDateTime startDate, LocalDateTime endDate) {
+        assert(startDate != null && endDate != null);
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.endDateString = this.endDate.format(stringFormatter);
+        this.startDateString = this.startDate.format(stringFormatter);
     }
 
     public LocalDateTime getStartDate() {
@@ -97,21 +106,31 @@ public class DateTime implements Comparable<DateTime>{
         }
     }
 
-	@Override
-	public int compareTo(DateTime o) {
-	    if(o.endDate == null || this.endDate == null) {
-	        return DATETIME_COMPARE_NULL;
-	    } else {
-	        return this.endDate.compareTo(o.endDate);
-	    }
-	}
-    
+    @Override
+    public int compareTo(DateTime o) {
+        if (o.endDate == null || this.endDate == null) {
+            return DATETIME_COMPARE_NULL;
+        } else if (o.startDate == null && this.startDate == null) {
+            return this.endDate.compareTo(o.endDate);
+        } else if (o.startDate == null) {
+            return this.startDate.compareTo(o.endDate);
+        } else if (this.startDate == null) {
+            return this.endDate.compareTo(o.startDate);
+        } else {
+            if (this.startDate.equals(o.startDate)) {
+                return this.endDate.compareTo(o.endDate);
+            } else {
+                return this.startDate.compareTo(o.startDate);
+            }
+        }
+    }
+
     public void setStartDateTime(LocalDateTime startDate) {
         this.startDate = startDate;
     }
-    
+
     public void setEndDateTime(LocalDateTime endDate) {
         this.endDate = endDate;
     }
-    
+
 }
