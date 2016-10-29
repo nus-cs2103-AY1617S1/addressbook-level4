@@ -111,6 +111,7 @@ public class Activity implements ReadOnlyActivity {
             name = source.getActivityName();
             note = source.getNote();
             status = source.getActivityStatus();
+            
         } else if (source.getActivityType().equals(TASK_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -118,6 +119,8 @@ public class Activity implements ReadOnlyActivity {
             startDate = source.getActivityStartDate();
             startTime = source.getActivityStartTime();
             status = source.getActivityStatus();
+            emailSent = source.isEmailSent();
+            activityTimePassed = source.isTimePassed();
         } else if (source.getActivityType().equals(EVENT_TYPE)) {
             activityType = source.getActivityType();;
             name = source.getActivityName();
@@ -127,6 +130,8 @@ public class Activity implements ReadOnlyActivity {
             endDate = source.getActivityEndDate();
             endTime = source.getActivityEndTime();
             status = source.getActivityStatus();
+            activityTimePassed = source.isTimePassed();
+
         }
         this.status = source.getActivityStatus();
         this.activityDetails = source.getActivityDetails();
