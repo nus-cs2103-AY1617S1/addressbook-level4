@@ -56,7 +56,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+        	model.addPerson(toAdd);
             String point = String.format(MESSAGE_SUCCESS, toAdd);
             model.currentState(point);
             EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
