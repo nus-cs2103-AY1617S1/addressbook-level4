@@ -33,6 +33,11 @@ public class ListCommand extends Command {
     		case " deadline":
     			model.updateFilteredDeadlineListToShowAll();
     			return new CommandResult(MESSAGE_SUCCESS);
+    		case " all":
+    		    model.updateFilteredTodoListToShowAll();
+    		    model.updateFilteredEventListToShowAll();
+    		    model.updateFilteredDeadlineListToShowAll();
+    		    return new CommandResult(MESSAGE_SUCCESS);
     	}
     	return new CommandResult(MESSAGE_USAGE);
     }

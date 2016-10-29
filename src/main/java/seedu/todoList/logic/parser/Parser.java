@@ -384,7 +384,7 @@ public class Parser {
                 try {
                     return new EditCommand(
                             matcher_task.group("name").trim(), 
-                            matcher_task.group("date").trim(),
+                            isInputPresent(matcher_task.group("date") , 1).trim(),
                             isInputPresent(matcher_task.group("endDate"), 2).trim(),
                             matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
@@ -429,7 +429,7 @@ public class Parser {
                 try {
                     return new EditCommand(
                             matcher_task.group("name").trim(), 
-                            matcher_task.group("date").trim(),
+                            isInputPresent(matcher_task.group("date") , 1).trim(),
                             isInputPresent(matcher_task.group("endDate"), 2).trim(),
                             matcher_task.group("priority").trim(),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
