@@ -93,7 +93,21 @@ public class ActivityListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in activity list panel changed to : '" + newValue + "'");
+                raise(new ActivityPanelSelectionChangedEvent(newValue));
+            }
+        });
+        
+        floatingTaskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in activity list panel changed to : '" + newValue + "'");
+                raise(new ActivityPanelSelectionChangedEvent(newValue));
+            }
+        });
+        
+        eventListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                logger.fine("Selection in activity list panel changed to : '" + newValue + "'");
                 raise(new ActivityPanelSelectionChangedEvent(newValue));
             }
         });
