@@ -89,7 +89,8 @@ Shows a list of all tasks in the task-list.<br>
 > Format: `list TASK_TYPE` <br>
 > Example(Todo): `list todo` <br>
 > Example(Event): `list event` <br>
-> Example(Deadline): `list deadline`
+> Example(Deadline): `list deadline` <br>
+> Example(All): `list all`
 
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
