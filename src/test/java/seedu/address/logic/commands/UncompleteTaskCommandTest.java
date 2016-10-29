@@ -68,7 +68,7 @@ public class UncompleteTaskCommandTest {
 		UncompleteTaskCommand command = new UncompleteTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(UncompleteTaskCommand.MESSAGE_UNCOMPLETE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(UncompleteTaskCommand.MESSAGE_UNCOMPLETE_TASK_SUCCESS, "Task 1");
 		assertCommandFeedback(command, expected);
 	}
 

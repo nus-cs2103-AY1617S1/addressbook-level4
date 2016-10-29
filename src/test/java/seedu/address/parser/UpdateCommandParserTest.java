@@ -120,20 +120,28 @@ public class UpdateCommandParserTest {
 		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 task workshop");
 		String expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_TASK, 
 				"[Floating Task][Description: workshop]");
-		String actualTask = command.getTaskDetails();
+		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 task homework by oct 1");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_TASK, 
 				"[Deadline Task][Description: homework][Deadline: 01.10.2016]");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 task overseas from oct 1 to oct 2");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_TASK, 
 				"[Event Task][Description: overseas][Start date: 01.10.2016][End date: 02.10.2016]");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
+	}
+	
+	/**
+	 * Testing correct updating of tasks that have time
+	 */
+	@Test
+	public void prepareCommand_updateTaskWithTime() {
+		
 	}
 	
 	/**
@@ -144,19 +152,19 @@ public class UpdateCommandParserTest {
 		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 description workshop");
 		String expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"workshop");
-		String actualTask = command.getTaskDetails();
+		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 description homework by oct 1");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"homework by oct 1");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 description homework from oct 1 to oct 2");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"homework from oct 1 to oct 2");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
 	
@@ -172,11 +180,11 @@ public class UpdateCommandParserTest {
 				"01.10.2016");
 		
 		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 date oct 1");
-		String actualTask = command.getTaskDetails();
+		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 date OcTobeR 1 2016");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
 	
@@ -189,11 +197,11 @@ public class UpdateCommandParserTest {
 				"01.10.2016", "02.10.2016");
 		
 		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 date oct 1 to oct 2");
-		String actualTask = command.getTaskDetails();
+		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
 		command = (UpdateTaskCommand) parser.prepareCommand("1 date from oct 1 to oct 2");
-		actualTask = command.getTaskDetails();
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
 	

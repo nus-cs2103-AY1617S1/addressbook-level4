@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.taskcommands;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.collections.ObservableList;
@@ -167,19 +168,27 @@ public class UpdateTaskCommand extends TaskCommand {
     }
     
     /**
-     * Retrieve the details of the values to be updated for testing purposes
+     * Retrieve the details of the values (with or without time) to be updated for testing purposes
      */
-    public String getTaskDetails() {
+    public String getTaskDetails(boolean withTime) {
+    	SimpleDateFormat dateFormat;
+    	// Decide which date format to use
+    	if (withTime) {
+    		dateFormat = null;
+    	} else {
+    		dateFormat = DateUtil.dateFormat;
+    	}
+    	
     	if (newTask != null) {
-    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask);
+    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask.getTaskDetails(true));
     	} else if (newDescription != null) {
     		return String.format(TASK_DETAILS_UPDATE_DESCRIPTION, newDescription);
     	} else if (newDeadline != null) {
     		return String.format(TASK_DETAILS_UPDATE_DEADLINE,
-    				DateUtil.dateFormat.format(newDeadline));
+    				dateFormat.format(newDeadline));
     	} else if (newStartDate != null && newEndDate != null) {
     		return String.format(TASK_DETAILS_UPDATE_START_END_DATE, 
-    				DateUtil.dateFormat.format(newStartDate), DateUtil.dateFormat.format(newEndDate));
+    				dateFormat.format(newStartDate), DateUtil.dateFormat.format(newEndDate));
     	} else {
     		return "Error";
     	}

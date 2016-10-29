@@ -86,7 +86,7 @@ public class UnfavoriteTaskCommandTest {
 		UnfavoriteTaskCommand command = new UnfavoriteTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(UnfavoriteTaskCommand.MESSAGE_FAVORITE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(UnfavoriteTaskCommand.MESSAGE_FAVORITE_TASK_SUCCESS, "Task 1");
 		assertCommandFeedback(command, expected);
 	}
 
