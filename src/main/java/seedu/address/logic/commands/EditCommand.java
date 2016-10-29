@@ -28,9 +28,9 @@ public class EditCommand extends Command {
 
     public final int targetIndex;
     public final Name name;
-    public final Startline startline;
-    public final Deadline deadline;
-    public final Priority priority;
+    public Startline startline;
+    public Deadline deadline;
+    public Priority priority;
     public final UniqueTagList tagSet;
     private Task toAdd;
     
@@ -67,13 +67,47 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
+        if (this.startline.toString() == ""){
+        	String startlineEdit = taskToDelete.getStartline().toString();
+        	try {
+        		this.startline = new Startline(startlineEdit);
+		    } catch (IllegalValueException e1) {
+		    	// TODO Auto-generated catch block
+		    	e1.printStackTrace();
+		    }
+        }
+        
+        if (this.deadline.toString() == ""){
+            
+        	String deadlineEdit = taskToDelete.getDeadline().toString();
+        	try {
+        		this.deadline = new Deadline(deadlineEdit);
+        	} catch (IllegalValueException e1) {
+        		// TODO Auto-generated catch block
+        		e1.printStackTrace();
+        	}
+        }
+        
+        if (this.priority.toString() == ""){
+        	String priorityEdit = taskToDelete.getPriority().toString();
+       
+        	try {
+        		this.priority = new Priority(priorityEdit);
+        	} catch (IllegalValueException e1) {
+        		// TODO Auto-generated catch block
+        		e1.printStackTrace();
+        	}
+        }
+        
         toAdd = new Task(this.name, this.startline, this.deadline, this.priority, this.tagSet); //null for now
 
         assert model != null;
         try {
             model.addPerson(toAdd);
+            String point = String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd);
+            model.currentState(point);
             EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+            return new CommandResult(point);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
@@ -83,4 +117,3 @@ public class EditCommand extends Command {
     
     
 }
-;
