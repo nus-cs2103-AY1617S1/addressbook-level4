@@ -12,6 +12,11 @@ import seedu.savvytasker.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.savvytasker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 //@@author A0139915W
 public class AddCommandTest extends SavvyTaskerGuiTest {
 
@@ -37,7 +42,10 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         assertResultMessage(String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
         
         //invalid start end date
-        commandBox.runCommand("add bad start-end pair s/31-12-2015 e/30-12-2015");
+        Date start = getDate("31/12/2015");
+        Date end = getDate("30/12/2015");
+        commandBox.runCommand("add bad start-end pair s/" + getLocaleDateString(start) + 
+                " e/" + getLocaleDateString(end));
         assertResultMessage(String.format(AddCommand.MESSAGE_INVALID_START_END));
         
         commandBox.runCommand("clear");
@@ -59,5 +67,25 @@ public class AddCommandTest extends SavvyTaskerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
+
+    private DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    private String getLocaleDateString(Date date) {
+        try {
+            return formatter.format(date);
+        } catch (Exception e) {
+            assert false; //should not get an invalid date....
+        }
+        return null;
+    }
+
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    private Date getDate(String ddmmyyyy) {
+        try {
+            return format.parse(ddmmyyyy);
+        } catch (Exception e) {
+            assert false; //should not get an invalid date....
+        }
+        return null;
+    }
 }
 //@@author
