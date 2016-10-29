@@ -70,6 +70,7 @@ public class BackgroundDateCheck {
 				if (isActivityOver(currentTime, taskToCheck)){
 					
 					taskToCheck.setTimePassed(true);
+
 	                SendEmail sender = new SendEmail();
 	                try {
 	                    sender.send(taskToCheck);
@@ -106,6 +107,10 @@ public class BackgroundDateCheck {
 					eventToCheck.setTimePassed(true);
 					
 				}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9aa4e7c1c3b50582fb02a514c279eb144742d573
 			}
 		}
 		
