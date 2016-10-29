@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!--@@Gauri Joshi A0143095H  -->
+
+<AnchorPane maxWidth="350.0" minWidth="350.0" prefHeight="400.0" prefWidth="181.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
+   <children>
+      <Accordion maxHeight="-Infinity" maxWidth="350.0" minHeight="-Infinity" minWidth="350.0" prefHeight="400.0" prefWidth="200.0">
+        <panes>
+          <TitledPane fx:id="today" animated="false" text="Today" />
+          <TitledPane fx:id="tomorrow" animated="false" text="Tomorrow">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane fx:id="importance" animated="false" text="Importance">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="urgent" layoutX="-1.0" layoutY="7.0" text="1.Urgent" />
+                        <Label fx:id="normal" layoutX="-1.0" layoutY="30.0" text="2.Normal" />
+                        <Label fx:id="nonurgent" layoutX="-1.0" layoutY="55.0" text="3.Non-Urgent" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+            <TitledPane fx:id="completeness" animated="false" text="Done/Undone">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="-1.0" layoutY="7.0" text="Done" />
+                        <Label layoutX="-1.0" layoutY="31.0" text="Undone" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+        </panes>
+      </Accordion>
+   </children>
+</AnchorPane>
