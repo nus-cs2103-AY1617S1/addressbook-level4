@@ -13,14 +13,14 @@ import seedu.address.model.task.Task;
  */
 public class UnfavoriteTaskCommand extends TaskCommand {
 
-	public static final String COMMAND_WORD = "unfavorite";
+	public static final String[] COMMAND_WORD = {"unfavorite"};
 	
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD[0]
             + ": Unfavorites the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD[0] + " 1";
     
-    public static final String HELP_MESSAGE_USAGE = "Unfavorite a task: \t" + COMMAND_WORD + " <index>";
+    public static final String HELP_MESSAGE_USAGE = "Unfavorite a task: \t" + COMMAND_WORD[0] + " <index>";
 
     public static final String MESSAGE_FAVORITE_TASK_SUCCESS = "Unavorited task: %1$s";
     public static final String MESSAGE_TASK_ALR_UNFAVORITED = "Task is already an unfavorited task";

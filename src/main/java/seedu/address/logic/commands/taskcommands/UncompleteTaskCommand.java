@@ -11,17 +11,17 @@ import seedu.address.model.task.Task;
 //@@author A0143107U
 public class UncompleteTaskCommand extends TaskCommand {
 
-	public static final String COMMAND_WORD = "uncomplete";
+	public static final String[] COMMAND_WORD = {"uncomplete"};
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD[0]
             + ": Uncompletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD[0] + " 1";
 
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
     public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
 
-    public static final String HELP_MESSAGE_USAGE = "Uncomplete a task: \t" + COMMAND_WORD +" <index>";
+    public static final String HELP_MESSAGE_USAGE = "Uncomplete a task: \t" + COMMAND_WORD[0] +" <index>";
 
 
     public final int targetIndex;

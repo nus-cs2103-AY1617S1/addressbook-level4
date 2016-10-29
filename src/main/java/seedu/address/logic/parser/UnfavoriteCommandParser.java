@@ -16,7 +16,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  * Parses Unfavorite commands
  */
 public class UnfavoriteCommandParser extends CommandParser{
-	public static final String COMMAND_WORD = UnfavoriteTaskCommand.COMMAND_WORD;
+	public static final String[] COMMAND_WORD = UnfavoriteTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**

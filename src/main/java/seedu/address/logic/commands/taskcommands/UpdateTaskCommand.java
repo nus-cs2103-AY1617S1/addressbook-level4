@@ -21,17 +21,17 @@ import seedu.address.model.task.Task;
 //@@author A0139817U
 public class UpdateTaskCommand extends TaskCommand {
 
-	public static final String COMMAND_WORD = "update";
+	public static final String[] COMMAND_WORD = {"update", "edit"};
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD[0]
             + ": Updates the task identified by the index number used in the last task listing.\n"
             + "Depending on whether 'task', 'description' or 'date' is stated, the task will be updated accordingly.\n"
             + "1) Parameters: INDEX (must be a positive integer) task UPDATED_VALUE\n"
-            + "Example: " + COMMAND_WORD + " 1 task Meeting from Oct 31 to Nov 1\n"
+            + "Example: " + COMMAND_WORD[0] + " 1 task Meeting from Oct 31 to Nov 1\n"
             + "2) Parameters: INDEX (must be a positive integer) description UPDATED_VALUE\n"
-            + "Example: " + COMMAND_WORD + " 1 description Meeting in town\n"
+            + "Example: " + COMMAND_WORD[0] + " 1 description Meeting in town\n"
             + "3) Parameters: INDEX (must be a positive integer) date UPDATED_VALUE\n"
-            + "Example: " + COMMAND_WORD + " 1 date Oct 31 to Nov 1";
+            + "Example: " + COMMAND_WORD[0] + " 1 date Oct 31 to Nov 1";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
     public static final String MESSAGE_CANNOT_UPDATE_TASK = "Selected task's description cannot be updated";

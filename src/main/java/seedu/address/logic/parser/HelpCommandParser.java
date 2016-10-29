@@ -12,7 +12,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0139708W
 public class HelpCommandParser extends CommandParser {
-    public static final String COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
+    public static final String[] COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
     
     /**
     * Parses arguments in the context of the find task command.

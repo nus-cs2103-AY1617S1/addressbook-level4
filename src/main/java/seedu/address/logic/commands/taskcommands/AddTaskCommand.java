@@ -19,21 +19,21 @@ import seedu.address.model.task.EventTask;
 //@@author A0139817U
 public class AddTaskCommand extends TaskCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String[] COMMAND_WORD = {"add"};
 
     public static final String HELP_MESSAGE_USAGE = "Add a task: \t" + "add <description> \n" +
             "Add a deadline: \t" + "add <description> by <date> \n" +
             "Add an event: \t" + "add <description> from <startDate> to <endDate>";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD[0] + ": Adds a task to TaskManager. \n"
             + "1) Parameters: DESCRIPTION \n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD[0]
             + " Finish V0.1 \n"
             + "2) Parameters: DESCRIPTION by DEADLINE \n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD[0]
             + " Finish V0.1 by Oct 31 \n"
             + "3) Parameters: DESCRIPTION from START_DATE to END_DATE \n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD[0]
             + " Software Demo from Oct 31 to Nov 1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";

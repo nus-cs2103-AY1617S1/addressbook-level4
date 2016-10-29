@@ -11,7 +11,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0139817U
 public class RedoCommandParser extends CommandParser{
-    public static final String COMMAND_WORD = RedoTaskCommand.COMMAND_WORD;
+    public static final String[] COMMAND_WORD = RedoTaskCommand.COMMAND_WORD;
 
     @Override
     public TaskCommand prepareCommand(String arguments) {

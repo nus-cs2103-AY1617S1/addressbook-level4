@@ -12,7 +12,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0139708W
 public class ListCommandParser extends CommandParser{
-    public static final String COMMAND_WORD = ListTaskCommand.COMMAND_WORD;
+    public static final String[] COMMAND_WORD = ListTaskCommand.COMMAND_WORD;
 
     @Override
     public TaskCommand prepareCommand(String arguments) {

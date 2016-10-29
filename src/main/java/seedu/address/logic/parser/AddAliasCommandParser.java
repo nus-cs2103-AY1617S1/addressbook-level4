@@ -10,7 +10,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0143107U
 public class AddAliasCommandParser extends CommandParser{
-    public static final String COMMAND_WORD = AddAliasCommand.COMMAND_WORD;
+    public static final String[] COMMAND_WORD = AddAliasCommand.COMMAND_WORD;
     
 	/**
      * Parses arguments in the context of the add alias command.
