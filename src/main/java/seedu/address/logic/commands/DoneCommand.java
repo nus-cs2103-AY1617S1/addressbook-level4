@@ -29,7 +29,7 @@ public class DoneCommand extends Command {
     
     public static final String MESSAGE_MARK_DONE_SUCCESS = "Marked task as done: %1$s";
     
-    public final ArrayList<String> targetIndexes;
+    public ArrayList<String> targetIndexes = new ArrayList<String>();
     
     public DoneCommand(ArrayList<String> targetIndexes) throws IllegalValueException {
         this.targetIndexes = targetIndexes;
@@ -40,21 +40,31 @@ public class DoneCommand extends Command {
     public CommandResult execute() {
         
         ArrayList<String> pass = new ArrayList<String>(targetIndexes);
-        Collections.sort(targetIndexes);
-        Collections.reverse(targetIndexes);
+//        Collections.sort(targetIndexes);
+//        Collections.reverse(targetIndexes);
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownDeadlineList = model.getFilteredDeadlineList();
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
         
+        
+        ArrayList<Integer> intIndex = new ArrayList<Integer>();
+        for(int i = 0; i < targetIndexes.size(); i++) {
+            Integer index = Integer.valueOf(targetIndexes.get(i).substring(1));
+            intIndex.add(index);
+        }
+        
+        Collections.sort(intIndex);
+        Collections.reverse(intIndex);
+        
         for(int i = 0; i < targetIndexes.size(); i++) {
             if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'E') {
-                if(lastShownEventList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
+                if(lastShownEventList.size() < intIndex.get(i)) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownEventList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
+                ReadOnlyTask taskDone = lastShownEventList.get(intIndex.get(i) - 1);
                 
                 try {
                     model.addToUndoStack();
@@ -64,13 +74,14 @@ public class DoneCommand extends Command {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
+
             else if (Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'D') {
-                if (lastShownDeadlineList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
+                if (lastShownDeadlineList.size() < intIndex.get(i)) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownDeadlineList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
+                ReadOnlyTask taskDone = lastShownDeadlineList.get(intIndex.get(i) - 1);
                 
                 try {
                     model.addToUndoStack();
@@ -80,13 +91,14 @@ public class DoneCommand extends Command {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
+        
             else if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'T') {
-                if (lastShownTodoList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
+                if (lastShownTodoList.size() < intIndex.get(i)) {
                    indicateAttemptToExecuteIncorrectCommand();
                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownTodoList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
+                ReadOnlyTask taskDone = lastShownTodoList.get(intIndex.get(i) - 1);
 
                 try {
                     model.addToUndoStack();
