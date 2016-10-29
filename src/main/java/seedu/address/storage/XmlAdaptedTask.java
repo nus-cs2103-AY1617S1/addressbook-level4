@@ -77,7 +77,6 @@ public class XmlAdaptedTask {
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
         }
-        // TODO add dates
         final Name name = new Name(this.name);
         final TaskType taskType = new TaskType(this.taskType);
         final Status status = new Status(this.status);

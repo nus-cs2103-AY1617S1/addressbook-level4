@@ -111,7 +111,6 @@ public class CommandBox extends UiPart {
      * Show previous command string input in history entered commands
      */
     private void handleUpKey() {
-    	// TODO attach to up key
     	String prevCommand = commandHistoryManager.getPreviousCommand();
     	commandTextField.setText(prevCommand);
     }
@@ -120,7 +119,6 @@ public class CommandBox extends UiPart {
      * Show next command string input in history of entered commands
      */
     private void handleDownKey() {
-    	// TODO attach to down key
     	String nextCommand = commandHistoryManager.getNextCommand();
     	commandTextField.setText(nextCommand);
     }
