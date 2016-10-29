@@ -99,8 +99,9 @@ public class SendEmail {
         build.append("\n");
         build.append("Task time: " + outdated.getActivityStartTime().toString());
         build.append("\n\n");
-        build.append("Quote of the day: ");
+        build.append("'");
         build.append(MotivationalQuotes.getRandomQuote());
+        build.append("'");
         
         return build.toString();
     }
