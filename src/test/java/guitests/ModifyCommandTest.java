@@ -10,8 +10,10 @@ import seedu.savvytasker.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 //@@author A0139915W
 public class ModifyCommandTest extends SavvyTaskerGuiTest {
@@ -21,9 +23,12 @@ public class ModifyCommandTest extends SavvyTaskerGuiTest {
         //modify task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToModify = currentList[0];
-        taskToModify.setStartDateTime(getDate("30/12/2016"));
-        taskToModify.setEndDateTime(getDate("31/12/2016"));
-        assertModifySuccess("modify 1 s/30-12-2016 e/31-12-2016", taskToModify, currentList);
+        Date start = getDate("30/12/2016");
+        Date end = getDate("31/12/2016");
+        taskToModify.setStartDateTime(start);
+        taskToModify.setEndDateTime(end);
+        assertModifySuccess("modify 1 s/" + getLocaleDateString(start) + 
+                " e/" + getLocaleDateString(end), taskToModify, currentList);
         currentList = TestUtil.replaceTaskFromList(currentList, taskToModify);
         
         taskToModify.setStartDateTime(null);
@@ -36,7 +41,10 @@ public class ModifyCommandTest extends SavvyTaskerGuiTest {
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX));
         
         //modify with invalid end date
-        commandBox.runCommand("modify 1 s/31-12-2016 e/30-12-2016");
+        start = getDate("31/12/2016");
+        end = getDate("30/12/2016");
+        commandBox.runCommand("modify 1 s/" + getLocaleDateString(start) + 
+                " e/" + getLocaleDateString(end));
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_START_END));
     }
 
@@ -50,6 +58,16 @@ public class ModifyCommandTest extends SavvyTaskerGuiTest {
         //confirm the list now contains all previous persons plus the new person
         TestTask[] expectedList = TestUtil.replaceTaskFromList(currentList, taskToModify);
         assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+
+    private DateFormat formatter = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    private String getLocaleDateString(Date date) {
+        try {
+            return formatter.format(date);
+        } catch (Exception e) {
+            assert false; //should not get an invalid date....
+        }
+        return null;
     }
 
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
