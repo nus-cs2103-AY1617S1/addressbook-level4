@@ -32,7 +32,7 @@ public class EditCommandTest extends ToDoListGuiTest {
         assertEditSuccess(targetIndex, currentList,change,editedTask);
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask, targetIndex-1);
         
-        //make last task floating
+        //make first task floating
         targetIndex = 1;
         change = "floating";
         editedTask = td.floatingGrocery;
