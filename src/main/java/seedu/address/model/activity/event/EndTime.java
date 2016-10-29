@@ -60,9 +60,9 @@ public class EndTime extends DateTime {
 
             if (taskDate.equals(null)) {
                 assert false : "Date should not be null";
-            } else if (DateUtil.hasPassed(taskDate)) {
+            } /* else if (DateUtil.hasPassed(taskDate)) {
                 throw new IllegalValueException(MESSAGE_ENDTIME_INVALID);
-            }
+            }*/
 
             if (!isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
