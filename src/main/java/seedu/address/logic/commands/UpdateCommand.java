@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
@@ -10,6 +13,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Repeating;
 import seedu.address.model.task.Startline;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -36,40 +40,62 @@ public class UpdateCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		Calendar cal = Calendar.getInstance();
+		List<Task> addList = new LinkedList();
+		List<Task> deleteList = new LinkedList();
 		ReadOnlyTaskManager taskmanager = model.getAddressBook();
-		for(ReadOnlyTask task: taskmanager.getTaskList()){
+		Iterator<Task> it = taskmanager.getUniqueTaskList().iterator(); 
+		while(it.hasNext()){
+			Task task = it.next();
 			Calendar startlineCal = task.getStartline().calendar;
 			Calendar deadlineCal = task.getDeadline().calendar;
+			//System.out.println(mutateToDate(deadlineCal));
+			String startline, deadline;
 			if(checkOverdue(cal, deadlineCal)){
-				startlineCal = repeatDate(startlineCal, task);
-				deadlineCal = repeatDate(deadlineCal, task);
-				Name name = task.getName();
-				String startline = mutateToDate(startlineCal);
-				String deadline = mutateToDate(deadlineCal);
+				if(startlineCal != null){
+					startlineCal = repeatDate(startlineCal, task);
+					startline = mutateToDate(startlineCal);
+				}
+				else{
+					startline = null;
+				}
+				if(deadlineCal != null){
+					deadlineCal = repeatDate(deadlineCal, task);
+					deadline = mutateToDate(deadlineCal);
+				}
+				else{
+					deadline = null;
+				}
+				System.out.println(mutateToDate(deadlineCal));
+				Name name = task.getName();								
 				Priority priority = task.getPriority();
 				UniqueTagList tagSet = task.getTags();
 				
-				try {
-		            model.deleteTask(task);
-		        } catch (TaskNotFoundException pnfe) {
-		            assert false : "The target task cannot be missing";
-		        }
-				
 				try{
 					toAdd = new Task(name, new Startline(startline), new Deadline(deadline), priority, tagSet);
-				} catch (IllegalValueException ive) {}
-				
-				
-		        assert model != null;
-		        try {
-		            model.addPerson(toAdd);
-		        } catch (UniqueTaskList.DuplicateTaskException e) {
-		        }
-				
-			}						
-			
-
-		}					
+					toAdd.setRepeating(new Repeating(true, task.getRepeating().getTimeInterval()));
+				} catch (IllegalValueException ive) {
+					return new CommandResult("FAILED " + ive.getMessage());
+				}	
+					addList.add(toAdd);
+					deleteList.add(task);
+			}									
+		}
+		
+		for(Task t: deleteList){
+			try {
+	            model.deleteTask(t);
+	        } catch (TaskNotFoundException pnfe) {
+	            assert false : "The target task cannot be missing";
+	        }
+		}
+		
+		for(Task modified: addList) {
+			assert model != null;
+	        try {
+	            model.addPerson(modified);
+	        } catch (UniqueTaskList.DuplicateTaskException e) {
+	        }
+		}
 		return new CommandResult(UPDATE_SUCCESS);
 	}
 	
@@ -79,26 +105,36 @@ public class UpdateCommand extends Command {
 	}
 	
 	private boolean checkOverdue(Calendar current, Calendar toCheck){
-		if(toCheck.after(current)){
+		//System.out.println(mutateToDate(current));
+		//System.out.println(mutateToDate(toCheck));
+		if(current.after(toCheck)){
+			System.out.println(true);
 			return true;
 		}
 		else{
+			System.out.println(false);
 			return false;
 		}
 	}
 	
 	private Calendar repeatDate(Calendar toCheck, ReadOnlyTask task){
 		// TODO: Overdue implementation
+		System.out.println(task.getRepeating().getTimeInterval());
 		if(task.getRepeating().getRepeating()){
 			switch(task.getRepeating().getTimeInterval()){
 				case "weekly":
 					toCheck.add(Calendar.DATE, 7);
+					System.out.println("weekly");
+					break;
 				case "monthly":
 					toCheck.add(Calendar.MONTH, 1);
+					break;
 				case "yearly":
 					toCheck.add(Calendar.YEAR, 1);
+					System.out.println("year");
+					break;
 				default :
-					;						
+					break;						
 			}
 		}
 		return toCheck;
