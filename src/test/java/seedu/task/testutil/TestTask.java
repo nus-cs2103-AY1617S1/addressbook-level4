@@ -69,11 +69,6 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
-
-    @Override
-    public int getRecurrentWeek() {
-        return recurrentWeek;
-    }
     
     @Override
     public boolean getImportance() {
@@ -90,7 +85,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("s/" + this.getOpenTime().toPrettyString() + " ");
         sb.append("c/" + this.getCloseTime().toPrettyString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        sb.append("r/" + this.getRecurrentWeek()+ " ");
         return sb.toString();
     }
     

@@ -30,7 +30,9 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     public static final String MESSAGE_WRONG_NUMBER_OF_RECURRENCE = "Maximum number of recurrence is 20!";
     public static final String MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE = "The number recurrence should be positive!";
+    
     private final Task toAdd;
+    private final int amountRecurring;
     
 
     /**
@@ -45,15 +47,16 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
         
+        this.amountRecurring = recurrence;
+        
         this.toAdd = new Task(
                 new Name(name),
                 new DateTime(openTime),
                 new DateTime(closeTime),
                 false,
                 false,
-                new UniqueTagList(tagSet),
-                recurrence           
-             );
+                new UniqueTagList(tagSet)
+                );
     }
 
   //@@author A0153467Y
@@ -62,20 +65,20 @@ public class AddCommand extends UndoableCommand {
         assert model != null;
         try {
 
-            if (toAdd.getRecurrentWeek() > MAX_NUMBER_OF_RECURRENCE_WEEK) {
+            if (this.amountRecurring > MAX_NUMBER_OF_RECURRENCE_WEEK) {
                 return new CommandResult(false, MESSAGE_WRONG_NUMBER_OF_RECURRENCE);
             }
             
-            if(toAdd.getRecurrentWeek() < 0) {
+            if(this.amountRecurring < 0) {
                 return new CommandResult(false, MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
             }
 
-            if (toAdd.getRecurrentWeek() == 0) {
+            if (this.amountRecurring == 0) {
                 model.addTask(toAdd);
                 return new CommandResult(true, String.format(MESSAGE_SUCCESS, toAdd));
             } else {
                 model.addTask(toAdd);
-                createRecurringTask(toAdd.getRecurrentWeek());
+                createRecurringTask(this.amountRecurring);
             }
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
@@ -93,8 +96,7 @@ public class AddCommand extends UndoableCommand {
                 new DateTime(toAdd.getCloseTime().getDateTimeValue().get().plusSeconds(604800*i).toString()),
                 false,
                 false,
-                toAdd.getTags(),
-                0
+                toAdd.getTags()
              );
                 model.addTask(recurrTask);
             }

@@ -402,7 +402,7 @@ public class LogicManagerTest {
             boolean isImportant = false;
             boolean isComplete = false;
             int recurrenceWeek=0;
-            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags, recurrenceWeek);
+            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags);
         }
 
         /**
@@ -419,8 +419,7 @@ public class LogicManagerTest {
                     new DateTime(""),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    0
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -518,8 +517,7 @@ public class LogicManagerTest {
                     new DateTime("day after tomorrow"),
                     false,
                     false,
-                    new UniqueTagList(new Tag("tag")),
-                    0
+                    new UniqueTagList(new Tag("tag"))
             );
         }
     }
