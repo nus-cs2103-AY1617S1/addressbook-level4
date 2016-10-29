@@ -18,9 +18,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Datetime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MM-YYYY and Time can be 24h format";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MMM-YYYY and Time can be 24h format";
 
-    public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date should be in MM-DD-YYYY format and cannot contain '.' character";
+    public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date should be in DD-MM-YYYY format and cannot contain '.' character";
 
     public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
         		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
