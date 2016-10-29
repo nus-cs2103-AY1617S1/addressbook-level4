@@ -68,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
         undoableCmdHistStack = new Stack<>();
         redoableCmdHistStack = new Stack<>();
+        new Thread(() -> DateTimeUtil.getDateTimeFromArgs("today")).start();
     }
 
     public ModelManager() {
@@ -80,6 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
         undoableCmdHistStack = new Stack<>();
         redoableCmdHistStack = new Stack<>();
+        new Thread(() -> DateTimeUtil.getDateTimeFromArgs("today")).start();
     }
 
     @Override
