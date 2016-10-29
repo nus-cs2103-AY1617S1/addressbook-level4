@@ -207,27 +207,4 @@ public class MainWindow extends UiPart {
     public ToggleButton getFloatButton() {
         return floatButton; 
     }
-    
-    tabGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-        public void changed(Toggle ov, Toggle toggle, Toggle new_toggle) {
-            assert new_toggle != null; 
-            Toggle selected = Toggle tabGroup.getSelectedToggle();
-            switch(selected.getText()) {
-                case allButton: 
-                    logic.execute("list");
-                    break;
-                case dayButton: 
-                    logic.execute("list today");
-                    break;
-                case weekButton: 
-                    logic.execute("list week");
-                    break;
-                case floatButton: 
-                    logic.execute("list float");
-                    break;
-                default: 
-                    break;
-            }
-        }
-    });
 }
