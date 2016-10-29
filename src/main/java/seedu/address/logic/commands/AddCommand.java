@@ -58,8 +58,8 @@ public class AddCommand extends Command {
         try {
         	model.addPerson(toAdd);
             String point = String.format(MESSAGE_SUCCESS, toAdd);
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
             model.currentState(point);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
             return new CommandResult(point);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
