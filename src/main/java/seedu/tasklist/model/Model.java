@@ -119,4 +119,6 @@ public interface Model {
 	
 	void updateFilteredListToShowOverlapping(Task task);
 
+    boolean isDuplicate(Task toAdd);
+
 }

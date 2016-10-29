@@ -20,6 +20,7 @@ public interface ReadOnlyTask {
 	boolean isToday();
 	boolean isTomorrow();
 	boolean isEvent();
+	boolean equals(Task task);
 	
 
     /**

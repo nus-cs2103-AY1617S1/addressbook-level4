@@ -636,4 +636,15 @@ public class ModelManager extends ComponentManager implements Model {
         config.setTaskListFilePath(filePath);
         addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
     }
+    //@@author A0144919W
+    @Override
+    public boolean isDuplicate(Task toAdd) {
+        List<ReadOnlyTask> taskList = getTaskList().getTaskList();
+        for(int i=0; i<taskList.size(); i++) {
+            if (taskList.get(i).equals(toAdd))
+                return true;
+        }
+        return false;
+    }
+    //@@author
 }
