@@ -99,7 +99,7 @@ public class AddCommand extends ModelRequiringCommand {
             }
             
             int targetIndex = getIndexOfTask(taskAdded);
-            if (targetIndex > 0) {
+            if (targetIndex >= 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
             } else {
                 // GUI should never ever get here
