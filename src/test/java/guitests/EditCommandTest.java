@@ -13,70 +13,41 @@ import static seedu.cmdo.logic.commands.EditCommand.MESSAGE_EDITED_TASK_SUCCESS;
 // @@author A0141128R tested and passed
 public class EditCommandTest extends ToDoListGuiTest {
 	
-	TestTask[] currentList = td.getTypicalTasks();
-	
     @Test
     public void edit() {
-
-        //edit the time of the first task in the list  
-        int targetIndex = 1;
-        String change = "'Eat Buffet'";
-        TestTask editedTask = td.editedGrocery;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+    	TestTask[] currentList = td.getTypicalTasks();
+        
+    	//edit the time of the first task in the list  
+    	int targetIndex = 1;
+    	execute(targetIndex, currentList, "'Eat Buffet'",td.editedGrocery);
 
 
         //edit the priority of the last task in the list
         targetIndex = currentList.length;
-        change = "/low";
-        editedTask = td.editedZika;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "/low",td.editedZika);
         
         //make first task floating
         targetIndex = 1;
-        change = "floating";
-        editedTask = td.floatingGrocery;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
+        execute(targetIndex, currentList, "floating",td.floatingGrocery);
         
         //change tags of last task
         targetIndex = currentList.length;
-        change = "-dangerous";
-        editedTask = td.taggedZika;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "-dangerous",td.taggedZika);
         
         //remove priority of first task using 'rp' or 'remove priority'
         targetIndex = 1;
-        change = "rp";
-        editedTask = td.noPriorityGrocery;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        change = "remove priority";
-        editedTask = td.noPriorityGrocery;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "remove priority",td.noPriorityGrocery);
         
         //change time of task 2
         targetIndex = 2;
-        change = "1120";
-        editedTask = td.editedHouse1;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "1120",td.editedHouse1);
         
         //change date of task 2
-        targetIndex = 2;
-        change = "10/20/2016";
-        editedTask = td.editedHouse2;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "10/20/2016",td.editedHouse2);
         
         //change task 3 to a range task
         targetIndex = 3;
-        change = "11/12/2016 1300 to 12/12/2016 1500";
-        editedTask = td.editedCar;
-        assertEditSuccess(targetIndex, currentList,change,editedTask);
-        currentList = updateList(currentList,editedTask,targetIndex);
+        execute(targetIndex, currentList, "11/12/2016 1300 to 12/12/2016 1500",td.editedCar);
         
         //invalid priority parameter
         runEditCommand("edit", 1, "/yolo");
@@ -98,6 +69,12 @@ public class EditCommandTest extends ToDoListGuiTest {
         runEditCommand("edit", targetIndex, "/high");
         assertResultMessage("The task index provided is invalid");
 
+    }
+    
+    //slap for successful cases, need to comment
+    private void execute(int targetIndex, TestTask[] currentList, String change, TestTask editedTask){
+        assertEditSuccess(targetIndex, currentList,change,editedTask);
+        currentList = updateList(currentList,editedTask,targetIndex);
     }
     
     //run commands
