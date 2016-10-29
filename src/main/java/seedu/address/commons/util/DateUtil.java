@@ -252,6 +252,15 @@ public class DateUtil {
     		return null;
     	}
     	
+    	// Set default time to be 12am if no time is given by user
+    	if (firstDateGroup.isTimeInferred()) {
+    		Calendar toRetrieveTime = Calendar.getInstance();
+    		toRetrieveTime.set(Calendar.HOUR, 12);
+    		toRetrieveTime.set(Calendar.MINUTE, 0);
+    		Date newDate = retrieveDateTime(dates.get(0), toRetrieveTime.getTime());
+    		dates.set(0, newDate);
+    	}
+    	
     	// Validate that date is sensible before returning
     	if (isDateSensible(dates.get(0), dateString)) {
     		return dates.get(0);
