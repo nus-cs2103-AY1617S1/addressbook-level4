@@ -10,12 +10,16 @@ import seedu.address.model.task.Time;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.storage.Storage;
 import seedu.address.commons.events.model.ToDoChangedEvent;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -28,29 +32,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ToDo toDo;
     private final FilteredList<Task> filteredTasks;
+    private final Storage storage;
 
     /**
      * Initializes a ModelManager with the given ToDo
      * ToDo and its variables should not be null
      */
-    public ModelManager(ToDo src, UserPrefs userPrefs) {
+    public ModelManager(ToDo src, UserPrefs userPrefs, Storage storage) {
         super();
         assert src != null;
         assert userPrefs != null;
+        assert storage != null;
 
         logger.fine("Initializing with SmartyDo: " + src + " and user prefs " + userPrefs);
 
         toDo = new ToDo(src);
         filteredTasks = new FilteredList<>(toDo.getTasks());
+        this.storage = storage;
     }
 
-    public ModelManager() {
-        this(new ToDo(), new UserPrefs());
+    public ModelManager(Storage storage) {
+        this(new ToDo(), new UserPrefs(), storage);
     }
 
-    public ModelManager(ReadOnlyToDo initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyToDo initialData, UserPrefs userPrefs, Storage storage) {
         toDo = new ToDo(initialData);
         filteredTasks = new FilteredList<>(toDo.getTasks());
+        this.storage = storage;
     }
 
     @Override
@@ -87,6 +95,34 @@ public class ModelManager extends ComponentManager implements Model {
         toDo.toggleTaskStatus(target);
         indicateAddressBookChanged();
     }
+    
+    //@@author A0126649W
+    @Override
+    public synchronized void saveToDo(String filePath) throws IOException {
+        storage.saveToDo(toDo, filePath);
+        indicateAddressBookChanged();
+    }
+    
+    @Override
+    public synchronized void loadToDo(String filePath) throws IOException {
+        Optional<ReadOnlyToDo> addressBookOptional;
+        ReadOnlyToDo initialData;
+        try {
+            addressBookOptional = storage.readToDo(filePath);
+            if(!addressBookOptional.isPresent()){
+                logger.info("Data file not found.");
+                throw new IOException();
+            }else{
+                toDo.resetData(addressBookOptional.get());
+                storage.loadToDo(filePath);
+                updateFilteredListToShowAll();
+                indicateAddressBookChanged();
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format.");
+        }
+    }
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

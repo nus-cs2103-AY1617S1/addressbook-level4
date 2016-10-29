@@ -6,6 +6,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -26,7 +27,15 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-
+    
+    //@@author A0126649W
+    /** Saves to the new file path */
+    void saveToDo(String filePath) throws IOException;
+    
+    /** Loads file from file path */
+    void loadToDo(String filePath) throws IOException;
+    //@@author
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     

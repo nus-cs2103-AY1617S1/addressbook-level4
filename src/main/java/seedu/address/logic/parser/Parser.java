@@ -142,12 +142,39 @@ public class Parser {
 
         case ConfirmCommand.COMMAND_WORD:
             return new ConfirmCommand();
+            
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+        case LoadCommand.COMMAND_WORD:
+            return prepareLoad(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
+    //@@author A0126649W
+    /**
+     * Parses arguments in context of the save todo command.
+     * 
+     * @param args full command args string
+     * @return the full prepared command
+     */
+    private Command prepareSave(String args){
+        return new SaveCommand(args.trim());
+    }
+    
+    /**
+     * Parses arguments in context of the save todo command.
+     * 
+     * @param args full command args string
+     * @return the full prepared command
+     */
+    private Command prepareLoad(String args){
+        return new LoadCommand(args.trim());
+    }
+    //@@author
+    
     /**
      * Parses arguments in the context of the add mark command.
      *
