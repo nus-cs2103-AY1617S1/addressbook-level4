@@ -45,7 +45,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getType(), source.getTags());
-        this.completeStatus = source.getCompleteStatus();
+        this.completeStatus = source.isCompleted();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public boolean getCompleteStatus() {
+    public boolean isCompleted() {
         return completeStatus;
     }
     
@@ -97,8 +97,8 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     * Add completed tag to indicate task done.
-     * @throws IllegalValueException 
+     * Change completeStatus to indicate task done.
+     * @throws IllegalValueException if already done
      */
     public void markComplete() throws IllegalValueException {
         if (completeStatus) {
@@ -106,19 +106,11 @@ public class Task implements ReadOnlyTask {
         } else {
             completeStatus = true;
         }
-        
-//        try {
-//            this.tags.add(new Tag("Completed"));
-//        } catch (DuplicateTagException dte) { 
-//            throw dte;
-//        } catch (IllegalValueException ive) {
-//            assert false : "The tag cannot be illegal value";
-//        } 
     }
 
     /**
-     * Add completed tag to indicate task done.
-     * @throws IllegalValueException 
+     * Change completeStatus to indicate task undone.
+     * @throws IllegalValueException if already undone
      */
     public void unMarkComplete() throws IllegalValueException {
         if (!completeStatus) {
@@ -126,14 +118,6 @@ public class Task implements ReadOnlyTask {
         } else {
             completeStatus = false;
         }
-//        try {
-//            this.tags.remove(new Tag("Completed"));
-//        }
-//        catch (NullPointerException npe) { 
-//            throw npe;
-//        } catch (IllegalValueException ive) {
-//            assert false : "The tag cannot be illegal value";
-//        }
     }
 
     @Override
@@ -180,5 +164,4 @@ public class Task implements ReadOnlyTask {
     public void setType(TaskType type) {
         this.type = type;
     }
-
 }

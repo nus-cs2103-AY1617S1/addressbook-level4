@@ -100,6 +100,8 @@ public class TaskListPanelHandle extends GuiHandle {
         return true;
     }
     
+    
+    //@@author A0148145E
     /**
      * Returns true if the list is showing all the task details correctly and in no order.
      * @param tasks A list of task.
@@ -119,6 +121,7 @@ public class TaskListPanelHandle extends GuiHandle {
         }
         return list.size() == 0;
     }
+    //@@author
 
 
     public TaskCardHandle navigateToTask(String name) {

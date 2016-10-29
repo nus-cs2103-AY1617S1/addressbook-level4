@@ -8,6 +8,7 @@ import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.logic.commands.CommandResult;
 import seedu.taskscheduler.logic.parser.Parser;
 import seedu.taskscheduler.model.Model;
+import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.storage.Storage;
 
@@ -44,5 +45,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getPriorityFilteredTaskList() {
         return model.getPriorityFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Tag> getUnmodifiableTagList() {
+        return model.getUnmodifiableTagList();
     }
 }

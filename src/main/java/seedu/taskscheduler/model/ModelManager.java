@@ -8,6 +8,7 @@ import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.StringUtil;
+import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -210,6 +211,11 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    @Override
+    public UnmodifiableObservableList<Tag> getUnmodifiableTagList() {
+        return new UnmodifiableObservableList<>(taskScheduler.getTags());
     }
 
 

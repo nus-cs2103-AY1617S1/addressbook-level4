@@ -2,6 +2,7 @@ package seedu.taskscheduler.model;
 
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
+import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -57,5 +58,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     UnmodifiableObservableList<ReadOnlyTask> getPriorityFilteredTaskList();
+
+    UnmodifiableObservableList<Tag> getUnmodifiableTagList();
 
 }

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.taskscheduler.commons.core.Config;
@@ -28,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-//    private BrowserPanel browserPanel;
+    private TagListPanel tagListPanel;
     private TaskListPanel taskListPanel;
     private PriorityListPanel priorityListPanel;
     private ResultDisplay resultDisplay;
@@ -49,6 +50,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane priorityListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane tagListPanelPlaceholder;
     
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -108,6 +112,7 @@ public class MainWindow extends UiPart {
     //@@author A0148145E
     public void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getUnmodifiableTagList());
         priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
                 logic.getPriorityFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -134,6 +139,10 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {

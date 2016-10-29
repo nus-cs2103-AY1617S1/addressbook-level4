@@ -10,53 +10,77 @@
 <?import java.net.URL?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
+	<children>
+		<GridPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+			<columnConstraints>
+				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<children>
+				<VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" VBox.vgrow="ALWAYS">
+					<stylesheets>
+						<URL value="@DarkTheme.css" />
+						<URL value="@Extensions.css" />
+					</stylesheets>
+					<padding>
+						<Insets bottom="5" left="15" right="5" top="5" />
+					</padding>
 
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                   <children>
-                                       <Label fx:id="id" styleClass="cell_big_label" />
-                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                                   </children>
-                                </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                            </children>
-                        </HBox>
-                        <Label fx:id="address" styleClass="cell_small_label" text="\\$address" />
-                        <Label fx:id="phone" styleClass="cell_small_label" text="Start Date: \$phone" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="End Date: \$email" />
-                    </children>
-                </VBox>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-      <Polygon fx:id="completeStatus" fill="WHITE" opacity="0.5" rotate="180.0" scaleX="0.3" scaleY="0.3" scaleZ="0.3" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" translateX="20.0" translateY="-20.0">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="-60.0" />
-        </points>
-      </Polygon>
-    </children>
+					<children>
+						<HBox alignment="CENTER_LEFT" spacing="5">
+							<children>
+								<HBox>
+									<children>
+										<Label fx:id="id" styleClass="cell_big_label" />
+										<Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+									</children>
+								</HBox>
+								<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+							</children>
+						</HBox>
+						<Label fx:id="address" styleClass="cell_small_label" text="\\$address" />
+						<Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
+						<Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
+					</children>
+				</VBox>
+				<!--  @@author A0148145E -->
+      		<Polyline fx:id="completeStatus" fill="WHITE" opacity="0.5" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" translateX="20.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+      			<points>
+      				<Double fx:value="0.0" />
+      				<Double fx:value="25.0" />
+      
+      				<Double fx:value="7.5" />
+      				<Double fx:value="7.5" />
+      
+      				<Double fx:value="25.0" />
+      				<Double fx:value="0.0" />
+      				
+      				<Double fx:value="7.5" />
+      				<Double fx:value="-7.5" />
+      				
+      				<Double fx:value="0.0" />
+      				<Double fx:value="-25.0" />
+      				
+      				<Double fx:value="-7.5" />
+      				<Double fx:value="-7.5" />
+      				
+      				<Double fx:value="-25.0" />
+      				<Double fx:value="0.0" />
+      				
+      				<Double fx:value="-7.5" />
+      				<Double fx:value="7.5" />
+      				
+      				<Double fx:value="0.0" />
+      				<Double fx:value="25.0" />
+      			</points>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+      		</Polyline>
+			</children>
+			<rowConstraints>
+				<RowConstraints />
+			</rowConstraints>
+		</GridPane>
+	</children>
 </HBox>

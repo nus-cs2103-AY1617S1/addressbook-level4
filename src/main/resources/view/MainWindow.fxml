@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -7,9 +14,7 @@
 
 <!-- @@author A0140007B -->
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="seedu.taskscheduler.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskscheduler.ui.MainWindow">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
@@ -19,53 +24,104 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleExit"
-							text="Exit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false"
-							onAction="#handleHelp" text="Help" />
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
-		<AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder"
-			styleClass="anchor-pane-with-border">
-			<padding>
-				<Insets top="5.0" bottom="5.0" left="10.0" right="10.0" />
-			</padding>
-		</AnchorPane>
-		<AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
-			styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100"
-			maxHeight="100">
-			<padding>
-				<Insets top="5.0" bottom="5.0" left="10.0" right="10.0" />
-			</padding>
-		</AnchorPane>
-		<SplitPane id="splitPane" fx:id="splitPane"
-			dividerPositions="0.4" VBox.vgrow="ALWAYS">
+		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3333" focusTraversable="false" VBox.vgrow="ALWAYS">
 			<items>
-				<VBox fx:id="priorityList" minWidth="340" prefWidth="340">
+				<VBox fx:id="priorityList" minHeight="600.0" minWidth="300.0">
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
 					<children>
-						<AnchorPane fx:id="priorityListPanelPlaceholder"
-							VBox.vgrow="ALWAYS" />
+						<AnchorPane fx:id="tagListPanelPlaceholder" minHeight="240.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+							</padding>
+						</AnchorPane>
+						<AnchorPane fx:id="priorityListPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+							</padding>
+						</AnchorPane>
 					</children>
 				</VBox>
-				<VBox fx:id="taskList" minWidth="340" prefWidth="340">
+				<VBox fx:id="taskList" minHeight="600.0" minWidth="600.0">
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
 					<children>
-						<AnchorPane fx:id="taskListPanelPlaceholder"
-							VBox.vgrow="ALWAYS" />
+                  <GridPane alignment="TOP_CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label contentDisplay="CENTER" text="1000">
+                           <padding>
+                              <Insets left="100.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Completed" GridPane.vgrow="ALWAYS">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Pending" GridPane.columnIndex="1">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label contentDisplay="CENTER" text="1000" GridPane.columnIndex="1">
+                           <padding>
+                              <Insets left="100.0" />
+                           </padding>
+                        </Label>
+                        <Label contentDisplay="CENTER" text="1000" GridPane.columnIndex="2">
+                           <padding>
+                              <Insets left="100.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Overdue" GridPane.columnIndex="2">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </GridPane>
+						<AnchorPane fx:id="taskListPanelPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+							</padding>
+						</AnchorPane>
+						<AnchorPane fx:id="commandBoxPlaceholder" minHeight="40.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+							</padding>
+						</AnchorPane>
+						<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+							</padding>
+						</AnchorPane>
 					</children>
 				</VBox>
 			</items>
+			<effect>
+				<Glow />
+			</effect>
 		</SplitPane>
 		<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 	</children>

@@ -50,6 +50,10 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
 
 //// list overwrite operations
 
+    public ObservableList<Tag> getTags() {
+        return tags.getInternalList();
+    }
+    
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }

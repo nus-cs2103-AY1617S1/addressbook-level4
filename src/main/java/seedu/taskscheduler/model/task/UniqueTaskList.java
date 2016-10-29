@@ -82,37 +82,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return
      */
     private int indexToInsertInSortedOrder(Task toAdd) {
-        if (toAdd.getType() == TaskType.EVENT) {
+        if (toAdd.getType() != TaskType.FLOATING) {
             for (int i = 0; i < internalList.size(); i++) {
-                Task task = internalList.get(i);
-                if (task.getType() == TaskType.FLOATING) {
+                if (toAdd.isBefore(internalList.get(i))) {
                     return i;
-                } else if (task.getType() == TaskType.DEADLINE) {
-                    if (task.getEndDate().getDate().after(toAdd.getStartDate().getDate())) {
-                        return i;
-                    }
-                } else {
-                    if (task.getStartDate().getDate().after(toAdd.getStartDate().getDate())) {
-                        return i;
-                    }
-                }
-            }
-        } else if (toAdd.getType() == TaskType.DEADLINE) {
-            for (int i = 0; i < internalList.size(); i++) {
-                Task task = internalList.get(i);
-                if (task.getType() == TaskType.FLOATING) {
-                    return i;
-                } else if (task.getType() == TaskType.DEADLINE) {
-                    if (task.getEndDate().getDate().after(toAdd.getEndDate().getDate())) {
-                        return i;
-                    }
-                } else {
-                    if (task.getStartDate().getDate().after(toAdd.getEndDate().getDate())) {
-                        return i;
-                    }
                 }
             }
         }
+        // floating task will always be added to the back
         return internalList.size();
     }
 

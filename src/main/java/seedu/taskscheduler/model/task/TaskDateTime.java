@@ -25,8 +25,9 @@ public class TaskDateTime {
     }
     
     public TaskDateTime(String args) throws IllegalValueException {
-        if (args == null || args.trim().isEmpty())
+        if (args == null || args.trim().isEmpty()) {
             return;
+        }
         
         date = DateFormatter.convertStringToDate(args);
         checkIfTimeIsSpecified(new Date());
@@ -49,18 +50,44 @@ public class TaskDateTime {
         return date;
     }
     
+    public boolean isBefore(TaskDateTime other) { 
+        //as null represents infinity
+        if (date == null) {
+            return false;
+        } else if (other == null || other.getDate() == null) {
+            return true;
+        } else {
+            return getDate().before(other.getDate());
+        }
+    }
+    
+    public boolean isAfter(TaskDateTime other) { 
+        //as null represents infinity
+        if (date == null) {
+            return true;
+        } else if (other == null || other.getDate() == null) {
+            return false;
+        } else {
+            return getDate().after(other.getDate());
+        }
+    }
+    
     public String getDisplayDateString() {
-        if (date == null)
+        if (date == null) {
             return "";
-        else 
+        }
+        else {
             return DateFormatter.convertDateToDisplayString(date);
+        }
     }
     
     public String getDisplayTimeString() {
-        if (enShowTime)
+        if (enShowTime) {
             return " " + DateFormatter.convertTimeToDisplayString(date);
-        else
+        }
+        else {
             return "";
+        }
     }
     
     public boolean getEnShowTime() {
