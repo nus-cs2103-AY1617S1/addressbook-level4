@@ -57,9 +57,9 @@ public class HelpWindow extends UiPart {
 		Scene scene = new Scene(mainPane);
 		//Null passed as the parent stage to make it non-modal.
 		dialogStage = createDialogStage(TITLE, null, scene);
-		dialogStage.setMaxWidth(630.0);
+		dialogStage.setMaxWidth(575.0);
 		dialogStage.setMinWidth(0.0);
-		dialogStage.setMaxHeight(700.0);
+		dialogStage.setMaxHeight(640.0);
 		dialogStage.setMinHeight(0.0);
 
 		//dialogStage.setMaximized(false); //TODO: set a more appropriate initial size
