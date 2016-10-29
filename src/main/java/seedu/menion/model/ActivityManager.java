@@ -167,21 +167,19 @@ public class ActivityManager implements ReadOnlyActivityManager {
     /**
      * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
-     * @param index
+     * @param activityToUncomplete
      */
-    public void unCompleteFloatingTask(int index) {
-        Activity dub;
-        dub = floatingTasks.getInternalList().get(index);
+    public void unCompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToUncomplete;
         dub.setUncompleted();
-        floatingTasks.getInternalList().set(index, dub);
+        floatingTasks.getInternalList().set(floatingTasks.getIndexOf(activityToUncomplete), dub);
         Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
-    public void unCompleteTask(int index) {
-        Activity dub;
-        dub = tasks.getInternalList().get(index);
+    public void unCompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        Activity dub = (Activity)activityToUncomplete;
         dub.setUncompleted();
-        tasks.getInternalList().set(index, dub); 
+        tasks.getInternalList().set(tasks.getIndexOf(activityToUncomplete), dub);
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     

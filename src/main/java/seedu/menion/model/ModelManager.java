@@ -138,14 +138,14 @@ public class ModelManager extends ComponentManager implements Model {
      * Methods for Un-completing an activity
      */
     @Override
-    public void UncompleteFloatingTask(int index) {
-        activityManager.unCompleteFloatingTask(index);
+    public void UncompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        activityManager.unCompleteFloatingTask(activityToUncomplete);
         indicateActivityManagerChanged();
     }
 
     @Override
-    public void UncompleteTask(int index) {
-        activityManager.unCompleteTask(index);
+    public void UncompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        activityManager.unCompleteTask(activityToUncomplete);
         indicateActivityManagerChanged();
     }
 

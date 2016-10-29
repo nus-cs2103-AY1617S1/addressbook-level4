@@ -25,12 +25,12 @@ public interface Model {
     
     //@@author A0139164A
     /** Completes the given Activity, given it's index. */
-    void completeFloatingTask(ReadOnlyActivity activityToBeCompleted) throws ActivityNotFoundException;
+    void completeFloatingTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException;
     void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException;
     
     /** Uncompletes the given Activity, given it's index. */
-    void UncompleteFloatingTask(int index);
-    void UncompleteTask(int index);
+    void UncompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException;
+    void UncompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException;
  
     /** 
      * Edits the name of the given Activity, given it's index. 
