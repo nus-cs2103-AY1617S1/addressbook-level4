@@ -29,33 +29,36 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_EDIT = "edit";
     public static final String COMMAND_KEYWORD_UPDATE = "update";
+    public static final String COMMAND_KEYWORD_CHANGE = "change";
     // @@author A0138862W
+    /*
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
                                                         + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
                                                         + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
                                                         + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
                                                         + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-                                                        + ".*";
+                                                        + ".*";*/
+    
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
+                                                        + "(?:(?=.*name to (?:(?<name>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*end date to (?:(?<endDate>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*tags to #(?:(?<tags>.+?)(?:;|$))?))?"
+                                                        + "(?:(?=.*recur (?<recur>daily|weekly|monthly|yearly)(?:;|$)))?"
+                                                        + ".+";
 
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
-    public static final String COMMAND_SUMMARY = "Editting a task:"
-                                                 + "\n"
-                                                 + "("
-                                                 + COMMAND_KEYWORD_EDIT
-                                                 + " | "
-                                                 + COMMAND_KEYWORD_UPDATE
-                                                 + ") "
-                                                 + "<index> ['<task_name>'] [sd/'<start_date>'] [ed/<end_date>'] [t/'<comma_spearated_tags>']";
+    public static final String COMMAND_SUMMARY = "Editting a task:\n"
+            + "(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]";
 
     public static final String MESSAGE_USAGE = COMMAND_SUMMARY
                                                + "\n"
                                                + "Edits the task identified by the index number used in the last task listing.\n"
-                                               + "Example: "
-                                               + COMMAND_KEYWORD_EDIT
-                                               + " 1 'I change the task name to this, unspecified field are preserved.'";
+                                               + "Example: \n"
+                                               + "edit 2 name to parents with dinner; end date to tomorrow 7pm; recur daily; tags to #meal,family";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";

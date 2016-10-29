@@ -102,6 +102,7 @@ public class Parser {
 
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
+            case EditCommand.COMMAND_KEYWORD_CHANGE:
                 return prepareEdit(arguments);
 
             case UndoCommand.COMMAND_WORD:
@@ -136,7 +137,7 @@ public class Parser {
      */
     // @@author A0138862W
     private Command prepareAdd(String args) {
-        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args);
+        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
 
         // Validate arg string format
         if (!matcher.matches()) {
@@ -240,6 +241,7 @@ public class Parser {
     // @@author A0138862W
     private Command prepareEdit(String args) {
         final Matcher matcher = EditCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
