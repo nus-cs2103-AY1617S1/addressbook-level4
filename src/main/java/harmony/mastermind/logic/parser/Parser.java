@@ -102,6 +102,7 @@ public class Parser {
 
             case EditCommand.COMMAND_KEYWORD_EDIT:
             case EditCommand.COMMAND_KEYWORD_UPDATE:
+            case EditCommand.COMMAND_KEYWORD_CHANGE:
                 return prepareEdit(arguments);
 
             case UndoCommand.COMMAND_WORD:
