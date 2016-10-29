@@ -11,7 +11,7 @@ public class ClearCommand extends Command {
 			+ ": Clears all stored task from the entire list.\n"
 			+ "Example: clear";
 								
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "CMDo has been cleared!";
     
     public ClearCommand() {
     	this.isUndoable = true;
