@@ -66,5 +66,44 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
 
+
+    /**
+     * Formats the task as text, showing all task details, formatted for the UI.
+     */
+    default String getTextForUi() {
+        final StringBuilder builder = new StringBuilder();
+        if (getStartDateTime() != null) {
+            builder.append(" Start: ")
+                    .append(getStartDateTime())
+                    .append("\n");
+        }
+        if (getEndDateTime() != null) {
+            builder.append(" End: ")
+                    .append(getEndDateTime())
+                    .append("\n");
+        }
+        if (getLocation() != null && !getLocation().isEmpty()) {
+            builder.append(" Location: ")
+                    .append(getLocation())
+                    .append("\n");
+        }
+        builder.append(" Priority: ")
+                .append(getPriority())
+                .append("\n");
+        if (getCategory() != null && !getCategory().isEmpty()) {
+            builder.append(" Category: ")
+                    .append(getCategory())
+                    .append("\n");
+        }
+        if (getDescription() != null && !getDescription().isEmpty()) {
+            builder.append(" Description: ")
+                    .append(getDescription())
+                    .append("\n");
+        }
+        builder.append(" Archived: ")
+                .append(isArchived());
+        return builder.toString();
+    }
+
 }
 //@@author

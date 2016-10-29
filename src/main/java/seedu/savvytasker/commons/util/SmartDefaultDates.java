@@ -66,6 +66,7 @@ public class SmartDefaultDates {
             calendar.set(Calendar.HOUR_OF_DAY, 23);
             calendar.set(Calendar.MINUTE, 59);
             calendar.set(Calendar.SECOND, 59);
+            calendar.set(Calendar.MILLISECOND, 0);
         }
         return calendar.getTime();
     }
@@ -85,7 +86,13 @@ public class SmartDefaultDates {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         this.startDateTime = calendar.getTime();
+        
+        if (this.startDateTime.compareTo(this.endDateTime) > 0) {
+            // end date is before today, leave start date as null
+            this.startDateTime = null;
+        }
     }
 
     
@@ -114,6 +121,7 @@ public class SmartDefaultDates {
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
         }
         return calendar.getTime();
     }
@@ -134,6 +142,7 @@ public class SmartDefaultDates {
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 0);
         this.endDateTime = calendar.getTime();
     }
 
@@ -149,11 +158,6 @@ public class SmartDefaultDates {
         Date end = getEnd(endDateTime);
         this.startDateTime = start;
         this.endDateTime = end;
-        if (this.startDateTime.compareTo(this.endDateTime) > 0) {
-            calendar.setTime(this.endDateTime);
-            calendar.add(Calendar.DATE, 7);
-            this.endDateTime = calendar.getTime();
-        }
     }
     
     public Date getStartDate() {

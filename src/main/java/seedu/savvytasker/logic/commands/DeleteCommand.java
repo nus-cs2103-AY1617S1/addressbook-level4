@@ -58,7 +58,7 @@ public class DeleteCommand extends ModelRequiringCommand {
                 //tasksToUndo.add((Task)taskToDelete);
                 resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
             }
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
