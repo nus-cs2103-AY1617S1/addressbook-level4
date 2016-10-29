@@ -57,7 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new ToDoList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyToDoList initialData) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         sortedTasks = filteredTasks.sorted();

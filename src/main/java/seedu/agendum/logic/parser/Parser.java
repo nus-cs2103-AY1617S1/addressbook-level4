@@ -45,7 +45,6 @@ public class Parser {
     private static final String[] TIME_TOKENS = new String[] { ARGS_FROM, ARGS_TO, ARGS_BY };
 	
     //@@author
-    public Parser() {}
 
     /**
      * Parses user input into command for execution.

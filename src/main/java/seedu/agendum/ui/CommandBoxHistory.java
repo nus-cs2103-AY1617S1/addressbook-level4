@@ -41,7 +41,7 @@ public class CommandBoxHistory {
         if(!iterator.hasNext()) {
             lastQuery = EMPTY_QUERY;
             return EMPTY_COMMAND;
-        } else if(lastQuery == NEXT_QUERY) {
+        } else if(lastQuery.equals(NEXT_QUERY)) {
             iterator.next();
         } 
         lastQuery = PREVIOUS_QUERY;
@@ -57,7 +57,7 @@ public class CommandBoxHistory {
         if (!iterator.hasPrevious()) {
             lastQuery = EMPTY_QUERY;
             return EMPTY_COMMAND;
-        } else if(lastQuery == PREVIOUS_QUERY) {
+        } else if(lastQuery.equals(PREVIOUS_QUERY)) {
             iterator.previous();
         }  
         lastQuery = NEXT_QUERY;

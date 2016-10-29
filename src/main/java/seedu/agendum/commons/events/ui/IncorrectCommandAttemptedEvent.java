@@ -8,7 +8,7 @@ import seedu.agendum.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectCommandAttemptedEvent(Command command) {}
+    public IncorrectCommandAttemptedEvent() {}
 
     @Override
     public String toString() {

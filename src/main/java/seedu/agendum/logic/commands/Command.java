@@ -61,6 +61,6 @@ public abstract class Command {
      * Raises an event to indicate an attempt to execute an incorrect command
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent());
     }
 }

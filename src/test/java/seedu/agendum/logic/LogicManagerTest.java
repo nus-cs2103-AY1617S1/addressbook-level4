@@ -15,14 +15,15 @@ import seedu.agendum.logic.commands.*;
 import seedu.agendum.commons.events.ui.JumpToListRequestEvent;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
 import seedu.agendum.commons.util.FileUtil;
+import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.model.ToDoList;
 import seedu.agendum.model.Model;
 import seedu.agendum.model.ModelManager;
 import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.task.*;
-import seedu.agendum.storage.StorageManager;
 import seedu.agendum.storage.XmlToDoListStorage;
+import seedu.agendum.testutil.EventsCollector;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -70,9 +71,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile, new Config()));
+        logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
@@ -86,7 +85,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalid() throws Exception {
+    public void executeInvalid() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -128,38 +127,38 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_unknownCommandWord() throws Exception {
+    public void executeUnknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void execute_help() throws Exception {
+    public void executeHelp() throws Exception {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
 
     @Test
-    public void execute_exit() throws Exception {
+    public void executeExit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+    public void executeAddInvalidArgsFormat() throws Exception {
+        // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         // TODO
         // currently, there are no invalid add argument format
     }
 
     @Test
-    public void execute_add_invalidTaskData() throws Exception {
+    public void executeAddInvalidTaskData() throws Exception {
         // TODO
         // check for invalid task data e.g. empty name invalid time
 
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void executeAddSuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
@@ -175,7 +174,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void executeAddDuplicateNotAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
@@ -196,7 +195,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
+    public void executeListShowsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         ToDoList expectedTDL = helper.generateToDoList(2);
@@ -299,18 +298,18 @@ public class LogicManagerTest {
 
     //@@author
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeSelectInvalidArgsFormatErrorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage, " ");
     }
 
     @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+    public void executeSelectIndexNotFoundErrorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select", " ");
     }
 
     @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
+    public void executeSelectJumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -327,19 +326,19 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeDeleteInvalidArgsFormatErrorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+    public void executeDeleteIndexNotFoundErrorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
 
     //@@author A0133367E
     @Test
-    public void execute_delete_removesCorrectSingleTask() throws Exception {
+    public void executeDeleteRemovesCorrectSingleTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -362,7 +361,7 @@ public class LogicManagerTest {
                 expectedTDL.getTaskList());
     }    
 
-    public void execute_delete_removesCorrectRangeOfTasks() throws Exception {
+    public void executeDeleteRemovesCorrectRangeOfTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
@@ -389,7 +388,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectMultipleTasks() throws Exception {
+    public void executeDeleteRemovesCorrectMultipleTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
@@ -417,27 +416,37 @@ public class LogicManagerTest {
 
     //@@author A0148095X
     @Test
-    public void execute_store_successful() throws Exception {
+    public void executeStoreSuccessful() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
-        String location = "data/test_store_successful.xml";
-
-        // execute command and verify result
-        assertCommandBehavior("store " + location,
-                String.format(StoreCommand.MESSAGE_SUCCESS, location),
-                expectedTDL,
-                expectedTDL.getTaskList());
-
-        // execute command and verify result
-        assertCommandBehavior("store default",
-                String.format(StoreCommand.MESSAGE_LOCATION_DEFAULT, Config.DEFAULT_SAVE_LOCATION),
-                expectedTDL,
-                expectedTDL.getTaskList());
+        Task testTask = new Task(new Name("test_store"));
+        expectedTDL.addTask(testTask);
+        model.addTask(testTask);
         
-        FileUtil.deleteFile(location);
+        String location = "data/test_store_successful.xml";
+        CommandResult result;
+        String inputCommand;
+        String feedback;
+        EventsCollector eventCollector = new EventsCollector();
+        
+        // execute command and verify result
+        inputCommand = "store " + location;
+        result = logic.execute(inputCommand);
+        feedback = String.format(StoreCommand.MESSAGE_SUCCESS, location);
+        assertEquals(feedback, result.feedbackToUser);
+        assertTrue(eventCollector.get(0) instanceof ChangeSaveLocationRequestEvent);
+        assertTrue(eventCollector.get(1) instanceof ToDoListChangedEvent);
+
+        // execute command and verify result
+        inputCommand = "store default";
+        result = logic.execute(inputCommand);
+        feedback = String.format(StoreCommand.MESSAGE_LOCATION_DEFAULT, Config.DEFAULT_SAVE_LOCATION);
+        assertEquals(feedback, result.feedbackToUser);
+        assertTrue(eventCollector.get(2) instanceof ChangeSaveLocationRequestEvent);
+        assertTrue(eventCollector.get(3) instanceof ToDoListChangedEvent);
     }
     
-    public void execute_store_fail_fileExists() throws Exception {
+    public void executeStoreFailFileExists() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
         String location = "data/test_store_fail.xml";
@@ -458,18 +467,18 @@ public class LogicManagerTest {
 
     //@@author A0133367E
     @Test
-    public void execute_markInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeMarkInvalidArgsFormatErrorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("mark", expectedMessage);
     }
 
     @Test
-    public void execute_markIndexNotFound_errorMessageShown() throws Exception {
+    public void executeMarkIndexNotFoundErrorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("mark");
     }
 
     @Test
-    public void execute_mark_marksCorrectSingleTaskAsCompleted() throws Exception {
+    public void executeMarkMarksCorrectSingleTaskAsCompleted() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -494,7 +503,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_mark_marksCorrectRangeOfTasks() throws Exception {
+    public void executeMarkMarksCorrectRangeOfTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
@@ -521,7 +530,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_mark_marksCorrectMultipleTasks() throws Exception {
+    public void executeMarkMarksCorrectMultipleTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
@@ -548,18 +557,18 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_unmarkInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeUnmarkInvalidArgsFormatErrorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("unmark", expectedMessage);
     }
 
     @Test
-    public void execute_unmarkIndexNotFound_errorMessageShown() throws Exception {
+    public void executeUnmarkIndexNotFoundErrorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("unmark");
     }
 
     @Test
-    public void execute_unmark_UnmarksCorrectSingleTaskFromCompleted() throws Exception {
+    public void executeUnmarkUnmarksCorrectSingleTaskFromCompleted() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(2);
         threeTasks.add(helper.generateCompletedTask(3));
@@ -585,7 +594,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unmark_unmarksCorrectRangeOfTasks() throws Exception {
+    public void executeUnmarkUnmarksCorrectRangeOfTasks() throws Exception {
         // indexes provided are startIndex-endIndex.
         // Tasks with visible index in range [startIndex, endIndex] are marked
         TestDataHelper helper = new TestDataHelper();
@@ -615,7 +624,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unmark_unmarksCorrectMultipleTasks() throws Exception {
+    public void executeUnmarkUnmarksCorrectMultipleTasks() throws Exception {
         // unmark multiple indices specified (separated by space/comma)
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(helper.generateTask(1), helper.generateCompletedTask(2),
@@ -644,7 +653,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_renameInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeRenameInvalidArgsFormatErrorMessageShown() throws Exception {
         // invalid index format
         // a valid name is provided since invalid input values must be tested one at a time
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE);
@@ -666,13 +675,13 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_renameIndexNotFound_errorMessageShown() throws Exception {
+    public void executeRenameIndexNotFoundErrorMessageShown() throws Exception {
         // a valid name is provided to only test for invalid index
         assertIndexNotFoundBehaviorForCommand("rename", "new task name");
     }
 
     @Test
-    public void  execute_renameToGetDuplicate_notAllowed() throws Exception {
+    public void  executeRenameToGetDuplicateNotAllowed() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task toBeDuplicated = helper.adam();
         Task toBeRenamed = helper.generateTask(1);
@@ -691,7 +700,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_rename_RenamesCorrectTask() throws Exception {
+    public void executeRenameRenamesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(2);
         Task taskToRename = helper.generateCompletedTask(3);
@@ -717,7 +726,7 @@ public class LogicManagerTest {
 
  
     @Test
-    public void execute_scheduleInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeScheduleInvalidArgsFormatErrorMessageShown() throws Exception {
         // invalid index format
         // a valid time is provided since invalid input values must be tested one at a time
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE);
@@ -738,13 +747,13 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_scheduleIndexNotFound_errorMessageShown() throws Exception {
+    public void executeScheduleIndexNotFoundErrorMessageShown() throws Exception {
         // a valid time is provided to only test for invalid index
         assertIndexNotFoundBehaviorForCommand("schedule", "by 9pm");
     }
 
     @Test
-    public void  execute_scheduleToGetDuplicate_notAllowed() throws Exception {
+    public void  executeScheduleToGetDuplicateNotAllowed() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task toBeDuplicated = helper.generateTask(1);
         LocalDateTime time = LocalDateTime.of(2016, 10, 10, 10, 10);
@@ -768,7 +777,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_schedule_ScheduleCorrectTask() throws Exception {
+    public void executeScheduleScheduleCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();       
         List<Task> threeTasks = helper.generateTaskList(2);
 
@@ -798,13 +807,13 @@ public class LogicManagerTest {
 
     //@@author
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void executeFindInvalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void executeFindOnlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -823,7 +832,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void executeFindIsNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -842,7 +851,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void executeFindMatchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
@@ -862,12 +871,12 @@ public class LogicManagerTest {
 
     //@@author A0133367E
     @Test
-    public void execute_undo_identifiesNoPreviousCommand() throws Exception {
+    public void executeUndoIdentifiesNoPreviousCommand() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAILURE, new ToDoList(), Collections.emptyList());
     }
 
     @Test
-    public void execute_undo_reversePreviousMutatingCommand() throws Exception {
+    public void executeUndoReversePreviousMutatingCommand() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("old name");
         List<Task> listWithOneTask = helper.generateTaskList(p1);
@@ -912,12 +921,13 @@ public class LogicManagerTest {
 
     //@@author A0148095X
     @Test
-    public void execute_load_successful() throws Exception {
+    public void executeLoadSuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateTask(999);
         ToDoList expectedTDL = new ToDoList();
         expectedTDL.addTask(toBeAdded);
+        model.addTask(toBeAdded);
 
         // setup storage file
         String filePath = "data/test/load.xml";

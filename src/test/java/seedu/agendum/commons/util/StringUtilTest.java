@@ -36,13 +36,13 @@ public class StringUtilTest {
     }
 
     @Test
-    public void getDetails_exceptionGiven(){
+    public void getDetailsExceptionGiven(){
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
                    containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
-    public void getDetails_nullGiven_assertionError(){
+    public void getDetailsNullGivenAssertionError(){
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }

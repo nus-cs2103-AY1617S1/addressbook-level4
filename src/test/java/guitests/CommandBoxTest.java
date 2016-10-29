@@ -8,20 +8,20 @@ import static org.junit.Assert.assertEquals;
 public class CommandBoxTest extends ToDoListGuiTest {
 
     @Test
-    public void commandBox_commandSucceeds_textCleared() {
+    public void commandBoxCommandSucceedsTextCleared() {
         commandBox.runCommand(td.benson.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
     @Test
-    public void commandBox_commandFails_textStays(){
+    public void commandBoxCommandFailsTextStays(){
         commandBox.runCommand("invalid command");
         assertEquals(commandBox.getCommandInput(), "invalid command");
         //TODO: confirm the text box color turns to red
     }
     
     @Test
-    public void commandBox_CommandHistory_notExists() {
+    public void commandBoxCommandHistoryNotExists() {
         commandBox.scrollToPreviousCommand();
         assertEquals(commandBox.getCommandInput(), "");
         commandBox.scrollToPreviousCommand();
@@ -31,7 +31,7 @@ public class CommandBoxTest extends ToDoListGuiTest {
     }
     
     @Test
-    public void commandBox_CommandHistory_exists() {
+    public void commandBoxCommandHistoryExists() {
 		String addCommand = "add commandhistorytestevent";
         commandBox.runCommand(addCommand);
         commandBox.runCommand("undo");

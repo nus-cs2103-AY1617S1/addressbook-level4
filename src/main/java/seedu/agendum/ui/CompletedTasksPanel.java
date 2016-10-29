@@ -20,7 +20,6 @@ import seedu.agendum.commons.core.LogsCenter;
  * Panel contains the list of completed tasks
  */
 public class CompletedTasksPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(CompletedTasksPanel.class);
     private static final String FXML = "CompletedTasksPanel.fxml";
     private AnchorPane panel;
     private AnchorPane placeHolderPane;
@@ -77,9 +76,6 @@ public class CompletedTasksPanel extends UiPart {
     }
 
     class completedTasksListViewCell extends ListCell<ReadOnlyTask> {
-
-        public completedTasksListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

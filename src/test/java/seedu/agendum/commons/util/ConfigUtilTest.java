@@ -27,18 +27,18 @@ public class ConfigUtilTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void read_null_assertionFailure() throws DataConversionException {
+    public void readNullAssertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
         read(null);
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws DataConversionException {
+    public void readMissingFileEmptyResult() throws DataConversionException {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void read_notJasonFormat_exceptionThrown() throws DataConversionException {
+    public void readNotJasonFormatExceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
         read("NotJasonFormatConfig.json");
@@ -49,7 +49,7 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_fileInOrder_successfullyRead() throws DataConversionException {
+    public void readFileInOrderSuccessfullyRead() throws DataConversionException {
 
         Config expected = getTypicalConfig();
 
@@ -58,13 +58,13 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+    public void readValuesMissingFromFileDefaultValuesUsed() throws DataConversionException {
         Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
     @Test
-    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    public void readExtraValuesInFileExtraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
 
@@ -87,19 +87,19 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void save_nullConfig_assertionFailure() throws IOException {
+    public void saveNullConfigAssertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         save(null, "SomeFile.json");
     }
 
     @Test
-    public void save_nullFile_assertionFailure() throws IOException {
+    public void saveNullFileAssertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         save(new Config(), null);
     }
 
     @Test
-    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+    public void saveConfigAllInOrderSuccess() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";

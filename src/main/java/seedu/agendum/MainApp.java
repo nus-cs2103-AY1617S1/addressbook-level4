@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -85,7 +85,7 @@ public class MainApp extends Application {
             initialData = new ToDoList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData);
     }
 
     private void initLogging(Config config) {

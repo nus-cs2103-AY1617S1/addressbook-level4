@@ -77,9 +77,6 @@ public class AllTasksPanel extends UiPart {
 
     class allTasksListViewCell extends ListCell<ReadOnlyTask> {
 
-        public allTasksListViewCell() {
-        }
-
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);

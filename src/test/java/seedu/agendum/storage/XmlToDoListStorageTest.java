@@ -27,7 +27,7 @@ public class XmlToDoListStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readToDoList_nullFilePath_assertionFailure() throws Exception {
+    public void readToDoListNullFilePathAssertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
         readToDoList(null);
     }
@@ -43,12 +43,12 @@ public class XmlToDoListStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws Exception {
+    public void readMissingFileEmptyResult() throws Exception {
         assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
 
     @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
+    public void readNotXmlFormatExceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
         readToDoList("NotXmlFormatToDoList.xml");
@@ -59,7 +59,7 @@ public class XmlToDoListStorageTest {
     }
 
     @Test
-    public void readAndSaveToDoList_allInOrder_success() throws Exception {
+    public void readAndSaveToDoListAllInOrderSuccess() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         ToDoList original = td.getTypicalToDoList();
@@ -86,7 +86,7 @@ public class XmlToDoListStorageTest {
     }
 
     @Test
-    public void saveToDoList_nullToDoList_assertionFailure() throws IOException {
+    public void saveToDoListNullToDoListAssertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveToDoList(null, "SomeFile.xml");
     }
@@ -96,7 +96,7 @@ public class XmlToDoListStorageTest {
     }
 
     @Test
-    public void saveToDoList_nullFilePath_assertionFailure() throws IOException {
+    public void saveToDoListNullFilePathAssertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveToDoList(new ToDoList(), null);
     }

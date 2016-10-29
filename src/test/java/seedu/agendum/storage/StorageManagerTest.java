@@ -81,7 +81,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void handleToDoListChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleToDoListChangedEventExceptionThrownEventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"), new Config());
         EventsCollector eventCollector = new EventsCollector();
@@ -91,14 +91,14 @@ public class StorageManagerTest {
 
     //@@author A0148095X
     @Test
-    public void handleSaveLocationChangedEvent_validFilePath() {
+    public void handleSaveLocationChangedEventValidFilePath() {
         String validPath = "data/test.xml";
         storageManager.handleChangeSaveLocationRequestEvent(new ChangeSaveLocationRequestEvent(validPath));
         assertEquals(storageManager.getToDoListFilePath(), validPath);
     }
     
     @Test
-    public void handleLoadDataRequestEvent_validPathToFile_invalidFile() throws IOException, FileDeletionException {
+    public void handleLoadDataRequestEventValidPathToFileInvalidFile() throws IOException, FileDeletionException {
         EventsCollector eventCollector = new EventsCollector();
         String validPath = "data/testLoad.xml";
         assert !FileUtil.isFileExists(validPath);

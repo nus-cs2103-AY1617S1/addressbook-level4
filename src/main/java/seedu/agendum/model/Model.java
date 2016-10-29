@@ -6,7 +6,6 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
