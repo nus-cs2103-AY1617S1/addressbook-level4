@@ -39,7 +39,10 @@ public class TestGenericMemory {
         GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
         assertEquals("Type", testDeadline.getType(), "deadline");
         assertEquals("Name", testDeadline.getName(), "name1");
+        assertEquals("Description", testDeadline.getDescription(), "description1");
         assertEquals("start time and date", testDeadline.getStart(), null);
         assertEquals("end time and date", testDeadline.getEnd(), end);
     }
+    
+    
 }
