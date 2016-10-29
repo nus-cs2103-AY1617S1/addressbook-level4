@@ -44,7 +44,13 @@ public class DeadlineCard extends UiPart{
         id.setText(displayedIndex + ". ");
         date.setText("Date: " + task.getDate().date);
         endTime.setText("End Time: " + task.getEndTime().endTime);
-        done.setText("Completed: " + task.getDone().toString());
+        if(this.task.getDone().equals("true")) {
+        	done.setText("Completed");
+    		cardPane.setStyle("-fx-background-color: #01DF01");
+    	} else {
+    		done.setText("Not Completed");
+    		cardPane.setStyle("-fx-background-color: #FFFFFF");
+    	}
     }
 
     public HBox getLayout() {

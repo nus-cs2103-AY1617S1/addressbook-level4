@@ -50,7 +50,13 @@ public class EventCard extends UiPart{
         endDate.setText("End Date: " + task.getEndDate().endDate);
         startTime.setText("Start Time: " + task.getStartTime().startTime);
         endTime.setText("End Time: " + task.getEndTime().endTime);
-        done.setText("Completed: " + task.getDone().toString());
+        if(this.task.getDone().equals("true")) {
+        	done.setText("Completed");
+    		cardPane.setStyle("-fx-background-color: #01DF01");
+    	} else {
+    		done.setText("Not Completed");
+    		cardPane.setStyle("-fx-background-color: #FFFFFF");
+    	}
     }
 
     public HBox getLayout() {

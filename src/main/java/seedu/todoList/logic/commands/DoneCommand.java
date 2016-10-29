@@ -2,6 +2,7 @@ package seedu.todoList.logic.commands;
 
 import seedu.todoList.commons.core.Messages;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
+import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 
