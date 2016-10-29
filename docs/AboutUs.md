@@ -42,7 +42,18 @@ We are a group of students in the [School of Computing, National University of S
   * [Set storage location ]
 (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#Setting-the-storage-location--setstorage)
 
+-----
+
 #### [Lai Yingchen](https://github.com/yingchen0505) <br>
-<img src="images/Yingchen.JPG" width="150"><br>
-Role: Integration, Developer <br>  
-Responsibilities: UI
+<img src="images/Yingchen.JPG" width="150"><br> 
+* Components in charge of: [UI] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/DeveloperGuide.md#UI-component)
+* Aspects/tools in charge of: Integration, Developer 
+* Features implemented: 
+  * [Edit task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+* Other major contributions:
+  * Specifying the detailed requirements and examples of the [features]
+(https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#time-parameter)
+  * Update UI to fit the app's purpose, remove browser and divide the pane into incomplete and complete task tabs. [#41]
+(https://github.com/CS2103AUG2016-T15-C3/main/commit/3459becf3e88958a501855c8632c3dd8d5c02357)
+  * Rename all mentions of AddressBook to ToDoList, addressbook to todolist [#104] (https://github.com/CS2103AUG2016-T15-C3/main/commit/e8f1f330aef58daaed7da8166b33b66563475b6d)
+
