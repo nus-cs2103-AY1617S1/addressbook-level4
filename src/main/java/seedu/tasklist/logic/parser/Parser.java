@@ -244,9 +244,11 @@ public class Parser {
 	 */
 	private Command prepareShow(String args) {
 		String input = args.trim();
+		/*
 		if (input.isEmpty()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
 		}
+		*/
 		return new ShowCommand(input);
 	}
 

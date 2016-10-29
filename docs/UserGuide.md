@@ -57,9 +57,10 @@ Examples:
 /* @@author A0142102E */
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified category.<br>
-Format: `show TYPE`
+Format: `show [TYPE]`
 
 > * TYPE can be replaced with p/high, p/med, p/low, complete, incomplete, all, overdue, floating, today, tomorrow, or any specific date.
+> * If TYPE is not specified and only `show` is entered, then the incomplete tasks are shown as the default view.
 > * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
 > * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
 
