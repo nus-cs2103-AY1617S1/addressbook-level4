@@ -48,10 +48,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
-	private static final String LIST_ARG_DATETIME = "/dt";
-	private static final String LIST_ARG_PRIORITY = "/p";
-	private static final String LIST_KEYWORD_DESCENDING = "dsc";
-
+    private static final String LIST_ARG_DATETIME = "/dt";
+    private static final String LIST_ARG_PRIORITY = "/p";
+    private static final String LIST_KEYWORD_DESCENDING = "dsc";
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables
@@ -147,10 +146,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         indicateTarsChanged();
     }
-    
+
     @Override
-    public synchronized void unEditTask(Task toUndo, Task replacement)
-            throws DuplicateTaskException {
+    public synchronized void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }
@@ -190,10 +188,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTarsChanged();
 
     }
-    
+
     /**
-     * @@author A0124333U
-     * Returns a string of tasks and rsv tasks whose datetime conflicts with a specified datetime
+     * @@author A0124333U Returns a string of tasks and rsv tasks whose datetime
+     *          conflicts with a specified datetime
      */
     public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck) {
         StringBuilder conflictingTasksStringBuilder = new StringBuilder("");
@@ -224,27 +222,31 @@ public class ModelManager extends ComponentManager implements Model {
 
         return conflictingTasksStringBuilder.toString();
     }
-    
-    /** Returns a sorted arraylist of filled datetime slots in a specified date */
+
+    /**
+     * Returns a sorted arraylist of filled datetime slots in a specified date
+     * Datetimes with no startdate are not added into the list
+     */
     public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck) {
         ArrayList<DateTime> listOfDateTime = new ArrayList<DateTime>();
-        
+
         for (ReadOnlyTask t : tars.getTaskList()) {
-            if (DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateToCheck)) {
+            if (t.getDateTime().getStartDate() != null
+                    && DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateToCheck)) {
                 listOfDateTime.add(t.getDateTime());
             }
         }
 
         for (RsvTask rt : tars.getRsvTaskList()) {
             for (DateTime dt : rt.getDateTimeList()) {
-                if (DateTimeUtil.isDateTimeWithinRange(dt, dateToCheck)) {
+                if (dt.getStartDate() != null && DateTimeUtil.isDateTimeWithinRange(dt, dateToCheck)) {
                     listOfDateTime.add(dt);
                 }
             }
         }
-        
+
         Collections.sort(listOfDateTime);
-        
+
         return listOfDateTime;
     }
 
@@ -281,14 +283,14 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
+
     /**
      * @@author A0140022H
      */
     public void updateFilteredTaskListUsingDate(DateTime dateTime) {
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateTime)));
     }
-    
+
     /**
      * Sorts filtered list based on keywords
      * 
@@ -458,7 +460,7 @@ public class ModelManager extends ComponentManager implements Model {
         private final DateTime dateTimeQuery;
 
         DateQualifier(DateTime dateTime) {
-            if(dateTime.getStartDate() != null) {
+            if (dateTime.getStartDate() != null) {
                 startDateTime = DateTimeUtil.setLocalTime(dateTime.getStartDate(), 0, 0, 0);
                 endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
             } else {
