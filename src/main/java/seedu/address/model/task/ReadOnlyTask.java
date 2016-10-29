@@ -10,13 +10,12 @@ import seedu.address.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
-    
+
     public static final String BLANK = "";
     enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE }
 
     Name getName();
     Optional<Time> getTime();
-    Period getPeriod();
     Description getDescription();
     Location getLocation();
     boolean getCompleted();
@@ -36,7 +35,6 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getTime().equals(this.getTime())
-                && other.getPeriod().equals(this.getPeriod())
                 && other.getDescription().equals(this.getDescription())
                 && other.getLocation().equals(this.getLocation())
                 && other.getCompleted() == (this.getCompleted()));
@@ -50,11 +48,11 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         TaskType taskType = getTaskType();
         String time;
         switch(taskType) {
-            case FLOATING: 
+            case FLOATING:
                 time = BLANK;
                 break;
-            case UNTIMED: 
-            case DEADLINE: 
+            case UNTIMED:
+            case DEADLINE:
                 time = getTime().get().getStartDateString();
                 break;
             case TIMERANGE:
@@ -64,10 +62,10 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                 time = null;
                 assert false: "not possible for task to be uncategorised.";
         }
-        
+
         builder.append(getName())
                 .append(" Date: ")
-                .append(time) 
+                .append(time)
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Location: ")

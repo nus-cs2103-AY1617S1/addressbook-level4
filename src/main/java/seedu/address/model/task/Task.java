@@ -14,7 +14,6 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Optional<Time> time;
-    private Period period;
     private Description description;
     private Location location;
     private boolean isCompleted;
@@ -24,12 +23,11 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Optional<Time> time, Period period, Description description, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, period, description, location, tags);
+    public Task(Name name, Optional<Time> time, Description description, Location location, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, description, location, tags);
 
         this.name = name;
         this.time = time;
-        this.period = period;
         this.description = description;
         this.location = location;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -40,18 +38,17 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTime(), source.getPeriod(), source.getDescription(),
+        this(source.getName(), source.getTime(), source.getDescription(),
              source.getLocation(), source.getTags(), source.getCompleted());
     }
 
     /**
      * Load from xml
      */
-    public Task(Name name, Optional<Time> time, Period period, Description description, Location location,
+    public Task(Name name, Optional<Time> time, Description description, Location location,
             UniqueTagList tags, boolean isCompleted) {
         this.name = name;
         this.time = time;
-        this.period = period;
         this.description = description;
         this.location = location;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -66,11 +63,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public Optional<Time> getTime() {
         return time;
-    }
-
-    @Override
-    public Period getPeriod() {
-        return period;
     }
 
     @Override

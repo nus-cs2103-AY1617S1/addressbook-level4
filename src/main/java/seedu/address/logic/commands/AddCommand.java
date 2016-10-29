@@ -37,7 +37,7 @@ public class AddCommand extends Command implements Undoable {
      * @throws IllegalValueException if any of the raw values are invalid
      */
 
-    public AddCommand(String name, String time, String period, String description, String address, Set<String> tags)
+    public AddCommand(String name, String time, String description, String address, Set<String> tags)
             throws IllegalValueException {
         Time addTime;
         final Set<Tag> tagSet = new HashSet<>();
@@ -53,7 +53,6 @@ public class AddCommand extends Command implements Undoable {
         this.toAdd = new Task(
                 new Name(name),
                 Optional.ofNullable(addTime),
-                new Period(period),
                 new Description(description),
                 new Location(address),
                 new UniqueTagList(tagSet)
@@ -64,7 +63,7 @@ public class AddCommand extends Command implements Undoable {
     /*
      * Task with time only
      */
-    public AddCommand(String name, String date, String startTime, String period, String description, String address, Set<String> tags)
+    public AddCommand(String name, String date, String startTime, String description, String address, Set<String> tags)
             throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(date, startTime);
         final Set<Tag> tagSet = new HashSet<>();
@@ -76,7 +75,6 @@ public class AddCommand extends Command implements Undoable {
         this.toAdd = new Task(
                 new Name(name),
                 Optional.of(addTime),
-                new Period(period),
                 new Description(description),
                 new Location(address),
                 new UniqueTagList(tagSet)
@@ -87,7 +85,7 @@ public class AddCommand extends Command implements Undoable {
     /*
      * rangeTask
      */
-    public AddCommand(String name, String date, String startTime, String endTime, String period, String description, String address, Set<String> tags)
+    public AddCommand(String name, String date, String startTime, String endTime, String description, String address, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         assert !CollectionUtil.isAnyNull(date, startTime, endTime);
@@ -98,7 +96,6 @@ public class AddCommand extends Command implements Undoable {
         this.toAdd = new Task(
                 new Name(name),
                 Optional.of(addTime),
-                new Period(period),
                 new Description(description),
                 new Location(address),
                 new UniqueTagList(tagSet)

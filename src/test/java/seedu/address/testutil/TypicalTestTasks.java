@@ -15,27 +15,27 @@ public class TypicalTestTasks {
         try {
             alice =  new TaskBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withDescription("alice's description").withTime("12-10-2016")
-                    .withTags("friends").withPeriod("10:00AM").build();
-            
+                    .withTags("friends").build();
+
             benson = new TaskBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
                     .withDescription("johnd's description").withTime("12-10-2016")
-                    .withTags("owesMoney", "friends").withPeriod("10:00AM").build();
+                    .withTags("owesMoney", "friends").build();
             carl = new TaskBuilder().withName("Carl Kurz").withTime("12-10-2016")
-                    .withDescription("heinz's description").withAddress("wall street").withPeriod("10:00AM").build();
+                    .withDescription("heinz's description").withAddress("wall street").build();
             daniel = new TaskBuilder().withName("Daniel Meier").withTime("12-10-2016")
-                    .withDescription("cornelia's description").withAddress("10th street").withPeriod("10:00AM").build();
+                    .withDescription("cornelia's description").withAddress("10th street").build();
             elle = new TaskBuilder().withName("Elle Meyer").withTime("12-10-2016")
-                    .withDescription("werner's description").withAddress("michegan ave").withPeriod("10:00AM").build();
+                    .withDescription("werner's description").withAddress("michegan ave").build();
             fiona = new TaskBuilder().withName("Fiona Kunz").withTime("12-10-2016")
-                    .withDescription("lydia's description").withAddress("little tokyo").withPeriod("10:00AM").build();
+                    .withDescription("lydia's description").withAddress("little tokyo").build();
             george = new TaskBuilder().withName("George Best").withTime("12-10-2016")
-                    .withDescription("anna's description").withAddress("4th street").withPeriod("10:00AM").build();
+                    .withDescription("anna's description").withAddress("4th street").build();
 
             //Manually added
             hoon = new TaskBuilder().withName("Hoon Meier").withTime("12-10-2016").withDescription("stefan's description")
-                    .withAddress("little india").withPeriod("10:00AM").build();
+                    .withAddress("little india").build();
             ida = new TaskBuilder().withName("Ida Mueller").withTime("12-10-2016").withDescription("hans's description")
-                    .withAddress("chicago ave").withPeriod("10:00AM").build();
+                    .withAddress("chicago ave").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

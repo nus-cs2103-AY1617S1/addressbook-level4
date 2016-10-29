@@ -35,7 +35,6 @@ public class EditCommand extends Command {
     private ReadOnlyTask taskToDelete;
     private String name;
     private String time;
-    private String period;
     private String description;
     private String location;
     private Set<String> tags;
@@ -45,12 +44,11 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String time, String period, String description, String location, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String time, String description, String location, Set<String> tags)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.name = name;
     	this.time = time;
-    	this.period = period;
     	this.description = description;
     	this.location = location;
     	this.tags = tags;
@@ -97,10 +95,6 @@ public class EditCommand extends Command {
             } else {
                 timeObject = new Time(time);
             }
-            if (period == " "){
-                Period periodToDelete = taskToDelete.getPeriod();
-                period = periodToDelete.toString();
-            }
             if (description == " "){
                 Description descriptionToDelete = taskToDelete.getDescription();
                 description = descriptionToDelete.toString();
@@ -112,7 +106,6 @@ public class EditCommand extends Command {
             toAdd = new Task(
                     new Name(name),
                     Optional.ofNullable(timeObject),
-                    new Period(period),
                     new Description(description),
                     new Location(location),
                     new UniqueTagList(tagSet)

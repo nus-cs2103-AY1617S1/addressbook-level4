@@ -44,11 +44,6 @@ public class TaskBuilder {
         this.task.setDescription(new Description(description));
         return this;
     }
-    
-    public TaskBuilder withPeriod(String period) throws IllegalValueException {
-        this.task.setPeriod(new Period(period));
-        return this;
-    }
 
     public TestTask build() {
         return this.task;

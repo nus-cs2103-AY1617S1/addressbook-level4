@@ -33,8 +33,6 @@ public class XmlAdaptedTask {
     @XmlElement(required = false)
     private String endTime;
     @XmlElement(required = true)
-    private String period;
-    @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
     private String address;
@@ -73,7 +71,6 @@ public class XmlAdaptedTask {
             isUntimed = true;
         }
 
-        period = source.getPeriod().value;
         description = source.getDescription().value;
         address = source.getLocation().value;
         isCompleted = source.getCompleted();
@@ -102,11 +99,10 @@ public class XmlAdaptedTask {
         }else
             time = null;
         final Name name = new Name(this.name);
-        final Period period = new Period(this.period);
         final Description description = new Description(this.description);
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, Optional.ofNullable(time), period, description, address, tags, this.isCompleted);
+        return new Task(name, Optional.ofNullable(time), description, address, tags, this.isCompleted);
 
     }
 }

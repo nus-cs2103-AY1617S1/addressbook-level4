@@ -30,7 +30,6 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^;/]+)"
             		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+))?)"
-                    + "(( s;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
             		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -39,7 +38,6 @@ public class Parser {
             Pattern.compile("(?<targetIndex>\\d)"
                     + "(( (?<name>(?:[^;]+)))?)"
                     + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+))?)"
-                    + "(( s;(?<period>[^;]+))?)"
                     + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -81,7 +79,6 @@ public class Parser {
 
     private static final Prefix namePrefix = new Prefix("n;");
     private static final Prefix datePrefix = new Prefix("t;");
-    private static final Prefix periodPrefix = new Prefix("s;");
     private static final Prefix descriptionPrefix = new Prefix("d;");
     private static final Prefix locationPrefix = new Prefix("a;");
     private static final Prefix tagsPrefix = new Prefix("t/");
@@ -183,9 +180,8 @@ public class Parser {
     private Command prepareAdd(String args){
         String[] dateTimeArgs = null;
         TaskType taskType;
- //       final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
 
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, datePrefix, periodPrefix, descriptionPrefix,
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, datePrefix, descriptionPrefix,
                 locationPrefix, tagsPrefix);
         argsTokenizer.tokenize(args);
 
@@ -210,7 +206,6 @@ public class Parser {
                     return new AddCommand(
                             taskName.get(),
                             validateDateTimeArgs.isPresent() ? dateTimeArgs[TASK_DATE_ONLY] : null,
-                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
                             toSet(argsTokenizer.getAllValues(tagsPrefix))
@@ -220,7 +215,6 @@ public class Parser {
                     return new AddCommand(
                             taskName.get(),
                             dateTimeArgs[TASK_DATE_ONLY], dateTimeArgs[TASK_START_TIME],
-                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
                             toSet(argsTokenizer.getAllValues(tagsPrefix))
@@ -231,7 +225,6 @@ public class Parser {
                             taskName.get(),
                             dateTimeArgs[TASK_DATE_ONLY], dateTimeArgs[TASK_START_TIME],
                             dateTimeArgs[TASK_END_TIME],
-                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
                             getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
                             toSet(argsTokenizer.getAllValues(tagsPrefix))
@@ -304,9 +297,6 @@ public class Parser {
     }
 
     private String getPrefixValueElseBlank(ArgumentTokenizer argsTokenizer, Prefix prefix) {
-        if (prefix.equals(periodPrefix)) { //stub to be remove
-            return argsTokenizer.getValue(prefix).isPresent() ? argsTokenizer.getValue(prefix).get() : "2359";
-        }
         return argsTokenizer.getValue(prefix).isPresent() ? argsTokenizer.getValue(prefix).get() : BLANK;
     }
 
@@ -464,7 +454,6 @@ public class Parser {
                     targetIndex.get(),
                     matcher.group("name")==null?" ":matcher.group("name"),
                     matcher.group("phone")==null?" ":matcher.group("phone"),
-                    matcher.group("period")==null?" ":matcher.group("period"),
                     matcher.group("email")==null?" ":matcher.group("email"),
                     matcher.group("address")==null?" ":matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))

@@ -15,7 +15,6 @@ public class TestTask implements ReadOnlyTask {
     private Location address;
     private Description description;
     private Optional<Time> time;
-    private Period period;
     private UniqueTagList tags;
     private boolean isCompleted;
 
@@ -39,10 +38,6 @@ public class TestTask implements ReadOnlyTask {
         this.time = time;
     }
 
-    public void setPeriod(Period period) {
-        this.period = period;
-    }
-    
     public void setComplete(boolean isComplete) {
         this.isCompleted = isComplete;
     }
@@ -72,11 +67,6 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
 
-    @Override
-    public Period getPeriod() {
-        return period;
-    }
-
 	@Override
 	public boolean getCompleted() {
 		return isCompleted;
@@ -91,7 +81,6 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
         sb.append("t;" + this.getTime().get().value + " ");
-        sb.append("s;" + this.getPeriod().value + " ");
         sb.append("d;" + this.getDescription().value + " ");
         sb.append("a;" + this.getLocation().value + " ");
 
