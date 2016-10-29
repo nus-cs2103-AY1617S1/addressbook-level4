@@ -56,7 +56,7 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = taskD;
 		this.date = date;
-		this.startTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -67,7 +67,7 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
 		this.date = date;
-		this.startTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -78,8 +78,8 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
 		this.date = date;
-		this.startTime = new Time("  ");
-		this.endTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
+		this.endTime = new Time("Thisisanemptystring");
 		this.tags = tags;
 	}
     
@@ -89,7 +89,7 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
 		this.date = new Date("  ");
-		this.startTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -100,7 +100,7 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = taskD;
 		this.date = new Date("  ");
-		this.startTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -110,8 +110,8 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = taskD;
 		this.date = date;
-		this.startTime = new Time("  ");
-		this.endTime = new Time ("  ");
+		this.startTime = new Time("Thisisanemptystring");
+		this.endTime = new Time("Thisisanemptystring");
 		this.tags = tags;
 	}
     
@@ -121,8 +121,8 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = taskD;
 		this.date = new Date("  ");
-		this.startTime = new Time("  ");
-		this.endTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
+		this.endTime = new Time("Thisisanemptystring");
 		this.tags = tags;
 	}
 
@@ -132,8 +132,8 @@ public class Task implements ReadOnlyTask {
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
 		this.date = new Date("  ");
-		this.startTime = new Time("  ");
-		this.endTime = new Time("  ");
+		this.startTime = new Time("Thisisanemptystring");
+		this.endTime = new Time("Thisisanemptystring");
 		this.tags = tags;
 	}
 	//@@Nathanael Chan
