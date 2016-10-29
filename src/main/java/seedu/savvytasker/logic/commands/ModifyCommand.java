@@ -82,7 +82,7 @@ public class ModifyCommand extends ModelRequiringCommand {
             originalTask = (Task)taskToModify;
             Task taskModified = model.modifyTask(taskToModify, replacement);
             int targetIndex = getIndexOfTask(taskModified);
-            if (targetIndex > 0) {
+            if (targetIndex >= 0) {
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
             } else {
                 // GUI should never ever get here

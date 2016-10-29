@@ -13,6 +13,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
 public class TestTask implements ReadOnlyTask {
     
     private int id;
+    private int groupId;
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -31,8 +32,14 @@ public class TestTask implements ReadOnlyTask {
         this.numberOfRecurrence = 0;
     }
 
+    @Override
     public int getId() {
         return id;
+    }
+
+    @Override
+    public int getGroupId() {
+        return groupId;
     }
 
     @Override
@@ -92,6 +99,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public void setTaskName(String taskName) {

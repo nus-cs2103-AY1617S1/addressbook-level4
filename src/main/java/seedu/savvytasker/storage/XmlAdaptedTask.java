@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
-import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 
 //@@author A0139915W
@@ -18,6 +17,8 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private int id;
+    @XmlElement(required = false)
+    private int groupId;
     @XmlElement(required = true)
     private String taskName;
     @XmlElement(required = false)
@@ -28,10 +29,6 @@ public class XmlAdaptedTask {
     private String location;
     @XmlElement(required = false)
     private PriorityLevel priority;
-    @XmlElement(required = false)
-    private RecurrenceType recurringType;
-    @XmlElement(required = false)
-    private int numberOfRecurrence;
     @XmlElement(required = false)
     private String category;
     @XmlElement(required = false)
@@ -52,13 +49,12 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         id = source.getId();
+        groupId = source.getGroupId();
         taskName = source.getTaskName();
         startDateTime = source.getStartDateTime();
         endDateTime = source.getEndDateTime();
         location = source.getLocation();
         priority = source.getPriority();
-        recurringType = source.getRecurringType();
-        numberOfRecurrence = source.getNumberOfRecurrence();
         category = source.getCategory();
         description = source.getDescription();
         isArchived = source.isArchived();
@@ -76,13 +72,11 @@ public class XmlAdaptedTask {
         final Date endDateTime = this.endDateTime;
         final String location = this.location;
         final PriorityLevel priority = this.priority;
-        final RecurrenceType recurringType = this.recurringType;
-        final int numberOfRecurrence = this.numberOfRecurrence;
         final String category = this.category;
         final String description = this.description;
         final boolean isArchived = this.isArchived;
-        return new Task(id, taskName, startDateTime, endDateTime, location, priority,
-                recurringType, numberOfRecurrence, category, description, isArchived);
+        return new Task(id, groupId, taskName, startDateTime, endDateTime, location, priority,
+                null, null, category, description, isArchived);
     }
 }
 //@@author

@@ -1,7 +1,6 @@
 package seedu.savvytasker.model.task;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,6 +62,8 @@ public class TaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private int nextId = 0;
     private boolean isNextIdInitialized = false;
+    private int nextGroupId = 0;
+    private boolean isNextGroupIdInitialized = false;
     
     /**
      * Constructs empty TaskList.
@@ -76,10 +77,8 @@ public class TaskList implements Iterable<Task> {
      */
     public int getNextId() {
         if (!isNextIdInitialized) {
-            int nextLowest = -1; // first id to be used is 0. Start finding with -1
-            LinkedList<Integer> usedIds = new LinkedList<Integer>();
+            int nextLowest = 0; // first id to be used is 1. Start finding with 0
             for (Task t : internalList) {
-                usedIds.add(t.getId());
                 if (t.getId() > nextLowest) {
                     nextLowest = t.getId();
                 }
@@ -92,6 +91,29 @@ public class TaskList implements Iterable<Task> {
         }
         nextId++;
         return nextId;
+    }
+    
+    /**
+     * Gets the next available group id for uniquely identifying a group of recurring tasks in
+     * Savvy Tasker.
+     * @return The next available group id;
+     */
+    public int getNextGroupId() {
+        if (!isNextGroupIdInitialized) {
+            int nextLowest = 0; // first id to be used is 1. Start finding with 0
+            for (Task t : internalList) {
+                if (t.getId() > nextLowest) {
+                    nextLowest = t.getGroupId();
+                }
+            }
+            // assumption that the number of tasks < 2^31
+            // implementation will be buggy if nextId exceeds 2^31
+            nextGroupId = nextLowest;
+            assert nextGroupId < Integer.MAX_VALUE;
+            isNextGroupIdInitialized = true;
+        }
+        nextGroupId++;
+        return nextGroupId;
     }
 
     /**
