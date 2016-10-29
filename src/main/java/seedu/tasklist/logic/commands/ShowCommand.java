@@ -13,6 +13,11 @@ import com.joestelmach.natty.Parser;
 public class ShowCommand extends Command {
 
 	public static final String COMMAND_WORD = "show";
+	public static final String TODAY_WORD = "today";
+	public static final String TOMORROW_WORD = "tomorrow";
+    public static final String OVERDUE_WORD = "overdue";
+    public static final String FLOATING_WORD = "floating";
+	
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all tasks under the requested category. "
 			+ "The specified keywords (case-insensitive) are shown as a list with index numbers.\n"
