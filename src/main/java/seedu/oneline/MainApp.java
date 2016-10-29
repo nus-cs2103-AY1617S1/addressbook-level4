@@ -60,10 +60,13 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
+        
+        logic.setTaskBookFilePath(config.getTaskBookFilePath());
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
     }
 
     private String getApplicationParameter(String parameterName){
@@ -207,7 +210,7 @@ public class MainApp extends Application {
             // Save the current status of taskBook into the new location
             // This is if we close the app without adding new tasks
             storage.saveTaskBook(tasks);
-            logic.setTaskBookFilePath(storage);
+            logic.setTaskBookFilePath(config.getTaskBookFilePath());
         
         } catch (IOException iox) {
             EventsCenter.getInstance().post(new DataSavingExceptionEvent(iox));

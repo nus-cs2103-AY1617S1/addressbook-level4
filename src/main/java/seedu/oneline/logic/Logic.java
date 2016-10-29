@@ -29,5 +29,5 @@ public interface Logic {
 
     //@@author A0121657H
     /** Middle-man that communicates the current save location to Model */
-    void setTaskBookFilePath(Storage storage);
+    public void setTaskBookFilePath(String currentFilePath);
 }
