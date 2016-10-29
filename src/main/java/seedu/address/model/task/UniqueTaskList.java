@@ -51,13 +51,24 @@ public class UniqueTaskList implements Iterable<Task> {
      * Constructs empty TaskList.
      */
     public UniqueTaskList() {}
-
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
+
+    //@@author A0139430L JingRui
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        return internalList.contains(toCheck);
+        for(int i =0; i<internalList.size(); i++){
+            Task temp = internalList.get(i);
+            if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
+                if(temp.getIsCompleted() == true){
+                    continue;
+                }
+                else 
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -225,7 +236,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
 	//@@author A0135722L Zhiyuan
     public boolean completed(ReadOnlyTask target) {
-        int completeIndex = internalList.indexOf(target);
+        int completeIndex = internalList.lastIndexOf(target);
         Task toComplete = new Task(internalList.get(completeIndex));
         toComplete.setCompleted(true);
         internalList.set(completeIndex, toComplete);
