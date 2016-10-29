@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends TaskMasterGuiTest {
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
-        List<TaskComponent> componentList = new ArrayList<TaskComponent>();
+        List<TaskOcurrence> componentList = new ArrayList<TaskOcurrence>();
         for(TestTask t : expectedRemainder) {
             componentList.addAll(t.getTaskDateComponent());
         }

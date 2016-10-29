@@ -4,7 +4,7 @@ package seedu.address.model;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.UniqueTaskList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface ReadOnlyTaskMaster {
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
-    List<TaskComponent> getTaskComponentList();
+    List<TaskOcurrence> getTaskComponentList();
 
     
     /**

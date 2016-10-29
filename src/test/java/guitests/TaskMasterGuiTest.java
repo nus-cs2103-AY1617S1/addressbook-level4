@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.TaskMaster;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
@@ -113,7 +113,7 @@ public abstract class TaskMasterGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(TaskComponent task, TaskCardHandle card) {
+    public void assertMatching(TaskOcurrence task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
@@ -138,13 +138,13 @@ public abstract class TaskMasterGuiTest {
      * Asserts the expected task components are reflected in the agenda.
      * @param expected
      */
-    protected void assertIsAgendaMatching(ArrayList<TaskComponent> expectedShown){
+    protected void assertIsAgendaMatching(ArrayList<TaskOcurrence> expectedShown){
 		//Get the updated agenda
 		MyAgenda toBeChecked = browser.getMyAgenda();
 		//Checks the number of items in the agenda
 		assertEquals(expectedShown.size(), toBeChecked.appointments().size());
 		//Checks one-to-one match
-		for(TaskComponent t: expectedShown){
+		for(TaskOcurrence t: expectedShown){
 			assertTrue(browser.isContained(TestUtil.getAppointment(t)));
 		}
 	}

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -25,20 +25,20 @@ public class ViewCommandTest extends TaskMasterGuiTest{
 		
 		//View today
 		TestTask toBeAdded = td.weekly;
-		ArrayList<TaskComponent> expectedList = new ArrayList<TaskComponent>();
+		ArrayList<TaskOcurrence> expectedList = new ArrayList<TaskOcurrence>();
 		expectedList.add(toBeAdded.getLastAppendedComponent());
 		commandBox.runCommand(toBeAdded.getAddRecurringCommand());
 		assertViewSuccess("today", expectedList);
 		
 		//View next week today
-		TaskComponent updated = toBeAdded.getLastAppendedComponent();
+		TaskOcurrence updated = toBeAdded.getLastAppendedComponent();
 		updated.setStartDate(new TaskDate(updated.getStartDate().getDateInLong() + 7 * DAY));
 		updated.setEndDate(new TaskDate(updated.getEndDate().getDateInLong() + 7 * DAY));
 		expectedList.set(0, updated);
 		assertViewSuccess("next week today", expectedList);
 	}
 	
-	public void assertViewSuccess(String date, ArrayList<TaskComponent> expectedList){
+	public void assertViewSuccess(String date, ArrayList<TaskOcurrence> expectedList){
 		
 		commandBox.runCommand("view "+date);
 		assertEquals(TestUtil.getConvertedTime(new TaskDate(date)).truncatedTo(ChronoUnit.DAYS),

@@ -24,7 +24,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	
 
     private final List<Task> internalList = new ArrayList<Task>();
-    private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
+    private final ObservableList<TaskOcurrence> internalComponentList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -105,8 +105,8 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
-     * @throws TimeslotOverlapException 
+     * @throws DuplicateTaskException If the task is a non recurring task is a duplicate of an existing task in the list.
+     * @throws TimeslotOverlapException If the task is cutting into an overlapped slot.  
      */
     public void add(Task toAdd) throws DuplicateTaskException, TimeslotOverlapException {
         assert toAdd != null;
@@ -152,11 +152,11 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-    public ObservableList<TaskComponent> getInternalComponentList() {
+    public ObservableList<TaskOcurrence> getInternalComponentList() {
         return internalComponentList;
     }
 
-    public void appendTaskComponent(TaskComponent component) {
+    public void appendTaskComponent(TaskOcurrence component) {
         internalComponentList.add(component);
     }
     
@@ -180,11 +180,11 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0147967J
     /** Returns true if the specified task component is successfully archived.*/
-	public boolean archive(TaskComponent target) {
+	public boolean archive(TaskOcurrence target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
-        for(TaskComponent t : internalComponentList){
+        for(TaskOcurrence t : internalComponentList){
         	if(t.equals(target)){
         		t.archive();
         		taskFoundAndArchived = true;

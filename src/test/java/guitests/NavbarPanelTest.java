@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     	
 	@Test
 	public void navigateToFloatingTasks() {
-		TaskComponent[] expected;
+		TaskOcurrence[] expected;
 		//Navigate to all floating tasks
 		expected = Arrays.copyOfRange(td.getTypicalTaskComponents(), 0, 6);
 		assertResult(NAVBAR_FLOATING_TASKS, expected);
@@ -43,7 +43,7 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
 	@Test
 	public void navigateToAllTasks() {
 		//Navigate to all tasks
-		TaskComponent[] expected = td.getTypicalTaskComponents();
+		TaskOcurrence[] expected = td.getTypicalTaskComponents();
 		assertResult(NAVBAR_TASKS, expected);
 	}
 	
@@ -54,7 +54,7 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
 		assertResult(NAVBAR_COMPLETED, td.trash.getComponentForNonRecurringType());
 	}
 		
-	private void assertResult(String navigation, TaskComponent... expectedHits) {
+	private void assertResult(String navigation, TaskOcurrence... expectedHits) {
         navbar.navigateTo(navigation);
         assertListSize(expectedHits.length);
         if(navigation.equals(NAVBAR_TASKS))

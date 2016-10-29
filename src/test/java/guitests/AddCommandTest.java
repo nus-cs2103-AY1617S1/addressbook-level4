@@ -9,7 +9,7 @@ import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddFloatingCommand;
 import seedu.address.logic.commands.AddNonFloatingCommand;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -102,7 +102,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         
-        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        TaskOcurrence[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
 }

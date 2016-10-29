@@ -96,13 +96,13 @@ public class TypicalTestTasks {
     	return new TestTask[]{trash, tutorialSlot, essayDeadline,concert, yearly, monthly, weekly, daily, none};
     }
     //@@author
-    public TaskComponent[] getTypicalTaskComponents() {
-        List<TaskComponent> components = new ArrayList<TaskComponent>();
+    public TaskOcurrence[] getTypicalTaskComponents() {
+        List<TaskOcurrence> components = new ArrayList<TaskOcurrence>();
         TestTask[] tasks = getTypicalTasks();
         for(TestTask t : tasks) {
             components.addAll(t.getTaskDateComponent());
         }
-        TaskComponent[] taskComponents = new TaskComponent[components.size()];
+        TaskOcurrence[] taskComponents = new TaskOcurrence[components.size()];
         return components.toArray(taskComponents);
     }
 

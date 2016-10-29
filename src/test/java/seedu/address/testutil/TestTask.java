@@ -18,21 +18,21 @@ public class TestTask extends Task implements ReadOnlyTask {
     private TaskType type = TaskType.FLOATING;
 
     private RecurringType recurringType;
-    private List<TaskComponent> recurringDates;
+    private List<TaskOcurrence> recurringDates;
 
     public TestTask() {
         tags = new UniqueTagList();
         recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskComponent>();
-        recurringDates.add(new TaskComponent(this ,new TaskDate(), new TaskDate()));
+        recurringDates = new ArrayList<TaskOcurrence>();
+        recurringDates.add(new TaskOcurrence(this ,new TaskDate(), new TaskDate()));
     }
     
     public TestTask(TestTask copy) {
         tags = new UniqueTagList(copy.tags);
         recurringType = RecurringType.NONE;
-        recurringDates = new ArrayList<TaskComponent>();
-        for(TaskComponent taskComponent: copy.recurringDates){
-        	recurringDates.add(new TaskComponent(this, taskComponent.getStartDate(), taskComponent.getEndDate()));
+        recurringDates = new ArrayList<TaskOcurrence>();
+        for(TaskOcurrence taskComponent: copy.recurringDates){
+        	recurringDates.add(new TaskOcurrence(this, taskComponent.getStartDate(), taskComponent.getEndDate()));
         }
     }
 
@@ -52,7 +52,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     public void setStartDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
     	TaskDate startDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
-    	for(TaskComponent taskComponent: recurringDates)
+    	for(TaskOcurrence taskComponent: recurringDates)
     		taskComponent.setStartDate(startDate);
     	setTaskType(TaskType.NON_FLOATING);
     }
@@ -60,7 +60,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     public void setEndDate(String date){
     	com.joestelmach.natty.Parser p = new Parser();
     	TaskDate endDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
-    	for(TaskComponent taskComponent: recurringDates)
+    	for(TaskOcurrence taskComponent: recurringDates)
     		taskComponent.setEndDate(endDate);
     	setTaskType(TaskType.NON_FLOATING);
     }
@@ -85,18 +85,18 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-    public List<TaskComponent> getTaskDateComponent() {
+    public List<TaskOcurrence> getTaskDateComponent() {
         return recurringDates;
     }
     
     @Override
-	public TaskComponent getComponentForNonRecurringType() {
+	public TaskOcurrence getComponentForNonRecurringType() {
 	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
 	    return recurringDates.get(0);
 	}
     
     @Override
-    public TaskComponent getLastAppendedComponent() {
+    public TaskOcurrence getLastAppendedComponent() {
         return recurringDates.get(recurringDates.size()-1);
     }
 
@@ -111,7 +111,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-    public void appendRecurringDate(TaskComponent componentToBeAppended) {
+    public void appendRecurringDate(TaskOcurrence componentToBeAppended) {
         assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
         recurringDates.add(componentToBeAppended);        
     }

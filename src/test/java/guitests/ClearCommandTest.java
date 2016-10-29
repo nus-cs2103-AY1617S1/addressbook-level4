@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -12,7 +12,7 @@ public class ClearCommandTest extends TaskMasterGuiTest {
     @Test
     public void clear() {
 
-        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(td.getTypicalTasks());
+        TaskOcurrence[] taskComponents = TestUtil.convertTasksToDateComponents(td.getTypicalTasks());
         //verify a non-empty list can be cleared
         assertTrue(taskListPanel.isListMatching(taskComponents));
         assertClearCommandSuccess();

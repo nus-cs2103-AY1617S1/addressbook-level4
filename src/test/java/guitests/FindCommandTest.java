@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TaskMasterGuiTest {
@@ -72,7 +72,7 @@ public class FindCommandTest extends TaskMasterGuiTest {
     	assertFindResult("find -C", td.trash.getTaskDateComponent().get(0));    	
     }
     //@@author
-    private void assertFindResult(String command, TaskComponent... expectedHits ) {
+    private void assertFindResult(String command, TaskOcurrence... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

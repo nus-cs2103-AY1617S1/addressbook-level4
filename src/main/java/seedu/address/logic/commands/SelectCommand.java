@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.commons.core.UnmodifiableObservableList;
 
 /**
@@ -30,7 +30,7 @@ public class SelectCommand extends Command {
     public CommandResult execute() {
     	
     	//assert false : "Select does not support recurring tasks"; // Should use TaskComponent instead of task
-        UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
+        UnmodifiableObservableList<TaskOcurrence> lastShownList = model.getFilteredTaskComponentList();
         
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

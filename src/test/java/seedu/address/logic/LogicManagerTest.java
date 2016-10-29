@@ -60,7 +60,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
@@ -82,7 +82,7 @@ public class LogicManagerTest {
     private boolean helpShown;
     private int targetedJumpIndex;
     private TaskDate checkDate;
-    private List<TaskComponent> checkList;
+    private List<TaskOcurrence> checkList;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskListChangedEvent abce) {
@@ -153,12 +153,12 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskMaster expectedTaskList,
-                                       List<? extends TaskComponent> expectedShownList) throws Exception {
+                                       List<? extends TaskOcurrence> expectedShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
-        List<TaskComponent> componentList = model.getFilteredTaskComponentList();
+        List<TaskOcurrence> componentList = model.getFilteredTaskComponentList();
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, componentList);
@@ -171,13 +171,13 @@ public class LogicManagerTest {
     
     private void assertUndoRedoAble(String expectedMessage,
             ReadOnlyTaskMaster expectedTaskList,
-            List<? extends TaskComponent> expectedShownList) throws Exception {
+            List<? extends TaskOcurrence> expectedShownList) throws Exception {
 
     	//Execute the command
     	logic.execute("u");
     	CommandResult result = logic.execute("r");
 
-    	List<TaskComponent> componentList = model.getFilteredTaskComponentList();
+    	List<TaskOcurrence> componentList = model.getFilteredTaskComponentList();
     	//Confirm the ui display elements should contain the right data
     	assertEquals(expectedMessage, result.feedbackToUser);
     	assertEquals(expectedShownList, componentList);
@@ -398,7 +398,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedAB = helper.generateTaskList(2);
-        List<? extends TaskComponent> expectedList = expectedAB.getTaskComponentList();
+        List<? extends TaskOcurrence> expectedList = expectedAB.getTaskComponentList();
 
         // prepare task list state
         helper.addToModel(model, 2);
@@ -704,7 +704,7 @@ public class LogicManagerTest {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTasks(2);
-        List<TaskComponent> taskComponentList = helper.buildTaskComponentsFromTaskList(taskList);
+        List<TaskOcurrence> taskComponentList = helper.buildTaskComponentsFromTaskList(taskList);
 
         // set AB state to 2 tasks
         model.resetData(new TaskMaster());
@@ -826,7 +826,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(p1, pTarget1, p2, pTarget2);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -846,7 +846,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(p3, p1, p4, p2);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = fourTasks;
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -866,7 +866,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2, pTarget3);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
@@ -896,7 +896,7 @@ public class LogicManagerTest {
         model.addTask(test);
         model.addTask(test2);
         
-        List<TaskComponent> componentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> componentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         //find by exact time successful
         assertCommandBehavior("find by 20 oct 11am",
@@ -935,7 +935,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
         model.addTask(test);
         model.addTask(test2);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         //find by exact boundary successful
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 11am",
@@ -980,7 +980,7 @@ public class LogicManagerTest {
         model.addTask(p1);
         logic.execute("done 5");
         
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
 
         assertCommandBehavior("find -F",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -1004,7 +1004,7 @@ public class LogicManagerTest {
         model.addTask(pTarget1);
         model.addTask(test);
         
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         logic.execute("done 2");
         
@@ -1029,7 +1029,7 @@ public class LogicManagerTest {
         model.addTask(pTarget1);
         model.addTask(test);
         
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         assertCommandBehavior("find non floating from 19 oct 1am to 21 oct 3am",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -1054,7 +1054,7 @@ public class LogicManagerTest {
         model.addTask(pTarget1);
         model.addTask(test);
         
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         assertCommandBehavior("find t/tag1",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -1091,7 +1091,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingByDate();
         expectedTM.addTask(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dai t/tag1 t/tag2", 
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1105,7 +1105,7 @@ public class LogicManagerTest {
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
         RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am daily t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1119,7 +1119,7 @@ public class LogicManagerTest {
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
         RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dAIly t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1133,7 +1133,7 @@ public class LogicManagerTest {
         Task toAdd = helper.nonFloatingFromDateToDate();
         expectedTM.addTask(toAdd);
         RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dai t/tag1 t/tag2", 
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1147,7 +1147,7 @@ public class LogicManagerTest {
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
         RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am daily t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1161,7 +1161,7 @@ public class LogicManagerTest {
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
         RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
-        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        List<TaskOcurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dAIly t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
@@ -1306,7 +1306,7 @@ public class LogicManagerTest {
 		expectedAB.addTask(afterModification);
 
 		TestDataHelper helper = new TestDataHelper();
-        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 from 2 oct 2am to 2 oct 1pm",
@@ -1328,7 +1328,7 @@ public class LogicManagerTest {
     	TaskMaster expectedAB = new TaskMaster();
 		expectedAB.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
-        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 by 2 oct 1pm",
@@ -1350,7 +1350,7 @@ public class LogicManagerTest {
     	TaskMaster expectedAB = new TaskMaster();
 		expectedAB.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
-        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 by 2 oct 1pm",
@@ -1373,7 +1373,7 @@ public class LogicManagerTest {
 		expectedAB.addTask(afterModification);
 
 	    TestDataHelper helper = new TestDataHelper();
-	    List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+	    List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 from 2 oct 2am to 2 oct 1pm",
@@ -1395,7 +1395,7 @@ public class LogicManagerTest {
     	TaskMaster expectedAB = new TaskMaster();
 		expectedAB.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
-        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 by 2 oct 1pm",
@@ -1417,7 +1417,7 @@ public class LogicManagerTest {
     	TaskMaster expectedAB = new TaskMaster();
 		expectedAB.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
-        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        List<TaskOcurrence> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
         // execute command and verify result
         assertCommandBehavior(
         		"edit 1 by 2 oct 1pm daily",
@@ -1443,16 +1443,16 @@ public class LogicManagerTest {
             return new Task(name, tags);
         }
         
-        public List<TaskComponent> buildReadOnlyTaskComponentsFromTaskList(List<ReadOnlyTask> taskList) {
-            List<TaskComponent> dateComponentList = new ArrayList<TaskComponent>();
+        public List<TaskOcurrence> buildReadOnlyTaskComponentsFromTaskList(List<ReadOnlyTask> taskList) {
+            List<TaskOcurrence> dateComponentList = new ArrayList<TaskOcurrence>();
             for(ReadOnlyTask t : taskList) {
                 dateComponentList.addAll(t.getTaskDateComponent());
             }
             return dateComponentList;
         }
 
-        public List<TaskComponent> buildTaskComponentsFromTaskList(List<Task> taskList) {
-            List<TaskComponent> dateComponentList = new ArrayList<TaskComponent>();
+        public List<TaskOcurrence> buildTaskComponentsFromTaskList(List<Task> taskList) {
+            List<TaskOcurrence> dateComponentList = new ArrayList<TaskOcurrence>();
             for(Task t : taskList) {
                 dateComponentList.addAll(t.getTaskDateComponent());
             }

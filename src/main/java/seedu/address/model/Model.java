@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -27,7 +27,7 @@ public interface Model {
     ReadOnlyTaskMaster getTaskMaster();
 
     /** Deletes the given task. */
-    void deleteTask(TaskComponent target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(TaskOcurrence target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task 
      * @throws TimeslotOverlapException */
@@ -35,7 +35,7 @@ public interface Model {
 
     List<ReadOnlyTask> getTaskList();
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<TaskComponent> getFilteredTaskComponentList();
+    UnmodifiableObservableList<TaskOcurrence> getFilteredTaskComponentList();
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -47,7 +47,7 @@ public interface Model {
 	void changeDirectory(String filePath);
 	
 	/** Archives the given task component. */
-	void archiveTask(TaskComponent target) throws TaskNotFoundException;
+	void archiveTask(TaskOcurrence target) throws TaskNotFoundException;
 
 	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException;
 

@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskType;
 
 public class TaskCard extends UiPart{
@@ -31,11 +31,11 @@ public class TaskCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-    private TaskComponent dateComponent;
+    private TaskOcurrence dateComponent;
     
     public TaskCard() {}
 
-    public static TaskCard load(TaskComponent taskComponent, int displayedIndex){
+    public static TaskCard load(TaskOcurrence taskComponent, int displayedIndex){
         TaskCard card = new TaskCard();
         card.task = taskComponent.getTaskReference();
         card.displayedIndex = displayedIndex;

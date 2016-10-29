@@ -15,7 +15,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
@@ -77,7 +77,7 @@ public class EditCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
+		UnmodifiableObservableList<TaskOcurrence> lastShownList = model.getFilteredTaskComponentList();
 
 		if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -89,7 +89,7 @@ public class EditCommand extends Command {
 			return new CommandResult(MESSAGE_ILLEGAL_TIME_SLOT);
 		}
 		
-		TaskComponent taskToEdit = lastShownList.get(targetIndex - 1);
+		TaskOcurrence taskToEdit = lastShownList.get(targetIndex - 1);
 		Task targetTask = (Task) taskToEdit.getTaskReference();
 		try {
 			model.editTask(targetTask, taskName, tags, startDate, endDate, recurringType);

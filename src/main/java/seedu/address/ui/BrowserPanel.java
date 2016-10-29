@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.commons.core.LogsCenter;
 import java.util.Date;
@@ -54,7 +54,7 @@ public class BrowserPanel extends UiPart{
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
     public static BrowserPanel load(Stage primaryStage, AnchorPane browserPanelPlaceholder,
-            ObservableList<TaskComponent> taskList){
+            ObservableList<TaskOcurrence> taskList){
         logger.info("Initializing Agenda");       
         BrowserPanel browserPanel =
                 UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
@@ -65,7 +65,7 @@ public class BrowserPanel extends UiPart{
     }
     
   //@@author A0147967J
-    private void initialize(ObservableList<TaskComponent> taskList){
+    private void initialize(ObservableList<TaskOcurrence> taskList){
     	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));
     	loadTaskList(taskList);
     }
@@ -74,12 +74,12 @@ public class BrowserPanel extends UiPart{
         //Deprecated method
     }
     
-    public void updateAgenda(TaskDate inputDate, List<TaskComponent> taskList){
+    public void updateAgenda(TaskDate inputDate, List<TaskOcurrence> taskList){
     	agenda.setDisplayedDateTime(inputDate);
     	loadTaskList(taskList);
     }
     
-    public void reloadAgenda(List<TaskComponent> taskList){
+    public void reloadAgenda(List<TaskOcurrence> taskList){
     	loadTaskList(taskList);
     }
 
@@ -90,7 +90,7 @@ public class BrowserPanel extends UiPart{
         agenda = null;
     }
     
-    public void loadTaskList(List<TaskComponent> taskList){   	
+    public void loadTaskList(List<TaskOcurrence> taskList){   	
     	agenda.addAllToAgenda(taskList);    		
     }
     

@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<TaskComponent> taskListView;
+    private ListView<TaskOcurrence> taskListView;
 
     public TaskListPanel() {
         super();
@@ -48,19 +48,19 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<TaskComponent> taskList) {
+                                       ObservableList<TaskOcurrence> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<TaskComponent> taskList) {
+    private void configure(ObservableList<TaskOcurrence> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<TaskComponent> taskList) {
+    private void setConnections(ObservableList<TaskOcurrence> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,7 +87,7 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<TaskComponent> {
+    class TaskListViewCell extends ListCell<TaskOcurrence> {
 
         public TaskListViewCell() {
         	
@@ -96,7 +96,7 @@ public class TaskListPanel extends UiPart {
         
 
         @Override
-        protected void updateItem(TaskComponent taskComponent, boolean empty) {
+        protected void updateItem(TaskOcurrence taskComponent, boolean empty) {
             super.updateItem(taskComponent, empty);
 
             if (empty || taskComponent == null) {

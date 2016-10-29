@@ -21,7 +21,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOcurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList;
@@ -37,7 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskMaster taskMaster;
     private final List<Task> tasks;
-    private final FilteredList<TaskComponent> filteredTaskComponents;
+    private final FilteredList<TaskOcurrence> filteredTaskComponents;
     
     //@@author A0135782Y
     /**
@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(TaskComponent target) throws TaskNotFoundException {
+    public synchronized void deleteTask(TaskOcurrence target) throws TaskNotFoundException {
         taskMaster.removeTask(target.getTaskReference());
         indicateTaskListChanged();
     }
@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0147967J
     @Override
-    public synchronized void archiveTask(TaskComponent target) throws TaskNotFoundException {
+    public synchronized void archiveTask(TaskOcurrence target) throws TaskNotFoundException {
         taskMaster.archiveTask(target);
         indicateTaskListChanged();
         updateFilteredListToShowAll();
@@ -137,7 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public UnmodifiableObservableList<TaskComponent> getFilteredTaskComponentList() {
+    public UnmodifiableObservableList<TaskOcurrence> getFilteredTaskComponentList() {
         return new UnmodifiableObservableList<>(filteredTaskComponents);
     }
 
@@ -158,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
-        boolean satisfies(TaskComponent t);
+        boolean satisfies(TaskOcurrence t);
         String toString();
     }
 
@@ -171,12 +171,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(TaskComponent task) {
+        public boolean satisfies(TaskOcurrence task) {
             return qualifier.run(task);
         }
         
         
-        public boolean unsatisfies(TaskComponent task) {
+        public boolean unsatisfies(TaskOcurrence task) {
             return !qualifier.run(task);
         }
 
@@ -187,7 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(TaskComponent task);
+        boolean run(TaskOcurrence task);
         String toString();
     }
     
@@ -200,7 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskComponent task) {
+        public boolean run(TaskOcurrence task) {
         	return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
         }
 
@@ -220,7 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskComponent task) {
+        public boolean run(TaskOcurrence task) {
             return task.isArchived() == isArchived;
         }
 
@@ -240,7 +240,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(TaskComponent task) {
+        public boolean run(TaskOcurrence task) {
         	if(nameKeyWords.isEmpty())
         		return true;
         		
@@ -263,7 +263,7 @@ public class ModelManager extends ComponentManager implements Model {
     		this.tagSet = tagSet;
     	}
     	
-    	private String tagToString(TaskComponent task) {
+    	private String tagToString(TaskOcurrence task) {
     		Set<Tag> tagSet = task.getTaskReference().getTags().toSet();
     		Set<String> tagStringSet = new HashSet<String>();
     		for(Tag t : tagSet) {
@@ -273,7 +273,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
 		@Override
-		public boolean run(TaskComponent task) {
+		public boolean run(TaskOcurrence task) {
 			if(tagSet.isEmpty()) {
 				return true;
 			}
@@ -301,7 +301,7 @@ public class ModelManager extends ComponentManager implements Model {
 			this.endTime = endTime;
 		}
 		
-		private Date[] extractTaskPeriod(TaskComponent task) {
+		private Date[] extractTaskPeriod(TaskOcurrence task) {
 			TaskType type = task.getTaskReference().getTaskType();
 			if(type.equals(TaskType.FLOATING)) {
 				return null;
@@ -317,7 +317,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(TaskComponent task) {
+		public boolean run(TaskOcurrence task) {
 			
 			if(this.endTime == null)
 				return true;
@@ -352,7 +352,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
 		@Override
-		public boolean run(TaskComponent task) {
+		public boolean run(TaskOcurrence task) {
 			
 			if(this.deadline == null)
 				return true;
@@ -402,7 +402,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
     	@Override
-    	public boolean run(TaskComponent task) {
+    	public boolean run(TaskOcurrence task) {
     		if(this.typeQualifier!=null)
     			return typeQualifier.run(task);
     		if(this.archiveQualifier != null) {
