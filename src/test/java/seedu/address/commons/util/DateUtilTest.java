@@ -331,8 +331,12 @@ public class DateUtilTest {
 		assertEquals(dateFormat.format(DateUtil.getDate("October 31 2016")), expected); // Year can be included but only at the back
 		assertEquals(dateFormat.format(DateUtil.getDate("Oct 31 2016")), expected);
 		
+		// Default time
+		String expectedTime = "31.10.2016 12:00AM";
+		assertEquals(dateFormatWithTime.format(DateUtil.getDate("31 Oct")), expectedTime);
+		
 		// With time
-		String expectedTime = "31.10.2016 05:30PM";
+		expectedTime = "31.10.2016 05:30PM";
 		assertEquals(dateFormatWithTime.format(DateUtil.getDate("31 Oct 5.30pm")), expectedTime);
 		
 		// Relative dates

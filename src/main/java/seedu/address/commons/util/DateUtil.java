@@ -267,10 +267,8 @@ public class DateUtil {
     	
     	// Set default time to be 12am if no time is given by user
     	if (firstDateGroup.isTimeInferred()) {
-    		Calendar toRetrieveTime = Calendar.getInstance();
-    		toRetrieveTime.set(Calendar.HOUR, 12);
-    		toRetrieveTime.set(Calendar.MINUTE, 0);
-    		Date newDate = retrieveDateTime(dates.get(0), toRetrieveTime.getTime());
+    		Date toRetrieveTime = createDateAfterToday(0, 0, 0);		   // Today 12am
+    		Date newDate = retrieveDateTime(dates.get(0), toRetrieveTime); // Retrieve the date portion
     		dates.set(0, newDate);
     	}
     	
