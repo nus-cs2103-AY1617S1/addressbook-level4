@@ -4,7 +4,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Bernard Koh][@bernardified](https://github.com/bernardified)
+####[Bernard Koh](https://github.com/bernardified)
 <img src="images/bernard.jpeg" width="150"><br>
 
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#logic-component)
@@ -19,9 +19,11 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Priority Feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138411N.md)][[test code]][[docs]]
 * Other major contributions:
-  * Did the initial refactoring from AddressBook to GGist [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
-  * Set up Travis and Coveralls 
+  * Did the initial refactoring from AddressBook to GGist[[#1](https://github.com/CS2103AUG2016-W13-C2/main/pull/1)][[#3](https://github.com/CS2103AUG2016-W13-C2/main/pull/3)][[#6](https://github.com/CS2103AUG2016-W13-C2/main/pull/6)]
   * Contributed to UI developements [[#122](https://github.com/CS2103AUG2016-W13-C2/main/pull/122)] [[#126](https://github.com/CS2103AUG2016-W13-C2/main/pull/126)][[#145](https://github.com/CS2103AUG2016-W13-C2/main/pull/145)]
+  * Set up Travis and Coveralls 
+  
+  
 -----
 
 #### [Leah Lim](http://github.com/leahlim)
