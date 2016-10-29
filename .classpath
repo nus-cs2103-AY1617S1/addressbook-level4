@@ -31,6 +31,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Marx/Desktop/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Marx/Documents/Menion/build/resources/main/dependencies/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
