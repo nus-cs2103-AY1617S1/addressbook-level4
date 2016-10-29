@@ -116,14 +116,10 @@ public class DeadlineCard extends UiPart{
             default: getMinute = Integer.parseInt(minute);
         }
    
-      //Check year
-        if(Integer.parseInt(dateArr[2]) < Integer.parseInt(curDate[2])){
-            return false;
-        //if same year, check month
-        }else if(Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month < Integer.parseInt(curDate[1])){
-            return false;
-        //if same year, same month , check day
-        }else if(Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month == Integer.parseInt(curDate[1]) && Integer.parseInt(day) < Integer.parseInt(curDate[0])){
+      //Check year or if same year, check month or if same year, same month , check day
+        if((Integer.parseInt(dateArr[2]) < Integer.parseInt(curDate[2]))
+            || (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month < Integer.parseInt(curDate[1]))
+            || (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month == Integer.parseInt(curDate[1]) && Integer.parseInt(day) < Integer.parseInt(curDate[0]))){
             return false;
         //Same day so check time    
         }else if(Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month == Integer.parseInt(curDate[1]) && Integer.parseInt(day) == Integer.parseInt(curDate[0])){
@@ -135,11 +131,10 @@ public class DeadlineCard extends UiPart{
                    }else{
                        return true;
                    }
-               //Check if task end time is less than current time    
-               }else if(getHour < Integer.parseInt(curTime[0])){
-                   return false;
+               //Check if task end time is less than current time
                //Check if task is in morning or noon and 12 is suppose to be lesser than current time (1am/pm is more than 12am/pm)    
-               }else if((AM_PM.equals("am") || AM_PM.equals("pm")) && getHour == 12 && getHour > Integer.parseInt(curTime[0])){
+               }else if((getHour < Integer.parseInt(curTime[0]))
+                       || ((AM_PM.equals("am") || AM_PM.equals("pm")) && getHour == 12 && getHour > Integer.parseInt(curTime[0]))){
                    return false;
                }else{
                    return true;
