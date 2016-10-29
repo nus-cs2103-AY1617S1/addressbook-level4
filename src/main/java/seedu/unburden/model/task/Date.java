@@ -3,6 +3,9 @@ package seedu.unburden.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -27,20 +30,26 @@ public class Date {
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-        /*assert date != null;
+        assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
+        if (!isValidDate(date) && !date.equals("Thisisanemptystring")) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        */
-        this.fullDate = date;
+        if(date.equals("Thisisanemptystring")){
+        	this.fullDate = "";
+        }
+        else{
+        	this.fullDate = date;
+        }
     }
 
     /**
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+    	final Pattern pattern = Pattern.compile(DATE_VALIDATION_REGEX);
+    	final Matcher matcher = pattern.matcher(test.trim()); 
+        return matcher.matches();
     }
     
     public java.util.Date toDate() throws ParseException {
