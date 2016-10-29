@@ -45,6 +45,11 @@ public class AddCommandParserTest {
 		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
+		command = (AddTaskCommand) parser.prepareCommand("homework on 1 Jan 2016");
+		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
 		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016");
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
 		actualTask = command.getTaskDetails(false);
@@ -52,6 +57,11 @@ public class AddCommandParserTest {
 		
 		// Time specified for dates
 		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016 6.30pm");
+		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016 06:30PM]";
+		actualTask = command.getTaskDetails(true);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("homework on 1 Jan 2016 6.30pm");
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016 06:30PM]";
 		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
@@ -83,11 +93,16 @@ public class AddCommandParserTest {
 	public void prepareCommand_deadlineTask_looksLikeEventTask() {
 		/*
 		 * DeadlineTask that looks like EventTask due to the presence of "from" and "to" keywords.
-		 * If "by" comes after the "from" key word, it is a DeadlineTask.
+		 * If "by"/"on" comes after the "from" key word, it is a DeadlineTask.
 		 */
 		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("Camp from May 11 to May 12 by May 1");
 		String expectedTask = "[Deadline Task][Description: Camp from May 11 to May 12][Deadline: 01.05.2016]";
 		String actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("Camp from May 11 to May 12 on May 1");
+		expectedTask = "[Deadline Task][Description: Camp from May 11 to May 12][Deadline: 01.05.2016]";
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
 	
@@ -163,10 +178,10 @@ public class AddCommandParserTest {
 	@Test
 	public void prepareCommand_eventTask_multipleKeywords() {
 		/*
-		 * Multiple "from" and "by" keywords should not affect the task command
+		 * Multiple "from", "by" and "on" keywords should not affect the task command
 		 */
-		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("from by from by from Oct 1 - Oct 2");
-		String expectedTask = "[Event Task][Description: from by from by][Start date: 01.10.2016][End date: 02.10.2016]";
+		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("from by on from on by from Oct 1 - Oct 2");
+		String expectedTask = "[Event Task][Description: from by on from on by][Start date: 01.10.2016][End date: 02.10.2016]";
 		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
@@ -175,11 +190,16 @@ public class AddCommandParserTest {
 	public void prepareCommand_eventTask_looksLikeDeadlineTask() {
 		/*
 		 * EventTask that looks like DeadlineTask due to the presence of "by" keyword.
-		 * If "from" comes after the "by" key word, it is an EventTask.
+		 * If "from" comes after the "by"/"on" key word, it is an EventTask.
 		 */
 		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("Concert by 1 December from May 1 to May 2");
 		String expectedTask = "[Event Task][Description: Concert by 1 December][Start date: 01.05.2016][End date: 02.05.2016]";
 		String actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("Concert on 1 December from May 1 to May 2");
+		expectedTask = "[Event Task][Description: Concert on 1 December][Start date: 01.05.2016][End date: 02.05.2016]";
+		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}
 	
