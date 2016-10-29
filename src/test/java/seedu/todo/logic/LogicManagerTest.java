@@ -143,13 +143,40 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
                 expectedAB,
                 expectedAB.getTaskList());
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_onTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTaskWithDates("today", null);
+        DoDoBird expectedAB = new DoDoBird();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
     }
 
     @Test
     public void execute_add_floatingTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateFloatingTask(0);
+        Task toBeAdded = helper.generateTaskWithDates(null, null);
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
@@ -164,12 +191,18 @@ public class LogicManagerTest {
     public void execute_add_deadlineTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateDeadlineTask(0);
+        Task toBeAdded = helper.generateTaskWithDates(null, "Tomorrow");
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -504,6 +537,24 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_search_matchesIfOn() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task t1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task t2 = helper.generateTaskWithDates("today", "tomorrow");
+
+        List<Task> twoTasks = helper.generateTaskList(t1, t2);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
+        List<Task> expectedList = helper.generateReverseTaskList(t2);
+        helper.addToModel(model, twoTasks);
+
+        assertCommandBehavior("search on today",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    
+    @Test
     public void execute_search_matchesIfDone() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task t1 = helper.generateTaskWithName("bla bla KEY bla");
@@ -517,6 +568,26 @@ public class LogicManagerTest {
         helper.addToModel(model, twoTasks);
 
         assertCommandBehavior("search done",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    
+    @Test
+    public void execute_search_matchesIfUndone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task t1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        
+        t1.setCompletion(new Completion(true));
+
+        List<Task> twoTasks = helper.generateTaskList(t1, t2);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
+        List<Task> expectedList = helper.generateReverseTaskList(t2);
+        helper.addToModel(model, twoTasks);
+
+        assertCommandBehavior("search undone",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

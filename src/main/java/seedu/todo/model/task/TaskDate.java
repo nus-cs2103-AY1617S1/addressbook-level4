@@ -48,17 +48,6 @@ public class TaskDate {
         }
     }
 
-    public TaskDate(LocalDateTime ldt) {
-        assert ldt != null;
-        this.date = ldt.toLocalDate();
-        this.time = ldt.toLocalTime();
-    }
-    
-    public TaskDate(LocalDate date, LocalTime time) {
-        assert !CollectionUtil.isAnyNull(date, time);
-        this.date = date;
-        this.time = time;
-    }
     
     public LocalDate getDate() {
         return this.date;

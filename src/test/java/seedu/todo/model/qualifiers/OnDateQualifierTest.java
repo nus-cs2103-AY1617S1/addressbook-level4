@@ -31,6 +31,9 @@ public class OnDateQualifierTest {
         Task toAddToday = helper.generateTaskWithDates("today", "4 days later");
         ddb.addTask(toAddToday);
         
+        Task toAddNoDate = helper.generateTaskWithDates(null, null);
+        ddb.addTask(toAddNoDate);
+        
         filteredTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now())))::satisfies);
         assertEquals(filteredTasks.size(), 1);
     }

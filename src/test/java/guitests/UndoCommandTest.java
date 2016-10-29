@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.todo.logic.commands.UndoCommand;
 import seedu.todo.testutil.TestTask;
 import seedu.todo.testutil.TestUtil;
 
@@ -13,6 +14,10 @@ public class UndoCommandTest extends ToDoListGuiTest {
     
     @Test
     public void undo() {
+        
+        //initially no undo
+        commandBox.runCommand("undo");
+        assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_STATE);
         
         TestTask[] currentList = td.getTypicalTasks();
         for (TestTask t : currentList) {

@@ -37,41 +37,6 @@ public class TestDataHelper{
         );
     }
     
-    /**
-     * Generates a valid floating task using the given seed.
-     * Running this function with the same parameter values guarantees the returned task will have the same state.
-     * Each unique seed will generate a unique Task object.
-     *
-     * @param seed used to generate the task data field values
-     */
-    public Task generateFloatingTask(int seed) throws Exception {
-        return new Task(
-                new Name("Task " + seed),
-                new Detail("House of " + seed),
-                new TaskDate("", TaskDate.TASK_DATE_ON),
-                new TaskDate("", TaskDate.TASK_DATE_BY),
-                new Priority("low"),
-                new Recurrence(Frequency.NONE)
-        );
-    }
-    
-    /**
-     * Generates a valid deadline task using the given seed.
-     * Running this function with the same parameter values guarantees the returned task will have the same state.
-     * Each unique seed will generate a unique Task object.
-     *
-     * @param seed used to generate the task data field values
-     */
-    public Task generateDeadlineTask(int seed) throws Exception {
-        return new Task(
-                new Name("Task " + seed),
-                new Detail("House of " + seed),
-                new TaskDate("", TaskDate.TASK_DATE_ON),
-                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
-                new Priority("low"),
-                new Recurrence(Frequency.NONE)
-        );
-    }
     
     /** Generates the correct add command based on the task given */
     public String generateAddCommand(Task p) {
@@ -85,10 +50,30 @@ public class TestDataHelper{
         if (p.getByDate().getDate() != null) {
             cmd.append(" by ").append(p.getByDate().toString());
         }
+        cmd.append(" priority ").append(p.getPriority().toString());
         cmd.append(" ;").append(p.getDetail());
         
         return cmd.toString();
     }
+    
+    /** Generates the correct add command based on the task given */
+    public String generateAddCommandRecurring(Task p) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("add ");
+        cmd.append(p.getName().toString());
+        if (p.getOnDate().getDate() != null) {
+            cmd.append(" on ").append(p.getOnDate().toString());
+        }
+        if (p.getByDate().getDate() != null) {
+            cmd.append(" by ").append(p.getByDate().toString());
+        }
+        cmd.append(" every ").append(p.getRecurrence().toString());
+        cmd.append(" ;").append(p.getDetail());
+        
+        return cmd.toString();
+    }
+    
 
     /**
      * Generates an ToDoList with auto-generated tasks.
