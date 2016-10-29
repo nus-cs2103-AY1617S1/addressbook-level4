@@ -47,6 +47,7 @@ Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING
 > * Priority must be low/med/high. If priority is not specified, default priority of low is set.
 > * Recurring frequency can be either of daily, weekly, monthly or yearly.
 > * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
+> * Floating tasks cannot be added as a recurring one. In the event that this is attempted, the floating task will be added but the recurring frequency entered will be ignored. So the task will be added as a non-recurring one.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
