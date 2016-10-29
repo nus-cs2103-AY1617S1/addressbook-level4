@@ -6,6 +6,7 @@ import java.util.List;
 import seedu.menion.model.Model;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.Completed;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
 /**
@@ -42,10 +43,28 @@ public class BackgroundDateCheck {
 		for (int i = 0 ; i < taskList.size(); i++){	
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
-			if (isActivityOver(currentTime, taskToCheck)){
-				SendEmail sender = new SendEmail();
+			// Yet to send email due to no internet connection. But task deadline has passed
+			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed()){
+				
+			    SendEmail sender = new SendEmail();
 				sender.send(taskToCheck);
+				taskToCheck.setEmailSent(true);
+				
 			}
+			// Check if there a task is overdue.
+			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().toString().equals(Completed.UNCOMPLETED_ACTIVITY)){
+
+				if (isActivityOver(currentTime, taskToCheck)){
+					
+					taskToCheck.setTimePassed(true);
+	                SendEmail sender = new SendEmail();
+	                sender.send(taskToCheck);
+					taskToCheck.setEmailSent(true);
+					
+				}	
+				
+			}
+			
 		}
 	}
 	
@@ -62,9 +81,15 @@ public class BackgroundDateCheck {
 		for (int i = 0 ; i < eventList.size(); i++){
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
-			if (isActivityOver(currentTime, eventToCheck)){
-			    
+			if (!eventToCheck.isTimePassed()){
+
+				if (isActivityOver(currentTime, eventToCheck)){
+					
+					eventToCheck.setTimePassed(true);
+					
+				}
 			}
+			
 			
 		}
 		
@@ -77,10 +102,21 @@ public class BackgroundDateCheck {
 	 */
 	private static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
 		
-		assert(activityToCheck != null);
+		assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
+				activityToCheck.getActivityType().equals(Activity.TASK_TYPE)));
 		
-		String activityDateString = activityToCheck.getActivityStartDate().toString();
-		String activityTimeString = activityToCheck.getActivityStartTime().toString();
+		String activityDateString;
+		String activityTimeString;
+		
+		if (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE)){
+			activityDateString = activityToCheck.getActivityEndDate().toString();
+			activityTimeString = activityToCheck.getActivityEndTime().toString();
+		}
+		else {
+			activityDateString = activityToCheck.getActivityStartDate().toString();
+			activityTimeString = activityToCheck.getActivityStartTime().toString();
+		}
+		
 		int [] dateValues = new int[3];
 		int [] timeValues = new int[2];
 		extractDateValues(activityDateString, dateValues);
