@@ -22,9 +22,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField maxWidth="70.0" minWidth="70.0" prefHeight="0.0" prefWidth="150.0" text="Done" GridPane.rowIndex="1" />
-            <TextField maxWidth="70.0" minWidth="70.0" text="Undone" GridPane.rowIndex="2" />
-            <TextField maxWidth="70.0" minWidth="70.0" prefHeight="23.0" prefWidth="95.0" text="Today" />
+            <TextField maxWidth="90.0" minWidth="90.0" prefHeight="0.0" prefWidth="150.0" text="Done" GridPane.rowIndex="1" />
+            <TextField maxWidth="90.0" minWidth="90.0" text="Undone" GridPane.rowIndex="2" />
+            <TextField maxWidth="90.0" minWidth="90.0" prefHeight="23.0" prefWidth="95.0" text="Today" />
             <Label fx:id="today" text="#Today" GridPane.columnIndex="1" />
             <Label fx:id="done" text="#Done" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="undone" text="#Undone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
