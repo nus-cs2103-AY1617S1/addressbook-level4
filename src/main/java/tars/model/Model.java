@@ -47,7 +47,10 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
     
-    /** Deletes the reserved task. */
+    /** 
+     * @@author A0124333U
+     * Deletes the reserved task.
+     */
     void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException;
     
     /** Adds the given reserved task */
@@ -56,7 +59,10 @@ public interface Model {
     /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
     public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
-    /** Rename all tag with the new tag name */
+    /**
+     * @@author 
+     * Rename all tag with the new tag name 
+     */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
     
@@ -79,15 +85,19 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    /** Updates the filter of the filtered task list to filter by the given keywords of each given
-     * task attribute*/
+    /**
+     * @@author A0124333U 
+     * Updates the filter of the filtered task list to filter by the given keywords of each given
+     * task attribute
+     */
     void updateFilteredTaskListUsingFlags(TaskQuery taskQuery);
     
     /** Updates the filter of the filtered task list to filter by the given keywords of a string 
      * consisting of all the attributes of each task*/
     void updateFilteredTaskListUsingQuickSearch(ArrayList<String> lazySearchKeywords);
 
-    /** Returns the undoable command history stack */
+    /**@@author 
+     * Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
     
     /** Returns the redoable command history stack */
@@ -95,6 +105,12 @@ public interface Model {
     
     /** Returns the unique tag list as an {@code ObservableList<? extends ReadOnlyTag>} */
     ObservableList<? extends ReadOnlyTag> getUniqueTagList();
+    
+    /**
+     * @@author A0124333U
+     * Returns an ArrayList of DateTime in a specified date
+     */
+    public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck);
 
     /**
      * Sorts the filtered task list by the given keywords

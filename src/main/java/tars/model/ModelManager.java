@@ -29,6 +29,7 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -188,7 +189,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTarsChanged();
 
     }
-
+    
+    /**
+     * @@author A0124333U
+     * Returns a string of tasks and rsv tasks whose datetime conflicts with a specified datetime
+     */
     public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck) {
         StringBuilder conflictingTasksStringBuilder = new StringBuilder("");
         int taskCount = 1;
@@ -217,6 +222,29 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         return conflictingTasksStringBuilder.toString();
+    }
+    
+    /** Returns a sorted arraylist of filled datetime slots in a specified date */
+    public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck) {
+        ArrayList<DateTime> listOfDateTime = new ArrayList<DateTime>();
+        
+        for (ReadOnlyTask t : tars.getTaskList()) {
+            if (DateTimeUtil.isDateTimeWithinRange(t.getDateTime(), dateToCheck)) {
+                listOfDateTime.add(t.getDateTime());
+            }
+        }
+
+        for (RsvTask rt : tars.getRsvTaskList()) {
+            for (DateTime dt : rt.getDateTimeList()) {
+                if (DateTimeUtil.isDateTimeWithinRange(dt, dateToCheck)) {
+                    listOfDateTime.add(dt);
+                }
+            }
+        }
+        
+        Collections.sort(listOfDateTime);
+        
+        return listOfDateTime;
     }
 
     // =========== Filtered Task List Accessors ===========
