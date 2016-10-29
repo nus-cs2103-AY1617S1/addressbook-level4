@@ -6,6 +6,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.property.SearchStatus;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -144,6 +145,11 @@ public interface Model {
 
     //@@author A0135805H
     /**
+     * Gets a copy of the list of tags
+     */
+    List<Tag> getGlobalTagsList();
+
+    /**
      * Adds the supplied list of tags (using tag names) to the specified task.
      *
      * @param index The task displayed index.
@@ -158,7 +164,23 @@ public interface Model {
      *
      * @param index The task displayed index.
      * @param tagNames The list of tag names to be deleted.
-     * @throws ValidationException when the given index is invalid, or when there is duplicates.
+     * @throws ValidationException when the given index is invalid, or when the tag is not found (no-op).
      */
     void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException;
+
+    /**
+     * Deletes the list of tags globally.
+     *
+     * @param tagNames The list of tag names to be deleted.
+     * @throws ValidationException when the tag is not found (no-op).
+     */
+    void deleteTags(String[] tagNames) throws ValidationException;
+
+    /**
+     * Renames a tag across all tasks.
+     * @param oldName Name of the tag to be renamed.
+     * @param newName New name that the tag will assume.
+     * @throws ValidationException when the tag is not found, or the new name clashes with existing names.
+     */
+    void renameTag(String oldName, String newName) throws ValidationException;
 }

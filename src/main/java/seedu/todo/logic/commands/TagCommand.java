@@ -1,8 +1,6 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.eventbus.EventBus;
-import org.apache.commons.lang3.BooleanUtils;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -162,7 +160,7 @@ public class TagCommand extends BaseCommand {
 
         //Performs the actual execution with the data
         if (isShowTags()) {
-            ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGloablTagsList());
+            ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
             EventsCenter.getInstance().post(tagsEvent);
             return new CommandResult();
 
