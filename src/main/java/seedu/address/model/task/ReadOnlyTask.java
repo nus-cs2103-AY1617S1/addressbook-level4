@@ -39,8 +39,7 @@ public interface ReadOnlyTask {
     		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE))
-                && other.getTaskDateComponent().equals(this.getTaskDateComponent()));
+                && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE)));
     }
 
     /**

@@ -37,8 +37,8 @@ public class RecurringTaskManager {
         repeatingTasks = referenceList;
     }
 
-    public void updateAnyRecurringTasks() {
-        updateAnyRecurringTasks(LocalDate.now());
+    public boolean updateAnyRecurringTasks() {
+        return updateAnyRecurringTasks(LocalDate.now());
     }
 
     /**
@@ -46,15 +46,18 @@ public class RecurringTaskManager {
      * 
      * @param currentDate The date we want to update towards.
      */
-    public void updateAnyRecurringTasks(LocalDate currentDate) {
+    public boolean updateAnyRecurringTasks(LocalDate currentDate) {
         assert repeatingTasks != null : "Repeating Task list reference cannot be null";
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
+        boolean hasUpdated = false;
         for (ReadOnlyTask task : repeatingTasks) {
             if (task.getRecurringType().equals(RecurringType.NONE)) {
                 continue;
             }
             updateRecurringTask(task, currentDate);
+            hasUpdated = true;
         }
+        return hasUpdated;
     }    
     
     /**
