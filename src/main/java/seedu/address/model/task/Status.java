@@ -9,10 +9,10 @@ public class Status implements Comparable<Status> {
             }
         }, 
 	
-        NOT_DONE {
+        PENDING {
             @Override
             public String toString() {
-                return "Not done";
+                return "Pending";
             }
         },
         
@@ -34,8 +34,8 @@ public class Status implements Comparable<Status> {
 		case "done":
 			value = StatusType.DONE;
 			break;
-		case "not done":
-			value = StatusType.NOT_DONE;
+		case "pending":
+			value = StatusType.PENDING;
 			break;
 		case "overdue":
 			value = StatusType.OVERDUE;
@@ -50,7 +50,7 @@ public class Status implements Comparable<Status> {
 	}
 	
 	public boolean isNotDone() {
-		return value.equals(StatusType.NOT_DONE);
+		return value.equals(StatusType.PENDING);
 	}
 	
 	public boolean isOverdue() {

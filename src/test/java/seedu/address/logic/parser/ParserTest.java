@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -25,7 +25,7 @@ public class ParserTest {
 	private final AddCommand addCommand;
 	private final ListCommand listCommand;
 	private final DeleteCommand deleteCommand;
-	private final DoneCommand doneCommand;
+	private final ChangeStatusCommand changeStatusCommand;
 	private final EditCommand editCommand;
 	private final UndoCommand undoCommand;
 	private final RedoCommand redoCommand;
@@ -36,7 +36,7 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
-		doneCommand = new DoneCommand(new int[]{1}, new int[]{1});
+		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
 		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
@@ -341,13 +341,16 @@ public class ParserTest {
 	}
 
 	/*
-	 * Tests for the `done` command
+	 * Tests for the `done` and `pending` commands
 	 */
 	@Test
 	public void parseCommand_doneNonIntegerIndex_incorrectCommandReturned() {
 		String userInput = "done 1 r 5";
 		Command command = parser.parseCommand(userInput);
-
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+		
+		userInput = "pending 1 r 5";
+		command = parser.parseCommand(userInput);
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 	
@@ -355,7 +358,10 @@ public class ParserTest {
 	public void parseCommand_doneNegativeIndex_incorrectCommandReturned() {
 		String userInput = "done -3";
 		Command command = parser.parseCommand(userInput);
-
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+		
+		userInput = "pending -3";
+		command = parser.parseCommand(userInput);
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 	
@@ -363,58 +369,35 @@ public class ParserTest {
 	public void parseCommand_doneZeroIndex_incorrectCommandReturned() {
 		String userInput = "done 0";
 		Command command = parser.parseCommand(userInput);
-
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+		
+		userInput = "pending 0";
+		command = parser.parseCommand(userInput);
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_doneValidIndex_doneCommandReturned() {
+	public void parseCommand_doneValidIndex_changeStatusCommandReturned() {
 		String userInput = "done 2";
 		Command command = parser.parseCommand(userInput);
-
-		assertEquals(doneCommand.getClass(), command.getClass());
+		assertEquals(changeStatusCommand.getClass(), command.getClass());
+		
+		userInput = "pending 2";
+		command = parser.parseCommand(userInput);
+		assertEquals(changeStatusCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_doneValidIndices_doneCommandReturned() {
+	public void parseCommand_doneValidIndices_changeStatusCommandReturned() {
 		String userInput = "done 3 2";
 		Command command = parser.parseCommand(userInput);
-
-		assertEquals(doneCommand.getClass(), command.getClass());
+		assertEquals(changeStatusCommand.getClass(), command.getClass());
+		
+		userInput = "pending 3 2";
+		command = parser.parseCommand(userInput);
+		assertEquals(changeStatusCommand.getClass(), command.getClass());
 	}
 	
-	@Test
-	public void parseCommand_notDoneValidIndices_doneCommandReturned() {
-		String userInput = "done not 3 2";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(doneCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_multipleNotDoneValidIndices_doneCommandReturned() {
-		String userInput = "done not 3 not -2";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(doneCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_doneAndNotDoneValidIndices_doneCommandReturned() {
-		String userInput = "done 3 not 2";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(doneCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_doneValidNotDoneInvalidIndices_doneCommandReturned() {
-		String userInput = "done 3 not -2";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-
 	/*
 	 * Tests for the `edit` command
 	 */

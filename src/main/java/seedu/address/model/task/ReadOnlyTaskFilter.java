@@ -49,7 +49,7 @@ public class ReadOnlyTaskFilter {
 	}
 	
 	public static Predicate<ReadOnlyTask> isNotDone() {
-		return p -> p.getStatus().value.equals(Status.StatusType.NOT_DONE);
+		return p -> p.getStatus().value.equals(Status.StatusType.PENDING);
 	}
 	
 	public static Predicate<ReadOnlyTask> isOverdue() {

@@ -41,7 +41,7 @@ public class AddCommand extends Command {
        	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("event"),
-        		new Status("not done"), 
+        		new Status("pending"), 
         		Optional.of(startDate), 
         		Optional.of(endDate),
         		new UniqueTagList()
@@ -57,7 +57,7 @@ public class AddCommand extends Command {
     	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("deadline"),
-        		new Status("not done"), 
+        		new Status("pending"), 
         		Optional.empty(), 
         		Optional.of(endDate),
         		new UniqueTagList()
@@ -74,7 +74,7 @@ public class AddCommand extends Command {
     	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("someday"),
-        		new Status("not done"), 
+        		new Status("pending"), 
         		Optional.empty(), 
         		Optional.empty(),
         		new UniqueTagList()
