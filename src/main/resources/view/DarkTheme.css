@@ -156,7 +156,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#015166, 50%);
+    -fx-background-color: derive(#424444, 50%);
 }
 
 .context-menu .label {
@@ -164,11 +164,11 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#015166, 20%);
+    -fx-background-color: derive(#424444, 20%);
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;

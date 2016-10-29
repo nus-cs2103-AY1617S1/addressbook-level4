@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!--@@Gauri Joshi A0143095H  -->
+
+<AnchorPane maxWidth="350.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
+   <children>
+      <ListView prefHeight="300.0" prefWidth="300.0" />
+   </children>
+</AnchorPane>
