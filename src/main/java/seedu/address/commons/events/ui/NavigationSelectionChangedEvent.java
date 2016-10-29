@@ -8,10 +8,9 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class NavigationSelectionChangedEvent extends BaseEvent {
 
-
     private final String newSelection;
 
-    public NavigationSelectionChangedEvent(String newSelection){
+    public NavigationSelectionChangedEvent(String newSelection) {
         this.newSelection = newSelection;
     }
 

@@ -13,7 +13,8 @@ import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not
+ * allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -21,13 +22,13 @@ import seedu.address.model.tag.UniqueTagList;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
-	
 
     private final List<Task> internalList = new ArrayList<Task>();
     private final ObservableList<TaskOccurrence> internalComponentList = FXCollections.observableArrayList();
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
@@ -36,77 +37,90 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Signals that an operation targeting a specified task in the list would fail because
-     * there is no such matching task in the list.
+     * Signals that an operation targeting a specified task in the list would
+     * fail because there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
-    
-    //@@author A0147967J
+    public static class TaskNotFoundException extends Exception {
+    }
+
+    // @@author A0147967J
     /**
-     * Signals that an operation adding/blocking a time slot in the list would fail because
-     * the timeslot is already occupied.
+     * Signals that an operation adding/blocking a time slot in the list would
+     * fail because the timeslot is already occupied.
      */
-    
+
     public static class TimeslotOverlapException extends DuplicateDataException {
 
-		public TimeslotOverlapException() {
-			super("Operation cannot be done due to overlapping with blocked slots.");
-		}
-	}
-    //@@author
-    
-    
+        public TimeslotOverlapException() {
+            super("Operation cannot be done due to overlapping with blocked slots.");
+        }
+    }
+    // @@author
+
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public UniqueTaskList() {
+    }
 
     /**
-     * Returns true if the list contains an equivalent task as the given argument.
+     * Returns true if the list contains an equivalent task as the given
+     * argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        return !toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME) //Ignore blocked slot case
-        		&& internalList.contains(toCheck);
+        return !toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME) // Ignore
+                                                                           // blocked
+                                                                           // slot
+                                                                           // case
+                && internalList.contains(toCheck);
     }
-    
-    //@@author A0147967J
+
+    // @@author A0147967J
     /**
      * Returns true if the given task requests to use a blocked time slot.
      */
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
-        //ignore floating and deadline tasks
-        if(toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
-        	return false;
-        //Only compare tasks with blocked time slots.
-        for(Task t: internalList){
-        	if(t.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-        		if(!(!t.getComponentForNonRecurringType().getEndDate().getDate().after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
-        	        !t.getComponentForNonRecurringType().getStartDate().getDate().before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
-        	        	return true;        		
-        	}
+        // ignore floating and deadline tasks
+        if (toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+            return false;
+        // Only compare tasks with blocked time slots.
+        for (Task t : internalList) {
+            if (t.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
+                if (!(!t.getComponentForNonRecurringType().getEndDate().getDate()
+                        .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
+                        || !t.getComponentForNonRecurringType().getStartDate().getDate()
+                                .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+                    return true;
+            }
         }
-        //Or if it is block command, check with existing tasks
-        if(toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-        	for(Task t: internalList){
-        	if(t.getTaskType() == TaskType.NON_FLOATING && t.getComponentForNonRecurringType().getStartDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT){
-        		if(!(!t.getComponentForNonRecurringType().getEndDate().getDate().after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
-        	        !t.getComponentForNonRecurringType().getStartDate().getDate().before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
-        	        	return true;        		
-        		}
-        	}
+        // Or if it is block command, check with existing tasks
+        if (toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
+            for (Task t : internalList) {
+                if (t.getTaskType() == TaskType.NON_FLOATING && t.getComponentForNonRecurringType().getStartDate()
+                        .getDateInLong() != TaskDate.DATE_NOT_PRESENT) {
+                    if (!(!t.getComponentForNonRecurringType().getEndDate().getDate()
+                            .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
+                            || !t.getComponentForNonRecurringType().getStartDate().getDate()
+                                    .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+                        return true;
+                }
+            }
         }
         return false;
     }
-    //@@author
-    
-    //@@author A0135782Y
+    // @@author
+
+    // @@author A0135782Y
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException If the task is a non recurring task is a duplicate of an existing task in the list.
-     * @throws TimeslotOverlapException If the task is cutting into an overlapped slot.  
+     * @throws DuplicateTaskException
+     *             If the task is a non recurring task is a duplicate of an
+     *             existing task in the list.
+     * @throws TimeslotOverlapException
+     *             If the task is cutting into an overlapped slot.
      */
     public void add(Task toAdd) throws DuplicateTaskException, TimeslotOverlapException {
         assert toAdd != null;
@@ -118,8 +132,8 @@ public class UniqueTaskList implements Iterable<Task> {
             }
             throw new DuplicateTaskException();
         }
-        if(overlaps(toAdd)){
-        	throw new TimeslotOverlapException();
+        if (overlaps(toAdd)) {
+            throw new TimeslotOverlapException();
         }
         internalList.add(toAdd);
         internalComponentList.addAll(toAdd.getTaskDateComponent());
@@ -131,12 +145,13 @@ public class UniqueTaskList implements Iterable<Task> {
         internalComponentList.add(toAdd.getComponentForNonRecurringType());
         toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
     }
-    //@@author
-    
+    // @@author
+
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException
+     *             if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
@@ -147,7 +162,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-    
+
     public List<Task> getInternalTaskList() {
         return internalList;
     }
@@ -159,7 +174,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void appendTaskComponent(TaskOccurrence component) {
         internalComponentList.add(component);
     }
-    
+
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();
@@ -169,56 +184,59 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(((UniqueTaskList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-    
-    //@@author A0147967J
-    /** Returns true if the specified task component is successfully archived.*/
-	public boolean archive(TaskOccurrence target) {
-		assert target != null;
+
+    // @@author A0147967J
+    /**
+     * Returns true if the specified task component is successfully archived.
+     */
+    public boolean archive(TaskOccurrence target) {
+        assert target != null;
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
-        for(TaskOccurrence t : internalComponentList){
-        	if(t.equals(target)){
-        		t.archive();
-        		taskFoundAndArchived = true;
-        		t.getTaskReference().completeTaskWhenAllComponentArchived();
-        	}
+        for (TaskOccurrence t : internalComponentList) {
+            if (t.equals(target)) {
+                t.archive();
+                taskFoundAndArchived = true;
+                t.getTaskReference().completeTaskWhenAllComponentArchived();
+            }
         }
         return taskFoundAndArchived;
-	}
-	//@@author
-	//@@author A0147995H
-	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
-			TaskDate endDate, RecurringType recurringType) throws TimeslotOverlapException {
-		assert target != null;
+    }
 
-		boolean taskFoundAndUpdated = false;	
-		for(Task t : internalList) {
-		    if(t.equals(target)) {
-		    	TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
-		    	TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
-		    	Task checkTask = new Task(target.getName(), target.getTags(), realStartDate, realEndDate, recurringType);
-        		if(overlaps(checkTask))
-        			throw new TimeslotOverlapException();
-        		
-        		t.updateTask(name, tags, startDate, endDate, recurringType);
-        		internalComponentList.clear();
-        		for(Task h: internalList) {
-        			System.out.println(h.getName().fullName);
-        			System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
-        			internalComponentList.addAll(h.getTaskDateComponent());
-        		}
+    // @@author
+    // @@author A0147995H
+    public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
+            RecurringType recurringType) throws TimeslotOverlapException {
+        assert target != null;
 
-        		taskFoundAndUpdated = true;
-        	}
+        boolean taskFoundAndUpdated = false;
+        for (Task t : internalList) {
+            if (t.equals(target)) {
+                TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
+                TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
+                Task checkTask = new Task(target.getName(), target.getTags(), realStartDate, realEndDate,
+                        recurringType);
+                if (overlaps(checkTask))
+                    throw new TimeslotOverlapException();
+
+                t.updateTask(name, tags, startDate, endDate, recurringType);
+                internalComponentList.clear();
+                for (Task h : internalList) {
+                    System.out.println(h.getName().fullName);
+                    System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
+                    internalComponentList.addAll(h.getTaskDateComponent());
+                }
+
+                taskFoundAndUpdated = true;
+            }
         }
-		return taskFoundAndUpdated;
-	}
+        return taskFoundAndUpdated;
+    }
 }

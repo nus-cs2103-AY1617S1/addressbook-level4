@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-public class NavbarCard extends UiPart{
+public class NavbarCard extends UiPart {
 
     private static final String FXML = "NavbarCard.fxml";
 
@@ -16,9 +16,10 @@ public class NavbarCard extends UiPart{
 
     private String label;
 
-    public NavbarCard() {}
+    public NavbarCard() {
+    }
 
-    public static NavbarCard load(String label){
+    public static NavbarCard load(String label) {
         NavbarCard card = new NavbarCard();
         card.label = label;
         return UiPartLoader.loadUiPart(card);
@@ -27,7 +28,7 @@ public class NavbarCard extends UiPart{
     @FXML
     public void initialize() {
         navname.setText(label);
-        
+
     }
 
     public HBox getLayout() {
@@ -36,7 +37,7 @@ public class NavbarCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        //cardPaneNav = (HBox)node;
+        // cardPaneNav = (HBox)node;
     }
 
     @Override
