@@ -1307,10 +1307,11 @@ public class LogicManagerTest {
             End end = new End("3pm");
             int task_cat = 1;
             int overdue =0;
+            boolean isCompleted = false;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, date, start, end, task_cat, overdue, tags);
+            return new Task(name, date, start, end, task_cat, overdue, isCompleted, tags);
         }
         Task beta() throws Exception {
             Name name = new Name("Deadlines");
@@ -1319,10 +1320,11 @@ public class LogicManagerTest {
             End end = new End("3pm");
             int task_cat = 2;
             int overdue =0;
+            boolean isCompleted = false;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, date, start, end, task_cat, overdue, tags);
+            return new Task(name, date, start, end, task_cat, overdue, isCompleted, tags);
         }
         Task charlie() throws Exception {
             Name name = new Name("Todo");
@@ -1331,10 +1333,11 @@ public class LogicManagerTest {
             End end = new End("no end");
             int task_cat = 3;
             int overdue =0;
+            boolean isCompleted = false;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, date, start, end, task_cat, overdue, tags);
+            return new Task(name, date, start, end, task_cat, overdue, isCompleted, tags);
         }
 
         /**
@@ -1352,6 +1355,7 @@ public class LogicManagerTest {
                     new End("235" + seed),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -1372,6 +1376,7 @@ public class LogicManagerTest {
                     new End("235" + seed),
                     2,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -1391,6 +1396,7 @@ public class LogicManagerTest {
                     new End("no end"),
                     3,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -1570,6 +1576,7 @@ public class LogicManagerTest {
                     new End("1300"),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -1584,6 +1591,7 @@ public class LogicManagerTest {
                     new End("1300"),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -1598,6 +1606,7 @@ public class LogicManagerTest {
                     new End("1300"),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -1612,6 +1621,7 @@ public class LogicManagerTest {
                     new End("end"),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -1626,6 +1636,7 @@ public class LogicManagerTest {
                     new End("1300"),
                     1,
                     0,
+                    false,
                     new UniqueTagList(new Tag(tag))
             );
         }
@@ -1641,6 +1652,7 @@ public class LogicManagerTest {
                     new End("1300"),
                     2,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
@@ -1656,6 +1668,7 @@ public class LogicManagerTest {
                     new End("no end"),
                     3,
                     0,
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }
