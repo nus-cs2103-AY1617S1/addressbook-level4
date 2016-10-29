@@ -51,6 +51,7 @@ In-Charge: UI
   * Enhanced the functionality of delete command to delete multiple tasks[[#106](https://github.com/CS2103AUG2016-W13-C2/main/issues/106)]
   * Enhanced the functionality of done command to mark multiple tasks as done[[#109](https://github.com/CS2103AUG2016-W13-C2/main/issues/109)]
   * Improved the functionality of edit command to edit multiple fields
+  
 -----
 
 #### [Li Wang Huan](http://github.com/liwanghuan)
