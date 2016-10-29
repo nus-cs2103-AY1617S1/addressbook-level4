@@ -9,11 +9,10 @@ import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.Completed;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
+//@@author A0139277U
 /**
  * This class does a background check on Menion for any Activities which may have 
  * it's deadline passed.
- * @author lowjiansheng
- *
  */
 public class BackgroundDateCheck {
 
@@ -59,7 +58,7 @@ public class BackgroundDateCheck {
 					SendEmailStub.send(taskToCheck);
 					taskToCheck.setEmailSent(true);
 					
-				};	
+				}
 				
 			}
 			
@@ -85,7 +84,7 @@ public class BackgroundDateCheck {
 					
 					eventToCheck.setTimePassed(true);
 					
-				};	
+				}
 				
 			}
 			

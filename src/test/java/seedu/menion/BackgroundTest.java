@@ -22,6 +22,7 @@ import seedu.menion.model.activity.Note;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.testutil.TypicalTestActivities;
 
+//@@author A0139277U
 public class BackgroundTest {
 
 	Model model;
