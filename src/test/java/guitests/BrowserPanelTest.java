@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -27,7 +27,7 @@ public class BrowserPanelTest extends TaskMasterGuiTest{
 		
 		//Add Non recurring tasks display once
 		TestTask toBeAdded = td.none;
-		ArrayList<TaskComponent> expectedList = new ArrayList<TaskComponent>();
+		ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
 		expectedList.add(toBeAdded.getLastAppendedComponent());
 		commandBox.runCommand(toBeAdded.getAddNonFloatingCommand());
 		assertIsAgendaMatching(expectedList);
@@ -58,7 +58,7 @@ public class BrowserPanelTest extends TaskMasterGuiTest{
 		
 		//Archive current task, style change reflected
 		toBeAdded.getLastAppendedComponent().archive();
-		TaskComponent toBeArchived = toBeAdded.getLastAppendedComponent();
+		TaskOccurrence toBeArchived = toBeAdded.getLastAppendedComponent();
 		expectedList.set(4, toBeArchived);
 		commandBox.runCommand("done 15");
 		assertIsAgendaMatching(expectedList);
@@ -71,11 +71,11 @@ public class BrowserPanelTest extends TaskMasterGuiTest{
 		
 	}	
 	
-	private ArrayList<TaskComponent> getCopies(TaskComponent t){
-		ArrayList<TaskComponent> list = new ArrayList<TaskComponent>();
+	private ArrayList<TaskOccurrence> getCopies(TaskOccurrence t){
+		ArrayList<TaskOccurrence> list = new ArrayList<TaskOccurrence>();
 		int dayOfWeek = TestUtil.getConvertedTime(t.getStartDate()).getDayOfWeek().getValue()%7;
 		for(int i = 1; i<=6-dayOfWeek;i++){
-			TaskComponent copy = new TaskComponent(t);
+			TaskOccurrence copy = new TaskOccurrence(t);
 			copy.setStartDate(new TaskDate(t.getStartDate().getDateInLong() + DAY*i));
 			copy.setEndDate(new TaskDate(t.getEndDate().getDateInLong() + DAY*i));
 			list.add(copy);

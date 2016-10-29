@@ -18,7 +18,7 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -65,7 +65,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     }
 
     @Override
-    public ObservableList<TaskComponent> getTaskComponentList() {
+    public ObservableList<TaskOccurrence> getTaskComponentList() {
         return tasks.getInternalComponentList();
     }
 
@@ -78,7 +78,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
         this.tags.getInternalList().setAll(tags);
     }
     //@@author A0147967J
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskOccurrence> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         rebuildComponentList();
         setTags(newTags);
@@ -89,14 +89,14 @@ public class TaskMaster implements ReadOnlyTaskMaster {
      */
 	public void rebuildComponentList() {
 		this.tasks.getInternalComponentList().clear();
-        ArrayList<TaskComponent> fullList = new ArrayList<TaskComponent>();
+        ArrayList<TaskOccurrence> fullList = new ArrayList<TaskOccurrence>();
         for (Task task : tasks.getInternalTaskList()) {
-        	ArrayList<TaskComponent> newList = new ArrayList<TaskComponent>();
-        	for (TaskComponent c : task.getTaskDateComponent()) {
+        	ArrayList<TaskOccurrence> newList = new ArrayList<TaskOccurrence>();
+        	for (TaskOccurrence c : task.getTaskDateComponent()) {
         		TaskDate startDate = c.getStartDate();
         		TaskDate endDate = c.getEndDate();
 	        	boolean isArchived = c.isArchived();
-	        	TaskComponent newTaskComponent = new TaskComponent(task, startDate, endDate);
+	        	TaskOccurrence newTaskComponent = new TaskOccurrence(task, startDate, endDate);
 	        	if (isArchived)  newTaskComponent.archive();	        	
 	        	newList.add(newTaskComponent);
 	        	fullList.add(newTaskComponent);
@@ -206,7 +206,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     }
 
     //@@author A0147967J
-	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
+	public boolean archiveTask(TaskOccurrence target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
             return true;

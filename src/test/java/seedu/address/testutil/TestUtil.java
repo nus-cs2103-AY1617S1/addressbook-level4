@@ -333,16 +333,16 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, TaskComponent task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, TaskOccurrence task) {
         return card.isSameTask(task);
     }
 
-    public static TaskComponent[] convertTasksToDateComponents(final TestTask[] tasks) {
-        List<TaskComponent> componentList = new ArrayList<TaskComponent>();
+    public static TaskOccurrence[] convertTasksToDateComponents(final TestTask[] tasks) {
+        List<TaskOccurrence> componentList = new ArrayList<TaskOccurrence>();
         for(TestTask t : tasks) {
             componentList.addAll(t.getTaskDateComponent());
         }
-        TaskComponent[] taskComponents = new TaskComponent[componentList.size()];
+        TaskOccurrence[] taskComponents = new TaskOccurrence[componentList.size()];
         return componentList.toArray(taskComponents);
     }
     
@@ -374,7 +374,7 @@ public class TestUtil {
     }
 	
 	/** Returns an AppointmentImplLocal object from a task component */
-	public static AppointmentImplLocal getAppointment(TaskComponent taskComponent){
+	public static AppointmentImplLocal getAppointment(TaskOccurrence taskComponent){
 		
 		AppointmentImplLocal appointment = new AppointmentImplLocal();
 		appointment.setSummary(taskComponent.getTaskReference().getName().fullName);
