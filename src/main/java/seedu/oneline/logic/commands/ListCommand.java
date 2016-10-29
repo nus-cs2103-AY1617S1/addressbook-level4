@@ -36,7 +36,7 @@ public class ListCommand extends Command {
         args = args.trim();
         if(!args.isEmpty()){
             if (args.startsWith(CommandConstants.TAG_PREFIX)){
-                return new ListTagCommand(args);
+                return ListTagCommand.createFromArgs(args);
             } else {
                 args.toLowerCase();
                 Set<String> keywords = Parser.getKeywordsFromArgs(args);
