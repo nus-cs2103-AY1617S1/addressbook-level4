@@ -17,6 +17,7 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.RedoStoragePathChangedEvent;
 import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
+import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
@@ -30,6 +31,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -241,6 +244,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return predicate;
     }
+    
+    @Override
+    public void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags) {
+        ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
+        types.forEach(type -> predicate.add(getPredicateForType(type)));
+        updateFilteredTaskListOrOperation(predicate);
+    }
 
     @Override
     public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups) {
@@ -285,12 +295,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskListOrOperation(ArrayList<Expression> expression) {
         Predicate<? super Task> predicate;
-        Predicate<Task> predicates = task -> expression.get(0).satisfies(task);
-        for (Expression e : expression) {
-            predicate = task -> e.satisfies(task);
-            predicates = predicates.or(predicate);
+        if (expression.size() == 0) {
+            filteredTasks.setPredicate(null);
+        } else {
+            Predicate<Task> predicates = task -> expression.get(0).satisfies(task);
+            for (Expression e : expression) {
+                predicate = task -> e.satisfies(task);
+                predicates = predicates.or(predicate);
+            }
+            filteredTasks.setPredicate(predicates);
         }
-        filteredTasks.setPredicate(predicates);
+    }
+    
+    @Subscribe
+    @Override
+    public void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
+        updateFilteredTaskList(abce.getTypes(), abce.getQualifications(), abce.getTags());
     }
     //@@author
 

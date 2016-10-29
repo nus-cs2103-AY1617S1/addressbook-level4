@@ -13,7 +13,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -108,11 +107,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        filterPanel = FilterPanel.load(primaryStage, filterPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        filterPanel = FilterPanel.load(primaryStage, getFilterPlaceholder(), resultDisplay);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -129,6 +128,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    private AnchorPane getFilterPlaceholder() {
+        return filterPlaceholder;
     }
 
     public void hide() {

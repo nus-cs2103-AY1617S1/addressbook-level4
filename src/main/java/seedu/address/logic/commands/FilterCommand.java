@@ -22,9 +22,6 @@ public class FilterCommand extends Command {
             + "Parameters: KEYWORD [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD + " s/23.10.2016 r/daily";
     
-    // Temporary
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should follow DD.MM.YYYY[-Time(in 24 hrs)]";
-
     private static final String DEADLINE = "deadline";
     private static final String START_DATE = "startDate";
     private static final String END_DATE = "endDate";
@@ -62,7 +59,7 @@ public class FilterCommand extends Command {
                 filterQualifications.put(END_DATE, endDateString);
             }
         } catch (IllegalValueException e) {
-            return new CommandResult(MESSAGE_DATE_CONSTRAINTS); 
+            return new CommandResult(e.getMessage()); 
         }
         if (recurring.isPresent()) {
             filterQualifications.put(RECURRING, recurring.get());

@@ -30,22 +30,22 @@
    </columnConstraints>
    <children>
       <Label fx:id="filter" text="Filter" GridPane.columnSpan="2" GridPane.halignment="CENTER"> </Label>
-      <CheckBox fx:id="eventsCheckBox" mnemonicParsing="false" text="Events" GridPane.rowIndex="1">
+      <CheckBox fx:id="eventsCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Events" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox fx:id="tasksCheckBox" mnemonicParsing="false" text="Tasks" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <CheckBox fx:id="tasksCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Tasks" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" text="Done" GridPane.rowIndex="2">
+      <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Done" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox fx:id="undoneCheckBox" mnemonicParsing="false" text="Undone" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <CheckBox fx:id="undoneCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Undone" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
@@ -58,7 +58,20 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="deadlineTextField" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" GridPane.rowIndex="4">
+      <Label text="Recurring:" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="deadlineTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="recurringTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="20.0" right="10.0" />
          </GridPane.margin>
@@ -73,12 +86,12 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="startDateTextField" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" GridPane.rowIndex="6">
+      <TextField fx:id="startDateTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="20.0" right="10.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="endDateTextField" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <TextField fx:id="endDateTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets left="20.0" right="10.0" />
          </GridPane.margin>
@@ -88,7 +101,7 @@
             <Insets left="20.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="tagsTextField" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" GridPane.columnSpan="2" GridPane.rowIndex="8">
+      <TextField fx:id="tagsTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" GridPane.columnSpan="2" GridPane.rowIndex="8">
          <GridPane.margin>
             <Insets left="20.0" right="50.0" />
          </GridPane.margin>

@@ -3,6 +3,10 @@
     -fx-background-color: #d9534f;
 }
 
+.error-text {
+    -fx-text-fill: #d9534f;
+}
+
 
 .tag-selector {
     -fx-border-width: 1;
