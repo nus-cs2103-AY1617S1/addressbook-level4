@@ -3,6 +3,9 @@ package seedu.unburden.model.task;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -44,7 +47,9 @@ public class Date {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+    	final Pattern pattern = Pattern.compile(DATE_VALIDATION_REGEX);
+    	final Matcher matcher = pattern.matcher(test.trim()); 
+        return matcher.matches();
     }
     
     public java.util.Date toDate() throws ParseException {
