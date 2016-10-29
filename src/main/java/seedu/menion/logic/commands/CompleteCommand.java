@@ -6,6 +6,8 @@ import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.UniqueActivityList;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 
 /**
@@ -61,7 +63,7 @@ public class CompleteCommand extends Command {
             return new CommandResult(MESSAGE_ALREADY_COMPLETED);
         }
         
-        callCompleteActivity(targetType); // Calls the correct method depending
+        callCompleteActivity(targetType, activityToComplete); // Calls the correct method depending
                                           // on type of activity.
         ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
 
@@ -69,12 +71,16 @@ public class CompleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
     }
 
-    private void callCompleteActivity(String targetType) {
-
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.completeFloatingTask(targetIndex);
-        } else {
-            model.completeTask(targetIndex);
+    private void callCompleteActivity(String targetType, ReadOnlyActivity activityToComplete) {
+        
+        try {
+            if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+                model.completeFloatingTask(activityToComplete);
+            } else {
+                model.completeTask(targetIndex);
+            }
+        }catch (ActivityNotFoundException pnfe) {
+            assert false : "The target activity cannot be missing";
         }
     }
     
