@@ -29,12 +29,17 @@ public class ChangePathCommandTest extends TaskManagerGuiTest {
         //Try with unwritable file path
         String unWriteableFilePath = TestUtil.getFilePathInSandboxFolder("unwritable.xml");
         File unWriteableFolder = new File(unWriteableFilePath).getParentFile();
-        unWriteableFolder.setWritable(false);
-        Thread.sleep(300);
-        commandBox.runCommand("change-to " + unWriteableFilePath);
-        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, unWriteableFilePath));
-        unWriteableFolder.setWritable(true);
-        Thread.sleep(300);
+        
+        // check if test is run on Windows, as Windows has bad support for writeable flags
+        if (unWriteableFolder.setWritable(false)) {
+            Thread.sleep(300);
+            commandBox.runCommand("change-to " + unWriteableFilePath);
+            assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, unWriteableFilePath));
+            unWriteableFolder.setWritable(true);
+            Thread.sleep(300);
+        } else {
+            unWriteableFolder.setWritable(true);
+        }
         
         //Try with empty String
         String emptyPath = TestUtil.getFilePathInSandboxFolder("");
