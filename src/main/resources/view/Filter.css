@@ -31,3 +31,7 @@
 .choice-box {
 	-fx-mark-color: black;
 }
+
+.text-field {
+    -fx-font-size: 11pt;
+ }
