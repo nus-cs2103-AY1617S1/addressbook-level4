@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-
 import guitests.GuiRobot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,15 +13,15 @@ import java.util.List;
  * Provides a handle for the panel containing the task list.
  */
 public class NavbarPanelHandle extends GuiHandle {
-	
-	private final String NAVBAR_TASKS = " Tasks";
+
+    private final String NAVBAR_TASKS = " Tasks";
     private final String NAVBAR_DEADLINES = " Deadlines";
     private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
     private final String NAVBAR_COMPLETED = " Completed";
-    
-    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS, NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS
-			  																					 ,NAVBAR_INCOMING_DEADLINES, NAVBAR_COMPLETED);
+
+    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS,
+            NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS, NAVBAR_INCOMING_DEADLINES, NAVBAR_COMPLETED);
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPaneNav";
@@ -34,7 +33,7 @@ public class NavbarPanelHandle extends GuiHandle {
     }
 
     @SuppressWarnings("unchecked")
-	public ListView<String> getListView() {
+    public ListView<String> getListView() {
         return (ListView<String>) getNode(TASK_LIST_VIEW_ID);
     }
 
@@ -50,6 +49,6 @@ public class NavbarPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(550);
-        
+
     }
 }

@@ -25,11 +25,12 @@ public class BrowserPanelHandle extends GuiHandle {
     public MyAgenda getMyAgenda() {
         return (MyAgenda) getNode(AGENDA_ID);
     }
-    
-    public boolean isContained(AppointmentImplLocal target){
-    	for(Appointment a: getMyAgenda().appointments())
-    		if(TestUtil.isSameAppointment(a, target)) return true;
-    	return false;
+
+    public boolean isContained(AppointmentImplLocal target) {
+        for (Appointment a : getMyAgenda().appointments())
+            if (TestUtil.isSameAppointment(a, target))
+                return true;
+        return false;
     }
 
 }
