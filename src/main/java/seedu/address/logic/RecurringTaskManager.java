@@ -415,7 +415,7 @@ public class RecurringTaskManager {
      *            done.
      */
     public void appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate, LocalDate currentDate) {
-        assert !CollectionUtil.isAnyNull(task, startDate, endDate, currentDate);
+        assert !CollectionUtil.isAnyNull(task, endDate, currentDate);
         LocalDate localDateCurrently = currentDate;
         LocalDate startDateInLocalDate = null;
         if (startDate != null) {
