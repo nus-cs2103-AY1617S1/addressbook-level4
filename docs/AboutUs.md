@@ -4,14 +4,24 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Bernard Koh](http://github.com/bernardified) <br>
+#### [Bernard Koh][@bernardified](https://github.com/bernardified)
 <img src="images/bernard.jpeg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Team Leader, Testing <br>
-In-Charge: Logic
-Features Implemented: Add Command, Save Command, Parser <br>
-Other major contributions: Did initial code refactoring from AddressBook to GGist, contributed to UI development, contri Set up Travis and Coverall
 
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Team Leader, Integration, Code Quality
+* Features implemented:
+   * Parser
+   * Overdue Tasks
+   * [Add Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+   * [List Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
+   * [Save Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--savee)
+   * [Search Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#searching-tasks-by-keywords-search)
+   * [Priority Feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138411N.md)][[test code]][[docs]]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to GGist [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
+  * Set up Travis and Coveralls 
+  * Contributed to UI developements [[#122](https://github.com/CS2103AUG2016-W13-C2/main/pull/122)] [[#126](https://github.com/CS2103AUG2016-W13-C2/main/pull/126)][[#145](https://github.com/CS2103AUG2016-W13-C2/main/pull/145)]
 -----
 
 #### [Leah Lim](http://github.com/leahlim)
@@ -33,7 +43,7 @@ In-Charge: Storage
 #### [Li Wang Huan](http://github.com/liwanghuan)
 <img src="images/wanghuan.jpeg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Integration, Eclipse Specialist <br>
+Responsibilities: Eclipse Specialist <br>
 In-charge: Model
 
 -----
