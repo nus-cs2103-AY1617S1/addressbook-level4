@@ -36,11 +36,11 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 ###### Adding a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
 > Format: `add TASK_NAME p/PRIORITY`<br>
-> Example: `add Assignment 3 from/25-12-2016 to/26-12-2016 p/1`
+> Example: `add Assignment 3 p/1`
 
 ###### Adding an Event:
 > Format: `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
-> Example: `add Time's birthday party from/25-12-2016 to/26-12-2016 at/14:00 to/16:00`
+> Example: `add Tim's birthday party from/25-12-2016 to/26-12-2016 at/14:00 to/16:00`
 
 ###### Adding a Deadline:
 > Format: `add TASK_NAME on/DATE at/END_TIME`<br>
@@ -95,10 +95,10 @@ Shows a list of all tasks in the task-list.<br>
 Finds tasks whose names contain any of the given keywords.<br>
 The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
 > Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]` <br>
-> Example(all): `find all School` <br>
-> Example(Todo): `find todo Study` <br>
-> Example(Event): `find event Party` <br>
-> Example(Deadline): `find deadline Assignment`
+> Example(all): `find all School work is fun` <br>
+> Example(Todo): `find todo Study is good` <br>
+> Example(Event): `find event Party all night long` <br>
+> Example(Deadline): `find deadline Assignment to hand up today`
 
 #### Clearing all tasks : `clear`
 Clears all data in the given task type list.<br>
@@ -129,24 +129,24 @@ Task-list data are saved in the hard disk automatically after any command that c
 
 Command 	| Format  
 --------------- | :--------
-Add	Todo	| `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
+Add	Todo	| `add TASK_NAME p/PRIORITY`
 Add	Event	| `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`
-Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
+Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`
 --------------- | :--------
-Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
+Add	Todo	| `add TASK_NAME p/PRIORITY`
 Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
-Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
+Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done TASK_TYPE INDEX_NUMBER`
 Undone		| `undone TASK_TYPE INDEX_NUMBER`
 List		| `list TASK_TYPE`
-Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
+Find		| `find TASK_TYPE KEYWORD(S)`
 Help		| `help`
 Clear		| `clear TASK_TYPE`
 Undo		| `undo`
