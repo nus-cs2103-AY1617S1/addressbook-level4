@@ -61,7 +61,8 @@ public class EventTask extends Task implements FavoritableTask, CompletableTask 
 	// Return the specifics of each task (with or without time)
 	public String getTaskDetails(boolean withTime) {
 		if (withTime) {
-			return "";
+			return String.format("[Event Task][Description: %s][Start date: %s][End date: %s]", 
+					description, DateUtil.dateFormatWithTime.format(startDate), DateUtil.dateFormatWithTime.format(endDate));
 		} else {
 			return String.format("[Event Task][Description: %s][Start date: %s][End date: %s]", 
 					description, DateUtil.dateFormat.format(startDate), DateUtil.dateFormat.format(endDate));

@@ -174,13 +174,13 @@ public class UpdateTaskCommand extends TaskCommand {
     	SimpleDateFormat dateFormat;
     	// Decide which date format to use
     	if (withTime) {
-    		dateFormat = null;
+    		dateFormat = DateUtil.dateFormatWithTime;
     	} else {
     		dateFormat = DateUtil.dateFormat;
     	}
     	
     	if (newTask != null) {
-    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask.getTaskDetails(true));
+    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask.getTaskDetails(withTime));
     	} else if (newDescription != null) {
     		return String.format(TASK_DETAILS_UPDATE_DESCRIPTION, newDescription);
     	} else if (newDeadline != null) {
@@ -188,7 +188,7 @@ public class UpdateTaskCommand extends TaskCommand {
     				dateFormat.format(newDeadline));
     	} else if (newStartDate != null && newEndDate != null) {
     		return String.format(TASK_DETAILS_UPDATE_START_END_DATE, 
-    				dateFormat.format(newStartDate), DateUtil.dateFormat.format(newEndDate));
+    				dateFormat.format(newStartDate), dateFormat.format(newEndDate));
     	} else {
     		return "Error";
     	}
@@ -218,7 +218,7 @@ public class UpdateTaskCommand extends TaskCommand {
             assert false : "The target item cannot be missing";
         } 
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask.getDescription().getContent()));
     }
 
 }

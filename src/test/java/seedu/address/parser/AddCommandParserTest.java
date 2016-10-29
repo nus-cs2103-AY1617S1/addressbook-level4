@@ -2,8 +2,11 @@ package seedu.address.parser;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
+
 import org.junit.Test;
 
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.parser.AddCommandParser;
 
@@ -35,6 +38,7 @@ public class AddCommandParserTest {
 		/*
 		 * Normal add Deadline task command
 		 */
+		// No time specified for dates
 		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("homework by Oct 12");
 		String expectedTask = "[Deadline Task][Description: homework][Deadline: 12.10.2016]";
 		String actualTask = command.getTaskDetails(false);
@@ -43,6 +47,26 @@ public class AddCommandParserTest {
 		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016");
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
 		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		// Time specified for dates
+		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016 6.30pm");
+		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016 06:30PM]";
+		actualTask = command.getTaskDetails(true);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("meeting from the day after tmr to next saturday");
+		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016 06:30PM]";
+		actualTask = command.getTaskDetails(true);
+		
+		Calendar tomorrow = Calendar.getInstance();
+		tomorrow.add(Calendar.DATE, 1);
+		tomorrow.set(Calendar.HOUR, 1);
+		tomorrow.set(Calendar.MINUTE, 59);
+		command = (AddTaskCommand) parser.prepareCommand("homework by tmr 1:59pm");
+		expectedTask = String.format("[Deadline Task][Description: homework][Deadline: %s]", 
+				DateUtil.dateFormatWithTime.format(tomorrow.getTime()));
+		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 	}
 	
@@ -109,6 +133,7 @@ public class AddCommandParserTest {
 		/*
 		 * Normal add Event task command
 		 */
+		// No time specified for dates
 		AddTaskCommand command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 to Oct 13");
 		String expectedTask = "[Event Task][Description: project][Start date: 12.10.2016][End date: 13.10.2016]";
 		String actualTask = command.getTaskDetails(false);
@@ -120,6 +145,24 @@ public class AddCommandParserTest {
 		
 		command = (AddTaskCommand) parser.prepareCommand("project from 12 October 2016 to 13 October 2016");
 		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		// Time specified for dates
+		command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 5pm - Oct 13 6.30pm");
+		expectedTask = "[Event Task][Description: project][Start date: 12.10.2016 05:00PM][End date: 13.10.2016 06:30PM]";
+		actualTask = command.getTaskDetails(true);
+		assertEquals(actualTask, expectedTask);
+		
+		Calendar startDate = Calendar.getInstance(); // Today 5.15pm
+		startDate.set(Calendar.HOUR, 5);
+		startDate.set(Calendar.MINUTE, 15);
+		Calendar endDate = Calendar.getInstance();   // Today 6.45pm
+		endDate.set(Calendar.HOUR, 6);
+		endDate.set(Calendar.MINUTE, 45);
+		command = (AddTaskCommand) parser.prepareCommand("project from today 5.15pm - 6.45pm");
+		expectedTask = String.format("[Event Task][Description: project][Start date: %s][End date: %s]",
+				DateUtil.dateFormatWithTime.format(startDate.getTime()), DateUtil.dateFormatWithTime.format(endDate.getTime()));
+		actualTask = command.getTaskDetails(true);
 		assertEquals(actualTask, expectedTask);
 	}
 	
@@ -173,6 +216,17 @@ public class AddCommandParserTest {
 		
 		command = (AddTaskCommand) parser.prepareCommand("project by Oct 12 to Oct 13");
 		expectedTask = "[Floating Task][Description: project by Oct 12 to Oct 13]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		// End date is earlier than start date
+		command = (AddTaskCommand) parser.prepareCommand("project from tomorrow to today");
+		expectedTask = "[Floating Task][Description: project from tomorrow to today]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("project from today 5pm - 3am");
+		expectedTask = "[Floating Task][Description: project from today 5pm - 3am]";
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 	}

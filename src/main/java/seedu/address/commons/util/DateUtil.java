@@ -30,11 +30,12 @@ public class DateUtil {
 	static { 
 		validWords = new HashSet<String>();
 		String[] validWordsArray = {
-			"today", "tomorrow", "tmr", "next", "this", "following", "the", "day", "before", "after", "from",  // Descriptors
-			"jan", "january", "feb", "february", "mar", "march", "apr", "april", "may", "jun", "june", // Months
+			"today", "tomorrow", "tmr", "next", "this", "following", "the", "day", "before", "after", "from",  			// Descriptors
+			"jan", "january", "feb", "february", "mar", "march", "apr", "april", "may", "jun", "june", 					// Months
 			"jul", "july", "aug", "august", "sep", "september", "oct", "october", "nov", "november", "dec", "december",
-			"mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", "thu", "thurs", "thursday", "fri", "friday", // Days of the week
-			"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", // Days of the month
+			"mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", "thu", "thurs", "thursday", "fri", "friday", // Days of the week 
+			"sat", "saturday", "sun", "sunday", 										
+			"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", 										// Days of the month
 			"11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th",
 			"21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th", "31st",
 			"pm", "am"  // Time
@@ -45,8 +46,8 @@ public class DateUtil {
 		
 		relativeWords = new HashSet<String>();
 		String[] relativeWordsArray = { 
-    			"today", "tdy", "tomorrow", "tmr", "mon", "monday", "tue", "tues", "tuesday", 
-    			"wed", "wednesday", "thu", "thurs", "thursday", "fri", "friday"	
+    			"today", "tdy", "tomorrow", "tmr", "mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", 
+    			"thu", "thurs", "thursday", "fri", "friday", "sat", "saturday", "sun", "sunday"	
     	};
 		for (int i = 0; i < relativeWordsArray.length; i++) {
 			relativeWords.add(relativeWordsArray[i]);

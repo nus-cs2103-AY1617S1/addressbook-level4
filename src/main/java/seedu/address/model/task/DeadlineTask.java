@@ -53,7 +53,8 @@ public class DeadlineTask extends Task implements FavoritableTask, CompletableTa
 	// Return the specifics of each task (with or without time)
 	public String getTaskDetails(boolean withTime) {
 		if (withTime) {
-			return "";
+			return String.format("[Deadline Task][Description: %s][Deadline: %s]", 
+					description, DateUtil.dateFormatWithTime.format(deadline));
 		} else {
 			return String.format("[Deadline Task][Description: %s][Deadline: %s]", 
 					description, DateUtil.dateFormat.format(deadline));
