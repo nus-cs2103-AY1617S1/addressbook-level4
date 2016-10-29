@@ -14,25 +14,20 @@ public class InputAddHistory extends InputHistory {
     private ReadOnlyEvent event;
     private String type;
     
-    public InputAddHistory(FloatingTask target) {
+    public InputAddHistory(Object target) {
+        if (isFloatingTask(target)) {
+            this.floatingTask = (FloatingTask)target;
+            this.type = "floating task";
+        } else if (isDeadline(target)) {
+            this.deadline = (Deadline)target;
+            this.type = "deadline";
+        } else {
+            this.event = (Event)target;
+            this.type = "event";
+        }
         this.commandForUndo = "delete";
-        this.floatingTask = target;
-        this.type = "floating task";
     }
-    
-    public InputAddHistory(Deadline target) {
-        this.commandForUndo = "delete";
-        this.deadline = target;
-        this.type = "deadline";
-    }
-    
-    public InputAddHistory(Event target) {
-        this.commandForUndo = "delete";
-        this.event = target;
-        this.type = "event";
         
-    }
-    
     public String getType() {
         return type;
     }
@@ -47,6 +42,14 @@ public class InputAddHistory extends InputHistory {
     
     public ReadOnlyEvent getEvent() {
         return event;
+    }
+    
+    private boolean isFloatingTask(Object p) {
+        return p instanceof FloatingTask;
+    }
+
+    private boolean isDeadline(Object p) {
+        return p instanceof Deadline;
     }
 
 }

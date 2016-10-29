@@ -90,32 +90,30 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (toAddFloatingTask!=null){
+        if (toAddFloatingTask != null) {
             try {
-                model.addFloatingTask(toAddFloatingTask);
+                model.addTask(toAddFloatingTask);
                 model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
-            } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
+            } catch (Exception e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
             }
-        }
-        else if (toAddDeadline != null){
+        } else if (toAddDeadline != null) {
             try {
-                model.addDeadline(toAddDeadline);
+                model.addTask(toAddDeadline);
                 model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
-            } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
+            } catch (Exception e) {
                 return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
-            } 
-        }
-        else {
+            }
+        } else {
             try {
-                model.addEvent(toAddEvent);
+                model.addTask(toAddEvent);
                 model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
-            } catch (UniqueEventList.DuplicateEventException e) {
+            } catch (Exception e) {
                 return new CommandResult(MESSAGE_DUPLICATE_EVENT);
-            } 
+            }
         }
     }
 }

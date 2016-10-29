@@ -9,6 +9,11 @@ import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.ui.DeadlineListPanel;
 
 import org.junit.Test;
+
+import guitests.guihandles.DeadlineCardHandle;
+import guitests.guihandles.EventCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
+
 import static org.junit.Assert.assertTrue;
 import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //@@author A0129595N
@@ -146,6 +151,12 @@ public class EditCommandTest extends MalitioGuiTest {
      */
     private void assertEditSuccess(TestFloatingTask edited, int index, TestFloatingTask... currentList) {
         currentList = TestUtil.replaceTaskFromList(currentList, edited, index);
+        
+        //Confirm UI updated the card to match the edited details
+        FloatingTaskCardHandle addedCard = floatingTaskListPanel.navigateToTask(edited.getName().fullName);
+        assertMatching(edited, addedCard);
+        
+        //confirm the list now contain the edited floating task without the old floating task.
         assertTrue(floatingTaskListPanel.isListMatching(currentList));
     }
 
@@ -158,6 +169,12 @@ public class EditCommandTest extends MalitioGuiTest {
     private void assertEditSuccess(TestDeadline edited, TestDeadline toEdit, TestDeadline... currentList) {
         currentList = TestUtil.removeTasksFromList(currentList, toEdit);
         currentList = TestUtil.addTasksToList(currentList, edited);
+        
+        //Confirm UI updated the card to match the edited details
+        DeadlineCardHandle addedCard = deadlineListPanel.navigateToTask(edited.getName().fullName);
+        assertMatching(edited, addedCard);
+        
+        //confirm the list now contain the edited deadline without the old deadline.
         assertTrue(deadlineListPanel.isListMatching(currentList));
     }
 
@@ -171,6 +188,11 @@ public class EditCommandTest extends MalitioGuiTest {
         currentList = TestUtil.removeTasksFromList(currentList, toEdit);
         currentList = TestUtil.addTasksToList(currentList, edited);
         try {
+            //Confirm UI updated the card to match the edited details
+            EventCardHandle addedCard = eventListPanel.navigateToTask(edited.getName().fullName);
+            assertMatching(edited, addedCard);
+            
+            //confirm the list now contain the edited deadline without the old deadline.
             assertTrue(eventListPanel.isListMatching(currentList));
         } catch (IllegalArgumentException | IllegalValueException e) {
             assert false : "Not possible";

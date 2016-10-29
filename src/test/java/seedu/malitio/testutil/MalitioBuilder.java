@@ -8,8 +8,11 @@ import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 /**
  * A utility class to help with building malitio objects.
@@ -24,18 +27,18 @@ public class MalitioBuilder {
         this.malitio = malitio;
     }
 
-    public MalitioBuilder withTask(FloatingTask task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
-        malitio.addFloatingTask(task);
+    public MalitioBuilder withTask(FloatingTask task) throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
+        malitio.addTask(task);
         return this;
     }
     
-    public MalitioBuilder withDeadline(Deadline deadline) throws UniqueDeadlineList.DuplicateDeadlineException {
-        malitio.addDeadline(deadline);
+    public MalitioBuilder withDeadline(Deadline deadline) throws DuplicateDeadlineException, DuplicateFloatingTaskException, DuplicateEventException {
+        malitio.addTask(deadline);
         return this;
     }
 
-    public MalitioBuilder withEvent(Event event) throws UniqueEventList.DuplicateEventException {
-        malitio.addEvent(event);
+    public MalitioBuilder withEvent(Event event) throws UniqueEventList.DuplicateEventException, DuplicateFloatingTaskException, DuplicateDeadlineException {
+        malitio.addTask(event);
         return this;
     }
     

@@ -26,7 +26,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/malitio.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_WIDTH = 900;
 
     private Logic logic;
     

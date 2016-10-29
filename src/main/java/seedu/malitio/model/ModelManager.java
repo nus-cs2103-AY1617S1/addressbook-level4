@@ -130,12 +130,15 @@ public class ModelManager extends ComponentManager implements Model {
 
 
     //@@author A0129595N
+ 
     @Override
-    public void addFloatingTask(FloatingTask task) throws DuplicateFloatingTaskException {
-        malitio.addFloatingTask(task);
+    public void addTask(Object task)
+            throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
+        malitio.addTask(task);
         history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
+        
     }
     
     @Override
@@ -146,22 +149,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateMalitioChanged();
     }
 
-    @Override
-    public void addDeadline(Deadline deadline) throws DuplicateDeadlineException {
-        malitio.addDeadline(deadline);
-        history.add(new InputAddHistory(deadline));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-    
-    @Override
-    public void addEvent(Event event) throws DuplicateEventException {
-        malitio.addEvent(event);
-        history.add(new InputAddHistory(event));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-    
     @Override
     public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         malitio.editFloatingTask(edited, beforeEdit);

@@ -50,17 +50,11 @@ public interface Model {
     void deleteTask(ReadOnlyEvent target) throws UniqueEventList.EventNotFoundException;
     
     /** Adds the given floating task */
-    void addFloatingTask(FloatingTask task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException;
+    void addTask(Object task) throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException;
     
     /** Adds the given floating task at a specific index */
     void addFloatingTaskAtSpecificPlace(FloatingTask task, int index) throws DuplicateFloatingTaskException;
     
-    /** Adds the given deadline*/
-    void addDeadline(Deadline deadline) throws UniqueDeadlineList.DuplicateDeadlineException;
-    
-    /** Adds the given event*/
-    void addEvent(Event event) throws UniqueEventList.DuplicateEventException;
-
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
     

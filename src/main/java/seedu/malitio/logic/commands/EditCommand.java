@@ -74,8 +74,7 @@ public class EditCommand extends Command{
     //@@author A0129595N  
     public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
             throws IllegalValueException {
-        assert taskType == 'f';
-        assert !name.equals("") || !newTags.isEmpty() ;
+        assert validArgFloatingTask(taskType, name, newTags) ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -86,8 +85,7 @@ public class EditCommand extends Command{
     
     public EditCommand(char taskType, int targetIndex, String name, String due, Set<String> newTags)
             throws IllegalValueException {
-        assert taskType == 'd';
-        assert !name.equals("") || !due.equals("") || !newTags.isEmpty();
+        assert validArgDeadline(taskType, name, due, newTags);
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -98,11 +96,11 @@ public class EditCommand extends Command{
         }
         this.tags = processTags(newTags);
     }
+
     
     public EditCommand(char taskType, int targetIndex, String name, String start, String end, Set<String> newTags)
             throws IllegalValueException {
-        assert taskType == 'e';
-        assert !name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty();
+        assert validArgEvent(taskType, name, start, end, newTags);
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -115,8 +113,7 @@ public class EditCommand extends Command{
             this.end = new DateTime(end);
         }
         this.tags = processTags(newTags);
-    }
-    
+    }    
     
     /**
      * processTags return a UniqueTagList of tags but returns null if no tags were entered.
@@ -266,6 +263,18 @@ public class EditCommand extends Command{
             return new CommandResult(MESSAGE_INVALID_EVENT);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit, editedEvent));
+    }
+    
+    private boolean validArgFloatingTask(char taskType, String name, Set<String> newTags) {
+        return taskType == 'f' && (!name.equals("") || !newTags.isEmpty());
+    }
+    
+    private boolean validArgDeadline(char taskType, String name, String due, Set<String> newTags) {
+        return taskType == 'd'&& (!name.equals("") || !due.equals("") || !newTags.isEmpty());
+    }
+    
+    private boolean validArgEvent(char taskType, String name, String start, String end, Set<String> newTags) {
+        return taskType == 'e' && (!name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty());
     }
     
 }
