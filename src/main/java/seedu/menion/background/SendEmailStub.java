@@ -8,7 +8,7 @@ public class SendEmailStub {
 	
 	public static void send(ReadOnlyActivity activityToCheck){
 		
-		System.out.println("Email Sent");
+		System.out.println("Email Sent for : " + activityToCheck.getActivityName());
 	}
 	
 }

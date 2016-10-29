@@ -76,10 +76,21 @@ public class BackgroundDateCheck {
 	 */
 	private static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
 		
-		assert(activityToCheck != null);
+		assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
+				activityToCheck.getActivityType().equals(Activity.TASK_TYPE)));
 		
-		String activityDateString = activityToCheck.getActivityStartDate().toString();
-		String activityTimeString = activityToCheck.getActivityStartTime().toString();
+		String activityDateString;
+		String activityTimeString;
+		
+		if (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE)){
+			activityDateString = activityToCheck.getActivityEndDate().toString();
+			activityTimeString = activityToCheck.getActivityEndTime().toString();
+		}
+		else {
+			activityDateString = activityToCheck.getActivityStartDate().toString();
+			activityTimeString = activityToCheck.getActivityStartTime().toString();
+		}
+		
 		int [] dateValues = new int[3];
 		int [] timeValues = new int[2];
 		extractDateValues(activityDateString, dateValues);
