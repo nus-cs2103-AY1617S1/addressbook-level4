@@ -295,7 +295,12 @@ public class LogicManagerTest {
                 Collections.emptyList(),
                 expectedAB.getTodoList());
     }
-
+    
+    @Test
+    public void execute_invalidListFormat() throws Exception {
+        assertCommandBehavior("list asdasd",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
 
     //@@author A0139430L JingRui
     @Test
