@@ -10,6 +10,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.OverdueChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -43,7 +45,6 @@ public class ModelManager extends ComponentManager implements Model {
     private Config config;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredTodos;
-    //private FilteredList<Task> filteredCompleted;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -60,7 +61,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
-        //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
     }
@@ -74,7 +74,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
-        //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
         this.config = config;
@@ -131,6 +130,13 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
+    
+    //@@author A0147890U
+    /** Raises an event to indicate task overdue status might have changed */
+    private void indicateTaskOverdueChanged() {
+        raise(new OverdueChangedEvent());
+    }
+    
     //@@author A0139430L JingRui
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -156,7 +162,6 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0135722L Zhiyuan
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.completeTask(target);
-        //updateFilteredListToShowAll();
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
@@ -167,7 +172,7 @@ public class ModelManager extends ComponentManager implements Model {
     	final Runnable overdue = new Runnable() {
     		public void run() {
     			addressBook.overdueTask();
-    			//updateFilteredListToShowAll();
+    			indicateTaskOverdueChanged();
     	        indicateAddressBookChanged();
     		};
     	};
@@ -204,22 +209,16 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTodos);
     }
     
-    //public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleted() {
-    //    return new UnmodifiableObservableList<>(filteredCompleted);
-    //}
-
     @Override
     public void updateFilteredListToShowAll() {
         filteredEvents.setPredicate(null);
         filteredDeadlines.setPredicate(null);
         filteredTodos.setPredicate(null);
-        //filteredCompleted.setPredicate(null);
     }
     
     //@@author A0147890U
     @Override
     public void updateFilteredListToShowAllCompleted() {
-        //updateFilteredEventList
         filteredEvents.setPredicate(task -> {
             if (task.getIsCompleted()) {
                 return true;
@@ -243,13 +242,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0147890U
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
-     //   System.out.println("here");
         filteredEvents.setPredicate(task -> {
             if (!task.getIsCompleted()) {
-       //         System.out.println("please");
                 return true;
             }
-            System.out.println("no");
             return false;
         });
         filteredDeadlines.setPredicate(task -> {
@@ -282,11 +278,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
     }
     
-    //@Override
-    //public void updateFilteredCompletedList(Set<String> keywords) {
-    //    updateFilteredCompletedList(new PredicateExpression(new NameQualifier(keywords)));
-    //}
-    
     private void updateFilteredEventList(Expression expression) {
         filteredEvents.setPredicate(expression::satisfies);
     }
@@ -299,11 +290,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos.setPredicate(expression::satisfies);
     }
     
-    //private void updateFilteredCompletedList(Expression expression) {
-    //    filteredCompleted.setPredicate(expression::satisfies);
-    //}
-    
-
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

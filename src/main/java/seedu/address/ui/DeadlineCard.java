@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.commons.events.ui.OverdueChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0147890U
@@ -45,6 +48,15 @@ public class DeadlineCard extends UiPart {
         date.setText("Date:" + "    " + deadline.getDate().value);
         end.setText("End time:" + "    " + deadline.getEnd().value);
         tags.setText(deadline.tagsString());
+        
+        overdueChangeColor(deadline, cardPane);
+        registerAsAnEventHandler(this);
+        
+    }
+    
+    @Subscribe
+    private void handleTaskOverdueChanged(OverdueChangedEvent change) {
+        overdueChangeColor(deadline, cardPane);
     }
 
     public HBox getLayout() {

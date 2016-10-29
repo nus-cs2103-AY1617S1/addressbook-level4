@@ -53,8 +53,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
-    @FXML
-    private MenuItem helpMenuItem;
+    //@FXML
+    //private MenuItem helpMenuItem;
 
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -70,6 +70,9 @@ public class MainWindow extends UiPart {
     
     @FXML
     private AnchorPane todoListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane taskCountPlaceHolder;
 
 
     public MainWindow() {
@@ -110,12 +113,12 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        setAccelerators();
+      //  setAccelerators();
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
+    //private void setAccelerators() {
+    //    helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+    //}
 
     void fillInnerParts() {
         //browserPanel = BrowserPanel.load(browserPlaceholder);

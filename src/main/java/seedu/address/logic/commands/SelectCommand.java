@@ -45,7 +45,7 @@ public class SelectCommand extends Command {
         		indicateAttemptToExecuteIncorrectCommand();
         		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         	}
-        	model.addToUndoStack();
+        	//model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
         	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownEventList.get(targetIndex-1).toString()));            
         }
@@ -54,7 +54,7 @@ public class SelectCommand extends Command {
         		indicateAttemptToExecuteIncorrectCommand();
         		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         	}
-        	model.addToUndoStack();
+        	//model.addToUndoStack();
         	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
         	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownDeadlineList.get(targetIndex-1).toString()));
         }
@@ -63,7 +63,7 @@ public class SelectCommand extends Command {
            		indicateAttemptToExecuteIncorrectCommand();
            		return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
            	}
-            model.addToUndoStack();
+            //model.addToUndoStack();
            	EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, category));
            	return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownTodoList.get(targetIndex-1).toString()));    
         }

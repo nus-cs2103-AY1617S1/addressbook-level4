@@ -194,14 +194,8 @@ public class MainApp extends Application {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
         
-        String sourceFile = storage.getAddressBookFilePath();
-        Path sourceFilePath = Paths.get(sourceFile);
-        
-        config = initConfig(getApplicationParameter("config"));
-        Path targetFilePath = Paths.get(config.getAddressBookFilePath());
-        
-        System.out.println(sourceFilePath.toString());
-        System.out.println(targetFilePath.toString());
+        Path sourceFilePath = getSourceFilePath();        
+        Path targetFilePath = getTargetFilePath();
         
         assert sourceFilePath != null;
         assert targetFilePath != null;
@@ -209,11 +203,25 @@ public class MainApp extends Application {
         try {
             Files.move(sourceFilePath, targetFilePath, REPLACE_EXISTING);
         } catch (IOException e) {
-            System.out.println("This should never appear");
+            logger.warning("Failed to move file. Please check if file paths are valid.");
         }
         
         Platform.exit();
         System.exit(0);
+    }
+    
+    //@@author A0147890U
+    private Path getSourceFilePath() {
+        String sourceFile = storage.getAddressBookFilePath();
+        Path sourceFilePath = Paths.get(sourceFile);
+        return sourceFilePath;
+    }
+    
+    //@@author A0147890U
+    private Path getTargetFilePath() {
+        config = initConfig(getApplicationParameter("config"));
+        Path targetFilePath = Paths.get(config.getAddressBookFilePath());
+        return targetFilePath;
     }
 
     @Subscribe

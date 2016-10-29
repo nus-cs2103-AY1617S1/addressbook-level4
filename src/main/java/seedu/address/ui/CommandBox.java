@@ -109,6 +109,7 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+        System.out.println(commandTextField.getStyleClass());
     }
 
 }
