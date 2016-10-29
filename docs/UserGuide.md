@@ -27,26 +27,14 @@ As shown below, Agendum has 3 panels: **"Do It Soon"**, **"Do It Anytime"** and 
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or above installed in your Computer.
-
-   > Take note that Agendum might not work with earlier versions of Java 8.
-
-1. Download the latest `Agendum.jar` from the [releases](../../../releases) tab.
-
-2. Copy Agendum.jar to the folder you want to use as the home.
-
-3. Double-click the file to start Agendum. The GUI should appear promptly.
-
-4. Type a command in the command box and press <kbd>Enter</kbd> to execute it.
-
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will list some information about commands.
-
-5. Go ahead and try some of the commands listed below!
+1. Download the latest `Agendum.jar` from [here](../../../releases).
+2. Launch Agendum!
+3. Type a command in the command box and press <kbd>Enter</kbd> to execute it. Tip: type **`help`** to learn some new commands.
+4. Go ahead and try some of the commands listed below!
    * **`add`**` Go to shopping mall` : adds a task with description `Go to shopping mall` to Agendum.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`list`** : lists all uncompleted tasks
+   * **`delete`**` 3` : deletes the 3rd task shown in the current
    * **`exit`** : exits Agendum
-
-6. You can refer to the [Features](#features) section below for more details of each command.
+5. You can refer to the [Features](#features) section below for more details of each command.
 
 
 &nbsp;
