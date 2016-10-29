@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
@@ -222,7 +224,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
-    // called by FindCommand and ViewCommand
+    // called by ViewCommand
+    @Override 
+    public void updateFilteredTaskListByDate(Date date){
+    	filteredDatedTasks.setPredicate((new PredicateExpression(new DateQualifier(date)))::satisfies);
+    	raise(new UpdateListCountEvent(this));
+    }
+    
+    // called by FindCommand
     @Override
     public void updateFilteredTaskListByKeywords(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new TaskQualifier(keywords)));
@@ -335,5 +344,45 @@ public class ModelManager extends ComponentManager implements Model {
             return "status=" + statusList.toString();
         }
     }
+    
+    private class DateQualifier implements Qualifier {
+        private Date date;
+
+        DateQualifier(Date date) {
+            this.date = date;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	
+        	// check deadline and event start date
+        	if (sameDate(task.getDatetime().getStart())){
+        		return true;
+        	}
+        	// check event end date but make sure deadlines are excluded
+        	else if (task.getDatetime().getEnd() != null && sameDate(task.getDatetime().getEnd())){
+        		return true;
+        	}
+        	// check event dates between start date and end date
+        	else if (sameDate(task.getDatetime().getStart()) && sameDate(task.getDatetime().getEnd())){
+        		return true;
+        	}
+        	else {
+        		return false;
+        	}
+        }
+
+        @Override
+        public String toString() {
+            return "date=" + date.toString();
+        }
+        
+        private boolean sameDate(Date other){
+        	return date.getDay() == other.getDay() && date.getMonth() == other.getMonth() 
+        			&& date.getYear() == other.getYear();
+        }
+    }
+    
+   
 
 }
