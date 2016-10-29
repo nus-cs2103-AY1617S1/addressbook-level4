@@ -28,12 +28,12 @@ public class RecurrenceRate {
      *
      * @throws IllegalValueException if either values are invalid.
      */
-    public RecurrenceRate(String rate, String timePeriodString) throws IllegalValueException {
-        assert rate != null && timePeriodString != null;
+    public RecurrenceRate(String rateString, String timePeriodString) throws IllegalValueException {
+        assert rateString != null && timePeriodString != null;
         
         Optional<TimePeriod> timePeriod = TimePeriod.convertStringToTimePeriod(timePeriodString.trim());
         this.timePeriod = timePeriod.orElseThrow(() -> new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS));
-        this.rate = convertStringToRateInteger(rate);
+        this.rate = convertStringToRateInteger(rateString);
     }
     
     public RecurrenceRate(String timePeriod) throws IllegalValueException {
@@ -43,17 +43,17 @@ public class RecurrenceRate {
     /**
      * Converts rate from String to Integer.
      *
-     * @param rate  user input of rate of recurrence.
+     * @param rateString  user input of rate of recurrence.
      * @return Integer value of rate.
      * @throws IllegalValueException if rate cannot be converted into an Integer
      * or rate is <= 0.
      */
-    private Integer convertStringToRateInteger(String rate) throws IllegalValueException {
-        assert rate != null;
+    private Integer convertStringToRateInteger(String rateString) throws IllegalValueException {
+        assert rateString != null;
         int rateInteger;
         
         try {
-            rateInteger = Integer.valueOf(rate);
+            rateInteger = Integer.valueOf(rateString);
         } catch (NumberFormatException nfe) {
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
