@@ -30,7 +30,7 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
-    public void set_null_tasklist_throwAssert() {
+    public void setNullTasklist_throwAssert() {
         try{
             recurringManager.setTaskList(null);
             fail();
@@ -40,7 +40,7 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
-    public void set_null_taskList_updateRecurringTask_throwAssert() {
+    public void setNullTaskList_updateRecurringTask_throwAssert() {
         try {
             recurringManager.setTaskList(null);
             recurringManager.updateAnyRecurringTasks();
@@ -74,7 +74,7 @@ public class RecurringTaskManagerTest {
     // Boundary test 
     // Test lower bounds 
     @Test
-    public void correctAssignOverdueTasks_dailyRecurring_corrected_lowerBound() throws Exception {
+    public void correctAssignOverdueTasks_dailyRecurring_correctedLowerBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -87,7 +87,7 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
-    public void correctAssignOverdueTasks_weeklyRecurring_corrected_lowerBound() throws Exception {
+    public void correctAssignOverdueTasks_weeklyRecurring_correctedLowerBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -100,7 +100,7 @@ public class RecurringTaskManagerTest {
     }            
     
     @Test
-    public void correctAssignOverdueTasks_monthlyRecurring_corrected_lowerBound() throws Exception {
+    public void correctAssignOverdueTasks_monthlyRecurring_correctedLowerBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -113,7 +113,7 @@ public class RecurringTaskManagerTest {
     }        
 
     @Test
-    public void correctAssignOverdueTasks_yearlyRecurring_corrected_lowerBound() throws Exception {
+    public void correctAssignOverdueTasks_yearlyRecurring_correctedLowerBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -128,7 +128,7 @@ public class RecurringTaskManagerTest {
     // Boundary test
     // Test upper bounds
     @Test
-    public void correctAssignOverdueTasks_dailyRecurring_corrected_upperBound() throws Exception {
+    public void correctAssignOverdueTasks_dailyRecurring_correctedUpperBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -141,7 +141,7 @@ public class RecurringTaskManagerTest {
     }
     
     @Test
-    public void correctAssignOverdueTasks_weeklyRecurring_corrected_upperBound() throws Exception {
+    public void correctAssignOverdueTasks_weeklyRecurring_correctedUpperBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -154,7 +154,7 @@ public class RecurringTaskManagerTest {
     }
 
     @Test
-    public void correctAssignOverdueTasks_monthlyRecurring_corrected_upperBound() throws Exception {
+    public void correctAssignOverdueTasks_monthlyRecurring_correctedUpperBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")
@@ -167,7 +167,7 @@ public class RecurringTaskManagerTest {
     }    
 
     @Test
-    public void correctAssignOverdueTasks_yearlyRecurring_corrected_upperBound() throws Exception {
+    public void correctAssignOverdueTasks_yearlyRecurring_correctedUpperBound() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         RecurringTaskHelper helper = new RecurringTaskHelper();
         TestTask tryCorrect = builder.withName("recurring").withStartDate("11 oct 2016 11pm")

@@ -1086,7 +1086,7 @@ public class LogicManagerTest {
     
     //@@author A0135782Y
     @Test
-    public void execute_add_recurringTask_byDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
+    public void execute_addRecurringTaskByDate_unsuccessful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingByDate();
@@ -1099,7 +1099,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_recurringTask_byDate_successful() throws Exception {
+    public void execute_addRecurringTaskByDate_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
@@ -1113,7 +1113,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_recurringTask_daily_ByDate_daily_caseInsensitive() throws Exception {
+    public void execute_add_recurringTaskByDateDaily_caseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
@@ -1127,7 +1127,7 @@ public class LogicManagerTest {
     }    
     
     @Test
-    public void execute_add_recurringTask_FromDateToDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
+    public void execute_addRecurringTaskFromDateToDate_unsuccessful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingFromDateToDate();
@@ -1141,7 +1141,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_recurringTask_FromDateToDate_successful() throws Exception {
+    public void execute_addRecurringTaskFromDateToDate_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
@@ -1155,7 +1155,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_add_recurringTask_daily_FromDateToDate_daily_caseInsensitive() throws Exception {
+    public void execute_add_recurringTaskDailyFromDateToDate_caseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
