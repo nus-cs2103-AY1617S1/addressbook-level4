@@ -106,7 +106,7 @@ public class EditCommand extends Command {
             model.addPerson(toAdd);
             String point = String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd);
             model.currentState(point);
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
+	    EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
             return new CommandResult(point);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
