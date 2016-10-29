@@ -199,11 +199,11 @@ Format: NIL
 > The currently entered text will remain available in the command history.
 
 #### Viewing help : `help`
-Displays the help page. <br>
+Displays the help window containing a command summary. <br>
 Format: `help`
 
-> The help page will open in a new window.
-> The help page does not require an active internet connection.
+> The help tooltip will open in a new window.
+> On pressing enter while in the help window, the help window will be closed and the user will be taken back to the command line.
 
 /* @@author */
 
