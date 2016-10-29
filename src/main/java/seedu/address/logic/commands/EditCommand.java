@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -9,6 +12,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -89,14 +93,19 @@ public class EditCommand extends Command {
     }
 
  // Modified from http://stackoverflow.com/a/13872171/7068957
-    private Object getObject(List<String> valueString, Field field)
-            throws InstantiationException, IllegalAccessException, InvocationTargetException {
+    private Object getObject(List<String> valueString, Field field) throws InstantiationException, 
+        IllegalAccessException, InvocationTargetException, IllegalValueException {
         Class type;
-        if(field.getType()==Optional.class){
-            assert field.getName() == "time";
+        if(field.getName() == "time"){
             type = Time.class;
+        }else if(field.getName()== "tags"){
+            HashSet<Tag> tags = new HashSet<>();
+            for(String str : valueString){
+                tags.add(new Tag(str));
+            }
+            return new UniqueTagList(tags);
         }else{
-            type= field.getType();
+            type = field.getType();
         }
         for (Constructor<?> ctor : type.getConstructors()) {
             Class<?>[] paramTypes = ctor.getParameterTypes();
