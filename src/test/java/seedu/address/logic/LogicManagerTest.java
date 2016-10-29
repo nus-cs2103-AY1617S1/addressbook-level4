@@ -262,6 +262,23 @@ public class LogicManagerTest {
         assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
                 expectedAB.getTaskComponentList());
     }
+    
+    @Test
+    public void execute_addDuplicateTag_sucessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.nonFloatingFromDateToDate();
+        toBeAdded.setTags(new UniqueTagList(new Tag("same")));
+        TaskMaster expectedAB = new TaskMaster();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded)+" t/same",
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
+                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
+                expectedAB.getTaskComponentList());
+    }
 
     // @@author
     // @@author A0135782Y

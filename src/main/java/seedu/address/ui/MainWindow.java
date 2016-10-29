@@ -187,16 +187,6 @@ public class MainWindow extends UiPart {
         primaryStage.show();
     }
     
-    @FXML
-    public void handleCustomize(){
-    	if(scene.getStylesheets().contains(DARK_THEME)){
-    		scene.getStylesheets().add(BLUE_THEME);
-    		scene.getStylesheets().remove(DARK_THEME);
-    	}else{
-    		scene.getStylesheets().add(DARK_THEME);
-    		scene.getStylesheets().remove(BLUE_THEME);
-    	}
-    }
     
 
     /**

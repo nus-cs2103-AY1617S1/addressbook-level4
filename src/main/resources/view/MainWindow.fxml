@@ -27,11 +27,6 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Customize Skin">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleCustomize" text="I'm feeling lucky!" />
-               </items>
-            </Menu>
          </menus>
       </MenuBar>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">

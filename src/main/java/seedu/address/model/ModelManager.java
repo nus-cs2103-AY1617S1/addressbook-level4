@@ -165,7 +165,6 @@ public class ModelManager extends ComponentManager implements Model {
     interface Expression {
         boolean satisfies(TaskOccurrence t);
 
-        String toString();
     }
 
     private class PredicateExpression implements Expression {
@@ -185,16 +184,11 @@ public class ModelManager extends ComponentManager implements Model {
             return !qualifier.run(task);
         }
 
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
     }
 
     interface Qualifier {
         boolean run(TaskOccurrence task);
 
-        String toString();
     }
 
     // @@author A0147967J
@@ -210,10 +204,6 @@ public class ModelManager extends ComponentManager implements Model {
             return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
         }
 
-        @Override
-        public String toString() {
-            return "type=" + typeKeyWords.toString();
-        }
     }
     // @@author
 
@@ -230,10 +220,6 @@ public class ModelManager extends ComponentManager implements Model {
             return task.isArchived() == isArchived;
         }
 
-        @Override
-        public String toString() {
-            return "type=" + isArchived;
-        }
     }
     // @@author
 
@@ -255,10 +241,6 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny().isPresent();
         }
 
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
     }
 
     private class TagQualifier implements Qualifier {
@@ -286,10 +268,6 @@ public class ModelManager extends ComponentManager implements Model {
                     .isPresent();
         }
 
-        @Override
-        public String toString() {
-            return "tag=" + String.join(", ", tagSet);
-        }
     }
 
     private class PeriodQualifier implements Qualifier {
@@ -337,12 +315,6 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         }
 
-        @Override
-        public String toString() {
-            if (this.startTime == null || this.endTime == null)
-                return "";
-            return "start time=" + this.startTime.toString() + " end time=" + this.endTime.toString();
-        }
     }
 
     private class DeadlineQualifier implements Qualifier {
@@ -361,9 +333,6 @@ public class ModelManager extends ComponentManager implements Model {
             if (task.getTaskReference().getTaskType().equals(TaskType.FLOATING))
                 return false;
 
-            if (task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
-                return false;
-
             Date deadline = new Date(task.getEndDate().getDateInLong());
 
             if ((deadline.before(this.deadline) || this.deadline.equals(deadline))
@@ -373,13 +342,6 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         }
 
-        @Override
-        public String toString() {
-            if (this.deadline == null)
-                return "";
-
-            return "deadline=" + this.deadline.toString();
-        }
     }
 
     private class FindQualifier implements Qualifier {
@@ -413,11 +375,6 @@ public class ModelManager extends ComponentManager implements Model {
                     && deadlineQualifier.run(task);
         }
 
-        @Override
-        public String toString() {
-            return nameQualifier.toString() + " " + tagQualifier.toString() + " " + periodQualifier.toString() + " "
-                    + deadlineQualifier.toString() + " " + archiveQualifier.toString() + " ";
-        }
     }
     // @@author
 }
