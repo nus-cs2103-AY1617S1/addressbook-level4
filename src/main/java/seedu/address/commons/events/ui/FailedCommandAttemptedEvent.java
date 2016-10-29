@@ -8,11 +8,9 @@ import seedu.address.logic.commands.Command;
  * Indicates an attempt to execute a failed command
  */
 public class FailedCommandAttemptedEvent extends BaseEvent {
-	
 
     public FailedCommandAttemptedEvent(Command command) {
     }
-    
 
     @Override
     public String toString() {

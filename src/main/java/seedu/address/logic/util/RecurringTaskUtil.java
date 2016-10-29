@@ -167,7 +167,7 @@ public class RecurringTaskUtil {
                 elapsedPeriod = (int) ChronoUnit.DAYS.between(before, after);
                 break;
             case WEEKLY:
-                elapsedPeriod = (int) (ChronoUnit.DAYS.between(before, after) / NUM_DAYS_IN_WEEK);
+                elapsedPeriod = (int) Math.ceil(ChronoUnit.DAYS.between(before, after) / NUM_DAYS_IN_WEEK);
                 break;
             case MONTHLY:
                 elapsedPeriod = (int) Math.ceil(ChronoUnit.WEEKS.between(before, after) / NUM_WEEKS_IN_MONTH);                
