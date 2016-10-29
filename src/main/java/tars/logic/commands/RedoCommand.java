@@ -9,7 +9,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_SUCCESS = "Redo successfully.\n%1$s";
-    public static final String MESSAGE_UNSUCCESS = "Redo unsuccessfully.\n%1$s";
+    public static final String MESSAGE_UNSUCCESS = "Redo unsuccessfully.";
     
     public static final String MESSAGE_EMPTY_REDO_CMD_HIST = "No more actions that can be redo.";
 

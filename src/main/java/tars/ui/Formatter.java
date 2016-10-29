@@ -5,45 +5,69 @@ import java.util.List;
 
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
+import tars.model.task.ReadOnlyTask;
 import tars.model.task.rsv.RsvTask;
+
+/**
+ * Container for formatting
+ * 
+ * @author A0139924W
+ */
 
 public class Formatter {
     /** Format of indexed list item */
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d. %2$s";
-
-    /** A decorative prefix added to the beginning of lines printed by TARS */
-    private static final String LINE_PREFIX = " ";
-
-    /** A platform independent line separator. */
-    private static final String LS = System.lineSeparator();
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d.\t%2$s";
+    
+    public static final String EMPTY_LIST_MESSAGE = "0 %1$s listed.";
 
     /** Offset required to convert between 1-indexing and 0-indexing. */
-    private static final int DISPLAYED_INDEX_OFFSET = 1;
+    public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     public String formatTags(List<? extends ReadOnlyTag> tags) {
         final List<String> formattedTags = new ArrayList<>();
+        
+        if(tags.size() == 0) {
+            return String.format(EMPTY_LIST_MESSAGE, "tags");
+        }
+        
         for (ReadOnlyTag tag : tags) {
             formattedTags.add(tag.getAsText());
         }
-        return format(asIndexedList(formattedTags));
+        return asIndexedList(formattedTags);
     }
-
-    /** Formats the given strings for displaying to the user. */
-    public String format(String... messages) {
-        StringBuilder sb = new StringBuilder();
-        for (String m : messages) {
-            sb.append(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX) + LS);
+    
+    public String formatTaskList(List<? extends ReadOnlyTask> taskList) {
+        final List<String> formattedTasks = new ArrayList<>();
+        
+        if(taskList.size() == 0) {
+            return String.format(EMPTY_LIST_MESSAGE, "tasks");
         }
-        return sb.toString();
+        
+        for (ReadOnlyTask task : taskList) {
+            formattedTasks.add(task.getAsText());
+        }
+        return asIndexedList(formattedTasks);
+    }
+    
+    public String formatRsvTaskList(List<? extends RsvTask> rsvTaskList) {
+        final List<String> formattedTasks = new ArrayList<>();
+        
+        if(rsvTaskList.size() == 0) {
+            return String.format(EMPTY_LIST_MESSAGE, "tasks");
+        }
+        
+        for (RsvTask task : rsvTaskList) {
+            formattedTasks.add(task.toString());
+        }
+        return asIndexedList(formattedTasks);
     }
 
     /** Formats a list of strings as an indexed list. */
     private static String asIndexedList(List<String> listItems) {
         final StringBuilder formatted = new StringBuilder();
-        int displayIndex = 0 + DISPLAYED_INDEX_OFFSET;
+        int displayIndex = DISPLAYED_INDEX_OFFSET;
         for (String listItem : listItems) {
-            formatted.append(getIndexedListItem(displayIndex, listItem)).append("\n");
-            displayIndex++;
+            formatted.append(getIndexedListItem(displayIndex++, listItem)).append("\n");
         }
         return formatted.toString();
     }

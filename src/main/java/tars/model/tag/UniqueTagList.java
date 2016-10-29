@@ -150,13 +150,19 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws TagNotFoundException if no such Tag could be found in the list.
      * @throws IllegalValueException if the given tag name string is invalid.
      */
-    public void update(ReadOnlyTag oldTag, Tag tagToUpdate)
+    public void update(ReadOnlyTag toBeUpdated, Tag newTag)
             throws TagNotFoundException, IllegalValueException {
-        int selectedIndex = internalList.indexOf(new Tag(oldTag));
+        int selectedIndex = internalList.indexOf(new Tag(toBeUpdated));
+        
         if (selectedIndex == -1) {
             throw new TagNotFoundException();
         }
-        internalList.set(selectedIndex, tagToUpdate);
+        
+        if (contains(newTag)) {
+            throw new DuplicateTagException();
+        }
+        
+        internalList.set(selectedIndex, newTag);
     }
 
     @Override

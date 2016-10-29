@@ -13,9 +13,8 @@ public class Tag implements ReadOnlyTag {
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public String tagName;
-
-    public Tag() {
-    }
+    
+    public Tag() { }
 
     /**
      * Validates given tag name.

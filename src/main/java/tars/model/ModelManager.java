@@ -126,22 +126,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     /** @@author A0139924W */
-    public synchronized void renameTag(ReadOnlyTag oldTag, String newTagName)
+    public synchronized void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
-        Tag newTag = new Tag(newTagName);
 
-        tars.renameTag(oldTag, newTag);
-        tars.getUniqueTagList().update(oldTag, newTag);
+        tars.getUniqueTagList().update(toBeRenamed, newTag);
+        tars.renameTasksWithNewTag(toBeRenamed, newTag);
 
         indicateTarsChanged();
     }
 
     @Override
     /** @@author A0139924W */
-    public synchronized void deleteTag(ReadOnlyTag toBeDeleted)
-            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
-        tars.deleteTag(toBeDeleted);
+    public synchronized ArrayList<ReadOnlyTask> removeTagFromAllTasks(ReadOnlyTag toBeDeleted)
+            throws TagNotFoundException, IllegalValueException {
+
+        ArrayList<ReadOnlyTask> editedTasks = tars.removeTagFromAllTasks(toBeDeleted);
         tars.getUniqueTagList().remove(new Tag(toBeDeleted));
+
+        indicateTarsChanged();
+        return editedTasks;
+    }
+    
+    @Override
+    /** @@author A0139924W */
+    public synchronized void addTagToAllTasks(ReadOnlyTag toBeAdded, ArrayList<ReadOnlyTask> allTasks)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
+        tars.addTagToAllTasks(toBeAdded, allTasks);
+        tars.getUniqueTagList().add(new Tag(toBeAdded));
 
         indicateTarsChanged();
     }

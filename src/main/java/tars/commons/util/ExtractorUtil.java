@@ -28,8 +28,8 @@ public class ExtractorUtil {
         }
         // replace first delimiter prefix, then split
         final Collection<String> dateTimeStrings = Arrays.asList(
-                dateTimeArguments.replaceFirst(prefix.prefix + ONE_EMPTY_SPACE, EMPTY_STRING)
-                        .split(ONE_EMPTY_SPACE + prefix.prefix + ONE_EMPTY_SPACE));
+                dateTimeArguments.replaceFirst(prefix.value + ONE_EMPTY_SPACE, EMPTY_STRING)
+                        .split(ONE_EMPTY_SPACE + prefix.value + ONE_EMPTY_SPACE));
         return new HashSet<>(dateTimeStrings);
     }
 
@@ -40,7 +40,7 @@ public class ExtractorUtil {
      */
     public static String[] getRecurringFromArgs(String recurringArguments, Prefix prefix)
             throws IllegalValueException {
-        recurringArguments = recurringArguments.replaceFirst(prefix.prefix, EMPTY_STRING).trim();
+        recurringArguments = recurringArguments.replaceFirst(prefix.value, EMPTY_STRING).trim();
         String[] recurringString = recurringArguments.split(ONE_EMPTY_SPACE);
 
         return recurringString;
