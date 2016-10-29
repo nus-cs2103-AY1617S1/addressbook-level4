@@ -27,13 +27,17 @@ public class Date {
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
-        /*assert date != null;
+        assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
+        if (!isValidDate(date) && !date.equals("Thisisanemptystring")) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        */
-        this.fullDate = date;
+        if(date.equals("Thisisanemptystring")){
+        	this.fullDate = "";
+        }
+        else{
+        	this.fullDate = date;
+        }
     }
 
     /**

@@ -88,7 +88,7 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, endTime, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
-		this.date = new Date("  ");
+		this.date = new Date("Thisisanemptystring");
 		this.startTime = new Time("  ");
 		this.endTime = endTime;
 		this.tags = tags;
@@ -99,7 +99,7 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, taskD, endTime, tags);
 		this.name = name;
 		this.taskD = taskD;
-		this.date = new Date("  ");
+		this.date = new Date("Thisisanemptystring");
 		this.startTime = new Time("  ");
 		this.endTime = endTime;
 		this.tags = tags;
@@ -120,7 +120,7 @@ public class Task implements ReadOnlyTask {
 		assert !CollectionUtil.isAnyNull(name, taskD, tags);
 		this.name = name;
 		this.taskD = taskD;
-		this.date = new Date("  ");
+		this.date = new Date("Thisisanemptystring");
 		this.startTime = new Time("  ");
 		this.endTime = new Time("  ");
 		this.tags = tags;
@@ -131,7 +131,7 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
-		this.date = new Date("  ");
+		this.date = new Date("Thisisanemptystring");
 		this.startTime = new Time("  ");
 		this.endTime = new Time("  ");
 		this.tags = tags;
