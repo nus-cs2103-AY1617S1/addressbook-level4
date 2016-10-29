@@ -65,6 +65,7 @@ public class EditCommand extends Command {
         this.floating = floating;
         this.targetIndex = targetIndex;
         this.removePriority = removePriority;
+        this.isUndoable=true;
     }
         
     /**
@@ -98,6 +99,7 @@ public class EditCommand extends Command {
         this.isUndoable = true;
         floating = false;//since if range constructor is used, user would have keyed in a timing 
         this.removePriority = removePriority; 
+        this.isUndoable=true;
     }
     
     public ReadOnlyTask getTask() {
