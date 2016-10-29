@@ -1,15 +1,19 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.commons.events.ui.OverdueChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0147890U
 public class EventCard extends UiPart{
 
     private static final String FXML = "EventListCard.fxml";
+    //private final ScheduledExecutorService scheduler =Executors.newScheduledThreadPool(1);
 
     @FXML
     private HBox cardPane;
@@ -40,6 +44,7 @@ public class EventCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
 
+
     @FXML
     public void initialize() {
         name.setText(event.getName().taskDetails);
@@ -48,6 +53,15 @@ public class EventCard extends UiPart{
         start.setText("Start time:" + "    " + event.getStart().value);
         end.setText("End time:" + "    " + event.getEnd().value);
         tags.setText(event.tagsString());
+        
+        overdueChangeColor(event, cardPane);
+        registerAsAnEventHandler(this);
+        
+    }
+    
+    @Subscribe
+    private void handleTaskOverdueChanged(OverdueChangedEvent change) {
+        overdueChangeColor(event, cardPane);
     }
 
     public HBox getLayout() {
