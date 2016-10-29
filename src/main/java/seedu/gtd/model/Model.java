@@ -1,7 +1,5 @@
 package seedu.gtd.model;
 
-import java.util.Set;
-
 import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.Task;
@@ -30,5 +28,5 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskList(String keywords);
 }
