@@ -163,13 +163,13 @@ Examples:
 /* @@author A0144919W */
 
 #### Undo previous action(s): `undo`
-Undo the latest change made to the task list.
+Undo the latest change made to the task list. <br>
 Format: `undo`
 
 > * Allows undo to up to unlimited previous changes to the task list
 
 #### Redo previous action(s): `redo`
-Redo the latest change that was reverted using undo.
+Redo the latest change that was reverted using undo. <br>
 Format: `redo`
 
 > * Allows redo to up to unlimited consecutive undo operations done
@@ -178,7 +178,7 @@ Format: `redo`
 /* @@author A0146107M*/
 
 #### Autocomplete feature: `TAB` button (or simple spacebar)
-Autocompletes the command that has been entered halfway in the command box, upon pressing TAB or spacebar.
+Autocompletes the command that has been entered halfway in the command box, upon pressing TAB or spacebar. <br>
 Format: NIL
 
 > * If no commands match the current text, nothing will happen
@@ -190,7 +190,7 @@ Examples:
 * Pressing TAB/spacebar after entering `un` will complete `undo`
 
 #### Command History: `UP` and `DOWN` arrows
-Traverse through previously entered commands.
+Traverse through previously entered commands. <br>
 Format: NIL
 
 > UP displays the next older command.
@@ -198,7 +198,7 @@ Format: NIL
 > The currently entered text will remain available in the command history.
 
 #### Viewing help : `help`
-Displays the help page.
+Displays the help page. <br>
 Format: `help`
 
 > The help page will open in a new window.
