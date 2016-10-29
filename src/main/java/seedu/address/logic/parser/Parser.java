@@ -104,6 +104,12 @@ public class Parser {
         	
         case ClashCommand.COMMAND_WORD:
         	return new ClashCommand();
+        
+        case UndoCommand.COMMAND_WORD:
+        	 return new UndoCommand();
+        	 
+        case RevertCommand.COMMAND_WORD:
+        	 return new RevertCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
