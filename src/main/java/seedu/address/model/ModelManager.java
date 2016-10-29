@@ -216,19 +216,21 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139145E
     @Override
     public void updateFilteredListToShowAll() {
-        updateFilteredTaskList("NONE", "OVERDUE", "EXPIRE");
+        updateFilteredTaskListByStatus("NONE", "OVERDUE", "EXPIRE");
         //filteredDatedTasks.setPredicate(null);
         //filteredUndatedTasks.setPredicate(null);
     }
     //@@author
 
+    // called by FindCommand and ViewCommand
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskListByKeywords(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new TaskQualifier(keywords)));
     }
 
+    // called by ListCommand
     @Override
-    public void updateFilteredTaskList(String... keyword){
+    public void updateFilteredTaskListByStatus(String... keyword){
         ArrayList<String> listOfKeywords = new ArrayList<>();
         for (String word : keyword){
             listOfKeywords.add(word);
