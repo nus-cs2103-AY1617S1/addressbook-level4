@@ -13,12 +13,12 @@ public class TagColor {
     private static final HashMap<String, String> colorValues = new HashMap<String, String>() {{
         put("", "#FFFFFF");
         put("white", "#FFFFFF");
-        put("red", "#FF9D93");
-        put("orange", "#FFBE76");
-        put("yellow", "#FFEE90"); 
-        put("green", "#B2EA76");
-        put("blue", "#AAC3E2");
-        put("purple", "#CAB8DF");
+        put("red", "#F48687");
+        put("orange", "#FFB764");
+        put("yellow", "#FBD75B"); 
+        put("green", "#B1DE7A");
+        put("blue", "#9AD0E5");
+        put("purple", "#C89EE8");
     }}; 
     
     public static final String MESSAGE_COLOR_CONSTRAINTS = "Valid colors: <white, red, orange, yellow, green, blue, purple>";
@@ -70,6 +70,22 @@ public class TagColor {
     
     public String toHTMLColor() {
         return colorValues.get(value);
+    }
+    
+    public String toLighterHTMLColor() {
+        return lightenColor(toHTMLColor());
+    }
+    
+    private static String lightenColor(String color) {
+        int r = Integer.parseInt(color.substring(1, 3), 16);
+        int g = Integer.parseInt(color.substring(3, 5), 16);
+        int b = Integer.parseInt(color.substring(5, 7), 16);
+        double ratio = 0.3;
+        r = (int) Math.round(ratio * r + (1 - ratio) * 255);
+        g = (int) Math.round(ratio * g + (1 - ratio) * 255);
+        b = (int) Math.round(ratio * b + (1 - ratio) * 255);
+
+        return "#" + Integer.toString(r, 16) + Integer.toString(g, 16) + Integer.toString(b, 16);
     }
     
 }

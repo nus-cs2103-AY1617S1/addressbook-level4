@@ -18,8 +18,6 @@ public class TagCard extends UiPart{
     private HBox tagCardPane;
     @FXML
     private Label name;    
-    @FXML 
-    private Label duetoday; 
     
     private Tag tag;
     private TagColor color; 
@@ -42,7 +40,7 @@ public class TagCard extends UiPart{
         } else {
             name.setText("#" + tag.tagName);
         }
-        tagCardPane.setStyle("-fx-background-color: " + color.toHTMLColor());
+        tagCardPane.setStyle("-fx-background-color: " + color.toLighterHTMLColor());
     }
 
     public HBox getLayout() {
