@@ -1,8 +1,6 @@
 package tars.logic.parser;
 
 import java.time.DateTimeException;
-import java.util.regex.Pattern;
-
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import tars.commons.core.Messages;

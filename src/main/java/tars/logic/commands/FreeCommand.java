@@ -21,7 +21,7 @@ public class FreeCommand extends Command {
     public static final String MESSAGE_FREE_DAY = "You have no tasks or reserved tasks on %1$s";
     public static final String MESSAGE_NO_FREE_TIMESLOTS = "You have no free time slots on %1$s";
 
-    DateTime dateToCheck;
+    private DateTime dateToCheck;
 
     public FreeCommand(DateTime dateToCheck) {
         this.dateToCheck = dateToCheck;
