@@ -11,7 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class EventDate implements Date{
     
-    public static final String MESSAGE_EVENT_DATE_CONSTRAINTS = "Event date should follow DD.MM.YYYY[-Time(in 24 hrs)]";
+    public static final String MESSAGE_EVENT_DATE_CONSTRAINTS = "Event date must be a valid date";
     
     private String date;
     

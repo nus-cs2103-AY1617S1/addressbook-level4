@@ -22,6 +22,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
+import seedu.address.model.task.Recurring;
 
 public class FilterPanel extends UiPart {
     
@@ -169,7 +170,11 @@ public class FilterPanel extends UiPart {
         }
         String recurring = recurringTextField.getText().trim();
         if (!recurring.equals(EMPTY)) {
-            qualifications.put(RECURRING, recurring);
+            if (Recurring.isValidFrequency(recurring)) {
+                qualifications.put(RECURRING, recurring);
+            } else {
+                throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
+            }
         }
         return qualifications;
     }

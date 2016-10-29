@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.EventDate;
+import seedu.address.model.task.Recurring;
 
 //@@author A0146123R
 /**
@@ -58,11 +59,15 @@ public class FilterCommand extends Command {
                 String endDateString = EventDate.validateDate(endDate.get());
                 filterQualifications.put(END_DATE, endDateString);
             }
+            if (recurring.isPresent()) {
+                if (Recurring.isValidFrequency(recurring.get())) {
+                    filterQualifications.put(RECURRING, recurring.get());
+                } else {
+                    throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
+                }
+            }
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage()); 
-        }
-        if (recurring.isPresent()) {
-            filterQualifications.put(RECURRING, recurring.get());
         }
         model.updateFilteredTaskList(filterQualifications, tags);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
