@@ -68,6 +68,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
+        config = new Config();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, config, new StorageManager(tempAddressBookFile, tempPreferencesFile));
@@ -520,6 +521,24 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_store() throws Exception {
+        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
+        String newLocation = "C:\\Users\\Desmond\\Desktop\\NUS/" + config.getToDoListName() + ".xml";
+        assertEquals(newLocation, config.getToDoListFilePath());
+    }
+    
+    
+    @Test
+    public void execute_reset() throws Exception {
+        String origLocation = config.getToDoListFilePath();
+        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
+        logic.execute("reset");
+        
+        assertEquals(origLocation, config.getToDoListFilePath());
+    }
+    
     
     //@@author
     /**

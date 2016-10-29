@@ -302,12 +302,12 @@ public class DoDoBird implements ReadOnlyToDoList {
         
     }
     
-    private UniqueTaskList copyTaskList(Collection<Task> old) {
+    private UniqueTaskList copyTaskList(List<Task> old) {
         UniqueTaskList newList = new UniqueTaskList();
-
-        for (Task t : old) {
+                
+        for (int i = old.size() - 1; i >= 0 ; i--) {
             try {
-                newList.add(new Task(t));
+                newList.add(new Task(old.get(i)));
             } catch (UniqueTaskList.DuplicateTaskException e) {}
         }
         return newList;

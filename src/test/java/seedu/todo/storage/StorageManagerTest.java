@@ -11,6 +11,8 @@ import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.UserPrefs;
+import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.Task;
 import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TypicalTestTasks;
 
@@ -59,7 +61,14 @@ public class StorageManagerTest {
         DoDoBird original = new TypicalTestTasks().getTypicalToDoList();
         storageManager.saveToDoList(original);
         ReadOnlyToDoList retrieved = storageManager.readToDoList().get();
-        assertEquals(original, new DoDoBird(retrieved));
+        
+        DoDoBird retrievedDdb = new DoDoBird();
+        
+        for (int i = retrieved.getTaskList().size() - 1 ; i >= 0 ; i--) {
+            retrievedDdb.addTask(new Task(retrieved.getTaskList().get(i)));
+        }
+        
+        assertEquals(original, retrievedDdb);
         //More extensive testing of ToDoList saving/reading is done in XmlToDoListStorageTest
     }
 
