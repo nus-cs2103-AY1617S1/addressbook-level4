@@ -2,6 +2,8 @@ package seedu.menion;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.menion.background.BackgroundDateCheck;
@@ -17,6 +19,7 @@ import seedu.menion.model.activity.ActivityName;
 import seedu.menion.model.activity.ActivityTime;
 import seedu.menion.model.activity.Completed;
 import seedu.menion.model.activity.Note;
+import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.testutil.TypicalTestActivities;
 
 public class BackgroundTest {
@@ -29,9 +32,29 @@ public class BackgroundTest {
 		
 		initialiseModel();
 		BackgroundDateCheck.checkActivities(model);
-
+		assertBackgroundCheckSuccess();
+		
+		
 	}
 
+	private void assertBackgroundCheckSuccess(){
+		
+		ReadOnlyActivityManager menion = this.model.getActivityManager();
+		
+		List<ReadOnlyActivity> taskList = menion.getTaskList();
+		ReadOnlyActivity testTask = taskList.get(0);
+				
+		assertTrue(testTask.isTimePassed());
+		assertTrue(testTask.isEmailSent());
+		
+		List<ReadOnlyActivity> eventList = menion.getEventList();
+		ReadOnlyActivity testEvent = eventList.get(0);
+		
+		assertTrue(testEvent.isTimePassed());
+		
+		
+	}
+	
 	/**
 	 * This method gets a typical model to test for the background date checker. In addition, it adds a task 
 	 * and an event which is long over.

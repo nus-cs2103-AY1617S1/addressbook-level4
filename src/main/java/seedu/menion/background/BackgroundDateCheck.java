@@ -50,9 +50,9 @@ public class BackgroundDateCheck {
 				taskToCheck.setEmailSent(true);
 				
 			}
-			
-			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().equals(Completed.UNCOMPLETED_ACTIVITY)){
-				
+
+			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().toString().equals(Completed.UNCOMPLETED_ACTIVITY)){
+
 				if (isActivityOver(currentTime, taskToCheck)){
 					
 					taskToCheck.setTimePassed(true);
@@ -79,11 +79,16 @@ public class BackgroundDateCheck {
 		for (int i = 0 ; i < eventList.size(); i++){
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
-			if (isActivityOver(currentTime, eventToCheck)){
+			if (!eventToCheck.isTimePassed()){
 
-				eventToCheck.setTimePassed(true);
+				if (isActivityOver(currentTime, eventToCheck)){
+					
+					eventToCheck.setTimePassed(true);
+					
+				};	
 				
 			}
+			
 			
 		}
 		
