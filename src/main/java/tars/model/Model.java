@@ -12,6 +12,7 @@ import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
+import tars.model.task.Status;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
@@ -71,7 +72,7 @@ public interface Model {
             throws DuplicateTagException, IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
-    void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;
+    void mark(ArrayList<ReadOnlyTask> toMarkList, Status status) throws DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
