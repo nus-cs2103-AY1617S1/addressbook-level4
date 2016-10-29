@@ -7,7 +7,7 @@ import harmony.mastermind.memory.GenericMemory;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class TestGenericMemory {
     
@@ -23,6 +23,8 @@ public class TestGenericMemory {
         addEvent();
         addDeadline();
         addTask();
+        
+        testOtherMethods();
     }
     
     //@@author A0143378Y
@@ -53,5 +55,32 @@ public class TestGenericMemory {
         assertEquals("Description", testTask.getDescription(), "description2");
         assertEquals("start time and date", testTask.getStart(), null);
         assertEquals("end time and date", testTask.getEnd(), null);
+    }
+    
+    //@@author A0143378Y
+    private void testOtherMethods() { 
+        GenericMemory testMethod = new GenericMemory("Method", "name3", "description3");
+        assertEquals("start time and date", testMethod.getStart(), null);
+        testMethod.initStart();
+        assertFalse("start time and date", testMethod.getStart() == null);
+        
+        assertEquals("end time and date", testMethod.getEnd(), null);
+        testMethod.initEnd();
+        assertFalse("start time and date", testMethod.getEnd() == null);
+        
+        testMethod.setType("cat");
+        assertEquals("type", testMethod.getType(), "cat");
+        
+        testMethod.setName("Animals");
+        assertEquals("Name", testMethod.getName(),"Animals");
+        
+        testMethod.setDescription("An organism");
+        assertEquals("Description", testMethod.getDescription(), "An organism");
+        
+        testMethod.setStartTime(03,  14);
+        testMethod.setEndTime(07, 11);
+        
+        testMethod.setStartDate(2014, 03, 27);
+        testMethod.setEndDate(2015, 02, 05);
     }
 }
