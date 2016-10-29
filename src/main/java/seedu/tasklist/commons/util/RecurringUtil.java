@@ -24,14 +24,20 @@ public class RecurringUtil {
 	/**
 	 * Checks if the date of the task matches user requested date based on its recurring frequency.
 	 */
-	public static boolean recurringMatchesDate(Calendar task, String frequency, Calendar requested) {
+	public static boolean recurringMatchesRequestedDate(Calendar task, String frequency, Calendar requested) {
 	    if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))) {
-	    	for (int i = 0; i < 3; i++) {
-	    	    switch (frequency) {
-	    	    case "daily": return task.DAY_OF_YEAR + i == requested.DAY_OF_YEAR;
-	    	    case "weekly": return task.getWeekYear() + i == requested.getWeekYear();
-	    	    case "monthly": return task.MONTH + i == requested.MONTH;
-	    	    case "yearly": return task.YEAR + i == requested.YEAR;
+	    	for (int i = 0; i < 30; i++) {
+	    		if (frequency.equals("daily") && task.get(Calendar.DAY_OF_YEAR) + i == requested.get(Calendar.DAY_OF_YEAR)) {
+	    	    		return task.get(Calendar.DAY_OF_YEAR) + i == requested.get(Calendar.DAY_OF_YEAR);
+	    	    }
+	    		else if (frequency.equals("weekly") && task.get(Calendar.WEEK_OF_YEAR) + i == requested.get(Calendar.WEEK_OF_YEAR)) {
+	    	    		return task.get(Calendar.WEEK_OF_YEAR) + i == requested.get(Calendar.WEEK_OF_YEAR);
+	    	    }
+	    		else if (frequency.equals("monthly") && task.get(Calendar.MONTH) + i == requested.get(Calendar.MONTH)) {
+	    	    		return task.get(Calendar.MONTH) + i == requested.get(Calendar.MONTH);
+	    	    }
+	    		else if (frequency.equals("yearly") && task.get(Calendar.YEAR) + i == requested.get(Calendar.YEAR)) {
+	    	    		return task.get(Calendar.YEAR) + i == requested.get(Calendar.YEAR);
 	    	    }
 	        }
 	    }

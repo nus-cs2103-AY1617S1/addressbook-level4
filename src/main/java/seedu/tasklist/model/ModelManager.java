@@ -10,6 +10,7 @@ import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
+import seedu.tasklist.commons.util.RecurringUtil;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
@@ -427,6 +428,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask person) {
+        	if (person.isRecurring()) {
+        		return (!person.getStartTime().toCardString().equals("-")
+        				&& RecurringUtil.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime))
+        				|| (person.getStartTime().toCardString().equals("-")
+        						&& RecurringUtil.recurringMatchesRequestedDate(person.getEndTime().time, person.getRecurringFrequency(), requestedTime));
+        	}
+        	
             return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
                     || (person.getStartTime().toCardString().equals("-")
                             && DateUtils.isSameDay(person.getEndTime().time, requestedTime));
