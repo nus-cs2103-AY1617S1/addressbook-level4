@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
+import seedu.ggist.commons.events.ui.CorrectCommandExecutedEvent;
 import seedu.ggist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.ggist.commons.util.FxViewUtil;
 import seedu.ggist.logic.Logic;
@@ -75,26 +76,10 @@ public class CommandBox extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        setStyleToIndicateCorrectCommand();
+        setStyleToNormal();
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
-    }
-
-
-    /**
-     * Sets the command box style to indicate a correct command.
-     */
-    private void setStyleToIndicateCorrectCommand() {
-        commandTextField.getStyleClass().remove("error");
-        commandTextField.setText("");
-    }
-
-    @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
-        setStyleToIndicateIncorrectCommand();
-        restoreCommandText();
     }
 
     /**
@@ -110,5 +95,33 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
     }
+    
+    /**
+     * Sets the command box normal standard style
+     */
+    private void setStyleToNormal() {
+        commandTextField.getStyleClass().removeAll("error", "correct");
+        commandTextField.setText("");
+    }
+    
+    /**
+     * Sets the command box style to indicate a correct command.
+     */
+    private void setStyleToIndicateCorrectCommand() {
+        commandTextField.getStyleClass().add("correct");
+    }
+    
 
+    @Subscribe
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
+        setStyleToIndicateIncorrectCommand();
+        restoreCommandText();
+    }
+ /*   
+    @Subscribe
+    private void handleCorrectCommandExecuted(CorrectCommandExecutedEvent event){
+        setStyleToIndicateCorrectCommand();
+    }
+*/
 }

@@ -8,6 +8,8 @@ import seedu.ggist.model.task.*;
 /**
  *
  */
+
+//@@author A0147994J
 public class TypicalTestTasks {
 
     public static TestTask floating, deadline, event, dance, soccer;

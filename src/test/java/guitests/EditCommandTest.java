@@ -11,6 +11,7 @@ import seedu.ggist.logic.commands.EditCommand;
 
 import static seedu.ggist.logic.commands.EditCommand.MESSAGE_EDIT_TASK_SUCCESS;
 
+//@@author A0147994J
 public class EditCommandTest extends TaskManagerGuiTest {
 	
 	@Test

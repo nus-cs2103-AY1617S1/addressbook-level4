@@ -12,6 +12,7 @@ import seedu.ggist.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
+//@@author A0147994J
 public class TestTask implements ReadOnlyTask {
 
     private TaskName taskName;

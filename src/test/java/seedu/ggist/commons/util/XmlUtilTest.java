@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
 
+//@@author A0147994J
 public class XmlUtilTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");

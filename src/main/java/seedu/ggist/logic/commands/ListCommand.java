@@ -5,7 +5,7 @@ import seedu.ggist.commons.events.ui.JumpToListRequestEvent;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.TaskDate;
-
+//@@author A0138411N
 /**
  * Lists specified tasks in GGist to the user.
  */
@@ -43,6 +43,7 @@ public class ListCommand extends Command {
         }
         model.setLastListing(listing);
         EventsCenter.getInstance().post(new ChangeListingEvent(listing));
+        indicateCorrectCommandExecuted();
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

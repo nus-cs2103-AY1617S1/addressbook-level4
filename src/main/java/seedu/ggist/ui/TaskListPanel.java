@@ -12,10 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
+import seedu.ggist.commons.events.ui.ChangeFileLocationEvent;
 import seedu.ggist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.ggist.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
@@ -90,8 +93,9 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
+        taskListView.getFocusModel().focus(index);
+        taskListView.getSelectionModel().select(index);
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {

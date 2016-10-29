@@ -9,6 +9,7 @@ import seedu.ggist.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0147994J
 public class SearchCommandTest extends TaskManagerGuiTest {
 /*
     @Test

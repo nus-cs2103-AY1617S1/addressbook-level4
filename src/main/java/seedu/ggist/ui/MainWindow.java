@@ -46,10 +46,10 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
-    
+    //@@author A0144727B
     @FXML
     private AnchorPane listHeaderPlaceHolder;
-
+  //@@author
     @FXML
     private MenuItem helpMenuItem;
 
@@ -109,8 +109,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-
+        //@@author A0144727B
         listHeader = ListingHeader.load(primaryStage, getListHeaderPlaceHolder(), logic.getListing());
+        //@@author
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -120,11 +121,11 @@ public class MainWindow extends UiPart {
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
-    
+  //@@author A0144727B
     private AnchorPane getListHeaderPlaceHolder() {
         return listHeaderPlaceHolder;
     }
-
+  //@@author
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }

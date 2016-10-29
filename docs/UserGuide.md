@@ -25,7 +25,7 @@ Are you ready to embrace a new way of living and have your life better organized
 1. Download the latest `GGist.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
 3. Double-click on the .jar file. Press both "control" and "G" at the same time to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/GGistUI.png" width="800">
+   > <img src="images/ggistInterfaceUI.png" width="800">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -52,7 +52,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-<!-- @@author -->
+<!-- @@author A0144727B -->
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
