@@ -35,7 +35,6 @@ public class RemindCommand extends Command{
             out = new PrintStream(new FileOutputStream(MESSAGE_FILE));
             build.append(this.userEmail);
             out.print(build.toString()); // puts the UserEmail into the txt file.
-            System.out.println(build.toString());
         } catch (FileNotFoundException e) {
             return new CommandResult(MESSAGE_PROBLEM_ENCOUNTERED);
         }
