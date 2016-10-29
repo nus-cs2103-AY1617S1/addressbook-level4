@@ -30,7 +30,7 @@
                      </children>
                   </HBox>
                   <Label fx:id="line1" styleClass="card-text" stylesheets="@DefaultTheme.css" text="\$time" VBox.vgrow="ALWAYS" />
-               </children>
+              </children>
             </VBox>
          </children>
       </HBox>
