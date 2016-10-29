@@ -165,22 +165,6 @@ public class LogicManagerTest {
                 "add", expectedMessage);
     }
     
-    @Test
-    public void execute_add_invalidTagFormat() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateEventsList(3);
-        List<Task> threeDeadlines = helper.generateDeadlineList(3);
-        List<Task> threeTodos = helper.generateTodoList(3);
-        
-        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
-        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
-        
-        assertCommandBehavior("add T1 #.", Tag.MESSAGE_TAG_CONSTRAINTS,
-                expectedAB,
-                expectedAB.getEventList(),
-                expectedAB.getDeadlineList(),
-                expectedAB.getTodoList());
-    }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
@@ -1143,7 +1127,25 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-  //@@author A0139430L JingRui
+    //@@author A0139430L JingRui
+    @Test
+    public void execute_add_invalidTagFormat() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generateEventsList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("add T1 #.", Tag.MESSAGE_TAG_CONSTRAINTS,
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+
+    //@@author A0139430L JingRui
     @Test
     public void execute_edit_addTagSingle() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
