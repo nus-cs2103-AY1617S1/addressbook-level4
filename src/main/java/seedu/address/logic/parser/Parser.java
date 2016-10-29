@@ -29,6 +29,7 @@ import seedu.address.logic.commands.RefreshCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewCommand;
 
 /**
  * Parses user input.
@@ -117,15 +118,32 @@ public class Parser {
         
         case RefreshCommand.COMMAND_WORD:
         	return new RefreshCommand();
-
+        
+        case ViewCommand.COMMAND_WORD:
+        	return prepareView(arguments); 
+        	
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
-    //@@author A0143884W
+    
+  //@@author A0143884W
     /**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the view task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareView(String arguments) {
+    	try {
+            return new ViewCommand(arguments);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+	}
+
+    /**
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command

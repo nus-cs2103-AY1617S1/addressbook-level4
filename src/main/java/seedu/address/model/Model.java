@@ -49,10 +49,10 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered tasks list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredTaskListByKeywords(Set<String> keywords);
 
     /** Updates the filter of the filtered tasks list to filter by the given keyword (od/done)*/
-    void updateFilteredTaskList(String... keyword);
+    void updateFilteredTaskListByStatus(String... keyword);
     
     /** Marks task as overdue as compared to system current Datetime */
     void overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
