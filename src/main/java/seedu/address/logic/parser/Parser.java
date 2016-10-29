@@ -409,7 +409,7 @@ public class Parser {
                 end = Integer.parseInt(temp[temp.length-1]);
             }catch(NumberFormatException nfe){
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
             }
             //making format of String: T(start), T2, T3.....T(end)
             String newArgs = Character.toString(cat).concat(Integer.toString(start));
@@ -441,13 +441,13 @@ public class Parser {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));             
             }           
         }
+
         
         try {
             return new DoneCommand(indexes);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-        
     }
 
     /**
