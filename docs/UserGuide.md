@@ -228,7 +228,7 @@ There is no need to save manually.
 Command | Format | Example
 -------- | :-------- | :--------
 add | `add TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE] [r/RECURRING] [p/PRIORITY]` | `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
-show | `show TYPE` | `show 31/01/2017`
+show | `show [TYPE]` | `show 31/01/2017`
 find | `find SEARCHSTRING` | `find b*y*`
 delete | `delete INDEX/TASKNAME` | `delete Study for midterms`
 update | `update INDEX [TASKNAME] [at/from [START_TIMEDATE]] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]` | `update 5 at 6pm`
