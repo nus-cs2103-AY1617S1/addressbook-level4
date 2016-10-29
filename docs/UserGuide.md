@@ -97,19 +97,20 @@ Format: `edit INDEX [FIELDS]`
 Edits the 2nd floating task in sTask. Example Buy Pencil. <br>
 A message will be displayed to inform the user that the task is edited.
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find` </b><br>
->Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding tasks containing any keyword in their name, description, date and tags: `find` </b><br>
+>Finds all floating tasks, deadlines and events which names, descriptions, dates and tags contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case insensitive, the order of the keywords does not matter, name, description, date, time and tag is searched, and task matching at least one keyword will be returned (i.e. `OR` search). <br>
-> Only full words will be matched e.g. `Program` will not match `Programming`.
+> The search is case insensitive. <br>
+> Order of the keywords does not matter. <br>
+> Name, description, date, time and tag fields are searched, and tasks matching at least one keyword will be returned (i.e. `OR` search). <br>
 
 >Examples: 
 * `find EE2020`<br>
 *  Returns “EE2020” and “ee2020” <br><br>
 
 >* `find 2020`<br>
-*  Returns nothing
+*  Returns “EE2020” and “ee2020” <br><br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: `view` </b><br>
 >Populate the list of deadlines and events of the selected DATE <br>
