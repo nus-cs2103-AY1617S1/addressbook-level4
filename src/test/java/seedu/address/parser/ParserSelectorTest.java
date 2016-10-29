@@ -83,23 +83,23 @@ public class ParserSelectorTest {
 	}
 	
 	@Test
-	public void parserSelector_favorite(){
+	public void parserSelector_pin(){
 		/* CommandParser should return a string that denotes that 
-         * command is FavoriteCommand.
+         * command is PinCommand.
          */
-		FavoriteCommandParser command = (FavoriteCommandParser)ParserSelector.getByCommandWord("favorite");
+		PinCommandParser command = (PinCommandParser)ParserSelector.getByCommandWord("pin");
 		String feedback = command.COMMAND_WORD[0];
-        assertTrue(feedback.equals("favorite"));
+        assertTrue(feedback.equals("pin"));
 	}
 	
 	@Test
-	public void parserSelector_unfavorite(){
+	public void parserSelector_unpin(){
 		/* CommandParser should return a string that denotes that 
-         * command is UnfavoriteCommand.
+         * command is UnpinCommand.
          */
-		UnfavoriteCommandParser command = (UnfavoriteCommandParser)ParserSelector.getByCommandWord("unfavorite");
+		UnpinCommandParser command = (UnpinCommandParser)ParserSelector.getByCommandWord("unpin");
 		String feedback = command.COMMAND_WORD[0];
-        assertTrue(feedback.equals("unfavorite"));
+        assertTrue(feedback.equals("unpin"));
 	}
 	
 	@Test

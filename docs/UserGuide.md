@@ -178,51 +178,51 @@ Format: `uncomplete INDEX`
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 <br>
-#### Marking a task as favorite: `favorite`
-Marks the specified task as favorite. <br>
-Format: `favorite INDEX`
+#### Marking a task as pin: `pin`
+Marks the specified task as pin. <br>
+Format: `pin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
-> The task marked as favorite will appear at the top of any lists that include it. <br>
+> The task marked as pin will appear at the top of any lists that include it. <br>
 
 Examples:
 * `list`
-* `favorite 2` <br>
-  Marks the 2nd task in the task list as favorite.
+* `pin 2` <br>
+  Marks the 2nd task in the task list as pin.
 <br><br>
 * `find Dinner`
-* `favorite 1` <br>
-  Marks the 1st task in the results of the `find` command as favorite.
+* `pin 1` <br>
+  Marks the 1st task in the results of the `find` command as pin.
 
 <br>
-#### Marking a task as not-favorite: `unfavorite`
-Marks the specified task as a not-favorite task (the default). <br>
-Format: `unfavorite INDEX`
+#### Marking a task as not-pin: `unpin`
+Marks the specified task as a not-pin task (the default). <br>
+Format: `unpin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 Examples:
 * `list`
-* `unfavorite 2` <br>
-  Marks the 2nd task in the task list as not-favorite.
+* `unpin 2` <br>
+  Marks the 2nd task in the task list as not-pin.
 
 <br>
-#### Listing favorites: `list favorite[s]`
-List all the tasks that you have favorited. <br>
-Format: `list favorite[s]`
+#### Listing pins: `list pin[s]`
+List all the tasks that you have pinned. <br>
+Format: `list pin[s]`
 
-> You can type either `favorite` or its plural form, `favorites`
+> You can type either `pin` or its plural form, `pins`
 
 Examples:
-* `list favorite`
-* `list favorites` <br>
+* `list pin`
+* `list pins` <br>
 
 <br>
 #### Listing Completed Tasks: `list complete[d]`
 List all the tasks that you have completed. <br>
 Format: `list complete[d]`
 
-> You can type either `complete` or its past tense form, `favorited`
+> You can type either `complete` or its past tense form, `completed`
 
 Examples:
 * `list complete`
@@ -319,9 +319,9 @@ Examples:
 * `cl`<kbd>TAB</kbd><br>
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
-  `unfavorite`, `unalias` and `undo` displayed on the screen as possible commands.
+  `unpin`, `unalias` and `undo` displayed on the screen as possible commands.
 * `unf`<kbd>TAB</kbd><br>
-  `unfavorite` completed for you.
+  `unpin` completed for you.
 
 
 <br>
@@ -348,11 +348,11 @@ Update date | `update INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
-Favorite | `favorite INDEX`
-Unfavorite | `unfavorite INDEX`
+Pin | `pin INDEX`
+Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List favorites | `list favorite[s]`
+List pins | `list pin[s]`
 List completed | `list complete[d]`
 List aliases | `list alias[es]`
 Undo | `undo`

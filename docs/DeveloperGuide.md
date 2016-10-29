@@ -276,7 +276,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
 `* * *` | user who has just executed a wrong command | undo the command | rectify my mistakes easily
 `* *` | user | set aliases for certain keywords | type commands faster
-`* *` | user | set a particular task as favorite | see the tasks that have a higher priority
+`* *` | user | set a particular task as pin | see the tasks that have a higher priority
 `*` | user | autocomplete the commands that I am typing | type commands faster
 
 <br>
@@ -392,7 +392,7 @@ Use case ends.
 > Use Case resumes at step 3.
 
 <br>
-#### Use case: Marking a task as favorite
+#### Use case: Marking a task as pin
 
 **MSS**
 

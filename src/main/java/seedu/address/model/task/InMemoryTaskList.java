@@ -29,14 +29,14 @@ public interface InMemoryTaskList {
 	void deleteTask(Task toRemove) throws ItemNotFoundException;
 	
 	/*
-	 * Favorites a task in the current in-memory representation of the Task List
+	 * Pins a task in the current in-memory representation of the Task List
 	 */
-	void favoriteTask(Task toFavorite);
+	void pinTask(Task toPin);
 	
 	/*
-	 * Unfavorites a task in the current in-memory representation of the Task List
+	 * Unpins a task in the current in-memory representation of the Task List
 	 */
-	void unfavoriteTask(Task toFavorite);
+	void unpinTask(Task toPin);
 	
 	/*
 	 * Completes a task in the current in-memory representation of the Task List

@@ -19,14 +19,14 @@ import seedu.address.logic.commands.taskcommands.AddAliasCommand;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.CompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
-import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.PinTaskCommand;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
 import seedu.address.logic.commands.taskcommands.ListTaskCommand;
 import seedu.address.logic.commands.taskcommands.RedoTaskCommand;
 import seedu.address.logic.commands.taskcommands.SetStorageCommand;
 import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.UndoTaskCommand;
-import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.UnpinTaskCommand;
 import seedu.address.model.Alias;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.UserPrefs;
@@ -91,13 +91,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 	
 	@Override
-	public void favoriteTask(Task toFavorite) {
-		assert tasks.contains(toFavorite);
+	public void pinTask(Task toPin) {
+		assert tasks.contains(toPin);
 		
 		// Create a temporary storage of tasks and update the global copy only when update is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 		
-		toFavorite.setAsFavorite();
+		toPin.setAsPin();
 		
 		// Update stored values of tasks
 		modelHistory.storeOldTasks(tempTasks);
@@ -105,13 +105,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 
 	@Override
-	public void unfavoriteTask(Task toUnfavorite) {
-		assert tasks.contains(toUnfavorite);
+	public void unpinTask(Task toUnpin) {
+		assert tasks.contains(toUnpin);
 		
 		// Create a temporary storage of tasks and update the global copy only when update is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 						
-		toUnfavorite.setAsNotFavorite();
+		toUnpin.setAsNotPin();
 		
 		// Update stored values of tasks
 		modelHistory.storeOldTasks(tempTasks);
@@ -272,8 +272,8 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
         helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(UndoTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(FavoriteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UnfavoriteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(PinTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UnpinTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
         return helpItems;
     }
@@ -306,12 +306,12 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterUncompletedTasks() {
-		filteredTasks.setPredicate(p -> !p.isComplete());
+		filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
 	@Override
 	public void clearTasksFilter() {
-	    filteredTasks.setPredicate(p -> !p.isComplete());
+	    filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
 	//@@author A0138978E
@@ -324,7 +324,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterCompletedTasks(){
-		filteredTasks.setPredicate(p -> p.isComplete());
+		filteredTasks.setPredicate(p -> p.isCompleted());
 	}
 
 	//@@author A0139708W

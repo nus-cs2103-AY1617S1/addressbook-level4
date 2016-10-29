@@ -76,8 +76,8 @@ public class TestUtil {
 		return newTaskList;
 	}
 		
-	// Setting up favorited tasks in the TaskList in order to find them in the tests
-	public static InMemoryTaskList setupSomeFavoritedTasksInTaskList(int n) throws IllegalValueException {
+	// Setting up pinned tasks in the TaskList in order to find them in the tests
+	public static InMemoryTaskList setupSomePinnedTasksInTaskList(int n) throws IllegalValueException {
 		InMemoryTaskList newTaskList = new TaskManager();
 		// Add 3 tasks into the task manager
 		for (int i = 0; i < n; i++) {
@@ -87,7 +87,7 @@ public class TestUtil {
 		}
 		UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
 		for (int i = 0; i < n; i++) {
-			list.get(i).setAsFavorite();
+			list.get(i).setAsPin();
 		}
 		return newTaskList;
 	}

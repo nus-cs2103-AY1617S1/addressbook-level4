@@ -7,20 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.UnpinTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0138978E
 /*
- * Parses Unfavorite commands
+ * Parses Unpin commands
  */
-public class UnfavoriteCommandParser extends CommandParser{
-	public static final String[] COMMAND_WORD = UnfavoriteTaskCommand.COMMAND_WORD;
+public class UnpinCommandParser extends CommandParser{
+	public static final String[] COMMAND_WORD = UnpinTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**
-     * Parses arguments in the context of the Unfavorite task command.
+     * Parses arguments in the context of the Unpin task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -29,10 +29,10 @@ public class UnfavoriteCommandParser extends CommandParser{
 		 Optional<Integer> index = parseIndex(arguments);
 	        if(!index.isPresent()){
 	            return new IncorrectTaskCommand(
-	                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnfavoriteTaskCommand.MESSAGE_USAGE));
+	                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpinTaskCommand.MESSAGE_USAGE));
 	        }
 
-	        return new UnfavoriteTaskCommand(index.get());
+	        return new UnpinTaskCommand(index.get());
 	}
 	/**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

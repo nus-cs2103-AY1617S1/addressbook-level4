@@ -121,9 +121,9 @@ public class UpdateTaskCommand extends TaskCommand {
     		assert false : "At least task, description or date should have new values";
     	}
     	
-    	// Retain favorite status
-		if (taskToUpdate.isFavorite()) {
-			updatedTask.setAsFavorite();
+    	// Retain pin status
+		if (taskToUpdate.isPinned()) {
+			updatedTask.setAsPin();
 		}
     }
     

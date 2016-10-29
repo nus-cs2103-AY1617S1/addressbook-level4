@@ -111,8 +111,8 @@ public class TaskListPanel extends UiPart {
                
             	setGraphic(cardPane);
             	
-            	// Set the color of the card based on whether it's favorited
-                if (task.isFavorite()) {
+            	// Set the color of the card based on whether it's pind
+                if (task.isPinned()) {
                 	cardPane.setStyle("-fx-background-color: yellow;");
                 } else {
                 	cardPane.setStyle(null);

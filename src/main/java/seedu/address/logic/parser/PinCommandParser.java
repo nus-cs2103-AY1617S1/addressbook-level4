@@ -7,20 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.PinTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0138978E
 /*
- * Parses Favorite commands
+ * Parses Pin commands
  */
-public class FavoriteCommandParser extends CommandParser{
-	public static final String[] COMMAND_WORD = FavoriteTaskCommand.COMMAND_WORD;
+public class PinCommandParser extends CommandParser{
+	public static final String[] COMMAND_WORD = PinTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**
-     * Parses arguments in the context of the Favorite task command.
+     * Parses arguments in the context of the Pin task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -29,10 +29,10 @@ public class FavoriteCommandParser extends CommandParser{
 		 Optional<Integer> index = parseIndex(arguments);
 	        if(!index.isPresent()){
 	            return new IncorrectTaskCommand(
-	                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FavoriteTaskCommand.MESSAGE_USAGE));
+	                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinTaskCommand.MESSAGE_USAGE));
 	        }
 
-	        return new FavoriteTaskCommand(index.get());
+	        return new PinTaskCommand(index.get());
 	}
 	/**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
