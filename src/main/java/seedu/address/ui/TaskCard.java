@@ -7,10 +7,10 @@ import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskType;
 
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -31,11 +31,12 @@ public class TaskCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-    private TaskComponent dateComponent;
-    
-    public TaskCard() {}
+    private TaskOccurrence dateComponent;
 
-    public static TaskCard load(TaskComponent taskComponent, int displayedIndex){
+    public TaskCard() {
+    }
+
+    public static TaskCard load(TaskOccurrence taskComponent, int displayedIndex) {
         TaskCard card = new TaskCard();
         card.task = taskComponent.getTaskReference();
         card.displayedIndex = displayedIndex;
@@ -61,52 +62,56 @@ public class TaskCard extends UiPart{
         recurringType.setText(recurringTypeToShow);
     }
 
-    //@@author A0147967J
+    // @@author A0147967J
     private void initializeDate() {
-    	if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+        if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             startDate.setText("");
         } else {
             startDate.setText(dateComponent.getStartDate().getFormattedDate());
         }
-    	
-    	if (dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+
+        if (dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             endDate.setText("");
         } else {
-        	endDate.setText(dateComponent.getEndDate().getFormattedDate());
+            endDate.setText(dateComponent.getEndDate().getFormattedDate());
         }
     }
-    
-    /** Sets cell color for the task list. Style the css here to prevent overriding. */
-    private void setCellColor(){   	
-    	//normal non-floating task
-    	cardPane.setStyle("-fx-background-color : rgba(110, 196, 219, 0.3);");
-    	//Deadline
-    	if(dateComponent.hasOnlyEndDate())
-    		cardPane.setStyle("-fx-background-color : rgba(250, 124, 146, 0.3);");
-    	//Floating task
-    	if(task.getTaskType() == TaskType.FLOATING)
-    		cardPane.setStyle("-fx-background-color : rgba(255, 247, 192, 0.3);");
-    	//Blocked Slot
-    	if(task.getName().fullName.equals("BLOCKED SLOT"))
-    		cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
-    	//Completed
-    	if(dateComponent.isArchived()){
-    		cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
-    		name.setStyle("-fx-text-fill : derive(#373737, 20%);");
-    		id.setStyle("-fx-text-fill : derive(#373737, 20%);");
-    		startDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
-    		endDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
-    		recurringType.setStyle("-fx-text-fill : derive(#373737, 20%);");
-    	}  	
+
+    /**
+     * Sets cell color for the task list. Style the css here to prevent
+     * overriding.
+     */
+    private void setCellColor() {
+        // normal non-floating task
+        cardPane.setStyle("-fx-background-color : rgba(110, 196, 219, 0.3);");
+        // Deadline
+        if (dateComponent.hasOnlyEndDate())
+            cardPane.setStyle("-fx-background-color : rgba(250, 124, 146, 0.3);");
+        // Floating task
+        if (task.getTaskType() == TaskType.FLOATING)
+            cardPane.setStyle("-fx-background-color : rgba(255, 247, 192, 0.3);");
+        // Blocked Slot
+        if (task.getName().fullName.equals("BLOCKED SLOT"))
+            cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
+        // Completed
+        if (dateComponent.isArchived()) {
+            cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
+            name.setStyle("-fx-text-fill : derive(#373737, 20%);");
+            id.setStyle("-fx-text-fill : derive(#373737, 20%);");
+            startDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+            endDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+            recurringType.setStyle("-fx-text-fill : derive(#373737, 20%);");
+        }
     }
-    //@@author
-    public HBox getLayout() {    	
+
+    // @@author
+    public HBox getLayout() {
         return cardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        //cardPane = (HBox)node;
+        // cardPane = (HBox)node;
     }
 
     @Override

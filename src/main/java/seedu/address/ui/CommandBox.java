@@ -29,7 +29,7 @@ public class CommandBox extends UiPart {
     private Logic logic;
 
     @FXML
-    private AutoCompleteTextField commandTextField;
+    private AutocompleteTextField commandTextField;
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,

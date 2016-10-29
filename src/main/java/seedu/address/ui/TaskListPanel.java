@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +28,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<TaskComponent> taskListView;
+    private ListView<TaskOccurrence> taskListView;
 
     public TaskListPanel() {
         super();
@@ -48,19 +50,18 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<TaskComponent> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+            ObservableList<TaskOccurrence> taskList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<TaskComponent> taskList) {
+    private void configure(ObservableList<TaskOccurrence> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<TaskComponent> taskList) {
+    private void setConnections(ObservableList<TaskOccurrence> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,16 +88,14 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<TaskComponent> {
+    class TaskListViewCell extends ListCell<TaskOccurrence> {
 
         public TaskListViewCell() {
-        	
+
         }
-        
-        
 
         @Override
-        protected void updateItem(TaskComponent taskComponent, boolean empty) {
+        protected void updateItem(TaskOccurrence taskComponent, boolean empty) {
             super.updateItem(taskComponent, empty);
 
             if (empty || taskComponent == null) {
@@ -105,7 +104,7 @@ public class TaskListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(taskComponent, getIndex() + 1).getLayout());
             }
-            
+
         }
     }
 

@@ -69,7 +69,6 @@ public class TaskDate {
     
     /**
      * Parses the date in Long and provides it in the Date class format
-     * @return
      */
     public Date getDate() {
     	return new Date(date);

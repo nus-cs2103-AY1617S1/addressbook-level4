@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.ReadOnlyTaskMaster;
 import javax.xml.bind.annotation.XmlElement;
@@ -86,7 +86,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
 
     @Override
-    public List<TaskComponent> getTaskComponentList() {
+    public List<TaskOccurrence> getTaskComponentList() {
         // TODO Auto-generated method stub
         return null;
     }
