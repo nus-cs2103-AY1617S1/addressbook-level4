@@ -135,18 +135,20 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateFullTask(0);
+        Task toBeAddedRecur = helper.generateFullTask(1);
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
         
+        expectedAB.addTask(toBeAddedRecur);
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -156,18 +158,20 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateTaskWithDates("today", null);
+        Task toBeAddedRecur = helper.generateTaskWithDates("tomorrow", null);
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
         
+        expectedAB.addTask(toBeAddedRecur);
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -182,7 +186,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -192,18 +196,20 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateTaskWithDates(null, "Tomorrow");
+        Task toBeAddedRecur = helper.generateTaskWithDates(null, "2 days later");
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
-
+        
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
         
+        expectedAB.addTask(toBeAddedRecur);
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -636,6 +642,9 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
         
         //Confirm the ui display elements should contain the right data
+        System.out.println(expectedMessage);
+        System.out.println(result.feedbackToUser);
+        
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 

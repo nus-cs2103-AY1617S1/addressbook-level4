@@ -20,7 +20,7 @@ public class UniqueTagListTest {
     public void setTags_test() throws IllegalValueException {
         UniqueTagList list1 = new UniqueTagList();
         list1.add(new Tag("HELLO"));
-        list1.add(new Tag("BYE BYE"));
+        list1.add(new Tag("BYEBYE"));
         
         UniqueTagList list2 = new UniqueTagList();
         list2.setTags(list1);
