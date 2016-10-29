@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -43,6 +44,18 @@ public class RecurringTaskManagerTest {
     @Test(expected=AssertionError.class)
     public void correctAddingOverdueTasks_usingNullTask_throwAssert() {
         recurringManager.correctAddingOverdueTasks(null);
+    }
+    
+    @Test
+    public void updateRecurringTask_successful() throws Exception {
+        TaskBuilder builder = new TaskBuilder();
+        RecurringTaskHelper helper = new RecurringTaskHelper();
+        TestTask testData = builder.withName("recurring").withStartDate("11 oct 11pm").withEndDate("12 oct 11pm").withRecurringType(RecurringType.DAILY).build();
+        Task tryUpdate = new Task(testData);
+        taskMaster.addTask(tryUpdate);
+        recurringManager.updateAnyRecurringTasks(helper.getLocalDateByString("2016-10-12"));
+        assertEquals("Recurring task should be updated to append 1 more task occurrence", taskMaster.getTaskComponentList().size(), 2);
+        assertEquals("Recurring task should be updated to append 1 more task occurrence", taskMaster.getTaskList().size(), 1);
     }
     
     @Test

@@ -38,16 +38,25 @@ public class RecurringTaskManager {
     }
 
     public void updateAnyRecurringTasks() {
+        updateAnyRecurringTasks(LocalDate.now());
+    }
+
+    /**
+     * Test method to test updateAnyRecurringTasks is working as intended.
+     * 
+     * @param currentDate The date we want to update towards.
+     */
+    public void updateAnyRecurringTasks(LocalDate currentDate) {
         assert repeatingTasks != null : "Repeating Task list reference cannot be null";
         logger.info("=============================[ RecurringTaskManager Updating ]===========================");
         for (ReadOnlyTask task : repeatingTasks) {
             if (task.getRecurringType().equals(RecurringType.NONE)) {
                 continue;
             }
-            updateRecurringTask(task);
+            updateRecurringTask(task, currentDate);
         }
-    }
-
+    }    
+    
     /**
      * Corrects the recurring task that are overdued to reflect the present and
      * future recurring dates
@@ -200,6 +209,13 @@ public class RecurringTaskManager {
      * Looks at the latest task occurrence and appends task occurrences based on it.
      */
     private void updateRecurringTask(ReadOnlyTask task) {
+        updateRecurringTask(task, LocalDate.now());
+    }
+    
+    /**
+     * Test method to test if updateRecurringTask is working as intended
+     */
+    public void updateRecurringTask(ReadOnlyTask task, LocalDate currentDate) {
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
 
@@ -211,16 +227,7 @@ public class RecurringTaskManager {
         if (!lastAddedComponent.getStartDate().isValid()) {
             startDate = null;
         }
-        appendRecurringTasks(task, startDate, endDate);
-    }
-
-    /**
-     * Appends new task when the it is time to add the recurring task. Recurring
-     * tasks that pass their recurring dates will be appended to show the next
-     * task date. The LocalDate is assumed to be the current system date
-     */
-    private void appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate) {
-        appendRecurringTasks(task, startDate, endDate, LocalDate.now());
+        appendRecurringTasks(task, startDate, endDate, currentDate);        
     }
 
     /**
