@@ -83,6 +83,6 @@ public interface Model {
 
     void indicateFlexiTrackerChanged();
 
-    List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length);
+    List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length, int numberOfSlot);
 
 }

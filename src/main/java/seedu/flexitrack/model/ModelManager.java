@@ -122,8 +122,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     @Override
-    public List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length) {
-        return flexiTracker.findNextAvailableSlot(keyword,length);
+    public List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length, int numberOfSlot) {
+        return flexiTracker.findNextAvailableSlots(keyword, length, numberOfSlot);
     }
     
     // =========== Filtered Tasks List Accessors

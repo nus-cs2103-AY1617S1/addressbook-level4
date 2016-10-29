@@ -193,40 +193,76 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
     
   //@@author A0127686R
-    public List<DateTimeInfo> findNextAvailableSlot(int keyword, int length) {
+    /**
+     * Find the next available time slots that has minimum gap as specified by the users. 
+     * If there are less gap then specified, return the starting time where there are no more events
+     * @param keyword
+     * @param length
+     * @param numberOfSlot
+     * @return the list of dates where gap are available 
+     */
+    public List<DateTimeInfo> findNextAvailableSlots (int keyword, int length, int numberOfSlot) {
         DateTimeInfo dateNow = DateTimeInfo.getCurrentTime();
         List<DateTimeInfo> listOfPossibleTiming= new ArrayList<DateTimeInfo>();
-        int[] differenceInTime = new int[5];
         for (Task task: task.getInternalList()){
-//            System.out.println("CHECK POINT 1" +task.getStartTime().toString());
-            if (listOfPossibleTiming.size()>(5*2)){
-//                System.out.println("CHECK POINT END");    
-                listOfPossibleTiming.add(dateNow);
+            if (listOfPossibleTiming.size()>(numberOfSlot*2-1)){
                 return listOfPossibleTiming; 
             }
-            if (task.getIsEvent()){
-//                System.out.println("CHECK POINT 2");
-                if (DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
-//                    System.out.println("CHECK POINT 2");
-                    differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
-//                    System.out.println("CHECK POINT 3:" + differenceInTime[0] + differenceInTime[1] +differenceInTime[2]+differenceInTime[3]+differenceInTime[4]);
-                    if (differenceInTime[0]>=0){
-//                        System.out.println("CHECK POINT 4: not less than ");
-                        differenceInTime[keyword] = differenceInTime[keyword]-length;
-                        for(int i=keyword; i<5 ; i++){
-//                            System.out.println("CHECK POINT 4: not less than ");
-
-                            if (differenceInTime[i]>0) {
-                                listOfPossibleTiming.add(dateNow);
-                                listOfPossibleTiming.add(task.getStartTime());
-                                dateNow = task.getEndTime();
-                                break;
-                            }
-                        }
-                    }
-                }
+            if (canTheGapBeFound(task, dateNow, keyword, length)) {
+                listOfPossibleTiming.add(dateNow);
+                listOfPossibleTiming.add(task.getStartTime());
+                dateNow = task.getEndTime();
             }
         }
+        listOfPossibleTiming.add(dateNow);
         return listOfPossibleTiming;
+    }
+
+    /**
+     * Process the data to see if there is any gap available 
+     * @param task
+     * @param dateNow
+     * @param keyword
+     * @param length
+     * @return true when there is an available gap
+     */
+    private boolean canTheGapBeFound (Task task, DateTimeInfo dateNow, int keyword, int length){ 
+        if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
+            return doesTheEventStartAfterTheCurrentTiming(task, dateNow, keyword, length);
+        }
+        return false;
+    }
+
+    /**
+     * Process the task data to calculate if the starting timing of the task is after the current interest timing
+     * @param task
+     * @param dateNow
+     * @param keyword
+     * @param length
+     * @return true if the event starts after the current timing. 
+     */
+    private boolean doesTheEventStartAfterTheCurrentTiming(Task task, DateTimeInfo dateNow, int keyword, int length) {
+        int[] differenceInTime = new int[5];
+        differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
+        if (differenceInTime[0]>=0){
+            differenceInTime[keyword] = differenceInTime[keyword]-length;
+            return doesTheGapAtLeastAsLongAsTimingSpecified(keyword, differenceInTime);
+        }
+        return false;
+    }
+
+    /**
+     * Decide if the gap between two timing is long enough to satisfied the user 
+     * @param keyword
+     * @param differenceInTime
+     * @return true if the gap is longer than what user specified.
+     */
+    private boolean doesTheGapAtLeastAsLongAsTimingSpecified(int keyword, int[] differenceInTime) {
+        for(int i=keyword; i<5 ; i++){
+            if (differenceInTime[i]>0) {
+                return true; 
+            }
+        }
+        return false;
     }
 }
