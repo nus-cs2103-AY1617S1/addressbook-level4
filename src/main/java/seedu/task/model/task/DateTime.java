@@ -24,6 +24,10 @@ public class DateTime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "You have entered an invalid Date/Time format. For a complete list of all acceptable formats, please view our user guide.";
 
+    //@@author A0141052Y
+    private static final String DATE_TIME_DISPLAY_FORMAT = "%s (%s)";
+    //@@author
+    
     public final Optional<Instant> value;
     private static PrettyTime p = new PrettyTime();
 
@@ -88,6 +92,19 @@ public class DateTime {
             return "";
         }
     }
+    
+    //@@author A0141052Y
+    /**
+     * Gets a display friendly representation of the DateTime
+     */
+    public String toDisplayString() {
+        if (this.toString().isEmpty()) {
+            return "";
+        } else {
+            return String.format(DATE_TIME_DISPLAY_FORMAT, this.toString(), this.toPrettyString());
+        }
+    }
+    //@@author
     
     public Long getSaveableValue() {
         if(value.isPresent()) {
