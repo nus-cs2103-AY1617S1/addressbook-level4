@@ -51,11 +51,9 @@ We are a group of students in the [School of Computing, National University of S
 * Features implemented: 
   * [Edit task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
 * Other major contributions:
-  * Specifying the detailed requirements and examples of the features
+  * Specifying the detailed requirements and examples of the [features]
 (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#time-parameter)
-(https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
-(https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
   * Update UI to fit the app's purpose, remove browser and divide the pane into incomplete and complete task tabs. 
-(https://github.com/CS2103AUG2016-T15-C3/main/issues/37)
+(https://github.com/CS2103AUG2016-T15-C3/main/commit/3459becf3e88958a501855c8632c3dd8d5c02357)
   * Rename all mentions of AddressBook to ToDoList, addressbook to todolist [#58] (https://github.com/CS2103AUG2016-T15-C3/main/commit/e8f1f330aef58daaed7da8166b33b66563475b6d)
 
