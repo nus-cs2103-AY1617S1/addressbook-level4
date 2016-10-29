@@ -1,8 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Datetime;
 
@@ -25,9 +22,7 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	Set<String> date = new HashSet<>();
-    	date.add(datetime.getDateString());
-        model.updateFilteredTaskListByKeywords(date);
+        model.updateFilteredTaskListByDate(datetime.getStart());
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDatedTaskList().size()+model.getFilteredUndatedTaskList().size()));
     }
 }

@@ -100,8 +100,6 @@ public class Datetime {
         else {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-        
-        System.out.println(toString());
     }
 
     /**

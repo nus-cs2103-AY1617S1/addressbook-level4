@@ -1,12 +1,13 @@
 package seedu.address.model;
 
+import java.util.Date;
+import java.util.Set;
+
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.undo.UndoTask;
-
-import java.util.Set;
 
 /**
  * The API of the Model component.
@@ -48,6 +49,9 @@ public interface Model {
     /** Updates the filter of the filtered tasks list to show all persons */
     void updateFilteredListToShowAll();
 
+    /** Updates the filter of the filtered tasks list to filter by the given date*/
+    void updateFilteredTaskListByDate(Date date);
+    
     /** Updates the filter of the filtered tasks list to filter by the given keywords*/
     void updateFilteredTaskListByKeywords(Set<String> keywords);
 
