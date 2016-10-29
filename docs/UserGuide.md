@@ -177,17 +177,17 @@ Format: `redo`
 
 /* @@author A0146107M*/
 
-#### Autocomplete feature: `TAB` button
-Autocomplete the command that has been entered halfway in the command box.
+#### Autocomplete feature: `TAB` button (or simple spacebar)
+Autocompletes the command that has been entered halfway in the command box, upon pressing TAB or spacebar.
 Format: NIL
 
 > * If no commands match the current text, nothing will happen
 > * If 2 or more commands match the current text, nothing will happen
 
 Examples:
-* Pressing TAB after entering `de` will complete `delete`
-* Pressing TAB after entering `u` will do nothing, as both `undo` and `update` match `u`
-* Pressing TAB after entering `un` will complete `undo`
+* Pressing TAB/spacebar after entering `de` will complete `delete`
+* Pressing TAB/spacebar after entering `u` will do nothing, as both `undo` and `update` match `u`
+* Pressing TAB/spacebar after entering `un` will complete `undo`
 
 #### Command History: `UP` and `DOWN` arrows
 Traverse through previously entered commands.
