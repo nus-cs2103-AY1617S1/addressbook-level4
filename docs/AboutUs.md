@@ -10,13 +10,13 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#logic-component)
 * Aspects/tools in charge of: Team Leader, Integration, Code Quality
 * Features implemented:
-   * Parser
-   * Overdue Tasks
-   * [Add Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
-   * [List Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
-   * [Save Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--savee)
-   * [Search Command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#searching-tasks-by-keywords-search)
-   * [Priority Feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
+   * Parse in flexible inputs
+   * Overdue tasks
+   * [Add tasks](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+   * [List tasks based on Preferance](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
+   * [Save GGist data](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--savee)
+   * [Search keywords](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#searching-tasks-by-keywords-search)
+   * [Priority feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138411N.md)][[test code]][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0138411N.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to GGist[[#1](https://github.com/CS2103AUG2016-W13-C2/main/pull/1)][[#3](https://github.com/CS2103AUG2016-W13-C2/main/pull/3)][[#6](https://github.com/CS2103AUG2016-W13-C2/main/pull/6)]
