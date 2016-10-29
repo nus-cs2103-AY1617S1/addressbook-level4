@@ -19,9 +19,9 @@ public class EditCommand extends Command {
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME p/PRIORITY\n"
             + "Example: " + COMMAND_WORD + " todo 1 name/Assignment 1 p/2\n"
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600\n"
+            + "Example: " + COMMAND_WORD + " event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/12:00 to/16:00\n"
             + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400";
+            + "Example: " + COMMAND_WORD + " deadline 1 name/CS2103 v0.2 on/25-12-2016 at/14:00";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
