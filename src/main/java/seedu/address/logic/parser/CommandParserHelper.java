@@ -58,7 +58,7 @@ public class CommandParserHelper {
     
     // greedily captures everything after the keyword (repeat every, -), 
     // until it reaches the next regex expression or end of input
-    private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
+    private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<rate>\\d+)?(?<timePeriod>.*?))?"
             + "(?: -(?<priority>.*?))?";
 
     // beginning of regex in the event that input is escaped
@@ -76,10 +76,6 @@ public class CommandParserHelper {
     private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY
             + REGEX_CLOSE_BRACE;
     
-    //TODO: Combine this thing.
-    // seperates the recurrence rate captured by the previous regex into rate and timePeriod.
-    private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
-
     //TODO: Change CommandParserHelper to static?
     private Pattern pattern;
     private Matcher matcher;
@@ -457,7 +453,6 @@ public class CommandParserHelper {
         generateAndValidateMatcher(args, regexCopy);
     }
 
-
     /**
      * Generates the matcher for the given args, where args has two keywords.
      *
@@ -565,23 +560,26 @@ public class CommandParserHelper {
         return map;
     }
     
+    /**
+     * Returns a HashMap containing user's input of rate and timePeriod.
+     * 
+     * @return  HashMap containing user's input of rate and timePeriod.
+     * If user did not input, return Optional.empty() for both parameters in HashMap.
+     */
     private HashMap<String, Optional<String>> matchesRateAndTimePeriod() throws IllegalValueException {
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
 
         Optional<String> rate = Optional.empty();
         Optional<String> timePeriod = Optional.empty();
 
-        if (matcher.group("recurrenceRate") != null) {
-            final Matcher recurrenceMatcher = validateRecurrenceMatcher();
-
-            if (recurrenceMatcher.group("rate") != null) {
-                rate = Optional.of(recurrenceMatcher.group("rate").trim());
-            }
-
-            assert recurrenceMatcher.group("timePeriod") != null;
-            timePeriod = Optional.of(recurrenceMatcher.group("timePeriod").trim());
+        if (matcher.group("rate") != null) {
+            rate = Optional.of(matcher.group("rate").trim());
         }
 
+        if (matcher.group("timePeriod") != null) {
+            timePeriod = Optional.of(matcher.group("timePeriod").trim());
+        }
+            
         map.put("rate", rate);
         map.put("timePeriod", timePeriod);
 
@@ -636,18 +634,6 @@ public class CommandParserHelper {
             priority = "null";
         }
         return priority;
-    }
-    
-    //@@author A0139655U
-    private Matcher validateRecurrenceMatcher() throws IllegalValueException {
-        String recurrenceString = matcher.group("recurrenceRate");
-        final Matcher recurrenceMatcher = RECURRENCE_RATE_ARGS_FORMAT.matcher(recurrenceString);
-
-        if (!recurrenceMatcher.matches()) {
-            throw new IllegalValueException(MESSAGE_INVALID_MATCHER);
-        }
-
-        return recurrenceMatcher;
     }
     
     /**
