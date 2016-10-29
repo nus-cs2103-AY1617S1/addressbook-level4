@@ -28,6 +28,7 @@ import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
+import tars.logic.commands.FreeCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.RedoCommand;
@@ -70,7 +71,7 @@ public class LogicManagerTest {
     private Config originalConfig;
 
     private static final String configFilePath = "config.json";
-    
+
     private static final Prefix namePrefix = new Prefix("/n");
     private static final Prefix priorityPrefix = new Prefix("/p");
     private static final Prefix dateTimePrefix = new Prefix("/dt");
@@ -239,9 +240,20 @@ public class LogicManagerTest {
 
     // ---------------- Tests for undo and redo command ----------------
 
-    /**
-     * @@author A0139924W
-     */
+    @Test
+    public void execute_undo_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE);
+        assertCommandBehavior("undo EXTRA ARGUMENTS", expectedMessage);
+        assertCommandBehavior("undo 123", expectedMessage);
+    }
+    
+    @Test
+    public void execute_redo_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE);
+        assertCommandBehavior("redo EXTRA ARGUMENTS", expectedMessage);
+        assertCommandBehavior("redo 123", expectedMessage);
+    }
+
     @Test
     public void execute_undo_and_redo_add_successful() throws Exception {
         // setup expectations
@@ -252,21 +264,18 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars,
-                expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeAdded);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.addTask(toBeAdded);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n")),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n")),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -1570,6 +1579,8 @@ public class LogicManagerTest {
 
     /**
      * @@author A0124333U
+     * 
+     *          logic tests for edit command
      */
     @Test
     public void execute_edit_invalidArgsFormatErrorMessageShown() throws Exception {
@@ -1622,6 +1633,10 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
+    /**
+     * Logic tests for cd command
+     */
+
     @Test
     public void execute_cd_incorrectArgsFormatErrorMessageShown() throws Exception {
         assertCommandBehavior("cd ", CdCommand.MESSAGE_INVALID_FILEPATH);
@@ -1640,7 +1655,54 @@ public class LogicManagerTest {
     }
 
     /**
-     * Logic tests for mark command
+     * Logic tests for free command
+     */
+    @Test
+    public void execute_free_incorrectArgsFormat_errorMessageShown() throws Exception {
+        assertCommandBehavior("free ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertCommandBehavior("free invalidargs",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertCommandBehavior("free 29/10/2016 to 30/10/2016", FreeCommand.MESSAGE_DATE_RANGE_DETECTED);
+    }
+
+    @Test
+    public void execute_free_noFreeTimeSlotResult() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+
+        assertCommandBehavior("free 11/10/2016",
+                String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS, "Tuesday, 11/10/2016"), expectedTars,
+                expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_free_freeDayResult() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+        
+        
+
+        assertCommandBehavior("free 01/11/2016", String.format(FreeCommand.MESSAGE_FREE_DAY, "Tuesday, 01/11/2016"),
+                expectedTars, expectedTars.getTaskList());
+    }
+    
+    @Test
+    public void execute_free_freeTimeSlotsFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("Saturday, 29/10/2016").append(":\n")
+            .append("1. 0100hrs to 1400hrs (13 hr 0 min)\n")
+            .append("2. 1800hrs to 2359hrs (5 hr 59 min)");      
+
+        assertCommandBehavior("free 29/10/2016", String.format(FreeCommand.MESSAGE_SUCCESS, sb.toString()),
+                expectedTars, expectedTars.getTaskList());
+    }
+
+    /**
+     * Logic tests for do_ud command
      * 
      * @@author A0121533W
      */
@@ -1664,7 +1726,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /do 1 2", "Task: 1, 2 marked done successfully.\n", expectedTars,
+        assertCommandBehavior("do 1 2", "Task: 1, 2 marked done successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1690,7 +1752,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /do 1 2", "Task: 1, 2 already marked done.\n", expectedTars,
+        assertCommandBehavior("do 1 2", "Task: 1, 2 already marked done.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1715,7 +1777,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /ud 1 2", "Task: 1, 2 marked undone successfully.\n", expectedTars,
+        assertCommandBehavior("ud 1 2", "Task: 1, 2 marked undone successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1736,7 +1798,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task1Expected);
         expectedTars.addTask(task2Expected);
 
-        assertCommandBehavior("mark /ud 1 2", "Task: 1, 2 already marked undone.\n", expectedTars,
+        assertCommandBehavior("ud 1 2", "Task: 1, 2 already marked undone.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1765,7 +1827,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task2Expected);
         expectedTars.addTask(task3Expected);
 
-        assertCommandBehavior("mark /do 1..3", "Task: 1, 2, 3 marked done successfully.\n", expectedTars,
+        assertCommandBehavior("do 1..3", "Task: 1, 2, 3 marked done successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1795,7 +1857,7 @@ public class LogicManagerTest {
         expectedTars.addTask(task2Expected);
         expectedTars.addTask(task3Expected);
 
-        assertCommandBehavior("mark /ud 1..3", "Task: 1, 2, 3 marked undone successfully.\n", expectedTars,
+        assertCommandBehavior("ud 1..3", "Task: 1, 2, 3 marked undone successfully.\n", expectedTars,
                 expectedTars.getTaskList());
     }
 
@@ -1976,6 +2038,19 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag")));
         }
 
+        /**
+         * @@author A0124333U Generates a Task object with given name and
+         *          datetime
+         */
+        Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
+            assert (dateTime != null && name != null);
+            return new Task(new Name(name), dateTime, new Priority("h"), new Status(false),
+                    new UniqueTagList(new Tag("tag")));
+        }
+
+        /**
+         * Generates a RsvTask object with given name and datetime(s)
+         */
         RsvTask generateReservedTaskWithNameAndDate(String name, DateTime... dateTimes) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             for (DateTime dt : dateTimes) {
@@ -1984,10 +2059,50 @@ public class LogicManagerTest {
             return new RsvTask(new Name(name), dateTimeList);
         }
 
+        /**
+         * Generates a RsvTask object with given name and a dummy dateTime
+         */
         RsvTask generateReservedTaskWithOneDateTimeOnly(String name) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             dateTimeList.add(new DateTime("05/09/2016 1400", "06/09/2016 2200"));
             return new RsvTask(new Name(name), dateTimeList);
         }
+
+        Tars fillModelAndTarsForFreeCommand() throws Exception {
+            RsvTask rsvTask1 = generateReservedTaskWithNameAndDate("rsvTask1",
+                    new DateTime("29/10/2016 1400", "29/10/2016 1500"),
+                    new DateTime("30/10/2016 1400", "30/10/2016 1500"));
+            RsvTask rsvTask2 = generateReservedTaskWithNameAndDate("rsvTask2",
+                    new DateTime("28/10/2016 0900", "28/10/2016 1400"));
+            Task floatingTask = generateTaskWithNameAndDate("Floating Task", new DateTime("", ""));
+            Task taskWithoutStartDate = generateTaskWithNameAndDate("Task without startdate",
+                    new DateTime("", "29/10/2016 1500"));
+            Task task1 = generateTaskWithNameAndDate("Task 1", new DateTime("28/10/2016 2200", "29/10/2016 0100"));
+            Task task2 = generateTaskWithNameAndDate("Task 2", new DateTime("29/10/2016 1430", "29/10/2016 1800"));
+            Task task3 = generateTaskWithNameAndDate("Task 3", new DateTime("01/10/2016 1400", "01/10/2016 1500"));
+            Task task4 = generateTaskWithNameAndDate("Task 4", new DateTime("10/10/2016 1500", "12/10/2016 1400"));
+            
+            Tars tars = new Tars();
+            tars.addRsvTask(rsvTask1);
+            tars.addRsvTask(rsvTask2);
+            tars.addTask(floatingTask);
+            tars.addTask(taskWithoutStartDate);
+            tars.addTask(task1);
+            tars.addTask(task2);
+            tars.addTask(task3);
+            tars.addTask(task4);
+
+            model.addRsvTask(rsvTask1);
+            model.addRsvTask(rsvTask2);
+            model.addTask(floatingTask);
+            model.addTask(taskWithoutStartDate);
+            model.addTask(task1);
+            model.addTask(task2);
+            model.addTask(task3);
+            model.addTask(task4);
+
+            return tars;
+        }
+
     }
 }

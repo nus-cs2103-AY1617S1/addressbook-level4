@@ -134,23 +134,34 @@ Lists all tags in TARS
 Format: `tag /ls`
 
 [comment]: # (@@author A0121533W)
-#### Marking tasks : `mark`
-Marks a particular task(s) with the status `done` or `undone`  
-Format: `mark /do <INDEX>[<INDEX> <INDEX> ...] /ud <INDEX>[<INDEX> <INDEX> ...]`  
-Format: `mark /do <START_INDEX>..<END_INDEX> /ud <START_INDEX>..<END_INDEX>`
+#### Marking tasks as done : `do`
+Marks a particular task(s) with the status `done` 
+Format: `do <INDEX>[<INDEX> <INDEX> ...]`  
+Format: `do <START_INDEX>..<END_INDEX>`
 
-> Marks the task at the specific `<INDEX>`
+> Marks the task at the specific `<INDEX>` as `done`
 > The index refers to the index number shown in the tag list.
-> The index **must be a positive integer** 1, 2, 3, ..
+> The index **must be a positive integer**
 > Start index of range must be before end index
-> Use /do to mark a task(s) as `done`
-> Use /ud to mark a task(s) as `undone`
 
 Examples:
-* `mark /do 2 4 6`
-* `mark /ud 3 5 7`
-* `mark /do 3 5 7 /ud 2 4 6`
-* `mark /do 1..3 /ud 4..6`
+* `do 2 4 6`
+* `do 1..3`
+
+[comment]: # (@@author A0121533W)
+#### Marking tasks as undone : `ud`
+Marks a particular task(s) with the status `undone` 
+Format: `ud <INDEX>[<INDEX> <INDEX> ...]`  
+Format: `ud <START_INDEX>..<END_INDEX>`
+
+> Marks the task at the specific `<INDEX>` as `undone`
+> The index refers to the index number shown in the tag list.
+> The index **must be a positive integer**
+> Start index of range must be before end index
+
+Examples:
+* `ud 2 4 6`
+* `ud 1..3`
 
 #### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority)  

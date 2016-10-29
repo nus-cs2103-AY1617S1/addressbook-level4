@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -117,6 +118,7 @@ public class DateTimeUtilTest {
         assertFalse(DateTimeUtil.isOverDue(tomorrow));
     }
 
+    // @@author A0124333U
     @Test
     public void isDateTimeWithinRange_emptyDateTimeSource() throws DateTimeException, IllegalDateException {
         DateTime dateTimeSource = new DateTime("", "");
@@ -157,6 +159,38 @@ public class DateTimeUtilTest {
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQuery));
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate));
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSourceWithoutStartDate, dateTimeQueryWithoutStartDate2));
+    }
+    
+    @Test
+    public void getListOfFreeTimeSlotsInDate_success() throws DateTimeException, IllegalDateException {
+        ArrayList<DateTime> listOfFilledTimeSlots = new ArrayList<DateTime>();
+        DateTime dateToCheck = new DateTime("29/10/2016 0000", "29/10/2016 2359");
+        ArrayList<DateTime> currentList = new ArrayList<DateTime>();
+        ArrayList<DateTime> expectedList = new ArrayList<DateTime>();
+        
+        //Initialize listOfFilledTimeSlots
+        listOfFilledTimeSlots.add(new DateTime("27/10/2016 1200", "29/10/2016 0830"));
+        listOfFilledTimeSlots.add(new DateTime("29/10/2016 0500", "29/10/2016 0630"));
+        listOfFilledTimeSlots.add(new DateTime("29/10/2016 0730", "29/10/2016 0900"));
+        listOfFilledTimeSlots.add(new DateTime("", "29/10/2016 1300"));
+        listOfFilledTimeSlots.add(new DateTime("29/10/2016 1400", "29/10/2016 1500"));
+        listOfFilledTimeSlots.add(new DateTime("29/10/2016 2330", "30/10/2016 0100"));
+        
+        //Initialize expectedList
+        expectedList.add(new DateTime("29/10/2016 0900", "29/10/2016 1400"));
+        expectedList.add(new DateTime("29/10/2016 1500", "29/10/2016 2330"));
+        
+        currentList = DateTimeUtil.getListOfFreeTimeSlotsInDate(dateToCheck, listOfFilledTimeSlots);
+        
+        assertEquals(expectedList, currentList);
+    }
+
+    @Test
+    public void getDurationInMinutesBetweenTwoLocalDateTime_success() {
+        LocalDateTime ldt1 = LocalDateTime.of(2016, 10, 29, 9, 36);
+        LocalDateTime ldt2 = LocalDateTime.of(2016, 10, 29, 14, 28);
+
+        assertEquals(DateTimeUtil.getDurationInMinutesBetweenTwoLocalDateTime(ldt1, ldt2), "4 hr 52 min");
     }
 
 }

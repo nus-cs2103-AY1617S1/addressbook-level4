@@ -1,7 +1,12 @@
-package tars.commons.util;
+package tars.logic.commands;
 
 import java.util.ArrayList;
 
+import tars.commons.core.Messages;
+import tars.commons.core.UnmodifiableObservableList;
+import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.model.Model;
+import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
 
 /**
@@ -9,7 +14,7 @@ import tars.model.task.Status;
  * @@author A0121533W
  *
  */
-public class MarkTaskTracker {
+public class MarkTaskUtil {
     
     private ArrayList<Integer> markDoneTasks;
     private ArrayList<Integer> markUndoneTasks;
@@ -25,7 +30,7 @@ public class MarkTaskTracker {
     /**
      * Constructor
      */
-    public MarkTaskTracker() {
+    public MarkTaskUtil() {
         this.markDoneTasks = new ArrayList<Integer>();
         this.markUndoneTasks = new ArrayList<Integer>();
         this.alreadyDoneTasks = new ArrayList<Integer>();
@@ -130,4 +135,44 @@ public class MarkTaskTracker {
     private void addToAlreadyUndoneTasks(int index) {
         this.alreadyUndoneTasks.add(index);
     }
+    
+    /**
+     * Returns feedback message of mark command to user
+     * 
+     * @return
+     */
+    public String getResultFromTracker() {
+        String commandResult = getResult();
+        return commandResult;
+    }
+
+    /**
+     * Gets Tasks to mark from indexes
+     * @param model
+     * @param indexes
+     * @return
+     * @throws InvalidTaskDisplayedException
+     */
+    public ArrayList<ReadOnlyTask> getTasksFromIndexes(Model model, String[] indexes, Status status)
+            throws InvalidTaskDisplayedException {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
+
+        for (int i = 0; i < indexes.length; i++) {
+            int targetIndex = Integer.valueOf(indexes[i]);
+            if (lastShownList.size() < targetIndex) {
+                throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+
+            ReadOnlyTask task = lastShownList.get(targetIndex - 1);
+            if (!task.getStatus().equals(status)) {
+                tasksList.add(task);
+                addToMark(targetIndex, status);
+            } else {
+                addAlreadyMarked(targetIndex, status);
+            }
+        }
+        return tasksList;
+    }
+
 }

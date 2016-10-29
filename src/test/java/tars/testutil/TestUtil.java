@@ -362,7 +362,7 @@ public class TestUtil {
      * Removes a reserved task from the array of rsvTasks
      * @param rsvTasks
      * @param rsvTaskToDel
-     * @return The modifed array of rsv tasks
+     * @return The modified array of rsv tasks
      */
 
     public static TestRsvTask[] delRsvTaskFromList(final TestRsvTask[] rsvTasks, TestRsvTask rsvTaskToDel) {
@@ -406,7 +406,7 @@ public class TestUtil {
      *            An array of indexes to mark
      * @return The modified array of marked tasks
      */
-    public static TestTask[] markTaskDone(final TestTask[] tasks, int[] indexesToMark, Status status) {
+    public static TestTask[] markTasks(final TestTask[] tasks, int[] indexesToMark, Status status) {
         List<TestTask> listOfTasks = asList(tasks);
         for (int i = 0; i < indexesToMark.length; i++) {
             listOfTasks.get(i).setStatus(status);
