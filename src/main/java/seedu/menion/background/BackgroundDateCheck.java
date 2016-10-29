@@ -1,8 +1,12 @@
 package seedu.menion.background;
 
+import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.mail.MessagingException;
+
 import seedu.menion.model.Model;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
@@ -40,28 +44,46 @@ public class BackgroundDateCheck {
 		List<ReadOnlyActivity> taskList = activityManager.getTaskList();
 		
 		for (int i = 0 ; i < taskList.size(); i++){	
+		    
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
-			// Yet to send but passed due to no internet connection.
+			// Yet to send email due to no internet connection. But task deadline has passed
 			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed()){
 				
-				SendEmailStub.send(taskToCheck);
-				taskToCheck.setEmailSent(true);
+			    SendEmail sender = new SendEmail();
+				try {
+                    sender.send(taskToCheck);
+                    taskToCheck.setEmailSent(true);
+
+                } catch (FileNotFoundException e) {
+
+                    
+                } catch (MessagingException e) {
+                    
+                }
 				
 			}
-
+			
+			// Check if there a task is overdue.
 			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().toString().equals(Completed.UNCOMPLETED_ACTIVITY)){
 
 				if (isActivityOver(currentTime, taskToCheck)){
 					
 					taskToCheck.setTimePassed(true);
-					SendEmailStub.send(taskToCheck);
-					taskToCheck.setEmailSent(true);
-					
-				}
-				
+
+	                SendEmail sender = new SendEmail();
+	                try {
+	                    sender.send(taskToCheck);
+	                    taskToCheck.setEmailSent(true);
+
+	                } catch (FileNotFoundException e) {
+
+	                    
+	                } catch (MessagingException e) {
+	                    
+	                }
+				}	
 			}
-			
 		}
 	}
 	
@@ -85,7 +107,7 @@ public class BackgroundDateCheck {
 					eventToCheck.setTimePassed(true);
 					
 				}
-				
+
 			}
 			
 			
