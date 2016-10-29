@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import seedu.oneline.testutil.TaskBuilder;
 import seedu.oneline.testutil.TestDataHelper;
 
 public class TaskTest {
@@ -15,8 +17,8 @@ public class TaskTest {
     
     @Before
     public void setUp() throws Exception {
-        taskDate0 = TestDataHelper.generateTask(0);
-        taskDate1 = TestDataHelper.generateTask(1);
+        taskDate0 = new Task(new TaskBuilder().withName("A").withDeadline("1").build());
+        taskDate1 = new Task(new TaskBuilder().withName("A").withDeadline("2").build());
         taskNameA = TestDataHelper.generateTaskWithName("A");
         taskNameB = TestDataHelper.generateTaskWithName("B");
     }

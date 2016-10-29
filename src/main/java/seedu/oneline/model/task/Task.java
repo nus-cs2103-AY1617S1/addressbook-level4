@@ -37,14 +37,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *  If a task has an end time, its deadline is automatically set to its end time
      * Floating task: 
      *  A task without a deadline
+     * @throws IllegalValueException 
      * 
      */    
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) {
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) throws IllegalValueException {
         this(name, startTime, endTime, deadline, recurrence, tag, false);
     }
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) {
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
         this.setCompleted(isCompleted);
         this.name = name;
@@ -53,12 +54,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.deadline = deadline;
         this.recurrence = recurrence;
         this.tag = tag;
+        checkValidTaskTime(this);
     }
 
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public Task(ReadOnlyTask source) {
+    public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTag(), source.isCompleted());
     }
 
@@ -153,6 +156,28 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
         return newTask;
     }
+    
+    private static void checkValidTaskTime(Task t) throws IllegalValueException {
+      boolean haveStartTime = t.getStartTime().isValid();
+      boolean haveEndTime = t.getEndTime().isValid();
+      boolean haveDeadline = t.getDeadline().isValid();
+      if (!haveStartTime && !haveEndTime) {
+          // floating tasks or deadline tasks
+          return;
+      } else if (haveStartTime && haveEndTime && !haveDeadline) {
+          // event task
+          return;
+      } else if (!haveDeadline) {
+          // there is a start/end time, but no end/start time
+          if (haveStartTime) {
+              throw new IllegalValueException("End time for event is not specified.");
+          } else {
+              throw new IllegalValueException("Start time for event is not specified.");
+          }
+      } else {
+          throw new IllegalValueException("If a task has a deadline, it should not have a start or end time specified.");
+      }
+  }
     //@@author
 
     //@@author A0138848M
