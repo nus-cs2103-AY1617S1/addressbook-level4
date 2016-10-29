@@ -163,12 +163,6 @@ public class EventCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        
-        DateFormat tf = new SimpleDateFormat("h:m:a");
-        Date timeobj = new Date();
-        String [] curTime = tf.format(timeobj).split(":");
-        System.out.println(curTime[0] + " " + curTime[1] + " " + curTime[2]);
-        
         date.setText("Start Date: "+ task.getStartDate().date);
         if(checkEndDateTime() && this.task.getDone().equals("true")) {
             System.out.println("im here");
