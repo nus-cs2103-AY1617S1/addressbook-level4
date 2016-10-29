@@ -157,7 +157,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 	
 	public void setRecurringFrequency(String frequency) {
-		this.recurringFrequency = frequency;
+		if (frequency.equals("daily") || frequency.equals("weekly") || frequency.equals("monthly") || frequency.equals("yearly")) {
+			this.recurringFrequency = frequency;
+			this.isRecurring = true;
+		}
+		else {
+			this.recurringFrequency = "";
+			this.isRecurring = false;
+		}
 	}
 
 	//@@author A0142102E
