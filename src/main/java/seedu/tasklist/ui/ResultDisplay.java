@@ -1,5 +1,7 @@
 package seedu.tasklist.ui;
 
+import java.awt.Component;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
@@ -37,8 +39,8 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
         resultDisplayArea.setText("");
         displayed.setValue("Welcome to Lazyman's Friend!");
-        
         resultDisplayArea.textProperty().bind(displayed);
+        //resultDisplayArea.setAlignment(Component.CENTER_ALIGNMENT);
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
