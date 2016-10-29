@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+//@@author A0139915W
 public class SmartDefaultDatesTest {
 
     @Test
@@ -243,3 +244,4 @@ public class SmartDefaultDatesTest {
         return calendar.getTime();
     }
 }
+//@@author
