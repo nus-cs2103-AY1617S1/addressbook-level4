@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
@@ -56,6 +58,7 @@ public class AddCommand extends Command {
         try {
         	model.addPerson(toAdd);
             String point = String.format(MESSAGE_SUCCESS, toAdd);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
             model.currentState(point);
             return new CommandResult(point);
         } catch (UniqueTaskList.DuplicateTaskException e) {
