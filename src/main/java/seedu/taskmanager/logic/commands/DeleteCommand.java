@@ -2,6 +2,9 @@ package seedu.taskmanager.logic.commands;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
+
 import java.lang.StringBuilder;
 
 import seedu.taskmanager.commons.core.Messages;
@@ -79,6 +82,8 @@ public class DeleteCommand extends Command {
             UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
             ListIterator<ReadOnlyItem> lslIterator = lastShownList.listIterator();
             int numItemsDeleted = 0;
+            
+            Collections.sort(targetIndexes);
             
             for(int index : targetIndexes) {
                 
