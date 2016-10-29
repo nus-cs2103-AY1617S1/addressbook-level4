@@ -23,6 +23,8 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    
+    private static final Pattern FILE_PATH_ARGS_FORMAT =Pattern.compile("([a-zA-Z]:/)?(([a-zA-Z0-9]+/)+)?([a-zA-Z0-9]+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -161,6 +163,10 @@ public class Parser {
      * @return the full prepared command
      */
     private Command prepareSave(String args){
+        final Matcher matcher = FILE_PATH_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(SaveCommand.MESSAGE_USAGE);
+        }
         return new SaveCommand(args.trim());
     }
     
@@ -171,6 +177,10 @@ public class Parser {
      * @return the full prepared command
      */
     private Command prepareLoad(String args){
+        final Matcher matcher = FILE_PATH_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(LoadCommand.MESSAGE_USAGE);
+        }
         return new LoadCommand(args.trim());
     }
     //@@author

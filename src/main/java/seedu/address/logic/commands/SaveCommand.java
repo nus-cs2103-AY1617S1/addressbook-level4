@@ -8,8 +8,8 @@ public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes file name and the saving directory.\n"
-            + "Parameters: FILE_PATH\n"
-            + "Example: " + COMMAND_WORD + " data/todolist1";
+            + "Parameters: FILE_PATH/FILE_NAME\n"
+            + "Example: " + COMMAND_WORD + " Data/ToDoList2";
     public static final String MESSAGE_SUCCESS = "File is successfully saved to: %1$s";
     public static final String MESSAGE_INVALID_PATH = "File path %1$s is a wrong file path";
     
