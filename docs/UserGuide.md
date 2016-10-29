@@ -48,19 +48,19 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
  
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.2 Adding a task: `add` </b><br>
 >Adds a floating task to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION t/TAG...` 
+Format: `add TASKNAME d/TASK_DESCRIPTION [t/TAG...]` 
 
 >Adds a deadline to sTask<br>
 Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE TIME [t/TAG...]` 
 
 >Adds an event to sTask<br>
-Format: `add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]` <br>
 Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG...]` <br>
+Format: `add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]` <br>
 
 \*\* <i>Refer to appendix for possible formats for DATE & TIME</i>
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+> items with `...` after them can have multiple instances. Order of parameters is fixed. 
 > 
 >
 > Tasks can have any number of tags (including none)
