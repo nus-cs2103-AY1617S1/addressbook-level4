@@ -3,6 +3,7 @@ package seedu.tasklist.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.tasklist.commons.core.EventsCenter;
+import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.events.ui.JumpToListRequestEvent;
 import seedu.tasklist.commons.events.ui.ShowHelpRequestEvent;
@@ -342,8 +343,7 @@ public class LogicManagerTest {
  */   
     @Test
     public void execute_show_InvalidArgsFormat() throws Exception {
-    	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE);
-        assertCommandBehavior("show ", expectedMessage);
+    	assertCommandBehavior("showall", Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

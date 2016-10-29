@@ -27,10 +27,10 @@ public class AddCommandTest extends TaskListGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add overlapping task
+        //add duplicate task
         taskToAdd = TypicalTestTasks.task8;
         commandBox.runCommand(taskToAdd.getAddCommand());
-        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_OVERLAP, taskToAdd.toString()));
+        assertResultMessage(String.format(AddCommand.MESSAGE_DUPLICATE_TASK));
         
         //add to empty list
         commandBox.runCommand("clear");
@@ -44,7 +44,7 @@ public class AddCommandTest extends TaskListGuiTest {
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
         //confirm if add message is returned
-        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd.getTaskDetails()));
     }
 
 }
