@@ -38,7 +38,7 @@ public class Parser {
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
                     + " from/(?<date>[^/]+)" 
-                    + "( to/(?<endDate>[^/]+))?"
+                    + " to/(?<endDate>[^/]+)"
                     + " at/(?<startTime>[^/]+)"
                     + " to/(?<endTime>[^/]+)");
     
@@ -66,7 +66,7 @@ public class Parser {
                     + " (?<targetIndex>.+)" 
                     + " name/(?<name>.+)" 
                     + " from/(?<date>[^/]+)"
-                    + "( to/(?<endDate>[^/]+))?"
+                    + " to/(?<endDate>[^/]+)"
                     + " at/(?<startTime>[^/]+)" 
                     + " to/(?<endTime>[^/]+)");
 
