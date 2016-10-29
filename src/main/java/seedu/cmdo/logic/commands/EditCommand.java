@@ -113,7 +113,7 @@ public class EditCommand extends Command {
         if(toEditWith.getDetail().toString().equals(""))
         	toEditWith.setDetail(taskToEdit.getDetail());
         }
-   //check for changes in date and time and append
+    //check for changes in date and time and append
     public void editDateTime(ReadOnlyTask taskToEdit){
     	//check if changing to floating task
         if(floating)
@@ -138,7 +138,7 @@ public class EditCommand extends Command {
    
     //check if priority is empty and append with old details
     public void editPriority(ReadOnlyTask taskToEdit){
-    	if(toEditWith.getPriority().getValue() .equals("")) 
+    	if(toEditWith.getPriority().getValue().equals("")) 
             toEditWith.getPriority().setPriority(taskToEdit.getPriority().getValue()); 
           //remove priority 
           if(removePriority) 
@@ -155,19 +155,21 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        //slap these
         // Check if target index is valid
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
-        // Retrieve the task and check if done.
+       
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        // Check if task is done.
         if (taskToEdit.checkDone().value) {
             indicateAttemptToExecuteIncorrectCommand();
         	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
         }
         
+        //slap these methods
         //check for changes in detail and append
         editDetails(taskToEdit);
         //check for date and time and append
