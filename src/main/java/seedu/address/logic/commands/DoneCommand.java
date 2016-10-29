@@ -54,7 +54,7 @@ public class DoneCommand extends Command {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownEventList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+                ReadOnlyTask taskDone = lastShownEventList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
                 
                 try {
                     model.addToUndoStack();
@@ -70,7 +70,7 @@ public class DoneCommand extends Command {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+                ReadOnlyTask taskDone = lastShownDeadlineList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
                 
                 try {
                     model.addToUndoStack();
@@ -86,7 +86,7 @@ public class DoneCommand extends Command {
                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
-                ReadOnlyTask taskDone = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+                ReadOnlyTask taskDone = lastShownTodoList.get(Integer.valueOf(targetIndexes.get(i).substring(1)) - 1);
 
                 try {
                     model.addToUndoStack();
