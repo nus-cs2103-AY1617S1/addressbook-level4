@@ -33,9 +33,9 @@ public class StartTime extends DateTime {
 
             if (taskDate == null) {
                 assert false : "Date should not be null";
-            } else if (DateUtil.hasPassed(taskDate)) {
+            } /*else if (DateUtil.hasPassed(taskDate)) {
                 throw new IllegalValueException(MESSAGE_STARTTIME_INVALID);
-            }
+            }*/
 
             if (!isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);

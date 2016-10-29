@@ -26,10 +26,16 @@ public class DateUtil {
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h.mm aa"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HHmm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HHmm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy hmm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy hmm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HH:mm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h:mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h:mm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HH.mm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HH.mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h.mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h.mm"));
         DATE_FORMATS.add(new SimpleDateFormat("EEE, MMM d, yyyy h:mm a"));
         DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
@@ -44,6 +50,8 @@ public class DateUtil {
         DATE_FORMATS1.add(new SimpleDateFormat("EEE, MMM d, yyyy"));
         DATE_FORMATS2.add(new SimpleDateFormat("dd-MM-yyyy HH:mm"));
         DATE_FORMATS2.add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
+        DATE_FORMATS2.add(new SimpleDateFormat("dd-MM-yyyy h:mm"));
+        DATE_FORMATS2.add(new SimpleDateFormat("dd.MM.yyyy h:mm"));
     }
 
     //@@author A0125680H
