@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
 <!--@@Gauri Joshi A0143095H  -->
 
@@ -28,9 +30,33 @@
                   <Menu mnemonicParsing="false" text="Today" />
                </menus>
             </MenuBar>
-            <Label fx:id="today" text="#Today" GridPane.columnIndex="1" />
-            <Label fx:id="done" text="#Done" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="today" text="#Today" GridPane.columnIndex="1">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label fx:id="done" text="#Done" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857" startY="0.7">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
             <MenuBar prefHeight="25.0" prefWidth="74.0">
               <menus>
                 <Menu mnemonicParsing="false" text="Today" />
