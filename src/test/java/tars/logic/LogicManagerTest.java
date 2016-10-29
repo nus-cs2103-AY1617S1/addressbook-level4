@@ -91,7 +91,7 @@ public class LogicManagerTest {
     }
 
     @Before
-    public void setup() {
+    public void setUp() {
         try {
             originalConfig = ConfigUtil.readConfig(configFilePath).get();
         } catch (DataConversionException e) {
@@ -109,7 +109,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() throws IOException {
+    public void tearDown() throws IOException {
         undoChangeInTarsFilePath();
         EventsCenter.clearSubscribers();
     }
