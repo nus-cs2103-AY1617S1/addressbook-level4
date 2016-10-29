@@ -1,0 +1,33 @@
+#filter {
+	-fx-font-size: 24px;
+	-fx-font-family: "Segoe UI";
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+}
+
+.check-box, .label {
+	-fx-font-size: 14px;
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-text-fill: black;
+}
+
+.check-box {
+	-fx-label-padding: 0 0 0 15px;
+}
+
+.check-box .box, .text-field, .choice-box {
+	-fx-background-color: #0099cc;
+	-fx-background-radius: 5;
+	-fx-border-color: #0086b3;
+	-fx-border-width: 1.5px;
+	-fx-border-radius: 5;
+	-fx-border-insets: -1;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: black;
+}
+
+.choice-box {
+	-fx-mark-color: black;
+}

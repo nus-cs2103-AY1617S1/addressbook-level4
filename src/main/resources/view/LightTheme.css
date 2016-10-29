@@ -1,0 +1,212 @@
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
+}
+
+.text-area .content {
+    -fx-background-color: #f5f5f5 ;
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-border-color: white;
+    -fx-background-color: white;
+}
+
+.split-pane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-cell .label {
+    -fx-text-fill: #010504;
+}
+
+.cell_big_label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #010504;
+}
+
+.anchor-pane {
+     -fx-background-color: white;
+}
+
+.anchor-pane-with-border {
+     -fx-background-color: white;
+     -fx-border-color: white;
+     -fx-border-top-width: 1px;
+}
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.result-display {
+    -fx-background-color: #d6d6d6;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.status-bar .label {
+    -fx-text-fill: #1d1d1d;
+}
+
+.status-bar-with-border {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+.status-bar-with-border .label {
+    -fx-text-fill: black;
+}
+
+.grid-pane {
+    -fx-background-color: white;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1px;
+}
+
+.grid-pane .anchor-pane {
+    -fx-background-color: white;
+}
+
+.context-menu {
+    -fx-background-color: white;
+}
+
+.context-menu .label {
+    -fx-text-fill: black;
+}
+
+.menu-bar {
+    -fx-background-color: white;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: black;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: white;
+}
+
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: white;
+}
+
+.dialog-pane > *.label.content {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: white;
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: black;
+    -fx-text-fill: #1d1d1d;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
+}
+
+#commandTypeLabel {
+    -fx-font-size: 11px;
+    -fx-text-fill: #F70D1A;
+}
+
+#filterField, #personListPanel {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#afc2ff 0%, #8ea8ff 25%, #86a1f9 75%, #3d6aff 100%);
+    -fx-text-fill: white;
+}
+
+.list-cell:even {
+    -fx-background-color: #cff9f8;
+}
+.list-cell:odd {
+    -fx-background-color: #e5fcfb;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #cfe6f9;
+    -fx-text-fill: white;
+}
+
+#cardPane #date {
+	-fx-font-size: 11px;
+}
