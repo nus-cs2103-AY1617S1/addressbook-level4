@@ -396,13 +396,14 @@ public class Parser {
                     DoneCommand.MESSAGE_USAGE));
         }
 
-        char cat = args.charAt(1);
-        ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(args.trim().replaceAll(" ", "").split(","))); 
-              
-        if(args.contains("-")){          
+        ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(args.trim().replaceAll(" ", "").split(",")));
+        
+        if(args.contains("-")){        
+            char cat = args.charAt(1);
             String[] temp = args.replaceAll(" ", "").replaceAll(Character.toString(cat),"").split("-");
             int start;
             int end;
+            //check format of start and end
             try{ 
                 start = Integer.parseInt(temp[0]);
                 end = Integer.parseInt(temp[temp.length-1]);
@@ -410,12 +411,13 @@ public class Parser {
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
             }
+            //making format of String: T(start), T2, T3.....T(end)
             String newArgs = Character.toString(cat).concat(Integer.toString(start));
             for(int i = start+1; i<= end; i++){
                 newArgs = newArgs.concat(",".concat(Character.toString(cat)));        
                 newArgs = newArgs.concat(Integer.toString(i));
             }
-            indexes = new ArrayList<String>(Arrays.asList(newArgs.trim().replaceAll(" ", "").split(","))); 
+            indexes = new ArrayList<String> (Arrays.asList(newArgs.trim().replaceAll(" ", "").split(",")));
         }
 
         Iterator<String> itr = indexes.iterator();
@@ -440,8 +442,12 @@ public class Parser {
             }           
         }
 
-        return new DoneCommand(indexes);
-
+        
+        try {
+            return new DoneCommand(indexes);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**

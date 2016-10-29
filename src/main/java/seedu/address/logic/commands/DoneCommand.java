@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -12,6 +13,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
  * Mark a completed task as done and hides it from the main display window.
  */
 
+//@@author A0135722L Zhiyuan
 public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";
@@ -29,7 +31,7 @@ public class DoneCommand extends Command {
     
     public final ArrayList<String> targetIndexes;
     
-    public DoneCommand(ArrayList<String> targetIndexes) {
+    public DoneCommand(ArrayList<String> targetIndexes) throws IllegalValueException {
         this.targetIndexes = targetIndexes;
     }
     
@@ -47,7 +49,7 @@ public class DoneCommand extends Command {
         
         for(int i = 0; i < targetIndexes.size(); i++) {
             if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'E') {
-                if(lastShownEventList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                if(lastShownEventList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -63,7 +65,7 @@ public class DoneCommand extends Command {
                 }
             }
             else if (Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'D') {
-                if (lastShownDeadlineList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                if (lastShownDeadlineList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -79,7 +81,7 @@ public class DoneCommand extends Command {
                 }
             }
             else if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'T') {
-                if (lastShownTodoList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                if (lastShownTodoList.size() < Integer.valueOf(targetIndexes.get(i).substring(1))) {
                    indicateAttemptToExecuteIncorrectCommand();
                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
