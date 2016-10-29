@@ -17,12 +17,12 @@ public class EditCommandTest extends ToDoListGuiTest {
     public void edit() {
     	TestTask[] currentList = td.getTypicalTasks();
         
-    	//edit the time of the first task in the list  
+    	//edit the detail of the first task in the list to Eat buffet
     	int targetIndex = 1;
     	execute(targetIndex, currentList, "'Eat Buffet'",td.editedGrocery);
 
 
-        //edit the priority of the last task in the list
+        //edit the priority of the last task in the list to low
         targetIndex = currentList.length;
         execute(targetIndex, currentList, "/low",td.editedZika);
         
@@ -30,19 +30,19 @@ public class EditCommandTest extends ToDoListGuiTest {
         targetIndex = 1;
         execute(targetIndex, currentList, "floating",td.floatingGrocery);
         
-        //change tags of last task
+        //change tags of last task to dangerous
         targetIndex = currentList.length;
         execute(targetIndex, currentList, "-dangerous",td.taggedZika);
         
-        //remove priority of first task using 'rp' or 'remove priority'
+        //remove priority of first task 
         targetIndex = 1;
         execute(targetIndex, currentList, "remove priority",td.noPriorityGrocery);
         
-        //change time of task 2
+        //change time of task 2 to 1120
         targetIndex = 2;
         execute(targetIndex, currentList, "1120",td.editedHouse1);
         
-        //change date of task 2
+        //change date of task 2 to 10/20/2016
         execute(targetIndex, currentList, "10/20/2016",td.editedHouse2);
         
         //change task 3 to a range task
