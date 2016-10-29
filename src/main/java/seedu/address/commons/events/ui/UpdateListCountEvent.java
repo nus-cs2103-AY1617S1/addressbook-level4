@@ -1,6 +1,7 @@
-package seedu.address.model;
+package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.Model;
 
 public class UpdateListCountEvent extends BaseEvent {
 

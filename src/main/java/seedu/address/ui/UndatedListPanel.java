@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.UndatedPanelSelectionChangedEvent;
-import seedu.address.model.UpdateListCountEvent;
+import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
