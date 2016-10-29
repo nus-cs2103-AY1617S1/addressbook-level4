@@ -18,7 +18,7 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
-    List<TaskOcurrence> getTaskDateComponent();
+    List<TaskOccurrence> getTaskDateComponent();
     
     /**
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
@@ -70,9 +70,9 @@ public interface ReadOnlyTask {
 
     void completeTaskWhenAllComponentArchived();
     
-    TaskOcurrence getComponentForNonRecurringType();
+    TaskOccurrence getComponentForNonRecurringType();
     
-    void appendRecurringDate(TaskOcurrence componentToBeAppended);
+    void appendRecurringDate(TaskOccurrence componentToBeAppended);
 
-    TaskOcurrence getLastAppendedComponent();
+    TaskOccurrence getLastAppendedComponent();
 }

@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
     private TaskType taskType;
     private RecurringType recurringType;
     
-    private List<TaskOcurrence> recurringDates;
+    private List<TaskOccurrence> recurringDates;
     /**
      * Every field must be present and not null.
      */
@@ -36,8 +36,8 @@ public class Task implements ReadOnlyTask {
         this.tags = tags;
         this.taskType = TaskType.FLOATING;
         this.recurringType = RecurringType.NONE;
-        this.recurringDates = new ArrayList<TaskOcurrence>();
-        this.recurringDates.add(new TaskOcurrence(this ,new TaskDate(), new TaskDate()));
+        this.recurringDates = new ArrayList<TaskOccurrence>();
+        this.recurringDates.add(new TaskOccurrence(this ,new TaskDate(), new TaskDate()));
     }
 
     /**
@@ -81,7 +81,7 @@ public class Task implements ReadOnlyTask {
 
     //@@author A0135782Y
     @Override
-    public List<TaskOcurrence> getTaskDateComponent() {
+    public List<TaskOccurrence> getTaskDateComponent() {
         return recurringDates;
     }
     
@@ -106,7 +106,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     //@@author A0147967J
-    public void setRecurringDates(List<TaskOcurrence> newComponentList){
+    public void setRecurringDates(List<TaskOccurrence> newComponentList){
     	this.recurringDates = newComponentList;
     }
     //@@author
@@ -138,7 +138,7 @@ public class Task implements ReadOnlyTask {
     //@@author A0135782Y
     @Override
     public void completeTaskWhenAllComponentArchived() {
-        for (TaskOcurrence c : recurringDates) {
+        for (TaskOccurrence c : recurringDates) {
             if (c.isArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 return;
             }
@@ -174,18 +174,18 @@ public class Task implements ReadOnlyTask {
 	
 	//@@author A0135782Y
 	@Override
-	public TaskOcurrence getComponentForNonRecurringType() {
+	public TaskOccurrence getComponentForNonRecurringType() {
 	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
 	    return recurringDates.get(0);
 	}
 	
 	@Override
-	public TaskOcurrence getLastAppendedComponent() {
+	public TaskOccurrence getLastAppendedComponent() {
 	    return recurringDates.get(recurringDates.size()-1);
 	}
 
 	@Override
-	public void appendRecurringDate(TaskOcurrence componentToBeAdded) {
+	public void appendRecurringDate(TaskOccurrence componentToBeAdded) {
 	    assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
 	    recurringDates.add(componentToBeAdded);
 	    recurringDates.get(recurringDates.size()-1).setTaskReferrence(this);

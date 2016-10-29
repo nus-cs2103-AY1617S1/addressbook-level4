@@ -11,11 +11,12 @@ import java.util.logging.Logger;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.util.RecurringTaskUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskOcurrence;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.UniqueTaskList;
 
 //@@author A0135782Y
@@ -25,11 +26,6 @@ import seedu.address.model.task.UniqueTaskList;
  * RecurringTaskManager.getInstance() to get the instance of the class
  */
 public class RecurringTaskManager {
-    private static final int APPEND_INCREMENT = 1;
-    private static final double NUM_MONTHS_IN_YEAR = 12.0;
-    private static final double NUM_WEEKS_IN_MONTH = 4.0;
-    private static final double NUM_DAYS_IN_WEEK = 7.0;
-    private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     private static RecurringTaskManager instance;
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -56,9 +52,7 @@ public class RecurringTaskManager {
      * Corrects the recurring task that are overdued to reflect the present and
      * future recurring dates
      * 
-     * @param task
-     *            Added task that might have dates that are overdued at the
-     *            start
+     * @param task Added task that might have dates that are overdued at the start
      */
     public void correctAddingOverdueTasks(Task task) {
         assert task != null : "task that needs correcting cannot be null!";
@@ -69,10 +63,8 @@ public class RecurringTaskManager {
      * Helps to correct date till a certain date. Helps with testing of the
      * correcting of date.
      * 
-     * @param task
-     *            Task to be correct, cannot be null
-     * @param currentDate
-     *            LocalDate that we are correcting towards, cannot be null
+     * @param task Task to be correct, cannot be null
+     * @param currentDate LocalDate that we are correcting towards, cannot be null
      */
     public void correctAddingOverdueTasks(Task task, LocalDate currentDate) {
         assert !CollectionUtil.isAnyNull(task, currentDate);
@@ -109,31 +101,16 @@ public class RecurringTaskManager {
     /**
      * Corrects recurring tasks that are overdued to the next possible recurring
      * slot. Does not correct the tasks if it is not overdued.
-     * 
-     * @param task
-     *            Task that we are interested in correcting
-     * @param localDateCurrently
-     *            Local date should not be null and should be the date that we
-     *            are interested in.
-     * @param startDateInLocalDate
-     *            Converted form of start date.
-     * @param endDateInLocalDate
-     *            Converted form of end date.
      */
     private void attemptCorrectYearlyRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedYear;
-        if (startDateInLocalDate != null) {
-            elapsedYear = (int) Math
-                    .ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
-        } else {
-            elapsedYear = (int) Math
-                    .ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
-        }
+        final int elapsedYear = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate,
+                endDateInLocalDate, RecurringType.YEARLY);
         if (elapsedYear > 0) {
             correctYearlyRecurringTask(task, elapsedYear);
         } else {
-            final int elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
+            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                    endDateInLocalDate, RecurringType.DAILY);
             if (elapsedDay > 0) {
                 correctYearlyRecurringTask(task, 1);
             }
@@ -143,31 +120,16 @@ public class RecurringTaskManager {
     /**
      * Corrects recurring tasks that are overdued to the next possible recurring
      * slot. Does not correct the tasks if it is not overdued.
-     * 
-     * @param task
-     *            Task that we are interested in correcting
-     * @param localDateCurrently
-     *            Local date should not be null and should be the date that we
-     *            are interested in.
-     * @param startDateInLocalDate
-     *            Converted form of start date.
-     * @param endDateInLocalDate
-     *            Converted form of end date.
      */
     private void attemptCorrectMonthlyRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedMonth;
-        if (startDateInLocalDate != null) {
-            elapsedMonth = (int) Math
-                    .ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
-        } else {
-            elapsedMonth = (int) Math
-                    .ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
-        }
+        final int elapsedMonth = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                endDateInLocalDate, RecurringType.MONTHLY);
         if (elapsedMonth > 0) {
             correctMonthlyRecurringTask(task, elapsedMonth);
         } else {
-            final int elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
+            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                    endDateInLocalDate, RecurringType.DAILY);
             if (elapsedDay > 0) {
                 correctMonthlyRecurringTask(task, 1);
             }
@@ -177,29 +139,16 @@ public class RecurringTaskManager {
     /**
      * Corrects recurring tasks that are overdued to the next possible recurring
      * slot. Does not correct the tasks if it is not overdued.
-     * 
-     * @param task
-     *            Task that we are interested in correcting
-     * @param localDateCurrently
-     *            Local date should not be null and should be the date that we
-     *            are interested in.
-     * @param startDateInLocalDate
-     *            Converted form of start date.
-     * @param endDateInLocalDate
-     *            Converted form of end date.
      */
     private void attemptCorrectWeeklyRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedWeek;
-        if (startDateInLocalDate != null) {
-            elapsedWeek = (int) (ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK);
-        } else {
-            elapsedWeek = (int) (ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK);
-        }
+        final int elapsedWeek = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                endDateInLocalDate, RecurringType.WEEKLY);
         if (elapsedWeek > 0) {
             correctWeeklyRecurringTask(task, elapsedWeek);
         } else {
-            final int elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
+            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                    endDateInLocalDate, RecurringType.DAILY);
             if (elapsedDay > 0) {
                 correctWeeklyRecurringTask(task, 1);
             }
@@ -209,25 +158,11 @@ public class RecurringTaskManager {
     /**
      * Corrects recurring tasks that are overdued to the next possible recurring
      * slot. Does not correct the tasks if it is not overdued.
-     * 
-     * @param task
-     *            Task that we are interested in correcting
-     * @param localDateCurrently
-     *            Local date should not be null and should be the date that we
-     *            are interested in.
-     * @param startDateInLocalDate
-     *            Converted form of start date.
-     * @param endDateInLocalDate
-     *            Converted form of end date.
      */
     private void attemptCorrectDailyRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedDay;
-        if (startDateInLocalDate != null) {
-            elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
-        } else {
-            elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
-        }
+        final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
+                endDateInLocalDate, RecurringType.DAILY);
         if (elapsedDay > 0) {
             correctDailyRecurringTask(task, elapsedDay);
         }
@@ -235,141 +170,41 @@ public class RecurringTaskManager {
 
     /**
      * Corrects the overdued yearly tasks.
-     * 
-     * @param task
-     *            Task that we are correcting.
-     * @param elapsedYear
-     *            How many years to correct to.
      */
     private void correctYearlyRecurringTask(ReadOnlyTask task, int elapsedYear) {
-        Calendar calendar = Calendar.getInstance();
-        TaskDate correctedStartDate = new TaskDate();
-        TaskDate correctedEndDate = new TaskDate();
-        TaskDate startDate = task.getComponentForNonRecurringType().getStartDate();
-        TaskDate endDate = task.getComponentForNonRecurringType().getEndDate();
-
-        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
-            calendar.setTime(startDate.getDate());
-            calendar.add(Calendar.YEAR, elapsedYear);
-            correctedStartDate.setDateInLong(calendar.getTime().getTime());
-        } else {
-            correctedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getDate());
-        calendar.add(Calendar.YEAR, elapsedYear);
-        correctedEndDate.setDateInLong(calendar.getTime().getTime());
-
-        task.getComponentForNonRecurringType().setStartDate(correctedStartDate);
-        task.getComponentForNonRecurringType().setEndDate(correctedEndDate);
+        RecurringTaskUtil.correctRecurringTask(task, elapsedYear, RecurringType.YEARLY);
     }
 
     /**
      * Corrects the overdued monthly tasks.
-     * 
-     * @param task
-     *            Task that we are correcting.
-     * @param elapsedMonth
-     *            How many months to correct to.
      */
     private void correctMonthlyRecurringTask(ReadOnlyTask task, int elapsedMonth) {
-        Calendar calendar = Calendar.getInstance();
-        TaskDate correctedStartDate = new TaskDate();
-        TaskDate correctedEndDate = new TaskDate();
-        TaskDate startDate = task.getComponentForNonRecurringType().getStartDate();
-        TaskDate endDate = task.getComponentForNonRecurringType().getEndDate();
-
-        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
-            calendar.setTime(startDate.getDate());
-            calendar.add(Calendar.MONTH, elapsedMonth);
-            correctedStartDate.setDateInLong(calendar.getTime().getTime());
-        } else {
-            correctedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getDate());
-        calendar.add(Calendar.MONTH, elapsedMonth);
-        correctedEndDate.setDateInLong(calendar.getTime().getTime());
-
-        task.getComponentForNonRecurringType().setStartDate(correctedStartDate);
-        task.getComponentForNonRecurringType().setEndDate(correctedEndDate);
+        RecurringTaskUtil.correctRecurringTask(task, elapsedMonth, RecurringType.MONTHLY);
     }
 
     /**
      * Corrects the overdued weekly tasks.
-     * 
-     * @param task
-     *            Task that we are correcting.
-     * @param elapsedWeek
-     *            How many weeks to correct to.
      */
     private void correctWeeklyRecurringTask(ReadOnlyTask task, int elapsedWeek) {
-        Calendar calendar = Calendar.getInstance();
-        TaskDate correctedStartDate = new TaskDate();
-        TaskDate correctedEndDate = new TaskDate();
-        TaskDate startDate = task.getComponentForNonRecurringType().getStartDate();
-        TaskDate endDate = task.getComponentForNonRecurringType().getEndDate();
-
-        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
-            calendar.setTime(startDate.getDate());
-            calendar.add(Calendar.DAY_OF_MONTH, elapsedWeek * NUMBER_OF_DAYS_IN_A_WEEK);
-            correctedStartDate.setDateInLong(calendar.getTime().getTime());
-        } else {
-            correctedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getDate());
-        calendar.add(Calendar.DAY_OF_MONTH, elapsedWeek * NUMBER_OF_DAYS_IN_A_WEEK);
-        correctedEndDate.setDateInLong(calendar.getTime().getTime());
-
-        task.getComponentForNonRecurringType().setStartDate(correctedStartDate);
-        task.getComponentForNonRecurringType().setEndDate(correctedEndDate);
+        RecurringTaskUtil.correctRecurringTask(task, elapsedWeek, RecurringType.WEEKLY);
     }
 
     /**
-     * Corrects the overdued daily tasks.
-     * 
-     * @param task
-     *            Task that we are correcting.
-     * @param elapsedDays
-     *            How many days to correct to.
+     * Corrects the overdued daily tasks..
      */
     private void correctDailyRecurringTask(Task task, int elapsedDay) {
-        Calendar calendar = Calendar.getInstance();
-        TaskDate correctedStartDate = new TaskDate();
-        TaskDate correctedEndDate = new TaskDate();
-        TaskDate startDate = task.getComponentForNonRecurringType().getStartDate();
-        TaskDate endDate = task.getComponentForNonRecurringType().getEndDate();
-
-        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
-            calendar.setTime(startDate.getDate());
-            calendar.add(Calendar.DAY_OF_MONTH, elapsedDay);
-            correctedStartDate.setDateInLong(calendar.getTime().getTime());
-        } else {
-            correctedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getDate());
-        calendar.add(Calendar.DAY_OF_MONTH, elapsedDay);
-        correctedEndDate.setDateInLong(calendar.getTime().getTime());
-
-        task.getComponentForNonRecurringType().setStartDate(correctedStartDate);
-        task.getComponentForNonRecurringType().setEndDate(correctedEndDate);
+        RecurringTaskUtil.correctRecurringTask(task, elapsedDay, RecurringType.DAILY);
     }
 
     /**
-     * @param Updates
-     *            recurring tasks to append a new date when their recurring
-     *            period has elapsed
-     * @return True if the recurring task has been updated False if the
-     *         recurring tasks has not been updated;
+     * Looks at the latest task occurrence and appends task occurrences based on it.
      */
     private void updateRecurringTask(ReadOnlyTask task) {
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
 
-        List<TaskOcurrence> dateComponents = task.getTaskDateComponent();
-        TaskOcurrence lastAddedComponent = dateComponents.get(dateComponents.size() - 1);
+        List<TaskOccurrence> dateComponents = task.getTaskDateComponent();
+        TaskOccurrence lastAddedComponent = dateComponents.get(dateComponents.size() - 1);
         startDate.setTime(lastAddedComponent.getStartDate().getDate());
         endDate.setTime(lastAddedComponent.getEndDate().getDate());
 
@@ -383,15 +218,6 @@ public class RecurringTaskManager {
      * Appends new task when the it is time to add the recurring task. Recurring
      * tasks that pass their recurring dates will be appended to show the next
      * task date. The LocalDate is assumed to be the current system date
-     * 
-     * @param task
-     *            Task that we are interested in
-     * @param startDate
-     *            Start date of the task in Calendar form to account for time
-     *            zone.
-     * @param endDate
-     *            Start date of the task in Calendar form to account for time
-     *            zone.
      */
     private void appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate) {
         appendRecurringTasks(task, startDate, endDate, LocalDate.now());
@@ -401,18 +227,6 @@ public class RecurringTaskManager {
      * Appends new task when the it is time to add the recurring task. Recurring
      * tasks that pass their recurring dates will be appended to show the next
      * task date.
-     * 
-     * @param task
-     *            Task that we are interested in
-     * @param startDate
-     *            Start date of the task in Calendar form to account for time
-     *            zone.
-     * @param endDate
-     *            Start date of the task in Calendar form to account for time
-     *            zone.
-     * @param currentDate
-     *            Current date to measure the amount of tasks that have not been
-     *            done.
      */
     public void appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate, LocalDate currentDate) {
         assert !CollectionUtil.isAnyNull(task, endDate, currentDate);
@@ -447,30 +261,10 @@ public class RecurringTaskManager {
 
     /**
      * Appends yearly recurring tasks if the task has crossed over to a new year
-     * 
-     * @param task
-     *            Task that we are interest in
-     * @param startDate
-     *            Start date of the task
-     * @param endDate
-     *            End date of the ask
-     * @param localDateCurrently
-     *            Current date that we are at now
-     * @param startDateInLocalDate
-     *            Converted start date as a LocalDate
-     * @param endDateInLocalDate
-     *            Converted end date as a LocalDate
      */
     private void attemptAppendYearlyRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate,
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedYear;
-        if (startDateInLocalDate != null) {
-            elapsedYear = (int) Math
-                    .ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
-        } else {
-            elapsedYear = (int) Math
-                    .ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
-        }
+        final int elapsedYear = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.YEARLY);
         for (int i = 0; i < elapsedYear; i++) {
             appendYearlyRecurringTask(task, startDate, endDate, elapsedYear);
         }
@@ -479,30 +273,10 @@ public class RecurringTaskManager {
     /**
      * Appends monthly recurring tasks if the task has crossed over to a new
      * month
-     * 
-     * @param task
-     *            Task that we are interest in
-     * @param startDate
-     *            Start date of the task
-     * @param endDate
-     *            End date of the ask
-     * @param localDateCurrently
-     *            Current date that we are at now
-     * @param startDateInLocalDate
-     *            Converted start date as a LocalDate
-     * @param endDateInLocalDate
-     *            Converted end date as a LocalDate
      */
     private void attemptAppendMonthlyRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate,
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedMonth;
-        if (startDateInLocalDate != null) {
-            elapsedMonth = (int) Math
-                    .ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
-        } else {
-            elapsedMonth = (int) Math
-                    .ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
-        }
+        final int elapsedMonth = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.MONTHLY);
         for (int i = 0; i < elapsedMonth; i++) {
             appendMonthlyRecurringTask(task, startDate, endDate, elapsedMonth);
         }
@@ -510,30 +284,10 @@ public class RecurringTaskManager {
 
     /**
      * Appends weekly recurring tasks if the task has crossed over to a new week
-     * 
-     * @param task
-     *            Task that we are interest in
-     * @param startDate
-     *            Start date of the task
-     * @param endDate
-     *            End date of the ask
-     * @param localDateCurrently
-     *            Current date that we are at now
-     * @param startDateInLocalDate
-     *            Converted start date as a LocalDate
-     * @param endDateInLocalDate
-     *            Converted end date as a LocalDate
      */
     private void attempAppendWeeklyRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate,
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedWeek;
-        if (startDateInLocalDate != null) {
-            elapsedWeek = (int) Math
-                    .ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
-        } else {
-            elapsedWeek = (int) Math
-                    .ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
-        }
+        final int elapsedWeek = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.WEEKLY);
         for (int i = 0; i < elapsedWeek; i++) {
             appendWeeklyRecurringTask(task, startDate, endDate, elapsedWeek);
         }
@@ -541,28 +295,10 @@ public class RecurringTaskManager {
 
     /**
      * Appends daily recurring tasks if the task has crossed over to a new day
-     * 
-     * @param task
-     *            Task that we are interest in
-     * @param startDate
-     *            Start date of the task
-     * @param endDate
-     *            End date of the ask
-     * @param localDateCurrently
-     *            Current date that we are at now
-     * @param startDateInLocalDate
-     *            Converted start date as a LocalDate
-     * @param endDateInLocalDate
-     *            Converted end date as a LocalDate
      */
     private void attemptAppendDailyRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate,
             LocalDate localDateCurrently, LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedDay;
-        if (startDateInLocalDate != null) {
-            elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
-        } else {
-            elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
-        }
+        final int elapsedDay = RecurringTaskUtil.getNumElapsedTaskToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.DAILY);
         for (int i = 0; i < elapsedDay; i++) {
             appendDailyRecurringTask(task, startDate, endDate, elapsedDay);
         }
@@ -570,151 +306,30 @@ public class RecurringTaskManager {
 
     /**
      * Updates Yearly recurring tasks to the their latest date slot.
-     * 
-     * @param task
-     *            Recurring task to be considered.
-     * @param startDate
-     *            The start date of this task if any. Null values represents
-     *            that start date is not present.
-     * @param endDate
-     *            The end date of the is task.
-     * @param elapsedYear
-     *            The years that have elapsed.
      */
     private void appendYearlyRecurringTask(ReadOnlyTask task, Calendar startDate, Calendar endDate, int elapsedYear) {
-        // Append a new date to the current task
-        Calendar calendar = Calendar.getInstance();
-        TaskDate editedStartDate = new TaskDate();
-        TaskDate editedEndDate = new TaskDate();
-        if (startDate != null) {
-            calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.YEAR, APPEND_INCREMENT);
-            editedStartDate.setDateInLong(calendar.getTime().getTime());
-            startDate.setTime(editedStartDate.getDate());
-        } else {
-            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.YEAR, APPEND_INCREMENT);
-        editedEndDate.setDateInLong(calendar.getTime().getTime());
-        endDate.setTime(editedEndDate.getDate());
-
-        TaskOcurrence newAppendedDate = new TaskOcurrence((Task) task, editedStartDate, editedEndDate);
-        task.appendRecurringDate(newAppendedDate);
-        repeatingTasks.appendTaskComponent(newAppendedDate);
+        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, RecurringType.YEARLY);
     }
 
     /**
      * Updates Monthly recurring tasks to the their latest date slot.
-     * 
-     * @param task
-     *            Recurring task to be considered.
-     * @param startDate
-     *            The start date of this task if any. Null values represents
-     *            that start date is not present.
-     * @param endDate
-     *            The end date of the is task.
-     * @param elapsedYear
-     *            The months that have elapsed.
      */
     private void appendMonthlyRecurringTask(ReadOnlyTask task, Calendar startDate, Calendar endDate, int elapsedMonth) {
-        // Append a new date to the current task
-        // Append a new date to the current task
-        Calendar calendar = Calendar.getInstance();
-        TaskDate editedStartDate = new TaskDate();
-        TaskDate editedEndDate = new TaskDate();
-        if (startDate != null) {
-            calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.MONTH, APPEND_INCREMENT);
-            editedStartDate.setDateInLong(calendar.getTime().getTime());
-            startDate.setTime(editedStartDate.getDate());
-        } else {
-            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.MONTH, APPEND_INCREMENT);
-        editedEndDate.setDateInLong(calendar.getTime().getTime());
-        endDate.setTime(editedEndDate.getDate());
-
-        TaskOcurrence newAppendedDate = new TaskOcurrence((Task) task, editedStartDate, editedEndDate);
-        task.appendRecurringDate(newAppendedDate);
-        repeatingTasks.appendTaskComponent(newAppendedDate);
+        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, RecurringType.MONTHLY);
     }
 
     /**
      * Updates Weekly recurring tasks to the their latest date slot.
-     * 
-     * @param task
-     *            Recurring task to be considered.
-     * @param startDate
-     *            The start date of this task if any. Null values represents
-     *            that start date is not present.
-     * @param endDate
-     *            The end date of the is task.
-     * @param elapsedYear
-     *            The weeks that have elapsed.
      */
     private void appendWeeklyRecurringTask(ReadOnlyTask task, Calendar startDate, Calendar endDate, int elapsedWeek) {
-        // Append a new date to the current task
-        Calendar calendar = Calendar.getInstance();
-        TaskDate editedStartDate = new TaskDate();
-        TaskDate editedEndDate = new TaskDate();
-        if (startDate != null) {
-            calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, NUMBER_OF_DAYS_IN_A_WEEK);
-            editedStartDate.setDateInLong(calendar.getTime().getTime());
-            startDate.setTime(editedStartDate.getDate());
-        } else {
-            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.DAY_OF_MONTH, NUMBER_OF_DAYS_IN_A_WEEK);
-        editedEndDate.setDateInLong(calendar.getTime().getTime());
-        endDate.setTime(editedEndDate.getDate());
-
-        TaskOcurrence newAppendedDate = new TaskOcurrence((Task) task, editedStartDate, editedEndDate);
-        task.appendRecurringDate(newAppendedDate);
-        repeatingTasks.appendTaskComponent(newAppendedDate);
+        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, RecurringType.WEEKLY);
     }
 
     /**
      * Updates Daily recurring tasks to the their latest date slot.
-     * 
-     * @param task
-     *            Recurring task to be considered.
-     * @param startDate
-     *            The start date of this task if any. Null values represents
-     *            that start date is not present.
-     * @param endDate
-     *            The end date of the is task.
-     * @param elapsedYear
-     *            The days that have elapsed.
      */
     private void appendDailyRecurringTask(ReadOnlyTask task, Calendar startDate, Calendar endDate, int elapsedDay) {
-        // Append a new date to the current task
-        Calendar calendar = Calendar.getInstance();
-        TaskDate editedStartDate = new TaskDate();
-        TaskDate editedEndDate = new TaskDate();
-        if (startDate != null) {
-            calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, APPEND_INCREMENT);
-            editedStartDate.setDateInLong(calendar.getTime().getTime());
-            startDate.setTime(editedStartDate.getDate());
-        } else {
-            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
-        }
-
-        calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.DAY_OF_MONTH, APPEND_INCREMENT);
-        editedEndDate.setDateInLong(calendar.getTime().getTime());
-        endDate.setTime(editedEndDate.getDate());
-
-        TaskOcurrence newAppendedDate = new TaskOcurrence((Task) task, editedStartDate, editedEndDate);
-        task.appendRecurringDate(newAppendedDate);
-        repeatingTasks.appendTaskComponent(newAppendedDate);
+        RecurringTaskUtil.appendRecurringTask(task, startDate, endDate, repeatingTasks, RecurringType.DAILY);
     }
 
     public static RecurringTaskManager getInstance() {

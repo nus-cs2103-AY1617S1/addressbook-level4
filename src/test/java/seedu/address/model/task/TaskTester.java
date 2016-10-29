@@ -67,7 +67,7 @@ public class TaskTester {
        task = new Task(new Name("Name"), new UniqueTagList(), 
                new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.NONE);
        try {
-           task.appendRecurringDate(new TaskOcurrence(task,new TaskDate(), new TaskDate()));
+           task.appendRecurringDate(new TaskOccurrence(task,new TaskDate(), new TaskDate()));
        } catch(AssertionError ae) {
            assertTrue(true);
        }
@@ -77,9 +77,9 @@ public class TaskTester {
    public void getLastAppendedComponent_success() throws Exception {
        task = new Task(new Name("Name"), new UniqueTagList(), 
                new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.DAILY);
-       TaskOcurrence toAppend = new TaskOcurrence(task, new TaskDate("12oct 11pm"), new TaskDate("12 oct 11.01pm"));
+       TaskOccurrence toAppend = new TaskOccurrence(task, new TaskDate("12oct 11pm"), new TaskDate("12 oct 11.01pm"));
        task.appendRecurringDate(toAppend);
-       TaskOcurrence component = task.getLastAppendedComponent();
+       TaskOccurrence component = task.getLastAppendedComponent();
        assertEquals("Task component just appended must be the last appended component", toAppend, component);
    }
 }

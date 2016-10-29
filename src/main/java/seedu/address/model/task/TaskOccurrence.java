@@ -8,20 +8,20 @@ import seedu.address.commons.util.CollectionUtil;
 * The abstraction is the Task and the occurrence is the TaskDateComponent.
 *
 */
-public class TaskOcurrence {
+public class TaskOccurrence {
 
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;
     
-    public TaskOcurrence(Task taskReference, TaskDate startDate, TaskDate endDate) {
+    public TaskOccurrence(Task taskReference, TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
         this.startDate = new TaskDate(startDate);
         this.endDate = new TaskDate(endDate);
         this.taskReference = taskReference;
     }
     
-    public TaskOcurrence(TaskOcurrence taskDateComponent) {
+    public TaskOccurrence(TaskOccurrence taskDateComponent) {
         assert taskDateComponent != null : "Cannot pass in null values";
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
@@ -97,7 +97,7 @@ public class TaskOcurrence {
         return isArchived;
     }
     
-    private boolean isSameStateAs(TaskOcurrence other) {
+    private boolean isSameStateAs(TaskOccurrence other) {
         return other == this // short circuit if same object
             || (other != null // this is first to avoid NPE below
             && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
@@ -110,8 +110,8 @@ public class TaskOcurrence {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskOcurrence // instanceof handles nulls
-                && this.isSameStateAs((TaskOcurrence) other));        
+                || (other instanceof TaskOccurrence // instanceof handles nulls
+                && this.isSameStateAs((TaskOccurrence) other));        
     }
     
 }

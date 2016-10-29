@@ -7,7 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
-import seedu.address.model.task.TaskOcurrence;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.storage.Storage;
 
 import java.util.logging.Logger;
@@ -39,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<TaskOcurrence> getFilteredTaskList() {
+    public ObservableList<TaskOccurrence> getFilteredTaskList() {
         return model.getFilteredTaskComponentList();
     }   
     

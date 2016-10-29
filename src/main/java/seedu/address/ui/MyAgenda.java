@@ -12,7 +12,7 @@ import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskOcurrence;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 //@@author A0147967J
@@ -69,10 +69,10 @@ public class MyAgenda extends Agenda{
 	}
 	
 	/** Loads the task component to be displayed on the agenda. */
-	public void addAllToAgenda(List<TaskOcurrence> taskList){
+	public void addAllToAgenda(List<TaskOccurrence> taskList){
     	appointments().clear();
     	taskSet.clear();
-    	for(TaskOcurrence t:taskList) taskSet.add(t.getTaskReference());
+    	for(TaskOccurrence t:taskList) taskSet.add(t.getTaskReference());
     	for(ReadOnlyTask task: taskSet) addAllOccurrencesInWeek(task);
     	
     }
@@ -90,8 +90,8 @@ public class MyAgenda extends Agenda{
 		if(task.getTaskDateComponent().get(0).hasOnlyEndDate()) return;
 		
 		int i = 0; 
-		List<TaskOcurrence> list = task.getTaskDateComponent();
-		for(TaskOcurrence taskComponent: list){
+		List<TaskOccurrence> list = task.getTaskDateComponent();
+		for(TaskOccurrence taskComponent: list){
 			if(!isOutsideAgenda(taskComponent)){
 				AppointmentImplLocal appointment = getAppointment(taskComponent);
 				appointments().add(appointment);
@@ -105,7 +105,7 @@ public class MyAgenda extends Agenda{
 	}
 	
 	/** Adds copies of future appointments to the future agenda based on recurring type.*/
-	private void addCopiesToAgenda(TaskOcurrence taskComponent, AppointmentImplLocal appointment){
+	private void addCopiesToAgenda(TaskOccurrence taskComponent, AppointmentImplLocal appointment){
 		switch(taskComponent.getTaskReference().getRecurringType()){
 			case YEARLY:
 				addYearlyOccurrences(appointment);
@@ -125,7 +125,7 @@ public class MyAgenda extends Agenda{
 	}
 	
 	/** Returns an AppointmentImplLocal object from a task component */
-	private AppointmentImplLocal getAppointment(TaskOcurrence taskComponent){
+	private AppointmentImplLocal getAppointment(TaskOccurrence taskComponent){
 		
 		AppointmentImplLocal appointment = new AppointmentImplLocal();
 		appointment.setSummary(taskComponent.getTaskReference().getName().fullName);
@@ -246,7 +246,7 @@ public class MyAgenda extends Agenda{
 	}
 	
 	/** Returns true if it is a future task that is not needed to add to agenda. */
-	private boolean isOutsideAgenda(TaskOcurrence taskComponent){
+	private boolean isOutsideAgenda(TaskOccurrence taskComponent){
 		return getConvertedTime(taskComponent.getStartDate()).truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)
 				|| getConvertedTime(taskComponent.getEndDate()).truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime);
 	}

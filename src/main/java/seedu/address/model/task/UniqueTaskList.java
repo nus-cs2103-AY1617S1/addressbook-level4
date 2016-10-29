@@ -24,7 +24,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	
 
     private final List<Task> internalList = new ArrayList<Task>();
-    private final ObservableList<TaskOcurrence> internalComponentList = FXCollections.observableArrayList();
+    private final ObservableList<TaskOccurrence> internalComponentList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -152,11 +152,11 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
 
-    public ObservableList<TaskOcurrence> getInternalComponentList() {
+    public ObservableList<TaskOccurrence> getInternalComponentList() {
         return internalComponentList;
     }
 
-    public void appendTaskComponent(TaskOcurrence component) {
+    public void appendTaskComponent(TaskOccurrence component) {
         internalComponentList.add(component);
     }
     
@@ -180,11 +180,11 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0147967J
     /** Returns true if the specified task component is successfully archived.*/
-	public boolean archive(TaskOcurrence target) {
+	public boolean archive(TaskOccurrence target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
         System.out.println(internalComponentList.contains(target));
-        for(TaskOcurrence t : internalComponentList){
+        for(TaskOccurrence t : internalComponentList){
         	if(t.equals(target)){
         		t.archive();
         		taskFoundAndArchived = true;

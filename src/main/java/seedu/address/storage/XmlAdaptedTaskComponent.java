@@ -11,7 +11,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskOcurrence;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 
@@ -46,7 +46,7 @@ public class XmlAdaptedTaskComponent {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedTaskComponent(TaskOcurrence source) {
+    public XmlAdaptedTaskComponent(TaskOccurrence source) {
         name = source.getTaskReference().getName().fullName;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTaskReference().getTags()) {
@@ -97,7 +97,7 @@ public class XmlAdaptedTaskComponent {
     	
     	if(isArchived){
     		task.setTaskType(TaskType.COMPLETED);
-        	for(TaskOcurrence t: task.getTaskDateComponent()){
+        	for(TaskOccurrence t: task.getTaskDateComponent()){
         		t.archive();
         	}
         }
@@ -116,7 +116,7 @@ public class XmlAdaptedTaskComponent {
         Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
         if(isArchived){
         	task.setTaskType(TaskType.COMPLETED);
-        	for(TaskOcurrence t: task.getTaskDateComponent()){
+        	for(TaskOccurrence t: task.getTaskDateComponent()){
         		t.archive();
         	}
         }
