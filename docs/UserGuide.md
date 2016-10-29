@@ -94,8 +94,10 @@ Format: `edit INDEX [FIELDS]`
 >Example:
 * `list all`<br>
 *  `edit 2 d/Pilot 2B`<br><br>
-Edits the 2nd floating task in sTask. Example Buy Pencil. <br>
-A message will be displayed to inform the user that the task is edited.
+Edits the description of the 2nd floating task in sTask.<br>
+Example Buy Pencil.<br>
+A message will be displayed to inform the user that the task is edited.<br>
+Example Edited Task: Buy Pencil Description: Pilot 2B<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding tasks containing any keyword in their name, description, date and tags: `find` </b><br>
 >Finds all floating tasks, deadlines and events which names, descriptions, dates and tags contain any of the given keywords.<br>
