@@ -7,6 +7,8 @@ import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.task.Task;
+import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -25,13 +27,13 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_TASK_ALR_DONE = "Task is already marked as done.";
 
-    public final int targetIndex;
+    public int targetIndex;
 
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
     
-    public static DoneCommand createFromArgs(String args) throws IllegalValueException {
+    public static DoneCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -41,6 +43,7 @@ public class DoneCommand extends Command {
         if (index == null) {
             throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
+        
         return new DoneCommand(index);
     }
 
@@ -56,18 +59,26 @@ public class DoneCommand extends Command {
         }
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
-
+        Task doneTask = null;
+        doneTask = taskToDone.markDone(taskToDone);
+        
         if(taskToDone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
         } else {
             try {
-                model.doneTask(targetIndex - 1);
+                model.replaceTask(taskToDone, doneTask);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
+            } catch (UniqueTaskList.DuplicateTaskException e) {
+                assert false : "The task should not have the same completed status as before";
             }
 
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
         }
     }
-
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 }

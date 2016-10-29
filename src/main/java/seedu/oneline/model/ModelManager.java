@@ -119,23 +119,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
-  //@@author
     
     //@@author A0121657H
+    /** Updates the given task, for use to mark task as undone */
     @Override
-    public synchronized void doneTask(int index) throws TaskNotFoundException {
-        Task done = filteredTasks.get(index);
-        assert done != null;
-        done.setCompleted(true);
-        updateFilteredListToShowAllNotDone();
-        indicateTaskBookChanged();
-    }
-    
-    @Override
-    public synchronized void undoneTask(int index) throws TaskNotFoundException {
-        Task undone = filteredTasks.get(index);
-        assert undone != null;
-        undone.setCompleted(false);
+    public synchronized void replaceUndoneTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
+        taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
@@ -235,8 +224,13 @@ public class ModelManager extends ComponentManager implements Model {
         return task -> task.isCompleted();
     }
     
-    //@@author 
-
+    //@@author A0138848M
+    @Override
+    public void updateFilteredTaskListToShowTag(String tag) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tag)));
+    }
+    //@@author
+    
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -262,8 +256,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean satisfies(ReadOnlyTask person) {
-            return qualifier.run(person);
+        public boolean satisfies(ReadOnlyTask task) {
+            return qualifier.run(task);
         }
 
         @Override
@@ -273,7 +267,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyTask person);
+        boolean run(ReadOnlyTask task);
         String toString();
     }
 
@@ -285,9 +279,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().toString(), keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().toString(), keyword))
                     .findAny()
                     .isPresent();
         }
@@ -297,7 +291,25 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-  //@@author
+  //@@author A0138848M
+    private class TagQualifier implements Qualifier {
+        private String tagName;
+
+        TagQualifier(String tagName) {
+            this.tagName = tagName;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.getTag().getTagName().equals(tagName);
+        }
+
+        @Override
+        public String toString() {
+            return "tagName=" + tagName;
+        }
+    }
+    
   //@@author A0140156R
   //========== Inner functions and classes used for undo/redo ==================================================
     
