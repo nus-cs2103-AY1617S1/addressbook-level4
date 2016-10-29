@@ -15,7 +15,8 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
  * 
  */
 public class DeleteCommand extends Command {
-  //@@author a0126633j
+
+    //@@author a0126633j
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -28,6 +29,8 @@ public class DeleteCommand extends Command {
    private static final String FLOATING_TASK_KEYWORD = "f";
    private static final String DEADLINE_KEYWORD = "d";
    private static final String EVENT_KEYWORD = "e";
+
+   private static final int MINIMUM_INDEX_IN_LIST = 1;
    
     private final int targetIndex;
     private final String taskType;
@@ -58,7 +61,7 @@ public class DeleteCommand extends Command {
             sizeOfList = lastShownEventList.size();
         }
 
-        if (sizeOfList < targetIndex || targetIndex < 1) {
+        if (sizeOfList < targetIndex || targetIndex < MINIMUM_INDEX_IN_LIST) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -86,29 +89,16 @@ public class DeleteCommand extends Command {
     }
     
     /**
-     * overloading executeDelete function for different tasks
-     * 
+     * Deletes a task from the model
      */
-    private void executeDelete(ReadOnlyFloatingTask taskToDelete) {
+    private void executeDelete(Object taskToDelete) {
         try {
             model.deleteTask(taskToDelete);
         } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target floating task cannot be missing";
-        }
-    }
-
-    private void executeDelete(ReadOnlyDeadline taskToDelete) {
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (DeadlineNotFoundException pnfe) {
+        } catch (DeadlineNotFoundException e) {
             assert false : "The target deadline cannot be missing";
-        }
-    }
-
-    private void executeDelete(ReadOnlyEvent taskToDelete) {
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (EventNotFoundException pnfe) {
+        } catch (EventNotFoundException e) {
             assert false : "The target event cannot be missing";
         }
     }
