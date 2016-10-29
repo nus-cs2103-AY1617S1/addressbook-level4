@@ -29,35 +29,20 @@ public class RecurringTaskManagerTest {
         recurringManager.setTaskList(taskMaster.getUniqueTaskList());
     }
     
-    @Test
+    @Test(expected=AssertionError.class)
     public void setNullTasklist_throwAssert() {
-        try{
-            recurringManager.setTaskList(null);
-            fail();
-        } catch (AssertionError ae) {
-            assertTrue(true);
-        }
+        recurringManager.setTaskList(null);
     }
     
-    @Test
+    @Test(expected=AssertionError.class)
     public void setNullTaskList_updateRecurringTask_throwAssert() {
-        try {
-            recurringManager.setTaskList(null);
-            recurringManager.updateAnyRecurringTasks();
-            fail();
-        } catch (AssertionError ae) {
-            assertTrue(true);
-        }        
+        recurringManager.setTaskList(null);
+        recurringManager.updateAnyRecurringTasks();
     }
     
-    @Test
+    @Test(expected=AssertionError.class)
     public void correctAddingOverdueTasks_usingNullTask_throwAssert() {
-        try {
-            recurringManager.correctAddingOverdueTasks(null);
-            fail();
-        } catch (AssertionError ae) {
-            assertTrue(true);
-        }
+        recurringManager.correctAddingOverdueTasks(null);
     }
     
     @Test
