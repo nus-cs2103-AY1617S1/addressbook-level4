@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
@@ -93,6 +95,8 @@ public class EditCommand extends Command implements Undoable, Redoable {
             // this is a new command entered by user (not undo/redo)
             // need to clear the redoHistory Stack
             model.clearRedoHistory();
+            
+            requestHighlightLastActionedRow(editedTask);
 
             return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_EDIT_TASK_PROMPT, originalTask));
 
@@ -114,6 +118,8 @@ public class EditCommand extends Command implements Undoable, Redoable {
             model.addTask((Task) originalTask);
 
             model.pushToRedoHistory(this);
+            
+            requestHighlightLastActionedRow((Task)originalTask);
 
             return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_UNDO_SUCCESS, originalTask));
         } catch (UniqueTaskList.TaskNotFoundException pne) {
@@ -131,6 +137,8 @@ public class EditCommand extends Command implements Undoable, Redoable {
             executeEdit();
 
             model.pushToUndoHistory(this);
+            
+            requestHighlightLastActionedRow(editedTask);
 
             return new CommandResult(COMMAND_KEYWORD_EDIT, String.format(MESSAGE_REDO_SUCCESS, originalTask));
         } catch (TaskNotFoundException | DuplicateTaskException | IndexOutOfBoundsException ie) {
@@ -179,6 +187,11 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
         model.deleteTask(originalTask);
         model.addTask(editedTask);
+    }
+    
+ // @@author A0138862W
+    private void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
 
 }
