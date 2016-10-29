@@ -13,6 +13,7 @@ import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 public class Task implements ReadOnlyTask {
 
     private int id;
+    private int groupId;
     private String taskName;
     private Date startDateTime;
     private Date endDateTime;
@@ -27,12 +28,13 @@ public class Task implements ReadOnlyTask {
     /**
      * Constructor with smart defaults
      */
-    public Task(int id, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
+    public Task(int id, int groupId, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
             PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, 
             String category, String description, boolean isArchived) {
         
         SmartDefaultDates sdd = new SmartDefaultDates(startDateTime, endDateTime);
         this.id = id;
+        this.groupId = groupId;
         this.taskName = taskName;
         this.startDateTime = sdd.getStartDate();
         this.endDateTime = sdd.getEndDate();
@@ -48,7 +50,7 @@ public class Task implements ReadOnlyTask {
             this.recurringType = recurringType;
         }
         if (numberOfRecurrence == null) {
-            this.numberOfRecurrence = 0;
+            this.numberOfRecurrence = 1;
         } else {
             this.numberOfRecurrence = numberOfRecurrence.intValue();
         }
@@ -60,11 +62,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Constructor without smart defaults
      */
-    public Task(int id, String taskName, Date startDateTime, Date endDateTime, String location,
+    public Task(int id, int groupId, String taskName, Date startDateTime, Date endDateTime, String location,
             PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, 
             String category, String description, boolean isArchived) {
         
         this.id = id;
+        this.groupId = groupId;
         this.taskName = taskName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -80,7 +83,7 @@ public class Task implements ReadOnlyTask {
             this.recurringType = recurringType;
         }
         if (numberOfRecurrence == null) {
-            this.numberOfRecurrence = 0;
+            this.numberOfRecurrence = 1;
         } else {
             this.numberOfRecurrence = numberOfRecurrence.intValue();
         }
@@ -93,15 +96,13 @@ public class Task implements ReadOnlyTask {
         this.taskName = taskName;
         // sets initial default values
         this.priority = PriorityLevel.Medium;
-        this.recurringType = RecurrenceType.None;
-        this.numberOfRecurrence = 0;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getId(), source.getTaskName(), source.getStartDateTime(), 
+        this(source.getId(), source.getGroupId(), source.getTaskName(), source.getStartDateTime(), 
                 source.getEndDateTime(), source.getLocation(), source.getPriority(), 
                 source.getRecurringType(), source.getNumberOfRecurrence(), 
                 source.getCategory(), source.getDescription(), source.isArchived());
@@ -113,12 +114,13 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
             PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
             String description) {
-        this(source.getId(), source.getTaskName(), source.getStartDateTime(), 
+        this(source.getId(), source.getGroupId(), source.getTaskName(), source.getStartDateTime(), 
                 source.getEndDateTime(), source.getLocation(), source.getPriority(), 
                 source.getRecurringType(), source.getNumberOfRecurrence(), 
                 source.getCategory(), source.getDescription(), source.isArchived());
         
         //this.id should follow that of the source.
+        //this.groupId should follow that of the source.
         //this.isArchived should follow that of the source.
         this.taskName = taskName == null ? this.taskName : taskName;
         setStartDate(startDateTime);
@@ -170,6 +172,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public int getId() {
         return this.id;
+    }
+    
+    @Override
+    public int getGroupId() {
+        return this.groupId;
     }
     
     @Override
@@ -229,6 +236,10 @@ public class Task implements ReadOnlyTask {
     
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
     
     public void setTaskName(String taskName) {
@@ -308,6 +319,17 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * Creates a deep copy of this object.
+     */
+    public Task clone() {
+        Task t = new Task(id, groupId, taskName, 
+                (Date)startDateTime.clone(), (Date)endDateTime.clone(),
+                location, priority, recurringType, numberOfRecurrence, 
+                category, description, isArchived);
+        return t;
     }
 
 }

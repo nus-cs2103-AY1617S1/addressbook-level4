@@ -1,7 +1,11 @@
 package seedu.savvytasker.model;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -12,6 +16,7 @@ import seedu.savvytasker.model.alias.AliasSymbolList;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
@@ -70,12 +75,129 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 
     /**
      * Adds a task to savvy tasker.
-     * @throws DuplicateTaskException if an equivalent task already exists.
-     * @throws InvalidDateException if the end date is earlier than the start date.
+     * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns the task added if the operation succeeds, an exception is thrown otherwise.
      */
     public Task addTask(Task t) throws DuplicateTaskException, InvalidDateException {
         t.setId(tasks.getNextId());
         return tasks.add(t);
+    }
+
+    /**
+     * Adds a group of recurring tasks to savvy tasker.
+     * @throws {@link DuplicateTaskException} if a duplicate is found
+     * @throws {@link InvalidDateException} if the end date is earlier than the start date
+     * @return Returns the list of recurring tasks if the operation succeeds, an exception is thrown otherwise
+     */
+    public LinkedList<Task> addRecurringTasks(Task recurringTask) throws DuplicateTaskException, InvalidDateException {
+        LinkedList<Task> tasksToAdd = 
+                createRecurringTasks(recurringTask, recurringTask.getRecurringType(), 
+                        recurringTask.getNumberOfRecurrence());
+        Iterator<Task> itr = tasksToAdd.iterator();
+        
+        while(itr.hasNext()) {
+            // this will be an atomic operation
+            // guaranteed no duplicates
+            // if the start/end dates are invalid,
+            // the first task to be added will fail immediately, 
+            // subsequent tasks will not be added
+            tasks.add(itr.next()); 
+        }
+        return tasksToAdd;
+    }
+    
+    /**
+     * Creates a list of recurring tasks to be added into savvy tasker.
+     * @param recurringTask the task that recurs
+     * @param recurringType the type of recurrence
+     * @param numberOfRecurrences the number of recurrences
+     * @return A list of tasks that represents a recurring task.
+     */
+    private LinkedList<Task> createRecurringTasks(Task recurringTask, RecurrenceType recurringType, int numberOfRecurrences) {
+        assert recurringTask.getRecurringType() != null;
+        assert recurringTask.getNumberOfRecurrence() > 0;
+        
+        LinkedList<Task> listOfTasks = new LinkedList<Task>();
+        recurringTask.setGroupId(tasks.getNextGroupId());
+        
+        for (int i = 0; i < numberOfRecurrences; ++i) {
+            Task t = recurringTask.clone();
+            t.setId(tasks.getNextId());
+            listOfTasks.add(setDatesForRecurringType(t, recurringType, i));
+        }
+        
+        return listOfTasks;
+    }
+    
+    /**
+     * Helper function for createRecurringTasks(). Sets the respective start/end datetime for the
+     * i-th recurring task to be added
+     * @param t The first recurring task
+     * @param recurringType the type of recurrence
+     * @param index the index of the loop
+     * @return A task with its respective datetime set.
+     */
+    private Task setDatesForRecurringType(Task t, RecurrenceType recurringType, int index) {
+        Date startDate = t.getStartDateTime();
+        Date endDate = t.getEndDateTime();
+        Calendar calendar = Calendar.getInstance();
+        switch (recurringType) {
+        case Daily: // add one day to the i-th task
+            if (startDate != null) {
+                calendar.setTime(startDate);
+                calendar.add(Calendar.DATE, 1 * index);
+                startDate = calendar.getTime();
+            }
+            if (endDate != null) {
+                calendar.setTime(endDate);
+                calendar.add(Calendar.DATE, 1 * index);
+                endDate = calendar.getTime();
+            }
+            break;
+        case Weekly:  // add 7 days to the i-th task
+            if (startDate != null) {
+                calendar.setTime(startDate);
+                calendar.add(Calendar.DATE, 7 * index);
+                startDate = calendar.getTime();
+            }
+            if (endDate != null) {
+                calendar.setTime(endDate);
+                calendar.add(Calendar.DATE, 7 * index);
+                endDate = calendar.getTime();
+            }
+            break;
+        case Monthly: // add 1 month to the i-th task
+            if (startDate != null) {
+                calendar.setTime(startDate);
+                calendar.add(Calendar.MONTH, 1 * index);
+                startDate = calendar.getTime();
+            }
+            if (endDate != null) {
+                calendar.setTime(endDate);
+                calendar.add(Calendar.MONTH, 1 * index);
+                endDate = calendar.getTime();
+            }
+            break;
+        case Yearly: // add 1 year to the i-th task
+            if (startDate != null) {
+                calendar.setTime(startDate);
+                calendar.add(Calendar.YEAR, 1 * index);
+                startDate = calendar.getTime();
+            }
+            if (endDate != null) {
+                calendar.setTime(endDate);
+                calendar.add(Calendar.YEAR, 1 * index);
+                endDate = calendar.getTime();
+            }
+            break;
+        case None:
+        default:
+            assert false; // should not come here
+        }
+        t.setStartDateTime(startDate);
+        t.setEndDateTime(endDate);
+        return t;
     }
     
     /**

@@ -10,6 +10,7 @@ import java.util.Date;
 public interface ReadOnlyTask {
     
     int getId();
+    int getGroupId();
     boolean isMarked();
     boolean isArchived();
     String getTaskName();
@@ -53,11 +54,7 @@ public interface ReadOnlyTask {
                     .append(getLocation());
         }
         builder.append(" Priority: ")
-                .append(getPriority())
-                .append(" Recurring Type: ")
-                .append(getRecurringType())
-                .append(" Nr. Recurrence: ")
-                .append(getNumberOfRecurrence());
+                .append(getPriority());
         if (getCategory() != null && !getCategory().isEmpty()) {
             builder.append(" Category: ")
                     .append(getCategory());

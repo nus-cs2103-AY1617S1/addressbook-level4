@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -114,6 +115,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
         return taskAdded;
+    }
+    
+    @Override
+    public synchronized LinkedList<Task> addRecurringTask(Task recurringTask) throws DuplicateTaskException, InvalidDateException {
+        LinkedList<Task> recurringTasks = savvyTasker.addRecurringTasks(recurringTask);
+        updateFilteredListToShowActive();
+        indicateSavvyTaskerChanged();
+        return recurringTasks;
     }
     //@@author
     
