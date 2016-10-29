@@ -153,6 +153,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", String.format(RequiresConfirm.PROMPT_MESSAGE, "clear"), expectedAB, expectedAB.getTaskList());
         assertCommandBehavior("YeS", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
     }
+    //@@author
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
