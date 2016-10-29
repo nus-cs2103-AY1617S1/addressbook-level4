@@ -15,6 +15,7 @@ import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
+import tars.logic.commands.FreeCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
@@ -61,6 +62,7 @@ public class Parser {
         commandParserMap.put(MarkCommand.COMMAND_WORD, MarkCommandParser.class);
         commandParserMap.put(CdCommand.COMMAND_WORD, CdCommandParser.class);
         commandParserMap.put(TagCommand.COMMAND_WORD, TagCommandParser.class);
+        commandParserMap.put(FreeCommand.COMMAND_WORD, FreeCommandParser.class);
         commandParserMap.put(ExitCommand.COMMAND_WORD, ExitCommandParser.class);
         commandParserMap.put(HelpCommand.COMMAND_WORD, HelpCommandParser.class);
     }
