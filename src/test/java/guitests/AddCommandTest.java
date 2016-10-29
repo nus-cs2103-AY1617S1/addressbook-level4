@@ -17,91 +17,91 @@ public class AddCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void add() {
-        //add one floatingTask
+        // add one floatingTask
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hoon;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another floatingTask
+        // add another floatingTask
         taskToAdd = td.ida;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //add duplicate floatingTask
+
+        // add duplicate floatingTask
         commandBox.runCommand(td.hoon.getAddFloatingCommand());
         assertResultMessage(AddFloatingCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
-        
-        //@@author A0147967J
-        //add one non-floating task
+
+        // @@author A0147967J
+        // add one non-floating task
         taskToAdd = td.project;
         assertAddNonFloatingSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //Unrecognizable recurring type recognized as normaltask
-        //duplicate non-floating not allowed
+
+        // Unrecognizable recurring type recognized as normaltask
+        // duplicate non-floating not allowed
         commandBox.runCommand(td.project.getAddNonFloatingCommand() + "not a type");
         assertResultMessage(AddNonFloatingCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
-        
-        //add deadline task
+
+        // add deadline task
         taskToAdd = td.paper;
         assertAddNonFloatingSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //add task with overlapping slot allowed
+
+        // add task with overlapping slot allowed
         taskToAdd = td.movie;
         assertAddNonFloatingSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //add task with illegal time slot
+
+        // add task with illegal time slot
         commandBox.runCommand("add illegal timeslot from 2 oct 2pm to 2 oct 1pm");
         assertResultMessage(AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT);
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
 
-        //add to empty list
+        // add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.trash);
-        currentList = new TestTask[]{td.trash};
+        currentList = new TestTask[] { td.trash };
 
-        //invalid command
+        // invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
-        //======Cases for handling recurring tasks==================================================
-        
-        //Out dated Recurring task got updated
+
+        // ======Cases for handling recurring
+        // tasks==================================================
+
+        // Out dated Recurring task got updated
         taskToAdd = td.daily;
-        assertAddCommandSuccess("add Daily Task from yesterday 7am to yesterday 8am daily", 
-        		taskToAdd, currentList);
+        assertAddCommandSuccess("add Daily Task from yesterday 7am to yesterday 8am daily", taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //Up to date remain stayed
+
+        // Up to date remain stayed
         taskToAdd = td.weekly;
-        assertAddCommandSuccess(taskToAdd.getAddRecurringCommand(), 
-        		taskToAdd, currentList);
-        
+        assertAddCommandSuccess(taskToAdd.getAddRecurringCommand(), taskToAdd, currentList);
+
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-    	assertAddCommandSuccess(taskToAdd.getAddFloatingCommand(), taskToAdd, currentList);
+        assertAddCommandSuccess(taskToAdd.getAddFloatingCommand(), taskToAdd, currentList);
     }
-    
+
     private void assertAddNonFloatingSuccess(TestTask taskToAdd, TestTask... currentList) {
         assertAddCommandSuccess(taskToAdd.getAddNonFloatingCommand(), taskToAdd, currentList);
     }
-    
-    private void assertAddCommandSuccess(String command, TestTask taskToAdd, TestTask... currentList){
-    	
-    	commandBox.runCommand(command);
-        //confirm the new card contains the right data
+
+    private void assertAddCommandSuccess(String command, TestTask taskToAdd, TestTask... currentList) {
+
+        commandBox.runCommand(command);
+        // confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
 
-        //confirm the list now contains all previous floatingTasks plus the new floatingTask
+        // confirm the list now contains all previous floatingTasks plus the new
+        // floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
+
         TaskOccurrence[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
