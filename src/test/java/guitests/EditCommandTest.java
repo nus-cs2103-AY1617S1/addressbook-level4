@@ -47,11 +47,7 @@ public class EditCommandTest extends ToDoListGuiTest {
 			System.out.println(MESSAGE_USAGE);
 		}
 
-		//currentList.editTask(targetIndex, newTask, isFromIncompleteList);
-
 		commandBox.runCommand(getCommand(targetIndex, partialCommand));
-		System.out.println("Expected: " + currentList.toString());
-		System.out.println("Actual List: " + taskListPanel.toString());
 
 		assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
 		assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
