@@ -2,13 +2,17 @@ package tars.commons.util;
 
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import com.joestelmach.natty.DateGroup;
@@ -25,22 +29,23 @@ import tars.model.task.DateTime;
 public class DateTimeUtil {
     private static final SimpleDateFormat CONVERT_NATTY_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
     private static final String NATTY_TIME_PREFIX = "EXPLICIT_TIME";
-    
+
     private static final String DATETIME_DAY = "day";
     private static final String DATETIME_WEEK = "week";
     private static final String DATETIME_MONTH = "month";
     private static final String DATETIME_YEAR = "year";
     private static final int DATETIME_INCREMENT = 1;
-    
-    private static final DateTimeFormatter formatter = DateTimeFormatter
-            .ofPattern("d/M/uuuu HHmm");
-    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
-            .ofPattern("dd/MM/uuuu HHmm");
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatterWithoutTime = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+    private static final DateTimeFormatter stringFormatterWithoutDate = DateTimeFormatter.ofPattern("HHmm");
+
     /**
      * Extracts the new task's dateTime from the string arguments using natty.
      * 
-     * @return String[] with first index being the startDate time and second index being the end
-     *         date time
+     * @return String[] with first index being the startDate time and second
+     *         index being the end date time
      */
     public static String[] getDateTimeFromArgs(String dateArgs) {
         String endDateTime = "";
@@ -48,9 +53,8 @@ public class DateTimeUtil {
         Parser parser = new Parser(TimeZone.getDefault());
 
         // swap the date format as natty read dates in US format
-        List<DateGroup> groups =
-                parser.parse(dateArgs.trim().replaceAll("(\\b\\d{1,2})/(\\d{1,2})", "$2/$1")
-                        .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1"));
+        List<DateGroup> groups = parser.parse(dateArgs.trim().replaceAll("(\\b\\d{1,2})/(\\d{1,2})", "$2/$1")
+                .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1"));
 
         // invalid date format
         if (dateArgs.trim().length() > 0 && groups.size() == 0) {
@@ -58,7 +62,7 @@ public class DateTimeUtil {
         }
 
         if (groups.size() == 0) {
-            return new String[] {startDateTime, endDateTime};
+            return new String[] { startDateTime, endDateTime };
         }
 
         DateGroup group = groups.get(0);
@@ -94,14 +98,15 @@ public class DateTimeUtil {
 
             startDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
             endDateTime = CONVERT_NATTY_TIME_FORMAT.format(secondDate);
-            return new String[] {startDateTime, endDateTime};
+            return new String[] { startDateTime, endDateTime };
         }
 
-        return new String[] {startDateTime, endDateTime};
+        return new String[] { startDateTime, endDateTime };
     }
-    
+
     /**
      * Checks if given endDateTime is within the start and end of this week
+     * 
      * @@author A0121533W
      */
     public static boolean isWithinWeek(LocalDateTime endDateTime) {
@@ -117,6 +122,7 @@ public class DateTimeUtil {
 
     /**
      * Checks if given endDateTime is before the end of today
+     * 
      * @@author A0121533W
      */
     public static boolean isOverDue(LocalDateTime endDateTime) {
@@ -127,7 +133,7 @@ public class DateTimeUtil {
             return endDateTime.isBefore(now);
         }
     }
-    
+
     /**
      * Checks whether the dateTimeQuery falls within the range of the
      * dateTimeSource
@@ -152,26 +158,26 @@ public class DateTimeUtil {
             if (dateTimeSource.getEndDate().isBefore(dateTimeQuery.getStartDate())) {
                 return false;
             }
-            
-            // Case 1a: dateTimeSource has a range of date 
+
+            // Case 1a: dateTimeSource has a range of date
             if (dateTimeSource.getStartDate() != null) {
                 if (dateTimeSource.getStartDate().isAfter(dateTimeQuery.getEndDate())) {
                     return false;
                 }
-            } else {  //Case 1b: dateTimeSource only has a endDateTime
+            } else { // Case 1b: dateTimeSource only has a endDateTime
                 if (dateTimeSource.getEndDate().isAfter(dateTimeQuery.getEndDate())) {
                     return false;
                 }
             }
         } else { // Case 2: dateTimeQuery only has a endDateTime
 
-            // Case 2a: dateTimeSource has a range of date  
+            // Case 2a: dateTimeSource has a range of date
             if (dateTimeSource.getStartDate() != null) {
                 if (dateTimeQuery.getEndDate().isBefore(dateTimeSource.getStartDate())
                         || dateTimeQuery.getEndDate().isAfter(dateTimeSource.getEndDate())) {
                     return false;
                 }
-            } else { //Case 2b: dateTimeSource only has a endDateTime
+            } else { // Case 2b: dateTimeSource only has a endDateTime
                 if (!dateTimeQuery.getEndDate().equals(dateTimeSource.getEndDate())) {
                     return false;
                 }
@@ -179,6 +185,79 @@ public class DateTimeUtil {
         }
 
         return isTaskDateWithinRange;
+    }
+
+    /**
+     * Returns an arraylist of free datetime slots in a specified date
+     * 
+     */
+    public static ArrayList<DateTime> getListOfFreeTimeSlotsInDate(DateTime dateToCheck,
+            ArrayList<DateTime> listOfFilledTimeSlotsInDate) {
+        ArrayList<DateTime> listOfFreeTimeSlots = new ArrayList<DateTime>();
+        LocalDateTime startDateTime = dateToCheck.getStartDate();
+        LocalDateTime endDateTime;
+
+        for (DateTime dt : listOfFilledTimeSlotsInDate) {
+            if (dt.getStartDate() == null) {
+                continue;
+            } else {
+                endDateTime = dt.getStartDate();
+            }
+
+            if (startDateTime.isBefore(endDateTime)) {
+                listOfFreeTimeSlots.add(new DateTime(startDateTime, endDateTime));
+            }
+
+            if (startDateTime.isBefore(dt.getEndDate())) {
+                startDateTime = dt.getEndDate();
+            }
+        }
+
+        if (startDateTime.isBefore(dateToCheck.getEndDate())) {
+            listOfFreeTimeSlots.add(new DateTime(startDateTime, dateToCheck.getEndDate()));
+        }
+
+
+        return listOfFreeTimeSlots;
+    }
+
+    public static String getDayAndDateString(DateTime dateTime) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(dateTime.getEndDate().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH)).append(", ")
+                .append(dateTime.getEndDate().format(stringFormatterWithoutTime));
+
+        return sb.toString();
+    }
+
+    public static String getStringOfFreeDateTimeInDate(DateTime dateToCheck,
+            ArrayList<DateTime> listOfFreeTimeSlotsInDate) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(getDayAndDateString(dateToCheck)).append(":");
+
+        int counter = 1;
+
+        for (DateTime dt : listOfFreeTimeSlotsInDate) {
+            sb.append("\n").append(counter).append(". ").append(dt.getStartDate().format(stringFormatterWithoutDate))
+                    .append("hrs to ").append(dt.getEndDate().format(stringFormatterWithoutDate)).append("hrs (")
+                    .append(getDurationInMinutesBetweenTwoLocalDateTime(dt.getStartDate(), dt.getEndDate()))
+                    .append(")");
+
+            counter++;
+        }
+
+        return sb.toString();
+
+    }
+
+    public static String getDurationInMinutesBetweenTwoLocalDateTime(LocalDateTime startDateTime,
+            LocalDateTime endDateTime) {
+        Duration duration = Duration.between(startDateTime, endDateTime);
+        long hours = duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+
+        return hours + " hr " + minutes + " min";
     }
 
     /**
@@ -206,22 +285,25 @@ public class DateTimeUtil {
         LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
 
         switch (frequency.toLowerCase()) {
-        case DATETIME_DAY:      date = date.plusDays(DATETIME_INCREMENT);
-                                break;
-        case DATETIME_WEEK:     date = date.plusWeeks(DATETIME_INCREMENT);
-                                break;
-        case DATETIME_MONTH:    date = date.plusMonths(DATETIME_INCREMENT);
-                                break;
-        case DATETIME_YEAR:     date = date.plusYears(DATETIME_INCREMENT);
-                                break;
+        case DATETIME_DAY:
+            date = date.plusDays(DATETIME_INCREMENT);
+            break;
+        case DATETIME_WEEK:
+            date = date.plusWeeks(DATETIME_INCREMENT);
+            break;
+        case DATETIME_MONTH:
+            date = date.plusMonths(DATETIME_INCREMENT);
+            break;
+        case DATETIME_YEAR:
+            date = date.plusYears(DATETIME_INCREMENT);
+            break;
         }
 
         dateToModify = date.format(stringFormatter);
         return dateToModify;
     }
-    
+
     public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour, int min, int sec) {
-        return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(), dateTime.getDayOfMonth(),
-                hour, min, sec);
+        return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(), dateTime.getDayOfMonth(), hour, min, sec);
     }
 }
