@@ -27,6 +27,7 @@ import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.ExitCommand;
 import tars.logic.commands.FindCommand;
+import tars.logic.commands.FreeCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.RedoCommand;
@@ -69,7 +70,7 @@ public class LogicManagerTest {
     private Config originalConfig;
 
     private static final String configFilePath = "config.json";
-    
+
     private static final Prefix namePrefix = new Prefix("/n");
     private static final Prefix priorityPrefix = new Prefix("/p");
     private static final Prefix dateTimePrefix = new Prefix("/dt");
@@ -242,21 +243,18 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars,
-                expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeAdded);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_UNDO, toBeAdded)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.addTask(toBeAdded);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n")),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n")),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -270,15 +268,14 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars,
-                expectedTars.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeAdded);
         model.deleteTask(toBeAdded);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_UNSUCCESS, MESSAGE_TASK_CANNOT_BE_FOUND),
-                expectedTars, expectedTars.getTaskList());
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, MESSAGE_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
 
         model.addTask(toBeAdded);
         expectedTars.addTask(toBeAdded);
@@ -304,22 +301,19 @@ public class LogicManagerTest {
         expectedTars.removeTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior("del 1",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedTars,
-                expectedTars.getTaskList());
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved),
+                expectedTars, expectedTars.getTaskList());
 
         expectedTars.addTask(toBeRemoved);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(DeleteCommand.MESSAGE_REDO, toBeRemoved)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(DeleteCommand.MESSAGE_REDO, toBeRemoved)),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -339,24 +333,22 @@ public class LogicManagerTest {
         expectedTars.removeTask(toBeRemoved);
 
         // execute command and verify result
-        assertCommandBehavior("del 1",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved), expectedTars,
-                expectedTars.getTaskList());
+        assertCommandBehavior("del 1", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, toBeRemoved),
+                expectedTars, expectedTars.getTaskList());
 
         expectedTars.addTask(toBeRemoved);
         model.addTask(toBeRemoved);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                        String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, String.format(DeleteCommand.MESSAGE_UNDO, toBeRemoved)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(toBeRemoved);
         model.deleteTask(toBeRemoved);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_TASK_CANNOT_BE_FOUND),
-                expectedTars, expectedTars.getTaskList());
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
     }
 
     @Test
@@ -368,11 +360,10 @@ public class LogicManagerTest {
         expectedTars.addTask(taskToAdd);
 
         // edit task
-        String args =
-                " /n Meet Betty Green /dt 20/09/2016 1800 to 21/09/2016 1800 /p h /ta tag3 /tr tag2";
+        String args = " /n Meet Betty Green /dt 20/09/2016 1800 to 21/09/2016 1800 /p h /ta tag3 /tr tag2";
 
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, priorityPrefix,
-                dateTimePrefix, addTagPrefix, removeTagPrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, priorityPrefix, dateTimePrefix,
+                addTagPrefix, removeTagPrefix);
         argsTokenizer.tokenize(args);
 
         model.addTask(taskToAdd);
@@ -382,22 +373,19 @@ public class LogicManagerTest {
                 + "to 21/09/2016 1800 /p h /tr tag2 /ta tag3";
 
         // execute command
-        assertCommandBehavior(inputCommand,
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask), expectedTars,
-                expectedTars.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+                expectedTars, expectedTars.getTaskList());
 
         expectedTars.replaceTask(editedTask, taskToAdd);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.replaceTask(taskToAdd, editedTask);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -412,21 +400,19 @@ public class LogicManagerTest {
         String inputCommand = "rsv Reserved Task /dt 05/09/2016 1400 to 06/09/2016 2200";
 
         // execute command
-        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv),
-                expectedTars, expectedTars.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
 
         expectedTars.removeRsvTask(taskToRsv);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(RsvCommand.MESSAGE_UNDO_ADD, taskToRsv)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_UNDO_ADD, taskToRsv)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.addRsvTask(taskToRsv);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(RsvCommand.MESSAGE_REDO_ADD, taskToRsv)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_REDO_ADD, taskToRsv)),
                 expectedTars, expectedTars.getTaskList());
 
     }
@@ -442,15 +428,15 @@ public class LogicManagerTest {
         String inputCommand = "rsv Reserved Task /dt 05/09/2016 1400 to 06/09/2016 2200";
 
         // execute command
-        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv),
-                expectedTars, expectedTars.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
 
         model.deleteRsvTask(taskToRsv);
         expectedTars.removeRsvTask(taskToRsv);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND),
-                expectedTars, expectedTars.getTaskList());
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
 
         model.addRsvTask(taskToRsv);
         expectedTars.addRsvTask(taskToRsv);
@@ -458,7 +444,7 @@ public class LogicManagerTest {
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
                 String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_DUPLICATE_TASK), expectedTars,
                 expectedTars.getTaskList());
-        
+
     }
 
     @Test
@@ -474,24 +460,21 @@ public class LogicManagerTest {
         String inputCommand = "rsv /del 1";
 
         // execute command
-        assertCommandBehavior(inputCommand,
-                String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
                 expectedTars.getTaskList());
 
         expectedTars.addRsvTask(taskToRsv);
 
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
-                String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(RsvCommand.MESSAGE_UNDO_DELETE, taskToRsv)),
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_UNDO_DELETE, taskToRsv)),
                 expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeRsvTask(taskToRsv);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_SUCCESS,
-                        String.format(RsvCommand.MESSAGE_REDO_DELETE, taskToRsv)),
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_REDO_DELETE, taskToRsv)),
                 expectedTars, expectedTars.getTaskList());
-        
+
     }
 
     @Test
@@ -507,8 +490,7 @@ public class LogicManagerTest {
         String inputCommand = "rsv /del 1";
 
         // execute command
-        assertCommandBehavior(inputCommand,
-                String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
                 expectedTars.getTaskList());
 
         model.addRsvTask(taskToRsv);
@@ -522,9 +504,9 @@ public class LogicManagerTest {
         expectedTars.removeRsvTask(taskToRsv);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND),
-                expectedTars, expectedTars.getTaskList());
-        
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
+
     }
 
     @Test
@@ -542,9 +524,8 @@ public class LogicManagerTest {
         String inputCommand = "confirm 1 1 /p h /t tag";
 
         // execute command
-        assertCommandBehavior(inputCommand,
-                String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm), expectedTars,
-                expectedTars.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm),
+                expectedTars, expectedTars.getTaskList());
 
         expectedTars.removeTask(taskToConfirm);
         expectedTars.addRsvTask(taskToRsv);
@@ -575,9 +556,8 @@ public class LogicManagerTest {
         String inputCommand = "confirm 1 1 /p h /t tag";
 
         // execute command
-        assertCommandBehavior(inputCommand,
-                String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm), expectedTars,
-                expectedTars.getTaskList());
+        assertCommandBehavior(inputCommand, String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm),
+                expectedTars, expectedTars.getTaskList());
 
         model.addRsvTask(taskToRsv);
         expectedTars.addRsvTask(taskToRsv);
@@ -590,8 +570,8 @@ public class LogicManagerTest {
         expectedTars.removeRsvTask(taskToRsv);
 
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
-                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND),
-                expectedTars, expectedTars.getTaskList());
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
 
     }
 
@@ -1018,27 +998,37 @@ public class LogicManagerTest {
     }
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command targeting a
-     * single task in the shown list, using visible index.
+     * Confirms the 'invalid argument index number behaviour' for the given
+     * command targeting a single task in the shown list, using visible index.
      * 
-     * @param commandWord to test assuming it targets a single task in the last shown list based on
-     *        visible index.
+     * @param commandWord
+     *            to test assuming it targets a single task in the last shown
+     *            list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
         assertCommandBehavior(commandWord, expectedMessage); // index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); // index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); // index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); // index cannot be 0
+        assertCommandBehavior(commandWord + " +1", expectedMessage); // index
+                                                                     // should
+                                                                     // be
+                                                                     // unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); // index
+                                                                     // should
+                                                                     // be
+                                                                     // unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); // index
+                                                                    // cannot be
+                                                                    // 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command targeting a
-     * single task in the shown list, using visible index.
+     * Confirms the 'invalid argument index number behaviour' for the given
+     * command targeting a single task in the shown list, using visible index.
      * 
-     * @param commandWord to test assuming it targets a single task in the last shown list based on
-     *        visible index.
+     * @param commandWord
+     *            to test assuming it targets a single task in the last shown
+     *            list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -1141,8 +1131,8 @@ public class LogicManagerTest {
 
         Tars expectedTars = new Tars();
         String expectedMessage = String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv.toString()) + "\n"
-                + MESSAGE_CONFLICTING_TASKS_WARNING + "\nConflicts for "
-                + taskToRsv.getDateTimeList().get(0).toString() + ":" + "\nRsvTask 1: " + rsvTaskA.toString();
+                + MESSAGE_CONFLICTING_TASKS_WARNING + "\nConflicts for " + taskToRsv.getDateTimeList().get(0).toString()
+                + ":" + "\nRsvTask 1: " + rsvTaskA.toString();
 
         expectedTars.addRsvTask(rsvTaskA);
         expectedTars.addRsvTask(taskToRsv);
@@ -1419,6 +1409,8 @@ public class LogicManagerTest {
 
     /**
      * @@author A0124333U
+     * 
+     *          logic tests for edit command
      */
     @Test
     public void execute_edit_invalidArgsFormat_errorMessageShown() throws Exception {
@@ -1471,6 +1463,10 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
+    /**
+     * Logic tests for cd command
+     */
+
     @Test
     public void execute_cd_incorrectArgsFormat_errorMessageShown() throws Exception {
         assertCommandBehavior("cd ", CdCommand.MESSAGE_INVALID_FILEPATH);
@@ -1486,6 +1482,53 @@ public class LogicManagerTest {
         String tempTestTarsFilePath = saveFolder.getRoot().getPath() + "TempTestTars.xml";
         assertCommandBehavior("cd " + tempTestTarsFilePath,
                 String.format(CdCommand.MESSAGE_SUCCESS, tempTestTarsFilePath));
+    }
+
+    /**
+     * Logic tests for free command
+     */
+    @Test
+    public void execute_free_incorrectArgsFormat_errorMessageShown() throws Exception {
+        assertCommandBehavior("free ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertCommandBehavior("free invalidargs",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
+        assertCommandBehavior("free 29/10/2016 to 30/10/2016", FreeCommand.MESSAGE_DATE_RANGE_DETECTED);
+    }
+
+    @Test
+    public void execute_free_noFreeTimeSlotResult() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+
+        assertCommandBehavior("free 11/10/2016",
+                String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS, "Tuesday, 11/10/2016"), expectedTars,
+                expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_free_freeDayResult() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+        
+        
+
+        assertCommandBehavior("free 01/11/2016", String.format(FreeCommand.MESSAGE_FREE_DAY, "Tuesday, 01/11/2016"),
+                expectedTars, expectedTars.getTaskList());
+    }
+    
+    @Test
+    public void execute_free_freeTimeSlotsFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("Saturday, 29/10/2016").append(":\n")
+            .append("1. 0100hrs to 1400hrs (13 hr 0 min)\n")
+            .append("2. 1800hrs to 2359hrs (5 hr 59 min)");      
+
+        assertCommandBehavior("free 29/10/2016", String.format(FreeCommand.MESSAGE_SUCCESS, sb.toString()),
+                expectedTars, expectedTars.getTaskList());
     }
 
     /**
@@ -1759,7 +1802,8 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given Tars
          * 
-         * @param tars The Tars to which the Tasks will be added
+         * @param tars
+         *            The Tars to which the Tasks will be added
          */
         void addToTars(Tars tars, int numGenerated) throws Exception {
             addToTars(tars, generateTaskList(numGenerated));
@@ -1777,7 +1821,8 @@ public class LogicManagerTest {
         /**
          * Adds auto-generated Task objects to the given model
          * 
-         * @param model The model to which the Tasks will be added
+         * @param model
+         *            The model to which the Tasks will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generateTaskList(numGenerated));
@@ -1825,6 +1870,19 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag")));
         }
 
+        /**
+         * @@author A0124333U Generates a Task object with given name and
+         *          datetime
+         */
+        Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
+            assert (dateTime != null && name != null);
+            return new Task(new Name(name), dateTime, new Priority("h"), new Status(false),
+                    new UniqueTagList(new Tag("tag")));
+        }
+
+        /**
+         * Generates a RsvTask object with given name and datetime(s)
+         */
         RsvTask generateReservedTaskWithNameAndDate(String name, DateTime... dateTimes) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             for (DateTime dt : dateTimes) {
@@ -1833,10 +1891,50 @@ public class LogicManagerTest {
             return new RsvTask(new Name(name), dateTimeList);
         }
 
+        /**
+         * Generates a RsvTask object with given name and a dummy dateTime
+         */
         RsvTask generateReservedTaskWithOneDateTimeOnly(String name) throws Exception {
             ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
             dateTimeList.add(new DateTime("05/09/2016 1400", "06/09/2016 2200"));
             return new RsvTask(new Name(name), dateTimeList);
         }
+
+        Tars fillModelAndTarsForFreeCommand() throws Exception {
+            RsvTask rsvTask1 = generateReservedTaskWithNameAndDate("rsvTask1",
+                    new DateTime("29/10/2016 1400", "29/10/2016 1500"),
+                    new DateTime("30/10/2016 1400", "30/10/2016 1500"));
+            RsvTask rsvTask2 = generateReservedTaskWithNameAndDate("rsvTask2",
+                    new DateTime("28/10/2016 0900", "28/10/2016 1400"));
+            Task floatingTask = generateTaskWithNameAndDate("Floating Task", new DateTime("", ""));
+            Task taskWithoutStartDate = generateTaskWithNameAndDate("Task without startdate",
+                    new DateTime("", "29/10/2016 1500"));
+            Task task1 = generateTaskWithNameAndDate("Task 1", new DateTime("28/10/2016 2200", "29/10/2016 0100"));
+            Task task2 = generateTaskWithNameAndDate("Task 2", new DateTime("29/10/2016 1430", "29/10/2016 1800"));
+            Task task3 = generateTaskWithNameAndDate("Task 3", new DateTime("01/10/2016 1400", "01/10/2016 1500"));
+            Task task4 = generateTaskWithNameAndDate("Task 4", new DateTime("10/10/2016 1500", "12/10/2016 1400"));
+            
+            Tars tars = new Tars();
+            tars.addRsvTask(rsvTask1);
+            tars.addRsvTask(rsvTask2);
+            tars.addTask(floatingTask);
+            tars.addTask(taskWithoutStartDate);
+            tars.addTask(task1);
+            tars.addTask(task2);
+            tars.addTask(task3);
+            tars.addTask(task4);
+
+            model.addRsvTask(rsvTask1);
+            model.addRsvTask(rsvTask2);
+            model.addTask(floatingTask);
+            model.addTask(taskWithoutStartDate);
+            model.addTask(task1);
+            model.addTask(task2);
+            model.addTask(task3);
+            model.addTask(task4);
+
+            return tars;
+        }
+
     }
 }
