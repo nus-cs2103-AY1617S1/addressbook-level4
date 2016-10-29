@@ -48,8 +48,7 @@ public class Tars implements ReadOnlyTars {
 		rsvTasks = new UniqueRsvTaskList();
 	}
 
-	public Tars() {
-	}
+	public Tars() { }
 
 	/**
 	 * Tasks and Tags are copied into this tars
@@ -360,38 +359,39 @@ public class Tars implements ReadOnlyTars {
 	}
 	
 	/**
-     * Rename all task which has the old tag with the new tag
+     * Rename all task with the new tag
      * 
-     * @param oldTag tag to be replaced with new tag name
-     * @param tagToUpdate new tag name
+     * @param toBeRenamed tag to be replaced with new the new tag
+     * @param newTag new tag
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
      */
-    public void renameTag(ReadOnlyTag oldTag, Tag newTag)
-            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+    public void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
+            throws IllegalValueException, TagNotFoundException {
 
         for (int i = 0; i < tasks.getInternalList().size(); i++) {
             Task toEdit = new Task(tasks.getInternalList().get(i));
             UniqueTagList tags = toEdit.getTags();
-            if (tags.contains(new Tag(oldTag))) {
-                tags.remove(new Tag(oldTag));
-                tags.add(newTag);
+            if (tags.contains(new Tag(toBeRenamed))) {
+                tags.update(toBeRenamed, newTag);
                 toEdit.setTags(tags);
                 tasks.getInternalList().set(i, toEdit);
             }
         }
+        
     }
     
     /**
-     * Delete tag from all tasks
+     * Remove the tag from all tasks
      * 
      * @param toBeDeleted
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
      */
-    public void deleteTag(ReadOnlyTag toBeDeleted)
+    public ArrayList<ReadOnlyTask> removeTagFromAllTasks(ReadOnlyTag toBeDeleted)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
-
+        ArrayList<ReadOnlyTask> editedTasks = new ArrayList<ReadOnlyTask>();
+        
         for (int i = 0; i < tasks.getInternalList().size(); i++) {
             Task toEdit = new Task(tasks.getInternalList().get(i));
             UniqueTagList tags = toEdit.getTags();
@@ -399,6 +399,32 @@ public class Tars implements ReadOnlyTars {
                 tags.remove(new Tag(toBeDeleted));
                 toEdit.setTags(tags);
                 tasks.getInternalList().set(i, toEdit);
+                editedTasks.add(toEdit);
+            }
+        }
+        
+        return editedTasks;
+    }
+    
+    /**
+     * Remove the tag from all tasks
+     * 
+     * @param toBeDeleted
+     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws TagNotFoundException if there is no matching tags.
+     */
+    public void addTagToAllTasks(ReadOnlyTag toBeAdded, ArrayList<ReadOnlyTask> allTasks)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
+        for (int i = 0; i < allTasks.size(); i++) {
+            for (int j = 0; j < tasks.getInternalList().size(); j++) {
+                Task toEdit = new Task(tasks.getInternalList().get(j));
+                if (toEdit.equals(allTasks.get(i))) {
+                    UniqueTagList tags = toEdit.getTags();
+                    tags.add(new Tag(toBeAdded));
+                    toEdit.setTags(tags);
+                    tasks.getInternalList().set(i, toEdit);
+                }
             }
         }
     }
@@ -451,8 +477,8 @@ public class Tars implements ReadOnlyTars {
 
 	@Override
 	public int hashCode() {
-		// use this method for custom fields hashing instead of implementing
-		// your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
 		return Objects.hash(tasks, tags, rsvTasks);
 	}
 

@@ -8,6 +8,7 @@ import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
+import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
@@ -56,12 +57,16 @@ public interface Model {
     /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
     public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
-    /** Rename all tag with the new tag name */
-    void renameTag(ReadOnlyTag oldTag, String newTagName)
+    /** Rename all task with the old tag with new tag name */
+    void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
+
+    /** Remove the tag from all task */
+    ArrayList<ReadOnlyTask> removeTagFromAllTasks(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException;
     
-    /** Delete the tag from all task */
-    void deleteTag(ReadOnlyTag toBeDeleted)
+    /** Add tag to all task */
+    void addTagToAllTasks(ReadOnlyTag toBeAdded, ArrayList<ReadOnlyTask> toBeEdited)
             throws DuplicateTagException, IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
@@ -106,6 +111,6 @@ public interface Model {
 	/**
      * @@author A0140022H
      */
-	void updateFilteredTaskListUsingDate(DateTime dateTime);  
+	void updateFilteredTaskListUsingDate(DateTime dateTime);
 
 }
