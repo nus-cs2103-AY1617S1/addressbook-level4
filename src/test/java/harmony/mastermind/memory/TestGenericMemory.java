@@ -21,8 +21,10 @@ public class TestGenericMemory {
         end.set(2015, 02, 05, 07, 11, 13);
         
         addEvent();
+        addDeadline();
     }
     
+    //@@author A0143378Y
     private void addEvent() { 
         GenericMemory testEvent = new GenericMemory("event", "name", "description", start, end, 0);
         assertEquals("Type", testEvent.getType(), "event");
@@ -30,5 +32,14 @@ public class TestGenericMemory {
         assertEquals("Description", testEvent.getDescription(), "description");
         assertEquals("start time and date", testEvent.getStart(), start);
         assertEquals("end time and date", testEvent.getEnd(), end);
+    }
+    
+    //@@author A0143378Y
+    private void addDeadline() { 
+        GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
+        assertEquals("Type", testDeadline.getType(), "deadline");
+        assertEquals("Name", testDeadline.getName(), "name1");
+        assertEquals("start time and date", testDeadline.getStart(), null);
+        assertEquals("end time and date", testDeadline.getEnd(), end);
     }
 }
