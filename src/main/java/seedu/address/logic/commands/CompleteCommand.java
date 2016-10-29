@@ -118,7 +118,7 @@ public class CompleteCommand extends Command {
 		}
 
 		toAdd = new Task(this.name, this.startline, this.deadline, this.priority, this.tagSet);
-
+		toAdd.setOverdue(false);
 		assert model != null;
 		try {
 			model.addPerson(toAdd);

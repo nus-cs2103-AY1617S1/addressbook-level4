@@ -26,16 +26,14 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class UpdateCommand extends Command {
 
-	public static final String UPDATE_SUCCESS = "Tasks successfully updated! Tasks updated: %1$s";
+	public static final String UPDATE_SUCCESS = "Tasks successfully updated!";
 	public static final String COMMAND_WORD = "update";
 	
-	private Task toAdd; 
+	private Task toAdd;
+	boolean overdue = false;
+	String startline, deadline;
 	
 	public UpdateCommand(){}
-	
-	
-	
-	
 	
 	@Override
 	public CommandResult execute() {
@@ -48,37 +46,45 @@ public class UpdateCommand extends Command {
 			Task task = it.next();
 			Calendar startlineCal = task.getStartline().calendar;
 			Calendar deadlineCal = task.getDeadline().calendar;
-			//System.out.println(mutateToDate(deadlineCal));
-			String startline, deadline;
+			startline = task.getStartline().value;
+			deadline = task.getDeadline().value;
 			if(checkOverdue(cal, deadlineCal)){
-				if(startlineCal != null){
-					startlineCal = repeatDate(startlineCal, task);
-					startline = mutateToDate(startlineCal);
+				if(task.getRepeating().getRepeating()) {
+					if(startlineCal != null){
+						startlineCal = repeatDate(startlineCal, task);
+						startline = mutateToDate(startlineCal);
+					}
+					else{
+						startline = null;
+					}
+					if(deadlineCal != null){
+						deadlineCal = repeatDate(deadlineCal, task);
+						deadline = mutateToDate(deadlineCal);
+					}
+					else{
+						deadline = null;
+					}
+				} else if((deadlineCal != null) && (!task.getName().toString().contains(" is completed"))) {
+					System.out.println(task.getName().toString());
+					System.out.println(task.getName().toString().contains(" is completed"));
+					overdue = true;
 				}
-				else{
-					startline = null;
-				}
-				if(deadlineCal != null){
-					deadlineCal = repeatDate(deadlineCal, task);
-					deadline = mutateToDate(deadlineCal);
-				}
-				else{
-					deadline = null;
-				}
-				System.out.println(mutateToDate(deadlineCal));
-				Name name = task.getName();								
-				Priority priority = task.getPriority();
-				UniqueTagList tagSet = task.getTags();
-				
-				try{
-					toAdd = new Task(name, new Startline(startline), new Deadline(deadline), priority, tagSet);
-					toAdd.setRepeating(new Repeating(true, task.getRepeating().getTimeInterval()));
-				} catch (IllegalValueException ive) {
-					return new CommandResult("FAILED " + ive.getMessage());
-				}	
-					addList.add(toAdd);
-					deleteList.add(task);
-			}									
+			}
+			Name name = task.getName();								
+			Priority priority = task.getPriority();
+			UniqueTagList tagSet = task.getTags();
+		
+			try{
+				toAdd = new Task(name, new Startline(startline), new Deadline(deadline), priority, tagSet);
+				toAdd.setRepeating(new Repeating(true, task.getRepeating().getTimeInterval()));
+			} catch (IllegalValueException ive) {
+				return new CommandResult("FAILED " + ive.getMessage());
+			}
+			if(overdue) {
+				toAdd.setOverdue(true);
+			}
+			addList.add(toAdd);
+			deleteList.add(task);								
 		}
 		
 		for(Task t: deleteList){
@@ -105,33 +111,25 @@ public class UpdateCommand extends Command {
 	}
 	
 	private boolean checkOverdue(Calendar current, Calendar toCheck){
-		//System.out.println(mutateToDate(current));
-		//System.out.println(mutateToDate(toCheck));
 		if(current.after(toCheck)){
-			System.out.println(true);
 			return true;
 		}
 		else{
-			System.out.println(false);
 			return false;
 		}
 	}
 	
 	private Calendar repeatDate(Calendar toCheck, ReadOnlyTask task){
-		// TODO: Overdue implementation
-		System.out.println(task.getRepeating().getTimeInterval());
 		if(task.getRepeating().getRepeating()){
 			switch(task.getRepeating().getTimeInterval()){
 				case "weekly":
 					toCheck.add(Calendar.DATE, 7);
-					System.out.println("weekly");
 					break;
 				case "monthly":
 					toCheck.add(Calendar.MONTH, 1);
 					break;
 				case "yearly":
 					toCheck.add(Calendar.YEAR, 1);
-					System.out.println("year");
 					break;
 				default :
 					break;						

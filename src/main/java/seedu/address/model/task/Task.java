@@ -16,7 +16,6 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private Startline startline;
     private Deadline deadline;
-    //private boolean isRepeating = false;
     private Repeating repeating;
 
     private UniqueTagList tags;
@@ -69,6 +68,14 @@ public class Task implements ReadOnlyTask {
     @Override
     public Repeating getRepeating(){
     	return repeating;
+    }
+        
+    /**
+     * Sets whether this task is overdue.
+     * @param boolean
+     */
+    public void setOverdue(boolean value){
+    	this.getDeadline().setOverdue(value);
     }
     
     /**

@@ -40,10 +40,13 @@ public class PersonCard extends UiPart{
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() {    	
         name.setText(task.getName().fullName);
+        if(task.getDeadline().isOverdue){
+        	name.setStyle("-fx-text-fill: red;");
+        }
         id.setText(displayedIndex + ". ");
-        startline.setText("Start: " + task.getStartline().value);
+        startline.setText("Start: " + task.getStartline());
         deadlines.setText("End: " + task.getDeadline().value);
         priority.setText("Priority: " + task.getPriority().value);
         tags.setText(task.tagsString());

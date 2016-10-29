@@ -15,6 +15,7 @@ public class Deadline extends Startline {
     public static final String DEADLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
 
 	public String deadlineDate;
+	public boolean isOverdue = false;
 
     /**
      * Validates given deadline.
@@ -23,6 +24,10 @@ public class Deadline extends Startline {
      */
     public Deadline(String deadline) throws IllegalValueException {
     	super(deadline);
+    }
+    
+    public void setOverdue(boolean value){
+    	this.isOverdue = value;
     }
 
 }

@@ -21,6 +21,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 public class RepeatCommand extends Command{
 	public static final String MESSAGE_SUCCESS = "Task repeated: ";
 	public static final String MESSAGE_FAILURE = "Task unable to repeat";
+	public static final String MESSAGE_TASK_IS_COMPLETE = "Unable to repeat a completed task";
 	public static final String COMMAND_WORD = "repeat";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles on or off repeat for the selected task with a preset time extension.\n"
 			+ "Parameters: INDEX (must be a positive integer)\n"
@@ -51,6 +52,12 @@ public class RepeatCommand extends Command{
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        
+        String name = taskToDelete.getName().toString();
+        if(name.contains(" is completed")){
+        	return new CommandResult(MESSAGE_TASK_IS_COMPLETE);
+        }
+        
         Repeating isRepeating = taskToDelete.getRepeating();
         
         UniqueTagList tagSet = taskToDelete.getTags();

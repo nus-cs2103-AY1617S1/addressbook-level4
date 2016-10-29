@@ -36,6 +36,9 @@ public class XmlAdaptedPerson {
     
     @XmlElement
     private String timeInterval;
+    
+    @XmlElement
+    private boolean isOverdue;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -58,6 +61,7 @@ public class XmlAdaptedPerson {
         priority = source.getPriority().value;
         isRepeating = source.getRepeating().getRepeating();
         timeInterval = source.getRepeating().getTimeInterval();
+        isOverdue = source.getDeadline().isOverdue;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -81,6 +85,7 @@ public class XmlAdaptedPerson {
         final UniqueTagList tags = new UniqueTagList(taskTags);
         Task task = new Task(name, startline, deadline, priority, tags);
         task.setRepeating(new Repeating(isRepeating, timeInterval));
+        task.setOverdue(isOverdue);
         return task;
     }
     
