@@ -9,6 +9,7 @@ import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.model.tag.Tag;
+import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -106,9 +107,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void unMarkTask(Task task) 
+    public void unmarkTask(Task task) 
             throws IllegalValueException, TaskNotFoundException {
-        taskScheduler.unMarkTask(task);
+        taskScheduler.unmarkTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskSchedulerChanged();
+    }
+
+    @Override
+    public void tagTask(Task task, UniqueTagList tagList) 
+            throws TaskNotFoundException {
+        taskScheduler.tagTask(task, tagList);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
     }

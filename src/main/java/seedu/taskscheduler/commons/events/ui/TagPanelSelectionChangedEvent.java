@@ -4,7 +4,7 @@ import seedu.taskscheduler.commons.events.BaseEvent;
 import seedu.taskscheduler.model.tag.Tag;
 
 /**
- * Represents a selection change in the task List Panel
+ * Represents a selection change in the tag List Panel
  */
 public class TagPanelSelectionChangedEvent extends BaseEvent {
 

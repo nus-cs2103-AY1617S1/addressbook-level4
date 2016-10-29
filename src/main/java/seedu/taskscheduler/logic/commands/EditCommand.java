@@ -15,7 +15,7 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 //@@author A0148145E
 /**
- * Adds a task to the Task Scheduler.
+ * Edits a task in the Task Scheduler.
  */
 public class EditCommand extends Command {
 
@@ -23,7 +23,7 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the scheduler. "
-            + "Parameters: INDEX TASK from START_TIME_DATE to END_TIME_DATE at LOCATION \n"
+            + "Parameters: [INDEX] TASK from START_TIME_DATE to END_TIME_DATE at LOCATION \n"
             + "Example: " + COMMAND_WORD
             + " 1 Must Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD

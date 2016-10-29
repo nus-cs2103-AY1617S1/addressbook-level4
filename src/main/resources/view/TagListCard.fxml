@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane HBox.hgrow="ALWAYS">
 			<columnConstraints>
@@ -17,31 +17,18 @@
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
 			</columnConstraints>
 			<children>
-				<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
-					<stylesheets>
-						<URL value="@DarkTheme.css" />
-						<URL value="@Extensions.css" />
-					</stylesheets>
-					<padding>
-						<Insets bottom="5" left="15" right="5" top="5" />
-					</padding>
-
-					<children>
-						<HBox alignment="CENTER_LEFT" spacing="5">
-							<children>
-								<HBox>
-									<children>
-										<Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-									</children>
-								</HBox>
-							</children>
-						</HBox>
-					</children>
-				</VBox>
+      										<Label fx:id="name" styleClass="cell_big_label" text="\$first">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
 			</children>
 			<rowConstraints>
 				<RowConstraints />
 			</rowConstraints>
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
 		</GridPane>
 	</children>
 </HBox>

@@ -58,7 +58,7 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult revert() {
         try {
-            model.unMarkTask(taskToMark);
+            model.unmarkTask(taskToMark);
             CommandHistory.addRevertedCommand(this);
         } catch (IllegalValueException npe) {
             return new CommandResult(UnmarkCommand.MESSAGE_UNMARK_TASK_FAIL);

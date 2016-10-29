@@ -44,7 +44,7 @@ public class UnmarkCommand extends Command{
         taskToUnmark = (Task)lastShownList.get(targetIndex - 1);
 
         try {
-            model.unMarkTask(taskToUnmark);
+            model.unmarkTask(taskToUnmark);
             CommandHistory.addExecutedCommand(this);
         } catch (IllegalValueException npe) {
             return new CommandResult(MESSAGE_UNMARK_TASK_FAIL);
