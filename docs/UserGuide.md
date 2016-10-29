@@ -62,7 +62,7 @@ Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVE
 > LOCATION | `Optional` Specifies the location where the task happens.
 > PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
 > RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
-> NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs. A value of 0 specifies a never-ending recurrence.<br>`Defaults` to `0`<br>`Ignored` if RECURRING_TYPE is `none`
+> NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs. <br>`Defaults` to `1`<br>`Ignored` if RECURRING_TYPE is `none`
 > CATEGORY | `Optional` Specifies a custom category for the task. This can be used for keeping track of similar tasks.
 > DESCRIPTION | `Optional` Describes the task.
 
