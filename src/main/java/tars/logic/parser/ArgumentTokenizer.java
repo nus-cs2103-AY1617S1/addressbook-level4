@@ -62,7 +62,7 @@ public class ArgumentTokenizer {
             int curIndexPos = START_INDEX_POS;
 
             do {
-                curIndexPos = args.indexOf(EMPTY_SPACE_ONE + prefixes[i].prefix, curIndexPos + 1);
+                curIndexPos = args.indexOf(EMPTY_SPACE_ONE + prefixes[i].value, curIndexPos + 1);
                 
                 if (curIndexPos >= 0) {
                     prefixPosMap.put(curIndexPos, prefixes[i]);
@@ -124,7 +124,7 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
         
-        return Optional.of(prefixValueMap.get(prefix).replaceAll(prefix.prefix + EMPTY_SPACE_ONE, EMPTY_STRING));
+        return Optional.of(prefixValueMap.get(prefix).replaceAll(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING));
     }
 
     public int numPrefixFound() {
@@ -155,8 +155,8 @@ public class ArgumentTokenizer {
         
         // replace first delimiter prefix, then split
         List<String> multipleArgList = Arrays
-                .asList(tagArguments.replaceFirst(prefix.prefix + EMPTY_SPACE_ONE, EMPTY_STRING)
-                        .split(EMPTY_SPACE_ONE + prefix.prefix + EMPTY_SPACE_ONE));
+                .asList(tagArguments.replaceFirst(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING)
+                        .split(EMPTY_SPACE_ONE + prefix.value + EMPTY_SPACE_ONE));
         
         for(int i = 0; i < multipleArgList.size(); i++) {
             multipleArgList.set(i, multipleArgList.get(i).trim());

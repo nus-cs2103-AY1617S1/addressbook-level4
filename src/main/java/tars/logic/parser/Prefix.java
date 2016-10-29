@@ -5,10 +5,10 @@ package tars.logic.parser;
  * e.g. '/t' in 'add CS2103 Project Meeting /t meeting'
  */
 public class Prefix {
-    public final String prefix;
+    public final String value;
 
-    public Prefix(String prefix) {
-        this.prefix = prefix;
+    public Prefix(String value) {
+        this.value = value;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class Prefix {
         }
 
         Prefix otherPrefix = (Prefix) other;
-        return otherPrefix.prefix.equals(this.prefix);
+        return otherPrefix.value.equals(this.value);
     }
 
     @Override
     public int hashCode() {
-        return this.prefix == null ? 0 : this.prefix.hashCode();
+        return this.value == null ? 0 : this.value.hashCode();
     }
 }

@@ -79,7 +79,7 @@ public class ArgumentTokenizerTest {
         /** Also covers: testing for prefixes not specified as a prefix **/
 
         // Prefixes not previously given to the tokenizer should not return any values
-        String stringWithUnknownPrefix = unknownPrefix.prefix + "some value";
+        String stringWithUnknownPrefix = unknownPrefix.value + "some value";
         tokenizer.tokenize(stringWithUnknownPrefix);
         assertArgumentAbsent(tokenizer, unknownPrefix);
         assertPreamblePresent(tokenizer, stringWithUnknownPrefix); // Unknown prefix is taken as part of preamble
