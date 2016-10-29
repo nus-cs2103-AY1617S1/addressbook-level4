@@ -297,7 +297,7 @@ public class Parser {
         }
     	
     	// keyphrases delimited by commas
-        final String[] keyphrases = args.split(",");
+        final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
         System.out.println("keyphrase set: " + keyphraseSet.toString());
