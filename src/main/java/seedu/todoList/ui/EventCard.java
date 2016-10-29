@@ -165,21 +165,18 @@ public class EventCard extends UiPart{
         id.setText(displayedIndex + ". ");
         date.setText("Start Date: "+ task.getStartDate().date);
         if(checkEndDateTime() && this.task.getDone().equals("true")) {
-            System.out.println("im here");
             endDate.setText("End Date: " + task.getEndDate().endDate);
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
         	done.setText("Completed");
     		cardPane.setStyle("-fx-background-color: #01DF01");
     	}else if(!checkEndDateTime() && this.task.getDone().equals("false")) {
-    	    System.out.println("im here 2");
             endDate.setText("End Date: " + task.getEndDate().endDate);
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
             done.setText("Overdue");
             cardPane.setStyle("-fx-background-color: #ff2002");
         }else {
-            System.out.println("why im here");
             endDate.setText("End Date: " + task.getEndDate().endDate);
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
