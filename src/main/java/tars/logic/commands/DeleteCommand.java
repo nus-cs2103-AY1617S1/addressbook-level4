@@ -9,6 +9,7 @@ import tars.commons.exceptions.InvalidTaskDisplayedException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
+import tars.ui.Formatter;
 
 /**
  * Deletes a task identified using it's last displayed index from tars.
@@ -23,10 +24,10 @@ public class DeleteCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1\n"
             + "OR " + COMMAND_WORD + " 1..3";
     
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task:\n%1$s";
     
-    public static final String MESSAGE_UNDO = "Added %1$s";
-    public static final String MESSAGE_REDO = "Deleted %1$s";
+    public static final String MESSAGE_UNDO = "Added Task:\n%1$s";
+    public static final String MESSAGE_REDO = "Deleted Task:\n%1$s";
 
     private final String arguments;
     private ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
@@ -53,8 +54,8 @@ public class DeleteCommand extends UndoableCommand {
             deletedTasks.add(t);
         } 
         model.getUndoableCmdHist().push(this);
-        String deletedTasksList = CommandResult.formatTasksList(deletedTasks);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTasksList));
+        String formattedTaskList = new Formatter().formatTaskList(deletedTasks);
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, formattedTaskList));
     }
     
     /**
@@ -88,9 +89,9 @@ public class DeleteCommand extends UndoableCommand {
                 Task taskToAdd = new Task(t);
                 model.addTask(taskToAdd);
             }
-            String undoneTasks = CommandResult.formatTasksList(deletedTasks);
+            String formattedTaskList = new Formatter().formatTaskList(deletedTasks);
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
-                    String.format(MESSAGE_UNDO, undoneTasks)));
+                    String.format(MESSAGE_UNDO, formattedTaskList)));
         } catch (DuplicateTaskException e) {
             return new CommandResult(
                     String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
@@ -104,9 +105,9 @@ public class DeleteCommand extends UndoableCommand {
                 Task taskToAdd = new Task(t);
                 model.deleteTask(taskToAdd);
             }
-            String redoneTasks = CommandResult.formatTasksList(deletedTasks);
+            String formattedTaskList = new Formatter().formatTaskList(deletedTasks);
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
-                    String.format(MESSAGE_REDO, redoneTasks)));
+                    String.format(MESSAGE_REDO, formattedTaskList)));
         } catch (TaskNotFoundException e) {
             return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
                     Messages.MESSAGE_TASK_CANNOT_BE_FOUND));

@@ -38,6 +38,7 @@ public class UndoCommandTest extends TarsGuiTest {
         currentList = td.getTypicalTasks();
         assertTrue(taskListPanel.isListMatching(currentList));
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS,
-                String.format(DeleteCommand.MESSAGE_UNDO, taskToUndo)));
+                String.format(DeleteCommand.MESSAGE_UNDO, "1.\t" + taskToUndo+"\n")));
+        
     }
 }

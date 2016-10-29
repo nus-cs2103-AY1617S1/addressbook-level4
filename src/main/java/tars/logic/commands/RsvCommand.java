@@ -14,6 +14,7 @@ import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
+import tars.ui.Formatter;
 
 /**
  * Adds a reserved task which has a list of reserved datetimes that can confirmed later on.
@@ -39,10 +40,10 @@ public class RsvCommand extends UndoableCommand {
     public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX = "The Reserved Task Index is invalid!";
 
     public static final String MESSAGE_SUCCESS = "New task reserved: %1$s";
-    public static final String MESSAGE_SUCCESS_DEL = "Deleted Reserved Tasks: %1$s";
-    public static final String MESSAGE_UNDO_DELETE = "Removed %1$s";
-    public static final String MESSAGE_UNDO_ADD = "Added %1$s";
-    public static final String MESSAGE_REDO_DELETE = "Removed %1$s";
+    public static final String MESSAGE_SUCCESS_DEL = "Deleted reserved tasks:\n%1$s";
+    public static final String MESSAGE_UNDO_DELETE = "Deleted %1$s";
+    public static final String MESSAGE_UNDO_ADD = "Added:\n%1$s";
+    public static final String MESSAGE_REDO_DELETE = "Deleted:%1$s";
     public static final String MESSAGE_REDO_ADD = "Added %1$s";
 
     private RsvTask toReserve = null;
@@ -95,7 +96,7 @@ public class RsvCommand extends UndoableCommand {
                 }
             }
 
-            String addedRsvTasksList = CommandResult.formatRsvTasksList(rsvTasksToDelete);
+            String addedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
                     String.format(MESSAGE_UNDO_ADD, addedRsvTasksList)));
         }
@@ -124,7 +125,7 @@ public class RsvCommand extends UndoableCommand {
                 }
             }
 
-            String deletedRsvTasksList = CommandResult.formatRsvTasksList(rsvTasksToDelete);
+            String deletedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO_DELETE, deletedRsvTasksList)));
         }
     }
@@ -175,7 +176,7 @@ public class RsvCommand extends UndoableCommand {
         }
         
         model.getUndoableCmdHist().push(this);
-        String deletedRsvTasksList = CommandResult.formatRsvTasksList(rsvTasksToDelete);
+        String deletedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
         return new CommandResult(String.format(MESSAGE_SUCCESS_DEL, deletedRsvTasksList));
     }
 
