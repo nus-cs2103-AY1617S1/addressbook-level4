@@ -17,12 +17,12 @@ public class ClearCommandTest extends TaskManagerGuiTest {
         //verify a non-empty list can be cleared
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         assertTrue(currentList.isListMatching(taskListPanel));
-        assertClearCommandSuccess();
+        assertClearCommandSuccess(false);
         currentList.clear();
         
         //verify clearCommand can be used with accelerator
         commandBox.runCommand("undo");
-        assertClearCommandWithAcceleratorSuccess();
+        assertClearCommandSuccess(true);
         
         //verify other commands can work after a clear command
         commandBox.runCommand(td.todo.getAddCommand());
@@ -32,23 +32,20 @@ public class ClearCommandTest extends TaskManagerGuiTest {
         assertTodoListSize(0);
 
         //verify clear command works when the list is empty
-        assertClearCommandSuccess();
+        assertClearCommandSuccess(false);
         currentList.clear();
     }
 
-    private void assertClearCommandSuccess() {
-        commandBox.runCommand("clear");
+    private void assertClearCommandSuccess(boolean useAccelerator) {
+        if (useAccelerator) {
+            mainMenu.useClearCommandUsingAccelerator();
+        } else {
+            commandBox.runCommand("clear");
+        }
         assertTodoListSize(0);
         assertDeadlineListSize(0);
         assertEventListSize(0);
         assertResultMessage("Task manager has been cleared!");
     }
-    
-    private void assertClearCommandWithAcceleratorSuccess() {
-        mainMenu.useClearCommandUsingAccelerator();
-        assertTodoListSize(0);
-        assertDeadlineListSize(0);
-        assertEventListSize(0);
-        assertResultMessage("Task manager has been cleared!");
-    }
+
 }

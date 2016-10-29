@@ -51,13 +51,13 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         currentList = new TestTaskList(new TestTask[] {});
         
         //test undo brings back the previous list and store the list before undoing and the command text to the redo stack
-        runUndo();
+        runUndo(false);
         
         // test if using accelerator for undo works
-        runUndoUsingAccelerator();
+        runUndo(true);
         
         //test if redo brings back the undone list
-        runRedo();
+        runRedo(false);
                
         undoTestTaskListStack.push(currentList.copy());        
         targetIndex = currentList.size('d');
@@ -80,18 +80,18 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         undoCommandTextStack.push(commandText);
         
         // run undo for all the commands until we get back original list and check no more undos after that
-        runUndo();
-        runUndoUsingAccelerator();
-        runUndo();
-        runUndoUsingAccelerator();
+        runUndo(false);
+        runUndo(true);
+        runUndo(false);
+        runUndo(true);
         assertNoMoreUndos();
         
         // run redo for all undos done until we get back the latest list and check no more redos after that
-        runRedoUsingAccelerator();
-        runRedo();
-        runRedoUsingAccelerator();
+        runRedo(true);
+        runRedo(false);
+        runRedo(true);
         commandBox.runCommand("view all");
-        runRedo();
+        runRedo(false);
         assertNoMoreRedos();
                         
     }
@@ -102,61 +102,34 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         assertNoMoreUndos(); 
     }
     
-    private void runRedo() {
+    private void runRedo(boolean useAccelerator) {
         TestTaskList undoneList = redoTestTaskListStack.pop();
         String undoneCommandText = redoCommandTextStack.pop();
         
-        assertRedoSuccess(undoneList, undoneCommandText); 
+        assertRedoSuccess(undoneList, undoneCommandText, useAccelerator); 
         
         undoTestTaskListStack.push(currentList.copy());
         undoCommandTextStack.push(undoneCommandText);
         currentList = undoneList;
-    }
-    
-    private void runRedoUsingAccelerator() {
-        TestTaskList undoneList = redoTestTaskListStack.pop();
-        String undoneCommandText = redoCommandTextStack.pop();
-        
-        assertRedoUsingAcceleratorSuccess(undoneList, undoneCommandText); 
-        
-        undoTestTaskListStack.push(currentList.copy());
-        undoCommandTextStack.push(undoneCommandText);
-        currentList = undoneList;
-    }
-    
-    private void runUndoUsingAccelerator() {
-        String previousCommandText = undoCommandTextStack.pop();
-        TestTaskList previousList = undoTestTaskListStack.pop();
-        
-        assertUndoUsingAcceleratorSuccess(previousList, previousCommandText);
-        
-        redoTestTaskListStack.push(currentList.copy());
-        redoCommandTextStack.push(previousCommandText);
-        currentList = previousList;
     }
 
-    private void runUndo() {
+    private void runUndo(boolean useAccelerator) {
         String previousCommandText = undoCommandTextStack.pop();
         TestTaskList previousList = undoTestTaskListStack.pop();
         
-        assertUndoSuccess(previousList, previousCommandText);
+        assertUndoSuccess(previousList, previousCommandText, useAccelerator);
         
         redoTestTaskListStack.push(currentList.copy());
         redoCommandTextStack.push(previousCommandText);
         currentList = previousList;
     }
     
-    private void assertUndoSuccess(TestTaskList expectedList, String commandText) {
-        commandBox.runCommand("undo");
-
-        assertTrue(expectedList.isListMatching(taskListPanel));
-        
-        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText.trim());
-    }
-    
-    private void assertUndoUsingAcceleratorSuccess(TestTaskList expectedList, String commandText) {
-        mainMenu.useUndoCommandUsingAccelerator();
-
+    private void assertUndoSuccess(TestTaskList expectedList, String commandText, boolean useAccelerator) {
+        if (useAccelerator) {
+            mainMenu.useUndoCommandUsingAccelerator();
+        } else {
+            commandBox.runCommand("undo");
+        }
         assertTrue(expectedList.isListMatching(taskListPanel));
         
         assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText.trim());
@@ -167,17 +140,12 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
     }
     
-    private void assertRedoSuccess(TestTaskList expectedList, String commandText) {
-        commandBox.runCommand("redo");
-
-        assertTrue(expectedList.isListMatching(taskListPanel));
-        
-        assertResultMessage(RedoCommand.MESSAGE_REDO_SUCCESS + commandText.trim());
-    }
-    
-    private void assertRedoUsingAcceleratorSuccess(TestTaskList expectedList, String commandText) {
-        mainMenu.useRedoCommandUsingAccelerator();
-
+    private void assertRedoSuccess(TestTaskList expectedList, String commandText, boolean useAccelerator) {
+        if (useAccelerator) {
+            mainMenu.useRedoCommandUsingAccelerator();
+        } else {
+            commandBox.runCommand("redo");
+        }
         assertTrue(expectedList.isListMatching(taskListPanel));
         
         assertResultMessage(RedoCommand.MESSAGE_REDO_SUCCESS + commandText.trim());
