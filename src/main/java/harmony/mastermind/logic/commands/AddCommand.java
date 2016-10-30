@@ -1,6 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +19,8 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
+import harmony.mastermind.memory.GenericMemory;
+import harmony.mastermind.memory.Memory;
 
 /**
  * Adds a task to the task manager.
@@ -26,6 +31,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
+    
 
     // The main idea of capturing parameters in any order is inspired by (author
     // velop):
@@ -85,6 +91,14 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
+    
+    private static final String TASK = "Task";
+    private static final String DEADLINE = "Deadline";
+    private static final String EVENT = "Event";
+    
+    static GenericMemory task; 
+    static GenericMemory deadline; 
+    static GenericMemory event;
 
     /**
      * Convenience constructor using raw values.<br><br>
@@ -94,7 +108,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
      */
     // event
     // @@author A0124797R
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal) throws IllegalValueException, InvalidEventDateException {
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal, Memory mem) throws IllegalValueException, InvalidEventDateException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -108,12 +122,32 @@ public class AddCommand extends Command implements Undoable, Redoable {
         }
 
         this.toAdd = new Task(name, startTime, endTime, new UniqueTagList(tagSet), recurVal, createdDate);
+        
+        //Converting Date start to Calendar start
+        Calendar start = dateToCalendar(startTime);
+        
+        //Converting Date end to Calendar end
+        Calendar end = dateToCalendar(endTime);
+        
+        
+        if(startDate != "" && endDate != "") { 
+            //event
+            event = new GenericMemory(tags.toString(), name, "", start, end, 0);
+            mem.add(event);
+        } else if(endDate != "") { 
+            //deadline 
+            deadline = new GenericMemory(tags.toString(), name, "", end);
+            mem.add(deadline);
+        } else if(startDate == "" && endDate == "") {
+            //tasks 
+            task = new GenericMemory(tags.toString(), name, "");
+        }
 
     }
 
     // deadline
     // @@author A0138862W
-    public AddCommand(String name, String endDateStr, Set<String> tags, String recur) throws IllegalValueException {
+    public AddCommand(String name, String endDateStr, Set<String> tags, String recur, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -130,7 +164,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     // floating
     // @@author A0138862W
-    public AddCommand(String name, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, Set<String> tags, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -206,6 +240,13 @@ public class AddCommand extends Command implements Undoable, Redoable {
     // @@author A0138862W
     private void requestHighlightLastActionedRow(Task task){
         EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
+    }
+    
+    //@@author A0143378Y
+    private Calendar dateToCalendar(Date date) { 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
     }
 
 }
