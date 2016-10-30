@@ -60,4 +60,9 @@ public class DeadlineTask extends Task implements FavoritableTask, CompletableTa
 					description, DateUtil.dateFormat.format(deadline));
 		}
 	}
+	
+	@Override
+	public boolean isOverdue() {
+	    return deadline.before(new Date());
+	}
 }

@@ -68,4 +68,9 @@ public class EventTask extends Task implements FavoritableTask, CompletableTask 
 					description, DateUtil.dateFormat.format(startDate), DateUtil.dateFormat.format(endDate));
 		}
 	}
+	
+    @Override
+    public boolean isOverdue() {
+        return startDate.before(new Date());
+    }
 }
