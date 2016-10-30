@@ -14,38 +14,53 @@ public class Task implements ReadOnlyTask {
     private String name;
     private Date startDate;
     private Date endDate;
+    private Date createdDate;
     private UniqueTagList tags;
     private String recur;
-    private boolean marked;
+    private boolean isMarked;
 
+    //@@author A0138862W
+    /*
+     * Initialize through taskBuilder (preferred way)
+     */
+    protected Task(TaskBuilder taskBuilder){
+        this.name = taskBuilder.getName();
+        this.startDate = taskBuilder.getStartDate();
+        this.endDate = taskBuilder.getEndDate();
+        this.createdDate = taskBuilder.getCreatedDate();
+        this.tags = taskBuilder.getTags();
+        this.recur = taskBuilder.getRecur();
+        this.isMarked = taskBuilder.isMarked();
+    }
     
     // event
     // @@author A0138862W
-    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur) {
+    public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur, Date createdDate) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.tags = tags;
-        this.marked = false;
+        this.isMarked = false;
         this.recur = recur;
+        this.createdDate = createdDate;
     }
 
     // deadline
     // @@author A0138862W
-    public Task(String name, Date endDate, UniqueTagList tags, String recur) {
-        this(name, null, endDate, tags, recur);
+    public Task(String name, Date endDate, UniqueTagList tags, String recur, Date createdDate) {
+        this(name, null, endDate, tags, recur, createdDate);
     }
 
     // floating
     // @@author A0138862W
-    public Task(String name, UniqueTagList tags) {
-        this(name, null, null, tags, null);
+    public Task(String name, UniqueTagList tags, Date createdDate) {
+        this(name, null, null, tags, null, createdDate);
     }
 
     // @@author A0138862W
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur());
-        this.marked = source.isMarked();
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getTags(), source.getRecur(), source.getCreatedDate());
+        this.isMarked = source.isMarked();
     }
 
     @Override
@@ -122,6 +137,11 @@ public class Task implements ReadOnlyTask {
         return startDate != null && endDate != null;
     }
 
+    // @@author A0138862W
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
     //@@author A0124797R
     @Override 
     public boolean equals(Object other) {
@@ -134,18 +154,18 @@ public class Task implements ReadOnlyTask {
     @Override
     //@@author A0124797R
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
     }
 
     //@@author A0124797R
     public Task mark() {
-        this.marked = true;
+        this.isMarked = true;
         return this;
     }
     
     //@@author A0124797R
     public Task unmark() {
-        this.marked = false;
+        this.isMarked = false;
         return this;
     }
     
@@ -156,45 +176,67 @@ public class Task implements ReadOnlyTask {
     }
 
     //@@author A0138862W
-    public boolean isDue(){        
-        if(isDeadline()){
-            Date now = new Date();
-            if(now.after(endDate)){
-                return true;
-            }else{
-                return false;
-            }
-        }else if(isEvent()){
-            Date now = new Date();
-            if(now.after(startDate) && now.after(endDate)){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
+    /*
+     * 
+     * Check if the current task is due. Applies to only deadline & event
+     * - deadline: true if and only if current date is after end date
+     * - event: true if and only if current date is after end date & start date
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#isDue()
+     */
+    public boolean isDue(){
+        Date now = new Date();
+        if (isDeadline() && now.after(endDate)) {
+            return true;
+        } else if (isEvent() && now.after(startDate) && now.after(endDate)){
+            return true;
+        } else {
             return false;
         }
     }
 
     //@@author A0138862W
+    /*
+     * 
+     * Check if current task is happening at the moment.
+     * Only applies to event, where the current date falls between start & end date 
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#isHappening()
+     */
     public boolean isHappening(){
-        if(isEvent()){
-            Date now = new Date();
-            if(now.after(startDate) && now.before(endDate)){
-                return true;
-            }else{
-                return false;
-            }
+        Date now = new Date();
+        if (isEvent() && now.after(startDate) && now.before(endDate)) {
+            return true;
+        } else {
+            return false;   
         }
-        return false;
     }
     
+    // @@author A0138862W
+    /*
+     * 
+     * Calculate the duration of event. 
+     * Applies to only event, return null otherwise.
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#getEventDuration()
+     */
+    public Duration getEventDuration(){
+        if(isEvent()){
+            long differencel = endDate.getTime() - startDate.getTime();
+            
+            return Duration.of(differencel, ChronoUnit.MILLIS);
+        }else{
+            return null;
+        }
+    }
+    
+    //@@author A0138862W
     /*
      * calculate the duration until due date
+     * Applies to only deadlines, return null otherwise.
      * 
      */
-    //@@author A0138862W
-    public Duration getDurationDue(){
+    public Duration getDueDuration(){
         if(endDate != null){
             long nowl = System.currentTimeMillis();
             long endDatel = endDate.getTime();

@@ -1,6 +1,7 @@
 package harmony.mastermind.model.task;
 
 import java.time.Duration;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public interface ReadOnlyTask {
     public String getName();
     public Date getStartDate();
     public Date getEndDate();
+    public Date getCreatedDate();
     public UniqueTagList getTags();
     public String getRecur();
     
@@ -31,7 +33,8 @@ public interface ReadOnlyTask {
     
     public boolean isDue();
     public boolean isHappening();
-    public Duration getDurationDue();
+    public Duration getDueDuration();
+    public Duration getEventDuration();
     
     //@@author A0124797R
     default boolean isSameTask(ReadOnlyTask task) {
@@ -94,4 +97,5 @@ public interface ReadOnlyTask {
         return builder.toString();
         
     }
+    
 }

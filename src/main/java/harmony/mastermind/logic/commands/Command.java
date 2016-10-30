@@ -7,8 +7,10 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.model.Model;
+import harmony.mastermind.model.task.Task;
 import harmony.mastermind.storage.Storage;
 import harmony.mastermind.storage.StorageManager;
 
@@ -18,7 +20,6 @@ import harmony.mastermind.storage.StorageManager;
 public abstract class Command {
     
     // Social date parser
-    // @@author A0138862W
     protected static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
     
     protected Model model;
@@ -56,6 +57,18 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    // @@author A0138862W
+    /**
+     * Raises an event to highlight the last action row in table
+     * This event should be subscribed by UiManager to update the table
+     * 
+     * @param the row that contain the task that needs to be highlighted
+     * 
+     */
+    protected void requestHighlightLastActionedRow(Task task){
+        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
     }
     
 }

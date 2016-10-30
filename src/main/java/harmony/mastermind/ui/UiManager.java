@@ -6,8 +6,10 @@ import harmony.mastermind.MainApp;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 import harmony.mastermind.commons.util.StringUtil;
@@ -93,8 +95,20 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    // @@author A0138862W
     @Subscribe
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
         mainWindow.pushToActionHistory(event.title, event.description);
+    }
+    
+    @Subscribe
+    private void handleHighlightLastActionedRowRequestEvent(HighlightLastActionedRowRequestEvent event){
+        mainWindow.highlightLastActionedRow(event.task);
+    }
+
+    @Subscribe
+    // @@author A0124797R
+    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
+        mainWindow.updateTabTitle();
     }
 }

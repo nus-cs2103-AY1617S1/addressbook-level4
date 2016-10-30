@@ -13,6 +13,7 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
+import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
@@ -29,6 +30,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     private final UniqueTaskList deadlines;
     private final ArchiveTaskList archives;
     private final UniqueTagList tags;
+    private final TaskListComparator comparator;
 
     {
         tasks = new UniqueTaskList();
@@ -37,6 +39,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         deadlines = new UniqueTaskList();
         archives = new ArchiveTaskList();
         tags = new UniqueTagList();
+        comparator = new TaskListComparator();
     }
 
     public TaskManager() {}
@@ -91,6 +94,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void setTasks(List<Task> tasks) {
+        this.getUniqueTaskList().getInternalList().sort(comparator);
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -155,6 +159,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(t);
         tasks.add(t);
         syncAddTask(t);
+        this.getUniqueTaskList().getInternalList().sort(comparator);
+
     }
     
     /**
@@ -188,10 +194,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         Date nextEndDate = getNextDate(t.getEndDate(),recurVal[0]);
         
         if (t.isDeadline()) {
-            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur);
+            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur, new Date());
         }else if (t.isEvent()) {
             Date nextStartDate = getNextDate(t.getStartDate(), recurVal[0]);
-            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur);
+            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur, new Date());
         }
         
         return newT;
@@ -271,6 +277,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            this.getUniqueTaskList().getInternalList().sort(comparator);
             syncRemoveTask(key);
             return true;
         } else {
@@ -430,6 +437,20 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     @Override
     public boolean equals(Object other) {
+//        System.out.println("========");
+//        for (Task t : this.tasks.getInternalList()) {
+//            System.out.println(t.getName());
+//        }
+//        System.out.println("++++++++");
+//        for (Task t : ((TaskManager) other).tasks.getInternalList()) {
+//            System.out.println(t.getName());
+//        }
+//        System.out.println(this.tasks.equals(((TaskManager) other).tasks));
+//        System.out.println(this.floatingTasks.equals(((TaskManager) other).floatingTasks));
+//        System.out.println(this.events.equals(((TaskManager) other).events));
+//        System.out.println(this.deadlines.equals(((TaskManager) other).deadlines));
+//        System.out.println(this.tags.equals(((TaskManager) other).tags));
+//        System.out.println(this.archives.equals(((TaskManager) other).archives));
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && this.tasks.equals(((TaskManager) other).tasks)

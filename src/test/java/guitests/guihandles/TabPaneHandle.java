@@ -2,9 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import harmony.mastermind.TestApp;
-import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class TabPaneHandle extends GuiHandle {
@@ -16,7 +14,7 @@ public class TabPaneHandle extends GuiHandle {
     }
     
     public String getCurrentTab() {
-        return getTabPane().getSelectionModel().getSelectedItem().getText();
+        return getTabPane().getSelectionModel().getSelectedItem().getId();
     }
     
     private TabPane getTabPane() {

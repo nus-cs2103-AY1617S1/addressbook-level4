@@ -25,6 +25,8 @@ public class XmlAdaptedDeadline {
     private Date endDate;
     @XmlElement(required = true)
     private String recur;
+    @XmlElement(required = true)
+    private Date createdDate;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -43,6 +45,7 @@ public class XmlAdaptedDeadline {
         name = source.getName();
         endDate = source.getEndDate();
         recur = source.getRecur();
+        createdDate = source.getCreatedDate();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -66,6 +69,6 @@ public class XmlAdaptedDeadline {
         final String recur = this.recur;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, endDate, tags, recur);
+        return new Task(name, endDate, tags, recur, createdDate);
     }
 }

@@ -1,3 +1,4 @@
+/** @@author A0138862W */ 
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;
@@ -29,8 +30,8 @@
 }
 
 .table-row-cell:selected {
-   -fx-background-color: transparent; 
-   -fx-table-cell-border-color:transparent;
+   -fx-background-color: #4d0000;
+   -fx-table-cell-border-color: #4d0000;
 }
 
 .text-field{
@@ -111,7 +112,7 @@
 }
 
 .action-history-item .title{
-    -fx-text-fill: deepSkyBlue; 
+    -fx-text-fill: deepSkyBlue;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -119,7 +120,7 @@
 }
 
 .action-history-item .date{
-    -fx-text-fill: deepSkyBlue; 
+    -fx-text-fill: deepSkyBlue;
     -fx-font-weight: normal;
     -fx-font-size: 10px;
     -fx-font-style: normal;
@@ -127,7 +128,7 @@
 }
 
 .action-history-item .description{
-    -fx-text-fill: white; 
+    -fx-text-fill: white;
     -fx-font-weight: normal;
     -fx-font-size: 12px;
     -fx-font-style: normal;
@@ -139,6 +140,13 @@
     -fx-font-size: 18px;
 }
 
+.index-column{
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-fill: white;
+    -fx-font-style: oblique;
+}
+
 .pretty-date{
     -fx-font-weight:bold;
 }
@@ -147,7 +155,40 @@
     -fx-font-size:10px;
 }
 
-.tags{
+.tag{
+    -fx-background-color: green;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.tag-overdue{
+    -fx-background-color: red;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+}
+
+.tag-happening{
+    -fx-background-color: orange;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+}
+
+.tag-due-duration,
+.tag-event-duration{
+    -fx-background-color: darkGray;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+    -fx-font-size: 8px;
     -fx-font-weight: bold;
 }
 

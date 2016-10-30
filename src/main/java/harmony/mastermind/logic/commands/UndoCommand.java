@@ -3,7 +3,7 @@ package harmony.mastermind.logic.commands;
 import java.util.EmptyStackException;
 
 import harmony.mastermind.model.TaskManager;
-
+// @@author A0138862W
 public class UndoCommand extends Command{
     
     public static final String COMMAND_WORD = "undo";
@@ -21,7 +21,7 @@ public class UndoCommand extends Command{
         try{
             // All Command supports undo operation must implement Undoable interface
             
-            // execute the undo implementation
+            // execute the undo strategy implemented by the underlying command
             CommandResult undoResult = model.undo();
             
             // display successful message and the details of the undo operations

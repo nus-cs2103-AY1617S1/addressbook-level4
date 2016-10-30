@@ -12,14 +12,14 @@
 2. Download the latest `mastermind.jar` from our repository's [releases](https://github.com/CS2103AUG2016-W11-C3/main/releases) tab.
 3. Copy the file to the folder you want to use as the home folder for your Mastermind.
 4. Double-click the file to start the app. The app should appear in a few seconds.
-   > <img src="https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/images/Ui.png" width="600">
+   > <img src="docs/images/Mastermind.PNG" width="600">
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
    e.g. typing `help` and pressing <kbd>Enter</kbd> will open the help window.
 
 6. Some example commands you can try:
 
-   - `add 'CS2103T tutorial' ed/'tomorrow 11am'`
+   - `add CS2103T tutorial by tomorrow 11am`
        - adds a task named `CS2103T tutorial` with deadline due tomorrow at 11am
    - `delete 1`
        - deletes the 1st task shown in the current list
@@ -53,7 +53,7 @@ help
 
 ### Adding a task: `add`, `do`
 
-For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure. 
+For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure.
 
 _Mastermind_ helps you to organize your task into three main categories:
 - **Event**: Task with `startDate` and `endDate` specified.
@@ -65,55 +65,53 @@ _Mastermind_ helps you to organize your task into three main categories:
 #### Adds an event  
 _Format:_
 ```java
-(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> from <start_date> to <end_date> #[comma_separated_tags]
 ```
 
 _Example:_
 ```java
-> add 'attend workshop' sd/'today 7pm' ed/'next monday 1pm' t/'programming,java'
+> add attend workshop from today 7pm to next monday 1pm #programming,java
 ```
 #### Adds a task with deadline
 _Format:_
 
 ```java
-(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> by <end_date> #[comma_separated_tags]
 ```  
 
 _Example:_
 
 ```java
-> add 'submit homework' ed/'next sunday 11pm' t/'math,physics'
+> add submit homework by next sunday 11pm #math,physics
 ```  
 #### Adds a floating task
 _Format:_
 ```java
-(add|do) '<name>' [t/'<comma_separated_tags>...']
+(add|do) <task_name> #[<comma_separated_tags>]
 ```  
 
 _Example:_
 ```java
-> do 'chores' t/'cleaning'
+> do chores #cleaning
 ```  
 
 #### Adds a recurring Deadline
 _Format:_
 ```java
-(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(add|do) <task_name> by <end_date> [daily|weekly|monthly|yearly] #[comma_separated_tags]
 ```  
 
 _Example:_
 ```java
-> do r/'daily' 'chores' ed/'today' t/'cleaning'
-> do r/'weekly 2' 'workshop' sd/'tomorrow 3pm' ed/'tomorrow 5pm'
-``` 
+> do chores today daily #cleaning
+> do workshop from tomorrow 3pm to tomorrow 5pm weekly
+```
 
-> Quick Tip: You can add recurring events too!  
-> 'weekly 2' will repeat the Task only twice
-> Use keywords like 'weekly', 'biweekly', 'monthly' and 'yearly' for recurring tasks  
+> Quick Tip: You can add recurring events too!
+> Use keywords like ```'daily', 'weekly', 'monthly' and 'yearly'``` for recurring tasks.
 
-> Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `startDate` & `endDate`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
+> Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `<start_date>` & `<end_date>`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
 >
-> `three days from now`
 > `tomorrow 6pm`
 > `next saturday`
 > `13 Oct 2016 6pm`
@@ -138,6 +136,8 @@ list <category_name>
 > `Events`
 > `Deadlines`
 > `Archives`
+>
+> Quick Tip: You can also press <kbd>Ctrl</kbd> followed by '1', '2', '3', '4', '5' to switch to the respective tabs.
 
 ### Finding all tasks containing any keyword in their description: `find`
 
@@ -171,21 +171,24 @@ Perhaps now you have a change of schedule, or you are unsatisfied with the task 
 
 _Format:_
 ```java
-edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
+(edit|update|change) <index> [name to <name>;] [start date to <start_date>;] [end date to <end_date>;] [recur (daily|weekly|monthly|yearly);] [tags to #<comma_separated_tags>;]
 ```
 
 >* At least one optional parameter is required.
->* can edit as many parameters as required
+>* You can edit as many parameters as required, each options are separated by a semicolon
+>* You can omit the last `semicolon ;` if there's no more option follows:
+
+>   * `edit 1 name to dinner with parents; start date to tomorrow 7pm`
 
 _Examples:_
 
 ```java
 // Selects the 2nd task in Mastermind and edit the task name to Dinner.
-> edit 2 'Dinner'
+> edit 2 name to parents with dinner; end date to tomorrow 7pm; recur daily; tags to #meal,family
 ```
 ```java
 // Selects the 1st task and edit the `startDate` to tomorrow 8pm.
-edit 1 sd/'tomorrow 8pm'
+> change 1 start date to tomorrow 8pm
 ```
 
 
@@ -289,11 +292,12 @@ _Format:_
 upcoming
 ```
 
-> It shows all floating tasks as well.
+> Shows all floating tasks as well.
+> Does not show tasks that are already due.
 
 _Examples:_
 ```java
-// list all tasks that are due in a weeks time.
+// list all tasks that are due within a weeks time.
 > upcoming
 
 ```
@@ -327,6 +331,33 @@ _Examples:_
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
 ```
+### Unmarking a task : `unmark`
+
+Oh no! You realise that one of your task is not complete yet but you have marked it. Not to worry, you can `unmark` that task
+
+_Format:_
+```java
+unmark <index>
+```
+
+> ```mark``` only affects task that are not complete yet. It has no effect on completed task.
+
+_Examples:_
+```java
+// list all the task that are not completed
+> list archives
+
+// mark task at index 1 as completed
+> unmark 1
+```
+
+```java
+// use "find" command to look for a specific task
+> find CS2010
+
+// select the "find" result and mark the task at index 1 as completed
+> unmark 1
+
 ### Repeating a previous command: <kbd>↑</kdb>
 
 Lazy to retype a similar command? Want to paste the previous command back to the field?  
@@ -335,10 +366,6 @@ _Mastermind_ can do just that!
 _Format:_
 <kbd>↑</kdb>
 
-_Example:_
-```java
-// Successfully loaded previous input
-```
 
 ### Clearing all entries: `clear`
 
@@ -405,15 +432,16 @@ _Example:_
 Command | Format  
 -------- | :--------
 Help | `help`
-Add, Do | <code>(add &#124; do) [r/'&lt;reccurence&gt;'] '&lt;taskName&gt;' [sd/'&lt;start_date&gt;'] [ed/'&lt;end_date&gt;'] [t/'&lt;comma_separated_tags&gt;'];</code>
+Add, Do | <code>(add&#124;do) &lt;task_name&gt; from &lt;start_date&gt; to &lt;end_date&gt; [daily&#124;weekly&#124;monthly&#124;yearly] #[comma_separated_tags]</code>
 List | `list [<category_name>]`
 Find | `find <keyword>...`
-Edit | `edit <index>`
+Edit | <code>(edit&#124;update&#124;change) &lt;index&gt; [name to &lt;name&gt;;] [start date to &lt;start_date&gt;;] [end date to &lt;end_date&gt;;] [recur (daily&#124;weekly&#124;monthly&#124;yearly);] [tags to #&lt;comma_separated_tags&gt;;]</code>
 Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Upcoming | `upcoming`
 Mark | `mark <index>`
+Unmark | `unmark <index>`
 Previous | <kbd>↑</kdb>
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`

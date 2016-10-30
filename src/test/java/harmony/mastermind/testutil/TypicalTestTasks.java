@@ -18,26 +18,25 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         
         try {
-            task1 =  new TaskBuilder().withName("do laundry")
-                    .withTags("chores").build();
-            task2 = new TaskBuilder().withName("finish assignment").build();
-            task3 = new TaskBuilder().withName("cs2105 assignment")
+            task1 = new TaskBuilder().withName("complete cs2103 lecture quiz")
+                    .withEndDate("25 oct at 2359")
+                    .withTags("homework").build();
+            task2 = new TaskBuilder().withName("cs2105 assignment")
                     .withStartDate("23 oct 1pm").withEndDate("23 oct 5pm")
                     .withTags("examPrep").build();
-            task4 = new TaskBuilder().withName("complete cs2103 lecture quiz")
-                    .withEndDate("25 oct 2359")
-                    .withTags("homework").build();
+            task3 =  new TaskBuilder().withName("laundry")
+                    .withTags("chores").build();
+            task4 = new TaskBuilder().withName("finish assignment").build();
             
             
             //manual inputs
-            task5 = new TaskBuilder().withName("do past year papers")
-                    .withEndDate("22 oct 2359")
+            task5 = new TaskBuilder().withName("past year papers")
                     .withTags("homework").build();
-            task6 = new TaskBuilder().withName("sweep floor").withEndDate("21 oct 2359").build();
+            task6 = new TaskBuilder().withName("sweep floor").build();
             
             //completed tasks
             task7 = new TaskBuilder().withName("lecture").build();
-            task8 = new TaskBuilder().withName("submit PR").withEndDate("22 oct 2359").build();
+            task8 = new TaskBuilder().withName("submit PR").withEndDate("22 oct at 2359").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

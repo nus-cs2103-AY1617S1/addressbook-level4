@@ -1,7 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.TaskAlreadyUnmarkedException;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -48,6 +50,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             model.pushToUndoHistory(this);
             
             model.clearRedoHistory();
+            
+            requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
@@ -61,6 +65,11 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     @Override
     //@@author A0138862W
+    /*
+     * Strategy to undo unmark command
+     * 
+     * @see harmony.mastermind.logic.commands.Undoable#undo()
+     */
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
@@ -76,11 +85,19 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     @Override
     //@@author A0138862W
+    /*
+     * 
+     * Strategy to redo unmark command
+     * 
+     * @see harmony.mastermind.logic.commands.Redoable#redo()
+     */
     public CommandResult redo() {
         try {
             executeUnmark();
             
             model.pushToUndoHistory(this);
+            
+            requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
@@ -110,4 +127,5 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         
         model.unmarkTask(taskToUnmark);
     }
+    
 }

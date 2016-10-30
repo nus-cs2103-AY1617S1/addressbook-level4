@@ -1,13 +1,15 @@
 package harmony.mastermind.model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.util.EmptyStackException;
 import java.util.Set;
-import java.util.Stack;
+
+import javafx.collections.ObservableList;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
@@ -18,7 +20,6 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -60,7 +61,8 @@ public interface Model {
     
     /** push the command to undo history */
     void pushToUndoHistory(Undoable command);
-    
+
+    //@@author A0138862W
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult undo() throws EmptyStackException;
     
@@ -71,6 +73,7 @@ public interface Model {
     /** push the command to redo history */
     void pushToRedoHistory(Redoable command);
     
+    //@@author A0138862W
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult redo() throws EmptyStackException;
     
@@ -108,10 +111,13 @@ public interface Model {
     /** Updates the filter of the filtered task list for current tab to show all tasks */
     void updateFilteredListToShowAll();
     
+    /** Updates the filter of the filtered task list for specified tab to show all tasks */
+    void updateFilteredListToShow(String tab);
+    
     //@@author A0124797R
     /** Updates the filter of the filtered task list 
      * for Home tab to show all upcoming tasks */
-    void updateFilteredListToShowUpcoming(long time);
+    void updateFilteredListToShowUpcoming(long time, String taskType);
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -125,6 +131,10 @@ public interface Model {
     //@@author A0139194X
     /** Indicate that user needs to confirm command execution */
     void indicateConfirmationToUser() throws CommandCancelledException;
+
+    //@@author A0124797R
+    /** reads the file indicated */
+    BufferedReader importFile(String fileToImport) throws FileNotFoundException;
 
 
 }

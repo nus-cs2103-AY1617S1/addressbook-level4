@@ -41,7 +41,7 @@ public class FindCommand extends Command {
         return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
-    //@author A0143378Y
+    //@@author A0143378Y
     // Checks if memory item contains the keyword.
     // If contains, add to exactResult
     private static void containsKeyword(String keyword, Memory memory, ArrayList<GenericMemory> exactResult, int i) {
@@ -50,7 +50,7 @@ public class FindCommand extends Command {
         }
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Driver for recursive searching of array of keywords
     // Returns ArrayList of GenericEvents found containing keywords in their name or description
     public static ArrayList<GenericMemory> searchTerms(String[] keywords, Memory memory) {
@@ -68,7 +68,7 @@ public class FindCommand extends Command {
         return findResult;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Formats search title with keywords used to perform the search
     private static String formatSearchTitle(String[] keywords) {
         String title = "Search Keywords Result: " + keywords[0];
@@ -78,7 +78,7 @@ public class FindCommand extends Command {
         return title;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     public static ArrayList<GenericMemory> recursiveSearchTerms(String[] keywords, int index, ArrayList<GenericMemory> result) {
         ArrayList<GenericMemory> newResult = new ArrayList<GenericMemory>();
         if (index >= keywords.length) { // Base case: no more terms to search
@@ -96,7 +96,7 @@ public class FindCommand extends Command {
         }
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     public static ArrayList<GenericMemory> findDate(Calendar date, Memory memory) {
         assert date != null;
         findResult = new ArrayList<GenericMemory>();
@@ -114,7 +114,7 @@ public class FindCommand extends Command {
         return findResult;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Returns true if two dates are the same
     private static boolean testTwoCalendar(Calendar a, Calendar b) {
         if (b == null) {

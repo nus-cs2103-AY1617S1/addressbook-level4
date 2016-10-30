@@ -16,3 +16,4 @@ classes/
 /bin/
 gradle.prefs
 org.eclipse.jdt.core.prefs
+data.txt
