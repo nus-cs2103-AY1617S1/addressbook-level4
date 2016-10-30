@@ -383,7 +383,7 @@ Use case ends
 	
 * The date/time entered is already over
 
-> * Program returns error message, saying that deadline entered is already over<br>
+> * Program displays the task as overdue.<br>
   Use case resumes at step 1
 
 <br></br>
@@ -410,7 +410,7 @@ Use case ends
 	
 * The date/time entered is already over
 
-> * Program returns error message, saying that deadline entered is already over<br>
+> * Program marks and displays the task as done.<br>
   Use case resumes at step 1
 
 * The start time is later then end time
@@ -425,21 +425,9 @@ Use case ends
 **MSS**
 
 1. User requests to view all upcoming tasks
-2. Program shows the list of uncompleted todo tasks, events from today onwards, and all uncompleted deadlines<br>
+2. Program shows the list of uncompleted todo tasks, uncompleted events from today onwards, and all uncompleted deadlines<br>
 
 Use case ends
-
-**Extensions**
-
-* There are no events from today onwards
-
-> * Program returns a message, saying there are no events from today onwards<br>
-  Use case ends
-  
-* There are no tasks with deadlines
-
-> * Program returns a message, saying there are no uncompleted deadlines<br>
-  Use case ends
   
 <br></br>
 ### Use case: View all tasks
@@ -451,18 +439,6 @@ Use case ends
 
 Use case ends
 
-**Extensions**
-
-* There are no events
-
-> * Program returns a message, saying there are no events<br>
-  Use case ends
-  
-* There are no tasks with deadlines
-
-> * Program returns a message, saying there are no tasks with deadlines<br>
-  Use case ends
-  
 <br></br>
 ### Use case: View all tasks at specified date
 
@@ -480,17 +456,7 @@ Use case ends
 > * Program returns errors message, saying that date given is invalid<br>
   Use case resumes at step 1
 
-* There are no events for the specified date
-
-> * Program returns a message, saying there are no events for the specified date<br>
-  Use case ends
-
-* There are neither deadlines before nor on the specified date
-
-> * Program returns a message, saying there are neither tasks due before nor on the specified date<br>
-  Use case ends
-
-<br></br>
+<br><br>
 ### Use case: View completed tasks
 
 **MSS**
@@ -499,15 +465,8 @@ Use case ends
 2. Program shows the list of completed todo tasks<br>
 
 Use case ends
-
-**Extensions**
-
-* There are no completed tasks
-
-> * Program returns a message, saying there are no completed tasks<br>
-  Use case ends
  
-<br></br> 
+<br><br> 
 ### Use case: Find a specific task
 
 **MSS**
@@ -524,7 +483,7 @@ Use case ends
 > * Program returns errors message, saying that keyword given is invalid<br>
   Use case resumes at step 1
 
-<br></br>
+<br><br>
 ### Use case: Edit details of a task
 
 **MSS**
