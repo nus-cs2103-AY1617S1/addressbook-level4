@@ -113,12 +113,14 @@ public class TaskListPanel extends UiPart {
             	
             	// Set the color of the card based on whether it's overdue
             	if (task.isOverdue()) {
-            		cardPane.setStyle("-fx-background-color: #d60e0e;");
+            		cardPane.setStyle("-fx-background-color: #d60e0e; -fx-background-opacity: 0.85;");
+            		currentCard.setOverdueColors();
             	} 
             	
             	// Set the color of the card based on whether it's favorited
                 if (task.isFavorite()) {
-                	cardPane.setStyle("-fx-background-color: #a0ff75;");
+                	cardPane.setStyle("-fx-background-color: #09c609; -fx-background-opacity: 0.85;");
+                	currentCard.setPinnedColors();
                 } 
             }
         }

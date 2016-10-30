@@ -73,6 +73,22 @@ public class TaskCard extends UiPart{
         	second_date.setText("");
         }
     }
+    
+    // Set the colors for overdue tasks
+    public void setOverdueColors() {
+    	description.setStyle("-fx-text-fill: white;");
+    	id.setStyle("-fx-text-fill: white;");
+    	first_date.setStyle("-fx-text-fill: #e1f2e1;");
+    	second_date.setStyle("-fx-text-fill: #e1f2e1;");
+    }
+    
+    // Set the colors for pinned tasks
+    public void setPinnedColors() {
+    	description.setStyle("-fx-text-fill: #006600;");
+    	id.setStyle("-fx-text-fill: #006600;");
+    	first_date.setStyle("-fx-text-fill: #e1f2e1;");
+    	second_date.setStyle("-fx-text-fill: #e1f2e1;");
+    }
 
     public HBox getLayout() {
         return cardPane;
