@@ -251,7 +251,7 @@ public class Parser {
 			} else if (matcher5.matches()) {
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("endTimeArguments"));
-				return new AddCommand("deadline without task descriptions and date", details,
+				return new AddCommand("deadline without task description and date", details,
 						getTagsFromArgs(matcher5.group("tagArguments")));
 
 			} else if (matcher6.matches()) {
