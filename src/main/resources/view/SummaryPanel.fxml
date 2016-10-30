@@ -1,12 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
 <!--@@Gauri Joshi A0143095H  -->
 
-<AnchorPane maxWidth="350.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
+<AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
    <children>
-      <ListView prefHeight="300.0" prefWidth="300.0" />
+      <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="165.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="149.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="today" text="#Today" GridPane.columnIndex="2">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label fx:id="done" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857" startY="0.7">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <textFill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </textFill></Label>
+            <ImageView fitHeight="35.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/Today.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/Done.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="56.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/uNDONE.JPG" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

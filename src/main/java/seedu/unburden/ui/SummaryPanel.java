@@ -12,6 +12,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import seedu.unburden.commons.core.LogsCenter;
@@ -23,7 +24,7 @@ import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * The Summary panel
- * which will show different types of tasks
+ * which will show the number of different types of tasks
  * @@author A0147986H
  */
 public class SummaryPanel extends UiPart{
@@ -32,10 +33,10 @@ public class SummaryPanel extends UiPart{
 
     private AnchorPane summary;
     @FXML
-    private TitledPane today;
+    private GridPane mainContainer;
     @FXML
-    private TitledPane tomorrow;
-    @FXML
+    private Label today;
+    /*@FXML
     private TitledPane importance;
     @FXML
     private TitledPane completeness;
@@ -46,6 +47,7 @@ public class SummaryPanel extends UiPart{
     @FXML
     private Label nonurgent;
     @FXML
+    */
     private Label done;
     @FXML
     private Label undone;
