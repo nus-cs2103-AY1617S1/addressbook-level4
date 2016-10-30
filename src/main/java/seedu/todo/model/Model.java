@@ -85,7 +85,7 @@ public interface Model {
      *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all Observable tasks back by 2h
      *     t.setPin(true); // Pin all tasks in Observable view
      * });</code></pre>
-     * @return 
+     * @return the list of tasks which were just updated
      * 
      * @throws ValidationException if any updates on any of the task objects are considered invalid
      */
