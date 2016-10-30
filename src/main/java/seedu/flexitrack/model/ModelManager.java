@@ -1,5 +1,6 @@
 package seedu.flexitrack.model;
 
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -98,7 +99,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateFlexiTrackerChanged();
         return unMarkedTask;
     }
-  //@@author
     
   //@@author A0127855W
     @Override
@@ -114,15 +114,21 @@ public class ModelManager extends ComponentManager implements Model {
         indicateFlexiTrackerChanged();
         return editedTask;
     }
-  //@@author
+
     
   //@@author A0138455Y
     @Override
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         return flexiTracker.checkBlock(toCheck);
     }
-  //@@author
+    
+    //@@author
 
+    @Override
+    public List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length, int numberOfSlot) {
+        return flexiTracker.findNextAvailableSlots(keyword, length, numberOfSlot);
+    }
+    
     // =========== Filtered Tasks List Accessors
     // ===============================================================
 
@@ -253,9 +259,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         /**
+         * Check of the task will be shown to the user in the panel list
          * @param task
          * @param willBeShown
-         * @return
+         * @return true if the task met all the requirement and will be shown
          */
         private boolean isTaskGoingToBeShown(ReadOnlyTask task) {
             if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
@@ -286,7 +293,7 @@ public class ModelManager extends ComponentManager implements Model {
          * @return true if task is within the stated time
          */
         private boolean isTaskWithinTheSpecifiedTiming(ReadOnlyTask task) {
-            return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
+            return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTime().toString());
         }
 
         /**
@@ -295,7 +302,7 @@ public class ModelManager extends ComponentManager implements Model {
          * @return true if it has passed
          */
         private boolean isTaskInThePast(ReadOnlyTask task) {
-            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+            return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
         }
 
         /**
@@ -305,12 +312,13 @@ public class ModelManager extends ComponentManager implements Model {
          */
         private boolean isTaskInTheFuture(ReadOnlyTask task) {
             if (task.getIsNotFloatingTask()){ 
-                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndingTimeOrDueDate());
+                return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
             }else { 
                 return !task.getIsDone();
             }
         }
         
     }
+
 
 }

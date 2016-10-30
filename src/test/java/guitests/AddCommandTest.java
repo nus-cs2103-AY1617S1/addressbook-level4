@@ -2,6 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
@@ -14,34 +15,47 @@ import seedu.flexitrack.testutil.TypicalTestTasks;
 //@@author A0127686R
 public class AddCommandTest extends FlexiTrackGuiTest {
 
+    TestTask[] currentList = td.getTypicalSortedTasks();
+    TestTask taskToAdd;
+    
     @Test
-    public void add() {
-        // add an event
+    public void addAnEvent() {
         TestTask[] currentList = td.getTypicalSortedTasks();
-        TestTask taskToAdd = TypicalTestTasks.basketball;
+        taskToAdd = TypicalTestTasks.basketball;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        // add a deadline task
+    }
+    
+    @Test
+    public void addADeadLineTask() {
         taskToAdd = TypicalTestTasks.lecture;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        // add a floating task
+    }
+    
+    @Test
+    public void addAFloatingTask() {
         taskToAdd = TypicalTestTasks.job;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        // add duplicate task
-        commandBox.runCommand(TypicalTestTasks.basketball.getAddCommand());
+    }
+    @Test
+    public void addADuplicateTask() {
+        commandBox.runCommand(TypicalTestTasks.soccer.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
+    }
 
-        // add to empty list
+    @Test
+    public void addToAnEmptyList() {
         commandBox.runCommand("clear");
         assertAddSuccess(TypicalTestTasks.homework1);
 
-        // invalid command
+    }
+    
+    @Test
+    public void invalidAddCommand () {
         commandBox.runCommand("adds cs tutorial");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }

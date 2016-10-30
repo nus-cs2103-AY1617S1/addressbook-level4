@@ -1,5 +1,6 @@
 package seedu.flexitrack.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -125,6 +127,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 || (other instanceof FlexiTrack // instanceof handles nulls
                         && this.task.equals(((FlexiTrack) other).task));
     }
+    
   //@@author A0127855W
     /**
      * Sorts the flexitrack according to the ReadOnlyTask comparator
@@ -132,8 +135,8 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     public void sort(){
     	task.sort();
     }
+    
   //@@author
-
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
@@ -185,5 +188,87 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
-  //@@author
+    
+  //@@author A0127686R
+    /**
+     * Find the next available time slots that has minimum gap as specified by the users. 
+     * If there are less gap then specified, return the starting time where there are no more events
+     * @param keyword
+     * @param length
+     * @param numberOfSlot
+     * @return the list of dates where gap are available 
+     */
+    public List<DateTimeInfo> findNextAvailableSlots (int keyword, int length, int numberOfSlot) {
+        DateTimeInfo dateNow = DateTimeInfo.getCurrentTime();
+        List<DateTimeInfo> listOfPossibleTiming= new ArrayList<DateTimeInfo>();
+        for (Task task: task.getInternalList()){
+            if (listOfPossibleTiming.size()>(numberOfSlot*2-1)){
+                return listOfPossibleTiming; 
+            }
+            if (canTheGapBeFound(task, dateNow, keyword, length)) {
+                listOfPossibleTiming.add(dateNow);
+                listOfPossibleTiming.add(task.getStartTime());
+                dateNow = task.getEndTime();
+            }
+            if (DateTimeInfo.isInTheFuture(dateNow, task.getEndTime())){
+                dateNow = task.getEndTime();
+            }
+        }
+        listOfPossibleTiming.add(dateNow);
+        return listOfPossibleTiming;
+    }
+
+    /**
+     * Process the data to see if there is any gap available 
+     * @param task
+     * @param dateNow
+     * @param keyword
+     * @param length
+     * @return true when there is an available gap
+     */
+    private boolean canTheGapBeFound (Task task, DateTimeInfo dateNow, int keyword, int length){ 
+        if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
+            return doesTheEventStartAfterTheCurrentTiming(task, dateNow, keyword, length);
+        }
+        return false;
+    }
+
+    /**
+     * Process the task data to calculate if the starting timing of the task is after the current interest timing
+     * @param task
+     * @param dateNow
+     * @param keyword
+     * @param length
+     * @return true if the event starts after the current timing. 
+     */
+    private boolean doesTheEventStartAfterTheCurrentTiming(Task task, DateTimeInfo dateNow, int keyword, int length) {
+        int[] differenceInTime = new int[5];
+        differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
+        if (differenceInTime[0]>=0){
+            differenceInTime[keyword] = differenceInTime[keyword]-length;
+            return doesTheGapAtLeastAsLongAsTimingSpecified(keyword, differenceInTime);
+        }
+        return false;
+    }
+
+    /**
+     * Decide if the gap between two timing is long enough to satisfied the user 
+     * @param keyword
+     * @param differenceInTime
+     * @return true if the gap is longer than what user specified.
+     */
+    private boolean doesTheGapAtLeastAsLongAsTimingSpecified(int keyword, int[] differenceInTime) {
+        int countNumberOfZero = 0; 
+        for(int i=keyword; i<5 ; i++){
+            if (differenceInTime[i]>0) {
+                return true; 
+            } else if (differenceInTime[i]==0) {
+                countNumberOfZero = countNumberOfZero + 1; 
+            }
+        }
+        if (countNumberOfZero == (5-keyword)){
+            return true; 
+        }
+        return false;
+    }
 }

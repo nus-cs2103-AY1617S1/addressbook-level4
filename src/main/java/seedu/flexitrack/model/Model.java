@@ -1,9 +1,11 @@
 package seedu.flexitrack.model;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -79,6 +81,19 @@ public interface Model {
      */
     boolean checkBlock(Task toAdd) throws DuplicateTaskException;
 
+    // @@author A0127686R
+    /**
+     * Refresh the TaskList Panel to reflect the changes made
+     */
     void indicateFlexiTrackerChanged();
+
+    /**
+     * Find gap with length and number of slots specified by the user
+     * @param keyword
+     * @param length
+     * @param numberOfSlot
+     * @return The list of the Starting time and ending time for each gap found
+     */
+    List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length, int numberOfSlot);
 
 }

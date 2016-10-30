@@ -10,6 +10,8 @@ import seedu.flexitrack.model.task.Name;
  */
 public class TaskBuilder {
 
+    public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
+    
     private TestTask task;
     private Name name;
     private DateTimeInfo dueDate;
@@ -46,6 +48,16 @@ public class TaskBuilder {
 
     public TestTask build() {
         return this.task = new TestTask(this.name, this.dueDate, this.startTime, this.endTime);
+    }
+    
+    private DateTimeInfo getNullTime() { 
+        try {
+            return new DateTimeInfo("Feb 29 2000 00:00");
+        } catch (IllegalValueException e) {
+            new IllegalValueException (MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        }
+        return null;
+
     }
 
 }

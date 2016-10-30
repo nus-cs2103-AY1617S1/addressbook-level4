@@ -2,6 +2,7 @@ package seedu.flexitrack.logic.parser;
 
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import seedu.flexitrack.logic.commands.DeleteCommand;
 import seedu.flexitrack.logic.commands.EditCommand;
 import seedu.flexitrack.logic.commands.ExitCommand;
 import seedu.flexitrack.logic.commands.FindCommand;
+import seedu.flexitrack.logic.commands.GapCommand;
 import seedu.flexitrack.logic.commands.HelpCommand;
 import seedu.flexitrack.logic.commands.IncorrectCommand;
 import seedu.flexitrack.logic.commands.ListCommand;
@@ -49,7 +51,7 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
-  //@@author A0127855W 
+    //@@author A0127855W 
     private static final HashMap<String, String> SHORTCUT_MAP = new HashMap<String, String>();                                                                                                       // more
     static {
         SHORTCUT_MAP.put(AddCommand.COMMAND_SHORTCUT, AddCommand.COMMAND_WORD);
@@ -69,6 +71,9 @@ public class Parser {
     }  
 
     //@@author A0127686R
+    private static final Pattern TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT = Pattern.compile("(?<info>[^/]+)"+"n/(?<numberOfGaps>[^/]+)");
+    private static final Pattern TASK_FIND_GAP_ARGS_FORMAT = Pattern.compile("(?<info>[^/]+)");
+
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -80,22 +85,22 @@ public class Parser {
     private static final Pattern TASK_RECURRING_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "fr/(?<numOfOccurrence>[^/dd]+)" + "ty/(?<occurrenceType>[^/].+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+
     //@@author 
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
     private static final Pattern EDIT_ARGS_NAME = Pattern.compile("n/\\s*(?<name>.+)");
     private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("by/\\s*(?<dueDate>[^/]+)");
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
-    
+
     private Model model;
-   
+
     public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
-    
-    
+
+
     public Parser() {
     }
-    
+
     public Parser(Model model) {
         this.model = model;
     }
@@ -155,6 +160,9 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
 
+        case GapCommand.COMMAND_WORD:
+            return prepareGap(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -166,7 +174,111 @@ public class Parser {
         }
     }
 
-  //@@author A0127855W
+    //@@author A0127686R
+    /**
+     * Prepare the user input arguments to be passed GapCommand class
+     * @param args
+     * @return a new Gap Command class
+     */
+    private Command prepareGap(String args) {
+        args.toLowerCase();
+        
+        Matcher matcher = TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT.matcher(args.trim());
+        int numberOfSlot = GapCommand.DEFAULT_NUMBER_OF_SLOT;
+        
+        if (matcher.matches()){
+            args = matcher.group("info").trim();
+            try{
+            numberOfSlot =  Integer.parseInt(matcher.group("numberOfGaps").trim()); 
+            } catch (NumberFormatException nfe){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
+            }
+        } else { 
+            if (args.trim().equals("") || args.trim().contains("n/")){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
+            }
+            matcher = TASK_FIND_GAP_ARGS_FORMAT.matcher(args.trim());
+            matcher.matches();
+            args = matcher.group("info").trim();
+        }
+        
+        if( isGapArgumentValid(args)){
+            try {
+                int keyword = extractKeywordFromArgs(args);
+                int length = extractLength(args);
+                return new GapCommand(keyword, length, numberOfSlot);
+
+            } catch (NumberFormatException nfe) { 
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
+            }
+        } else { 
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Extract the length of the duration from string in keywords to number 
+     * @param args
+     * @return length of duration in integer 
+     * @throws NumberFormatException
+     */
+    private int extractLength(String args) throws NumberFormatException {
+        String length = args.replace(GapCommand.DAY_WORD+"s", "").
+                replace(GapCommand.HOUR_WORD + "s", "").replace(GapCommand.MINUTE_WORD+"s", "").
+                replace(GapCommand.DAY_WORD, ""). replace(GapCommand.HOUR_WORD, "").
+                replace(GapCommand.MINUTE_WORD, "").replace(GapCommand.DAY_INITIAL, "").
+                replace(GapCommand.MINUTE_INITIAL, "").replace(GapCommand.HOUR_INITIAL, "");
+        if (length.trim().equals("")){
+            return 1; 
+        } else {
+            return Integer.parseInt(length.trim());
+        }
+    }
+
+    /**
+     * Extract the keyword from the arguments and return it in integer reference number 
+     * @param args
+     * @return number representing each key word. 
+     */
+    private int extractKeywordFromArgs(String args) {
+        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")
+                ||args.contains(GapCommand.DAY_INITIAL)){
+            return GapCommand.DAY_REF_NO;
+        }
+        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")
+                ||args.contains(GapCommand.HOUR_INITIAL)){
+            return GapCommand.HOUR_REF_NO; 
+        }
+        else {
+            return GapCommand.MINUTE_REF_NO; 
+        }
+    }
+
+    /** 
+     * Find out if the argument is a valid argument for a GapCommand. The argument could not have more 
+     * than one timing key words ( minute, hour or day ) 
+     * @param args
+     * @return true if the argument is a valid argument 
+     */
+    private boolean isGapArgumentValid(String args) {
+        int numberOfMatch = 0; 
+
+        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")
+                ||args.contains(GapCommand.DAY_INITIAL)){
+            numberOfMatch = numberOfMatch + 1; 
+        }
+        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")
+                ||args.contains(GapCommand.HOUR_INITIAL)){
+            numberOfMatch = numberOfMatch + 1; 
+        }
+        if (args.contains(GapCommand.MINUTE_WORD)||args.contains(GapCommand.MINUTE_WORD + "s")
+                ||args.contains(GapCommand.MINUTE_INITIAL)){
+            numberOfMatch = numberOfMatch + 1; 
+        }
+        return numberOfMatch == 1;
+    }
+
+    //@@author A0127855W
     /**
      * parseCommandWord
      * -------------------------------------------
@@ -197,7 +309,7 @@ public class Parser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 
-  //@@author A0138455Y
+    //@@author A0138455Y
     private Command prepareBlock(String args) {
         final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
 
@@ -236,7 +348,7 @@ public class Parser {
                 || arguments.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) || arguments.contains(ListCommand.LIST_BLOCK_COMMAND));
     }
 
-  //@@author A0127855W
+    //@@author A0127855W
     /**
      * prepareEdit
      * ------------------------------------------
@@ -246,7 +358,7 @@ public class Parser {
      */
     private Command prepareEdit(String arguments) {
         assert arguments != null;
-        
+
         int index;
         String editParameters;
         String[] passing = new String[EditCommand.EDIT_PARAMETER_PASSING_MASK.size()];
@@ -269,7 +381,7 @@ public class Parser {
         boolean dueDatePresent = matcherDueDate.find();
         boolean startTimePresent = matcherStartTime.find();
         boolean endTimePresent = matcherEndTime.find();
-        
+
         //Check that at least one edit parameter exists
         if (!namePresent && !dueDatePresent && !startTimePresent && !endTimePresent) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -300,7 +412,7 @@ public class Parser {
         }
     }
 
-  //@@author A0138455Y
+    //@@author A0138455Y
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -333,7 +445,7 @@ public class Parser {
 
         return new MarkCommand(index.get());
     }
-    
+
     //@@author A0127686R
     /**
      * Parses arguments in the context of the add task command.
@@ -351,7 +463,7 @@ public class Parser {
         try {
             if (matcherRecurring.matches()) {
                 return addRecurringEvent(matcherRecurring);
-            }else if (matcherEvent.matches()) {
+            } else if (matcherEvent.matches()) {
                 return addEventTask(matcherEvent);
             } else if (matcherDeadline.matches()) {
                 return addDeadlineTask(matcherDeadline);
@@ -372,13 +484,13 @@ public class Parser {
     private AddCommand addDeadlineTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO);
     }
-    
-    
+
+
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
         return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
                 matcher.group("endTime"));
     }
-    
+
     //@@author A0147092E
     private Command addRecurringEvent(Matcher matcher) throws IllegalValueException{
         String formattedStartTime;
@@ -387,7 +499,7 @@ public class Parser {
         String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
         Date initialStartTime = new DateTimeInfoParser(matcher.group("startTime")).getParsedDateTime();
         Date initialEndTime = new DateTimeInfoParser(matcher.group("endTime")).getParsedDateTime();
-       
+
         if (occurrenceType.equalsIgnoreCase("day")) {
 
             for(int index=1; index < numOfOccurrrence; index++){
@@ -400,16 +512,16 @@ public class Parser {
                 calendar.add(Calendar.DATE, index);
                 calendar.setTime(initialEndTime);
                 Date newEndTime = calendar.getTime();
-                
+
                 // Format the new startTime and endTime for adding
                 formattedStartTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newStartTime);
                 formattedEndTime = new SimpleDateFormat("MM-dd-yyyy hhmmss").format(newEndTime);
-                
+
                 Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime);
                 command.setData(model);
                 command.execute();
             }
-            
+
             return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
         }     
         else{
@@ -425,19 +537,19 @@ public class Parser {
                 calendar.setTime(initialEndTime);
                 calendar.add(Calendar.MONTH, index);
                 Date newEndTime = calendar.getTime();
-                
+
                 // format the new startTime and endTime for adding
                 formattedStartTime = new SimpleDateFormat("MM-dd-yyyy hhmm").format(newStartTime);
                 formattedEndTime = new SimpleDateFormat("MM-dd-yyyy hhmm").format(newEndTime);
-                
-                System.out.println("Formatted start: " + formattedStartTime);
-                System.out.println("Formatted end: " + formattedEndTime);
-                
+
+//                System.out.println("Formatted start: " + formattedStartTime);
+//                System.out.println("Formatted end: " + formattedEndTime);
+
                 Command command =  new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, formattedStartTime, formattedEndTime);
                 command.setData(model);
                 command.execute();
             }
-            
+
             return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"), matcher.group("endTime"));
         }
     }
