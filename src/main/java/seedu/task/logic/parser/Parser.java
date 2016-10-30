@@ -108,17 +108,17 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
-        	
+
         case SetStorageCommand.COMMAND_WORD:
             return prepareSetStorageCommand(arguments);
-                    
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
     /**
      * Parses arguments in the context of the set storage command.
-     * 
+     *
      * @params args full command args string
      * @return the prepared command
      */
@@ -126,7 +126,7 @@ public class Parser {
     private Command prepareSetStorageCommand(String args){
         return new SetStorageCommand(args.substring(1));
     }
-    
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -258,6 +258,12 @@ public class Parser {
 
 
     //@@author A0147969E
+    /**
+     * Parses arguments in the context of the add tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareAddTag(String args){
     	final Matcher matcher = TAG_ADD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -284,6 +290,12 @@ public class Parser {
 		}
     }
 
+    /**
+     * Parses arguments in the context of the delete tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareDeleteTag(String args){
     	final Matcher matcher = TAG_DELETE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -310,7 +322,12 @@ public class Parser {
 		}
     }
 
-
+    /**
+     * Parses arguments in the context of the update command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUpdate(String args) throws IllegalValueException{
         final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format

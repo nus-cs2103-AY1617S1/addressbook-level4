@@ -1,3 +1,4 @@
+//@@author A0147969E
 package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
@@ -72,11 +73,11 @@ public class DeleteTagCommand extends Command{
     }
 
 	@Override
-	 public CommandResult undo() throws IllegalValueException{
-			AddTagCommand addTag = new AddTagCommand(targetIndex,tag.tagName);
-			addTag.model = model;
-			addTag.execute();
-			return new CommandResult("Undo complete!");
-	 }
+	public CommandResult undo() throws IllegalValueException{
+		AddTagCommand addTag = new AddTagCommand(targetIndex,tag.tagName);
+		addTag.model = model;
+		addTag.execute();
+		return new CommandResult("Undo complete!");
+	}
 
 }

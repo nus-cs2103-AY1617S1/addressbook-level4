@@ -69,16 +69,7 @@ public class UpdateCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(index - 1);
 
-        if(toUpdate.getDescription().toString().equals("NODESCRIPTION"))
-        	toUpdate.setDescription(taskToUpdate.getDescription());
-        if(toUpdate.getTimeStart().toString().equals(""))
-        	toUpdate.setTimeStart(taskToUpdate.getTimeStart());
-        if(toUpdate.getTimeEnd().toString().equals(""))
-        	toUpdate.setTimeEnd(taskToUpdate.getTimeEnd());
-        if(toUpdate.getPriority().toString().equals("NOUPDATE"))
-        	toUpdate.setPriority(taskToUpdate.getPriority());
-        toUpdate.setTags(taskToUpdate.getTags());
-        toUpdate.setCompleteStatus(taskToUpdate.getCompleteStatus());
+        setNewTask(taskToUpdate);
 
         if(toUpdate.getTimeEnd().isBefore(toUpdate.getTimeStart()))
 			return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");
@@ -89,14 +80,38 @@ public class UpdateCommand extends Command{
         								 taskToUpdate.getTimeEnd(),
         								 taskToUpdate.getTags(),
         								 taskToUpdate.getCompleteStatus()));
-        LogicManager.indexes.push(index);
+        LogicManager.indexes.push(index);											//push the old task for UndoCommand
 
+        return (executeUpdate(lastShownList));
+	}
+
+	private void setNewTask(ReadOnlyTask taskToUpdate){
+		if(toUpdate.getDescription().toString().equals("NODESCRIPTION"))
+        	toUpdate.setDescription(taskToUpdate.getDescription());
+
+		if(toUpdate.getTimeStart().toString().equals(""))
+        	toUpdate.setTimeStart(taskToUpdate.getTimeStart());
+
+		if(toUpdate.getTimeEnd().toString().equals(""))
+        	toUpdate.setTimeEnd(taskToUpdate.getTimeEnd());
+
+		if(toUpdate.getPriority().toString().equals("NOUPDATE"))
+        	toUpdate.setPriority(taskToUpdate.getPriority());
+
+		toUpdate.setTags(taskToUpdate.getTags());
+
+		toUpdate.setCompleteStatus(taskToUpdate.getCompleteStatus());
+	}
+
+	private CommandResult executeUpdate(UnmodifiableObservableList<ReadOnlyTask> lastShownList){
 		DeleteCommand delete = new DeleteCommand(index);
         delete.model = model;
 		delete.execute();
+
 		LogicManager.tasks.pop();
         LogicManager.indexes.pop();
-		AddCommand add;
+
+        AddCommand add;
 		try {
 			add = new AddCommand(toUpdate,index-1);
 			add.model = model;
@@ -107,28 +122,10 @@ public class UpdateCommand extends Command{
 	        LogicManager.indexes.pop();
 			return new CommandResult(String.format(MESSAGE_EDIT_FAIL));
 		}
+
 		SelectCommand select = new SelectCommand(index);
 		select.model = model;
 		select.execute();
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, lastShownList.get(index - 1)));
+		return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, lastShownList.get(index - 1)));
 	}
-
-	@Override
-	 public CommandResult undo() throws IllegalValueException{
-		 Task task = LogicManager.tasks.pop();
-		 int index = LogicManager.indexes.pop();
-
-		 DeleteCommand delete = new DeleteCommand(index);
-		 delete.model = model;
-		 delete.execute();
-
-		 AddCommand add = new AddCommand(task,index-1);
-		 add.model = model;
-		 add.insert();
-
-		 LogicManager.tasks.pop();
-		 LogicManager.indexes.pop();
-
-		 return new CommandResult("Undo complete!");
-	 }
 }

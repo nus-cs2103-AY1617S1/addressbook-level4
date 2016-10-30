@@ -45,22 +45,23 @@ public class CompleteCommand extends Command {
 
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);
 
-        Description description = taskToComplete.getDescription();
-        Time timeStart = taskToComplete.getTimeStart();
-        Time timeEnd = taskToComplete.getTimeEnd();
-        Priority priority = taskToComplete.getPriority();
-        UniqueTagList tags =taskToComplete.getTags();
-        boolean completeStatus = taskToComplete.getCompleteStatus();
+        prepareForUndo(taskToComplete);
+        return(executeComplete(taskToComplete));
+    }
 
-        LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
-        LogicManager.indexes.push(targetIndex);
-
-        DeleteCommand delete = new DeleteCommand(targetIndex);
+	private CommandResult executeComplete(ReadOnlyTask taskToComplete){
+		DeleteCommand delete = new DeleteCommand(targetIndex);
         delete.model = model;
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, true,targetIndex-1);
+			add = new AddCommand(taskToComplete.getDescription().toString(),
+							     taskToComplete.getPriority().toString(),
+							     taskToComplete.getTimeStart(),
+							     taskToComplete.getTimeEnd(),
+							     taskToComplete.getTags(),
+							     true,
+							     targetIndex-1);
 			add.model = model;
 			add.insert();
 			undo = true;
@@ -75,24 +76,17 @@ public class CompleteCommand extends Command {
         return new CommandResult("Completion done!");
     }
 
-    @Override
-	 public CommandResult undo() throws IllegalValueException{
-		 Task task = LogicManager.tasks.pop();
-		 int index = LogicManager.indexes.pop();
 
-		 task.undoTask();
-		 DeleteCommand delete = new DeleteCommand(index);
-		 delete.model = model;
-		 delete.execute();
+	private void prepareForUndo(ReadOnlyTask taskToComplete) {
+		Description description = taskToComplete.getDescription();
+        Time timeStart = taskToComplete.getTimeStart();
+        Time timeEnd = taskToComplete.getTimeEnd();
+        Priority priority = taskToComplete.getPriority();
+        UniqueTagList tags =taskToComplete.getTags();
+        boolean completeStatus = taskToComplete.getCompleteStatus();
 
-		 AddCommand add = new AddCommand(task,index-1);
-		 add.model = model;
-		 add.insert();
-
-		 LogicManager.tasks.pop();
-		 LogicManager.indexes.pop();
-
-		 return new CommandResult("Undo complete!");
-	 }
+        LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
+        LogicManager.indexes.push(targetIndex);
+	}
 
 }
