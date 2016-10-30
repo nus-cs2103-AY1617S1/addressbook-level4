@@ -22,8 +22,6 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
 
@@ -57,11 +55,6 @@ public class HelpWindow extends UiPart {
                 dialogStage.close();
             }
         });
-
-        //WebView browser = new WebView();
-        //browser.getEngine().load(USERGUIDE_URL);
-        //FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        //mainPane.getChildren().add(browser);
     }
 
     public void show() {

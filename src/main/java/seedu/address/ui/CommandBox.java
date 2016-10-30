@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -61,6 +63,21 @@ public class CommandBox extends UiPart {
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        
+        commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case UP:
+                    case DOWN:                    
+                        keyEvent.consume();
+                        handleUpDownArrow(keyEvent);
+                    default:
+                        break;
+                }
+            }
+        });
+        
     }
 
     @Override
@@ -104,16 +121,8 @@ public class CommandBox extends UiPart {
         return keyInputAsString.equals(CARRIAGE_RETURN) || keyInputAsString.equals(NEW_LINE);
     }
     
-    @FXML
-    private void handleKeyPressed(KeyEvent event) {
+    private void handleUpDownArrow(KeyEvent event) {
         KeyCode key = getKeyCodeFromEvent(event);
-        
-        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(key);
-        boolean notNavigatingInputHistory = !isNavigatingInputHistory;
-        
-        if (notNavigatingInputHistory) {
-            return;
-        }
         
         setStyleToIndicateCorrectCommand();
         handleInputHistoryNavigation(key);
@@ -165,15 +174,6 @@ public class CommandBox extends UiPart {
      */
     private KeyCode getKeyCodeFromEvent(KeyEvent event) {
         return event.getCode();
-    }
-
-    /**
-     * Returns if the key press corresponds to an up or down arrow key used to navigate input history.
-     * @param key the key to check
-     * @return boolean representing if the key is an up or down arrow key
-     */
-    private boolean checkIfNavigatingInputHistory(KeyCode key) {
-        return key == KeyCode.UP || key == KeyCode.DOWN;
     }
 
     /**
