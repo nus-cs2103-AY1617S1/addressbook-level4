@@ -121,6 +121,9 @@ public class Parser {
 
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+                
+            case ImportCommand.COMMAND_WORD:
+                return new ImportCommand(arguments);
 
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);

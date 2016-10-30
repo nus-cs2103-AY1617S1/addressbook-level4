@@ -3,6 +3,9 @@ package harmony.mastermind.model;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EmptyStackException;
@@ -192,7 +195,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        System.out.println("inside adding");
         taskManager.addTask(task);
+        System.out.println("after adding");
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -210,17 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
     }
-
-    // @@author: A0139194X
-    @Override
-    public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        raise(new RelocateFilePathEvent(newFilePath));
-        indicateTaskManagerChanged();
-    }
-
-    public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
-        raise(new ExpectingConfirmationEvent());
-    }
+    
 
     // =========== Filtered List Accessors
     // ===============================================================
@@ -247,9 +242,29 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
         return new UnmodifiableObservableList<>(taskManager.getArchives());
     }
+    
+    // =========== Methods for file access ================================
 
-    // =========== Methods for Recurring
-    // Tasks===============================================================
+    @Override
+    // @@author A0124797R
+    public synchronized BufferedReader importFile(String fileToImport) throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader(fileToImport));
+        
+        return br;
+    }
+
+    // @@author: A0139194X
+    @Override
+    public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        raise(new RelocateFilePathEvent(newFilePath));
+        indicateTaskManagerChanged();
+    }
+
+    public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
+        raise(new ExpectingConfirmationEvent());
+    }
+    
+    // =========== Methods for Recurring Tasks=============================
 
     @Override
     // @@author A0124797R
