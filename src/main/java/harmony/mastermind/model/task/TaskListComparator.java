@@ -6,7 +6,6 @@ import java.util.Comparator;
 public class TaskListComparator implements Comparator<ReadOnlyTask> {
 
     /*
-     * 
      * By default, compare by creation dates.
      * This comparator use for sorting table view so edit/delete will not add to the bottom of the list
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)

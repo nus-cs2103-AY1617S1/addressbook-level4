@@ -65,6 +65,11 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     @Override
     //@@author A0138862W
+    /*
+     * Strategy to undo unmark command
+     * 
+     * @see harmony.mastermind.logic.commands.Undoable#undo()
+     */
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
@@ -80,6 +85,12 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     @Override
     //@@author A0138862W
+    /*
+     * 
+     * Strategy to redo unmark command
+     * 
+     * @see harmony.mastermind.logic.commands.Redoable#redo()
+     */
     public CommandResult redo() {
         try {
             executeUnmark();

@@ -62,11 +62,11 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     }
 
     @Override
-    /** action to perform when ModelManager requested to undo this command **/
+    
     // @@author A0138862W
+    /** action to perform when ModelManager requested to undo this delete command **/
     public CommandResult undo() {
         try {
-            // add back the task that's previously added.
             model.addTask((Task) toDelete);
 
             model.pushToRedoHistory(this);
@@ -81,6 +81,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
     @Override
     // @@author A0138862W
+    /** action to perform when ModelManager requested to redo this delete command **/
     public CommandResult redo() {
         try {
             executeDelete();
