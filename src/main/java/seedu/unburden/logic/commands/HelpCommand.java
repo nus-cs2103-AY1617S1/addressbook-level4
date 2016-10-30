@@ -37,14 +37,26 @@ public class HelpCommand extends Command {
 	public static final String HELP_MESSAGE_LIST = "To list out all exisiting tasks in address in Unburden, type \"list\" ";
 
 	public static final String HELP_MESSAGE_HELP = "List of commands: \n"
-			+ "1) Add : Allows you to add a task to Unburden \n"
-			+ "2) Edit : Allows you to edit an existing task in Unburden \n"
-			+ "3) Find : Allows you to find an exisiting task in Unburden based on task names or deadlines \n"
-			+ "4) Delete : Allows you delete a single exisiting task task in Unburden \n"
-			+ "5) List : Allows you to list all exisiting tasks in Unburden \n"
-			+ "6) Clear : Allows you delete ALL tasks within Unburden \n"
-			+ "7) Help : Allows you get some information on how to use the application \n"
-			+ "8) Exit : Allows you exit and close the application \n";
+			+ "1) Add : Adds a task to Unburden \n"
+			+ "2) Edit : Edits an existing task in Unburden \n"
+			+ "3) Find : Finds an exisiting task in Unburden based "
+			+ "			 on task names or deadlines \n"
+			+ "4) Delete : Deletes a single exisiting task task in Unburden \n"
+			+ "5) List : Lists all exisiting tasks in Unburden \n"
+			+ "6) Clear : To delete ALL tasks within Unburden \n"
+			+ "7) Undo : To Undo any previous command"
+			+ "8) Redo : To redo any previous command"
+			+ "9) Done : Marks a task as done and undone marks it as undone"
+			+ "10) Help : To get some information on how to use the application \n"
+			+ "11) Exit : To exit and close the application \n";
+
+	private static final String HELP_MESSAGE_UNDO = null;
+
+	private static final String HELP_MESSAGE_REDO = null;
+
+	private static final String HELP_MESSAGE_DONE = null;
+
+	private static final String HELP_MESSAGE_UNDONE = null;
 
 	private final String whichCommand;
 
@@ -68,6 +80,12 @@ public class HelpCommand extends Command {
 			return new CommandResult(HELP_MESSAGE_LIST);
 		case ClearCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_CLEAR);
+		case UndoCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_UNDO);
+		case RedoCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_REDO);
+		case DoneCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_DONE);
 		case ExitCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_EXIT);
 		default:
