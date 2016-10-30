@@ -122,13 +122,13 @@ public class Parser {
             return prepareUndone(arguments);
             
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand(arguments);
+            return prepareClear(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand(arguments);
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -257,6 +257,42 @@ public class Parser {
         }
 
         return new UndoneCommand(dataType.get(), index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the list command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0144061U
+    private Command prepareList(String args) {
+        Optional<String> dataType = parseDataType(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("todo")) || (dataType.get().equals("event")) ||
+        		(dataType.get().equals("deadline")))) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
+
+        return new ListCommand(dataType.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the clear task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0144061U
+    private Command prepareClear(String args) {
+        Optional<String> dataType = parseDataType(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("todo")) || (dataType.get().equals("event")) ||
+        		(dataType.get().equals("deadline")))) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
+        }
+
+        return new ClearCommand(dataType.get());
     }
 
     /**
