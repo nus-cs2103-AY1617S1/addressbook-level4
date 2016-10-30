@@ -29,20 +29,6 @@
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>BLOCKED SLOT</name>
-        <startDate>1477551600000</startDate>
-        <endDate>1477569600000</endDate>
-        <recurringType>NONE</recurringType>
-        <isArchived>false</isArchived>
-    </tasks>
-    <tasks>
-        <name>BLOCKED SLOT</name>
-        <startDate>1478156400000</startDate>
-        <endDate>1478174400000</endDate>
-        <recurringType>NONE</recurringType>
-        <isArchived>false</isArchived>
-    </tasks>
-    <tasks>
         <name>cs2101 conference</name>
         <startDate>1477274400000</startDate>
         <endDate>1477278000000</endDate>
@@ -232,21 +218,21 @@
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>visit llderly</name>
+        <name>visit elderly</name>
         <startDate>1477098000000</startDate>
         <endDate>1477108800000</endDate>
         <recurringType>WEEKLY</recurringType>
         <isArchived>true</isArchived>
     </tasks>
     <tasks>
-        <name>visit llderly</name>
+        <name>visit elderly</name>
         <startDate>1477702800000</startDate>
         <endDate>1477713600000</endDate>
         <recurringType>WEEKLY</recurringType>
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>visit llderly</name>
+        <name>visit elderly</name>
         <startDate>1478307600000</startDate>
         <endDate>1478318400000</endDate>
         <recurringType>WEEKLY</recurringType>
@@ -471,7 +457,7 @@
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>cs3241 lab</name>
+        <name>GEH1036 assignment</name>
         <tagged>assignment</tagged>
         <startDate>-1</startDate>
         <endDate>1478268000000</endDate>
@@ -479,7 +465,7 @@
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>cs2105 lab</name>
+        <name>CS2105 assignment</name>
         <tagged>assignment</tagged>
         <startDate>-1</startDate>
         <endDate>1477922400000</endDate>
@@ -487,15 +473,7 @@
         <isArchived>false</isArchived>
     </tasks>
     <tasks>
-        <name>cs3241 assignment</name>
-        <tagged>assignment</tagged>
-        <startDate>-1</startDate>
-        <endDate>1477922400000</endDate>
-        <recurringType>NONE</recurringType>
-        <isArchived>false</isArchived>
-    </tasks>
-    <tasks>
-        <name>cs2106 lab</name>
+        <name>CS2106 assignment</name>
         <tagged>assignment</tagged>
         <startDate>-1</startDate>
         <endDate>1477922400000</endDate>
