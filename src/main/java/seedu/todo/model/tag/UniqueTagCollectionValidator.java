@@ -91,7 +91,6 @@ public class UniqueTagCollectionValidator {
      */
     public void validateDeleteTags(ImmutableTask task, String[] tagNames) {
         validateTagNamesExist(task.getTags(), tagNames);
-        validateIllegalNameChar(tagNames);
     }
 
     /**
@@ -99,7 +98,16 @@ public class UniqueTagCollectionValidator {
      */
     public void validateDeleteTags(UniqueTagCollectionModel tagCollection, String[] tagNames) {
         validateTagNamesExist(tagCollection.getUniqueTagList(), tagNames);
-        validateIllegalNameChar(tagNames);
+    }
+
+    /**
+     * Validates the rename command.
+     */
+    public void validateRenameCommand(UniqueTagCollectionModel tagCollection, String oldName, String newName) {
+        validateTagNamesExist(tagCollection.getUniqueTagList(), oldName);
+        validateTagNamesDoNotExist(tagCollection.getUniqueTagList(), newName);
+        validateIllegalNameChar(newName);
+        validateNameCharLimit(newName);
     }
 
     /* Parameter Validation Helper */

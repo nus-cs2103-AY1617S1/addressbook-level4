@@ -82,14 +82,6 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
         return tagsDeleted;
     }
 
-    @Override
-    public void renameTag(String originalName, String newName) {
-        Tag tag = getTagWithName(originalName);
-        Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.remove(tag);
-        tag.rename(newName);
-        uniqueTagsToTasksMap.put(tag, setOfTasks);
-    }
-
     /* Helper Methods */
     /**
      * Links a {@code task} to the {@code tag} in the {@link #uniqueTagsToTasksMap}.
@@ -155,13 +147,14 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
-    public List<ImmutableTask> getTasksLinkedToTag(String tagName) {
+    public Set<ImmutableTask> getTasksLinkedToTag(String tagName) {
         Optional<Tag> possibleTag = findTagWithName(tagName);
         if (possibleTag.isPresent()) {
+            //We are getting a copy of the set of tasks.
             Set<ImmutableTask> tasks = uniqueTagsToTasksMap.get(possibleTag.get());
-            return new ArrayList<>(tasks);
+            return new HashSet<>(tasks);
         } else {
-            return new ArrayList<>();
+            return new HashSet<>();
         }
     }
 

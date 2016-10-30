@@ -163,16 +163,15 @@ public interface Model {
      * @throws ValidationException when the given index is invalid, or the given {@code tagNames} contain
      *                             illegal characters.
      */
-    void addTagsToTask(int index, String[] tagNames) throws ValidationException;
+    void addTagsToTask(int index, String... tagNames) throws ValidationException;
 
     /**
      * Adds the supplied list of tags (using tag names) to the specified task.
      * Does not throw any validation error. Assumes that validation has been done at the command level.
-     *
-     * @param task The mutable task.
+     *  @param task The mutable task.
      * @param tagNames The list of tag names to be added.
      */
-    void addTagsToTask(MutableTask task, String[] tagNames);
+    void addTagsToTask(MutableTask task, String... tagNames);
 
     /**
      * Deletes a list of tags (using tag names) from the specified task.
@@ -181,7 +180,7 @@ public interface Model {
      * @param tagNames The list of tag names to be deleted.
      * @throws ValidationException when the given index is invalid, or when the tag is not found (no-op).
      */
-    void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException;
+    void deleteTagsFromTask(int index, String... tagNames) throws ValidationException;
 
     /**
      * Deletes the list of tags globally.
@@ -189,7 +188,7 @@ public interface Model {
      * @param tagNames The list of tag names to be deleted.
      * @throws ValidationException when the tag is not found (no-op).
      */
-    void deleteTags(String[] tagNames) throws ValidationException;
+    void deleteTags(String... tagNames) throws ValidationException;
 
     /**
      * Renames a tag across all tasks.

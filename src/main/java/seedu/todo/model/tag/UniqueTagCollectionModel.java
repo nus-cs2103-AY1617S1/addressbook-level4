@@ -5,6 +5,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 //@@author A0135805H
 /**
@@ -62,11 +63,6 @@ public interface UniqueTagCollectionModel {
     Collection<Tag> deleteTags(String[] tagNames);
 
     /**
-     * Renames a {@link Tag} with the given {@code originalName} with the {@code newName}
-     */
-    void renameTag(String originalName, String newName) throws ValidationException;
-
-    /**
      * Gets a copy of the list of tags.
      */
     List<Tag> getUniqueTagList();
@@ -74,5 +70,5 @@ public interface UniqueTagCollectionModel {
     /**
      * Gets a copy of list of task associated with the {@link Tag} with the name {@code tagName}
      */
-    List<ImmutableTask> getTasksLinkedToTag(String tagName);
+    Set<ImmutableTask> getTasksLinkedToTag(String tagName);
 }

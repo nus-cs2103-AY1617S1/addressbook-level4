@@ -35,7 +35,7 @@ public class TagCommand extends BaseCommand {
     private static final String ERROR_INPUT_RENAME_TAGS_REQUIRED
             = "An existing tag name, and a new tag name is required.";
     private static final String ERROR_TWO_PARAMS
-            = "You may only provide two tag names.";
+            = "You may only provide an existing tag name, and a new tag name for renaming.";
 
     private static final String SUCCESS_ADD_TAGS = " - tagged successfully";
     private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
@@ -122,8 +122,7 @@ public class TagCommand extends BaseCommand {
 
         if (isRenamingTag()) {
             //Check arguments for rename tags case
-            String[] renameTagsParam = StringUtil.splitString(deleteTags.getValue());
-            checkForTwoParams(renameTag.getName(), renameTagsParam);
+            checkForTwoParams(renameTag.getName(), renameTag.getValue());
         }
 
         super.validateArguments();
@@ -257,7 +256,8 @@ public class TagCommand extends BaseCommand {
     /**
      * Check if the command parameters contain exactly 2 items
      */
-    private void checkForTwoParams(String argumentName, String[] params) {
+    private void checkForTwoParams(String argumentName, String paramString) {
+        String[] params = StringUtil.splitString(paramString);
         if (params != null && params.length != 2) {
             errors.put(argumentName, ERROR_TWO_PARAMS);
         }

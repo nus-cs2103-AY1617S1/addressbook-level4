@@ -257,7 +257,7 @@ public class TodoModel implements Model {
     }
 
     @Override
-    public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
+    public void addTagsToTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
 
         //Perform Validation
@@ -274,7 +274,7 @@ public class TodoModel implements Model {
     }
 
     @Override
-    public void addTagsToTask(MutableTask task, String[] tagNames) {
+    public void addTagsToTask(MutableTask task, String... tagNames) {
         saveUndoState();
 
         //Do not perform validation. Perform actual tag adding.
@@ -284,7 +284,7 @@ public class TodoModel implements Model {
     }
 
     @Override
-    public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
+    public void deleteTagsFromTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
 
         //Perform Validation
@@ -303,7 +303,7 @@ public class TodoModel implements Model {
     }
 
     @Override
-    public void deleteTags(String[] tagNames) throws ValidationException {
+    public void deleteTags(String... tagNames) throws ValidationException {
         saveUndoState();
 
         //Perform validation
@@ -322,7 +322,22 @@ public class TodoModel implements Model {
 
     @Override
     public void renameTag(String oldName, String newName) throws ValidationException {
+        saveUndoState();
 
+        //Perform validation
+        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("rename tag");
+        validator.validateRenameCommand(uniqueTagCollection, oldName, newName);
+        validator.throwsExceptionIfNeeded();
+
+        //Perform actual tag renaming
+        Set<ImmutableTask> tasksWithTag = uniqueTagCollection.getTasksLinkedToTag(oldName);
+        deleteTags(oldName);
+
+        updateAll(mutableTask -> {
+            if (tasksWithTag.contains(mutableTask)) {
+                addTagsToTask(mutableTask, newName);
+            }
+        });
     }
 
     /* Helper Method */
