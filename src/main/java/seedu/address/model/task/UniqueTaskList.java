@@ -154,8 +154,8 @@ public class UniqueTaskList implements Iterable<Task> {
     private void appendDuplicateRecurringDatesToTask(Task toAdd) {
         int idx = internalList.indexOf(toAdd);
         Task toBeAppendedOn = internalList.get(idx);
-        internalComponentList.add(toAdd.getComponentForNonRecurringType());
-        toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
+        internalComponentList.add(toAdd.getLastAppendedComponent());
+        toBeAppendedOn.appendRecurringDate(toAdd.getLastAppendedComponent());
     }
     // @@author
 

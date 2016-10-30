@@ -90,12 +90,6 @@ public class TestTask extends Task implements ReadOnlyTask {
     }
     
     @Override
-	public TaskOccurrence getComponentForNonRecurringType() {
-	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
-	    return recurringDates.get(0);
-	}
-    
-    @Override
     public TaskOccurrence getLastAppendedComponent() {
         return recurringDates.get(recurringDates.size()-1);
     }
@@ -135,8 +129,8 @@ public class TestTask extends Task implements ReadOnlyTask {
     	this.type = TaskType.NON_FLOATING;
         StringBuilder sb = new StringBuilder();
         sb.append("block ");
-        sb.append("from "+ this.getComponentForNonRecurringType().getStartDate().getInputDate() + " ");
-        sb.append("to "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
+        sb.append("from "+ this.getLastAppendedComponent().getStartDate().getInputDate() + " ");
+        sb.append("to "+ this.getLastAppendedComponent().getEndDate().getInputDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

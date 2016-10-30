@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.events.model.TaskListChangedEvent;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
@@ -38,6 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskMaster taskMaster;
     private final List<Task> tasks;
     private final FilteredList<TaskOccurrence> filteredTaskComponents;
+    private Expression previousExpression;
+    private TaskDate previousDate;
 
     // @@author A0135782Y
     /**
@@ -57,6 +62,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (RecurringTaskManager.getInstance().updateAnyRecurringTasks()) {
             indicateTaskListChanged();
         }
+        previousExpression = new PredicateExpression(new InitialQualifier());
+        previousDate = new TaskDate(new Date(System.currentTimeMillis()));
 
     }
 
@@ -75,7 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (RecurringTaskManager.getInstance().updateAnyRecurringTasks()) {
             indicateTaskListChanged();
         }
-
+        previousExpression = new PredicateExpression(new InitialQualifier());
+        previousDate = new TaskDate(new Date(System.currentTimeMillis()));
     }
     // @@author
 
@@ -107,7 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
             RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
         taskMaster.updateTask(target, name, tags, startDate, endDate, recurringType);
         indicateTaskListChanged();
-        updateFilteredListToShowAll();
+        updateFilteredTaskList(previousExpression);
     }
     // @@author
 
@@ -125,7 +133,8 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void archiveTask(TaskOccurrence target) throws TaskNotFoundException {
         taskMaster.archiveTask(target);
         indicateTaskListChanged();
-        updateFilteredListToShowAll();
+        updateFilteredTaskList(previousExpression);
+        
     }
 
     @Override
@@ -134,8 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     // @@author
 
-    // =========== Filtered Task List Accessors
-    // ===============================================================
+    // =========== Filtered Task List Accessory ===============================================================
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
@@ -149,24 +157,32 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);
+        previousExpression = new PredicateExpression(new ArchiveQualifier(false));
+        filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(false))::satisfies);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate,
             Date deadline) {
+        previousExpression = new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline));
         updateFilteredTaskList(
                 new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline)));
     }
-
-    private void updateFilteredTaskList(Expression expression) {
+    
+    @Override
+    public void updateFilteredTaskList(Expression expression) {
         filteredTaskComponents.setPredicate(expression::satisfies);
     }
+    
+    @Override
+    @Subscribe
+    public void setSystemTime(AgendaTimeRangeChangedEvent atrce){
+        previousDate = atrce.getInputDate();
+    }
 
-    // ========== Inner classes/interfaces used for filtering
-    // ==================================================
+    // ========== Inner classes/interfaces used for filtering ==================================================
 
-    interface Expression {
+    public interface Expression {
         boolean satisfies(TaskOccurrence t);
 
     }
@@ -182,10 +198,6 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean satisfies(TaskOccurrence task) {
             return qualifier.run(task);
-        }
-
-        public boolean unsatisfies(TaskOccurrence task) {
-            return !qualifier.run(task);
         }
 
     }
@@ -206,6 +218,18 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskOccurrence task) {
             return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
+        }
+
+    }
+    
+    private class InitialQualifier implements Qualifier {
+
+        InitialQualifier() {
+        }
+
+        @Override
+        public boolean run(TaskOccurrence task) {
+            return true;
         }
 
     }
@@ -381,4 +405,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
     // @@author
+
+    @Override
+    public Expression getPreviousExpression() {
+        // TODO Auto-generated method stub
+        return previousExpression;
+    }
+    
+    @Override 
+    public TaskDate getPreviousDate(){
+        return previousDate;
+    }
 }

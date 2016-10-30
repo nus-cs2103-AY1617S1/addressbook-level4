@@ -5,8 +5,11 @@ import java.util.ArrayDeque;
 import seedu.address.logic.commands.*;
 
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ModelManager.Expression;
 import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.TaskMaster;
+import seedu.address.model.task.TaskDate;
 
 //@@author A0147967J
 /**
@@ -99,11 +102,9 @@ public class UndoRedoManager {
 
     /**
      * Returns true if the command does not need to be added in undo/redo queue.
-     * Exclusion for view command is just tentative and needs further
-     * consideration.
      */
     public Boolean isIgnored(Command command) {
-        return command instanceof RedoCommand || command instanceof UndoCommand || command instanceof ViewCommand
+        return command instanceof RedoCommand || command instanceof UndoCommand 
                 || command instanceof IncorrectCommand;
     }
 
@@ -126,10 +127,14 @@ public class UndoRedoManager {
 
         private ReadOnlyTaskMaster taskList;
         private Command command;
+        private Expression previousExpression;
+        public TaskDate previousTime;
 
         Context(Model model, Command command) {
             this.command = command;
             this.taskList = new TaskMaster(model.getTaskMaster());
+            this.previousExpression = model.getPreviousExpression();
+            this.previousTime = model.getPreviousDate();
         }
 
         public Command getCommand() {
@@ -138,6 +143,10 @@ public class UndoRedoManager {
 
         public ReadOnlyTaskMaster getData() {
             return taskList;
+        }
+        
+        public Expression getPreviousExpression(){
+            return previousExpression;
         }
     }
 }

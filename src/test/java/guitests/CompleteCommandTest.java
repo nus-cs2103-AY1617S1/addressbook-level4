@@ -17,21 +17,19 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
     @Test
     public void complete() {
 
-        // delete the first in the list
+        // done the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         TestTask[] completed = new TestTask[3];
         int targetIndex = 1;
         completed[0] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
 
-        // delete the last in the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        // done the last in the list
         targetIndex = currentList.length;
         completed[2] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
 
-        // delete from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        // done from the middle of the list
         targetIndex = 3;
         completed[1] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
@@ -41,7 +39,7 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
         assertResultMessage("The task index provided is invalid");
 
         // Check changes are reflected in Completed panel
-        // Noted that completed tasks are not listed in the deleting order but
+        // Noted that completed tasks are not listed in the archive order but
         // adding order.
         commandBox.runCommand("find -C");
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(completed)));
@@ -60,12 +58,7 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
      */
     private void assertCompleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToComplete = currentList[targetIndexOneIndexed - 1]; // -1
-                                                                          // because
-                                                                          // array
-                                                                          // uses
-                                                                          // zero
-                                                                          // indexing
-        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
+        TestTask[] expectedRemainder = currentList;
 
         commandBox.runCommand("done " + targetIndexOneIndexed);
 

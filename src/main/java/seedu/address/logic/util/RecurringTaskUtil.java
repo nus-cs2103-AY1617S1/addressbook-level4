@@ -65,10 +65,10 @@ public class RecurringTaskUtil {
         Calendar calendar = Calendar.getInstance();
         TaskDate correctedStartDate = new TaskDate();
         TaskDate correctedEndDate = new TaskDate();
-        TaskDate startDate = task.getComponentForNonRecurringType().getStartDate();
-        TaskDate endDate = task.getComponentForNonRecurringType().getEndDate();
+        TaskDate startDate = task.getLastAppendedComponent().getStartDate();
+        TaskDate endDate = task.getLastAppendedComponent().getEndDate();
 
-        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
+        if (!task.getLastAppendedComponent().hasOnlyEndDate()) {
             calendar.setTime(startDate.getDate());
             correctCalendarByElapsed(calendar, elapsedPeriod, recurringType);
             correctedStartDate.setDateInLong(calendar.getTime().getTime());
@@ -80,8 +80,8 @@ public class RecurringTaskUtil {
         correctCalendarByElapsed(calendar, elapsedPeriod, recurringType);
         correctedEndDate.setDateInLong(calendar.getTime().getTime());
 
-        task.getComponentForNonRecurringType().setStartDate(correctedStartDate);
-        task.getComponentForNonRecurringType().setEndDate(correctedEndDate);        
+        task.getLastAppendedComponent().setStartDate(correctedStartDate);
+        task.getLastAppendedComponent().setEndDate(correctedEndDate);        
     }
     
     /**

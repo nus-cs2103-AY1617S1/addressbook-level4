@@ -48,8 +48,8 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(startDate, endDate, recurringType);
         this.taskType = TaskType.NON_FLOATING;
         this.recurringType = recurringType;
-        getComponentForNonRecurringType().setStartDate(startDate);
-        getComponentForNonRecurringType().setEndDate(endDate);
+        getLastAppendedComponent().setStartDate(startDate);
+        getLastAppendedComponent().setEndDate(endDate);
     }
     
     public Task(Name name, UniqueTagList tags, RecurringType recurringType) {
@@ -156,8 +156,8 @@ public class Task implements ReadOnlyTask {
 		if(tags != null)		
 			this.tags = tags;
 		
-		if(this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
-				&& this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+		if(this.getLastAppendedComponent().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.getLastAppendedComponent().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
 				&& endDate != null) {
 			this.taskType = TaskType.NON_FLOATING;
 		}
@@ -173,11 +173,6 @@ public class Task implements ReadOnlyTask {
 	//@@author
 	
 	//@@author A0135782Y
-	@Override
-	public TaskOccurrence getComponentForNonRecurringType() {
-	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
-	    return recurringDates.get(0);
-	}
 	
 	@Override
 	public TaskOccurrence getLastAppendedComponent() {

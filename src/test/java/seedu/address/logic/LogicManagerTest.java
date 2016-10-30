@@ -761,12 +761,22 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTasks(p1, pTarget1, p2, pTarget2);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        List<Task> originalList = helper.generateTasks(p1, pTarget1, p2, pTarget2);
+        List<TaskOccurrence> originalComponentList = helper.buildTaskComponentsFromTaskList(originalList);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
                 expectedComponentList);
+        
+        //Verifies undo/redo
+        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedAB,
+                originalComponentList);
+        
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+                expectedComponentList);
+        
     }
 
     @Test
@@ -995,6 +1005,7 @@ public class LogicManagerTest {
         assertEquals(testDate, checkDate);
         assertEquals(latestSavedTaskList.getTaskComponentList(), checkList);
         assertEquals(model.getTaskMaster().getTaskComponentList(), checkList);
+        
     }
     // @@author
 
@@ -1423,7 +1434,7 @@ public class LogicManagerTest {
 
         private void generateAddNonFloatingCommand(Task p, StringBuffer cmd) {
             assert p.getRecurringType() == RecurringType.NONE : "generatingAddNonFloatingCommand does not support recurring tasks";
-            if (p.getComponentForNonRecurringType().hasOnlyEndDate()) {
+            if (p.getLastAppendedComponent().hasOnlyEndDate()) {
                 generateAddNonFloatingCommandByDate(p, cmd);
             } else {
                 generateCommandComponentFromDateToDate(p, cmd);
@@ -1433,13 +1444,13 @@ public class LogicManagerTest {
         private void generateCommandComponentFromDateToDate(Task p, StringBuffer cmd) {
             assert p.getRecurringType() == RecurringType.NONE : "generatingCommandComponentFromDatetoDate does not support recurring tasks";
             cmd.append(" from ");
-            cmd.append(p.getComponentForNonRecurringType().getStartDate().getInputDate());
+            cmd.append(p.getLastAppendedComponent().getStartDate().getInputDate());
             cmd.append(" to ");
-            cmd.append(p.getComponentForNonRecurringType().getEndDate().getInputDate());
+            cmd.append(p.getLastAppendedComponent().getEndDate().getInputDate());
         }
 
         private void generateAddNonFloatingCommandByDate(Task p, StringBuffer cmd) {
-            cmd.append(" by ").append(p.getComponentForNonRecurringType().getEndDate().getInputDate());
+            cmd.append(" by ").append(p.getLastAppendedComponent().getEndDate().getInputDate());
         }
 
         /**

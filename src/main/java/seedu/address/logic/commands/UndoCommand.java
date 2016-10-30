@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.logic.UndoRedoManager.Context;
 import seedu.address.logic.UndoRedoManager.NoAvailableCommandException;
 
@@ -21,7 +23,19 @@ public class UndoCommand extends Command {
 
         try {
             Context contextToUndo = urManager.getContextToUndo();
-            model.resetData(contextToUndo.getData());
+            
+            model.resetData(contextToUndo.getData()); // resets the data
+            
+            if(contextToUndo.getCommand() instanceof FindCommand 
+               || contextToUndo.getCommand() instanceof ListCommand) {
+                // resets the filtered list if needed
+                model.updateFilteredTaskList(contextToUndo.getPreviousExpression());
+            }
+            
+            if(contextToUndo.getCommand() instanceof ViewCommand) {
+                //resets the agenda if needed
+                EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(contextToUndo.previousTime, model.getTaskMaster().getTaskComponentList()));
+            }
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoAvailableCommandException nace) {
             indicateAttemptToExecuteFailedCommand();
