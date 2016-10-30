@@ -114,7 +114,9 @@ public class DateTimeParser {
         else{
         	year = year.substring(1);
         
-        	if(Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
+        	if(Integer.parseInt(year) < 10)	//For years that are input with only the last 2 digits
+        		yearParsed = Integer.parseInt(String.valueOf(LocalDate.now().getYear()).substring(0, 1) + "0" + year);
+        	else if(Integer.parseInt(year) < 100)
         		yearParsed = Integer.parseInt(String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year);
         	else
         		yearParsed = Integer.parseInt(year);
@@ -198,7 +200,7 @@ public class DateTimeParser {
                 month = matcher.group("monthEndInWords").toLowerCase().substring(0,3);
             month = convertMonthFromWordsToNumbers(month);
         }
-System.out.println(day + " " + month + " " + year + "| " + hour + " " + minute + " " + timePostFix); //TODO      
+      
         int monthParsed = Integer.parseInt(month);
 
         //If no year is read in, the year will be current year
@@ -207,7 +209,9 @@ System.out.println(day + " " + month + " " + year + "| " + hour + " " + minute +
         else
         	year = year.substring(1);
         
-        if (Integer.parseInt(year) < 100)	//For years that are input with only the last 2 digits
+        if (Integer.parseInt(year) < 10)	//For years that are input with only the last 2 digits
+        	year = String.valueOf(LocalDate.now().getYear()).substring(0, 1) + "0" + year;
+        else if (Integer.parseInt(year) < 100)
         	year = String.valueOf(LocalDate.now().getYear()).substring(0, 2) + year;
         
         //Format time in 24 hours format into 12 hours format for display
