@@ -33,6 +33,7 @@ To get started, proceed to the Quick Start section below.
    <img src="images/Ui.png" width="900">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+   While typing commands, tooltips will appear to aid you.
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
