@@ -129,20 +129,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
         //Converting Date end to Calendar end
         Calendar end = dateToCalendar(endTime);
         
-        
-        if(startDate != "" && endDate != "") { 
-            //event
-            event = new GenericMemory(tags.toString(), name, "", start, end, 0);
-            mem.add(event);
-        } else if(endDate != "") { 
-            //deadline 
-            deadline = new GenericMemory(tags.toString(), name, "", end);
-            mem.add(deadline);
-        } else if(startDate == "" && endDate == "") {
-            //tasks 
-            task = new GenericMemory(tags.toString(), name, "");
-        }
-
+        event = new GenericMemory(tags.toString(), name, "", start, end, 0);
+        mem.add(event);
     }
 
     // deadline
@@ -159,6 +147,12 @@ public class AddCommand extends Command implements Undoable, Redoable {
         Date createdDate = new Date();
         
         this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur, createdDate);
+        
+        //Converting Date end to Calendar end
+        Calendar end = dateToCalendar(endDate);
+
+        deadline = new GenericMemory(tags.toString(), name, "", end);
+        mem.add(deadline);
 
     }
 
@@ -173,6 +167,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
         Date createdDate = new Date();
 
         this.toAdd = new Task(name, new UniqueTagList(tagSet), createdDate);
+        
+        task = new GenericMemory(tags.toString(), name, "");
+        mem.add(task);
     }
 
     @Override
