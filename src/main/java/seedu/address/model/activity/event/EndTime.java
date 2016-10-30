@@ -30,9 +30,9 @@ public class EndTime extends DateTime {
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
-        Date startdate = DATE_PARSER.EventDateConvert(starttime);
+        Date startdate = DATE_PARSER.FixedDateConvert(starttime);
         if (!date.equals(""))
-            eventDate = DATE_PARSER.EventDateConvert(date);
+            eventDate = DATE_PARSER.FixedDateConvert(date);
         else {
             eventDate = DATE_PARSER.EndDateTime(startdate);
         }
@@ -56,7 +56,7 @@ public class EndTime extends DateTime {
         Date taskDate;
 
         if (!date.equals("")) {
-            taskDate = DATE_PARSER.EventDateConvert(date);
+            taskDate = DATE_PARSER.FixedDateConvert(date);
 
             if (taskDate.equals(null)) {
                 assert false : "Date should not be null";
