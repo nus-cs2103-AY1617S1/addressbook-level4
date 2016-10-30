@@ -23,6 +23,8 @@ public class SaveToCommand extends Command{
     
     public static final String FILE_NAME = "emeraldo.xml";
     
+    public static final String DEFAULT_LOCATION = "data/";
+    
     private String filepath;
     
     
