@@ -285,17 +285,19 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void execute_find_matchesIfAllKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
         Task pTarget3 = helper.generateTaskWithName("key key");
+        Task pTarget4 = helper.generateTaskWithName("key rAnDoM");
+        Task pTarget5 = helper.generateTaskWithName("rAnDoM key bla ha");
         Task p1 = helper.generateTaskWithName("sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        List<Task> sixTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3, pTarget4, pTarget5);
+        TaskManager expectedAB = helper.generateTaskManager(sixTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget4, pTarget5);
+        helper.addToModel(model, sixTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
