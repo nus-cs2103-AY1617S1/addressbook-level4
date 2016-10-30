@@ -72,10 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs, String filePath) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
         filteredTasks.setPredicate(getNotDonePredicate());
+        this.taskBookFilePath = filePath;
     }
 
     @Override

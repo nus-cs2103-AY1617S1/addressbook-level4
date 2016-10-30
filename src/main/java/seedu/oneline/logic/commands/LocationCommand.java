@@ -25,7 +25,7 @@ public class LocationCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD 
             + ": Sets the folder to be used for storage\n" 
             + "Parameters: FOLDERPATH\n"
-            + "Example: " + COMMAND_WORD + " C:\\Users\\Jim\\Desktop/";
+            + "Example: " + COMMAND_WORD + " C:\\Users\\Jim\\Desktop\\";
 
     public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s\\taskbook.xml";
     public static final String MESSAGE_LOCATION = "Storage location is currently at ";
