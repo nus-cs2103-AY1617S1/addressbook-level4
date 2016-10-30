@@ -29,6 +29,11 @@ public interface InMemoryTaskList {
 	void deleteTask(Task toRemove) throws ItemNotFoundException;
 	
 	/*
+	 * Deletes all the tasks that are currently listed and returns number of tasks successfully deleted
+	 */
+	int clearTasks();
+	
+	/*
 	 * Favorites a task in the current in-memory representation of the Task List
 	 */
 	void favoriteTask(Task toFavorite);
