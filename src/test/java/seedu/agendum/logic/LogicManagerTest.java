@@ -80,7 +80,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -951,7 +951,7 @@ public class LogicManagerTest {
 
         private LocalDateTime fixedTime = LocalDateTime.of(2016, 10, 10, 10, 10);
 
-        Task adam() throws Exception {
+        private Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Task adam = new Task(name);
             adam.setLastUpdatedTime(fixedTime);
@@ -965,7 +965,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        private Task generateTask(int seed) throws Exception {
             Task task =  new Task(
                     new Name("Task " + seed)
             );
@@ -976,7 +976,7 @@ public class LogicManagerTest {
         /**
          * Generates a valid completed task with the given seed
          */
-        Task generateCompletedTask(int seed) throws Exception {
+        private Task generateCompletedTask(int seed) throws Exception {
             Task newTask = generateTask(seed);
             newTask.markAsCompleted();
             newTask.setLastUpdatedTime(fixedTime);
@@ -986,7 +986,7 @@ public class LogicManagerTest {
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        private Task generateTaskWithName(String name) throws Exception {
             Task namedTask = new Task(
                     new Name(name)
             );
@@ -995,7 +995,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        private String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
@@ -1008,7 +1008,7 @@ public class LogicManagerTest {
         /**
          * Generates an ToDoList with auto-generated tasks.
          */
-        ToDoList generateToDoList(int numGenerated) throws Exception{
+        private ToDoList generateToDoList(int numGenerated) throws Exception{
             ToDoList toDoList = new ToDoList();
             addToToDoList(toDoList, numGenerated);
             return toDoList;
@@ -1017,7 +1017,7 @@ public class LogicManagerTest {
         /**
          * Generates an ToDoList based on the list of Tasks given.
          */
-        ToDoList generateToDoList(List<Task> tasks) throws Exception{
+        private ToDoList generateToDoList(List<Task> tasks) throws Exception{
             ToDoList toDoList = new ToDoList();
             addToToDoList(toDoList, tasks);
             return toDoList;
@@ -1060,7 +1060,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        private List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
@@ -1068,23 +1068,23 @@ public class LogicManagerTest {
             return tasks;
         }
 
-        List<Task> generateTaskList(Task... tasks) {
+        private List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
  
         //@@author A0133367E
-        List<ReadOnlyTask> generateReadOnlyTaskList(ReadOnlyTask... tasks) {
+        private List<ReadOnlyTask> generateReadOnlyTaskList(ReadOnlyTask... tasks) {
             return Arrays.asList(tasks);
         }
 
-        List<Integer> generateNumberList(Integer... numbers){
+        private List<Integer> generateNumberList(Integer... numbers){
             return Arrays.asList(numbers);
         }
 
         /**
          * Generate a sorted UnmodifiableObservableList from expectedShownList
          */
-        UnmodifiableObservableList<Task> generateSortedList(List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+        private UnmodifiableObservableList<Task> generateSortedList(List<? extends ReadOnlyTask> expectedShownList) throws Exception {
             List<Task> taskList = new ArrayList<Task>();
             for (int i = 0; i < expectedShownList.size(); i++) {
                 taskList.add(new Task(expectedShownList.get(i)));

@@ -3,6 +3,7 @@ package guitests;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.agendum.commons.exceptions.FileDeletionException;
@@ -19,14 +20,14 @@ public class LoadCommandTest extends ToDoListGuiTest {
 
     private String command;
     
-    @Override
+    @Before
     public void setup() throws Exception{
         super.setup();
         command = LoadCommand.COMMAND_WORD + " ";
     }
     
     @Test
-    public void load_pathValid() throws IOException, FileDeletionException, IllegalValueException {
+    public void loadPathValid() throws IOException, FileDeletionException, IllegalValueException {
         String fileThatExists = "data/test/FileThatExists.xml";
         String fileThatDoesNotExist = "data/DoesNotExist.xml";
         String fileInWrongFormat = "data/WrongFormat.xml";
@@ -57,7 +58,7 @@ public class LoadCommandTest extends ToDoListGuiTest {
     }
 
     @Test
-    public void load_pathInvalid(){
+    public void loadPathInvalid(){
         String missingFileType = "test/invalid";
         String missingFileName = "test/.bad";
         

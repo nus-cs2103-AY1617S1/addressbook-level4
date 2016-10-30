@@ -1,9 +1,6 @@
 package seedu.agendum.ui;
 
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -13,7 +10,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.agendum.model.task.ReadOnlyTask;
-import seedu.agendum.commons.core.LogsCenter;
 
 //@@author A0148031R
 /**

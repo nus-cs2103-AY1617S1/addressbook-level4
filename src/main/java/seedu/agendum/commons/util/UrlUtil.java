@@ -15,10 +15,8 @@ public class UrlUtil {
         if (url1 == null || url2 == null) {
             return false;
         }
-        return url1.getHost().toLowerCase().replaceFirst("www.", "")
-                .equals(url2.getHost().replaceFirst("www.", "").toLowerCase())
-                && url1.getPath().replaceAll("/", "").toLowerCase()
-                .equals(url2.getPath().replaceAll("/", "").toLowerCase());
+        return url1.getHost().replaceFirst("www.", "").equalsIgnoreCase(url2.getHost().replaceFirst("www.", ""))
+                && url1.getPath().replaceAll("/", "").equalsIgnoreCase(url2.getPath().replaceAll("/", ""));
     }
 
 }

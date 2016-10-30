@@ -8,7 +8,6 @@ import seedu.agendum.logic.commands.CommandResult;
 import seedu.agendum.logic.parser.Parser;
 import seedu.agendum.model.Model;
 import seedu.agendum.model.task.ReadOnlyTask;
-import seedu.agendum.storage.Storage;
 
 import java.util.logging.Logger;
 
