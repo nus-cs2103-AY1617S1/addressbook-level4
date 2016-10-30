@@ -107,7 +107,7 @@ public class Parser {
         case ClashCommand.COMMAND_WORD:
         	return new ClashCommand();
 	
-	case RepeatCommand.COMMAND_WORD:
+        case RepeatCommand.COMMAND_WORD:
         	return prepareRepeat(arguments);
         	
         case UpdateCommand.COMMAND_WORD:
