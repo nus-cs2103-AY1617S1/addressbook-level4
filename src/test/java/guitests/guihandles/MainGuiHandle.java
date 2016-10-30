@@ -28,5 +28,10 @@ public class MainGuiHandle extends GuiHandle {
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
+    
+    //@@author A0142421X
+    public TagListPanelHandle getTagListPanel() {
+    	return new TagListPanelHandle(guiRobot, primaryStage);
+    }
 
 }
