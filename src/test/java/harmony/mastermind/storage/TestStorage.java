@@ -11,8 +11,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class TestStorage { 
-    //@@author A0143378Y
+    
     @Test
+    //@@author A0143378Y
     public void test() { 
         testReadFromFile_IO();
     }
@@ -24,6 +25,7 @@ public class TestStorage {
         
         testMem_getTask(testMem);
         testMem_getDeadline(testMem);
+        testMem_getEvent(testMem);
     }
     
     //@@author A0143378Y
@@ -39,7 +41,16 @@ public class TestStorage {
         
         GenericMemory deadline = new GenericMemory("Deadline", "still hungry", "more food needed", end);
         assertEquals("test if they are the same", testTwoDeadlines(mem.get(1), deadline), true);
+    }
+    
+    private static void testMem_getEvent(Memory mem) { 
+        Calendar end = new GregorianCalendar();
+        Calendar start = new GregorianCalendar();
+        start.set(2014, 1, 27, 23, 0);
+        end.set(2014, 1, 28, 2, 0);
         
+        GenericMemory event = new GenericMemory("Event", "Lunch?", "Sure!", start, end, 0);
+        assertEquals("test if they are the same", testTwoEvents(mem.get(2), event), true);
     }
     
     //@@author A0143378Y
@@ -53,6 +64,12 @@ public class TestStorage {
     private static boolean testTwoDeadlines(GenericMemory a, GenericMemory b) { 
         return testTwoTasks(a, b) && 
                 testTwoCalendar(a.getEnd(), b.getEnd());
+    }
+    
+    //@@author A0143378Y
+    private static boolean testTwoEvents(GenericMemory a, GenericMemory b) { 
+        return testTwoDeadlines(a, b) &&
+                testTwoCalendar(a.getStart(), b.getStart());
     }
     
     //@@author A0143378Y
