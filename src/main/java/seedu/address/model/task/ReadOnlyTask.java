@@ -69,8 +69,6 @@ public interface ReadOnlyTask {
 
     void completeTaskWhenAllComponentArchived();
     
-    TaskOccurrence getComponentForNonRecurringType();
-    
     void appendRecurringDate(TaskOccurrence componentToBeAppended);
 
     TaskOccurrence getLastAppendedComponent();

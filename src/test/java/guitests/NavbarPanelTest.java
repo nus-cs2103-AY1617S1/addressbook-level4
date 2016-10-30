@@ -27,16 +27,16 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     @Test
     public void navigateToDeadlines() {
         // Navigate to deadlines
-        assertResult(NAVBAR_DEADLINES, td.labDeadline.getComponentForNonRecurringType(),
-                td.essayDeadline.getComponentForNonRecurringType());
+        assertResult(NAVBAR_DEADLINES, td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent());
     }
 
     @Test
     public void navigateToIncomingDeadlines() {
         // Navigate to incoming deadlines
         commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
-        assertResult(NAVBAR_INCOMING_DEADLINES, td.labDeadline.getComponentForNonRecurringType(),
-                td.essayDeadline.getComponentForNonRecurringType(), td.incoming.getComponentForNonRecurringType());
+        assertResult(NAVBAR_INCOMING_DEADLINES, td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent(), td.incoming.getLastAppendedComponent());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     public void navigateToCompletedOnes() {
         // Navigate to completed ones
         commandBox.runCommand("done 1");
-        assertResult(NAVBAR_COMPLETED, td.trash.getComponentForNonRecurringType());
+        assertResult(NAVBAR_COMPLETED, td.trash.getLastAppendedComponent());
     }
 
     private void assertResult(String navigation, TaskOccurrence... expectedHits) {

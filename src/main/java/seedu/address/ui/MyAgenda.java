@@ -26,14 +26,10 @@ public class MyAgenda extends Agenda {
     private LocalDateTime agendaStartTime;
     private LocalDateTime agendaEndTime;
 
-    private HashSet<ReadOnlyTask> taskSet;
-
     /** Constructor */
     public MyAgenda() {
 
         super();
-
-        taskSet = new HashSet<ReadOnlyTask>();
 
         /** Sets preferred size */
         setPrefSize(550, 700);
@@ -75,12 +71,9 @@ public class MyAgenda extends Agenda {
     /** Loads the task component to be displayed on the agenda. */
     public void addAllToAgenda(List<TaskOccurrence> taskList) {
         appointments().clear();
-        taskSet.clear();
-        for (TaskOccurrence t : taskList)
-            taskSet.add(t.getTaskReference());
-        for (ReadOnlyTask task : taskSet)
-            addAllOccurrencesInWeek(task);
-
+        for (TaskOccurrence t : taskList){
+            addAllOccurrencesInWeek(t);
+        }
     }
 
     /**
@@ -88,41 +81,33 @@ public class MyAgenda extends Agenda {
      * Typically used for daily tasks. Under the assumption that the task
      * component list will not keep anything earlier than today.
      */
-    private void addAllOccurrencesInWeek(ReadOnlyTask task) {
+    private void addAllOccurrencesInWeek(TaskOccurrence taskOccurrence) {
 
-        // Ignore floating tasks
-        if (task.getTaskType() == TaskType.FLOATING) {
-            return;
-        }
-        // Ignore deadline tasks
-        if (task.getTaskDateComponent().get(0).hasOnlyEndDate()) {
+        //Only cares time slot
+        if(!taskOccurrence.isSlot()) {
             return;
         }
 
-        int i = 0;
-        List<TaskOccurrence> list = task.getTaskDateComponent();
-        for (TaskOccurrence taskComponent : list) {
-            if (!isOutsideAgenda(taskComponent)) {
-                AppointmentImplLocal appointment = getAppointment(taskComponent);
-                appointments().add(appointment);
-            }
-            if (list.size() - 1 == i) {
-                AppointmentImplLocal appointment = getAppointment(taskComponent);
-                addCopiesToAgenda(taskComponent, appointment);
-            }
-            i++;
+        if (!isOutsideAgenda(taskOccurrence)) {
+            AppointmentImplLocal appointment = getAppointment(taskOccurrence);
+            appointments().add(appointment);
         }
+        if (taskOccurrence.equals(taskOccurrence.getTaskReference().getLastAppendedComponent())) {
+            AppointmentImplLocal appointment = getAppointment(taskOccurrence);
+            addCopiesToAgenda(taskOccurrence, appointment);
+        }
+
     }
 
     /**
      * Adds copies of future appointments to the future agenda based on
      * recurring type.
      */
-    private void addCopiesToAgenda(TaskOccurrence taskComponent, AppointmentImplLocal appointment) {
+    private void addCopiesToAgenda(TaskOccurrence taskOccurrence, AppointmentImplLocal appointment) {
         if (isOutsideAgenda(appointment)) {
             return;
         }
-        switch (taskComponent.getTaskReference().getRecurringType()) {
+        switch (taskOccurrence.getTaskReference().getRecurringType()) {
         case YEARLY:
             addYearlyOccurrences(appointment);
             break;
@@ -141,16 +126,16 @@ public class MyAgenda extends Agenda {
     }
 
     /** Returns an AppointmentImplLocal object from a task component */
-    private AppointmentImplLocal getAppointment(TaskOccurrence taskComponent) {
+    private AppointmentImplLocal getAppointment(TaskOccurrence taskOccurrence) {
 
         AppointmentImplLocal appointment = new AppointmentImplLocal();
-        appointment.setSummary(taskComponent.getTaskReference().getName().fullName);
-        appointment.setDescription(taskComponent.getTaskReference().tagsString());
-        appointment.setStartLocalDateTime(getConvertedTime(taskComponent.getStartDate()));
-        appointment.setEndLocalDateTime(getConvertedTime(taskComponent.getEndDate()));
-        if (taskComponent.isArchived()) {
+        appointment.setSummary(taskOccurrence.getTaskReference().getName().fullName);
+        appointment.setDescription(taskOccurrence.getTaskReference().tagsString());
+        appointment.setStartLocalDateTime(getConvertedTime(taskOccurrence.getStartDate()));
+        appointment.setEndLocalDateTime(getConvertedTime(taskOccurrence.getEndDate()));
+        if (taskOccurrence.isArchived()) {
             appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("archive"));
-        } else if (taskComponent.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
+        } else if (taskOccurrence.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)) {
             appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("block"));
         } else {
             appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
@@ -271,9 +256,9 @@ public class MyAgenda extends Agenda {
     /**
      * Returns true if it is a future task that is not needed to add to agenda.
      */
-    private boolean isOutsideAgenda(TaskOccurrence taskComponent) {
-        return getConvertedTime(taskComponent.getStartDate()).truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)
-                || getConvertedTime(taskComponent.getEndDate()).truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime);
+    private boolean isOutsideAgenda(TaskOccurrence taskOccurrence) {
+        return getConvertedTime(taskOccurrence.getStartDate()).truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)
+                || getConvertedTime(taskOccurrence.getEndDate()).truncatedTo(ChronoUnit.DAYS).isBefore(agendaStartTime);
     }
 
     /** Returns true if the appointments are on the same day. */

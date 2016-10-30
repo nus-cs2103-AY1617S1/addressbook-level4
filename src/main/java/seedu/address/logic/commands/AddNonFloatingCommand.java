@@ -53,7 +53,7 @@ public class AddNonFloatingCommand extends AddCommand {
                 new TaskDate(endDate),
                 recurringType
         );
-        if(!this.toAdd.getComponentForNonRecurringType().isValidTimeSlot()){
+        if(!this.toAdd.getLastAppendedComponent().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }

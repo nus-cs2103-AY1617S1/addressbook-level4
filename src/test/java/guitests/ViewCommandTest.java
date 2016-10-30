@@ -22,7 +22,7 @@ public class ViewCommandTest extends TaskMasterGuiTest {
     private final long DAY = 24 * 60 * 60 * 1000;
 
     @Test
-    public void view() {
+    public void viewSwitch() {
 
         // View today
         TestTask toBeAdded = td.weekly;
@@ -37,6 +37,36 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         updated.setEndDate(new TaskDate(updated.getEndDate().getDateInLong() + 7 * DAY));
         expectedList.set(0, updated);
         assertViewSuccess("next week today", expectedList);
+             
+    }
+    
+    @Test
+    public void viewUndoRedo() {
+
+        // View today
+        TestTask toBeAdded = td.none;
+        ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        commandBox.runCommand(toBeAdded.getAddRecurringCommand());
+        assertViewSuccess("today", expectedList);
+
+        // View next week today
+        expectedList.clear();
+        assertViewSuccess("next week today", expectedList);
+        
+        //Verifies undo/redo
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        commandBox.runCommand("u");
+        assertEquals(TestUtil.getConvertedTime(new TaskDate("today")).truncatedTo(ChronoUnit.DAYS),
+                browser.getMyAgenda().getDisplayedLocalDateTime());
+        assertIsAgendaMatching(expectedList);
+        
+        expectedList.clear();
+        commandBox.runCommand("r");
+        assertEquals(TestUtil.getConvertedTime(new TaskDate("next week today")).truncatedTo(ChronoUnit.DAYS),
+                browser.getMyAgenda().getDisplayedLocalDateTime());
+        assertIsAgendaMatching(expectedList);
+             
     }
 
     public void assertViewSuccess(String date, ArrayList<TaskOccurrence> expectedList) {

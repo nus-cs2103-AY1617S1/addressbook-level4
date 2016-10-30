@@ -62,6 +62,11 @@ public class TaskOccurrence {
         }
     }
     
+    public boolean isSlot(){
+        return startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT 
+                && endDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT;
+    }
+    
     /**
      * Returns True if it has only end date.
      */
