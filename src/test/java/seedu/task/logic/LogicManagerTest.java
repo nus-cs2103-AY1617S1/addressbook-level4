@@ -147,14 +147,6 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
     }
 
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add", expectedMessage);
-    }
-
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
