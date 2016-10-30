@@ -31,16 +31,16 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
     	switch(dataType) {
-    		case " todo":
+    		case "todo":
     			model.updateFilteredTodoListToShowAll();
     			return new CommandResult(TODO_MESSAGE_SUCCESS);
-    		case " event":
+    		case "event":
     			model.updateFilteredEventListToShowAll();
     			return new CommandResult(EVENT_MESSAGE_SUCCESS);
-    		case " deadline":
+    		case "deadline":
     			model.updateFilteredDeadlineListToShowAll();
     			return new CommandResult(DEADLINE_MESSAGE_SUCCESS);
-    		case " all":
+    		case "all":
     		    model.updateFilteredTodoListToShowAll();
     		    model.updateFilteredEventListToShowAll();
     		    model.updateFilteredDeadlineListToShowAll();
