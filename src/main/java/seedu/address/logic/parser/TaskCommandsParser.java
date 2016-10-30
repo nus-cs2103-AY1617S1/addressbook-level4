@@ -20,7 +20,12 @@ public class TaskCommandsParser {
     private String commandWord;
     private String arguments;
     
-    public TaskCommandsParser() {}
+    private final String WARMUP_COMMAND = "add meeting by 29th December";
+    
+    public TaskCommandsParser() {
+        // Warm up the parser
+        parseCommand(WARMUP_COMMAND);
+    }
     
     /**
      * Parses user input into command for execution.
