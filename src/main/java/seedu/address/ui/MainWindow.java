@@ -205,6 +205,7 @@ public class MainWindow extends UiPart {
             }
             
             XmlAddressBookStorage.setAddressBookFilePath(selectedFile.getAbsolutePath());
+            userPrefs.setDataFilePath(selectedFile.getAbsolutePath());
             resultDisplay.postMessage("New save location: " + selectedFile.getAbsolutePath());
         }
     }
