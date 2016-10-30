@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,9 +14,10 @@
 
 <AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
    <children>
-      <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0">
+      <GridPane layoutX="14.0" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #fcfeff;">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="151.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="10.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="165.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="149.0" />
         </columnConstraints>
         <rowConstraints>
@@ -25,12 +26,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <MenuBar>
-               <menus>
-                  <Menu mnemonicParsing="false" text="Today" />
-               </menus>
-            </MenuBar>
-            <Label fx:id="today" text="#Today" GridPane.columnIndex="1">
+            <Label fx:id="today" text="#Today" GridPane.columnIndex="2">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.7285714285714286" startY="0.7142857142857143">
                      <stops>
@@ -39,7 +35,7 @@
                      </stops>
                   </LinearGradient>
                </textFill></Label>
-            <Label fx:id="done" text="#Done" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="done" text="#Done" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6857142857142857" startY="0.7">
                      <stops>
@@ -48,7 +44,7 @@
                      </stops>
                   </LinearGradient>
                </textFill></Label>
-            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="undone" text="#Undone" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <textFill>
                   <LinearGradient endX="1.0" endY="1.0" startX="0.6952380952380952" startY="0.6952380952380952">
                      <stops>
@@ -57,21 +53,21 @@
                      </stops>
                   </LinearGradient>
                </textFill></Label>
-            <MenuBar prefHeight="25.0" prefWidth="74.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="Today" />
-              </menus>
-            </MenuBar>
-            <MenuBar GridPane.rowIndex="1">
-               <menus>
-                  <Menu mnemonicParsing="false" text="Done" />
-               </menus>
-            </MenuBar>
-            <MenuBar GridPane.rowIndex="2">
-               <menus>
-                  <Menu mnemonicParsing="false" text="Undone" />
-               </menus>
-            </MenuBar>
+            <ImageView fitHeight="35.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/Today.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/Done.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="56.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../images/uNDONE.JPG" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </children>
