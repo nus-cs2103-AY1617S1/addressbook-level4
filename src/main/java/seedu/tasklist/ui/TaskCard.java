@@ -10,108 +10,143 @@ import seedu.tasklist.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
-    private static final String COMPLETED_ICON_URL = 
-    		TaskCard.class.getResource("/images/icon_checkmark.png").toExternalForm();
-    private static final String OVERDUE_ICON_URL = 
-    		TaskCard.class.getResource("/images/icon_exclamation.png").toExternalForm();
-    private static final String INCOMPLETE_ICON_URL = 
-    		TaskCard.class.getResource("/images/icon_incomplete.png").toExternalForm();
+	private static final String FXML = "TaskListCard.fxml";
+	private static final String IMAGE_DIR = "/images/";
 
-    @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label startTime;
-    @FXML
-    private Label endTime;
-    @FXML
-    private Label priority;
-    @FXML
-    private Label recurring;
-    @FXML
-    private ImageView statusButton;
+	private static final String COMPLETED_ICON_FILE = "icon_checkmark.png";
+	private static final String OVERDUE_ICON_FILE = "icon_exclamation.png";
+	private static final String INCOMPLETE_ICON_FILE = "icon_incomplete.png";
 
-    private ReadOnlyTask task;
-    private int displayedIndex;
+	private static final String DAILY_RECUR_FILE = "daily_rec.png";
+	private static final String WEEKLY_RECUR_FILE = "weekly_rec.png";
+	private static final String MONTHLY_RECUR_FILE = "monthly_rec.png";
+	private static final String YEARLY_RECUR_FILE = "yearly_rec.png";
 
-    public TaskCard(){
+	private static final String PRIORITY_HIGH_FILE = "three_stars.png";
+	private static final String PRIORITY_MED_FILE = "two_stars.png";
+	private static final String PRIORITY_LOW_FILE = "one_star.png";
+	
+	@FXML
+	private HBox cardPane;
+	@FXML
+	private Label name;
+	@FXML
+	private Label id;
+	@FXML
+	private Label startTime;
+	@FXML
+	private Label endTime;
+	@FXML
+	private Label priority;
+	@FXML
+	private Label recurring;
+	@FXML
+	private ImageView statusButton;
 
-    }
+	private ReadOnlyTask task;
+	private int displayedIndex;
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
-        card.task = task;
-        card.displayedIndex = displayedIndex;
-        return UiPartLoader.loadUiPart(card);
-    }
+	public TaskCard(){
 
-    @FXML
-    public void initialize() {
-        name.setText(task.getTaskDetails().taskDetails);
-        id.setText(displayedIndex + ". ");
-        startTime.setText(task.getStartTime().toCardString());
-        //priority.setText(task.getPriority().toString());
-        if (task.getPriority().toString().equals("high"))
-            priority.setGraphic(new ImageView(new Image("/images/three_stars.png")));
-        else if (task.getPriority().toString().equals("med"))
-            priority.setGraphic(new ImageView(new Image("/images/two_stars.png")));
-        else priority.setGraphic(new ImageView(new Image("/images/one_star.png")));
-        priority.setText("");
-        recurring.setText("");
-        if (task.getRecurringFrequency().equals("daily"))
-            recurring.setGraphic(new ImageView(new Image("/images/daily_rec.png")));
-        else if (task.getRecurringFrequency().equals("weekly"))
-            recurring.setGraphic(new ImageView(new Image("/images/weekly_rec.png")));
-        else if (task.getRecurringFrequency().equals("monthly"))
-            recurring.setGraphic(new ImageView(new Image("/images/monthly_rec.png")));
-        else if (task.getRecurringFrequency().equals("yearly"))
-            recurring.setGraphic(new ImageView(new Image("/images/yearly_rec.png")));
-        endTime.setText(task.getEndTime().toCardString());
-        setColour();
-        statusButton.setVisible(true);
-        setStatusButtonColour();
-        //tags.setText(task.tagsString());
-    }
+	}
 
-    public HBox getLayout() {
-        return cardPane;
-    }
-    
-    private void setColour(){
-        if(task.isComplete()){
-        	cardPane.setStyle("-fx-background-color: #C0FFC0;");
-        }
-        else if(task.isOverDue()){
-            cardPane.setStyle("-fx-background-color: #FFC0C0;");
-        }
-        else {
-        	cardPane.setStyle("-fx-background-color: #FFFFFF;");
-        }
-    }
+	public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+		TaskCard card = new TaskCard();
+		card.task = task;
+		card.displayedIndex = displayedIndex;
+		return UiPartLoader.loadUiPart(card);
+	}
 
-    public void setStatusButtonColour() {
-    	if(task.isComplete()){
-    		statusButton.setImage(new Image(COMPLETED_ICON_URL));
-    	}
-    	else if(task.isOverDue()){
-    		statusButton.setImage(new Image(OVERDUE_ICON_URL));
-    	}
-    	else{
-    		statusButton.setImage(new Image(INCOMPLETE_ICON_URL));
-    	}
-    }
-    
-    @Override
-    public void setNode(Node node) {
-        cardPane = (HBox)node;
-    }
+	@FXML
+	public void initialize() {
+		name.setText(task.getTaskDetails().taskDetails);
+		id.setText(displayedIndex + ". ");
+		startTime.setText(task.getStartTime().toCardString());
+		endTime.setText(task.getEndTime().toCardString());
 
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
+		priority.setText("");
+		recurring.setText("");
+		
+		setColour();
+		setPriorityGraphic();
+		setRecurringGraphic();
+		statusButton.setVisible(true);
+		setStatusButtonColour();
+	}
+
+	public HBox getLayout() {
+		return cardPane;
+	}
+
+	//@@author A0146107M
+	private void setPriorityGraphic(){
+		switch(task.getPriority().priorityLevel){
+		case "high":
+			priority.setGraphic(new ImageView(getImage(PRIORITY_HIGH_FILE)));
+			break;
+		case "med":
+			priority.setGraphic(new ImageView(getImage(PRIORITY_MED_FILE)));
+			break;
+		case "low":	default:
+			priority.setGraphic(new ImageView(getImage(PRIORITY_LOW_FILE)));
+			break;
+		}
+	}
+	
+	private void setRecurringGraphic(){
+		switch(task.getRecurringFrequency()){
+		case "daily":
+			recurring.setGraphic(new ImageView(getImage(DAILY_RECUR_FILE)));
+			break;
+		case "weekly":
+			recurring.setGraphic(new ImageView(getImage(WEEKLY_RECUR_FILE)));
+			break;
+		case "monthly":
+			recurring.setGraphic(new ImageView(getImage(MONTHLY_RECUR_FILE)));
+			break;
+		case "yearly":
+			recurring.setGraphic(new ImageView(getImage(YEARLY_RECUR_FILE)));
+		default:
+			break;
+		}					
+	}
+
+	private void setColour(){
+		if(task.isComplete()){
+			cardPane.setStyle("-fx-background-color: #C0FFC0;");
+		}
+		else if(task.isOverDue()){
+			cardPane.setStyle("-fx-background-color: #FFC0C0;");
+		}
+		else {
+			cardPane.setStyle("-fx-background-color: #FFFFFF;");
+		}
+	}
+
+	public void setStatusButtonColour() {
+		if(task.isComplete()){
+			statusButton.setImage(getImage(COMPLETED_ICON_FILE));
+		}
+		else if(task.isOverDue()){
+			statusButton.setImage(getImage(OVERDUE_ICON_FILE));
+		}
+		else{
+			statusButton.setImage(getImage(INCOMPLETE_ICON_FILE));
+		}
+	}
+
+	private Image getImage(String resource){
+		String url = TaskCard.class.getResource(IMAGE_DIR + resource).toExternalForm();
+		return new Image(url);
+	}
+
+	@Override
+	public void setNode(Node node) {
+		cardPane = (HBox)node;
+	}
+
+	@Override
+	public String getFxmlPath() {
+		return FXML;
+	}
 }
