@@ -1,9 +1,6 @@
-
 package guitests;
 
 import org.junit.Test;
-
-import seedu.taskscheduler.logic.commands.CommandHistory;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,9 +10,6 @@ public class UpDownButtonTest extends TaskSchedulerGuiTest {
 
     @Test
     public void buttonTest() {
-        
-        CommandHistory.flushNextCommands();
-        CommandHistory.flushPrevCommands();
         
         String rubbishCommand = "23r23r23534423";
         commandBox.runCommand(td.event.getAddCommand());

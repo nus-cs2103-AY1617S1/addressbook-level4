@@ -7,6 +7,7 @@ import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.exceptions.DuplicateDataException;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
+import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.taskscheduler.model.task.ReadOnlyTask.TaskType;
 
@@ -47,11 +48,6 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty TaskList.
-     */
-    public UniqueTaskList() {}
-
-    /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
@@ -82,37 +78,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return
      */
     private int indexToInsertInSortedOrder(Task toAdd) {
-        if (toAdd.getType() == TaskType.EVENT) {
+        if (toAdd.getType() != TaskType.FLOATING) {
             for (int i = 0; i < internalList.size(); i++) {
-                Task task = internalList.get(i);
-                if (task.getType() == TaskType.FLOATING) {
+                if (toAdd.isBefore(internalList.get(i))) {
                     return i;
-                } else if (task.getType() == TaskType.DEADLINE) {
-                    if (task.getEndDate().getDate().after(toAdd.getStartDate().getDate())) {
-                        return i;
-                    }
-                } else {
-                    if (task.getStartDate().getDate().after(toAdd.getStartDate().getDate())) {
-                        return i;
-                    }
-                }
-            }
-        } else if (toAdd.getType() == TaskType.DEADLINE) {
-            for (int i = 0; i < internalList.size(); i++) {
-                Task task = internalList.get(i);
-                if (task.getType() == TaskType.FLOATING) {
-                    return i;
-                } else if (task.getType() == TaskType.DEADLINE) {
-                    if (task.getEndDate().getDate().after(toAdd.getEndDate().getDate())) {
-                        return i;
-                    }
-                } else {
-                    if (task.getStartDate().getDate().after(toAdd.getEndDate().getDate())) {
-                        return i;
-                    }
                 }
             }
         }
+        // floating task will always be added to the back
         return internalList.size();
     }
 
@@ -163,7 +136,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @throws TaskNotFoundException
      * @throws DuplicateTagException if the task is already complete.
      */
-    public void unMark(Task toMark) throws TaskNotFoundException, IllegalValueException {
+    public void unmark(Task toMark) throws TaskNotFoundException, IllegalValueException {
         assert toMark != null;
         int index = internalList.indexOf(toMark);
         if (index < 0) {
@@ -173,6 +146,24 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, toMark);
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }
+    
+  //@@author A0148145E
+    /**
+     * Replace the tag list of a task in the list.
+     *
+     * @throws TaskNotFoundException
+     */
+    public void tagTask(Task task, UniqueTagList tagList) throws TaskNotFoundException {
+        assert task != null;
+        int index = internalList.indexOf(task);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        }
+        task.setTags(tagList);
+        internalList.set(index, task);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+    }
+    
     
     //@@author A0140007B
     /**

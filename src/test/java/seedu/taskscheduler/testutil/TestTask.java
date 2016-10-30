@@ -83,13 +83,6 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         return "add " + getTaskString();
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("add " + this.getName().fullName + " ");
-//        sb.append("s/" + this.getStartDate() + " ");
-//        sb.append("e/" + this.getEndDate() + " ");
-//        sb.append("at" + " " + this.getLocation().value);
-////        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-//        return sb.toString();
     }
     
     public String getTaskString() {
@@ -120,7 +113,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("from " + this.getStartDate() + " ");
         sb.append("to " + this.getEndDate() + " ");
         sb.append("at" + " " + this.getLocation().value);
-//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
     
@@ -132,13 +124,13 @@ public class TestTask implements ReadOnlyTask {
             this.endDateTime.setDate(endDateTime.getDate().getTime() + duration + 1);
     }
     
-    
     @Override
     public TestTask copy() {
         return new TestTask(this);
     }
+    
     @Override
-    public boolean getCompleteStatus() {
+    public boolean isCompleted() {
         return completeStatus;
     }
     

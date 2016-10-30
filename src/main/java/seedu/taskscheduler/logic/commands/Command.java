@@ -12,8 +12,11 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
+    
     protected Model model;
 
+    public static final int EMPTY_INDEX = -1;
+    
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task scheduler";
 
     public static final String MESSAGE_REVERT_COMMAND = "Revert %s command: %s";
@@ -70,7 +73,7 @@ public abstract class Command {
             throws TaskNotFoundException {
         ReadOnlyTask task;
         if (targetIndex == -1) {
-            task = CommandHistory.getModTask();
+            task = CommandHistory.getModifiedTask();
         }
         else {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

@@ -31,7 +31,7 @@ public class ReplaceCommandParser extends CommandParser{
         final Matcher indexMatcher = INDEX_COMMAND_FORMAT.matcher(args);
 
         if (!indexMatcher.matches()) {
-            return generateReplaceCommand(args, -1);
+            return generateReplaceCommand(args, Command.EMPTY_INDEX);
         } else {
             int index = Integer.parseInt(indexMatcher.group("index"));
             assert index >= 0;

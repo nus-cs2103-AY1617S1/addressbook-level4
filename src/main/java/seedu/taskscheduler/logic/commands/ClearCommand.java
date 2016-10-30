@@ -33,6 +33,7 @@ public class ClearCommand extends Command {
             taskArray.add((Task) task);
         }
         model.resetData(TaskScheduler.getEmptyTaskScheduler());
+        CommandHistory.resetModifiedTask();
         CommandHistory.addExecutedCommand(this);
         return new CommandResult(MESSAGE_SUCCESS);
     }

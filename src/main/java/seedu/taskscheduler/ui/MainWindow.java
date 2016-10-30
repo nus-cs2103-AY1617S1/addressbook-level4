@@ -28,7 +28,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-//    private BrowserPanel browserPanel;
+    private TagListPanel tagListPanel;
     private TaskListPanel taskListPanel;
     private PriorityListPanel priorityListPanel;
     private ResultDisplay resultDisplay;
@@ -48,7 +48,19 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
+    private MenuItem tagsPaneMenuItem;
+    @FXML
+    private MenuItem priorityPaneMenuItem;
+    @FXML
+    private MenuItem taskPaneMenuItem;
+    @FXML
+    private MenuItem commandBoxPaneMenuItem;
+
+    @FXML
     private AnchorPane priorityListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane tagListPanelPlaceholder;
     
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -96,18 +108,12 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
-        setAccelerators();
     }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }	
-    
 
     //@@author A0148145E
     public void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getUnmodifiableTagList());
         priorityListPanel = PriorityListPanel.load(primaryStage, getPriorityListPlaceholder(), 
                 logic.getPriorityFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -134,6 +140,10 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {
@@ -174,6 +184,26 @@ public class MainWindow extends UiPart {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
+    
+    @FXML
+    public void handleFocusTagPane() {
+        tagListPanel.requestFocus();
+    }
+
+    @FXML
+    public void handleFocusPriorityPane() {
+        priorityListPanel.requestFocus();
+    }
+    
+    @FXML
+    public void handleFocusTaskPane() {
+        taskListPanel.requestFocus();
+    }
+    
+    @FXML
+    public void handleFocusCommandBox() {
+        commandBox.requestFocus();
+    }
 
     public void show() {
         primaryStage.show();
@@ -190,12 +220,7 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-//
-//    public void loadTaskPage(ReadOnlyTask task) {
-//        browserPanel.loadTaskPage(task);
-//    }
 
     public void releaseResources() {
-//        browserPanel.freeResources();
     }
 }

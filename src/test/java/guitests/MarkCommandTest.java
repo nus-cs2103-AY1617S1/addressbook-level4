@@ -19,7 +19,7 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
 
         //mark without index given
         commandBox.runCommand("mark");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(Messages.MESSAGE_PREV_TASK_NOT_FOUND));
         
         //mark the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -28,10 +28,6 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
         
         //mark the last in the list
         targetIndex = currentList.length;
-        assertMarkSuccess(targetIndex, currentList);
-        
-        //mark the middle in the list
-        targetIndex = currentList.length/2;
         assertMarkSuccess(targetIndex, currentList);
         
         //invalid index

@@ -2,6 +2,8 @@ package seedu.taskscheduler.model;
 
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
+import seedu.taskscheduler.model.tag.Tag;
+import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
@@ -31,7 +33,7 @@ public interface Model {
 
     //@@author A0148145E
     /** Unmarks the given task. */
-    void unMarkTask(Task target) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+    void unmarkTask(Task target) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
     //@@author A0148145E
     /** Adds the given task */
@@ -43,8 +45,13 @@ public interface Model {
 
     //@@author A0148145E
     /** Replaces the given task. 
-     * @throws DuplicateTaskException */
+     * @throws TaskNotFoundException, DuplicateTaskException */
     void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException;
+    
+    //@@author A0148145E
+    /** Replace the tags of the given task. 
+     * @throws TaskNotFoundException */
+    void tagTask(Task oldTask, UniqueTagList tagList) throws TaskNotFoundException;
     //@@author
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
@@ -57,5 +64,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     UnmodifiableObservableList<ReadOnlyTask> getPriorityFilteredTaskList();
+
+    UnmodifiableObservableList<Tag> getUnmodifiableTagList();
 
 }

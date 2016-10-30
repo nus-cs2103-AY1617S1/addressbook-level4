@@ -79,6 +79,10 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
+    
+    public void requestFocus() {
+        taskListView.requestFocus();
+    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -88,10 +92,7 @@ public class TaskListPanel extends UiPart {
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
-
+        
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);

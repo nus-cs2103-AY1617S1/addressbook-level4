@@ -50,6 +50,10 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
 
 //// list overwrite operations
 
+    public ObservableList<Tag> getTags() {
+        return tags.getInternalList();
+    }
+    
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
@@ -122,9 +126,24 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      * @throws DuplicateTagException 
      */
-    public void unMarkTask(Task task) 
+    public void unmarkTask(Task task) 
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.unMark(task);
+        tasks.unmark(task);
+    }
+    
+
+    //@@author A0148145E
+    /**
+     * Replace the tag list of a task in the task scheduler.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws TaskNotFoundException
+     */
+    public void tagTask(Task task, UniqueTagList tagList) 
+            throws UniqueTaskList.TaskNotFoundException {
+        tasks.tagTask(task, tagList);   
+        syncTagsWithMasterList(task);
     }
     
     //@@author A0140007B

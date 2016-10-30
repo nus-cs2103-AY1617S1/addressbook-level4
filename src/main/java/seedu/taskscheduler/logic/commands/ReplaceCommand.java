@@ -35,8 +35,11 @@ public class ReplaceCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
+    public ReplaceCommand(Task toReplace) {
+        this(EMPTY_INDEX, toReplace);
+    }
+    
     public ReplaceCommand(int targetIndex, Task toReplace) {
-
         this.targetIndex = targetIndex;
         this.newTask = toReplace;
     }
@@ -47,7 +50,7 @@ public class ReplaceCommand extends Command {
             oldTask = new Task(getTaskFromIndexOrLastModified(targetIndex));
             model.replaceTask(oldTask, newTask);
             CommandHistory.addExecutedCommand(this);
-            CommandHistory.setModTask(newTask);
+            CommandHistory.setModifiedTask(newTask);
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IndexOutOfBoundsException iobe) { 
@@ -63,7 +66,7 @@ public class ReplaceCommand extends Command {
         try {
             model.replaceTask(newTask, oldTask);
             CommandHistory.addRevertedCommand(this);
-            CommandHistory.setModTask(oldTask);
+            CommandHistory.setModifiedTask(oldTask);
         } catch (DuplicateTaskException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;
         } catch (TaskNotFoundException e) {

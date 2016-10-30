@@ -8,17 +8,21 @@ import seedu.taskscheduler.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
+    //@@author A0148145E 
     Name getName();
     TaskDateTime getStartDate();
     TaskDateTime getEndDate();
     Location getLocation();
     ReadOnlyTask copy();
-    boolean getCompleteStatus();
+    boolean isCompleted();
     TaskType getType();
     
     public enum TaskType {
         FLOATING, DEADLINE, EVENT
     }
+
+    //@@author
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -34,7 +38,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getEndDate().equals(this.getEndDate())
-                && other.getLocation().equals(this.getLocation()));
+                && other.getLocation().equals(this.getLocation())
+                && other.getTags().equals(this.getTags()));
     }
 
     /**
@@ -43,14 +48,9 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-//                .append(" Start Date: ")
                 .append(" " + getStartDate().getDisplayString())
-//                .append(" Due Date: ")
                 .append(" " + getEndDate().getDisplayString())
-//                .append(" Location: ")
                 .append(" " + getLocation());
-//                .append(" Tags: ");
-//        getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();
     }
 
@@ -84,13 +84,34 @@ public interface ReadOnlyTask {
             .append(getLocation())  
             .append(" ");  
         getTags().forEach(b -> builder.append(b.tagName + " ")); 
-        builder.append(getCompleteStatus() ? " completed" : " incomplete");
+        builder.append(isCompleted() ? " completed" : " incomplete");
         builder.append(" " + getType());
         return builder.toString();  
     }  
     //@@author
     
+    
     default boolean equals(ReadOnlyTask other) {
         return isSameStateAs(other);
+    }
+
+    //@@author A0148145E
+    default TaskDateTime getComparisonDateTime() {
+        if (getType() == TaskType.DEADLINE) {
+            return getEndDate();
+        } else if (getType() == TaskType.EVENT) {
+            return getStartDate();
+        }
+        return null;
+    }
+
+    //@@author A0148145E
+    default boolean isBefore(ReadOnlyTask other) {
+        return getComparisonDateTime().isBefore(other.getComparisonDateTime());
+    }
+
+    //@@author A0148145E
+    default boolean isAfter(ReadOnlyTask other) {
+        return getComparisonDateTime().isAfter(other.getComparisonDateTime());
     }
 }

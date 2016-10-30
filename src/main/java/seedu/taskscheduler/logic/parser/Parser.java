@@ -20,8 +20,6 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    
-    public Parser() {}
 
     //@@author A0148145E
     /**
@@ -54,20 +52,4 @@ public class Parser {
 
     }
     //@@author 
-    
-//    /**
-//     * Extracts the new task's tags from the add command's tag arguments string.
-//     * Merges duplicate tag strings.
-//     */
-//    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-//        // no tags
-//        if (tagArguments.isEmpty()) {
-//            return Collections.emptySet();
-//        }
-//        // replace first delimiter prefix, then split
-//        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-//        return new HashSet<>(tagStrings);
-//    }
-
-
 }

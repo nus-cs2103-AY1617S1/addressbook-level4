@@ -13,11 +13,14 @@ import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
+import seedu.taskscheduler.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.taskscheduler.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.Logic;
+import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.model.UserPrefs;
 
+import java.util.EmptyStackException;
 import java.util.logging.Logger;
 
 /**
@@ -118,9 +121,20 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
+    private void handleTagPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logic.execute("find " + event.getNewSelection().tagName, false);
+        try {
+            CommandHistory.getExecutedCommand();
+        } catch (EmptyStackException ese) {
+            logger.info(ese.getMessage());
+        }   
+        
+    }
+    
+    @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        mainWindow.loadTaskPage(event.getNewSelection());
     }
 
 }
