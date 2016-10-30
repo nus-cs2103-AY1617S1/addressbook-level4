@@ -159,8 +159,10 @@ public class Malitio implements ReadOnlyMalitio {
             tasks.add((FloatingTask) p);
         } else if (isDeadline(p)) {
             deadlines.add((Deadline) p);
+            deadlines.sort();
         } else {
             events.add((Event) p);
+            events.sort();
         }
     }
 
@@ -300,8 +302,10 @@ public class Malitio implements ReadOnlyMalitio {
             tasks.edit((FloatingTask) edited, (ReadOnlyFloatingTask) beforeEdit);
         } else if (edited instanceof Deadline && beforeEdit instanceof ReadOnlyDeadline) {
             deadlines.edit((Deadline) edited, (ReadOnlyDeadline) beforeEdit);
+            deadlines.sort();
         } else {
             events.edit((Event) edited, (Event) beforeEdit);
+            events.sort();
         }
     }
 

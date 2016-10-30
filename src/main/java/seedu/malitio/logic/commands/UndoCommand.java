@@ -37,7 +37,7 @@ public class UndoCommand extends Command {
             return new CommandResult("No action to undo!");
         }
         InputHistory previous = history.pop();
-        updateMalitio(history);
+        updateMalitio(previous);
         switch (previous.getUndoCommand()) {
 
         case AddCommand.COMMAND_WORD:
@@ -121,7 +121,7 @@ public class UndoCommand extends Command {
      * Updates Malitio
      * @param history
      */
-    private void updateMalitio(Stack<InputHistory> history) {
+    private void updateMalitio(InputHistory history) {
         updateRedoStack(history);
         showAllPanels();
     }
@@ -139,7 +139,7 @@ public class UndoCommand extends Command {
      * Updates the redo stack in Malitio
      * @param history
      */
-    private void updateRedoStack(Stack<InputHistory> history) {
-        model.getFuture().push(history.pop());
+    private void updateRedoStack(InputHistory history) {
+        model.getFuture().push(history);
     }
 }

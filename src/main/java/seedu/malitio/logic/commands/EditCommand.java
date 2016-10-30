@@ -77,11 +77,14 @@ public class EditCommand extends Command{
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
             this.name = new Name(name);
-        } else if (!due.equals("")) {
+        }
+        if (!due.equals("")) {
             this.due = new DateTime(due);
-        } else if (!start.equals("")) {
+        }
+        if (!start.equals("")) {
             this.start = new DateTime(start);
-        } else if (!end.equals("")) {
+        }
+        if (!end.equals("")) {
             this.end = new DateTime(end);
         }
         this.tags = processTags(newTags);
@@ -167,7 +170,7 @@ public class EditCommand extends Command{
         } else if (taskType == 'd') {
         lastShownList = model.getFilteredDeadlineList(); 
         } else {
-        lastShownList = model.getFilteredFloatingTaskList();
+        lastShownList = model.getFilteredEventList();
         }
         return lastShownList;
     }
