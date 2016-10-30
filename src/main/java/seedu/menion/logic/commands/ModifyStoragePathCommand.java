@@ -84,7 +84,7 @@ public class ModifyStoragePathCommand extends Command {
 			}
         	
         	EventsCenter.getInstance().post(new ModifyStorageEvent());
-        	EventsCenter.getInstance().post(new ExitAppRequestEvent());
+        	//EventsCenter.getInstance().post(new ExitAppRequestEvent());
         	 
         	return new CommandResult(String.format(MESSAGE_SUCCESS, pathToChange));
         }
