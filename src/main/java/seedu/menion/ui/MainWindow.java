@@ -171,6 +171,14 @@ public class MainWindow extends UiPart {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
+    
+    //@@author A0139515A
+    @FXML
+    public void handleModifyStorage() {
+    	ModifyStorageWindow modifyStorageWindow = ModifyStorageWindow.load(primaryStage);
+    	modifyStorageWindow.show();
+    }
+    //@@author
 
     public void show() {
         primaryStage.show();

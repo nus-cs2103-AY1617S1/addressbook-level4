@@ -1,4 +1,4 @@
-//@@author A0139515A
+
 package seedu.menion.logic.commands;
 
 import java.io.File;
@@ -9,6 +9,9 @@ import java.util.Optional;
 import javax.xml.bind.JAXBException;
 
 import seedu.menion.commons.core.Config;
+import seedu.menion.commons.core.EventsCenter;
+import seedu.menion.commons.events.ui.ExitAppRequestEvent;
+import seedu.menion.commons.events.ui.ModifyStorageEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.commons.util.ConfigUtil;
 import seedu.menion.commons.util.FileUtil;
@@ -17,13 +20,16 @@ import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.storage.XmlSerializableActivityManager;
 
+//@@author A0139515A
 /**
- * Clears the activity manager.
+ * Modify the activity manager storage location.
  */
 public class ModifyStoragePathCommand extends Command {
 
     public static final String COMMAND_WORD = "modify";
-    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s";
+    public static final String MESSAGE_POPUP = "You have successfully changed Menion's storage location. Please restart Menion (:";
+    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n" +
+    												"Please restart Menion (:";
     public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
     private final String pathToChange;
     
@@ -39,6 +45,10 @@ public class ModifyStoragePathCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	assert model != null;
+    	
+    	model.updateRecentChangedActivity(null);
+    	
     	ReadOnlyActivityManager before = new ActivityManager(model.getActivityManager());
         
         if (pathToChange != null) {
@@ -73,6 +83,9 @@ public class ModifyStoragePathCommand extends Command {
 				return new CommandResult(MESSAGE_FAILURE);
 			}
         	
+        	EventsCenter.getInstance().post(new ModifyStorageEvent());
+        	EventsCenter.getInstance().post(new ExitAppRequestEvent());
+        	 
         	return new CommandResult(String.format(MESSAGE_SUCCESS, pathToChange));
         }
         return new CommandResult(MESSAGE_FAILURE);
