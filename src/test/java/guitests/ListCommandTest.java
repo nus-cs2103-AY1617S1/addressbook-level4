@@ -12,7 +12,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 
 	@Test
 	public void list() {
-		TestTask[] expectedList = td.getTypicalTasks();
+		TestTask[] expectedList = td.getSortedTypicalTasks();
 		//list without parameters
 		assertListResult("list   ", expectedList);
 		
@@ -22,29 +22,29 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		assertListResult("list sd", expectedList);
 		
 		//list deadline
-		expectedList = new TestTask[]{td.deadlineToday, td.deadlineTomorrow, 
-				td.deadlineIn7Days, td.deadlineIn30Days, td.deadline1, td.deadline2};
+		expectedList = td.getDeadlineTasks();
 		assertListResult("list deadline", expectedList);
 		assertListResult("list dl", expectedList);
 		
 		//list event
-		expectedList = new TestTask[]{td.eventToday, td.eventTomorrow, td.eventIn7Days, 
-				td.eventIn30Days, td.event1, td.event2};
+		expectedList = td.getEventTasks();
 		assertListResult("list event", expectedList);
 		assertListResult("list ev", expectedList);
 		
 		//list done
-		expectedList = new TestTask[] {td.someday1, td.deadlineToday, td.deadlineIn7Days,
-				td.deadline1, td.eventToday, td.eventIn7Days, td.event1};
+		expectedList = td.getDoneTasks();
 		assertListResult("list done", expectedList);
 		
 		//list not done
-		expectedList = new TestTask[] {td.deadlineTomorrow, td.deadlineIn30Days, 
-				td.someday2, td.eventTomorrow, td.eventIn30Days};
+		expectedList = td.getNotDoneTasks();
 		assertListResult("list not-done", expectedList);
 		
+		//list overdue
+		expectedList = td.getOverdueTasks();
+		assertListResult("list overdue", expectedList);
+		
 		//list done and deadline
-		expectedList = new TestTask[] {td.deadlineToday, td.deadlineIn7Days, td.deadline1};
+		expectedList = td.getDoneAndDeadlineTasks();
 		assertListResult("list done dl", expectedList);
 		
 		//list contains invalid input

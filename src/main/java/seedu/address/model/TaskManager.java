@@ -79,6 +79,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+        sortTasks();
     }
 
     /**
@@ -115,12 +116,19 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean editTask(int key, Task task) throws UniqueTaskList.TaskNotFoundException {
         //syncTagsWithMasterList(p);
     	if (tasks.set(key, task)) {
+    		sortTasks();
     		return true;
     	} else {
     		throw new UniqueTaskList.TaskNotFoundException();
     	}
     }
-
+    
+    //@@author A0141019U
+    private void sortTasks() {
+    	Collections.sort(tasks.getInternalList());
+    }
+    //@@author
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
