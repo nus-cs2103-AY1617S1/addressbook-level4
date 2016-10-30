@@ -102,9 +102,9 @@ public abstract class DateTime {
      * If upon setting and endDate is of earlier time than startDate, 
      * then set endDate to be startDate + 1.
      * 
-     * @param startDate
-     * @param endDate
-     * @return  updated endDate
+     * @param startDate start date of Task
+     * @param endDate   end date of Task
+     * @return  updated value of endDate
      */
     public static Date setEndDateToStartDate(Date startDate, Date endDate) {
         assert startDate != null && endDate != null;
@@ -180,7 +180,7 @@ public abstract class DateTime {
      * Corrects date if it is same day as today. For e.g, if today is Tuesday, and user input "foo repeat every Tuesday",
      * the starting date will be set to next Tuesday which is false. This method corrects the date to today.
      * 
-     * @param date
+     * @param date  date value of Task
      * @return same date if date not equals today's date. Else, return date minus 7 days
      */
     private static Date correctDateIfSameDay(Date date) {
@@ -201,7 +201,7 @@ public abstract class DateTime {
     /**
      * Sets time of Date object to start of the day i.e "00:00:00" and returns it.
      * 
-     * @param date
+     * @param date  date value of Task
      * @return date with time values set to start of the day
      */
     public static Date setTimeToStartOfDay(Date date) {
@@ -219,7 +219,7 @@ public abstract class DateTime {
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
      * 
-     * @param date
+     * @param date  date value of Task
      * @return date with time values set to end of the day
      */
     public static Date setTimeToEndOfDay(Date date) {
@@ -238,8 +238,8 @@ public abstract class DateTime {
     /**
      * Updates date according to recurrence rate.
      * 
-     * @param date
-     * @param recurrenceRate
+     * @param date  date value of Task
+     * @param recurrenceRate    recurrence rate of Task
      * @return date with updated values according to recurrence rate
      */
     public static Date updateDateByRecurrenceRate(Date date, RecurrenceRate recurrenceRate) {
@@ -294,8 +294,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Mondays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Mondays to jump over
      */
     private static void updateCalendarToComingMondays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -310,8 +310,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Tuesdays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Tuesdays to jump over
      */
     private static void updateDateToComingTuesdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -326,8 +326,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Wednesdays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Wednesdays to jump over
      */
     private static void updateDateToComingWednesdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -342,8 +342,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Thursdays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Thursdays to jump over
      */
     private static void updateDateToComingThursdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -358,8 +358,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Fridays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Fridays to jump over
      */
     private static void updateDateToComingFridays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -374,8 +374,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Saturdays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Saturdays to jump over
      */
     private static void updateDateToComingSaturdays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -390,8 +390,8 @@ public abstract class DateTime {
     /**
      * Updates calendar to coming Sundays depending on value of rate.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of Sundays to jump over
      */
     private static void updateDateToComingSundays(Calendar calendar, int rate) {
         assert calendar != null;
@@ -406,8 +406,8 @@ public abstract class DateTime {
     /**
      * Updates calendar by (rate - 1) * 7 days.
      * 
-     * @param calendar
-     * @param rate
+     * @param calendar  calendar representation of the date value of Task
+     * @param rate  amount of weeks to jump over
      */
     private static void updateDateRateMinusOneTimes(Calendar calendar, int rate) {
         assert calendar != null;

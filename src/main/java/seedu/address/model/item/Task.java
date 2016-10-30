@@ -86,18 +86,30 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         assert recurrenceRate != null && recurrenceRate.timePeriod != null && recurrenceRate.rate != null &&
                 (startDate != null || endDate != null);
 
-        if (startDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
-            startDate = calendar.getTime();
+        if (startDate != null && endDate == null) {
+            startDate = DateTime.updateDateByRecurrenceRate(startDate, recurrenceRate);
+        } else if (startDate == null && endDate != null) {
+            endDate = DateTime.updateDateByRecurrenceRate(endDate, recurrenceRate);
+        } else if (startDate != null && endDate != null) {
+            int timeDifference = (int) (endDate.getTime() - startDate.getTime());
+            startDate = DateTime.updateDateByRecurrenceRate(startDate, recurrenceRate);
+            endDate = updateEndDate(timeDifference);
         }
-        if (endDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(endDate);
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
-            endDate = calendar.getTime();
-        }
+    }
+
+    /**
+     * Updates endDate using the timeDifference from startDate.
+     * 
+     * @param timeDifference    the difference in days between end date and start date
+     * @return updated value of endDate
+     */
+    private Date updateEndDate(int timeDifference) {
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(startDate);
+        endCalendar.add(Calendar.MILLISECOND, timeDifference);
+        Date date = endCalendar.getTime();
+        
+        return date;
     }
 
     //@@author A0139498J

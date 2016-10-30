@@ -54,11 +54,11 @@ public class AddCommandHelper {
     /**
      * Put the input parameters taskName, startDate, endDate, recurrenceRate and priority into a HashMap and returns the map.
      *
-     * @param taskName
-     * @param startDate
-     * @param endDate
-     * @param recurrenceRate
-     * @param priority
+     * @param taskName  name of Task
+     * @param startDate start date of Task
+     * @param endDate   end date of Task
+     * @param recurrenceRate    recurrence rate of Task
+     * @param priority  priority of Task
      * @return  HashMap containing values of taskName, startDate, endDate, recurrenceRate and priority.
      */
     private static HashMap<String, Object> mapContainingVariables(Name taskName, Date startDate, Date endDate,
@@ -78,7 +78,7 @@ public class AddCommandHelper {
     /**
      * Converts given String into the Date representation.
      *
-     * @param startDateString
+     * @param startDateString   user's input of date
      * @return  the Date representation of startDateString if startDateString is present. Else, returns null.
      * @throws IllegalValueException if startDateString cannot be converted into a Date object
      */
@@ -99,8 +99,8 @@ public class AddCommandHelper {
      * Converts given String into the Date representation. If user did not specify the date in endDateString,
      * it will take the date of startDate.
      *
-     * @param endDateString
-     * @param startDate
+     * @param endDateString user's input of date
+     * @param startDate start date of Task
      * @return  the Date representation of endDateString if endDateString is present. Else, returns null.
      * @throws IllegalValueException if endDateString cannot be converted into a Date object
      */
@@ -123,8 +123,8 @@ public class AddCommandHelper {
     /**
      * Converts given String into the RecurrenceRate representation. 
      *
-     * @param rateString
-     * @param timePeriodString
+     * @param rateString    user's input of rate
+     * @param timePeriodString  user's input of time period
      * @return  the RecurrenceRate representation of rateString and timePeriodString if present. Else, returns null.
      * @throws IllegalValueException    if rateString is present but timePeriodString isn't present
      * (for e.g, "3" is invalid. Examples such as "3 days" or "week" is valid).
@@ -148,9 +148,9 @@ public class AddCommandHelper {
     /**
      * Returns true if both dates are null and the Task repeats every weekday e.g "monday". 
      *
-     * @param startDate
-     * @param endDate
-     * @param recurrenceRate
+     * @param startDate start date of Task
+     * @param endDate   end date of Task
+     * @param recurrenceRate    recurrence rate of Task
      * @return  true if both dates are null and Task repeats every weekday. Else, returns false.
      */
     private static boolean isRecurWeekdaysButDatesNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
@@ -162,9 +162,9 @@ public class AddCommandHelper {
     /**
      * Returns true if both dates are null and the Task repeats every non-weekday e.g "week". 
      *
-     * @param startDate
-     * @param endDate
-     * @param recurrenceRate
+     * @param startDate start date of Task
+     * @param endDate   end date of Task
+     * @param recurrenceRate    recurrence rate of Task
      * @return  true if both dates are null and Task repeats every non-weekday. Else, returns false.
      */
     private static boolean isOtherRecurrenceButDatesNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
