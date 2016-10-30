@@ -42,8 +42,8 @@ public class CommandPreview {
         
         // Appends all command summaries to summaries if they fit the criteria
         CommandMap.getCommandSummaryMap().forEach((key, value) -> {
-            boolean isRelevantCommand = StringUtil.calculateClosenessScore(key, command) > CLOSENESS_THRESHOLD || 
-                    key.startsWith(command);
+            boolean isRelevantCommand = key.startsWith(command) ||
+                StringUtil.calculateClosenessScore(key, command) > CLOSENESS_THRESHOLD;
             if (isRelevantCommand) {
                 summaries.addAll(value);
             }
