@@ -19,8 +19,11 @@ public class Task implements ReadOnlyTask {
     private String recur;
     private boolean isMarked;
 
-    
-    public Task(TaskBuilder taskBuilder){
+    //@@author A0138862W
+    /*
+     * Initialize through taskBuilder (preferred way)
+     */
+    protected Task(TaskBuilder taskBuilder){
         this.name = taskBuilder.getName();
         this.startDate = taskBuilder.getStartDate();
         this.endDate = taskBuilder.getEndDate();
@@ -176,40 +179,50 @@ public class Task implements ReadOnlyTask {
     }
 
     //@@author A0138862W
-    public boolean isDue(){        
-        if(isDeadline()){
-            Date now = new Date();
-            if(now.after(endDate)){
-                return true;
-            }else{
-                return false;
-            }
-        }else if(isEvent()){
-            Date now = new Date();
-            if(now.after(startDate) && now.after(endDate)){
-                return true;
-            }else{
-                return false;
-            }
-        }else{
+    /*
+     * 
+     * Check if the current task is due. Applies to only deadline & event
+     * - deadline: true if and only if current date is after end date
+     * - event: true if and only if current date is after end date & start date
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#isDue()
+     */
+    public boolean isDue(){
+        Date now = new Date();
+        if (isDeadline() && now.after(endDate)) {
+            return true;
+        } else if (isEvent() && now.after(startDate) && now.after(endDate)){
+            return true;
+        } else {
             return false;
         }
     }
 
     //@@author A0138862W
+    /*
+     * 
+     * Check if current task is happening at the moment.
+     * Only applies to event, where the current date falls between start & end date 
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#isHappening()
+     */
     public boolean isHappening(){
-        if(isEvent()){
-            Date now = new Date();
-            if(now.after(startDate) && now.before(endDate)){
-                return true;
-            }else{
-                return false;
-            }
+        Date now = new Date();
+        if (isEvent() && now.after(startDate) && now.before(endDate)) {
+            return true;
+        } else {
+            return false;   
         }
-        return false;
     }
     
     // @@author A0138862W
+    /*
+     * 
+     * Calculate the duration of event. 
+     * Applies to only event, return null otherwise.
+     * 
+     * @see harmony.mastermind.model.task.ReadOnlyTask#getEventDuration()
+     */
     public Duration getEventDuration(){
         if(isEvent()){
             long differencel = endDate.getTime() - startDate.getTime();
@@ -220,11 +233,12 @@ public class Task implements ReadOnlyTask {
         }
     }
     
+    //@@author A0138862W
     /*
      * calculate the duration until due date
+     * Applies to only deadlines, return null otherwise.
      * 
      */
-    //@@author A0138862W
     public Duration getDueDuration(){
         if(endDate != null){
             long nowl = System.currentTimeMillis();

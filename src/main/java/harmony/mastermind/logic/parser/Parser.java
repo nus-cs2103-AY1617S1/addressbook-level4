@@ -193,15 +193,27 @@ public class Parser {
             final Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
             
             // after init every capturing groups, we start to build the command 
-            AddCommandBuilder addCommandBuilder = buildAddCommand(name, dates, recur, tagSet);
+            AddCommand addCommand = buildAddCommand(name, dates, recur, tagSet);
             
-            return addCommandBuilder.build();
+            return addCommand;
         } catch (IllegalValueException | InvalidEventDateException e) {
             return new IncorrectCommand(e.getMessage());
         }
     }
 
-    private AddCommandBuilder buildAddCommand(final String name, final Optional<String> dates, final Optional<String> recur, final Set<String> tagSet) throws IllegalValueException, InvalidEventDateException {
+    //@@author A0138862W
+    /**
+     * Build the AddCommand
+     * 
+     * @param name is mandatory field
+     * @param dates contain user input date string that has to be parsed by natural language processing library. Optional
+     * @param recur contain recur input contain the keyword such as daily, weekly, monthly. Optional
+     * @param tagSet unique set of tag string associated to the task
+     * 
+     * @throws IllegalValueException if tags contain non-alphanumeric value
+     * @throws InvalidEventDateException if event start date is after end date
+     */
+    private AddCommand buildAddCommand(final String name, final Optional<String> dates, final Optional<String> recur, final Set<String> tagSet) throws IllegalValueException, InvalidEventDateException {
         AddCommandBuilder addCommandBuilder = new AddCommandBuilder(name);
         addCommandBuilder.withTags(tagSet);
         recur.ifPresent(recurVal -> addCommandBuilder.asRecurring(recurVal));
@@ -225,13 +237,21 @@ public class Parser {
                 }
             }
         };
-        return addCommandBuilder;
+        return addCommandBuilder.build();
     }
-    
+
+    //@@author A0138862W
+    /*
+     * Determine the date should be parse as deadline task
+     */
     private boolean shouldParseAsDeadline(List<Date> dates){
         return dates.size() == 1;
     }
     
+    //@@author A0138862W
+    /*
+     * Determine the date should be parse as event task
+     */
     private boolean shouldParseAsEvent(List<Date> dates){
         return dates.size() == 2;
     }

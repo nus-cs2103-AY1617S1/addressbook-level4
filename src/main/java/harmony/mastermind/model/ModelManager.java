@@ -132,6 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0138862W
     @Override
+    /*
+     * push the command to the undo history.
+     * @see harmony.mastermind.model.Model#pushToUndoHistory(harmony.mastermind.logic.commands.Undoable)
+     */
     public void pushToUndoHistory(Undoable command) {
         undoHistory.push(command);
     }
@@ -148,13 +152,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     // @@author A0138862W
+    /*
+     * push the command to the redo history. Should only be called after an undo operation
+     * @see harmony.mastermind.model.Model#pushToRedoHistory(harmony.mastermind.logic.commands.Redoable)
+     */
     public void pushToRedoHistory(Redoable command) {
         redoHistory.push(command);
     }
 
     @Override
-    /** redo the action that being undone function **/
     // @@author A0138862W
+    /** redo the action that being undone function **/
     public CommandResult redo() throws EmptyStackException {
         CommandResult commandResult = redoHistory.pop().redo();
         updateFilteredListToShowAll();
@@ -217,9 +225,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //=========== Filtered List Accessors ===============================================================
 
-    // =========== Filtered List Accessors
-    // ===============================================================
     // @@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {

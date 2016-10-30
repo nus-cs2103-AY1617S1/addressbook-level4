@@ -151,7 +151,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     // @@author A0138862W
     /**
-     * Build the AddCommand using addCommandBuilder. Depending on the builder attributes, the taskBuilder will return the appropriate event/floating/deadline task. 
+     * Build the AddCommand using addCommandBuilder. 
+     * Depending on the builder attributes, the taskBuilder will return the appropriate event/floating/deadline task. 
      * 
      * @param addCommandBuilder to build the command safely
      * 
@@ -180,7 +181,6 @@ public class AddCommand extends Command implements Undoable, Redoable {
         try {
             executeAdd();
             
-            // push this command into undoHistory
             model.pushToUndoHistory(this);
             
             // this is a new command entered by user (not undo/redo)
@@ -196,12 +196,11 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     }
 
-    @Override
-    /** action to perform when ModelManager requested to undo this command **/
     // @@author A0138862W
+    /** action to perform when ModelManager requested to undo this command **/
+    @Override
     public CommandResult undo() {
         try {
-            // remove the task that's previously added.
             model.deleteTask(toAdd);
             
             model.pushToRedoHistory(this);
@@ -211,10 +210,10 @@ public class AddCommand extends Command implements Undoable, Redoable {
             return new CommandResult(COMMAND_KEYWORD_ADD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
-
-    @Override
-    /** action to perform when ModelManager requested to redo this command**/
+    
     // @@author A0138862W
+    /** action to perform when ModelManager requested to redo this command**/
+    @Override
     public CommandResult redo() {
         assert model != null;
         try {
@@ -230,8 +229,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
         }        
     }
     
-    /** extract method since it's reusable for execute() and redo()**/
+    
     // @@author A0138862W
+    /** extract method since it's reusable for execute() and redo()**/
     private void executeAdd() throws DuplicateTaskException {
         model.addTask(toAdd);
     }

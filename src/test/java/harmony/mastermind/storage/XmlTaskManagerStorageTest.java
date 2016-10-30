@@ -53,19 +53,6 @@ public class XmlTaskManagerStorageTest {
         assertFalse(readTaskManager("NonExistentFile.xml").isPresent());
     }
 
-//    redundant 
-//    @Test
-//    public void read_notXmlFormat_exceptionThrown() throws Exception {
-//
-//        thrown.expect(DataConversionException.class);
-//        readTaskManager("NotXmlFormatMastermind.xml");
-//
-//        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-//         * That means you should not have more than one exception test in one method
-//         */
-//    }
-
-
     //@@author A0124797R
     @Test
     public void readAndSaveTaskManager_allInOrder_success() throws Exception {
@@ -95,6 +82,7 @@ public class XmlTaskManagerStorageTest {
 
     }
 
+    //@@author
     @Test
     public void saveTaskManager_nullTaskManager_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
@@ -121,10 +109,18 @@ public class XmlTaskManagerStorageTest {
     
     //@@author A0139194X
     @Test
-    public void migrateIntoNewFolder_nullFilePath_assertionFailure() throws IOException {
+    public void migrateIntoNewFolder_nullNewFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
         xmlTaskManagerStorage.migrateIntoNewFolder(TEST_DATA_FOLDER, null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void migrateIntoNewFolder_nullOldFilePath_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        xmlTaskManagerStorage.migrateIntoNewFolder(null, SECOND_TEST_DATA_FOLDER);
     }
     
     //@@author A0139194X
@@ -137,24 +133,56 @@ public class XmlTaskManagerStorageTest {
     
     //@@author A0139194X
     @Test
+    public void deleteFile_success() throws IOException {
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        TypicalTestTasks td = new TypicalTestTasks();
+        TaskManager original = td.getTypicalTaskManager();
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
+        assertEquals(true, xmlTaskManagerStorage.deleteFile(filePath));
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void deleteFile_failure() throws IOException {
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        assertEquals(false, xmlTaskManagerStorage.deleteFile(filePath));
+    }
+    
+    //@@author A0139194X
+    @Test
     public void migrateNewFolder_allInOrder_success() throws IOException, DataConversionException {
-        String filePath = testFolder.getRoot().getPath();
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
 
-        //Tries to delete old file again
-        //TODO: need revise. folder creation is not working -by kf
-        /* 
-        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, SECOND_TEST_DATA_FOLDER);
+        String newFilePath = SECOND_TEST_DATA_FOLDER + "TempTaskManager.xml";
+        
+        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, newFilePath);
         File toDelete = new File(filePath);
         assertFalse(toDelete.delete());
         
         //Checks if file has been copied over to new location
-        File newFile = new File(SECOND_TEST_DATA_FOLDER + "mastermind.xml");
+        File newFile = new File(newFilePath);
         assertEquals(true, newFile.exists());
-        */
+        
+        clearTestFolder(xmlTaskManagerStorage, newFilePath);
     }
-
+    
+    //@@author A0139194X
+    public void clearTestFolder(XmlTaskManagerStorage storage, String filePath) {
+        storage.deleteFile(filePath);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerFilePath_success() {
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        xmlTaskManagerStorage.setTaskManagerFilePath(SECOND_TEST_DATA_FOLDER);
+        assertEquals(SECOND_TEST_DATA_FOLDER, xmlTaskManagerStorage.getTaskManagerFilePath());
+    }
     
 }

@@ -65,9 +65,13 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
     // @@author A0138862W
     @Override
+    /*
+     * Strategy to undo mark command
+     * 
+     * @see harmony.mastermind.logic.commands.Undoable#undo()
+     */
     public CommandResult undo() {
         try {
-            // remove the task that's previously added.
             model.unmarkTask(taskToMark);
 
             model.pushToRedoHistory(this);
@@ -84,6 +88,11 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
     // @@author A0138862W
     @Override
+    /*
+     * Strategy to redo mark command
+     * 
+     * @see harmony.mastermind.logic.commands.Redoable#redo()
+     */
     public CommandResult redo() {
         try {
             executeMark();
@@ -97,11 +106,8 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
-        } catch (DuplicateTaskException e) {
+        } catch (DuplicateTaskException | NotRecurringTaskException e) {
             return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
-        } catch (NotRecurringTaskException e) {
-            return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
-
         }
     }
 
