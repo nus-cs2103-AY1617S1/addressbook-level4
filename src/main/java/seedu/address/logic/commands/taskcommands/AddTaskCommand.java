@@ -85,10 +85,10 @@ public class AddTaskCommand extends TaskCommand {
     }
     
     /**
-     * Retrieve the details of the task for testing purposes
+     * Retrieve the details of the task (with or without time information) for testing purposes
      */
-    public String getTaskDetails() {
-    	return toAdd.toString();
+    public String getTaskDetails(boolean withTime) {
+    	return toAdd.getTaskDetails(withTime);
     }
     
     /**

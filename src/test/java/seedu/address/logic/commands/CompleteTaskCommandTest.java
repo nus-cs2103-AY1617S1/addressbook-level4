@@ -70,7 +70,7 @@ public class CompleteTaskCommandTest {
 		CompleteTaskCommand command = new CompleteTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(CompleteTaskCommand.MESSAGE_COMPLETE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(CompleteTaskCommand.MESSAGE_COMPLETE_TASK_SUCCESS, "Task 1");
 		assertCommandFeedback(command, expected);
 	}
 

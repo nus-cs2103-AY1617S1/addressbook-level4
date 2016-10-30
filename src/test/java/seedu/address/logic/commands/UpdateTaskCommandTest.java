@@ -92,8 +92,7 @@ public class UpdateTaskCommandTest {
 		
 		// Index 1 is a floating task
 		CommandResult result = createAndExecuteUpdateDescription(1, description);
-		String updatedTask = "[Floating Task][Description: Hello]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Hello");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -104,8 +103,7 @@ public class UpdateTaskCommandTest {
 		
 		// Index 2 is a deadline task
 		CommandResult result = createAndExecuteUpdateDescription(2, description);
-		String updatedTask = "[Deadline Task][Description: Hello][Deadline: 01.01.2016]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Hello");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -116,8 +114,7 @@ public class UpdateTaskCommandTest {
 		
 		// Index 3 is an event task
 		CommandResult result = createAndExecuteUpdateDescription(3, description);
-		String updatedTask = "[Event Task][Description: Hello][Start date: 01.01.2016][End date: 02.01.2016]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Hello");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -138,8 +135,7 @@ public class UpdateTaskCommandTest {
 		 */
 		// Index 1 is a floating task
 		CommandResult result = createAndExecuteUpdateDeadline(1, firstDate);
-		String updatedTask = "[Deadline Task][Description: Task 0][Deadline: 20.08.2016]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 0");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 		
@@ -147,8 +143,7 @@ public class UpdateTaskCommandTest {
 		 * Adding a start date and end date to the floating task by changing it to an event task.
 		 */
 		result = createAndExecuteUpdateStartEndDate(1, firstDate, secondDate);
-		updatedTask = "[Event Task][Description: Task 0][Start date: 20.08.2016][End date: 21.08.2016]";
-		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 0");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 		
@@ -164,8 +159,7 @@ public class UpdateTaskCommandTest {
 		 */
 		// Index 2 is a deadline task
 		CommandResult result = createAndExecuteUpdateDeadline(2, firstDate);
-		String updatedTask = "[Deadline Task][Description: Task 1][Deadline: 20.08.2016]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 1");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 		
@@ -173,8 +167,7 @@ public class UpdateTaskCommandTest {
 		 * Giving a start and end date to the deadline task by changing it to an event task.
 		 */
 		result = createAndExecuteUpdateStartEndDate(2, firstDate, secondDate);
-		updatedTask = "[Event Task][Description: Task 1][Start date: 20.08.2016][End date: 21.08.2016]";
-		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 1");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -189,8 +182,7 @@ public class UpdateTaskCommandTest {
 		 */
 		// Index 3 is an event task
 		CommandResult result = createAndExecuteUpdateDeadline(3, firstDate);
-		String updatedTask = "[Deadline Task][Description: Task 2][Deadline: 20.08.2016]";
-		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 2");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 		
@@ -198,8 +190,7 @@ public class UpdateTaskCommandTest {
 		 * Updating the start and end date of a event task
 		 */
 		result = createAndExecuteUpdateStartEndDate(3, firstDate, secondDate);
-		updatedTask = "[Event Task][Description: Task 2][Start date: 20.08.2016][End date: 21.08.2016]";
-		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, updatedTask);
+		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 2");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
