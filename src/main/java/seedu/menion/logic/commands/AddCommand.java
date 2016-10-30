@@ -75,6 +75,7 @@ public class AddCommand extends Command {
     	assert model != null;
     	
     	storePreviousState();
+    	model.updateRecentChangedActivity((ReadOnlyActivity) toAdd);
     	
         try {
             if (toAdd.getActivityType().equals(Activity.TASK_TYPE)){
@@ -86,7 +87,7 @@ public class AddCommand extends Command {
             else {
                 model.addFloatingTask(toAdd);
             }
-
+            
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

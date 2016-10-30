@@ -23,6 +23,10 @@ public class RemindCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	assert model != null;
+    	
+    	model.updateRecentChangedActivity(null);
+    	
         // Writes userEmail to a file.
         // Saves file
         PrintStream out;

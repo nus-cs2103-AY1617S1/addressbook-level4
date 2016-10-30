@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ActivityListPanel taskListPanel;
+    private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -52,7 +52,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane activityListPanelPlaceholder;
     
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -110,10 +110,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = ActivityListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
+        activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), 
+        		logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, activityListPanel);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -128,8 +129,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getActivityListPlaceholder() {
+        return activityListPanelPlaceholder;
     }
 
     public void hide() {
@@ -170,6 +171,14 @@ public class MainWindow extends UiPart {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
+    
+    //@@author A0139515A
+    @FXML
+    public void handleModifyStorage() {
+    	ModifyStorageWindow modifyStorageWindow = ModifyStorageWindow.load(primaryStage);
+    	modifyStorageWindow.show();
+    }
+    //@@author
 
     public void show() {
         primaryStage.show();
@@ -183,7 +192,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public ActivityListPanel getTaskListPanel() {
-        return this.taskListPanel;
+    public ActivityListPanel getActivityListPanel() {
+        return this.activityListPanel;
     }
 }

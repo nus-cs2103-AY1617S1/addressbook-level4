@@ -33,6 +33,8 @@ public class RedoCommand extends Command {
 	public boolean redo() {
 		assert model != null;
 		
+		model.updateRecentChangedActivity(null);
+		
 		if (model.checkStatesInRedoStack()) {
 			return false;
 		}

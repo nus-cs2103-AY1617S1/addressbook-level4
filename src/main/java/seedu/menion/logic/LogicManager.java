@@ -50,4 +50,10 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredEventList();
     }
     
+    //@@author A0139515A
+    @Override
+    public ReadOnlyActivity getMostRecentUpdatedActivity() {
+    	return model.getMostRecentUpdatedActivity();
+    }
+    
 }

@@ -7,6 +7,7 @@ import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -61,19 +62,24 @@ public class UnCompleteCommand extends Command {
             return new CommandResult(MESSAGE_ALREADY_UNCOMPLETED);
         }
         
-        callUnCompleteActivity(targetType); // Calls the correct method depending on type of activity.
+        callUnCompleteActivity(targetType, activityToUncomplete); // Calls the correct method depending on type of activity.
         activityToUncomplete = lastShownList.get(targetIndex);
+        
+        model.updateRecentChangedActivity(activityToUncomplete);
         
         return new CommandResult(String.format(MESSAGE_UNCOMPLETED_ACTIVITY_SUCCESS, activityToUncomplete));
     }
 
-    private void callUnCompleteActivity(String targetType) {
+    private void callUnCompleteActivity(String targetType, ReadOnlyActivity activityToUncomplete) {
         
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.UncompleteFloatingTask(targetIndex);
-        }
-        else {
-            model.UncompleteTask(targetIndex);
+        try {
+            if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+                model.UncompleteFloatingTask(activityToUncomplete);
+            } else {
+                model.UncompleteTask(activityToUncomplete);
+            }
+        }catch (ActivityNotFoundException pnfe) {
+            assert false : "The target activity cannot be missing";
         }
     }
     
