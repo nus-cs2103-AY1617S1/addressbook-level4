@@ -119,7 +119,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     }
 
     //@@author A0143378Y
-    static void checkForFileExists(Memory memory) { 
+    public static void checkForFileExists(Memory memory) { 
         File file = new File(SAVE_FILE);
         if (!file.exists()) {
             try {
