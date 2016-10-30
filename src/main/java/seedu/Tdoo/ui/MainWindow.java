@@ -1,11 +1,13 @@
 package seedu.Tdoo.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.Tdoo.commons.core.Config;
@@ -50,7 +52,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
-
+    
     @FXML
     private AnchorPane todoListPanelPlaceholder;
     
