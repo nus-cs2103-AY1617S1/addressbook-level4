@@ -42,6 +42,7 @@ We are a group of highly motivated and hardworking students working on our CS210
   *  Wrote JUnit test cases for AddCommandTest and SetStorageTest.
   *  Contributed to enhancing functionalities and fixing bugs for start time and end time. 
   *  Designed priority class
+  * Designed command summary in html file. Added a listener to detect the press of ENTER key to close the command summary window. 
 
 -----
 

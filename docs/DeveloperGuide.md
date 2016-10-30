@@ -405,7 +405,7 @@ Guarantees:
 > 3a1. The system shows an error message <br>
   Use case resumes at Step 2
 
-/* @@author */
+/* @@author A0135769N */
 
 #### Use case UC06 - Set storage directory
 
@@ -419,8 +419,9 @@ Guarantees:
 1. The user enters the file path, indicating the folder in which he wants to save the data.
 2. When the user enters the file path, he should indicate the file name by which he wants to update the directory:
    e.g  Users/James/Desktop/[filename].xml
-3. System will process the file path and will create a copy of the file in the new directory.
-4. File in the old directory will be removed. 
+3. The user can only specify the directory in which the file needs to be moved to. In this case, the file will be moved with default filename (tasklist.xml).   
+4. System will process the file path and will create a copy of the file in the new directory.
+5. File in the old directory will be removed. 
 
 /* @@author A0146107M */
 #### Use case UC07 - Autocomplete command feature
@@ -460,6 +461,21 @@ Guarantees:
 **Extensions**
 2a. No commands were entered before the use case
 > Use case ends
+
+/* @@author A0135769N */
+#### Use case UC09 - Help Command (Command Summary)
+
+**MSS**
+
+Precondition: help command has to be entered correctly.
+
+Guarantees:  
+* Command summary browser window will appear.
+
+1. Use enters 'help' in command box.
+2. A browser window with a list of Command summary will open.
+3. Press ENTER key to close the browser and return to the command line interface.
+
 
 /* @@author */
 
