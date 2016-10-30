@@ -23,12 +23,17 @@ import java.util.logging.Logger;
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+
+    //@@author A0130853L
     public static final String COMPLETED_TASKS = "completed tasks";
     public static final String ALL_TASKS = "all tasks";
     public static final String UPCOMING_TASKS = "upcoming tasks";
+    private StatusBar viewStatus;
+    
+    //@@author
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
-    private StatusBar viewStatus;
+
 
     private GridPane mainPane;
 
@@ -50,7 +55,7 @@ public class StatusBarFooter extends UiPart {
         statusBarFooter.configure(saveLocation);
         return statusBarFooter;
     }
-
+    //@@author A0130853L
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
@@ -61,6 +66,7 @@ public class StatusBarFooter extends UiPart {
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
+    //@@author
 
     private void addMainPane() {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -86,7 +92,6 @@ public class StatusBarFooter extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
-    
     //@@author A0130853L
     private void setViewStatus(String status) {
     	this.viewStatus.setText(status);
@@ -114,6 +119,7 @@ public class StatusBarFooter extends UiPart {
         return FXML;
     }
     
+    //@@author A0130853L
     @Subscribe
     public void handleViewTypeChangedEvent(ViewTypeChangedEvent vtce) {
     	String newView = vtce.viewType.toString();
@@ -136,7 +142,7 @@ public class StatusBarFooter extends UiPart {
     	setViewStatus(viewStatus); 
     	
     }
-
+    
     @Subscribe
     public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
         String lastUpdated = (new Date()).toString();
