@@ -296,7 +296,7 @@ Examples:
 
 <br>
 ### Undo action: `undo`
-Undoes the most recent change from the task manager.<br>
+Undoes the most recent change (add/delete/edit) from the task manager.<br>
 Format: `undo`
 
 <br>
