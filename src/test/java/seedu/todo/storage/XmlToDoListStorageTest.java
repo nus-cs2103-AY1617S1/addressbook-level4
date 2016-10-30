@@ -11,6 +11,7 @@ import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Task;
+import seedu.todo.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.todo.testutil.TypicalTestTasks;
 
 import java.io.IOException;
@@ -47,18 +48,8 @@ public class XmlToDoListStorageTest {
     public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
-   /*
-    @Test
-    public void read_notXmlFormat_exceptionThrown() throws Exception {
-
-        thrown.expect(DataConversionException.class);
-        readToDoList("NotXmlFormatToDoList.xml");
-        
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         
-    }*/
-
+   
+    
     @Test
     public void readAndSaveToDoList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
@@ -69,20 +60,23 @@ public class XmlToDoListStorageTest {
         //Save in new file and read back
         xmlToDoListStorage.saveToDoList(original, filePath);
         ReadOnlyToDoList readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        assertEquals(original, new DoDoBird(readBack));
+        DoDoBird readbackDdb = addTaskToDoDoBird(readBack);
+        assertEquals(original, readbackDdb);
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.buyNoodles));
         original.deleteTask(new Task(TypicalTestTasks.buyNoodles));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        assertEquals(original, new DoDoBird(readBack));
+        readbackDdb = addTaskToDoDoBird(readBack);
+        assertEquals(original, readbackDdb);
 
         //Save and read without specifying file path
         original.addTask(new Task(TypicalTestTasks.buyCheese));
         xmlToDoListStorage.saveToDoList(original); //file path not specified
         readBack = xmlToDoListStorage.readToDoList().get(); //file path not specified
-        assertEquals(original, new DoDoBird(readBack));
+        readbackDdb = addTaskToDoDoBird(readBack);
+        assertEquals(original, readbackDdb);
 
     }
 
@@ -100,6 +94,15 @@ public class XmlToDoListStorageTest {
     public void saveToDoList_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveToDoList(new DoDoBird(), null);
+    }
+    
+    private DoDoBird addTaskToDoDoBird(ReadOnlyToDoList rotdl) throws DuplicateTaskException {
+        DoDoBird readbackDdb = new DoDoBird();
+        
+        for (int i = rotdl.getTaskList().size() - 1 ; i >= 0 ; i--) {
+            readbackDdb.addTask(new Task(rotdl.getTaskList().get(i)));
+        }
+        return readbackDdb;
     }
 
 

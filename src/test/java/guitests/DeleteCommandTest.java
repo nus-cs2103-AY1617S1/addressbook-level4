@@ -12,8 +12,7 @@ public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test
     public void delete() {
-        
-        
+               
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         for (TestTask t : currentList) {

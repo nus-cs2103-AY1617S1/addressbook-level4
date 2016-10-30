@@ -206,9 +206,7 @@ public class ToDoListParser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        } 
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

@@ -49,6 +49,7 @@ public class Recurrence {
     }
     
     public void updateTaskDate(Task task){
+        task.getCompletion().setCompletion(false);
         switch(this.freq) {
         case YEAR :
             if (task.getOnDate().getDate() != null) {

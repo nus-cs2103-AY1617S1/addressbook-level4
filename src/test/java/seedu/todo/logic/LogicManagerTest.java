@@ -68,6 +68,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
+        config = new Config();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, config, new StorageManager(tempAddressBookFile, tempPreferencesFile));
@@ -134,12 +135,43 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateFullTask(0);
+        Task toBeAddedRecur = helper.generateFullTask(1);
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.addTask(toBeAddedRecur);
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_onTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTaskWithDates("today", null);
+        Task toBeAddedRecur = helper.generateTaskWithDates("tomorrow", null);
+        DoDoBird expectedAB = new DoDoBird();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.addTask(toBeAddedRecur);
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -148,13 +180,13 @@ public class LogicManagerTest {
     public void execute_add_floatingTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateFloatingTask(0);
+        Task toBeAdded = helper.generateTaskWithDates(null, null);
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -163,13 +195,21 @@ public class LogicManagerTest {
     public void execute_add_deadlineTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateDeadlineTask(0);
+        Task toBeAdded = helper.generateTaskWithDates(null, "Tomorrow");
+        Task toBeAddedRecur = helper.generateTaskWithDates(null, "2 days later");
         DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
-
+        
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+        
+        expectedAB.addTask(toBeAddedRecur);
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandRecurring(toBeAddedRecur),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAddedRecur),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -503,6 +543,24 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_search_matchesIfOn() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task t1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task t2 = helper.generateTaskWithDates("today", "tomorrow");
+
+        List<Task> twoTasks = helper.generateTaskList(t1, t2);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
+        List<Task> expectedList = helper.generateReverseTaskList(t2);
+        helper.addToModel(model, twoTasks);
+
+        assertCommandBehavior("search on today",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    
+    @Test
     public void execute_search_matchesIfDone() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task t1 = helper.generateTaskWithName("bla bla KEY bla");
@@ -520,6 +578,44 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    
+    @Test
+    public void execute_search_matchesIfUndone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task t1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        
+        t1.setCompletion(new Completion(true));
+
+        List<Task> twoTasks = helper.generateTaskList(t1, t2);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
+        List<Task> expectedList = helper.generateReverseTaskList(t2);
+        helper.addToModel(model, twoTasks);
+
+        assertCommandBehavior("search undone",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_store() throws Exception {
+        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
+        String newLocation = "C:\\Users\\Desmond\\Desktop\\NUS/" + config.getToDoListName() + ".xml";
+        assertEquals(newLocation, config.getToDoListFilePath());
+    }
+    
+    
+    @Test
+    public void execute_reset() throws Exception {
+        String origLocation = config.getToDoListFilePath();
+        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
+        logic.execute("reset");
+        
+        assertEquals(origLocation, config.getToDoListFilePath());
+    }
+    
     
     //@@author
     /**
@@ -546,6 +642,9 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
         
         //Confirm the ui display elements should contain the right data
+        System.out.println(expectedMessage);
+        System.out.println(result.feedbackToUser);
+        
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 

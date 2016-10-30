@@ -64,7 +64,7 @@ public class AddCommand extends Command {
         try {
             model.addTask(toAdd);
             model.updateFilteredListToShowAll();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
