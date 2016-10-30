@@ -153,6 +153,8 @@ public class TodoModel implements Model {
         List<Integer> indexes = new ArrayList<>();
         for (int i = 1 ; i <= getObservableList().size() ; i++) {
             indexes.add(getTaskIndex(i));
+            ImmutableTask taskToDelete = tasks.get(getTaskIndex(i));
+            uniqueTagCollection.notifyTaskDeleted(taskToDelete);
         }
         return todoList.delete(indexes);
     }
