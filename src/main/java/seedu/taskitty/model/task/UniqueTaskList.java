@@ -59,16 +59,21 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.contains(toCheck);
     }
 
+    //@@author A0139052L
     /**
-     * Adds a task to the list.
+     * Adds a task into the list in a sorted fashion.
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void addSorted(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
+        
+        checkAndSetOverdueDeadline(toAdd);
+        checkAndSetIsOverEvent(toAdd);
+        
         for (int i = 0; i < internalList.size(); i++) {
             if (toAdd.compareTo(internalList.get(i)) < 0) {
                 internalList.add(i, toAdd);
@@ -78,9 +83,21 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
-    //@@author A0139052L
-    /** Unmarks the given task as done from the list.
-     * 
+    /**
+     * Adds tasks to the list in an unsorted fashion. Used in initialization of TaskManager
+     *
+     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void add(Task toAdd) throws DuplicateTaskException {
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTaskException();
+        }
+        internalList.add(toAdd);
+    }
+    
+    /** 
+     * Unmarks the given task as done from the list. Used only in redo function 
      */
     public void unmark(ReadOnlyTask toUnmark) {
         assert toUnmark != null && toUnmark.getIsDone();
@@ -93,14 +110,18 @@ public class UniqueTaskList implements Iterable<Task> {
         Task editableToUnmark = (Task) toUnmark;
         editableToUnmark.unmarkAsDone();
         
-        if (editableToUnmark.isDeadline() && editableToUnmark.isOverdue()) {
-            editableToUnmark.markAsOverdue();
-        }
+        checkAndSetOverdueDeadline(editableToUnmark);
         
         try {
-            add(editableToUnmark);
+            addSorted(editableToUnmark);
         } catch (DuplicateTaskException e) {
             assert false: "Should not have duplicate task";
+        }
+    }
+
+    private void checkAndSetOverdueDeadline(Task taskToCheck) {
+        if (taskToCheck.isDeadline() && taskToCheck.isOverdue()) {
+            taskToCheck.markAsOverdue();
         }
     }  
     
@@ -119,7 +140,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	Task editableToMark = (Task) toMark;
     	editableToMark.markAsDone();
     	try {
-            add(editableToMark);
+            addSorted(editableToMark);
         } catch (DuplicateTaskException e) {
             assert false: "Should not have duplicate task";
         }
@@ -182,10 +203,14 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     private void checkAndSetIsOverToday() {
     	for (Task t: internalList) {
-    		if (t.isEvent() && isOverdue(t)) {
-    			t.markAsDone();
-    		}
+    		checkAndSetIsOverEvent(t);
     	}
+    }
+
+    private void checkAndSetIsOverEvent(Task taskToCheck) {
+        if (taskToCheck.isEvent() && isOverdue(taskToCheck)) {
+        	taskToCheck.markAsDone();
+        }
     }
     
     private boolean isOverdue(Task t) {
