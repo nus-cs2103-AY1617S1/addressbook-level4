@@ -2,10 +2,12 @@ package seedu.taskmanager.logic.commands;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.logging.Logger;
 import java.util.Collections;
 
 import java.lang.StringBuilder;
 
+import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.model.item.ReadOnlyItem;
@@ -34,6 +36,7 @@ public class DeleteCommand extends Command {
     private boolean hasMultipleIndexes = false;
 
     private ArrayList<ReadOnlyItem> deletedItems = new ArrayList<ReadOnlyItem>();
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
     /*
      * Deletes deadline, task, or event by keyword.
      */
@@ -79,13 +82,12 @@ public class DeleteCommand extends Command {
         else {
             UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
             ListIterator<ReadOnlyItem> lslIterator = lastShownList.listIterator();
-            int numItemsDeleted = 0;
             
             Collections.sort(targetIndexes);
             
             for(int index : targetIndexes) {
                 
-                if (lastShownList.size() < (index - numItemsDeleted)) {
+                if (lastShownList.size() < index) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
                 }
@@ -95,25 +97,25 @@ public class DeleteCommand extends Command {
                     lslIterator = lastShownList.listIterator();
                 }
 
-                while(lslIterator.nextIndex() != (index - numItemsDeleted - 1)) {
-                    if(lslIterator.nextIndex() > index) {
+                while(lslIterator.nextIndex() != (index - 1)) {
+                    if(lslIterator.nextIndex() > (index - 1)) {
                         lslIterator.previous();
-                    } else if(lslIterator.nextIndex() < (index - numItemsDeleted - 1)) {
+                    } else if(lslIterator.nextIndex() < (index - 1)) {
                         lslIterator.next();
                     }
                 }
 
                 ReadOnlyItem itemToDelete = lastShownList.get(lslIterator.nextIndex());
-                    
-                try {
-                    model.deleteItem(itemToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
-                } catch (ItemNotFoundException pnfe) {
-                    assert false : "The target item cannot be missing";
-                }
-                
-                numItemsDeleted += 1;
-                deletedItems.add(itemToDelete);
 
+                deletedItems.add(itemToDelete);
+                logger.info("DELETEDITEMS: " + deletedItems.toString());
+            }
+            
+            
+            try {
+                model.deleteItems(deletedItems, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
+            } catch (ItemNotFoundException pnfe) {
+                assert false : "The target item cannot be missing";
             }
             
             StringBuilder printResult = new StringBuilder(MESSAGE_DELETE_ITEM_SUCCESS);

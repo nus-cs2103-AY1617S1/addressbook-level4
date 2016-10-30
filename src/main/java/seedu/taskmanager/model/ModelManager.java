@@ -14,6 +14,7 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -145,6 +146,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeItem(target);
         indicateTaskManagerChanged(actionTaken);
     }
+    
+    //@@author A0143641M
+    public synchronized void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws ItemNotFoundException {
+        taskManager.removeItems(targets);
+        indicateTaskManagerChanged(actionTaken);
+    }
+    //@@author
 
     @Override
     public synchronized void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException {

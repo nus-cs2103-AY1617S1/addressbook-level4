@@ -5,6 +5,7 @@ import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -17,6 +18,10 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
   
+    //@@author A0143641M
+    /** Deletes the specified multiple items. **/
+    void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws UniqueItemList.ItemNotFoundException;
+    
     //@@author A0140060A-reused
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
