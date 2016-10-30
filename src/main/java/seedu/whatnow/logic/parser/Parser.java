@@ -625,6 +625,12 @@ public class Parser {
         String argType = argComponents[ARG_TYPE];
         String arg = "";
         
+        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
+        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
+        
+        fullMonths = storeFullMonths(fullMonths);
+        shortMonths = storeShortMonths(shortMonths);    
+        
         int numOfDate = 0;
         int numOfTime = 0;
            
@@ -648,8 +654,47 @@ public class Parser {
                             arg = argComponents[i];
                         else if (numOfDate == TWO)
                             arg += DELIMITER_BLANK_SPACE + argComponents[i];
-                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                    } else if (DATE.matcher(argComponents[i].toLowerCase()).find()) {
+                        numOfDate++;
+                        if (numOfDate == ONE) {
+                            arg = argComponents[i].toLowerCase();
+                            arg += FORWARD_SLASH;
+                        } else if (numOfDate == TWO) {
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i].toLowerCase();
+                            arg += FORWARD_SLASH;
+                        } 
+                    } else if (DATE_WITH_SUFFIX.matcher(argComponents[i].toLowerCase()).find()) {
+                        numOfDate++;
+                        if (numOfDate == ONE) {
+                            arg = argComponents[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
+                            arg += FORWARD_SLASH;
+                        } else if (numOfDate == TWO) {
+                            arg = argComponents[i].toLowerCase();
+                            arg += FORWARD_SLASH;
+                        } 
+                    } else if (MONTH_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {     
+                        if (numOfDate == ONE) {
+                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                        } else if (numOfDate == TWO) {
+                            arg += fullMonths.get(argComponents[i].toLowerCase());
+                        }
+                    } else if (MONTH_IN_SHORT.matcher(argComponents[i].toLowerCase()).find()) {
+                        if (numOfDate == ONE) {
+                            arg += shortMonths.get(argComponents[i].toLowerCase());               
+                        } else if (numOfDate == TWO) {
+                            arg += shortMonths.get(argComponents[i].toLowerCase());     
+                        } 
+                    } else if (YEAR.matcher(argComponents[i].toLowerCase()).find()) {
+                        if (numOfDate == ONE) {
+                            arg += FORWARD_SLASH;
+                            arg += argComponents[i].toLowerCase();
+                        } else if (numOfDate == TWO) {
+                            arg += FORWARD_SLASH;
+                            arg += argComponents[i].toLowerCase();
+                        } 
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0) {
                         arg = null;
+                    } 
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TIME) == 0) {
                     if (TIME_FORMAT.matcher(argComponents[i]).find()) {
                         numOfTime++;
