@@ -1671,6 +1671,11 @@ public class LogicManagerTest {
         assertCommandBehavior("free 11/10/2016",
                 String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS, "Tuesday, 11/10/2016"), expectedTars,
                 expectedTars.getTaskList());
+        
+        //Case where the user types in a time should still be allowed to pass. Programme will extract the date
+        assertCommandBehavior("free 11/10/2016 0900",
+                String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS, "Tuesday, 11/10/2016"), expectedTars,
+                expectedTars.getTaskList());
     }
 
     @Test
