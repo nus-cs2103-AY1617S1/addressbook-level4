@@ -34,7 +34,7 @@ public class Priority {
     }
 
     /**
-     * Returns true if a given string is a valid person priority.
+     * Returns true if a given string is a valid task priority.
      */
     public static boolean isValidpriority(String test) {
         return test.matches(PRIORITY_REGEX);
