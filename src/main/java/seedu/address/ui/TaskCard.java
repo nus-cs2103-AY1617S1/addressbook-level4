@@ -56,16 +56,18 @@ public class TaskCard extends UiPart{
         
         // Format to display the dates
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, h.mm a");
+        first_date.setStyle("-fx-text-fill: gray;");
+        second_date.setStyle("-fx-text-fill: gray;");
         
         // Assigning Date labels only if task is DeadlineTask or EventTask
         if (task instanceof DeadlineTask) {
         	DeadlineTask curr = (DeadlineTask) task;
-        	first_date.setText("Deadline: " + dateFormat.format(curr.getDeadline()));
+        	first_date.setText("by " + dateFormat.format(curr.getDeadline()));
         	second_date.setText("");
         } else if (task instanceof EventTask) {
         	EventTask curr = (EventTask) task;
-        	first_date.setText("Start date: " + dateFormat.format(curr.getStartDate()));
-        	second_date.setText("End date: " + dateFormat.format(curr.getEndDate()));
+        	first_date.setText("from " + dateFormat.format(curr.getStartDate()));
+        	second_date.setText(" to  " + dateFormat.format(curr.getEndDate()));
         } else {
         	first_date.setText("");
         	second_date.setText("");
