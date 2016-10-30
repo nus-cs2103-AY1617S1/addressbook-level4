@@ -44,6 +44,7 @@ public class TaskCard extends UiPart {
         return UiPartLoader.loadUiPart(card);
     }
 
+    //@@author A0147969E
     @FXML
     public void initialize() {
         name.setText(task.getDescription().fullDescription);
@@ -70,6 +71,7 @@ public class TaskCard extends UiPart {
         completeStatus.setText(task.getCompleteStatus()? "  [Completed]":
         			(task.getTimeEnd().isBefore(LocalDateTime.now())? "  [OverDue]" : "  [Not Completed]"));
     }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;
