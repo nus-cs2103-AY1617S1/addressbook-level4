@@ -252,9 +252,9 @@ Examples:
 * `show monday`
 * `show completed`
 * `show all`
-<!--- @@author -->
-> <img src="images/Show.png" width="800">
 
+> <img src="images/Show.png" width="800">
+<!--- @@author -->
 
 
 <!--- @@author A0143471L -->
