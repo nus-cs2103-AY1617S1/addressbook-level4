@@ -26,8 +26,6 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Map;
-import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -139,7 +137,7 @@ public class TodoModel implements Model {
         saveUndoState();
         return todoList.add(title, update);
     }
-
+    //@@author A0092382A
     @Override
     public ImmutableTask delete(int index) throws ValidationException {
         saveUndoState();
@@ -166,18 +164,9 @@ public class TodoModel implements Model {
         return todoList.update(taskIndex, update);
     }
 
-    //@@author A0092382A
     @Override
     public List<ImmutableTask> updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
-        /**Map<UUID, Integer> uuidMap = new HashMap<>();
-        for (int i = 0; i < tasks.size(); i++) {
-            uuidMap.put(tasks.get(i).getUUID(), i);
-        }
-        List<Integer> indexes = new ArrayList<>();
-        for (ImmutableTask task : getObservableList()) {
-            indexes.add(uuidMap.get(task.getUUID()));
-        }**/
         List<Integer> indexes = new ArrayList<>();
         for (int i = 0 ; i < getObservableList().size() ; i++) {
             indexes.add(getTaskIndex(i));

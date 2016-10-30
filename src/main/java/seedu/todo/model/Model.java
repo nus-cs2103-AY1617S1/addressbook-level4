@@ -46,6 +46,14 @@ public interface Model {
      */
     ImmutableTask delete(int index) throws ValidationException;
     
+    /**
+     * Deletes all currently visible tasks from the todo list. This change is also propagated to the 
+     * underlying persistence layer.  
+     *
+     * @param list of all the 1-indexed positions for all visible tasks
+     * @return the list of tasks that were just deleted
+     * @throws ValidationException if any of the tasks do not exist
+     */
     List<ImmutableTask> deleteAll() throws ValidationException;
 
     
