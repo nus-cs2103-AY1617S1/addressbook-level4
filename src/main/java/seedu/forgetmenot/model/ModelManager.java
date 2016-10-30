@@ -158,37 +158,37 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addRecurringTask(ReadOnlyTask task) throws DuplicateTaskException, IllegalValueException {
 
         String freq = task.getRecurrence().getRecurFreq();
-        int occur = Recurrence.DEFAULT_OCCURENCE;
+        int occur = task.getRecurrence().getOccurence();
 
         // Recurring task with only start time.
-       if (!task.getStartTime().isMissing() && task.getEndTime().isMissing()) {
+       if (task.isStartTask()) {
             StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
-            for (int i = 0; i < occur; i++) {
+            for (int i = 0; i < occur - 1; i++) {
                 recurStartTime.insert(0, freq + " after ");
                 addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()), new Time(""),
-                        new Recurrence("")));
+                        new Recurrence(task.getRecurrence().getRecurFreq())));
             }
         }
 
        // Recurring task with only end time.
-       else if (task.getStartTime().isMissing() && !task.getEndTime().isMissing()) {
+       else if (task.isDeadlineTask()) {
            StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
-           for (int i = 0; i < occur; i++) {
+           for (int i = 0; i < occur - 1; i++) {
                recurEndTime.insert(0, freq + " after ");
                addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
-                       new Recurrence("")));
+                       new Recurrence(task.getRecurrence().getRecurFreq())));
            }
        }
        
-        // Recurring task wth both start and end times
-        else if (!task.getStartTime().isMissing() && !task.getEndTime().isMissing()) {
+        // Recurring task with both start and end times
+        else if (task.isEventTask()) {
             StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
             StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
-            for (int i = 0; i < occur; i++) {
+            for (int i = 0; i < occur - 1; i++) {
                 recurStartTime.insert(0, freq + " after ");
                 recurEndTime.insert(0, freq + " after ");
                 addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()),
-                        new Time(recurEndTime.toString()), new Recurrence("")));
+                        new Time(recurEndTime.toString()), new Recurrence(task.getRecurrence().getRecurFreq())));
             }
         }
 

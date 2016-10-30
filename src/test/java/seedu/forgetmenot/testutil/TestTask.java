@@ -88,5 +88,25 @@ public class TestTask implements ReadOnlyTask {
         
         return false;
 	}
+	//@@author A0139671X
+    @Override
+    public boolean isStartTask() {
+        return !start.isMissing() && end.isMissing();
+    }
+
+    @Override
+    public boolean isDeadlineTask() {
+        return start.isMissing() && !end.isMissing();
+    }
+
+    @Override
+    public boolean isEventTask() {
+        return !start.isMissing() && !end.isMissing();
+    }
+    
+    @Override
+    public boolean isFloatingTask() {
+        return start.isMissing() && end.isMissing();
+    }
 
 }
