@@ -62,7 +62,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     
     private enum EditType {
         REMOVE_DATES,
-        ONLY_NAME,
+        TO_SAME_TYPE,
         TO_EVENT,
         TO_DEADLINE,
         ONLY_PRIORITY
@@ -78,7 +78,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     /** Constructor nullifying everything except {@code taskIndex}. */
     public EditCommand(String taskIndex) {
         this.taskIndex = taskIndex;
-        determineEditType();
+        editType = EditType.REMOVE_DATES;
     }
     
     public EditCommand(String name, Set<String> tags, List<Date> deadline, List<Date> eventStart, List<Date> eventEnd,
@@ -99,7 +99,7 @@ public class EditCommand extends Command implements TaskBookEditor {
             this.newTagList = new UniqueTagList(tagSet);
         }
         
-        if (priority != null)   {
+        if (priority != null && !priority.isEmpty())   {
             this.newPriority = new Priority(priority);
         }
         
@@ -159,12 +159,9 @@ public class EditCommand extends Command implements TaskBookEditor {
     
     /** Determines the type of edit based on user input. */
     private void determineEditType() {
-        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null && newPriority == null) {
-            this.editType = EditType.REMOVE_DATES;
-        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null && newPriority == null) {
-            this.editType = EditType.ONLY_NAME;
-        } else if (newPriority != null && deadline == null && eventStart == null && eventEnd == null)   {
-            this.editType = EditType.ONLY_PRIORITY;
+        if ((newName != null || newTagList != null || newPriority != null) && deadline == null && eventStart == null
+                && eventEnd == null) {
+            this.editType = EditType.TO_SAME_TYPE;
         } else if (eventStart == null && eventEnd == null && deadline != null) {
             this.editType = EditType.TO_DEADLINE;
         } else if (deadline == null && (eventStart != null || eventEnd != null)) {
@@ -178,9 +175,7 @@ public class EditCommand extends Command implements TaskBookEditor {
         switch (editType) {
         case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
-        case ONLY_NAME :
-            return Optional.of(toSameTaskTypeWithChanges(oldTask));
-        case ONLY_PRIORITY :
+        case TO_SAME_TYPE :
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
         case TO_EVENT :
             return Optional.of(toEventTypeWithChanges(oldTask));

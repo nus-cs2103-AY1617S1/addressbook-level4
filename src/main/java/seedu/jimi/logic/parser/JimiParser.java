@@ -41,7 +41,6 @@ import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.logic.commands.UndoCommand;
-import seedu.jimi.model.FilteredListManager;
 import seedu.jimi.model.tag.Priority;
 
 /**
@@ -63,17 +62,18 @@ public class JimiParser {
             Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
     
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on|from (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
-    private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ADD_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
+            Pattern.compile("(?<targetIndex>[^\\s/]+) (?<editDetails>.+)");
     
-    // accepts in the format of a deadline task or event
+    // all fields optional
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
-            "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on|from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
+            "(\"(?<taskDetails>.+)\"\\s*)?((due (?<deadline>[^/]+))|((on|from) (?<startDateTime>((?!to )[^/])*))?(to (?<endDateTime>[^/]+))?)?"
+            + "(?<tagArguments>(?:\\s*t/[^/]+)?)(?<priorityArguments>(?:\\s*p/[^/]+)?)");
     
     private static final Pattern ADD_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
@@ -171,7 +171,7 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher detailsAndTagsMatcher = ADD_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate entire args string format
         if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -274,15 +274,8 @@ public class JimiParser {
      * @return the prepared edit command
      */
     private Command prepareEdit(String args) {
-        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate full raw args string format
-        if (!detailsAndTagsMatcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
         // Validate args in terms of <idx><details>
-        final Matcher editArgsMatcher =
-                EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
+        final Matcher editArgsMatcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!editArgsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -292,23 +285,22 @@ public class JimiParser {
             return new EditCommand(editArgsMatcher.group("targetIndex"));
         }
         
-        // Validate details in terms of <name><due X> or <name><on X><to X>
-        final Matcher editDetailsMatcher =
-                EDIT_DETAILS_FORMAT.matcher(editArgsMatcher.group("editDetails").trim());
+        // Validate details format
+        final Matcher editDetailsMatcher = EDIT_DETAILS_FORMAT.matcher(editArgsMatcher.group("editDetails").trim());
         if (!editDetailsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
         try {
-            return generateEditCommand(detailsAndTagsMatcher, editArgsMatcher, editDetailsMatcher);
+            return generateEditCommand(editArgsMatcher, editDetailsMatcher);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
     
     /** Generates an edit command */
-    private Command generateEditCommand(Matcher detailsAndTagsMatcher, Matcher editArgsMatcher,
-            Matcher editDetailsMatcher) throws IllegalValueException {
+    private Command generateEditCommand(Matcher editArgsMatcher, Matcher editDetailsMatcher)
+            throws IllegalValueException {
         
         List<Date> deadline = parseStringToDate(editDetailsMatcher.group("deadline"));
         List<Date> eventStart = parseStringToDate(editDetailsMatcher.group("startDateTime"));
@@ -322,12 +314,12 @@ public class JimiParser {
         
         return new EditCommand(
                 editDetailsMatcher.group("taskDetails"),
-                getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                getTagsFromArgs(editDetailsMatcher.group("tagArguments")),
                 deadline,
                 eventStart,
                 eventEnd,
                 editArgsMatcher.group("targetIndex"),
-                getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
+                getPriorityFromArgs(editDetailsMatcher.group("priorityArguments"))
         );
     }
     // @@author
@@ -338,25 +330,24 @@ public class JimiParser {
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
-        if (tagArguments.isEmpty()) {
+        if (tagArguments.trim().isEmpty()) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.trim().replaceFirst("t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
     
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
+     * Extracts the new task's priority from the add command's priority arguments string.
      */
     private static String getPriorityFromArgs(String priorityArguments) throws IllegalValueException {
-        // no tags
-        if (priorityArguments.isEmpty()) {
+        // no priority
+        if (priorityArguments.trim().isEmpty()) {
             return null;   
         }
         // replace first delimiter prefix, then split
-        final String priorityString = priorityArguments.replaceFirst(" p/", "");
+        final String priorityString = priorityArguments.trim().replaceFirst("p/", "");
         return priorityString;
     }
 
@@ -460,7 +451,7 @@ public class JimiParser {
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_WITH_DATES_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
+        if (args.trim().isEmpty() || !matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
@@ -491,7 +482,6 @@ public class JimiParser {
             startDates = specificDates;
         }
         Optional<List<Date>> optEndDate = Optional.ofNullable(endDates);
-        Optional<List<Date>> optSpecDate = Optional.ofNullable(specificDates);
         
         return new FindCommand(keywordSet, startDates, optEndDate.orElse(null));
     }
