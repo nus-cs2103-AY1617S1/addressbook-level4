@@ -13,6 +13,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String DUEDATE_FIELD_ID = "#dueDate";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PRIORITY_FIELD_ID = "#priority";
+    
 
     private Node node;
 
@@ -41,7 +42,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
+    public boolean isSameTask(ReadOnlyTask task) {
         return getFullName().equals(task.getName().fullName) && getDueDate().equals(task.getDueDate().value) 
         		&& getAddress().equals(task.getAddress().value)
                 && getPriority().equals(task.getPriority().value);

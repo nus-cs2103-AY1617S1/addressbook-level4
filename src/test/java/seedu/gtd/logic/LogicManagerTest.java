@@ -9,6 +9,8 @@ import seedu.gtd.commons.events.ui.ShowHelpRequestEvent;
 import seedu.gtd.logic.Logic;
 import seedu.gtd.logic.LogicManager;
 import seedu.gtd.logic.commands.*;
+import seedu.gtd.logic.parser.DateNaturalLanguageProcessor;
+import seedu.gtd.logic.parser.NaturalLanguageProcessor;
 import seedu.gtd.model.AddressBook;
 import seedu.gtd.model.Model;
 import seedu.gtd.model.ModelManager;
@@ -17,6 +19,8 @@ import seedu.gtd.model.task.*;
 import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.storage.StorageManager;
+import seedu.gtd.testutil.TaskBuilder;
+import seedu.gtd.testutil.TestTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -111,10 +115,15 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
+        System.out.println(inputCommand);
 
         //Confirm the ui display elements should contain the right data
+        System.out.println(result.feedbackToUser);
+        System.out.println(expectedMessage);
         assertEquals(expectedMessage, result.feedbackToUser);
+        System.out.println("correct message");
         assertEquals(expectedShownList, model.getFilteredTaskList());
+        System.out.println("correct data in UI");
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getAddressBook());
@@ -216,12 +225,13 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
+        Task dateChanged = helper.adamChanged();
         AddressBook expectedAB = new AddressBook();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(dateChanged);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, dateChanged),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -232,11 +242,12 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
+        Task changedDate = helper.adamChanged();
         AddressBook expectedAB = new AddressBook();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(changedDate);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal address book
+        model.addTask(changedDate); // task already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -423,12 +434,22 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            DueDate privateDueDate = new DueDate("111111");
+            DueDate privateDueDate = new DueDate("noon");
             Address address = new Address("111, alpha street");
             Priority privatePriority = new Priority("1");
             Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, privateDueDate, address, privatePriority, tags);
+        }
+        Task adamChanged() throws Exception {
+        	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
+        	String formattedDate = nlpTest.formatString("noon");
+        	Name name = new Name("Adam Brown");
+            DueDate privateDueDate = new DueDate(formattedDate);
+            Address address = new Address("111, alpha street");
+            Priority privatePriority = new Priority("1");
+            Tag tag1 = new Tag("tag1");
+            UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(name, privateDueDate, address, privatePriority, tags);
         }
 

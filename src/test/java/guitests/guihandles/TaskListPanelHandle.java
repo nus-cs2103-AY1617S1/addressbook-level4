@@ -93,6 +93,7 @@ public class TaskListPanelHandle extends GuiHandle {
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
             if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+            	System.out.println(startPosition + i);
                 return false;
             }
         }
