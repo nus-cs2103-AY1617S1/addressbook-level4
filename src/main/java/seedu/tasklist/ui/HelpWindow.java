@@ -5,8 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.event.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.util.FxViewUtil;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.util.logging.Logger;
 /**
@@ -19,7 +25,7 @@ public class HelpWindow extends UiPart {
 	private static final String FXML = "HelpWindow.fxml";
 	private static final String TITLE = "Help";
 	private static final String USERGUIDE_URL =
-			HelpWindow.class.getResource("/ug_html/UserGuide.html").toExternalForm();
+			HelpWindow.class.getResource("/ug_html/CommandSummary.html").toExternalForm();
 	//@@author
 	private AnchorPane mainPane;
 
@@ -32,9 +38,14 @@ public class HelpWindow extends UiPart {
 		return helpWindow;
 	}
 
+
+	public Stage getStage(){
+		return dialogStage;
+	}
 	@Override
 	public void setNode(Node node) {
 		mainPane = (AnchorPane) node;
+
 	}
 
 	@Override
@@ -44,19 +55,40 @@ public class HelpWindow extends UiPart {
 
 	private void configure(){
 		Scene scene = new Scene(mainPane);
+		//@@author A0135769N
 		//Null passed as the parent stage to make it non-modal.
 		dialogStage = createDialogStage(TITLE, null, scene);
-		dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-		setIcon(dialogStage, ICON);
+
 		//@@author A0146107M
 		WebView browser = new WebView();
 		browser.getEngine().load(USERGUIDE_URL);
 		FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
+
+		//dialogStage.setMaximized(false); //TODO: set a more appropriate initial size
+		setIcon(dialogStage, ICON);
 		mainPane.getChildren().add(browser);
+
+
+		dialogStage.setMaxWidth(575.0);
+		dialogStage.setMinWidth(0.0);
+		dialogStage.setMaxHeight(580.0);
+		dialogStage.setMinHeight(0.0);
+		dialogStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					dialogStage.close();
+					keyEvent.consume();
+				}
+			}});
+
 		//@@author
 	}
 
 	public void show() {
 		dialogStage.showAndWait();
 	}
+
 }
+
+

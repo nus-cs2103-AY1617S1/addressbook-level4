@@ -11,13 +11,13 @@
 
 <!-- @@author A0146107M -->
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #444444;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #FFFFFF;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.MainWindow">
    <children>
-      <SplitPane style="-fx-border-color: white;">
+      <SplitPane prefHeight="39.0" prefWidth="1115.0" style="-fx-border-color: white;">
          <items>
-            <Pane minHeight="35.0" prefHeight="35.0" prefWidth="486.0" style="-fx-background-color: white; -fx-border-color: white;">
+            <Pane minHeight="35.0" prefHeight="35.0" prefWidth="1108.0" style="-fx-background-color: white; -fx-border-color: white;">
                <children>
-                  <Pane layoutX="382.0">
+                  <Pane>
                      <children>
                         <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -29,21 +29,24 @@
                               <Insets left="8.0" />
                            </padding>
                         </Label>
-                        <Label id="task_det" layoutX="795.0" layoutY="4.0" text="Start" />
-                        <Label id="task_det" layoutX="896.0" layoutY="4.0" text="End" />
-                        <Label id="task_det" layoutX="704.0" layoutY="4.0" text="Priority" />
+                        <Label id="task_det" layoutX="799.0" layoutY="4.0" text="Start" />
+                        <Label id="task_det" layoutX="900.0" layoutY="4.0" text="End" />
+                        <Label id="task_det" layoutX="708.0" layoutY="4.0" text="Priority" />
                      </children>
                   </Pane>
                </children>
             </Pane>
          </items>
+         <VBox.margin>
+            <Insets left="380.0" right="10.0" />
+         </VBox.margin>
       </SplitPane>
 
             <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <items>
             <AnchorPane fx:id="categoryPanelPlaceholder" maxWidth="370.0" minWidth="370.0" prefWidth="370.0" style="-fx-background-color: white;">
                 <padding>
-                    <Insets bottom="10" left="10" right="10" top="10" />
+                    <Insets bottom="10.0" left="10.0" right="2.0" top="10.0" />
                 </padding>
             </AnchorPane>
             <VBox fx:id="personList" minWidth="340" prefHeight="20.0" prefWidth="1132.0" style="-fx-background-color: white;">
@@ -56,11 +59,15 @@
             </VBox>
          </items>
       </SplitPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="155.0" minHeight="62.0" prefHeight="155.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-           <padding>
-               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-           </padding>
-       </AnchorPane>
+      <VBox style="-fx-alignment: center;" VBox.vgrow="NEVER">
+         <children>
+             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="155.0" minHeight="24.0" prefHeight="67.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border">
+                 <padding>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                 </padding>
+             </AnchorPane>
+         </children>
+      </VBox>
       <AnchorPane fx:id="commandBoxPlaceholder" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />

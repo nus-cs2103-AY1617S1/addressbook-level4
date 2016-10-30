@@ -65,17 +65,19 @@ public class AddCommand extends Command {
 		assert model != null;
 		try {
 			isNotChronoTime(toAdd.getStartTime(), toAdd.getEndTime());
+			if (model.isDuplicate(toAdd)){
+			    return new CommandResult(MESSAGE_DUPLICATE_TASK);
+			}
 			model.addTask(toAdd);
 			if (model.isOverlapping(toAdd)) {
 				model.updateFilteredListToShowOverlapping(toAdd);
-				return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_OVERLAP, toAdd));
+				return new CommandResult(String.format(MESSAGE_SUCCESS + ". " + MESSAGE_OVERLAP, toAdd.getTaskDetails()));
 			}
 			else {
-				return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+				return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getTaskDetails()));
 			}
-		} catch (UniqueTaskList.DuplicateTaskException e) {
-			return new CommandResult(MESSAGE_DUPLICATE_TASK);
-		}catch(IllegalValueException ive){
+		} 
+		catch(IllegalValueException ive){
 			return new CommandResult(ive.getMessage());
 		}
 

@@ -47,6 +47,7 @@ Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING
 > * Priority must be low/med/high. If priority is not specified, default priority of low is set.
 > * Recurring frequency can be either of daily, weekly, monthly or yearly.
 > * If START_TIMEDATE exceeds END_TIMEDATE, the addition of task will not be successful.
+> * Floating tasks cannot be added as a recurring one. In the event that this is attempted, the floating task will be added but the recurring frequency entered will be ignored. So the task will be added as a non-recurring one.
 
 Examples: 
 * `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
@@ -57,11 +58,13 @@ Examples:
 /* @@author A0142102E */
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified category.<br>
-Format: `show TYPE`
+Format: `show [TYPE]`
 
 > * TYPE can be replaced with p/high, p/med, p/low, complete, incomplete, all, overdue, floating, today, tomorrow, or any specific date.
+> * If TYPE is not specified and only `show` is entered, then the incomplete tasks are shown as the default view.
 > * p/high, p/med, p/low stand for tasks with high priority, medium priority and low priority respectively.
 > * Except for show complete, all other inputs for TYPE will only display the incomplete tasks, i.e., the tasks which have not been marked as done.
+> * The user can also enter the keywords today, tomorrow, floating and overdue without specifying the show keyword to quickly retrieve the corresponding tasks.
 
 Examples:
 * `show incomplete`<br>
@@ -161,13 +164,13 @@ Examples:
 /* @@author A0144919W */
 
 #### Undo previous action(s): `undo`
-Undo the latest change made to the task list.
+Undo the latest change made to the task list. <br>
 Format: `undo`
 
 > * Allows undo to up to unlimited previous changes to the task list
 
 #### Redo previous action(s): `redo`
-Redo the latest change that was reverted using undo.
+Redo the latest change that was reverted using undo. <br>
 Format: `redo`
 
 > * Allows redo to up to unlimited consecutive undo operations done
@@ -175,20 +178,20 @@ Format: `redo`
 
 /* @@author A0146107M*/
 
-#### Autocomplete feature: `TAB` button
-Autocomplete the command that has been entered halfway in the command box.
+#### Autocomplete feature: `TAB` button (or simple spacebar)
+Autocompletes the command that has been entered halfway in the command box, upon pressing TAB or spacebar. <br>
 Format: NIL
 
 > * If no commands match the current text, nothing will happen
 > * If 2 or more commands match the current text, nothing will happen
 
 Examples:
-* Pressing TAB after entering `de` will complete `delete`
-* Pressing TAB after entering `u` will do nothing, as both `undo` and `update` match `u`
-* Pressing TAB after entering `un` will complete `undo`
+* Pressing TAB/spacebar after entering `de` will complete `delete`
+* Pressing TAB/spacebar after entering `u` will do nothing, as both `undo` and `update` match `u`
+* Pressing TAB/spacebar after entering `un` will complete `undo`
 
 #### Command History: `UP` and `DOWN` arrows
-Traverse through previously entered commands.
+Traverse through previously entered commands. <br>
 Format: NIL
 
 > UP displays the next older command.
@@ -196,11 +199,11 @@ Format: NIL
 > The currently entered text will remain available in the command history.
 
 #### Viewing help : `help`
-Displays the help page.
+Displays the help window containing a command summary. <br>
 Format: `help`
 
-> The help page will open in a new window.
-> The help page does not require an active internet connection.
+> The help tooltip will open in a new window.
+> On pressing enter while in the help window, the help window will be closed and the user will be taken back to the command line.
 
 /* @@author */
 
@@ -226,7 +229,7 @@ There is no need to save manually.
 Command | Format | Example
 -------- | :-------- | :--------
 add | `add TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE] [r/RECURRING] [p/PRIORITY]` | `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
-show | `show TYPE` | `show 31/01/2017`
+show | `show [TYPE]` | `show 31/01/2017`
 find | `find SEARCHSTRING` | `find b*y*`
 delete | `delete INDEX/TASKNAME` | `delete Study for midterms`
 update | `update INDEX [TASKNAME] [at/from [START_TIMEDATE]] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]` | `update 5 at 6pm`

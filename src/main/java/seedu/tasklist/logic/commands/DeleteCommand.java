@@ -73,7 +73,7 @@ public class DeleteCommand extends Command {
 				assert false: "The target task cannot be missing";
 			}
 			model.updateFilteredListToShowAll();
-			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
 		} 
 
 		//More than 1 task matches string
@@ -99,7 +99,7 @@ public class DeleteCommand extends Command {
 			catch (TaskNotFoundException e){
 				assert false: "The target task cannot be missing";
 			}
-			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+			return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
 		}
 	}
 }

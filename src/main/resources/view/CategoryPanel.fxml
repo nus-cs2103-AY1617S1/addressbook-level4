@@ -222,7 +222,7 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <Line endX="250.0" startX="-100.0" stroke="#80b0ff" GridPane.rowIndex="6" />
+                  <Line endX="257.0" startX="-100.0" stroke="#80b0ff" GridPane.rowIndex="6" />
                </children>
                <VBox.margin>
                   <Insets />

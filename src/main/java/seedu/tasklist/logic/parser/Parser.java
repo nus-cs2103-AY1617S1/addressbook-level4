@@ -85,6 +85,18 @@ public class Parser {
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
 
+		case ShowCommand.TODAY_WORD: 
+		    return prepareShow(ShowCommand.TODAY_WORD);
+		    
+		case ShowCommand.TOMORROW_WORD:
+		    return prepareShow(ShowCommand.TOMORROW_WORD);
+		    
+		case ShowCommand.OVERDUE_WORD:
+		    return prepareShow(ShowCommand.OVERDUE_WORD);
+		    
+		case ShowCommand.FLOATING_WORD:
+		    return prepareShow(ShowCommand.FLOATING_WORD);
+		    
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
@@ -244,9 +256,11 @@ public class Parser {
 	 */
 	private Command prepareShow(String args) {
 		String input = args.trim();
+		/*
 		if (input.isEmpty()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
 		}
+		*/
 		return new ShowCommand(input);
 	}
 

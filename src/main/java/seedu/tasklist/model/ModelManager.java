@@ -24,6 +24,7 @@ import seedu.tasklist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -543,28 +544,12 @@ public class ModelManager extends ComponentManager implements Model {
     /* @@author A0135769N */
     @Override
     public void changeFileStorage(String filePath) throws IOException, ParseException, JSONException {
-        if (filePath.equals("default")) {
-            filePath = "data/tasklist.xml";
-        }
-        else{
-        	filePath = checkFileSpecification(filePath);
-        }
-        File targetListFile = new File(filePath);
-        FileReader read = new FileReader("config.json");
-        JSONObject obj = (JSONObject) new JSONParser().parse(read);
-        String currentFilePath = (String) obj.get("taskListFilePath");
-        File currentTaskListPath = new File(currentFilePath);
-        Config config = new Config();
-        try {
-            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        config.setTaskListFilePath(filePath);
+        String currentFilePath = setStoragePath(filePath);
         addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
         clearRedoStack();
     }
-    //@@author A0144919W
+    
+    //Checks if the file is a directory or a path. If directory, a default file by the name tasklist.xml is created.
     public String checkFileSpecification(String filePath){
     	CharSequence xmlFile = ".xml";
     	if(!filePath.contains(xmlFile)){
@@ -574,9 +559,9 @@ public class ModelManager extends ComponentManager implements Model {
     	return filePath;
     }
 
-    @Override
-    public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
-        if (filePath.equals("default")) {
+	private String setStoragePath(String filePath)
+			throws FileNotFoundException, IOException, ParseException, JSONException {
+		if (filePath.equals("default")) {
             filePath = "data/tasklist.xml";
         }
         else{
@@ -594,7 +579,20 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
         config.setTaskListFilePath(filePath);
+		return currentFilePath;
+	}
+    
+    //@@author A0144919W
+    @Override
+    public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
+        String currentFilePath = setStoragePath(filePath);
         return currentFilePath;
+    }
+    
+    @Override
+    public void changeFileStorageRedo(String filePath) throws IOException, ParseException, JSONException {
+        String currentFilePath = setStoragePath(filePath);
+        addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
     }
 
     @Override
@@ -631,26 +629,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
+   
+    //@@author A0144919W
     @Override
-    public void changeFileStorageRedo(String filePath) throws IOException, ParseException, JSONException {
-        if (filePath.equals("default")) {
-            filePath = "data/tasklist.xml";
+    public boolean isDuplicate(Task toAdd) {
+        List<ReadOnlyTask> taskList = getTaskList().getTaskList();
+        for(int i=0; i<taskList.size(); i++) {
+            if (taskList.get(i).equals(toAdd))
+                return true;
         }
-        else{
-        	filePath = checkFileSpecification(filePath);
-        }
-        File targetListFile = new File(filePath);
-        FileReader read = new FileReader("config.json");
-        JSONObject obj = (JSONObject) new JSONParser().parse(read);
-        String currentFilePath = (String) obj.get("taskListFilePath");
-        File currentTaskListPath = new File(currentFilePath);
-        Config config = new Config();
-        try {
-            Files.move(currentTaskListPath.toPath(), targetListFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        config.setTaskListFilePath(filePath);
-        addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
+        return false;
     }
+    //@@author
 }

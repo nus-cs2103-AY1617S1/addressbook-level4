@@ -203,4 +203,15 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 			}
 		}
 	}
+
+    @Override
+    public boolean equals(Task task) {
+        if (this.getTaskDetails().equals(task.getTaskDetails())
+                && this.getStartTime().equals(task.getStartTime())
+                && this.getEndTime().equals(task.getEndTime())
+                && this.getPriority().equals(task.getPriority())
+                    )
+                return true;
+        else return false;
+    }
 }

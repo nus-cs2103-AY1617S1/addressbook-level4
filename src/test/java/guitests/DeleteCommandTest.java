@@ -53,7 +53,7 @@ public class DeleteCommandTest extends TaskListGuiTest {
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getTaskDetails()));
     }
 
 }

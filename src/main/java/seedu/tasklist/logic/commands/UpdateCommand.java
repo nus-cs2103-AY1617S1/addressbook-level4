@@ -58,7 +58,7 @@ public class UpdateCommand extends Command {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 			try {
 				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags, recurringFrequency);
-				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
+				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
 			} catch (IllegalValueException e) {
 				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
 			}
