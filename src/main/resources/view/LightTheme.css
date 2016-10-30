@@ -53,13 +53,33 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 30px;
+    -fx-font-family:"Zapf-Chancery";
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: #010504;
+}
+.cell_date_label{
+	-fx-font-size: 14px;
+	-fx-text-fill: #757575;
+}
+.cell_tag_label{
+	-fx-font-size: 11px;
+	-fx-text-fill: #ff0000;
+}
+.cell_done_label{
+	-fx-font-size: 14px;
+	-fx-text-fill: #ff0000;
+	-fx-text-decoration-color: red;
+	text-decoration: underline;
+}
+.cell_recurring_label{
+	-fx-font-size: 14px;
+	-fx-font-family:fantasy;
+	-fx-text-fill: #ff0000;
 }
 
 .anchor-pane {

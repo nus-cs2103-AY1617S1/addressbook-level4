@@ -28,11 +28,11 @@
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
 
                                 </HBox>
-                                <Label fx:id="date" styleClass="cell_small_label" text="\$deadline" />
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" /> 
-                                <Label fx:id="done" styleClass="cell_small_label" text="\$isDone" />
-                                <Label fx:id="recurring" styleClass="cell_small_label" text="\$isRecurring"/>
-                                <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency"/>
+                                <Label fx:id="date" styleClass="cell_date_label" text="\$deadline" />
+                                <Label fx:id="tags" styleClass="cell_tag_label" text="\$tags" /> 
+                                <Label fx:id="done" styleClass="cell_done_label" text="\$isDone" />
+                                <Label fx:id="recurring" styleClass="cell_recurring_label" text="\$isRecurring"/>
+                                <Label fx:id="frequency" styleClass="cell_recurring_label" text="\$frequency"/>
                             </children>
                         </HBox>
 
