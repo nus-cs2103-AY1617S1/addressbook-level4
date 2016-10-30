@@ -203,7 +203,7 @@ public class Parser {
      * @param findStr The substring to look for in a given string
      * @return the number of occurrence
      */
-    public static int countOccurence(String str, String findStr) {
+    private static int countOccurence(String str, String findStr) {
         int lastIndex = 0;
         int count = 0;
 
@@ -224,7 +224,7 @@ public class Parser {
      * @param date The date to be formatted
      * @return the formatted date
      */
-    public static String formatDate(String date) {
+    private static String formatDate(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);
         date = EMPTY_STRING;
         
@@ -244,7 +244,7 @@ public class Parser {
      * @param period The time period
      * @return the formatted time
      */
-    public static String formatTime(String time, String period) {
+    private static String formatTime(String time, String period) {
         String[] splitTimePeriod = null;
         String[] splitTime = null;
 
@@ -270,7 +270,7 @@ public class Parser {
      * @param time The time to be formatted
      * @return the formatted time
      */
-    public static String formatTime(String time) {
+    private static String formatTime(String time) {
         if (time.contains(TIME_AM)) {
             time = formatTime(time, TIME_AM);
         } else {
@@ -280,7 +280,7 @@ public class Parser {
         return time;
     }
     
-    public static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
+    private static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
         months.put("january", 1);
         months.put("february", 2);
         months.put("march", 3);
@@ -296,7 +296,7 @@ public class Parser {
         return months;
     }
     
-    public static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
+    private static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
         months.put("jan", 1);
         months.put("feb", 2);
         months.put("mar", 3);
@@ -334,7 +334,7 @@ public class Parser {
         String startTime = null;
         String endTime = null;
         Set<String> tags = new HashSet<String>();
-        String[] additionalArgs = null;
+        String[] argComponents = null;
         HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
         HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
         
@@ -370,42 +370,46 @@ public class Parser {
         name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 
         if (arguments.length > ADD_COMMAND_MIN_ARGUMENTS) {
-            additionalArgs = arguments[arguments.length - 1].trim().split(DELIMITER_BLANK_SPACE);
+            argComponents = arguments[arguments.length - ONE].trim().split(DELIMITER_BLANK_SPACE);
         }
 
-        for (int i = 0; i < additionalArgs.length; i++) {
-            if (KEYWORD_FOR_DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
+        for (int i = 0; i < argComponents.length; i++) {
+            if (KEYWORD_FOR_DATE.matcher(argComponents[i].toLowerCase()).find()) {
                 hasDate = true;
                 continue;
-            } else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i].toLowerCase()).find()) {
+            } else if (KEYWORD_FOR_TIME.matcher(argComponents[i].toLowerCase()).find()) {
                 hasTime = true;
-                if (KEYWORD_FOR_END_OF_RECURRING.matcher(additionalArgs[i].toLowerCase()).find()) {
+                if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
                     hasDate = true;
                     hasRecurringEndDate = true;
                     continue;
                 } 
                 continue;
-            } else if (KEYWORD_FOR_RECURRING.matcher(additionalArgs[i].toLowerCase()).find()) {
+            } else if (KEYWORD_FOR_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
                 hasRecurring = true;
                 continue;
-            } else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
-                String[] splitTag = additionalArgs[i].trim().split(DELIMITER_FORWARD_SLASH);
+            } else if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
+                hasDate = true;
+                hasRecurringEndDate = true;
+                continue;
+            } else if (TAG_FORMAT.matcher(argComponents[i]).find()) {
+                String[] splitTag = argComponents[i].trim().split(DELIMITER_FORWARD_SLASH);
                 tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
                 continue;
-            } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
+            } else if (!hasDate && TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
                 numOfDate++;
                 if (numOfDate == ONE) {
-                    date = additionalArgs[i].toLowerCase();
+                    date = argComponents[i].toLowerCase();
                 } else if (numOfDate == TWO) {
                     startDate = date;
                     date = null;
-                    endDate = additionalArgs[i].toLowerCase();
+                    endDate = argComponents[i].toLowerCase();
                 }
                 continue;
-            } else if (!hasTime && TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+            } else if (!hasTime && TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
                 numOfTime++;
                 if (numOfTime == ONE) {
-                    time = additionalArgs[i].toLowerCase();
+                    time = argComponents[i].toLowerCase();
                     if (startDate != null & endDate != null) {
                         endTime = time;
                         time = null;
@@ -414,7 +418,7 @@ public class Parser {
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
                     time = null;
-                    endTime = additionalArgs[i].toLowerCase();
+                    endTime = argComponents[i].toLowerCase();
                 }
                 continue;
             } else if (!hasDate && !hasTime && !hasRecurring) {
@@ -422,30 +426,30 @@ public class Parser {
             }
             
             if (hasDate) {
-                if (DATE_WITH_SLASH_FORMAT.matcher(additionalArgs[i]).find()) {
+                if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = additionalArgs[i];
+                        date = argComponents[i];
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i];
+                        endDate = argComponents[i];
                     }
                     hasDate = false;
-                } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = additionalArgs[i].toLowerCase();
+                        date = argComponents[i].toLowerCase();
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i].toLowerCase();
+                        endDate = argComponents[i].toLowerCase();
                     }
                     hasDate = false;
-                } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == ONE) {
-                        time = additionalArgs[i].toLowerCase();
+                        time = argComponents[i].toLowerCase();
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
@@ -454,50 +458,50 @@ public class Parser {
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
-                        endTime = additionalArgs[i].toLowerCase();       
+                        endTime = argComponents[i].toLowerCase();       
                     }
                     hasDate = false;
-                } else if (DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (DATE.matcher(argComponents[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = additionalArgs[i].toLowerCase();
+                        date = argComponents[i].toLowerCase();
                         date += FORWARD_SLASH;
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i].toLowerCase();
+                        endDate = argComponents[i].toLowerCase();
                         endDate += FORWARD_SLASH;
                     } 
-                } else if (DATE_WITH_SUFFIX.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (DATE_WITH_SUFFIX.matcher(argComponents[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
+                        date = argComponents[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
                         date += FORWARD_SLASH;
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
+                        endDate = argComponents[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
                         endDate += FORWARD_SLASH;
                     } 
-                } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {     
+                } else if (MONTH_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {     
                     if (numOfDate == ONE) {
-                        date += fullMonths.get(additionalArgs[i].toLowerCase());
+                        date += fullMonths.get(argComponents[i].toLowerCase());
                     } else if (numOfDate == TWO) {
-                        endDate += fullMonths.get(additionalArgs[i].toLowerCase());
+                        endDate += fullMonths.get(argComponents[i].toLowerCase());
                     }
-                } else if (MONTH_IN_SHORT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (MONTH_IN_SHORT.matcher(argComponents[i].toLowerCase()).find()) {
                     if (numOfDate == ONE) {
-                        date += shortMonths.get(additionalArgs[i].toLowerCase());               
+                        date += shortMonths.get(argComponents[i].toLowerCase());               
                     } else if (numOfDate == TWO) {
-                        endDate += shortMonths.get(additionalArgs[i].toLowerCase());     
+                        endDate += shortMonths.get(argComponents[i].toLowerCase());     
                     } 
-                } else if (YEAR.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (YEAR.matcher(argComponents[i].toLowerCase()).find()) {
                     if (numOfDate == ONE) {
                         date += FORWARD_SLASH;
-                        date += additionalArgs[i].toLowerCase();
+                        date += argComponents[i].toLowerCase();
                     } else if (numOfDate == TWO) {
                         endDate += FORWARD_SLASH;
-                        endDate += additionalArgs[i].toLowerCase();
+                        endDate += argComponents[i].toLowerCase();
                     } 
                     hasDate = false;
                 } else if (hasTime) {
@@ -510,10 +514,10 @@ public class Parser {
             }
 
             if (hasTime && !hasRecurringEndDate) {
-                if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                if (TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == ONE) {
-                        time = additionalArgs[i].toLowerCase();
+                        time = argComponents[i].toLowerCase();
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
@@ -522,7 +526,7 @@ public class Parser {
                     } else if (numOfTime == TWO) {
                         startTime = time;             
                         time = null;
-                        endTime = additionalArgs[i].toLowerCase();
+                        endTime = argComponents[i].toLowerCase();
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -532,12 +536,12 @@ public class Parser {
             }
             
             if (hasRecurring) {
-                if (DAYS_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {
-                    System.out.println(additionalArgs[i]);
-                } else if (DAYS_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {
-                    System.out.println(additionalArgs[i]);
-                } else if (RECURRING_PERIOD.matcher(additionalArgs[i].toLowerCase()).find()) {
-                    System.out.println(additionalArgs[i]);
+                if (DAYS_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
+                    System.out.println(argComponents[i]);
+                } else if (DAYS_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
+                    System.out.println(argComponents[i]);
+                } else if (RECURRING_PERIOD.matcher(argComponents[i].toLowerCase()).find()) {
+                    System.out.println(argComponents[i]);
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
