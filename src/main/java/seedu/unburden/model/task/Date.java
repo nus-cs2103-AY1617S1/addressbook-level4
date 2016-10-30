@@ -18,8 +18,8 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 // @@author A0143095H
 public class Date {
 
-	public static final String MESSAGE_DATE_CONSTRAINTS = "Task dates should be in the format dd-mm-yyyy";
-	public static final String DATE_VALIDATION_REGEX = "[0-9]{2}[-][0-9]{2}[-][0-9]{4}$";
+	public static final String MESSAGE_DATE_CONSTRAINTS = "Task date is incorrect. Ensure that it is a valid date in the format DD-MM-YYYY";
+	public static final String DATE_VALIDATION_REGEX = "([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9])$";
 
 	public final String fullDate;
 
