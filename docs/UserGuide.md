@@ -24,9 +24,9 @@ To get started, proceed to the Quick Start section below.
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
 >   Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-  
+   This app will not work with earlier versions of Java 8.  
 <!-- @@author A0130853L -->
+
 1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TasKitty.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
@@ -86,7 +86,7 @@ Example:
 <br>
 
 #### View all completed tasks: `view done`
-Lists all completed tasks, deadlines and events.
+Lists all completed tasks, deadlines and events.<br>
 Format: `view done`<br>
 Shortcut key: `Ctrl + Shift + D`
 
@@ -100,7 +100,7 @@ Example:
 <br>
 
 #### View all tasks: `view all`
-Lists all todo tasks, deadlines and events ever added.
+Lists all todo tasks, deadlines and events ever added.<br>
 Format: `view all`<br>
 Shortcut key: `Ctrl + Shift + L`
 
@@ -209,6 +209,7 @@ Examples:
   After:<br>
   <img src="images/UIdeleteAfterDate.png" width="900"><br>
 <!-- @@author A0139052L -->
+
 * `view`<br>
   `delete t1 d1 e1`<br>
   Deletes the 1st task under the each section as shown by the `view` command.<br>
@@ -219,6 +220,7 @@ Examples:
   After:<br>
   <img src="images/UIdeleteMultipleAfter.png" width="900"><br>  
 <!-- @@author A0130853L -->  
+
 <br>
 #### Mark task as done: `done`
 Marks one or more task in the task list as done.<br>
@@ -250,6 +252,7 @@ Example:
   After:<br>
   <img src="images/UIdoneMultipleAfter.png" width="900"><br>
 <!-- @@author A0130853L -->  
+
 <br>
 #### Undo previous action: `undo`
 Undoes the last completed action.<br>
@@ -271,6 +274,7 @@ Example:
   <img src="images/UIundoAfter.png" width="900"><br>
 
 <br>
+
 <!-- @@author A0139052L -->
 #### Redo previous undone action: `redo`
 Redoes the last undoned action.<br>
