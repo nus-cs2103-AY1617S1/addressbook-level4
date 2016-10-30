@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author A0139930B -->
+
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -28,14 +29,10 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
-                                </HBox>
-                            </children>
-                        </HBox>
+                          <HBox>
+                              <Label fx:id="id" styleClass="cell_big_label" />
+                              <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+                          </HBox>
                           <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                     </children>
                 </VBox>
