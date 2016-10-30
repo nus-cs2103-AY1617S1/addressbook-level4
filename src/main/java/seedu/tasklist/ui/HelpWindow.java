@@ -55,32 +55,33 @@ public class HelpWindow extends UiPart {
 
 	private void configure(){
 		Scene scene = new Scene(mainPane);
+		//@@author A0135769N
 		//Null passed as the parent stage to make it non-modal.
 		dialogStage = createDialogStage(TITLE, null, scene);
-		dialogStage.setMaxWidth(575.0);
-		dialogStage.setMinWidth(0.0);
-		dialogStage.setMaxHeight(640.0);
-		dialogStage.setMinHeight(0.0);
-
-		//dialogStage.setMaximized(false); //TODO: set a more appropriate initial size
-		setIcon(dialogStage, ICON);
 
 		//@@author A0146107M
 		WebView browser = new WebView();
 		browser.getEngine().load(USERGUIDE_URL);
 		FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
 
+		//dialogStage.setMaximized(false); //TODO: set a more appropriate initial size
+		setIcon(dialogStage, ICON);
 		mainPane.getChildren().add(browser);
-		//@@author A0135769N
-	    dialogStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
-	    	@Override
-	    	public void handle(KeyEvent keyEvent) {
-	    		 if (keyEvent.getCode() == KeyCode.ENTER) {
-	                dialogStage.close();
-	                 keyEvent.consume();
-	                 }
-	    }});
-	    
+
+
+		dialogStage.setMaxWidth(575.0);
+		dialogStage.setMinWidth(0.0);
+		dialogStage.setMaxHeight(580.0);
+		dialogStage.setMinHeight(0.0);
+		dialogStage.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					dialogStage.close();
+					keyEvent.consume();
+				}
+			}});
+
 		//@@author
 	}
 
