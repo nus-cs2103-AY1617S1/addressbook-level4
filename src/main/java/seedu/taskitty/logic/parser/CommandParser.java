@@ -96,9 +96,6 @@ public class CommandParser {
         	return prepareDone(arguments);
         	
         case ViewCommand.COMMAND_WORD:
-        	if (userInput.trim().equals("view")) {
-        		return prepareView(null);
-        	}
         	return prepareView(arguments);
         
         case SaveCommand.COMMAND_WORD:
@@ -126,7 +123,7 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareView(String arguments) {
-    	if (arguments == null) {
+    	if (arguments.trim().isEmpty()) {
 			return new ViewCommand(); // view all upcoming uncompleted tasks, events and deadlines
 		}
     	if (arguments.trim().equals("done")) {
@@ -388,13 +385,41 @@ public class CommandParser {
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
         for (String index: indexes) {
-            categoryAndIndex= getCategoryAndIndex(index);
-            if (categoryAndIndex == null) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+            if (index.contains("-")) {               
+                String[] splitIndex = index.split("-");
+                categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
+                Optional<Integer> secondIndex = parseIndex(splitIndex[1]);                               
+                
+                if (!secondIndex.isPresent() || categoryAndIndex == null) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+                }
+                
+                int firstIndex = categoryAndIndex.getValue();               
+                int categoryIndex = categoryAndIndex.getKey();
+                
+                if (firstIndex >= secondIndex.get()) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+                }
+                
+                for (; firstIndex <= secondIndex.get(); firstIndex++) {
+                    categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
+                    listOfIndexes.add(categoryAndIndex);
+                }                
+            } else {
+                categoryAndIndex = getCategoryAndIndex(index);
+                
+                if (categoryAndIndex == null) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+                }
+                
+                listOfIndexes.add(categoryAndIndex);
             }
-            listOfIndexes.add(categoryAndIndex);
         }
         
         return new DeleteCommand(listOfIndexes, args);
@@ -415,13 +440,40 @@ public class CommandParser {
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
         for (String index: indexes) {
-            categoryAndIndex= getCategoryAndIndex(index);
-            if (categoryAndIndex == null) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
-            }
-            listOfIndexes.add(categoryAndIndex);
+            if (index.contains("-")) {                
+                String[] splitIndex = index.split("-");
+                categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
+                Optional<Integer> secondIndex = parseIndex(splitIndex[1]);                               
+                
+                if (!secondIndex.isPresent() || categoryAndIndex == null) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+                }
+                
+                int firstIndex = categoryAndIndex.getValue();               
+                int categoryIndex = categoryAndIndex.getKey();
+                
+                if (firstIndex >= secondIndex.get()) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+                }
+                
+                for (; firstIndex <= secondIndex.get(); firstIndex++) {
+                    categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
+                    listOfIndexes.add(categoryAndIndex);
+                }
+            } else {
+                categoryAndIndex = getCategoryAndIndex(index);
+                if (categoryAndIndex == null) {
+                    return new IncorrectCommand(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+                }
+                
+                listOfIndexes.add(categoryAndIndex);
+            }            
         }
         
         return new DoneCommand(listOfIndexes, args);
