@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         redoHistory = new CommandHistoryManager();
         taskManager.sortList();
     }
-
+    
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);

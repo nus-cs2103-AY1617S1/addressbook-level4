@@ -40,9 +40,11 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             data = taskManagerStorage.readTaskManager();
             if (data.isPresent()) {
-                taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath);
+                //copy current data into new file path
+                taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath); 
                 taskManagerStorage.setFilePath(taskManagerFilePath);
-            }  
+                handleTaskManagerChangedEvent(new TaskManagerChangedEvent(data.get()));
+            } 
         } catch (DataConversionException e) {
             e.printStackTrace();
         } catch (IOException e) {
