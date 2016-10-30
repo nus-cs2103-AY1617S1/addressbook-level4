@@ -268,7 +268,7 @@ public class TodoModel implements Model {
 
         //Perform actual tag adding.
         update(index, mutableTask -> {
-            assert (mutableTask.equals(task)); //Just a sanity check.
+            assert mutableTask.equals(task); //Just a sanity check.
             addTagsToTask(mutableTask, tagNames);
         });
     }
