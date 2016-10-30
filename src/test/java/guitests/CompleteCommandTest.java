@@ -37,10 +37,6 @@ public class CompleteCommandTest extends MalitioGuiTest {
         // complete deadline
         commandBox.runCommand("complete d1");
         assertResultMessage(String.format(CompleteCommand.MESSAGE_COMPLETED_DEADLINE_SUCCESS));
-        
-        // cannot complete a completed deadline
-        commandBox.runCommand("complete d1");
-        assertResultMessage(String.format(CompleteCommand.MESSAGE_COMPLETED_DEADLINE));
 
         // complete with an invalid index
         commandBox.runCommand("complete d200");

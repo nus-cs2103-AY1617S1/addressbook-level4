@@ -38,12 +38,7 @@ public class UncompleteCommandTest extends MalitioGuiTest {
         // cannot uncomplete a uncompleted deadline
         commandBox.runCommand("uncomplete d1");
         assertResultMessage(String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_DEADLINE));
-
-        // uncomplete deadline
-        commandBox.runCommand("complete d1");
-        commandBox.runCommand("uncomplete d1");
-        assertResultMessage(String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_DEADLINE_SUCCESS));
-
+        
         // uncomplete with an invalid index
         commandBox.runCommand("uncomplete d200");
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX));
