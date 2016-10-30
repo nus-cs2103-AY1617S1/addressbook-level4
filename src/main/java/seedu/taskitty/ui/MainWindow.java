@@ -257,7 +257,7 @@ public class MainWindow extends UiPart {
     
     //@@author A0130853L
     /**
-     *  initialises the list to show today's events upon UI initialisation
+     *  Initialises the list to show today's events upon UI initialisation
      * */
     public void initialiseList() {
     	logic.initialiseList();
