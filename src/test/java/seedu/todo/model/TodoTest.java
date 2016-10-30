@@ -17,6 +17,8 @@ import seedu.todo.testutil.TaskFactory;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.empty;
@@ -151,7 +153,23 @@ public class TodoTest {
         assertTrue(getTask(0).isCompleted());
         verify(storage, times(3)).save(todo);
     }
-
+    
+    //@@author A0092382A
+    @Test
+    public void testUpdateMultiple() throws Exception {
+        todo.add("Test Task");
+        todo.add("Test Task 2");
+        List<Integer> indexes = new ArrayList<>();
+        indexes.add(0);
+        indexes.add(1);
+        // Check that updating the same fields for multiple tasks work
+        assertNotNull(todo.update(indexes, t -> t.setPinned(true)));
+        assertTrue(getTask(0).isPinned());
+        assertTrue(getTask(1).isPinned());
+        verify(storage, times(3)).save(todo);
+        }
+    
+    //@@author A0135817B
     @Test
     public void testDeleting() throws Exception {
         todo.add("Foo");
@@ -169,12 +187,11 @@ public class TodoTest {
         // Continue deleting the top task until the list is empty
         todo.delete(0);
         verify(storage, times(6)).save(todo);
-
-        todo.delete(0);
+        List<Integer> indexes = new ArrayList<>();
+        indexes.add(0);
+        indexes.add(1);
+        todo.delete(indexes);
         verify(storage, times(7)).save(todo);
-
-        todo.delete(0);
-        verify(storage, times(8)).save(todo);
 
         assertTrue(todo.getTasks().isEmpty());
     }
