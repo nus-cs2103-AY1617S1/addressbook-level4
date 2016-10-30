@@ -155,7 +155,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     // @@author A0138862W
     /**
-     * Build the AddCommand using addCommandBuilder
+     * Build the AddCommand using addCommandBuilder. Depending on the builder attributes, the taskBuilder will return the appropriate event/floating/deadline task. 
      * 
      * @param addCommandBuilder to build the command safely
      * 
@@ -174,7 +174,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
             taskBuilder.asRecurring(addCommandBuilder.getRecur());
         }
         
-        toAdd = taskBuilder.build();
+        toAdd = taskBuilder.build();        
     }
 
     @Override
