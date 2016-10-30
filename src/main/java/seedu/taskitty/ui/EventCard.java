@@ -8,8 +8,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class EventCard extends UiPart
-{
+public class EventCard extends UiPart {
 
     private static final String FXML = "EventListCard.fxml";
 

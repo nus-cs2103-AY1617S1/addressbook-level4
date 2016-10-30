@@ -8,8 +8,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class DeadlineCard extends UiPart
-{
+public class DeadlineCard extends UiPart {
     
     private static final String FXML = "DeadlineListCard.fxml";
 
@@ -47,16 +46,6 @@ public class DeadlineCard extends UiPart
         startTime.setText("");
         endDate.setText("");
         endTime.setText("");
-        
-        TaskDate startTaskDate = task.getPeriod().getStartDate();
-        if (startTaskDate != null) {
-            startDate.setText(startTaskDate.toString());
-        }
-        
-        TaskTime taskStartTime = task.getPeriod().getStartTime();
-        if (taskStartTime != null) {
-            startTime.setText(taskStartTime.toString());
-        }
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();
         if (endTaskDate != null) {

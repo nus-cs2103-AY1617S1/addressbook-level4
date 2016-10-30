@@ -8,7 +8,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class TodoCard extends UiPart{
+public class TodoCard extends UiPart {
 
     private static final String FXML = "TodoListCard.fxml";
 
@@ -46,26 +46,6 @@ public class TodoCard extends UiPart{
         startTime.setText("");
         endDate.setText("");
         endTime.setText("");
-        
-        TaskDate startTaskDate = task.getPeriod().getStartDate();
-        if (startTaskDate != null) {
-            startDate.setText(startTaskDate.toString());
-        }
-        
-        TaskTime taskStartTime = task.getPeriod().getStartTime();
-        if (taskStartTime != null) {
-            startTime.setText(taskStartTime.toString());
-        }
-        
-        TaskDate endTaskDate = task.getPeriod().getEndDate();
-        if (endTaskDate != null) {
-            endDate.setText(endTaskDate.toString());
-        }
-        
-        TaskTime taskEndTime = task.getPeriod().getEndTime();
-        if (taskEndTime != null) {
-            endTime.setText(taskEndTime.toString());
-        }
         
         String indexPrefix;
         if(task.isTodo()) {
