@@ -3,13 +3,12 @@ package seedu.agendum.storage;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.FileUtil;
+import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.ToDoList;
 import seedu.agendum.model.task.Task;
-import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.testutil.TypicalTestTasks;
 
 import java.io.IOException;
@@ -21,14 +20,10 @@ public class XmlToDoListStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlToDoListStorageTest/");
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void readToDoListNullFilePathAssertionFailure() throws Exception {
-        thrown.expect(AssertionError.class);
         readToDoList(null);
     }
 
@@ -47,10 +42,9 @@ public class XmlToDoListStorageTest {
         assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
 
-    @Test
+    @Test(expected = DataConversionException.class)
     public void readNotXmlFormatExceptionThrown() throws Exception {
 
-        thrown.expect(DataConversionException.class);
         readToDoList("NotXmlFormatToDoList.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
@@ -85,9 +79,8 @@ public class XmlToDoListStorageTest {
 
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void saveToDoListNullToDoListAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         saveToDoList(null, "SomeFile.xml");
     }
 
@@ -95,35 +88,46 @@ public class XmlToDoListStorageTest {
         new XmlToDoListStorage(filePath).saveToDoList(toDoList, addToTestDataPathIfNotNull(filePath));
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void saveToDoListNullFilePathAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         saveToDoList(new ToDoList(), null);
     }
 
     //@@author A0148095X
-    @Test
-    public void setToDoListFilePath() {
+    @Test(expected = AssertionError.class)
+    public void setToDoListFilePathNull() {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
-        // null
-        thrown.expect(AssertionError.class);
         xmlToDoListStorage.setToDoListFilePath(null);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void setToDoListFilePathEmpty() {
+        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
+        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
         // empty string
-        thrown.expect(AssertionError.class);
         xmlToDoListStorage.setToDoListFilePath("");
+    }
+
+    @Test(expected = AssertionError.class)
+    public void setToDoListFilePathInvalid() {
+        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
+        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
         // invalid file path
-        thrown.expect(AssertionError.class);
         xmlToDoListStorage.setToDoListFilePath("1:/.xml");
-        
+    }
+
+    public void setToDoListFilePathValid() {
+        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
+        XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
+
         // valid file path
         String validPath = "test/test.xml";
         xmlToDoListStorage.setToDoListFilePath(validPath);
         assertEquals(validPath, xmlToDoListStorage.getToDoListFilePath());
     }
-
 
 }

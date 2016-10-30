@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Constructor for a floating task (with no deadline/start time or end time)
      */
     public Task(Name name) {
-        assert !CollectionUtil.isAnyNull(name);
+        assert CollectionUtil.isNotNull(name);
         this.name = name;
         this.isCompleted = false;
         this.startDateTime = null;
@@ -39,7 +39,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Constructor for a task with deadline only
      */
     public Task(Name name, Optional<LocalDateTime> deadline) {
-        assert !CollectionUtil.isAnyNull(name);
+        assert CollectionUtil.isNotNull(name);
         this.name = name;
         this.isCompleted = false;
         this.startDateTime = null;
@@ -52,7 +52,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     public Task(Name name, Optional<LocalDateTime> startDateTime,
             Optional<LocalDateTime> endDateTime) {
-        assert !CollectionUtil.isAnyNull(name);
+        assert CollectionUtil.isNotNull(name);
         this.name = name;
         this.isCompleted = false;
         this.startDateTime = startDateTime.orElse(null);

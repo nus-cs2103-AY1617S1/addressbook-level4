@@ -6,6 +6,7 @@ import seedu.agendum.logic.commands.AddCommand;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
+import seedu.agendum.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,23 +16,23 @@ public class AddCommandTest extends ToDoListGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = TypicalTestTasks.hoon;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.ida;
+        taskToAdd = TypicalTestTasks.ida;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.hoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("delete 1-9");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(TypicalTestTasks.alice);
 
         //invalid command
         commandBox.runCommand("adds Johnny");

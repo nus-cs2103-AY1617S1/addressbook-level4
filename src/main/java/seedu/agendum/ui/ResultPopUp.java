@@ -56,9 +56,7 @@ public class ResultPopUp extends UiPart {
         dialogStage = createDialogStage(null, null, scene);
         dialogStage.initModality(Modality.NONE);
         dialogStage.setAlwaysOnTop(true);
-        dialogStage.setOnShown((e1) -> {
-            primaryStage.requestFocus();
-        });
+        dialogStage.setOnShown((e1) -> primaryStage.requestFocus());
         
         scene.setFill(Color.TRANSPARENT);
         dialogStage.initStyle(StageStyle.TRANSPARENT);

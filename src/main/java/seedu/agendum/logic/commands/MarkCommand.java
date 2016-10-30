@@ -31,9 +31,9 @@ public class MarkCommand extends Command {
 
     //@@author A0133367E
     public MarkCommand(Set<Integer> targetIndexes) {
-        this.targetIndexes = new ArrayList<Integer>(targetIndexes);
+        this.targetIndexes = new ArrayList<>(targetIndexes);
         Collections.sort(this.targetIndexes);
-        this.tasksToMark = new ArrayList<ReadOnlyTask>();
+        this.tasksToMark = new ArrayList<>();
     }
 
     @Override

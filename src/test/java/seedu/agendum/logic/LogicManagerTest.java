@@ -31,6 +31,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -135,19 +137,19 @@ public class LogicManagerTest {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
-    @Test
-    public void executeAddInvalidArgsFormat() throws Exception {
-        // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        // TODO
-        // currently, there are no invalid add argument format
-    }
-
-    @Test
-    public void executeAddInvalidTaskData() throws Exception {
-        // TODO
-        // check for invalid task data e.g. empty name invalid time
-
-    }
+//    @Test
+//    public void executeAddInvalidArgsFormat() throws Exception {
+//        // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+//        // TODO
+//        // currently, there are no invalid add argument format
+//    }
+//
+//    @Test
+//    public void executeAddInvalidTaskData() throws Exception {
+//        // TODO
+//        // check for invalid task data e.g. empty name invalid time
+//
+//    }
 
     @Test
     public void executeAddSuccessful() throws Exception {
@@ -246,7 +248,6 @@ public class LogicManagerTest {
      * This (overloaded) method is created for rename/schedule
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord, String wordsAfterIndex) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
@@ -256,7 +257,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
         // test boundary value (one-based index is 3 when list is of size 2)
-        assertCommandBehavior(commandWord + " 3 " + wordsAfterIndex, expectedMessage, model.getToDoList(), taskList);
+        assertCommandBehavior(commandWord + " 3 " + wordsAfterIndex, MESSAGE_INVALID_TASK_DISPLAYED_INDEX, model.getToDoList(), taskList);
     }
     
     /**
@@ -805,13 +806,12 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
-        List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(fourTasks.size()),
                 expectedTDL,
-                expectedList);
+                fourTasks);
     }
 
     @Test
@@ -960,13 +960,9 @@ public class LogicManagerTest {
 
         /** Generates the correct add command based on the task given */
         private String generateAddCommand(Task p) {
-            StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-
-            return cmd.toString();
+            return "add " +
+                    p.getName().toString();
         }
 
         /**
@@ -991,14 +987,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given ToDoList
          * @param toDoList The ToDoList to which the Tasks will be added
          */
-        void addToToDoList(ToDoList toDoList, int numGenerated) throws Exception{
+        private void addToToDoList(ToDoList toDoList, int numGenerated) throws Exception{
             addToToDoList(toDoList, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given ToDoList
          */
-        void addToToDoList(ToDoList toDoList, List<Task> tasksToAdd) throws Exception{
+        private void addToToDoList(ToDoList toDoList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 toDoList.addTask(p);
             }
@@ -1008,14 +1004,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        private void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        private void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }
@@ -1049,11 +1045,8 @@ public class LogicManagerTest {
          * Generate a sorted UnmodifiableObservableList from expectedShownList
          */
         private UnmodifiableObservableList<Task> generateSortedList(List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-            List<Task> taskList = new ArrayList<Task>();
-            for (int i = 0; i < expectedShownList.size(); i++) {
-                taskList.add(new Task(expectedShownList.get(i)));
-            }
-            ToDoList toDoList = generateToDoList(taskList); 
+            List<Task> taskList = expectedShownList.stream().map((Function<ReadOnlyTask, Task>) Task::new).collect(Collectors.toList());
+            ToDoList toDoList = generateToDoList(taskList);
             return new UnmodifiableObservableList<>(toDoList.getTasks().sorted());
         }
 

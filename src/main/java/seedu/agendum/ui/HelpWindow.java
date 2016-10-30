@@ -14,7 +14,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -24,10 +23,8 @@ import org.reflections.Reflections;
 import seedu.agendum.logic.commands.Command;
 import seedu.agendum.commons.core.LogsCenter;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import com.sun.javafx.stage.StageHelper;
@@ -77,9 +74,7 @@ public class HelpWindow extends UiPart {
     @FXML
     private void initialize() {
         
-        backButton.setOnAction((event) -> {
-            dialogStage.close();
-        });
+        backButton.setOnAction((event) -> dialogStage.close());
         
         commandColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().get(CommandColumns.COMMAND)));
         descriptionColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().get(CommandColumns.DESCRIPTION)));
@@ -128,20 +123,14 @@ public class HelpWindow extends UiPart {
     }
     
     private void configureDrag() {
-        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = dialogStage.getX() - event.getScreenX();
-                yOffset = dialogStage.getY() - event.getScreenY();
-            }
+        mainPane.setOnMousePressed(event -> {
+            xOffset = dialogStage.getX() - event.getScreenX();
+            yOffset = dialogStage.getY() - event.getScreenY();
         });
 
-        mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                dialogStage.setX(event.getScreenX() + xOffset);
-                dialogStage.setY(event.getScreenY() + yOffset);
-            }
+        mainPane.setOnMouseDragged(event -> {
+            dialogStage.setX(event.getScreenX() + xOffset);
+            dialogStage.setY(event.getScreenY() + yOffset);
         });
     }
 
@@ -170,7 +159,7 @@ public class HelpWindow extends UiPart {
     }
     
     public Stage getStage() {
-        return this.dialogStage;
+        return dialogStage;
     }
 
     //@@author A0003878Y
@@ -180,7 +169,7 @@ public class HelpWindow extends UiPart {
                 .stream()
                 .map(s -> {
                     try {
-                        Map<CommandColumns, String> map = new HashMap<CommandColumns, String>();
+                        Map<CommandColumns, String> map = new HashMap<>();
                         map.put(CommandColumns.COMMAND, s.getMethod("getName").invoke(null).toString());
                         map.put(CommandColumns.FORMAT, s.getMethod("getFormat").invoke(null).toString());
                         map.put(CommandColumns.DESCRIPTION, s.getMethod("getDescription").invoke(null).toString());

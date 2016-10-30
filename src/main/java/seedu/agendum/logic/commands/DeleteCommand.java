@@ -31,9 +31,9 @@ public class DeleteCommand extends Command {
 
     //@@author A0133367E
     public DeleteCommand(Set<Integer> targetIndexes) {
-        this.targetIndexes = new ArrayList<Integer>(targetIndexes);
+        this.targetIndexes = new ArrayList<>(targetIndexes);
         Collections.sort(this.targetIndexes);
-        this.tasksToDelete = new ArrayList<ReadOnlyTask>();
+        this.tasksToDelete = new ArrayList<>();
     }
 
     @Override

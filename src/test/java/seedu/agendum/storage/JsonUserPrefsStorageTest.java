@@ -3,7 +3,6 @@ package seedu.agendum.storage;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.FileUtil;
@@ -21,14 +20,10 @@ public class JsonUserPrefsStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonUserPrefsStorageTest/");
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void readUserPrefsNullFilePathSssertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
         readUserPrefs(null);
     }
 
@@ -42,10 +37,9 @@ public class JsonUserPrefsStorageTest {
         assertFalse(readUserPrefs("NonExistentFile.json").isPresent());
     }
 
-    @Test
+    @Test(expected = DataConversionException.class)
     public void readUserPrefsNotJasonFormatExceptionThrown() throws DataConversionException {
 
-        thrown.expect(DataConversionException.class);
         readUserPrefs("NotJsonFormatUserPrefs.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
@@ -82,15 +76,13 @@ public class JsonUserPrefsStorageTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void savePrefsNullPrefsAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         saveUserPrefs(null, "SomeFile.json");
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void saveUserPrefsNullFilePathAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         saveUserPrefs(new UserPrefs(), null);
     }
 

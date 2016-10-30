@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -306,9 +307,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
-            list.add(obj);
-        }
+        Collections.addAll(list, objs);
         return list;
     }
 

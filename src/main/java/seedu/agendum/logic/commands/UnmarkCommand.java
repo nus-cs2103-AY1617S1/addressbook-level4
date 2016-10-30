@@ -31,9 +31,9 @@ public class UnmarkCommand extends Command {
 
     //@@author A0133367E    
     public UnmarkCommand(Set<Integer> targetIndexes) {
-        this.targetIndexes = new ArrayList<Integer>(targetIndexes);
+        this.targetIndexes = new ArrayList<>(targetIndexes);
         Collections.sort(this.targetIndexes);
-        this.tasksToUnmark = new ArrayList<ReadOnlyTask>();
+        this.tasksToUnmark = new ArrayList<>();
     }
 
     @Override

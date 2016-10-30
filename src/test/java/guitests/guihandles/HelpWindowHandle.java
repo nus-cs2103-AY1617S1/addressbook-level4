@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import java.util.NoSuchElementException;
-
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 

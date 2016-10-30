@@ -1,8 +1,6 @@
 package seedu.agendum.commons.util;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
 
@@ -12,9 +10,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class StringUtilTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void isUnsignedPositiveInteger() {
@@ -41,9 +36,8 @@ public class StringUtilTest {
                    containsString("java.io.FileNotFoundException: file not found"));
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void getDetailsNullGivenAssertionError(){
-        thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }
     

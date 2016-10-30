@@ -125,9 +125,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     }
 
     public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        return sb.toString();
+        return "add " + this.getName().fullName + " ";
     }
 
     public int compareTo(TestTask other) {

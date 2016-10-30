@@ -6,7 +6,6 @@ import seedu.agendum.logic.commands.RenameCommand;
 import seedu.agendum.model.task.Name;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.commons.exceptions.IllegalValueException;
-import seedu.agendum.testutil.TaskBuilder;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
 

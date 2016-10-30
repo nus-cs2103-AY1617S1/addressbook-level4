@@ -55,7 +55,7 @@ public class CompletedTasksPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        completedTasksListView.setItems(taskList.filtered(task -> task.isCompleted()));
+        completedTasksListView.setItems(taskList.filtered(ReadOnlyTask::isCompleted));
         completedTasksListView.setCellFactory(listView -> new completedTasksListViewCell());
     }
 

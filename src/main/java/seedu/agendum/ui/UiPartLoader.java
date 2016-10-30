@@ -55,8 +55,8 @@ public class UiPartLoader {
         try {
             return loader.load();
         } catch (Exception e) {
-            String errorMessage = "FXML Load Error for " + fxmlFileName;
-            throw new RuntimeException(errorMessage, e);
+            e.printStackTrace();
+            return null;
         }
     }
 

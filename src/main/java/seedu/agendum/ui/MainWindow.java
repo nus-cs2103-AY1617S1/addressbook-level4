@@ -1,7 +1,5 @@
 package seedu.agendum.ui;
 
-import com.sun.javafx.stage.StageHelper;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

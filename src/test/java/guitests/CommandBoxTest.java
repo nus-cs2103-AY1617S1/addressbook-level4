@@ -1,6 +1,7 @@
 package guitests;
 
 import org.junit.Test;
+import seedu.agendum.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +10,7 @@ public class CommandBoxTest extends ToDoListGuiTest {
 
     @Test
     public void commandBoxCommandSucceedsTextCleared() {
-        commandBox.runCommand(td.benson.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.benson.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

@@ -27,7 +27,7 @@ public class CommandResult {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n");
         for (int i = 0; i < tasks.size(); i++) {
-            builder.append("#" + originalIndices.get(i) + ": ");
+            builder.append("#").append(originalIndices.get(i)).append(": ");
             builder.append(tasks.get(i).getAsText());
         }
         return builder.toString();

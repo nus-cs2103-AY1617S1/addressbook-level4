@@ -21,7 +21,7 @@ public class CommandBoxHistory {
     private String lastQuery = EMPTY_QUERY;
     
     public CommandBoxHistory() {
-        pastCommands = new LinkedList<String>();
+        pastCommands = new LinkedList<>();
         iterator = pastCommands.listIterator();      
     }
 

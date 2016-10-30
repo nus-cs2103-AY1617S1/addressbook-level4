@@ -44,7 +44,7 @@ public class EditDistanceCalculator {
     }
 
     public static Optional<String> commandCompletion(String input) {
-        ArrayList<String> matchedCommands = new ArrayList<String>();
+        ArrayList<String> matchedCommands = new ArrayList<>();
 
         Consumer<String> consumer = (commandWord) -> {
             if (commandWord.startsWith(input)) {
@@ -68,13 +68,13 @@ public class EditDistanceCalculator {
                     try {
                         return s.getMethod("getName").invoke(null).toString();
                     } catch (NullPointerException e) {
-                        return null;
+                        return "";
                     } catch (Exception e) {
                         logger.severe("Java reflection for Command class failed");
                         throw new RuntimeException();
                     }
                 })
-                .filter(p -> p != null) // remove nulls
+                .filter(p -> p != "") // remove empty
                 .forEach(f); // execute given lambda on each nonnull String.
     }
 

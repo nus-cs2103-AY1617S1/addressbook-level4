@@ -54,9 +54,9 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<Integer>();
+        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<>();
         deletedTaskVisibleIndices.add(targetIndexOneIndexed);
-        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
+        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<>();
         deletedTasks.add(taskToDelete);
 
         assertResultMessage(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,

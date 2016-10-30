@@ -54,6 +54,6 @@ public interface Model {
     void loadFromLocation(String location);
 
     /** Updates the current todolist to the loaded data**/
-    public void handleLoadDataCompleteEvent(LoadDataCompleteEvent event);
+    void handleLoadDataCompleteEvent(LoadDataCompleteEvent event);
 
 }

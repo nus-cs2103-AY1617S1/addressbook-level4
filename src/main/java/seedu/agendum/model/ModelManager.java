@@ -49,7 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
-        previousLists = new Stack<ToDoList>();
+        previousLists = new Stack<>();
         backupNewToDoList();
     }
 
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
-        previousLists = new Stack<ToDoList>();
+        previousLists = new Stack<>();
         backupNewToDoList();
     }
 

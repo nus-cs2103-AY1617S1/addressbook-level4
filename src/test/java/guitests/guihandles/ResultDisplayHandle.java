@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.agendum.TestApp;
 

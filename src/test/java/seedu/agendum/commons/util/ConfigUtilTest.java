@@ -3,7 +3,6 @@ package seedu.agendum.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.exceptions.DataConversionException;
@@ -21,14 +20,10 @@ public class ConfigUtilTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigUtilTest/");
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
-    @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void readNullAssertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
         read(null);
     }
 
@@ -37,10 +32,9 @@ public class ConfigUtilTest {
         assertFalse(read("NonExistentFile.json").isPresent());
     }
 
-    @Test
+    @Test(expected = DataConversionException.class)
     public void readNotJasonFormatExceptionThrown() throws DataConversionException {
 
-        thrown.expect(DataConversionException.class);
         read("NotJasonFormatConfig.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
@@ -86,15 +80,13 @@ public class ConfigUtilTest {
         return new ConfigUtil().readConfig(configFilePath);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void saveNullConfigAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         save(null, "SomeFile.json");
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void saveNullFileAssertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
         save(new Config(), null);
     }
 
@@ -106,15 +98,15 @@ public class ConfigUtilTest {
         ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configStorage.saveConfig(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        Config readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configStorage.saveConfig(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 

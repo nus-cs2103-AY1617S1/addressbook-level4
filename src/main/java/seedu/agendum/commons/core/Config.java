@@ -87,13 +87,11 @@ public class Config {
 
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
-        sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + toDoListFilePath);
-        sb.append("\nToDoList name : " + toDoListName);
-        return sb.toString();
+        return "App title : " + appTitle +
+                "\nCurrent log level : " + logLevel +
+                "\nPreference file Location : " + userPrefsFilePath +
+                "\nLocal data file location : " + toDoListFilePath +
+                "\nToDoList name : " + toDoListName;
     }
 
 }
