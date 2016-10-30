@@ -11,7 +11,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 public class ClearCommandTest extends CommandTest {
     
-    ImmutableTask task1, task2, task3;
+    private ImmutableTask task1, task2, task3;
 
     @Before
     public void setUp() throws Exception {
