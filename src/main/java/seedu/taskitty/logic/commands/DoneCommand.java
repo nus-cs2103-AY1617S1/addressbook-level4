@@ -82,7 +82,7 @@ public class DoneCommand extends Command {
             
             if (!listOfTaskToMarkDone.contains(taskToBeMarkedDone)) {
                 listOfTaskToMarkDone.add(taskToBeMarkedDone);
-                resultMessageBuilder.append(currentTaskIndex);
+                resultMessageBuilder.append(taskToBeMarkedDone.getName() + ", ");
             } else {
                 hasDuplicateIndexesProvided = true;
                 duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
@@ -115,6 +115,7 @@ public class DoneCommand extends Command {
             assert false: "The target task should not be marked done";
         }
         
+        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());
         String resultMessage = resultMessageBuilder.toString();
         return new CommandResult(resultMessage);
     }
