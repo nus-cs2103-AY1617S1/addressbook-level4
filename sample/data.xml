@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<todolist>
+    <tasks>
+        <name>Submit CS2103 Assignment</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-10-26 20:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Write essay for IS1103</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-11-07 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2101 Group meeting</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-11-04 12:00:00</startDateTime>
+        <endDateTime>2016-11-04 14:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>IS1103 Group meeting</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-11-10 13:00:00</startDateTime>
+        <endDateTime>2016-10-27 22:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Read 'UML Distilled'</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Clear wardrobe clutter</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2017-01-01 10:09:26</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy soap and shampoo</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:49:30</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Deposit $50 into bank</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:53:10</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>catch pokemon</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy present for Jim</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-10-20 14:56:43</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Go to gym with John</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-09-20 10:00:00</startDateTime>
+        <endDateTime>2016-09-20 11:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Brother's wedding</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-08-10 08:00:00</startDateTime>
+        <endDateTime>2016-08-10 09:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy new headphones</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:52:52</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Proofread CS2101 Reflection</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-10-29 20:00:00</startDateTime>
+        <endDateTime>2016-10-29 22:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Clean dust inside PC</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:52:29</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy new i7-6700k CPU</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:52:08</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Search for Shaun Mendez songs</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:51:30</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Return books to library</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Write reflection for CS2101</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-10-26 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Attend cake-making lesson</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <startDateTime>2016-07-29 11:00:00</startDateTime>
+        <endDateTime>2016-07-29 14:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Submit CS1231 Assignment</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-02-29 10:17:36</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Read up on Extremism</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:55:22</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Read 'The Mythical Man-Month'</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-29 14:58:08</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Decorate house</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-12-25 12:42:46</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy present for Jim</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-11-04 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2101 Oral Presentation 1</name>
+        <isCompleted>true</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:54:19</lastUpdatedTime>
+        <startDateTime>2016-09-06 12:00:00</startDateTime>
+        <endDateTime>2016-09-06 13:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 Post-Lecture Quiz</name>
+        <isCompleted>false</isCompleted>
+        <isRecurring>false</isRecurring>
+        <isChild>false</isChild>
+        <lastUpdatedTime>2016-10-30 12:52:44</lastUpdatedTime>
+        <endDateTime>2016-11-05 12:50:11</endDateTime>
+    </tasks>
+</todolist>
