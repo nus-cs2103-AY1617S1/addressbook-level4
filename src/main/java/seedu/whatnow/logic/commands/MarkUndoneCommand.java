@@ -1,6 +1,8 @@
 //@@author A0141021H
 package seedu.whatnow.logic.commands;
 
+import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
@@ -42,7 +44,7 @@ public class MarkUndoneCommand extends UndoAndRedo {
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredScheduleList();
         } else {
-            return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
         }
         if (lastShownList.size() < targetIndex) {
             System.out.println("INVALID INDEX");
