@@ -12,7 +12,6 @@ import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.EventsCenter;
 import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.logic.commands.*;
-import seedu.agendum.commons.events.ui.JumpToListRequestEvent;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
 import seedu.agendum.commons.util.FileUtil;
 import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
@@ -51,7 +50,6 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyToDoList latestSavedToDoList;
     private boolean helpShown;
-    private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(ToDoListChangedEvent tdl) {
@@ -63,11 +61,6 @@ public class LogicManagerTest {
         helpShown = true;
     }
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
-    }
-
     @Before
     public void setup() {
         model = new ModelManager();
@@ -76,7 +69,6 @@ public class LogicManagerTest {
 
         latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -295,35 +287,7 @@ public class LogicManagerTest {
         //invalid index is part of range
         assertCommandBehavior(commandWord + " 1-6", expectedMessage, model.getToDoList(), taskList);
     }
-
     //@@author
-    @Test
-    public void executeSelectInvalidArgsFormatErrorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage, " ");
-    }
-
-    @Test
-    public void executeSelectIndexNotFoundErrorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select", " ");
-    }
-
-    @Test
-    public void executeSelectJumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
-
-        ToDoList expectedTDL = helper.generateToDoList(threeTasks);
-        helper.addToModel(model, threeTasks);
-
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedTDL,
-                expectedTDL.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
-    }
-
 
     @Test
     public void executeDeleteInvalidArgsFormatErrorMessageShown() throws Exception {
