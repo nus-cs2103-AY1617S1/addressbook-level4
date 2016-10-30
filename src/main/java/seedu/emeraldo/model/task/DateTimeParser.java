@@ -16,56 +16,63 @@ public class DateTimeParser {
 
     public static final String ON_KEYWORD_VALIDATION_REGEX = "on "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?:( |/|-))"
+            + "(?:( |/|-|\\.))"
             + "(?<monthInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)";
+            + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)";
 
     public static final String BY_KEYWORD_VALIDATION_REGEX = "by "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?:( |/|-))"
+            + "(?:( |/|-|\\.))"
             + "(?<monthInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))"
-            + "(:(?<minute>([0-5][0-9])))"
+            + "(?:(:|\\.|))"
+            + "(?<minute>([0-5][0-9]))?"
             + "(?<timePostFix>(([a]|[p])[m])?)";
 
     public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?:( |/|-))"
+            + "(?:( |/|-|\\.))"
             + "(?<monthInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
-            + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))"
-            + "(:(?<minute>([0-5][0-9])))"
+            + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))?"
+            + "(?:(:|\\.|))"
+            + "(?<minute>([0-5][0-9]))?"
+            + "(?<timePostFix>(([a]|[p])[m])?)"
             + "( (?<aftKeyword>(to )))"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?:( |/|-))"
+            + "(?:( |/|-|\\.))"
             + "(?<monthEndInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
-            + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))"
-            + "(:(?<minuteEnd>([0-5][0-9])))";
+            + "(?<yearEnd>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))?"
+            + "(?:(:|\\.|))?"
+            + "(?<minuteEnd>([0-5][0-9])?)"
+            + "(?<timeEndPostFix>(([a]|[p])[m])?)";
 
     public static final Pattern DATETIME_VALIDATION_REGEX = Pattern.compile(
             "(?<preKeyword>((by )|(on )|(from )))"
             + "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-            + "(?:( |/|-))"
+            + "(?:( |/|-|\\.))"
             + "(?<monthInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
-            + "(?<year>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
+            + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([01][0-9]|[2][0-3])))?"
-            + "(:(?<minute>([0-5][0-9])))?"
+            + "(?:(:|\\.|))"
+            + "(?<minute>([0-5][0-9]))?"
             + "(?<timePostFix>(([a]|[p])[m])?)"
             + "( (?<aftKeyword>(to )))?"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
-            + "(?:( |/|-)?)"
+            + "(?:( |/|-|\\.))?"
             + "(?<monthEndInNumbers>([1][0-2]|0?[1-9])?)"
             + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
             + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hourEnd>([01][0-9]|[2][0-3])))?"
-            + "(:(?<minuteEnd>([0-5][0-9])))?"
+            + "(?:(:|\\.|))?"
+            + "(?<minuteEnd>([0-5][0-9]))?"
             + "(?<timeEndPostFix>(([a]|[p])[m])?)"
             );
 
@@ -76,10 +83,7 @@ public class DateTimeParser {
 	private static final String MESSAGE_INVALID_DATE = "Invalid inputs for date! Check that the day, month and year matches\n"
 			+ "Possible mistakes: having 31 as the day for a month with 30 days, e.g. 31 Nov";
     
-    /*
-     * TODO: LocalDate.of() throws DateTimeException for out of range field and invalid
-     * day-of-month for the month-year
-     * 
+	/*
      * Format the date for creation of LocalDate object
      */
     public static LocalDate valueDateFormatter(Matcher matcher, String keyword)
@@ -91,14 +95,13 @@ public class DateTimeParser {
         int yearParsed;
         int monthParsed;
         int dayParsed;
-        
+
         if(keyword.equals("to")){
             day = matcher.group("dayEnd");
             month = matcher.group("monthEndInNumbers");
             year = matcher.group("yearEnd");
         }
 
-        //TODO: catch monthWords and monthEndWords that are shorter than 3 characters
         if(month.isEmpty()){
             month = matcher.group("monthInWords").toLowerCase().substring(0,3);
             if(keyword.equals("to"))
@@ -127,10 +130,7 @@ public class DateTimeParser {
         }
     }
 
-    /*
-     * TODO: LocalTime.of() throws DateTimeException for out of range field
-     * i.e. hours from 0 to 23 and min from 0 to 59
-     * 
+    /* 
      * Format the time for creating a LocalTime object
      */
     public static LocalTime valueTimeFormatter(Matcher matcher, String keyword) throws DateTimeException{
@@ -171,7 +171,7 @@ public class DateTimeParser {
         String hour = matcher.group("hour");
         String minute = matcher.group("minute");
         String timePostFix = matcher.group("timePostFix");
-        
+
         if(keyword.equals("to")){
             day = matcher.group("dayEnd");
             month = matcher.group("monthEndInNumbers");
@@ -192,7 +192,7 @@ public class DateTimeParser {
                 month = matcher.group("monthEndInWords").toLowerCase().substring(0,3);
             month = convertMonthFromWordsToNumbers(month);
         }
-        
+System.out.println(day + " " + month + " " + year + "| " + hour + " " + minute + " " + timePostFix); //TODO      
         int monthParsed = Integer.parseInt(month);
 
         //If no year is read in, the year will be current year
@@ -266,8 +266,10 @@ public class DateTimeParser {
         return monthInWords;
     }
     
-    //TODO: throws exception if month is not of a valid form
-    
+    /**
+     * Returns the month in numbers based on month in words
+     * @throw IllegalValueException if month in words is not matchable
+     **/
     private static String convertMonthFromWordsToNumbers(String monthInWords)  throws IllegalValueException{
         String monthInNumbers;
         switch(monthInWords){
