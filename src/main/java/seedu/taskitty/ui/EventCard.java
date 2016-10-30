@@ -49,7 +49,7 @@ public class EventCard extends UiPart {
         
         TaskDate startTaskDate = task.getPeriod().getStartDate();
         if (startTaskDate != null) {
-            startDate.setText(startTaskDate.toString());
+            startDate.setText("Start :" + startTaskDate.toString());
         }
         
         TaskTime taskStartTime = task.getPeriod().getStartTime();
@@ -59,7 +59,7 @@ public class EventCard extends UiPart {
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();
         if (endTaskDate != null) {
-            endDate.setText(endTaskDate.toString());
+            endDate.setText("End: " + endTaskDate.toString());
         }
         
         TaskTime taskEndTime = task.getPeriod().getEndTime();

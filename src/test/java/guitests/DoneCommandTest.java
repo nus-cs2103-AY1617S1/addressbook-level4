@@ -77,12 +77,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
         
-        // find task card of marked task
-        TaskCardHandle markedCard = taskListPanel.navigateToTask(taskToMark.getName().fullName, taskToMark.getPeriod().getNumArgs());
-        // confirm its the correct task
-        assertMatching(taskToMark, markedCard);
-        // confirm the task is marked
-        assertMarkAsDone(markedCard);
+        assertTaskCardMarkedAsDone(taskToMark);
         
         //confirm the result message is correct
         resultMessage.append(category);
@@ -125,15 +120,19 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
         
         for (TestTask markedTask: markedTasks) {
-         // find task card of marked task
-            TaskCardHandle markedCard = taskListPanel.navigateToTask(markedTask.getName().fullName, markedTask.getPeriod().getNumArgs());
-            // confirm its the correct task
-            assertMatching(markedTask, markedCard);
-            // confirm the task is marked
-            assertMarkAsDone(markedCard);
+            assertTaskCardMarkedAsDone(markedTask);
         }       
         
         //confirm the result message is correct
         assertResultMessage(resultMessage.toString());
+    }
+
+    private void assertTaskCardMarkedAsDone(TestTask markedTask) {
+        // find task card of marked task
+        TaskCardHandle markedCard = taskListPanel.navigateToTask(markedTask.getName().fullName, markedTask.getPeriod().getNumArgs());
+        // confirm its the correct task
+        assertMatching(markedTask, markedCard);
+        // confirm the task is marked
+        assertMarkAsDone(markedCard);
     }
 }

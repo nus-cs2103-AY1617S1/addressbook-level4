@@ -167,33 +167,25 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	
 	
 	//@@author A0139052L
-
-	@Override
+    @Override
     public int compareTo(Task taskToCompare) {
-	    // sort all tasks that are done to the back of the list
+        // sort all tasks that are done to the back of the list
 	    if (this.getIsDone() && !taskToCompare.getIsDone()) {
 	        return 1;
 	    } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
 	        return -1;
-	    } else if (!this.getIsDone() &&!taskToCompare.getIsDone()) {
-       	 int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
-            //If no difference is found in period, compare using name
-            if (periodCompare == 0) {
-                return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
-            } else {
-                return periodCompare;
-            }
-       
-       } else {
-       	int periodCompare = taskToCompare.getPeriod().compareTo(this.period);
-           //If no difference is found in period, compare using name
+       } else {           
+       	   int periodCompare = this.getPeriod().compareTo(taskToCompare.period);
+       	   if (this.getIsDone()) {
+       	       periodCompare = -periodCompare; // sort done tasks in the opposite order
+       	   }
+           //If no difference in date and time is found in period, compare using name
            if (periodCompare == 0) {
                return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
            } else {
                return periodCompare;
            }
-       }
-        
+       }       
     }
 	
 }

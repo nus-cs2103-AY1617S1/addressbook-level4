@@ -148,27 +148,32 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
     //@@author A0139052L
     @Override
     public int compareTo(TaskPeriod periodToCompare) {
-        if (this.getNumArgs() == periodToCompare.getNumArgs()) {
-            // sort events according to their start time and end time
-            if (this.isEvent()) {
-                if (!this.getStartDate().equals(periodToCompare.getStartDate())) {
-                    return this.getStartDate().getDate().compareTo(periodToCompare.getStartDate().getDate());
-                } else if (!this.getStartTime().equals(periodToCompare.getStartTime())) {
-                    return this.getStartTime().getTime().compareTo(periodToCompare.getStartTime().getTime());                    
-                }
-            }
-            // if event has same start date and start time, sort it by its end date or end time like deadline
-            if (this.isEvent() || this.isDeadline()) {
-                if (!this.getEndDate().equals(periodToCompare.getEndDate())) {
-                    return this.getEndDate().getDate().compareTo(periodToCompare.getEndDate().getDate());
-                } else if (!this.getEndTime().equals(periodToCompare.getEndTime())) {
-                    return this.getEndTime().getTime().compareTo(periodToCompare.getEndTime().getTime());                    
-                } 
-            }
-            return 0; //no difference found
+        // if task has are of the same format, sort by their date and times (if any)
+        if (this.getNumArgs() == periodToCompare.getNumArgs()) {           
+            return compareByDateAndTime(periodToCompare); 
         } else {
             return this.getNumArgs() - periodToCompare.getNumArgs();
         } 
     }
 
+    private int compareByDateAndTime(TaskPeriod periodToCompare) {
+        // sort events according to their start date or time
+        if (this.isEvent()) {
+            if (!this.getStartDate().equals(periodToCompare.getStartDate())) {
+                return this.getStartDate().getDate().compareTo(periodToCompare.getStartDate().getDate());
+            } else if (!this.getStartTime().equals(periodToCompare.getStartTime())) {
+                return this.getStartTime().getTime().compareTo(periodToCompare.getStartTime().getTime());                    
+            }
+        }
+        // if event has same start date and start time, sort it by its end date or end time like deadline
+        if (this.isEvent() || this.isDeadline()) {
+            if (!this.getEndDate().equals(periodToCompare.getEndDate())) {
+                return this.getEndDate().getDate().compareTo(periodToCompare.getEndDate().getDate());
+            } else if (!this.getEndTime().equals(periodToCompare.getEndTime())) {
+                return this.getEndTime().getTime().compareTo(periodToCompare.getEndTime().getTime());                    
+            } 
+        }
+        return 0; //no difference found
+    }
+    
 }

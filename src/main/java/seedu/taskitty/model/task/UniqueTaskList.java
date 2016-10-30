@@ -104,7 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }  
     
-  //@@author A0130853L
+    //@@author A0130853L
     /** Marks the given task as done from the list.
      * 
      * @throws TaskNotFoundException if no such task could be found in the list.

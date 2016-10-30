@@ -17,6 +17,7 @@ import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.logic.commands.ViewCommand;
+import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -237,7 +238,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.setPredicate(null);
         indicateViewChanged(ViewCommand.ViewType.all, null);
     }
- 
+    
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
     @Override
     public void updateFilteredDoneList() {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
@@ -316,11 +322,31 @@ public class ModelManager extends ComponentManager implements Model {
         
         //@@author A0130853L
         @Override
-        public boolean run(ReadOnlyTask person) {
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> containsByType(task, keyword))
                     .findAny()
                     .isPresent();
+        }
+        
+        //@@author A0139930B
+        /**
+         * Check if a task contains the given keyword.
+         * Tags will be used to compare if keyword contains TAG_PREFIX
+         * Returns true if keyword is found in task
+         * 
+         * @param task to be checked
+         * @param keyword to look for in task
+         */
+        private boolean containsByType(ReadOnlyTask task, String keyword) {
+            assert task != null;
+            assert keyword != null && !keyword.isEmpty();
+            
+            String toCompare = task.getName().fullName; 
+            if (keyword.contains(Tag.TAG_PREFIX)) {
+                toCompare = task.tagsString();
+            }
+            return StringUtil.containsIgnoreCase(toCompare, keyword);
         }
         
         //@@author
@@ -530,7 +556,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 }
 
-	//@@author A0139052L unused
+	//@@author A0139052L-unused
 	// swap over to different undo function
 //
 //     *  returns true is there is a previous valid command input by user
