@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <!-- @@author A0130853L -->
 
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
@@ -79,7 +78,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
                <GridPane.margin>
-                  <Insets right="50.0" />
+                  <Insets right="5.0" />
                </GridPane.margin>
             </VBox>
             </children>
