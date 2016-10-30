@@ -3,11 +3,15 @@ package seedu.todo.model.tag;
 import com.google.common.collect.Sets;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.CollectionUtil;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -19,7 +23,7 @@ public class UniqueTagCollectionValidator {
     /* Constants */
     private static final int MAX_ALLOWED_TAGS = 5;
 
-    private static final String YOU_SUPPLIED = " You supplied - ";
+    private static final String YOU_SUPPLIED = " They are: ";
 
     private static final String ERROR_MAX_TAGS_ALLOWED = "You have added too many tags. " +
             "Each task may have up to " + MAX_ALLOWED_TAGS + " tags.";
@@ -30,9 +34,9 @@ public class UniqueTagCollectionValidator {
     private static final String ERROR_TAGS_DUPLICATED
             = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_DO_NOT_EXIST
-            = "The tag name you have entered does not exist.";
+            = "The tag names you have entered do not exist.";
     private static final String ERROR_TAGS_EXIST
-            = "The tag name you have entered is already in the task.";
+            = "The tag names you have entered are already in the task.";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
@@ -158,24 +162,31 @@ public class UniqueTagCollectionValidator {
     }
 
     /**
-     * Checks to ensure that tag names exist.
+     * Checks to ensure that tag names exist in the {@code tagPool}.
      */
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
-        long nameCount = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName())).count();
-        if (nameCount == 0) {
-            errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST);
+        Set<String> tagPoolNameSet = tagPool.stream().map(Tag::getTagName).collect(Collectors.toSet());
+        List<String> tagsDoNotExist = tagNamesSet.stream().filter(tagName -> !tagPoolNameSet.contains(tagName))
+                .collect(Collectors.toList());
+
+        if (!tagsDoNotExist.isEmpty()) {
+            errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST + YOU_SUPPLIED
+                    + StringUtil.convertListToString(tagsDoNotExist.toArray(new String[0])));
         }
     }
 
     /**
-     * Checks to ensure that tag names do not exist.
+     * Checks to ensure that tag names do not exist in the {@code tagPool}.
      */
     private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
-        long nameCount = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName())).count();
-        if (nameCount != 0) {
-            errorBag.put(parameterName, ERROR_TAGS_EXIST);
+        List<String> tagsExist = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName()))
+                .map(Tag::getTagName).collect(Collectors.toList());
+
+        if (!tagsExist.isEmpty()) {
+            errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
+                    + StringUtil.convertListToString(tagsExist.toArray(new String[0])));
         }
     }
 
