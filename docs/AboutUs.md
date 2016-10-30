@@ -46,7 +46,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 * Features implemented:
   * View [[1](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-upcoming-tasks-view)][[2](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-all-tasks-for-a-specified-date-view-date)][[3](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-all-tasks-view-all)][[4](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-all-completed-tasks-view-done)]
   * [Mark task as done](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#mark-task-as-done-done)
-  * [Overdue tasks]
+  * [Overdue tasks](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-upcoming-tasks-view)
+  * [Status bar's filtered view status](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#view-upcoming-tasks-view)
 * Code written: [[functional code](../collated/main/A0130853L.md)][[test code](../collated/test/A0130853L.md)][[docs](../collated/docs/A0130853L.md)]
 * Other major contributions:
   * Created initial, revised mockups, and final screencaps in userGuide [[#9](https://github.com/CS2103AUG2016-W14-C4/main/commit/08e2b500c1547e89a17a07399e4f89ebc385d9c5)][[#63](https://github.com/CS2103AUG2016-W14-C4/main/commit/ed57b82241a2358ab79a62dccd57d82e1e25844d)][[#174](https://github.com/CS2103AUG2016-W14-C4/main/commit/fe34c59cb39ac7645cdead46a7aeea9885cad01c)]
