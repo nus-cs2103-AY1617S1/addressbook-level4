@@ -140,15 +140,13 @@ public class ModelManager extends ComponentManager implements Model {
      * Methods for Completing an activity
      */
     @Override
-    public void completeFloatingTask(int index) {
-        activityManager.completeFloatingTask(index);
-        updateFilteredListToShowAll();
+    public void completeFloatingTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        activityManager.completeFloatingTask(activityToComplete);
         indicateActivityManagerChanged();
     }
     @Override
-    public void completeTask(int index) {
-        activityManager.completeTask(index);
-        updateFilteredListToShowAll();
+    public void completeTask(ReadOnlyActivity activityToComplete) throws ActivityNotFoundException {
+        activityManager.completeTask(activityToComplete);
         indicateActivityManagerChanged();
     }
 
@@ -156,16 +154,14 @@ public class ModelManager extends ComponentManager implements Model {
      * Methods for Un-completing an activity
      */
     @Override
-    public void UncompleteFloatingTask(int index) {
-        activityManager.unCompleteFloatingTask(index);
-        updateFilteredListToShowAll();
+    public void UncompleteFloatingTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        activityManager.unCompleteFloatingTask(activityToUncomplete);
         indicateActivityManagerChanged();
     }
 
     @Override
-    public void UncompleteTask(int index) {
-        activityManager.unCompleteTask(index);
-        updateFilteredListToShowAll();
+    public void UncompleteTask(ReadOnlyActivity activityToUncomplete) throws ActivityNotFoundException {
+        activityManager.unCompleteTask(activityToUncomplete);
         indicateActivityManagerChanged();
     }
 
@@ -178,21 +174,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editFloatingTaskName(int index, String changes) throws IllegalValueException{
         activityManager.editFloatingTaskName(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override 
     public void editTaskName(int index, String changes) throws IllegalValueException {
         activityManager.editTaskName(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override
     public void editEventName(int index, String changes) throws IllegalValueException{
         activityManager.editEventName(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
@@ -203,21 +196,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
         activityManager.editFloatingTaskNote(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
     @Override
     public void editTaskNote(int index, String changes) throws IllegalValueException {
         activityManager.editTaskNote(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override
     public void editEventNote(int index, String changes) throws IllegalValueException {
         activityManager.editEventNote(index, changes);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
@@ -228,14 +218,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editTaskDateTime(index, newDate, newTime);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override 
     public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editEventStartDateTime(index, newDate, newTime);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
         
     }
@@ -243,7 +231,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editEventEndDateTime(index, newDate, newTime);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
@@ -257,7 +244,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
         activityManager.addTask(activity);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
@@ -270,7 +256,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addFloatingTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
         activityManager.addFloatingTask(activity);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
@@ -283,7 +268,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addEvent(Activity activity) throws UniqueActivityList.DuplicateTaskException {
         activityManager.addEvent(activity);
-        updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
@@ -387,15 +371,15 @@ public class ModelManager extends ComponentManager implements Model {
         	
         	if (activity.getActivityType().equals(Activity.TASK_TYPE)){
         		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() +
-        				" " + activity.getActivityStartDate().getMonth();
+        				" " + activity.getActivityStartDate().getMonth() + " " + activity.getActivityStatus().toString();
         	}
         	else if (activity.getActivityType().equals(Activity.EVENT_TYPE)){
         		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() + 
         				" " + activity.getActivityEndDate() + " " + activity.getActivityStartDate().getMonth() + " " + 
-        				activity.getActivityEndDate().getMonth(); 
+        				activity.getActivityEndDate().getMonth() + " " + activity.getActivityStatus().toString(); 
         	}
         	else {
-        		activityKeyWords = activity.getActivityName().fullName;
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStatus().toString();
         	}
         	
             return nameKeyWords.stream()
