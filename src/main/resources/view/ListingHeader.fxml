@@ -9,7 +9,7 @@
    <children>
       <AnchorPane fx:id="listHeader" styleClass="anchor-pane" stylesheets="@DarkTheme.css">
          <children>
-            <Label fx:id="listing" alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" layoutX="-56.0" layoutY="5.0" prefHeight="24.0" prefWidth="241.0" styleClass="label-date" stylesheets="@DarkTheme.css" text="Label" textAlignment="RIGHT" textFill="#6088b5" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-56.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+            <Label fx:id="listing" alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" layoutX="-56.0" layoutY="5.0" prefHeight="24.0" prefWidth="241.0" styleClass="label-date" stylesheets="@DarkTheme.css" text="Label" textAlignment="RIGHT" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-56.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
             </Label>
          </children>
       </AnchorPane>

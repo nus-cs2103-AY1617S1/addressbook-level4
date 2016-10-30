@@ -138,69 +138,109 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+        assert args != null;
         final String taskType = matchTaskType(args.trim());
-        Matcher matcher;
-        Matcher matcherTwo;
-        String priority;
         if (taskType.equals("taskTypeNotFound")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }    
         try {
             if(taskType.equals("eventTask")) {
-                matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
-                matcherTwo = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args.trim());
-                if (matcherTwo.matches()){
-                    priority = parsePriority(matcherTwo.group("endTime"));
-                    return new AddCommand(
-                            matcherTwo.group("taskName"),
-                            new DateTimeParser(matcherTwo.group("day")).getDate(),
-                            new DateTimeParser(matcherTwo.group("startTime")).getTime(),
-                            new DateTimeParser(matcherTwo.group("day")).getDate(),
-                            new DateTimeParser(matcherTwo.group("endTime")).getTime(),
-                            priority
-                            );
-                
-                    } else if (matcher.matches()) {
-                        priority = parsePriority(matcher.group("endDateTime"));
-                        return new AddCommand(
-                                matcher.group("taskName"),
-                                new DateTimeParser(matcher.group("startDateTime")).getDate(),
-                                new DateTimeParser(matcher.group("startDateTime")).getTime(),
-                                new DateTimeParser(matcher.group("endDateTime")).getDate(),
-                                new DateTimeParser(matcher.group("endDateTime")).getTime(),
-                                priority
-                                );
-                    }
+                return addEventTask(args);
             } else if (taskType.equals("deadlineTask")) {
-                matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                if (matcher.matches()) {
-                    priority = parsePriority(matcher.group("dateTime"));
-                    return new AddCommand(
-                        matcher.group("taskName"),
-                        new DateTimeParser(matcher.group("dateTime")).getDate(),
-                        new DateTimeParser(matcher.group("dateTime")).getTime(),
-                        priority
-                     );
-                }
+                return addDeadlineTask(args);
             } else if (taskType.equals("floatingTask")) {
-                matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                matcherTwo = FLOATING_WITH_PRIORITY.matcher(args.trim());
-                if (matcherTwo.matches()) {
-                    return new AddCommand(
-                        matcherTwo.group("taskName"),
-                        matcherTwo.group("priority")
-                    );
-                } else if (matcher.matches()) {
-                    return new AddCommand(
-                        matcher.group("taskName"),
-                        null
-                    );
-                }
-            }                         
+                return addFloatingTask(args); 
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
         return null;   
+    }
+    
+    /**
+     * Parses arguments in the context of adding an event task command.
+     *
+     * @param args full command args string
+     * @throws IllegalValueException
+     * @return the prepared Add command
+     */
+    private AddCommand addEventTask(String args) throws IllegalValueException {
+        assert args != null;
+        Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
+        Matcher matcherSameDay = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args.trim());
+        String priority;
+        if (matcherSameDay.matches()){
+            priority = parsePriority(matcherSameDay.group("endTime"));
+            return new AddCommand(
+                    matcherSameDay.group("taskName"),
+                    new DateTimeParser(matcherSameDay.group("day")).getDate(),
+                    new DateTimeParser(matcherSameDay.group("startTime")).getTime(),
+                    new DateTimeParser(matcherSameDay.group("day")).getDate(),
+                    new DateTimeParser(matcherSameDay.group("endTime")).getTime(),
+                    priority
+                    );
+        
+            } else if (matcher.matches()) {
+                priority = parsePriority(matcher.group("endDateTime"));
+                return new AddCommand(
+                        matcher.group("taskName"),
+                        new DateTimeParser(matcher.group("startDateTime")).getDate(),
+                        new DateTimeParser(matcher.group("startDateTime")).getTime(),
+                        new DateTimeParser(matcher.group("endDateTime")).getDate(),
+                        new DateTimeParser(matcher.group("endDateTime")).getTime(),
+                        priority
+                        );
+            }
+        return null;
+    }
+    
+    /**
+     * Parses arguments in the context of adding an deadline task command.
+     *
+     * @param args full command args string
+     * @throws IllegalValueException
+     * @return the prepared Add command
+     */
+    private AddCommand addDeadlineTask(String args) throws IllegalValueException {
+        assert args != null;
+        Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
+        String priority;
+        matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (matcher.matches()) {
+            priority = parsePriority(matcher.group("dateTime"));
+            return new AddCommand(
+                matcher.group("taskName"),
+                new DateTimeParser(matcher.group("dateTime")).getDate(),
+                new DateTimeParser(matcher.group("dateTime")).getTime(),
+                priority
+             );
+        }
+        return null;
+    }
+    
+    /**
+     * Parses arguments in the context of adding an floating task command.
+     *
+     * @param args full command args string
+     * @throws IllegalValueException
+     * @return the prepared Add command
+     */
+    private AddCommand addFloatingTask(String args) throws IllegalValueException {
+        assert args != null;
+        Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        Matcher matcherFloating = FLOATING_WITH_PRIORITY.matcher(args.trim());
+        if (matcherFloating.matches()) {
+            return new AddCommand(
+                matcherFloating.group("taskName"),
+                matcherFloating.group("priority")
+            );
+        } else if (matcher.matches()) {
+            return new AddCommand(
+                matcher.group("taskName"),
+                null
+            );
+        }
+        return null;
     }
     
     
@@ -288,7 +328,14 @@ public class Parser {
   //@@author
     
   //@@author A0138411N
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareEdit(String args) {
+        assert args != null;
         Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

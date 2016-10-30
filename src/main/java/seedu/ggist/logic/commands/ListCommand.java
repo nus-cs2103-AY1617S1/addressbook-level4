@@ -13,15 +13,16 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives undone, done, or all tasks in GGist.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": retreives undone, done or all tasks in GGist.\n"
             + "Parameter: [all] , [done] or [DATE]\n"
             + "Empty paramter lists all undone tasks in GGist\n"
-            + "Example: " + COMMAND_WORD + " done or " + COMMAND_WORD + " 13 Oct";
+            + "Example: " + COMMAND_WORD + " done or " + COMMAND_WORD + " 13 Oct/monday/today";
     private final static String LIST_ARGS_VALIDATION = "(all)|(done)|(\\w{3}, \\d{2} \\w{3} \\d{2})"; 
     
     private String listing;
     
     public ListCommand(String argument) throws IllegalValueException {
+        assert argument != null;
         listing = argument;
     }
     

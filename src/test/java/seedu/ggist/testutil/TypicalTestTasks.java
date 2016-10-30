@@ -1,5 +1,10 @@
 package seedu.ggist.testutil;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.TaskManager;
@@ -11,9 +16,13 @@ import seedu.ggist.model.task.*;
 
 //@@author A0147994J
 public class TypicalTestTasks {
+    
+    public static TestTask floating, deadline, event, dance, soccer, lunch, report;
 
-    public static TestTask floating, deadline, event, dance, soccer;
-
+    Date currentDate = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
+    String startDateForTask = sdf.format(currentDate);
+    
     public TypicalTestTasks() {
         try {
             floating =  new TaskBuilder().withName("go buy milk")
@@ -45,6 +54,18 @@ public class TypicalTestTasks {
                     .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
                     .withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
                     .withPriority("high").build();
+            lunch =  new TaskBuilder().withName("lunch with friends")
+                    .withStartDate(startDateForTask)
+                    .withStartTime("1pm")
+                    .withEndDate(startDateForTask)
+                    .withEndTime("2pm")
+                    .withPriority("low").build();
+            report = new TaskBuilder().withName("submit report")
+                    .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+                    .withEndDate(startDateForTask)
+                    .withEndTime("6pm")
+                    .withPriority("med").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
