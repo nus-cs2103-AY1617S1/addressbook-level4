@@ -3,16 +3,12 @@ package guitests;
 import guitests.guihandles.DeadlineCardHandle;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import guitests.guihandles.TaskListPanelHandle;
 
-import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
 import seedu.Tdoo.logic.commands.*;
 import seedu.Tdoo.testutil.TestUtil;
-import seedu.Tdoo.testutil.TypicalTestDeadline;
-import seedu.Tdoo.testutil.TypicalTestEvent;
-import seedu.Tdoo.testutil.TypicalTestTask;
+
 import seedu.Tdoo.testutil.DeadlineBuilder;
 import seedu.Tdoo.testutil.EventBuilder;
 import seedu.Tdoo.testutil.TaskBuilder;
