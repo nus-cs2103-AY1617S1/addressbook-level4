@@ -141,7 +141,7 @@ Figure 5 shows the UI class diagram.<br>
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TodoListPanel`,
 `StatusBarFooter`, `EventsListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.<br>
-The MainWindow also depends on the abstract class `TaskListPanel` to load the 3 inherited panels: TodoListPanel, DeadlineListPanel, and EventListPanel.<br>
+The MainWindow also depends on the abstract class `TaskListPanel` to load the 3 inherited classes: `TodoListPanel`, `DeadlineListPanel`, and `EventListPanel`.<br>
 The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
