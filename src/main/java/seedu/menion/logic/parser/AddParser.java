@@ -148,10 +148,8 @@ public class AddParser {
 			
 		}
 		
-
 	}
 
-	
 	public static Boolean isFloatingTask(String args){
 		matcher = FLOATING_TASK_REGEX.matcher(args);
 		
