@@ -40,7 +40,7 @@ public class FindCommandTest extends MalitioGuiTest {
         commandBox.runCommand("finddonothing");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-  
+ 
     @Test
     public void find_specificTasks() throws IllegalArgumentException, IllegalValueException {  
      assertFindDeadlineResult("find d SOME", td.deadline2);

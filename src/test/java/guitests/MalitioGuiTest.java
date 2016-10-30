@@ -83,7 +83,7 @@ public abstract class MalitioGuiTest {
      */
     protected Malitio getInitialData() {
         Malitio ab = TestUtil.generateEmptymalitio();
-        TypicalTestTasks.loadmalitioWithSampleData(ab);
+        TypicalTestTasks.loadMalitioWithSampleData(ab);
         return ab;
     }
 
