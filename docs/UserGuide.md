@@ -38,7 +38,7 @@ To get started, proceed to the Quick Start section below.
 5. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
    * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
-   * **`view`** : lists all tasks for today.
+   * **`view`** : lists all upcoming and uncompleted tasks.
    * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
    * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
@@ -63,7 +63,8 @@ Format: `view`<br>
 Shortcut Key: `Ctrl + Shift + T`
 
 All uncompleted todo tasks, upcoming events and deadlines will be displayed.
-> Note that overdue tasks will be displayed in red.
+> Note that overdue tasks will be displayed in red.<br>
+> Also note that after each command, the current type of tasks being displayed will be shown on the bottom left corner of the task manager on the status bar.
 
 Example:
 
