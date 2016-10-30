@@ -29,7 +29,7 @@ public class EventDate implements Date{
         endDate = endDate.trim();
         this.startDate = validateDate(startDate);
         this.endDate = validateDate(endDate);
-        this.date = startDate + " to " + endDate;
+        this.date = this.startDate + " to " + this.endDate;
     }
     
     public static String validateDate(String date) throws IllegalValueException {
