@@ -50,6 +50,9 @@ public interface Model {
     /** Returns the filtered tasks list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTodayTaskList();
     
+    /** Returns the filtered tasks list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredWeekTaskList();
+    
     //@@author A0142421X
     /**Returns the filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getUnmodifiableTagList();
@@ -57,9 +60,12 @@ public interface Model {
     //@@author A0093896H
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
-    
+    //@@author A0138967J
     /** Updates today list to show all today tasks */
     void updateTodayListToShowAll();
+    /** Updates today list to show all today tasks */
+    void updateWeekListToShowAll();
+    //@@author
     
     /** Updates the filter of the filtered task list to show all completed tasks */
     void updateFilteredListToShowAllCompleted();

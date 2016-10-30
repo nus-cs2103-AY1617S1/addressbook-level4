@@ -21,6 +21,7 @@ public interface Logic {
 
     //@@author A0138967J
     ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList();
+    ObservableList<ReadOnlyTask> getUnmodifiableWeekTaskList();
     
     //@@author A0142421X
     ObservableList<Tag> getUnmodifiableTagList();
