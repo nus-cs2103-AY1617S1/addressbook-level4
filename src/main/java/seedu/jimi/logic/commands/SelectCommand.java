@@ -49,4 +49,14 @@ public class SelectCommand extends Command {
     public boolean isValidCommandWord(String commandWord) {
         return false;
     }
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

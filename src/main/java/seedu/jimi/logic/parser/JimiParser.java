@@ -38,7 +38,6 @@ import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.tag.Priority;
@@ -58,9 +57,6 @@ public class JimiParser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
-    
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
             Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
@@ -97,7 +93,6 @@ public class JimiParser {
                     new ClearCommand(), 
                     new FindCommand(), 
                     new ListCommand(),
-                    new SelectCommand(),
                     new UndoCommand(),
                     new RedoCommand(),
                     new ExitCommand(), 
@@ -135,20 +130,20 @@ public class JimiParser {
      * @return correct Command corresponding to the command word if valid, else returns incorrect command.
      */
     private Command prepareCommand(String commandWord, String arguments) {
-        for (Command command : COMMAND_STUB_LIST) {
+        for (Command command : getCommandStubList()) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
                 // identify which command this is
                 if (command instanceof AddCommand) {
                     return prepareAdd(arguments);
+                } else if (command instanceof HelpCommand) {
+                    return prepareHelp(arguments);
                 } else if (command instanceof EditCommand) {
                     return prepareEdit(arguments);
                 } else if (command instanceof CompleteCommand) {
                     return prepareComplete(arguments);
                 } else if (command instanceof ShowCommand) {
                     return prepareShow(arguments);
-                } else if (command instanceof SelectCommand) {
-                    return prepareSelect(arguments);
                 } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
@@ -164,6 +159,18 @@ public class JimiParser {
         return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
     }
     
+    private Command prepareHelp(String args) {
+        if (args.trim().isEmpty()) {
+            return new HelpCommand();
+        }
+        
+        try {
+            return new HelpCommand(args.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
+        }
+    }
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -381,20 +388,6 @@ public class JimiParser {
         return new DeleteCommand(args.trim());
     }
 
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
     
     /**
      * Parses arguments to filter section of task panel to be displayed to user.
@@ -509,6 +502,11 @@ public class JimiParser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
+    }
+    
+
+    public static List<Command> getCommandStubList() {
+        return COMMAND_STUB_LIST;
     }
     // @@author
 

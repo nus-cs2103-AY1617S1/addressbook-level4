@@ -10,6 +10,8 @@ public class ClearCommand extends Command implements TaskBookEditor{
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Jimi has been cleared!";
     
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears Jimi's database.";
+    
     public ClearCommand() {}
     
     @Override
@@ -25,4 +27,14 @@ public class ClearCommand extends Command implements TaskBookEditor{
         return commandWord.toLowerCase().equals(COMMAND_WORD);
     }
     // @@author
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
