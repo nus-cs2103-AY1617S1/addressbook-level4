@@ -3,11 +3,13 @@ package seedu.address.ui;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.commons.util.AppUtil;
+import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Base class for UI parts.
@@ -39,7 +41,21 @@ public abstract class UiPart {
     protected void registerAsAnEventHandler(Object handler) {
         EventsCenter.getInstance().registerHandler(handler);
     }
-
+    
+    //@@author A0147890U
+    /**
+     * changes color of the card depending on task overdue status
+     */
+    protected void overdueChangeColor(ReadOnlyTask task, HBox cardPane) {
+        if (task.getOverdue() == 1) {
+            cardPane.setStyle("-fx-background-color: red");
+        }
+        
+        if (task.getOverdue() == 0) {
+            cardPane.setStyle(null);
+        }
+    }
+    
     /**
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node

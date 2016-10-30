@@ -34,27 +34,6 @@ public class SpecifyStorageCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        /*try {
-            JsonFactory jfactory = new JsonFactory();
-            JsonGenerator jGenerator = jfactory.createGenerator(new File("config.json"), JsonEncoding.UTF8);
-            jGenerator.writeStartObject(); 
-            jGenerator.writeStringField("appTitle", "Simply"); 
-            jGenerator.writeStringField("logLevel", "INFO" );
-            jGenerator.writeStringField("userPrefsFilePath", "preferences.json");
-            jGenerator.writeStringField("addressBookFilePath", folderPath);
-            jGenerator.writeStringField("addressBookName", "myAddressBook");
-            jGenerator.writeEndObject(); 
-            jGenerator.close();
-        } catch (JsonGenerationException e) {
-            //TODO Write a Logger entry here
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            //TODO Write a Logger entry here
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO Write a logger entry here
-            e.printStackTrace();
-        }*/
         
         model.addToUndoStack();
         
