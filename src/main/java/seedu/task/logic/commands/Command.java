@@ -4,7 +4,9 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.logic.LogicManager;
 import seedu.task.model.Model;
+import seedu.task.model.task.Task;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -51,6 +53,20 @@ public abstract class Command {
     }
 
 	public CommandResult undo() throws IllegalValueException {
-		return null;
+		Task task = LogicManager.tasks.pop();
+		int index = LogicManager.indexes.pop();
+
+		DeleteCommand delete = new DeleteCommand(index);
+		delete.model = model;
+		delete.execute();
+
+		AddCommand add = new AddCommand(task,index-1);
+		add.model = model;
+		add.insert();
+
+		LogicManager.tasks.pop();
+		LogicManager.indexes.pop();
+
+		return new CommandResult("Undo complete!");
 	}
 }

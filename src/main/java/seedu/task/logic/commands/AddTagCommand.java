@@ -46,18 +46,23 @@ public class AddTagCommand extends Command{
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
-        Description description = taskToUpdate.getDescription();
-        Time timeStart = taskToUpdate.getTimeStart();
-        Time timeEnd = taskToUpdate.getTimeEnd();
-        Priority priority = taskToUpdate.getPriority();
         UniqueTagList tags =taskToUpdate.getTags();
-        boolean completeStatus = taskToUpdate.getCompleteStatus();
-
         try {
 			tags.add(tag);
 		} catch (DuplicateTagException e1) {
 			return new CommandResult(String.format(MESSAGE_DUPLICATE_TAG));
 		}
+
+        return executeAddTagCommand(taskToUpdate,tags,lastShownList);
+    }
+
+	private CommandResult executeAddTagCommand(ReadOnlyTask taskToUpdate, UniqueTagList tags, UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+		Description description = taskToUpdate.getDescription();
+        Time timeStart = taskToUpdate.getTimeStart();
+        Time timeEnd = taskToUpdate.getTimeEnd();
+        Priority priority = taskToUpdate.getPriority();
+        boolean completeStatus = taskToUpdate.getCompleteStatus();
+
 		DeleteCommand delete = new DeleteCommand(targetIndex);
         delete.model = model;
 		delete.execute();
@@ -80,25 +85,6 @@ public class AddTagCommand extends Command{
 		};
 
         return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, lastShownList.get(targetIndex - 1)));
-    }
-
-	 @Override
-	 public CommandResult undo() throws IllegalValueException{
-		 Task task = LogicManager.tasks.pop();
-		 int index = LogicManager.indexes.pop();
-
-		 DeleteCommand delete = new DeleteCommand(index);
-		 delete.model = model;
-		 delete.execute();
-
-		 AddCommand add = new AddCommand(task,index-1);
-		 add.model = model;
-		 add.insert();
-
-		 LogicManager.tasks.pop();
-		 LogicManager.indexes.pop();
-
-		 return new CommandResult("Undo complete!");
-	 }
+	}
 
 }

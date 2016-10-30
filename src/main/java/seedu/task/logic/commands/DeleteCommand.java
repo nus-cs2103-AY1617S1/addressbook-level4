@@ -59,12 +59,13 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
+    //@@author A0147969E
     @Override
-	 public CommandResult undo() throws IllegalValueException{
-        AddCommand add = new AddCommand(LogicManager.tasks.pop(),LogicManager.indexes.pop()-1);
-        add.model = model;
-        add.insert();
-        return new CommandResult("Undo Complete!");
-	 }
+	public CommandResult undo() throws IllegalValueException{
+       AddCommand add = new AddCommand(LogicManager.tasks.pop(),LogicManager.indexes.pop()-1);
+       add.model = model;
+       add.insert();
+       return new CommandResult("Undo Complete!");
+	}
 
 }
