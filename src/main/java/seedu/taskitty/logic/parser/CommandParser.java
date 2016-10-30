@@ -31,6 +31,7 @@ public class CommandParser {
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
+    public static final int FILE_EXTENSION_LENGTH = 4;
     
     /**
      * Used for initial separation of command word and args.
@@ -110,15 +111,56 @@ public class CommandParser {
     }
     
     //@@author A0135793W
+    /**
+     * Parses arguments in the context of save command
+     * @param argument full command args string
+     * @return the prepared command
+     */
     private Command prepareSave(String argument) {
         try {
+            if (!isValidFileXmlExtension(argument)) {
+                return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
+                        SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            }
             return new SaveCommand(argument.trim());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    /**
+     * Checks if input argument has a valid xml file extension
+     * @param argument full command args string
+     * @return true if argument ends with .xml and false otherwise
+     */
+    private boolean isValidFileXmlExtension(String argument) {
+        //Checking if filename ends with .xml
+        Optional<String> fileExtension = getFileExtension(argument.trim());
+        if (!fileExtension.isPresent()) {
+            return false;
+        } else if (!fileExtension.get().equals(".xml")) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Gets file extension of an argument
+     * Assume file extension has .___ format
+     * @param argument full command args string
+     * @return an optional depending on whether it is a valid file extension
+     */
+    private Optional<String> getFileExtension(String argument) {
+        int length = argument.length();
+        String extension = argument.substring(length-FILE_EXTENSION_LENGTH);
+        if (extension.charAt(STRING_START) != '.') {
+            return Optional.empty();
+        }
+        return Optional.of(extension);
+    }
+    //@@author
+    
     //@@author A0130853L
-
     /**
      * Parses arguments in the context of the view command.
      *

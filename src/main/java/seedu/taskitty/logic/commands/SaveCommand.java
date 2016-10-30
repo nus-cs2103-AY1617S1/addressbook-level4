@@ -28,9 +28,11 @@ public class SaveCommand extends Command{
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
             + " filepath";
     public static final String MESSAGE_USAGE = "This command saves data in TasKitty to a location of your choice, Meow!\n";
+    public static final String MESSAGE_VALID_FILEPATH_USAGE = "Filepath must end with .xml";
 
     public static final String MESSAGE_SUCCESS = "Data saved to: %1$s";
     public static final String MESSAGE_FAILED = "Failed to save data to: %1$s";
+    public static final String MESSAGE_INVALID_FILEPATH = "Filepath is invalid. \n%1$s";
     
     public final String filepath;
     
@@ -38,7 +40,7 @@ public class SaveCommand extends Command{
         if (filepath.toCharArray().length == 0) {
             throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     Command.MESSAGE_FORMAT + MESSAGE_PARAMETER));
-        }
+        } 
         this.filepath = filepath;
     }
 
@@ -49,7 +51,7 @@ public class SaveCommand extends Command{
         String configFile = config.DEFAULT_CONFIG_FILE;
         
         try {
-            config.setTaskManagerFilePath(filepath + "/" + config.getTaskManagerFilePath());
+            config.setTaskManagerFilePath(filepath);
             ConfigUtil.saveConfig(config, configFile);
             
             storage.setFilePath(config.getTaskManagerFilePath());
