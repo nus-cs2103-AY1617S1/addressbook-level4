@@ -187,7 +187,6 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
 
     @Test
@@ -425,8 +424,7 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
-            cmd.append("someday '");
+            cmd.append("add '");
             cmd.append(p.getName().toString() + "'");
             
             /*UniqueTagList tags = p.getTags();

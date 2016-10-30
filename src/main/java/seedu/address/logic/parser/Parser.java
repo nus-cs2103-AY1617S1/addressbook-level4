@@ -35,12 +35,6 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 public class Parser {
 	// @@author A0141019U	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-	// Different regexps for different permutations of arguments
-//	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
-//			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
-//	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
-//			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|ev|deadline|dl|someday|sd)");
 	
 	private static final Pattern ADD_COMMAND_FORMAT = Pattern
 			.compile("'(?<taskName>.*\\S*.*)'(?<addTaskArgs>.*)");
@@ -48,20 +42,6 @@ public class Parser {
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix datePrefix = new Prefix("on ");
-	
-	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'(\\s+on\\s+)?(?<date>\\S+)?\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?");
-	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?\\s+'(?<taskName>.*\\S+.*)'");
-	
-	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
-			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
-	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
-			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
-
-	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
 
 	
 	//@@author A0141019U-reused
@@ -120,228 +100,47 @@ public class Parser {
 	}
 	
 	
-	//@@author A0141019U
+	// @@author A0141019U
 	private Command prepareAdd(String arguments) {
-//		ArrayList<Matcher> matchers = new ArrayList<>();
-//		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
-//		matchers.add(ADD_COMMAND_FORMAT_2.matcher(arguments.trim())); 
-//	
-//		// Null values will always be overwritten if the matcher matches.
-//		String taskType = null;
-//		String addTaskArgs = null;
-//
-//		boolean isAnyMatch = false;
-//
-//		for (Matcher matcher : matchers) {
-//			if (matcher.matches()) {
-//				isAnyMatch = true;
-//				taskType = matcher.group("taskType").trim();
-//				addTaskArgs = matcher.group("addTaskArgs").trim();
-//				
-//				break;
-//			}
-//		}
-//
-//		if (!isAnyMatch) {
-//			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//		}
-//
-//		System.out.println("task type: " + taskType);
-//		System.out.println("add args: " + addTaskArgs);
-//
-//		switch (taskType.toLowerCase()) {
-//		// TODO change hardcoded strings to references to strings in command
-//		// classes
-//		case "event":
-//		case "ev":
-//			return prepareAddEvent(addTaskArgs);
-//
-//		case "deadline":
-//		case "dl":
-//			return prepareAddDeadline(addTaskArgs);
-//
-//		case "someday":
-//		case "sd":
-//			return prepareAddSomeday(addTaskArgs);
-//
-//		default:
-//			// TODO better error message
-//			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-//		}
-		
-			final Matcher matcher = ADD_COMMAND_FORMAT.matcher(arguments.trim());
-	        if (!matcher.matches()) {
-	            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-	        }
-
-	        final String name = matcher.group("taskName");
-	        final String args = matcher.group("addTaskArgs");
-			
-			ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix);
-			argsTokenizer.tokenize(args);		
-			
-			System.out.println("pre: " + argsTokenizer.getPreamble());
-			System.out.println("name: " + name);
-			System.out.println("st date: " + argsTokenizer.getValue(startDateTimePrefix));
-			System.out.println("end date: " + argsTokenizer.getValue(endDateTimePrefix));
-			System.out.println("date: " + argsTokenizer.getValue(datePrefix));
-			
-			Optional<String> startDateTimeStringOpt = argsTokenizer.getValue(startDateTimePrefix);
-			Optional<String> endDateTimeStringOpt = argsTokenizer.getValue(endDateTimePrefix);	
-			Optional<String> dateStringOpt = argsTokenizer.getValue(datePrefix);
-			
-			// TODO extract method
-			if (dateStringOpt.isPresent()) {
-				String date = dateStringOpt.get();
-				
-				if (startDateTimeStringOpt.isPresent()) {
-					startDateTimeStringOpt = Optional.of(startDateTimeStringOpt.get() + " " + date);
-				}
-				
-				if (endDateTimeStringOpt.isPresent()) {
-					endDateTimeStringOpt = Optional.of(endDateTimeStringOpt.get() + " " + date);
-				}
-			}
-			
-			try {
-				Optional<LocalDateTime> startDateTimeOpt = DateParser.parse(startDateTimeStringOpt);
-				Optional<LocalDateTime> endDateTimeOpt = DateParser.parse(endDateTimeStringOpt);
-				
-				System.out.println("st opt: " + startDateTimeOpt);
-				System.out.println("end opt: " + endDateTimeOpt);
-				
-				return new AddCommand(name, startDateTimeOpt, endDateTimeOpt);
-			} 
-			catch (ParseException e) {
-				System.out.println("parse");
-				return new IncorrectCommand(e.getMessage());
-			} 
-			catch (IllegalValueException e) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-			}
-		}
-	
-	//@@author A0141019U
-	private Command prepareAddEvent(String arguments) {
-		arguments = arguments.trim();
-		
-		ArrayList<Matcher> matchers = new ArrayList<>();
-		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
-
-
-		// Null values will always be overwritten if the matcher matches.
-		String taskName = null;
-		LocalDateTime startDateTime = null;
-		LocalDateTime endDateTime = null;
-		
-		boolean isAnyMatch = false;
-		
-		for (Matcher matcher : matchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-
-				taskName = matcher.group("taskName").trim();
-			
-				String startTime = matcher.group("startTime").trim();
-				String endTime = matcher.group("endTime").trim();
-				
-				Optional<String> dateOpt = Optional.ofNullable(matcher.group("date"));
-				String date = dateOpt.orElse("");
-				
-				try {
-					System.out.println("start: " + date + " " + startTime);
-					System.out.println("end: " + date + " " + endTime);
-					
-					startDateTime = DateParser.parse(date + " " + startTime);
-					endDateTime = DateParser.parse(date + " " + endTime);
-				} catch (ParseException e) {
-					return new IncorrectCommand(e.getMessage());
-				}				
-
-				try {
-					return new AddCommand(taskName, startDateTime, endDateTime);
-				} catch (IllegalValueException e) {
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-				}
-			}
-		}
-
-		if (!isAnyMatch) {
-			System.out.println("no match");
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}
-
-		try {
-			return new AddCommand(taskName, startDateTime, endDateTime);
-		} catch (IllegalValueException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}
-	}
-	
-	//@@author A0141019U
-	private Command prepareAddDeadline(String arguments) {
-		ArrayList<Matcher> matchers = new ArrayList<>();
-		matchers.add(DEADLINE_ARGS_FORMAT_1.matcher(arguments.trim()));
-		matchers.add(DEADLINE_ARGS_FORMAT_2.matcher(arguments.trim()));
-
-		// Null values will always be overwritten if the matcher matches.
-		String taskName = null;
-		LocalDateTime dateTime = null;
-
-		boolean isAnyMatch = false;
-
-		for (Matcher matcher : matchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-
-				taskName = matcher.group("taskName").trim();
-				String dateTimeString = matcher.group("dateTime").trim();
-				System.out.println("dateTimeString: " + dateTimeString);
-				
-				try {
-					dateTime = DateParser.parse(dateTimeString);
-				} catch (ParseException e) {
-					return new IncorrectCommand(e.getMessage());
-				}
-
-				break;
-			}
-		}
-
-		if (!isAnyMatch) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}
-
-		System.out.println("task name: " + taskName);
-		System.out.println("date: " + dateTime.toString());
-
-		// TODO format date properly
-		try {
-			return new AddCommand(taskName, dateTime);
-		} catch (IllegalValueException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}
-	}
-	
-	//@@author A0141019U
-	private Command prepareAddSomeday(String arguments) {
-		final Matcher matcher = SOMEDAY_ARGS_FORMAT.matcher(arguments.trim());
+		final Matcher matcher = ADD_COMMAND_FORMAT.matcher(arguments.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		final String taskName = matcher.group("taskName").trim();
-		System.out.println("task name: " + taskName);
+		final String name = matcher.group("taskName");
+		final String args = matcher.group("addTaskArgs");
 
-		// TODO format date properly
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix);
+		argsTokenizer.tokenize(args);
+
+		Optional<String> startDateTimeStringOpt = argsTokenizer.getValue(startDateTimePrefix);
+		Optional<String> endDateTimeStringOpt = argsTokenizer.getValue(endDateTimePrefix);
+		Optional<String> dateStringOpt = argsTokenizer.getValue(datePrefix);
+
+		// TODO extract method
+		if (dateStringOpt.isPresent()) {
+			String date = dateStringOpt.get();
+
+			if (startDateTimeStringOpt.isPresent()) {
+				startDateTimeStringOpt = Optional.of(startDateTimeStringOpt.get() + " " + date);
+			}
+
+			if (endDateTimeStringOpt.isPresent()) {
+				endDateTimeStringOpt = Optional.of(endDateTimeStringOpt.get() + " " + date);
+			}
+		}
+
 		try {
-			return new AddCommand(taskName);
-		} catch (IllegalValueException e) {
+			Optional<LocalDateTime> startDateTimeOpt = DateParser.parse(startDateTimeStringOpt);
+			Optional<LocalDateTime> endDateTimeOpt = DateParser.parse(endDateTimeStringOpt);
+			return new AddCommand(name, startDateTimeOpt, endDateTimeOpt);
+		} catch (ParseException e) {
 			return new IncorrectCommand(e.getMessage());
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
+
 	
 	//@@author A0141019U
 	/**
