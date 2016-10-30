@@ -208,7 +208,7 @@ Examples:
   
   After:<br>
   <img src="images/UIdeleteAfterDate.png" width="900"><br>
-
+<!-- @@author A0139052L -->
 * `view`<br>
   `delete t1 d1 e1`<br>
   Deletes the 1st task under the each section as shown by the `view` command.<br>
@@ -217,8 +217,8 @@ Examples:
   <img src="images/UIdeleteMultipleBefore.png" width="900"><br>
   
   After:<br>
-  <img src="images/UIdeleteMultipleAfter.png" width="900"><br>
-  
+  <img src="images/UIdeleteMultipleAfter.png" width="900"><br>  
+<!-- @@author A0130853L -->  
 <br>
 #### Mark task as done: `done`
 Marks one or more task in the task list as done.<br>
@@ -239,7 +239,7 @@ Example:
   
   After:<br>
   <img src="images/UIdoneAfter.png" width="900"><br>
- 
+<!-- @@author A0139052L --> 
  * `view all`<br>
   `done t1 t2 t3`<br>
   Marks the 1st 3 task under the todo section shown by the `view all` command as completed.<br>
@@ -249,7 +249,7 @@ Example:
   
   After:<br>
   <img src="images/UIdoneMultipleAfter.png" width="900"><br>
-  
+<!-- @@author A0130853L -->  
 <br>
 #### Undo previous action: `undo`
 Undoes the last completed action.<br>
@@ -286,7 +286,7 @@ Example:
   Redoes the last deleted item.<br>
   
   Before:<br>
-  <img src="images/UIredoBefore.png" width="900"><br>
+  <img src="images/UIundoAfter.png" width="900"><br>
   
   After:<br>
   <img src="images/UIredoAfter.png" width="900"><br>
