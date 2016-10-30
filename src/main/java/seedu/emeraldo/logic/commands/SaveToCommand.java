@@ -17,7 +17,7 @@ public class SaveToCommand extends Command{
             + "Example: " + COMMAND_WORD
             + " C:/emeraldo_task/";
     
-    public static final String MESSAGE_SUCCESS = "Save location changed";
+    public static final String MESSAGE_SUCCESS = "Save location changed to %1$s";
     
     public static final String MESSAGE_ERROR = "Failed to change save location";
     
@@ -46,9 +46,9 @@ public class SaveToCommand extends Command{
             config.setEmeraldoFilePath(filepath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             EventsCenter.getInstance().post(new SaveLocationChangedEvent(filepath));
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
         } catch (IOException e) {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(MESSAGE_ERROR);
         }
         
         
