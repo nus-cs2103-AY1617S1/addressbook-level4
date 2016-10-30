@@ -178,25 +178,25 @@ Format: `uncomplete INDEX`
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 
 <br>
-#### Marking a task as pin: `pin`
-Marks the specified task as pin. <br>
+#### Pinning a task: `pin`
+Pins the specified task. <br>
 Format: `pin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
-> The task marked as pin will appear at the top of any lists that include it. <br>
+> The pinned task will appear at the top of any lists that include it. <br>
 
 Examples:
 * `list`
 * `pin 2` <br>
-  Marks the 2nd task in the task list as pin.
+  Pins the 2nd task in the task list.
 <br><br>
 * `find Dinner`
 * `pin 1` <br>
-  Marks the 1st task in the results of the `find` command as pin.
+  Pins the 1st task in the results of the `find` command.
 
 <br>
-#### Marking a task as not-pin: `unpin`
-Marks the specified task as a not-pin task (the default). <br>
+#### Unpinning a task: `unpin`
+Unpins the specified task (the default). <br>
 Format: `unpin INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
@@ -204,11 +204,11 @@ Format: `unpin INDEX`
 Examples:
 * `list`
 * `unpin 2` <br>
-  Marks the 2nd task in the task list as not-pin.
+  Unpins the 2nd task in the task list.
 
 <br>
 #### Listing pins: `list pin[s]`
-List all the tasks that you have pinned. <br>
+List all the pinned tasks. <br>
 Format: `list pin[s]`
 
 > You can type either `pin` or its plural form, `pins`
@@ -352,7 +352,7 @@ Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List pins | `list pin[s]`
+List pinned tasks | `list pinned task[s]`
 List completed | `list complete[d]`
 List aliases | `list alias[es]`
 Undo | `undo`
