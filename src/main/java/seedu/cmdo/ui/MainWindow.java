@@ -1,6 +1,7 @@
 package seedu.cmdo.ui;
 
 import java.time.YearMonth;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,8 +11,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.cmdo.MainApp;
 import seedu.cmdo.commons.core.Config;
 import seedu.cmdo.commons.core.GuiSettings;
+import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.events.ui.ExitAppRequestEvent;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.model.UserPrefs;
@@ -24,7 +27,7 @@ import seedu.cmdo.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/Logo.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 800;
@@ -59,6 +62,8 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    private Logger logger = LogsCenter.getLogger(MainWindow.class);
 
 
     public MainWindow() {
