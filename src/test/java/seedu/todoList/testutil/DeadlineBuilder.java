@@ -23,12 +23,12 @@ public class DeadlineBuilder {
     }
     
     public DeadlineBuilder withStartDate(String date) throws IllegalValueException {
-        this.task.setDate(new StartDate(date));
+        this.task.setDate(date);
         return this;
     }
 
     public DeadlineBuilder withEndTime(String et) throws IllegalValueException {
-        this.task.setEndTime(new EndTime(et));
+        this.task.setEndTime(et);
         return this;
     }
     public DeadlineBuilder withDone(String et) throws IllegalValueException {

@@ -38,7 +38,7 @@ public class AddCommandTest extends ListGuiTest {
         
         //add one event
         TestEvent[] currentEventList = ed.getTypicalEvent();
-        TestEvent eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("01:30").withEndTime("01:00").withDone("false").build();
+        TestEvent eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
@@ -59,32 +59,32 @@ public class AddCommandTest extends ListGuiTest {
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add another deadline
-        ddToAdd = new DeadlineBuilder().withName("AnotherDEADLINE 1").withStartDate("31-12-2017").withEndTime("10:00").withDone("false").build();
+        ddToAdd = new DeadlineBuilder().withName("ANOTHEREADLINE 1").withStartDate("31-12-2017").withEndTime("10:00").withDone("false").build();
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
         //add duplicate task
-//        taskToAdd = new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("3").withDone("false").build();
-//        commandBox.runCommand(taskToAdd.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
-//        
-//        //add duplicate event
-//        eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("0130").withEndTime("0200").withDone("false").build();
-//        commandBox.runCommand(eventToAdd.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(eventListPanel.isListMatching(currentEventList));
-//        
-//        //add duplicate deadline
-//        ddToAdd = new DeadlineBuilder().withName("DEADLINE 1").withStartDate("30-11-2017").withEndTime("10:00").withDone("false").build();
-//        commandBox.runCommand(ddToAdd.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(deadlineListPanel.isListMatching(currentDeadlineList));
+        taskToAdd = new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("1").withDone("false").build();
+        commandBox.runCommand(taskToAdd.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        //add duplicate event
+        eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        commandBox.runCommand(eventToAdd.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(eventListPanel.isListMatching(currentEventList));
+        
+        //add duplicate deadline
+        ddToAdd = new DeadlineBuilder().withName("DEADLINE 1").withStartDate("30-11-2017").withEndTime("10:00").withDone("false").build();
+        commandBox.runCommand(ddToAdd.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(deadlineListPanel.isListMatching(currentDeadlineList));
 
         //add to empty list
-        taskToAdd = new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("2").withDone("false").build();
-        commandBox.runCommand(taskToAdd.getAddCommand());
-        assertAddEventSuccess(ed.e1);
+        //taskToAdd = new TaskBuilder().withName("TODO 123").withStartDate("28-11-2016").withEndDate("29-11-2016").withPriority("2").withDone("false").build();
+        //commandBox.runCommand(taskToAdd.getAddCommand());
+        //assertAddEventSuccess(ed.e1);
 
         //invalid command
         commandBox.runCommand("adds assignment 66");

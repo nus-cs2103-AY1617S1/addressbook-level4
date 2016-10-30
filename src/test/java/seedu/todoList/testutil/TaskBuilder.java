@@ -23,11 +23,11 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withStartDate(String date) throws IllegalValueException {
-        this.task.setStartDate(new StartDate(date));
+        this.task.setStartDate(date);
         return this;
     }
     public TaskBuilder withEndDate(String date) throws IllegalValueException {
-        this.task.setEndDate(new EndDate(date));
+        this.task.setEndDate(date);
         return this;
     }
     public TaskBuilder withDone(String dd) throws IllegalValueException {
@@ -36,7 +36,7 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withPriority(String priority) throws IllegalValueException {
-        this.task.setPriority(new Priority(priority));
+        this.task.setPriority(priority);
         return this;
     }
 

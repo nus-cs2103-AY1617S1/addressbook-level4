@@ -421,13 +421,10 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
-        
         return card.isSametask(task);
     }
     
     public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyTask event) {
-        //LogsCenter.getLogger(TestUtil.class).info("task of currentlist: " + card.toString());
-        //LogsCenter.getLogger(TestUtil.class).info("task of currentlist: " + event.toString());
         return card.isSameEvent(event); //something wrong. Always return false
     }
     

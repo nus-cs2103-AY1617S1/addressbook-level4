@@ -22,21 +22,21 @@ public class EventBuilder {
     }
     
     public EventBuilder withStartDate(String date) throws IllegalValueException {
-        this.event.setStartDate(new StartDate(date));
+        this.event.setStartDate(date);
         return this;
     }
 
     public EventBuilder withStartTime(String e) throws IllegalValueException {
-        this.event.setStartTime(new StartTime(e));
+        this.event.setStartTime(e);
         return this;
     }
     public EventBuilder withEndDate(String e) throws IllegalValueException {
-        this.event.setEndDate(new EndDate(e));
+        this.event.setEndDate(e);
         return this;
     }
     
     public EventBuilder withEndTime(String e) throws IllegalValueException {
-        this.event.setEndTime(new EndTime(e));
+        this.event.setEndTime(e);
         return this;
     }
     public EventBuilder withDone(String e) throws IllegalValueException {

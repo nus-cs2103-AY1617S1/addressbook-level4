@@ -8,43 +8,37 @@ import seedu.todoList.model.task.attributes.*;
  * A mutable task object. For testing only.
  */
 //@@author A0132157M
-public class TestDeadline extends Deadline {
+public class TestDeadline implements ReadOnlyTask {
 
-    private Deadline deadline;
-    private static Name name;
-    private static StartDate startdate;
-    private static EndTime endTime;
-
-    private static String done;
+    private  Name name;
+    private  String startdate;
+    private  String endTime;
+    private  String done;
 
 
     public TestDeadline() {
-        super(name, startdate, endTime, done);
+        super();
         //tags = new UniqueTagList();
     }
 
     public void setName(Name name) {
-        TestDeadline.name = name;
+        this.name = name;
     }
 
-    public void setEndTime(EndTime et) {
-        TestDeadline.endTime = et;
+    public void setEndTime(String et) {
+        this.endTime = et;
     }
     
-    public void setDate(StartDate date) {
-        TestDeadline.startdate = date;
+    public void setDate(String date) {
+        this.startdate = date;
     }
     public void setDone(String dd) {
-        TestDeadline.done = dd;
+        this.done = dd;
     }
 
-    //@Override
-    public Deadline getDeadline() {
-        return deadline;
-    }
     
     //@Override
-    public EndTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
@@ -53,7 +47,7 @@ public class TestDeadline extends Deadline {
         return name;
     }
 
-    public StartDate getStartDate() {
+    public String getStartDate() {
         return startdate;
     }
     public String getDone() {
@@ -65,8 +59,8 @@ public class TestDeadline extends Deadline {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
-        sb.append("on/11-11-2016 ");// + this.getDate().date + " ");
-        sb.append("at/01:00");// + this.getEndTime().endTime);
+        sb.append("on/" + this.getStartDate() + " ");
+        sb.append("at/" + this.getEndTime());
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

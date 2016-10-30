@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import seedu.todoList.TestApp;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.testutil.TestUtil;
 
@@ -47,7 +48,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
      */
-    public boolean isListMatching(Todo... tasks) {
+    public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks); //something wrong, always return false!!!
     }
     
@@ -87,10 +88,9 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
-            
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + tasks.length + " " + (getListView().getItems().size()) + " tasks");
-        }
+        } 
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;

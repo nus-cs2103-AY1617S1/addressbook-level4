@@ -8,6 +8,8 @@ import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Deadline;
 import seedu.todoList.model.task.Event;
+import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TypicalTestDeadline;
@@ -116,17 +118,15 @@ public abstract class ListGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(Todo task, TaskCardHandle card) {
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
     //@@author A0132157M reused
-    public void assertEventMatching(Event event, EventCardHandle card) {
-      //LogsCenter.getLogger(ListGuiTest.class).info("task of currentlist: " + card.toString());
-        //LogsCenter.getLogger(ListGuiTest.class).info("task of currentlistdvsdvdsv: " + event.toString());
+    public void assertEventMatching(ReadOnlyTask event, EventCardHandle card) {
         assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
     //@@author A0132157M reused
-    public void assertDeadlineMatching(Deadline dd, DeadlineCardHandle card) {
+    public void assertDeadlineMatching(ReadOnlyTask dd, DeadlineCardHandle card) {
         assertTrue(TestUtil.compareCardAndDeadline(card, dd));
     }
     

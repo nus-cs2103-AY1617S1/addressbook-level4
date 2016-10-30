@@ -134,7 +134,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        //System.out.println(expectedShownList.get(0).toString() + "\n" + model.getFilteredTodoList().get(0).toString());
+        //System.out.println(expectedShownList.get(0).toString() + "\n" + " XXXXXXX "+ model.getFilteredTodoList().get(0).toString());
         assertEquals(expectedShownList, model.getFilteredTodoList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -162,10 +162,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generatetask(1));
-        model.addTask(helper.generatetask(2));
-        model.addTask(helper.generatetask(3));
+        //TestDataHelper helper = new TestDataHelper();
+        model.addTask(new Todo(new Name("todo 1"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new Priority("1"), ("false")));
+        model.addTask(new Event(new Name("event 123"), new StartDate("11-11-2016"), new EndDate("12-11-2016"), new StartTime("01:00"), new EndTime("02:00"), ("false")));
+        model.addTask(new Deadline(new Name("deadline 123"), new StartDate("12-12-2016"), new EndTime("01:00"), ("false")));
 
         assertCommandBehavior("clear todo", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
         assertCommandBehavior("clear event", ClearCommand.EVENT_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
@@ -412,7 +412,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threetasks.get(1));
         helper.addToModel(model, threetasks);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete todo 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threetasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -447,10 +447,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generatetask("bla bla KEY bla");
-        Task p2 = helper.generatetask("bla KEY bla bceofeia");
-        Task p3 = helper.generatetask("key key");
-        Task p4 = helper.generatetask("KEy sduauo");
+        Task p1 = helper.generatetask("KEY");
+        Task p2 = helper.generatetask("KeY");
+        Task p3 = helper.generatetask("key");
+        Task p4 = helper.generatetask("KEy");
 
         List<Task> fourtasks = helper.generatetaskList(p3, p1, p4, p2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
