@@ -55,7 +55,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        TaskBook original = new TypicalTestTasks().getTypicalAddressBook();
+        TaskBook original = new TypicalTestTasks().getTypicalTaskBook();
         storageManager.saveAddressBook(original);
         ReadOnlyTaskBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaskBook(retrieved));
