@@ -103,7 +103,6 @@ public class ModelManager extends ComponentManager implements Model {
      * Methods for redo
      * 
      */
-
     @Override
     public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
     	activityManagerRedoStack.push(activityManager);
@@ -170,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139164A
     /**
-     * Methods for editting Activity's name
+     * Methods for editing Activity's name
      * @throws IllegalValueException 
      */
     @Override

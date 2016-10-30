@@ -77,6 +77,9 @@ public class ActivityParser {
             
         case RemindCommand.COMMAND_WORD:
             return prepareRemind(arguments);
+        
+        case UnremindCommand.COMMAND_WORD:
+            return prepareUnremind(arguments);
             
         case ModifyStoragePathCommand.COMMAND_WORD:
         	return new ModifyStoragePathCommand(arguments);
@@ -102,6 +105,16 @@ public class ActivityParser {
     }
     
     //@@author A0139164A
+    private Command prepareUnremind(String args) {
+        String[] splited = args.split("\\s+");
+        
+        // Should only contain a space. No other arguments.
+        if (splited.length != 1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnremindCommand.MESSAGE_USAGE));
+        }
+        
+        return new UnremindCommand();
+    }
     private Command prepareRemind(String args) {
         String[] splited = args.split("\\s+");
         
@@ -193,7 +206,6 @@ public class ActivityParser {
         }
         
         // Only get here if invalid command!
-        System.out.println("Invalid command leh");
         return new IncorrectCommand(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }

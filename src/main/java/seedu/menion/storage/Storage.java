@@ -1,6 +1,7 @@
 package seedu.menion.storage;
 
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEventNoUI;
 import seedu.menion.commons.events.storage.DataSavingExceptionEvent;
 import seedu.menion.commons.exceptions.DataConversionException;
 import seedu.menion.model.ReadOnlyActivityManager;
@@ -36,4 +37,11 @@ public interface Storage extends ActivityManagerStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleActivityManagerChangedEvent(ActivityManagerChangedEvent abce);
+    
+    /**
+     * Saves the current version of the Activity Manager to the hard disk.
+     *   Creates the data file if it is missing.
+     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     */
+    void handleActivityManagerChangedEventNoUI(ActivityManagerChangedEventNoUI abce);
 }

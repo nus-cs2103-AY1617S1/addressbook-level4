@@ -32,7 +32,8 @@ public class BackgroundTest {
 	public void test() {
 		
 		initialiseModel();
-		BackgroundDateCheck.checkActivities(model);
+		BackgroundDateCheck backgroundDateChecker = new BackgroundDateCheck();
+		backgroundDateChecker.checkActivities(model);
 		assertBackgroundCheckSuccess();
 		
 	}

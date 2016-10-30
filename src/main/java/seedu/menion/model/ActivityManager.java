@@ -162,7 +162,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     	Activity dub;
     	dub = tasks.getInternalList().get(index);
     	dub.setEmailSent(true);
-    	tasks.getInternalList().set(index, dub);
+    	tasks.getInternalList().set(index, dub); 	
     }
     
     /**
@@ -271,10 +271,10 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     public void editEventNote(int index, String changes) throws IllegalValueException {
-        Activity dub;
-        dub = events.getInternalList().get(index);
+        ReadOnlyActivity dub;
+        dub = getTaskList().get(index);
         dub.setActivityNote(changes);
-        events.getInternalList().set(index, dub);   
+
     }
     
     /**

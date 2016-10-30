@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import seedu.menion.commons.core.ComponentManager;
+import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
+import seedu.menion.commons.events.model.ActivityManagerChangedEventNoUI;
 import seedu.menion.model.Model;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
@@ -18,14 +21,14 @@ import seedu.menion.model.activity.ReadOnlyActivity;
  * This class does a background check on Menion for any Activities which may have 
  * it's deadline passed.
  */
-public class BackgroundDateCheck {
+public class BackgroundDateCheck extends ComponentManager{
 
 	public BackgroundDateCheck(){};
 	
 	/**
 	 * This method does a check on all the activities in Menion
 	 */
-	public static void checkActivities(Model model){
+	public void checkActivities(Model model){
 		
 		Calendar currentTime = Calendar.getInstance();
 		checkTasks(model, currentTime);
@@ -38,9 +41,10 @@ public class BackgroundDateCheck {
 	 * @param model
 	 * @param currentTime
 	 */
-	private static void checkTasks(Model model, Calendar currentTime){
+	private void checkTasks(Model model, Calendar currentTime){
 		
 		ReadOnlyActivityManager activityManager = model.getActivityManager();
+
 		List<ReadOnlyActivity> taskList = activityManager.getTaskList();
 		
 		for (int i = 0 ; i < taskList.size(); i++){	
@@ -53,8 +57,9 @@ public class BackgroundDateCheck {
 			    SendEmail sender = new SendEmail();
 				try {
                     sender.send(taskToCheck);
-                    model.setEmailSentTask(i);
-//                  taskToCheck.setEmailSent(true);
+//                    model.setEmailSentTask(i);
+                    taskToCheck.setEmailSent(true);
+                    raise(new ActivityManagerChangedEventNoUI(activityManager));
 
                 } catch (FileNotFoundException e) {
 
@@ -70,18 +75,19 @@ public class BackgroundDateCheck {
 
 				if (isActivityOver(currentTime, taskToCheck)){
 					
-					model.setTimePassedTask(i);
-//					taskToCheck.setTimePassed(true);
-
+//					model.setTimePassedTask(i);
+					taskToCheck.setTimePassed(true);
+					raise(new ActivityManagerChangedEventNoUI(activityManager));
+					
 	                SendEmail sender = new SendEmail();
 	                try {
 	                    sender.send(taskToCheck);
-	                    model.setEmailSentTask(i);
-//	                    taskToCheck.setEmailSent(true);
-
-	                } catch (FileNotFoundException e) {
-
+//	                    model.setEmailSentTask(i);
+	                    taskToCheck.setEmailSent(true);
+						raise(new ActivityManagerChangedEventNoUI(activityManager));
 	                    
+	                } catch (FileNotFoundException e) {
+	                	
 	                } catch (MessagingException e) {
 	                    
 	                }
@@ -95,7 +101,7 @@ public class BackgroundDateCheck {
 	 * @param model
 	 * @param currentTime
 	 */
-	private static void checkEvents(Model model, Calendar currentTime){
+	private void checkEvents(Model model, Calendar currentTime){
 		
 		ReadOnlyActivityManager activityManager = model.getActivityManager();
 		List<ReadOnlyActivity> eventList = activityManager.getEventList();
@@ -107,7 +113,9 @@ public class BackgroundDateCheck {
 
 				if (isActivityOver(currentTime, eventToCheck)){
 					
-					model.setTimePassedEvent(i);
+					eventToCheck.setTimePassed(true);
+					raise(new ActivityManagerChangedEventNoUI(activityManager));
+//					model.setTimePassedEvent(i);
 					
 				}
 
