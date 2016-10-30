@@ -16,18 +16,20 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
-    public static final String COMMAND_FORMAT = "schedule <name> "
-                                            + "\nschedule <name> by <deadline> "
-                                            + "\nschedule <name> from <start-time>\nto <end-time>";
+    public static final String COMMAND_FORMAT = "schedule <id>\n"
+                                              + "schedule <id> by <deadline>\n"
+                                              + "schedule <id> from <start-time>\n"
+                                              + "to <end-time>";
     public static final String COMMAND_DESCRIPTION = "update the time of a task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Re-schedule an existing task. "
-            + "Parameters: INDEX (must be a positive number) [NEW DEADLINE/ START_TIME/ END_TIME]\n"
-            + "Example: " + COMMAND_WORD
-            + " 2 from 7pm to 9pm";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "(The id must be a positive number)\n"
+            + "Example: " + COMMAND_WORD + " 2 from 7am to 9am";
 
     public static final String MESSAGE_SUCCESS = "Rescheduled Task #%1$s: %2$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
 
     public int targetIndex = -1;
     private Optional<LocalDateTime> newStartDateTime = Optional.empty();

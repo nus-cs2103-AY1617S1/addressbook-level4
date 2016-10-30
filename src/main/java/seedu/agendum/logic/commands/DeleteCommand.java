@@ -16,12 +16,13 @@ public class DeleteCommand extends Command {
 
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "delete";
-    public static final String COMMAND_FORMAT = "delete <index> \ndelete <index> <more-indexes>";
+    public static final String COMMAND_FORMAT = "delete <id> <more-ids>";
     public static final String COMMAND_DESCRIPTION = "delete task(s) from Agendum";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the tasks(s) identified by their index numbers used in the last task listing.\n"
-            + "Parameters: INDEX... (must be a positive number)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 5-6";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "(The id must be a positive number)\n"
+            + "Example: " + COMMAND_WORD + " 7 10-11";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task(s): %1$s";
 

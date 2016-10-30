@@ -15,15 +15,16 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class UnmarkCommand extends Command {
 
  // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
-    public static final String COMMAND_WORD = "unmark";
-    public static final String COMMAND_FORMAT = "unmark <index> \nunmark <indexes>";
-    public static final String COMMAND_DESCRIPTION = "mark task(s) as uncomplete";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Ununmarks the tasks(s) identified by their index numbers used in the last task listing.\n"
-            + "Parameters: INDEX... (must be a positive number)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 5-6";
+    public static final String COMMAND_WORD = "unmark";    
+    public static final String COMMAND_FORMAT = "unmark <id>...<more-ids>";
+    public static final String COMMAND_DESCRIPTION = "unmark task(s) from completed";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "(The id must be a positive number)\n"
+            + "Example: " + COMMAND_WORD + " 11-13 15";
 
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Ununmarked Task(s): %1$s";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s): %1$s";
 
     public ArrayList<Integer> targetIndexes;
 

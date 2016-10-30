@@ -14,15 +14,15 @@ public class RenameCommand extends Command {
 
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "rename";
-    public static final String COMMAND_FORMAT = "rename <index> <new-name>";
+    public static final String COMMAND_FORMAT = "rename <id> <new-name>";
     public static final String COMMAND_DESCRIPTION = "update the name of a task";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rename an existing task. "
-            + "Parameters: INDEX (must be a positive number) NAME\n"
-            + "Example: " + COMMAND_WORD
-            + " 2 Watch Star Wars";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "Example: " + COMMAND_WORD + " 2 Watch Star Trek";
 
     public static final String MESSAGE_SUCCESS = "Task #%1$s renamed: %2$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
 
     public int targetIndex = -1;
     public Name newTaskName = null;

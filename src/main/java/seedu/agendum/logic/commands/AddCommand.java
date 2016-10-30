@@ -14,16 +14,20 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String COMMAND_FORMAT = "add <name> \nadd <name> by <deadline> \nadd <name> from <start-time> \nto <end-time>";
+    public static final String COMMAND_FORMAT = "add <name>\n"
+                                              + "add <name> by <deadline> \n"
+                                              + "add <name> from <start-time>\n"
+                                              + "to <end-time>";
     public static final String COMMAND_DESCRIPTION = "adds a task to Agendum";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task with no time and date. \n"
-            + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD
-            + " Watch Star Wars t/movies";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "Example: " + COMMAND_WORD + " Watch Star Wars\n"
+            + "from 7pm to 9pm";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
+    public static final String MESSAGE_SUCCESS = "Task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
 
     private Task toAdd = null;
 

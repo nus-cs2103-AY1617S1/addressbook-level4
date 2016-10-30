@@ -10,17 +10,18 @@ public class LoadCommand extends Command {
     
     public static final String COMMAND_WORD = "load";
     public static final String COMMAND_FORMAT = "load <location>";
-    public static final String COMMAND_DESCRIPTION = "loads task list from specified location";
+    public static final String COMMAND_DESCRIPTION = "loads task data from the\n"
+                                                   + "specified location";
     
     public static final String MESSAGE_SUCCESS = "Data successfully loaded from: %1$s";
     public static final String MESSAGE_PATH_INVALID = "The specified path to file is invalid: %1$s";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "The specified file does not exist: %1$s";
     public static final String MESSAGE_FILE_WRONG_FORMAT = "The specified file is in the wrong format: %1$s";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Specify a file to load from. \n"
-            + "Parameters: PATH_TO_FILE\n" 
-            + "Example: " + COMMAND_WORD 
-            + "agendum/todolist.xml";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "Example: " + COMMAND_WORD + "agendum/todolist.xml";
     
     private String pathToFile;
 

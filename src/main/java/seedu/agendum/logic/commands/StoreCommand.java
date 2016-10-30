@@ -9,8 +9,8 @@ import seedu.agendum.commons.util.StringUtil;
 public class StoreCommand extends Command {
     
     public static final String COMMAND_WORD = "store";
-    public static final String COMMAND_FORMAT = "store <path-to-file>";
-    public static final String COMMAND_DESCRIPTION = "stores task list at specified location";
+    public static final String COMMAND_FORMAT = "store <location>";
+    public static final String COMMAND_DESCRIPTION = "stores task data at specified location";
     public static final String COMMAND_EXAMPLE = "store agendum/todolist.xml";
 	
     public static final String MESSAGE_SUCCESS = "New save location: %1$s";
@@ -20,10 +20,10 @@ public class StoreCommand extends Command {
     public static final String MESSAGE_FILE_EXISTS = "The specified file exists; would you like to use LOAD instead?";
     public static final String MESSAGE_PATH_WRONG_FORMAT = "The specified path is in the wrong format. Example: " + COMMAND_EXAMPLE;
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Specify a save location. \n"
-            + "Parameters: PATH_TO_FILE\n" 
-            + "Example: " 
-            + COMMAND_EXAMPLE;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
+            + COMMAND_DESCRIPTION + "\n"
+            + COMMAND_FORMAT + "\n"
+            + "Example: " + COMMAND_WORD + "agendum/todolist.xml";
     
     private String pathToFile;
 
