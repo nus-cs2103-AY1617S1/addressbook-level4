@@ -429,6 +429,15 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
         	if (person.isRecurring()) {
+        		if(!person.getStartTime().toCardString().equals("-")
+        				&& RecurringUtil.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime)) {
+        			System.out.println("First one");
+        		}
+        		else if (person.getStartTime().toCardString().equals("-")
+        					&& RecurringUtil.recurringMatchesRequestedDate(person.getEndTime().time, person.getRecurringFrequency(), requestedTime)) {
+        			System.out.println("Second one");
+        		}
+        		
         		return (!person.getStartTime().toCardString().equals("-")
         				&& RecurringUtil.recurringMatchesRequestedDate(person.getStartTime().time, person.getRecurringFrequency(), requestedTime))
         				|| (person.getStartTime().toCardString().equals("-")
