@@ -170,6 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Sorts filtered list based on start date and time
      */
     public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
+        sortedTasks = new SortedList<>(filteredTasks, Task.getTaskComparator());
         return new UnmodifiableObservableList<>(sortedTasks);
     }
   //@@author A0144727B

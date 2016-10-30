@@ -13,7 +13,7 @@ import seedu.ggist.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskManagerGuiTest {
-/*
+
     @Test
     public void add() throws IllegalArgumentException, IllegalValueException {
         //add one task
@@ -30,7 +30,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add duplicate task
         commandBox.runCommand(td.dance.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        
+        //add event task
+        TestTask[] currentlist = td.getTypicalTasks();
+        TestTask eventTaskToAdd = td.lunch;
+        assertAddSuccess(eventTaskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, eventTaskToAdd);
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -48,9 +53,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getTaskName().taskName);
         assertMatching(taskToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
+    /*    //confirm the list now contains all previous persons plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList)); */
     }
-*/
+
 }

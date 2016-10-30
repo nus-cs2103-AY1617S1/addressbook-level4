@@ -53,8 +53,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getTaskName().taskName) && getStartDate().equals(task.getStartDate().value)
-                && getStartTime().equals(task.getStartTime().value) && getEndTime().equals(task.getEndTime().value) && getEndTime().equals(task.getEndTime().value);
+        return getFullName().equals(task.getTaskName().taskName);
     }
 
     @Override
@@ -62,7 +61,11 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getStartDate().equals(handle.getStartDate()); //TODO: compare the rest
+                    && getStartDate().equals(handle.getStartDate())
+                    && getStartTime().equals(handle.getStartTime())
+                    && getEndDate().equals(handle.getEndDate())
+                    && getEndTime().equals(handle.getEndTime())
+                    && getPriority().equals(handle.getPriority()); //TODO: compare the rest
         }
         return super.equals(obj);
     }

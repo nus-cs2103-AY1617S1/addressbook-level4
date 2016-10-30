@@ -88,20 +88,23 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public String getAddCommand() {
+        
+        String[] startDate = this.getStartDate().value.split(",");
+        String[] endDate = this.getStartDate().value.split(",");
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskName().taskName);
         if (this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
         	//floating task, append nothing
         } else if (this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
         	// deadline task, append end date and end time
-        	sb.append("," + this.getEndDate().getTestValue() + " ");
+        	sb.append("," + endDate[1].trim() + " ");
             sb.append(this.getEndTime().value);
         } else {
         	// event task, append everything
-        	sb.append(" ,"+ this.getStartDate().getTestValue() + " ");
-        	sb.append(this.getStartTime().value + ",");
-        	sb.append(this.getEndDate().getTestValue() + " ");
-        	sb.append(this.getEndTime().value);
+        	sb.append(" ,"+ this.getStartTime().value+ " ");
+        	sb.append(startDate[1].trim() + ",");
+        	sb.append(this.getEndTime().value + " ");
+        	sb.append( endDate[1].trim());
         }
         if (!(this.getPriority() == null))
         	sb.append(" -" + this.getPriority().value);
