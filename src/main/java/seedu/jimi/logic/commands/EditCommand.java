@@ -156,6 +156,11 @@ public class EditCommand extends Command implements TaskBookEditor {
         return MESSAGE_USAGE;
     }
     
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+    
     /*
      * ====================================================================
      *                          Helper Methods

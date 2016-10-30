@@ -33,4 +33,9 @@ public class ExitCommand extends Command {
     public String getMessageUsage() {
         return MESSAGE_USAGE;
     }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

@@ -26,4 +26,9 @@ public class IncorrectCommand extends Command {
     public String getMessageUsage() {
         return "";
     }
+    
+    @Override
+    public String getCommandWord() {
+        return "";
+    }
 }

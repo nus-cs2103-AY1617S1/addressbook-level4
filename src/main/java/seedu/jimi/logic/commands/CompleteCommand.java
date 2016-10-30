@@ -77,4 +77,8 @@ public class CompleteCommand extends Command implements TaskBookEditor{
         return MESSAGE_USAGE;
     }
     
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

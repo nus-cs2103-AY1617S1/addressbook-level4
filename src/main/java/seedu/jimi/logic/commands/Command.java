@@ -81,7 +81,11 @@ public abstract class Command {
         return Optional.empty();
     }
     
+    /** Returns the message for usage of the command */
     public abstract String getMessageUsage();
+    
+    /** Returns the command word for the command. */
+    public abstract String getCommandWord();
     //@@author
 
     //@@author A0148040R
