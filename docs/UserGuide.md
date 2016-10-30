@@ -209,9 +209,10 @@ Examples:
 Marks a task in the task list as done.<br>
 * Format: `done INDEX`
 
-Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br><br>
-Event tasks will be automatically marked as done once they are over.
-Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.
+Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
+Event tasks will be automatically marked as done once they are over.<br>
+Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.<br><br>
+
 Example:
 
 * `view all`<br>
