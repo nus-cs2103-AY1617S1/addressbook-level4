@@ -14,6 +14,7 @@ import seedu.address.model.task.Task;
 public class DeleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "delete";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String HELP_MESSAGE_USAGE = "Delete a task: \t" + "delete <index>";
     

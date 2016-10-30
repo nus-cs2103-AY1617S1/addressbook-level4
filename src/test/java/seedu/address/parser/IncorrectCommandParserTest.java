@@ -14,11 +14,11 @@ import seedu.address.logic.parser.IncorrectCommandParser;
 public class IncorrectCommandParserTest {
 	IncorrectCommandParser parser = new IncorrectCommandParser();
 
+	/**
+	 * Testing parsing of valid formats
+	 */
 	@Test
 	public void prepareCommand_validFormat() {
-		/*
-		 * Testing valid incorrect command format
-		 */
 		String expected = String.format(MESSAGE_UNKNOWN_COMMAND);
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
 		CommandResult result = command.execute();

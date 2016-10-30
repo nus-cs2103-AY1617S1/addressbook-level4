@@ -13,6 +13,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
 //@@author A0139817U
 public class UndoCommandParser extends CommandParser{
     public static final String COMMAND_WORD = UndoTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = UndoTaskCommand.ALTERNATE_COMMAND_WORD;
 
     @Override
     public TaskCommand prepareCommand(String arguments) {

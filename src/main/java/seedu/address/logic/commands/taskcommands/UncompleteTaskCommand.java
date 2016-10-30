@@ -6,12 +6,13 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
 /**
- * Unfavorites a task identified using it's last displayed index from TaskManager.
+ * Unpins a task identified using it's last displayed index from TaskManager.
  */
 //@@author A0143107U
 public class UncompleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "uncomplete";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Uncompletes the task identified by the index number used in the last task listing.\n"
@@ -42,7 +43,7 @@ public class UncompleteTaskCommand extends TaskCommand {
         }
 
         Task taskToUncomplete = lastShownList.get(targetIndex - 1);
-        if(taskToUncomplete.isComplete()){
+        if(taskToUncomplete.isCompleted()){
         	model.uncompleteTask(taskToUncomplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));

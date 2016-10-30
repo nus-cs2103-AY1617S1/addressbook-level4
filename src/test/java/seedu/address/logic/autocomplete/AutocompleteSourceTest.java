@@ -18,7 +18,13 @@ public class AutocompleteSourceTest {
 		Class<?>[] parserList = CommandParserList.getList();
 		
 		for (Class<?> parser : parserList) {
-			expectedCommands.add((String) parser.getField("COMMAND_WORD").get(null));
+			String command = (String) parser.getField("COMMAND_WORD").get(null);
+			String altCommandWord = (String) parser.getField("ALTERNATE_COMMAND_WORD").get(null);
+			
+			expectedCommands.add(command);
+            if (altCommandWord != null) {
+                expectedCommands.add(altCommandWord);
+            }
 		}
 		
 		assertEquals(expectedCommands, AutocompleteSource.getCommands());

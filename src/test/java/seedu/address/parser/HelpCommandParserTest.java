@@ -20,6 +20,10 @@ public class HelpCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
+		/*
+		 * Testing correct handling of non-empty strings
+		 * 
+		 */
 		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE);
 		
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("listing");

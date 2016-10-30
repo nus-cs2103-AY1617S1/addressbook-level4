@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 public class FindTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "find";
+        public static final String ALTERNATE_COMMAND_WORD = null;
 
         public static final String HELP_MESSAGE_USAGE = "Find Tasks: \t" + "find <keyword[s]>";
         
@@ -31,6 +32,13 @@ public class FindTaskCommand extends TaskCommand {
             model.filterTasks(keywords);
             EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
+        }
+        
+        /**
+         * Retrieve the details of the task for testing purposes
+         */
+        public Set<String> getKeywords() {
+        	return keywords;
         }
 
 

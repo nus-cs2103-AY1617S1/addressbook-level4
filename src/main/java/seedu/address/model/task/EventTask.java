@@ -8,7 +8,7 @@ import seedu.address.commons.util.DateUtil;
  * An EventTask is a task that holds a start date and an end date
  */
 //@@author A0139817U
-public class EventTask extends Task implements FavoritableTask, CompletableTask {
+public class EventTask extends Task implements PinnableTask, CompletableTask {
 
 	private Date startDate;
 	private Date endDate;
@@ -35,15 +35,15 @@ public class EventTask extends Task implements FavoritableTask, CompletableTask 
 		Date newEndDate = new Date(this.endDate.getTime());
 		EventTask newTask = new EventTask(newDescription, newStartDate, newEndDate); 
 		
-		// Copy favorite status
-		if (this.isFavorite()) {
-			newTask.setAsFavorite();
+		// Copy pin status
+		if (this.isPinned()) {
+			newTask.setAsPin();
 		} else {
-			newTask.setAsNotFavorite();
+			newTask.setAsNotPin();
 		}
 		
 		// Copy completed status
-		if (this.isComplete()) {
+		if (this.isCompleted()) {
 			newTask.setAsComplete();
 		} else {
 			newTask.setAsUncomplete();

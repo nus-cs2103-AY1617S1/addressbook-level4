@@ -13,6 +13,8 @@ import seedu.address.logic.commands.CommandResult;
 public class ListTaskCommand extends TaskCommand {
     
     public static final String COMMAND_WORD = "list";
+    public static final String ALTERNATE_COMMAND_WORD = null;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks/alias/completed tasks. \n"
             + "1) list\n"
             + "2) list alias\n"

@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Paths;
+
 public class TaskConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -38,8 +40,8 @@ public class TaskConfigTest {
     	String validPath = System.getProperty("user.home");
     	config.setStorageLocation(validPath);
     	
-    	assertEquals(config.getTasksFilePath(), validPath + "/tasks.xml");
-    	assertEquals(config.getAliasFilePath(), validPath + "/alias.xml");
+    	assertEquals(config.getTasksFilePath(), Paths.get(validPath, "tasks.xml").toString());
+    	assertEquals(config.getAliasFilePath(), Paths.get(validPath, "alias.xml").toString());
     }
 
 

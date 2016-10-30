@@ -11,6 +11,10 @@ import seedu.address.logic.parser.*;
 //@@author A0143107U
 public class ParserSelectorTest {
 
+	/**
+	 * Testing correct handling of invalid formats
+	 * 
+	 */
 	@Test
 	public void parserSelector_invalidCommand(){
 		/* CommandResult should return a string that denotes that 
@@ -22,6 +26,9 @@ public class ParserSelectorTest {
         assertTrue(feedback.equals(Messages.MESSAGE_UNKNOWN_COMMAND));
 	}
 	
+	/**
+	 * Testing parsing of valid formats
+	 */
 	@Test
 	public void parserSelector_add(){
 		/* CommandParser should return a string that denotes that 
@@ -83,23 +90,33 @@ public class ParserSelectorTest {
 	}
 	
 	@Test
-	public void parserSelector_favorite(){
+	public void parserSelector_edit(){
 		/* CommandParser should return a string that denotes that 
-         * command is FavoriteCommand.
+         * command is UpdateCommand.
          */
-		FavoriteCommandParser command = (FavoriteCommandParser)ParserSelector.getByCommandWord("favorite");
-		String feedback = command.COMMAND_WORD;
-        assertTrue(feedback.equals("favorite"));
+		UpdateCommandParser command = (UpdateCommandParser)ParserSelector.getByCommandWord("edit");
+		String feedback = command.ALTERNATE_COMMAND_WORD;
+        assertTrue(feedback.equals("edit"));
 	}
 	
 	@Test
-	public void parserSelector_unfavorite(){
+	public void parserSelector_pin(){
 		/* CommandParser should return a string that denotes that 
-         * command is UnfavoriteCommand.
+         * command is PinCommand.
          */
-		UnfavoriteCommandParser command = (UnfavoriteCommandParser)ParserSelector.getByCommandWord("unfavorite");
+		PinCommandParser command = (PinCommandParser)ParserSelector.getByCommandWord("pin");
 		String feedback = command.COMMAND_WORD;
-        assertTrue(feedback.equals("unfavorite"));
+        assertTrue(feedback.equals("pin"));
+	}
+	
+	@Test
+	public void parserSelector_unpin(){
+		/* CommandParser should return a string that denotes that 
+         * command is UnpinCommand.
+         */
+		UnpinCommandParser command = (UnpinCommandParser)ParserSelector.getByCommandWord("unpin");
+		String feedback = command.COMMAND_WORD;
+        assertTrue(feedback.equals("unpin"));
 	}
 	
 	@Test
