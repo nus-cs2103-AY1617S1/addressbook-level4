@@ -30,4 +30,9 @@ public class UndoCommand extends Command {
         return lowerStr.equals(COMMAND_WORD.toLowerCase()) 
                 || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase());
     }
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
 }

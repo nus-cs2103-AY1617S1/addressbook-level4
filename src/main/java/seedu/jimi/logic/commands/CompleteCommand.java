@@ -72,4 +72,9 @@ public class CompleteCommand extends Command implements TaskBookEditor{
     }
     // @@author
     
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
+    
 }

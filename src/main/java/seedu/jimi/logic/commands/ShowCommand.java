@@ -123,4 +123,9 @@ public class ShowCommand extends Command {
         return false;
     }
     // @@author
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
 }

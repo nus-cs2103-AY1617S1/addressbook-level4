@@ -80,6 +80,8 @@ public abstract class Command {
         }
         return Optional.empty();
     }
+    
+    public abstract String getMessageUsage();
     //@@author
 
     //@@author A0148040R

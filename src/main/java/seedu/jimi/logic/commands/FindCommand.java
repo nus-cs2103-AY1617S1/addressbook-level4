@@ -75,4 +75,9 @@ public class FindCommand extends Command {
         }
         return false;
     }
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
 }

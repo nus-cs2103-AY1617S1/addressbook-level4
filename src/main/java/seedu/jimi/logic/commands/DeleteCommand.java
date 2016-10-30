@@ -70,4 +70,9 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         return false;
     }
     // @@author
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
 }
