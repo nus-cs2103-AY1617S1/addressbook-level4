@@ -1,15 +1,39 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.io.File;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SpecifyStorageCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -201,6 +225,16 @@ public class Parser {
     //@@author A0147890U
     private Command prepareSpecifyStorage(String args) {
         args = args.trim().replace("\\", "/") + "/addressbook.xml";
+        try {
+            Paths.get(args);
+        } catch (InvalidPathException ipe) {
+            return new IncorrectCommand("Please enter a valid file path");
+        }
+        
+        if (new File(args).exists() == false) {
+            return new IncorrectCommand("Please enter a valid file path");
+        }
+        
         return new SpecifyStorageCommand(args);
     }
 
