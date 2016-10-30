@@ -42,7 +42,7 @@ public class TodoModel implements Model {
     
     // Dependencies
     private TodoListModel todoList;
-    private UniqueTagCollectionModel uniqueTagCollection = new UniqueTagCollection();
+    private UniqueTagCollectionModel uniqueTagCollection;
     private MovableStorage<ImmutableTodoList> storage;
     
     // Stack of transformation that the tasks go through before being displayed to the user
@@ -79,6 +79,8 @@ public class TodoModel implements Model {
         viewFilteredTasks = new FilteredList<>(tasks);
         findFilteredTasks = new FilteredList<>(viewFilteredTasks);
         sortedTasks = new SortedList<>(findFilteredTasks);
+
+        uniqueTagCollection = new UniqueTagCollection(tasks);
         
         // Sets the default view 
         view(TaskViewFilter.DEFAULT);
@@ -199,7 +201,7 @@ public class TodoModel implements Model {
         }
         
         List<ImmutableTask> tasks = undoStack.removeFirst();
-        uniqueTagCollection.update(todoList.getObservableList());
+        uniqueTagCollection.update(tasks);
         saveState(redoStack);
         todoList.setTasks(tasks);
     }
@@ -212,7 +214,7 @@ public class TodoModel implements Model {
         }
 
         List<ImmutableTask> tasks = redoStack.removeFirst();
-        uniqueTagCollection.update(todoList.getObservableList());
+        uniqueTagCollection.update(tasks);
         saveState(undoStack);
         todoList.setTasks(tasks);
     }
@@ -225,7 +227,7 @@ public class TodoModel implements Model {
     @Override
     public void load(String location) throws ValidationException {
         todoList.load(location);
-        uniqueTagCollection.update(todoList.getObservableList());
+        uniqueTagCollection.update(tasks);
     }
 
     @Override

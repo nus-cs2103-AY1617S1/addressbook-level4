@@ -81,7 +81,9 @@ public class UniqueTagCollectionValidator {
         validateNameCharLimit(tagNames);
         validateDuplicatedNameTag(tagNames);
         validateNumberOfTags(task, tagNames);
-        validateTagNamesDoNotExist(task.getTags(), tagNames);
+        if (task != null) {
+            validateTagNamesDoNotExist(task.getTags(), tagNames);
+        }
     }
 
     /**

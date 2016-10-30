@@ -1,13 +1,16 @@
 package seedu.todo.model.tag;
 
-import javafx.collections.ObservableList;
-import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Iterator;
 
 //@@author A0135805H
 /**
@@ -22,9 +25,17 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     //Stores a list of tags with unique tag names.
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
+    /* Constructor */
+    /**
+     * Constructs this tag collection
+     */
+    public UniqueTagCollection(List<ImmutableTask> globalTaskList) {
+        update(globalTaskList);
+    }
+
     /* Interfacing Methods */
     @Override
-    public void update(ObservableList<ImmutableTask> globalTaskList) {
+    public void update(List<ImmutableTask> globalTaskList) {
         uniqueTagsToTasksMap.clear();
         globalTaskList.forEach(task -> task.getTags().forEach(tag -> associateTaskToTag(task, tag)));
     }
@@ -60,14 +71,15 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
 
     @Override
     public Collection<Tag> deleteTags(String[] tagNames) {
-        Set<Tag> tags = new HashSet<>();
+        Set<Tag> tagsDeleted = new HashSet<>();
         for (String tagName : tagNames) {
             //Data validation at TodoModel should have checked if this is available.
             //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
             Tag tag = getTagWithName(tagName);
+            tagsDeleted.add(tag);
             uniqueTagsToTasksMap.remove(tag);
         }
-        return tags;
+        return tagsDeleted;
     }
 
     @Override
@@ -139,8 +151,6 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     /* Interfacing Getters */
     @Override
     public List<Tag> getUniqueTagList() {
-        System.out.println(uniqueTagsToTasksMap);
-
         return new ArrayList<>(uniqueTagsToTasksMap.keySet());
     }
 

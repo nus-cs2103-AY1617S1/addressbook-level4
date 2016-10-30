@@ -1,6 +1,5 @@
 package seedu.todo.model.tag;
 
-import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
@@ -20,7 +19,7 @@ public interface UniqueTagCollectionModel {
      *
      * @param globalTaskList To extract the unique list of {@link Tag}s from.
      */
-    void update(ObservableList<ImmutableTask> globalTaskList);
+    void update(List<ImmutableTask> globalTaskList);
 
     /**
      * Notifies the {@link UniqueTagCollectionModel} that the given {@code task} is deleted,
