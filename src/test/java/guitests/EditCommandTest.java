@@ -12,6 +12,7 @@ import guitests.guihandles.DeadlineTaskCardHandle;
 import guitests.guihandles.EventTaskCardHandle;
 import guitests.guihandles.SomedayTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskType;
@@ -81,25 +82,45 @@ public class EditCommandTest extends TaskManagerGuiTest{
         targetIndex = 5;
         assertEditSuccess(targetIndex, postEdit, "in 30 days", currentList, in30DaysList);
         
-        //edit an event task in the list, new startDateTime after new endDateTime (event to event, new startDateTime and new EndDateTime) 
+        //edit event, new startDateTime and new endDateTime given, new startDateTime after new endDateTime 
+        targetIndex = 9; //event1
+        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeAfterEndDateTime.getEditCommand(targetIndex));
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
         
-        //edit an event task in the list, new startDateTime equals new endDateTime (event to event, new startDateTime and new EndDateTime)
+        //edit event, new startDateTime and new endDateTime given, new startDateTime equals new endDateTime
+        targetIndex = 9; //event1
+        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeEqualsEndDateTime.getEditCommand(targetIndex));
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
         
-        //edit an event task in the list, new startDateTime after existing endDateTime (event to event, new startDateTime only)
+        //edit event, new startDateTime given, new startDateTime after existing endDateTime
+        targetIndex = 9; //event1
+        commandBox.runCommand("edit " + targetIndex + "from ");
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
         
-        //edit an event task in the list, new startDateTime equals existing endDateTime (event to event, new startDateTime only)
+        //edit event, new startDateTime given, new startDateTime equals existing endDateTime
         
-        //edit a deadline task to event task in the list, new startDateTime after existing endDateTime (deadline to event, new startDateTime only)
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
         
-        //edit a deadline task to event task in the list, new startDateTime equals existing endDateTime (deadline to event, new startDateTime only) 
+        //edit event, new endDateTime given, existing startDateTime after new endDateTime
         
-        //edit a someday task in the list, only startDateTime given 
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
         
-        //
+        //edit event, new endDateTime given, existing startDateTime equals new endDateTime
         
-        //
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+        
+        //edit deadline to event, new startDateTime given, new startDateTime after existing endDateTime 
+        
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+        
+        //edit deadline to event, new startDateTime given, new startDateTime equals existing endDateTime 
+        
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+        
+        //edit someday to deadline, new startDateTime given, new startDateTime but no endDateTime
         
         
+
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
