@@ -44,7 +44,12 @@ public class UntagCommand extends Command{
         
     }
     
-    
+    /**
+     * Executes the untag command.
+     * 
+     * If the index is invalid or if the specified task cannot be found, returns the 
+     * relevant message to inform the user.
+     */
     @Override
     public CommandResult execute() {
 

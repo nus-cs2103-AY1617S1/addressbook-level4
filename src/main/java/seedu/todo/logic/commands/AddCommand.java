@@ -57,13 +57,19 @@ public class AddCommand extends Command {
                 new Recurrence(freq)
         );
     }
-
+    
+    /**
+     * Executes the add command. The new task is added to the top of the list.
+     * 
+     * Informs the user if duplicated task is added.
+     * Refer to {@link seedu.todo.model.task.ReadOnlyTask#isSameStateAs(ReadOnlyTask)} 
+     * for equivalence testing.
+     */
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
-            model.updateFilteredListToShowAll();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

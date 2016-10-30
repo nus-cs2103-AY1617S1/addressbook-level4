@@ -30,6 +30,12 @@ public class StoreCommand extends Command {
         this.location = newLocation;
     }
     
+    /**
+     * Executes the store command.
+     * 
+     * Checks if the newly specified location is valid and save to the location if so.
+     * If the specified location is not valid, reset the location to default location. 
+     */
     @Override
     public CommandResult execute() {
         String defaultLocation = config.getToDoListFilePath();

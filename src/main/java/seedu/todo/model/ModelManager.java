@@ -28,9 +28,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final DoDoBird dodobird;
-    private final FilteredList<Task> filteredTasks;
-    private final FilteredList<Task> todayTasks;
-    private final FilteredList<Task> weekTasks;
+    private final FilteredList<Task> filteredTasks; //for main task list
+    private final FilteredList<Task> todayTasks; //for today summary list
+    private final FilteredList<Task> weekTasks; //for weekly summary list
     private final FilteredList<Tag> tagList;
     
     //@@author A0138967J

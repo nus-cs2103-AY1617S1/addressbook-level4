@@ -45,7 +45,12 @@ public class TagCommand extends Command{
         
     }
     
-    
+    /**
+     * Executes the tag command.
+     * 
+     * If the index is invalid or if the specified task cannot be found, returns the 
+     * relevant message to inform the user.
+     */
     @Override
     public CommandResult execute() {
 
@@ -62,7 +67,7 @@ public class TagCommand extends Command{
             model.addTaskTags(taskToTag, tags);
             model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException e) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToTag.getName()));

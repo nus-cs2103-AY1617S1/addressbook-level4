@@ -2,6 +2,10 @@ package seedu.todo.model.qualifiers;
 
 import seedu.todo.model.task.ReadOnlyTask;
 
+/**
+ * A qualifier that filter tasks based on the tags
+ * that the tasks have
+ */
 public class TagQualifier implements Qualifier{
     private String tagName;
 

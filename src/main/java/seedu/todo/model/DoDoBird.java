@@ -101,6 +101,7 @@ public class DoDoBird implements ReadOnlyToDoList {
 
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
+            Collections.reverse(tasks);
             UniqueTaskList topList = this.copyTaskList(tasks);
             this.tasksHistory.push(topList);
         } else {

@@ -8,6 +8,10 @@ import java.time.LocalTime;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
 
+/**
+ *  A qualifier that filters tasks if they are to be done after
+ * a certain datetime
+ */
 public class AfterDateQualifier implements Qualifier{
     private LocalDateTime datetime;
 
@@ -36,7 +40,7 @@ public class AfterDateQualifier implements Qualifier{
             byAfter = onDateTime.isAfter(datetime);
         }
         
-        return onAfter || byAfter;
+        return onAfter || byAfter; //true if either the starting date or ending is after
             
     }
 

@@ -9,6 +9,10 @@ import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.TaskDate;
 
+/**
+ * A qualifier that filter tasks depending on the tasks starting 
+ * and ending date.
+ */
 public class FromTillDateQualifier implements Qualifier{
     private LocalDateTime fromDateTime;
     private LocalDateTime tillDateTime;
@@ -39,7 +43,7 @@ public class FromTillDateQualifier implements Qualifier{
             byTill = onDateTime.isBefore(tillDateTime);
         }
         
-        return onFrom && byTill;
+        return onFrom && byTill; //must be in between the both dates
             
     }
 

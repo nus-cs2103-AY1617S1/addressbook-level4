@@ -84,7 +84,7 @@ public class Recurrence {
             }
             break;
         default :
-            //NONE - do nothing
+            //Default value is NONE - do not need to update
         }
     }
     

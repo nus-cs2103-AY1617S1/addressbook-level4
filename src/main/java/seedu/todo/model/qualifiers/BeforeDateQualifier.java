@@ -9,6 +9,10 @@ import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.TaskDate;
 
+/**
+ * A qualifier that filters tasks if they are to be done before
+ * a certain datetime
+ */
 public class BeforeDateQualifier implements Qualifier{
     private LocalDateTime datetime;
 
@@ -37,7 +41,7 @@ public class BeforeDateQualifier implements Qualifier{
             byBefore = onDateTime.isBefore(datetime);
         }
         
-        return onBefore || byBefore;
+        return onBefore || byBefore; //true if either the starting date or ending is after
             
     }
 

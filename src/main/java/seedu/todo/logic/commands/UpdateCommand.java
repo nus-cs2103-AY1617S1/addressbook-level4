@@ -15,7 +15,7 @@ import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Update a task identified using it's last displayed index from the to do list.
+ * Updates a task identified using it's last displayed index from the to do list.
  */
 public class UpdateCommand extends Command{
 
@@ -38,6 +38,18 @@ public class UpdateCommand extends Command{
     private final String priority;
     private final String recurrence;
     
+    /**
+     * Takes in the raw value for each data field. Does not provide validation check 
+     * at this juncture.
+     * 
+     * @param targetIndex
+     * @param name
+     * @param onDateTime
+     * @param byDateTime
+     * @param detail
+     * @param priority
+     * @param recurrence
+     */
     public UpdateCommand(int targetIndex, String name, String onDateTime, 
             String byDateTime, String detail, String priority, String recurrence) {
         this.targetIndex = targetIndex;
@@ -49,7 +61,12 @@ public class UpdateCommand extends Command{
         this.recurrence = recurrence;
     }
     
-    
+    /**
+     * Executes the update command.
+     * Constructs a new task to be the replicated by the old task in model.
+     * 
+     * TODO: Add validation check for on date before by date
+     */
     @Override
     public CommandResult execute() {
 
@@ -76,10 +93,11 @@ public class UpdateCommand extends Command{
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             model.updateTodayListToShowAll(); 
+            model.updateWeekListToShowAll();
             return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
             
         } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(MESSAGE_USAGE);
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_USAGE);
@@ -87,10 +105,16 @@ public class UpdateCommand extends Command{
         
     }
     
+    /**
+     * Construct a new Name based on user input
+     */
     private Name makeNewName(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         return this.name.equals("") ? taskToUpdate.getName() : new Name(this.name);
     }
     
+    /**
+     * Construct a new Detail based on user input
+     */
     private Detail makeNewDetail(ReadOnlyTask taskToUpdate) {
         Detail newDetail;
         if (this.detail == null) {
@@ -103,6 +127,9 @@ public class UpdateCommand extends Command{
         return newDetail;
     }
     
+    /**
+     * Construct a new ByDate based on user input
+     */
     private TaskDate makeNewByDate(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         TaskDate newByDate;
         if (this.byDateTime == null) {
@@ -115,6 +142,9 @@ public class UpdateCommand extends Command{
         return newByDate;
     }
     
+    /**
+     * Construct a new OnDate based on user input
+     */
     private TaskDate makeNewOnDate(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         TaskDate newOnDate;
         if (this.onDateTime == null) {
@@ -138,9 +168,12 @@ public class UpdateCommand extends Command{
                     : new Priority(this.priority);
         }
         return newPriority;
-    }
+    }    
+    //@@author
     
-    //@@author A0121643R    
+    /**
+     * Construct a new Recurrence based on user input
+     */
     private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Recurrence newRecurrence;
         if (this.recurrence == null) {

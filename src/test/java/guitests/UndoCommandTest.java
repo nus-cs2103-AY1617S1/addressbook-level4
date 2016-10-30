@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class UndoCommandTest extends ToDoListGuiTest {
     
     @Test
-    public void undo() {
+    public void undo_command_test() {
         
         //initially no undo
         commandBox.runCommand("undo");

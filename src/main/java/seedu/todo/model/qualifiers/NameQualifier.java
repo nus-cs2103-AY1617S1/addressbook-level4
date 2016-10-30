@@ -5,6 +5,10 @@ import java.util.Set;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.task.ReadOnlyTask;
 
+/**
+ * A qualifier that filter tasks based on whether their names
+ * matches the keywords
+ */
 public class NameQualifier implements Qualifier{
     private Set<String> nameKeyWords;
 

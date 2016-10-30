@@ -31,6 +31,12 @@ public class UnmarkCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the unmark Command
+     * 
+     * Will return a message to inform the user if an invalid target index is used 
+     * or the task specified cannot be found,
+     */
     @Override
     public CommandResult execute() {
         

@@ -25,6 +25,12 @@ public class ResetCommand extends Command {
     
     public ResetCommand() {}
     
+    
+    /**
+     * Executes the Reset Command.
+     * 
+     * Informs the user if unable to save config at default location.
+     */
     @Override
     public CommandResult execute() {
         

@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
 
+/**
+ * A qualifier that filter tasks based on whether their
+ * starting date is on a certain date.
+ */
 public class OnDateQualifier implements Qualifier{
     private LocalDateTime datetime;
 

@@ -23,7 +23,7 @@ public class UpdateCommandTest extends ToDoListGuiTest {
     public ExpectedException thrown = ExpectedException.none();
     
     @Test
-    public void update() throws IllegalValueException {
+    public void update_command_test() throws IllegalValueException {
         
         TestTask[] currentList = td.getTypicalTasks();
         for (TestTask t : currentList) {

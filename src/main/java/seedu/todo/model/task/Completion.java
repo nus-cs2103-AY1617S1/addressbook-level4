@@ -3,31 +3,31 @@ package seedu.todo.model.task;
 
 public class Completion {
 
-    private boolean completed;
+    private boolean isCompleted;
     
     public Completion() {
         this(false);
     }
     
     public Completion(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
     
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
     
     public void setCompletion(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
     
     public void toggle() {
-        this.completed = !this.completed;
+        this.isCompleted = !this.isCompleted;
     }
     
     @Override
     public String toString() {
-        return completed ? "true" : "false";
+        return isCompleted ? "true" : "false";
     }
     
 }

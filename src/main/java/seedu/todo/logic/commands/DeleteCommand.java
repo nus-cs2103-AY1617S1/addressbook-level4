@@ -26,6 +26,11 @@ public class DeleteCommand extends Command {
     }
 
     //@@author A0093896H
+    /**
+     * Executes the delete command.
+     * 
+     * Will inform the user if an invalid index is used or the task cannot be found. 
+     */
     @Override
     public CommandResult execute() {
 
@@ -41,7 +46,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete.getName()));

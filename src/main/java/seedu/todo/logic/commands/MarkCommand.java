@@ -31,6 +31,12 @@ public class MarkCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the Mark Command
+     * 
+     * Will return a message to inform the user if an invalid target index is used 
+     * or the task specified cannot be found,
+     */
     @Override
     public CommandResult execute() {
         
@@ -52,7 +58,7 @@ public class MarkCommand extends Command {
             model.updateFilteredListToShowAll();
             
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be found";
+            return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         } 
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark.getName()));

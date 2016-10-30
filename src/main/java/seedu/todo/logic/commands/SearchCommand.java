@@ -46,6 +46,11 @@ public class SearchCommand extends Command {
         this.whichSearch = whichSearch;
     }
 
+    /**
+     * Executes the Search command
+     * 
+     * Performs the search depending on the the search option
+     */
     @Override
     public CommandResult execute() {
         switch (this.whichSearch) {
@@ -211,9 +216,5 @@ public class SearchCommand extends Command {
         int size = model.getFilteredTaskList().size();
         return new CommandResult(getMessageForTaskListShownSummary(size));
     }
-    
-    
-    
-    
-    
+     
 }

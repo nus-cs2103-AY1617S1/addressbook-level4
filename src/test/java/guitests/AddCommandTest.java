@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends ToDoListGuiTest {
     
     @Test
-    public void add() {
+    public void add_command_test() {
         //add one task
         TestTask[] currentList = td.getEmptyTaskList();
         TestTask taskToAdd = TypicalTestTasks.buyMilk;
