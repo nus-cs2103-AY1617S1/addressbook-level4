@@ -181,7 +181,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
        	   }
            //If no difference in date and time is found in period, compare using name
            if (periodCompare == 0) {
-               return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
+               return this.getName().fullName.toLowerCase().compareTo(taskToCompare.getName().fullName.toLowerCase());
            } else {
                return periodCompare;
            }
