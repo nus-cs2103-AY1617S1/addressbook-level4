@@ -2,8 +2,7 @@ package seedu.taskmanager.logic.commands;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
-
-import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
+import java.util.Collections;
 
 import java.lang.StringBuilder;
 
@@ -35,7 +34,6 @@ public class DeleteCommand extends Command {
     private boolean hasMultipleIndexes = false;
 
     private ArrayList<ReadOnlyItem> deletedItems = new ArrayList<ReadOnlyItem>();
-    
     /*
      * Deletes deadline, task, or event by keyword.
      */
@@ -87,7 +85,7 @@ public class DeleteCommand extends Command {
             
             for(int index : targetIndexes) {
                 
-                if (lastShownList.size() < (index-numItemsDeleted)) {
+                if (lastShownList.size() < (index - numItemsDeleted)) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
                 }
