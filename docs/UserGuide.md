@@ -62,6 +62,8 @@ For any tasks with tags, specify the tags as the last parameter.|`add "CS2103T L
 
 <img src="../assets/add_1.png" width="1000"><br>
 First, type a command.
+<br>
+<br>
 <img src="../assets/add_2.png" width="1000"><br>
 Command will be added.
 
