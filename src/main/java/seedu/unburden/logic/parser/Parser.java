@@ -87,25 +87,25 @@ public class Parser {
 	
 	private static final Pattern SET_DIR_FORMAT_RESET = Pattern.compile(SetDirectoryCommand.COMMAND_RESET);
 
-	private static final String byToday = "by today";
+	private static final String BYTODAY = "by today";
 
-	private static final String byTomorrow = "by tomorrow";
+	private static final String BYTOMORROW = "by tomorrow";
 
-	private static final String byNextWeek = "by next week";
+	private static final String BYNEXTWEEK = "by next week";
 
-	private static final String byNextMonth = "by next month";
+	private static final String BYNEXTMONTH = "by next month";
 
-	private static final String today = "today";
+	private static final String TODAY = "today";
 
-	private static final String tomorrow = "tomorrow";
+	private static final String TOMORROW = "tomorrow";
 
-	private static final String nextWeek = "next week";
+	private static final String NEXTWEEK = "next week";
 	
-	private static final String done = "done";
+	private static final String DONE = "done";
 	
-	private static final String undone = "undone";
+	private static final String UNDONE = "undone";
 
-	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+	private static final DateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Parser() {
 	}
@@ -209,7 +209,6 @@ public class Parser {
 
 		try {
 			if (matcher0.matches()) {
-				System.out.println("parser");
 				details.add(matcher0.group("name"));
 				details.add(matcher0.group("taskDescriptions"));
 				details.add(matcher0.group("date"));
@@ -275,39 +274,39 @@ public class Parser {
 				return new AddCommand("floating task", details, getTagsFromArgs(matcher8.group("tagArguments")));
 
 			} else {
-				if (matcher9.group("name").toLowerCase().contains(byToday)) {
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
-					details.add(dateFormatter.format(calendar.getTime()));
+				if (matcher9.group("name").toLowerCase().contains(BYTODAY)) {
+					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTODAY), ""));
+					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
 
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(byTomorrow)) {
+				else if (matcher9.group("name").toLowerCase().contains(BYTOMORROW)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""));
-					details.add(dateFormatter.format(calendar.getTime()));
+					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYTOMORROW), ""));
+					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
 					
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(byNextWeek)) {
+				else if (matcher9.group("name").toLowerCase().contains(BYNEXTWEEK)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""));
-					details.add(dateFormatter.format(calendar.getTime()));
+					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTWEEK), ""));
+					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
 					
 				}
 
-				else if (matcher9.group("name").toLowerCase().contains(byNextMonth)) {
+				else if (matcher9.group("name").toLowerCase().contains(BYNEXTMONTH)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""));
-					details.add(dateFormatter.format(calendar.getTime()));
+					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(BYNEXTMONTH), ""));
+					details.add(DATEFORMATTER.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
 				
@@ -373,20 +372,20 @@ public class Parser {
 		} else {
 			Calendar calendar = Calendar.getInstance();
 			switch (matcherWord.group("keywords").toLowerCase()) {
-			case tomorrow:
+			case TOMORROW:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
+				final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
 				return new ListCommand(tomorrowKeyword, "date");
-			case nextWeek:
+			case NEXTWEEK:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.WEEK_OF_YEAR, 1);
-				final String nextWeekKeyword = dateFormatter.format(calendar.getTime());
+				final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
 				return new ListCommand(nextWeekKeyword, "date");
-			case done:
-				return new ListCommand(done);
-			case undone:
-				return new ListCommand(undone);
+			case DONE:
+				return new ListCommand(DONE);
+			case UNDONE:
+				return new ListCommand(UNDONE);
 			}
 		}
 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -503,13 +502,13 @@ public class Parser {
 		} else { // keywords delimited by whitespace
 			Calendar calendar = Calendar.getInstance();
 			switch (matcherName.group("keywords").toLowerCase()) {
-			case today:
-				final String todayKeyword = dateFormatter.format(calendar.getTime());
+			case TODAY:
+				final String todayKeyword = DATEFORMATTER.format(calendar.getTime());
 				return new FindCommand(todayKeyword, "date");
-			case tomorrow:
+			case TOMORROW:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
+				final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
 				return new FindCommand(tomorrowKeyword, "date");
 			default:
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
