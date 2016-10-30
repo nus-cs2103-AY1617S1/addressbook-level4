@@ -22,6 +22,8 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
     
     private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
+    private static final String TOOLTIP_UNKNOWN_COMMAND = "Meow? This does not resemble any command I have, Meow!\n" 
+                            + "Please erase the current text in the command box to see all available commands I have, Meow!";
     
     private static ToolTip tooltip;
     
@@ -64,7 +66,7 @@ public class ToolTip {
         commands.setPredicate(p -> p.startsWith(command));
         
         if (!isCommandWordMatch()) {
-            setToolTip(MESSAGE_UNKNOWN_COMMAND);
+            setToolTip(MESSAGE_UNKNOWN_COMMAND, TOOLTIP_UNKNOWN_COMMAND);
         } else if (isSingleMatchFound()) {
             getMatchCommandToolTipSingle(command);
         } else {
@@ -98,7 +100,7 @@ public class ToolTip {
                 return;
             }            
         }
-        setToolTip(MESSAGE_UNKNOWN_COMMAND);
+        setToolTip(MESSAGE_UNKNOWN_COMMAND, TOOLTIP_UNKNOWN_COMMAND);
     }
     
     /**
@@ -132,13 +134,6 @@ public class ToolTip {
     
     public String getDecription() {
         return description;
-    }
-    
-    /**
-     * Sets the tooltip to the given parameter and description to blank
-     */
-    private void setToolTip(String tooltip) {
-        setToolTip(tooltip, "");
     }
     
     /**
