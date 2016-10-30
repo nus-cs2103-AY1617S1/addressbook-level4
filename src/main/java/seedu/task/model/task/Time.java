@@ -123,6 +123,13 @@ public class Time{
 		return false;
     }
 
+	public boolean isBefore(LocalDateTime now) {
+		if(this.value == null)
+			return false;
+
+		return this.value.isBefore(now);
+	}
+
     /**
      * Returns if a given string is a valid task time.
      */
