@@ -18,7 +18,10 @@ public class SaveToCommand extends Command{
     
     public static final String MESSAGE_ERROR = "Failed to change save location";
     
+    public static final String FILE_NAME = "emeraldo.xml";
+    
     private String filepath;
+    
     
     public SaveToCommand(String filepath){
         this.filepath = filepath;
@@ -33,6 +36,7 @@ public class SaveToCommand extends Command{
         */
 
         try {
+            filepath = filepath + FILE_NAME;
             Config config = new Config();
             config.setEmeraldoFilePath(filepath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);

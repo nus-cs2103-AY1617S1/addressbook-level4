@@ -44,6 +44,8 @@ public class Parser {
             );
     //@@author
     
+    private static final Pattern SAVE_LOCATION = Pattern.compile("(?<targetLocation>(([^\\/\\s]*\\/)+))");;
+    
     public Parser() {}
 
     /**
@@ -96,12 +98,24 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
+        
+        case SaveToCommand.COMMAND_WORD:
+            return prepareSaveTo(arguments);
 
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command prepareSaveTo(String args) {
+        final Matcher matcher = SAVE_LOCATION.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveToCommand.MESSAGE_USAGE));
+        }
+        
+        return new SaveToCommand(matcher.group("targetLocation"));
+        
     }
 
     /**
