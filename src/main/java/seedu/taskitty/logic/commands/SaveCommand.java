@@ -5,6 +5,7 @@ import java.io.IOException;
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.storage.Storage;
+import seedu.taskitty.ui.MainWindow;
 import seedu.taskitty.MainApp;
 import seedu.taskitty.commons.core.Config;
 import seedu.taskitty.commons.core.EventsCenter;
@@ -48,6 +49,8 @@ public class SaveCommand extends Command{
             ConfigUtil.saveConfig(config, configFile);
             
             storage.setFilePath(config.getTaskManagerFilePath());
+            
+            MainWindow.getStatusBarFooter().setSaveLocation("./"+config.getTaskManagerFilePath());
             
             EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
             
