@@ -73,8 +73,16 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //@@author A0153467Y
     @Test
     public void add_recurring_task() {
+        TestTask[] currentList = td.getTypicalTasks();
+        
+        //recur a task zero times (i.e. no recurrence at all)
         TestTask taskToAdd = td.recur;
-        commandBox.runCommand(taskToAdd.getAddCommand());
+        currentList = assertAddRecurringSuccess(0, taskToAdd, currentList);
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
+        
+        //recur a task twenty times (maximum amount)
+        taskToAdd = td.recur2;
+        currentList = assertAddRecurringSuccess(20, taskToAdd, currentList);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //recurring task number exceeds the maximum
@@ -108,26 +116,31 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
     
     //@@author A0141052Y
-    private void assertAddRecurringSuccess(int numTimes, TestTask taskToAdd, TestTask... currentList) {
+    private TestTask[] assertAddRecurringSuccess(int numTimes, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand() + " r/" + numTimes);
-        TestTask recurringTask = new TestTask(taskToAdd); // insulate the passed TestTask from changes
         
         TestTask[] expectedList = currentList.clone();
         
         //confirm that instances have same distance and the other properties are same
         for (int i = 0; i <= numTimes; i++) {
+            TestTask recurringTask = new TestTask(taskToAdd); // insulate the passed TestTask from changes
+            
             DateTime newOpenTime = DateTime.fromDateTimeOffset(taskToAdd.getOpenTime(), i * 7, ChronoUnit.DAYS);
             DateTime newCloseTime = DateTime.fromDateTimeOffset(taskToAdd.getCloseTime(), i * 7, ChronoUnit.DAYS);
             
             recurringTask.setOpenTime(newOpenTime);
             recurringTask.setCloseTime(newCloseTime);
             
-            TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
-            assertMatching(taskToAdd, addedCard);
+            TaskCardHandle addedCard = taskListPanel.navigateToTask(recurringTask);
+            assertMatching(recurringTask, addedCard);
             
-            expectedList = TestUtil.addTasksToList(expectedList, taskToAdd);
-            assertTrue(taskListPanel.isListMatching(expectedList));
+            expectedList = TestUtil.addTasksToList(expectedList, recurringTask);
         }
+        
+        //assert that the listing is correct after checking individually
+        assertTrue(taskListPanel.isListMatching(expectedList));
+        
+        return expectedList;
     }
 
 }
