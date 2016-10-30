@@ -144,23 +144,38 @@ public class XmlTaskManagerStorageTest {
     
     //@@author A0139194X
     @Test
+    public void deleteFile_success() throws IOException {
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        TypicalTestTasks td = new TypicalTestTasks();
+        TaskManager original = td.getTypicalTaskManager();
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
+        assertEquals(true, xmlTaskManagerStorage.deleteFile(filePath));
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void deleteFile_failure() throws IOException {
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        assertEquals(false, xmlTaskManagerStorage.deleteFile(filePath));
+    }
+    
+    //@@author A0139194X
+    @Test
     public void migrateNewFolder_allInOrder_success() throws IOException, DataConversionException {
         String filePath = testFolder.getRoot().getPath();
         TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
 
-        //Tries to delete old file again
-        //TODO: need revise. folder creation is not working -by kf
-        /* 
-        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, SECOND_TEST_DATA_FOLDER);
-        File toDelete = new File(filePath);
-        assertFalse(toDelete.delete());
-        
-        //Checks if file has been copied over to new location
-        File newFile = new File(SECOND_TEST_DATA_FOLDER + "mastermind.xml");
-        assertEquals(true, newFile.exists());
-        */
+//        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, SECOND_TEST_DATA_FOLDER);
+//        File toDelete = new File(filePath);
+//        assertFalse(toDelete.delete());
+//        
+//        //Checks if file has been copied over to new location
+//        File newFile = new File(SECOND_TEST_DATA_FOLDER + "mastermind.xml");
+//        assertEquals(true, newFile.exists());
     }
 
     //@@author A0139194X
