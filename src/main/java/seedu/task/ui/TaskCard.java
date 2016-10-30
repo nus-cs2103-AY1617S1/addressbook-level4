@@ -1,5 +1,7 @@
 package seedu.task.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -65,7 +67,8 @@ public class TaskCard extends UiPart {
 	    if(task.tagsString().equals(""))
 	    	tags.setText("");
 	    else tags.setText("Tags: " + task.tagsString());
-        completeStatus.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
+        completeStatus.setText(task.getCompleteStatus()? "  [Completed]":
+        			(task.getTimeEnd().isBefore(LocalDateTime.now())? "  [OverDue]" : "  [Not Completed]"));
     }
 
     public HBox getLayout() {
