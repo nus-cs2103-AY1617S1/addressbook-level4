@@ -28,20 +28,20 @@ public class RecurringUtil {
 	 */
 	public static boolean recurringMatchesRequestedDate(Calendar task, String frequency, Calendar requested) {
 	    if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))) {
-	    	Calendar first = (Calendar) task.clone();
 	    	
-	    	for (int i = 0; i < 30; i++) {
+	    	for (int i = 0; i < 100; i++) {
+		    	Calendar first = (Calendar) task.clone();
 	    		if (frequency.equals("daily")) {
-	    			task.set(Calendar.DAY_OF_YEAR, i);
+	    			first.add(Calendar.DAY_OF_YEAR, i);
 	    	    }
 	    		else if (frequency.equals("weekly")) {
-	    			task.set(Calendar.WEEK_OF_MONTH, i);
+	    			first.add(Calendar.WEEK_OF_YEAR, i);
 	    	    }
 	    		else if (frequency.equals("monthly")) {
-	    			task.set(Calendar.MONTH, i);
+	    			first.add(Calendar.MONTH, i);
 	    	    }
 	    		else if (frequency.equals("yearly")) {
-	    			task.set(Calendar.YEAR, i);
+	    			first.add(Calendar.YEAR, i);
 	    	    }
 	    		if (DateUtils.isSameDay(first, requested)) {
 	    			return true;
