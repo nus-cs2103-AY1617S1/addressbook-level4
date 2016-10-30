@@ -85,8 +85,8 @@ public class CommandParserHelper {
      * taskName, startDate, endDate, rate, timePeriod and priority.
      *
      * @param args  user input of task to add.
-     * @return     Values of taskName, startDate, endDate, rate, timePeriod and priority.
-     * @throws IllegalValueException  If args does not match the matcher.
+     * @return     values of taskName, startDate, endDate, rate, timePeriod and priority.
+     * @throws IllegalValueException  if args does not match the matcher.
      */
     public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
         // how should i assert sia: assert args != null;
@@ -123,7 +123,7 @@ public class CommandParserHelper {
      *
      * @param args  user input of task to add.
      * @param task  object to store values for startDate and endDate.
-     * @throws IllegalValueException  If args does not match the matcher.
+     * @throws IllegalValueException  if args does not match the matcher.
      */
     private void generateMatcherForEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
         assert args != null && task != null;
@@ -137,20 +137,20 @@ public class CommandParserHelper {
             generateMatcherForNoKeywordEscape(args, regex);
         } else if (numberOfKeywords == ONE) {
             generateMatcherForOneKeywordEscape(args, regex);
-            setStartOrEndDate(task);
+            matcherSetStartOrEndDate(task);
         } else if (numberOfKeywords >= TWO) {
             generateMatcherForTwoKeywordsEscape(args, regex);
-            setStartOrEndDate(task);
-            setEndDateIfValid(task);
+            matcherSetStartOrEndDate(task);
+            matcherSetEndDate(task);
         }
     }
-
+    //TODO: remove validateMatcherTwoKeywords?
     /**
      * Generates the matcher for the input args.
      *
      * @param args  user input of task to add.
      * @param task  object to store values for startDate and endDate.
-     * @throws IllegalValueException  If args does not match the matcher.
+     * @throws IllegalValueException  if args does not match the matcher.
      */
     private void generateMatcherForNonEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
         assert args != null && task != null;
@@ -162,10 +162,68 @@ public class CommandParserHelper {
         if (numberOfKeywords == ZERO) {
             generateMatcherForNoKeyword(args, regex);
         } else if (numberOfKeywords == ONE) {
-            validateMatcherForOneKeyword(args, task, regex);
+            generateMatcherForOneKeyword(args, regex);
+            matcherSetStartOrEndDate(task);
+            if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+                tryGenerateMatcherForNoKeyword(args, task, regex);
+            }
         } else if (numberOfKeywords >= TWO) {
-            validateMatcherForTwoKeywords(args, task, regex);
+            generateMatcherForTwoKeywords(args, regex);
+            matcherSetStartOrEndDate(task);
+            if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+                tryGenerateMatcherForOneOrNoKeyword(args, task, regex);
+            } else { 
+                matcherSetEndDate(task);
+            }
         }
+    }
+
+    /**
+     * Checks whether matcher for one keyword or zero keyword matches the input args.
+     *
+     * @param args  user input of task to add.
+     * @param task  object to store values for startDate and endDate.
+     * @param regex used to generate matcher
+     * @throws IllegalValueException  if args does not match the matcher.
+     */
+    private void tryGenerateMatcherForOneOrNoKeyword(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        tryMatcherForOneKeyword(args, task, regex);
+        matcherSetStartOrEndDate(task);
+        if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+            regex += REGEX_KEYWORD_GREEDY_SELECT;
+            tryGenerateMatcherForNoKeyword(args, task, regex);
+        }
+    }
+
+    /**
+     * Checks whether matcher for one keyword matches the input args.
+     *
+     * @param args  user input of task to add.
+     * @param task  object to store values for startDate and endDate.
+     * @param regex used to generate matcher.
+     * @throws IllegalValueException  if args does not match the matcher.
+     */
+    private void tryMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        reinitialiseStartAndEndDatesToEmpty(task);
+        regex += REGEX_KEYWORD_GREEDY_SELECT;
+        generateMatcherForOneKeyword(args, regex);
+    }
+
+    /**
+     * Checks whether matcher for zero keyword matches the input args.
+     *
+     * @param args  user input of task to add.
+     * @param task  object to store values for startDate and endDate.
+     * @param regex used to generate matcher.
+     * @throws IllegalValueException  if args does not match the matcher.
+     */
+    private void tryGenerateMatcherForNoKeyword(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        reinitialiseStartAndEndDatesToEmpty(task);
+        regex += REGEX_KEYWORD_GREEDY_SELECT;
+        generateMatcherForNoKeyword(args, regex);
     }
 
     /**
@@ -209,7 +267,7 @@ public class CommandParserHelper {
      * @return      the start of the regex.
      */
     private String generateStartOfRegex(int numberOfKeywords) {
-        assert numberOfKeywords >= 0;
+        assert numberOfKeywords >= ZERO;
         
         String regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
 
@@ -226,7 +284,7 @@ public class CommandParserHelper {
      * Validates the matcher for the given args, where args has no keywords.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForNoKeyword(String args, String regex) throws IllegalValueException {
@@ -239,7 +297,7 @@ public class CommandParserHelper {
      * Generates and validates a matcher from the given args and regex.
      *
      * @param args  user input of task to add.
-     * @param regex
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateAndValidateMatcher(String args, String regex) throws IllegalValueException {
@@ -255,7 +313,7 @@ public class CommandParserHelper {
      * Generates the matcher for the given escaped args, where args has no keyword.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForNoKeywordEscape(String args, String regex) throws IllegalValueException {
@@ -269,18 +327,16 @@ public class CommandParserHelper {
      *
      * @param args  user input of task to add.
      * @param task  object to store values for startDate and endDate.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void validateMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         assert args != null && task != null && regex != null;
         generateMatcherForOneKeyword(args, regex);
-        setStartOrEndDate(task);
+        matcherSetStartOrEndDate(task);
         if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-            reinitialiseStartAndEndDatesToEmpty(task);
-            regex += REGEX_KEYWORD_GREEDY_SELECT;
-            generateMatcherForNoKeyword(args, regex);
+            tryGenerateMatcherForNoKeyword(args, task, regex);
         }
     }
     
@@ -288,7 +344,7 @@ public class CommandParserHelper {
      * Generates the matcher for the given escaped args, where args has one keyword.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForOneKeywordEscape(String args, String regex) throws IllegalValueException {
@@ -301,7 +357,7 @@ public class CommandParserHelper {
      * Generates the matcher for the given args, where args has one keyword.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForOneKeyword(String args, String regex) throws IllegalValueException {
@@ -315,7 +371,7 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching one keyword.
      *
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @return regex that matches an escaped string with one keyword.
      */
     private String generateRegexForOneKeywordEscape(String regex) {
@@ -328,7 +384,7 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching one keyword.
      *
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @return regex that matches a string with one keyword.
      */
     private String generateRegexForOneKeyword(String regex) {
@@ -338,9 +394,9 @@ public class CommandParserHelper {
     
     /**
      * Sets start date or end date depending on which matcher group was matched
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex  used to generate matcher.
      */
-    private void setStartOrEndDate(OptionalStringTask task) {
+    private void matcherSetStartOrEndDate(OptionalStringTask task) {
         assert task != null && matcher != null;
         task.startDate = matchesStartDateFormatsOneToThree();
         task.endDate = matchesEndDateFormatsOneToThree();
@@ -423,20 +479,20 @@ public class CommandParserHelper {
      *
      * @param args  user input of task to add.
      * @param task  object to store values for startDate and endDate.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         assert args != null && task != null && regex != null;
         generateMatcherForTwoKeywords(args, regex);
-        setStartOrEndDate(task);
+        matcherSetStartOrEndDate(task);
         if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
             reinitialiseStartAndEndDatesToEmpty(task);
             regex += REGEX_KEYWORD_GREEDY_SELECT;
             validateMatcherForOneKeyword(args, task, regex);
         } else { 
-            setEndDateIfValid(task);
+            matcherSetEndDate(task);
         }
     }
     
@@ -444,7 +500,7 @@ public class CommandParserHelper {
      * Generates the matcher for the given escaped args, where args has two keywords.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForTwoKeywordsEscape(String args, String regex) throws IllegalValueException {
@@ -457,7 +513,7 @@ public class CommandParserHelper {
      * Generates the matcher for the given args, where args has two keywords.
      *
      * @param args  user input of task to add.
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @throws IllegalValueException  If args does not match the matcher.
      */
     private void generateMatcherForTwoKeywords(String args, String regex) throws IllegalValueException {
@@ -471,7 +527,7 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching two keywords.
      *
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @return regex that matches an escaped string with two keywords.
      */
     private String generateRegexForTwoKeywordsEscape(String regex) {
@@ -485,7 +541,7 @@ public class CommandParserHelper {
      * by concatenating the given regex generated by generateStartOfRegex() 
      * with the regex for matching two keywords.
      *
-     * @param regex regex generated by generateStartOfRegex().
+     * @param regex used to generate matcher.
      * @return regex that matches a string with two keywords.
      */
     private String generateRegexForTwoKeywords(String regex) {
@@ -500,7 +556,7 @@ public class CommandParserHelper {
      * @param task  object to store values for startDate and endDate.
      * @throws IllegalValueException    if user input contains repeated end date or repeated start date
      */
-    private void setEndDateIfValid(OptionalStringTask task) throws IllegalValueException {
+    private void matcherSetEndDate(OptionalStringTask task) throws IllegalValueException {
         assert task != null;
         if (isRepeatedEndDate(task)) { 
             throw new IllegalValueException(MESSAGE_REPEATED_END_TIME);
