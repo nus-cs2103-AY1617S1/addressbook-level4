@@ -112,6 +112,7 @@ public class MainWindow extends UiPart {
         setAccelerators();
     }
 
+    //@@author A0138978E
     private void setSceneHandlers(Scene scene) {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
@@ -126,7 +127,8 @@ public class MainWindow extends UiPart {
         });
 		
 	}
-
+    
+    //@@author 
 	private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }

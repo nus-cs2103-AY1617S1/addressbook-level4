@@ -84,10 +84,10 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            //taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
     
+    //@@author A0138978E
     public void scrollDown() {
     	Pair<Integer, Integer> firstAndLast = getFirstAndLastVisibleIndices(taskListView);
     	int firstIdx = firstAndLast.getKey();
@@ -132,6 +132,7 @@ public class TaskListPanel extends UiPart {
         }
     }
     
+    //@@author
     @Subscribe
     public void handleNewTaskListEvent(NewTaskListEvent abce) {
     	FilteredList<Task> newTasks = abce.filteredTasks;
