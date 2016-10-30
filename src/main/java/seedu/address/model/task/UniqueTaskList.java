@@ -83,7 +83,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean overlaps(ReadOnlyTask toCheck) {
         assert toCheck != null;
         // ignore floating and deadline tasks
-        if (toCheck.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+        if (toCheck.getLastAppendedComponent().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
             return false;
 
         // Only compare tasks with blocked time slots.
@@ -117,10 +117,10 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /** Returns true if the toCheck slot overlaps with the given one. */
     public boolean isWithinSlot(ReadOnlyTask toCheck, ReadOnlyTask given) {
-        return !(!given.getComponentForNonRecurringType().getEndDate().getDate()
-                .after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())
-                || !given.getComponentForNonRecurringType().getStartDate().getDate()
-                        .before(toCheck.getComponentForNonRecurringType().getEndDate().getDate()));
+        return !(!given.getLastAppendedComponent().getEndDate().getDate()
+                .after(toCheck.getLastAppendedComponent().getStartDate().getDate())
+                || !given.getLastAppendedComponent().getStartDate().getDate()
+                        .before(toCheck.getLastAppendedComponent().getEndDate().getDate()));
     }
     //@@author
 
