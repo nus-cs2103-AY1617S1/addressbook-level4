@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.model.SaveState;
 import seedu.address.model.TaskBook;
@@ -10,6 +13,7 @@ import seedu.address.model.TaskBook;
 
 //@@author A0147890U
 public class UndoCommand extends Command {
+    private static final Logger logger = LogsCenter.getLogger(UndoCommand.class);
 
     public static final String COMMAND_WORD = "undo";
 
@@ -38,14 +42,11 @@ public class UndoCommand extends Command {
             Config config = saveToResetTo.getSaveStateConfig();
             model.setConfig(config);
             
-     //       System.out.println(config.getAddressBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-               // System.out.println("This is supposed to print");
             } catch (IOException e) {
-               // System.out.println("oops i did it again");
+                logger.warning("config file could not be saved to");
             }
-         //   System.out.println(config.getAddressBookFilePath());
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
             model.getRedoStack().push(saveToBeAdded);
         }

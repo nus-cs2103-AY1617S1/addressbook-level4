@@ -13,7 +13,6 @@ import seedu.address.model.task.ReadOnlyTask;
 public class EventCard extends UiPart{
 
     private static final String FXML = "EventListCard.fxml";
-    //private final ScheduledExecutorService scheduler =Executors.newScheduledThreadPool(1);
 
     @FXML
     private HBox cardPane;
