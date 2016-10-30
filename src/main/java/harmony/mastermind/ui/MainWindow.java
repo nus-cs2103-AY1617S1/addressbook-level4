@@ -338,33 +338,6 @@ public class MainWindow extends UiPart {
 
     // ==================================
 
-    // @@author A0124797R
-    /**
-     * update the number of task in each tab in the tab title
-     */
-    private void updateTabTitle() {
-        tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME]
-                                       + "("
-                                       + logic.getFilteredTaskList().size()
-                                       + ")");
-        tabLst.get(INDEX_TASKS).setText(NAME_TABS[INDEX_TASKS]
-                                        + "("
-                                        + logic.getFilteredFloatingTaskList().size()
-                                        + ")");
-        tabLst.get(INDEX_EVENTS).setText(NAME_TABS[INDEX_EVENTS]
-                                         + "("
-                                         + logic.getFilteredEventList().size()
-                                         + ")");
-        tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES]
-                                            + "("
-                                            + logic.getFilteredDeadlineList().size()
-                                            + ")");
-        tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES]
-                                           + "("
-                                           + logic.getFilteredArchiveList().size()
-                                           + ")");
-    }
-
     @FXML
     // @@author A0124797R
     private void initialize() {
@@ -787,6 +760,33 @@ public class MainWindow extends UiPart {
         logger.info("Result: "
                     + mostRecentResult.feedbackToUser);
     }
+    
+    // @@author A0124797R
+    /**
+     * update the number of task in each tab in the tab title
+     */
+    protected void updateTabTitle() {
+        tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME]
+                                       + "("
+                                       + logic.getFilteredTaskList().size()
+                                       + ")");
+        tabLst.get(INDEX_TASKS).setText(NAME_TABS[INDEX_TASKS]
+                                        + "("
+                                        + logic.getFilteredFloatingTaskList().size()
+                                        + ")");
+        tabLst.get(INDEX_EVENTS).setText(NAME_TABS[INDEX_EVENTS]
+                                         + "("
+                                         + logic.getFilteredEventList().size()
+                                         + ")");
+        tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES]
+                                            + "("
+                                            + logic.getFilteredDeadlineList().size()
+                                            + ")");
+        tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES]
+                                           + "("
+                                           + logic.getFilteredArchiveList().size()
+                                           + ")");
+    }
 
     // @@author A0124797R
     /**
@@ -871,12 +871,6 @@ public class MainWindow extends UiPart {
     private void updateTab(CommandResult result) {
         String tab = result.toString();
         updateTab(tab);
-    }
-
-    @Subscribe
-    // @@author A0124797R
-    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
-        updateTabTitle();
     }
 
     // @@author A0124797R

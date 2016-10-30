@@ -1,5 +1,7 @@
 package harmony.mastermind.model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.util.EmptyStackException;
 import java.util.Set;
 
@@ -127,6 +129,10 @@ public interface Model {
     //@@author A0139194X
     /** Indicate that user needs to confirm command execution */
     void indicateConfirmationToUser() throws CommandCancelledException;
+
+    //@@author A0124797R
+    /** reads the file indicated */
+    BufferedReader importFile(String fileToImport) throws FileNotFoundException;
 
 
 }
