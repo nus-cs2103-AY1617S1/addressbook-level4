@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author A0146107M -->
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.TaskListPanel">
+<VBox prefHeight="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.TaskListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+      <ScrollPane vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <content>
+          <AnchorPane prefHeight="597.0" prefWidth="1132.0">
+               <children>
+                  <VBox prefHeight="429.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane maxWidth="1132.0" minWidth="1132.0" prefWidth="1132.0">
+                           <children>
+                              <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/calendar-icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Label id="dateTimeLabel" fx:id="dateTimeLabel" layoutX="23.0" layoutY="5.0" text="Test">
+                                 <padding>
+                                    <Insets left="8.0" />
+                                 </padding>
+                              </Label>
+                              <Label id="task_det" layoutX="807.0" layoutY="4.0" text="Start" />
+                              <Label id="task_det" layoutX="899.0" layoutY="4.0" text="End" />
+                              <Label id="task_det" layoutX="719.0" layoutY="4.0" text="Priority" />
+                           </children>
+                        </Pane>
+                          <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
     </children>
 </VBox>

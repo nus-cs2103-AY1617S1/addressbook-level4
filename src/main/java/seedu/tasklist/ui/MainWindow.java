@@ -57,9 +57,6 @@ public class MainWindow extends UiPart {
     private String taskListName;
 
     @FXML
-    private Label dateTimeLabel;
-
-    @FXML
     private AnchorPane categoryPanelPlaceholder;
 
     @FXML
@@ -101,13 +98,7 @@ public class MainWindow extends UiPart {
         EventsCenter.getInstance().registerHandler(mainWindow);
         return mainWindow;
     }
-    //@@author A0144919W
-    @Subscribe
-    private void handleTickEvent(TickEvent tickEvent){
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
-        dateTimeLabel.setText(dateFormatter.format(new Date()));
-    }
-    //@@author
+
     private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
             Logic logic) {
 
@@ -138,7 +129,6 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-        setLabelText();
         System.out.println();
     }
 
@@ -223,23 +213,5 @@ public class MainWindow extends UiPart {
 
     public void releaseResources() {
         //        browserPanel.freeResources();
-    }
-    //@@author A0144919W
-    public void setLabelText() {
-        assert dateTimeLabel != null;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
-        dateTimeLabel.setText(dateFormatter.format(new Date()));
-    }
-    private String getDateSuffix(int date) {
-        checkArgument(date >= 1 && date <= 31, "illegal day of month: " + date);
-        if (date >= 11 && date <= 13) {
-            return "th";
-        }
-        switch (date % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
-            default: return "th";
-        }
     }
 }
