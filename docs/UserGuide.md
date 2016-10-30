@@ -39,7 +39,7 @@ To get started, proceed to the Quick Start section below.
    * **`add`**` read book` : adds a new task named `read book`. 
    * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
    * **`view`** : lists all upcoming and uncompleted tasks.
-   * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
+   * **`view`**` 1 Jan 2015` : lists all tasks for the specific date.
    * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -70,7 +70,8 @@ Example:
 
 * `view`<br>
   <img src="images/UIview.png" width="900">
-  
+ 
+ 
 <br>
 #### View all tasks for a specified date: `view DATE`
 Lists all events for the specified date, deadlines up to the specified date, and all todo tasks.<br>
@@ -83,9 +84,9 @@ Example:
 
 * `view 5 Nov`<br>
   <img src="images/UIviewDate.png" width="900">
- 
-<br>
 
+
+<br>
 #### View all completed tasks: `view done`
 Lists all completed tasks, deadlines and events.<br>
 Format: `view done`<br>
@@ -158,11 +159,12 @@ Examples:
 Finds tasks based on keywords.<br>
 Format: `find KEYWORDS...`
 
-Tasks that partly or completely match the keywords entered will be displayed.<br><br>
+Tasks that partly or completely match the keywords entered will be displayed.<br>
 
 Example: 
 * `find assign`<br>
   <img src="images/UIfind.png" width="900">
+
 
 <br>
 <!-- @@author A0135793W -->
@@ -184,6 +186,7 @@ Example:
   <img src="images/UIedit.png" width="900">
 
 <br>
+
 #### Delete task: `delete`
 Deletes one or more todo, deadline or event task already inside the task manager using the index of the task.<br>
 * Format: `delete INDEXES...`
@@ -223,13 +226,14 @@ Examples:
 <!-- @@author A0130853L -->  
 
 <br>
+
 #### Mark task as done: `done`
 Marks one or more task in the task list as done.<br>
 * Format: `done INDEXES...`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
 Event tasks will be automatically marked as done once they are over.<br>
-Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.<br><br>
+Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.<br>
 
 Example:
 
@@ -255,6 +259,7 @@ Example:
 <!-- @@author A0130853L -->  
 
 <br>
+
 #### Undo previous action: `undo`
 Undoes the last completed action.<br>
 Format: `undo`<br>
@@ -326,6 +331,7 @@ Example:
   If folder CS2103 Tutorial is not present, TasKitty will create the folder.
 
 <br>
+
 <!-- @@author A0130853L -->
 #### Clear all entries : `clear`
 Clears all tasks from the task manager.<br>
@@ -334,17 +340,13 @@ Shortcut key: `Ctrl + Shift + C`
 <img src="images/UIclear.png" width="900">
 
 <br>
+
 #### Exit the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 <br>
-#### Save task manager data 
-Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
-
 <!-- @@author -->
-<br>
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
@@ -352,6 +354,7 @@ There is no need to save manually.
        the file that contains the data of your previous task manager's folder.      
 
 <br>
+
 <!-- @@author A0130853L -->
 ## Command Summary
 
