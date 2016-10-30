@@ -2,8 +2,6 @@ package seedu.tasklist.testutil;
 
 import java.sql.Date;
 import java.util.Calendar;
-
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 
 /**
@@ -16,13 +14,13 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private EndTime endTime;
     private StartTime startTime;
     private Priority priority;
-    private UniqueTagList tags;
+//    private UniqueTagList tags;
     private boolean isComplete;
     private boolean isRecurring;
     private String recurringFrequency;
 
     public TestTask() {
-        tags = new UniqueTagList();
+    //    tags = new UniqueTagList();
     }
 
     public void setTaskDetails(TaskDetails taskDetails) {
@@ -86,10 +84,10 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         isComplete = true;
     }
 
-    @Override
+    /*@Override
     public UniqueTagList getTags() {
         return tags;
-    }
+    }*/
 
     @Override
     public String toString() {

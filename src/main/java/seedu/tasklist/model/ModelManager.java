@@ -11,7 +11,6 @@ import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -177,7 +176,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
-            String endTime, Priority priority, UniqueTagList tags, String frequency)
+            String endTime, Priority priority, String frequency)
             throws IllegalValueException {
         Task originalTask = new Task(taskToUpdate);
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
@@ -189,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority, UniqueTagList tags, String frequency) throws IllegalValueException {
+            Priority priority, String frequency) throws IllegalValueException {
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();

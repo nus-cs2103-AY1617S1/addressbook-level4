@@ -46,5 +46,5 @@ public class AddCommandTest extends TaskListGuiTest {
         //confirm if add message is returned
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd.getTaskDetails()));
     }
-
+    
 }

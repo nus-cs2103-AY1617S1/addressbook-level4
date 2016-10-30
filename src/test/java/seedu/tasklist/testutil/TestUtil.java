@@ -24,8 +24,6 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.commons.util.XmlUtil;
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 import seedu.tasklist.storage.XmlSerializableTaskList;
 
@@ -72,15 +70,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new TaskDetails("Ali Muster"), new StartTime("5pm"), new EndTime("10pm"), new Priority("high"),new UniqueTagList()),
-                    new Task(new TaskDetails("Boris Mueller"), new StartTime("3pm"), new EndTime("11pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Carl Kurz"), new StartTime("2pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Daniel Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("Elle Meyer"), new StartTime("2pm"), new EndTime("11pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("7pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList()),
-                    new Task(new TaskDetails("George Best"), new StartTime("2pm"), new EndTime("11pm"), new Priority("high"), new UniqueTagList()),
-                    new Task(new TaskDetails("Hoon Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("med"), new UniqueTagList()),
-                    new Task(new TaskDetails("Ida Mueller"), new StartTime("5pm"), new EndTime("10pm"), new Priority("low"), new UniqueTagList())
+                    new Task(new TaskDetails("Ali Muster"), new StartTime("5pm"), new EndTime("10pm"), new Priority("high")),
+                    new Task(new TaskDetails("Boris Mueller"), new StartTime("3pm"), new EndTime("11pm"), new Priority("low")),
+                    new Task(new TaskDetails("Carl Kurz"), new StartTime("2pm"), new EndTime("12pm"), new Priority("med")),
+                    new Task(new TaskDetails("Daniel Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("low")),
+                    new Task(new TaskDetails("Elle Meyer"), new StartTime("2pm"), new EndTime("11pm"), new Priority("med")),
+                    new Task(new TaskDetails("Fiona Kunz"), new StartTime("7pm"), new EndTime("10pm"), new Priority("low")),
+                    new Task(new TaskDetails("George Best"), new StartTime("2pm"), new EndTime("11pm"), new Priority("high")),
+                    new Task(new TaskDetails("Hoon Meier"), new StartTime("6pm"), new EndTime("12pm"), new Priority("med")),
+                    new Task(new TaskDetails("Ida Mueller"), new StartTime("5pm"), new EndTime("10pm"), new Priority("low"))
             };
         } catch (IllegalValueException e) {
         	System.out.println(e.getMessage());
@@ -90,7 +88,7 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
+   /* public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
@@ -103,7 +101,7 @@ public class TestUtil {
             return null;
             //not possible
         }
-    }
+    }*/
 
     public static List<Task> generateSamplePersonData() {
         return Arrays.asList(samplePersonData);
@@ -143,7 +141,7 @@ public class TestUtil {
     }
 
     public static TaskList generateEmptyTaskList() {
-        return new TaskList(new UniqueTaskList(), new UniqueTagList());
+        return new TaskList(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageTaskList() {
@@ -355,7 +353,7 @@ public class TestUtil {
         return card.isSameTask(person);
     }
 
-    public static Tag[] getTagList(String tags) {
+ /*   public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
             return new Tag[]{};
@@ -374,6 +372,6 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
-    }
+    }*/
 
 }

@@ -13,7 +13,6 @@ import org.json.simple.parser.ParseException;
 
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -81,13 +80,12 @@ public interface Model {
 
     void markTaskAsIncomplete(ReadOnlyTask task) throws TaskNotFoundException;
 
-    void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime, Priority priority,
-            UniqueTagList tags, String frequency) throws IllegalValueException;
+    void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime, Priority priority, String frequency) throws IllegalValueException;
 
     void addTaskUndo(Task task) throws DuplicateTaskException;
 
     void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority, UniqueTagList tags, String frequency) throws IllegalValueException;
+            Priority priority, String frequency) throws IllegalValueException;
 
     void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException;
 
