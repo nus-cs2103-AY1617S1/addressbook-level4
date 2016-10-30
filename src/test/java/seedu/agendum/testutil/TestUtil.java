@@ -315,6 +315,36 @@ public class TestUtil {
         Arrays.sort(tasks);
     }
 
+    public static TestTask[] getDoItSoonTasks(TestTask[] tasks) {
+        ArrayList<TestTask> filteredTasks = new ArrayList<TestTask>();
+        for (TestTask task: tasks) {
+            if (!task.isCompleted() && task.hasTime()) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks.toArray(new TestTask[filteredTasks.size()]);
+    }
+
+    public static TestTask[] getDoItAnytimeTasks(TestTask[] tasks) {
+        ArrayList<TestTask> filteredTasks = new ArrayList<TestTask>();
+        for (TestTask task: tasks) {
+            if (!task.isCompleted() && !task.hasTime()) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks.toArray(new TestTask[filteredTasks.size()]);
+    }
+
+    public static TestTask[] getDoneTasks(TestTask[] tasks) {
+        ArrayList<TestTask> filteredTasks = new ArrayList<TestTask>();
+        for (TestTask task: tasks) {
+            if (task.isCompleted()) {
+                filteredTasks.add(task);
+            }
+        }
+        return filteredTasks.toArray(new TestTask[filteredTasks.size()]);
+    }
+
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }

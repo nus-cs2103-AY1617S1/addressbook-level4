@@ -38,7 +38,7 @@ public class RenameCommandTest extends ToDoListGuiTest {
         //duplicate task
         commandBox.runCommand("rename " + currentList.length + " " + currentList[targetIndex].getName().toString());
         assertResultMessage(RenameCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertAllPanelsMatch(currentList);
     }
 
     /**
@@ -58,7 +58,7 @@ public class RenameCommandTest extends ToDoListGuiTest {
             commandBox.runCommand("rename " + targetIndexOneIndexed + " " + newTaskName);
 
             //confirm the list now contains all previous tasks with the specified task's name updated
-            assertTrue(taskListPanel.isListMatching(expectedList));
+            assertAllPanelsMatch(expectedList);
 
             //confirm the result message is correct
             assertResultMessage(String.format(RenameCommand.MESSAGE_SUCCESS,

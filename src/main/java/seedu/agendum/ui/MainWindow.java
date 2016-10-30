@@ -33,9 +33,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
     
     // Independent Ui parts residing in this Ui container
-    private AllTasksPanel allTasksPanel;
+    private DoItSoonPanel allTasksPanel;
     private CompletedTasksPanel completedTasksPanel;
-    private OtherTasksPanel otherTasksPanel;
+    private DoItAnytimePanel otherTasksPanel;
     private ResultPopUp resultPopUp;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -134,9 +134,9 @@ public class MainWindow extends UiPart {
 
   //@@author A0148031R
     void fillInnerParts() {
-        allTasksPanel = AllTasksPanel.load(primaryStage, getAllTasksPlaceHolder(), logic.getFilteredTaskList());
+        allTasksPanel = DoItSoonPanel.load(primaryStage, getAllTasksPlaceHolder(), logic.getFilteredTaskList());
         completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(), logic.getFilteredTaskList());
-        otherTasksPanel = OtherTasksPanel.load(primaryStage, getOtherTasksPlaceHolder(), logic.getFilteredTaskList());
+        otherTasksPanel = DoItAnytimePanel.load(primaryStage, getOtherTasksPlaceHolder(), logic.getFilteredTaskList());
         resultPopUp = ResultPopUp.load(primaryStage);
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultPopUp, logic);
@@ -216,7 +216,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public AllTasksPanel getAllTasksPanel() {
+    public DoItSoonPanel getAllTasksPanel() {
         return this.allTasksPanel;
     }
     

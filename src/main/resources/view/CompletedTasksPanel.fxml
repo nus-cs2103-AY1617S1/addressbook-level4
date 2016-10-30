@@ -13,7 +13,7 @@
       <ListView fx:id="completedTasksListView" minWidth="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="48.0" />
       <HBox alignment="CENTER" layoutX="130.0" layoutY="15.0" minWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Completed Tasks" textAlignment="CENTER" wrappingWidth="199.0" HBox.hgrow="ALWAYS">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Done ~" textAlignment="CENTER" wrappingWidth="199.0" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="20.0" />
                </font>

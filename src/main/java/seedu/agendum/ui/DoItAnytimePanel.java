@@ -1,7 +1,5 @@
 package seedu.agendum.ui;
 
-import java.util.logging.Logger;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,24 +10,19 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.agendum.model.task.ReadOnlyTask;
-import seedu.agendum.commons.core.LogsCenter;
 
 //@@author A0148031R
 /**
- * Panel contains the list of all tasks
+ * Panel contains the list of uncompleted floating tasks
  */
-public class AllTasksPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(AllTasksPanel.class);
-    private static final String FXML = "AllTasksPanel.fxml";
+public class DoItAnytimePanel extends UiPart {
+    private static final String FXML = "DoItAnytimePanel.fxml";
     private AnchorPane panel;
     private AnchorPane placeHolderPane;
+    private static ObservableList<ReadOnlyTask> mainTaskList;
 
     @FXML
-    private ListView<ReadOnlyTask> allTasksListView;
-
-    public AllTasksPanel() {
-        super();
-    }
+    private ListView<ReadOnlyTask> anytimeTasksListView;
 
     @Override
     public void setNode(Node node) {
@@ -46,21 +39,22 @@ public class AllTasksPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static AllTasksPanel load(Stage primaryStage, AnchorPane AllTasksPlaceholder,
+    public static DoItAnytimePanel load(Stage primaryStage, AnchorPane OtherTasksPlaceholder,
             ObservableList<ReadOnlyTask> taskList) {
-        AllTasksPanel allTasksPanel = UiPartLoader.loadUiPart(primaryStage, AllTasksPlaceholder, new AllTasksPanel());
-        allTasksPanel.configure(taskList);
-        return allTasksPanel;
+        mainTaskList = taskList;
+        DoItAnytimePanel otherTasksPanel = UiPartLoader.loadUiPart(primaryStage, OtherTasksPlaceholder, new DoItAnytimePanel());
+        otherTasksPanel.configure(taskList);
+        return otherTasksPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> allTasks) {
-        setConnections(allTasks);
+    private void configure(ObservableList<ReadOnlyTask> taskList) {
+        setConnections(taskList.filtered(task -> !task.isCompleted() && !task.hasTime()));
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> allTasks) {
-        allTasksListView.setItems(allTasks);
-        allTasksListView.setCellFactory(listView -> new allTasksListViewCell());
+    private void setConnections(ObservableList<ReadOnlyTask> otherTasks) {
+        anytimeTasksListView.setItems(otherTasks);
+        anytimeTasksListView.setCellFactory(listView -> new otherTasksListViewCell());
     }
 
     private void addToPlaceholder() {
@@ -70,12 +64,12 @@ public class AllTasksPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            allTasksListView.scrollTo(index);
-            allTasksListView.getSelectionModel().clearAndSelect(index);
+            anytimeTasksListView.scrollTo(index);
+            anytimeTasksListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class allTasksListViewCell extends ListCell<ReadOnlyTask> {
+    class otherTasksListViewCell extends ListCell<ReadOnlyTask> {
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
@@ -85,7 +79,7 @@ public class AllTasksPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, mainTaskList.indexOf(task) + 1).getLayout());
             }
         }
     }

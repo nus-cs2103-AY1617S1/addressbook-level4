@@ -15,8 +15,16 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public TaskListPanelHandle getTaskListPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
+    public DoItSoonPanelHandle getDoItSoonPanel() {
+        return new DoItSoonPanelHandle(guiRobot, primaryStage);
+    }
+
+    public DoItAnytimePanelHandle getDoItAnytimePanel() {
+        return new DoItAnytimePanelHandle(guiRobot, primaryStage);
+    }
+
+    public CompletedTasksPanelHandle getCompletedTasksPanel() {
+        return new CompletedTasksPanelHandle(guiRobot, primaryStage);
     }
 
     public ResultDisplayHandle getResultDisplay() {

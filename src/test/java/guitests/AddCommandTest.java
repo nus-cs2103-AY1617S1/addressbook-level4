@@ -28,7 +28,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.hoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertAllPanelsMatch(currentList);
 
         //add to empty list
         commandBox.runCommand("delete 1-9");
@@ -43,13 +43,14 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        assertMatching(taskToAdd, addedCard);
+        if (!taskToAdd.isCompleted() && !taskToAdd.hasTime()) {
+            TaskCardHandle addedCard = doItAnytimePanel.navigateToTask(taskToAdd.getName().fullName);
+            assertMatching(taskToAdd, addedCard);
+        }
 
         //confirm the list now contains all previous tasks plus the new task
         taskToAdd.setLastUpdatedTimeToNow();
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertAllPanelsMatch(expectedList);
     }
-
 }

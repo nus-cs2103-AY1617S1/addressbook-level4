@@ -12,6 +12,7 @@ import seedu.agendum.TestApp;
 import seedu.agendum.commons.core.EventsCenter;
 import seedu.agendum.model.ToDoList;
 import seedu.agendum.model.task.ReadOnlyTask;
+import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
 import seedu.agendum.testutil.TypicalTestTasks;
 
@@ -39,7 +40,9 @@ public abstract class ToDoListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle taskListPanel;
+    protected DoItSoonPanelHandle doItSoonPanel;
+    protected DoItAnytimePanelHandle doItAnytimePanel;
+    protected CompletedTasksPanelHandle completedTasksPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -59,7 +62,9 @@ public abstract class ToDoListGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getTaskListPanel();
+            doItSoonPanel = mainGui.getDoItSoonPanel();
+            doItAnytimePanel = mainGui.getDoItAnytimePanel();
+            completedTasksPanel = mainGui.getCompletedTasksPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -104,8 +109,10 @@ public abstract class ToDoListGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = doItSoonPanel.getNumberOfTasks()
+                          + doItAnytimePanel.getNumberOfTasks()
+                          + completedTasksPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
 
     /**
@@ -113,5 +120,18 @@ public abstract class ToDoListGuiTest {
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
+    }
+    
+    /**
+     * expectedList is a sorted list of all tasks.
+     * Asserts the task shown in each panel will match
+     */
+    protected void assertAllPanelsMatch(TestTask[] expectedList) {
+        TestTask[] expectedDoItSoonTasks = TestUtil.getDoItSoonTasks(expectedList);
+        TestTask[] expectedDoItAnytimeTasks = TestUtil.getDoItAnytimeTasks(expectedList);
+        TestTask[] expectedDoneTasks = TestUtil.getDoneTasks(expectedList);
+        assertTrue(doItSoonPanel.isListMatching(expectedDoItSoonTasks));
+        assertTrue(doItAnytimePanel.isListMatching(expectedDoItAnytimeTasks));
+        assertTrue(completedTasksPanel.isListMatching(expectedDoneTasks));
     }
 }

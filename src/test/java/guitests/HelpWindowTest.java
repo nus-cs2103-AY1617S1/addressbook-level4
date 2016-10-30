@@ -13,7 +13,7 @@ public class HelpWindowTest extends ToDoListGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+        doItAnytimePanel.clickOnListView();
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 

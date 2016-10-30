@@ -74,18 +74,18 @@ public class TaskCard extends UiPart {
         StringBuilder sb = new StringBuilder();
         Optional<LocalDateTime> start = task.getStartDateTime();
         Optional<LocalDateTime> end = task.getEndDateTime();
-        
+
         DateTimeFormatter startFormat = DateTimeFormatter.ofPattern("HH:mm EEE, dd MMM");
-        
-		if(start.isPresent()) {
-			sb.append("from ").append(start.get().format(startFormat));
-		}
-		if(end.isPresent()) {
-			sb.append(sb.length()>0 ? " to " : "by ");
-			sb.append(end.get().format(startFormat));
-		}
-		
-        return sb.toString().replace("AM", "am").replace("PM","pm");
+
+        if (start.isPresent()) {
+            sb.append("from ").append(start.get().format(startFormat));
+        }
+        if (end.isPresent()) {
+            sb.append(sb.length() > 0 ? " to " : "by ");
+            sb.append(end.get().format(startFormat));
+        }
+
+        return sb.toString().replace("AM", "am").replace("PM", "pm");
     }
 
     public HBox getLayout() {
