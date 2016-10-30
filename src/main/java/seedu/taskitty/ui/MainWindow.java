@@ -168,15 +168,15 @@ public class MainWindow extends UiPart {
     }
 
     //@@author A0130853L
-    public AnchorPane getTaskListPlaceholder() {
+    private AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
     
-    public AnchorPane getDeadlineListPlaceholder() {
+    private AnchorPane getDeadlineListPlaceholder() {
         return deadlineListPanelPlaceholder;
     }
     
-    public AnchorPane getEventListPlaceholder() {
+    private AnchorPane getEventListPlaceholder() {
         return eventListPanelPlaceholder;
     }
 
