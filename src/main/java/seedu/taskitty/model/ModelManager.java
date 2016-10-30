@@ -314,7 +314,8 @@ public class ModelManager extends ComponentManager implements Model {
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-        
+
+        //@@author A0139930B
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
@@ -323,7 +324,6 @@ public class ModelManager extends ComponentManager implements Model {
                     .isPresent();
         }
         
-        //@@author A0139930B
         /**
          * Check if a task contains the given keyword.
          * Tags will be used to compare if keyword contains TAG_PREFIX

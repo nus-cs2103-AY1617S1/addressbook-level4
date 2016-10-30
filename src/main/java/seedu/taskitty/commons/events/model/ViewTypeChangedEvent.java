@@ -1,8 +1,6 @@
 package seedu.taskitty.commons.events.model;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import seedu.taskitty.commons.events.BaseEvent;
 import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.logic.commands.ViewCommand;

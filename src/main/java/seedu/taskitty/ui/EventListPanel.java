@@ -72,7 +72,7 @@ public class EventListPanel extends TaskListPanel {
     }
     
     /**
-     * FOr when `view date` is executed, and that date will be shown.
+     * For when `view date` is executed, and that date will be shown.
      * @param newDate
      */
     public void updateDate(LocalDate newDate) {
