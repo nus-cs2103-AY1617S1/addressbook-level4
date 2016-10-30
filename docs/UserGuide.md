@@ -166,9 +166,6 @@ Format: `list [-pr] [-st] [-ed]`
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 </div>
 
-#### Listing all tags used: `list tags`
-Lists all the tags used in the task manager.<br>
-Format: `list tags`
 
 <br>
 ### Deleting a task: `delete`
