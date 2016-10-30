@@ -24,10 +24,12 @@
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
+                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
 
                                 </HBox>
                                 <Label fx:id="date" styleClass="cell_small_label" text="\$deadline" />
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" /> 
                                 <Label fx:id="done" styleClass="cell_small_label" text="\$isDone" />
                                 <Label fx:id="recurring" styleClass="cell_small_label" text="\$isRecurring"/>
                                 <Label fx:id="frequency" styleClass="cell_small_label" text="\$frequency"/>
