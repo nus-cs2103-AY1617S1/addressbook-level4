@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javafx.scene.layout.AnchorPane;
+import junit.framework.AssertionFailedError;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -164,24 +165,26 @@ public class TestUtil {
      return new AnchorPane();
  }
 
+    public static String LS = System.lineSeparator();
+
+    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
+        try {
+            executable.run();
+        }
+        catch (Throwable actualException) {
+            if (!actualException.getClass().isAssignableFrom(expected)) {
+                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
+                        actualException.getClass().getName());
+                throw new AssertionFailedError(message);
+            } else return;
+        }
+        throw new AssertionFailedError(
+                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
+    }
 }
-// TODO: DISABLED TESTUTIL
-//    public static String LS = System.lineSeparator();
-//
-//    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
-//        try {
-//            executable.run();
-//        }
-//        catch (Throwable actualException) {
-//            if (!actualException.getClass().isAssignableFrom(expected)) {
-//                String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
-//                        actualException.getClass().getName());
-//                throw new AssertionFailedError(message);
-//            } else return;
-//        }
-//        throw new AssertionFailedError(
-//                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
-//    }
+
+//TODO: DISABLED TESTUTIL
+
 //
 //    /**
 //     * Folder used for temp files created during testing. Ignored by Git.

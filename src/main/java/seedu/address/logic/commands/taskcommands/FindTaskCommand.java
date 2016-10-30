@@ -32,6 +32,13 @@ public class FindTaskCommand extends TaskCommand {
             EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
         }
+        
+        /**
+         * Retrieve the details of the task for testing purposes
+         */
+        public Set<String> getKeywords() {
+        	return keywords;
+        }
 
 
 }

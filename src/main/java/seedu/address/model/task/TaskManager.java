@@ -53,6 +53,11 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 	
 	@Override
+	public UniqueItemCollection<Task> getTasks(){
+		return tasks;
+	}
+	
+	@Override
 	public synchronized void addTask(Task toAdd) throws DuplicateItemException {
 		// Create a temporary storage of tasks and update the global copy only when update is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
