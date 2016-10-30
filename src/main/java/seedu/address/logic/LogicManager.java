@@ -62,7 +62,9 @@ public class LogicManager extends ComponentManager implements Logic {
      */
     @Override
     public String generateToolTip(String commandText){
-        assert commandText != null;     
-        return parser.parseForTooltip(commandText);    
+        assert commandText != null; 
+        
+        boolean viewingDoneList = model.isCurrentListDoneList();
+        return parser.parseForTooltip(commandText, viewingDoneList);    
     }
 }

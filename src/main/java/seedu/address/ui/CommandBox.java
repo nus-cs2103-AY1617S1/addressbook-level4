@@ -69,6 +69,7 @@ public class CommandBox extends UiPart {
             public void handle(KeyEvent keyEvent) {
                 switch (keyEvent.getCode()) {
                     case UP:
+                        // fall through
                     case DOWN:                    
                         keyEvent.consume();
                         handleUpDownArrow(keyEvent);
