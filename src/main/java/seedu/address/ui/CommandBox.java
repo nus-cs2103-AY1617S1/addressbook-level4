@@ -136,6 +136,8 @@ public class CommandBox extends UiPart {
             	// Add the listener back
             	setTextChangedListener();
             	
+            	event.consume();
+            	
             } else {
             	return;
             }

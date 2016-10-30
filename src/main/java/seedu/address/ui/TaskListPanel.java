@@ -1,5 +1,11 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+import com.sun.javafx.scene.control.skin.ListViewSkin;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -7,24 +13,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-import seedu.address.model.task.Task;
-import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.NewTaskListEvent;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
-
-import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
-import com.sun.javafx.scene.control.skin.ListViewSkin;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
+import seedu.address.model.task.Task;
 
 /**
  * Panel containing the list of tasks.
@@ -68,6 +64,7 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<Task> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        setSelectableCharacteristics();
         registerAsAnEventHandler(this);
     }
 
@@ -79,6 +76,10 @@ public class TaskListPanel extends UiPart {
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
     }
+    
+    private void setSelectableCharacteristics() {
+    	taskListView.setMouseTransparent(true);		
+	}
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
