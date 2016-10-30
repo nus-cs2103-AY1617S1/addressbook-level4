@@ -7,19 +7,21 @@ import java.util.List;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 //@@author A0139655U
 /**
  * Contains methods that works with Date objects in addition to what is given in Java Date API.
  */
 public abstract class DateTime {
 
-    private static final int NEGATIVE_ONE = -1;
     public static final String TIME = "EXPLICIT_TIME";
     private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
     private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
 
+    private static final int NEGATIVE_ONE = -1;
     private static final int BASE_INDEX = 0;
-    private static final int INTEGER_CONSTANT_ONE = 1;
+    private static final int ONE = 1;
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     
@@ -32,43 +34,80 @@ public abstract class DateTime {
     /**
      * Converts given String into a valid Date object
      * 
-     * @return Date object converted from given String
+     * @param dateString    user's input for date
+     * @return Date representation converted from given String
+     * @throws  IllegalValueException if dateString cannot be converted into a Date object.
      */
-    public static Date convertStringToDate(String dateString) {
-        List<DateGroup> dates = new Parser().parse(dateString);
-        Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-        return date;
+    public static Date convertStringToDate(String dateString) throws IllegalValueException {
+        assert dateString != null;
+        
+        if (isValidDate(dateString)) {
+            List<DateGroup> dates = new Parser().parse(dateString);
+            Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            return date;
+        } else {
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
+        }
     }
 
-    public static boolean hasDateValue(String dateString) {
-        List<DateGroup> dates = new Parser().parse(dateString);
+    /**
+     * Returns true if given string contains date value (e.g, "30th Dec 2015").
+     * 
+     * @param dateString    user's input for date
+     * @return  true if given string contains date value. Else, return false.
+     * @throws IllegalValueException    if dateString cannot be converted into a Date object.
+     */
+    public static boolean hasDateValue(String dateString) throws IllegalValueException {
+        assert dateString != null;
         
-        assert dates.get(BASE_INDEX) != null;
-        
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+        if (isValidDate(dateString)) {
+            List<DateGroup> dates = new Parser().parse(dateString);
+            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
 
-        if (syntaxTree.contains(DATE_FORMAT_ONE) || syntaxTree.contains(DATE_FORMAT_TWO)) {
-            return true;
+            if (syntaxTree.contains(DATE_FORMAT_ONE) || syntaxTree.contains(DATE_FORMAT_TWO)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
     
-    public static boolean hasTimeValue(String dateString) {
-        List<DateGroup> dates = new Parser().parse(dateString);
-        
-        assert dates.get(BASE_INDEX) != null;
-        
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+    /**
+     * Returns true if given string contains time value (e.g, "11:30am").
+     * 
+     * @param dateString    user's input for date
+     * @return  true if given string contains time value. Else, return false.
+     * @throws IllegalValueException    if dateString cannot be converted into a Date object.
+     */
+    public static boolean hasTimeValue(String dateString) throws IllegalValueException {
+        assert dateString != null;
+        if (isValidDate(dateString)) {
+            List<DateGroup> dates = new Parser().parse(dateString);
+            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
 
-        if (syntaxTree.contains(TIME)) {
-            return true;
+            if (syntaxTree.contains(TIME)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
         }
     }
     
+    /**
+     * Sets endDate to have the same date, month and year as the startDate.
+     * If upon setting and endDate is of earlier time than startDate, 
+     * then set endDate to be startDate + 1.
+     * 
+     * @param startDate
+     * @param endDate
+     * @return  updated endDate
+     */
     public static Date setEndDateToStartDate(Date startDate, Date endDate) {
+        assert startDate != null && endDate != null;
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         int date = calendarStartDate.get(Calendar.DATE);
@@ -81,17 +120,19 @@ public abstract class DateTime {
         calendarEndDate.set(Calendar.MONTH, month);
         calendarEndDate.set(Calendar.YEAR, year);
         if (calendarEndDate.getTimeInMillis() <= calendarStartDate.getTimeInMillis()) {
-            calendarEndDate.set(Calendar.DATE, date+1);
+            calendarEndDate.set(Calendar.DATE, date + ONE);
         } 
         
         Date updatedDate = calendarEndDate.getTime();
         return updatedDate;
     }
 
-    //TODO: ??
     /**
-     * Verifies if given String conforms to what was specified in User Guide e.g 
-     * "5pm tomorrow", "02/10/2016", "13 Sep"
+     * Returns true if given String conforms to what was specified in User Guide e.g 
+     * "5pm tomorrow", "02/10/2016", "13 Sep".
+     * 
+     * @param dateString    user's input for date
+     * @return  true if given String conforms to what was specified in User Guide. Else, return false.
      */
     public static boolean isValidDate(String dateString) {
         assert dateString != null;
@@ -101,7 +142,7 @@ public abstract class DateTime {
             int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
             String matchingValue = dates.get(BASE_INDEX).getText();
             
-            if (positionOfMatchingValue > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
+            if (positionOfMatchingValue > ONE || !matchingValue.equals(dateString)) {
                 return false;
             }
         } catch (IndexOutOfBoundsException ioobe) {
@@ -109,25 +150,42 @@ public abstract class DateTime {
         }
         return true;
     }
-    
+    //TODO:
     /**
      * Assigns start date to a specified weekday
+     * 
+     * @param dateString    user's input for date
+     * @throws IllegalValueException 
      */
-    public static Date assignStartDateToSpecifiedWeekday(String dateString) {
-        assert dateString != null && (dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
+    public static Date assignStartDateToSpecifiedWeekday(String dateString) throws IllegalValueException {
+        assert dateString != null; 
+                
+        if (dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
         dateString.toLowerCase().equals("wednesday") || dateString.toLowerCase().equals("thursday") || 
         dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
-        dateString.toLowerCase().equals("sunday"));
+        dateString.toLowerCase().equals("sunday")) {
         
-        List<DateGroup> dates = new Parser().parse(dateString);
-        Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-        date = setTimeToStartOfDay(date);
-        date = correctDateIfSameDay(date);
+            List<DateGroup> dates = new Parser().parse(dateString);
+            Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+            date = setTimeToStartOfDay(date);
+            date = correctDateIfSameDay(date);
         
-        return date;
+            return date;
+        } else {
+            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
+        }
     }
 
+    /**
+     * Corrects date if it is same day as today. For e.g, if today is Tuesday, and user input "foo repeat every Tuesday",
+     * the starting date will be set to next Tuesday which is false. This method corrects the date to today.
+     * 
+     * @param date
+     * @return same date if date not equals today's date. Else, return date minus 7 days
+     */
     private static Date correctDateIfSameDay(Date date) {
+        assert date != null;
+        
         Calendar temp = Calendar.getInstance();
         Calendar actual = Calendar.getInstance();
         actual.setTime(date);
@@ -141,7 +199,10 @@ public abstract class DateTime {
     }
     
     /**
-     * Sets time of Date object to start of the day i.e "00:00:00"
+     * Sets time of Date object to start of the day i.e "00:00:00" and returns it.
+     * 
+     * @param date
+     * @return date with time values set to start of the day
      */
     public static Date setTimeToStartOfDay(Date date) {
         assert date != null;
@@ -157,6 +218,9 @@ public abstract class DateTime {
 
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
+     * 
+     * @param date
+     * @return date with time values set to end of the day
      */
     public static Date setTimeToEndOfDay(Date date) {
         assert date != null;
@@ -170,8 +234,20 @@ public abstract class DateTime {
         return updatedDate;
     }
     
-    //TODO: Comments
-    public static void updateDateByRecurrenceRate(Calendar calendar, RecurrenceRate recurrenceRate) {
+    //TODO: Not sure to put this here or where
+    /**
+     * Updates date according to recurrence rate.
+     * 
+     * @param date
+     * @param recurrenceRate
+     * @return date with updated values according to recurrence rate
+     */
+    public static Date updateDateByRecurrenceRate(Date date, RecurrenceRate recurrenceRate) {
+        assert date != null && recurrenceRate != null;
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        
         switch (recurrenceRate.timePeriod) {
         case HOUR:
             calendar.add(Calendar.HOUR_OF_DAY, recurrenceRate.rate);
@@ -189,96 +265,154 @@ public abstract class DateTime {
             calendar.add(Calendar.YEAR, recurrenceRate.rate);
             break;
         case MONDAY:
-            DateTime.updateDateToNextMonday(calendar, recurrenceRate.rate);
+            DateTime.updateCalendarToComingMondays(calendar, recurrenceRate.rate);
             break;
         case TUESDAY:
-            DateTime.updateDateToNextTuesday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingTuesdays(calendar, recurrenceRate.rate);
             break;
         case WEDNESDAY:
-            DateTime.updateDateToNextWednesday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingWednesdays(calendar, recurrenceRate.rate);
             break;
         case THURSDAY:
-            DateTime.updateDateToNextThursday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingThursdays(calendar, recurrenceRate.rate);
             break;
         case FRIDAY:
-            DateTime.updateDateToNextFriday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingFridays(calendar, recurrenceRate.rate);
             break;
         case SATURDAY:
-            DateTime.updateDateToNextSaturday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingSaturdays(calendar, recurrenceRate.rate);
             break;
         case SUNDAY:
-            DateTime.updateDateToNextSunday(calendar, recurrenceRate.rate);
+            DateTime.updateDateToComingSundays(calendar, recurrenceRate.rate);
             break;
         }
+        
+        date = calendar.getTime();
+        return date;
     }
     
-    //TODO: Comments
-    private static void updateDateToNextMonday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Mondays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateCalendarToComingMondays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
 
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextTuesday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Tuesdays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingTuesdays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.TUESDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextWednesday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Wednesdays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingWednesdays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.WEDNESDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextThursday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Thursdays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingThursdays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.THURSDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextFriday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Fridays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingFridays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextSaturday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Saturdays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingSaturdays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
 
-    private static void updateDateToNextSunday(Calendar calendar, int rate) {
-        updateDateByRate(calendar, rate);
+    /**
+     * Updates calendar to coming Sundays depending on value of rate.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateToComingSundays(Calendar calendar, int rate) {
+        assert calendar != null;
+        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+        calendar.add(Calendar.DATE, ONE);
         while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-            calendar.add(Calendar.DATE, INTEGER_CONSTANT_ONE);
+            calendar.add(Calendar.DATE, ONE);
         }
     }
     
-    private static void updateDateByRate(Calendar calendar, int rate) {
-        if (rate > INTEGER_CONSTANT_ONE) {
-            calendar.add(Calendar.DATE, (rate - INTEGER_CONSTANT_ONE) * NUMBER_OF_DAYS_IN_A_WEEK);
+    /**
+     * Updates calendar by (rate - 1) * 7 days.
+     * 
+     * @param calendar
+     * @param rate
+     */
+    private static void updateDateRateMinusOneTimes(Calendar calendar, int rate) {
+        assert calendar != null;
+        if (rate > ONE) {
+            calendar.add(Calendar.DATE, (rate - ONE) * NUMBER_OF_DAYS_IN_A_WEEK);
         }
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -14,6 +15,7 @@ import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
 
+//@@author A0139655U
 /**
  * Adds a person to the address book.
  */
@@ -27,6 +29,7 @@ public class AddCommand extends UndoableCommand {
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
+    //@@author
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
     
@@ -34,17 +37,13 @@ public class AddCommand extends UndoableCommand {
 
     private Task toAdd;
 
+    //@@author A0139655U
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String taskName) {
-        this.toAdd = new Task(new Name(taskName));
-    }
-
-    //@@author A0139655U
     public AddCommand(HashMap<String, Optional<String>> mapOfStrings) 
                     throws IllegalValueException {
         //TODO: assert taskNameString != null;
@@ -56,9 +55,16 @@ public class AddCommand extends UndoableCommand {
         RecurrenceRate recurrenceRate = (RecurrenceRate) mapOfObjects.get("recurrenceRate");
         Priority priority = (Priority) mapOfObjects.get("priority");
         
+        logger.log(Level.FINEST, "taskName is " + taskName + "\nstartDate is " + startDate + "\nendDate is " + endDate
+                + "\n recurrenceRate is " + recurrenceRate + "\npriority is " + priority);
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
+    
+    public AddCommand(String taskName) {
+        this.toAdd = new Task(new Name(taskName));
+    }
 
+    //@@author
     @Override
     public CommandResult execute() {
         assert model != null && toAdd != null;
@@ -93,11 +99,5 @@ public class AddCommand extends UndoableCommand {
         }
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
-    }
-    
-    //@@author
-
-    public Task getToAdd() {
-        return toAdd;
     }
 }
