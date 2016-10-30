@@ -1,8 +1,5 @@
 package harmony.mastermind.model;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,17 +10,15 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
+import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
@@ -35,7 +30,10 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
+// @@author A0124797R
 /**
  * Represents the in-memory model of the address book data. All changes to any
  * model should be synchronized.
@@ -87,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
         currentTab = TAB_HOME;
     }
 
+    //@@author generated
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
@@ -105,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    //@@author generated
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -123,22 +123,22 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
-    @Override
     // @@author A0124797R
+    @Override
+    /** update current tab to the specified tab*/
     public void updateCurrentTab(String tab) {
         this.currentTab = tab;
     }
 
-    @Override
     // @@author A0138862W
+    @Override
     public void pushToUndoHistory(Undoable command) {
         undoHistory.push(command);
     }
 
-    @Override
-
-    /** undo last action performed **/
     // @@author A0138862W
+    @Override
+    /** undo last action performed **/
     public CommandResult undo() throws EmptyStackException {
         CommandResult commandResult = undoHistory.pop().undo();
         updateFilteredListToShowAll();
@@ -187,30 +187,31 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    // @@author A0124797R
     @Override
+    /** Deletes the given archived Task */
     public synchronized void deleteArchive(ReadOnlyTask target) throws TaskNotFoundException, ArchiveTaskList.TaskNotFoundException {
         taskManager.removeArchive(target);
         indicateTaskManagerChanged();
     }
 
+    //@@author generated
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        System.out.println("inside adding");
         taskManager.addTask(task);
-        System.out.println("after adding");
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
 
-    @Override
     // @@author A0124797R
+    @Override
     public synchronized void markTask(Task target) throws TaskNotFoundException {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
 
-    @Override
     // @@author A0124797R
+    @Override
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask(target);
         indicateTaskManagerChanged();
@@ -219,25 +220,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     // =========== Filtered List Accessors
     // ===============================================================
-    @Override
     // @@author A0124797R
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFloatingTasks());
     }
 
-    // @@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
         return new UnmodifiableObservableList<>(taskManager.getEvents());
     }
 
-    // @@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
         return new UnmodifiableObservableList<>(taskManager.getDeadlines());
     }
 
-    // @@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
         return new UnmodifiableObservableList<>(taskManager.getArchives());
@@ -245,8 +243,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     // =========== Methods for file access ================================
 
-    @Override
     // @@author A0124797R
+    @Override
     public synchronized BufferedReader importFile(String fileToImport) throws FileNotFoundException {
         BufferedReader br = new BufferedReader(new FileReader(fileToImport));
         
@@ -266,8 +264,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     // =========== Methods for Recurring Tasks=============================
 
-    @Override
     // @@author A0124797R
+    @Override
     public synchronized void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
         taskManager.addNextTask(task);
         updateFilteredListToShowAll();
@@ -282,36 +280,14 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
-    @Override
     // @@author A0124797R
+    @Override
     public ObservableList<Task> getListToMark() {
         return getCurrentObservableList();
     }
 
-    @Override
     // @@author A0124797R
-    public void updateFilteredListToShowAll() {
-        switch (currentTab) {
-            case TAB_HOME:
-                filteredTasks.setPredicate(null);
-                break;
-            case TAB_TASKS:
-                filteredFloatingTasks.setPredicate(null);
-                break;
-            case TAB_EVENTS:
-                filteredEvents.setPredicate(null);
-                break;
-            case TAB_DEADLINES:
-                filteredDeadlines.setPredicate(null);
-                break;
-            case TAB_ARCHIVES:
-                filteredArchives.setPredicate(null);
-                break;
-        }
-    }
-    
     @Override
-    // @@author A0124797R
     public void updateFilteredListToShow(String tab) {
         switch (tab) {
             case TAB_HOME:
@@ -332,29 +308,56 @@ public class ModelManager extends ComponentManager implements Model {
         }
         updateFilteredListToShowAll();
     }
-
+    
+    // @@author A0124797R
     @Override
+    public void updateFilteredListToShowAll() {
+        switch (currentTab) {
+            case TAB_HOME:
+                filteredTasks.setPredicate(null);
+                break;
+            case TAB_TASKS:
+                filteredFloatingTasks.setPredicate(null);
+                break;
+            case TAB_EVENTS:
+                filteredEvents.setPredicate(null);
+                break;
+            case TAB_DEADLINES:
+                filteredDeadlines.setPredicate(null);
+                break;
+            case TAB_ARCHIVES:
+                filteredArchives.setPredicate(null);
+                break;
+        }
+    }
+
     //@@author A0124797R
+    @Override
     public void updateFilteredListToShowUpcoming(long time, String taskType) {
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(time, taskType)));
     }
 
+    //@@author generated
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    @Override
     // @@author A0124797R
+    @Override
     public void updateFilteredTagTaskList(Set<Tag> keywords) {
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
     }
 
+    //@@author generated
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
     // @@author A0124797R
+    /**
+     * Returns an ObservableList of the filtered tasks in current Tab
+     */
     private ObservableList<Task> getCurrentObservableList() {
         ObservableList<Task> list = filteredTasks;
 
@@ -379,12 +382,14 @@ public class ModelManager extends ComponentManager implements Model {
         return list;
     }
 
-    @Override
     // @@author A0124797R
+    @Override
+    /** Returns an UnmodifiableObservableList of filtered tasks in current Tab */
     public UnmodifiableObservableList<ReadOnlyTask> getCurrentList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(getCurrentObservableList());
     }
 
+    //@@author generated
     private void searchTask(String keyword, Memory memory) {
         taskManager.searchTask(keyword, memory);
     }
@@ -443,6 +448,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     // @@author A0124797R
+    /**
+     * used as a qualifier to filter tasks
+     */
     private class TagQualifier implements Qualifier {
         private Set<Tag> tagKeyWords;
 
@@ -464,6 +472,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    /**
+     * used as a qualifier to filter dates to use in {@code UpcomingCommand}
+     */
     private class DateQualifier implements Qualifier {
         private final String NAME_DEADLINE = "deadlines";
         private final String NAME_EVENT = "events";
@@ -531,6 +542,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    //@@author generated
     public void searchTask(String input) {
         // implementing next milestone
     }

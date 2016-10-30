@@ -36,6 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
+    //@@author A0124797R
     public CommandResult execute(String commandText, String currentTab) {
         logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText, currentTab);
@@ -70,10 +71,12 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredArchiveList();
     }
     
+    /**
+     * parse the result of commands and handle ImportCommand separately
+     */
     private CommandResult parseResult(Command cmd, String currentTab) {
         CommandResult result = cmd.execute();
         if (result.feedbackToUser.equals(ImportCommand.MESSAGE_READ_SUCCESS)) {
-            System.out.println("read success");
             result = handleImport((ImportCommand) cmd, currentTab);
         }
 

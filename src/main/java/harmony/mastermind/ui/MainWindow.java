@@ -1,11 +1,11 @@
 package harmony.mastermind.ui;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
-import java.util.Collections;
-import java.util.Comparator;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -18,25 +18,21 @@ import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
-import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
-import harmony.mastermind.model.Model;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskListComparator;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.EventHandler;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -47,16 +43,13 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SortEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -67,7 +60,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -338,8 +330,11 @@ public class MainWindow extends UiPart {
 
     // ==================================
 
-    @FXML
     // @@author A0124797R
+    /**
+     * Initialize the displaying of tabs
+     */
+    @FXML
     private void initialize() {
         initHomeTab();
         initTaskTab();
@@ -359,7 +354,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Home tab
      */
-    // @@author A0124797R
     private void initHomeTab() {
         initIndex(indexHome);
         initName(taskNameHome);
@@ -372,7 +366,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Task tab
      */
-    // @@author A0124797R
     private void initTaskTab() {
         initIndex(indexTask);
         initName(taskNameTask);
@@ -385,7 +378,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the task in the Event tab
      */
-    // @@author A0124797R
     private void initEventTab() {
         initIndex(indexEvent);
         initName(taskNameEvent);
@@ -398,7 +390,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the task in the Deadline tab
      */
-    // @@author A0124797R
     private void initDeadlineTab() {
         initIndex(indexDeadline);
         initName(taskNameDeadline);
@@ -411,7 +402,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the task in the archive tab
      */
-    // @@author A0124797R
     private void initArchiveTab() {
         initIndex(indexArchive);
         initName(taskNameArchive);
@@ -694,10 +684,10 @@ public class MainWindow extends UiPart {
 
     }
 
+    // @@author A0124797R
     /**
      * Initialize a checkbox to determine whether task is recurring
      */
-    // @@author A0124797R
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
         recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
@@ -729,11 +719,11 @@ public class MainWindow extends UiPart {
         taskTableHome.scrollTo(task);
     }
 
+    // @@author A0124797R
     /**
      * Handles all command input keyed in by user
      */
     @FXML
-    // @@author A0124797R
     private void handleCommandInputChanged() {
         // Take a copy of the command text
         currCommandText = commandField.getText();
@@ -757,8 +747,7 @@ public class MainWindow extends UiPart {
         // adds current command into the stack
         updateCommandHistory(currCommandText);
 
-        logger.info("Result: "
-                    + mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
     // @@author A0124797R
@@ -779,8 +768,7 @@ public class MainWindow extends UiPart {
                                          + logic.getFilteredEventList().size()
                                          + ")");
         tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES]
-                                            + "("
-                                            + logic.getFilteredDeadlineList().size()
+                                            + "(" + logic.getFilteredDeadlineList().size()
                                             + ")");
         tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES]
                                            + "("
@@ -820,8 +808,8 @@ public class MainWindow extends UiPart {
         }
     }
 
-    @FXML
     // @@author A0143378Y
+    @FXML
     private void initAutoComplete() {
         // Autocomplete function
         Collections.addAll(listOfWords, words);
@@ -874,9 +862,8 @@ public class MainWindow extends UiPart {
     }
 
     // @@author A0124797R
-    // updates the tab if list/upcoming command is used
     /**
-     * handle the switching of tabs
+     * handle the switching of tabs when list/upcoming is used
      */
     private void updateTab(String result) {
         switch (result) {
@@ -939,18 +926,18 @@ public class MainWindow extends UiPart {
         this.autoCompletionBinding.dispose();
     }
 
-    @Subscribe
     // @@author A0124797R
+    @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: "
                                                                  + currCommandText));
         restoreCommandText();
     }
 
+    // @@author A0124797R
     /**
      * Sets the command box style to indicate a correct command.
      */
-    // @@author A0124797R
     private void setStyleToIndicateCorrectCommand() {
         commandField.setText("");
     }

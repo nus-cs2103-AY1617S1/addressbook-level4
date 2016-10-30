@@ -1,5 +1,7 @@
 package harmony.mastermind.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.MainApp;
@@ -15,15 +17,8 @@ import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.UserPrefs;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.Popup;
-
-import java.util.Date;
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.
@@ -106,8 +101,8 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.highlightLastActionedRow(event.task);
     }
 
-    @Subscribe
     // @@author A0124797R
+    @Subscribe
     private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
         mainWindow.updateTabTitle();
     }

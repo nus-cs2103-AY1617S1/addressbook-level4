@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+//@@author A0124797R
+/**
+ * Imports a txt file of commands to add tasks automatically
+ */
 public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
@@ -49,6 +53,7 @@ public class ImportCommand extends Command {
         return new CommandResult(COMMAND_WORD , MESSAGE_READ_SUCCESS);
     }
     
+    /** gets the list of commands for adding tasks */
     public ArrayList<String> getTaskToAdd() {
         return this.lstOfCmd;
     }

@@ -1,9 +1,7 @@
 package harmony.mastermind.logic.commands;
 
-import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.TaskAlreadyUnmarkedException;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -34,9 +32,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Unmark Command] %1$s has been archived";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Unmark Command] %1$s has been unmarked";
 
-    public final int targetIndex;
-
-    Task taskToUnmark;
+    private final int targetIndex;
+    private Task taskToUnmark;
 
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -63,8 +60,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
     }
 
-    @Override
     //@@author A0138862W
+    @Override
     public CommandResult undo() {
         try {
             // remove the task that's previously added.
