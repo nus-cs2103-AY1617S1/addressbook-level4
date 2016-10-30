@@ -40,26 +40,11 @@ public class CommandMap {
             commandMap.put(commandName, command);
         }
     }
-    
-    private static void buildCommandSummariesMap() {
-        commandSummaryMap = new LinkedHashMap<>();
-        for (String key : getCommandMap().keySet()) {
-            commandSummaryMap.put(key, CommandMap.getCommand(key).getCommandSummary());
-        }
-    }
 
-    public static Map<String, Class<? extends BaseCommand>> getCommandMap() {
-        if (commandMap == null) {
-            buildCommandMap();
-        }
-        
-        return commandMap;
-    }
-    
     public static BaseCommand getCommand(String key) {
         return getCommand(getCommandMap().get(key));
     }
-    
+
     public static BaseCommand getCommand(Class<? extends BaseCommand> command) {
         try {
             return command.newInstance();
@@ -68,16 +53,42 @@ public class CommandMap {
             return null; // This shouldn't happen
         }
     }
-    
+
+    public static Map<String, Class<? extends BaseCommand>> getCommandMap() {
+        if (commandMap == null) {
+            buildCommandMap();
+        }
+
+        return commandMap;
+    }
+
+    //@@author A0139021U
+    private static void buildCommandSummariesMap() {
+        // Use linked hashmap so summaries are presented to user in the same order every time
+        commandSummaryMap = new LinkedHashMap<>();
+        for (String key : getCommandMap().keySet()) {
+            commandSummaryMap.put(key, CommandMap.getCommand(key).getCommandSummary());
+        }
+    }
+
+    /**
+     * Gets a map of command keys to command summaries
+     * @return map of command summaries
+     */
     public static Map<String, List<CommandSummary>> getCommandSummaryMap() {
         if (commandSummaryMap == null) {
             buildCommandSummariesMap();
         }
-        
+
         return commandSummaryMap;
     }
-    
+
+    /**
+     * Gets a full list of all command summaries.
+     * @return list of command summaries
+     */
     public static List<CommandSummary> getAllCommandSummary() {
+        // convert map to list
         List<CommandSummary> commandSummariesList = new ArrayList<>();
         getCommandSummaryMap().values().forEach(commandSummariesList::addAll);
         return commandSummariesList;
