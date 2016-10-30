@@ -92,6 +92,14 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.list-cell:even {
+	-fx-background-color:  #cde7f0
+}
+
+.list-cell:odd {
+	-fx-background-color: #eef7fa
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
@@ -123,7 +131,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color:  #324c5f;
     -fx-text-fill: black;
 }
 
