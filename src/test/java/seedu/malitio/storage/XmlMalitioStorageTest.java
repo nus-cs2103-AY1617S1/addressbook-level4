@@ -30,7 +30,7 @@ public class XmlMalitioStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readmalitio_nullFilePath_assertionFailure() throws Exception {
+    public void readMalitio_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
         readMalitio(null);
     }
@@ -62,28 +62,28 @@ public class XmlMalitioStorageTest {
     }
 
     @Test
-    public void readAndSavemalitio_allInOrder_success() throws Exception {
+    public void readAndSaveMalitio_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "Tempmalitio.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         Malitio original = td.getTypicalMalitio();
-        XmlMalitioStorage xmlmalitioStorage = new XmlMalitioStorage(filePath);
+        XmlMalitioStorage xmlMalitioStorage = new XmlMalitioStorage(filePath);
 
         //Save in new file and read back
-        xmlmalitioStorage.saveMalitio(original, filePath);
-        ReadOnlyMalitio readBack = xmlmalitioStorage.readMalitio(filePath).get();
+        xmlMalitioStorage.saveMalitio(original, filePath);
+        ReadOnlyMalitio readBack = xmlMalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addFloatingTask(new FloatingTask(TypicalTestTasks.manualFloatingTask1));
         original.removeTask(new FloatingTask(TypicalTestTasks.floatingTask1));
-        xmlmalitioStorage.saveMalitio(original, filePath);
-        readBack = xmlmalitioStorage.readMalitio(filePath).get();
+        xmlMalitioStorage.saveMalitio(original, filePath);
+        readBack = xmlMalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
         original.addDeadline(new Deadline(TypicalTestTasks.manualDeadline1));
-        xmlmalitioStorage.saveMalitio(original); //file path not specified
-        readBack = xmlmalitioStorage.readMalitio().get(); //file path not specified
+        xmlMalitioStorage.saveMalitio(original); //file path not specified
+        readBack = xmlMalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));
 
     }
