@@ -74,7 +74,7 @@ public class AddCommand extends UndoableCommand {
         }
         
         try {
-            createRecurringTask(this.amountRecurring);
+            createRecurringTask(this.amountRecurring + 1);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         } catch (IllegalValueException e) {
