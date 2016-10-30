@@ -118,8 +118,13 @@ public class CommandBox extends UiPart {
 				}
 			}
 		}
-		commandTextField.setText(completedCommand);
-		commandTextField.end();
+		if(!found){
+			return;
+		}
+		else{
+			commandTextField.setText(completedCommand);
+			commandTextField.end();
+		}
 	}
 
 	private void addToPlaceholder() {
