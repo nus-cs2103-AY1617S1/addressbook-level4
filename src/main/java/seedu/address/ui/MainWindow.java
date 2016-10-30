@@ -117,7 +117,7 @@ public class MainWindow extends UiPart {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -207,6 +207,7 @@ public class MainWindow extends UiPart {
             XmlAddressBookStorage.setAddressBookFilePath(selectedFile.getAbsolutePath());
             userPrefs.setDataFilePath(selectedFile.getAbsolutePath());
             resultDisplay.postMessage("New save location: " + selectedFile.getAbsolutePath());
+            statusBarFooter.setSaveLocation(selectedFile.getAbsolutePath());
         }
     }
 
