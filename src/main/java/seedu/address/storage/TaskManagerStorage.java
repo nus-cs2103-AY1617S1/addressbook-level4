@@ -51,6 +51,7 @@ public interface TaskManagerStorage {
      */
     void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException;
     
+    //@@author A0146123R
     /**
      * Delete the storage file.
      * @throws IOException if there was any problem deleting the file.

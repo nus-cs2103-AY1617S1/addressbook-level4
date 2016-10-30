@@ -437,7 +437,7 @@ public class ModelManager extends ComponentManager implements Model {
             if (recurring.equals(EMPTY)) {
                 return task.getRecurring() == null;
             } else {
-                return task.getRecurring() != null && this.recurring.equals(task.getRecurring().toString());
+                return task.getRecurring() != null && this.recurring.equals(task.getRecurring().recurringFrequency);
             }
         }
         

@@ -276,7 +276,8 @@ Priority | As a ... | I want to ... | So that I can...
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
-//@@LiXiaowei A0142325R
+
+<!-- @@author A0142325R-->
 #### Use case: Delete task
 
 **MSS**
@@ -300,7 +301,8 @@ Use case resumes at step 4
 
 > 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
-//
+
+<!-- @@author A0146123R-->
 #### Use case: Find task
 
 **MSS**
@@ -309,6 +311,7 @@ Use case resumes at step 4
 2. Task Manager shows a list of tasks
 Use case ends.
 
+<!-- @@author -->
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
@@ -328,7 +331,7 @@ Use case ends.
 > Windows, Linux, Unix, OS-X
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0146123R-->
 **Todo.txt**<br>
 * Strength<br>
   * It is offline and easy to start.
@@ -340,6 +343,7 @@ Use case ends.
   * It does not support for events and deadlines.  
   * It does not support for undo operations. 
   * The UI is too simple.<br>
+<!-- @@author -->
 
 **Wunderlist**<br>
 * Strength<br>
