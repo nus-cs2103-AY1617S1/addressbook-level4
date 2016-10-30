@@ -63,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
+        this.config = config;
     }
 
     public ModelManager() {
