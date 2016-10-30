@@ -1,41 +1,6 @@
-package seedu.gtd.logic;
-
-import com.google.common.eventbus.Subscribe;
-
-import seedu.gtd.commons.core.EventsCenter;
-import seedu.gtd.commons.events.model.AddressBookChangedEvent;
-import seedu.gtd.commons.events.ui.JumpToListRequestEvent;
-import seedu.gtd.commons.events.ui.ShowHelpRequestEvent;
-import seedu.gtd.logic.Logic;
-import seedu.gtd.logic.LogicManager;
-import seedu.gtd.logic.commands.*;
-import seedu.gtd.model.AddressBook;
-import seedu.gtd.model.Model;
-import seedu.gtd.model.ModelManager;
-import seedu.gtd.model.ReadOnlyAddressBook;
-import seedu.gtd.model.task.*;
-import seedu.gtd.model.tag.Tag;
-import seedu.gtd.model.tag.UniqueTagList;
-import seedu.gtd.storage.StorageManager;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.gtd.commons.core.Messages.*;
-
-public class LogicManagerTest {
-	
-	//@@author addressbook-level4
+# addressbooklevel4
+###### /src/test/java/seedu/gtd/logic/LogicManagerTest.java
+``` java
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
@@ -130,21 +95,9 @@ public class LogicManagerTest {
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
     
-    //@@author A0146130W-reusedToTest
-    @Test
-    public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.MESSAGE_USAGE+"/n"+HelpCommand.SHOWING_HELP_MESSAGE);
-        assertTrue(helpShown);
-        assertCommandBehavior("help add", AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help select", SelectCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help delete", DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help clear", ClearCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help find", FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help list", ListCommand.MESSAGE_USAGE);
-        assertCommandBehavior("help exit", ExitCommand.MESSAGE_USAGE);
-    }
-
-    //@@author addressbook-level4
+```
+###### /src/test/java/seedu/gtd/logic/LogicManagerTest.java
+``` java
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
@@ -525,3 +478,4 @@ public class LogicManagerTest {
         }
     }
 }
+```
