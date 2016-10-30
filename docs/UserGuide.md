@@ -82,20 +82,6 @@ Example:
  
 <br>
 
-#### View all tasks: `view all`
-Lists all todo tasks, deadlines and events ever added.
-Format: `view all`
-
-All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
-> Note that events that are over will be automatically marked as done.
-
-Example:
-
-* `view all`<br>
-  <img src="images/UIviewAll.png" width="900">
-  
-<br>
-
 #### View all completed tasks: `view done`
 Lists all completed tasks, deadlines and events.
 Format: `view done`
@@ -108,6 +94,21 @@ Example:
   <img src="images/UIviewDone.png" width="900">
   
 <br>
+
+#### View all tasks: `view all`
+Lists all todo tasks, deadlines and events ever added.
+Format: `view all`
+
+All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
+> Note that events that are over will be automatically marked and displayed as completed.
+
+Example:
+
+* `view all`<br>
+  <img src="images/UIviewAll.png" width="900">
+  
+<br>
+
 <!-- @@author A0139930B -->
 #### Create a new task: `add`
 Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
