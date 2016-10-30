@@ -238,7 +238,7 @@ Format: `save FILE_NAME.xml`
 
 Command | Format  
 --------| -------- 
-Add     | `add TASK, DATE, TIME, PRIORITY, FREQUENCY`
+Add     | `add TASK, DATE TIME -PRIORITY`
 List    | `list DATE`
 Search  | `search KEYWORD`
 Delete  | `delete INDEX`
