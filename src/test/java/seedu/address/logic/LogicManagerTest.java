@@ -237,9 +237,12 @@ public class LogicManagerTest {
                 undolist.getEventList(),
                 undolist.getDeadlineList(),
                 undolist.getTodoList());
-
-    }
-    
+        assertCommandBehavior("redo 1", RedoCommand.MESSAGE_REDO_TASK_SUCCESS,
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }   
 
     //@@author A0139430L JingRui
     @Test
