@@ -17,7 +17,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
   //@@author A0138411N
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task\n"
-            + "Parameters: TASK, [DATE], [TIME], [-PRIORITY]\n"
+            + "Parameters: TASK, [DATE] [TIME] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " examination period from friday 1pm to next friday 12pm -high";
     
@@ -48,14 +48,6 @@ public class AddCommand extends Command {
      */
     public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, String priority) throws IllegalValueException {      
 
-        if (startTime.equals("")) {
-            startTime = Messages.MESSAGE_NO_START_TIME_SET;
-        }
-        
-        if (endTime.equals("")) {
-            endTime = Messages.MESSAGE_NO_END_TIME_SET;
-        }
-        
         this.toAdd = new EventTask(
                 new TaskName(taskName),
                 new TaskDate(startDate),
@@ -73,15 +65,9 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String taskName, String date, String endTime, String priority) throws IllegalValueException {      
-
-        if (endTime.equals("")) {
-            endTime = Messages.MESSAGE_NO_END_TIME_SET;
-        }
         
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
-                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
-                new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
                 new TaskDate(date),
                 new TaskTime(endTime),
                 new Priority(priority)
@@ -90,7 +76,7 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor for task without deadlines using raw values.
+     * Convenience constructor for floating task using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -98,10 +84,6 @@ public class AddCommand extends Command {
 
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
-                new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
-                new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
-                new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),
-                new TaskTime(Messages.MESSAGE_NO_END_TIME_SET),
                 new Priority(priority)
         );
         taskType = TaskType.FLOATING;

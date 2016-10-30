@@ -138,6 +138,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+        assert args != null;
         final String taskType = matchTaskType(args.trim());
         if (taskType.equals("taskTypeNotFound")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -160,9 +161,11 @@ public class Parser {
      * Parses arguments in the context of adding an event task command.
      *
      * @param args full command args string
+     * @throws IllegalValueException
      * @return the prepared Add command
      */
     private AddCommand addEventTask(String args) throws IllegalValueException {
+        assert args != null;
         Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
         Matcher matcherSameDay = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args.trim());
         String priority;
@@ -195,9 +198,11 @@ public class Parser {
      * Parses arguments in the context of adding an deadline task command.
      *
      * @param args full command args string
+     * @throws IllegalValueException
      * @return the prepared Add command
      */
     private AddCommand addDeadlineTask(String args) throws IllegalValueException {
+        assert args != null;
         Matcher matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
         String priority;
         matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -217,9 +222,11 @@ public class Parser {
      * Parses arguments in the context of adding an floating task command.
      *
      * @param args full command args string
+     * @throws IllegalValueException
      * @return the prepared Add command
      */
     private AddCommand addFloatingTask(String args) throws IllegalValueException {
+        assert args != null;
         Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         Matcher matcherFloating = FLOATING_WITH_PRIORITY.matcher(args.trim());
         if (matcherFloating.matches()) {
@@ -321,7 +328,14 @@ public class Parser {
   //@@author
     
   //@@author A0138411N
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareEdit(String args) {
+        assert args != null;
         Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
