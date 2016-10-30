@@ -32,6 +32,10 @@ public class UnmarkCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("undo");
         assertTrue(taskListPanel.isArchivedListMatching(currentList));
         
+        commandBox.runCommand("redo");
+        TestTask[] expectedList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        assertTrue(taskListPanel.isArchivedListMatching(expectedList));
+        
         //invalid index
         commandBox.runCommand("unmark " + (currentList.length + 1));
         assertResultMessage(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

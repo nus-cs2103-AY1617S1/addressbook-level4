@@ -7,6 +7,6 @@ package harmony.mastermind.commons.exceptions;
 public class TaskAlreadyUnmarkedException extends Exception{
 
     public TaskAlreadyUnmarkedException(){
-        super();
+        super("Task is has not been completed");
     }
 }

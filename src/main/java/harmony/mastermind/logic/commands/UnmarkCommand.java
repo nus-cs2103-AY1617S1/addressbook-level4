@@ -51,8 +51,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
-        } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
@@ -97,8 +95,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             requestHighlightLastActionedRow(taskToUnmark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
-        } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
@@ -108,7 +104,7 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     //@@author A0124797R
     private void executeUnmark() throws IndexOutOfBoundsException, TaskNotFoundException,
-        TaskAlreadyUnmarkedException, DuplicateTaskException {
+        DuplicateTaskException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredArchiveList();
 
         if (lastShownList.size() < targetIndex) {
@@ -117,10 +113,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
         
         taskToUnmark = (Task) lastShownList.get(targetIndex - 1);
-        
-        if (!taskToUnmark.isMarked()) {
-            throw new TaskAlreadyUnmarkedException();
-        }
         
         model.unmarkTask(taskToUnmark);
     }
