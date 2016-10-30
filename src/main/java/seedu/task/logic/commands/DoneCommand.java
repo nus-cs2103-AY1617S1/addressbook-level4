@@ -1,7 +1,9 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
@@ -55,6 +57,9 @@ public class DoneCommand extends Command {
             ReadOnlyTask completedTask = taskToComplete;
             completedTask.setStatus(new Status("COMPLETED"));
             model.completeTask(taskToComplete, completedTask);
+            //to focus on the completed task
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size() - 1));
+            
             
         } catch (TaskNotFoundException pnfe) {
 			//remove this command from list for undo

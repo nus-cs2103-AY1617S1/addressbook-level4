@@ -84,6 +84,14 @@ public class AddCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		assert model != null;
+		
+		Title title;
+		Description description;
+		StartDate startDate;
+		DueDate dueDate;
+		Status status;
+		String feedback;
+		
 		try {
 			//For every task from list, add task to manager
 			for (Task task : tasksToAdd) {
@@ -94,11 +102,18 @@ public class AddCommand extends Command {
 			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size() - 1));
 			//@@author
 			
-			if (tasksToAdd.size() == 1)
-				return new CommandResult(String.format(MESSAGE_SUCCESS,
-						tasksToAdd.get(0).getTitle() + " Description: " + tasksToAdd.get(0).getDescription()
-								+ " Start Date: " + tasksToAdd.get(0).getStartDate() + " Due Date: "
-								+ tasksToAdd.get(0).getDueDate() + " Status: " + tasksToAdd.get(0).getStatus()));
+			if (tasksToAdd.size() == 1) {
+			    title = tasksToAdd.get(0).getTitle();
+			    description = tasksToAdd.get(0).getDescription();
+			    startDate = tasksToAdd.get(0).getStartDate();
+			    dueDate = tasksToAdd.get(0).getDueDate();
+			    status = tasksToAdd.get(0).getStatus();
+			    feedback = title + " Description: " + description
+			            + " Start Date: " + startDate
+			            + " Due Date: " + dueDate
+			            + " Status: " + status;
+				return new CommandResult(String.format(MESSAGE_SUCCESS, feedback));
+			}
 			else
 				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),
 						tasksToAdd.get(0).getTitle()));
