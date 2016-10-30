@@ -145,6 +145,11 @@ public interface Model {
 
     //@@author A0135805H
     /**
+     * Gets an immutable copy of the task
+     */
+    ImmutableTask getTask(int displayedIndex) throws ValidationException;
+
+    /**
      * Gets a copy of the list of tags
      */
     List<Tag> getGlobalTagsList();

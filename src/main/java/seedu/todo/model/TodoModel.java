@@ -330,7 +330,8 @@ public class TodoModel implements Model {
      * Gets the {@link ImmutableTask} object at the respective displayed index.
      * @throws ValidationException when the index is invalid.
      */
-    private ImmutableTask getTask(int displayedIndex) throws ValidationException {
+    @Override
+    public ImmutableTask getTask(int displayedIndex) throws ValidationException {
         int index = getTaskIndex(displayedIndex);
         return tasks.get(index);
     }

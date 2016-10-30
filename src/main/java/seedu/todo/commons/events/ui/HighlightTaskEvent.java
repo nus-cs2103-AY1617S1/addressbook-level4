@@ -4,6 +4,7 @@ import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.ui.view.TodoListView;
 
+//@@author A0135805H-reused
 /**
  * Request to highlight in the user interface a particular task
  * displayed in the {@link TodoListView}

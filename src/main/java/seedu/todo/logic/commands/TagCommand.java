@@ -2,6 +2,8 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 import seedu.todo.commons.core.EventsCenter;
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -134,34 +136,40 @@ public class TagCommand extends BaseCommand {
         String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
         String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
         String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
+        CommandResult result = new CommandResult();
 
         //Performs the actual execution with the data
         if (isShowTags()) {
             ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
             EventsCenter.getInstance().post(tagsEvent);
-            return new CommandResult();
 
         } else if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
-            return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
+            result = new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
-            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+            result = new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
 
         } else if (isDeleteTagsFromAllTasks()) {
             model.deleteTags(tagsToDelete);
-            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+            result = new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
 
         } else if (isRenamingTag()) {
             model.renameTag(renameTagsParam[0], renameTagsParam[1]);
-            return new CommandResult(renameTagsParam[0] + SUCCESS_RENAME_TAGS + renameTagsParam[1]);
+            result = new CommandResult(renameTagsParam[0] + SUCCESS_RENAME_TAGS + renameTagsParam[1]);
 
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
             //However, for completeness, a command result is returned.
             throw new ValidationException(ERROR_INCOMPLETE_PARAMETERS);
         }
+
+        if (displayedIndex != null) {
+            eventBus.post(new HighlightTaskEvent(model.getTask(displayedIndex)));
+            eventBus.post(new ExpandCollapseTaskEvent(model.getTask(displayedIndex)));
+        }
+        return result;
     }
 
     /* Input Parameters Validation */
