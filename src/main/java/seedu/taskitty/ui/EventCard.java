@@ -1,9 +1,13 @@
 package seedu.taskitty.ui;
 
+import java.time.LocalDate;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.taskitty.commons.util.DateUtil;
+import seedu.taskitty.commons.util.TimeUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
@@ -49,22 +53,22 @@ public class EventCard extends UiPart {
         
         TaskDate startTaskDate = task.getPeriod().getStartDate();
         if (startTaskDate != null) {
-            startDate.setText("Start :" + startTaskDate.toString());
+            startDate.setText("Start: " + DateUtil.createDateString(startTaskDate.getDate()));
         }
         
         TaskTime taskStartTime = task.getPeriod().getStartTime();
         if (taskStartTime != null) {
-            startTime.setText(taskStartTime.toString());
+            startTime.setText(TimeUtil.createTimeString(taskStartTime.getTime()));
         }
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();
         if (endTaskDate != null) {
-            endDate.setText("End: " + endTaskDate.toString());
+            endDate.setText("End:  " + DateUtil.createDateString(endTaskDate.getDate()));
         }
         
         TaskTime taskEndTime = task.getPeriod().getEndTime();
         if (taskEndTime != null) {
-            endTime.setText(taskEndTime.toString());
+            endTime.setText(TimeUtil.createTimeString(taskEndTime.getTime()));
         }
         
         String indexPrefix;

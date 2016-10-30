@@ -169,6 +169,11 @@ public class DateUtil {
     public static String createDefaultDateString() {
     	return createUISpecifiedDateString(createCurrentDate());
     }
+    
+    /**
+     * For use by the status bar footer, it appends a "(today)" string behind if date == today.
+     *
+     */
     public static String createUISpecifiedDateString(LocalDate date) {
     	DateTimeFormatter df = DateTimeFormatter.ofPattern("dd MMM yyyy");
     	String dateString = date.format(df);
@@ -178,6 +183,17 @@ public class DateUtil {
     	return dateString;
     	
     }
+    /**
+     * For use by the event card.
+     *
+     */
+    public static String createDateString(LocalDate date) {
+    	DateTimeFormatter df = DateTimeFormatter.ofPattern("d MMM yyyy");
+    	String dateString = date.format(df);
+    	return dateString;
+    	
+    }
+    
     
     public static boolean isToday(LocalDate date) {
     	return date.equals(createCurrentDate());

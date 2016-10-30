@@ -1,8 +1,11 @@
 package seedu.taskitty.commons.util;
 
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 //@@author A0139930B-unused
 //Code was written before switching over to using Natty
@@ -60,4 +63,15 @@ public class TimeUtil {
     public static LocalDateTime createCurrentTime() {
 		return LocalDateTime.now();
 	}
+    
+    /**
+     * For use by the event card.
+     *
+     */
+    public static String createTimeString(LocalTime time) {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mma");
+    	String dateString = formatter.format(time);
+    	return dateString;
+    	
+    }
 }
