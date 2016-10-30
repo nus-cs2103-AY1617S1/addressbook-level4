@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -20,6 +22,9 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
+    private static final String INACTIVE_CSS = "-fx-background-color: derive(#1d1d1d, 20%);";
+    private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius:  10 10 10 10; "
+            + "-fx-background-radius:  10 10 10 10;";
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow_Task.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -30,7 +35,6 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private TaskConfig config;
     private UserPrefs userPrefs;
@@ -47,19 +51,22 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
     private AnchorPane taskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
     
     @FXML
     private AnchorPane helpListPanelPlaceholder;
+    
+    @FXML
+    private Label notComplete;
+    
+    @FXML
+    private Label complete;
+    
+    @FXML
+    private Label find;
 
     public MainWindow() {
         super();
@@ -99,27 +106,18 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        setAccelerators();
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
 
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTasksFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         helpListPanel = HelpPanel.load(primaryStage,getHelpListPlaceholder(), logic.getHelpList() );
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
     }
 
     private AnchorPane getResultDisplayPlaceholder() {
@@ -175,6 +173,40 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
+    
+    public void handleFilterLabelChange(COMMANDTYPE commandType) {
+        if (commandType == COMMANDTYPE.List) {
+            setListLabelActive();
+
+        } else if (commandType == COMMANDTYPE.Find) {
+            setFindLabelActive();
+            
+        } else if (commandType == COMMANDTYPE.ListComplete) {
+            setCompleteLabelActive();
+        }
+    }
+
+    private void setCompleteLabelActive() {
+        complete.setStyle(ACTIVE_CSS);
+        find.setStyle(INACTIVE_CSS);
+        notComplete.setStyle(INACTIVE_CSS);
+        
+    }
+
+    private void setFindLabelActive() {
+        find.setStyle(ACTIVE_CSS);
+        notComplete.setStyle(INACTIVE_CSS);
+        complete.setStyle(INACTIVE_CSS);
+        
+        
+    }
+
+    private void setListLabelActive() {
+        notComplete.setStyle(ACTIVE_CSS);
+        find.setStyle(INACTIVE_CSS);
+        complete.setStyle(INACTIVE_CSS);
+        
+    }
 
     @FXML
     public void handleHelp() {
@@ -202,4 +234,6 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
+
+
 }
