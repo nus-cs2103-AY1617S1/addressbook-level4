@@ -177,7 +177,6 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
 
-
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -335,7 +334,7 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " t3", expectedMessage, model.getTaskBook(), floatingTaskList);
     }
     
-    // @@author A0140133B
+    /*
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
@@ -347,6 +346,7 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("selec", expectedMessage);
     }
 
+    
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
@@ -356,6 +356,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("sele");
         assertIndexNotFoundBehaviorForCommand("selec");
     }
+    
 
     @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
@@ -408,6 +409,7 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredAgendaTaskList().get(0), threeFloatingTasks.get(0));
     }
 
+    */
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -488,6 +490,7 @@ public class LogicManagerTest {
 
 
     }
+    
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
@@ -551,7 +554,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    // @@author 
     
     @Test
     public void execute_saveAs_invalidArgsFormat() throws Exception {
