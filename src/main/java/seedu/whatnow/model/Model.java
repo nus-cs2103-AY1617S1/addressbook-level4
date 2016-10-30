@@ -33,11 +33,14 @@ public interface Model {
     //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
+    int deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
-
+    
+    /** Adds the given task at specific index */
+    void addTaskSpecific(Task task, int idx) throws DuplicateTaskException;
+    
     //@@author A0139772U
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList();
@@ -88,9 +91,15 @@ public interface Model {
 	/** Gets the deletedStackOfTask that corresponds to deleteCommand*/
 	Stack<ReadOnlyTask> getDeletedStackOfTasks();
 
+	/** Gets the deletedStackOfTsksIndex that corresponds to deleteCommand */
+	Stack<Integer> getDeletedStackOfTasksIndex();
+	
 	/** Gets the deletedStackOfTaskRedo that corresponds to deleteCommand*/
 	Stack<ReadOnlyTask> getDeletedStackOfTasksRedo();
 	
+	/** Gets the deletedStackOfTasksIndexRedo that corresponds to deleteCommand */
+	Stack<Integer> getDeletedStackOfTasksIndexRedo();
+	 
 	/** Gets the deleted StackOfTasks that corresponds to AddCommand */
 	Stack<ReadOnlyTask> getDeletedStackOfTasksAdd();
 
@@ -119,7 +128,7 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
     
     /** Returns the filtered task list with filter keyword as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> key);
