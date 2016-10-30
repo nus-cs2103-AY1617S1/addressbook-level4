@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.cmdo.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 /*
- * @@author A0141128R
+ * @@author A0141128R tested and passed
  */
 
 public class DoneCommandTest extends ToDoListGuiTest {
