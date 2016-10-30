@@ -79,11 +79,7 @@ public class CommandMap {
     
     public static List<CommandSummary> getAllCommandSummary() {
         List<CommandSummary> commandSummariesList = new ArrayList<>();
-        commandSummaryMap.values().forEach(commandSummariesList::addAll);
+        getCommandSummaryMap().values().forEach(commandSummariesList::addAll);
         return commandSummariesList;
-    }
-    
-    public static List<CommandSummary> getListOfCommandSummary(String key) {
-        return getCommandSummaryMap().get(key);
     }
 }
