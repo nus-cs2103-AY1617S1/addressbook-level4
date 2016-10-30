@@ -11,7 +11,8 @@ import seedu.address.model.TaskBook;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     
-    public static final String MESSAGE_REDO_TASK_SUCCESS = "Redid Task";
+    public static final String MESSAGE_REDO_TASK_SUCCESS = "Redid Task.";
+    public static final String MESSAGE_REDO_TASK_FAILURE = "Failed to redo task.";
     
     private int numTimes;
     
@@ -25,6 +26,12 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
+        if (numTimes > model.getRedoStack().size()) {
+            Command command = new IncorrectCommand("There are not so many tasks available to be redone.");
+            return command.execute();
+        }
+        
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
@@ -40,12 +47,12 @@ public class RedoCommand extends Command {
             System.out.println(config.getAddressBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-                System.out.println("Pretty please");
             } catch (IOException e) {
-                System.out.println("omg wtf am i doing");
+                
             }
            
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
+            model.getCommandHistory().add("redo");
             model.getUndoStack().push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_REDO_TASK_SUCCESS);

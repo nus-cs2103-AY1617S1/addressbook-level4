@@ -69,6 +69,7 @@ public class DoneCommand extends Command {
                 try {
                     model.addToUndoStack();
                     model.markDone(taskDone);
+                    model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -86,6 +87,7 @@ public class DoneCommand extends Command {
                 try {
                     model.addToUndoStack();
                     model.markDone(taskDone);
+                    model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -103,6 +105,7 @@ public class DoneCommand extends Command {
                 try {
                     model.addToUndoStack();
                     model.markDone(taskDone);
+                    model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

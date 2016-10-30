@@ -64,6 +64,7 @@ public class EditCommand extends Command{
             ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
             try {
                 model.addToUndoStack();
+                model.getCommandHistory().add("edit");
                 model.editTask(eventToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
@@ -87,6 +88,7 @@ public class EditCommand extends Command{
 
             try {
                 model.addToUndoStack();
+                model.getCommandHistory().add("edit");
                 model.editTask(deadlineToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
@@ -110,6 +112,7 @@ public class EditCommand extends Command{
 
             try {
                 model.addToUndoStack();
+                model.getCommandHistory().add("edit");
                 model.editTask(todoToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
