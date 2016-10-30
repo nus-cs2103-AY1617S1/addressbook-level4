@@ -111,12 +111,15 @@ public class TaskListPanel extends UiPart {
                
             	setGraphic(cardPane);
             	
+            	// Set the color of the card based on whether it's overdue
+            	if (task.isOverdue()) {
+            		cardPane.setStyle("-fx-background-color: #d60e0e;");
+            	} 
+            	
             	// Set the color of the card based on whether it's favorited
                 if (task.isFavorite()) {
-                	cardPane.setStyle("-fx-background-color: yellow;");
-                } else {
-                	cardPane.setStyle(null);
-                }
+                	cardPane.setStyle("-fx-background-color: #a0ff75;");
+                } 
             }
         }
     }
