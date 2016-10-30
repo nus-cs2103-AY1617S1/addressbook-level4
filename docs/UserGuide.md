@@ -129,7 +129,7 @@ Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, l, p, s, 
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find FILTER KEYWORD` FILTER options: tags, title, date
-List | `list`
+List | `list [RANK]` RANK options: duedate, ongoing, priority
 Help | `help`
 Select | `select INDEX WIDGET` WIDGET options: location, search, description, calendar
 Exit | `exit`
