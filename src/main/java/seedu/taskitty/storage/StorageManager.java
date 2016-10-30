@@ -34,6 +34,23 @@ public class StorageManager extends ComponentManager implements Storage {
     public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
         this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
+    
+    //@@author A0135793W
+    public void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException {
+        Optional<ReadOnlyTaskManager> data;
+        try {
+            data = taskManagerStorage.readTaskManager();
+            if (data.isPresent()) {
+                taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath);
+                taskManagerStorage.setFilePath(taskManagerFilePath);
+            }  
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }     
+    }
+    //@@author
 
     // ================ UserPrefs methods ==============================
 

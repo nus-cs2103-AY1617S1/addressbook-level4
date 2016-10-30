@@ -29,7 +29,8 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
 
     @Override
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
-
+    
+    void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException;
     /**
      * Saves the current version of the Task Manager to the hard disk.
      *   Creates the data file if it is missing.

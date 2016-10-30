@@ -6,8 +6,13 @@ import java.io.IOException;
 
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.storage.Storage;
 import seedu.taskitty.storage.StorageManager;
+import seedu.taskitty.MainApp;
 import seedu.taskitty.commons.core.Config;
+import seedu.taskitty.commons.core.EventsCenter;
+import seedu.taskitty.commons.events.storage.PathLocationChangedEvent;
+import seedu.taskitty.commons.exceptions.DataConversionException;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 
 //@@author A0135793W
@@ -39,19 +44,23 @@ public class SaveCommand extends Command{
 
     @Override
     public CommandResult execute() {
-        Config config = new Config();
-        String configFile = Config.DEFAULT_CONFIG_FILE;
+        Config config = MainApp.getConfig();
+        Storage storage = MainApp.getStorage();
+        String configFile = config.DEFAULT_CONFIG_FILE;
         
         try {
             config.setTaskManagerFilePath(filepath + "/" + config.getTaskManagerFilePath());
             ConfigUtil.saveConfig(config, configFile);
             
-            new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
+            storage.setFilePath(config.getTaskManagerFilePath());
+            
+            EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
         } catch (IOException io) {
             return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(io));
+        } catch (DataConversionException dc) {
+            return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(dc));
         }
     }
-
 }
