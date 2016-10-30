@@ -2,30 +2,10 @@ package seedu.malitio.model;
 
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.model.history.InputHistory;
-import seedu.malitio.model.task.DateTime;
-import seedu.malitio.model.task.Deadline;
-import seedu.malitio.model.task.Event;
-import seedu.malitio.model.task.FloatingTask;
-import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
-import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.UniqueDeadlineList;
-import seedu.malitio.model.task.UniqueEventList;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
-import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
+import seedu.malitio.model.task.*;
+import seedu.malitio.model.task.UniqueEventList.*;
+import seedu.malitio.model.task.UniqueFloatingTaskList.*;
+import seedu.malitio.model.task.UniqueDeadlineList.*;
 
 import java.util.Set;
 import java.util.Stack;
@@ -113,7 +93,13 @@ public interface Model {
 	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
 	
 	 /** Complete the deadline.*/
-	void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException;
+	void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException;
+	
+	/** Uncomplete the floating task.*/
+	void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskNotFoundException, FloatingTaskUncompletedException;
+	
+	 /** Uncomplete the deadline.*/
+	void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException;
 	
 	/** Marks the floating task as a prority.*/
 	void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)

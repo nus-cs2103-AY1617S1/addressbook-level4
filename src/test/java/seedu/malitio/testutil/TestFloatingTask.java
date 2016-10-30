@@ -59,8 +59,8 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
 	}
 
 	@Override
-	public void setCompleted() {
-		this.completed = true;
+	public void setCompleted(boolean complete) {
+		this.completed = complete;
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public interface ReadOnlyDeadline {
         Name getName();
         DateTime getDue();
         boolean getCompleted();
-        void setCompleted();
+        void setCompleted(boolean complete);
         boolean isMarked();
         void setMarked(boolean marked);
         
