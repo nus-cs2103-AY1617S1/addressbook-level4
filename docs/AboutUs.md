@@ -54,11 +54,21 @@ In-Charge: UI
   
 -----
 
-#### [Li Wang Huan](http://github.com/liwanghuan)
+#### [Li Wanghuan](http://github.com/liwanghuan)
 <img src="images/wanghuan.jpeg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Testing, Eclipse Specialist <br>
-In-charge: Model
+
+* Components in charge of: [Testing] (https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
+* Aspects/tools in charge of: Program Testing, Command Developer
+* Features implemented:
+   * [EditCommandTest](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [EditCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
+   * [TypicalTaskTesting](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#troubleshooting-tests)
+   * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0147994J.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0147994J.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0147994J.md)] 
+* Other major contributions:
+  * Aid in the initial refactoring from AddressBook test cases to GGist test cases
+  * Add specific classes inside [[#9]https://github.com/CS2103AUG2016-W13-C2/main/pull/9]
+  * Edit diagrams in user guide and developer guide [[#16](https://github.com/CS2103AUG2016-W13-C2/main/pull/16)] [[#16](https://github.com/CS2103AUG2016-W13-C2/main/pull/16)]
+  * Enhance the functionaility of test cases [[#142](https://github.com/CS2103AUG2016-W13-C2/main/issues/142)]
 
 -----
 
