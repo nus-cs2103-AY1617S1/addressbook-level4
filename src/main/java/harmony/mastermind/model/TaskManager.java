@@ -94,7 +94,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     
     public void setTasks(List<Task> tasks) {
-        this.getUniqueTaskList().getInternalList().sort(new TaskListComparator());
+        this.getUniqueTaskList().getInternalList().sort(comparator);
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -158,8 +158,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
         tasks.add(t);
-        this.getUniqueTaskList().getInternalList().sort(comparator);
         syncAddTask(t);
+        this.getUniqueTaskList().getInternalList().sort(comparator);
 
     }
     

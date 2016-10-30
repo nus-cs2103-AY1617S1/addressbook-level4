@@ -1,7 +1,10 @@
 package harmony.mastermind.testutil;
 
+import java.util.Set;
+
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.model.tag.Tag;
+import harmony.mastermind.model.tag.UniqueTagList.DuplicateTagException;
 import harmony.mastermind.model.task.*;
 
 /**
@@ -38,11 +41,17 @@ public class TaskBuilder {
         this.task.setRecur(recur);
         return this;
     }
-
-
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
+    
+    public TaskBuilder withTags(String... tags) throws IllegalValueException{
+        for (String tagName : tags) {
+            task.getTags().add(new Tag(tagName));
+        }
+        return this;
+    }
+    
+    public TaskBuilder withTags(Set<String> tags) throws IllegalValueException{
+        for (String tagName : tags) {
+            task.getTags().add(new Tag(tagName));
         }
         return this;
     }

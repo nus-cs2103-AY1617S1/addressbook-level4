@@ -61,7 +61,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      */
     void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce);
     
-    //@author A0143378Y
+    //@@author A0143378Y
     static void saveToStorage(Memory memory) { 
         try {
             PrintWriter pw = new PrintWriter(SAVE_FILE);
@@ -82,7 +82,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         }
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     static void printEnd(Memory memory, PrintWriter pw, int i) { 
         if (memory.get(i).getEnd() != null) {
             pw.println(calendarToString(memory.get(i).getEnd()));
@@ -91,7 +91,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         }
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     static void printStart(Memory memory, PrintWriter pw, int i) { 
         if (memory.get(i).getStart() != null) {
             pw.println(calendarToString(memory.get(i).getStart()));
@@ -109,7 +109,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         return dateTime;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     static void printDescription(Memory memory, PrintWriter pw, int i) {
         if (memory.get(i).getDescription() != null) {
             pw.println(memory.get(i).getDescription());
@@ -118,8 +118,8 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         }
     }
 
-    //@author A0143378Y
-    static void checkForFileExists(Memory memory) { 
+    //@@author A0143378Y
+    public static void checkForFileExists(Memory memory) { 
         File file = new File(SAVE_FILE);
         if (!file.exists()) {
             try {
@@ -132,7 +132,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         readFromFile(memory);
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     static void readFromFile(Memory memory) { 
         try {
             BufferedReader br = new BufferedReader(new FileReader(SAVE_FILE));
@@ -164,7 +164,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         }
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Read line for integer for state
     static int readState(BufferedReader br) throws IOException {
         int state;
@@ -173,12 +173,12 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         return state;
     }
     
-    //@author A0143378Y
+    //@@author A0143378Y
     static String reduceToInt(String stateString) { 
         return stateString.replaceAll("[^0-9]", "");
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Read line for calendar for start and end dates
     static Calendar readCalendar(BufferedReader br, Calendar startCal) throws IOException {
         String start = br.readLine();
@@ -190,7 +190,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         return startCal;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     // Converts string representation of date and time back into Calendar object
     static Calendar stringToCalendar(String b){
         Calendar setNew = new GregorianCalendar();
@@ -212,7 +212,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
         return setNew;
     }
 
-    //@author A0143378Y
+    //@@author A0143378Y
     static String readDescription(BufferedReader br) throws IOException {
         String description;
         description = br.readLine();

@@ -1,6 +1,9 @@
 package harmony.mastermind.logic.commands;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +19,8 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
+import harmony.mastermind.memory.GenericMemory;
+import harmony.mastermind.memory.Memory;
 
 /**
  * Adds a task to the task manager.
@@ -26,32 +31,11 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
-
-    // The main idea of capturing parameters in any order is inspired by (author
-    // velop):
-    // http://stackoverflow.com/questions/1177081/mulitple-words-in-any-order-using-regex
-
-    // As for capturing optional group AND in any order:
-    // http://stackoverflow.com/questions/24472120/match-optional-components-in-any-order
-
-    // We wrote the regular expression and tested at:
-    // https://regex101.com/r/bFQrP6/1
-    // @@author A0138862W
-    //
-    // the following regex is no longer in used, replaced by better one (NLP)
-    /*
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
-            + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
-            + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
-            + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
-            + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-            + ".*";
-     */
     
     // Better regex, support better NLP:
     // general form: add some task name from tomorrow 8pm to next friday 8pm daily #recurring,awesome
     // https://regex101.com/r/M2A3tB/8
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=\\s(?<name>(?:.(?!by|from|#))+))"
+    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<name>(?:.(?!by|from|#))+))"
                                                         + "(?:(?=.*(?:by|from)\\s(?<dates>(?:.(?!#))+)?))?"
                                                         + "(?:(?=.*(?<recur>daily|weekly|monthly|yearly)))?"
                                                         + "(?:(?=.*#(?<tags>.+)))?.*";
@@ -85,16 +69,19 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
+    
 
-    /**
-     * Convenience constructor using raw values.<br><br>
-     *
-     * Throws IllegalValueException if any of the raw values are invalid<br>
-     * Throws InvalidEventDateException if event type has start date after end date
-     */
+    private static final String TASK = "Task";
+    private static final String DEADLINE = "Deadline";
+    private static final String EVENT = "Event";
+    
+    static GenericMemory task; 
+    static GenericMemory deadline; 
+    static GenericMemory event;
+
     // event
     // @@author A0124797R
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal) throws IllegalValueException, InvalidEventDateException {
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal, Memory mem) throws IllegalValueException, InvalidEventDateException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -108,29 +95,51 @@ public class AddCommand extends Command implements Undoable, Redoable {
         }
 
         this.toAdd = new Task(name, startTime, endTime, new UniqueTagList(tagSet), recurVal, createdDate);
-
+        
+        //Converting Date start to Calendar start
+        Calendar start = dateToCalendar(startTime);
+        
+        //Converting Date end to Calendar end
+        Calendar end = dateToCalendar(endTime);
+        
+        event = new GenericMemory(tags.toString(), name, "", start, end, 0);
+        mem.add(event);
     }
 
     // deadline
-    // @@author A0138862W
-    public AddCommand(String name, String endDateStr, Set<String> tags, String recur) throws IllegalValueException {
+    // @@author A0138862W-unused
+    /**
+     * The builder constructor has taken care of all the construction of event, floating and deadline
+     * @see AddCommand(AddCommandBuilder)
+     * 
+     */
+    public AddCommand(String name, String endDateStr, Set<String> tags, String recur, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-
-        // fix for #132
-        List<Date> endDates = prettyTimeParser.parse(endDateStr);
-        Date endDate = (endDates.isEmpty())? null: endDates.get(0);
         Date createdDate = new Date();
+        Date endDate = prettyTimeParser.parse(endDateStr).get(0);
+        
         
         this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur, createdDate);
+        
+        //Converting Date end to Calendar end
+        Calendar end = dateToCalendar(endDate);
+
+        deadline = new GenericMemory(tags.toString(), name, "", end);
+        mem.add(deadline);
 
     }
 
     // floating
-    // @@author A0138862W
-    public AddCommand(String name, Set<String> tags) throws IllegalValueException {
+    // @@author A0138862W-unused
+    /**
+     * The builder constructor has taken care of all the construction of event, floating and deadline
+     * @see AddCommand(AddCommandBuilder)
+     * 
+     */
+    public AddCommand(String name, Set<String> tags, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -139,9 +148,37 @@ public class AddCommand extends Command implements Undoable, Redoable {
         Date createdDate = new Date();
 
         this.toAdd = new Task(name, new UniqueTagList(tagSet), createdDate);
+        
+        task = new GenericMemory(tags.toString(), name, "");
+        mem.add(task);
+    }
+
+    // @@author A0138862W
+    /**
+     * Build the AddCommand using addCommandBuilder. Depending on the builder attributes, the taskBuilder will return the appropriate event/floating/deadline task. 
+     * 
+     * @param addCommandBuilder to build the command safely
+     * 
+     */
+    protected AddCommand(AddCommandBuilder addCommandBuilder) throws IllegalValueException, InvalidEventDateException{
+        TaskBuilder taskBuilder = new TaskBuilder(addCommandBuilder.getName());
+        taskBuilder.withTags(addCommandBuilder.getTags());
+        
+        if(addCommandBuilder.isDeadline()){
+            taskBuilder.asDeadline(addCommandBuilder.getEndDate());
+        }else if(addCommandBuilder.isEvent()){
+            taskBuilder.asEvent(addCommandBuilder.getStartDate(), addCommandBuilder.getEndDate());
+        }
+        
+        if(addCommandBuilder.isRecurring()){
+            taskBuilder.asRecurring(addCommandBuilder.getRecur());
+        }
+        
+        toAdd = taskBuilder.build();        
     }
 
     @Override
+    //@@author A0138862W
     public CommandResult execute() {
         assert model != null;
         try {
@@ -203,9 +240,12 @@ public class AddCommand extends Command implements Undoable, Redoable {
         model.addTask(toAdd);
     }
     
-    // @@author A0138862W
-    private void requestHighlightLastActionedRow(Task task){
-        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
+    //@@author A0143378Y
+    private Calendar dateToCalendar(Date date) { 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
     }
+
 
 }
