@@ -54,7 +54,7 @@ public class TypicalTestTasks {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TaskBook getTypicalAddressBook(){
+    public TaskBook getTypicalTaskBook(){
         TaskBook ab = new TaskBook();
         loadAddressBookWithSampleData(ab);
         return ab;
