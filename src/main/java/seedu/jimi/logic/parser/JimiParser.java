@@ -38,7 +38,6 @@ import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
 import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.tag.Priority;
@@ -58,9 +57,6 @@ public class JimiParser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
-    
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
             Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
@@ -97,7 +93,6 @@ public class JimiParser {
                     new ClearCommand(), 
                     new FindCommand(), 
                     new ListCommand(),
-                    new SelectCommand(),
                     new UndoCommand(),
                     new RedoCommand(),
                     new ExitCommand(), 
@@ -149,8 +144,6 @@ public class JimiParser {
                     return prepareComplete(arguments);
                 } else if (command instanceof ShowCommand) {
                     return prepareShow(arguments);
-                } else if (command instanceof SelectCommand) {
-                    return prepareSelect(arguments);
                 } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
@@ -395,20 +388,6 @@ public class JimiParser {
         return new DeleteCommand(args.trim());
     }
 
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
     
     /**
      * Parses arguments to filter section of task panel to be displayed to user.
