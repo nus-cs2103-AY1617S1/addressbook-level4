@@ -78,13 +78,15 @@ public class DeleteCommand extends Command {
         }
         
         if (hasInvalidIndex) {
-            indicateAttemptToExecuteIncorrectCommand();            
-            return new CommandResult(invalidIndexMessageBuilder.toString());
+            indicateAttemptToExecuteIncorrectCommand();
+            String invalidIndexMessage = invalidIndexMessageBuilder.toString();
+            return new CommandResult(invalidIndexMessage);
         }
         
         if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
+            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString();
+            return new CommandResult(duplicateIndexesProvidedMessage);
         } 
         
         try {
@@ -93,8 +95,9 @@ public class DeleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
-        return new CommandResult(resultMessageBuilder.toString());
+        
+        String resultMessage = resultMessageBuilder.toString();
+        return new CommandResult(resultMessage);
     }
 
 }

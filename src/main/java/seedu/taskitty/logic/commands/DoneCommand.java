@@ -91,16 +91,19 @@ public class DoneCommand extends Command {
         
         if (hasInvalidIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(invalidIndexMessageBuilder.toString());
+            String invalidIndexMessage = invalidIndexMessageBuilder.toString();
+            return new CommandResult(invalidIndexMessage);
         }
         
         if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
+            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString();
+            return new CommandResult(duplicateIndexesProvidedMessage);
         }
         
         if (hasDuplicateMarkAsDoneTask) {
-            return new CommandResult(duplicateMarkAsDoneMessageBuilder.toString());
+            String duplicateMarkAsDoneMessage = duplicateMarkAsDoneMessageBuilder.toString();
+            return new CommandResult(duplicateMarkAsDoneMessage);
         }
                         
         try {
@@ -111,7 +114,8 @@ public class DoneCommand extends Command {
         } catch (DuplicateMarkAsDoneException e) {
             assert false: "The target task should not be marked done";
         }
-
-        return new CommandResult(resultMessageBuilder.toString());
+        
+        String resultMessage = resultMessageBuilder.toString();
+        return new CommandResult(resultMessage);
     }
 }
