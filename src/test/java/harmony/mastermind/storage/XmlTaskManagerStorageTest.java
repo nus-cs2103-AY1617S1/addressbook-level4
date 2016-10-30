@@ -52,19 +52,6 @@ public class XmlTaskManagerStorageTest {
         assertFalse(readTaskManager("NonExistentFile.xml").isPresent());
     }
 
-//    redundant 
-//    @Test
-//    public void read_notXmlFormat_exceptionThrown() throws Exception {
-//
-//        thrown.expect(DataConversionException.class);
-//        readTaskManager("NotXmlFormatMastermind.xml");
-//
-//        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-//         * That means you should not have more than one exception test in one method
-//         */
-//    }
-
-
     //@@author A0124797R
     @Test
     public void readAndSaveTaskManager_allInOrder_success() throws Exception {
@@ -164,20 +151,30 @@ public class XmlTaskManagerStorageTest {
     //@@author A0139194X
     @Test
     public void migrateNewFolder_allInOrder_success() throws IOException, DataConversionException {
-        String filePath = testFolder.getRoot().getPath();
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
 
-//        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, SECOND_TEST_DATA_FOLDER);
-//        File toDelete = new File(filePath);
-//        assertFalse(toDelete.delete());
-//        
-//        //Checks if file has been copied over to new location
-//        File newFile = new File(SECOND_TEST_DATA_FOLDER + "mastermind.xml");
-//        assertEquals(true, newFile.exists());
+        String newFilePath = SECOND_TEST_DATA_FOLDER + "TempTaskManager.xml";
+        
+        xmlTaskManagerStorage.migrateIntoNewFolder(filePath, newFilePath);
+        File toDelete = new File(filePath);
+        assertFalse(toDelete.delete());
+        
+        //Checks if file has been copied over to new location
+        File newFile = new File(newFilePath);
+        assertEquals(true, newFile.exists());
+        
+        clearTestFolder(xmlTaskManagerStorage, newFilePath);
     }
-
+    
+    //@@author A0139194X
+    public void clearTestFolder(XmlTaskManagerStorage storage, String filePath) {
+        storage.deleteFile(filePath);
+    }
+    
     //@@author A0139194X
     @Test
     public void setTaskManagerFilePath_success() {
