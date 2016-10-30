@@ -27,7 +27,7 @@ public class UndoCommandTest extends ToDoListGuiTest {
         TestTask[] reverseList = td.getTypicalTasksReverse();
         
         //undo add
-        reverseList = TestUtil.removePersonFromList(reverseList, 1);
+        reverseList = TestUtil.removeTaskFromList(reverseList, 1);
         commandBox.runCommand("undo");
         assertUndoSuccess(reverseList);
         
