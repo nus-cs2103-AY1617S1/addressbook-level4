@@ -70,6 +70,9 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
+    public void requestFocus() {
+        commandTextField.requestFocus();
+    }
 
     @FXML
     private void handleCommandInputChanged() {
@@ -92,7 +95,7 @@ public class CommandBox extends UiPart {
     		commandTextField.setText(CommandHistory.getNextCommand());
     	} else if (keyEvent.getCode() == KeyCode.UP) {
     		commandTextField.setText(CommandHistory.getPrevCommand());
-    	}
+    	} 
     }
     //@@author
 

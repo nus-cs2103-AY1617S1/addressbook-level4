@@ -42,10 +42,10 @@ public class EditCommand extends Command {
     
     private Task oldTask;
     private Task newTask;
+    
     /**
      * Convenience constructor using raw values.
      */
-
     public EditCommand(String args) {
         this(EMPTY_INDEX, args);
     }

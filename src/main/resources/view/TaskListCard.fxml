@@ -44,7 +44,7 @@
 					</children>
 				</VBox>
 				<!--  @@author A0148145E -->
-      		<Polyline fx:id="completeStatus" fill="WHITE" opacity="0.5" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" translateX="20.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+      		<Polyline fx:id="completeStatus" fill="WHITE" opacity="1" scaleX="0.5" scaleY="0.5" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" translateX="20.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
       			<points>
       				<Double fx:value="0.0" />
       				<Double fx:value="25.0" />

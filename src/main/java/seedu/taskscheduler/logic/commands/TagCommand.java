@@ -17,7 +17,7 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set tags to a task in task scheduler  "
             + "Parameters: [INDEX] TAG..."
             + "Example: " + COMMAND_WORD
-            + " School Priority\n";
+            + "Priority School\n";
 
     public static final String MESSAGE_SUCCESS = "Tags: %s";
 

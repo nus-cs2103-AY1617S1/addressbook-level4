@@ -40,6 +40,12 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         task = taskListPanel.getTask(1);
         commandBox.runCommand(commandKey + " 2 " + td.ida.getTaskString());
         assertUndoSuccess(commandKey,currentList,td.ida);
+        
+        //undo edit command
+        commandKey = "edit";
+        task = taskListPanel.getTask(1);
+        commandBox.runCommand(commandKey + " 2 " + td.event.getTaskString());
+        assertUndoSuccess(commandKey,currentList,td.event);
 
         //undo mark command
         commandKey = "mark";

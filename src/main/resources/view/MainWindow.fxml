@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.input.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
@@ -20,23 +21,49 @@
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
-		<MenuBar VBox.vgrow="NEVER">
+		<MenuBar focusTraversable="false" VBox.vgrow="NEVER">
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="ANY" />
+                     </accelerator></MenuItem>
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Controls">
+					<items>
+						<MenuItem fx:id="tagsPaneMenuItem" mnemonicParsing="false" onAction="#handleFocusTagPane" text="Tags List">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DIGIT1" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+						<MenuItem fx:id="priorityPaneMenuItem" mnemonicParsing="false" onAction="#handleFocusPriorityPane" text="Priority List">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DIGIT2" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+						<MenuItem fx:id="taskPaneMenuItem" mnemonicParsing="false" onAction="#handleFocusTaskPane" text="Task List">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DIGIT3" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+						<MenuItem fx:id="commandBoxPaneMenuItem" mnemonicParsing="false" onAction="#handleFocusCommandBox" text="Command Box">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="DIGIT4" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
-		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3333" focusTraversable="false" VBox.vgrow="ALWAYS">
+		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3333" focusTraversable="false" pickOnBounds="false" VBox.vgrow="ALWAYS">
 			<items>
-				<VBox fx:id="priorityList" minHeight="600.0" minWidth="300.0">
+				<VBox fx:id="priorityList" minHeight="600.0" minWidth="300.0" pickOnBounds="false">
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
@@ -53,12 +80,12 @@
 						</AnchorPane>
 					</children>
 				</VBox>
-				<VBox fx:id="taskList" minHeight="600.0" minWidth="600.0">
+				<VBox fx:id="taskList" minHeight="600.0" minWidth="600.0" pickOnBounds="false">
 					<padding>
 						<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 					</padding>
 					<children>
-                  <GridPane alignment="TOP_CENTER">
+                  <GridPane alignment="TOP_CENTER" pickOnBounds="false">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -69,32 +96,32 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label contentDisplay="CENTER" text="1000">
+                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000">
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Completed" GridPane.vgrow="ALWAYS">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" focusTraversable="false" text="Completed" GridPane.vgrow="ALWAYS">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Pending" GridPane.columnIndex="1">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" focusTraversable="false" text="Pending" GridPane.columnIndex="1">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label contentDisplay="CENTER" text="1000" GridPane.columnIndex="1">
+                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="1">
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </Label>
-                        <Label contentDisplay="CENTER" text="1000" GridPane.columnIndex="2">
+                        <Label contentDisplay="CENTER" focusTraversable="false" text="1000" GridPane.columnIndex="2">
                            <padding>
                               <Insets left="100.0" />
                            </padding>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Overdue" GridPane.columnIndex="2">
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" focusTraversable="false" text="Overdue" GridPane.columnIndex="2">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -123,6 +150,6 @@
 				<Glow />
 			</effect>
 		</SplitPane>
-		<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+		<AnchorPane fx:id="statusbarPlaceholder" pickOnBounds="false" VBox.vgrow="NEVER" />
 	</children>
 </VBox>

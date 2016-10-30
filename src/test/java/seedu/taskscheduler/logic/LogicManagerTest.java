@@ -294,7 +294,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
+        String expectedMessage = String.format(MESSAGE_PREV_TASK_NOT_FOUND);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
@@ -421,17 +421,10 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
-
             cmd.append(p.getName().toString());
             cmd.append(" from ").append(p.getStartDate());
             cmd.append(" to ").append(p.getEndDate());
             cmd.append(" at ").append(p.getLocation().value);
-
-//            UniqueTagList tags = p.getTags();
-//            for(Tag t: tags){
-//                cmd.append(" t/").append(t.tagName);
-//            }
-
             return cmd.toString();
         }
 

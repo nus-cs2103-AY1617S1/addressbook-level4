@@ -79,6 +79,10 @@ public class TagListPanel extends UiPart {
             }
         });
     }
+    
+    public void requestFocus() {
+        tagListView.requestFocus();
+    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -88,9 +92,6 @@ public class TagListPanel extends UiPart {
     }
 
     class TagListViewCell extends ListCell<Tag> {
-
-        public TagListViewCell() {
-        }
 
         @Override
         protected void updateItem(Tag tag, boolean empty) {

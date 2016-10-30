@@ -89,10 +89,11 @@ public class PriorityListPanel extends UiPart {
         });
     }
 
+    public void requestFocus() {
+        priorityListView.requestFocus();
+    }
+    
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

@@ -17,10 +17,6 @@ public class Config {
     private String taskSchedulerFilePath = "data/taskscheduler.xml";
     private String taskSchedulerName = "MustDoList";
 
-
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }
