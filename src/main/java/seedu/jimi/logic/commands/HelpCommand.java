@@ -3,7 +3,6 @@ package seedu.jimi.logic.commands;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
@@ -27,7 +26,7 @@ public class HelpCommand extends Command {
             + "For example, getting help for add command: " + COMMAND_WORD + " add"
             + "\n";
     
-    private static final String UNKNOWN_HELP_COMMAND = 
+    public static final String UNKNOWN_HELP_COMMAND = 
             Messages.MESSAGE_UNKNOWN_COMMAND + " - \"%1$s\" \n"
             + "\n"
             + "All available commands: %2$s \n"
