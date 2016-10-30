@@ -195,27 +195,27 @@ public class MainWindow extends UiPart {
     
     @FXML
     private void handleListAll() {
-        logic.execute("list all");
+        logic.execute("view all");
     }
     
     @FXML
     private void handleListOverdue() {
-        logic.execute("list overdue");
+        logic.execute("view overdue");
     } 
     
     @FXML
     private void handleListUpcoming() {
-        logic.execute("list upcoming");
+        logic.execute("view upcoming");
     } 
     
     @FXML
     private void handleListCompleted() {
-        logic.execute("list completed");
+        logic.execute("view completed");
     } 
     
     @FXML
     private void handleListIncomplete() {
-        logic.execute("list incomplete");
+        logic.execute("view incomplete");
     } 
 
     /**
