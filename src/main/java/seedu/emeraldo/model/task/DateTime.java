@@ -31,7 +31,7 @@ public class DateTime {
             + "Type 'help' to see the full list of accepted formats in the user guide";
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Command format is invalid! "
-    		+ "It must be one of the following (type 'help' to see all accepted formats:\n"
+    		+ "It must be one of the following (type 'help' to see all accepted formats):\n"
             + "Keyword 'on' : on DD/MM/YYYY\n"
             + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
