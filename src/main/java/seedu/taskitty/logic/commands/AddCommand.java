@@ -19,7 +19,7 @@ public class AddCommand extends Command {
 
     //@@author A0139930B
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
-            + " [name] [start] to [end] [t/tag]...";
+            + " [name] [start] to [end] [#tag]...";
     public static final String MESSAGE_USAGE = "This command adds a task to TasKitty, Meow!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
