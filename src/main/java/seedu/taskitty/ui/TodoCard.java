@@ -35,14 +35,6 @@ public class TodoCard extends UiPart {
     public void initialize() {
         name.setText(task.getName().fullName);
         
-        String indexPrefix;
-        if(task.isTodo()) {
-            indexPrefix = "t";
-        } else if (task.isDeadline()) {
-            indexPrefix = "d";
-        } else {
-            indexPrefix = "e";
-        }
         //@@author A0130853L
         boolean isDone = task.getIsDone();
         if (isDone) {
@@ -52,7 +44,7 @@ public class TodoCard extends UiPart {
         }
         
         //@@author
-        id.setText(indexPrefix + displayedIndex + ". ");
+        id.setText("t" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 
