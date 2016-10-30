@@ -37,6 +37,11 @@ public class FloatingTask extends Task implements PinnableTask, CompletableTask 
 	
 	@Override
 	public String toString() {
+		return description.toString();
+	}
+	
+	@Override
+	public String getTaskDetails(boolean withTime) {
 		return String.format("[Floating Task][Description: %s]", description);
 	}
 }

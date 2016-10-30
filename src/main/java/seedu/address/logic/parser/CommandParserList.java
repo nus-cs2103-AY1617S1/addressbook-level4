@@ -10,6 +10,7 @@ public class CommandParserList {
 				AddCommandParser.class, 
 				UpdateCommandParser.class,
 				DeleteCommandParser.class, 
+				ClearCommandParser.class,
 				FindCommandParser.class,
 				PinCommandParser.class,
 				UnpinCommandParser.class,

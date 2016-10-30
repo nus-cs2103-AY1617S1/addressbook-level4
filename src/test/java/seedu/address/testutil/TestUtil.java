@@ -54,15 +54,31 @@ public class TestUtil {
 	 */
 	public static InMemoryTaskList setupFloatingTasks(int n) throws IllegalValueException {
 		InMemoryTaskList newTaskList = new TaskManager();
-		// Add 3 tasks into the task manager
+		// Add n tasks into the task manager
 		for (int i = 0; i < n; i++) {
 			newTaskList.addTask(new FloatingTask(String.format("Task %d", i)));
 		}
 		return newTaskList;
 	}
 	
+	// Setting up tasks with more varied names
+	public static InMemoryTaskList setupTasksWithVariedNames(int n) throws IllegalValueException {
+		InMemoryTaskList newTaskList = new TaskManager();
+		// Add n tasks into the task manager
+		for (int i = 0; i < n; i++) {
+			if (i % 3 == 0) {
+				newTaskList.addTask(new FloatingTask(String.format("Apple %d", i)));
+			} else if (i % 3 == 1) {
+				newTaskList.addTask(new FloatingTask(String.format("Banana %d", i)));
+			} else {
+				newTaskList.addTask(new FloatingTask(String.format("Carrot %d", i)));
+			}
+		}
+		return newTaskList;
+	}
+	
 	// Setting up completed tasks in the TaskList in order to find them in the tests
-		public static InMemoryTaskList setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
+	public static InMemoryTaskList setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
 		InMemoryTaskList newTaskList = new TaskManager();
 		// Add 3 tasks into the task manager
 		for (int i = 0; i < n; i++) {
@@ -126,44 +142,45 @@ public class TestUtil {
 		}
 		return newTaskList;
 	}
-  /**
-  * Appends the file name to the sandbox folder path.
-  * Creates the sandbox folder if it doesn't exist.
-  * @param fileName
-  * @return
-  */
- public static String getFilePathInSandboxFolder(String fileName) {
-     try {
-         FileUtil.createDirs(new File(SANDBOX_FOLDER));
-     } catch (IOException e) {
-         throw new RuntimeException(e);
-     }
-     return SANDBOX_FOLDER + fileName;
- }
-
- public static void createDataFileWithSampleData(String filePath) {
-     createDataFileWithData(generateSampleStorageTaskManager(), filePath);
- }
-
- public static <T> void createDataFileWithData(T data, String filePath) {
-     try {
-         File saveFileForTesting = new File(filePath);
-         FileUtil.createIfMissing(saveFileForTesting);
-         XmlUtil.saveDataToFile(saveFileForTesting, data);
-     } catch (Exception e) {
-         throw new RuntimeException(e);
-     }
- }
- public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
-     return new XmlSerializableTaskManager(generateEmptyTaskManager());
- }
- public static UniqueItemCollection<Task> generateEmptyTaskManager() {
-     return new UniqueItemCollection<Task>();
- }
- 
- public static AnchorPane generateAnchorPane() {
-     return new AnchorPane();
- }
+	
+	 /**
+	  * Appends the file name to the sandbox folder path.
+	  * Creates the sandbox folder if it doesn't exist.
+	  * @param fileName
+	  * @return
+	  */
+	 public static String getFilePathInSandboxFolder(String fileName) {
+	     try {
+	         FileUtil.createDirs(new File(SANDBOX_FOLDER));
+	     } catch (IOException e) {
+	         throw new RuntimeException(e);
+	     }
+	     return SANDBOX_FOLDER + fileName;
+	 }
+	
+	 public static void createDataFileWithSampleData(String filePath) {
+	     createDataFileWithData(generateSampleStorageTaskManager(), filePath);
+	 }
+	
+	 public static <T> void createDataFileWithData(T data, String filePath) {
+	     try {
+	         File saveFileForTesting = new File(filePath);
+	         FileUtil.createIfMissing(saveFileForTesting);
+	         XmlUtil.saveDataToFile(saveFileForTesting, data);
+	     } catch (Exception e) {
+	         throw new RuntimeException(e);
+	     }
+	 }
+	 public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
+	     return new XmlSerializableTaskManager(generateEmptyTaskManager());
+	 }
+	 public static UniqueItemCollection<Task> generateEmptyTaskManager() {
+	     return new UniqueItemCollection<Task>();
+	 }
+	 
+	 public static AnchorPane generateAnchorPane() {
+	     return new AnchorPane();
+	 }
 
     public static String LS = System.lineSeparator();
 

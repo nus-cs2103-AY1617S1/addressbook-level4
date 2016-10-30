@@ -70,7 +70,7 @@ public class PinTaskCommandTest {
 		PinTaskCommand command = new PinTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(PinTaskCommand.MESSAGE_pin_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(PinTaskCommand.MESSAGE_PIN_TASK_SUCCESS, "Task 1");
 		assertCommandFeedback(command, expected);
 	}
 	

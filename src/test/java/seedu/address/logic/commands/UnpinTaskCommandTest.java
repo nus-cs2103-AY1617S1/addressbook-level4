@@ -86,7 +86,7 @@ public class UnpinTaskCommandTest {
 		UnpinTaskCommand command = new UnpinTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(UnpinTaskCommand.MESSAGE_UNPIN_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(UnpinTaskCommand.MESSAGE_UNPIN_TASK_SUCCESS, "Task 1");
 		assertCommandFeedback(command, expected);
 	}
 

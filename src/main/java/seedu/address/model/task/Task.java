@@ -74,6 +74,8 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 		return description.toString();
 	}
 	
+	// Return the specifics of the task (with or without details of time)
+	public abstract String getTaskDetails(boolean withTime);
 	
 	/*
 	 * Defines an ordering where pind tasks are always appear at the start

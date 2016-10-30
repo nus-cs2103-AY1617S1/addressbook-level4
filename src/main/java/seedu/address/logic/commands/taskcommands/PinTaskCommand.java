@@ -23,7 +23,7 @@ public class PinTaskCommand extends TaskCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_pin_TASK_SUCCESS = "Pinned task: %1$s";
+    public static final String MESSAGE_PIN_TASK_SUCCESS = "Pinned task: %1$s";
     public static final String MESSAGE_TASK_ALR_PINNED = "Task has already been pinned";
 
     public final int targetIndex;
@@ -48,7 +48,7 @@ public class PinTaskCommand extends TaskCommand {
         if(!taskToPin.isPinned()){
             EventsCenter.getInstance().post(new HideHelpRequestEvent());
         	model.pinTask(taskToPin);
-            return new CommandResult(String.format(MESSAGE_pin_TASK_SUCCESS, taskToPin));
+            return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, taskToPin));
         }
         else{
         	return new CommandResult(MESSAGE_TASK_ALR_PINNED);

@@ -55,7 +55,7 @@ public class TaskCard extends UiPart{
         }
         
         // Format to display the dates
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy, h.mm a");
         
         // Assigning Date labels only if task is DeadlineTask or EventTask
         if (task instanceof DeadlineTask) {
