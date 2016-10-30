@@ -87,6 +87,9 @@ public class TaskListPanel extends UiPart {
         });
     }
 
+    /**
+     * Sets ListCells for ListView in TaskListPanel
+     */
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         public TaskListViewCell() {

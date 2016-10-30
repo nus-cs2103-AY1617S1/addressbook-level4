@@ -68,6 +68,9 @@ public class TagListPanel extends UiPart {
 		});
 	}
 
+	/**
+	 * Sets ListCells for ListView in TagListPanel
+	 */
 	class TagListViewCell extends ListCell<Tag> {
 
 		public TagListViewCell() {
