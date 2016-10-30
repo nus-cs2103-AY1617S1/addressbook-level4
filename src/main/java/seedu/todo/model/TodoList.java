@@ -74,7 +74,6 @@ public class TodoList implements TodoListModel {
     }
 
     private void raiseStorageEvent(String message, Exception e) {
-        // TODO: Have this raise an event
     }
     
     private void saveTodoList() {
@@ -100,7 +99,6 @@ public class TodoList implements TodoListModel {
         update.accept(validationTask);
         Task task = validationTask.convertToTask();
         tasks.add(task);
-
         saveTodoList();
         return task;
     }
@@ -108,11 +106,14 @@ public class TodoList implements TodoListModel {
     @Override
     public List<ImmutableTask> delete(List<Integer> indexes) throws ValidationException {
         List<ImmutableTask> tasksRemoved = new ArrayList<>();
+        
         for (Integer i : indexes) {
             int index = i;
-            ImmutableTask task = tasks.remove(index);
+            ImmutableTask task = tasks.get(index);
             tasksRemoved.add(task);
         }
+        tasks.removeAll(tasksRemoved);
+        saveTodoList();
         return tasksRemoved;
     }
     

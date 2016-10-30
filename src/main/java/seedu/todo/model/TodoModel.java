@@ -151,7 +151,7 @@ public class TodoModel implements Model {
     public List<ImmutableTask> deleteAll() throws ValidationException{
         saveUndoState();
         List<Integer> indexes = new ArrayList<>();
-        for (int i = 0 ; i < getObservableList().size() ; i++) {
+        for (int i = 1 ; i <= getObservableList().size() ; i++) {
             indexes.add(getTaskIndex(i));
         }
         return todoList.delete(indexes);
@@ -168,7 +168,7 @@ public class TodoModel implements Model {
     public List<ImmutableTask> updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
         List<Integer> indexes = new ArrayList<>();
-        for (int i = 0 ; i < getObservableList().size() ; i++) {
+        for (int i = 1 ; i <= getObservableList().size() ; i++) {
             indexes.add(getTaskIndex(i));
         }
         return todoList.update(indexes, update);
