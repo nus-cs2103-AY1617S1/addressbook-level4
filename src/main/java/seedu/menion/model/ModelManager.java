@@ -30,6 +30,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Activity> filteredEvents;
     private Stack<ReadOnlyActivityManager> activityManagerUndoStack;
     private Stack<ReadOnlyActivityManager> activityManagerRedoStack;
+    private ReadOnlyActivity mostRecentUpdatedActivity;
+    
     /**
      * Initializes a ModelManager with the given Activity Manager
      * ActivityManager and its variables should not be null
@@ -117,6 +119,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean checkStatesInRedoStack() {
     	return this.activityManagerRedoStack.isEmpty();
+    }
+    
+    /**
+     * Methods for most recently changed activity
+     */
+    
+    @Override
+    public void updateRecentChangedActivity(ReadOnlyActivity activity) {
+    	this.mostRecentUpdatedActivity = activity;
+    }
+    
+    @Override
+    public ReadOnlyActivity getMostRecentUpdatedActivity() {
+    	return this.mostRecentUpdatedActivity;
     }
 
     //@@author A0139164A

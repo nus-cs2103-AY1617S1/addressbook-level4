@@ -81,6 +81,9 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyActivity activityToEdit = lastShownList.get(targetIndex);
+        
+        model.updateRecentChangedActivity(activityToEdit);
+        
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
 

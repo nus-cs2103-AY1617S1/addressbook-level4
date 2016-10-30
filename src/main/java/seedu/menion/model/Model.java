@@ -84,7 +84,14 @@ public interface Model {
   
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-
+    
+    /**
+     * Methods for recently changed activity
+     */
+    
+    ReadOnlyActivity getMostRecentUpdatedActivity();
+    void updateRecentChangedActivity(ReadOnlyActivity activity);
+    
     //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
