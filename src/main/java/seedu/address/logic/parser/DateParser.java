@@ -32,6 +32,15 @@ public class DateParser {
 	};
 
 	
+	public static Optional<LocalDateTime> parse(Optional<String> dateString) throws ParseException {
+		if (dateString.isPresent()) {
+			return Optional.of(parse(dateString.get()));
+		}
+		else {
+			return Optional.empty();
+		}
+	}
+	
 	/**
 	 * @return LocalDateTime if valid date format
 	 * @throws ParseException if unable to parse
