@@ -1,5 +1,7 @@
 package seedu.gtd.commons.core;
 
+import java.util.Set;
+
 import seedu.gtd.commons.events.BaseEvent;
 
 /**

@@ -29,6 +29,10 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
+    /** Updates the filter of the filtered task list to filter by the given exact phrase
+     * @param keywordSet */
+    void updateFilteredTaskList(String keywords, Set<String> keywordSet);
+    
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+	void updateFilteredTaskList(Set<String> keywordSet);
 }

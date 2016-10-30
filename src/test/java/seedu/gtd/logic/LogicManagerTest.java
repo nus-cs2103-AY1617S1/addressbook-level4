@@ -384,11 +384,23 @@ public class LogicManagerTest {
         AddressBook expectedAB = helper.generateAddressBook(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
-
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+        
+        String keywords = "key rAnDoM";
+        TestFindHelper findhelper = new TestFindHelper();
+    	
+        assertCommandBehavior("find " + keywords,
+        		String.format(findhelper.generateCorrectResultIfExactPhraseNotFound(keywords, expectedList.size())),
                 expectedAB,
                 expectedList);
+    }
+    
+    class TestFindHelper{
+    	
+    	String generateCorrectResultIfExactPhraseNotFound(String keywords, int expectedListSize) {	
+            String task_tasks = (expectedListSize == 1) ? "task" : "tasks";
+        	String MESSAGE_IF_EXACT_PHRASE_NOT_FOUND = "The exact phrase '" + keywords + "' was not found. Listing " + expectedListSize + " " + task_tasks + " containing the keywords entered instead.";
+        	return MESSAGE_IF_EXACT_PHRASE_NOT_FOUND;
+    	}
     }
 
 
