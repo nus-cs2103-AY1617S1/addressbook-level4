@@ -1,19 +1,15 @@
 package seedu.taskitty.logic.commands;
 
-import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.io.IOException;
 
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.storage.Storage;
-import seedu.taskitty.storage.StorageManager;
 import seedu.taskitty.MainApp;
 import seedu.taskitty.commons.core.Config;
 import seedu.taskitty.commons.core.EventsCenter;
 import seedu.taskitty.commons.events.storage.PathLocationChangedEvent;
 import seedu.taskitty.commons.exceptions.DataConversionException;
-import seedu.taskitty.commons.exceptions.IllegalValueException;
 
 //@@author A0135793W
 /**
@@ -26,21 +22,18 @@ public class SaveCommand extends Command{
     public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
-            + " filepath";
+            + " filepath.xml";
     public static final String MESSAGE_USAGE = "This command saves data in TasKitty to a location of your choice, Meow!\n";
     public static final String MESSAGE_VALID_FILEPATH_USAGE = "Filepath must end with .xml";
 
     public static final String MESSAGE_SUCCESS = "Data saved to: %1$s";
     public static final String MESSAGE_FAILED = "Failed to save data to: %1$s";
     public static final String MESSAGE_INVALID_FILEPATH = "Filepath is invalid. \n%1$s";
+    public static final String MESSAGE_INVALID_MISSING_FILEPATH = "Filepath is invalid. \n%1$s";
     
     public final String filepath;
     
-    public SaveCommand(String filepath) throws IllegalValueException{
-        if (filepath.toCharArray().length == 0) {
-            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + MESSAGE_PARAMETER));
-        } 
+    public SaveCommand(String filepath) {
         this.filepath = filepath;
     }
 

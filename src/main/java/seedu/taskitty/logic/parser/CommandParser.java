@@ -117,15 +117,19 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareSave(String argument) {
-        try {
-            if (!isValidFileXmlExtension(argument)) {
-                return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
-                        SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
-            }
-            return new SaveCommand(argument.trim());
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+        String args = argument.trim();
+        
+        if (args.equals(EMPTY_STRING)) {
+            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_MISSING_FILEPATH, 
+                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+        } else if (args.length() < FILE_EXTENSION_LENGTH) {
+            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
+                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+        } else if (!isValidFileXmlExtension(args)) {
+            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
+                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
         }
+        return new SaveCommand(args);
     }
     
     /**
