@@ -43,9 +43,9 @@ public class ActivityCard extends UiPart {
 
     }
 
-    public static ActivityCard load(ReadOnlyActivity person2, int displayedIndex) {
+    public static ActivityCard load(ReadOnlyActivity activity, int displayedIndex) {
         ActivityCard card = new ActivityCard();
-        card.activity = person2;
+        card.activity = activity;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
@@ -57,15 +57,21 @@ public class ActivityCard extends UiPart {
         id.setText(displayedIndex + ". ");
 
         if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
-            line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+            
+        	line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
             line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
             priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
+            
         } else if (activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
+        
+        	line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
             line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());
+        
         } else {
-            line1.setText("");
+            
+        	line1.setText("");
             line2.setText("");
+        
         }
 
         reminder.setText(activity.getReminder().forDisplay());
