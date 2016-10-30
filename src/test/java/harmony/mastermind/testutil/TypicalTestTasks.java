@@ -7,14 +7,14 @@ import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0124797R
 /**
- *
+ * to generate tasks for testing purposes
  */
 public class TypicalTestTasks {
 
     public static TestTask task1, task2, task3, task4, task5, task6, task7, task8;
 
-    //@@author A0124797R
     public TypicalTestTasks() {
         
         try {
@@ -39,13 +39,11 @@ public class TypicalTestTasks {
             task8 = new TaskBuilder().withName("submit PR").withEndDate("22 oct at 2359").build();
             
         } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
+            assert false : "should not reach here";
         }
         
     }
 
-    //@@author A0124797R
     public static void loadTaskManagerWithSampleData(TaskManager tm) {
 
         try {
@@ -59,23 +57,21 @@ public class TypicalTestTasks {
             tm.markTask(new Task(task8));
             
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
+            assert false : "Should not reach here";
         } catch (TaskNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            assert false : "task is added before marking";            
         }
     }
 
-    //@@author A0124797R
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{task1, task2, task3, task4};
     }
     
-    //@@author A0124797R
     public TestTask[] getTypicalArchivedTasks() {
         return new TestTask[]{task7.mark(),task8.mark()};
     }
 
+    //@@author generated
     public TaskManager getTypicalTaskManager(){
         TaskManager tm = new TaskManager();
         loadTaskManagerWithSampleData(tm);

@@ -92,6 +92,7 @@ public class TestUtil {
         }
     }
 
+    //@@author generated
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
@@ -99,8 +100,6 @@ public class TestUtil {
     /**
      * Appends the file name to the sandbox folder path.
      * Creates the sandbox folder if it doesn't exist.
-     * @param fileName
-     * @return
      */
     public static String getFilePathInSandboxFolder(String fileName) {
         try {
@@ -329,6 +328,7 @@ public class TestUtil {
 
     }
 
+    //@@author generated
     public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
@@ -341,7 +341,6 @@ public class TestUtil {
             try {
                 return new Tag(e.replaceFirst("Tag: ", ""));
             } catch (IllegalValueException e1) {
-                //not possible
                 assert false;
                 return null;
             }

@@ -25,22 +25,18 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
     
-    //@@author A0124797R
     public void setName(String name) {
         this.name = name;
     }
     
-    //@@author A0124797R
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     
-    //@@author A0124797R
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
     
-    //@@author A0124797R
     public void setRecur(String recur) {
         this.recur = recur;
     }
@@ -73,8 +69,7 @@ public class TestTask implements ReadOnlyTask {
 
         return cmd.toString();
     }
-
-    //@@author A0124797R
+    
     @Override
     public String getName() {
         return name;
@@ -90,7 +85,6 @@ public class TestTask implements ReadOnlyTask {
         }
     }
 
-    //@@author A0124797R
     @Override
     public Date getEndDate() {
         if (endDate!=null) {
@@ -101,37 +95,31 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    //@@author A0124797R
     public String getRecur() {
         return recur;
     }
     
     @Override
-    //@@author A0124797R
     public boolean isRecur() {
         return recur!=null;
     }
 
     @Override
-    // @@author A0124797R
     public boolean isFloating() {
         return startDate == null && endDate == null;
     }
 
     @Override
-    // @@author A0124797R
     public boolean isDeadline() {
         return startDate == null && endDate != null;
     }
 
     @Override
-    // @@author A0124797R
     public boolean isEvent() {
         return startDate != null && endDate != null;
     }
 
     @Override
-    //@@author A0124797R
     public boolean isMarked() {
         return this.isMarked;
     }
@@ -141,7 +129,6 @@ public class TestTask implements ReadOnlyTask {
         return tags;
     }
     
-    //@@author A0124797R
     @Override 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -150,39 +137,34 @@ public class TestTask implements ReadOnlyTask {
         
     }
     
-    //@@author A0124797R
     @Override
     public boolean isSameTask(ReadOnlyTask task) {
         return this.toString().equals(((Task) task).toString());
     }
     
-    //@@author A0124797R
     @Override
     public String toString() {
         return getAsText();
     }
     
-    //@@author A0124797R
     public TestTask mark() {        
         this.isMarked = true;
         return this;
     }
 
+    //@@author generated
     @Override
     public boolean isDue() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isHappening() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public Duration getDueDuration() {
-        // TODO Auto-generated method stub
         return null;
     }
     
@@ -193,7 +175,6 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Date getCreatedDate() {
-        // TODO Auto-generated method stub
         return null;
     }
     
