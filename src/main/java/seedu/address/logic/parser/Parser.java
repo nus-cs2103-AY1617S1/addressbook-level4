@@ -157,8 +157,7 @@ public class Parser {
 			return prepareAddSomeday(addTaskArgs);
 
 		default:
-			// TODO better error message
-			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
 	
@@ -258,7 +257,6 @@ public class Parser {
 		System.out.println("task name: " + taskName);
 		System.out.println("date: " + dateTime.toString());
 
-		// TODO format date properly
 		try {
 			return new AddCommand(taskName, dateTime);
 		} catch (IllegalValueException e) {
@@ -276,7 +274,6 @@ public class Parser {
 		final String taskName = matcher.group("taskName").trim();
 		System.out.println("task name: " + taskName);
 
-		// TODO format date properly
 		try {
 			return new AddCommand(taskName);
 		} catch (IllegalValueException e) {
@@ -297,7 +294,7 @@ public class Parser {
         }
     	
     	// keyphrases delimited by commas
-        final String[] keyphrases = args.split(",");
+        final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
         System.out.println("keyphrase set: " + keyphraseSet.toString());
@@ -306,7 +303,7 @@ public class Parser {
     }
 
 	//@@author A0141019U
-	// Only supports task type and done|not-done options.
+	// Only supports task type and status type options.
 	private Command prepareList(String arguments) {
 		if (arguments.equals("")) {
 			return new ListCommand();
