@@ -222,12 +222,13 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
 
+    //@@author A0130853L
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        indicateViewChanged(ViewCommand.ViewType.all, null);
     }
     
-    //@@author A0130853L
     @Override
     public void updateFilteredListToShowAll() {
         allTasks.setPredicate(null);
