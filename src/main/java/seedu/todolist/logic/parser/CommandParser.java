@@ -1,5 +1,7 @@
 package seedu.todolist.logic.parser;
 
+import com.joestelmach.natty.*;
+
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
@@ -11,6 +13,9 @@ import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +23,7 @@ import java.util.regex.Pattern;
 /**
  * Parses user input.
  */
-public class Parser {
+public class CommandParser {
 
 	/**
 	 * Used for initial separation of command word and args.
@@ -55,8 +60,11 @@ public class Parser {
 	public static final int DATETIME_COMPONENT_TOTAL = 2; 
 	public static final int DATETIME_COMPONENT_DATE = 0;
 	public static final int DATETIME_COMPONENT_TIME = 1;
+	
+	public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
+    public static final String TIME_DISPLAY_FORMAT = "hh:mma";
 
-	public Parser() {}
+	public CommandParser() {}
 
 	/**
 	 * Parses user input into command for execution.
@@ -198,21 +206,18 @@ public class Parser {
 	 * Returns String[date, time];
 	 */
 	private String[] parseDatetime(String datetime) {
-		String[] dateAndTime = new String[DATETIME_COMPONENT_TOTAL];
-
-		//find date
-		Pattern datePattern = Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT);
-		Matcher dateMatcher = datePattern.matcher(datetime);
-		if (dateMatcher.find()) {
-			dateAndTime[DATETIME_COMPONENT_DATE] = dateMatcher.group();
-		}
-
-		//find time
-		Pattern timePattern = Pattern.compile(TaskTime.TIME_VALIDATION_REGEX_FORMAT);
-		Matcher timeMatcher = timePattern.matcher(datetime);
-		if (timeMatcher.find()) {
-			dateAndTime[DATETIME_COMPONENT_TIME] = timeMatcher.group();
-		}
+	    String[] dateAndTime = new String[DATETIME_COMPONENT_TOTAL];
+	    
+	    Parser nattyParser = new Parser();
+	    List<DateGroup> groups = nattyParser.parse(datetime);
+	    for (DateGroup group: groups) {
+	        List<Date> dates = group.getDates();
+	        for (Date date : dates) {
+	            dateAndTime[DATETIME_COMPONENT_DATE] = new SimpleDateFormat(TaskDate.DATE_DISPLAY_FORMAT).format(date);
+	            dateAndTime[DATETIME_COMPONENT_TIME] = new SimpleDateFormat(TaskTime.TIME_DISPLAY_FORMAT).format(date);
+	        }
+	    }
+	    
 		return dateAndTime;
 	}
 
@@ -233,7 +238,6 @@ public class Parser {
 		}
 		return new DoneCommand(indexes);
 	}
-	//@@author
 
 	//@@author A0146682X
 	/**
@@ -277,6 +281,7 @@ public class Parser {
 		}
 	}
 
+	//@@author A0138601M
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *
@@ -295,8 +300,7 @@ public class Parser {
 		}
 		return new DeleteCommand(indexes);
 	}
-
-	//@@author A0138601M
+	
 	/**
 	 * Returns an int[] if valid indexes are provided.
 	 * throws IllegalValueException indexes are invalid
@@ -331,7 +335,6 @@ public class Parser {
 		}
 		return indexes;
 	}
-	//@@author
 
 	//@@author A0153736B
 	/**
