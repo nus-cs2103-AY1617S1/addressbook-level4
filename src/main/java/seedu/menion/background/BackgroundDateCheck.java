@@ -56,8 +56,7 @@ public class BackgroundDateCheck {
                 SendEmail sender = new SendEmail();
                 try {
                     sender.send(taskToCheck);
-                    setEmailSent(true, i);
-
+                    
                 } catch (FileNotFoundException e) {
 
                 } catch (MessagingException e) {
@@ -77,7 +76,6 @@ public class BackgroundDateCheck {
                     SendEmail sender = new SendEmail();
                     try {
                         sender.send(taskToCheck);
-                        setEmailSent(true, i);
                         
                     } catch (FileNotFoundException e) {
 
@@ -184,14 +182,5 @@ public class BackgroundDateCheck {
         dateValues[1] = Integer.parseInt(parts[1]) - 1;
         dateValues[2] = Integer.parseInt(parts[2]);
 
-    }
-
-    // @@author A0139164A
-    /**
-     * This method goes into a task list and set the status of emailSent to true
-     * Should only be called when an email is sent.
-     */
-    private static void setEmailSent(boolean isSent, int indexInTaskList) {
-       // new SetEmailSent(isSent, indexInTaskList).execute();
     }
 }
