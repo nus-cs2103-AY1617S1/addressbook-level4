@@ -55,11 +55,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" styleClass="cell_big_label" textAlignment="CENTER" GridPane.columnIndex="1">
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets>
+            <Label fx:id="taskStatus" style="-fx-font-size: 14;" textAlignment="CENTER" translateY="1.0" GridPane.columnIndex="1">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
