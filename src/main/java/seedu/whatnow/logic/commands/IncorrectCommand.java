@@ -1,5 +1,5 @@
+//@@author A0139772U-reused
 package seedu.whatnow.logic.commands;
-//@@author A0139772U
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.

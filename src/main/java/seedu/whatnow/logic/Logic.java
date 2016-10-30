@@ -1,5 +1,6 @@
-package seedu.whatnow.logic;
 //@@author A0139772U
+package seedu.whatnow.logic;
+
 import java.text.ParseException;
 
 import javafx.collections.ObservableList;
@@ -26,6 +27,6 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
     
     /** Returns the filtered list of schedule */
-    ObservableList<ReadOnlyTask> getFilteredScheduleList();
+    ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
 
 }

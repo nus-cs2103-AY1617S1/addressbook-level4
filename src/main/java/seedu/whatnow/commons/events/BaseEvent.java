@@ -1,5 +1,6 @@
-package seedu.whatnow.commons.events;
 //@@author A0139772U-reused
+package seedu.whatnow.commons.events;
+
 public abstract class BaseEvent {
 
     /**

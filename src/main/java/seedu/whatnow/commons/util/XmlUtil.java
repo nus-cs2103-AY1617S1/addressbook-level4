@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.commons.util;
-//@@author A0139772U
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;

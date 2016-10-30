@@ -118,7 +118,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList());
+        scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList(false));
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getWhatNowFilePath());

@@ -1,50 +1,5 @@
 # A0126240Wreused
-###### \src\main\java\seedu\whatnow\logic\commands\SelectCommand.java
-``` java
-import seedu.whatnow.commons.core.EventsCenter;
-import seedu.whatnow.commons.core.Messages;
-import seedu.whatnow.commons.core.UnmodifiableObservableList;
-import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
-import seedu.whatnow.model.task.ReadOnlyTask;
-
-/**
- * Selects a task identified using it's last displayed index from WhatNow.
- */
-public class SelectCommand extends Command {
-
-    public final int targetIndex;
-
-    public static final String COMMAND_WORD = "select";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
-
-    public SelectCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
-    @Override
-    public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-
-    }
-
-}
-```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -54,7 +9,65 @@ public class SelectCommand extends Command {
         indicateWhatNowChanged();
     }
 ```
-###### \src\main\java\seedu\whatnow\storage\XmlFileStorage.java
+###### \java\seedu\whatnow\model\task\Name.java
+``` java
+package seedu.whatnow.model.task;
+
+import seedu.whatnow.commons.exceptions.IllegalValueException;
+
+/**
+ * Represents a Task's name in WhatNow.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
+public class Name {
+
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should not contain quotation marks \"";
+    public static final String NAME_VALIDATION_REGEX = "[^\"]+";
+
+    public final String fullName;
+
+    /**
+     * Validates given name.
+     *
+     * @throws IllegalValueException if given name string is invalid.
+     */
+    public Name(String name) throws IllegalValueException {
+        assert name != null;
+        name = name.trim();
+        if (!isValidName(name)) {
+            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+        }
+        this.fullName = name;
+    }
+
+    /**
+     * Returns true if a given string is a valid task name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(NAME_VALIDATION_REGEX);
+    }
+
+
+    @Override
+    public String toString() {
+        return fullName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && this.fullName.equals(((Name) other).fullName)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return fullName.hashCode();
+    }
+
+}
+```
+###### \java\seedu\whatnow\storage\XmlFileStorage.java
 ``` java
 import javax.xml.bind.JAXBException;
 
@@ -94,7 +107,7 @@ public class XmlFileStorage {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\storage\XmlSerializableWhatNow.java
+###### \java\seedu\whatnow\storage\XmlSerializableWhatNow.java
 ``` java
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

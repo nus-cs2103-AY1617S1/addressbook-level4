@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.model.task;
-////@@author A0126240W
+
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         
     }
     
+  //@@author A0126240W
     /**
      * Every field must be present and not null.
      */
@@ -177,6 +179,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskType = taskType;
     }
 
+    //@@author A0139772U
     public int compareTo(Task task) {
         if (isBothFloating(task)) {
             return COMPARE_TO_IS_EQUAL;

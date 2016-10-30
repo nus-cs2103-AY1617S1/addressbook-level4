@@ -1,37 +1,28 @@
 # A0139128Areused
-###### \src\main\java\seedu\whatnow\commons\util\UrlUtil.java
+###### \java\seedu\whatnow\commons\exceptions\IllegalValueException.java
 ``` java
-import java.net.URL;
+package seedu.whatnow.commons.exceptions;
 
 /**
- * A utility class for URL
+ * Signals that some given data does not fulfill some constraints.
  */
-public class UrlUtil {
-
+public class IllegalValueException extends Exception {
     /**
-     * Returns true if both URLs have the same base URL
+     * @param message should contain relevant information on the failed constraint(s)
      */
-    public static boolean compareBaseUrls(URL url1, URL url2) {
-
-        if (url1 == null || url2 == null) {
-            return false;
-        }
-        return url1.getHost().toLowerCase().replaceFirst("www.", "")
-                .equals(url2.getHost().replaceFirst("www.", "").toLowerCase())
-                && url1.getPath().replaceAll("/", "").toLowerCase()
-                .equals(url2.getPath().replaceAll("/", "").toLowerCase());
+    public IllegalValueException(String message) {
+        super(message);
     }
-
 }
 ```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     @Override
     public ReadOnlyWhatNow getWhatNow() {
         return whatNow;
     }
 ```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {

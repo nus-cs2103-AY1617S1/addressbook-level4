@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.logic.commands;
-//@@author A0139772-reused
+
 import java.util.Set;
 
 /**

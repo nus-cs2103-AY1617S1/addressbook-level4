@@ -1,5 +1,6 @@
-package seedu.whatnow.logic.commands;
 //@@author A0139128A
+package seedu.whatnow.logic.commands;
+
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class RedoCommand extends Command{

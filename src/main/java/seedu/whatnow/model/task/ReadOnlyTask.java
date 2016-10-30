@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.model.task;
-//@@author A0126240W
+
 import seedu.whatnow.model.tag.UniqueTagList;
 
 /**
@@ -21,7 +22,7 @@ public interface ReadOnlyTask {
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
-
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -100,6 +101,7 @@ public interface ReadOnlyTask {
      */
     String getTaskType();
     
+  //@@author A0126240W
     /**
      * Formats the task as text, showing all details.
      */
@@ -132,6 +134,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
 
+    //@@author A0139772U
     /**
      * Returns a string representation of this Task's tags
      */

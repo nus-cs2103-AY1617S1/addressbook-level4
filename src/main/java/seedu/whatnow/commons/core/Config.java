@@ -1,5 +1,6 @@
+//@@author A0141021H-reused
 package seedu.whatnow.commons.core;
-//@@author A0141021H-reused @@author A0129772U-reused
+
 import java.util.Objects;
 import java.util.logging.Level;
 

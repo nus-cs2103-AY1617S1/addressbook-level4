@@ -1,5 +1,6 @@
+//@@author A0139128A-reused
 package seedu.whatnow.commons.exceptions;
-//@@author A0126240W
+
 /**
  * Signals that some given data does not fulfill some constraints.
  */

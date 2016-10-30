@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.logic.commands;
-//@@author A0139772U
+
 import java.util.Stack;
 
 import seedu.whatnow.model.WhatNow;
@@ -15,6 +16,7 @@ public class ClearCommand extends UndoAndRedo {
     public static Stack<WhatNow> reqStack;
     public ClearCommand() {}
 
+    //@@author A0139128A
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -24,7 +26,6 @@ public class ClearCommand extends UndoAndRedo {
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
-    //@@author A0139128A
 	@Override
 	public CommandResult undo() {
 		assert model != null;
@@ -32,7 +33,6 @@ public class ClearCommand extends UndoAndRedo {
 		return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
 	}
 	
-	//@@author A0139128A
 	@Override
 	public CommandResult redo() {
 		model.resetData(WhatNow.getEmptyWhatNow());

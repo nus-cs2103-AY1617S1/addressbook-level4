@@ -1,6 +1,8 @@
 # A0139772Ureused
-###### \src\main\java\seedu\whatnow\commons\core\ComponentManager.java
+###### \java\seedu\whatnow\commons\core\ComponentManager.java
 ``` java
+package seedu.whatnow.commons.core;
+
 import seedu.whatnow.commons.events.BaseEvent;
 
 /**
@@ -28,8 +30,59 @@ public abstract class ComponentManager {
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\core\GuiSettings.java
+###### \java\seedu\whatnow\commons\core\EventsCenter.java
 ``` java
+package seedu.whatnow.commons.core;
+
+import com.google.common.eventbus.EventBus;
+
+import seedu.whatnow.commons.events.BaseEvent;
+
+import java.util.logging.Logger;
+
+/**
+ * Manages the event dispatching of the app.
+ */
+public class EventsCenter {
+    private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
+    private final EventBus eventBus;
+    private static EventsCenter instance;
+
+    public static EventsCenter getInstance() {
+        if (instance == null) {
+            instance = new EventsCenter();
+        }
+        return instance;
+    }
+
+    public static void clearSubscribers() {
+        instance = null;
+    }
+
+    private EventsCenter() {
+        eventBus = new EventBus();
+    }
+
+    public EventsCenter registerHandler(Object handler) {
+        eventBus.register(handler);
+        return this;
+    }
+
+    /**
+     * Posts an event to the event bus.
+     */
+    public <E extends BaseEvent> EventsCenter post(E event) {
+        logger.info("------[Event Posted] " + event.getClass().getCanonicalName() + ": " + event.toString());
+        eventBus.post(event);
+        return this;
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\core\GuiSettings.java
+``` java
+package seedu.whatnow.commons.core;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -102,8 +155,132 @@ public class GuiSettings implements Serializable {
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\events\BaseEvent.java
+###### \java\seedu\whatnow\commons\core\Messages.java
 ``` java
+package seedu.whatnow.commons.core;
+
+/**
+ * Container for user visible messages.
+ */
+public class Messages {
+
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
+    public static final String MESSAGE_INVALID_PATH = "Invalid Path!"; 
+
+}
+```
+###### \java\seedu\whatnow\commons\core\Version.java
+``` java
+package seedu.whatnow.commons.core;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Represents a version with major, minor and patch number
+ */
+public class Version implements Comparable<Version> {
+
+    public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
+
+    private static final String EXCEPTION_STRING_NOT_VERSION = "String is not a valid Version. %s";
+
+    private static final Pattern VERSION_PATTERN = Pattern.compile(VERSION_REGEX);
+
+    private final int major;
+    private final int minor;
+    private final int patch;
+    private final boolean isEarlyAccess;
+
+    public Version(int major, int minor, int patch, boolean isEarlyAccess) {
+        this.major = major;
+        this.minor = minor;
+        this.patch = patch;
+        this.isEarlyAccess = isEarlyAccess;
+    }
+
+    public int getMajor() {
+        return major;
+    }
+
+    public int getMinor() {
+        return minor;
+    }
+
+    public int getPatch() {
+        return patch;
+    }
+
+    public boolean isEarlyAccess() {
+        return isEarlyAccess;
+    }
+
+    /**
+     * Parses a version number string in the format V1.2.3.
+     * @param versionString version number string
+     * @return a Version object
+     */
+    @JsonCreator
+    public static Version fromString(String versionString) throws IllegalArgumentException {
+        Matcher versionMatcher = VERSION_PATTERN.matcher(versionString);
+
+        if (!versionMatcher.find()) {
+            throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
+        }
+
+        return new Version(Integer.parseInt(versionMatcher.group(1)),
+                Integer.parseInt(versionMatcher.group(2)),
+                Integer.parseInt(versionMatcher.group(3)),
+                versionMatcher.group(4) == null ? false : true);
+    }
+
+    @JsonValue
+    public String toString() {
+        return String.format("V%d.%d.%d%s", major, minor, patch, isEarlyAccess ? "ea" : "");
+    }
+
+    @Override
+    public int compareTo(Version other) {
+        return this.major != other.major ? this.major - other.major :
+               this.minor != other.minor ? this.minor - other.minor :
+               this.patch != other.patch ? this.patch - other.patch :
+               this.isEarlyAccess == other.isEarlyAccess() ? 0 :
+               this.isEarlyAccess ? -1 : 1;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Version)) {
+            return false;
+        }
+        final Version other = (Version) obj;
+
+        return this.compareTo(other) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        String hash = String.format("%03d%03d%03d", major, minor, patch);
+        if (!isEarlyAccess) {
+            hash = "1" + hash;
+        }
+        return Integer.parseInt(hash);
+    }
+}
+```
+###### \java\seedu\whatnow\commons\events\BaseEvent.java
+``` java
+package seedu.whatnow.commons.events;
+
 public abstract class BaseEvent {
 
     /**
@@ -116,8 +293,128 @@ public abstract class BaseEvent {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\exceptions\DataConversionException.java
+###### \java\seedu\whatnow\commons\events\model\AddTaskEvent.java
 ``` java
+package seedu.whatnow.commons.events.model;
+
+import seedu.whatnow.commons.events.BaseEvent;
+import seedu.whatnow.model.task.Task;
+
+/** Indicates that a task has been added to WhatNow*/
+public class AddTaskEvent extends BaseEvent {
+
+    public final Task task;
+
+    public AddTaskEvent(Task task){
+        this.task = task;
+    }
+
+    @Override
+    public String toString() {
+        return task.getAsText();
+    }
+}
+```
+###### \java\seedu\whatnow\commons\events\model\WhatNowChangedEvent.java
+``` java
+package seedu.whatnow.commons.events.model;
+
+import seedu.whatnow.commons.events.BaseEvent;
+import seedu.whatnow.model.ReadOnlyWhatNow;
+
+/** Indicates the WhatNow config in the model has changed*/
+public class WhatNowChangedEvent extends BaseEvent {
+
+    public final ReadOnlyWhatNow data;
+
+    public WhatNowChangedEvent(ReadOnlyWhatNow data){
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "number of tasks " + data.getTaskList().size() + ", number of tags " + data.getTagList().size();
+    }
+}
+```
+###### \java\seedu\whatnow\commons\events\ui\IncorrectCommandAttemptedEvent.java
+``` java
+package seedu.whatnow.commons.events.ui;
+
+import seedu.whatnow.commons.events.BaseEvent;
+import seedu.whatnow.logic.commands.Command;
+
+/**
+ * Indicates an attempt to execute an incorrect command
+ */
+public class IncorrectCommandAttemptedEvent extends BaseEvent {
+
+    public IncorrectCommandAttemptedEvent(Command command) {}
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\events\ui\JumpToListRequestEvent.java
+``` java
+package seedu.whatnow.commons.events.ui;
+
+import seedu.whatnow.commons.events.BaseEvent;
+
+/**
+ * Indicates a request to jump to the list of tasks
+ */
+public class JumpToListRequestEvent extends BaseEvent {
+
+    public final int targetIndex;
+
+    public JumpToListRequestEvent(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\events\ui\TaskPanelSelectionChangedEvent.java
+``` java
+package seedu.whatnow.commons.events.ui;
+
+import seedu.whatnow.commons.events.BaseEvent;
+import seedu.whatnow.model.task.ReadOnlyTask;
+
+/**
+ * Represents a selection change in the Task List Panel
+ */
+public class TaskPanelSelectionChangedEvent extends BaseEvent {
+
+
+    private final ReadOnlyTask newSelection;
+
+    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+        this.newSelection = newSelection;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+
+    public ReadOnlyTask getNewSelection() {
+        return newSelection;
+    }
+}
+```
+###### \java\seedu\whatnow\commons\exceptions\DataConversionException.java
+``` java
+package seedu.whatnow.commons.exceptions;
+
 /**
  * Represents an error during conversion of data from one format to another
  */
@@ -128,104 +425,248 @@ public class DataConversionException extends Exception {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\util\FileUtil.java
+###### \java\seedu\whatnow\commons\exceptions\DuplicateDataException.java
 ``` java
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+package seedu.whatnow.commons.exceptions;
 
 /**
- * Writes and reads file
+ * Signals an error caused by duplicate data where there should be none.
  */
-public class FileUtil {
-    private static final String CHARSET = "UTF-8";
-
-    public static boolean isFileExists(File file) {
-        return file.exists() && file.isFile();
-    }
-
-    public static void createIfMissing(File file) throws IOException {
-        if (!isFileExists(file)) {
-            createFile(file);
-        }
-    }
-
-    /**
-     * Creates a file if it does not exist along with its missing parent directories
-     *
-     * @return true if file is created, false if file already exists
-     */
-    public static boolean createFile(File file) throws IOException {
-        if (file.exists()) {
-            return false;
-        }
-
-        createParentDirsOfFile(file);
-
-        return file.createNewFile();
-    }
-
-    /**
-     * Creates the given directory along with its parent directories
-     *
-     * @param dir the directory to be created; assumed not null
-     * @throws IOException if the directory or a parent directory cannot be created
-     */
-    public static void createDirs(File dir) throws IOException {
-        if (!dir.exists() && !dir.mkdirs()) {
-            throw new IOException("Failed to make directories of " + dir.getName());
-        }
-    }
-
-    /**
-     * Creates parent directories of file if it has a parent directory
-     */
-    public static void createParentDirsOfFile(File file) throws IOException {
-        File parentDir = file.getParentFile();
-
-        if (parentDir != null) {
-            createDirs(parentDir);
-        }
-    }
-
-    /**
-     * Assumes file exists
-     */
-    public static String readFromFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), CHARSET);
-    }
-
-    /**
-     * Writes given string to a file.
-     * Will create the file if it does not exist yet.
-     */
-    public static void writeToFile(File file, String content) throws IOException {
-        Files.write(file.toPath(), content.getBytes(CHARSET));
-    }
-
-    /**
-     * Converts a string to a platform-specific file path
-     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
-     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
-     */
-    public static String getPath(String pathWithForwardSlash) {
-        assert pathWithForwardSlash != null;
-        assert pathWithForwardSlash.contains("/");
-        return pathWithForwardSlash.replace("/", File.separator);
-    }
-
-    public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
-        FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
-    }
-
-    public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
-            throws IOException {
-        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+public abstract class DuplicateDataException extends IllegalValueException {
+    public DuplicateDataException(String message) {
+        super(message);
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\logic\commands\CommandResult.java
+###### \java\seedu\whatnow\commons\util\AppUtil.java
 ``` java
+package seedu.whatnow.commons.util;
+
+import javafx.scene.image.Image;
+import seedu.whatnow.MainApp;
+
+/**
+ * A container for App specific utility functions
+ */
+public class AppUtil {
+
+    public static Image getImage(String imagePath) {
+        assert imagePath != null;
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\util\CollectionUtil.java
+``` java
+package seedu.whatnow.commons.util;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Utility methods related to Collections
+ */
+public class CollectionUtil {
+
+    /**
+     * Returns true if any of the given items are null.
+     */
+    public static boolean isAnyNull(Object... items) {
+        for (Object item : items) {
+            if (item == null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    /**
+     * Throws an assertion error if the collection or any item in it is null.
+     */
+    public static void assertNoNullElements(Collection<?> items) {
+        assert items != null;
+        assert !isAnyNull(items);
+    }
+
+    /**
+     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
+     */
+    public static boolean elementsAreUnique(Collection<?> items) {
+        final Set<Object> testSet = new HashSet<>();
+        for (Object item : items) {
+            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
+            if (itemAlreadyExists) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+```
+###### \java\seedu\whatnow\commons\util\StringUtil.java
+``` java
+package seedu.whatnow.commons.util;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Helper functions for handling strings.
+ */
+public class StringUtil {
+    public static boolean containsIgnoreCase(String source, String query) {
+        String[] split = source.toLowerCase().split("\\s+");
+        List<String> strings = Arrays.asList(split);
+        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+    }
+
+    /**
+     * Returns a detailed message of the t, including the stack trace.
+     */
+    public static String getDetails(Throwable t){
+        assert t != null;
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw));
+        return t.getMessage() + "\n" + sw.toString();
+    }
+
+    /**
+     * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
+     *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
+     * @param s Should be trimmed.
+     */
+    public static boolean isUnsignedInteger(String s){
+        return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+}
+```
+###### \java\seedu\whatnow\commons\util\UrlUtil.java
+``` java
+package seedu.whatnow.commons.util;
+
+import java.net.URL;
+
+/**
+ * A utility class for URL
+ */
+public class UrlUtil {
+
+    /**
+     * Returns true if both URLs have the same base URL
+     */
+    public static boolean compareBaseUrls(URL url1, URL url2) {
+
+        if (url1 == null || url2 == null) {
+            return false;
+        }
+        return url1.getHost().toLowerCase().replaceFirst("www.", "")
+                .equals(url2.getHost().replaceFirst("www.", "").toLowerCase())
+                && url1.getPath().replaceAll("/", "").toLowerCase()
+                .equals(url2.getPath().replaceAll("/", "").toLowerCase());
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\util\XmlUtil.java
+``` java
+package seedu.whatnow.commons.util;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+/**
+ * Helps with reading from and writing to XML files.
+ */
+public class XmlUtil {
+
+    /**
+     * Returns the xml data in the file as an object of the specified type.
+     *
+     * @param file           Points to a valid xml file containing data that match the {@code classToConvert}.
+     *                       Cannot be null.
+     * @param classToConvert The class corresponding to the xml data.
+     *                       Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws JAXBException         Thrown if the file is empty or does not have the correct format.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T getDataFromFile(File file, Class<T> classToConvert)
+            throws FileNotFoundException, JAXBException {
+
+        assert file != null;
+        assert classToConvert != null;
+
+        if (!FileUtil.isFileExists(file)) {
+            throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
+        }
+
+        JAXBContext context = JAXBContext.newInstance(classToConvert);
+        Unmarshaller um = context.createUnmarshaller();
+
+        return ((T) um.unmarshal(file));
+    }
+
+    /**
+     * Saves the data in the file in xml format.
+     *
+     * @param file Points to a valid xml file containing data that match the {@code classToConvert}.
+     *             Cannot be null.
+     * @throws FileNotFoundException Thrown if the file is missing.
+     * @throws JAXBException         Thrown if there is an error during converting the data
+     *                               into xml and writing to the file.
+     */
+    public static <T> void saveDataToFile(File file, T data) throws FileNotFoundException, JAXBException {
+
+        assert file != null;
+        assert data != null;
+
+        if (!file.exists()) {
+            throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
+        }
+
+        JAXBContext context = JAXBContext.newInstance(data.getClass());
+        Marshaller m = context.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        m.marshal(data, file);
+    }
+
+}
+```
+###### \java\seedu\whatnow\logic\commands\ClearCommand.java
+``` java
+package seedu.whatnow.logic.commands;
+
+import java.util.Stack;
+
+import seedu.whatnow.model.WhatNow;
+
+/**
+ * Clears WhatNow.
+ */
+public class ClearCommand extends UndoAndRedo {
+
+    public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_SUCCESS = "WhatNow has been cleared!";
+    
+    public static Stack<WhatNow> reqStack;
+    public ClearCommand() {}
+
+```
+###### \java\seedu\whatnow\logic\commands\CommandResult.java
+``` java
+package seedu.whatnow.logic.commands;
+
 /**
  * Represents the result of a command execution.
  */
@@ -240,119 +681,31 @@ public class CommandResult {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\logic\commands\DeleteCommand.java
+###### \java\seedu\whatnow\logic\commands\IncorrectCommand.java
 ``` java
-import seedu.whatnow.commons.core.Messages;
-import seedu.whatnow.commons.core.UnmodifiableObservableList;
-import seedu.whatnow.model.task.ReadOnlyTask;
-import seedu.whatnow.model.task.Task;
-import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+package seedu.whatnow.logic.commands;
 
 /**
- * Deletes a task identified using it's last displayed index from WhatNow.
+ * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
-public class DeleteCommand extends UndoAndRedo {
+public class IncorrectCommand extends Command {
 
-	public static final String COMMAND_WORD = "delete";
+    public final String feedbackToUser;
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD
-			+ ": Deletes the task identified by the index number used in the last task listing.\n"
-			+ "Parameters: INDEX (must be a positive integer)\n"
-			+ "Example: " + COMMAND_WORD + " 1";
-
-	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
-	private static final String TASK_TYPE_FLOATING = "todo";
-
-	private final int targetIndex;
-	private final String taskType;
-
-	public DeleteCommand(String taskType, int targetIndex) {
-		this.targetIndex = targetIndex;
-		this.taskType = taskType;
-	}
-
-
-	@Override
-	public CommandResult execute() {
-
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-
-		if (taskType.equals(TASK_TYPE_FLOATING)) {
-			lastShownList = model.getCurrentFilteredTaskList();
-		} else {
-			lastShownList = model.getCurrentFilteredScheduleList();
-		}
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		}
-		ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
-		assert model != null;	 
-		try {
-			model.deleteTask(taskToDelete);
-			model.getUndoStack().push(this);
-			model.getDeletedStackOfTasks().push(taskToDelete);
-		} catch (TaskNotFoundException pnfe) {
-			assert false : "The target task cannot be missing";
-		}
-		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-	}
-
-```
-###### \src\main\java\seedu\whatnow\logic\LogicManager.java
-``` java
-import javafx.collections.ObservableList;
-import seedu.whatnow.commons.core.ComponentManager;
-import seedu.whatnow.commons.core.LogsCenter;
-import seedu.whatnow.logic.commands.Command;
-import seedu.whatnow.logic.commands.CommandResult;
-import seedu.whatnow.logic.parser.Parser;
-import seedu.whatnow.model.Model;
-import seedu.whatnow.model.task.ReadOnlyTask;
-import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.whatnow.storage.Storage;
-
-import java.text.ParseException;
-import java.util.logging.Logger;
-
-/**
- * The main LogicManager of the app.
- */
-public class LogicManager extends ComponentManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
-    private final Model model;
-    private final Parser parser;
-
-    public LogicManager(Model model, Storage storage) {
-        this.model = model;
-        this.parser = new Parser();
+    public IncorrectCommand(String feedbackToUser){
+        this.feedbackToUser = feedbackToUser;
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException, DuplicateTaskException, TaskNotFoundException {
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+    public CommandResult execute() {
+        indicateAttemptToExecuteIncorrectCommand();
+        return new CommandResult(feedbackToUser);
     }
 
-    @Override
-    public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return model.getFilteredTaskList();
-    }
-    
-    @Override
-    public ObservableList<ReadOnlyTask> getFilteredScheduleList() {
-        return model.getFilteredScheduleList();
-    }
 }
+
 ```
-###### \src\main\java\seedu\whatnow\MainApp.java
+###### \java\seedu\whatnow\MainApp.java
 ``` java
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
@@ -552,15 +905,16 @@ public class MainApp extends Application {
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
 ```
-###### \src\main\java\seedu\whatnow\model\tag\Tag.java
+###### \java\seedu\whatnow\model\tag\Tag.java
 ``` java
+package seedu.whatnow.model.tag;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
@@ -620,63 +974,170 @@ public class Tag {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\model\task\Name.java
+###### \java\seedu\whatnow\model\tag\UniqueTagList.java
 ``` java
-import seedu.whatnow.commons.exceptions.IllegalValueException;
+package seedu.whatnow.model.tag;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.whatnow.commons.exceptions.DuplicateDataException;
+import seedu.whatnow.commons.util.CollectionUtil;
+
+import java.util.*;
 
 /**
- * Represents a Task's name in WhatNow.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * A list of tags that enforces no nulls and uniqueness between its elements.
+ *
+ * Supports minimal set of list operations for the app's features.
+ *
+ * @see Tag#equals(Object)
+ * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class Name {
-
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should not contain quotation marks \"";
-    public static final String NAME_VALIDATION_REGEX = "[^\"]+";
-
-    public final String fullName;
+public class UniqueTagList implements Iterable<Tag> {
 
     /**
-     * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
+     * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public Name(String name) throws IllegalValueException {
-        assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+    public static class DuplicateTagException extends DuplicateDataException {
+        protected DuplicateTagException() {
+            super("Operation would result in duplicate tags");
         }
-        this.fullName = name;
+    }
+
+    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
+
+    /**
+     * Constructs empty TagList.
+     */
+    public UniqueTagList() {}
+
+    /**
+     * Varargs/array constructor, enforces no nulls or duplicates.
+     */
+    public UniqueTagList(Tag... tags) throws DuplicateTagException {
+        assert !CollectionUtil.isAnyNull((Object[]) tags);
+        final List<Tag> initialTags = Arrays.asList(tags);
+        if (!CollectionUtil.elementsAreUnique(initialTags)) {
+            throw new DuplicateTagException();
+        }
+        internalList.addAll(initialTags);
     }
 
     /**
-     * Returns true if a given string is a valid task name.
+     * java collections constructor, enforces no null or duplicate elements.
      */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+    public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
+        CollectionUtil.assertNoNullElements(tags);
+        if (!CollectionUtil.elementsAreUnique(tags)) {
+            throw new DuplicateTagException();
+        }
+        internalList.addAll(tags);
     }
 
+    /**
+     * java set constructor, enforces no nulls.
+     */
+    public UniqueTagList(Set<Tag> tags) {
+        CollectionUtil.assertNoNullElements(tags);
+        internalList.addAll(tags);
+    }
+
+    /**
+     * Copy constructor, insulates from changes in source.
+     */
+    public UniqueTagList(UniqueTagList source) {
+        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+    }
+
+    /**
+     * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
+     */
+    public Set<Tag> toSet() {
+        return new HashSet<>(internalList);
+    }
+
+    /**
+     * Replaces the Tags in this list with those in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement) {
+        this.internalList.clear();
+        this.internalList.addAll(replacement.internalList);
+    }
+
+    /**
+     * Adds every tag from the argument list that does not yet exist in this list.
+     */
+    public void mergeFrom(UniqueTagList tags) {
+        final Set<Tag> alreadyInside = this.toSet();
+        for (Tag tag : tags) {
+            if (!alreadyInside.contains(tag)) {
+                internalList.add(tag);
+            }
+        }
+    }
+
+    /**
+     * Returns true if the list contains an equivalent Tag as the given argument.
+     */
+    public boolean contains(Tag toCheck) {
+        assert toCheck != null;
+        return internalList.contains(toCheck);
+    }
+    
+    /**
+     * Returns the number of tags in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Adds a Tag to the list.
+     *
+     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     */
+    public void add(Tag toAdd) throws DuplicateTagException {
+        assert toAdd != null;
+        if (contains(toAdd)) {
+            throw new DuplicateTagException();
+        }
+        internalList.add(toAdd);
+    }
 
     @Override
-    public String toString() {
-        return fullName;
+    public Iterator<Tag> iterator() {
+        return internalList.iterator();
+    }
+
+    public ObservableList<Tag> getInternalList() {
+        return internalList;
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+        if (other instanceof UniqueTagList) {
+            UniqueTagList tagList = (UniqueTagList) other;
+            if (this.internalList.size() == tagList.size()) {
+                for (Tag tag : this.internalList) {
+                    if (!(((UniqueTagList) other).getInternalList()).contains(tag)) {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
-
+ 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return internalList.hashCode();
     }
-
 }
 ```
-###### \src\main\java\seedu\whatnow\model\UserPrefs.java
+###### \java\seedu\whatnow\model\UserPrefs.java
 ``` java
 import java.util.Objects;
 
@@ -731,7 +1192,7 @@ public class UserPrefs {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\model\WhatNow.java
+###### \java\seedu\whatnow\model\WhatNow.java
 ``` java
 import javafx.collections.ObservableList;
 import seedu.whatnow.model.tag.Tag;
@@ -948,7 +1409,7 @@ public class WhatNow implements ReadOnlyWhatNow {
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\storage\XmlAdaptedTag.java
+###### \java\seedu\whatnow\storage\XmlAdaptedTag.java
 ``` java
 import javax.xml.bind.annotation.XmlValue;
 
@@ -989,7 +1450,7 @@ public class XmlAdaptedTag {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\ui\BrowserPanel.java
+###### \java\seedu\whatnow\ui\BrowserPanel.java
 ``` java
 import javafx.event.Event;
 import javafx.scene.Node;
@@ -1058,7 +1519,7 @@ public class BrowserPanel extends UiPart{
 
 }
 ```
-###### \src\main\java\seedu\whatnow\ui\HelpWindow.java
+###### \java\seedu\whatnow\ui\HelpWindow.java
 ``` java
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -1120,7 +1581,7 @@ public class HelpWindow extends UiPart {
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\ui\StatusBarFooter.java
+###### \java\seedu\whatnow\ui\StatusBarFooter.java
 ``` java
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
@@ -1233,7 +1694,7 @@ public class StatusBarFooter extends UiPart {
     
 }
 ```
-###### \src\main\java\seedu\whatnow\ui\Ui.java
+###### \java\seedu\whatnow\ui\Ui.java
 ``` java
 import javafx.stage.Stage;
 

@@ -88,6 +88,17 @@ public class WhatNow implements ReadOnlyWhatNow {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
+    /**
+     * Adds a task to WhatNow at the specific index
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * @param task is the task to re-add, idx is the idx the task was originally at
+     * @throws DuplicateTaskException 
+     */
+	public void addTaskSpecific(Task p , int idx) throws DuplicateTaskException {
+		syncTagsWithMasterList(p);
+        tasks.addSpecific(p, idx);
+	}
 
     /**
      * Ensures that every tag in this task:
@@ -117,9 +128,10 @@ public class WhatNow implements ReadOnlyWhatNow {
      *
      * @throws UniqueTaskList.TaskNotFoundException if the task does not exist.
      */
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public int removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	int indexRemoved = tasks.getInternalList().indexOf(key);
         if (tasks.remove(key)) {
-            return true;
+            return indexRemoved;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }

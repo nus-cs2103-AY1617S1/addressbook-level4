@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.commons.events.model;
-//@@author A0139772U
+
 import seedu.whatnow.commons.events.BaseEvent;
 import seedu.whatnow.model.task.Task;
 
@@ -7,9 +8,11 @@ import seedu.whatnow.model.task.Task;
 public class AddTaskEvent extends BaseEvent {
 
     public final Task task;
+    public final boolean isUndo;
 
-    public AddTaskEvent(Task task){
+    public AddTaskEvent(Task task, boolean isUndo){
         this.task = task;
+        this.isUndo = isUndo;
     }
 
     @Override

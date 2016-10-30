@@ -1,5 +1,5 @@
-package seedu.whatnow.logic.commands;
 //@@author A0139772U
+package seedu.whatnow.logic.commands;
 
 /**
  * Lists all tasks in WhatNow to the user.
@@ -99,7 +99,6 @@ public class ListCommand extends UndoAndRedo{
 		}
 	}
 	
-	//@@author A0139128A
 	@Override
 	public CommandResult redo() {
 		if(model.getStackOfListTypesRedo().isEmpty()) {
