@@ -80,6 +80,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncTagsWithMasterList(t);
         tasks.add(t);
     }
+    
+    /**
+     * Edits a task in the address book.
+     * Also checks the updated task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.TaskNotFoundException if the task was not found.
+     */
+    public void editTask(int index, Task t) throws UniqueTaskList.TaskNotFoundException {
+        syncTagsWithMasterList(t);
+        tasks.edit(index, t);
+    }
 
     /**
      * Ensures that every tag in this task:

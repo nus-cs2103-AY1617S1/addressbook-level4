@@ -32,6 +32,10 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    		Pattern.compile("(?<targetIndex>\\S+)" 
+                    + " (?<newDetail>.*)");
 
     public Parser() {}
 
@@ -53,6 +57,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -80,7 +87,7 @@ public class Parser {
         }
     }
 
-    /**
+	/**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -117,6 +124,48 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
+        String newDetail = matcher.group("newDetail");
+        System.out.println(newDetail);
+        String detailType = extractDetailType(newDetail); 
+        
+        if(detailType != "name") {
+        	newDetail = newDetail.substring(2);
+        }
+        
+        System.out.println(index.get() + " " +  detailType + " " + newDetail);
+        
+        return new EditCommand(
+           (index.get() - 1),
+           detailType,
+           newDetail
+        );
+    }
+    
+    private String extractDetailType(String detailType) {
+    	System.out.println(detailType.substring(0, 2));
+    	switch(detailType.substring(0, 2)) {
+    	case "d/": return "dueDate";
+    	case "a/": return "address";
+    	case "p/": return "priority";
+    	default: return "name";
+    	}
     }
 
     /**
@@ -163,6 +212,7 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
+        System.out.println(index);
         if(!StringUtil.isUnsignedInteger(index)){
             return Optional.empty();
         }
