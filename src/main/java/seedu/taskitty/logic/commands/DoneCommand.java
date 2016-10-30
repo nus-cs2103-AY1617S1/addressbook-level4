@@ -107,8 +107,8 @@ public class DoneCommand extends Command {
         }
                         
         try {
-             model.markTasksAsDone(listOfTaskToMarkDone);
-             model.storeDoneCommandInfo(listOfTaskToMarkDone, commandText);
+            model.markTasksAsDone(listOfTaskToMarkDone);
+            model.storeDoneCommandInfo(listOfTaskToMarkDone, commandText);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateMarkAsDoneException e) {

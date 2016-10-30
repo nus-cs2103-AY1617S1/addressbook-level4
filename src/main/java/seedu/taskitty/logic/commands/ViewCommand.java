@@ -27,22 +27,24 @@ public class ViewCommand extends Command {
     private LocalDate date;
     public enum ViewType {
     	
-    	done("done"), // to differentiate between 4 types of command functionalities
-    	date("date"), 
-    	all("all"), 
-    	normal("default"); 
+        done("done"), // to differentiate between 4 types of command functionalities
+        date("date"), 
+        all("all"), 
+        normal("default"); 
     	
-    	private String value;
-    	ViewType(String value) {
-    		this.value = value;
-    	}
-    	public String getValue() {
-    		return value;
-    	}
-    	@Override
-    	public String toString() {
-    		return this.getValue();
-    	} 
+        private String value;
+        
+        ViewType(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+    	
+        @Override
+        public String toString() {
+            return this.getValue();
+        } 
     }
     private ViewType viewType;
 
@@ -52,44 +54,44 @@ public class ViewCommand extends Command {
      * or a valid date guaranteed by the command parser.
      */
     public ViewCommand(String parameter) {
-    	assert parameter !=null;
-    	switch (parameter) { 
-    		case "done": // view done tasks
-    			viewType = ViewType.done;
-    			break;
-    		case "all":
-    			viewType = ViewType.all;
-    			break;
-    		default: // view tasks based on date
-    			this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER);
-        		viewType = ViewType.date;
-    	}
+        assert parameter !=null;
+        switch (parameter) { 
+    	    case "done": // view done tasks
+    	        viewType = ViewType.done;
+    	        break;
+    	    case "all":
+    	        viewType = ViewType.all;
+    	        break;
+    	    default: // view tasks based on date
+    	        this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER);
+    	        viewType = ViewType.date;
+        }
     }
     
     /**
      * Views uncompleted and upcoming tasks, events and deadlines.
      */
     public ViewCommand() {
-    	this.viewType = ViewType.normal;
+        this.viewType = ViewType.normal;
     }
     
     
     @Override
     public CommandResult execute() {
-    	switch(viewType) {
-    		case normal: // view uncompleted and upcoming tasks
-    			model.updateToDefaultList();
-    			return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
-    		case done: // view done
-    			model.updateFilteredDoneList();
-    			return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
-    		case all: // view all
-    			 model.updateFilteredListToShowAll();
-    		     return new CommandResult(VIEW_ALL_MESSAGE_SUCCESS);
-    		default: // view date 
-    			model.updateFilteredDateTaskList(date);
-    			return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
-    	}
+        switch(viewType) {
+    	    case normal: // view uncompleted and upcoming tasks
+    	        model.updateToDefaultList();
+    	        return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	    case done: // view done
+    	        model.updateFilteredDoneList();
+    	        return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	    case all: // view all
+    	        model.updateFilteredListToShowAll();
+    	        return new CommandResult(VIEW_ALL_MESSAGE_SUCCESS);
+    	    default: // view date 
+    	        model.updateFilteredDateTaskList(date);
+    	        return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+        }
     }
     
 }

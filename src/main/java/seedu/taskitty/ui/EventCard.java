@@ -51,26 +51,21 @@ public class EventCard extends UiPart {
         endDate.setText("");
         endTime.setText("");
         
+        //@@author A0130853L
         TaskDate startTaskDate = task.getPeriod().getStartDate();
-        if (startTaskDate != null) {
-            startDate.setText("Start: " + DateUtil.createDateString(startTaskDate.getDate()));
-        }
+        startDate.setText("Start: " + DateUtil.createDateString(startTaskDate.getDate()));
         
         TaskTime taskStartTime = task.getPeriod().getStartTime();
-        if (taskStartTime != null) {
-            startTime.setText(TimeUtil.createTimeString(taskStartTime.getTime()));
-        }
+        startTime.setText(" "+TimeUtil.createTimeString(taskStartTime.getTime()));
+        
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();
-        if (endTaskDate != null) {
-            endDate.setText("End:  " + DateUtil.createDateString(endTaskDate.getDate()));
-        }
-        
+        endDate.setText("End:  " + DateUtil.createDateString(endTaskDate.getDate()));
+
         TaskTime taskEndTime = task.getPeriod().getEndTime();
-        if (taskEndTime != null) {
-            endTime.setText(TimeUtil.createTimeString(taskEndTime.getTime()));
-        }
+        endTime.setText(" "+TimeUtil.createTimeString(taskEndTime.getTime()));
         
+        //@@author
         String indexPrefix;
         if(task.isTodo()) {
             indexPrefix = "t";
