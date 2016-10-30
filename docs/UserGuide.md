@@ -189,7 +189,9 @@ Example:
 
 #### Delete task: `delete`
 Deletes one or more todo, deadline or event task already inside the task manager using the index of the task.<br>
-* Format: `delete INDEXES...`
+* Format: `delete INDEXES...`<br>
+
+> You can enter tasks in a range by typing the category and first number index of the task followed by a `-` and then the final number index. eg. `t1-3` counts as todo tasks t1, t2 and t3 together.<br>
 
 Examples:
 
