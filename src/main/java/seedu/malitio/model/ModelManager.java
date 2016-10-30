@@ -236,6 +236,13 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
     
+	@Override
+	public void ShowAllTask() {
+		filteredFloatingTasks.setPredicate(null);
+		filteredDeadlines.setPredicate(null);
+        filteredEvents.setPredicate(null);
+	}
+    
     @Override
     public void updateFilteredTaskListToShowAll() {
         filteredFloatingTasks.setPredicate(null);

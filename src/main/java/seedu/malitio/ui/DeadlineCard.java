@@ -1,5 +1,7 @@
 package seedu.malitio.ui;
 
+import java.util.Date;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -54,6 +56,11 @@ public class DeadlineCard extends UiPart{
     	    cardPane2.setStyle("-fx-background-color: yellow;");
     	} else {
     	    cardPane2.setStyle("-fx-background-color: white;");
+    	}
+    	
+    	if (deadline.getDue().compareTo(new Date())<0 && !deadline.getCompleted()){
+    		name.setText(deadline.getName().fullName);
+    		cardPane2.setStyle("-fx-background-color: red;");
     	}
     	
         id.setText("D" + displayedIndex + ". ");
