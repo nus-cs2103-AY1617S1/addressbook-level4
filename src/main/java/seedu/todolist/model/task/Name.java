@@ -9,7 +9,8 @@ import seedu.todolist.commons.exceptions.IllegalValueException;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS_EMPTY = "Task names cannot be empty!";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}\\s'-]+";
 
     public final String fullName;
 
@@ -19,7 +20,9 @@ public class Name {
      * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
-        assert name != null;
+        if (name == null) {
+            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS_EMPTY);
+        }
         name = name.trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
