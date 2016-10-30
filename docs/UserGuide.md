@@ -300,8 +300,11 @@ Example:
 > Note that for undo and redo, you are only able to undo/redo commands that changes the task manager. eg. add, delete
 Commands that does not affect the task manager cannot be undone/redone. eg. view, help <br>
 
->Note that if you have undone actions and you enter a new valid command that is undoable, the new task manager will be the latest 
+>If you have undone actions and you enter a new valid command that is undoable, the new task manager will be the latest 
 and other undone actions that were not redone will be lost.<br>
+
+>Note that undoing/redoing does not change the view status back to the one before undoing/redoing, it will stay at the current status
+until you give a different command that changes the view status.
 
 <br>
 <!-- @@author A0135793W -->
