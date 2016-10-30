@@ -38,19 +38,6 @@ public class DeadlineCard extends UiPart {
     //@@author A0139930B
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
-        endDate.setText("");
-        endTime.setText("");
-        
-        TaskDate endTaskDate = task.getPeriod().getEndDate();
-        if (endTaskDate != null) {
-            endDate.setText(endTaskDate.toString());
-        }
-        
-        TaskTime taskEndTime = task.getPeriod().getEndTime();
-        if (taskEndTime != null) {
-            endTime.setText(taskEndTime.toString());
-        }
         
         //@@author A0130853L
         boolean isDone = task.getIsDone();
@@ -71,6 +58,20 @@ public class DeadlineCard extends UiPart {
         }
         
         //@@author A0139930B
+        name.setText(task.getName().fullName);
+        endDate.setText("");
+        endTime.setText("");
+        
+        TaskDate endTaskDate = task.getPeriod().getEndDate();
+        if (endTaskDate != null) {
+            endDate.setText(endTaskDate.toString());
+        }
+        
+        TaskTime taskEndTime = task.getPeriod().getEndTime();
+        if (taskEndTime != null) {
+            endTime.setText(taskEndTime.toString());
+        }
+        
         id.setText("d" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author A0139930B -->
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -40,7 +41,7 @@
                 </VBox>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                <children>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER_LEFT">
                      <children>
                         <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
                         <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />

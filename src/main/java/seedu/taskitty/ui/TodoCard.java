@@ -33,7 +33,6 @@ public class TodoCard extends UiPart {
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
         
         //@@author A0130853L
         boolean isDone = task.getIsDone();
@@ -43,7 +42,8 @@ public class TodoCard extends UiPart {
         	id.setStyle("-fx-text-fill: white");
         }
         
-        //@@author
+        //@@author A0139930B
+        name.setText(task.getName().fullName);
         id.setText("t" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
