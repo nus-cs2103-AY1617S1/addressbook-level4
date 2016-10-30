@@ -26,7 +26,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 * Aspects/tools in charge of: Integration<br>
 * Features implemented:
   * [Add Task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#create-a-new-task-add)
-  * [Find Task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#find-tasks-find)
+  * [Find Tag](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#find-tasks-find)
   * [Tooltips](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#quick-start)
 * Code written: [[functional code](../collated/main/A0139930B.md)][[test code](../collated/test/A0139930B.md)][[docs](../collated/docs/A0139930B.md)]
 * Other major contributions:
