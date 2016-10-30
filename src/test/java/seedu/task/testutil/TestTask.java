@@ -20,6 +20,21 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
     
+    //@@author A0141052Y
+    /**
+     * Creates a duplicate (copy) of an existing TestTask
+     * @param task the TestTask to copy from
+     */
+    public TestTask(TestTask task) {
+        this.name = task.getName();
+        this.openTime = task.getOpenTime();
+        this.closeTime = task.getCloseTime();
+        this.isCompleted = task.getComplete();
+        this.isImportant = task.getImportance();
+        this.tags = new UniqueTagList(task.getTags());
+    }
+    //@@author
+    
     public void setName(Name name) {
         this.name = name;
     }
