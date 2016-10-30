@@ -212,13 +212,13 @@ public class ParserTest {
     
     @Test
     public void parse_list_valid() throws ParseException {
-        assertNotNull(listParser.parse("list   t/ Priority Level "));
+        assertNotNull(listParser.parse("list    Priority Level "));
     }
     
     @Test
     public void parse_list_invalidType() throws ParseException {
         thrown.expect(ParseException.class);
-        listParser.parse("list t/ Error ");
+        listParser.parse("list  Error ");
     }
 
     //==================================================================================
