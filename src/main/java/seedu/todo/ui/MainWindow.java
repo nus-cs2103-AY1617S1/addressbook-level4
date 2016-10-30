@@ -27,7 +27,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/app_icon.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 400;
-    private static final int MIN_WIDTH = 580;
+    private static final int MIN_WIDTH = 600;
 
     /* Variables */
     private Logic logic;

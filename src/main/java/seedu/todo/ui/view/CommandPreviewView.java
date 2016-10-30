@@ -2,7 +2,6 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -11,6 +10,7 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.logic.commands.CommandSummary;
+import seedu.todo.ui.MainWindow;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.UiPartLoaderUtil;
@@ -29,6 +29,7 @@ public class CommandPreviewView extends UiPart {
 
     /* Constants */
     private static final String FXML = "CommandPreviewView.fxml";
+    private static final int PREF_WIDTH = 340;
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(CommandPreviewView.class);
@@ -90,9 +91,10 @@ public class CommandPreviewView extends UiPart {
         Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
-        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
+        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE_BOLDER);
 
         TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
+        combinedCommand.setPrefWidth(PREF_WIDTH);
 
         previewGrid.addRow(rowIndex, commandScenario, combinedCommand);
     }

@@ -38,6 +38,10 @@
 }
 
 .code {
+    -fx-font-family: "Roboto Mono";
+}
+
+.codeBolder {
     -fx-font-family: "Roboto Mono Medium";
 }
 
@@ -47,6 +51,10 @@
 
 .underline {
     -fx-underline: true;
+}
+
+.grey {
+    -fx-background-color: #2D2D2D;
 }
 
 .gridPanel {
