@@ -1,6 +1,8 @@
 //@@author A0139772U
 package seedu.whatnow.logic.commands;
 
+import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
@@ -22,7 +24,9 @@ public class MarkDoneCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as completed: %1$s";
 	public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as complete";
+	public static final String MESSAGE_MARK_INVALID_FORMAT = "Invalid format for done command";
 	private static final String TASK_TYPE_FLOATING = "todo";
+	private static final String TASK_TYPE_SCHEDULE = "schedule";
 
 	public final String taskType;
 	public final int targetIndex;
@@ -39,9 +43,11 @@ public class MarkDoneCommand extends UndoAndRedo {
 		if (taskType.equals(TASK_TYPE_FLOATING)) {
 			model.updateFilteredListToShowAllIncomplete();
 			lastShownList = model.getCurrentFilteredTaskList();
-		} else {
+		} else if(taskType.equals(TASK_TYPE_SCHEDULE)){
 			model.updateFilteredScheduleListToShowAllIncomplete();
 			lastShownList = model.getCurrentFilteredScheduleList();
+		} else {
+		    return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
 		}
 
 		if (lastShownList.size() < targetIndex) {
