@@ -37,8 +37,8 @@ public class TypicalTestTasks {
             same =new TaskBuilder().withName("Ida Mueller").withOpenTime("one week from now")
                     .withCloseTime("two weeks from now").build();
             recur = new TaskBuilder().withName("Ida").withOpenTime("one week from now")
-                    .withCloseTime("two weeks from now").withRecurrentWeek(2).build();
-            name = new TaskBuilder().withName("task name").withRecurrentWeek(2).build();
+                    .withCloseTime("two weeks from now").build();
+            name = new TaskBuilder().withName("task name").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();
