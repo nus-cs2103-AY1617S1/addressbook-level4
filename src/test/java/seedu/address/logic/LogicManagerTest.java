@@ -221,6 +221,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
         TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        TaskBook undolist = new TaskBook(expectedAB);
         helper.addToModel(model, 1, 1, 1);
         expectedAB.addTask(toBeAdded);
 
@@ -230,8 +231,19 @@ public class LogicManagerTest {
                 expectedAB.getEventList(),
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
+        
+        assertCommandBehavior("undo 1", UndoCommand.MESSAGE_UNDO_TASK_SUCCESS,
+                undolist,
+                undolist.getEventList(),
+                undolist.getDeadlineList(),
+                undolist.getTodoList());
+        assertCommandBehavior("redo 1", RedoCommand.MESSAGE_REDO_TASK_SUCCESS,
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }   
 
-    }
     //@@author A0139430L JingRui
     @Test
     public void execute_addDuplicateEvent_notAllowed() throws Exception {

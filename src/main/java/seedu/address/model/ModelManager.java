@@ -63,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(addressBook.getTodo());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
+        this.config = config;
     }
 
     public ModelManager() {
@@ -176,7 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
     	        indicateAddressBookChanged();
     		};
     	};
-    	scheduler.scheduleAtFixedRate(overdue, 0, 30, TimeUnit.SECONDS); 
+    	scheduler.scheduleAtFixedRate(overdue, 0, 1, TimeUnit.SECONDS); 
     }
     
     //@@author A0139430L JingRui
