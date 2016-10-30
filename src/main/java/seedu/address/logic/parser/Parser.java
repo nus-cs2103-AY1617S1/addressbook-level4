@@ -116,8 +116,8 @@ public class Parser {
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		matchers.add(ADD_COMMAND_FORMAT_1.matcher(arguments.trim()));
-		matchers.add(ADD_COMMAND_FORMAT_2.matcher(arguments.trim()));
-
+		matchers.add(ADD_COMMAND_FORMAT_2.matcher(arguments.trim())); 
+	
 		// Null values will always be overwritten if the matcher matches.
 		String taskType = null;
 		String addTaskArgs = null;
