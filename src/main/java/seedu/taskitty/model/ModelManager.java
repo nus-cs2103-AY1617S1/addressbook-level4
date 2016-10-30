@@ -319,9 +319,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> containsByType(task, keyword))
-                    .findAny()
-                    .isPresent();
+                    .allMatch(keyword -> containsByType(task, keyword));
         }
         
         /**
