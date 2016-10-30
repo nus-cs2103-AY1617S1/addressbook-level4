@@ -95,13 +95,15 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
     
     //@author A0139194X
-    public void deleteFile(String filePath) {
+    public boolean deleteFile(String filePath) {
         assert filePath != null;
         File toDelete = new File(filePath);
         if (toDelete.delete()) {
             logger.fine("Deleted " + filePath);
+            return true;
         } else {
             logger.warning("Failed to delete " + filePath);
+            return false;
         }
     }
 }

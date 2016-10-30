@@ -18,7 +18,6 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
@@ -224,9 +223,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+	//@@author: A0139194X
+    @Override
+    public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        raise(new RelocateFilePathEvent(newFilePath));
+        indicateTaskManagerChanged();
+    }
+    
+    //=========== Filtered List Accessors ===============================================================
 
-    // =========== Filtered List Accessors
-    // ===============================================================
     @Override
     // @@author A0124797R
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {

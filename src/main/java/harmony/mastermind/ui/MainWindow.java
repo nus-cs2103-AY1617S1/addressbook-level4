@@ -17,7 +17,6 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
-import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
@@ -124,8 +123,6 @@ public class MainWindow extends UiPart {
     private String currCommandText;
     private Stack<String> commandHistory = new Stack<String>();
     private int commandIndex = 0;
-
-    private boolean isExpectingConfirmation = false;
 
     private AutoCompletionBinding<String> autoCompletionBinding;
 
@@ -845,26 +842,12 @@ public class MainWindow extends UiPart {
 
         autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
     }
-
+    
     @Subscribe
-    // @@author A0139194X
-    private void handleExpectingConfirmationEvent(ExpectingConfirmationEvent event) {
-        isExpectingConfirmation = true;
-        consoleOutput.setText("Type \"Yes\" to confirm clearing Mastermind."
-                              + "\n"
-                              + "Type \"No\" to cancel.");
-        while (isExpectingConfirmation) {
-            String confirmation = commandField.getText();
-            setStyleToIndicateCorrectCommand();
-
-            if (confirmation.toLowerCase().trim().equals("yes")) {
-                isExpectingConfirmation = false;
-                break;
-            } else if (confirmation.toLowerCase().trim().equals("no")) {
-                isExpectingConfirmation = false;
-                break;
-            }
-        }
+    //@@author A0124797R
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
+        restoreCommandText();
     }
 
     // @@author A0124797R
