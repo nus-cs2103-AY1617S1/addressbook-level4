@@ -17,7 +17,7 @@ public class AppUtilTest {
 
     @Test
     public void getImage_exitingImage(){
-        assertNotNull(AppUtil.getImage("/images/smart_scheduler.png"));
+        assertNotNull(AppUtil.getImage("/images/main_icon.png"));
     }
 
 
