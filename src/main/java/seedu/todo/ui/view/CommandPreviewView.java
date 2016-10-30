@@ -2,6 +2,7 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -84,14 +85,15 @@ public class CommandPreviewView extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandScenario = ViewGeneratorUtil.constructLabel(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandName = ViewGeneratorUtil.constructLabel(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandArgument = ViewGeneratorUtil.constructLabel(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
         ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
 
         TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
+
         previewGrid.addRow(rowIndex, commandScenario, combinedCommand);
     }
 

@@ -11,7 +11,7 @@ import java.util.Map;
 public class CommandMap {
     // List of command classes. Remember to register new commands here so that the
     // dispatcher can recognize them
-    public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
+    private static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
         AddCommand.class,
         CompleteCommand.class,
         DeleteCommand.class,

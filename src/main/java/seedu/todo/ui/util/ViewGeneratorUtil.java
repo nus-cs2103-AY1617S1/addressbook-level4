@@ -12,18 +12,6 @@ import javafx.scene.text.TextFlow;
 public class ViewGeneratorUtil {
 
     /**
-     * Generates a {@link Text} object with the class style applied onto the object.
-     * @param string to be wrapped in the {@link Text} object
-     * @param classStyle css style to be applied to the label
-     * @return a {@link Text} object
-     */
-    public static Text constructText(String string, String classStyle) {
-        Text text = new Text(string);
-        ViewStyleUtil.addClassStyles(text, classStyle);
-        return text;
-    }
-
-    /**
      * Constructs a label view with a dark grey rounded background.
      */
     public static Label constructRoundedText(String string) {
@@ -41,13 +29,14 @@ public class ViewGeneratorUtil {
     public static Label constructLabel(String string, String classStyle) {
         Label label = new Label(string);
         ViewStyleUtil.addClassStyles(label, classStyle);
+        label.setWrapText(true);
         return label;
     }
 
     /**
-     * Place all the specified texts into a {@link TextFlow} object.
+     * Place all the specified labels into a {@link TextFlow} object.
      */
-    public static TextFlow placeIntoTextFlow(Text... texts) {
+    public static TextFlow placeIntoTextFlow(Label... texts) {
         return new TextFlow(texts);
     }
 }

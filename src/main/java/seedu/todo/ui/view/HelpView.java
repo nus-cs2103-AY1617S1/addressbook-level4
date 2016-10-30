@@ -2,6 +2,8 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -34,7 +36,7 @@ public class HelpView extends UiPart {
     /*Layouts*/
     private VBox helpPanelView;
 
-    @FXML private GridPane helpGrid;
+    @FXML private VBox helpGrid;
 
     /**
      * Loads and initialise the feedback view element to the placeHolder
@@ -75,18 +77,19 @@ public class HelpView extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Text commandScenario = ViewGeneratorUtil
-                .constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandName = ViewGeneratorUtil
-                .constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandArgument = ViewGeneratorUtil
-                .constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandScenario = ViewGeneratorUtil
+                .constructLabel(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandName = ViewGeneratorUtil
+                .constructLabel(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Label commandArgument = ViewGeneratorUtil
+                .constructLabel(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
         ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
 
-        TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
-        helpGrid.addRow(rowIndex, commandScenario, combinedCommand);
+        TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandScenario, commandName, commandArgument);
+
+        helpGrid.getChildren().add(combinedCommand);
     }
 
     /* Ui Methods */
