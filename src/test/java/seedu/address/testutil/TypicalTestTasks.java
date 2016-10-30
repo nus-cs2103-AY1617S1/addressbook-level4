@@ -27,7 +27,7 @@ public class TypicalTestTasks {
                     .withDateTime("from 30 May, 13:00 to 06 Jun, 14:00").build();
 
             //Manually added
-            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("by 20/03/2016, 14:01").build();
+            homework = new TaskBuilder().withDescription("Do Homework").withDateTime("by 20/03/16, 14:01").build();
             groceries = new TaskBuilder().withDescription("Buy groceries for mum").withDateTime("on 20 Dec 2016").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
