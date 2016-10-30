@@ -238,11 +238,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents.setPredicate(null);
         indicateViewChanged(ViewCommand.ViewType.all, null);
     }
-    
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
 
     @Override
     public void updateFilteredDoneList() {
@@ -320,7 +315,6 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
         
-        //@@author A0130853L
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
