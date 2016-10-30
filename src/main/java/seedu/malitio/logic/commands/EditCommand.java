@@ -55,11 +55,9 @@ public class EditCommand extends Command{
     
     private final int targetIndex;
     
-    private FloatingTask editedTask;
-     
-    private Deadline editedDeadline;
+    private Object editedTask;
     
-    private Event editedEvent;
+    private Object taskToEdit;
     
     private Name name;
     
@@ -72,22 +70,9 @@ public class EditCommand extends Command{
     private UniqueTagList tags;
     
     //@@author A0129595N  
-    public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
+    public EditCommand(char taskType, int targetIndex, String name, String due, String start, String end, Set<String> newTags) 
             throws IllegalValueException {
-        assert taskType == 'f';
-        assert !name.equals("") || !newTags.isEmpty() ;
-        this.taskType = taskType;
-        this.targetIndex = targetIndex;
-        if (!name.equals("")) {
-            this.name = new Name(name);
-        }
-        this.tags = processTags(newTags);
-    }
-    
-    public EditCommand(char taskType, int targetIndex, String name, String due, Set<String> newTags)
-            throws IllegalValueException {
-        assert taskType == 'd';
-        assert !name.equals("") || !due.equals("") || !newTags.isEmpty();
+        assert validArgTask(taskType, name, due, start, end, newTags) ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         if (!name.equals("")) {
@@ -95,18 +80,6 @@ public class EditCommand extends Command{
         }
         if (!due.equals("")) {
             this.due = new DateTime(due);
-        }
-        this.tags = processTags(newTags);
-    }
-    
-    public EditCommand(char taskType, int targetIndex, String name, String start, String end, Set<String> newTags)
-            throws IllegalValueException {
-        assert taskType == 'e';
-        assert !name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty();
-        this.taskType = taskType;
-        this.targetIndex = targetIndex;
-        if (!name.equals("")) {
-            this.name = new Name(name);
         }
         if (!start.equals("")) {
             this.start = new DateTime(start);
@@ -116,8 +89,7 @@ public class EditCommand extends Command{
         }
         this.tags = processTags(newTags);
     }
-    
-    
+        
     /**
      * processTags return a UniqueTagList of tags but returns null if no tags were entered.
      * @param newTags
@@ -140,124 +112,30 @@ public class EditCommand extends Command{
         }
     }
     
-    /**
-     * fillInTheGaps will replace the task's attributes not entered by the user by extracting from the task to be edited .
-     * @param ReadOnly<TaskType>
-     */
-    private void fillInTheGaps(ReadOnlyFloatingTask taskToEdit) {
-        if (this.name==null) {
-            this.name = taskToEdit.getName();
-        }
-        if (this.tags==null) {
-            this.tags = taskToEdit.getTags();
-        }
-    }
-    
-    private void fillInTheGaps(ReadOnlyDeadline deadlineToEdit) {
-        if (this.name==null) {
-            this.name = deadlineToEdit.getName();
-        }
-        if (this.due==null) {
-            this.due = deadlineToEdit.getDue();
-        }
-        if (this.tags==null) {
-            this.tags = deadlineToEdit.getTags();
-        }
-    }
-
-    private void fillInTheGaps(ReadOnlyEvent eventToEdit) {
-        if (this.name==null) {
-            this.name = eventToEdit.getName();
-        }
-        if (this.start==null) {
-            this.start = eventToEdit.getStart();
-        }
-        if (this.end==null) {
-            this.end = eventToEdit.getEnd();
-        }
-        if (this.tags==null) {
-            this.tags = eventToEdit.getTags();
-        }
-    }
     @Override
     public CommandResult execute() {
-        CommandResult result;
-        if (taskType=='f') {
-            result = executeEditFloatingTask();
-            model.getFuture().clear();
-            return result;
-        }
-        else if (taskType=='d') {
-            result = executeEditDeadline();
-            model.getFuture().clear();
-            return result;
-        }
-        else {
-            result = executeEditEvent();
-            model.getFuture().clear();
-            return result;
-        }
-        
-    }
-    
-    public CommandResult executeEditFloatingTask() {
-        UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownList = model.getFilteredFloatingTaskList();
+        UnmodifiableObservableList lastShownList;
+        lastShownList = getCorrectList();        
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyFloatingTask taskToEdit = lastShownList.get(targetIndex - 1);
+        taskToEdit = lastShownList.get(targetIndex - 1);
                 
         try {
             assert model != null;
             fillInTheGaps(taskToEdit);
-            editedTask = new FloatingTask(name,tags);
-            model.editFloatingTask(editedTask, taskToEdit);
+            constructEditedTask();
+            model.editTask(editedTask, taskToEdit);
         } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
-    }
-    
-    public CommandResult executeEditDeadline() {
-        UnmodifiableObservableList<ReadOnlyDeadline> lastShownList = model.getFilteredDeadlineList();
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyDeadline deadlineToEdit = lastShownList.get(targetIndex - 1);
-                
-        try {
-            assert model != null;
-            fillInTheGaps(deadlineToEdit);
-            editedDeadline = new Deadline(name,due,tags);
-            model.editDeadline(editedDeadline, deadlineToEdit);
         } catch (DeadlineNotFoundException pnfe) {
             assert false : "The target deadline cannot be missing";
         } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
             return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
-        }
-        return new CommandResult(String.format(MESSAGE_EDIT_DEADLINE_SUCCESS, deadlineToEdit, editedDeadline));
-    }
-    
-    public CommandResult executeEditEvent() {
-        UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyEvent eventToEdit = lastShownList.get(targetIndex - 1);
-                
-        try {
-            assert model != null;
-            fillInTheGaps(eventToEdit);
-            editedEvent = new Event(name, start, end, tags);
-            model.editEvent(editedEvent, eventToEdit);
         } catch (EventNotFoundException pnfe) {
             assert false : "The target event cannot be missing";
         } catch (DuplicateEventException e) {
@@ -265,7 +143,130 @@ public class EditCommand extends Command{
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_INVALID_EVENT);
         }
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit, editedEvent));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit, editedTask));
+    }
+
+    /**
+     * Creates the correct edited task object
+     * @throws IllegalValueException
+     */
+    private void constructEditedTask() throws IllegalValueException {
+        if (taskType == 'f') {
+            editedTask = new FloatingTask(name, tags);
+        } else if (taskType == 'd') {
+            editedTask = new Deadline(name, due, tags);
+        } else {
+            editedTask = new Event(name, start, end, tags);
+        }
+    }
+
+    /**
+     * @return UnmodifiableObservableList of the correct task type
+     */
+    private UnmodifiableObservableList getCorrectList() {
+        UnmodifiableObservableList lastShownList;
+        if (taskType == 'f') {
+        lastShownList = model.getFilteredFloatingTaskList();
+        } else if (taskType == 'd') {
+        lastShownList = model.getFilteredDeadlineList(); 
+        } else {
+        lastShownList = model.getFilteredEventList();
+        }
+        return lastShownList;
+    }
+    
+    
+    /**
+     * fillInTheGaps will replace the task's attributes not entered by the user by extracting from the task to be edited .
+     * @param ReadOnly<TaskType>
+     */
+    private void fillInTheGaps(Object taskToEdit) {
+        if (isFloatingTask(taskToEdit)) {
+            getFloatingTaskDetails(taskToEdit);
+        } else if (isDeadline(taskToEdit)) {
+            getDeadlineDetails(taskToEdit);
+        } else {
+            getEventDetails(taskToEdit);
+        }
+    }
+    
+    /**
+     * @param taskType
+     *            can be f/d/e
+     * @param name
+     * @param due
+     * @param start
+     * @param end
+     * @param newTags
+     * @return true if at least one of the arguments to be edited (for the
+     *         corresponding task) is non-empty and non-relevant argument is
+     *         empty (String).
+     */
+    private boolean validArgTask(char taskType, String name, String due, String start, String end,
+            Set<String> newTags) {
+        if (taskType == 'f') {
+            return (!name.equals("") || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
+        } else if (taskType == 'd') {
+            return (!name.equals("") || !due.equals("") || !newTags.isEmpty()) && start.equals("") && end.equals("");
+        } else {
+            return (!name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty()) && due.equals("");
+        }
+    }
+    
+    private boolean isDeadline(Object taskToEdit) {
+        return taskToEdit instanceof ReadOnlyDeadline;
+    }
+
+    private boolean isFloatingTask(Object taskToEdit) {
+        return taskToEdit instanceof ReadOnlyFloatingTask;
+    }
+
+    /**
+     * Replace the (Event)editedTask details if they are empty 
+     * @param taskToEdit
+     */
+    private void getEventDetails(Object taskToEdit) {
+        if (this.name == null) {
+            this.name = ((Event) taskToEdit).getName();
+        }
+        if (this.start == null) {
+            this.start = ((Event) taskToEdit).getStart();
+        }
+        if (this.end == null) {
+            this.end = ((Event) taskToEdit).getEnd();
+        }
+        if (this.tags == null) {
+            this.tags = ((Event) taskToEdit).getTags();
+        }
+    }
+
+    /**
+     * Replace the (Deadline)editedTask details if they are empty
+     * @param taskToEdit
+     */
+    private void getDeadlineDetails(Object taskToEdit) {
+        if (this.name == null) {
+            this.name = ((ReadOnlyDeadline) taskToEdit).getName();
+        }
+        if (this.due == null) {
+            this.due = ((ReadOnlyDeadline) taskToEdit).getDue();
+        }
+        if (this.tags == null) {
+            this.tags = ((ReadOnlyDeadline) taskToEdit).getTags();
+        }
+    }
+
+    /**
+     * Replace the (FloatingTask) editedTask details if they are empty
+     * @param taskToEdit
+     */
+    private void getFloatingTaskDetails(Object taskToEdit) {
+        if (this.name == null) {
+            this.name = ((ReadOnlyFloatingTask) taskToEdit).getName();
+        }
+        if (this.tags == null) {
+            this.tags = ((ReadOnlyFloatingTask) taskToEdit).getTags();
+        }
     }
     
 }

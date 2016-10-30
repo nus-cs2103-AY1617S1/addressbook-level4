@@ -74,14 +74,14 @@ public class XmlMalitioStorageTest {
         assertEquals(original, new Malitio(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addFloatingTask(new FloatingTask(TypicalTestTasks.manualFloatingTask1));
+        original.addTask(new FloatingTask(TypicalTestTasks.manualFloatingTask1));
         original.removeTask(new FloatingTask(TypicalTestTasks.floatingTask1));
         xmlMalitioStorage.saveMalitio(original, filePath);
         readBack = xmlMalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
-        original.addDeadline(new Deadline(TypicalTestTasks.manualDeadline1));
+        original.addTask(new Deadline(TypicalTestTasks.manualDeadline1));
         xmlMalitioStorage.saveMalitio(original); //file path not specified
         readBack = xmlMalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));

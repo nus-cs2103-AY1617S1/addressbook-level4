@@ -65,22 +65,22 @@ public class TypicalTestTasks {
 
     public static void loadMalitioWithSampleData(Malitio ab) {
         try {
-            ab.addFloatingTask(new FloatingTask(floatingTask1));
-            ab.addFloatingTask(new FloatingTask(floatingTask2));
-            ab.addFloatingTask(new FloatingTask(floatingTask3));
-            ab.addFloatingTask(new FloatingTask(floatingTask4));
-            ab.addFloatingTask(new FloatingTask(floatingTask5));
-            ab.addDeadline(new Deadline(deadline1));
-            ab.addDeadline(new Deadline(deadline2));
-            ab.addDeadline(new Deadline(deadline3));
-            ab.addDeadline(new Deadline(deadline4));
-            ab.addDeadline( new Deadline(deadline5));
-            ab.addEvent(new Event(event1));
-            ab.addEvent(new Event(event2));
-            ab.addEvent(new Event(event3));
-            ab.addEvent(new Event(event4));
-            ab.addEvent(new Event(event5));
-            ab.addEvent(new Event(event6));
+            ab.addTask(new FloatingTask(floatingTask1));
+            ab.addTask(new FloatingTask(floatingTask2));
+            ab.addTask(new FloatingTask(floatingTask3));
+            ab.addTask(new FloatingTask(floatingTask4));
+            ab.addTask(new FloatingTask(floatingTask5));
+            ab.addTask(new Deadline(deadline1));
+            ab.addTask(new Deadline(deadline2));
+            ab.addTask(new Deadline(deadline3));
+            ab.addTask(new Deadline(deadline4));
+            ab.addTask( new Deadline(deadline5));
+            ab.addTask(new Event(event1));
+            ab.addTask(new Event(event2));
+            ab.addTask(new Event(event3));
+            ab.addTask(new Event(event4));
+            ab.addTask(new Event(event5));
+            ab.addTask(new Event(event6));
         } catch (DuplicateDataException e) {
             assert false : "not possible";
         } catch (IllegalValueException e) {

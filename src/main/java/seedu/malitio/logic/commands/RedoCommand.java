@@ -66,23 +66,12 @@ public class RedoCommand extends Command {
     }
     
     private String executeMark(InputMarkHistory previous) {
-        if (previous.getType().equals("floating task")) {
-            try {
-                model.markFloatingTask(previous.getTaskToMark(), previous.getMarkWhat());
-                return "Redo mark successful";
-            } catch (FloatingTaskNotFoundException | FloatingTaskMarkedException | FloatingTaskUnmarkedException e) {
-                assert false : "not possible";
-            }
+        try {
+            model.markTask(previous.getTaskToMark(), previous.getMarkWhat());
+        } catch (Exception e) {
+            assert false : "Not possible";
         }
-        else {
-            try {
-                model.markDeadline(previous.getDeadlineToMark(), previous.getMarkWhat());
-                return "Redo mark successful";
-            } catch (DeadlineNotFoundException | DeadlineMarkedException | DeadlineUnmarkedException e) {
-                assert false: "not possible";                    
-            }
-        }
-        return "Redo Failed";
+        return "Redo mark sucessful.";
     }
     
     private String executeClear(InputClearHistory previous) {
@@ -94,91 +83,43 @@ public class RedoCommand extends Command {
     }
 
     private String executeEdit(InputEditHistory previous) {
-        if (previous.getType().equals("floating task")) {
-            try {
-                model.editFloatingTask(previous.getEditedTask(), previous.getTaskToEdit());
-                return ("Redo successful. Redo edit from" + previous.getTaskToEdit().toString() + " to "+ previous.getEditedTask().toString());
-            } catch (DuplicateFloatingTaskException e) {
-                assert false : "not possible";
-            } catch (FloatingTaskNotFoundException e) {
-                assert false : "not possible";
-            }
+        try {
+            model.editTask(previous.getEditedTask(), previous.getTaskToEdit());
+        } catch (Exception e) {
+            assert false : "Not possible";
         }
-        
-        else if (previous.getType().equals("deadline")) {
-            try {
-                model.editDeadline(previous.getEditedDeadline(), previous.getDeadlineToEdit());
-                return ("Redo successful. Redo edit from" + previous.getDeadlineToEdit().toString() + " to "+ previous.getEditedDeadline().toString());
-            } catch (DuplicateDeadlineException e) {
-                assert false : "not possible";
-            } catch (DeadlineNotFoundException e) {
-                assert false : "not possible";
-            }
-        }
-        else {
-            try {
-                model.editEvent(previous.getEditedEvent(), previous.getEventToEdit());
-                return ("Redo successful. Redo edit from" + previous.getEventToEdit().toString() + " to "+ previous.getEditedEvent().toString());
-            } catch (DuplicateEventException e) {
-                assert false : "not possible";
-            } catch (EventNotFoundException e) {
-                assert false : "not possible";
-            }
-        }
-        return "Redo Failed";
+        return redoEditSuccessfulMessage(previous.getTaskToEdit().toString(), previous.getEditedTask().toString());
     }
 
     public String executeAdd(InputDeleteHistory previous) {
-
-        if (previous.getType().equals("floating task")) {
-            try {
-                model.addFloatingTaskAtSpecificPlace(previous.getFloatingTask(), previous.getPositionOfFloatingTask());
-                return "Redo successful. Redo delete Floating Task: " + previous.getFloatingTask().toString();
-            } catch (DuplicateFloatingTaskException e) {
-                assert false : "not possible";
+        try {
+            if (previous.getPositionOfFloatingTask() != -1) {
+                model.addFloatingTaskAtSpecificPlace(previous.getTask(), previous.getPositionOfFloatingTask());
+            } else {
+                model.addTask(previous.getTask());
             }
-        } else if (previous.getType().equals("deadline")) {
-            try {
-                model.addDeadline(previous.getDeadline());
-                return "Redo successful. Redo delete Deadline: " + previous.getDeadline().toString();
-            } catch (DuplicateDeadlineException e) {
-                assert false : "not possible";
-            }
-        } else {
-            try {
-                model.addEvent(previous.getEvent());
-                return "Redo successful. Redo delete Event: " + previous.getEvent().toString();
-            } catch (DuplicateEventException e) {
-                assert false : "not possible";
-            }
+        } catch (Exception e) {
+            assert false : "Not possible";
         }
-        return "Redo failed";
+        return "Redo successful. Redo delete Floating Task: " + previous.getTask().toString();
     }
 
     public String executeDelete(InputAddHistory previous) {
-
-        if (previous.getType().equals("floating task")) {
-            try {
-                model.deleteTask(previous.getFloatingTask());
-                return "Redo Successful: Redo add Floating Task: " + previous.getFloatingTask().toString();
-            } catch (FloatingTaskNotFoundException e) {
-                assert false : "not possible";
-            }
-        } else if (previous.getType().equals("deadline")) {
-            try {
-                model.deleteTask(previous.getDeadline());
-                return "Redo Successful. Redo add Deadline: " + previous.getDeadline().toString();
-            } catch (DeadlineNotFoundException e) {
-                assert false : "not possible";
-            }
-        } else {
-            try {
-                model.deleteTask(previous.getEvent());
-                return "Redo successful. Redo add Event: " + previous.getEvent().toString();
-            } catch (EventNotFoundException e) {
-                assert false : "not possible";
-            }
+        try {
+            model.deleteTask(previous.getTask());
+        } catch (Exception e) {
+            assert false : "Not possible";
         }
-        return "Redo Failed";
+        return "Redo Successful: Redo add Floating Task: " + previous.getTask().toString();
+    }
+    
+    /**
+     * @param beforeEdit task to be edited
+     * @param afterEdit edited task
+     * @return Message to indicate successful redo of edit
+     */
+    private String redoEditSuccessfulMessage(String beforeEdit, String afterEdit) {
+        return "Redo successful. Redo edit from" + beforeEdit + " to "
+                + afterEdit;
     }
 }

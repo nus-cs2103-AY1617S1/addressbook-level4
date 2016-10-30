@@ -4,6 +4,9 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.*;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,9 +27,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Malitio";
     public static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";
-    private FloatingTask toAddFloatingTask;
-    private Deadline toAddDeadline;
-    private Event toAddEvent;
+
+    private Object toAddTask;
 
     /**
      * Convenience constructor for floating tasks using raw values.
@@ -39,7 +41,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAddFloatingTask = new FloatingTask(
+        this.toAddTask = new FloatingTask(
                 new Name(name),
                 new UniqueTagList(tagSet)
         );
@@ -57,7 +59,7 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAddDeadline = new Deadline(
+        this.toAddTask = new Deadline(
                 new Name(name),
                 new DateTime(date),
                 new UniqueTagList(tagSet)
@@ -76,7 +78,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // check if start < end
-        this.toAddEvent = new Event(
+        this.toAddTask = new Event(
                 new Name(name),
                 new DateTime(start),
                 new DateTime(end),
@@ -89,33 +91,18 @@ public class AddCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        assert model != null;
-        if (toAddFloatingTask!=null){
+        assert model != null;{
             try {
-                model.addFloatingTask(toAddFloatingTask);
+                model.addTask(toAddTask);
                 model.getFuture().clear();
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
-            } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddTask));
+            } catch (DuplicateFloatingTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
-            }
-        }
-        else if (toAddDeadline != null){
-            try {
-                model.addDeadline(toAddDeadline);
-                model.getFuture().clear();
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
-            } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
+            } catch (DuplicateDeadlineException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
-            } 
-        }
-        else {
-            try {
-                model.addEvent(toAddEvent);
-                model.getFuture().clear();
-                return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
-            } catch (UniqueEventList.DuplicateEventException e) {
+            } catch (DuplicateEventException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_EVENT);
-            } 
+            }
         }
     }
 }

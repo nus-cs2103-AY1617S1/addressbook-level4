@@ -135,9 +135,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addFloatingTask(helper.generateTask(1));
-        model.addFloatingTask(helper.generateTask(2));
-        model.addFloatingTask(helper.generateTask(3));
+        model.addTask(helper.generateTask(1));
+        model.addTask(helper.generateTask(2));
+        model.addTask(helper.generateTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Malitio(), Collections.emptyList());
     }
@@ -166,7 +166,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
         Malitio expectedAB = new Malitio();
-        expectedAB.addFloatingTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -182,10 +182,10 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
         Malitio expectedAB = new Malitio();
-        expectedAB.addFloatingTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addFloatingTask(toBeAdded); // task already in internal Malitio
+        model.addTask(toBeAdded); // task already in internal Malitio
 
         // execute command and verify result
         assertCommandBehavior(
@@ -240,7 +240,7 @@ public class LogicManagerTest {
         // set AB state to 2 tasks
         model.resetData(new Malitio());
         for (FloatingTask p : floatingTaskList) {
-            model.addFloatingTask(p);
+            model.addTask(p);
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getMalitio(), floatingTaskList);
@@ -415,7 +415,7 @@ public class LogicManagerTest {
          */
         void addToMalitio(Malitio malitio, List<FloatingTask> tasksToAdd) throws Exception{
             for(FloatingTask p: tasksToAdd){
-                malitio.addFloatingTask(p);
+                malitio.addTask(p);
             }
         }
 
@@ -432,7 +432,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<FloatingTask> tasksToAdd) throws Exception{
             for(FloatingTask p: tasksToAdd){
-                model.addFloatingTask(p);
+                model.addTask(p);
             }
         }
 
