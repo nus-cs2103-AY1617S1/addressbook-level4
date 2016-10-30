@@ -12,7 +12,10 @@ public class SaveToCommand extends Command{
     
     public static final String COMMAND_WORD = "saveto";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "TO-DO";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the location of the xml data file"
+            + "Parameters: filepath"
+            + "Example: " + COMMAND_WORD
+            + " C:/emeraldo_task/";
     
     public static final String MESSAGE_SUCCESS = "Save location changed";
     
