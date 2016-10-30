@@ -25,7 +25,25 @@ public class ViewCommand extends Command {
             + " Use \"view [DATE]\" for dated tasks, \"view done\" for done tasks, \"view all\" for all tasks!";
     public static final String VIEW_ALL_MESSAGE_SUCCESS = "All tasks are listed, Meow!";
     private LocalDate date;
-    private enum ViewType {done, date, all, normal}; // to differentiate between 4 types of command functionalities
+    public enum ViewType {
+    	
+    	done("done"), // to differentiate between 4 types of command functionalities
+    	date("date"), 
+    	all("all"), 
+    	normal("default"); 
+    	
+    	private String value;
+    	ViewType(String value) {
+    		this.value = value;
+    	}
+    	public String getValue() {
+    		return value;
+    	}
+    	@Override
+    	public String toString() {
+    		return this.getValue();
+    	} 
+    }
     private ViewType viewType;
 
     /**
@@ -54,7 +72,7 @@ public class ViewCommand extends Command {
     public ViewCommand() {
     	this.viewType = ViewType.normal;
     }
-
+    
     
     @Override
     public CommandResult execute() {

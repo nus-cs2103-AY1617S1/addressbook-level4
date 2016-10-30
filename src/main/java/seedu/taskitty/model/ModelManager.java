@@ -6,6 +6,7 @@ import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.exceptions.NoRecentUndoCommandException;
 import seedu.taskitty.commons.util.DateUtil;
@@ -15,6 +16,7 @@ import seedu.taskitty.logic.commands.ClearCommand;
 import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.logic.commands.EditCommand;
+import seedu.taskitty.logic.commands.ViewCommand;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
@@ -112,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         indicateTaskManagerChanged();
     }    
-        
+   
     //@@author A0130853L
     @Override
     public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
@@ -120,6 +122,14 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.markTaskAsDoneTask(targetTask);
         }
     	indicateTaskManagerChanged();
+    }
+    
+    /**
+     *  To indicate that the currently filtered list has changed.
+     * @param a viewType object from the ViewCommand enum class ViewType.
+     */
+    private void indicateViewChanged(ViewCommand.ViewType viewType, LocalDate date) {
+    	raise(new ViewTypeChangedEvent(viewType, date));
     }
     
     //@@author A0135793W
@@ -212,25 +222,27 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
+
+    //@@author A0130853L
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords){
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        indicateViewChanged(ViewCommand.ViewType.all, null);
+    }
     
-    //@@author
     @Override
     public void updateFilteredListToShowAll() {
         allTasks.setPredicate(null);
         filteredTodos.setPredicate(null);
         filteredDeadlines.setPredicate(null);
         filteredEvents.setPredicate(null);
+        indicateViewChanged(ViewCommand.ViewType.all, null);
     }
-    
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-    
-    //@@author A0130853L
+
     @Override
     public void updateFilteredDoneList() {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
+    	indicateViewChanged(ViewCommand.ViewType.done, null);
     }
     
     /** 
@@ -242,6 +254,7 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredTodos.setPredicate(p -> !p.getIsDone());
     	filteredDeadlines.setPredicate(p -> !p.getIsDone());
     	filteredEvents.setPredicate(p -> !p.getIsDone() && isEventAndIsNotBeforeToday(p));
+    	indicateViewChanged(ViewCommand.ViewType.normal, null);
     }
     
     /**
@@ -253,6 +266,7 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredTodos.setPredicate(null);
 		filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
 		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
+		indicateViewChanged(ViewCommand.ViewType.date, date);
 	}
 	
 	//@@author
@@ -301,7 +315,6 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
         
-        //@@author A0130853L
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()

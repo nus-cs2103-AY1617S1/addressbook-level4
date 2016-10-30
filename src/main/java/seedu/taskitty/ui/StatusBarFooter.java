@@ -10,7 +10,10 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskitty.commons.events.model.ViewTypeChangedEvent;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
+import seedu.taskitty.logic.commands.ViewCommand;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -20,8 +23,17 @@ import java.util.logging.Logger;
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+
+    //@@author A0130853L
+    public static final String COMPLETED_TASKS = "completed tasks";
+    public static final String ALL_TASKS = "all tasks";
+    public static final String UPCOMING_TASKS = "upcoming tasks";
+    private StatusBar viewStatus;
+    
+    //@@author
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
+
 
     private GridPane mainPane;
 
@@ -30,6 +42,9 @@ public class StatusBarFooter extends UiPart {
 
     @FXML
     private AnchorPane syncStatusBarPane;
+    
+    @FXML
+    private AnchorPane viewStatusBarPane;
 
     private AnchorPane placeHolder;
 
@@ -40,15 +55,18 @@ public class StatusBarFooter extends UiPart {
         statusBarFooter.configure(saveLocation);
         return statusBarFooter;
     }
-
+    //@@author A0130853L
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
+        addViewStatus();
+        setViewStatus("Viewing: "+ UPCOMING_TASKS);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
+    //@@author
 
     private void addMainPane() {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -74,7 +92,18 @@ public class StatusBarFooter extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
-
+    //@@author A0130853L
+    private void setViewStatus(String status) {
+    	this.viewStatus.setText(status);
+    }
+   
+    private void addViewStatus() {
+    	this.viewStatus = new StatusBar();
+    	FxViewUtil.applyAnchorBoundaryParameters(viewStatus, 0.0, 0.0, 0.0, 0.0);
+        viewStatusBarPane.getChildren().add(viewStatus);
+    }
+    
+    //@@author
     @Override
     public void setNode(Node node) {
         mainPane = (GridPane) node;
@@ -89,11 +118,35 @@ public class StatusBarFooter extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    //@@author A0130853L
     @Subscribe
-    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce) {
+    public void handleViewTypeChangedEvent(ViewTypeChangedEvent vtce) {
+    	String newView = vtce.viewType.toString();
+    	String viewStatus = "Viewing: ";
+    	switch(newView) {
+    		case("date"):
+    			viewStatus += DateUtil.createUISpecifiedDateString(vtce.getDate());;
+    			break;
+    		case("done"):
+    			viewStatus += COMPLETED_TASKS;
+    			break;
+    		case("all"):
+    			viewStatus += ALL_TASKS;
+    			break;
+    		default:
+    			viewStatus += UPCOMING_TASKS;
+    	}
+    	
+    	logger.info(LogsCenter.getEventHandlingLogMessage(vtce, "Setting filtered view to " + newView));
+    	setViewStatus(viewStatus); 
+    	
+    }
+    
+    @Subscribe
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent tmce) {
         String lastUpdated = (new Date()).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(tmce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
 }

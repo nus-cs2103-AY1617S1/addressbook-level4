@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
 //@@author A0130853L
@@ -64,9 +65,8 @@ public class EventListPanel extends TaskListPanel {
      * For when `view today` is executed, and today's date with the "(today)" label will be shown.
      */
     public void setDefaultDate() {
-    	DateFormat df = new SimpleDateFormat("dd MMM yyyy");
-    	Date dateobj = new Date();
-    	date.setText(df.format(dateobj) + " (Today)");
+    	
+    	date.setText(DateUtil.createDefaultDateString());
     	date.setStyle("-fx-text-fill: black");
     	date.setStyle("-fx-background-color: white");
     }
