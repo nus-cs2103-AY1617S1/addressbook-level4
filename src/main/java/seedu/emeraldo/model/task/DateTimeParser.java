@@ -28,8 +28,8 @@ public class DateTimeParser {
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
             + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([1][0-9]|[2][0-3]|0?[0-9])))?"
-            + "(?:(:|\\.|))"
-            + "(?<minute>([0-5][0-9]))?"
+            + "(?:(:|\\.|)?)"
+            + "(?<minute>([0-5][0-9])?)"
             + "(?<timePostFix>(([a]|[p])[m])?)";
 
     public static final String FROM_KEYWORD_VALIDATION_REGEX = "from "
@@ -39,8 +39,8 @@ public class DateTimeParser {
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
             + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([1][0-9]|[2][0-3]|0?[0-9])))?"
-            + "(?:(:|\\.|))"
-            + "(?<minute>([0-5][0-9]))?"
+            + "(?:(:|\\.|)?)"
+            + "(?<minute>([0-5][0-9])?)"
             + "(?<timePostFix>(([a]|[p])[m])?)"
             + "( (?<aftKeyword>(to )))"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"
@@ -49,7 +49,7 @@ public class DateTimeParser {
             + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
             + "(?<yearEnd>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hourEnd>([1][0-9]|[2][0-3]|0?[0-9])))?"
-            + "(?:(:|\\.|))?"
+            + "(?:(:|\\.|)?)"
             + "(?<minuteEnd>([0-5][0-9])?)"
             + "(?<timeEndPostFix>(([a]|[p])[m])?)";
 
@@ -61,8 +61,8 @@ public class DateTimeParser {
             + "(?<monthInWords>([\\p{Alpha}]{3,})?)"
             + "(?<year>(( |/|-|\\.)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hour>([1][0-9]|[2][0-3]|0?[0-9])))?"
-            + "(?:(:|\\.|))"
-            + "(?<minute>([0-5][0-9]))?"
+            + "(?:(:|\\.|)?)"
+            + "(?<minute>([0-5][0-9])?)"
             + "(?<timePostFix>(([a]|[p])[m])?)"
             + "( (?<aftKeyword>(to )))?"
             + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
@@ -71,8 +71,8 @@ public class DateTimeParser {
             + "(?<monthEndInWords>([\\p{Alpha}]{3,})?)"
             + "(?<yearEnd>(( |/|-)(([0-9][0-9])?[0-9][0-9]))?)"
             + "(\\s*,\\s*(?<hourEnd>([1][0-9]|[2][0-3]|0?[0-9])))?"
-            + "(?:(:|\\.|))?"
-            + "(?<minuteEnd>([0-5][0-9]))?"
+            + "(?:(:|\\.|)?)"
+            + "(?<minuteEnd>([0-5][0-9])?)"
             + "(?<timeEndPostFix>(([a]|[p])[m])?)"
             );
 
@@ -148,6 +148,12 @@ public class DateTimeParser {
             timePostFix = matcher.group("timeEndPostFix");
         }
         
+        if(timePostFix.isEmpty() && minute.isEmpty())
+        	throw new DateTimeException(MESSAGE_INVALID_TIME);
+        
+        if(minute.isEmpty())
+        	minute = "00";
+        
         hourParsed = Integer.parseInt(hour);
         minuteParsed = Integer.parseInt(minute);
         
@@ -211,6 +217,9 @@ System.out.println(day + " " + month + " " + year + "| " + hour + " " + minute +
         	hour = formattedInto12Hours[0];
         	timePostFix = formattedInto12Hours[1];
         }
+        
+        if(minute.isEmpty())
+        	minute = "00";
         
         if(keyword.equals("on"))
             return keyword + " " + day + " " + convertMonthFromIntToWords(monthParsed) + " " + year;
@@ -344,8 +353,11 @@ System.out.println(day + " " + month + " " + year + "| " + hour + " " + minute +
     	int hourInInt = Integer.parseInt(hour);
     	String[] formattedInto12Hours = new String[2];
     	
-    	if(hourInInt >= 0 && hourInInt <= 11){
+    	if(hourInInt > 0 && hourInInt <= 11){
     		formattedInto12Hours[0] = String.valueOf(hourInInt);
+    		formattedInto12Hours[1] = "am";
+    	}else if(hourInInt == 0){
+    		formattedInto12Hours[0] = "12";
     		formattedInto12Hours[1] = "am";
     	}else if(hourInInt == 12){
     		formattedInto12Hours[0] = String.valueOf(hourInInt);
