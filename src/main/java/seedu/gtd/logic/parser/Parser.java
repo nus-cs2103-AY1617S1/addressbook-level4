@@ -92,10 +92,14 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        
+        String dueDate = parseDueDate(matcher.group("dueDate"));
+        System.out.println("dueDate after parsing: " + dueDate);
+        
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("dueDate"),
+                    dueDate,
                     matcher.group("address"),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
@@ -103,6 +107,11 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private String parseDueDate(String dueDateRaw) {
+    	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
+    	return nlp.formatString(dueDateRaw);
     }
 
     /**
