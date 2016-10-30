@@ -48,7 +48,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getActivityName().fullName);
         note.setText(task.getNote().toString());
-        startDate.setText(task.getActivityStartDate().toFormattedDateString());
+        startDate.setText(task.getActivityStartDate().toString());
         startTime.setText(task.getActivityStartTime().toString());
         if (task.getActivityStatus().toString().equals("Completed")) {
         	completionStatus.setImage(new Image("/images/complete.png"));
