@@ -173,7 +173,6 @@ Figure 6: Display after a task is marked done
 
 </p>
 
-
 ### Listing all tasks: `list`
 Shows a list of all tasks that match task type, date, time and priority requested by you.
 
@@ -221,6 +220,36 @@ Figure 9: Display with all completed tasks listed
 
 </p>
 
+//@@author A0141021H
+###Marking a task as incompleted: undone
+Marks a task from WhatNow as incompleted.
+
+Format: `undone todo/schedule INDEX`
+> * Marks the task at the specified INDEX from Todo or Schedule as incompleted.
+* The index refers to the index number shown in the current listing.
+* The index must be a **positive integer** 1, 2, 3, ...
+* "list done" should be typed first then use the undone command to mark a particular task incompeleted.
+
+Examples:
+* `undone todo 1`
+Marks the 1st Todo task from the displayed list in WhatNow as incompleted
+* `undone schedule 2`
+Marks the 2nd Schedule task from the displayed list in WhatNow as incompleted.
+
+<p align="center">
+
+<img src="images/UI_Actual/Undone_pic1.PNG" width="600"><br>
+
+Figure 6: Display of completed tasks.
+
+<img src="images/UI_Actual/Undone_pic2.PNG" width="600"><br>
+
+Figure 6: Display of completed tasks after undone command.
+
+<img src="images/UI_Actual/Undone_pic3.PNG" width="600"><br>
+
+Figure 6: Display of incompleted tasks.
+</p>
 
 ### Deleting a task: `delete`
 Deletes a task from WhatNow.
