@@ -180,16 +180,16 @@ public class LogicManagerTest {
         Task toBeAdded = helper.bungee();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
-
+   
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, "event", toBeAdded.getTaskName().toString()),
+                String.format(AddCommand.MESSAGE_SUCCESS, "event", toBeAdded.getTaskName().taskName),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
-
-    @Test
+*/
+/*    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -199,6 +199,7 @@ public class LogicManagerTest {
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task manager
+        System.out.println(toBeAdded.toString());
 
         // execute command and verify result
         assertCommandBehavior(
@@ -207,8 +208,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
                 
-    }
-*/
+    } */
+
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -384,9 +385,9 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate startDate = new TaskDate("16 Dec");
+            TaskDate startDate = new TaskDate("Fri, 16 Dec 16");
             TaskTime startTime = new TaskTime("6 pm");
-            TaskDate endDate = new TaskDate("18 Dec");
+            TaskDate endDate = new TaskDate("Sun, 18 Dec 16");
             TaskTime endTime = new TaskTime("8 pm");
             Priority priority = new Priority("high");
             return new Task(taskName, startDate, startTime, endDate, endTime, priority);
@@ -414,13 +415,16 @@ public class LogicManagerTest {
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
             
+            String[] startDate = p.getStartDate().value.split(",");
+            String[] endDate = p.getEndDate().value.split(",");
+            
             cmd.append("add ");
             cmd.append(p.getTaskName().taskName);
-            cmd.append(",").append(p.getStartDate().getTestValue());
+            cmd.append(",").append(startDate[1]);
             cmd.append(" ").append(p.getStartTime().value);
-            cmd.append(",").append(p.getEndDate().getTestValue());
+            cmd.append(",").append(endDate[1]);
             cmd.append(" ").append(p.getEndTime().value);
-            cmd.append("-").append(p.getPriority().value);
+            cmd.append(" -").append(p.getPriority().value);
             return cmd.toString();
         }
 

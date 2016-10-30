@@ -2,6 +2,7 @@ package seedu.ggist.model.task;
 
 import java.util.Objects;
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
@@ -16,8 +17,13 @@ public class FloatingTask extends Task implements ReadOnlyTask {
      * Every field must be present and not null.
      * @throws IllegalValueException 
      */
-    public FloatingTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
-        super(taskName, taskDate, startTime, endDate, endTime, priority);
+    public FloatingTask(TaskName taskName, Priority priority) throws IllegalValueException {
+        super(taskName, 
+              new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
+              new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+              new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),
+              new TaskTime(Messages.MESSAGE_NO_END_TIME_SET), 
+              priority);
     }
 
     /**
@@ -25,7 +31,7 @@ public class FloatingTask extends Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public FloatingTask(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority());
+        super(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority());
     }
 
     @Override

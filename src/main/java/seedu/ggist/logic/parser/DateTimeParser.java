@@ -23,6 +23,7 @@ public class DateTimeParser {
      * @throws IllegalValueException 
      */
     public DateTimeParser(String raw) throws IllegalValueException {
+        assert raw != null;
         List<Date> dateTimeData = new PrettyTimeParser().parse(raw);
         if (dateTimeData.size() == 0) {
             throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_TIME_VALUE);
