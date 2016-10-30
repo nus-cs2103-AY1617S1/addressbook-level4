@@ -55,6 +55,11 @@ public interface Model {
     void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
     void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
     
+    void setTimePassedTask(int index);
+    void setTimePassedEvent(int index);
+    void setEmailSentTask(int index);
+
+    
     //@@author A0139515A
     /**
      * Methods for undo 

@@ -77,12 +77,12 @@ public class BackgroundTest {
 			
 			Activity testOldActivity = new Activity(Activity.TASK_TYPE, new ActivityName("Test Past Task"),
 					new Note("Hope it works"), new ActivityDate("09-09-1999"), new ActivityTime("0001"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			model.addTask(testOldActivity);
 			
 			Activity testNewActivity = new Activity(Activity.TASK_TYPE, new ActivityName("Test New Task"),
 					new Note("Hope this works :)"), new ActivityDate("09-09-2050"), new ActivityTime("0001"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			model.addTask(testNewActivity);
 			
 			Activity testOldEvent = new Activity(Activity.EVENT_TYPE, new ActivityName("Test Past Event"),

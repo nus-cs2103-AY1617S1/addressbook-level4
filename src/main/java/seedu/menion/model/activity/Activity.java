@@ -67,16 +67,29 @@ public class Activity implements ReadOnlyActivity {
     /**
      * For Task
      * Every field must be present and not null.
+     * @param activityTimePassed TODO
+     * @param emailSent TODO
      */
-    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status) {
+    public Activity(String type, ActivityName name, Note note, ActivityDate startDate, ActivityTime startTime, Completed status, Boolean activityTimePassed, Boolean emailSent) {
         this.activityType = type;
         this.name = name;
         this.note = note;
         this.startDate = startDate;
         this.startTime = startTime;
         this.status = status;
-        this.emailSent = false;
-        this.activityTimePassed = false;
+        if (activityTimePassed == null){
+        	this.activityTimePassed = false;
+        }
+        else {
+        	this.activityTimePassed = activityTimePassed;
+        }
+        if (emailSent ==null){
+        	this.emailSent = false;
+        }
+        else {
+        	this.emailSent = emailSent;
+        }
+        
         setActivityDetails();
     }
     

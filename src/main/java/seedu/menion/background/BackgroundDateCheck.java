@@ -53,7 +53,8 @@ public class BackgroundDateCheck {
 			    SendEmail sender = new SendEmail();
 				try {
                     sender.send(taskToCheck);
-                    taskToCheck.setEmailSent(true);
+                    model.setEmailSentTask(i);
+//                  taskToCheck.setEmailSent(true);
 
                 } catch (FileNotFoundException e) {
 
@@ -69,12 +70,14 @@ public class BackgroundDateCheck {
 
 				if (isActivityOver(currentTime, taskToCheck)){
 					
-					taskToCheck.setTimePassed(true);
+					model.setTimePassedTask(i);
+//					taskToCheck.setTimePassed(true);
 
 	                SendEmail sender = new SendEmail();
 	                try {
 	                    sender.send(taskToCheck);
-	                    taskToCheck.setEmailSent(true);
+	                    model.setEmailSentTask(i);
+//	                    taskToCheck.setEmailSent(true);
 
 	                } catch (FileNotFoundException e) {
 
@@ -104,7 +107,7 @@ public class BackgroundDateCheck {
 
 				if (isActivityOver(currentTime, eventToCheck)){
 					
-					eventToCheck.setTimePassed(true);
+					model.setTimePassedEvent(i);
 					
 				}
 

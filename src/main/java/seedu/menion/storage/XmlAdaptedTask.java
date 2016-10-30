@@ -29,6 +29,10 @@ public class XmlAdaptedTask {
     private String endTime;
     @XmlElement(required = true)
     private String status;
+    @XmlElement(required = true)
+    private String activityTimePassed;
+    @XmlElement(required = true)
+    private String emailSent;
 
 
     /**
@@ -49,6 +53,8 @@ public class XmlAdaptedTask {
             startDate = source.getActivityStartDate().toString();
             startTime = source.getActivityStartTime().toString();
             status = source.getActivityStatus().toString();
+            activityTimePassed = source.isTimePassed().toString();
+            emailSent = source.isEmailSent().toString();
     }
 
     /**
@@ -63,6 +69,8 @@ public class XmlAdaptedTask {
             final ActivityDate startDate = new ActivityDate(this.startDate);
             final ActivityTime startTime = new ActivityTime(this.startTime);
             final Completed status = new Completed(this.status);
-            return new Activity(type, name, note, startDate, startTime, status);
+            final Boolean emailSent = Boolean.parseBoolean(this.emailSent);
+            final Boolean activityTimePassed = Boolean.parseBoolean(this.activityTimePassed);
+            return new Activity(type, name, note, startDate, startTime, status, activityTimePassed, emailSent);
     }
 }
