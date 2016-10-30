@@ -18,6 +18,7 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.*;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.tag.Tag;
 
@@ -48,12 +49,16 @@ public class Parser {
                                                                                                                         // of
                                                                                                                         // tags
 
+    
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
     
     private static final String TAB_ARCHIVES = "Archives";
+    
+    public static Memory mem;
 
     public Parser() {
+        Memory memory = initializeMemory();
     }
 
     /**
@@ -202,7 +207,7 @@ public class Parser {
                 
                 
                 try {
-                    return new AddCommand(name, start, end, tagSet, recurVal);
+                    return new AddCommand(name, start, end, tagSet, recurVal, mem);
                 } catch (InvalidEventDateException iede) {
                     return new IncorrectCommand(iede.getMessage());
                 }
@@ -216,13 +221,13 @@ public class Parser {
                     end += " 2359";
                 }
                 
-                return new AddCommand(name, end, tagSet, recurVal);
+                return new AddCommand(name, end, tagSet, recurVal, mem);
             } else if (startDate.isPresent() && !endDate.isPresent()) {
                 // task with only startdate is not supported.
                 throw new IllegalValueException("Cannot create a task with only start date.");
             } else {
                 // floating
-                return new AddCommand(name, tagSet);
+                return new AddCommand(name, tagSet, mem);
             }
             
 
@@ -487,5 +492,12 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    //@@author A0143378Y
+    private Memory initializeMemory() {
+        Memory memory = new Memory();
+        mem = memory;
+        memory.loadFromFile(memory);
+        return memory;
+    }
 }
