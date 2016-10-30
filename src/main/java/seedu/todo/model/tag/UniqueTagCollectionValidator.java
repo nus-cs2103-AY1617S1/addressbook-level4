@@ -19,7 +19,7 @@ public class UniqueTagCollectionValidator {
     /* Constants */
     private static final int MAX_ALLOWED_TAGS = 5;
 
-    private static final String YOU_SUPPLED = " You supplied - ";
+    private static final String YOU_SUPPLIED = " You supplied - ";
 
     private static final String ERROR_MAX_TAGS_ALLOWED = "You have added too many tags. " +
             "Each task may have up to " + MAX_ALLOWED_TAGS + " tags.";
@@ -30,7 +30,9 @@ public class UniqueTagCollectionValidator {
     private static final String ERROR_TAGS_DUPLICATED
             = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_DO_NOT_EXIST
-            = "The tag name you have entered does not exist";
+            = "The tag name you have entered does not exist.";
+    private static final String ERROR_TAGS_EXIST
+            = "The tag name you have entered is already in the task.";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
@@ -79,6 +81,7 @@ public class UniqueTagCollectionValidator {
         validateNameCharLimit(tagNames);
         validateDuplicatedNameTag(tagNames);
         validateNumberOfTags(task, tagNames);
+        validateTagNamesDoNotExist(task.getTags(), tagNames);
     }
 
     /**
@@ -86,6 +89,14 @@ public class UniqueTagCollectionValidator {
      */
     public void validateDeleteTags(ImmutableTask task, String[] tagNames) {
         validateTagNamesExist(task.getTags(), tagNames);
+        validateIllegalNameChar(tagNames);
+    }
+
+    /**
+     * Validates the delete tag globally command.
+     */
+    public void validateDeleteTags(UniqueTagCollectionModel tagCollection, String[] tagNames) {
+        validateTagNamesExist(tagCollection.getUniqueTagList(), tagNames);
         validateIllegalNameChar(tagNames);
     }
 
@@ -110,7 +121,7 @@ public class UniqueTagCollectionValidator {
     private void validateIllegalNameChar(String... tagNames) {
         for (String tagName : tagNames) {
             if (!isValidTagName(tagName)) {
-                errorBag.put(parameterName, ERROR_TAGS_ILLEGAL_CHAR + YOU_SUPPLED + tagName);
+                errorBag.put(parameterName, ERROR_TAGS_ILLEGAL_CHAR + YOU_SUPPLIED + tagName);
             }
         }
     }
@@ -121,7 +132,7 @@ public class UniqueTagCollectionValidator {
     private void validateNameCharLimit(String... tagNames) {
         for (String tag : tagNames) {
             if (tag.length() > 20) {
-                errorBag.put(parameterName, ERROR_TAGS_TOO_LONG + YOU_SUPPLED + tag);
+                errorBag.put(parameterName, ERROR_TAGS_TOO_LONG + YOU_SUPPLIED + tag);
                 return;
             }
         }
@@ -142,8 +153,19 @@ public class UniqueTagCollectionValidator {
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         long nameCount = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName())).count();
-        if (nameCount != 0) {
+        if (nameCount == 0) {
             errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST);
+        }
+    }
+
+    /**
+     * Checks to ensure that tag names do not exist.
+     */
+    private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
+        Set<String> tagNamesSet = Sets.newHashSet(tagNames);
+        long nameCount = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName())).count();
+        if (nameCount != 0) {
+            errorBag.put(parameterName, ERROR_TAGS_EXIST);
         }
     }
 

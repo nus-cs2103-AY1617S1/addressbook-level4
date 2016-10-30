@@ -248,8 +248,6 @@ public class TodoModel implements Model {
         return search;
     }
 
-
-
     //@@author A0135805H
     @Override
     public List<Tag> getGlobalTagsList() {
@@ -304,7 +302,20 @@ public class TodoModel implements Model {
 
     @Override
     public void deleteTags(String[] tagNames) throws ValidationException {
+        saveUndoState();
 
+        //Perform validation
+        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("delete tags");
+        validator.validateDeleteTags(uniqueTagCollection, tagNames);
+        validator.throwsExceptionIfNeeded();
+
+        //Perform actual tag deletion
+        Collection<Tag> deletedTags = uniqueTagCollection.deleteTags(tagNames);
+        updateAll(mutableTask -> {
+            Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
+            tagsFromTask.removeAll(deletedTags);
+            mutableTask.setTags(tagsFromTask);
+        });
     }
 
     @Override

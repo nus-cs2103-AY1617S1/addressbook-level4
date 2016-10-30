@@ -1,26 +1,17 @@
 package seedu.todo.logic.commands;
 
-import com.google.common.base.StandardSystemProperty;
 import com.google.common.collect.ImmutableList;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagCollectionValidator;
-import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
-import java.util.Arrays;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 //@@author A0135805H
 /**
@@ -50,12 +41,14 @@ public class TagCommand extends BaseCommand {
 
     private static final String DESCRIPTION_SHOW_TAGS = "Shows a global list of tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
-    private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from tasks";
+    private static final String DESCRIPTION_DELETE_TAGS_TASK = "Delete tags from tasks";
+    private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from all tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
 
     private static final String ARGUMENTS_SHOW_TAGS = "";
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
-    private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_DELETE_TAGS_TASK = "index /d tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_DELETE_TAGS = "/d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
 
     /* Variables */
@@ -112,6 +105,7 @@ public class TagCommand extends BaseCommand {
         return ImmutableList.of(
             new CommandSummary(DESCRIPTION_SHOW_TAGS, getCommandName(), ARGUMENTS_SHOW_TAGS),
             new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
+            new CommandSummary(DESCRIPTION_DELETE_TAGS_TASK, getCommandName(), ARGUMENTS_DELETE_TAGS_TASK),
             new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS),
             new CommandSummary(DESCRIPTION_RENAME_TAGS, getCommandName(), ARGUMENTS_RENAME_TAGS)
         );
@@ -120,28 +114,16 @@ public class TagCommand extends BaseCommand {
     @Override
     protected void validateArguments() {
 
-        if (isShowTags()) {
-            // No arguments to validate.
+        if (!isInputParameterSufficient()) {
+            handleUnavailableInputParameters();
+        }
 
-        } else if (isAddTagsToTask()) {
-            //Validation is done at Model level.
-
-        } else if (isDeleteTagsFromTask()) {
-            //Validation is done at Model level.
-
-        } else if (isDeleteTagsFromAllTasks()) {
-            //Check arguments for delete tags case
-            String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
-
-        } else if (isRenamingTag()) {
+        if (isRenamingTag()) {
             //Check arguments for rename tags case
             String[] renameTagsParam = StringUtil.splitString(deleteTags.getValue());
             checkForTwoParams(renameTag.getName(), renameTagsParam);
-
-        } else {
-            //We do not have sufficient inputs.
-            handleUnavailableInputParameters();
         }
+
         super.validateArguments();
     }
 
@@ -221,6 +203,14 @@ public class TagCommand extends BaseCommand {
     private boolean isRenamingTag() {
         return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
                 && renameTag.hasBoundValue();
+    }
+
+    /**
+     * Checks if the input parameters are sufficient, by checking if it matches any of the input case.
+     */
+    private boolean isInputParameterSufficient() {
+        return getNumberOfTruth(isShowTags(), isAddTagsToTask(), isDeleteTagsFromTask(),
+                isDeleteTagsFromAllTasks(), isRenamingTag()) == 1;
     }
 
     /**

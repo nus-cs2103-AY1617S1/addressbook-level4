@@ -47,14 +47,27 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
 
     @Override
     public Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames) {
-        return null;
+        Set<Tag> tags = new HashSet<>();
+        for (String tagName : tagNames) {
+            //Data validation at TodoModel should have checked if this is available.
+            //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+            Tag tag = getTagWithName(tagName);
+            dissociateTaskFromTag(task, tag);
+            tags.add(tag);
+        }
+        return tags;
     }
 
-    public Tag dissociateTaskFromTag(ImmutableTask task, String tagName) {
-        //TODO: Throw an error if the tag is not found.
-        Tag tag = getTagWithName(tagName);
-        dissociateTaskFromTag(task, tag);
-        return tag;
+    @Override
+    public Collection<Tag> deleteTags(String[] tagNames) {
+        Set<Tag> tags = new HashSet<>();
+        for (String tagName : tagNames) {
+            //Data validation at TodoModel should have checked if this is available.
+            //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+            Tag tag = getTagWithName(tagName);
+            uniqueTagsToTasksMap.remove(tag);
+        }
+        return tags;
     }
 
     @Override
@@ -126,6 +139,8 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     /* Interfacing Getters */
     @Override
     public List<Tag> getUniqueTagList() {
+        System.out.println(uniqueTagsToTasksMap);
+
         return new ArrayList<>(uniqueTagsToTasksMap.keySet());
     }
 

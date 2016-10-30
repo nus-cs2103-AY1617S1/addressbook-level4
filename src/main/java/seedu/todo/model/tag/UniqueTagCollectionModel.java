@@ -57,6 +57,12 @@ public interface UniqueTagCollectionModel {
     Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames);
 
     /**
+     * Deletes the list of tags with {@code tagNames} from the data structure.
+     * @return a collection of deleted tags.
+     */
+    Collection<Tag> deleteTags(String[] tagNames);
+
+    /**
      * Renames a {@link Tag} with the given {@code originalName} with the {@code newName}
      */
     void renameTag(String originalName, String newName) throws ValidationException;
