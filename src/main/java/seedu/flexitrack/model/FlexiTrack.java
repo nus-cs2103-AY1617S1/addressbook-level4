@@ -131,6 +131,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 || (other instanceof FlexiTrack // instanceof handles nulls
                         && this.task.equals(((FlexiTrack) other).task));
     }
+    
   //@@author A0127855W
     /**
      * Sorts the flexitrack according to the ReadOnlyTask comparator
@@ -138,8 +139,8 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     public void sort(){
     	task.sort();
     }
+    
   //@@author
-
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
@@ -213,6 +214,9 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 listOfPossibleTiming.add(task.getStartTime());
                 dateNow = task.getEndTime();
             }
+            if (DateTimeInfo.isInTheFuture(dateNow, task.getEndTime())){
+                dateNow = task.getEndTime();
+            }
         }
         listOfPossibleTiming.add(dateNow);
         return listOfPossibleTiming;
@@ -258,10 +262,16 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      * @return true if the gap is longer than what user specified.
      */
     private boolean doesTheGapAtLeastAsLongAsTimingSpecified(int keyword, int[] differenceInTime) {
+        int countNumberOfZero = 0; 
         for(int i=keyword; i<5 ; i++){
             if (differenceInTime[i]>0) {
                 return true; 
+            } else if (differenceInTime[i]==0) {
+                countNumberOfZero = countNumberOfZero + 1; 
             }
+        }
+        if (countNumberOfZero == (5-keyword)){
+            return true; 
         }
         return false;
     }

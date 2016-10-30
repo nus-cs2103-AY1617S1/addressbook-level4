@@ -40,7 +40,7 @@ public abstract class FlexiTrackGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestTasks td = new TypicalTestTasks();
+    protected static TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      * Handles to GUI elements present at the start up are created in advance

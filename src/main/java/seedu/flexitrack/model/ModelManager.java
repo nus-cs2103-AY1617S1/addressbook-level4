@@ -256,9 +256,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         /**
+         * Check of the task will be shown to the user in the panel list
          * @param task
          * @param willBeShown
-         * @return
+         * @return true if the task met all the requirement and will be shown
          */
         private boolean isTaskGoingToBeShown(ReadOnlyTask task) {
             if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {

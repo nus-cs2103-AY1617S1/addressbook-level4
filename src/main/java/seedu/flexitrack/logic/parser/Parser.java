@@ -2,6 +2,7 @@ package seedu.flexitrack.logic.parser;
 
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -181,8 +182,15 @@ public class Parser {
         
         if (matcher.matches()){
             args = matcher.group("info").trim();
+            try{
             numberOfSlot =  Integer.parseInt(matcher.group("numberOfGaps").trim()); 
+            } catch (NumberFormatException nfe){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
+            }
         } else { 
+            if (args.trim().equals("") || args.trim().contains("n/")){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
+            }
             matcher = TASK_FIND_GAP_ARGS_FORMAT.matcher(args.trim());
             matcher.matches();
             args = matcher.group("info").trim();
@@ -195,7 +203,7 @@ public class Parser {
                 return new GapCommand(keyword, length, numberOfSlot);
 
             } catch (NumberFormatException nfe) { 
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
         } else { 
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
@@ -243,21 +251,22 @@ public class Parser {
     /** 
      * Find out if the argument is a valid argument for a GapCommand. The argument could not have more 
      * than one timing key words ( minute, hour or day ) 
-     * @param ars
+     * @param args
      * @return true if the argument is a valid argument 
      */
-    private boolean isGapArgumentValid(String ars) {
+    private boolean isGapArgumentValid(String args) {
         int numberOfMatch = 0; 
-        if (ars.contains(GapCommand.DAY_WORD)||ars.contains(GapCommand.DAY_WORD + "s")
-                ||ars.contains(GapCommand.DAY_INITIAL)){
+
+        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")
+                ||args.contains(GapCommand.DAY_INITIAL)){
             numberOfMatch = numberOfMatch + 1; 
         }
-        if (ars.contains(GapCommand.HOUR_WORD)||ars.contains(GapCommand.HOUR_WORD + "s")
-                ||ars.contains(GapCommand.HOUR_INITIAL)){
+        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")
+                ||args.contains(GapCommand.HOUR_INITIAL)){
             numberOfMatch = numberOfMatch + 1; 
         }
-        if (ars.contains(GapCommand.MINUTE_WORD)||ars.contains(GapCommand.MINUTE_WORD + "s")
-                ||ars.contains(GapCommand.MINUTE_INITIAL)){
+        if (args.contains(GapCommand.MINUTE_WORD)||args.contains(GapCommand.MINUTE_WORD + "s")
+                ||args.contains(GapCommand.MINUTE_INITIAL)){
             numberOfMatch = numberOfMatch + 1; 
         }
         return numberOfMatch == 1;
@@ -448,7 +457,7 @@ public class Parser {
         try {
             if (matcherRecurring.matches()) {
                 return addRecurringEvent(matcherRecurring);
-            }else if (matcherEvent.matches()) {
+            } else if (matcherEvent.matches()) {
                 return addEventTask(matcherEvent);
             } else if (matcherDeadline.matches()) {
                 return addDeadlineTask(matcherDeadline);

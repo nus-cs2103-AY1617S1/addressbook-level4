@@ -6,13 +6,13 @@ import java.util.List;
 import seedu.flexitrack.model.task.DateTimeInfo;
 
 /**
- * Lists all task in the FlexiTrack to the user.
+ * Find a gap with minimum time specified by the user. 
  */
 public class GapCommand extends Command {
 
     public static final String COMMAND_WORD = "gap";
     public static final String COMMAND_SHORTCUT = "g";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ", Shortcut [" + COMMAND_SHORTCUT + "]" + 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ", shortcut [" + COMMAND_SHORTCUT + "]" + 
             ": Find the earliest specified timing available.\n" 
             + "1. To find a gap with default number of gap searched (3) - Parameters: [specified timing] \n"
             + "   Example: " + COMMAND_WORD + " 3 hours \n"
@@ -88,8 +88,11 @@ public class GapCommand extends Command {
         String theListOfDates = ""; 
         int iter = 0; 
         for (; iter<listOfTiming.size()-1 ; iter++){
-            theListOfDates = theListOfDates + "\nBetween:  " + listOfTiming.get(iter).toString();
-            iter=iter+1;
+            if ( iter == 0 ){
+                theListOfDates = theListOfDates + "\nBetween:  now                        ";
+            } else {
+                theListOfDates = theListOfDates + "\nBetween:  " + listOfTiming.get(iter).toString();
+            }iter=iter+1;
             theListOfDates = theListOfDates + "  to: " + listOfTiming.get(iter).toString();
 
         }

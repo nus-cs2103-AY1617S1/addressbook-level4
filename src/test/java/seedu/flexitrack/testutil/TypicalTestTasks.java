@@ -14,9 +14,10 @@ public class TypicalTestTasks {
     public static TestTask homework1, homework2, homework3, event, soccer, dinner, exam, midterm, basketball, lecture,
             job, homework1EditName, homework1EditDueDate, homework3EditName, homework3EditToTask, soccerEditName,
             soccerEditStartTime, soccerEditEndTime, eventEditToEvent;
+    
+    // additional events to for testing 
+    public static TestTask lecture1, lecture2, lecture3, lecture4, lecture5, exam1, exam2, exam3, study1, study2;
 
-    // TODO: change the test case soccer, homework, exam, dinner, homework2,
-    // homework3, lecture, basketball, midterm
     public TypicalTestTasks() {
         try {
             homework1 = new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 11 2017 17:00")
@@ -43,6 +44,7 @@ public class TypicalTestTasks {
             job = new TaskBuilder().withName("Apply Job in Starbucks").withDueDate("Feb 29 2000 00:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
 
+            // @@author A0127855W
             // After edit
             homework1EditName = new TaskBuilder().withName("Name Edited").withDueDate("Jan 11 2017 17:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
@@ -64,12 +66,35 @@ public class TypicalTestTasks {
             eventEditToEvent = new TaskBuilder().withName("Event lol").withStartTime("Jun 10 2016 21:00")
                     .withEndTime("Jun 30 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
 
+            // @@author A0127686R
+            // Additional Event Task 
+            lecture1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 08 2016 09:00")
+                    .withEndTime("Nov 08 2016 11:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 08 2016 15:00")
+                    .withEndTime("Nov 08 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture3 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 09 2016 14:00")
+                    .withEndTime("Nov 09 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture4 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 12 2016 10:00")
+                    .withEndTime("Nov 12 2016 12:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture5 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 12 2016 13:00")
+                    .withEndTime("Nov 12 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
+            exam1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 20 2016 09:00")
+                    .withEndTime("Nov 20 2016 10:30").withDueDate("Feb 29 2000 00:00").build();
+            exam2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 20 2016 12:00")
+                    .withEndTime("Nov 20 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
+            exam3 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 22 2016 19:00")
+                    .withEndTime("Nov 22 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
+            study1 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 18 2016 09:00")
+                    .withEndTime("Nov 18 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
+            study2 = new TaskBuilder().withName("Name Edited 2").withStartTime("Nov 19 2016 06:00")
+                    .withEndTime("Nov 19 2016 10:00").withDueDate("Feb 29 2000 00:00").build();           
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
         }
     }
-
+    
+    // @@author 
     public static void loadFlexiTrackWithSampleData(FlexiTrack ab) {
         // TODO: change the add Task cases
         try {
@@ -88,6 +113,7 @@ public class TypicalTestTasks {
         }
     }
 
+    // @@author A0127686R
     public TestTask[] getTypicalSortedTasks() {
         TestTask[] testTask = new TestTask[] { event, homework3, exam, soccer, homework2, homework1, midterm, dinner};
         return testTask;
@@ -104,6 +130,11 @@ public class TypicalTestTasks {
     
     public TestTask[] getExpectedTypicalPastTasks() {
         return new TestTask[] { homework2, homework3, soccer, exam, event };
+    }
+    
+    public TestTask[] getTypicalEventTasks() {
+        TestTask[] testTask = new TestTask[] { lecture1, lecture2, lecture3, lecture4, lecture5, exam1, exam2, exam3, study1, study2};
+        return testTask;
     }
 
     public TestTask[] getExpectedTypicalMarkTasks() {
@@ -134,6 +165,7 @@ public class TypicalTestTasks {
         return new TestTask[] { homework1 };
     }
     
+    // @@author 
     public FlexiTrack getTypicalFlexiTrack() {
         FlexiTrack ab = new FlexiTrack();
         loadFlexiTrackWithSampleData(ab);

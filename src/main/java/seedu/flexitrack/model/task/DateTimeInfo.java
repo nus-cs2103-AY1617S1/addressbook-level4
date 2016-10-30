@@ -477,6 +477,19 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
         int days = daysOfTheEvent(startTime, endTime);
         int hours = hoursOfTheEvent(startTime, endTime);
 
+        return isTimeLessThanSpecified(limitTimeDuration, years, months, days, hours);
+    }
+
+    /**
+     * Helper method to check the duration of a specified timing is with in the time duration
+     * @param limitTimeDuration
+     * @param years
+     * @param months
+     * @param days
+     * @param hours
+     * @return true if the time is within the specified timing
+     */
+    private static boolean isTimeLessThanSpecified(int limitTimeDuration, int years, int months, int days, int hours) {
         if (hours < 0) {
             hours = Math.floorMod(hours, 24);
             days=days-1;
@@ -491,9 +504,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo>{
         if (years < 0 || years > 0) {
             return false;
         } 
-        if(days <= limitTimeDuration && months==0){
-            return true; 
-        } else if ( limitTimeDuration==AVERAGE_DAYS_IN_A_MONTH && months==1){
+        if ((days <= limitTimeDuration && months==0)|| ( limitTimeDuration==AVERAGE_DAYS_IN_A_MONTH && months==1)){
             return true; 
         } else {
             return false; 
