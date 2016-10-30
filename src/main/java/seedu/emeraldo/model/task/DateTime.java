@@ -16,13 +16,13 @@ public class DateTime {
     private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
             + "'from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM'\n"
             + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
-            + "Accepted time formats:  14:20  (time in 24 hours format)\n"
+            + "Accepted time formats:  14:20  |  14.20  |  1420  |  2.20pm  |  2:20pm\n"
     		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
     private static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
             + "'by DD/MM/YYYY, HH:MM'\n"
             + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
-            + "Accepted time formats:  14:20  (time in 24 hours format)\n"
+            + "Accepted time formats:  14:20  |  14.20  |  1420  |  2.20pm  |  2:20pm\n"
     		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
     private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
@@ -31,7 +31,7 @@ public class DateTime {
             + "Type 'help' to see the full list of accepted formats in the user guide";
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Command format is invalid! "
-    		+ "It must be one of the following:\n"
+    		+ "It must be one of the following (type 'help' to see all accepted formats:\n"
             + "Keyword 'on' : on DD/MM/YYYY\n"
             + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
