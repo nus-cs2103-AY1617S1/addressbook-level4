@@ -93,6 +93,7 @@ public class StorageManager extends ComponentManager implements Storage {
     
     //@@author A0139194X
     public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        assert newFilePath != null;
         Path filePath = Paths.get(newFilePath);
         
         if (!Files.exists(filePath)) {
@@ -100,9 +101,10 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //Checks if directory is writable
     //@@author A0139194X
+    //Checks if directory is writable
     public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
+        assert newFilePath != null;
         File newFile = new File(newFilePath);
         if (!(newFile.isDirectory() && newFile.canWrite())) {
             throw new UnwrittableFolderException(newFilePath + " is not writtable.");
@@ -112,6 +114,7 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0139194X
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
+        assert event != null;
         assert event.newFilePath != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
         String newPath = correctFilePathFormat(event.newFilePath);
@@ -131,6 +134,7 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0139194X
     //Appends the '/' if it is not that for a valid file path
     public String correctFilePathFormat(String newPath) {
+        assert newPath != null;
         if (newPath.endsWith("/")) {
             newPath = newPath + "mastermind.xml";
         } else {
