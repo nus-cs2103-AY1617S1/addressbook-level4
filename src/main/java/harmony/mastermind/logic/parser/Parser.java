@@ -142,98 +142,72 @@ public class Parser {
      */
     // @@author A0138862W
     private Command prepareAdd(String args) {
-        final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
-
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
-        }
-
         try {
 
-            // mandatory
-            // there's no need to check for existence as the regex only capture full match of mandatory components
+            final Matcher matcher = AddCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+
+            // Validate user command input
+            if (!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES));
+            }
+            
+            // mandatory field                       
             final String name = matcher.group("name");
+            
+            // at this point name variable should never be null because the regex only capture full match of mandatory components
+            // check for bug in regex expression if the following throws assertion error
+            assert name != null;
 
             // optionals
-            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             final Optional<String> dates = Optional.ofNullable(matcher.group("dates"));
-            Optional<String> startDate = Optional.empty();
-            Optional<String> endDate = Optional.empty();
             final Optional<String> tags = Optional.ofNullable(matcher.group("tags"));
-            
-            if(dates.isPresent()){
-                PrettyTimeParser ptp = new PrettyTimeParser();
-                List<DateGroup> dateGroups = ptp.parseSyntax(dates.get());
-                
-                if(!dateGroups.isEmpty()){
-                    List<Date> startEndDates = dateGroups.get(0).getDates();
-                    
-                    if(startEndDates.size() == 1){ // only 1 date is found, assume deadline
-                        startDate = Optional.empty();
-                        endDate = Optional.ofNullable(startEndDates.get(0).toString());
-                    }else if(startEndDates.size() == 2){ // 2 date value is found, assume event
-                        startDate = Optional.ofNullable(startEndDates.get(0).toString());
-                        endDate = Optional.ofNullable(startEndDates.get(1).toString());
-                    }
-                }
-            }
-           
+            final Optional<String> recur = Optional.ofNullable(matcher.group("recur"));
             
             // return internal value if present. else, return empty string
-            Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
-            String recurVal = null;
+            final Set<String> tagSet = getTagsFromArgs(tags.map(val -> val).orElse(""));
             
-            //check if recur has a valid keyword
-            if (recur.isPresent()) {
-                recurVal = recur.get();
-            }
+            // after init every capturing groups, we start to build the command 
+            AddCommandBuilder addCommandBuilder = buildAddCommand(name, dates, recur, tagSet);
             
-            if (startDate.isPresent() && endDate.isPresent()) {
-                // event
-                String start = startDate.get().toLowerCase();
-                String end = endDate.get().toLowerCase();
-                
-                if (start.equals("today")) {
-                    start += " 2359";
-                }else if (start.equals("tomorrow")) {
-                    start += " 2359";
-                }
-                if (end.equals("today")) {
-                    end += " 2359";
-                }else if (start.equals("tomorrow")) {
-                    end += " 2359";
-                }
-                
-                
-                try {
-                    return new AddCommand(name, start, end, tagSet, recurVal, mem);
-                } catch (InvalidEventDateException iede) {
-                    return new IncorrectCommand(iede.getMessage());
-                }
-            } else if (!startDate.isPresent() && endDate.isPresent()) {
-                // deadline
-                String end = endDate.get().toLowerCase();
-                
-                if (end.equals("today")) {
-                    end += " 2359";
-                }else if (end.equals("tomorrow")) {
-                    end += " 2359";
-                }
-                
-                return new AddCommand(name, end, tagSet, recurVal, mem);
-            } else if (startDate.isPresent() && !endDate.isPresent()) {
-                // task with only startdate is not supported.
-                throw new IllegalValueException("Cannot create a task with only start date.");
-            } else {
-                // floating
-                return new AddCommand(name, tagSet, mem);
-            }
-            
-
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            return addCommandBuilder.build();
+        } catch (IllegalValueException | InvalidEventDateException e) {
+            return new IncorrectCommand(e.getMessage());
         }
+    }
+
+    private AddCommandBuilder buildAddCommand(final String name, final Optional<String> dates, final Optional<String> recur, final Set<String> tagSet) throws IllegalValueException, InvalidEventDateException {
+        AddCommandBuilder addCommandBuilder = new AddCommandBuilder(name);
+        addCommandBuilder.withTags(tagSet);
+        recur.ifPresent(recurVal -> addCommandBuilder.asRecurring(recurVal));
+        
+        if(dates.isPresent()){
+            PrettyTimeParser ptp = new PrettyTimeParser();
+            List<DateGroup> parsedDates = ptp.parseSyntax(dates.get());
+            
+            if(!parsedDates.isEmpty()){
+                List<Date> startEndDates = parsedDates.get(0).getDates();
+                
+                /*
+                 * We assume two conditions after parsing nlp dates:
+                 * 1. Found only 1 date, then we assume it is a deadline
+                 * 2. Found 2 dates, then we assume it is an event
+                 */
+                if(shouldParseAsDeadline(startEndDates)){
+                    addCommandBuilder.asDeadline(startEndDates.get(0));
+                }else if(shouldParseAsEvent(startEndDates)){
+                    addCommandBuilder.asEvent(startEndDates.get(0), startEndDates.get(1));
+                }
+            }
+        };
+        return addCommandBuilder;
+    }
+    
+    private boolean shouldParseAsDeadline(List<Date> dates){
+        return dates.size() == 1;
+    }
+    
+    private boolean shouldParseAsEvent(List<Date> dates){
+        return dates.size() == 2;
     }
     
     /**

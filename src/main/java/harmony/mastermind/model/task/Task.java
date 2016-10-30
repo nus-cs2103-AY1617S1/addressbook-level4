@@ -20,6 +20,16 @@ public class Task implements ReadOnlyTask {
     private boolean isMarked;
 
     
+    public Task(TaskBuilder taskBuilder){
+        this.name = taskBuilder.getName();
+        this.startDate = taskBuilder.getStartDate();
+        this.endDate = taskBuilder.getEndDate();
+        this.createdDate = taskBuilder.getCreatedDate();
+        this.tags = taskBuilder.getTags();
+        this.recur = taskBuilder.getRecur();
+        this.isMarked = taskBuilder.isMarked();
+    }
+    
     // event
     // @@author A0138862W
     public Task(String name, Date startDate, Date endDate, UniqueTagList tags, String recur, Date createdDate) {

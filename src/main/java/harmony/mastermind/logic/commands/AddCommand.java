@@ -32,28 +32,6 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public static final String COMMAND_KEYWORD_ADD = "add";
     public static final String COMMAND_KEYWORD_DO = "do";
     
-
-    // The main idea of capturing parameters in any order is inspired by (author
-    // velop):
-    // http://stackoverflow.com/questions/1177081/mulitple-words-in-any-order-using-regex
-
-    // As for capturing optional group AND in any order:
-    // http://stackoverflow.com/questions/24472120/match-optional-components-in-any-order
-
-    // We wrote the regular expression and tested at:
-    // https://regex101.com/r/bFQrP6/1
-    // @@author A0138862W
-    //
-    // the following regex is no longer in used, replaced by better one (NLP)
-    /*
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
-            + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
-            + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
-            + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
-            + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-            + ".*";
-     */
-    
     // Better regex, support better NLP:
     // general form: add some task name from tomorrow 8pm to next friday 8pm daily #recurring,awesome
     // https://regex101.com/r/M2A3tB/8
@@ -92,6 +70,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     private final Task toAdd;
     
+
     private static final String TASK = "Task";
     private static final String DEADLINE = "Deadline";
     private static final String EVENT = "Event";
@@ -100,12 +79,6 @@ public class AddCommand extends Command implements Undoable, Redoable {
     static GenericMemory deadline; 
     static GenericMemory event;
 
-    /**
-     * Convenience constructor using raw values.<br><br>
-     *
-     * Throws IllegalValueException if any of the raw values are invalid<br>
-     * Throws InvalidEventDateException if event type has start date after end date
-     */
     // event
     // @@author A0124797R
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal, Memory mem) throws IllegalValueException, InvalidEventDateException {
@@ -134,17 +107,20 @@ public class AddCommand extends Command implements Undoable, Redoable {
     }
 
     // deadline
-    // @@author A0138862W
+    // @@author A0138862W-unused
+    /**
+     * The builder constructor has taken care of all the construction of event, floating and deadline
+     * @see AddCommand(AddCommandBuilder)
+     * 
+     */
     public AddCommand(String name, String endDateStr, Set<String> tags, String recur, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-
-        // fix for #132
-        List<Date> endDates = prettyTimeParser.parse(endDateStr);
-        Date endDate = (endDates.isEmpty())? null: endDates.get(0);
         Date createdDate = new Date();
+        Date endDate = prettyTimeParser.parse(endDateStr).get(0);
+        
         
         this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur, createdDate);
         
@@ -157,7 +133,12 @@ public class AddCommand extends Command implements Undoable, Redoable {
     }
 
     // floating
-    // @@author A0138862W
+    // @@author A0138862W-unused
+    /**
+     * The builder constructor has taken care of all the construction of event, floating and deadline
+     * @see AddCommand(AddCommandBuilder)
+     * 
+     */
     public AddCommand(String name, Set<String> tags, Memory mem) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -172,7 +153,32 @@ public class AddCommand extends Command implements Undoable, Redoable {
         mem.add(task);
     }
 
+    // @@author A0138862W
+    /**
+     * Build the AddCommand using addCommandBuilder
+     * 
+     * @param addCommandBuilder to build the command safely
+     * 
+     */
+    protected AddCommand(AddCommandBuilder addCommandBuilder) throws IllegalValueException, InvalidEventDateException{
+        TaskBuilder taskBuilder = new TaskBuilder(addCommandBuilder.getName());
+        taskBuilder.withTags(addCommandBuilder.getTags());
+        
+        if(addCommandBuilder.isDeadline()){
+            taskBuilder.asDeadline(addCommandBuilder.getEndDate());
+        }else if(addCommandBuilder.isEvent()){
+            taskBuilder.asEvent(addCommandBuilder.getStartDate(), addCommandBuilder.getEndDate());
+        }
+        
+        if(addCommandBuilder.isRecurring()){
+            taskBuilder.asRecurring(addCommandBuilder.getRecur());
+        }
+        
+        toAdd = taskBuilder.build();
+    }
+
     @Override
+    //@@author A0138862W
     public CommandResult execute() {
         assert model != null;
         try {
@@ -234,16 +240,12 @@ public class AddCommand extends Command implements Undoable, Redoable {
         model.addTask(toAdd);
     }
     
-    // @@author A0138862W
-    private void requestHighlightLastActionedRow(Task task){
-        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
-    }
-    
     //@@author A0143378Y
     private Calendar dateToCalendar(Date date) { 
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal;
     }
+
 
 }
