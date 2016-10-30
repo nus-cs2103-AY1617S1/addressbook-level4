@@ -9,7 +9,7 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
 
 public class DueDate {
 
-    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task duedate is formatted like the following: Wed Nov 02 15:39:55 UTC 2016" 
+    public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task duedate is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 \n" 
                                                              + " Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 \n"
     	                                                     + " Relaxed dates: The 31st of April in the year 2008, Fri, 21 Nov 1997, Jan 21, '97, Sun, Nov 21, jan 1st, february twenty-eighth \n"
                                                              + " Relative dates: next thursday, last wednesday, today, tomorrow, yesterday, next week, next month, next year, 3 days from now, three weeks ago \n"
@@ -26,7 +26,7 @@ public class DueDate {
      */
     public DueDate(String duedate) throws IllegalValueException {
         assert duedate != null;
-        if (!isInvalidDueDate(duedate)) {
+        if (isInvalidDueDate(duedate)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
         this.value = duedate;

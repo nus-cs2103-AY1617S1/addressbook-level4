@@ -15,7 +15,7 @@ import seedu.gtd.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
+	//@@author addressbook-level4
     /**
      * Used for initial separation of command word and args.
      */
@@ -94,7 +94,6 @@ public class Parser {
         }
         
         String dueDate = parseDueDate(matcher.group("dueDate"));
-        System.out.println("dueDate after parsing: " + dueDate);
         
         try {
             return new AddCommand(
@@ -109,11 +108,13 @@ public class Parser {
         }
     }
     
+    //@@author A0146130W
     private String parseDueDate(String dueDateRaw) {
     	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
     	return nlp.formatString(dueDateRaw);
     }
-
+    
+    //@@author addressbook-level4
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
