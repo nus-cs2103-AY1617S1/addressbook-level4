@@ -102,11 +102,18 @@ public class Parser {
             return new RedoCommand();
             
         case SaveCommand.COMMAND_WORD:
-            return new SaveCommand(arguments);
+            return prepareSave(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private Command prepareSave(String arguments) {
+        if (arguments.trim().isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        }
+        return new SaveCommand(arguments);
     }
 
     /**
