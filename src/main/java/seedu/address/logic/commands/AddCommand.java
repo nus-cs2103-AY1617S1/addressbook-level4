@@ -6,6 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -123,6 +124,10 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.addToUndoStack();
+        
+        dumpRedoStack();
+        model.getCommandHistory().add("add");
+        
         try {
             model.addTask(toAdd);
             if (toAdd.getTaskCategory() == 1) 
@@ -136,6 +141,15 @@ public class AddCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+    
+    //@@author A0147890U
+    // checks if redo stack needs to be dumped and dumps if needed.
+    private void dumpRedoStack() {
+        ArrayList<String> history = model.getCommandHistory();
+        if ((history.size() != 0) && (history.get(history.size() - 1)).equals("undo")) {
+            model.getRedoStack().clear();
+        }
     }
 
 }

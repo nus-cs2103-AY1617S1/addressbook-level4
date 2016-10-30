@@ -52,6 +52,7 @@ public class RedoCommand extends Command {
             }
            
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
+            model.getCommandHistory().add("redo");
             model.getUndoStack().push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_REDO_TASK_SUCCESS);

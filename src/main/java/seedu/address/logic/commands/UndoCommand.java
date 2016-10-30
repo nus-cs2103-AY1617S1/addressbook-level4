@@ -53,6 +53,7 @@ public class UndoCommand extends Command {
                 logger.warning("config file could not be saved to");
             }
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
+            model.getCommandHistory().add("undo");
             model.getRedoStack().push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);

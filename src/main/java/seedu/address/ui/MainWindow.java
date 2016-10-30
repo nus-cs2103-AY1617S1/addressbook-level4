@@ -36,7 +36,6 @@ public class MainWindow extends UiPart {
     private BrowserPanel browserPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    //private TaskCountPanel taskCountPanel;
     //private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
@@ -48,20 +47,14 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
+    //@FXML
+    //private AnchorPane browserPlaceholder;
+
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
     //@FXML
     //private MenuItem helpMenuItem;
-    
-    //@FXML
-    //private AnchorPane statusbarPlaceholder;
-    
-    //@FXML
-    //private AnchorPane browserPlaceholder;
-    
-    @FXML
-    private AnchorPane taskCountPanelPlaceholder;
 
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -69,12 +62,18 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
+    //@FXML
+    //private AnchorPane statusbarPlaceholder;
+
     @FXML
     private AnchorPane deadlineListPanelPlaceholder;
     
     @FXML
     private AnchorPane todoListPanelPlaceholder;
     
+    @FXML
+    private AnchorPane taskCountPlaceHolder;
+
 
     public MainWindow() {
         super();
@@ -122,17 +121,14 @@ public class MainWindow extends UiPart {
     //}
 
     void fillInnerParts() {
-        
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
         eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
         //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceHolder(), logic.getFilteredDeadlineList());
         todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredTodoList());
-        //taskCountPanel = TaskCountPanel.load(primaryStage, getTaskCountPlaceholder(), logic.getFilteredDeadlineList(), 
-       //         logic.getFilteredEventList(), logic.getFilteredTodoList());
     }
 
     private AnchorPane getDeadlineListPlaceHolder() {
@@ -153,10 +149,6 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
-    }
-    
-    private AnchorPane getTaskCountPlaceholder() {
-        return taskCountPanelPlaceholder;
     }
 
     private AnchorPane getEventListPlaceholder() {

@@ -1,11 +1,13 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -67,6 +69,11 @@ public interface Model {
     Stack<SaveState> getUndoStack();
     
     Stack<SaveState> getRedoStack();
+    
+    /**
+     * Returns the command history arraylist.
+     */
+    ArrayList<String> getCommandHistory();
     
     /**
      * Add to undo stack

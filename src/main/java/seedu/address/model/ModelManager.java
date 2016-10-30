@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.OverdueChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -42,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredEvents;
     private final Stack<SaveState> undoStack;
     private final Stack<SaveState> redoStack;
+    private final ArrayList<String> commandHistory;
     private Config config;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredTodos;
@@ -63,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(addressBook.getTodo());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
+        commandHistory = new ArrayList<String>();
         this.config = config;
     }
 
@@ -77,9 +81,15 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos = new FilteredList<>(addressBook.getTodo());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
+        commandHistory = new ArrayList<String>();
         this.config = config;
     }
     
+    //@@author A0147890U
+    @Override
+    public ArrayList<String> getCommandHistory() {
+        return commandHistory;
+    }
     
     //@@author A0147890U
     @Override
