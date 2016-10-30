@@ -1,3 +1,3 @@
 package seedu.jimi.logic.commands;
 
-public interface TaskBookEditor { }
+public interface TaskBookEditor {}

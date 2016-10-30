@@ -135,12 +135,14 @@ public class JimiParser {
      * @return correct Command corresponding to the command word if valid, else returns incorrect command.
      */
     private Command prepareCommand(String commandWord, String arguments) {
-        for (Command command : COMMAND_STUB_LIST) {
+        for (Command command : getCommandStubList()) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
                 // identify which command this is
                 if (command instanceof AddCommand) {
                     return prepareAdd(arguments);
+                } else if (command instanceof HelpCommand) {
+                    return prepareHelp(arguments);
                 } else if (command instanceof EditCommand) {
                     return prepareEdit(arguments);
                 } else if (command instanceof CompleteCommand) {
@@ -164,6 +166,18 @@ public class JimiParser {
         return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
     }
     
+    private Command prepareHelp(String args) {
+        if (args.trim().isEmpty()) {
+            return new HelpCommand();
+        }
+        
+        try {
+            return new HelpCommand(args.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+    }
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -509,6 +523,11 @@ public class JimiParser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
+    }
+    
+
+    public static List<Command> getCommandStubList() {
+        return COMMAND_STUB_LIST;
     }
     // @@author
 
