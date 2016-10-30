@@ -25,6 +25,8 @@ public class TagCommand extends BaseCommand {
     /* Constants */
     private static final String ERROR_INCOMPLETE_PARAMETERS
             = "The tag command is unable to recognise your commands.";
+    private static final String ERROR_TOO_MANY_PARAMETERS
+            = "You have supplied too many parameters.";
     private static final String ERROR_INPUT_INDEX_REQUIRED
             = "A task index is required.";
     private static final String ERROR_INPUT_ADD_TAGS_REQUIRED
@@ -37,12 +39,14 @@ public class TagCommand extends BaseCommand {
             = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR
             = "Tags may only include alphanumeric characters, including dashes and underscores.";
+    private static final String ERROR_TAGS_TOO_LONG
+            = "Tags may only be at most 20 characters long";
     private static final String ERROR_TWO_PARAMS
             = "You may only provide two tag names.";
 
     private static final String SUCCESS_ADD_TAGS = " - tagged successfully";
     private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
-    private static final String SUCCESS_RENAME_TAGS = " renamed to  ";
+    private static final String SUCCESS_RENAME_TAGS = " renamed to ";
 
     private static final String DESCRIPTION_SHOW_TAGS = "Shows a global list of tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
@@ -59,12 +63,12 @@ public class TagCommand extends BaseCommand {
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
 
-    private Argument<String> addTags = new StringArgument("");
+    private Argument<String> addTags = new StringArgument("add");
 
-    private Argument<String> deleteTags = new StringArgument("/d")
+    private Argument<String> deleteTags = new StringArgument("delete")
             .flag("d");
 
-    private Argument<String> renameTag = new StringArgument("/r")
+    private Argument<String> renameTag = new StringArgument("rename")
             .flag("r");
 
     @Override
@@ -125,6 +129,7 @@ public class TagCommand extends BaseCommand {
             String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
             checkForIllegalCharInTagNames(addTags.getName(), tagsToAdd);
             checkForDuplicatedTagNames(addTags.getName(), tagsToAdd);
+            checkForCharacterLimit(addTags.getName(), tagsToAdd);
 
         } else if (isDeleteTagsFromTask()) {
             //Check arguments for delete tags case
@@ -139,13 +144,16 @@ public class TagCommand extends BaseCommand {
         } else if (isRenamingTag()) {
             //Check arguments for rename tags case
             String[] renameTagsParam = StringUtil.splitString(deleteTags.getValue());
-            checkForDuplicatedTagNames(renameTag.getName(), renameTagsParam);
             checkForTwoParams(renameTag.getName(), renameTagsParam);
+            checkForDuplicatedTagNames(renameTag.getName(), renameTagsParam);
+            checkForCharacterLimit(renameTag.getName(), renameTagsParam);
 
         } else {
             //We do not have sufficient inputs.
             handleUnavailableInputParameters();
         }
+
+
 
         super.validateArguments();
     }
@@ -165,6 +173,7 @@ public class TagCommand extends BaseCommand {
             return new CommandResult();
 
         } else if (isAddTagsToTask()) {
+            
             model.addTagsToTask(displayedIndex, tagsToAdd);
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
@@ -178,7 +187,7 @@ public class TagCommand extends BaseCommand {
 
         } else if (isRenamingTag()) {
             model.renameTag(renameTagsParam[0], renameTagsParam[1]);
-            return new CommandResult(renameTagsParam[0] + SUCCESS_DELETE_TAGS + renameTagsParam[1]);
+            return new CommandResult(renameTagsParam[0] + SUCCESS_RENAME_TAGS + renameTagsParam[1]);
 
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
@@ -239,7 +248,7 @@ public class TagCommand extends BaseCommand {
 
         if (getNumberOfTruth(hasAdd, hasDelete, hasRename) > 1) {
             //Only one set of tags can be available.
-            errors.put("You have supplied too many parameters.");
+            errors.put(ERROR_TOO_MANY_PARAMETERS);
 
         } else if (hasAdd && !hasIndex) {
             //Add requires an index
@@ -271,7 +280,7 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
-     * Check if the given tag names are alphanumeric, which also can contain dashes and underscores.
+     * Checks if the given tag names are alphanumeric, which also can contain dashes and underscores.
      */
     private void checkForIllegalCharInTagNames(String argumentName, String[] tagNames) {
         for (String tagName : tagNames) {
@@ -281,6 +290,21 @@ public class TagCommand extends BaseCommand {
         }
     }
 
+    /**
+     * Checks if the provided character limit is within 20 characters.
+     */
+    private void checkForCharacterLimit(String argumentName, String[] tagNames) {
+        for (String tag : tagNames) {
+            if (tag.length() > 20) {
+                errors.put(argumentName, ERROR_TAGS_TOO_LONG);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Check if the command parameters contain exactly 2 items
+     */
     private void checkForTwoParams(String argumentName, String[] params) {
         if (params != null && params.length != 2) {
             errors.put(argumentName, ERROR_TWO_PARAMS);
