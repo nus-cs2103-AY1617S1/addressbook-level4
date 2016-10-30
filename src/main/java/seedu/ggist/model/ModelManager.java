@@ -37,8 +37,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private SortedList<Task> sortedTasks;
     private String today;
-
+    
     public String lastListing;
 
     /**
@@ -60,9 +61,17 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskManager(), new UserPrefs());
     }
   //@@author A0138411N
+    /**
+     * Constructor for Model Manager
+     * Sets current date
+     * @param initialData
+     * @param userPrefs
+     */
+    @SuppressWarnings("unchecked")
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks, Task.getTaskComparator());
         setTodayDate();
         updateListing();
         raise(new ChangeListingEvent(lastListing));
@@ -157,31 +166,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    /**
+     * Sorts filtered list based on start date and time
+     */
     public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
-        Comparator<Task> compareDateTime = new Comparator<Task>(){
-            public int compare (Task t1, Task t2){
-                    
-                if (t1.getStartDateTime().equals(t2.getStartDateTime())
-                    && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
-                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
-                } 
-                
-                if (t1.getStartDateTime().before(t2.getStartDateTime())) {
-                    return -1;
-                } else if (t1.getStartDateTime().after(t2.getStartDateTime())) {
-                    return 1;
-                } 
-                
-                if (t1.getEndDateTime().before(t2.getEndDateTime())) {
-                    return -1;
-                } else if (t1.getEndDateTime().after(t2.getEndDateTime())) {
-                    return 1;
-                }
-                
-                return 0;
-            }
-        };
-        return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
+        sortedTasks = new SortedList<>(filteredTasks, Task.getTaskComparator());
+        return new UnmodifiableObservableList<>(sortedTasks);
     }
   //@@author A0144727B
     @Override

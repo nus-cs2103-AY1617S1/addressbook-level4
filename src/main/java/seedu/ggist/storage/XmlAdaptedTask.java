@@ -72,8 +72,6 @@ public class XmlAdaptedTask {
         Task newTask = new Task(taskName, startDate, startTime, endDate, endTime, priority);
         if (done) {
             newTask.setDone(); 
-        } if(!overdue) {
-            newTask.setNotOverdue();
         }
 
         return newTask;

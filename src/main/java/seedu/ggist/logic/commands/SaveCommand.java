@@ -36,7 +36,13 @@ public class SaveCommand extends Command{
     private static final String DEFAULT_FILE_EXTENSION = "xml";
     
     private String filePath;
-
+    
+    /**
+     * Appends default filename if path is directory
+     * Prepends defaults directory if path is not a directory but has valid file extension 
+     * @param String filepath
+     * @throws IllegalValueException if filename is not xml or directory does not exists
+     */
     public SaveCommand(String filePath) throws IllegalValueException {
         assert filePath != null;
         String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());

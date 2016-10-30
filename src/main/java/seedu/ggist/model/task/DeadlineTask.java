@@ -2,10 +2,8 @@ package seedu.ggist.model.task;
 
 import java.util.Objects;
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.commons.util.CollectionUtil;
-import seedu.ggist.logic.parser.DateTimeParser;
-import seedu.ggist.model.tag.UniqueTagList;
 
 /**
  * Represents a DeadlineTask in the address book.
@@ -17,8 +15,11 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
      * Every field must be present and not null.
      * @throws IllegalValueException 
      */
-    public DeadlineTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
-        super(taskName, taskDate, startTime, endDate, endTime, priority);
+    public DeadlineTask(TaskName taskName, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
+        super(taskName, 
+              new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
+              new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
+              endDate, endTime, priority);
     }
     
     /**
@@ -26,7 +27,7 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public DeadlineTask(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority());
+        super(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority());
     }
     
     @Override
