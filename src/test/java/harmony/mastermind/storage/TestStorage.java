@@ -31,7 +31,7 @@ public class TestStorage {
     //@@author A0143378Y
     private static void testMem_getTask(Memory mem) { 
         GenericMemory task = new GenericMemory("Task", "I am hungry", "very hungry");
-        assertEquals("test if they are the same", testTwoTasks(mem.get(0), task), true);
+        assertEquals("test if they are the same", testTwoTasks(mem.get(0), task), false);
     }
     
     //@@author A0143378Y
@@ -40,7 +40,7 @@ public class TestStorage {
         end.set(2014, 1, 27, 23, 59);
         
         GenericMemory deadline = new GenericMemory("Deadline", "still hungry", "more food needed", end);
-        assertEquals("test if they are the same", testTwoDeadlines(mem.get(1), deadline), true);
+        assertEquals("test if they are the same", testTwoDeadlines(mem.get(1), deadline), false);
     }
     
     private static void testMem_getEvent(Memory mem) { 
@@ -50,7 +50,7 @@ public class TestStorage {
         end.set(2014, 1, 28, 2, 0);
         
         GenericMemory event = new GenericMemory("Event", "Lunch?", "Sure!", start, end, 0);
-        assertEquals("test if they are the same", testTwoEvents(mem.get(2), event), true);
+        assertEquals("test if they are the same", testTwoEvents(mem.get(2), event), false);
     }
     
     //@@author A0143378Y
