@@ -2,6 +2,8 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.BooleanUtils;
+
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.CollectionUtil;
@@ -11,6 +13,7 @@ import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.tag.Tag;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
 import java.util.Arrays;
@@ -44,6 +47,7 @@ public class TagCommand extends BaseCommand {
     private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
+    private static final int INDEX_OFFSET = 1;
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -120,6 +124,8 @@ public class TagCommand extends BaseCommand {
         //Performs the actual execution with the data
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
+            ImmutableTask task = model.getObservableList().get(displayedIndex - INDEX_OFFSET);
+            eventBus.post(new HighlightTaskEvent(task));
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
         } else if (isDeleteTagsFromTask()) {

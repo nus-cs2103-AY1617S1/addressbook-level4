@@ -45,7 +45,10 @@ public interface Model {
      * @throws ValidationException if the task does not exist
      */
     ImmutableTask delete(int index) throws ValidationException;
+    
+    List<ImmutableTask> deleteAll() throws ValidationException;
 
+    
     /**
      * Replaces certain fields in the task. Mutation of the {@link Task} object should 
      * only be done in the <code>update</code> lambda. The lambda takes in one parameter, 
@@ -74,10 +77,11 @@ public interface Model {
      *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all Observable tasks back by 2h
      *     t.setPin(true); // Pin all tasks in Observable view
      * });</code></pre>
+     * @return 
      * 
      * @throws ValidationException if any updates on any of the task objects are considered invalid
      */
-    void updateAll(Consumer <MutableTask> update) throws ValidationException;
+    List<ImmutableTask> updateAll(Consumer <MutableTask> update) throws ValidationException;
 
     /**
      * Sets the model to the provided TaskViewFilter object. TaskViewFilters represents the

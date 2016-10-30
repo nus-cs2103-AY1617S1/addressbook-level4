@@ -24,7 +24,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
@@ -100,14 +99,12 @@ public class TodoModel implements Model {
      */
     private int getTaskIndex(int index) throws ValidationException {
         int taskIndex;
-
         try {
             ImmutableTask task = getObservableList().get(index - 1);
             taskIndex = tasks.indexOf(task);
         } catch (IndexOutOfBoundsException e) {
             taskIndex = -1;
         }
-
         if (taskIndex == -1) {
             String message = String.format(TodoModel.INDEX_OUT_OF_BOUND_FORMAT, index);
             throw new ValidationException(message);
@@ -151,26 +148,41 @@ public class TodoModel implements Model {
         uniqueTagCollection.notifyTaskDeleted(taskToDelete);
         return todoList.delete(taskIndex);
     }
+    
+    @Override
+    public List<ImmutableTask> deleteAll() throws ValidationException{
+        saveUndoState();
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = 0 ; i < getObservableList().size() ; i++) {
+            indexes.add(getTaskIndex(i));
+        }
+        return todoList.delete(indexes);
+    }
 
     @Override
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
-        return todoList.update(getTaskIndex(index), update);
+        int taskIndex = getTaskIndex(index);
+        return todoList.update(taskIndex, update);
     }
 
     //@@author A0092382A
     @Override
-    public void updateAll(Consumer<MutableTask> update) throws ValidationException {
+    public List<ImmutableTask> updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
-        Map<UUID, Integer> uuidMap = new HashMap<>();
+        /**Map<UUID, Integer> uuidMap = new HashMap<>();
         for (int i = 0; i < tasks.size(); i++) {
             uuidMap.put(tasks.get(i).getUUID(), i);
         }
         List<Integer> indexes = new ArrayList<>();
         for (ImmutableTask task : getObservableList()) {
             indexes.add(uuidMap.get(task.getUUID()));
+        }**/
+        List<Integer> indexes = new ArrayList<>();
+        for (int i = 0 ; i < getObservableList().size() ; i++) {
+            indexes.add(getTaskIndex(i));
         }
-        todoList.updateAll(indexes, update);
+        return todoList.update(indexes, update);
     }
 
     //@@author A0135817B
