@@ -140,7 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ToDoListHistory.push(previousToDoList);
         indicateToDoListChanged();
     }
-    //@author
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

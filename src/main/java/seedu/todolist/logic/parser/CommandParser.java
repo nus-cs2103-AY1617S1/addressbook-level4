@@ -5,8 +5,6 @@ import com.joestelmach.natty.*;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
-import seedu.todolist.model.task.TaskDate;
-import seedu.todolist.model.task.TaskTime;
 
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -15,7 +13,6 @@ import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYE
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,8 +32,8 @@ public class CommandParser {
 	private static final Pattern KEYWORDS_ARGS_FORMAT =
 			Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-	private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-			Pattern.compile("(?<name>(.)+?)"
+	private static final Pattern TASK_DATA_ARGS_FORMAT =
+			Pattern.compile("(?<name>(.)+?)?"
 					+ "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?))?"
 					+ "((\\bat\\b)(?<location>(.)+?))?" 
 					+ "((\\bremarks\\b)(?<remarks>(.)+?))?");
@@ -64,7 +61,6 @@ public class CommandParser {
 	public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
     public static final String TIME_DISPLAY_FORMAT = "hh:mma";
 
-	public CommandParser() {}
 
 	/**
 	 * Parses user input into command for execution.
@@ -145,7 +141,7 @@ public class CommandParser {
 	}
 
 	private AddCommand parseAddCommand(String name, String[] interval, String location, String remarks) throws IllegalValueException {
-		return new AddCommand(
+	    return new AddCommand(
 				name, 
 				interval[INTERVAL_COMPONENT_STARTDATE], 
 				interval[INTERVAL_COMPONENT_STARTTIME], 
