@@ -111,14 +111,14 @@ public class EditCommand extends Command{
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
-            if (data[0].isEmpty()) {
-                data[0] = taskToEdit.getName().toString();   
+            if (data[Task.DEADLINE_COMPONENT_INDEX_NAME].isEmpty()) {
+                data[Task.DEADLINE_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
             }
-            if (data[2] == null) {
-                if (categoryIndex != 1) {
+            if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
+                if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
                     return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
                 }
-                data[2] = taskToEdit.getPeriod().getEndTime().toString();
+                data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
             }
             this.toEdit = new Task(
                 new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
@@ -127,17 +127,17 @@ public class EditCommand extends Command{
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
-            if (data[0].isEmpty()) {
-                data[0] = taskToEdit.getName().toString();   
+            if (data[Task.EVENT_COMPONENT_INDEX_NAME].isEmpty()) {
+                data[Task.EVENT_COMPONENT_INDEX_NAME] = taskToEdit.getName().toString();   
             }
-            if (data[2] == null) {
-                if (categoryIndex != 2) {
+            if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
+                if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
                     return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
                 }
-                data[2] = taskToEdit.getPeriod().getStartTime().toString();
+                data[Task.EVENT_COMPONENT_INDEX_START_TIME] = taskToEdit.getPeriod().getStartTime().toString();
             }
-            if (data[4] == null) {
-                data[4] = taskToEdit.getPeriod().getEndTime().toString();
+            if (data[Task.EVENT_COMPONENT_INDEX_END_TIME] == null) {
+                data[Task.EVENT_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
             }
             this.toEdit = new Task(
                 new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
@@ -148,6 +148,10 @@ public class EditCommand extends Command{
                 new UniqueTagList(tagSet)
             );
         }
+        return emptyOptional();
+    }
+
+    private Optional<CommandResult> emptyOptional() {
         return Optional.empty();
     }
 

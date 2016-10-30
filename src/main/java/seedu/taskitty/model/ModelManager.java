@@ -123,7 +123,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0135793W
    	@Override
-    public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {   	    
+    public synchronized void editTask(ReadOnlyTask target, Task task) 
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {   	    
    	    taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
