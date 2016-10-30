@@ -154,7 +154,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add no time args 12/10/2016", TaskTime.MESSAGE_TIME_MISSING);
         assertCommandBehavior(
-                "add Valid Name t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
