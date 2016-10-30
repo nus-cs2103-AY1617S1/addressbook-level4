@@ -18,23 +18,23 @@ public class FindCommandTest extends ToDoListGuiTest {
     	assertFindCommandSuccess("find NonExistentTask", currentList);
     	
     	//find multiple tasks that contain the keyword entered
-    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameters, td.eventWithLocation, 
-    			td.eventWithRemarks, td.eventWithLocationAndRemarks});
+    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, 
+    			td.eventWithLocationAndRemarks});
     	assertFindCommandSuccess("find event", currentList);
     	
     	//find tasks that contain one or more keywords entered
-    	currentList = new TestTaskList(new TestTask[] {td.eventWithRemarks, td.deadlineWithoutParameter});
-    	assertFindCommandSuccess("find withRemarks parameter", currentList);
+    	currentList = new TestTaskList(new TestTask[] {td.deadlineWithoutTime, td.floatWithoutParameter, td.floatWithLocationAndRemarks});
+    	assertFindCommandSuccess("find time float", currentList);
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameters, td.eventWithLocation, 
+    	currentList = new TestTaskList (new TestTask[] {td.eventWithoutParameter, td.eventWithLocation, 
     			td.eventWithLocationAndRemarks});
         assertFindCommandSuccess("find Event", currentList);
         
         //find tasks from both incomplete and complete list
         commandBox.runCommand("done 1");
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameters});
+        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
         assertFindCommandSuccess("find Event", currentList);        
     }
 

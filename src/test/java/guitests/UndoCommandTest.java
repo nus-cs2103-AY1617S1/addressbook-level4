@@ -44,13 +44,13 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("clear");	
               
         //undo a clear operation
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameters});
+        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
         currentList.removeTasksFromList(new TestTask[] {td.eventWithLocation}, true);
         assertUndoCommandSuccess(currentList);
         
         //undo a delete operation
         currentList = new TestTaskList(td.getTypicalTasks());
-        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameters});
+        currentList.markTasksFromList(new TestTask[] {td.eventWithoutParameter});
         assertUndoCommandSuccess(currentList);
         
         //undo a done operation
