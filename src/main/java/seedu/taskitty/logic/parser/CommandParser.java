@@ -377,53 +377,19 @@ public class CommandParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {
-        
+    private Command prepareDelete(String args) {        
         String dataArgs = args.trim();
-        String[] indexes = dataArgs.split("\\s");
-        Pair<Integer, Integer> categoryAndIndex = null;
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
+        String[] indexes = dataArgs.split("\\s");                
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getIndexes(indexes);
         
-        for (String index: indexes) {
-            if (index.contains("-")) {               
-                String[] splitIndex = index.split("-");
-                categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
-                Optional<Integer> secondIndex = parseIndex(splitIndex[1]);                               
-                
-                if (!secondIndex.isPresent() || categoryAndIndex == null) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
-                }
-                
-                int firstIndex = categoryAndIndex.getValue();               
-                int categoryIndex = categoryAndIndex.getKey();
-                
-                if (firstIndex >= secondIndex.get()) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
-                }
-                
-                for (; firstIndex <= secondIndex.get(); firstIndex++) {
-                    categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
-                    listOfIndexes.add(categoryAndIndex);
-                }                
-            } else {
-                categoryAndIndex = getCategoryAndIndex(index);
-                
-                if (categoryAndIndex == null) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
-                }
-                
-                listOfIndexes.add(categoryAndIndex);
-            }
+        if (listOfIndexes == null) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
         }
         
         return new DeleteCommand(listOfIndexes, args);
-    }
+    }   
     
     //@@author A0135793W
     /**
@@ -432,51 +398,57 @@ public class CommandParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDone(String args) {
-        
+    private Command prepareDone(String args) {        
         String dataArgs = args.trim();                
-        String[] indexes = dataArgs.split("\\s");
-        Pair<Integer, Integer> categoryAndIndex = null;
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
+        String[] indexes = dataArgs.split("\\s");        
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getIndexes(indexes);
         
+        if (listOfIndexes == null) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+        }
+        
+        return new DoneCommand(listOfIndexes, args);
+    }
+    
+    /**@@author A0139052L
+     * 
+     * Parses each index string in the array and adds them to a list if valid
+     * @param indexes the string array of indexes separated
+     * @return a list of all valid indexes parsed or null if an invalid index was given
+     */
+    private ArrayList<Pair<Integer, Integer>> getIndexes(String[] indexes) {        
+        Pair<Integer, Integer> categoryAndIndex;
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();       
         for (String index: indexes) {
-            if (index.contains("-")) {                
+            if (index.contains("-")) {               
                 String[] splitIndex = index.split("-");
                 categoryAndIndex = getCategoryAndIndex(splitIndex[0]);
                 Optional<Integer> secondIndex = parseIndex(splitIndex[1]);                               
                 
                 if (!secondIndex.isPresent() || categoryAndIndex == null) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
-                }
-                
+                    return null;
+                }                
                 int firstIndex = categoryAndIndex.getValue();               
                 int categoryIndex = categoryAndIndex.getKey();
                 
                 if (firstIndex >= secondIndex.get()) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
-                }
-                
+                    return null;
+                }                
                 for (; firstIndex <= secondIndex.get(); firstIndex++) {
                     categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, firstIndex);
                     listOfIndexes.add(categoryAndIndex);
-                }
+                }                
             } else {
-                categoryAndIndex = getCategoryAndIndex(index);
+                categoryAndIndex = getCategoryAndIndex(index);               
                 if (categoryAndIndex == null) {
-                    return new IncorrectCommand(
-                            String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                    Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
-                }
-                
+                    return null;
+                }               
                 listOfIndexes.add(categoryAndIndex);
-            }            
+            }
         }
-        
-        return new DoneCommand(listOfIndexes, args);
+        return listOfIndexes;
     }
     
     /**
