@@ -4,13 +4,15 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.commons.util.TaskUtil;
+import seedu.taskitty.logic.commands.Command;
+import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
 //@@author A0130853L
 import static org.junit.Assert.assertTrue;
+import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
 
@@ -30,20 +32,38 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("done t" + (currentList.size('t') + 1));
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2");
         
         //duplicate index provided
         commandBox.runCommand("done e1 e1");
-        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1");
         
         //duplicate mark as done
         commandBox.runCommand("done d1");
-        assertResultMessage(DoneCommand.MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER + "d1 ");
+        assertResultMessage(DoneCommand.MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER + "d1");
         
         //invalid command
         commandBox.runCommand("donee e" + (currentList.size('e')));
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
+    }
+    
+    @Test 
+    public void doneContinous() {
+        
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        
+        assertMarkAsDoneSuccess(1, 2, 'e', currentList);       
+        
+      //invalid second index larger than first
+        commandBox.runCommand("done t3-1");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+        
+        //invalid second index
+        commandBox.runCommand("done e1-t");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));       
     }
     
     /**
@@ -72,16 +92,14 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);
         commandBox.runCommand("done " + category + targetIndexOneIndexed);
-        
-        int categoryIndex = TaskUtil.getCategoryIndex(category);
+
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
         
         assertTaskCardMarkedAsDone(taskToMark);
         
         //confirm the result message is correct
-        resultMessage.append(category);
-        resultMessage.append(targetIndexOneIndexed + " ");
+        resultMessage.append(taskToMark.getName());
         assertResultMessage(resultMessage.toString());
     }
     
@@ -108,8 +126,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
             commandText.append(categories[i]);
             commandText.append(targetIndexes[i] + " ");
 
-            resultMessage.append(categories[i]);
-            resultMessage.append(targetIndexes[i] + " ");
+            resultMessage.append(taskToMark.getName() + ", ");
             
             markedTasks[i] = taskToMark;
         }
@@ -124,9 +141,38 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         }       
         
         //confirm the result message is correct
-        assertResultMessage(resultMessage.toString());
+        assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
     }
+    
+    /**
+     * Runs the done command to mark the tasks at the category given from the first index to second index
+     * @param firstIndex the index to start marking from
+     * @param secondIndex the final index to finish mark at
+     * @param category the category to decide the list to mark from
+     * @param currentList A copy of the current list of tasks (before deletion).
+     */
+    private void assertMarkAsDoneSuccess(int firstIndex, int secondIndex, char category, final TestTaskList currentList) {
+        commandBox.runViewAllCommand();
+        
+        StringBuilder resultMessage = new StringBuilder(String.format
+                (DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, secondIndex - firstIndex + 1));
+        
+        for (int i = firstIndex; i <= secondIndex; i++) {
+            TestTask taskToMark = currentList.getTaskFromList(firstIndex - 1, category);
+            currentList.markTaskAsDoneInList(firstIndex - 1, category, taskToMark);
+            
+            resultMessage.append(taskToMark.getName() + ", ");
+        }
+        
+        commandBox.runCommand("done " + category + firstIndex + "-" + secondIndex);
+                
+        //confirm the list now contains all previous persons except the deleted person
+        assertTrue(currentList.isListMatching(taskListPanel));
 
+        //confirm the result message is correct
+        assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
+    }
+    
     private void assertTaskCardMarkedAsDone(TestTask markedTask) {
         // find task card of marked task
         TaskCardHandle markedCard = taskListPanel.navigateToTask(markedTask.getName().fullName, markedTask.getPeriod().getNumArgs());

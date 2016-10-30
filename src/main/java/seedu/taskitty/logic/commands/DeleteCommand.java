@@ -70,7 +70,7 @@ public class DeleteCommand extends Command {
             
             if (!listOfTaskToDelete.contains(taskToDelete)) {
                 listOfTaskToDelete.add(taskToDelete);
-                resultMessageBuilder.append(currentTaskIndex);
+                resultMessageBuilder.append(taskToDelete.getName() + ", ");
             } else {
                 hasDuplicateIndexesProvided = true;
                 duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
@@ -79,13 +79,13 @@ public class DeleteCommand extends Command {
         
         if (hasInvalidIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            String invalidIndexMessage = invalidIndexMessageBuilder.toString();
+            String invalidIndexMessage = invalidIndexMessageBuilder.toString().trim();
             return new CommandResult(invalidIndexMessage);
         }
         
         if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
-            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString();
+            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString().trim();
             return new CommandResult(duplicateIndexesProvidedMessage);
         } 
         
@@ -96,6 +96,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
+        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());// remove the extra separator at the end
         String resultMessage = resultMessageBuilder.toString();
         return new CommandResult(resultMessage);
     }

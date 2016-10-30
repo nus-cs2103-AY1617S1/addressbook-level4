@@ -82,7 +82,7 @@ public class DoneCommand extends Command {
             
             if (!listOfTaskToMarkDone.contains(taskToBeMarkedDone)) {
                 listOfTaskToMarkDone.add(taskToBeMarkedDone);
-                resultMessageBuilder.append(currentTaskIndex);
+                resultMessageBuilder.append(taskToBeMarkedDone.getName() + ", ");
             } else {
                 hasDuplicateIndexesProvided = true;
                 duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
@@ -91,18 +91,18 @@ public class DoneCommand extends Command {
         
         if (hasInvalidIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            String invalidIndexMessage = invalidIndexMessageBuilder.toString();
+            String invalidIndexMessage = invalidIndexMessageBuilder.toString().trim();
             return new CommandResult(invalidIndexMessage);
         }
         
         if (hasDuplicateIndexesProvided) {
             indicateAttemptToExecuteIncorrectCommand();
-            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString();
+            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString().trim();
             return new CommandResult(duplicateIndexesProvidedMessage);
         }
         
         if (hasDuplicateMarkAsDoneTask) {
-            String duplicateMarkAsDoneMessage = duplicateMarkAsDoneMessageBuilder.toString();
+            String duplicateMarkAsDoneMessage = duplicateMarkAsDoneMessageBuilder.toString().trim();
             return new CommandResult(duplicateMarkAsDoneMessage);
         }
                         
@@ -115,6 +115,7 @@ public class DoneCommand extends Command {
             assert false: "The target task should not be marked done";
         }
         
+        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());// remove the extra separator at the end
         String resultMessage = resultMessageBuilder.toString();
         return new CommandResult(resultMessage);
     }
