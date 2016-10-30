@@ -34,7 +34,7 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 
 #### [Xie Jihui](https://github.com/xjh666)
 <img src="images/XieJihui.JPG" width="150"><br>
-* Components in charge of: [logic](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) [model] (https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#model-component) [ui]https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#ui-component
+* Components in charge of: [logic](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) [model] (https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#model-component) [ui](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
    * [Complete task](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#complete-a-task-complete)
