@@ -382,4 +382,5 @@ Help | `help`
 List | `list [all/completed] [on/at/with] [DATE/TIME/PRIORITY]`
 Redo | `redo`
 Undo | `undo`
+Undone | `undone`
 Update | `update todo/schedule INDEX description/date/start/end/priority/tag NEW_VALUE`
