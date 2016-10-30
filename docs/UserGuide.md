@@ -220,18 +220,28 @@ Examples:
 * `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
 * `find /n meet /dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
+#### Suggesting Free Timeslots : `free`
+Lists all free timeslots in a specified day.
+Format: `free <DATETIME>`
+
+> Does not check for tasks without datetime nor tasks without a start datetime
+
+Examples:
+* `free next tuesdsay`
+* `free 26/10/2016`
+
 [comment]: # (@@author A0139924W)
 #### Undoing a command : `undo`
 Undo a command executed by the user.  
 Format: `undo` 
 
-> Able to undo all `add`, `delete`, `edit`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+> Able to undo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
 
 #### Redoing a command : `redo`
 Redo a command executed by the user.  
 Format: `redo` 
 
-> Able to redo all `add`, `delete`, `edit`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+> Able to redo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
 
 #### Clearing the data storage file : `clear`
 Clears the whole To-Do List storage file.  
@@ -349,6 +359,7 @@ Command | Format
 [Exit](#exiting-the-program--exit) | `exit`
 [Find [Quick Serach]](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
 [Find [Filter Serach]](#finding-tasks--find) | `find /n <NAME_KEYWORD> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITYLEVEL> /do [or /ud] /t <TAG_KEYWORD>`
+[Free](#suggesting-free-timeslots--free) | `free <DATETIME>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
 [List [Date]](#listing-tasks--ls) | `ls /dt`
