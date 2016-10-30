@@ -39,6 +39,7 @@ public class TokParser {
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix datePrefix = new Prefix("on ");
 
+	
 	// @@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -114,24 +115,41 @@ public class TokParser {
 		System.out.println("date: " + argsTokenizer.getValue(datePrefix));
 		
 		Optional<String> startDateTimeStringOpt = argsTokenizer.getValue(startDateTimePrefix);
-		Optional<String> endDateTimeStringOpt = argsTokenizer.getValue(endDateTimePrefix);
+		Optional<String> endDateTimeStringOpt = argsTokenizer.getValue(endDateTimePrefix);	
 		Optional<String> dateStringOpt = argsTokenizer.getValue(datePrefix);
 		
+		// TODO extract method
+		if (dateStringOpt.isPresent()) {
+			String date = dateStringOpt.get();
+			
+			if (startDateTimeStringOpt.isPresent()) {
+				startDateTimeStringOpt = Optional.of(startDateTimeStringOpt.get() + date);
+			}
+			
+			if (endDateTimeStringOpt.isPresent()) {
+				endDateTimeStringOpt = Optional.of(endDateTimeStringOpt.get() + date);
+			}
+		}
 		
 		try {
-			Optional<LocalDateTime> startDateTime = DateParser.parse(startDateTimeStringOpt + dateStringOpt);
-			Optional<LocalDateTime> endDateTimeOpt = DateParser.parse(endDateTimeStringOpt + dateStringOpt.orElse(""));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			Optional<LocalDateTime> startDateTimeOpt = DateParser.parse(startDateTimeStringOpt);
+			Optional<LocalDateTime> endDateTimeOpt = DateParser.parse(endDateTimeStringOpt);
 			
-		
-		return null;
+			System.out.println("st opt: " + startDateTimeOpt);
+			System.out.println("end opt: " + endDateTimeOpt);
+			
+			return new AddCommand(name, startDateTimeOpt, endDateTimeOpt);
+		} 
+		catch (ParseException e) {
+			return new IncorrectCommand(e.getMessage());
+		} 
+		catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
 	}
 
 	public static void main(String[] args) {
 		TokParser t = new TokParser();
-		t.parseCommand("add 'dance from atelier' from 5pm to 4pm on tomorrow");
+		t.parseCommand("add 'dance from atelier' to 4pm on tomorrow");
 	}
 }

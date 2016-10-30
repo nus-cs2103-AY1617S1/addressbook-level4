@@ -30,7 +30,35 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
-
+    
+    //@@author A0141019U
+    private TaskType inferTaskType(Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate) throws IllegalValueException {
+    	if (startDate.isPresent() && endDate.isPresent()) {
+    		return new TaskType("event");
+    	}
+    	else if (!startDate.isPresent() && endDate.isPresent()) {
+    		return new TaskType("deadline");
+    	}
+    	else if (!startDate.isPresent() && !endDate.isPresent()) {
+    		return new TaskType("someday");
+    	}
+    	else {
+    		throw new IllegalValueException("If start date is present, end date must be present too.");
+    	}
+    }
+    
+    public AddCommand(String name, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate) throws IllegalValueException {
+       	this.toAdd = new Task(
+        		new Name(name),
+        		inferTaskType(startDate, endDate),
+        		new Status("pending"), 
+        		startDate, 
+        		endDate,
+        		new UniqueTagList()
+                );
+    }
+    //@@author
+    
     /**
      * Convenience constructor for event task using raw values
      *
