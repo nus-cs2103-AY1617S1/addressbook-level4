@@ -3,5 +3,5 @@
 }
 
 .label .text{
-	-fx-strikethrough: true ;
+	-fx-strikethrough: false;
 }
