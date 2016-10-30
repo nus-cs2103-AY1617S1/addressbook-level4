@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.DeleteCommand;
+import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
@@ -30,11 +31,11 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("delete t" + (currentList.size('t') + 1));
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t1 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t1");
         
         //duplicate index provided
         commandBox.runCommand("delete e1 e1");
-        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1");
         
         //invalid command
         commandBox.runCommand("deletes e" + (currentList.size('e')));
@@ -65,6 +66,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         
         StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, 1));
         
+        TestTask taskToRemove = currentList.getTaskFromList(targetIndexOneIndexed - 1, category);
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
         commandBox.runCommand("delete " + category + targetIndexOneIndexed);
 
@@ -72,8 +74,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        resultMessage.append(category);
-        resultMessage.append(targetIndexOneIndexed + " ");
+        resultMessage.append(taskToRemove.getName());
         assertResultMessage(resultMessage.toString());
     }
     
@@ -91,14 +92,13 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, targetIndexes.length));
         
         for (int i = 0; i < targetIndexes.length; i++) {
-            
+            TestTask taskToRemove = currentList.getTaskFromList(targetIndexes[i] - 1, categories[i]);
             currentList.removeTaskFromList(targetIndexes[i] - 1, categories[i]);
             
             commandText.append(categories[i]);
             commandText.append(targetIndexes[i] + " ");
             
-            resultMessage.append(categories[i]);
-            resultMessage.append(targetIndexes[i] + " ");
+            resultMessage.append(taskToRemove.getName() + ", ");
         }
         
         commandBox.runCommand(commandText.toString());
@@ -107,7 +107,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        assertResultMessage(resultMessage.toString());
+        assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
     }
     
 }

@@ -96,7 +96,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());
+        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());// remove the extra separator at the end
         String resultMessage = resultMessageBuilder.toString();
         return new CommandResult(resultMessage);
     }

@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
@@ -30,15 +29,15 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("done t" + (currentList.size('t') + 1));
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2");
         
         //duplicate index provided
         commandBox.runCommand("done e1 e1");
-        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1");
         
         //duplicate mark as done
         commandBox.runCommand("done d1");
-        assertResultMessage(DoneCommand.MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER + "d1 ");
+        assertResultMessage(DoneCommand.MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER + "d1");
         
         //invalid command
         commandBox.runCommand("donee e" + (currentList.size('e')));
@@ -72,16 +71,14 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);
         commandBox.runCommand("done " + category + targetIndexOneIndexed);
-        
-        int categoryIndex = TaskUtil.getCategoryIndex(category);
+
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
         
         assertTaskCardMarkedAsDone(taskToMark);
         
         //confirm the result message is correct
-        resultMessage.append(category);
-        resultMessage.append(targetIndexOneIndexed + " ");
+        resultMessage.append(taskToMark.getName());
         assertResultMessage(resultMessage.toString());
     }
     
@@ -108,8 +105,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
             commandText.append(categories[i]);
             commandText.append(targetIndexes[i] + " ");
 
-            resultMessage.append(categories[i]);
-            resultMessage.append(targetIndexes[i] + " ");
+            resultMessage.append(taskToMark.getName() + ", ");
             
             markedTasks[i] = taskToMark;
         }
@@ -124,7 +120,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         }       
         
         //confirm the result message is correct
-        assertResultMessage(resultMessage.toString());
+        assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
     }
 
     private void assertTaskCardMarkedAsDone(TestTask markedTask) {
