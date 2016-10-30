@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -66,7 +68,7 @@ public class DateParserTest {
 	
 	@Test
 	public void ddMMMyyyyHHmm_valid_valueAsExpected() throws ParseException {
-		String userInput = "25 dec 2016 16:30";
+		String userInput = "25-dec-2016 16:30";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -74,7 +76,7 @@ public class DateParserTest {
 	
 	@Test
 	public void ddMMMyyyyHHmm_validOrder2_valueAsExpected() throws ParseException {
-		String userInput = "16:30 25 dec 2016";
+		String userInput = "16:30 25-dec-2016";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -85,7 +87,7 @@ public class DateParserTest {
 		thrown.expect(ParseException.class);
 		thrown.expectMessage("Month is not an integer or one of the standard 3 letter abbreviations.");
 		
-		String userInput = "25 pop 2016 16:30";
+		String userInput = "25-pop-2016 16:30";
 		DateParser.parse(userInput);
 	}
 	
@@ -125,6 +127,36 @@ public class DateParserTest {
 		LocalDateTime date = DateParser.parse(userInput);
 		
 		LocalDateTime oneAmNextWeek = LocalDateTime.now().plusDays(7).withHour(1).truncatedTo(ChronoUnit.HOURS);
+		
+		assertEquals(oneAmNextWeek, date);
+	}
+	
+	@Test
+	public void tuesday630am_valid_valueAsExpected() throws ParseException {
+		String userInput = "tuesday 6:30 am";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime tuesday630 = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY)).withHour(6).withMinute(30).truncatedTo(ChronoUnit.MINUTES);
+		
+		assertEquals(tuesday630, date);
+	}
+	
+	@Test
+	public void saturday630am_valid_valueAsExpected() throws ParseException {
+		String userInput = "sat 6:30am ";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime saturday630 = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY)).withHour(6).withMinute(30).truncatedTo(ChronoUnit.MINUTES);
+		
+		assertEquals(saturday630, date);
+	}
+	
+	@Test
+	public void noDay1am_valid_valueAsExpected() throws ParseException {
+		String userInput = "01:00";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime oneAmNextWeek = LocalDateTime.now().withHour(1).truncatedTo(ChronoUnit.HOURS);
 		
 		assertEquals(oneAmNextWeek, date);
 	}

@@ -48,7 +48,6 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -69,12 +68,12 @@ public class EditCommand extends Command {
         	    postEdit.setName(newName.get());
             }
         	
+            if(newEndDateTime.isPresent()) {
+            	postEdit.setEndDate(newEndDateTime.get());
+            }
+
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
-            }
-        	
-            if(newEndDateTime.isPresent()) {
-                postEdit.setEndDate(newEndDateTime.get());
             }
         	
             if(lastShownList.contains(postEdit)) {
@@ -91,6 +90,8 @@ public class EditCommand extends Command {
             model.loadPreviousState();
             assert false : "The target task cannot be missing";
         }
+        
+        model.checkForOverdueTasks();
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }

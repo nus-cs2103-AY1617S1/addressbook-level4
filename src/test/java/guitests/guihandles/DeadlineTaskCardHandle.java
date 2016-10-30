@@ -9,6 +9,7 @@ import seedu.address.model.task.TaskDateTimeFormatter;
 /**
  * Provides a handle to a task card in the task list panel.
  */
+//@@author A0142184L
 public class DeadlineTaskCardHandle extends GuiHandle {
     private static final String TASK_NAME_FIELD_ID = "#taskName";
     private static final String TASK_TYPE_FIELD_ID = "#taskType";
@@ -38,7 +39,7 @@ public class DeadlineTaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-    	return getTaskName().equals(task.getName().fullName)
+    	return getTaskName().equals(task.getName().value)
                && getTaskType().equals(task.getTaskType().toString())
                && getDueDate().equals(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
     }
