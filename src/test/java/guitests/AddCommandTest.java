@@ -17,14 +17,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
 //
 //    @Test
 //    public void add() {
-//        //add one someday task
+//        //add a someday task
 //        TestTask[] currentList = td.getTypicalTasks();
 //        TestTask[] somedayList = td.getSomedayTasks();
 //        TestTask taskToAdd = TypicalTestTasks.somedayAdd;
+//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 //        assertAddSuccess(taskToAdd, "typical", currentList);
 //        assertAddSuccess(taskToAdd, "someday", somedayList);
-//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-//
+//        
 //        //add a deadline task that is a today task
 //        TestTask[] todayList = td.getTodayTasks();
 //        taskToAdd = TypicalTestTasks.deadlineTodayAdd;
@@ -53,21 +53,31 @@ public class AddCommandTest extends TaskManagerGuiTest {
 //        assertAddSuccess(taskToAdd, "in 30 days", in30DaysList);
 //        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 //        
-//        //add duplicate someday task
+//        //add a duplicate someday task
 //        commandBox.runCommand(TypicalTestTasks.somedayAdd.getAddCommand());
 //        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 //        assertTrue(taskListPanel.isListMatching(currentList));
 //        
-//        //add duplicate deadline task
+//        //add a duplicate deadline task
 //        commandBox.runCommand(TypicalTestTasks.deadlineTodayAdd.getAddCommand());
 //        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 //        assertTrue(taskListPanel.isListMatching(currentList));
 //        
-//        //add duplicate event task
+//        //add a duplicate event task
 //        commandBox.runCommand(TypicalTestTasks.eventIn7DaysAdd.getAddCommand());
 //        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 //        assertTrue(taskListPanel.isListMatching(currentList));
-//
+//        
+//        //add an event task that has startDateTime after endDateTime 
+//        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeAfterEndDateTime.getAddCommand());
+//        assertResultMessage(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//        
+//        //add an event task that has identical startDateTime and endDateTime
+//        commandBox.runCommand(TypicalTestTasks.eventStartDateTimeEqualsEndDateTime.getAddCommand());
+//        assertResultMessage(AddCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+//	
 //        //add to empty list
 //        commandBox.runCommand("clear");
 //        assertAddSuccess(TypicalTestTasks.somedayAdd, "typical");
