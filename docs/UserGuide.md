@@ -342,8 +342,8 @@ Format: `exit`
 
 <br>
 For easy reference, the table below lists all commands and their corresponding default command formats.
-
 <br>
+
 |Command|Format            |
 |:------|:-----------------|
 |help|`help`|
