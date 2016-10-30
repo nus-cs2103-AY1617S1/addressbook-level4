@@ -49,7 +49,7 @@ public class HelpCommand extends Command {
         if (match.isPresent()) {
             toHelp = match.get();
         } else {
-            // Creating unknown help command message.
+            // Creating string of all command words in Jimi.
             StringJoiner sj = new StringJoiner(", ");
             cmdStubList.stream()
                 .map(c -> c.getCommandWord())
