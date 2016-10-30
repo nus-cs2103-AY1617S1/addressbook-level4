@@ -31,7 +31,7 @@ public class EditCommand extends Command{
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
-            + " [index] [name] [t/tag]...";
+            + " [index] [name] [#tag]...";
     public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 

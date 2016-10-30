@@ -23,7 +23,7 @@ public class TypicalTestTask {
                     .build();
             dinner = new TaskBuilder().withName("xmas dinner")
                     .withEvent("25/12/2016", "18:30", "26/12/2016", "02:00")
-                    .withTags("drinking").build();
+                    .withTags("important").build();
             
             //manually added
             todo = new TaskBuilder().withName("todo").withTags("generic").build();

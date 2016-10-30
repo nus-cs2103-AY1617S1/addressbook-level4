@@ -180,7 +180,7 @@ public class CommandParser {
      * @param arguments command args string without command word
      */
     private String getTaskDetailArguments(String arguments) {
-        int detailLastIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        int detailLastIndex = arguments.indexOf(Tag.TAG_PREFIX);
         if (detailLastIndex == NOT_FOUND) {
             detailLastIndex = arguments.length();
         }
@@ -194,8 +194,7 @@ public class CommandParser {
      * @param arguments command args string without command word
      */
     private String getTagArguments(String arguments) {
-        //This line is exactly the same as the 1st line of getTaskDetailArguments.. how?
-        int tagStartIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
+        int tagStartIndex = arguments.indexOf(Tag.TAG_PREFIX);
         if (tagStartIndex == NOT_FOUND) {
             tagStartIndex = arguments.length();
         }
@@ -357,9 +356,9 @@ public class CommandParser {
         
     }
 
-    //@@author
+    //@@author A0139930B
     /**
-     * Extracts the new person's tags from the add command's tag arguments string.
+     * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
@@ -368,7 +367,9 @@ public class CommandParser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments
+                .replaceFirst(Tag.TAG_PREFIX, EMPTY_STRING)
+                .split(Tag.TAG_PREFIX));
         return new HashSet<>(tagStrings);
     }
     

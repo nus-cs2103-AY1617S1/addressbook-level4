@@ -1,9 +1,10 @@
-//@@author A0139930B
 package seedu.taskitty.testutil;
 
+import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.*;
 
+//@@author A0139930B
 /**
  * A mutable person object. For testing only.
  */
@@ -62,7 +63,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         if (period.getEndDate() != null && period.getEndTime() != null) {
             sb.append(period.getEndDate().toString() + " " + period.getEndTime().toString() + " ");
         }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(Tag.TAG_PREFIX + s.tagName + " "));
         return sb.toString();
     }
     
@@ -76,7 +77,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         if (period.getEndDate() != null && period.getEndTime() != null) {
             sb.append(period.getEndDate().toString() + " " + period.getEndTime().toString() + " ");
         }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(Tag.TAG_PREFIX + s.tagName + " "));
         return sb.toString();
     }
 
