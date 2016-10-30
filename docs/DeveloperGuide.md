@@ -126,6 +126,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
+<!-- @@author A0130853L -->
 ### UI component
 <br></br>
 <p align="center">
@@ -137,9 +138,10 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)<br>
 Figure 5 shows the UI class diagram.<br>
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TodoListPanel`,
 `StatusBarFooter`, `EventsListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.<br>
+The MainWindow also depends on the abstract class `TaskListPanel` to load the 3 inherited panels: TodoListPanel, DeadlineListPanel, and EventListPanel.<br>
 The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
@@ -150,6 +152,7 @@ The `UI` component:
 * binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * responds to events raised from various parts of the App and updates the UI accordingly.
 
+<!-- @@author -->
 ### Logic component
 <br></br>
 <p align="center">
