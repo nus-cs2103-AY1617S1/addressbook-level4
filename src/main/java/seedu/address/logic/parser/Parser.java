@@ -36,14 +36,14 @@ public class Parser {
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
-            		+ " (?<name>[^/]+)"
-            		+ "s/(?<startline>[^/]+)"
-            		+ "d/(?<deadline>[^/]+)"
+            		+ " (?<name>[^/]+)" //only name is compulsory
+            		+ "(?<startline>(?: s/[^/]+)*)"
+            		+ "(?<deadline>(?: d/[^/]+)*)"
                     + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    private static final Pattern REPEAT_DATE_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-    		Pattern.compile("(?<targetIndex>.+)"
-    				+ " (?<timeInterval>[^/]+)");
+ 	private static final Pattern REPEAT_DATE_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+		Pattern.compile("(?<targetIndex>.+)"
+				+ " (?<timeInterval>[^/]+)");
     public Parser() {}
 
     /**
@@ -66,16 +66,19 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 			
-	case CompleteCommand.COMMAND_WORD:
-       		try {
-			return prepareComplete(arguments);
-		} catch (IllegalValueException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    case CompleteCommand.COMMAND_WORD:
+	    	try {
+	    		return prepareComplete(arguments);
+	    	} catch (IllegalValueException e) {
+	    		// TODO Auto-generated catch block
+	    		e.printStackTrace();
+	    	}
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
+        
+        case GroupCommand.COMMAND_WORD:
+        	return prepareGroup(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -103,17 +106,14 @@ public class Parser {
         	
         case ClashCommand.COMMAND_WORD:
         	return new ClashCommand();
-        	
+	
         case RepeatCommand.COMMAND_WORD:
         	return prepareRepeat(arguments);
         	
         case UpdateCommand.COMMAND_WORD:
         	return new UpdateCommand();
-
-	case RevertCommand.COMMAND_WORD:
-	 	return new RevertCommand();
-			
-	case UndoCommand.COMMAND_WORD:
+        
+        case UndoCommand.COMMAND_WORD:
         	 return new UndoCommand();
         	 
         case RevertCommand.COMMAND_WORD:
@@ -298,7 +298,7 @@ public class Parser {
     	   
         return new GroupCommand(keyword);
     }
-
+    
     /**
      * Parses arguments in the context of the edit task command
      * 
@@ -325,7 +325,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     private Command prepareRepeat(String args){
     	 final Matcher matcher = REPEAT_DATE_ARGS_FORMAT.matcher(args.trim());
     	 // Validate arg string format
