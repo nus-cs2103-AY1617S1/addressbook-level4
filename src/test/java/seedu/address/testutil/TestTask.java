@@ -7,7 +7,7 @@ import seedu.address.model.task.*;
  * @@author A0138993L
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private End end;
@@ -18,7 +18,7 @@ public class TestPerson implements ReadOnlyTask {
     private UniqueTagList tags;
     boolean isCompleted;
     
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
