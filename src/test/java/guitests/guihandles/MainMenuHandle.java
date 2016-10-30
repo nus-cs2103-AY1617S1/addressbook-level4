@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import seedu.todoList.TestApp;
+import seedu.Tdoo.TestApp;
 
 import java.util.Arrays;
 

@@ -2,9 +2,9 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.testutil.TaskBuilder;
-import seedu.todoList.testutil.TestTask;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.testutil.TaskBuilder;
+import seedu.Tdoo.testutil.TestTask;
 
 import static org.junit.Assert.assertEquals;
 

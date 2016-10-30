@@ -2,22 +2,27 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.todoList.testutil.TestUtil;
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.logic.commands.Command;
-import seedu.todoList.logic.parser.Parser;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.testutil.DeadlineBuilder;
-import seedu.todoList.testutil.EventBuilder;
-import seedu.todoList.testutil.TaskBuilder;
-import seedu.todoList.testutil.TestDeadline;
-import seedu.todoList.testutil.TestEvent;
-import seedu.todoList.testutil.TestTask;
+
+import seedu.Tdoo.testutil.TestUtil;
+import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.logic.commands.Command;
+import seedu.Tdoo.logic.parser.Parser;
+import seedu.Tdoo.model.task.Todo;
+import seedu.Tdoo.model.task.attributes.*;
+import seedu.Tdoo.testutil.DeadlineBuilder;
+import seedu.Tdoo.testutil.EventBuilder;
+import seedu.Tdoo.testutil.TaskBuilder;
+import seedu.Tdoo.testutil.TestDeadline;
+import seedu.Tdoo.testutil.TestEvent;
+import seedu.Tdoo.testutil.TestTask;
+import seedu.Tdoo.testutil.TestUtil;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.testutil.TestTask;
+
 
 import static org.junit.Assert.assertTrue;
-import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.Tdoo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends ListGuiTest {
 

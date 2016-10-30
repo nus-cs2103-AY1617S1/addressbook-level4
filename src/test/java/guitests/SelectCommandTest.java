@@ -2,7 +2,7 @@
 //
 //import org.junit.Test;
 //
-//import seedu.todoList.model.task.ReadOnlyTask;
+//import seedu.Tdoo.model.task.ReadOnlyTask;
 //
 //import static org.junit.Assert.assertEquals;
 //

@@ -46,6 +46,7 @@ We are a team based in the [School of Computing, National University of Singapor
  * [Add]() - To Different Lists
  * [Undone]()
  * [Edit]()
+ * [Find]()
 * Code written: [[stub entry]()]
 * Other major contributions:
  * Parser and string manipulation for Back-end

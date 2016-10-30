@@ -2,19 +2,23 @@ package guitests;
 
 import org.junit.Test;
 
+
 import guitests.guihandles.DeadlineCardHandle;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.testutil.DeadlineBuilder;
-import seedu.todoList.testutil.EventBuilder;
-import seedu.todoList.testutil.TaskBuilder;
-import seedu.todoList.testutil.TestDeadline;
-import seedu.todoList.testutil.TestEvent;
-import seedu.todoList.testutil.TestTask;
-import seedu.todoList.testutil.TestUtil;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.model.task.Todo;
+import seedu.Tdoo.model.task.attributes.*;
+import seedu.Tdoo.testutil.DeadlineBuilder;
+import seedu.Tdoo.testutil.EventBuilder;
+import seedu.Tdoo.testutil.TaskBuilder;
+import seedu.Tdoo.testutil.TestDeadline;
+import seedu.Tdoo.testutil.TestEvent;
+import seedu.Tdoo.testutil.TestTask;
+import seedu.Tdoo.testutil.TestUtil;
+
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+
 
 import static org.junit.Assert.assertTrue;
 

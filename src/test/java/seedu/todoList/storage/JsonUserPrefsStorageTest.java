@@ -1,4 +1,4 @@
-package seedu.todoList.storage;
+package seedu.Tdoo.storage;
 
 
 import org.junit.Rule;
@@ -6,9 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.todoList.model.UserPrefs;
-import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.commons.util.FileUtil;
+import seedu.Tdoo.commons.exceptions.DataConversionException;
+import seedu.Tdoo.commons.util.FileUtil;
+import seedu.Tdoo.model.UserPrefs;
+import seedu.Tdoo.storage.JsonUserPrefsStorage;
 
 import java.io.File;
 import java.io.IOException;

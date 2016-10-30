@@ -1,25 +1,24 @@
-package seedu.todoList.logic;
+package seedu.Tdoo.logic;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.todoList.commons.core.EventsCenter;
-import seedu.todoList.commons.events.model.DeadlineListChangedEvent;
-import seedu.todoList.commons.events.model.EventListChangedEvent;
-import seedu.todoList.commons.events.model.TodoListChangedEvent;
-import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
-import seedu.todoList.commons.events.ui.ShowHelpRequestEvent;
-import seedu.todoList.logic.Logic;
-import seedu.todoList.logic.LogicManager;
-import seedu.todoList.logic.commands.*;
-import seedu.todoList.model.Model;
-import seedu.todoList.model.ModelManager;
-import seedu.todoList.model.ReadOnlyTaskList;
-import seedu.todoList.model.TaskList;
+import seedu.Tdoo.commons.core.EventsCenter;
+import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
+import seedu.Tdoo.commons.events.model.EventListChangedEvent;
+import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
+import seedu.Tdoo.commons.events.ui.JumpToListRequestEvent;
+import seedu.Tdoo.commons.events.ui.ShowHelpRequestEvent;
+import seedu.Tdoo.logic.Logic;
+import seedu.Tdoo.logic.LogicManager;
+import seedu.Tdoo.logic.commands.*;
+import seedu.Tdoo.model.Model;
+import seedu.Tdoo.model.ModelManager;
+import seedu.Tdoo.model.ReadOnlyTaskList;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.task.*;
+import seedu.Tdoo.model.task.attributes.*;
+import seedu.Tdoo.storage.StorageManager;
 
-import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.storage.StorageManager;
-import seedu.todoList.logic.commands.AddCommand;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,7 +33,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.todoList.commons.core.Messages.*;
+import static seedu.Tdoo.commons.core.Messages.*;
 
 public class LogicManagerTest {
 

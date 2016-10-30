@@ -2,19 +2,21 @@ package guitests;
 
 import guitests.guihandles.*;
 import javafx.stage.Stage;
-import seedu.todoList.TestApp;
-import seedu.todoList.commons.core.EventsCenter;
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.model.TaskList;
-import seedu.todoList.model.task.Deadline;
-import seedu.todoList.model.task.Event;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.testutil.TestUtil;
-import seedu.todoList.testutil.TypicalTestDeadline;
-import seedu.todoList.testutil.TypicalTestEvent;
-import seedu.todoList.testutil.TypicalTestTask;
+
+import seedu.Tdoo.TestApp;
+import seedu.Tdoo.commons.core.EventsCenter;
+import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.task.Deadline;
+import seedu.Tdoo.model.task.Event;
+import seedu.Tdoo.model.task.ReadOnlyTask;
+import seedu.Tdoo.model.task.Task;
+import seedu.Tdoo.model.task.Todo;
+import seedu.Tdoo.testutil.TestUtil;
+import seedu.Tdoo.testutil.TypicalTestDeadline;
+import seedu.Tdoo.testutil.TypicalTestEvent;
+import seedu.Tdoo.testutil.TypicalTestTask;
+
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,9 +1,9 @@
-package seedu.todoList.testutil;
+package seedu.Tdoo.testutil;
 
-import seedu.todoList.model.TaskList;
-import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.task.*;
+import seedu.Tdoo.model.task.attributes.*;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
 
 /**
  *
