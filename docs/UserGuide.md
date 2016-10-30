@@ -87,7 +87,7 @@ Lists all todo tasks, deadlines and events ever added.
 Format: `view all`
 
 All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
-> Note that events that are over will be marked in orange, and events done will be marked in grey.
+> Note that events that are over will be automatically marked as done.
 
 Example:
 
@@ -100,7 +100,7 @@ Example:
 Lists all completed tasks, deadlines and events.
 Format: `view done`
 
-All completed todo tasks, deadlines and events will be shown.
+All completed todo tasks, deadlines and events will be shown shown in grey.
 
 Example:
 
@@ -209,7 +209,8 @@ Marks a task in the task list as done.<br>
 * Format: `done INDEX`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br><br>
-
+Event tasks will be automatically marked as done once they are over.
+Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.
 Example:
 
 * `view all`<br>
