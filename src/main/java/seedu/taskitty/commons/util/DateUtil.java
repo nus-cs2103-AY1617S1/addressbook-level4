@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import seedu.taskitty.model.task.TaskDate;
@@ -163,5 +164,22 @@ public class DateUtil {
     	Date dateobj = new Date();
     	String date = df.format(dateobj);
     	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-	}
+	}  
+    
+    public static String createDefaultDateString() {
+    	return createUISpecifiedDateString(createCurrentDate());
+    }
+    public static String createUISpecifiedDateString(LocalDate date) {
+    	DateTimeFormatter df = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    	String dateString = date.format(df);
+    	if (isToday(date)) {
+    		dateString += " (Today)";
+    	}
+    	return dateString;
+    	
+    }
+    
+    public static boolean isToday(LocalDate date) {
+    	return date.equals(createCurrentDate());
+    }
 }
