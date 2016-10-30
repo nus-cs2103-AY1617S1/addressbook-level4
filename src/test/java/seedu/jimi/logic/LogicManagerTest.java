@@ -1,5 +1,24 @@
 package seedu.jimi.logic;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.jimi.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringJoiner;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.jimi.TestApp;
@@ -9,34 +28,33 @@ import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.util.ConfigUtil;
-import seedu.jimi.logic.Logic;
-import seedu.jimi.logic.LogicManager;
-import seedu.jimi.logic.commands.*;
-import seedu.jimi.model.TaskBook;
+import seedu.jimi.logic.commands.AddCommand;
+import seedu.jimi.logic.commands.ClearCommand;
+import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.CommandResult;
+import seedu.jimi.logic.commands.CompleteCommand;
+import seedu.jimi.logic.commands.DeleteCommand;
+import seedu.jimi.logic.commands.EditCommand;
+import seedu.jimi.logic.commands.ExitCommand;
+import seedu.jimi.logic.commands.FindCommand;
+import seedu.jimi.logic.commands.HelpCommand;
+import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.RedoCommand;
+import seedu.jimi.logic.commands.SaveAsCommand;
+import seedu.jimi.logic.commands.ShowCommand;
+import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
+import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.model.task.*;
+import seedu.jimi.model.task.FloatingTask;
+import seedu.jimi.model.task.Name;
+import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.storage.StorageManager;
 import seedu.jimi.testutil.TestUtil;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.jimi.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
@@ -53,6 +71,22 @@ public class LogicManagerTest {
     private ReadOnlyTaskBook latestSavedTaskBook;
     private boolean helpShown;
     private int targetedJumpIndex;
+    
+    private List<Command> cmdStubList = Arrays.asList( 
+            new AddCommand(), 
+            new EditCommand(), 
+            new CompleteCommand(), 
+            new ShowCommand(), 
+            new DeleteCommand(),
+            new ClearCommand(), 
+            new FindCommand(), 
+            new ListCommand(),
+            new UndoCommand(),
+            new RedoCommand(),
+            new ExitCommand(), 
+            new HelpCommand(), 
+            new SaveAsCommand()
+    );
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent tbce) {
@@ -148,20 +182,54 @@ public class LogicManagerTest {
 
     @Test
     public void execute_help() throws Exception {
+        
+        // testing pop up page
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
-        
+        helpShown = false;
         assertCommandBehavior("h", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
-        
+        helpShown = false;
         assertCommandBehavior("he", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
-        
+        helpShown = false;
         assertCommandBehavior("hel", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
+        helpShown = false;
         
+        for (Command c : cmdStubList) {
+            if (c.getCommandWord().isEmpty()) { // to account for some commands having no command words e.g. IncorrectCommand
+                continue;
+            }
+            assertCommandBehavior("help " + c.getCommandWord(), c.getMessageUsage());
+            assertFalse(helpShown);
+            assertCommandBehavior("h " + c.getCommandWord(), c.getMessageUsage());
+            assertFalse(helpShown);
+            assertCommandBehavior("he " + c.getCommandWord(), c.getMessageUsage());
+            assertFalse(helpShown);
+            assertCommandBehavior("hel " + c.getCommandWord(), c.getMessageUsage());
+            assertFalse(helpShown);
+        }
+    }
+    
+    @Test
+    public void execute_help_unknown_cmd() throws Exception {
+        StringJoiner sj = new StringJoiner(", ");
+        cmdStubList.stream()
+            .map(c -> c.getCommandWord())
+            .filter(s -> s != null && !s.isEmpty())
+            .forEach(s -> sj.add(s));
+        
+        String invalidCmd = "asdasdasdasd";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                String.format(HelpCommand.UNKNOWN_HELP_COMMAND, invalidCmd, sj.toString()));
+        
+        helpShown = false;
+        assertCommandBehavior("help " + invalidCmd, expectedMessage);
+        assertFalse(helpShown);
     }
 
+    
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
