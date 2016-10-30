@@ -126,9 +126,4 @@ public class MarkCommand extends Command implements Undoable, Redoable {
         }
 
     }
-    
-    // @@author A0138862W
-    private void requestHighlightLastActionedRow(Task task){
-        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
-    }
 }

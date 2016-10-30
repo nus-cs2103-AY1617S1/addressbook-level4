@@ -192,9 +192,4 @@ public class EditCommand extends Command implements Undoable, Redoable {
         model.addTask(editedTask);
     }
     
- // @@author A0138862W
-    private void requestHighlightLastActionedRow(Task task){
-        EventsCenter.getInstance().post(new HighlightLastActionedRowRequestEvent(task));
-    }
-
 }
