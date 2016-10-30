@@ -4,29 +4,10 @@ import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
-import seedu.malitio.model.task.Deadline;
-import seedu.malitio.model.task.Event;
-import seedu.malitio.model.task.FloatingTask;
-import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
-import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.UniqueDeadlineList;
-import seedu.malitio.model.task.UniqueEventList;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
-import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
+import seedu.malitio.model.task.*;
+import seedu.malitio.model.task.UniqueDeadlineList.*;
+import seedu.malitio.model.task.UniqueEventList.*;
+import seedu.malitio.model.task.UniqueFloatingTaskList.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -308,17 +289,27 @@ public class Malitio implements ReadOnlyMalitio {
             events.sort();
         }
     }
-
-    public void completeTask(ReadOnlyFloatingTask taskToComplete)
-            throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+    
+    //@@author A0122460W
+	public void completeTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         tasks.complete(taskToComplete);
-    }
-
-    public void completeDeadline(ReadOnlyDeadline deadlineToComplete)
-            throws DeadlineCompletedException, DeadlineNotFoundException {
-        deadlines.complete(deadlineToComplete);
-
-    }
+	}
+	
+	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
+		deadlines.complete(deadlineToComplete);
+		
+	}
+	
+	public void uncompleteTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
+        tasks.uncomplete(taskToUncomplete);
+	}
+	
+	public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
+		deadlines.uncomplete(deadlineToUncomplete);
+		
+	}
+	
+	//@@author 
 
     public void markTask(Object taskToMark, boolean marked)
             throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException,
@@ -348,7 +339,8 @@ public class Malitio implements ReadOnlyMalitio {
         events.mark(eventToMark, marked);
     }
 
-    //// tag-level operations
+
+//// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);

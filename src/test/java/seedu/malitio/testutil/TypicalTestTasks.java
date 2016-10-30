@@ -63,7 +63,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadmalitioWithSampleData(Malitio ab) {
+    public static void loadMalitioWithSampleData(Malitio ab) {
         try {
             ab.addTask(new FloatingTask(floatingTask1));
             ab.addTask(new FloatingTask(floatingTask2));
@@ -103,7 +103,7 @@ public class TypicalTestTasks {
 
     public Malitio getTypicalMalitio() {
         Malitio ab = new Malitio();
-        loadmalitioWithSampleData(ab);
+        loadMalitioWithSampleData(ab);
         return ab;
     }
 }

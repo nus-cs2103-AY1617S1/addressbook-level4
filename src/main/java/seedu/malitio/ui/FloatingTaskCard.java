@@ -37,6 +37,8 @@ public class FloatingTaskCard extends UiPart{
     public void initialize() {
     	if (task.getCompleted()){
     		name.setText(task.getName().fullName);
+    		name.setStyle("-fx-text-fill: gray;");
+    		id.setStyle("-fx-text-fill: gray;");
     		name.getStylesheets().addAll(getClass().getResource("/view/strikethrough.css").toExternalForm());
     	} else {
     		name.setText(task.getName().fullName);

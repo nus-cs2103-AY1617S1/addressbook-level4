@@ -25,7 +25,7 @@ public class SaveCommand extends Command {
     
     public static final String MESSAGE_DIRECTORY_EXAMPLE = "C://Users/User PC/Downloads/";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Malitio.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes data file location of Malitio.\n"
             + "Parameters: File Directory\n"
             + "Example: " + COMMAND_WORD
             + " " + MESSAGE_DIRECTORY_EXAMPLE;

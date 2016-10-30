@@ -70,8 +70,8 @@ public class TestDeadline implements ReadOnlyDeadline {
 	}
 
 	@Override
-	public void setCompleted() {
-		this.completed = true;
+	public void setCompleted(boolean complete) {
+		this.completed = complete;
 	}
 	
 	@Override

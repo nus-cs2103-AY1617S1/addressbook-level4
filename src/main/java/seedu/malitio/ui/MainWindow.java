@@ -51,6 +51,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
+    
+    @FXML
+    private MenuItem clearCommandBoxMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -111,6 +114,7 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        clearCommandBoxMenuItem.setAccelerator(KeyCombination.valueOf("ESC"));
     }
 
     void fillInnerParts() {
@@ -195,6 +199,11 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    @FXML
+    private void clearCommandBox() {
+        commandBox.clearCommandBox();
     }
 
     public FloatingTaskListPanel getTaskListPanel() {

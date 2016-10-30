@@ -233,7 +233,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, getCommandMessageFromString(commandWord));
         TestDataHelper helper = new TestDataHelper();
         List<FloatingTask> floatingTaskList = helper.generateFloatingTaskList(2);
 
@@ -244,6 +244,10 @@ public class LogicManagerTest {
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getMalitio(), floatingTaskList);
+    }
+
+    private Object getCommandMessageFromString(String commandWord) {
+        return DeleteCommand.MESSAGE_USAGE;
     }
 
     @Test

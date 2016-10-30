@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
@@ -55,5 +57,12 @@ public class FileUtilTest {
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
+    }
+    
+    //@@author a0126633j
+    @Test
+    public void twoFilePathsAreEqual() throws IOException {
+        assertTrue(FileUtil.twoFilePathsAreEqual("./data/test/", "data/../data/test/"));
+        assertFalse(FileUtil.twoFilePathsAreEqual("./data/tests/", "data/"));
     }
 }

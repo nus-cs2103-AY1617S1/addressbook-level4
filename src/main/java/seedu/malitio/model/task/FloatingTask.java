@@ -61,8 +61,8 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         return this.completed;
     }
 
-    public void setCompleted() {
-        this.completed = true;
+    public void setCompleted(boolean complete) {
+        this.completed = complete;
     }
     
     public boolean isMarked() {

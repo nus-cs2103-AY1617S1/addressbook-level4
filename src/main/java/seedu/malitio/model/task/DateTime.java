@@ -39,6 +39,10 @@ public class DateTime {
 	public int compareTo(DateTime dateTime) {
 		return date.compareTo(dateTime.getDate());
 	}
+	
+	public int compareTo(Date date) {
+		return this.date.compareTo(date);
+	}
 
 	public Date getDate() {
 		return date;

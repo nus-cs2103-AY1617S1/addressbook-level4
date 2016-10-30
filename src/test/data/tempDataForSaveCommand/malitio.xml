@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<malitio>
+    <floatingTasks>
+        <name>Adjust meter</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <tagged>careful</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Bring along notes</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <tagged>pen</tagged>
+        <tagged>cs2103</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Tell your world</name>
+        <completed>false</completed>
+        <marked>false</marked>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Download Promise Song</name>
+        <completed>false</completed>
+        <marked>false</marked>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Cendrillion</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <tagged>vocaloid</tagged>
+    </floatingTasks>
+    <deadlines>
+        <name>Cut hair</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <due>10-12-2016 20:00</due>
+    </deadlines>
+    <deadlines>
+        <name>Do some sit-up</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <due>10-31-2016 23:59</due>
+    </deadlines>
+    <deadlines>
+        <name>Buy stuff</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <due>11-01-2016 17:45</due>
+        <tagged>Pencil</tagged>
+    </deadlines>
+    <deadlines>
+        <name>Practice singing</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <due>12-25-2016 00:00</due>
+        <tagged>Christmas</tagged>
+        <tagged>Carols</tagged>
+    </deadlines>
+    <deadlines>
+        <name>Finish homework</name>
+        <completed>false</completed>
+        <marked>false</marked>
+        <due>12-31-2016 23:00</due>
+        <tagged>help</tagged>
+    </deadlines>
+    <events>
+        <name>Eat with mom</name>
+        <start>01-10-2017 18:00</start>
+        <end>01-10-2017 18:55</end>
+        <tagged>yummy</tagged>
+    </events>
+    <events>
+        <name>Forgive with forget</name>
+        <start>02-22-2017 10:00</start>
+        <end>02-23-2017 10:00</end>
+        <tagged>peace</tagged>
+    </events>
+    <events>
+        <name>Go shopping</name>
+        <start>03-30-2017 09:00</start>
+        <end>03-30-2017 20:00</end>
+        <tagged>clothes</tagged>
+    </events>
+    <events>
+        <name>Hopping</name>
+        <start>11-01-2017 04:00</start>
+        <end>11-01-2017 06:00</end>
+        <tagged>hello</tagged>
+    </events>
+    <events>
+        <name>Christmas party</name>
+        <start>12-25-2017 00:00</start>
+        <end>12-25-2017 23:59</end>
+        <tagged>presents</tagged>
+    </events>
+    <events>
+        <name>New year party</name>
+        <start>12-31-2017 00:00</start>
+        <end>12-31-2017 23:59</end>
+    </events>
+    <tags>
+        <tagName>careful</tagName>
+    </tags>
+    <tags>
+        <tagName>pen</tagName>
+    </tags>
+    <tags>
+        <tagName>cs2103</tagName>
+    </tags>
+    <tags>
+        <tagName>vocaloid</tagName>
+    </tags>
+    <tags>
+        <tagName>Pencil</tagName>
+    </tags>
+    <tags>
+        <tagName>Christmas</tagName>
+    </tags>
+    <tags>
+        <tagName>Carols</tagName>
+    </tags>
+    <tags>
+        <tagName>help</tagName>
+    </tags>
+    <tags>
+        <tagName>yummy</tagName>
+    </tags>
+    <tags>
+        <tagName>peace</tagName>
+    </tags>
+    <tags>
+        <tagName>clothes</tagName>
+    </tags>
+    <tags>
+        <tagName>hello</tagName>
+    </tags>
+    <tags>
+        <tagName>presents</tagName>
+    </tags>
+</malitio>
