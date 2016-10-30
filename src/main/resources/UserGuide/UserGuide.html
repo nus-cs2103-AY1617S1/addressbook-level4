@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+body {
+    background-color: dimgrey;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+h2 {
+	color: white;
+	font-family: verdana;
+	font-size: 24px;
+}
+h3, h4 {
+	color: white;
+	font-family: verdana;
+	font-size: 22px;
+}
+
+p, li, th, td {
+    font-family: verdana;
+    color: white;
+    font-size: 16px;
+}
+
+table, th, td {
+    border: 1px solid white;
+}
+
+</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="user-guide">User Guide</h1>
+<p>At this point, we know you are just as excited as we are <a href="https://github.com/CS2103AUG2016-T09-C2/main/blob/master/README.md">about Jimi</a>. But before you start throwing your money at us (even though Jimi is entirely free), you should first learn <strong>how to use Jimi properly</strong>. What follows should guide you on how to setup, install and use Jimi easily.</p>
+<p><br><br></p>
+<h2 id="guide-map">Guide Map</h2>
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#command-summary">Command Summary</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+<p><br><br></p>
+<h2 id="quick-start">Quick Start</h2>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.<br> Having any Java 8 version is not enough. <br>This app will not work with earlier versions of Java 8.</p></li>
+<li>Download the latest <code>jimi.jar</code> from the <a href="../../../releases">releases</a> tab.</li><br>
+<li>Copy the file to the folder you want to use as the home folder for Jimi.</li>
+<li><p>Double-click the file to start the app. The GUI should appear in a few seconds. <img src="images/WelcomeScreenUi.png" width="800"></p></li>
+<li>Type the command in the command box below and press <kbd>Enter</kbd> to execute it. <br> e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open this user guide in another window.</li><br>
+<li>Some example commands you can try:</li>
+</ol>
+<ul>
+<li><strong><code>add </code></strong><code>&quot;do laundry&quot;</code><strong><code> due </code></strong><code>tomorrow</code> : adds a task named <code>do laundry</code> due <code>tomorrow</code> to Jimi.</li>
+<li><strong><code>delete</code></strong><code>t1</code> : deletes the 1st task shown in the current task list</li>
+<li><strong><code>exit</code></strong> : exits the app</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li>Refer to the <a href="#features">Features</a> section below for details of each command.<br></li>
+</ol>
+<p><br> <br></p>
+<!--- @@author A0148040R -->
+<h2 id="command-summary">Command Summary</h2>
+<table style="width:45%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th align="left">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#help">Help</a></td>
+<td align="left"><code>help</code></td>
+</tr>
+<tr class="even">
+<td><a href="#add">Add</a></td>
+<td align="left"><code>add &quot;TASK_DETAILS&quot; [t/TAG] [p/PRIORITY]</code></td>
+</tr>
+<tr class="odd">
+<td> </td>
+<td align="left"><code>add &quot;TASK_DETAILS&quot; due DATE_TIME [t/TAG] [p/PRIORITY]</code></td>
+</tr>
+<tr class="even">
+<td> </td>
+<td align="left"><code>add &quot;EVENT_DETAILS&quot; on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]</code></td>
+</tr>
+<tr class="odd">
+<td><a href="#com">Complete</a></td>
+<td align="left"><code>complete INDEX</code></td>
+</tr>
+<tr class="even">
+<td><a href="#del">Delete</a></td>
+<td align="left"><code>delete INDEX</code></td>
+</tr>
+<tr class="odd">
+<td><a href="#edit">Edit</a></td>
+<td align="left"><code>edit INDEX NEW_DETAILS</code></td>
+</tr>
+<tr class="even">
+<td><a href="#show">Show</a></td>
+<td align="left"><code>show SECTION</code></td>
+</tr>
+<tr class="odd">
+<td><a href="#undo">Undo</a></td>
+<td align="left"><code>undo</code></td>
+</tr>
+<tr class="even">
+<td><a href="#redo">Redo</a></td>
+<td align="left"><code>redo</code></td>
+</tr>
+<tr class="odd">
+<td><a href="#find">Find</a></td>
+<td align="left"><code>find KEYWORD [MORE_KEYWORDS]</code></td>
+</tr>
+<tr class="even">
+<td><a href="#saveas">SaveAs</a></td>
+<td align="left"><code>saveas NEW_DIRECTORY</code></td>
+</tr>
+<tr class="odd">
+<td><a href="#clear">Clear</a></td>
+<td align="left"><code>clear</code></td>
+</tr>
+<tr class="even">
+<td><a href="#exit">Exit</a></td>
+<td align="left"><code>exit</code></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<!--- @@author A0140133B -->
+<h3 id="general-information-about-command-format">General Information About Command Format</h3>
+<ul>
+<li>Commands have to follow a certain format as shown in the table above.</li>
+<li>Replace words in <code>UPPER_CASE</code> with your input.</li>
+<li>Items in <code>[]</code> are optional.</li>
+<li>The order of your input text is fixed. For instance, <code>add [DATE_TIME] due [TASK_DETAILS]</code> is invalid.</li>
+<li>Some commands allow shorter command words for advanced users. Some commands, due to their critical nature e.g. <code>exit</code> or <code>clear</code>, you are required to type the full command word.</li>
+<li>Command words are also all case-insensitive i.e. <code>add</code> works as well as <code>ADD</code>.</li>
+<li>Below is a table of accepted command words of all commands.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th align="left">Default Command Word</th>
+<th align="left">Shortcuts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Help</td>
+<td align="left"><code>help</code></td>
+<td align="left"><code>h</code>, <code>he</code>, <code>hel</code></td>
+</tr>
+<tr class="even">
+<td>Add</td>
+<td align="left"><code>add</code></td>
+<td align="left"><code>a</code>, <code>ad</code></td>
+</tr>
+<tr class="odd">
+<td>Compete</td>
+<td align="left"><code>complete</code></td>
+<td align="left"><code>c</code>, <code>co</code>, <code>com</code>, ... , <code>complet</code></td>
+</tr>
+<tr class="even">
+<td>Delete</td>
+<td align="left"><code>delete</code></td>
+<td align="left"><code>d</code>, <code>de</code>, <code>del</code>, ... , <code>delet</code></td>
+</tr>
+<tr class="odd">
+<td>Edit</td>
+<td align="left"><code>edit</code></td>
+<td align="left"><code>e</code>, <code>ed</code>, <code>edi</code></td>
+</tr>
+<tr class="even">
+<td>Show</td>
+<td align="left"><code>show</code></td>
+<td align="left"><code>s</code>, <code>sh</code>, <code>sho</code></td>
+</tr>
+<tr class="odd">
+<td>Undo</td>
+<td align="left"><code>undo</code></td>
+<td align="left"><code>u</code></td>
+</tr>
+<tr class="even">
+<td>Redo</td>
+<td align="left"><code>redo</code></td>
+<td align="left"><code>r</code></td>
+</tr>
+<tr class="odd">
+<td>Find</td>
+<td align="left"><code>find</code></td>
+<td align="left"><code>f</code>, <code>fi</code>, <code>fin</code></td>
+</tr>
+<tr class="even">
+<td>SaveAs</td>
+<td align="left"><code>saveas</code></td>
+<td align="left">None</td>
+</tr>
+<tr class="odd">
+<td>Clear</td>
+<td align="left"><code>clear</code></td>
+<td align="left">None</td>
+</tr>
+<tr class="even">
+<td>Exit</td>
+<td align="left"><code>exit</code></td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p><strong>Input of Task/Event Name</strong>  </p>
+<li>You have to always surround task/event names with double quotation marks, <code>&quot;</code>. </li>
+<li>Other than that, you can type anything within those double quotation marks. </li>
+<!--- @@author -->
+<p><br> <!--- @@author A0148040R --></p>
+<p><strong>Input of Date and Time in Commands</strong> </p>
+<li>The input of date and time is flexible. </li>
+<li>Eg: </li>
+<ul>
+<li>Tomorrow 2pm </li>
+<li>Next Monday </li>
+<li>7/11/2016 </li>
+</ul>
+<li> You can either input date, time or both. </li>
+<li>If no time is given, the current time will be used instead.</li>
+<li>If no date is given, the current date will be used instead.</li>
+<li>However, you cannot input none of them.</li>
+<li>The start-date &amp; time of the events cannot be earlier prior to the end-date &amp; time.</li>
+<p><br></p>
+<p><strong>Input of Index</strong></p>
+<li>In order to differentiate the indexes of the tasks and events in the command inputs:</li>
+<li>The index of tasks should be preceded by the letter 't'.</li>
+<li>The index of events should be preceded by the letter 'e'.</li>
+<li>Eg:</li>
+<ul>
+<li>complete <strong>t1</strong></li>
+<li>delete <strong>e3</strong></li>
+</ul>
+<p><br> <br></p>
+<!---  @@author A0143471L -->
+<h2 id="features">Features</h2>
+<h4 id="viewing-help-help"><a id="help"></a> Viewing help : <code>help</code></h4>
+<p>Teaches you how to use Jimi. <br> Format: <code>help</code></p>
+<p>The user guide will open in another window.</p>
+<blockquote>
+<p><img src="images/Help.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="adding-a-task-add"><a id="add"></a> Adding a task: <code>add</code></h4>
+<p>Adding a floating task to Jimi.<br> Format: <code>add &quot;TASK_DETAILS&quot; [t/TAG] [p/PRIORITY]</code></p>
+<blockquote>
+<ul>
+<li>Floating tasks are tasks without any deadlines.</li>
+</ul>
+</blockquote>
+<p>Examples: </p>
+<blockquote>
+<li><code>add &quot;Buy groceries&quot; t/NTUC</code></li>
+<li><code>add &quot;Visit parents&quot; p/HIGH</code></li>
+<p><img src="images/AddFloatingTasks.png" width="800"></p>
+</blockquote>
+<p><br></p>
+<p>Adds a task with a deadline to Jimi.<br> Format: <code>add &quot;TASK_DETAILS&quot; due DATE_TIME [t/TAG] [p/PRIORITY]</code></p>
+<p>Examples: </p>
+<blockquote>
+<li><code>add &quot;Get a haircut&quot; due Tuesday p/LOW</code></li>
+<li><code>add &quot;Pick up Jimmy&quot; due Monday 2pm t/tuition</code></li>
+<p><img src="images/AddDeadlineTasks.png" width="800"></p>
+</blockquote>
+<p><br></p>
+<p>Adds an event to Jimi.<br> Format: <code>add &quot;EVENT_DETAILS&quot; on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]</code></p>
+<blockquote>
+<ul>
+<li>If the event is more than a day long, you may include the end date_time. <br></li>
+<li>You may define the end time of the event if you wish. If you do not, however, Jimi will assume your event lasts a day long.</li>
+</ul>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<li><code>add &quot;Attend Timmy's orchestra&quot; on 5th July t/Timmy</code></li>
+<li><code>add &quot;Show up for dentist appointment&quot; on 8-7-2016 5:00pm to 7:30pm p/MED</code></li>
+<li><code>add &quot;Have school camp&quot; on 10 October 10am to 18 October 5pm</code></li>
+<p><img src="images/AddEvents.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="marking-a-task-as-complete-complete"><a id="com"></a>Marking a task as complete: <code>complete</code></h4>
+<p>Marks an existing task as complete. <br> Format: <code>complete TASK_INDEX</code></p>
+<blockquote>
+<ul>
+<li>Jimi will mark the task as completed at the specified <code>TASK_INDEX</code>.</li>
+<li>If you want to revert the task back as incomplete, use the <a href="#undo"><code>undo</code></a> command.</li>
+</ul>
+</blockquote>
+<p>Example:</p>
+<blockquote>
+<li><code>complete t1</code></li>
+<p><img src="images/Complete.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="deleting-a-taskevent-delete"><a id="del"></a>Deleting a task/event: <code>delete</code></h4>
+<p>Deletes the specified task/ event from Jimi.<br> Format: <code>delete INDEX</code></p>
+<blockquote>
+<ul>
+<li>Jimi will delete the task specified by <code>INDEX</code>.</li>
+<li>If you need to recover your deleted task/event, use the <a href="#undo"><code>undo</code></a> command.</li>
+</ul>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<li><code>delete e2</code> : Deletes the 2nd event in Jimi.</li>
+<li><code>delete t1</code> Deletes the 1st task in the Jimi.</li>
+<p><img src="images/Delete.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<!--- @@author A0140133B -->
+<h4 id="editing-a-detail-edit"><a id="edit"></a>Editing a detail: <code>edit</code></h4>
+<p>Edits the specified detail of any task or event. <br> Format: <code>edit INDEX NEW_DETAILS</code></p>
+<ul>
+<li>Jimi edits the task/event specified by <code>INDEX</code>, <code>NEW_DETAILS</code> are simply the edits you want to make. <br></li>
+<li>You can edit everything from the items name to its priority. You can leave out fields that you do not wish to edit too. <br></li>
+<li>Although all fields are optional, they can't all be empty!</li>
+<li>Below is the format of <code>NEW_DETAILS</code> that Jimi recognizes when editting: <br></li>
+</ul>
+<table style="width:85%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Editting A</th>
+<th align="left">What to Type for <code>NEW_DETAILS</code></th>
+<th align="left">Examples</th>
+<th align="left">What Jimi Will Do</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dateless Task</td>
+<td align="left">[&quot;NEW_TASK_DETAILS&quot;] [t/NEW_TAG] [p/NEW_PRIORITY]</td>
+<td align="left">edit t1 &quot;finish this user guide&quot;</td>
+<td align="left">Edit just the name of task t1.</td>
+</tr>
+<tr class="even">
+<td>Deadine Task</td>
+<td align="left">[&quot;NEW_TASK_DETAILS&quot;] [due NEW_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY]</td>
+<td align="left">edit t4 t/bobz</td>
+<td align="left">Edit just the tag of task t4.</td>
+</tr>
+<tr class="odd">
+<td>Event</td>
+<td align="left">[&quot;NEW_TASK_DETAILS&quot;] [on NEW_START_DATETIME] [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY]</td>
+<td align="left">edit e2 &quot;go to concert&quot; to monday p/LOW</td>
+<td align="left">Edit name, end date and priority of event e2.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ul>
+<li>Using edit, you may also convert between item types. That is, you may freely convert between floating tasks (dateless tasks), events, and deadline tasks. <br></li>
+<li>Below is the format of <code>NEW_DETAILS</code> that Jimi recognizes when converting: <br></li>
+</ul>
+<table style="width:85%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Converting To</th>
+<th align="left">What to Type for <code>NEW_DETAILS</code></th>
+<th align="left">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dateless Task</td>
+<td align="left">float</td>
+<td align="left">edit e1 float</td>
+</tr>
+<tr class="even">
+<td>Deadline Task</td>
+<td align="left">[&quot;NEW_TASK_DETAILS&quot;] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY]</td>
+<td align="left">edit e3 due tomorrow [p/HIGH]</td>
+</tr>
+<tr class="odd">
+<td>Event</td>
+<td align="left">[&quot;NEW_TASK_DETAILS&quot;] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY]</td>
+<td align="left">edit t1 &quot;skip CS2103 lecture&quot; on 29 oct [t/IMPT]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><img src="images/Edit.png" width="800"></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>If you want to undo your edit, use the <a href="#undo"><code>undo</code></a> command.</li>
+</ul>
+</blockquote>
+<!--- @@author -->
+<p><br><br> <!---  @@author A0143471L --></p>
+<h4 id="showing-section-show"><a id="show"></a>Showing section: <code>show</code></h4>
+<p>Expands and lists sections from the left summary panel. <br> Format: <code>show SECTION</code></p>
+<blockquote>
+<ul>
+<li><code>SECTION</code> is case-insensitive.</li>
+<li>For the sections with two words, you can type just the first word of the two.</li>
+</ul>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<li><code>show monday</code></li>
+<li><code>show completed</code></li>
+<p><img src="images/Show.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="undoing-previous-action-undo"><a id="undo"></a>Undoing previous action: <code>undo</code></h4>
+<p>Undoes the previous action done in Jimi. <br> Format: <code>undo</code></p>
+<p><br><br></p>
+<h4 id="redoing-previously-undone-action-redo"><a id="redo"></a>Redoing previously undone action: <code>redo</code></h4>
+<p>Redoes the previously undone action done in the task manager. <br> Format: <code>redo</code></p>
+<p><br><br></p>
+<h4 id="finding-all-tasks-relevant-to-keywords-you-input-find"><a id="find"></a>Finding all tasks relevant to keywords you input: <code>find</code></h4>
+<p>Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br> Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+<blockquote>
+<ul>
+<li>The order of the keywords you type in does not matter. e.g. <code>Essay writing</code> will match <code>Writing essay</code></li>
+<li>Only the task details are searched.</li>
+<li>Only full words will be matched e.g. <code>Essay</code> will not match <code>Essays</code></li>
+<li>Tasks with details matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Writing</code> will match <code>Writing essay</code></li>
+</ul>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<li><code>find Jimmy</code></li>
+<li><code>find Haircut</code></li>
+<p><img src="images/Find.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="setting-save-directory-saveas"><a id="saveas"></a>Setting save directory : <code>saveas</code></h4>
+<p>Sets new save directory for the tasks and events in Jimi. Format: <code>saveas NEW_DIRECTORY</code></p>
+<blockquote>
+<ul>
+<li><code>NEW_DIRECTORY</code> should be in the format: <code>[desired_path]/[file_name].xml</code></li>
+<li>If you want to reset the save directory back to default, type <code>saveas reset</code></li>
+</ul>
+</blockquote>
+<p>Example:</p>
+<blockquote>
+<li><code>saveas Jimi_tasks.xml</code></li>
+<p><img src="images/SaveAs.png" width="800"></p>
+</blockquote>
+<p><br><br></p>
+<h4 id="clearing-all-entries-clear"><a id="clear"></a>Clearing all entries : <code>clear</code></h4>
+<p>Clears all entries from Jimi.<br> Format: <code>clear</code></p>
+<blockquote>
+<p><img src="images/Clear.png" width="800"></p>
+</blockquote>
+<blockquote>
+<p>If you want to undo your clear, use the <a href="#undo"><code>undo</code></a> command.</p>
+</blockquote>
+<p><br><br></p>
+<h4 id="exiting-the-program-exit"><a id="exit"></a>Exiting the program : <code>exit</code></h4>
+<p>Exits the program.<br> Format: <code>exit</code></p>
+<blockquote>
+<p>Before exiting the program, ensure you have no unwanted actions that need to be reverted. You can only undo actions done in the current session.</p>
+</blockquote>
+<p><br><br></p>
+<h4 id="saving-the-data"><a id="save"></a>Saving the data</h4>
+<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br> There is no need to save manually.</p>
+<p><br><br></p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br> <strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder. <br><br> <strong>Q</strong>: Is there a way to be notified of upcoming tasks or events that are due soon?<br> <strong>A</strong>: Jimi will display all overdue tasks, upcoming tasks and events at the top Agenda box, so you will always be notified of the most important details first. <br><br> <strong>Q</strong>: What happens if I typed in a wrong command?<br> <strong>A</strong>: An unknown command message will be shown to you. <br><br> <strong>Q</strong>: What happens if I typed in the format wrongly?<br> <strong>A</strong>: An invalid command format message will be shown to you, along with the correct format you should use instead.</p>
+</body>
+</html>
