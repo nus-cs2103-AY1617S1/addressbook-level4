@@ -22,6 +22,7 @@ public class Activity implements ReadOnlyActivity {
     protected Reminder reminder;
     protected boolean isCompleted;
     protected UniqueTagList tags;
+    protected boolean isOver = false;
 
     /**
      * Every field must be present and not null.
@@ -132,6 +133,15 @@ public class Activity implements ReadOnlyActivity {
     }
 				return null;
     	
+    }
+    
+    public void setisOver(boolean isOver) {
+        this.isOver = isOver;
+    }
+
+    
+    public boolean getisOver() {
+        return isOver;
     }
 
 }

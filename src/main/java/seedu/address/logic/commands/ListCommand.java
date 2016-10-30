@@ -45,6 +45,9 @@ public class ListCommand extends Command {
           model.updateFilteredEventListToShowAll();
           return new CommandResult(MESSAGE_SUCCESS_EVENT);
 
+      case "done":
+          model.updateFilteredDoneListToShowAll();
+          return new CommandResult(MESSAGE_SUCCESS_EVENT);
           default: //typeOfList equals ""
 			model.updateFilteredListToShowAll();
 			return new CommandResult(MESSAGE_SUCCESS);

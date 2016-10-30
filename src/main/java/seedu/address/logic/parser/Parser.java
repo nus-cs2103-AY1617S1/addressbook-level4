@@ -311,6 +311,11 @@ public class Parser {
 			return new ListCommand("event");
 		}
 
+	      if (args.contains("done")) {
+	            return new ListCommand("done");
+	        }
+
+		
 		if (args.equals("")) {
 			return new ListCommand("");
 		} else {
