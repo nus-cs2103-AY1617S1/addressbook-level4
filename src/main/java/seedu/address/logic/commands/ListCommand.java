@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTaskFilter;
 
 /**
@@ -37,7 +36,6 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	
-    	
     	if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
@@ -45,26 +43,28 @@ public class ListCommand extends Command {
     		switch(taskType.get()) {
     		case "someday":
     		case "sd":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isSomedayTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isSomedayTask();
     			break;
     		case "deadline":
     		case "dl":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isDeadlineTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isDeadlineTask();
     			break;
     		case "event":
     		case "ev":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isEventTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isEventTask();
     			break;
     		}
     	}
     	if(doneStatus.isPresent()) {
-    		assert doneStatus.get().equals("done") || doneStatus.get().equals("not-done");
     		switch(doneStatus.get()) {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();
     			break;
     		case "not-done":
-    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
+    			donePredicate = ReadOnlyTaskFilter.isNotDone();
+    			break;
+    		case "overdue":
+    			donePredicate = ReadOnlyTaskFilter.isOverdue();
     		}
     	}
     	
@@ -77,6 +77,9 @@ public class ListCommand extends Command {
     	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
     		model.updateFilteredListToShowAll();
     	}
+    	
+    	model.checkForOverdueTasks();
+    	
         return new CommandResult(MESSAGE_SUCCESS);
     }
     //@@author

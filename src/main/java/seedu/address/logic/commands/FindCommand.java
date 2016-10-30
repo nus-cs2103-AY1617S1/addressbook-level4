@@ -23,7 +23,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keyphrases);
+    	model.checkForOverdueTasks();
+    	model.updateFilteredTaskList(keyphrases);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

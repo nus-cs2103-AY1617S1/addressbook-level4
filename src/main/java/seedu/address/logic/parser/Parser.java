@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -13,15 +14,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.IncorrectCommandException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -33,43 +32,31 @@ import seedu.address.logic.commands.UndoCommand;
 
 
 public class Parser {
-	// @@author A0141019U
+	// @@author A0141019U	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regex for different permutations of arguments
+	// Different regexps for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
-			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
+			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|ev|deadline|dl|someday|sd)");
 	
-	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'(\\s+on\\s+)?(?<date>\\S+)?\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*\\S+.+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)");
-	// Start and end on different days
-	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_8 = Pattern.compile(
-			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
-
-
+			"(?i)from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?\\s+'(?<taskName>.*\\S+.*)'");
+	
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
 			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
 
-
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
+
 	
+	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -85,6 +72,9 @@ public class Parser {
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
 			return prepareAdd(arguments);
+			
+		case FindCommand.COMMAND_WORD:
+			return prepareFind(arguments);
 
 		case ListCommand.COMMAND_WORD:
 			return prepareList(arguments);
@@ -95,14 +85,14 @@ public class Parser {
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
 			
-		case DoneCommand.COMMAND_WORD:
-			return prepareDone(arguments);
+		case ChangeStatusCommand.COMMAND_WORD_DONE:
+			return prepareChangeStatus(arguments, "done");
+			
+		case ChangeStatusCommand.COMMAND_WORD_PENDING:
+			return prepareChangeStatus(arguments, "pending");
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
-
-		case FindCommand.COMMAND_WORD:
-			return prepareFind(arguments);
 
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
@@ -121,49 +111,7 @@ public class Parser {
 		}
 	}
 	
-	//@@author A0139339W
-	/**
-	 * parse the argument based on first occurrence of keyword "not"
-	 * indices before not are for tasks to be marked done
-	 * indices after not are for tasks to be marked not done
-	 * missing keyword "not" means all indices are for tasks to be marked done
-	 */
-	private Command prepareDone(String arguments) {
-		String[] args = arguments.split("not");
-		int[] doneIndices = new int[0];
-		int[] notDoneIndices = new int[0];
-		try {
-			if(!args[0].equals("")) {
-			    doneIndices = prepareIndexList(args[0]);
-			}
-			if(args.length > 1) {
-				notDoneIndices = prepareIndexList(args[1].trim());
-			}
-		} catch (IncorrectCommandException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-		}
-
-		return new DoneCommand(doneIndices, notDoneIndices);
-	}
-
-
-	private int[] prepareIndexList(String arguments) throws IncorrectCommandException{
-		ArrayList<Optional<Integer>> indexOptionals = parseIndices(arguments);
-
-		int[] indices = new int[indexOptionals.size()];
-		int i = 0;
-		for (Optional<Integer> index : indexOptionals) {
-			if (!index.isPresent()) {
-				throw new IncorrectCommandException("Incorrect Command");
-			}
-			indices[i] = index.get();
-			i++;
-		}
-
-		System.out.println("indices: " + Arrays.toString(indices));
-		return indices;
-	}
-
+	
 	//@@author A0141019U
 	private Command prepareAdd(String arguments) {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -222,9 +170,7 @@ public class Parser {
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments));
+
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
@@ -233,78 +179,41 @@ public class Parser {
 		
 		boolean isAnyMatch = false;
 		
-		int i = -1;
 		for (Matcher matcher : matchers) {
-			i++;
 			if (matcher.matches()) {
-				System.out.println("i: " + i);
-				
-				
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				String date = matcher.group("date").trim();
+			
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
 				
+				Optional<String> dateOpt = Optional.ofNullable(matcher.group("date"));
+				String date = dateOpt.orElse("");
+				
 				try {
-					
 					System.out.println("start: " + date + " " + startTime);
 					System.out.println("end: " + date + " " + endTime);
 					
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
-					
-					System.out.println("startDateTime: " + startDateTime.toString());
 				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(e.getMessage());
 				}				
 
 				try {
 					return new AddCommand(taskName, startDateTime, endDateTime);
 				} catch (IllegalValueException e) {
-					// TODO Auto-generated catch block
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}
 			}
 		}
 
-		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
-		
-		for (Matcher matcher : diffDayMatchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-				
-
-				taskName = matcher.group("taskName").trim();
-				String startDayAndTime = matcher.group("startDateTime").trim();
-				String endDayAndTime = matcher.group("endDateTime").trim();
-				
-				try {
-					startDateTime = DateParser.parse(startDayAndTime);
-					endDateTime = DateParser.parse(endDayAndTime);
-				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-				}				
-
-				break;
-			}
-		}
-
-		//System.out.println("task name: " + taskName);
-		//System.out.println("start date: " + startDateTime.toString());
-		//System.out.println("end date: " + endDateTime.toString());
-		
 		if (!isAnyMatch) {
 			System.out.println("no match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		// TODO format date properly
 		try {
 			return new AddCommand(taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
@@ -331,11 +240,11 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				System.out.println("dateTimeString: " + dateTimeString);
+				
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(e.getMessage());
 				}
 
 				break;
@@ -406,7 +315,7 @@ public class Parser {
 		String[] args = arguments.split(" ");
 
 		String taskType = null;
-		String done = null;
+		String status = null;
 		for (int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
@@ -419,17 +328,18 @@ public class Parser {
 				break;
 			case "done":
 			case "not-done":
-				done = args[i];
+			case "overdue":
+				status = args[i];
 				break;
 			default:
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 			}
 		}
 
-		return new ListCommand(taskType, done);
+		return new ListCommand(taskType, status);
 	}
 	
-	//@@author
+	//@@author A0141019U
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *
@@ -440,9 +350,9 @@ public class Parser {
 	private Command prepareDelete(String arguments) {
 		int[] indices;
 		try {
-			indices = prepareIndexList(arguments);
-		} catch (IncorrectCommandException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+			indices = parseIndices(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 		return new DeleteCommand(indices);
 	}
@@ -556,29 +466,48 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
-	
-	//@@author A0141019U
+
+	//@@author A0139339W
 	/**
-	 * Returns an ArrayList of the specified indices in the {@code command} IF
-	 * positive unsigned integers are given. Returns an ArrayList with a single
-	 * element {@code Optional.empty()} otherwise.
+	 * parse the argument based on first occurrence of keyword "not" indices
+	 * before not are for tasks to be marked done indices after not are for
+	 * tasks to be marked not done missing keyword "not" means all indices are
+	 * for tasks to be marked done
 	 */
-	private ArrayList<Optional<Integer>> parseIndices(String args) {
-		String[] indexStrings = args.split(" ");
-		ArrayList<Optional<Integer>> optionals = new ArrayList<>();
+	private Command prepareChangeStatus(String arguments, String newStatus) {
+		int[] doneIndices;
 
-		for (int i = 0; i < indexStrings.length; i++) {
-			System.out.println("parseIndices: " + indexStrings[i].trim());
-			if (!StringUtil.isUnsignedInteger(indexStrings[i].trim())) {
-				optionals = new ArrayList<>();
-				optionals.add(Optional.empty());
-				return optionals;
-			}
-
-			optionals.add(Optional.of(Integer.parseInt(indexStrings[i])));
+		try {
+			doneIndices = parseIndices(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 
-		return optionals;
+		return new ChangeStatusCommand(doneIndices, newStatus);
+	}
+
+	//@@author A0141019U
+	/**
+	 * @return an array of the specified indices in the {@code command} if
+	 * positive unsigned integers are given. 
+	 * @throws IllegalArgumentException otherwise
+	 */
+	private int[] parseIndices(String args) throws IllegalArgumentException {
+		String[] indexStrings = args.split(" ");
+		int[] indices = new int[indexStrings.length];
+
+		for (int i = 0; i < indexStrings.length; i++) {
+			String index = indexStrings[i].trim();
+			
+			if (!StringUtil.isUnsignedInteger(index)) {
+				throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+			else {
+				indices[i] = Integer.parseInt(index);
+			}
+		}
+
+		return indices;
 	}
 
 	public static void main(String[] args) {

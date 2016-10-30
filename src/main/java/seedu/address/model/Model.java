@@ -19,6 +19,7 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
     
+    //@@author A0141019U
     /** Saves the state of the model in case the user wishes to undo an action. */
     void saveState();
     
@@ -27,7 +28,8 @@ public interface Model {
     
     /** Redoes an action after an undo. */
     void loadNextState();
-
+    //@@author
+    
     /** Deletes the given tasks. */
     void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
 
@@ -36,6 +38,9 @@ public interface Model {
     
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Updates the task status overdue if not marked as done and end time is before now */
+    void checkForOverdueTasks();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

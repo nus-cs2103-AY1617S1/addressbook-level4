@@ -16,6 +16,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
+    	model.checkForOverdueTasks();
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }

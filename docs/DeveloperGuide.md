@@ -1,5 +1,6 @@
 # Developer Guide 
 
+<!-- @@author A0143756Y -->
 <br>
 ## Introduction
 
@@ -26,10 +27,10 @@ This guide describes the design and implementation of Amethyst, to help you unde
 - [Testing](#testing)
 - [Dev Ops](#dev-ops)
 - [Future Development](#future-development)
-- [Appendix A: User Stories](#appendix-a--user-stories)
-- [Appendix B: Use Cases](#appendix-b--use-cases)
-- [Appendix C: Non-Functional Requirements](#appendix-c--non-functional-requirements)
-- [Appendix D: Glossary](#appendix-d--glossary)
+- [Appendix A: User Stories](#appendix-a-user-stories)
+- [Appendix B: Use Cases](#appendix-b-use-cases)
+- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
+- [Appendix D: Glossary](#appendix-d-glossary)
 - [Appendix E : Product Survey](#appendix-e-product-survey)
 
 <!-- /MarkdownTOC -->
@@ -328,6 +329,7 @@ reduces the margin of error.
 Users can traverse this history to re-execute previously typed commands. This becomes especially useful if a 
 user wants to collate the source files in the same folder periodically.
 
+<!-- @@author A0141019U -->
 <br>
 ## Appendix A: User Stories
 
@@ -347,7 +349,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 <br>
 ## Appendix B: Use Cases
-
+<!-- @@author A0139339W -->
 #### Use case: Delete task
 
 **MSS**
@@ -391,6 +393,7 @@ Use case ends
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
   Use case ends
 
+<!-- @@author A0143756Y -->
 #### Use case: Mark task as done
 
 **MSS**
@@ -479,7 +482,9 @@ Use case ends
 5. Amethyst should have critical functionality without the need for an installer
 6. Amethyst should not require the user to pay
 7. Data should stored locally in human editable text
-8. Command Line Interface (CLI) should be the primary mode of input
+8. Command Line Interface (CLI) should be the primary mode of input  
+
+For more information, you may refer to the [Project Constraints](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/), available in the [CS2103T Handbook](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/).
 
 <br>
 ## Appendix D: Glossary
@@ -488,6 +493,7 @@ Use case ends
 
 > Windows, Linux, Unix, OS X
 
+<!-- @@author A0142184L -->
 <br>
 ## Appendix E: Product Survey
 ###Any.do
