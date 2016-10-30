@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
+import java.util.Collection;
 import java.util.List;
 
 //@@author A0135805H
@@ -27,26 +28,33 @@ public interface UniqueTagCollectionModel {
      */
     void notifyTaskDeleted(ImmutableTask task);
 
+
     /* Tag Command Interfacing Methods */
     /**
-     * Registers the given {@code task} to a {@link Tag} in the {@link UniqueTagCollectionModel}.
+     * Registers the given {@code task}s to a {@link Tag} in the {@link UniqueTagCollectionModel}.
+     * However, this method will not save the tags to the {@code task} since it is immutable.
+     * Note: that data validation is done at the {@link seedu.todo.model.Model} side.
      *
-     * @param task The task to be attached under the {@link Tag}.
-     * @param tagName The name of the {@link Tag}.
-     * @return Returns the corresponding {@link Tag} object with {@code tagName}
-     *         so this tag can be added to the {@code task}.
+     * @param task The immutable task to be attached under the {@link Tag}.
+     * @param tagNames The list of tag names.
+     * @return Returns the corresponding collections of {@link Tag}s object with {@code tagName}
+     *         so this tag can be added to the {@code task}.\
      */
-    Tag registerTagWithTask(ImmutableTask task, String tagName);
+    Collection<Tag> associateTaskToTags(ImmutableTask task, String[] tagNames);
 
+
+    /* Old Tag Command Interfacing Methods */
     /**
-     * Unregistere the given {@code task} from the {@link Tag} in the {@link UniqueTagCollectionModel}.
+     * Unregisters the given {@code task} from the {@link Tag}s in the {@link UniqueTagCollectionModel}.
+     * This method will not remove the tags to the task since it is immutable.
+     * Also, data validation should be done at the {@link seedu.todo.model.Model} side.
      *
      * @param task The task to be detached from the {@link Tag}.
-     * @param tagName The name of the {@link Tag}.
+     * @param tagNames The names of the {@link Tag} to be deleted.
      * @return Returns the corresponding {@link Tag} object with {@code tagName}
      *         so this tag can be removed from the {@code task}.
      */
-    Tag unregisterTagWithTask(ImmutableTask task, String tagName);
+    Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames);
 
     /**
      * Renames a {@link Tag} with the given {@code originalName} with the {@code newName}

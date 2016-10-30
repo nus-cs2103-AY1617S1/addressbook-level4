@@ -1,16 +1,13 @@
 package seedu.todo.model.tag;
 
 import javafx.collections.ObservableList;
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -21,11 +18,8 @@ import java.util.Set;
  * maintain uniqueness of the tag names.
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
-    /*
-        Stores a list of tags with unique tag names.
-        TODO: ImmutableTask does not have consistent hashing.
-        TODO: So, duplicated ImmutableTask may be found in the set of each Tag.
-     */
+
+    //Stores a list of tags with unique tag names.
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
     /* Interfacing Methods */
@@ -41,14 +35,22 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
-    public Tag registerTagWithTask(ImmutableTask task, String tagName) {
-        Tag tag = getTagWithName(tagName);
-        associateTaskToTag(task, tag);
-        return tag;
+    public Collection<Tag> associateTaskToTags(ImmutableTask task, String[] tagNames) {
+        Set<Tag> tags = new HashSet<>();
+        for (String tagName : tagNames) {
+            Tag tag = getTagWithName(tagName);
+            associateTaskToTag(task, tag);
+            tags.add(tag);
+        }
+        return tags;
     }
 
     @Override
-    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) {
+    public Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames) {
+        return null;
+    }
+
+    public Tag dissociateTaskFromTag(ImmutableTask task, String tagName) {
         //TODO: Throw an error if the tag is not found.
         Tag tag = getTagWithName(tagName);
         dissociateTaskFromTag(task, tag);
@@ -66,14 +68,16 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     /* Helper Methods */
     /**
      * Links a {@code task} to the {@code tag} in the {@link #uniqueTagsToTasksMap}.
+     * @return an instance of the {@code tag}
      */
-    private void associateTaskToTag(ImmutableTask task, Tag tag) {
+    private Tag associateTaskToTag(ImmutableTask task, Tag tag) {
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks == null) {
             setOfTasks = new HashSet<>();
             uniqueTagsToTasksMap.put(tag, setOfTasks);
         }
         setOfTasks.add(task);
+        return tag;
     }
 
     /**

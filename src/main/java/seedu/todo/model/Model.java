@@ -151,6 +151,7 @@ public interface Model {
 
     /**
      * Adds the supplied list of tags (using tag names) to the specified task.
+     * Will do validation to the tags and throws error at the class using this method.
      *
      * @param index The task displayed index.
      * @param tagNames The list of tag names to be added.
@@ -158,6 +159,15 @@ public interface Model {
      *                             illegal characters.
      */
     void addTagsToTask(int index, String[] tagNames) throws ValidationException;
+
+    /**
+     * Adds the supplied list of tags (using tag names) to the specified task.
+     * Does not throw any validation error. Assumes that validation has been done at the command level.
+     *
+     * @param task The mutable task.
+     * @param tagNames The list of tag names to be added.
+     */
+    void addTagsToTask(MutableTask task, String[] tagNames);
 
     /**
      * Deletes a list of tags (using tag names) from the specified task.

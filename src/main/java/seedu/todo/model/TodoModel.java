@@ -14,21 +14,14 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagCollection;
 import seedu.todo.model.tag.UniqueTagCollectionModel;
 import seedu.todo.model.property.SearchStatus;
+import seedu.todo.model.tag.UniqueTagCollectionValidator;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -255,30 +248,77 @@ public class TodoModel implements Model {
         return search;
     }
 
+
+
     //@@author A0135805H
+    @Override
+    public List<Tag> getGlobalTagsList() {
+        return uniqueTagCollection.getUniqueTagList();
+    }
+
     @Override
     public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
+
+        //Perform Validation
+        ImmutableTask task = getTask(index);
+        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("add tags");
+        validator.validateAddTags(task, tagNames);
+        validator.throwsExceptionIfNeeded();
+
+        //Perform actual tag adding.
         update(index, mutableTask -> {
-            Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
-            for (String tagName : tagNames) {
-                Tag newTag = uniqueTagCollection.registerTagWithTask(mutableTask, tagName);
-                tagsFromTask.add(newTag);
-            }
-            mutableTask.setTags(tagsFromTask);
+            assert (mutableTask.equals(task)); //Just a sanity check.
+            addTagsToTask(mutableTask, tagNames);
         });
+    }
+
+    @Override
+    public void addTagsToTask(MutableTask task, String[] tagNames) {
+        saveUndoState();
+
+        //Do not perform validation. Perform actual tag adding.
+        Set<Tag> newTags = new HashSet<>(uniqueTagCollection.associateTaskToTags(task, tagNames));
+        newTags.addAll(task.getTags());
+        task.setTags(newTags);
     }
 
     @Override
     public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
+
+        //Perform Validation
+        ImmutableTask task = getTask(index);
+        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("delete tags");
+        validator.validateDeleteTags(task, tagNames);
+        validator.throwsExceptionIfNeeded();
+
+        //Perform actual tag deletion
         update(index, mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
-            for (String tagName : tagNames) {
-                Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(mutableTask, tagName);
-                tagsFromTask.remove(deletedTag);
-            }
+            Collection<Tag> deletedTags = uniqueTagCollection.dissociateTaskFromTags(mutableTask, tagNames);
+            tagsFromTask.removeAll(deletedTags);
             mutableTask.setTags(tagsFromTask);
         });
+    }
+
+    @Override
+    public void deleteTags(String[] tagNames) throws ValidationException {
+
+    }
+
+    @Override
+    public void renameTag(String oldName, String newName) throws ValidationException {
+
+    }
+
+    /* Helper Method */
+    /**
+     * Gets the {@link ImmutableTask} object at the respective displayed index.
+     * @throws ValidationException when the index is invalid.
+     */
+    private ImmutableTask getTask(int displayedIndex) throws ValidationException {
+        int index = getTaskIndex(displayedIndex);
+        return tasks.get(index);
     }
 }

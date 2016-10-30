@@ -1,6 +1,8 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.base.StandardSystemProperty;
 import com.google.common.collect.ImmutableList;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ShowTagsEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -12,9 +14,12 @@ import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagCollectionValidator;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 //@@author A0135805H
@@ -22,6 +27,7 @@ import java.util.regex.Pattern;
  * This class handles all tagging command
  */
 public class TagCommand extends BaseCommand {
+
     /* Constants */
     private static final String ERROR_INCOMPLETE_PARAMETERS
             = "The tag command is unable to recognise your commands.";
@@ -35,12 +41,6 @@ public class TagCommand extends BaseCommand {
             = "A list of tags \"tag1, tag2, ...\" to delete is required.";
     private static final String ERROR_INPUT_RENAME_TAGS_REQUIRED
             = "An existing tag name, and a new tag name is required.";
-    private static final String ERROR_TAGS_DUPLICATED
-            = "You might have keyed in duplicated tag names.";
-    private static final String ERROR_TAGS_ILLEGAL_CHAR
-            = "Tags may only include alphanumeric characters, including dashes and underscores.";
-    private static final String ERROR_TAGS_TOO_LONG
-            = "Tags may only be at most 20 characters long";
     private static final String ERROR_TWO_PARAMS
             = "You may only provide two tag names.";
 
@@ -57,8 +57,6 @@ public class TagCommand extends BaseCommand {
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
-
-    private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -121,40 +119,29 @@ public class TagCommand extends BaseCommand {
 
     @Override
     protected void validateArguments() {
+
         if (isShowTags()) {
-            // No arguments to check.
+            // No arguments to validate.
 
         } else if (isAddTagsToTask()) {
-            //Check arguments for add tags case
-            String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
-            checkForIllegalCharInTagNames(addTags.getName(), tagsToAdd);
-            checkForDuplicatedTagNames(addTags.getName(), tagsToAdd);
-            checkForCharacterLimit(addTags.getName(), tagsToAdd);
+            //Validation is done at Model level.
 
         } else if (isDeleteTagsFromTask()) {
-            //Check arguments for delete tags case
-            String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
-            checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
+            //Validation is done at Model level.
 
         } else if (isDeleteTagsFromAllTasks()) {
             //Check arguments for delete tags case
             String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
-            checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
 
         } else if (isRenamingTag()) {
             //Check arguments for rename tags case
             String[] renameTagsParam = StringUtil.splitString(deleteTags.getValue());
             checkForTwoParams(renameTag.getName(), renameTagsParam);
-            checkForDuplicatedTagNames(renameTag.getName(), renameTagsParam);
-            checkForCharacterLimit(renameTag.getName(), renameTagsParam);
 
         } else {
             //We do not have sufficient inputs.
             handleUnavailableInputParameters();
         }
-
-
-
         super.validateArguments();
     }
 
@@ -173,7 +160,6 @@ public class TagCommand extends BaseCommand {
             return new CommandResult();
 
         } else if (isAddTagsToTask()) {
-            
             model.addTagsToTask(displayedIndex, tagsToAdd);
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
@@ -271,38 +257,6 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
-     * Checks if the given tag names have duplicated entries.
-     */
-    private void checkForDuplicatedTagNames(String argumentName, String[] tagNames) {
-        if (!CollectionUtil.elementsAreUnique(Arrays.asList(tagNames))) {
-            errors.put(argumentName, ERROR_TAGS_DUPLICATED);
-        }
-    }
-
-    /**
-     * Checks if the given tag names are alphanumeric, which also can contain dashes and underscores.
-     */
-    private void checkForIllegalCharInTagNames(String argumentName, String[] tagNames) {
-        for (String tagName : tagNames) {
-            if (!isValidTagName(tagName)) {
-                errors.put(argumentName, ERROR_TAGS_ILLEGAL_CHAR);
-            }
-        }
-    }
-
-    /**
-     * Checks if the provided character limit is within 20 characters.
-     */
-    private void checkForCharacterLimit(String argumentName, String[] tagNames) {
-        for (String tag : tagNames) {
-            if (tag.length() > 20) {
-                errors.put(argumentName, ERROR_TAGS_TOO_LONG);
-                return;
-            }
-        }
-    }
-
-    /**
      * Check if the command parameters contain exactly 2 items
      */
     private void checkForTwoParams(String argumentName, String[] params) {
@@ -312,14 +266,6 @@ public class TagCommand extends BaseCommand {
     }
 
     /* Helper Methods */
-    /**
-     * Returns true if a given string is a valid tag name (alphanumeric, can contain dashes and underscores)
-     * Originated from {@link Tag}
-     */
-    private static boolean isValidTagName(String test) {
-        return TAG_VALIDATION_REGEX.matcher(test).matches();
-    }
-
     /**
      * Returns number of true booleans.
      */
