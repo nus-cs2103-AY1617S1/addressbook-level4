@@ -25,7 +25,6 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
-        System.out.println(name);
         name = name.trim();
         if (!isValidTagName(name)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
