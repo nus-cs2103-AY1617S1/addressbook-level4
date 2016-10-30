@@ -58,7 +58,7 @@ public class UniqueActivityList implements Iterable<Activity> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add(toAdd);
+        internalList.add(0, toAdd);
     }
 
 	public void addAt(int index, Activity toAdd) throws DuplicateTaskException{
