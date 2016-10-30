@@ -4,15 +4,17 @@ import static org.junit.Assert.assertTrue;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.model.task.Task.MESSAGE_DATETIME_CONSTRAINTS;
 
+import java.time.temporal.ChronoUnit;
+
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddCommand;
+import seedu.task.model.task.DateTime;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
-//@@author A0153467Y
 public class AddCommandTest extends TaskManagerGuiTest {
     @Test
     public void add() {
@@ -68,6 +70,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
     
+    //@@author A0153467Y
     @Test
     public void add_recurring_task() {
         TestTask taskToAdd = td.recur;
@@ -90,6 +93,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("add testRecurring r/");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
+    //@@author
       
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
@@ -101,6 +105,29 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+    
+    //@@author A0141052Y
+    private void assertAddRecurringSuccess(int numTimes, TestTask taskToAdd, TestTask... currentList) {
+        commandBox.runCommand(taskToAdd.getAddCommand() + " r/" + numTimes);
+        TestTask recurringTask = new TestTask(taskToAdd); // insulate the passed TestTask from changes
+        
+        TestTask[] expectedList = currentList.clone();
+        
+        //confirm that instances have same distance and the other properties are same
+        for (int i = 0; i <= numTimes; i++) {
+            DateTime newOpenTime = DateTime.fromDateTimeOffset(taskToAdd.getOpenTime(), i * 7, ChronoUnit.DAYS);
+            DateTime newCloseTime = DateTime.fromDateTimeOffset(taskToAdd.getCloseTime(), i * 7, ChronoUnit.DAYS);
+            
+            recurringTask.setOpenTime(newOpenTime);
+            recurringTask.setCloseTime(newCloseTime);
+            
+            TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
+            assertMatching(taskToAdd, addedCard);
+            
+            expectedList = TestUtil.addTasksToList(expectedList, taskToAdd);
+            assertTrue(taskListPanel.isListMatching(expectedList));
+        }
     }
 
 }
