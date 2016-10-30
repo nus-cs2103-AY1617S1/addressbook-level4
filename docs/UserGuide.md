@@ -142,15 +142,15 @@ Adds a new task to the todo or deadlines list, or a new event to the event calen
 Examples:
 
 * `add study for test`<br>
-  Adds a `todo` task with NAME as `study for test`.<br>
+  Adds a `todo` task with `NAME` as `study for test`.<br>
   <img src="images/UItodo.png" width="900">
 
 * `add math assignment 17 Nov 2pm`<br>
-  Adds a `deadline` task with NAME as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.<br>
+  Adds a `deadline` task with `NAME` as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.<br>
   <img src="images/UIdeadline.png" width="900">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
-  Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.<br>
+  Adds an `event` task with `NAME` as `walk dog`, DATE as `5 Nov 2016`, `START\_TIME` as `17:00`, `END\_TIME` as `18:00`.<br>
   <img src="images/UIevent.png" width="900">
   
 
@@ -182,7 +182,7 @@ Example:
 
 * `view`<br>
   `edit d2 math assignment2 15 Nov 2016`<br>
-  Edits the 2nd task under the deadline tasks section. Change the NAME to `math assignment2` and DATE to `15 Nov 2016`.<br>
+  Edits the 2nd task under the deadline tasks section. Changes the `NAME` to `math assignment2` and `DATE` to `15 Nov 2016`.<br>
   <img src="images/UIedit.png" width="900">
 
 <br>
@@ -205,7 +205,7 @@ Examples:
   
 * `view 5 Nov 2016`<br>
   `delete e1`<br>
-  Deletes the 1st task under the events section for 5 Nov 2016 as shown by the `view DATE` command.<br>
+  Deletes the 1st task under the events section for `5 Nov 2016` as shown by the `view DATE` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBeforeDate.png" width="900"><br>
@@ -304,13 +304,11 @@ Example:
 <br>
 
 > Note that for undo and redo, you are only able to undo/redo commands that changes the task manager. eg. add, delete
-Commands that does not affect the task manager cannot be undone/redone. eg. view, help <br>
+Commands that do not affect the task manager cannot be undone/redone. eg. view, help <br>
 
->If you have undone actions and you enter a new valid command that is undoable, the new task manager will be the latest 
-and other undone actions that were not redone will be lost.<br>
+>If you have undone actions and you enter a new valid command that is undoable, previous undone actions that were not redone will be lost.<br>
 
->Note that undoing/redoing does not change the view status back to the one before undoing/redoing, it will stay at the current status
-until you give a different command that changes the view status.
+>Note that undoing/redoing does not change the view status back to the one before undoing/redoing, it will stay at the current status until you enter a different command that changes the view status.
 
 <br>
 <!-- @@author A0135793W -->
