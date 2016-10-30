@@ -9,6 +9,7 @@ import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.commons.events.model.TaskModifiedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.tag.UniqueTagList;
@@ -132,11 +133,17 @@ public class ModelManager extends ComponentManager implements Model {
     public TaskCounter getTaskCounter(){
     	return taskCounter;
     }
+    /** Raises an event to indicate a task has been modified */
+    private void indicateTaskModified(ReadOnlyTask task) {
+    	raise(new TaskModifiedEvent(task));
+    }
     
     /** Raises an event to indicate the model has changed */
     private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
+    
+    
     //@@author A0144919W
     @Override
     public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
@@ -161,6 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
+        indicateTaskModified(task);
     }
     //@@author A0142102E
     @Override
@@ -185,6 +193,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         addToUndoStack(UndoCommand.UPD_CMD_ID, null, taskToUpdate, originalTask);
         clearRedoStack();
+        indicateTaskModified(taskToUpdate);
     }
 
     @Override

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.TickEvent;
+import seedu.tasklist.commons.events.model.TaskModifiedEvent;
 import seedu.tasklist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
@@ -39,6 +41,12 @@ public class TaskListPanel extends UiPart {
 	@Subscribe
 	public void tickEventHandler(TickEvent te){
 		personListView.refresh();
+	}
+	
+	@Subscribe
+	public void taskModifiedEventHandler(TaskModifiedEvent tme){
+		personListView.scrollTo(tme.task);
+		personListView.getSelectionModel().select(tme.task);
 	}
 	//@@author
 	@Override
