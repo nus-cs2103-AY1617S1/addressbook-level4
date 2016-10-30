@@ -32,10 +32,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         
         //add event task
-        TestTask[] currentlist = td.getTypicalTasks();
         TestTask eventTaskToAdd = td.lunch;
         assertAddSuccess(eventTaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, eventTaskToAdd);
+        
+   /*     //add deadline task
+        TestTask deadlineTaskToAdd = td.report;
+        assertAddSuccess(deadlineTaskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, deadlineTaskToAdd);*/
 
         //add to empty list
         commandBox.runCommand("clear");

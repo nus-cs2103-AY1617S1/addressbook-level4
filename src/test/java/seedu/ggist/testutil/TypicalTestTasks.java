@@ -17,7 +17,7 @@ import seedu.ggist.model.task.*;
 //@@author A0147994J
 public class TypicalTestTasks {
     
-    public static TestTask floating, deadline, event, dance, soccer, lunch;
+    public static TestTask floating, deadline, event, dance, soccer, lunch, report;
 
     Date currentDate = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
@@ -60,6 +60,12 @@ public class TypicalTestTasks {
                     .withEndDate(startDateForTask)
                     .withEndTime("2pm")
                     .withPriority("low").build();
+            report = new TaskBuilder().withName("submit report")
+                    .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+                    .withEndDate(startDateForTask)
+                    .withEndTime("6pm")
+                    .withPriority("med").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
