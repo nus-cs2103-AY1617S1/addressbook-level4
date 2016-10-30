@@ -14,44 +14,44 @@ import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class CommandHistory {
 	
-	private static Stack<String> prevCmd = new Stack<String>();
-	private static Stack<String> nextCmd = new Stack<String>();
+	private static Stack<String> prevCommand = new Stack<String>();
+	private static Stack<String> nextCommand = new Stack<String>();
 	private static Stack<Command> executedCommands = new Stack<Command>();
     private static Stack<Command> revertedCommands = new Stack<Command>();
-	private static ReadOnlyTask lastModTask;
+	private static ReadOnlyTask lastModifiedTask = null;
     private static Set<String> filteredKeywords = null;
 //    private static String storageFilePath;
 	
-	public static void addPrevCmd(String commandText) {
-		while (!nextCmd.isEmpty()) {
-			prevCmd.push(nextCmd.pop());
+	public static void addPrevCommand(String commandText) {
+		while (!nextCommand.isEmpty()) {
+			prevCommand.push(nextCommand.pop());
 		}
-		prevCmd.push(commandText);
+		prevCommand.push(commandText);
 	}
 	
-	public static void addNextCmd(String commandText) {
-		nextCmd.push(commandText);
+	public static void addNextCommand(String commandText) {
+		nextCommand.push(commandText);
 	}
 	
 	
-	public static String getPrevCmd() {
+	public static String getPrevCommand() {
 		String result = "";
-		if (prevCmd.size() > 0) {
-			if (prevCmd.size() == 1) {
-				result = prevCmd.peek();
+		if (prevCommand.size() > 0) {
+			if (prevCommand.size() == 1) {
+				result = prevCommand.peek();
 			} else {
-				result = prevCmd.pop();
-				nextCmd.push(result);
+				result = prevCommand.pop();
+				nextCommand.push(result);
 			}
 		}
 		return result;
 	}
 
-	public static String getNextCmd() {
+	public static String getNextCommand() {
 		String result = "";
-		if (!nextCmd.isEmpty()) {
-			result = nextCmd.pop();
-			prevCmd.push(result);
+		if (!nextCommand.isEmpty()) {
+			result = nextCommand.pop();
+			prevCommand.push(result);
 		}
 		return result;
 	}
@@ -82,23 +82,31 @@ public class CommandHistory {
 		executedCommands.clear();
 	}
 	
+    public static void flushRevertedCommands() {
+        revertedCommands.clear();
+    }
+	
     public static void flushPrevCommands() {
-        prevCmd.clear();
+        prevCommand.clear();
     }
     
     public static void flushNextCommands() {
-        nextCmd.clear();
+        nextCommand.clear();
     }
 	
-	public static void setModTask(ReadOnlyTask task) {
-	    lastModTask = task;
+	public static void setModifiedTask(ReadOnlyTask task) {
+	    lastModifiedTask = task;
 	}
 	
-    public static ReadOnlyTask getModTask() throws TaskNotFoundException {
-        if (lastModTask == null) {
+    public static void resetModifiedTask() {
+        lastModifiedTask = null;
+    }
+	
+    public static ReadOnlyTask getModifiedTask() throws TaskNotFoundException {
+        if (lastModifiedTask == null) {
             throw new TaskNotFoundException(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
         } else {
-            return lastModTask;
+            return lastModifiedTask;
         }
     }
     
@@ -108,5 +116,18 @@ public class CommandHistory {
     
     public static void setFilteredKeyWords(Set<String> keywords) {
         filteredKeywords = keywords;
+    }
+
+    public static void resetFilteredKeyWords() {
+        filteredKeywords = null;
+    }
+    
+    public static void resetAll() {
+        resetFilteredKeyWords();
+        resetModifiedTask();
+        flushExecutedCommands();
+        flushNextCommands();
+        flushPrevCommands();
+        flushRevertedCommands();
     }
 }

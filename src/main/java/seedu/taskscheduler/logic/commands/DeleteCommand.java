@@ -1,8 +1,6 @@
 package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.Messages;
-import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
-import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,6 +23,10 @@ public class DeleteCommand extends Command {
     private final int targetIndex;
     private Task taskToDelete;
 
+    public DeleteCommand() {
+        this(EMPTY_INDEX);
+    } 
+    
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -33,21 +35,13 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        taskToDelete = (Task) lastShownList.get(targetIndex - 1);
-
         try {
+            taskToDelete = (Task) getTaskFromIndexOrLastModified(targetIndex);
         	model.deleteTask(taskToDelete);
-            CommandHistory.setModTask(null);
+        	CommandHistory.resetModifiedTask();
         	CommandHistory.addExecutedCommand(this);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        } catch (TaskNotFoundException tnfe) {
+            return new CommandResult(tnfe.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
@@ -57,8 +51,7 @@ public class DeleteCommand extends Command {
     public CommandResult revert() {
         try {
             model.addTask(taskToDelete);
-//            model.insertTask(targetIndex, taskToDelete);
-            CommandHistory.setModTask(taskToDelete);
+            CommandHistory.setModifiedTask(taskToDelete);
             CommandHistory.addRevertedCommand(this);
         } catch (DuplicateTaskException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;

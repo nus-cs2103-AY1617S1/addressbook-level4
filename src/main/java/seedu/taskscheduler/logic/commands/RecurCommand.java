@@ -48,7 +48,7 @@ public class RecurCommand extends Command {
     }
     
     public RecurCommand(String args) {
-        this(-1, args);
+        this(EMPTY_INDEX, args);
     }
     
     @Override

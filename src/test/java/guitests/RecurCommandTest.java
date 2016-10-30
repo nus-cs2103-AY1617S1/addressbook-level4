@@ -7,7 +7,6 @@ import java.util.Date;
 import org.junit.Test;
 
 import seedu.taskscheduler.commons.core.Messages;
-import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.testutil.TestTask;
 import seedu.taskscheduler.testutil.TestUtil;
 
@@ -19,7 +18,6 @@ public class RecurCommandTest extends TaskSchedulerGuiTest {
     public void add() {
         
         //invalid recur task
-        CommandHistory.setModTask(null);
         commandBox.runCommand("recur every 3 days until next week");
         assertResultMessage(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
         

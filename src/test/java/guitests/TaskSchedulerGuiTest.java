@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.taskscheduler.TestApp;
 import seedu.taskscheduler.commons.core.EventsCenter;
+import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.model.TaskScheduler;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.testutil.TestUtil;
@@ -70,6 +71,7 @@ public abstract class TaskSchedulerGuiTest {
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
+        CommandHistory.resetAll();
     }
 
     /**

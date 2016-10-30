@@ -26,9 +26,14 @@ public class TagCommand extends Command {
     
     private Task task;
     private UniqueTagList tagList;
+    
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructors using raw values.
      */
+    public TagCommand(String args) {
+        this(EMPTY_INDEX, args);
+    }
+    
     public TagCommand(int targetIndex, String args) {
         this.targetIndex = targetIndex;
         this.args = args;
@@ -42,7 +47,7 @@ public class TagCommand extends Command {
             tagList = task.getTags();
             model.tagTask(task, extractTagsFromArgs(args));
             CommandHistory.addExecutedCommand(this);
-            CommandHistory.setModTask(task);
+            CommandHistory.setModifiedTask(task);
             
         } catch (TaskNotFoundException | IllegalValueException ex) {
             return new CommandResult(ex.getMessage());
@@ -55,7 +60,7 @@ public class TagCommand extends Command {
         try {
             model.tagTask(task, tagList);
             CommandHistory.addRevertedCommand(this);
-            CommandHistory.setModTask(task);
+            CommandHistory.setModifiedTask(task);
         } catch (TaskNotFoundException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
         }
@@ -64,7 +69,7 @@ public class TagCommand extends Command {
     
     public UniqueTagList extractTagsFromArgs(String args) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : args.split(" ")) {
+        for (String tagName : args.split("\\s+")) {
             tagSet.add(new Tag(tagName));
         }
         return new UniqueTagList(tagSet);

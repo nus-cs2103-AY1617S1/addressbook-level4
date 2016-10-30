@@ -37,7 +37,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            CommandHistory.setModTask(toAdd);
+            CommandHistory.setModifiedTask(toAdd);
             CommandHistory.addExecutedCommand(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.deleteTask(toAdd);
-            CommandHistory.setModTask(null);
+            CommandHistory.resetModifiedTask();
             CommandHistory.addRevertedCommand(this);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";

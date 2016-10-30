@@ -8,7 +8,6 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.logic.commands.Command;
-import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.testutil.TestTask;
 import seedu.taskscheduler.testutil.TestUtil;
 import seedu.taskscheduler.ui.TaskCard;
@@ -23,8 +22,6 @@ public class ReplaceCommandTest extends TaskSchedulerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         int indexToReplace; 
         TestTask taskToCopy;
-        
-        CommandHistory.setModTask(null);
         
         //invalid command
         commandBox.runCommand("replace eee " + td.ida.getTaskString());

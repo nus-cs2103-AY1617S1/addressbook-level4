@@ -45,6 +45,11 @@ public class EditCommand extends Command {
     /**
      * Convenience constructor using raw values.
      */
+
+    public EditCommand(String args) {
+        this(EMPTY_INDEX, args);
+    }
+    
     public EditCommand(int targetIndex, String args) {
         this.targetIndex = targetIndex;
         this.args = args;
@@ -62,7 +67,7 @@ public class EditCommand extends Command {
             newTask = assignParamsToTask(oldTask);
             model.replaceTask(oldTask, newTask);
             CommandHistory.addExecutedCommand(this);
-            CommandHistory.setModTask(newTask);
+            CommandHistory.setModifiedTask(newTask);
             
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -77,7 +82,7 @@ public class EditCommand extends Command {
         try {
             model.replaceTask(newTask, oldTask);
             CommandHistory.addRevertedCommand(this);
-            CommandHistory.setModTask(oldTask);
+            CommandHistory.setModifiedTask(oldTask);
         } catch (DuplicateTaskException e) {
             assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;
         } catch (TaskNotFoundException e) {

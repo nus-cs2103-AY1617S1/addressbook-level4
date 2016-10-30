@@ -89,9 +89,9 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleKeyPressedEvent(KeyEvent keyEvent) {
     	if (keyEvent.getCode() == KeyCode.DOWN) {
-    		commandTextField.setText(CommandHistory.getNextCmd());
+    		commandTextField.setText(CommandHistory.getNextCommand());
     	} else if (keyEvent.getCode() == KeyCode.UP) {
-    		commandTextField.setText(CommandHistory.getPrevCmd());
+    		commandTextField.setText(CommandHistory.getPrevCommand());
     	}
     }
     //@@author

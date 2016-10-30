@@ -18,10 +18,9 @@ public class TagCommandParser extends CommandParser {
         final Matcher indexMatcher = INDEX_COMMAND_FORMAT.matcher(args);
 
         if (!indexMatcher.matches()) {
-            return new TagCommand(-1,args);
+            return new TagCommand(args);
         } else {
             int index = Integer.parseInt(indexMatcher.group("index"));
-            assert index >= 0;
             String newArgs = indexMatcher.group("arguments").trim();
             return new TagCommand(index, newArgs);
         }

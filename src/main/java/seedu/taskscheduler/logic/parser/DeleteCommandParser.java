@@ -1,12 +1,9 @@
 package seedu.taskscheduler.logic.parser;
 
-import static seedu.taskscheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.Optional;
 
 import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.DeleteCommand;
-import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
 //@@author A0148145E
 
@@ -26,8 +23,7 @@ public class DeleteCommandParser extends CommandParser {
 
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new DeleteCommand();
         }
 
         return new DeleteCommand(index.get());

@@ -1,9 +1,7 @@
 package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.Messages;
-import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -27,29 +25,26 @@ public class UnmarkCommand extends Command{
     private final int targetIndex;
     private Task taskToUnmark;
     
+    public UnmarkCommand() {
+        this(EMPTY_INDEX);
+    }
+    
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
     
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
         
-        taskToUnmark = (Task)lastShownList.get(targetIndex - 1);
-
         try {
+            taskToUnmark = (Task) getTaskFromIndexOrLastModified(targetIndex);
             model.unmarkTask(taskToUnmark);
             CommandHistory.addExecutedCommand(this);
+            CommandHistory.setModifiedTask(taskToUnmark);
         } catch (IllegalValueException npe) {
             return new CommandResult(MESSAGE_UNMARK_TASK_FAIL);
-        } catch (TaskNotFoundException e) {
-            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        } catch (TaskNotFoundException tnfe) {
+            return new CommandResult(tnfe.getMessage()); 
         }
         return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark)); 
     }
@@ -59,6 +54,7 @@ public class UnmarkCommand extends Command{
         try {
             model.markTask(taskToUnmark);
             CommandHistory.addRevertedCommand(this);
+            CommandHistory.setModifiedTask(taskToUnmark);
         } catch (IllegalValueException e) {
             return new CommandResult(MarkCommand.MESSAGE_MARK_TASK_FAIL);
         } catch (TaskNotFoundException pnfe) {

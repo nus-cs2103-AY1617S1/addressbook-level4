@@ -30,8 +30,15 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) {
+        return execute(commandText, true);
+    }
+    
+    @Override
+    public CommandResult execute(String commandText, boolean savePrevCommand) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        CommandHistory.addPrevCmd(commandText);
+        if (savePrevCommand) {
+            CommandHistory.addPrevCommand(commandText);
+        }
         Command command = parser.parseCommand(commandText);
         command.setData(model);
         return command.execute();

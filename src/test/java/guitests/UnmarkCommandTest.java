@@ -21,10 +21,10 @@ public class UnmarkCommandTest extends TaskSchedulerGuiTest {
     
     @Test
     public void unmark() {
-
+        
         //unmark without index given
         commandBox.runCommand("unmark");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        assertResultMessage(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
         
         //mark the first in the list
         TestTask[] currentList = td.getTypicalTasks();

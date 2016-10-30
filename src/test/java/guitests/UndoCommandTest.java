@@ -7,7 +7,6 @@ import org.junit.Test;
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.logic.commands.ClearCommand;
 import seedu.taskscheduler.logic.commands.Command;
-import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.logic.commands.UndoCommand;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.testutil.TestTask;
@@ -21,7 +20,6 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
     public void undo() {
 
 		//clear mutate command history
-		CommandHistory.flushExecutedCommands();
         TestTask[] currentList = td.getTypicalTasks();
         ReadOnlyTask task = td.event;
         String commandKey;

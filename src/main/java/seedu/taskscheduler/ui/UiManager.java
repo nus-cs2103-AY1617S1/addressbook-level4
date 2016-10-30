@@ -13,11 +13,18 @@ import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
+import seedu.taskscheduler.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.taskscheduler.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.Logic;
+import seedu.taskscheduler.logic.commands.Command;
+import seedu.taskscheduler.logic.commands.CommandHistory;
+import seedu.taskscheduler.logic.commands.FindCommand;
 import seedu.taskscheduler.model.UserPrefs;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -117,6 +124,13 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
+
+    @Subscribe
+    private void handleTagPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logic.execute("find " + event.getNewSelection().tagName, false);
+    }
+    
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

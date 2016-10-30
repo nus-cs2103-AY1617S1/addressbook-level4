@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.taskscheduler.commons.core.EventsCenter;
+import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
@@ -75,6 +76,7 @@ public class LogicManagerTest {
         latestSavedTaskScheduler = new TaskScheduler(model.getTaskScheduler()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
+        CommandHistory.resetAll();
     }
 
     @After
@@ -174,9 +176,6 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name from 010116 to " + invalidDate + " at valid, address", 
                 String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
-//        assertCommandBehavior(
-//                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 
     @Test
@@ -295,7 +294,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(Messages.MESSAGE_PREV_TASK_NOT_FOUND);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
