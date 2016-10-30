@@ -21,6 +21,26 @@ public class Sort {
         deadline = new ArrayList<GenericMemory>();
         event = new ArrayList<GenericMemory>();
         splitMemory(list);
+        
+        joinList(list);
+    }
+    
+    //@@author A0143378Y
+    //Reform list by adding Event, Deadline, Task items in sorted order
+    private static void joinList(ArrayList<GenericMemory> list) {
+        list.removeAll(list);
+        assert list.size() == 0;
+        for (int i = 0; i < event.size(); i++) { 
+            list.add(event.get(i));
+        }
+        
+        for (int i = 0; i < deadline.size(); i++) { 
+            list.add(deadline.get(i));
+        }
+        
+        for (int i = 0; i < task.size(); i++) { 
+            list.add(task.get(i));
+        }
     }
     
     //@@author A0143378Y
