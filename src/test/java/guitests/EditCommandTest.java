@@ -31,7 +31,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         type = " start time";
         taskToBeReplaced = currentList[targetIndex - 1];
         taskToBeReplaced.setStartTime(new TaskTime(newContent));
-      //  assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
+        assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
         
         //edit priority
         targetIndex = 1;
@@ -39,7 +39,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         type = " priority";
         taskToBeReplaced = currentList[targetIndex - 1];
         taskToBeReplaced.setPriority(new Priority(newContent));
-     //   assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
+        assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
         
         //invalid command format
         commandBox.runCommand("edit task 1 wrong");
