@@ -65,6 +65,7 @@ public class EditCommand extends Command {
         this.floating = floating;
         this.targetIndex = targetIndex;
         this.removePriority = removePriority;
+        this.isUndoable=true;
     }
         
     /**
@@ -84,6 +85,8 @@ public class EditCommand extends Command {
                       String priority,
                       Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
+        if(tags.isEmpty())
+        	tagIsEmpty = true;
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
@@ -98,36 +101,21 @@ public class EditCommand extends Command {
         this.isUndoable = true;
         floating = false;//since if range constructor is used, user would have keyed in a timing 
         this.removePriority = removePriority; 
+        this.isUndoable=true;
     }
     
     public ReadOnlyTask getTask() {
         return toEditWith;
     }
-
-    //@@author A0141128R
-    @Override
-    public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        // Check if target index is valid
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        
-        // Retrieve the task and check if done.
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        if (taskToEdit.checkDone().value) {
-            indicateAttemptToExecuteIncorrectCommand();
-        	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
-        }
-        
-        //write a method for it
-        //check for changes in detail and append
+    
+    //check for changes in detail and append
+    public void editDetails(ReadOnlyTask taskToEdit){
         if(toEditWith.getDetail().toString().equals(""))
         	toEditWith.setDetail(taskToEdit.getDetail());
-        
-        //check if changing to floating task
+        }
+    //check for changes in date and time and append
+    public void editDateTime(ReadOnlyTask taskToEdit){
+    	//check if changing to floating task
         if(floating)
         	toEditWith.setFloating();
         //check for if time is empty and append and check if have changes in date otherwise append old date
@@ -139,30 +127,65 @@ public class EditCommand extends Command {
         //time entered only
         //but if single date and time is entered, it bypass the check and fails
         else if(!(toEditWith.getDueByTime().timeNotEntered()) && !(toEditWith.getDueByDate().isRange())){
-        	//need put justin method isFLoating after merging
         	toEditWith.setDueByDate(taskToEdit.getDueByDate());
         	}
         //date entered only
         else if(!(toEditWith.getDueByDate().dateNotEntered()) && toEditWith.getDueByTime().timeNotEntered()){
         	toEditWith.setDueByTime(taskToEdit.getDueByTime());
+        			}
         		}
+        	}
+   
+    //check if priority is empty and append with old details
+    public void editPriority(ReadOnlyTask taskToEdit){
+    	if(toEditWith.getPriority().getValue().equals("")) 
+            toEditWith.getPriority().setPriority(taskToEdit.getPriority().getValue()); 
+          //remove priority 
+          if(removePriority) 
+            toEditWith.getPriority().setPriority(""); 
+    }
+    
+    //append tags 
+    public void editTags(ReadOnlyTask taskToEdit){
+    	  if(tagIsEmpty) 
+    		  toEditWith.setTags(taskToEdit.getTags()); 
+    }
+    
+    //@@author A0141128R
+    @Override
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        //slap these
+        // Check if target index is valid
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+       
+        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        // Check if task is done.
+        if (taskToEdit.checkDone().value) {
+            indicateAttemptToExecuteIncorrectCommand();
+        	return new CommandResult(Messages.MESSAGE_EDIT_TASK_IS_DONE_ERROR);
         }
         
+        //slap these methods
+        //check for changes in detail and append
+        editDetails(taskToEdit);
+        //check for date and time and append
+        editDateTime(taskToEdit);
         //check if priority is empty and append with old details
-        if(toEditWith.getPriority().getValue() .equals(""))
-        	toEditWith.getPriority().setPriority(taskToEdit.getPriority().getValue());
-        //remove priority
-        if(removePriority)
-        	toEditWith.getPriority().setPriority("");
-        //append tags
-        if(tagIsEmpty)
-        	toEditWith.setTags(taskToEdit.getTags());
+        editPriority(taskToEdit);
+        //append tags 
+        editTags(taskToEdit);
+        
         
         try {
             model.editTask(taskToEdit, toEditWith);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
-        }
+        }  
+      
         
     	return new CommandResult(MESSAGE_EDITED_TASK_SUCCESS);
     }

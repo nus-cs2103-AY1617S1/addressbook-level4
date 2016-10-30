@@ -3,7 +3,7 @@ package seedu.cmdo.logic.commands;
 import java.util.Set;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in CMDo whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
