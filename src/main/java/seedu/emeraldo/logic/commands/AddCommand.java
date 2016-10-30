@@ -5,6 +5,7 @@ import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.tag.UniqueTagList;
 import seedu.emeraldo.model.task.*;
 
+import java.time.DateTimeException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,9 +33,10 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
+     * @throws DateTimeException if any of the day does not match the month and year
      */
     public AddCommand(String description, String dateTime, Set<String> tags)
-            throws IllegalValueException {
+            throws IllegalValueException, DateTimeException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));

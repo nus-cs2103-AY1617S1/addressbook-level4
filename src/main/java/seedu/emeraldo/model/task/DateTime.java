@@ -51,7 +51,7 @@ public class DateTime {
      *
      * @throws IllegalValueException if given date and time string is invalid.
      */
-    public DateTime(String dateTime) throws IllegalValueException {
+    public DateTime(String dateTime) throws IllegalValueException, DateTimeException{
         assert dateTime != null;
         final Matcher matcher = DateTimeParser.DATETIME_VALIDATION_REGEX.matcher(dateTime);
         

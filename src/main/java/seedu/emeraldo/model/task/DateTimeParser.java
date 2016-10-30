@@ -1,5 +1,6 @@
 package seedu.emeraldo.model.task;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.regex.Matcher;
@@ -69,6 +70,11 @@ public class DateTimeParser {
             );
 
 	private static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
+
+	private static final String MESSAGE_INVALID_TIME = "Invalid inputs for time!";
+
+	private static final String MESSAGE_INVALID_DATE = "Invalid inputs for date! Check that the day, month and year matches\n"
+			+ "Possible mistakes: having 31 as the day for a month with 30 days, e.g. 31 Nov";
     
     /*
      * TODO: LocalDate.of() throws DateTimeException for out of range field and invalid
@@ -76,7 +82,8 @@ public class DateTimeParser {
      * 
      * Format the date for creation of LocalDate object
      */
-    public static LocalDate valueDateFormatter(Matcher matcher, String keyword) throws IllegalValueException{
+    public static LocalDate valueDateFormatter(Matcher matcher, String keyword)
+    		throws IllegalValueException, DateTimeException{
         
         String day = matcher.group("day");
         String month = matcher.group("monthInNumbers");
@@ -113,7 +120,11 @@ public class DateTimeParser {
         monthParsed = Integer.parseInt(month);
         dayParsed = Integer.parseInt(day);
         
-        return LocalDate.of(yearParsed, monthParsed, dayParsed);
+        try {
+        	return LocalDate.of(yearParsed, monthParsed, dayParsed);
+        } catch (DateTimeException dte){
+        	throw new DateTimeException(MESSAGE_INVALID_DATE);
+        }
     }
 
     /*
@@ -122,12 +133,11 @@ public class DateTimeParser {
      * 
      * Format the time for creating a LocalTime object
      */
-    public static LocalTime valueTimeFormatter(Matcher matcher, String keyword){
+    public static LocalTime valueTimeFormatter(Matcher matcher, String keyword) throws DateTimeException{
         
         String hour = matcher.group("hour");
         String minute = matcher.group("minute");
         String timePostFix = matcher.group("timePostFix");
-System.out.println(hour + " " + minute + " " + timePostFix);
         
         int hourParsed;
         int minuteParsed;
@@ -143,8 +153,11 @@ System.out.println(hour + " " + minute + " " + timePostFix);
         
         if(!timePostFix.isEmpty())
         	hourParsed = convert12HoursFormatTo24HoursFormat(hourParsed, timePostFix);
-        
-        return LocalTime.of(hourParsed, minuteParsed);
+        try {
+        	return LocalTime.of(hourParsed, minuteParsed);
+        } catch(DateTimeException dte) {
+        	throw new DateTimeException(MESSAGE_INVALID_TIME);
+        }
     }
     
     /*

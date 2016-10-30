@@ -7,6 +7,7 @@ import seedu.emeraldo.logic.commands.*;
 import static seedu.emeraldo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.emeraldo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.time.DateTimeException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -125,6 +126,8 @@ public class Parser {
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte){
+        	return new IncorrectCommand(dte.getMessage());
         }
     }
 
