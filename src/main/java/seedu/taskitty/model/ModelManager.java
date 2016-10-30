@@ -113,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {        
         taskManager.addTask(task);
         indicateTaskManagerChanged();
+        taskManager.sortList();
     }    
    
     //@@author A0130853L
@@ -122,6 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
             taskManager.markTaskAsDoneTask(targetTask);
         }
     	indicateTaskManagerChanged();
+    	taskManager.sortList();
     }
     
     /**
@@ -139,6 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
+        taskManager.sortList();
     }
    	
     //@@author A0139052L   	
