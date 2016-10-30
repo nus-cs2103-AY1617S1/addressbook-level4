@@ -119,6 +119,38 @@ public class ActivityListPanel extends UiPart {
             taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    //@@author A0139515A
+    public void scrollToFloating(ReadOnlyActivity floatingTask) {
+    	Platform.runLater(() -> {
+            clearSelection();
+            floatingTaskListView.scrollTo(floatingTask);    
+            floatingTaskListView.getSelectionModel().select(floatingTask);
+        });
+    }
+    
+    public void scrollToTask(ReadOnlyActivity task) {
+    	Platform.runLater(() -> {
+            clearSelection();
+    		taskListView.scrollTo(task);
+    		taskListView.getSelectionModel().select(task);
+    	});
+    }
+    
+    public void scrollToEvent(ReadOnlyActivity event) {
+    	Platform.runLater(() -> {
+            clearSelection();
+            eventListView.scrollTo(event); 
+            eventListView.getSelectionModel().select(event);
+        });
+    }
+    
+    public void clearSelection() {
+    	 eventListView.getSelectionModel().clearSelection();
+    	 taskListView.getSelectionModel().clearSelection();
+    	 floatingTaskListView.getSelectionModel().clearSelection();
+    }
+    
 
     class TaskListViewCell extends ListCell<ReadOnlyActivity> {
 

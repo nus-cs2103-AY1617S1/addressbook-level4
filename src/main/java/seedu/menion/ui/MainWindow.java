@@ -110,10 +110,11 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
+        activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), 
+        		logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, activityListPanel);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

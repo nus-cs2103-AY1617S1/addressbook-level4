@@ -12,6 +12,8 @@ import seedu.menion.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.menion.commons.util.FxViewUtil;
 import seedu.menion.logic.Logic;
 import seedu.menion.logic.commands.*;
+import seedu.menion.model.activity.Activity;
+import seedu.menion.model.activity.ReadOnlyActivity;
 
 import java.util.logging.Logger;
 
@@ -23,7 +25,8 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
-
+    
+    private ActivityListPanel activityListPanel;
     private Logic logic;
 
     @FXML
@@ -31,16 +34,18 @@ public class CommandBox extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+            ResultDisplay resultDisplay, Logic logic, ActivityListPanel activityListPanel) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(resultDisplay, logic, activityListPanel);
         commandBox.addToPlaceholder();
+
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    public void configure(ResultDisplay resultDisplay, Logic logic, ActivityListPanel activityListPanel) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        this.activityListPanel = activityListPanel;
         registerAsAnEventHandler(this);
     }
 
@@ -79,8 +84,27 @@ public class CommandBox extends UiPart {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+        highlightMostRecentlyChangedActivity();
     }
-
+    
+    //@@author A139515A
+    /**
+     * Highlight the most recently changed activity to indicate changes are made to it
+     */
+    public void highlightMostRecentlyChangedActivity() {
+    	ReadOnlyActivity activityToHighlight = logic.getMostRecentUpdatedActivity();
+    	
+    	if (activityToHighlight.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+    		activityListPanel.scrollToFloating(activityToHighlight);
+    	}
+    	else if (activityToHighlight.getActivityType().equals(Activity.TASK_TYPE)) {
+    		activityListPanel.scrollToTask(activityToHighlight);
+    	}
+    	else {
+    		activityListPanel.scrollToEvent(activityToHighlight);
+    	}
+    }
+    //@@author
 
     /**
      * Sets the command box style to indicate a correct command.
