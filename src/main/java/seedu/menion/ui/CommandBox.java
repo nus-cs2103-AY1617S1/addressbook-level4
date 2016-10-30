@@ -93,15 +93,19 @@ public class CommandBox extends UiPart {
      */
     public void highlightMostRecentlyChangedActivity() {
     	ReadOnlyActivity activityToHighlight = logic.getMostRecentUpdatedActivity();
-    	
-    	if (activityToHighlight.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
-    		activityListPanel.scrollToFloating(activityToHighlight);
-    	}
-    	else if (activityToHighlight.getActivityType().equals(Activity.TASK_TYPE)) {
-    		activityListPanel.scrollToTask(activityToHighlight);
+    	if (activityToHighlight != null) {
+	    	if (activityToHighlight.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+	    		activityListPanel.scrollToFloating(activityToHighlight);
+	    	}
+	    	else if (activityToHighlight.getActivityType().equals(Activity.TASK_TYPE)) {
+	    		activityListPanel.scrollToTask(activityToHighlight);
+	    	}
+	    	else if (activityToHighlight.getActivityType().equals(Activity.EVENT_TYPE)) {
+	    		activityListPanel.scrollToEvent(activityToHighlight);
+	    	}
     	}
     	else {
-    		activityListPanel.scrollToEvent(activityToHighlight);
+    		activityListPanel.clearSelection();
     	}
     }
     //@@author

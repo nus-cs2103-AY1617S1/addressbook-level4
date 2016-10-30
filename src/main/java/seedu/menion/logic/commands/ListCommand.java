@@ -136,7 +136,10 @@ public class ListCommand extends Command {
     
 	@Override
 	public CommandResult execute() {
-
+		assert model != null;
+		
+		model.updateRecentChangedActivity(null);
+		
 		this.listType = checkListType(this.listArgument);
 
 		switch (this.listType) {

@@ -27,7 +27,7 @@ public class ActivityListPanelHandle extends GuiHandle {
     public static final String TASK_CARD_PANE_ID = "#taskCardPane";
     public static final String FLOATING_CARD_PANE_ID = "#floatingTaskCardPane";
     public static final String EVENT_CARD_PANE_ID = "#eventCardPane";
-    private static final String TASK_LIST_VIEW_ID = "#activityListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
     private static final String FLOATING_LIST_VIEW_ID = "#floatingTaskListView";
     private static final String EVENT_LIST_VIEW_ID = "#eventListView";
 
