@@ -141,7 +141,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleSwapTaskListEvent(SwapTaskListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.swapTaskList();
+        mainWindow.swapTaskList(event.getIsDoneList());
     }
     
     //@@author

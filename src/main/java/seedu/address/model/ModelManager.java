@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.getUniqueUndoneTaskList().setInternalList(list);
         filteredUndoneTasks = new FilteredList<>(taskManager.getUndoneTasks());
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new SwapTaskListEvent());
+        EventsCenter.getInstance().post(new SwapTaskListEvent(false));
     }
     
     @Override
@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.getUniqueDoneTaskList().setInternalList(list);
         filteredDoneTasks = new FilteredList<>(taskManager.getDoneTasks());
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new SwapTaskListEvent());
+        EventsCenter.getInstance().post(new SwapTaskListEvent(true));
     }
 
     @Override

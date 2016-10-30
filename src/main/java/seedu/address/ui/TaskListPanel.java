@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.item.ReadOnlyTask;
+import seedu.address.model.item.Task;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -122,6 +123,18 @@ public class TaskListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
             }
+        }
+    }
+
+    public void reloadLists(ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask>doneTaskList, boolean isDoneList) {
+        this.undoneTaskList = undoneTaskList;
+        this.doneTaskList = doneTaskList;
+        
+        if (isDoneList) {
+            setConnections(doneTaskList);
+        }
+        else {
+            setConnections(undoneTaskList);
         }
     }
 

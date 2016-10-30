@@ -35,7 +35,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private TaskListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -121,7 +121,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         //do not show the browser area
         //browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, inputHistory);
@@ -129,9 +129,8 @@ public class MainWindow extends UiPart {
     }
     
     //@@author A0093960X
-    public void swapTaskList() {
-        personListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
-        System.out.println(logic.getFilteredDoneTaskList());
+    public void swapTaskList(boolean isDoneList) {
+        taskListPanel.reloadLists(logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList(), isDoneList);
     }
     
     //@@author
@@ -207,7 +206,7 @@ public class MainWindow extends UiPart {
     }
 
     public TaskListPanel getPersonListPanel() {
-        return this.personListPanel;
+        return this.taskListPanel;
     }
 
     public void loadPersonPage(ReadOnlyTask person) {
