@@ -24,9 +24,12 @@ public class AutocompleteSource {
 		
 		for (Class<?> parser : parserTypes) {
 			try {
-				String[] commandWord = (String[]) parser.getField("COMMAND_WORD").get(null);
-				for(int i=0; i<commandWord.length; i++){
-					commandWords.add(commandWord[i]);
+				String commandWord = (String) parser.getField("COMMAND_WORD").get(null);
+				String altCommandWord = (String) parser.getField("ALTERNATE_COMMAND_WORD").get(null);
+				
+				commandWords.add(commandWord);
+				if (altCommandWord != null) {
+				    commandWords.add(altCommandWord);
 				}
 				
 			} catch (NoSuchFieldException ex) {
