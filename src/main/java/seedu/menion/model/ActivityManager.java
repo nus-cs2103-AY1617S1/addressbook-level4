@@ -145,6 +145,17 @@ public class ActivityManager implements ReadOnlyActivityManager {
     
     //@@author A0139164A
     /**
+     * Sets an email to be sent or unset.
+     */
+    public void setEmailSent(boolean isSent, int index) {
+        Activity dub = null;
+        System.out.println("This is the activity i am setting to true: " + dub.getActivityName().toString());
+        dub = tasks.getInternalList().get(index);
+        dub.setEmailSent(isSent);
+        tasks.getInternalList().set(index, dub);
+    }
+    
+    /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 

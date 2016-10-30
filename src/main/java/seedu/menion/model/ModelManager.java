@@ -103,7 +103,6 @@ public class ModelManager extends ComponentManager implements Model {
      * Methods for redo
      * 
      */
-
     @Override
     public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
     	activityManagerRedoStack.push(activityManager);
@@ -153,12 +152,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
-    
-    //@@author A0139164A
     /**
      * Methods for editting Activity's name
      * @throws IllegalValueException 
      */
+    @Override
+    public void setEmailSent(boolean isSent, int index) {
+        System.out.println("In model.manager");
+        activityManager.setEmailSent(isSent, index);
+    }
+    
     @Override
     public void editFloatingTaskName(int index, String changes) throws IllegalValueException{
         activityManager.editFloatingTaskName(index, changes);

@@ -55,6 +55,11 @@ public interface Model {
     void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
     void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
     
+    /**
+     * Sets the email sent status of a task with it's index.
+     */
+    void setEmailSent(boolean isSent, int index);
+
     //@@author A0139515A
     /**
      * Methods for undo 

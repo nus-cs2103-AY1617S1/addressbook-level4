@@ -45,6 +45,7 @@ public class SendEmail {
         userEmail = fromFile.nextLine();
         System.out.println("this is your remind: " + remind + ".");
         System.out.println("This is your email: " + userEmail + ".");
+        System.out.println("Going to attempt to send an email now...");
         fromFile.close(); // close input file stream
 
         if (remind.equals(RemindCommand.REMINDER_ON)) {
@@ -73,6 +74,10 @@ public class SendEmail {
             msg.setFrom(new InternetAddress(senderEmailID));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             Transport.send(msg);
+        }
+        else {
+            System.out.println("Unable to send email, as remind is :" + remind);
+            throw new MessagingException();
         }
     }
 
