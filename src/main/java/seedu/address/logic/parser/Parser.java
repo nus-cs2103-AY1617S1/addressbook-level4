@@ -200,7 +200,16 @@ public class Parser {
     
     //@@author A0147890U
     private Command prepareUndo(String args) {
-        int numTimes = Integer.parseInt(args.trim());
+        int numTimes;
+        if (args.trim().equals("")) {
+            numTimes = 1;
+            return new UndoCommand(numTimes);
+        }
+        try {
+            numTimes = Integer.parseInt(args.trim());
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand("The undo command only accepts numeric values.");
+        }
         return new UndoCommand(numTimes);
     }
     
@@ -212,7 +221,16 @@ public class Parser {
     
     //@@author A0147890U
     private Command prepareRedo(String args) {
-        int numTimes = Integer.parseInt(args.trim());
+        int numTimes;
+        if (args.trim().equals("")) {
+            numTimes = 1;
+            return new RedoCommand(numTimes);
+        }
+        try {
+            numTimes = Integer.parseInt(args.trim());
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand("The redo command only accepts numeric values.");
+        }
         return new RedoCommand(numTimes);
     }
     
