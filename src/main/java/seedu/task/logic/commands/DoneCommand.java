@@ -65,7 +65,7 @@ public class DoneCommand extends Command {
         if (isUndo == false) {
             history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
         }
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask.getName()));
     }
 
     @Override

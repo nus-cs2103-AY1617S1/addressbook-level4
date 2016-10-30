@@ -20,7 +20,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-T17-C3/Task-Manager/blob/master/docs/UserGuide.md";
+            "file:///" + System.getProperty("user.dir") + "/docs/UserGuide.html";
 
     private AnchorPane mainPane;
 

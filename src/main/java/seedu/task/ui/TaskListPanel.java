@@ -1,6 +1,7 @@
 package seedu.task.ui;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -64,7 +65,7 @@ public class TaskListPanel extends UiPart {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
-        
+        addAutoScroll(taskListView);
         
     }
 
@@ -72,7 +73,7 @@ public class TaskListPanel extends UiPart {
         SplitPane.setResizableWithParent(placeHolderPane, false);
        
         placeHolderPane.getChildren().add(panel);
-        
+              
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
@@ -80,7 +81,7 @@ public class TaskListPanel extends UiPart {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
-
+                
             }
         });
         
@@ -91,6 +92,19 @@ public class TaskListPanel extends UiPart {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+    public static <S> void addAutoScroll(final ListView<S> view) {
+        if (view == null) {
+            throw new NullPointerException();
+        }
+
+        view.getItems().addListener((ListChangeListener<S>) (c -> {
+            c.next();
+            final int size = view.getItems().size();
+            if (size > 0) {
+                view.scrollTo(size - 1);
+            }
+        }));
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {

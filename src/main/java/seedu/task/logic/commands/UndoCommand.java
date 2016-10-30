@@ -19,21 +19,37 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo: ";
 
     public static final String MESSAGE_FAIL = "Cannot undo anymore!";
-
+    
+    public final int numOfTimes;
+    
+    public final boolean isMultiUndo;
+    
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public UndoCommand() {
-
+        numOfTimes = 1;
+        isMultiUndo = false;
+    }
+    
+    public UndoCommand(int numOfTimes) {
+        this.numOfTimes = numOfTimes;
+        isMultiUndo = true;
+        
     }
 
     @Override
     public CommandResult execute(boolean isUndo) {
+        if (history.getUndoList().size() == 0) {
+            return new CommandResult(MESSAGE_FAIL);
+        }
         String outputUndoList = "";
+        for (int i = 0; i < numOfTimes; i++) {
+        
         if (history.getUndoList().size() != 0) {
-            outputUndoList = MESSAGE_SUCCESS + history.getPreviousCommandList().get(history.getPreviousCommandList().size()-1);
+            outputUndoList += MESSAGE_SUCCESS + history.getPreviousCommandList().get(history.getPreviousCommandList().size()-1) + "\n" ;
             String[] getIndex = history.getPreviousCommandList().get(history.getPreviousCommandList().size()-1).split(" ");
             String previousCommand = getIndex[0];
             String[] previousCommandDetails = getIndex;
@@ -71,9 +87,11 @@ public class UndoCommand extends Command {
             checkCommandListSize();
         }
         else {
-            outputUndoList = MESSAGE_FAIL;
+            if (!isMultiUndo) {
+                outputUndoList = MESSAGE_FAIL;
+            }
         }
-
+        }
         return new CommandResult(outputUndoList);
     }
 

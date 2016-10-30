@@ -96,7 +96,7 @@ public class CommandParser {
             return new HelpCommand();
             
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return prepareUndo(arguments);
             
         //@@author A0147944U-reused
         case DirectoryCommand.COMMAND_WORD:
@@ -623,6 +623,22 @@ public class CommandParser {
         }
 
         return new DeleteCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the undo task command.
+     *
+     * @param args full command args string
+     * @return the undoed command
+     */
+    private Command prepareUndo(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new UndoCommand();
+        }
+
+        return new UndoCommand(index.get());
     }
 
     /**

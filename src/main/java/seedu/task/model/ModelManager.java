@@ -151,7 +151,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            String name = task.getName().fullName.toLowerCase();
+            
+            String name = task.getAsText().toLowerCase();
+            
             return nameKeyWords.stream()
                     .filter(keyword -> name.indexOf(keyword.toLowerCase())>=0)
                     .findAny()
