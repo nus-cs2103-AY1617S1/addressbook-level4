@@ -515,7 +515,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 }
 
-	//@@author A0139052L unused
+	//@@author A0139052L-unused
 	// swap over to different undo function
 //
 //     *  returns true is there is a previous valid command input by user
