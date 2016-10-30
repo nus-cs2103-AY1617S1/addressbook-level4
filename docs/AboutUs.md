@@ -50,7 +50,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 * Other major contributions:
   * Created initial, revised mockups, and final screencaps in userGuide [[#9](https://github.com/CS2103AUG2016-W14-C4/main/commit/08e2b500c1547e89a17a07399e4f89ebc385d9c5)][[#63](https://github.com/CS2103AUG2016-W14-C4/main/commit/ed57b82241a2358ab79a62dccd57d82e1e25844d)][[#174](https://github.com/CS2103AUG2016-W14-C4/main/commit/fe34c59cb39ac7645cdead46a7aeea9885cad01c)]
   * Did the major updates and revisions for userGuide and developerGuide [[#6](https://github.com/CS2103AUG2016-W14-C4/main/commit/0542f75dcf60feee469039ed83235385325af8f4)][[#13](https://github.com/CS2103AUG2016-W14-C4/main/commit/d02cda467114fd4812b3387d7f7b0b71e5918b68)][[#58](https://github.com/CS2103AUG2016-W14-C4/main/pull/58)] [[#60](https://github.com/CS2103AUG2016-W14-C4/main/pull/60)][[#62](https://github.com/CS2103AUG2016-W14-C4/main/commit/82c769e1d8368820cf8ea95d4a887c4bb1ec2a15)][[#87](https://github.com/CS2103AUG2016-W14-C4/main/commit/b4feb75a4c8f17a85b408daaf4d6ed73a422b510)][[#174](https://github.com/CS2103AUG2016-W14-C4/main/commit/780694fa99fee91a725e32e086e6214c830bbf95)]
-  * Set up initial splitting of UI display into 3 sections [[#101](https://github.com/CS2103AUG2016-W14-C4/main/commit/9dd6976247762f58ed348ac1197fc2b2835fa348)]
+  
 -----
 
 #### [Jun An](https://github.com/yamidark)<br>
