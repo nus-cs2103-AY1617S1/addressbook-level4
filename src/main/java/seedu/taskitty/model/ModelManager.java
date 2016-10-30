@@ -231,6 +231,9 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
     }
     
+    /** 
+     * Updates list to show uncompleted and upcoming tasks only.
+     */
     @Override
     public void updateToDefaultList() {
     	allTasks.setPredicate(p -> !p.getIsDone() && (p.isTodo() || p.isDeadline() || isEventAndIsNotBeforeToday(p)));
@@ -238,10 +241,13 @@ public class ModelManager extends ComponentManager implements Model {
     	filteredDeadlines.setPredicate(p -> !p.getIsDone());
     	filteredEvents.setPredicate(p -> !p.getIsDone() && isEventAndIsNotBeforeToday(p));
     }
-
+    
+    /**
+     * Updates list to show deadlines on and before the specified date and events within the date.
+     */
 	@Override
 	public void updateFilteredDateTaskList(LocalDate date) {
-		allTasks.setPredicate(p -> p.isTodo() || isDeadlineAndIsNotAfterDate(p, date) || isEventAndDateIsWithinEventPeriod(p, date));
+		allTasks.setPredicate(p -> isDateRelevantDeadlinesAndEvents(p, date));
 		filteredTodos.setPredicate(null);
 		filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
 		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
@@ -325,22 +331,57 @@ public class ModelManager extends ComponentManager implements Model {
     
 	/**
 	 * Evaluates if the task is an event and the specified date is within the event period.
-	 * @param task
-	 * @param date
+	 * @param a valid task in the task manager
+	 * @param the date that the user requested to search for
 	 * @return the evaluated boolean expression
 	 */
 	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
-		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date) || task.getPeriod().getStartDate().getDate().isAfter(date));
+		boolean relEndDate = isEventAndIsNotBeforeDate(task, date);
+		boolean relStartDate = isEventAndIsNotAfterDate(task, date);
+		return relEndDate && relStartDate;
+	}
+	
+	/**
+	 * A helper method to shorten the evaluated boolean expression that is otherwise longer.
+	 * Evaluates if the task is an event and event is from `date` onwards.
+	 * @param a valid task in the task manager
+	 *@return the evaluated boolean expression
+	 */
+	private boolean isEventAndIsNotBeforeDate(Task task, LocalDate date) {
+		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date));
+	}
+	
+	/**
+	 * A helper method to shorten the evaluated boolean expression that is otherwise longer.
+	 * Evaluates if the task is an event and event is either on `date` or before it.
+	 * @param a valid task in the task manager
+	 *@return the evaluated boolean expression
+	 */
+	private boolean isEventAndIsNotAfterDate(Task task, LocalDate date) {
+		return task.isEvent() && !(task.getPeriod().getStartDate().getDate().isAfter(date));
 	}
 	
 	/** 
 	 * Evaluates if the task is an event and event is from today onwards.
-	 * @param task
+	 * @param a valid task in the task manager
 	 *@return the evaluated boolean expression
 	 */
 	private boolean isEventAndIsNotBeforeToday(Task task) {
 		LocalDate today = DateUtil.createCurrentDate();
-		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(today));
+		return isEventAndIsNotBeforeDate(task, today);
+	}
+	
+	/** 
+	 * Abstracted boolean expression method for filtering according to the function `view date`.
+	 * @param a valid task in the task manager
+	 * @param the date that the user requested to search for
+	 * @return the combined boolean expression from the 3 respective task-derived expressions.
+	 */
+	private boolean isDateRelevantDeadlinesAndEvents(Task p, LocalDate date) {
+		boolean todos = p.isTodo();
+		boolean relDeadlines = isDeadlineAndIsNotAfterDate(p, date);
+		boolean relEvents = isEventAndDateIsWithinEventPeriod(p, date);
+		return todos || relDeadlines || relEvents;
 	}
 	
 	//@@author A0139052L
