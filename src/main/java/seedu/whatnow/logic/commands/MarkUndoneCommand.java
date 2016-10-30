@@ -22,6 +22,7 @@ public class MarkUndoneCommand extends UndoAndRedo {
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as incompleted: %1$s";
     public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as incomplete";
     private static final String TASK_TYPE_FLOATING = "todo";
+    private static final String TASK_TYPE_SCHEDULE = "schedule";
 
     public final String taskType;
     public final int targetIndex;
@@ -37,9 +38,11 @@ public class MarkUndoneCommand extends UndoAndRedo {
         if (taskType.equals(TASK_TYPE_FLOATING)) {
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredTaskList();
-        } else {
+        } else if(taskType.equals(TASK_TYPE_SCHEDULE)){
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredScheduleList();
+        } else {
+            return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
         }
         if (lastShownList.size() < targetIndex) {
             System.out.println("INVALID INDEX");
