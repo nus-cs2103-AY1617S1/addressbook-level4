@@ -10,11 +10,12 @@ import seedu.address.logic.commands.CommandResult;
 //@@author A0143107U
 public class ExitCommand extends TaskCommand {
 
-    public static final String[] COMMAND_WORD = {"exit"};
+    public static final String COMMAND_WORD = "exit";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Tusk Manager as requested ...";
-    public static final String MESSAGE_USAGE = COMMAND_WORD[0] + ": Exits Tusk Manager.\n"
-            + "Example: " + COMMAND_WORD[0];
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exits Tusk Manager.\n"
+            + "Example: " + COMMAND_WORD;
     
     @Override
     public CommandResult execute() {

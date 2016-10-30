@@ -14,7 +14,8 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  * Parses Find commands
  */
 public class FindCommandParser extends CommandParser{
-	public static final String[] COMMAND_WORD = FindTaskCommand.COMMAND_WORD;
+	public static final String COMMAND_WORD = FindTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = FindTaskCommand.ALTERNATE_COMMAND_WORD;
 	
 	 /**
      * Parses arguments in the context of the find task command.

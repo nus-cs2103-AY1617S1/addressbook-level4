@@ -13,7 +13,8 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0143107U
 public class ExitCommandParser extends CommandParser {
-    public static final String[] COMMAND_WORD = ExitCommand.COMMAND_WORD;
+    public static final String COMMAND_WORD = ExitCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = ExitCommand.ALTERNATE_COMMAND_WORD;
     
     /**
     * Parses arguments in the context of the exit command.

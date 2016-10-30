@@ -16,7 +16,9 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0143107U
 public class CompleteCommandParser extends CommandParser{
-	public static final String[] COMMAND_WORD = CompleteTaskCommand.COMMAND_WORD;
+	public static final String COMMAND_WORD = CompleteTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = CompleteTaskCommand.ALTERNATE_COMMAND_WORD;
+
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**

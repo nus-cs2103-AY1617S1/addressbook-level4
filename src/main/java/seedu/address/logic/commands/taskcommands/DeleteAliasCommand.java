@@ -14,14 +14,15 @@ import seedu.address.model.Alias;
 //@@author A0143107U
 public class DeleteAliasCommand extends TaskCommand {
 
-	public static final String[] COMMAND_WORD = {"unalias"};
+	public static final String COMMAND_WORD = "unalias";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String HELP_MESSAGE_USAGE = "Delete Alias: \t" + "unalias <alias>"; 
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD[0]
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the shortcut of the alias.\n"
             + "Parameters: SHORTCUT\n"
-            + "Example: " + COMMAND_WORD[0] + " am";
+            + "Example: " + COMMAND_WORD + " am";
 
     public static final String MESSAGE_DELETE_ALIAS_SUCCESS = "Deleted alias: %1$s";
     public static final String MESSAGE_ALIAS_NOT_FOUND = "No such alias found.";

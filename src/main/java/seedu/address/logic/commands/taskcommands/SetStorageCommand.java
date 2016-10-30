@@ -16,12 +16,13 @@ import seedu.address.logic.commands.CommandResult;
  */
 public class SetStorageCommand extends TaskCommand {
 
-	public static final String[] COMMAND_WORD = {"setstorage"};
+	public static final String COMMAND_WORD = "setstorage";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD[0] 
+	public static final String MESSAGE_USAGE = COMMAND_WORD 
 			+ ": Sets the folder to be used for storage\n" 
 			+ "Parameters: FOLDERPATH\n"
-			+ "Example: " + COMMAND_WORD[0] + " C:/Users/Bob/Desktop/";
+			+ "Example: " + COMMAND_WORD + " C:/Users/Bob/Desktop/";
 
 	public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s.";
 	public static final String MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID = "Cannot set storage location to \"%1$s\", path is invalid!";
@@ -29,7 +30,7 @@ public class SetStorageCommand extends TaskCommand {
 	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!";	
 	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE = "Cannot set storage location to \"%1$s\", cannot write to here!";
 
-    public static final String HELP_MESSAGE_USAGE = "Set storage location: \t" + COMMAND_WORD[0] + " <folderPath>";	
+    public static final String HELP_MESSAGE_USAGE = "Set storage location: \t" + COMMAND_WORD + " <folderPath>";	
 	
 	String storageLocation;
 

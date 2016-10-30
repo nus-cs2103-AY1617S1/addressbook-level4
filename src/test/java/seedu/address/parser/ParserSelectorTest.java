@@ -35,7 +35,7 @@ public class ParserSelectorTest {
          * command is AddCommand.
          */
 		AddCommandParser command = (AddCommandParser)ParserSelector.getByCommandWord("add");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("add"));
 	}
 	
@@ -45,7 +45,7 @@ public class ParserSelectorTest {
          * command is DeleteCommand.
          */
 		DeleteCommandParser command = (DeleteCommandParser)ParserSelector.getByCommandWord("delete");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("delete"));
 	}
 	
@@ -55,7 +55,7 @@ public class ParserSelectorTest {
          * command is FindCommand.
          */
 		FindCommandParser command = (FindCommandParser)ParserSelector.getByCommandWord("find");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("find"));
 	}
 	
@@ -65,7 +65,7 @@ public class ParserSelectorTest {
          * command is HelpCommand.
          */
 		HelpCommandParser command = (HelpCommandParser)ParserSelector.getByCommandWord("help");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("help"));
 	}
 	
@@ -75,7 +75,7 @@ public class ParserSelectorTest {
          * command is ListCommand.
          */
 		ListCommandParser command = (ListCommandParser)ParserSelector.getByCommandWord("list");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("list"));
 	}
 	
@@ -85,8 +85,18 @@ public class ParserSelectorTest {
          * command is UpdateCommand.
          */
 		UpdateCommandParser command = (UpdateCommandParser)ParserSelector.getByCommandWord("update");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("update"));
+	}
+	
+	@Test
+	public void parserSelector_edit(){
+		/* CommandParser should return a string that denotes that 
+         * command is UpdateCommand.
+         */
+		UpdateCommandParser command = (UpdateCommandParser)ParserSelector.getByCommandWord("edit");
+		String feedback = command.ALTERNATE_COMMAND_WORD;
+        assertTrue(feedback.equals("edit"));
 	}
 	
 	@Test
@@ -95,7 +105,7 @@ public class ParserSelectorTest {
          * command is PinCommand.
          */
 		PinCommandParser command = (PinCommandParser)ParserSelector.getByCommandWord("pin");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("pin"));
 	}
 	
@@ -105,7 +115,7 @@ public class ParserSelectorTest {
          * command is UnpinCommand.
          */
 		UnpinCommandParser command = (UnpinCommandParser)ParserSelector.getByCommandWord("unpin");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("unpin"));
 	}
 	
@@ -115,7 +125,7 @@ public class ParserSelectorTest {
          * command is CompleteCommand.
          */
 		CompleteCommandParser command = (CompleteCommandParser)ParserSelector.getByCommandWord("complete");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("complete"));
 	}
 	
@@ -125,7 +135,7 @@ public class ParserSelectorTest {
          * command is UncompleteCommand.
          */
 		UncompleteCommandParser command = (UncompleteCommandParser)ParserSelector.getByCommandWord("uncomplete");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("uncomplete"));
 	}
 	
@@ -135,7 +145,7 @@ public class ParserSelectorTest {
          * command is AddAliasCommand.
          */
 		AddAliasCommandParser command = (AddAliasCommandParser)ParserSelector.getByCommandWord("alias");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("alias"));
 	}
 	
@@ -145,7 +155,7 @@ public class ParserSelectorTest {
          * command is DeleteAliasCommand.
          */
 		DeleteAliasCommandParser command = (DeleteAliasCommandParser)ParserSelector.getByCommandWord("unalias");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("unalias"));
 	}
 	
@@ -155,7 +165,7 @@ public class ParserSelectorTest {
          * command is SetStorageCommand.
          */
 		SetStorageCommandParser command = (SetStorageCommandParser)ParserSelector.getByCommandWord("setstorage");
-		String feedback = command.COMMAND_WORD[0];
+		String feedback = command.COMMAND_WORD;
         assertTrue(feedback.equals("setstorage"));
 	}
 }

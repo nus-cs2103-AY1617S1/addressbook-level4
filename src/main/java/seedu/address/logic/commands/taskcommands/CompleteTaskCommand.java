@@ -11,17 +11,18 @@ import seedu.address.model.task.Task;
 //@@author A0143107U
 public class CompleteTaskCommand extends TaskCommand {
 
-	public static final String[] COMMAND_WORD = {"complete"};
+	public static final String COMMAND_WORD = "complete";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD[0]
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Completes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD[0] + " 1";
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed task: %1$s";
     public static final String MESSAGE_TASK_ALR_COMPLETED = "Task has already been completed";
 
-    public static final String HELP_MESSAGE_USAGE = "Complete a task: \t" + COMMAND_WORD[0] +" <index>";
+    public static final String HELP_MESSAGE_USAGE = "Complete a task: \t" + COMMAND_WORD +" <index>";
 
 
     public final int targetIndex;

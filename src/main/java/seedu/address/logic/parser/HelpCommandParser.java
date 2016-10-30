@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.taskcommands.HelpTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
@@ -12,7 +13,8 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 //@@author A0139708W
 public class HelpCommandParser extends CommandParser {
-    public static final String[] COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
+    public static final String COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = HelpTaskCommand.ALTERNATE_COMMAND_WORD;
     
     /**
     * Parses arguments in the context of the find task command.
