@@ -2,6 +2,7 @@ package seedu.emeraldo.storage;
 
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.emeraldo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.emeraldo.commons.exceptions.DataConversionException;
 import seedu.emeraldo.model.ReadOnlyEmeraldo;
 import seedu.emeraldo.model.UserPrefs;
@@ -38,4 +39,6 @@ public interface Storage extends EmeraldoStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleEmeraldoChangedEvent(EmeraldoChangedEvent abce);
+    
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event);
 }

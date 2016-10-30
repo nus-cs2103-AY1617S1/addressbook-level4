@@ -27,6 +27,10 @@ public class XmlEmeraldoStorage implements EmeraldoStorage {
     public String getEmeraldoFilePath(){
         return filePath;
     }
+    
+    public void changeEmeraldoFilePath(String filepath){
+        this.filePath = filepath;
+    }
 
     /**
      * Similar to {@link #readEmeraldo()}
