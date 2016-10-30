@@ -18,7 +18,7 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-border-color: transparent;
     -fx-background-color: transparent, derive(#1d1d1d, 10%);
 }
 
@@ -34,12 +34,19 @@
 
 .anchor-pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-border-color: transparent;
+     -fx-border-top-width: 1px;
+}
+
+.stack-pane {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: transparent;
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: transparent;
     -fx-text-fill: white;
 }
 
@@ -58,7 +65,7 @@
 
 .status-bar-with-border {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
 }
 
@@ -173,48 +180,17 @@
     -fx-text-fill: white;
 }
 
-.scroll-bar .increment-button {
-  -fx-opacity: 0;
-}
-
-.scroll-bar .decrement-button {
-  -fx-opacity: 0;
-}
-
-.scroll-bar {
-  -fx-background-color: transparent;
-}
-
-.scroll-bar .track-background {
-  -fx-opacity: 0;
-  -fx-background-color: transparent;
-  -fx-background-insets: 0;
-}
-
-.scroll-bar .track {
-  -fx-opacity: 0;
-  -fx-background-color: transparent;
-  -fx-border-color:transparent;
-}
-
-.scroll-bar:horizontal .thumb {
-  -fx-background-color: rgba(255,255,255,0.5);
-  -fx-background-insets: 4 0 4 0;
-  -fx-background-radius: 2em;
-}
-
-.scroll-bar:hover .thumb {
-  -fx-background-color: rgba(0,0,0,0.3);
-}
-
-.scroll-bar:pressed .thumb {
-  -fx-background-color: rgba(0,0,0,0.3);
-}
-
 .list-view .scroll-bar:vertical .increment-arrow,
 .list-view .scroll-bar:vertical .decrement-arrow,
 .list-view .scroll-bar:vertical .increment-button,
 .list-view .scroll-bar:vertical .decrement-button {
+    -fx-padding:0;
+}
+
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
     -fx-padding:0;
 }
 

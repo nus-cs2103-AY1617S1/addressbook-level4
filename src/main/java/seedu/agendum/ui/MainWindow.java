@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.agendum.commons.core.Config;
@@ -27,15 +28,14 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/agendum_icon.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final String LIST_COMMAND = "list";
 
     private Logic logic;
     
     // Independent Ui parts residing in this Ui container
-    private DoItSoonPanel allTasksPanel;
-    private CompletedTasksPanel completedTasksPanel;
-    private DoItAnytimePanel otherTasksPanel;
+    private TasksPanel upcomingTasksPanel;
+    private TasksPanel completedTasksPanel;
+    private TasksPanel floatingTasksPanel;
     private ResultPopUp resultPopUp;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -57,16 +57,19 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane allTasksPlaceHolder;
+    private AnchorPane upcomingTasksPlaceHolder;
     
     @FXML
     private AnchorPane completedTasksPlaceHolder;
     
     @FXML
-    private AnchorPane otherTasksPlaceHolder;
+    private AnchorPane floatingTasksPlaceHolder;
     
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private StackPane messagePlaceHolder;
 
     public MainWindow() {
         super();
@@ -100,15 +103,12 @@ public class MainWindow extends UiPart {
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
-        setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
-        
         primaryStage.setScene(scene);
-        
         primaryStage.setOnCloseRequest(e -> Platform.exit());
-
         setAccelerators();
+        handleEscape();
         configureHelpWindowToggle();
     }
 
@@ -134,32 +134,39 @@ public class MainWindow extends UiPart {
 
   //@@author A0148031R
     void fillInnerParts() {
-        allTasksPanel = DoItSoonPanel.load(primaryStage, getAllTasksPlaceHolder(), logic.getFilteredTaskList());
-        completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(), logic.getFilteredTaskList());
-        otherTasksPanel = DoItAnytimePanel.load(primaryStage, getOtherTasksPlaceHolder(), logic.getFilteredTaskList());
+        upcomingTasksPanel = UpcomingTasksPanel.load(primaryStage, getUpcomingTasksPlaceHolder(), 
+                logic.getFilteredTaskList(), new UpcomingTasksPanel());
+        completedTasksPanel = CompletedTasksPanel.load(primaryStage, getCompletedTasksPlaceHolder(), 
+                logic.getFilteredTaskList(), new CompletedTasksPanel());
+        floatingTasksPanel = FloatingTasksPanel.load(primaryStage, getFloatingTasksPlaceHolder(), 
+                logic.getFilteredTaskList(), new FloatingTasksPanel());
         resultPopUp = ResultPopUp.load(primaryStage);
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultPopUp, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), messagePlaceHolder, resultPopUp, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
+    }
+    
+    public StackPane getMessagePlaceHolder() {
+        return messagePlaceHolder;
     }
 
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
     
-    public AnchorPane getAllTasksPlaceHolder() {
-        return allTasksPlaceHolder;
+    public AnchorPane getUpcomingTasksPlaceHolder() {
+        return upcomingTasksPlaceHolder;
     }
     
     public AnchorPane getCompletedTasksPlaceHolder() {
         return completedTasksPlaceHolder;
     }
     
-    public AnchorPane getOtherTasksPlaceHolder() {
-        return otherTasksPlaceHolder;
+    public AnchorPane getFloatingTasksPlaceHolder() {
+        return floatingTasksPlaceHolder;
     }
 
     public void hide() {
@@ -169,22 +176,18 @@ public class MainWindow extends UiPart {
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
     }
-
+    
     /**
      * Sets the default size based on user preferences.
      */
     protected void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }
-    }
-
-    private void setWindowMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
     }
 
     /**
@@ -195,6 +198,7 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    //@@author A0148031R
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
@@ -202,6 +206,19 @@ public class MainWindow extends UiPart {
             this.helpWindowStage = helpWindow.getStage();
             helpWindow.show();
         }
+    }
+    
+    private void handleEscape() {
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent evt) {
+                if (evt.getCode().equals(KeyCode.ESCAPE) && messagePlaceHolder.getChildren().size() != 0) {
+                    messagePlaceHolder.getChildren().remove(0);
+                    messagePlaceHolder.setMaxHeight(0);
+                    logic.execute(LIST_COMMAND);
+                }
+            }
+        });
     }
 
     public void show() {
@@ -216,11 +233,15 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public DoItSoonPanel getAllTasksPanel() {
-        return this.allTasksPanel;
+    public TasksPanel getUpcomingTasksPanel() {
+        return (UpcomingTasksPanel)this.upcomingTasksPanel;
     }
     
-    public CompletedTasksPanel getCompletedTasksPanel() {
-        return this.completedTasksPanel;
+    public TasksPanel getCompletedTasksPanel() {
+        return (CompletedTasksPanel)this.completedTasksPanel;
+    }
+    
+    public TasksPanel getFloatingasksPanel() {
+        return (FloatingTasksPanel)this.floatingTasksPanel;
     }
 }

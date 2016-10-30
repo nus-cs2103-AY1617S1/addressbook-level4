@@ -143,6 +143,7 @@ public class HelpWindow extends UiPart {
             public void handle(KeyEvent evt) {
                 if (evt.getCode().equals(KeyCode.ESCAPE)) {
                     dialogStage.close();
+                    primaryStage.requestFocus();
                 } else if (toggleHelpWindow.match(evt)) {
                     if (dialogStage.isFocused()) {
                         primaryStage.requestFocus();

@@ -40,8 +40,8 @@ public abstract class ToDoListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected DoItSoonPanelHandle doItSoonPanel;
-    protected DoItAnytimePanelHandle doItAnytimePanel;
+    protected UpcomingTasksHandle doItSoonPanel;
+    protected FloatingTasksPanelHandle doItAnytimePanel;
     protected CompletedTasksPanelHandle completedTasksPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;

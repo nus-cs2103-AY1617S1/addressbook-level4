@@ -1,7 +1,8 @@
 package seedu.agendum.model;
 
 import seedu.agendum.commons.core.GuiSettings;
-
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Objects;
 
 /**
@@ -19,14 +20,17 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    //@@author A0148031R
     public UserPrefs(){
-        this.setGuiSettings(500, 500, 0, 0);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setGuiSettings(screenSize.getWidth(), screenSize.getHeight(), 0, 0);
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         if (other == this){

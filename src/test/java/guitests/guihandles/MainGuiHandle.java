@@ -15,12 +15,12 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public DoItSoonPanelHandle getDoItSoonPanel() {
-        return new DoItSoonPanelHandle(guiRobot, primaryStage);
+    public UpcomingTasksHandle getDoItSoonPanel() {
+        return new UpcomingTasksHandle(guiRobot, primaryStage);
     }
 
-    public DoItAnytimePanelHandle getDoItAnytimePanel() {
-        return new DoItAnytimePanelHandle(guiRobot, primaryStage);
+    public FloatingTasksPanelHandle getDoItAnytimePanel() {
+        return new FloatingTasksPanelHandle(guiRobot, primaryStage);
     }
 
     public CompletedTasksPanelHandle getCompletedTasksPanel() {

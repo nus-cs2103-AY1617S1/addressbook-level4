@@ -10,11 +10,12 @@
 <?import javafx.scene.text.Font?>
 
 <!-- @@author A0148031R -->
+
 <HBox fx:id="cardPane" alignment="CENTER_LEFT" styleClass="hbox" stylesheets="@TasksPanel.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="CENTER_LEFT" style="-fx-background-color: transparent;">
          <HBox.margin>
-            <Insets bottom="10.0" />
+            <Insets />
          </HBox.margin>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
@@ -24,16 +25,12 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="id" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$ID">
-               <padding>
-                  <Insets right="20.0" />
-               </padding>
-            </Label>
+            <Label fx:id="id" minWidth="40.0" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$ID" wrapText="true" />
             <VBox alignment="CENTER" styleClass="vbox" GridPane.columnIndex="1">
                <children>
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="name" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$task">
+                        <Label fx:id="name" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$task" wrapText="true">
                            <padding>
                               <Insets right="20.0" />
                            </padding>
@@ -42,7 +39,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="time" styleClass="cell_time_label" stylesheets="@TasksPanel.css" text="\$time">
+                        <Label fx:id="time" styleClass="cell_time_label" stylesheets="@TasksPanel.css" text="\$time" wrapText="true">
                            <font>
                               <Font name="System Italic" size="13.0" />
                            </font>
@@ -58,6 +55,6 @@
       </GridPane>
    </children>
    <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      <Insets bottom="3.0" left="5.0" right="3.0" top="3.0" />
    </padding>
 </HBox>

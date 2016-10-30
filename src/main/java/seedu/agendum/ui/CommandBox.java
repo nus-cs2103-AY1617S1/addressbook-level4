@@ -3,12 +3,17 @@ package seedu.agendum.ui;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.agendum.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.agendum.logic.Logic;
@@ -24,9 +29,15 @@ import java.util.logging.Logger;
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
+    private static final String FIND_COMMAND = "find ";
+    private static final String HELP_COMMAND = "help";
+    private static final String RESULT_FEEDBACK = "Result: ";
+    private static final String FIND_COMMAND_REMINDER_MESSAGE = "Showing search results now, press ESC to go back and"
+            + " view all tasks";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
+    private StackPane messagePlaceHolder;
     private ResultPopUp resultPopUp;
     private static CommandBoxHistory commandBoxHistory;
 
@@ -36,21 +47,23 @@ public class CommandBox extends UiPart {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, StackPane messagePlaceHolder, 
             ResultPopUp resultPopUp, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultPopUp, logic);
+        commandBox.configure(resultPopUp, messagePlaceHolder, logic);
         commandBox.addToPlaceholder();
         commandBoxHistory = new CommandBoxHistory();
         return commandBox;
     }
 
-    public void configure(ResultPopUp resultPopUp, Logic logic) {
+    public void configure(ResultPopUp resultPopUp, StackPane messagePlaceHolder, Logic logic) {
         this.resultPopUp = resultPopUp;
+        this.messagePlaceHolder = messagePlaceHolder;
         this.logic = logic;
         registerAsAnEventHandler(this);
         registerArrowKeyEventFilter();
         registerTabKeyEventFilter();
+        postMessage(null);
     }
 
     private void addToPlaceholder() {
@@ -80,17 +93,33 @@ public class CommandBox extends UiPart {
         //Take a copy of the command text
         commandBoxHistory.saveNewCommand(commandTextField.getText());
         String previousCommandTest = commandBoxHistory.getLastCommand();
+        if(previousCommandTest.toLowerCase().trim().startsWith(FIND_COMMAND) && 
+                previousCommandTest.toLowerCase().trim().length() > FIND_COMMAND.length()) {
+            postMessage(FIND_COMMAND_REMINDER_MESSAGE);
+        }
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        
+
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
-        if(!previousCommandTest.toLowerCase().equals("help")) {
+        if(!previousCommandTest.toLowerCase().equals(HELP_COMMAND)) {
             resultPopUp.postMessage(mostRecentResult.feedbackToUser);
         }
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        logger.info(RESULT_FEEDBACK + mostRecentResult.feedbackToUser);
+    }
+    
+    private void postMessage(String message) {
+        if(message == null) {
+            this.messagePlaceHolder.setMaxHeight(0);
+        } else {
+            Label label = new Label(message);
+            label.setTextFill(Color.web("#ffffff"));
+            label.setContentDisplay(ContentDisplay.CENTER);
+            this.messagePlaceHolder.setAlignment(Pos.CENTER_LEFT);
+            this.messagePlaceHolder.getChildren().add(label);
+        }
     }
 
     private void registerArrowKeyEventFilter() {

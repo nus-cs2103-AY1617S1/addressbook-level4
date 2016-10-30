@@ -21,14 +21,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class DoItAnytimePanelHandle extends GuiHandle {
+public class FloatingTasksPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String TASK_LIST_VIEW_ID = "#anytimeTasksListView";
+    private static final String TASK_LIST_VIEW_ID = "#floatingTasksListView";
 
-    public DoItAnytimePanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public FloatingTasksPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 

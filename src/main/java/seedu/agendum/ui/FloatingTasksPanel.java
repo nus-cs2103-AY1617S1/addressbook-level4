@@ -10,14 +10,14 @@ import seedu.agendum.model.task.ReadOnlyTask;
 
 //@@author A0148031R
 /**
- * Panel contains the list of completed tasks
+ * Panel contains the list of uncompleted floating tasks
  */
-public class CompletedTasksPanel extends TasksPanel {
-    private static final String FXML = "CompletedTasksPanel.fxml";
+public class FloatingTasksPanel extends TasksPanel {
+    private static final String FXML = "FloatingTasksPanel.fxml";
     private static ObservableList<ReadOnlyTask> mainTaskList;
 
     @FXML
-    private ListView<ReadOnlyTask> completedTasksListView;
+    private ListView<ReadOnlyTask> floatingTasksListView;
 
     @Override
     public String getFxmlPath() {
@@ -27,20 +27,20 @@ public class CompletedTasksPanel extends TasksPanel {
     @Override
     protected void setConnections(ObservableList<ReadOnlyTask> taskList) {
         mainTaskList = taskList;
-        completedTasksListView.setItems(taskList.filtered(task -> task.isCompleted()));
-        completedTasksListView.setCellFactory(listView -> new CompletedTasksListViewCell());
+        floatingTasksListView.setItems(taskList.filtered(task -> !task.isCompleted() && !task.hasTime()));
+        floatingTasksListView.setCellFactory(listView -> new FloatingTasksListViewCell());
     }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            completedTasksListView.scrollTo(index);
-            completedTasksListView.getSelectionModel().clearAndSelect(index);
+            floatingTasksListView.scrollTo(index);
+            floatingTasksListView.getSelectionModel().clearAndSelect(index);
         });
     }
     
-    class CompletedTasksListViewCell extends ListCell<ReadOnlyTask> {
-        public CompletedTasksListViewCell() {
-            prefWidthProperty().bind(completedTasksListView.widthProperty());
+    class FloatingTasksListViewCell extends ListCell<ReadOnlyTask> {
+        public FloatingTasksListViewCell() {
+            prefWidthProperty().bind(floatingTasksListView.widthProperty());
             setMaxWidth(Control.USE_PREF_SIZE);
         }
 

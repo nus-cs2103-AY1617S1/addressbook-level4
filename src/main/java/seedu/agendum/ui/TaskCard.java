@@ -28,9 +28,7 @@ public class TaskCard extends UiPart {
     private ReadOnlyTask task;
     private String displayedIndex;
 
-    public TaskCard(){
-
-    }
+    public TaskCard() {}
 
     public static TaskCard load(ReadOnlyTask task, int Index){
         TaskCard card = new TaskCard();
