@@ -12,12 +12,14 @@ public class ClearCommand extends Command {
 
     public ClearCommand() {}
 
-
+  //@@author A0138420N
     @Override
     public CommandResult execute() {
         assert model != null;
         model.resetData(TaskManager.getEmptyTaskManager());
+        model.clearStacks();
         indicateCorrectCommandExecuted();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+  //@@author
 }
