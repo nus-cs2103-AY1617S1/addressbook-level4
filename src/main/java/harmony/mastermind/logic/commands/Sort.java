@@ -2,6 +2,8 @@ package harmony.mastermind.logic.commands;
 
 import java.util.ArrayList;
 
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
+
 import harmony.mastermind.memory.GenericMemory;
 
 public class Sort { 
@@ -22,6 +24,8 @@ public class Sort {
         event = new ArrayList<GenericMemory>();
         splitMemory(list);
         
+        sortAllList();
+        
         joinList(list);
     }
     
@@ -41,6 +45,14 @@ public class Sort {
         for (int i = 0; i < task.size(); i++) { 
             list.add(task.get(i));
         }
+    }
+    
+    //@@author A0143378Y
+    //Sorts the 3 lists 
+    private static void sortAllList() { 
+        Collections.sort(task);
+        Collections.sort(deadline);
+        Collections.sort(event);
     }
     
     //@@author A0143378Y
