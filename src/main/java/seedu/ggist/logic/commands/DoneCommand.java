@@ -43,8 +43,8 @@ public class DoneCommand extends Command {
         ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndexes.get(i) - 1 - i);
         try {
             model.doneTask(taskToMarkDone);
-            listOfCommands.push(COMMAND_WORD);
-            listOfTasks.push(taskToMarkDone);
+            model.getListOfCommands().push(COMMAND_WORD);
+            model.getListOfTasks().push(taskToMarkDone);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

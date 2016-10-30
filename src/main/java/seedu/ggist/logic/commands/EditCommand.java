@@ -52,24 +52,24 @@ public class EditCommand extends Command {
         
         Task taskToEdit = (Task)lastShownList.get(targetIndex - 1);
         try {
-            editTaskField.push(field);
+            model.getEditTaskField().push(field);
             
             if (field.equals("task")) {
-                editTaskValue.push(taskToEdit.getTaskName().toString()); 
+                model.getEditTaskValue().push(taskToEdit.getTaskName().toString()); 
             } else if (field.equals("start date")) {
-                editTaskValue.push(taskToEdit.getStartDate().toString());
+                model.getEditTaskValue().push(taskToEdit.getStartDate().toString());
             } else if (field.equals("end date")) {
-                editTaskValue.push(taskToEdit.getEndDate().toString()); 
+                model.getEditTaskValue().push(taskToEdit.getEndDate().toString()); 
             } else if (field.equals("start time")) {
-                editTaskValue.push(taskToEdit.getStartTime().toString()); 
+                model.getEditTaskValue().push(taskToEdit.getStartTime().toString()); 
             } else if (field.equals("end time")) {
-                editTaskValue.push(taskToEdit.getEndTime().toString());
+                model.getEditTaskValue().push(taskToEdit.getEndTime().toString());
             } else if (field.equals("priority")) {
-                editTaskValue.push(taskToEdit.getPriority().toString());
+                model.getEditTaskValue().push(taskToEdit.getPriority().toString());
             }
             model.editTask(taskToEdit, field, value);
-            listOfCommands.push(COMMAND_WORD);
-            listOfTasks.push(taskToEdit);
+            model.getListOfCommands().push(COMMAND_WORD);
+            model.getListOfTasks().push(taskToEdit);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException ive) {

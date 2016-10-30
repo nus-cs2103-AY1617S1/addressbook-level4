@@ -1,6 +1,7 @@
 package seedu.ggist.model;
 
 import java.util.Set;
+import java.util.Stack;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
@@ -64,5 +65,34 @@ public interface Model {
     
     /**Returns the most recent type of listing of the filtered task list */
    String getLastListing();
-
+   
+ //@@author A0138420N
+   /**Returns the list of commands that have been done */
+   Stack<String> getListOfCommands();
+   
+   /**Returns the list of tasks that have been done */
+   Stack<ReadOnlyTask> getListOfTasks();
+   
+   /**Returns the list of commands that have been redone */
+   Stack<String> getRedoListOfCommands();
+   
+   /**Returns the list of tasks that have been redone */
+   Stack<ReadOnlyTask> getRedoListOfTasks();
+   
+   /**Returns the list of fields that have been edited */
+   Stack<String> getEditTaskField();
+   
+   /**Returns the list of field values that have been edited */
+   Stack<String> getEditTaskValue();
+   
+   /**Returns the list of fields that have been re-edited */
+   Stack<String> getRedoEditTaskField();
+   
+   /**Returns the list of field value that have been re-edited */
+   Stack<String> getRedoEditTaskValue();
+   
+   /**Empties all the stacks that store undo and redo commands and tasks */
+   void clearStacks();
+ //@@author
+   
 }

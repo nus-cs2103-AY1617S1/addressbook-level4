@@ -24,15 +24,15 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (listOfCommands.empty() ==true) {
+        if (model.getListOfCommands().empty() ==true) {
             return new CommandResult(Messages.MESSAGE_NO_PREVIOUS_COMMAND);
         }
         
-        redoListOfCommands.push(listOfCommands.peek());
-        String previousCommand = listOfCommands.pop();
+        model.getRedoListOfCommands().push(model.getListOfCommands().peek());
+        String previousCommand = model.getListOfCommands().pop();
         if (previousCommand.equals("add")){
-            redoListOfTasks.push(listOfTasks.peek());
-            Task toDelete = (Task)listOfTasks.pop();
+            model.getRedoListOfTasks().push(model.getListOfTasks().peek());
+            Task toDelete = (Task)model.getListOfTasks().pop();
             try {
                 model.deleteTask(toDelete);
             } catch (TaskNotFoundException e) {
@@ -42,8 +42,8 @@ public class UndoCommand extends Command {
         }
         
         else if (previousCommand.equals("delete")){
-            redoListOfTasks.push(listOfTasks.peek());
-            Task toAdd = (Task) listOfTasks.pop();
+            model.getRedoListOfTasks().push(model.getListOfTasks().peek());
+            Task toAdd = (Task) model.getListOfTasks().pop();
             try {
                 model.addTask(toAdd);
             } catch (DuplicateTaskException e) {
@@ -52,33 +52,33 @@ public class UndoCommand extends Command {
         }
         
         else if (previousCommand.equals("done")){
-            redoListOfTasks.push(listOfTasks.peek());
-            Task undoDone = (Task)listOfTasks.pop();
+            model.getRedoListOfTasks().push(model.getListOfTasks().peek());
+            Task undoDone = (Task)model.getListOfTasks().pop();
             undoDone.setUndone();
         }
         
         else if (previousCommand.equals("edit")){
-            redoListOfTasks.push(listOfTasks.peek());
-            Task undoEdit = (Task)listOfTasks.pop();
+            model.getRedoListOfTasks().push(model.getListOfTasks().peek());
+            Task undoEdit = (Task)model.getListOfTasks().pop();
          
             try {
                 
-                redoEditTaskField.push(editTaskField.peek());
+                model.getRedoEditTaskField().push(model.getEditTaskField().peek());
                 
-                if (redoEditTaskField.peek().equals("task")){
-                    redoEditTaskValue.push(undoEdit.getTaskName().toString()); 
-                } else if (redoEditTaskField.peek().equals("start date")){
-                    redoEditTaskValue.push(undoEdit.getStartDate().toString());
-                } else if (redoEditTaskField.peek().equals("end date")){
-                    redoEditTaskValue.push(undoEdit.getEndDate().toString()); 
-                } else if (redoEditTaskField.peek().equals("start time")){
-                    redoEditTaskValue.push(undoEdit.getStartTime().toString()); 
-                } else if (redoEditTaskField.peek().equals("end time")){
-                    redoEditTaskValue.push(undoEdit.getEndTime().toString());
-                } else if (redoEditTaskField.peek().equals("priority")){
-                    redoEditTaskValue.push(undoEdit.getPriority().toString());
+                if (model.getRedoEditTaskField().peek().equals("task")){
+                    model.getRedoEditTaskValue().push(undoEdit.getTaskName().toString()); 
+                } else if (model.getRedoEditTaskField().peek().equals("start date")){
+                    model.getRedoEditTaskValue().push(undoEdit.getStartDate().toString());
+                } else if (model.getRedoEditTaskField().peek().equals("end date")){
+                    model.getRedoEditTaskValue().push(undoEdit.getEndDate().toString()); 
+                } else if (model.getRedoEditTaskField().peek().equals("start time")){
+                    model.getRedoEditTaskValue().push(undoEdit.getStartTime().toString()); 
+                } else if (model.getRedoEditTaskField().peek().equals("end time")){
+                    model.getRedoEditTaskValue().push(undoEdit.getEndTime().toString());
+                } else if (model.getRedoEditTaskField().peek().equals("priority")){
+                    model.getRedoEditTaskValue().push(undoEdit.getPriority().toString());
                 }
-                model.editTask(undoEdit, editTaskField.pop(), editTaskValue.pop());
+                model.editTask(undoEdit, model.getEditTaskField().pop(), model.getEditTaskValue().pop());
             } catch (TaskNotFoundException e) {
                 e.printStackTrace();
             } catch (IllegalValueException ive) {
