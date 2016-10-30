@@ -23,10 +23,10 @@ To get started, proceed to the Quick Start section below.
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-  
+>   Having any Java 8 version is not enough. <br>
+   This app will not work with earlier versions of Java 8.  
 <!-- @@author A0130853L -->
+
 1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TasKitty.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
@@ -49,7 +49,8 @@ To get started, proceed to the Quick Start section below.
 
 <br>
 #### View help : `help`
-Format: `help`
+Format: `help`<br>
+Shortcut key: `F1`
 
 A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 <img src="images/UIhelp.png" width="900">
@@ -58,7 +59,8 @@ A pop-up window displaying the command summary will be shown. Help is also shown
 <br>
 #### View upcoming tasks: `view`
 Lists all upcoming and uncompleted tasks.<br>
-Format: `view`
+Format: `view`<br>
+Shortcut Key: `Ctrl + Shift + T`
 
 All uncompleted todo tasks, upcoming events and deadlines will be displayed.
 > Note that overdue tasks will be displayed in red.
@@ -84,8 +86,9 @@ Example:
 <br>
 
 #### View all completed tasks: `view done`
-Lists all completed tasks, deadlines and events.
-Format: `view done`
+Lists all completed tasks, deadlines and events.<br>
+Format: `view done`<br>
+Shortcut key: `Ctrl + Shift + D`
 
 All completed todo tasks, deadlines and events will be shown shown in grey.
 
@@ -97,8 +100,9 @@ Example:
 <br>
 
 #### View all tasks: `view all`
-Lists all todo tasks, deadlines and events ever added.
-Format: `view all`
+Lists all todo tasks, deadlines and events ever added.<br>
+Format: `view all`<br>
+Shortcut key: `Ctrl + Shift + L`
 
 All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
 > Note that events that are over will be automatically marked and displayed as completed.
@@ -180,8 +184,8 @@ Example:
 
 <br>
 #### Delete task: `delete`
-Deletes a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Format: `delete INDEX`
+Deletes one or more todo, deadline or event task already inside the task manager using the index of the task.<br>
+* Format: `delete INDEXES...`
 
 Examples:
 
@@ -204,11 +208,23 @@ Examples:
   
   After:<br>
   <img src="images/UIdeleteAfterDate.png" width="900"><br>
+<!-- @@author A0139052L -->
+
+* `view`<br>
+  `delete t1 d1 e1`<br>
+  Deletes the 1st task under the each section as shown by the `view` command.<br>
+  
+  Before:<br>
+  <img src="images/UIdeleteMultipleBefore.png" width="900"><br>
+  
+  After:<br>
+  <img src="images/UIdeleteMultipleAfter.png" width="900"><br>  
+<!-- @@author A0130853L -->  
 
 <br>
 #### Mark task as done: `done`
-Marks a task in the task list as done.<br>
-* Format: `done INDEX`
+Marks one or more task in the task list as done.<br>
+* Format: `done INDEXES...`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
 Event tasks will be automatically marked as done once they are over.<br>
@@ -225,14 +241,26 @@ Example:
   
   After:<br>
   <img src="images/UIdoneAfter.png" width="900"><br>
- 
+<!-- @@author A0139052L --> 
+ * `view all`<br>
+  `done t1 t2 t3`<br>
+  Marks the 1st 3 task under the todo section shown by the `view all` command as completed.<br>
+  
+  Before:<br>
+  <img src="images/UIdoneMultipleBefore.png" width="900"><br>
+  
+  After:<br>
+  <img src="images/UIdoneMultipleAfter.png" width="900"><br>
+<!-- @@author A0130853L -->  
+
 <br>
 #### Undo previous action: `undo`
 Undoes the last completed action.<br>
-Format: `undo`
+Format: `undo`<br>
+Shortcut key: `Ctrl + Shift + U`
 
 The previous version will be restored.<br>
-User can keep retyping undo to undo multiple actions.<br>
+User can keep undoing multiple actions until we reach the original version at the start of the current session.<br>
 
 Example:
 
@@ -247,6 +275,35 @@ Example:
 
 <br>
 
+<!-- @@author A0139052L -->
+#### Redo previous undone action: `redo`
+Redoes the last undoned action.<br>
+Format: `redo`<br>
+Shortcut key: `Ctrl + Shift + Y`
+
+The previous undone version will be restored.<br>
+User can keep redoing multiple undone actions until we reach the latest version.<br>
+
+Example:
+
+* `redo`<br>
+  Redoes the last deleted item.<br>
+  
+  Before:<br>
+  <img src="images/UIundoAfter.png" width="900"><br>
+  
+  After:<br>
+  <img src="images/UIredoAfter.png" width="900"><br>
+
+<br>
+
+> Note that for undo and redo, you are only able to undo/redo commands that changes the task manager. eg. add, delete
+Commands that does not affect the task manager cannot be undone/redone. eg. view, help <br>
+
+>Note that if you have undone actions and you enter a new valid command that is undoable, the new task manager will be the latest 
+and other undone actions that were not redone will be lost.<br>
+
+<br>
 <!-- @@author A0135793W -->
 
 #### Save data: `save`
@@ -268,7 +325,8 @@ Example:
 <!-- @@author A0130853L -->
 #### Clear all entries : `clear`
 Clears all tasks from the task manager.<br>
-Format: `clear`  
+Format: `clear`<br>
+Shortcut key: `Ctrl + Shift + C`
 <img src="images/UIclear.png" width="900">
 
 <br>
@@ -304,10 +362,11 @@ View date | `view DATE`
 View done | `view done`
 Find | `find KEYWORDS...`
 Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Delete | `delete INDEX...`
-Done | `done INDEX...`
+Delete | `delete INDEXES...`
+Done | `done INDEXES...`
 Save | `save FILEPATH`
 Undo | `undo`
+Redo | `redo`
 Help | `help`
 Clear | `clear`
 Exit | `exit`
