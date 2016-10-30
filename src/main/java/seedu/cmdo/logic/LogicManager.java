@@ -7,6 +7,8 @@ import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
+import seedu.cmdo.logic.commands.RedoCommand;
+import seedu.cmdo.logic.commands.UndoCommand;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.ToDoList;
@@ -30,6 +32,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.undoer = Undoer.getInstance(model.getToDoList());
     }
     
+    //@@author A0139661Y
     @Override	
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -38,6 +41,10 @@ public class LogicManager extends ComponentManager implements Logic {
         if (command.isUndoable) {
         	undoer.snapshot(new ToDoList(model.getToDoList()));
         	logger.info("Snapshot taken of " + model.getToDoList().toString());
+        }
+        // Pop redo stack unless command is undo
+        if (!(command.getClass().equals(UndoCommand.class) && command.getClass().equals(RedoCommand.class))) {
+        	undoer.clearRedoStack();
         }
         command.setData(model);
         return command.execute();

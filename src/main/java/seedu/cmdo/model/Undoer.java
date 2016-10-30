@@ -72,4 +72,9 @@ public class Undoer {
 		undoList.push(currentState);
 		return topmost;
 	}
+
+	//@@author A0139661Y
+	public void clearRedoStack() {
+		redoList.removeAllElements();
+	}
 }
