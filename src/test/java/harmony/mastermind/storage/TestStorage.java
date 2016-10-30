@@ -2,10 +2,10 @@ package harmony.mastermind.storage;
 
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
+import harmony.mastermind.storage.Storage;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
