@@ -34,7 +34,7 @@ import seedu.tasklist.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/smart_scheduler.png";
+    private static final String ICON = "/images/main_icon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
