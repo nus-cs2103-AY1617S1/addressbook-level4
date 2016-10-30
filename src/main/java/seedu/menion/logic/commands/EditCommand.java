@@ -9,6 +9,7 @@ import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 //@@author A0139164A
 public class EditCommand extends Command {
@@ -62,16 +63,21 @@ public class EditCommand extends Command {
         try {
             if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
                 lastShownList = model.getFilteredFloatingTaskList();
-                floatingTaskEdit(this.targetIndex, this.paramToChange, this.changes);
+                activityToEdit = lastShownList.get(targetIndex);
+                floatingTaskEdit(activityToEdit, this.paramToChange, this.changes);
             } else if (targetType.equals(Activity.TASK_TYPE)) {
                 lastShownList = model.getFilteredTaskList();
-                taskEdit(this.targetIndex, this.paramToChange, this.changes);
+                activityToEdit = lastShownList.get(targetIndex);
+                taskEdit(activityToEdit, this.paramToChange, this.changes);
             } else {
                 lastShownList = model.getFilteredEventList();
-                eventEdit(this.targetIndex, this.paramToChange, this.changes);
+                activityToEdit = lastShownList.get(targetIndex);
+                eventEdit(activityToEdit, this.paramToChange, this.changes);
             }
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
+        } catch (ActivityNotFoundException pnfe) {
+            return new CommandResult("The target activity cannot be missing");
         }
         
         // Validates valid index is an index of an activity in the correct list
@@ -80,28 +86,27 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        ReadOnlyActivity activityToEdit = lastShownList.get(targetIndex);
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
 
-    private void floatingTaskEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
+    private void floatingTaskEdit(ReadOnlyActivity floatingTaskToEdit, String paramToChange, String[] changes) throws IllegalValueException, ActivityNotFoundException{
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
 
         case 0:
             String newName = arrayToString(changes);
-            model.editFloatingTaskName(index, newName);
+            model.editFloatingTaskName(floatingTaskToEdit, newName);
             break;
         case 1:
             String newNote = arrayToString(changes);
-            model.editFloatingTaskNote(index, newNote);
+            model.editFloatingTaskNote(floatingTaskToEdit, newNote);
             break;
         }
 
     }
 
-    private void taskEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
+    private void taskEdit(ReadOnlyActivity taskToEdit, String paramToChange, String[] changes) throws IllegalValueException, ActivityNotFoundException {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
 
@@ -109,11 +114,11 @@ public class EditCommand extends Command {
 
         case 0:
             String newName = arrayToString(changes);
-            model.editTaskName(index, newName);
+            model.editTaskName(taskToEdit, newName);
             break;
         case 1:
             String newNote = arrayToString(changes);
-            model.editTaskNote(index, newNote);
+            model.editTaskNote(taskToEdit, newNote);
             break;
         case 2:
             String newDate = NOT_TO_EDIT;
@@ -134,23 +139,23 @@ public class EditCommand extends Command {
                     newDate = changes[0];
                 }
             }
-            model.editTaskDateTime(index, newDate, newTime);
+            model.editTaskDateTime(taskToEdit, newDate, newTime);
             break;
         }
     }
 
-    private void eventEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
+    private void eventEdit(ReadOnlyActivity eventToEdit, String paramToChange, String[] changes) throws IllegalValueException , ActivityNotFoundException{
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
 
         case 0:
             String newName = arrayToString(changes);
-            model.editEventName(index, newName);
+            model.editEventName(eventToEdit, newName);
             break;
         case 1:
             String newNote = arrayToString(changes);
-            model.editEventNote(index, newNote);
+            model.editEventNote(eventToEdit, newNote);
             break;
         case 3: // Only change the start Date & Time. We can call the same method as task.
             String newDate = NOT_TO_EDIT;
@@ -171,7 +176,7 @@ public class EditCommand extends Command {
                     newDate = changes[0];
                 }
             }
-            model.editEventStartDateTime(index, newDate, newTime);
+            model.editEventStartDateTime(eventToEdit, newDate, newTime);
             break;
         case 4:
             String newEndDate = NOT_TO_EDIT;
@@ -192,7 +197,7 @@ public class EditCommand extends Command {
                     newEndDate = changes[0];
                 }
             }
-            model.editEventEndDateTime(index, newEndDate, newEndTime);
+            model.editEventEndDateTime(eventToEdit, newEndDate, newEndTime);
             break;
         }
     }
