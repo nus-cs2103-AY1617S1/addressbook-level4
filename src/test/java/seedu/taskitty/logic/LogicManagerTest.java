@@ -273,7 +273,7 @@ public class LogicManagerTest {
         Task p3 = helper.generateTaskWithName("key key");
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p4, p2, p1, p3);
+        List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
