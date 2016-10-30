@@ -241,18 +241,23 @@ Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_
 <!---  @@author A0143471L -->
 
 #### <a id="show"></a>Showing section: `show`
-Expands and lists sections from the left summary panel. <br>
+Expands and lists sections from the left summary panel, or displays all tasks and events. <br>
 Format: `show SECTION`
 
 > * `SECTION` is case-insensitive.
-> * For the sections with two words, you can type just the first word of the two. 
+> * For the sections with two words, you can type just the first word of the two. <!--- @@author A0138915X-->
+> * To display all tasks and events, please input `show all` as the command.
 
 Examples:
 * `show monday`
 * `show completed`
-
+* `show all`
+<!--- @@author -->
 > <img src="images/Show.png" width="800">
 
+
+
+<!--- @@author A0143471L -->
 <br><br> 
 
 #### <a id="undo"></a>Undoing previous action: `undo`
