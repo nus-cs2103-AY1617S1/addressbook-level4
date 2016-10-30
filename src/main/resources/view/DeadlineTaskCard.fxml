@@ -15,7 +15,7 @@
       <GridPane prefHeight="42.0" prefWidth="600.0">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints hgrow="NEVER" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="90.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
@@ -55,7 +55,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" styleClass="cell_big_label" GridPane.columnIndex="1">
+            <Label fx:id="taskStatus" alignment="CENTER" styleClass="cell_big_label" GridPane.columnIndex="1">
                <stylesheets>
                   <URL value="@DarkTheme.css" />
                   <URL value="@Extensions.css" />
@@ -96,7 +96,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" translateY="-9.0">
                <children>
-                  <Label fx:id="dueDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: #3c3838;" text="\$dueDateAndTime" textFill="#615b5b" />
+                  <Label fx:id="dueDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$dueDateAndTime" textFill="#615b5b" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />
