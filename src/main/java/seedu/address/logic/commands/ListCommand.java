@@ -60,7 +60,7 @@ public class ListCommand extends Command {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();
     			break;
-    		case "not-done":
+    		case "pending":
     			donePredicate = ReadOnlyTaskFilter.isNotDone();
     			break;
     		case "overdue":

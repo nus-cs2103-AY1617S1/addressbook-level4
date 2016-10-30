@@ -60,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
+        this.updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
     }
     
   //@@author A0141019U
@@ -119,6 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
+        checkForOverdueTasks();
         updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
         indicateTaskManagerChanged();
     }
@@ -126,6 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(int index, Task task) throws TaskNotFoundException {
         taskManager.editTask(index, task);
+        checkForOverdueTasks();
         indicateTaskManagerChanged();
 	}
     
@@ -135,8 +138,13 @@ public class ModelManager extends ComponentManager implements Model {
     	LocalDateTime now = LocalDateTime.now();
     	
     	for (Task task : taskManager.getUniqueTaskList().getInternalList()) {
+    		
     		if (!task.getStatus().isDone() && task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
+    			System.out.println("now: " + now);
+    			System.out.println("endDateee: " + task.getEndDate());
     			task.setStatus(new Status("overdue"));
+    		} else if(task.getStatus().isOverdue() && task.getEndDate().orElse(LocalDateTime.MIN).isAfter(now)) {
+    			task.setStatus(new Status("pending"));
     		}
     	}
     }

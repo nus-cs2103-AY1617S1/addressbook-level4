@@ -324,7 +324,7 @@ public class Parser {
 				taskType = args[i];
 				break;
 			case "done":
-			case "not-done":
+			case "pending":
 			case "overdue":
 				status = args[i];
 				break;
