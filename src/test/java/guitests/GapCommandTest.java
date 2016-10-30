@@ -43,7 +43,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
             try {
                 model.addTask(new Task(task));
             } catch (DuplicateTaskException e) {
-                //TODO: IDK HELP 
+                assert true; 
             }
         }
         
@@ -52,7 +52,7 @@ public class GapCommandTest extends FlexiTrackGuiTest {
             try {
                 model.addTask(new Task(task));
             } catch (DuplicateTaskException e) {
-                //TODO: IDK HELP 
+                assert true; 
             }
         }
     }

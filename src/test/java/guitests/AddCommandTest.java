@@ -42,7 +42,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     }
     @Test
     public void addADuplicateTask() {
-        commandBox.runCommand(TypicalTestTasks.basketball.getAddCommand());
+        commandBox.runCommand(TypicalTestTasks.soccer.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
     }
