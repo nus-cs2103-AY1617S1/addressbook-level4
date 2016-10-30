@@ -33,16 +33,7 @@ public class AutocompleteSource {
 				}
 				
 			} catch (NoSuchFieldException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (IllegalArgumentException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (IllegalAccessException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (SecurityException ex) {
-				logger.severe(ex.getMessage());
+				logger.severe("No such field - check parser list, exception: " + ex.getMessage());
 				assert false;
 			} catch (Exception e) {
 				logger.severe("Generic exception: " + e.getMessage());
