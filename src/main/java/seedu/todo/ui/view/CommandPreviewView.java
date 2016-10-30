@@ -85,9 +85,9 @@ public class CommandPreviewView extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Label commandScenario = ViewGeneratorUtil.constructLabel(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
-        Label commandName = ViewGeneratorUtil.constructLabel(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
-        Label commandArgument = ViewGeneratorUtil.constructLabel(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
         ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);

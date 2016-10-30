@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.ListView?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;"
       styleClass="spacing" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.HelpView">
@@ -20,7 +19,18 @@
       <Label styleClass="text2" text="Help" />
       <Label styleClass="text4" text="Need help? Try these commands out to get started."/>
    </HBox>
-   <VBox fx:id="helpGrid" styleClass="gridPanel"  prefHeight="200.0" prefWidth="200.0" />
+   <GridPane fx:id="helpGrid" styleClass="gridPanel">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"/>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <VBox.margin>
+         <Insets/>
+      </VBox.margin>
+   </GridPane>
    <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4"
           text="Start typing in the command to dismiss."/>
 </VBox>
