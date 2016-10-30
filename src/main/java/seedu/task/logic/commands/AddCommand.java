@@ -1,7 +1,6 @@
 //@@author A0144939R
 package seedu.task.logic.commands;
 
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +12,6 @@ import seedu.task.model.task.DateTime;
 import seedu.task.model.task.Name;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Adds a task to the task list.
