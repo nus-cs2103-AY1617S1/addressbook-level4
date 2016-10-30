@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.ReadOnlyTaskList;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.UniqueTaskList;
 
@@ -23,12 +21,12 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
+/*    @XmlElement
+    private List<Tag> tags;*/
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
+    //    tags = new ArrayList<>();
     }
 
     /**
@@ -41,10 +39,10 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
      */
     public XmlSerializableTaskList(ReadOnlyTaskList src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+  //      tags = src.getTagList();
     }
 
-    @Override
+    /*@Override
     public UniqueTagList getUniqueTagList() {
         try {
             return new UniqueTagList(tags);
@@ -52,7 +50,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
@@ -79,10 +77,10 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @Override
+  /*  @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
-    }
+    }*/
 
     @Override
     public boolean isEmpty() {

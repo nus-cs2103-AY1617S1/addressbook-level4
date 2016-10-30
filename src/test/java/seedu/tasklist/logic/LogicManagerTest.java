@@ -14,8 +14,6 @@ import seedu.tasklist.model.Model;
 import seedu.tasklist.model.ModelManager;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 import seedu.tasklist.storage.StorageManager;
 
@@ -356,10 +354,10 @@ public class LogicManagerTest {
             StartTime startTime = new StartTime("3pm");
             EndTime endTime = new EndTime("5pm");
             Priority priority = new Priority("high");
-            Tag tag1 = new Tag("tag1");
+ /*           Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startTime, endTime, priority, tags);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);*/
+            return new Task(name, startTime, endTime, priority);
         }
 
         /**
@@ -374,9 +372,7 @@ public class LogicManagerTest {
                     new TaskDetails("Person " + seed),
                     new StartTime(" at "+seed+"pm"),
                     new EndTime(" by "+seed + "pm"),
-                    new Priority("high"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                    new Priority("high"));
         }
 
         /** Generates the correct add command based on the person given */
@@ -389,11 +385,11 @@ public class LogicManagerTest {
             cmd.append(" at ").append(p.getStartTime().toString());
             cmd.append(" by ").append(p.getEndTime().toString());
             cmd.append(" p/").append(p.getPriority());
-
+/*
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
-            }
+            }*/
 
             return cmd.toString();
         }
@@ -473,8 +469,7 @@ public class LogicManagerTest {
                     new TaskDetails(name),
                     new StartTime("3pm"),
                     new EndTime("5pm"),
-                    new Priority("high"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Priority("high")
             );
         }
     }

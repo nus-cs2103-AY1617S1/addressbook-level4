@@ -1,6 +1,5 @@
 package seedu.tasklist.model.task;
 
-import seedu.tasklist.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Task in the task list.
@@ -26,8 +25,8 @@ public interface ReadOnlyTask {
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
-     */
-    UniqueTagList getTags();
+     *//*
+    UniqueTagList getTags();*/
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -56,14 +55,15 @@ public interface ReadOnlyTask {
                 .append(getEndTime().toCardString()+ "\n")
                 .append("Priority:\t")
                 .append(getPriority()+ "\n");
-        getTags().forEach(builder::append);
+     //   getTags().forEach(builder::append);
         return builder.toString();
     }
 
     /**
      * Returns a string representation of this Person's tags
      */
-    default String tagsString() {
+    
+   /* default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
         getTags().forEach(tag -> buffer.append(tag).append(separator));
@@ -72,7 +72,7 @@ public interface ReadOnlyTask {
         } else {
             return buffer.substring(0, buffer.length() - separator.length());
         }
-    }
+    }*/
 
     
 

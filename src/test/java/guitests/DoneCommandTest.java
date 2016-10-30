@@ -18,7 +18,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.tasklist.model.Model;
 import seedu.tasklist.model.ModelManager;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
@@ -44,9 +43,9 @@ public class DoneCommandTest {
     	model = new ModelManager();
     	try{
     		model.addTask(new Task(new TaskDetails("test1"), 
-            		new StartTime("5pm"), new EndTime("6pm"), new Priority("low"), new UniqueTagList()));
+            		new StartTime("5pm"), new EndTime("6pm"), new Priority("low")));
             model.addTask(new Task(new TaskDetails("test2"), 
-            		new StartTime("3pm"), new EndTime("4pm"), new Priority("med"), new UniqueTagList()));
+            		new StartTime("3pm"), new EndTime("4pm"), new Priority("med")));
     	}
     	catch (IllegalValueException e){
     		assert false: "Add task will succeed";

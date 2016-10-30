@@ -9,8 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.*;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
+
 
 /**
  * Parses user input.
@@ -129,17 +128,17 @@ public class Parser {
 		String endTime = parser.getEitherField("by", "to");
         String frequency = parser.getField("r/");
 		String priority = parser.getField("p/");
-		String tag = parser.getField("t/");
+		//String tag = parser.getField("t/");
 
 		try {
-			UniqueTagList utags = new UniqueTagList();
-			return new UpdateCommand(index, name, startTime, endTime, priority, utags, frequency);
+		//	UniqueTagList utags = new UniqueTagList();
+			return new UpdateCommand(index, name, startTime, endTime, priority, frequency);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
 
-	private Tag[] getTags(String[] tagList) {
+	/*private Tag[] getTags(String[] tagList) {
 		Tag[] tags = new Tag[tagList.length];
 		for(int i=0; i<tagList.length; i++){
 			try {
@@ -150,7 +149,7 @@ public class Parser {
 			}
 		}
 		return tags;
-	}
+	}*/
 
 	private Command prepareDone(String input) {
 		String args = input.trim();
@@ -181,13 +180,13 @@ public class Parser {
 		String endTime = parser.getEitherField("by", "to");
         String frequency = parser.getField("r/");
 		String priority = parser.getField("p/");
-		String tag = parser.getField("t/");
+	//	String tag = parser.getField("t/");
 		
 		if (frequency == null) frequency = "";
 		
 		try{
-			Set<String> utags = (tag==null)?Collections.emptySet():getTagsFromArgs("/t"+tag);
-			return new AddCommand(name, startTime, endTime, priority, utags, frequency);
+		//	Set<String> utags = (tag==null)?Collections.emptySet():getTagsFromArgs("/t"+tag);
+			return new AddCommand(name, startTime, endTime, priority, frequency);
 		}
 		catch(IllegalValueException ive){
 			return new IncorrectCommand(ive.getMessage());
@@ -198,7 +197,7 @@ public class Parser {
 	 * Extracts the new person's tags from the add command's tag arguments
 	 * string. Merges duplicate tag strings.
 	 */
-	private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+	/*private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
 		// no tags
 		if (tagArguments.isEmpty()) {
 			return Collections.emptySet();
@@ -206,7 +205,7 @@ public class Parser {
 		// replace first delimiter prefix, then split
 		final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
 		return new HashSet<>(tagStrings);
-	}
+	}*/
 
 	/**
 	 * Parses arguments in the context of the delete person command.

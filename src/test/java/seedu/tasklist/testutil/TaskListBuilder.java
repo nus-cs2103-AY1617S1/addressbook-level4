@@ -2,7 +2,6 @@ package seedu.tasklist.testutil;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 
@@ -24,10 +23,10 @@ public class TaskListBuilder {
         return this;
     }
 
-    public TaskListBuilder withTag(String tagName) throws IllegalValueException {
+   /* public TaskListBuilder withTag(String tagName) throws IllegalValueException {
         taskList.addTag(new Tag(tagName));
         return this;
-    }
+    }*/
 
     public TaskList build(){
         return taskList;

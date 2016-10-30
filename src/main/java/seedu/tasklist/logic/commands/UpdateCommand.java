@@ -4,7 +4,6 @@ package seedu.tasklist.logic.commands;
 import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
@@ -30,10 +29,10 @@ public class UpdateCommand extends Command {
 	private String startTime;
 	private String endTime;
 	private Priority priority;
-	private UniqueTagList tags;
+	//private UniqueTagList tags;
 	private String recurringFrequency;
 
-	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, UniqueTagList tags, String frequency)
+	public UpdateCommand(int targetIndex, String taskDetails, String startTime, String endTime, String priority, String frequency)
 			throws IllegalValueException {
 		this.targetIndex = targetIndex - 1;
 		if (taskDetails != null)
@@ -44,7 +43,7 @@ public class UpdateCommand extends Command {
 			this.endTime = endTime;
 		if (priority != null)
 			this.priority = new Priority(priority);
-		this.tags = new UniqueTagList(tags);
+		//this.tags = new UniqueTagList(tags);
 		if (frequency != null)
 			this.recurringFrequency = frequency;
 	}
@@ -57,7 +56,7 @@ public class UpdateCommand extends Command {
 		} else {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 			try {
-				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags, recurringFrequency);
+				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
 				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
 			} catch (IllegalValueException e) {
 				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
