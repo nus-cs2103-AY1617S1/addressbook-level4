@@ -33,12 +33,12 @@ public class TaskBuilder {
     }
     //@@author A0144939R
     public TaskBuilder withOpenTime(String openTime) throws IllegalValueException {
-        this.task.setOpenTime(new DateTime(openTime));
+        this.task.setOpenTime(DateTime.fromUserInput(openTime));
         return this;
     }
     
     public TaskBuilder withCloseTime(String closeTime) throws IllegalValueException {
-        this.task.setCloseTime(new DateTime(closeTime));
+        this.task.setCloseTime(DateTime.fromUserInput(closeTime));
         return this;
     }
     
