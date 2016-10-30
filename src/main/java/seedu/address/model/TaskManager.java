@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList undoneTasks;
-    private final UniqueTaskList doneTasks;
+    private UniqueTaskList undoneTasks;
+    private UniqueTaskList doneTasks;
 
     {
         undoneTasks = new UniqueTaskList();
@@ -152,8 +152,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getDoneTaskList() {
         return Collections.unmodifiableList(doneTasks.getInternalList());
     }
-
-
+    
     @Override
     public UniqueTaskList getUniqueUndoneTaskList() {
         return this.undoneTasks;

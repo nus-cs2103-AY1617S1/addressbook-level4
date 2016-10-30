@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class TaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -32,7 +32,7 @@ public class PersonListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public PersonListPanel() {
+    public TaskListPanel() {
         super();
     }
 
@@ -51,10 +51,10 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask> doneTaskList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+        TaskListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
         personListPanel.configure(undoneTaskList, doneTaskList);
 
         return personListPanel;
@@ -89,7 +89,7 @@ public class PersonListPanel extends UiPart {
             }
         });
     }
-    
+        
     //@@author A0139498J
     public void switchToDoneTaskListView() {
         taskListView.setItems(doneTaskList);

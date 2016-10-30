@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
 /**
  * The API of the Model component.
  */
@@ -77,6 +79,10 @@ public interface Model {
 			RecurrenceRate recurrenceRate);
 
     void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
+
+    void setTaskManagerUndoneList(ObservableList<Task> list);
+
+    void setTaskManagerDoneList(ObservableList<Task> list);
 
 
 
