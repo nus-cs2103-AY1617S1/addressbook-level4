@@ -36,7 +36,7 @@ public class Date {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         if(date.equals("Thisisanemptystring")){
-        	this.fullDate = "";
+        	this.fullDate = "Thisisanemptystring";
         }
         else{
         	this.fullDate = date;
