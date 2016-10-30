@@ -30,16 +30,8 @@ public class EditCommand extends Command implements Undoable, Redoable {
     public static final String COMMAND_KEYWORD_EDIT = "edit";
     public static final String COMMAND_KEYWORD_UPDATE = "update";
     public static final String COMMAND_KEYWORD_CHANGE = "change";
-    // @@author A0138862W
-    /*
-    public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-                                                        + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
-                                                        + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
-                                                        + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
-                                                        + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
-                                                        + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-                                                        + ".*";*/
     
+    //@@author A0138862W
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
                                                         + "(?:(?=.*name to (?:(?<name>.+?)(?:;|$))?))?"
                                                         + "(?:(?=.*start date to (?:(?<startDate>.+?)(?:;|$))?))?"
@@ -76,6 +68,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
     private Optional<String> endDate;
     private Optional<String> recur;
     private Optional<Set<String>> tags;
+    //@@author
 
     public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, Optional<String> endDate, Optional<Set<String>> tags, Optional<String> recur) throws IllegalValueException, ParseException {
         this.targetIndex = targetIndex;
@@ -90,7 +83,6 @@ public class EditCommand extends Command implements Undoable, Redoable {
     public CommandResult execute() {
 
         try {
-            // grabbing the origin task (before edit)
             executeEdit();
 
             model.pushToUndoHistory(this);
@@ -111,10 +103,13 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     @Override
     // @@author A0138862W
+    /*
+     * Strategy implementation to undo the edit command
+     * @see harmony.mastermind.logic.commands.Undoable#undo()
+     */
     public CommandResult undo() {
 
         try {
-            // remove the task that's previously edited
             model.deleteTask(editedTask);
 
             // add back the original task
@@ -134,6 +129,11 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     @Override
     // @@author A0138862W
+    /*
+     * Strategy implementation to redo the edit command
+     * 
+     * @see harmony.mastermind.logic.commands.Redoable#redo()
+     */
     public CommandResult redo() {
 
         try {
@@ -149,6 +149,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
         }
     }
 
+    // @@author A0138862W
     private void executeEdit() throws TaskNotFoundException, DuplicateTaskException, IndexOutOfBoundsException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -158,8 +159,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
         }
 
         if (originalTask == null) {
-            originalTask = lastShownList.get(targetIndex
-                                             - 1);
+            originalTask = lastShownList.get(targetIndex - 1);
         }
 
         // if user provides explicit field and value, we change them

@@ -61,7 +61,8 @@ public interface Model {
     
     /** push the command to undo history */
     void pushToUndoHistory(Undoable command);
-    
+
+    //@@author A0138862W
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult undo() throws EmptyStackException;
     
@@ -72,6 +73,7 @@ public interface Model {
     /** push the command to redo history */
     void pushToRedoHistory(Redoable command);
     
+    //@@author A0138862W
     /** undo last action performed, throws EmptyStackException is there's no more action can be undone **/
     CommandResult redo() throws EmptyStackException;
     

@@ -19,7 +19,7 @@ public static final String COMMAND_WORD = "redo";
         try{
             // All Command supports undo operation must implement Redoable interface
             
-            // execute the redo implementation
+            // execute the redo strategy implemented by the underlying command
             CommandResult redoResult = model.redo();
             
             // display successful message and the details of the undo operations

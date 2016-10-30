@@ -19,6 +19,7 @@ public class Task implements ReadOnlyTask {
     private String recur;
     private boolean isMarked;
 
+    //@@author A0138862W
     /*
      * Initialize through taskBuilder (preferred way)
      */
