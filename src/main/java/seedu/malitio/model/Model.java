@@ -73,6 +73,12 @@ public interface Model {
             throws FloatingTaskNotFoundException, DuplicateFloatingTaskException, DuplicateDeadlineException,
             DeadlineNotFoundException, DuplicateEventException, EventNotFoundException;
     
+    /** Complete the task.*/
+    void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException;
+    
+    /** Complete the task.*/
+    void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException;
+    
     /** Complete the floating task.*/
 	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
 	

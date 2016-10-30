@@ -290,6 +290,22 @@ public class Malitio implements ReadOnlyMalitio {
         }
     }
     
+    public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
+        if (isFloatingTask(taskToComplete)) {
+            tasks.complete((ReadOnlyFloatingTask)taskToComplete);
+        } else {
+            deadlines.complete((ReadOnlyDeadline)taskToComplete);
+        }        
+    }
+    
+    public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
+        if (isFloatingTask(taskToUncomplete)) {
+            tasks.uncomplete((ReadOnlyFloatingTask)taskToUncomplete);
+        } else {
+            deadlines.uncomplete((ReadOnlyDeadline)taskToUncomplete);
+        }
+    }
+    
     //@@author A0122460W
 	public void completeTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         tasks.complete(taskToComplete);

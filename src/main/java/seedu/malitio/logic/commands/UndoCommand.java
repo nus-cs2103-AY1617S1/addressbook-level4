@@ -6,22 +6,13 @@ import seedu.malitio.model.Malitio;
 import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputClearHistory;
+import seedu.malitio.model.history.InputCompleteHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
 import seedu.malitio.model.history.InputMarkHistory;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
-import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueEventList.EventMarkedException;
-import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueEventList.EventUnmarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
+import seedu.malitio.model.history.InputUncompleteHistory;
+import seedu.malitio.model.history.InputUnmarkHistory;
 
 //@@author A0129595N
 public class UndoCommand extends Command {
@@ -37,45 +28,89 @@ public class UndoCommand extends Command {
             return new CommandResult("No action to undo!");
         }
         InputHistory previous = history.pop();
-        updateMalitio(previous);
+        showAllPanels();
         switch (previous.getUndoCommand()) {
 
         case AddCommand.COMMAND_WORD:
             result = executeAdd((InputDeleteHistory) previous);
+            model.getFuture().push(history.pop());
             return new CommandResult(result);
 
         case DeleteCommand.COMMAND_WORD:
             result = executeDelete((InputAddHistory) previous);
+            model.getFuture().push(history.pop());
             return new CommandResult(result);
 
         case EditCommand.COMMAND_WORD:
             result = executeEdit((InputEditHistory) previous);
+            model.getFuture().push(history.pop());
             return new CommandResult(result);
 
         case ClearCommand.COMMAND_WORD:
             result = executeClear((InputClearHistory)previous);
-            return new CommandResult(result);
-
-        case MarkCommand.COMMAND_WORD:
-            result = executeMark((InputMarkHistory)previous);
+            model.getFuture().push(history.pop());
             return new CommandResult(result);
 
         case UnmarkCommand.COMMAND_WORD:
-            result = executeMark((InputMarkHistory)previous);
+            result = executeUnmark((InputMarkHistory)previous);
+            model.getFuture().push(history.pop());
+            return new CommandResult(result);
+            
+        case MarkCommand.COMMAND_WORD:
+            result = executeMark((InputUnmarkHistory)previous);
+            model.getFuture().push(history.pop());
+            return new CommandResult(result);
+            
+        case UncompleteCommand.COMMAND_WORD:
+            result = executeUncomplete((InputCompleteHistory)previous);
+            model.getFuture().push(history.pop());
+            return new CommandResult(result);
+            
+        case CompleteCommand.COMMAND_WORD:
+            result = executeComplete((InputUncompleteHistory)previous);
+            model.getFuture().push(history.pop());
             return new CommandResult(result);
 
         }
         return null;
     }
 
-    private String executeMark(InputMarkHistory previous) {
+    private String executeUncomplete(InputCompleteHistory previous) {
+       try {
+           model.uncompleteTask(previous.getTask());
+       } catch (Exception e) {
+           assert false : "Not possible";
+       }
+       return "Undo complete successful.";
+    }
+    
+    private String executeComplete(InputUncompleteHistory previous) {
         try {
-            model.markTask(previous.getTaskToMark(), previous.getMarkWhat());
+            model.completeTask(previous.getTask());
+        } catch (Exception e) {
+            assert false : "Not possible";
+        }
+        return "Undo uncomplete successful.";
+    }
+    
+    private String executeMark(InputUnmarkHistory previous) {
+        try {
+            model.markTask(previous.getTask(), previous.getMarkWhat());
+        } catch (Exception e) {
+        assert false : "Not possible";
+        }
+        return "Undo unmark successful";
+    }
+
+    private String executeUnmark(InputMarkHistory previous) {
+        try {
+            model.markTask(previous.getTask(), previous.getMarkWhat());
         } catch (Exception e) {
             assert false : "Not possible";
         }
         return "Undo mark successful.";
     }
+    
 
     private String executeClear(InputClearHistory previous) {
         System.out.println(previous.getFloatingTask().getInternalList().isEmpty());
@@ -111,21 +146,12 @@ public class UndoCommand extends Command {
     public String executeDelete(InputAddHistory previous) {        
         try {
             model.deleteTask(previous.getTask());  
-        } catch (FloatingTaskNotFoundException | DeadlineNotFoundException | EventNotFoundException e) {
+        } catch (Exception e) {
             assert false : "Not Possible";
         }
         return "Successful. Undo add: " + previous.getTask().toString();
     }
     
-    /**
-     * Updates Malitio
-     * @param history
-     */
-    private void updateMalitio(InputHistory history) {
-        updateRedoStack(history);
-        showAllPanels();
-    }
-
     /**
      * A method to show all panels on the model.
      */

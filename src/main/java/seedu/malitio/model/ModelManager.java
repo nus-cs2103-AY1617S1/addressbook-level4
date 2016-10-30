@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
         malitio.addTask(task);
         history.add(new InputAddHistory(task));
-        UpdateAllListToShowALl();
+        updateAllListToShowAll();
         indicateMalitioChanged();
         
     }
@@ -125,7 +125,21 @@ public class ModelManager extends ComponentManager implements Model {
     DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
         malitio.editTask(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
-        UpdateAllListToShowALl();
+        updateAllListToShowAll();
+        indicateMalitioChanged();
+    }
+    
+    public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
+        malitio.completeTask(taskToComplete);
+        history.add(new InputCompleteHistory(taskToComplete));
+        updateAllListToShowAll();
+        indicateMalitioChanged();
+    }
+    
+    public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
+        malitio.uncompleteTask(taskToUncomplete);
+        history.add(new InputUncompleteHistory(taskToUncomplete));
+        updateAllListToShowAll();
         indicateMalitioChanged();
     }
     
@@ -133,6 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
 		malitio.completeTask(taskToComplete);
+        history.add(new InputCompleteHistory(taskToComplete));
 		updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
 	}
@@ -140,6 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
 		malitio.completeDeadline(deadlineToComplete);
+        history.add(new InputCompleteHistory(deadlineToComplete));
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
 	}
@@ -147,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
 		malitio.uncompleteTask(taskToUncomplete);
+        history.add(new InputCompleteHistory(taskToUncomplete));
 		updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
 	}
@@ -154,6 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
 		malitio.uncompleteDeadline(deadlineToUncomplete);
+        history.add(new InputCompleteHistory(deadlineToUncomplete));
 		updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
 	}
@@ -161,11 +179,15 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void markTask(Object taskToMark, boolean marked) throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException, DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException, EventNotFoundException, EventMarkedException, EventUnmarkedException {
 	    malitio.markTask(taskToMark, marked);
-	    history.add(new InputMarkHistory(taskToMark, marked));
-	    UpdateAllListToShowALl();
+        if (marked) {
+            history.add(new InputMarkHistory(taskToMark));
+        } else {
+            history.add(new InputUnmarkHistory(taskToMark));
+        }
+	    updateAllListToShowAll();
 	}
 	
-	private void UpdateAllListToShowALl() {
+	private void updateAllListToShowAll() {
         updateFilteredTaskListToShowAll();
         updateFilteredDeadlineListToShowAll();
         updateFilteredEventListToShowAll();
@@ -177,7 +199,11 @@ public class ModelManager extends ComponentManager implements Model {
 	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
 	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
 	    malitio.markTask(taskToMark, marked);
-	    history.add(new InputMarkHistory(taskToMark, marked));
+        if (marked) {
+            history.add(new InputMarkHistory(taskToMark));
+        } else {
+            history.add(new InputUnmarkHistory(taskToMark));
+        };
 	    updateFilteredTaskListToShowAll();
 	    indicateMalitioChanged();
 	}
@@ -186,7 +212,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
             throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
         malitio.markDeadline(deadlineToMark, marked);
-        history.add(new InputMarkHistory(deadlineToMark, marked));
+        if (marked) {
+            history.add(new InputMarkHistory(deadlineToMark));
+        } else {
+            history.add(new InputUnmarkHistory(deadlineToMark));
+        }
         updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
     }
@@ -195,7 +225,11 @@ public class ModelManager extends ComponentManager implements Model {
 	public void markEvent(ReadOnlyEvent eventToMark, boolean marked)
 	        throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
 	    malitio.markEvent(eventToMark, marked);
-	    history.add(new InputMarkHistory(eventToMark, marked));
+        if (marked) {
+            history.add(new InputMarkHistory(eventToMark));
+        } else {
+            history.add(new InputUnmarkHistory(eventToMark));
+        }
 	    updateFilteredEventListToShowAll();
 	    indicateMalitioChanged();
 	}

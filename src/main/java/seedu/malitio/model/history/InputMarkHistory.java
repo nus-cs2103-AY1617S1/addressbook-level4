@@ -4,23 +4,18 @@ package seedu.malitio.model.history;
 public class InputMarkHistory extends InputHistory {
 
     Object taskToMark;
-    boolean markWhat;
+    boolean markWhat = false;
 
-    public InputMarkHistory(Object taskToMark, boolean marked) {
+    public InputMarkHistory(Object taskToMark) {
         this.commandForUndo = "unmark";
         this.taskToMark = taskToMark;
-        if (marked) {
-            this.markWhat = false;
-        } else {
-            this.markWhat = true;
-        }
     }
 
     public boolean getMarkWhat() {
         return markWhat;
     }
 
-    public Object getTaskToMark() {
+    public Object getTask() {
         return taskToMark;
     }
 }
