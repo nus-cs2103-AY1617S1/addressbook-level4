@@ -21,11 +21,11 @@
     <children>
       <ScrollPane vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
         <content>
-          <AnchorPane prefHeight="597.0" prefWidth="1132.0">
+          <AnchorPane prefHeight="597.0" prefWidth="972.0">
                <children>
-                  <VBox prefHeight="429.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox prefHeight="597.0" prefWidth="1134.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane maxWidth="1132.0" minWidth="1132.0" prefWidth="1132.0">
+                        <Pane prefHeight="29.0" prefWidth="1053.0">
                            <children>
                               <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -42,7 +42,7 @@
                               <Label id="task_det" layoutX="719.0" layoutY="4.0" text="Priority" />
                            </children>
                         </Pane>
-                          <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+                          <ListView fx:id="personListView" prefHeight="568.0" prefWidth="1103.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
