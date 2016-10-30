@@ -1,5 +1,5 @@
 package seedu.address.logic.commands;
-
+//@@author A0138717X
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
@@ -34,10 +34,8 @@ public class EditCommand extends Command {
             + COMMAND_WORD
             + "CS3230 Lecture e/14.10.2016-12 \n";
 
-//    public static final String MESSAGE_SUCCESS = "This event/task has been edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This event/task already exists in the task manager";
     public static final String MESSAGE_TASK_NOT_IN_LIST = "This event/task is not found in the task manager";
-   //
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     public static final String MESSAGE_DELETE_SAME_NAME="Please select the Task identified "
@@ -46,7 +44,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EVENT_SUCCESS = "This event has been edited: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "This task has been edited: %1$s";
 
-//    private final Task toEdit;
     private String name;
     private String type;
     private String details;
@@ -69,7 +66,7 @@ public class EditCommand extends Command {
 	@Override
 	public CommandResult execute() {
 			ReadOnlyTask target = null;
-
+			//@@author A0142325R-reused
 			UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 	        if (targetIndex != -1) {
 	            if (lastShownList.size() < targetIndex) {
@@ -92,7 +89,6 @@ public class EditCommand extends Command {
 	                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
 	                             EditCommand.MESSAGE_USAGE));
 	                 }
-	                 // keywords delimited by whitespace
 	                 final String[] keywords = matcher.group("keywords").split("\\s+");
 	                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
 	            	model.updateFilteredTaskList(keywordSet);
@@ -123,111 +119,5 @@ public class EditCommand extends Command {
             return MESSAGE_TASK_SUCCESS;
         }
     }
-
-//    public EditCommand(String name,
-//    		String startDate, String endDate,Set<String> tags, String freq) throws IllegalValueException {
-//		final Set<Tag> tagSet = new HashSet<>();
-//		for (String tagName : tags) {
-//		  tagSet.add(new Tag(tagName));
-//		}
-////		this.toEdit= new Task(
-////                new Name(name),
-////                new Deadline(deadline),
-////                new UniqueTagList(tagSet)
-////		);
-//		if(freq!=""&&startDate!=""){
-//	        this.toEdit = new Task(
-//	                new Name(name),
-//	                new EventDate(startDate, endDate),
-//	                new UniqueTagList(tagSet),
-//	                new Recurring(freq)
-//	        );
-//	        }else if(startDate!=""){
-//	            this.toEdit=new Task(new Name(name),new EventDate(startDate,endDate),new UniqueTagList(tagSet));
-//	        }else{
-//	            this.toEdit=new Task(new Name(name),new UniqueTagList(tagSet));
-//	        }
-//	}
-//
-//    public EditCommand(String name, String deadline, Set<String> tags,String freq)
-//            throws IllegalValueException {
-//        final Set<Tag> tagSet = new HashSet<>();
-//        for (String tagName : tags) {
-//            tagSet.add(new Tag(tagName));
-//        }
-//        if(deadline!=""&&freq!=""){
-//        this.toEdit = new Task(
-//                new Name(name),
-//                new Deadline(deadline),
-//                new UniqueTagList(tagSet),
-//                new Recurring(freq)
-//        );
-//        }else if(deadline!=""){
-//            this.toEdit=new Task(new Name(name),new Deadline(deadline),new UniqueTagList(tagSet));
-//        }else{
-//            this.toEdit=new Task(new Name(name),new UniqueTagList(tagSet));
-//        }
-//    }
-
-//	@Override
-//	public CommandResult execute() {
-////		try{
-////			model.editTask(toEdit);
-////			ReadOnlyTask toRemove = null;
-////			for (ReadOnlyTask task: model.getFilteredTaskList()) {
-////				if(task.getName().equals(toEdit.getName()))
-////					toRemove = task;
-////			}
-////			model.deleteTask(toRemove);
-////			String message = String.format(MESSAGE_SUCCESS, toEdit);
-////			model.saveState(message);
-////			return new CommandResult(message);
-////		} catch (TaskNotFoundException e) {
-////			// TODO Auto-generated catch block
-////        	return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
-////		}
-//
-//		try{
-//			model.editTask(toEdit);
-//			ReadOnlyTask toRemove = null;
-//
-//			int targetIndex;
-//			//delete
-//	        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-//	        if (targetIndex != -1) {
-//	            if (lastShownList.size() < targetIndex) {
-//	                indicateAttemptToExecuteIncorrectCommand();
-//	                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-//	            }
-//
-//	            TaskToDelete = lastShownList.get(targetIndex - 1);
-//	        } else {
-//	            assert this.name != null;
-//	            ArrayList<ReadOnlyTask> shownList=new ArrayList<ReadOnlyTask>();
-//	            for (ReadOnlyTask e : lastShownList) {
-//	                if (name.trim().equals(e.getName().taskName)) {
-//	                    shownList.add(e);
-//	                }
-//	            }
-//	            if(shownList.size()>1){
-//	            	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
-//	            	 if (!matcher.matches()) {
-//	                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-//	                             DeleteCommand.MESSAGE_USAGE));
-//	                 }
-//	                 // keywords delimited by whitespace
-//	                 final String[] keywords = matcher.group("keywords").split("\\s+");
-//	                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-//	            	model.updateFilteredTaskList(keywordSet);
-//	            	return new CommandResult(MESSAGE_DELETE_SAME_NAME);
-//	            }else if(shownList.size()==1){
-//	            	TaskToDelete=shownList.get(0);
-//	            }else{
-//	            	return new CommandResult(Messages.MESSAGE_INVALID_TASK_NAME);
-//	            }
-//	        }
-//
-//		}
-//	}
 
 }

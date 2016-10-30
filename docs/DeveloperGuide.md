@@ -301,6 +301,43 @@ Use case resumes at step 4
 
 > 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
+  
+<!-- @@author A0138717X -->
+#### Use case: Edit task
+
+**MSS**
+1. Task Manager list all tasks
+2. User requests to edit a task
+3. Task Manager edit the task for the specify field
+4. Task Manager updates the list of task
+
+Use case ends.
+
+**Extensions**
+
+3a. The list is empty
+
+> Use case ends
+
+3b. Duplicate task name
+
+> 3b1. Task Manager shows an error message and prompt user to edit by specifying an index <br>
+  Use case resumes at step 1
+
+3c. The given index is invalid
+
+> 3c1. Task Manager shows an error message <br>
+  Use case resumes at step 1
+  
+3d. The given name is not found in the list
+
+> 3d1. Task Manager shows an error message <br>
+  Use case resumes at step 1  
+  
+3e. The given details type is invalid
+
+> 3e1. Task Manager shows an error message <br>
+  Use case resumes at step 1
 
 <!-- @@author A0146123R-->
 #### Use case: Find task
@@ -343,8 +380,8 @@ Use case ends.
   * It does not support for events and deadlines.  
   * It does not support for undo operations. 
   * The UI is too simple.<br>
-<!-- @@author -->
 
+<!-- @@author A0138717X -->
 **Wunderlist**<br>
 * Strength<br>
   * It is offline.

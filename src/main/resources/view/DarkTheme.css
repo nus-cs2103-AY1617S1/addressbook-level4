@@ -287,6 +287,7 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+/* @@author A0138717X */
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
     -fx-background-color: linear-gradient(#afc2ff 0%, #8ea8ff 25%, #86a1f9 75%, #3d6aff 100%);
     -fx-text-fill: white;

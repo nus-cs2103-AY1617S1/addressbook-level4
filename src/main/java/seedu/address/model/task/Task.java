@@ -198,14 +198,14 @@ public class Task implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
-    
+
     //@@author A0142325R
     @Override
     public Recurring getRecurring() {
         // assert recurring!=null;
         return this.recurring;
     }
-    
+
     //@@author A0146123R
     @Override
     public Date getDate() {
@@ -222,13 +222,13 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     //@@author A0142325R
     @Override
     public boolean isDone() {
         return isDone;
     }
-    
+
     @Override
     public boolean isRecurring() {
         return isRecurring;
@@ -260,39 +260,39 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-    
+
     //@@author A0142325R
     @Override
     public void markAsDone() {
         isDone = true;
         done.set(true);
     }
-    
+
     //@@author A0146123R
     public void setName(Name newName) {
         name = newName;
         nameString.set(name.taskName);
     }
-    
+
     public void setDate(Date newDate) {
         date = newDate;
         dateString.set(date.getValue());
     }
-    
+
     public void setRecurring(Recurring newRecurring) {
         recurring = newRecurring;
         isRecurring = true;
         recurringString.set(recurring.recurringFrequency);
     }
-    
-    
+
+
     /**
      * Returns Observable wrappers of the task
      */
     public StringProperty getNameString(){
         return nameString;
     }
-    
+
     public StringProperty getDateString(){
         return dateString;
     }
@@ -300,10 +300,10 @@ public class Task implements ReadOnlyTask {
     public BooleanProperty getDone() {
         return done;
     }
-    
+
     public StringProperty getRecurringString(){
         return recurringString;
-    } 
+    }
 
     /*
      * Makes Task observable by its status
@@ -312,8 +312,8 @@ public class Task implements ReadOnlyTask {
         return (Task task) -> new Observable[] { task.getNameString(), task.getDateString(), task.getDone(),
                 task.getRecurringString() };
     }
-    
-    //@@author
+
+    //@@author A0138717X
 	public boolean editDetail(String type, String details) throws IllegalValueException {
 		switch(type) {
     	case "name": setName(new Name(details)); break;

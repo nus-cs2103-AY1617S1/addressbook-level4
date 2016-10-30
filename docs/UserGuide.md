@@ -98,13 +98,13 @@ Examples:
 
 ####Edit an event or task: `edit`
 Edit an existing event or task.<br>
-Format: `edit EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`<br>
-  `edit TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`
+Format: `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [p/PRIORITY_LEVEL]`<br>
+  `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [p/PRIORITY_LEVEL]`
 
 Example:
 
-* `edit Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3 `
-* `edit Project Deadline d/14.10.2016 t/CS2103 p/3`
+* `edit Lecture s/7.10.2016-14 `
+* `edit Project Deadline d/14.10.2016`
 * `edit Read Book`
 
 #### Mark as done : `done`
@@ -170,7 +170,7 @@ Change | `change FILEPATH`
 Clear | `clear`
 Delete | `delete INDEX`<br> `delete EVENT_NAME/TASK_NAME`
 Done | `done INDEX`
-Edit | `edit TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`
+Edit | `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [p/PRIORITY_LEVEL]`
 Filter | `[n/EVENT/TASK] [s/START_DATE] [d/DEADLINE] [c/DONE/UNDONE] [t/TAG]`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`

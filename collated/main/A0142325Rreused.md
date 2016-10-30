@@ -1,4 +1,61 @@
 # A0142325Rreused
+###### \java\seedu\address\logic\commands\EditCommand.java
+``` java
+			UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+	        if (targetIndex != -1) {
+	            if (lastShownList.size() < targetIndex) {
+	                indicateAttemptToExecuteIncorrectCommand();
+	                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+	            }
+
+	            target = lastShownList.get(targetIndex - 1);
+	        } else {
+	            assert this.name != null;
+	            ArrayList<ReadOnlyTask> shownList=new ArrayList<ReadOnlyTask>();
+	            for (ReadOnlyTask e : lastShownList) {
+	                if (name.trim().equals(e.getName().taskName)) {
+	                    shownList.add(e);
+	                }
+	            }
+	            if(shownList.size()>1){
+	            	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
+	            	 if (!matcher.matches()) {
+	                     return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+	                             EditCommand.MESSAGE_USAGE));
+	                 }
+	                 final String[] keywords = matcher.group("keywords").split("\\s+");
+	                 final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+	            	model.updateFilteredTaskList(keywordSet);
+	            	return new CommandResult(MESSAGE_DELETE_SAME_NAME);
+	            }else if(shownList.size()==1){
+	            	target = shownList.get(0);
+	            }else{
+	            	return new CommandResult(Messages.MESSAGE_INVALID_TASK_NAME);
+	            }
+	        } //end if statment to find the target task
+
+	        try {
+				model.editTask(target, type, details);
+				String message = String.format(getSuccessMessage(target), target);
+				model.updateFilteredListToShowAll();
+				model.saveState(message);
+				return new CommandResult(message);
+			} catch (IllegalValueException e) {
+				return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
+			}
+
+		}
+
+	public static String getSuccessMessage(ReadOnlyTask toEdit) {
+        if (toEdit.isEvent()) {
+            return MESSAGE_EVENT_SUCCESS;
+        } else {
+            return MESSAGE_TASK_SUCCESS;
+        }
+    }
+
+}
+```
 ###### \java\seedu\address\logic\parser\ArgumentTokenizer.java
 ``` java
  import java.util.*;
