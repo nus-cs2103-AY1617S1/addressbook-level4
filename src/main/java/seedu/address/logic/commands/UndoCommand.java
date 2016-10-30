@@ -17,7 +17,8 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undid Task";
+    public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undid Task.";
+    public static final String MESSAGE_UNDO_TASK_FAILURE = "Failed to undo task.";
 
     private int numTimes;
 
@@ -31,6 +32,10 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        if (numTimes > model.getUndoStack().size()) {
+            Command command = new IncorrectCommand("There are not so many tasks available to be undone.");
+            return command.execute();
+        }
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
