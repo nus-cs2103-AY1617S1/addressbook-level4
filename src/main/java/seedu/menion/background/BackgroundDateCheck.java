@@ -57,7 +57,6 @@ public class BackgroundDateCheck extends ComponentManager{
 			    SendEmail sender = new SendEmail();
 				try {
                     sender.send(taskToCheck);
-//                    model.setEmailSentTask(i);
                     taskToCheck.setEmailSent(true);
                     raise(new ActivityManagerChangedEventNoUI(activityManager));
 
@@ -75,14 +74,12 @@ public class BackgroundDateCheck extends ComponentManager{
 
 				if (isActivityOver(currentTime, taskToCheck)){
 					
-//					model.setTimePassedTask(i);
 					taskToCheck.setTimePassed(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
 					
 	                SendEmail sender = new SendEmail();
 	                try {
 	                    sender.send(taskToCheck);
-//	                    model.setEmailSentTask(i);
 	                    taskToCheck.setEmailSent(true);
 						raise(new ActivityManagerChangedEventNoUI(activityManager));
 	                    
@@ -115,12 +112,10 @@ public class BackgroundDateCheck extends ComponentManager{
 					
 					eventToCheck.setTimePassed(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
-//					model.setTimePassedEvent(i);
 					
 				}
 
 			}
-			
 			
 		}
 		

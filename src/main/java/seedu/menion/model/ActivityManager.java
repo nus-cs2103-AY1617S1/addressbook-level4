@@ -142,39 +142,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Collections.sort(events.getInternalList(), new EventComparator());
     }
     
-    //@@author A0139277U
-    /**
-     * Indicates that the deadline for the task has passed
-     * @param index of the task in the task list
-     */
-    public void setTimePassedTask(int index){
-    	Activity dub;
-    	dub = tasks.getInternalList().get(index);
-    	dub.setTimePassed(true);
-    	tasks.getInternalList().set(index, dub);
-    }
-    
-    /**
-     * Indicates that an email has been sent, due to the deadline of the task passing
-     * @param index of the task in the task list
-     */
-    public void setEmailSentTask(int index){
-    	Activity dub;
-    	dub = tasks.getInternalList().get(index);
-    	dub.setEmailSent(true);
-    	tasks.getInternalList().set(index, dub); 	
-    }
-    
-    /**
-     * Indicates that the event has passed
-     * @param index of the event in the event list
-     */
-    public void setTimePassedEvent(int index){
-    	Activity dub;
-    	dub = events.getInternalList().get(index);
-    	dub.setTimePassed(true);
-    	events.getInternalList().set(index, dub);
-    }
     
     //@@author A0139164A
     /**

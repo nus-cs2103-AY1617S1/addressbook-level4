@@ -164,20 +164,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
-    public void setTimePassedTask(int index){
-    	activityManager.setTimePassedTask(index);
-    	indicateActivityManagerChanged();
-    }
-    
-    public void setEmailSentTask(int index){
-    	activityManager.setEmailSentTask(index);
-    	indicateActivityManagerChanged();
-    }
-    
-    public void setTimePassedEvent(int index){
-    	activityManager.setTimePassedEvent(index);
-    	indicateActivityManagerChanged();
-    }
     
     //@@author A0139164A
     /**
