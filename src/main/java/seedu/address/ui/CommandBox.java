@@ -102,18 +102,19 @@ public class CommandBox extends UiPart {
     }
     
     /*
-     * Handles Up/Down keys to replace commandbox content with previous/next commands
+     * Handles Up/Down keys to replace commandbox content with previous/next commands.
+     * Makes sure that this isn't part of a control-up/down combination.
      * Handles Tab key by autocompleting command in the current box if it's a new command,
      * or cycles through autocomplete suggestions if nothing else has changed except the TAB press
      */
     private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
-            if(event.getCode() == KeyCode.UP) {
+            if(event.getCode() == KeyCode.UP && event.isControlDown() == false) {
             	String previousCommand = logic.getPreviousCommand();
             	commandTextField.setText(previousCommand);
             	
-            } else if(event.getCode() == KeyCode.DOWN) {
+            } else if(event.getCode() == KeyCode.DOWN && event.isControlDown() == false) {
             	String nextCommand = logic.getNextCommand();
             	commandTextField.setText(nextCommand);
             	
@@ -138,7 +139,6 @@ public class CommandBox extends UiPart {
             } else {
             	return;
             }
-            event.consume();
         }
     };
     

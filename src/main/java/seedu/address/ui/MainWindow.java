@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +45,9 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String addressBookName;
+    
+    private final KeyCombination controlPlusUp = new KeyCodeCombination(KeyCode.UP, KeyCombination.CONTROL_DOWN);
+    private final KeyCombination controlPlusDown = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.CONTROL_DOWN);
 
 
     @FXML
@@ -97,12 +104,30 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
+        setSceneHandlers(scene);
         primaryStage.setScene(scene);
+        
+
 
         setAccelerators();
     }
 
-    private void setAccelerators() {
+    private void setSceneHandlers(Scene scene) {
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (controlPlusDown.match(event)) {
+					taskListPanel.scrollDown();
+				} else if (controlPlusUp.match(event)) {
+					taskListPanel.scrollUp();
+				}
+			}
+        	
+        });
+		
+	}
+
+	private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
