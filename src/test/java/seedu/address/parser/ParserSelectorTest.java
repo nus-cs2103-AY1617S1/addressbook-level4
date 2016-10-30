@@ -11,6 +11,10 @@ import seedu.address.logic.parser.*;
 //@@author A0143107U
 public class ParserSelectorTest {
 
+	/**
+	 * Testing correct handling of invalid formats
+	 * 
+	 */
 	@Test
 	public void parserSelector_invalidCommand(){
 		/* CommandResult should return a string that denotes that 
@@ -22,6 +26,9 @@ public class ParserSelectorTest {
         assertTrue(feedback.equals(Messages.MESSAGE_UNKNOWN_COMMAND));
 	}
 	
+	/**
+	 * Testing parsing of valid formats
+	 */
 	@Test
 	public void parserSelector_add(){
 		/* CommandParser should return a string that denotes that 

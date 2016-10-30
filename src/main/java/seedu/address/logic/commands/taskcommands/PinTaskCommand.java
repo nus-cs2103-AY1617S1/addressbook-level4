@@ -23,7 +23,7 @@ public class PinTaskCommand extends TaskCommand {
             + "Example: " + COMMAND_WORD[0] + " 1";
 
     public static final String MESSAGE_pin_TASK_SUCCESS = "Pinned task: %1$s";
-    public static final String MESSAGE_TASK_ALR_pinD = "Task has already been pinned";
+    public static final String MESSAGE_TASK_ALR_PINNED = "Task has already been pinned";
 
     public final int targetIndex;
 
@@ -50,16 +50,8 @@ public class PinTaskCommand extends TaskCommand {
             return new CommandResult(String.format(MESSAGE_pin_TASK_SUCCESS, taskToPin));
         }
         else{
-        	return new CommandResult(MESSAGE_TASK_ALR_pinD);
+        	return new CommandResult(MESSAGE_TASK_ALR_PINNED);
         }
-    }
-    
-    //@@author
-    /*
-     * Retrieves index for testing purposes
-     */
-    public String getIndex(){
-    	return Integer.toString(targetIndex);
     }
 
 }

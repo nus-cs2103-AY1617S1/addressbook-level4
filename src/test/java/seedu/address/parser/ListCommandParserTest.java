@@ -15,7 +15,7 @@ public class ListCommandParserTest {
 		ListCommandParser parser = new ListCommandParser();
 		
 		/**
-		 * Testing correct handling of invalid formats, list types
+		 * Testing correct handling of invalid formats
 		 */
 		@Test
 		public void prepareCommand_invalidFormat() {

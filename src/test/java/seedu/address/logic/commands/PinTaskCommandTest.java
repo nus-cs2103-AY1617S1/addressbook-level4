@@ -86,7 +86,7 @@ public class PinTaskCommandTest {
 		PinTaskCommand command = new PinTaskCommand(2);
 		command.setData(model);
 		
-		String expected = String.format(PinTaskCommand.MESSAGE_TASK_ALR_pinD);
+		String expected = String.format(PinTaskCommand.MESSAGE_TASK_ALR_PINNED);
 		assertCommandFeedback(command, expected);
 	}
 
