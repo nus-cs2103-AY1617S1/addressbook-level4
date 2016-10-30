@@ -110,6 +110,15 @@ public class Parser {
         case UpdateCommand.COMMAND_WORD:
         	return new UpdateCommand();
 
+	case RevertCommand.COMMAND_WORD:
+	 	return new RevertCommand();
+			
+	case UndoCommand.COMMAND_WORD:
+        	 return new UndoCommand();
+        	 
+        case RevertCommand.COMMAND_WORD:
+        	 return new RevertCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -276,6 +285,20 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
     
+    /**
+     * Parses arguments in the context of the Group task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    
+    
+    private Command prepareGroup(String args) {
+        final String keyword = args.trim();
+    	   
+        return new GroupCommand(keyword);
+    }
+
     /**
      * Parses arguments in the context of the edit task command
      * 
