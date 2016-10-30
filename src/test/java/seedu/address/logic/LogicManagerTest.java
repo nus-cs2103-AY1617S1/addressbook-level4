@@ -11,7 +11,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.taskcommands.HelpTaskCommand;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
@@ -21,13 +20,10 @@ import seedu.address.model.task.Task;
 
 import seedu.address.storage.task.TaskStorageManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
