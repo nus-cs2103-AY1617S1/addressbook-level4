@@ -37,6 +37,8 @@ public class BlockCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This time slot if already booked";
 
     private final Task toBlock;
+    private final Blocker blocker = new Blocker();
+
     
     /**
      * Created an Block command
@@ -76,9 +78,9 @@ public class BlockCommand extends Command {
         return toBlock;
     }
 
+    //@@author A0139661Y
     @Override
     public CommandResult execute() {
-        Blocker blocker = new Blocker();
         try {
     		blocker.checkBlocked(toBlock, model.getBlockedList());
             model.addTask(toBlock);

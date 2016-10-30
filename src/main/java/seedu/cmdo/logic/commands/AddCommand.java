@@ -33,6 +33,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in CMDo";
 
     private final Task toAdd;
+    private final Blocker blocker = new Blocker();
     
     /**
      * Created an add command for SINGULAR NON-RANGE DATE AND TIME
@@ -97,9 +98,9 @@ public class AddCommand extends Command {
         return toAdd;
     }
 
+    //@@author A0139661Y
     @Override
     public CommandResult execute() {
-        Blocker blocker = new Blocker();
     	try {
     		// Check for block conflicts. Throws a TaskBlockedException if conflicts exist.
     		blocker.checkBlocked(toAdd, model.getBlockedList());
