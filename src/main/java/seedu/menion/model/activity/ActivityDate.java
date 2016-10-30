@@ -72,6 +72,10 @@ public class ActivityDate {
     	return this.month;
     }
     
+    public String toFormattedDateString(){
+    	return this.formattedValue;
+    }
+    
     @Override
     public String toString() {
         return value;
