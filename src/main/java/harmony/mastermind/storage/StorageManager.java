@@ -112,6 +112,10 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     //@@author A0139194X
+    /**
+     * Handles RelocateFilePathEvent by first changing taskManger's file path, then moving
+     * the file over and deleting the old one
+     */
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event != null;
