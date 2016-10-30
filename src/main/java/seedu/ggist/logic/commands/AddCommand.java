@@ -1,12 +1,8 @@
 package seedu.ggist.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
 
-import seedu.ggist.commons.core.Messages;
+
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
 /**
@@ -23,23 +19,9 @@ public class AddCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "New %1$s added: %2$s";
     public static final String MESSAGE_DUPLICATE_TASK = "duplicated tasks found";
-    
-    private enum TaskType {
-        FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
-        
-        private final String taskType;
-        TaskType(String taskType) {
-            this.taskType = taskType;
-        }
-        
-        @Override
-        public String toString() {
-            return this.taskType;
-        }
-    }
-    
+      
     private final Task toAdd;
-    private TaskType taskType;
+    private Task.TaskType taskType;
 
     /**
      * Constructor for task with start and end times using raw values.
@@ -56,7 +38,7 @@ public class AddCommand extends Command {
                 new TaskTime(endTime),
                 new Priority(priority)
         );
-        taskType = TaskType.EVENT;
+        taskType = Task.TaskType.EVENT;
     }
     
     /**
@@ -72,7 +54,7 @@ public class AddCommand extends Command {
                 new TaskTime(endTime),
                 new Priority(priority)
         );
-        taskType = TaskType.DEADLINE;
+        taskType = Task.TaskType.DEADLINE;
     }
     
     /**
@@ -86,7 +68,7 @@ public class AddCommand extends Command {
                 new TaskName(taskName),
                 new Priority(priority)
         );
-        taskType = TaskType.FLOATING;
+        taskType = Task.TaskType.FLOATING;
     }
     
     public String getTaskType() {

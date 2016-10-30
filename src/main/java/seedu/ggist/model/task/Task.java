@@ -1,6 +1,7 @@
 package seedu.ggist.model.task;
 
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,6 +26,20 @@ public class Task implements ReadOnlyTask{
     protected boolean overdue;
     protected Date start;
     protected Date end;
+    
+    public static enum TaskType {
+        FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
+        
+        private final String taskType;
+        TaskType(String taskType) {
+            this.taskType = taskType;
+        }
+        
+        @Override
+        public String toString() {
+            return this.taskType;
+        }
+    }
     
     /**
      * Every field must be present and not null.
@@ -113,6 +128,36 @@ public class Task implements ReadOnlyTask{
         if(end.before(start)) {
             throw new IllegalValueException("End cannot be earlier than start!");
         }
+    }
+    
+    /**
+     * compares task based on start date and time
+     * @return dateTimeComparator
+     */
+    public static Comparator getTaskComparator(){
+        return new Comparator<Task>(){
+            public int compare (Task t1, Task t2){
+                    
+                if (t1.getStartDateTime().equals(t2.getStartDateTime())
+                    && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
+                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
+                } 
+                
+                if (t1.getStartDateTime().before(t2.getStartDateTime())) {
+                    return -1;
+                } else if (t1.getStartDateTime().after(t2.getStartDateTime())) {
+                    return 1;
+                } 
+                
+                if (t1.getEndDateTime().before(t2.getEndDateTime())) {
+                    return -1;
+                } else if (t1.getEndDateTime().after(t2.getEndDateTime())) {
+                    return 1;
+                }
+                
+                return 0;
+            }
+        };
     }
     
     /**
