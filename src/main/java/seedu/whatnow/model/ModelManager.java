@@ -50,7 +50,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfNewTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
+    private final Stack<Integer> stackOfDeletedTaskIndex;
     private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
+    private final Stack<Integer> stackOfDeletedTaskIndexRedo;
     private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
     private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
     private final Stack<ReadOnlyTask> stackOfMarkDone;
@@ -82,7 +84,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
+        stackOfDeletedTaskIndex = new Stack<>();
         stackOfDeletedTasksRedo = new Stack<>();
+        stackOfDeletedTaskIndexRedo = new Stack<>();
         stackOfDeletedTasksAdd = new Stack<>();
         stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone= new Stack<>();
@@ -108,7 +112,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfNewTask = new Stack<>();
         stackOfWhatNow = new Stack<>();
         stackOfDeletedTasks = new Stack<>();
+        stackOfDeletedTaskIndex = new Stack<>();
         stackOfDeletedTasksRedo = new Stack<>();
+        stackOfDeletedTaskIndexRedo = new Stack<>();
         stackOfDeletedTasksAdd = new Stack<>();
         stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone = new Stack<>();
@@ -148,8 +154,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author A0141021H-reused
     /** Raises an event to indicate that a task was added */
-    private void indicateAddTask(Task task) {
-        raise (new AddTaskEvent(task));
+    private void indicateAddTask(Task task, boolean isUndo) {
+        raise (new AddTaskEvent(task, isUndo));
     }
     //@@author A0141021H-reused
     /** Raises an event to indicate that a task was updated */
@@ -164,16 +170,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author A0139128A-reused
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        whatNow.removeTask(target);
+    public synchronized int deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        int indexRemoved = whatNow.removeTask(target);
         indicateWhatNowChanged();
+        return indexRemoved;
     }
     //@@author A0126240W-reused
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
         updateFilteredListToShowAllIncomplete();
-        indicateAddTask(task);
+        indicateAddTask(task, false);
+        indicateWhatNowChanged();
+    }
+    //@@author A0139128A
+    public synchronized void addTaskSpecific(Task task, int idx) throws UniqueTaskList.DuplicateTaskException {
+    	whatNow.addTaskSpecific(task, idx);
+    	updateFilteredListToShowAllIncomplete();
+        indicateAddTask(task, true);
         indicateWhatNowChanged();
     }
     //@@author A0126240W
@@ -225,6 +239,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
         return stackOfDeletedTasks;
+    }
+    //@@author A0139128A
+    public Stack<Integer> getDeletedStackOfTasksIndex() {
+    	return stackOfDeletedTaskIndex;
+    }
+    //@@author A0139128A
+    public Stack<Integer> getDeletedStackOfTasksIndexRedo() {
+    	return stackOfDeletedTaskIndexRedo;
     }
     //@@author A0139128A
     @Override
@@ -348,9 +370,13 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Schedule List Accessors ===============================================================
     //@@author A0139772U
     @Override 
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
-        updateFilteredScheduleListToShowAllIncomplete();
-        return new UnmodifiableObservableList<>(filteredSchedules);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
+    	System.out.println("BEFORE SORT: " + filteredSchedules.toString());
+    	if (!isUndo) {
+    		updateFilteredScheduleListToShowAllIncomplete();
+    	}
+    	System.out.println("AFTER SORT: " + filteredSchedules.toString());
+    	return new UnmodifiableObservableList<>(filteredSchedules);
     }
 
     @Override

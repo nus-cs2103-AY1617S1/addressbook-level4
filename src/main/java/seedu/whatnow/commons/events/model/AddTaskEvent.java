@@ -8,9 +8,11 @@ import seedu.whatnow.model.task.Task;
 public class AddTaskEvent extends BaseEvent {
 
     public final Task task;
+    public final boolean isUndo;
 
-    public AddTaskEvent(Task task){
+    public AddTaskEvent(Task task, boolean isUndo){
         this.task = task;
+        this.isUndo = isUndo;
     }
 
     @Override

@@ -70,7 +70,15 @@ public class UniqueTaskList implements Iterable<Task> {
         
         internalList.add(toAdd);
     }
-
+    
+    public void addSpecific(Task toAddSpecific, int idx) throws DuplicateTaskException {
+    	assert toAddSpecific != null;
+    	if(contains(toAddSpecific)) {
+    		throw new DuplicateTaskException();
+    	}
+    	
+    	internalList.add(idx, toAddSpecific);
+    }
     /**
      * Removes the equivalent task from the list.
      *

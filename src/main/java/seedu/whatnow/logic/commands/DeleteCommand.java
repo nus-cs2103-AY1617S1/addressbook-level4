@@ -1,10 +1,12 @@
 //@@author A0139772U
 package seedu.whatnow.logic.commands;
 
+import javafx.collections.ObservableList;
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
+import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -51,9 +53,10 @@ public class DeleteCommand extends UndoAndRedo {
 
 		assert model != null;	 
 		try {
-			model.deleteTask(taskToDelete);
+			int indexRemoved = model.deleteTask(taskToDelete);
 			model.getUndoStack().push(this);
 			model.getDeletedStackOfTasks().push(taskToDelete);
+			model.getDeletedStackOfTasksIndex().push(indexRemoved);
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
@@ -63,14 +66,16 @@ public class DeleteCommand extends UndoAndRedo {
 	//@@author A0139128A
 	@Override
 	public CommandResult undo() {
-		if(model.getDeletedStackOfTasks().isEmpty()) {
+		if(model.getDeletedStackOfTasks().isEmpty() || model.getDeletedStackOfTasksIndex().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
-		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTasks().pop();
-		model.getDeletedStackOfTasksRedo().push(taskToReAdd);
+		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTasks().pop(); /**Gets the required task to reAdd */
+		model.getDeletedStackOfTasksRedo().push(taskToReAdd);			/**Stores the required task for redoCommand if needed */
+		int idxToReAdd = model.getDeletedStackOfTasksIndex().pop();		/**Gets the required task index to reAdd */
 		try {
-			model.addTask((Task)taskToReAdd);
-		} catch(DuplicateTaskException e) {
+			model.addTaskSpecific((Task) taskToReAdd, idxToReAdd);
+			model.getDeletedStackOfTasksIndexRedo().push(idxToReAdd);
+		} catch (DuplicateTaskException e) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
@@ -78,13 +83,16 @@ public class DeleteCommand extends UndoAndRedo {
 	
 	@Override
 	public CommandResult redo() {
-		if(model.getDeletedStackOfTasksRedo().isEmpty()) {
+		if(model.getDeletedStackOfTasksRedo().isEmpty() || model.getDeletedStackOfTasksIndexRedo().isEmpty()) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
 		ReadOnlyTask taskToDelete = model.getDeletedStackOfTasksRedo().pop();
 		model.getDeletedStackOfTasks().push(taskToDelete);
+		int idxToRedoAdd = model.getDeletedStackOfTasksIndexRedo().pop();
 		try {
+			System.out.println("At deleteCommand : redo : and idxToRedoAdd :  "+ idxToRedoAdd);
 			model.deleteTask((Task) taskToDelete);
+			model.getDeletedStackOfTasksIndex().push(idxToRedoAdd);
 		} catch(TaskNotFoundException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}

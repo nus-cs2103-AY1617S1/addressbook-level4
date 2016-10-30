@@ -27,6 +27,6 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
     
     /** Returns the filtered list of schedule */
-    ObservableList<ReadOnlyTask> getFilteredScheduleList();
+    ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
 
 }

@@ -130,7 +130,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(event.isUndo).indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
@@ -144,7 +144,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(false).indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
