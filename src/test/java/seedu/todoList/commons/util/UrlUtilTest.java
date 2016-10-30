@@ -1,8 +1,8 @@
-package seedu.todoList.commons.util;
+package seedu.Tdoo.commons.util;
 
 import org.junit.Test;
 
-import seedu.todoList.commons.util.UrlUtil;
+import seedu.Tdoo.commons.util.UrlUtil;
 
 import java.net.MalformedURLException;
 import java.net.URL;

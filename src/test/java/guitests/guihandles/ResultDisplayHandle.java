@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import seedu.todoList.TestApp;
+import seedu.Tdoo.TestApp;
 
 /**
  * A handler for the ResultDisplay of the UI

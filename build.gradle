@@ -77,7 +77,7 @@ allprojects {
         archiveName = "todoList.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.todoList.MainApp"
+            attributes "Main-Class": "seedu.Tdoo.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")

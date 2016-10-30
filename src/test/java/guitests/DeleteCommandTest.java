@@ -2,12 +2,12 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.todoList.testutil.TestUtil;
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.testutil.TestTask;
+import seedu.Tdoo.testutil.TestUtil;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.Tdoo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends ListGuiTest {
 

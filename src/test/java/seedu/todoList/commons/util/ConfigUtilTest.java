@@ -1,4 +1,4 @@
-package seedu.todoList.commons.util;
+package seedu.Tdoo.commons.util;
 
 
 import org.junit.Rule;
@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.todoList.commons.core.Config;
-import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.commons.util.ConfigUtil;
-import seedu.todoList.commons.util.FileUtil;
+import seedu.Tdoo.commons.core.Config;
+import seedu.Tdoo.commons.exceptions.DataConversionException;
+import seedu.Tdoo.commons.util.ConfigUtil;
+import seedu.Tdoo.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

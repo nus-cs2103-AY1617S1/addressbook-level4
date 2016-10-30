@@ -6,11 +6,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.todoList.TestApp;
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.testutil.TestUtil;
+import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.model.task.ReadOnlyTask;
+import seedu.Tdoo.model.task.Todo;
+import seedu.Tdoo.TestApp;
+import seedu.Tdoo.testutil.TestUtil;
 
 import java.util.List;
 import java.util.Optional;

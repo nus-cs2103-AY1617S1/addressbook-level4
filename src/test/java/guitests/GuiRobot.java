@@ -1,7 +1,7 @@
 package guitests;
 
 import javafx.scene.input.KeyCodeCombination;
-import seedu.todoList.testutil.TestUtil;
+import seedu.Tdoo.testutil.TestUtil;
 
 import org.testfx.api.FxRobot;
 

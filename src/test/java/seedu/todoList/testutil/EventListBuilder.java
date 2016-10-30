@@ -1,8 +1,8 @@
-package seedu.todoList.testutil;
+package seedu.Tdoo.testutil;
 
-import seedu.todoList.model.TaskList;
-import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.UniqueTaskList;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.task.Task;
+import seedu.Tdoo.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building TodoList  objects.

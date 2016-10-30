@@ -1,7 +1,7 @@
-package seedu.todoList.model;
+package seedu.Tdoo.model;
 
 import javafx.collections.FXCollections;
-import seedu.todoList.commons.core.UnmodifiableObservableList;
+import seedu.Tdoo.commons.core.UnmodifiableObservableList;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 
 import static org.junit.Assert.assertSame;
-import static seedu.todoList.testutil.TestUtil.assertThrows;
+import static seedu.Tdoo.testutil.TestUtil.assertThrows;
 
 public class UnmodifiableObservableListTest {
 

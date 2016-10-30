@@ -1,10 +1,10 @@
-package seedu.todoList.commons.util;
+package seedu.Tdoo.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.todoList.commons.util.AppUtil;
+import seedu.Tdoo.commons.util.AppUtil;
 
 import static org.junit.Assert.assertNotNull;
 

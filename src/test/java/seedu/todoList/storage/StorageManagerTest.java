@@ -1,4 +1,4 @@
-package seedu.todoList.storage;
+package seedu.Tdoo.storage;
 
 
 import org.junit.Before;
@@ -6,23 +6,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.events.model.EventListChangedEvent;
-import seedu.todoList.commons.events.model.TodoListChangedEvent;
-import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todoList.model.ReadOnlyTaskList;
-//import seedu.todoList.model.ReadOnlyTodoList;
-import seedu.todoList.model.TaskList;
-import seedu.todoList.model.UserPrefs;
-
-import seedu.todoList.storage.JsonUserPrefsStorage;
-import seedu.todoList.storage.Storage;
-import seedu.todoList.storage.StorageManager;
-import seedu.todoList.storage.XmlTodoListStorage;
-import seedu.todoList.testutil.EventsCollector;
-import seedu.todoList.testutil.TypicalTestDeadline;
-import seedu.todoList.testutil.TypicalTestEvent;
-import seedu.todoList.testutil.TypicalTestTask;
+import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.commons.events.model.EventListChangedEvent;
+import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
+import seedu.Tdoo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.Tdoo.model.ReadOnlyTaskList;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.UserPrefs;
+import seedu.Tdoo.storage.JsonUserPrefsStorage;
+import seedu.Tdoo.storage.Storage;
+import seedu.Tdoo.storage.StorageManager;
+import seedu.Tdoo.storage.XmlDeadlineListStorage;
+import seedu.Tdoo.storage.XmlEventListStorage;
+import seedu.Tdoo.storage.XmlTodoListStorage;
+import seedu.Tdoo.testutil.EventsCollector;
+import seedu.Tdoo.testutil.TypicalTestDeadline;
+import seedu.Tdoo.testutil.TypicalTestEvent;
+import seedu.Tdoo.testutil.TypicalTestTask;
 
 import java.io.IOException;
 

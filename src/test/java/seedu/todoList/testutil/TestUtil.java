@@ -1,4 +1,4 @@
-package seedu.todoList.testutil;
+package seedu.Tdoo.testutil;
 
 import com.google.common.io.Files;
 
@@ -13,18 +13,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
-import seedu.todoList.TestApp;
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.commons.util.FileUtil;
-import seedu.todoList.commons.util.XmlUtil;
-import seedu.todoList.model.TaskList;
-
-import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.storage.XmlSerializableTaskList;
-import seedu.todoList.storage.XmlSerializableTodoList;
-import seedu.todoList.storage.XmlSerializableDeadlineList;
-import seedu.todoList.storage.XmlSerializableEventList;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.commons.util.FileUtil;
+import seedu.Tdoo.commons.util.XmlUtil;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.task.*;
+import seedu.Tdoo.model.task.attributes.*;
+import seedu.Tdoo.storage.XmlSerializableDeadlineList;
+import seedu.Tdoo.storage.XmlSerializableEventList;
+import seedu.Tdoo.storage.XmlSerializableTaskList;
+import seedu.Tdoo.storage.XmlSerializableTodoList;
+import seedu.Tdoo.TestApp;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;

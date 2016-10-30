@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
 
 import static org.junit.Assert.assertTrue;
 

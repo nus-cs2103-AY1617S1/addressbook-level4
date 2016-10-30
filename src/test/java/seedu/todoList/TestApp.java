@@ -2,14 +2,13 @@ package seedu.todoList;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import seedu.todoList.MainApp;
-import seedu.todoList.commons.core.Config;
-import seedu.todoList.commons.core.GuiSettings;
-import seedu.todoList.model.ReadOnlyTaskList;
-import seedu.todoList.model.UserPrefs;
-import seedu.todoList.storage.XmlSerializableTodoList;
-import seedu.todoList.testutil.TestUtil;
+import seedu.Tdoo.MainApp;
+import seedu.Tdoo.commons.core.Config;
+import seedu.Tdoo.commons.core.GuiSettings;
+import seedu.Tdoo.model.ReadOnlyTaskList;
+import seedu.Tdoo.model.UserPrefs;
+import seedu.Tdoo.storage.XmlSerializableTodoList;
+import seedu.Tdoo.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

@@ -1,4 +1,4 @@
-package seedu.todoList.commons.util;
+package seedu.Tdoo.commons.util;
 
 /**
  * Tests JSON Read and Write
