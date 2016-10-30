@@ -99,7 +99,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 > * Finds all tasks that has the keyword in the task title, and shows in the list sorted in the one of the following order:
 > * By default it will be sorted by the most keyword matches first, but the sorting can be changed
 > * 1. Show the task with the most keyword matches first
-> * 2. Sorted in index order
+> 2. Sorted in index order
 >
 > * The search is not case sensitive. e.g `homework` will match `Homework`
 > * The order of the keywords does not matter. e.g. `to do homework` will match `homework to do`
