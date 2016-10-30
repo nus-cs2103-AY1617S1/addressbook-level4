@@ -92,8 +92,8 @@ public class AddCommand extends UndoableCommand {
      */
     private void createRecurringTask(int timesToRecur) throws IllegalValueException {
         for (int i = 0; i < timesToRecur; i++) {
-            DateTime newOpenTime = DateTime.fromDateTimeOffset(toAdd.getOpenTime(), 7, ChronoUnit.DAYS);
-            DateTime newCloseTime = DateTime.fromDateTimeOffset(toAdd.getCloseTime(), 7, ChronoUnit.DAYS);
+            DateTime newOpenTime = DateTime.fromDateTimeOffset(toAdd.getOpenTime(), i * 7, ChronoUnit.DAYS);
+            DateTime newCloseTime = DateTime.fromDateTimeOffset(toAdd.getCloseTime(), i * 7, ChronoUnit.DAYS);
             Task newTask = new Task(
                         toAdd.getName(),
                         newOpenTime,
