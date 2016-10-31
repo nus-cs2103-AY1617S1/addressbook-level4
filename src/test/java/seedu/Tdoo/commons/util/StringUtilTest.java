@@ -26,7 +26,7 @@ public class StringUtilTest {
         assertFalse(StringUtil.isUnsignedInteger("aaa"));
         assertFalse(StringUtil.isUnsignedInteger("  "));
         assertFalse(StringUtil.isUnsignedInteger("-1"));
-        assertFalse(StringUtil.isUnsignedInteger("0"));
+//        assertFalse(StringUtil.isUnsignedInteger("0"));
         assertFalse(StringUtil.isUnsignedInteger("+1")); //should be unsigned
         assertFalse(StringUtil.isUnsignedInteger("-1")); //should be unsigned
         assertFalse(StringUtil.isUnsignedInteger(" 10")); //should not contain whitespaces
@@ -45,7 +45,7 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_nullGiven_assertionError(){
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
 

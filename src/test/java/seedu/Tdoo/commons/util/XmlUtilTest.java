@@ -56,12 +56,12 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTodoList.class);
         assertEquals(0, dataFromFile.getTaskList().size());
-        //assertEquals(0, dataFromFile.getTagList().size());
+
     }
 
     @Test
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         XmlUtil.saveDataToFile(null, new TaskList());
     }
 

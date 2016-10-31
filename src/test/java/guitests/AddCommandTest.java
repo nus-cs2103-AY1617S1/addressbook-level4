@@ -35,7 +35,7 @@ public class AddCommandTest extends ListGuiTest {
         
         //add one event
         TestEvent[] currentEventList = ed.getTypicalEvent();
-        TestEvent eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        TestEvent eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("01-01-2017").withEndDate("02-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
@@ -51,12 +51,12 @@ public class AddCommandTest extends ListGuiTest {
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
         //add another event
-        eventToAdd = new EventBuilder().withName("AnotherEVENT 123").withStartDate("30-12-2017").withEndDate("31-12-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        eventToAdd = new EventBuilder().withName("AnotherEVENT 123").withStartDate("01-11-2017").withEndDate("02-11-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(eventToAdd, currentEventList);
         currentEventList = TestUtil.addEventsToList(currentEventList, eventToAdd);
         
         //add another deadline
-        ddToAdd = new DeadlineBuilder().withName("ANOTHEREADLINE 1").withStartDate("31-12-2017").withEndTime("10:00").withDone("false").build();
+        ddToAdd = new DeadlineBuilder().withName("ANOTHEREADLINE 1").withStartDate("19-11-2017").withEndTime("10:00").withDone("false").build();
         assertAddDeadlineSuccess(ddToAdd, currentDeadlineList);
         currentDeadlineList = TestUtil.addDeadlinesToList(currentDeadlineList, ddToAdd);
 
@@ -67,7 +67,7 @@ public class AddCommandTest extends ListGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //add duplicate event
-        eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2016").withEndDate("31-12-2016").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        eventToAdd = new EventBuilder().withName("EVENT 123").withStartDate("01-01-2017").withEndDate("02-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         commandBox.runCommand(eventToAdd.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(eventListPanel.isListMatching(currentEventList));

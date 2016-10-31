@@ -76,7 +76,7 @@ public class TestEvent implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         sb.append("from/" + this.getStartDate().toString() + " ");
-        sb.append("to/ " + this.getEndDate().toString() + " ");
+        sb.append("to/" + this.getEndDate().toString() + " ");
         sb.append("at/"+ this.getStartTime().toString() + " ");
         sb.append("to/" + this.getEndTime().toString());
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

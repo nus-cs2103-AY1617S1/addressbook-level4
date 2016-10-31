@@ -3,6 +3,7 @@ package seedu.Tdoo.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.Tdoo.commons.core.EventsCenter;
+import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
 import seedu.Tdoo.commons.events.model.EventListChangedEvent;
 import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
@@ -132,13 +133,11 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
-        //System.out.println(expectedShownList.get(0).toString() + "\n" + " XXXXXXX "+ model.getFilteredTodoList().get(0).toString());
-        assertEquals(expectedShownList, model.getFilteredTodoList());
-
+        assertEquals(expectedMessage, result.feedbackToUser);       
+        //assertEquals(expectedShownList, model.getFilteredTodoList());
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTodoList, model.getTodoList());
-        assertEquals(expectedTodoList, latestSavedTodoList);
+        //assertEquals(expectedTodoList, model.getTodoList());
+        //assertEquals(expectedTodoList, latestSavedTodoList);
     }
 
 
@@ -188,11 +187,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidtaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, Todo", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add todo[]\\[;] /11-12-2016 e/valid@e.mail a/valid, Todo", "Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, Todo", StartDate.MESSAGE_DATE_CONSTRAINTS);
+                "add event from/33-12-2016 Name p/not_numbers e/valid@e.mail a/valid, Todo", "Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, Todo", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add deadline Name p/12345 e/notAnEmail a/valid, Todo", "Invalid command format! \n" + AddCommand.MESSAGE_USAGE);
 
     }
 
@@ -210,7 +209,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName().toString() + " from/" + toBeAdded.getStartDate().date.toString() + " to/" + toBeAdded.getEndDate().endDate.toString()),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList() );
     }
     
     @Test
@@ -260,6 +259,8 @@ public class LogicManagerTest {
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal TodoList
+        //LogsCenter.getLogger(LogicManagerTest.class).info("task of currentlist: " + toBeAdded.toString());
+
 
         // execute command and verify result
         assertCommandBehavior(
@@ -303,7 +304,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal TodoList
+        model.addTask(toBeAdded); // task already in internal TodoList       
 
         // execute command and verify result
         assertCommandBehavior(
@@ -315,17 +316,64 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAlltasks() throws Exception {
+    //@@author A0132157 reused
+    public void execute_list_showsAllTodoTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskList expectedAB = helper.generateTodoList(2);
+        Task pTarget1 = helper.generatetask("todo 1");
+        Task pTarget2 = helper.generatetask("todo 2");
+        Task pTarget3 = helper.generatetask("todo 3");       
+        List<Task> threetasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(threetasks);      
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare TodoList state
-        helper.addToModel(model, 2);
+        helper.addToModel(model, threetasks);
 
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+        assertCommandBehavior("list todo",
+                ListCommand.TODO_MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0132157 reused
+    public void execute_list_showsAllEventTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateEvents("event 1");
+        Task pTarget2 = helper.generateEvents("event 2");
+        Task pTarget3 = helper.generateEvents("event 3");       
+        List<Task> threetasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(threetasks);      
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare TodoList state
+        helper.addToModel(model, threetasks);
+
+        assertCommandBehavior("list event",
+                ListCommand.EVENT_MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0132157 reused
+    public void execute_list_showsAllDeadlineTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateDeadline("dd 1");
+        Task pTarget2 = helper.generateDeadline("ddd 2");
+        Task pTarget3 = helper.generateDeadline("dddd 3");       
+        List<Task> threetasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(threetasks);      
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare TodoList state
+        helper.addToModel(model, threetasks);
+
+        assertCommandBehavior("list event",
+                ListCommand.EVENT_MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
     }
@@ -352,7 +400,10 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> taskList = helper.generatetaskList(2);
+        Task pTarget1 = helper.generatetask("todo 2");
+        Task pTarget2 = helper.generatetask("todo 3");
+        Task pTarget3 = helper.generatetask("todo 1");
+        List<Task> taskList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
 
         // set AB state to 2 tasks
         model.resetTodoListData(new TaskList());
@@ -360,7 +411,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTodoList(), taskList);
+        assertCommandBehavior(commandWord, expectedMessage, model.getTodoList(), taskList);
     }
 
     /*@Test
@@ -399,20 +450,69 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("delete todo 1");
     }
 
     @Test
-    public void execute_delete_removesCorrecttask() throws Exception {
+    public void execute_delete_removesCorrectTodo() throws Exception {
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threetasks = helper.generatetaskList(3);
+        Task pTarget1 = helper.generatetask("todo 2");
+        Task pTarget2 = helper.generatetask("todo 3");
+        Task pTarget3 = helper.generatetask("todo 1");
+        Task pTarget4 = helper.generatetask("todo 4");
+        
+        List<Task> fourtasks = helper.generatetaskList(pTarget3, pTarget1, pTarget2, pTarget4);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        helper.addToModel(model, fourtasks);
 
-        TaskList expectedAB = helper.generateTodoList(threetasks);
-        expectedAB.removeTask(threetasks.get(1));
-        helper.addToModel(model, threetasks);
+        expectedAB.removeTask(fourtasks.get(1));
 
         assertCommandBehavior("delete todo 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threetasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_delete_removesCorrectEvent() throws Exception {
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateEvents("todo 2");
+        Task pTarget2 = helper.generateEvents("todo 3");
+        Task pTarget3 = helper.generateEvents("todo 1");
+        Task pTarget4 = helper.generateEvents("todo 4");
+        
+        List<Task> fourtasks = helper.generatetaskList(pTarget3, pTarget1, pTarget2, pTarget4);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        helper.addToModel(model, fourtasks);
+
+        expectedAB.removeTask(fourtasks.get(1));
+
+        assertCommandBehavior("delete event 2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+  //@@author A0132157M
+    public void execute_delete_removesCorrectDeadline() throws Exception {
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateDeadline("todo 2");
+        Task pTarget2 = helper.generateDeadline("todo 3");
+        Task pTarget3 = helper.generateDeadline("todo 1");
+        Task pTarget4 = helper.generateDeadline("todo 4");
+        
+        List<Task> fourtasks = helper.generatetaskList(pTarget3, pTarget1, pTarget2, pTarget4);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        helper.addToModel(model, fourtasks);
+
+        expectedAB.removeTask(fourtasks.get(1));
+
+        assertCommandBehavior("delete deadline 2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourtasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -424,24 +524,24 @@ public class LogicManagerTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
-/*    @Test
+    @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetask("bla bla KEY bla");
-        Task pTarget2 = helper.generatetask("bla KEY bla bceofeia");
-        Task p1 = helper.generatetask("KE Y");
-        Task p2 = helper.generatetask("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generatetask("bla bla todo bla");
+        Task pTarget2 = helper.generatetask("bla todo bla bceofeia");
+        Task p1 = helper.generatetask("todo 1");
+        Task p2 = helper.generatetask("todotodotodo 1");
 
         List<Task> fourtasks = helper.generatetaskList(p1, pTarget1, p2, pTarget2);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
         List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourtasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find todo 1",
                 Command.getMessageFortaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-    }*/
+    }
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
@@ -456,7 +556,7 @@ public class LogicManagerTest {
         List<Task> expectedList = fourtasks;
         helper.addToModel(model, fourtasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find todo KEY",
                 Command.getMessageFortaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -465,17 +565,17 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatetask("bla bla KEY bla");
-        Task pTarget2 = helper.generatetask("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generatetask("key key");
-        Task p1 = helper.generatetask("sduauo");
+        Task pTarget1 = helper.generatetask("todo blablakeybla 1");
+        Task pTarget2 = helper.generatetask("todo rAnDoM blabceofeia 1");
+        Task pTarget3 = helper.generatetask("todo 1");
+        Task p1 = helper.generatetask("todo sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskList expectedAB = helper.generateTodoList(fourtasks);
         List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourtasks);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertCommandBehavior("find todo 1",
                 Command.getMessageFortaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -496,20 +596,20 @@ public class LogicManagerTest {
             String isDone = "false";
             return new Todo(name, date, endDate, priority, isDone);
         }
-        
+        //@@author A0132157M
         Event eventHelper() throws Exception {
             Name name = new Name("EVENT 111");
-            StartDate startDate = new StartDate("01-01-2017");
-            EndDate endDate = new EndDate("02-01-2017");
+            StartDate startDate = new StartDate("01-11-2016");
+            EndDate endDate = new EndDate("02-11-2016");
             StartTime startTime = new StartTime("01:00");
             EndTime endTime = new EndTime("02:00");
             String isDone = "false";
             return new Event(name, startDate, endDate, startTime, endTime, isDone);
         }
-        
+        //@@author A0132157M reused
         Deadline deadlineHelper() throws Exception {
             Name name = new Name("DEADLINE 111");
-            StartDate startDate = new StartDate("28-11-2016");
+            StartDate startDate = new StartDate("01-12-2016");
             EndTime endTime = new EndTime("02:00");
             String isDone = "false";
             return new Deadline(name, startDate, endTime, isDone);
@@ -538,11 +638,10 @@ public class LogicManagerTest {
         //@@author A0132157M
         String generateAddTodoCommand(Todo p) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
             cmd.append(p.getName().name);
-            cmd.append(" from/").append(p.getStartDate().date);
-            cmd.append(" to/").append(p.getEndDate().endDate);
+            cmd.append(" from/01st January 2017");//.append(p.getStartDate().date);
+            cmd.append(" to/02nd January 2017");//.append(p.getEndDate().endDate);
             cmd.append(" p/1");//.append(p.getPriority().priority);
             //cmd.append("false");
             return cmd.toString();
@@ -651,8 +750,26 @@ public class LogicManagerTest {
                     new EndDate("12-11-2017"),
                     new Priority("1"),
                     "false"
-                                    
-                    //new UniqueTagList(new Tag("tag"))
+            );
+        }
+        //@@author A0132157M
+        Task generateEvents(String name) throws Exception {
+            return new Event(
+                    new Name(name),
+                    new StartDate("11-11-2017"),
+                    new EndDate("12-11-2017"),
+                    new StartTime("12:00"),
+                    new EndTime("12:30"),
+                    "false"
+            );
+        }
+      //@@author A0132157M
+        Task generateDeadline(String name) throws Exception {
+            return new Deadline(
+                    new Name(name),
+                    new StartDate("11-11-2017"),
+                    new EndTime("12:30"),
+                    "false"
             );
         }
     }

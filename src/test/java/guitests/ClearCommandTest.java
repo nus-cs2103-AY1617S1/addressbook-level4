@@ -48,14 +48,14 @@ public class ClearCommandTest extends ListGuiTest {
 //------------------------------------------------------------------------
         //verify a non-empty list can be cleared
         TestEvent[] currentList2 = new TestEvent[]{};
-        TestEvent taskToAdd1 = new EventBuilder().withName("EVENT 123").withStartDate("30-12-2017").withEndDate("31-12-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        TestEvent taskToAdd1 = new EventBuilder().withName("EVENT 123").withStartDate("01-01-2017").withEndDate("01-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(taskToAdd1, currentList2);
         currentList2 = TestUtil.addEventsToList(currentList2, taskToAdd1);
         assertClearEventCommandSuccess();
           
         //verify other commands can work after a clear command
         TestEvent[] currentList3 = new TestEvent[]{};
-        TestEvent TaskToAdd2 = new EventBuilder().withName("EVENT 456").withStartDate("30-12-2017").withEndDate("31-12-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
+        TestEvent TaskToAdd2 = new EventBuilder().withName("EVENT 456").withStartDate("03-01-2017").withEndDate("04-01-2017").withStartTime("01:30").withEndTime("02:00").withDone("false").build();
         assertAddEventSuccess(TaskToAdd2, currentList3);
         currentList3 = TestUtil.addEventsToList(currentList3, TaskToAdd2);
 
@@ -68,14 +68,14 @@ public class ClearCommandTest extends ListGuiTest {
       //------------------------------------------------------------------------
         //verify a non-empty list can be cleared
         TestDeadline[] currentList4 = new TestDeadline[]{};
-        TestDeadline taskToAdd4 = new DeadlineBuilder().withName("DEADLINE 123").withStartDate("31-12-2017").withEndTime("10:00").withDone("false").build();
+        TestDeadline taskToAdd4 = new DeadlineBuilder().withName("DEADLINE 123").withStartDate("01-01-2017").withEndTime("10:00").withDone("false").build();
         assertAddDeadlineSuccess(taskToAdd4, currentList4);
         currentList4 = TestUtil.addDeadlinesToList(currentList4, taskToAdd4);
         assertClearDeadlineCommandSuccess();
           
         //verify other commands can work after a clear command
         TestDeadline[] currentList5 = new TestDeadline[]{};
-        TestDeadline TaskToAdd5 = new DeadlineBuilder().withName("DEADLINE 456").withStartDate("31-12-2017").withEndTime("10:00").withDone("false").build();
+        TestDeadline TaskToAdd5 = new DeadlineBuilder().withName("DEADLINE 456").withStartDate("01-01-2017").withEndTime("10:00").withDone("false").build();
         assertAddDeadlineSuccess(TaskToAdd5, currentList5);
         currentList5 = TestUtil.addDeadlinesToList(currentList5, TaskToAdd5);
 
