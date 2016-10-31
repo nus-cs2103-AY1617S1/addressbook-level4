@@ -35,9 +35,7 @@ import seedu.forgetmenot.logic.commands.ExitCommand;
 import seedu.forgetmenot.logic.commands.FindCommand;
 import seedu.forgetmenot.logic.commands.HelpCommand;
 import seedu.forgetmenot.logic.commands.SelectCommand;
-import seedu.forgetmenot.logic.commands.ShowAllCommand;
 import seedu.forgetmenot.logic.commands.ShowCommand;
-import seedu.forgetmenot.logic.commands.ShowDateCommand;
 import seedu.forgetmenot.logic.commands.UndoCommand;
 import seedu.forgetmenot.model.Model;
 import seedu.forgetmenot.model.ModelManager;
@@ -239,7 +237,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("show all",
-                ShowAllCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS_ALL,
                 expectedAB,
                 expectedList);
     }
@@ -256,7 +254,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show",
-                ShowCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS_SHOW,
                 expectedAB,
                 expectedList);
     }
@@ -273,7 +271,7 @@ public class LogicManagerTest {
         helper.addToModel(model, 3);
 
         assertCommandBehavior("show 01/01/17",
-                ShowDateCommand.MESSAGE_SUCCESS,
+                ShowCommand.MESSAGE_SUCCESS_DATE,
                 expectedAB,
                 expectedList);
     }
