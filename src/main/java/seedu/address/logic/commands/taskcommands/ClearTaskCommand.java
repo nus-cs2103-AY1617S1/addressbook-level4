@@ -12,7 +12,8 @@ public class ClearTaskCommand extends TaskCommand {
 
         public static final String HELP_MESSAGE_USAGE = "Clear Tasks: \t clear";
         
-        public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all the tasks that are currently listed";
+        public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes all the tasks that are currently listed\n"
+        		 + "Example: " + COMMAND_WORD;
         
         public static final String MESSAGE_CLEAR_TASKS_SUCCESS = "%d tasks deleted!";
 

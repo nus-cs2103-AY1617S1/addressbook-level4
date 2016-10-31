@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.taskcommands.ClearTaskCommand;
+import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 /*
@@ -18,6 +21,9 @@ public class ClearCommandParser extends CommandParser{
      * @return the prepared command
      */
     public TaskCommand prepareCommand(String arguments) {
+    	if(!arguments.equals("")){
+        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearTaskCommand.MESSAGE_USAGE));
+        }
         return new ClearTaskCommand();
     }
 }
