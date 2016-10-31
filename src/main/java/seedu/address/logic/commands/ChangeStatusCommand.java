@@ -46,19 +46,25 @@ public class ChangeStatusCommand extends Command {
 		Task taskChanged;
 
 		for (int i = 0; i < indices.length; i++) {
-			if (lastShownList.size() < indices[i]) {
+			// +i to compensate for the decrease in size when a task is marked done
+			if (lastShownList.size()+i < indices[i]) {
 				// TODO avoid save state/loadPrevious in case of incorrect command, 
 				// since redo stack will have an element. possibly create model.undoSaveState()
+				System.out.println("lastShownList size: " + lastShownList.size());
+				System.out.println("indice: " + indices[i]);
 				model.loadPreviousState();
 				indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 			}
 
 			taskChanged = new Task(lastShownList.get(indices[i] - 1));
-			int index = fullList.indexOf(taskChanged);
-			taskChanged.setStatus(new Status(newStatus));
 			tasksList.add(taskChanged);
 
+		}
+		for(int i = 0; i < tasksList.size(); i++) {
+			taskChanged = (Task) tasksList.get(i);
+			int index = fullList.indexOf(taskChanged);
+			taskChanged.setStatus(new Status(newStatus));
 			try {
 				model.editTask(index, taskChanged);
 			} catch (TaskNotFoundException e) {
