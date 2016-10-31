@@ -28,17 +28,17 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     @Test
     public void filterEvents() {
         filterPanel.runCommandForEvent();
-        assertFilterResult_success(td.meeting, td.travel);
+        assertFilterSuccess(td.meeting, td.travel);
         filterPanel.runCommandForEvent(); // Click twice to disable the button
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
     public void filterTasks() {
         filterPanel.runCommandForTask();
-        assertFilterResult_success(td.friend, td.friendEvent, td.lunch, td.book, td.work, td.movie);
+        assertFilterSuccess(td.friend, td.friendEvent, td.lunch, td.book, td.work, td.movie);
         filterPanel.runCommandForTask(); // Click twice to disable the button
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
@@ -46,9 +46,9 @@ public class FilterPanelTest extends TaskManagerGuiTest {
         commandBox.runCommand("done 1");
         td.friend.markAsDone();
         filterPanel.runCommandForDone();
-        assertFilterResult_success(td.friend);
+        assertFilterSuccess(td.friend);
         filterPanel.runCommandForDone(); // Click twice to disable the button
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
@@ -56,90 +56,90 @@ public class FilterPanelTest extends TaskManagerGuiTest {
         commandBox.runCommand("done 1");
         td.friend.markAsDone();
         filterPanel.runCommandForUndone();
-        assertFilterResult_success(td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
+        assertFilterSuccess(td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
         filterPanel.runCommandForUndone(); // Click twice to disable the button
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
     public void filterDeadline() {
         filterPanel.runCommandForDeadline("11.10.2016");
-        assertFilterResult_success(td.friendEvent, td.work);
+        assertFilterSuccess(td.friendEvent, td.work);
         filterPanel.runCommandForDeadline("hi");
-        assertFilterResult_fail(Deadline.MESSAGE_DEADLINE_CONSTRAINTS, td.friendEvent, td.work);
+        assertFilterFail(Deadline.MESSAGE_DEADLINE_CONSTRAINTS, td.friendEvent, td.work);
         filterPanel.runCommandForDeadline("nil");
-        assertFilterResult_success(td.friend, td.book);
+        assertFilterSuccess(td.friend, td.book);
         filterPanel.runCommandForDeadline("");
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
     public void filterStartDate() {
         filterPanel.runCommandForStartDate("11.10.2016");
-        assertFilterResult_success(td.travel);
+        assertFilterSuccess(td.travel);
         filterPanel.runCommandForStartDate("hi");
-        assertFilterResult_fail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.travel);
+        assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.travel);
         filterPanel.runCommandForStartDate("");
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
     public void filterEndDate() {
         filterPanel.runCommandForEndDate("15.10.2016");
-        assertFilterResult_success(td.travel);
+        assertFilterSuccess(td.travel);
         filterPanel.runCommandForEndDate("hi");
-        assertFilterResult_fail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.travel);
+        assertFilterFail(EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS, td.travel);
         filterPanel.runCommandForEndDate("");
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
 
     @Test
     public void filterRecurring() {
         commandBox.runCommand(td.lecture.getAddCommand());
         filterPanel.runCommandForRecurring("weekly");
-        assertFilterResult_success(td.lecture);
+        assertFilterSuccess(td.lecture);
         filterPanel.runCommandForRecurring("hi");
-        assertFilterResult_fail(Recurring.MESSAGE_RECURRING_CONSTRAINTS, td.lecture);
+        assertFilterFail(Recurring.MESSAGE_RECURRING_CONSTRAINTS, td.lecture);
     }
     
     @Test
     public void filterTag() {
         filterPanel.runCommandForTag("friends");
-        assertFilterResult_success(td.friend, td.friendEvent, td.lunch);
+        assertFilterSuccess(td.friend, td.friendEvent, td.lunch);
         filterPanel.runCommandForTag("");
-        assertFilterResult_success(td.getTypicalTasks());
+        assertFilterSuccess(td.getTypicalTasks());
     }
     
     @Test
     public void filterIntegral() {
         filterPanel.runCommandForTag("friends");
-        assertFilterResult_success(td.friend, td.friendEvent, td.lunch);
+        assertFilterSuccess(td.friend, td.friendEvent, td.lunch);
         filterPanel.runCommandForEvent();
-        assertFilterResult_success();
+        assertFilterSuccess();
         filterPanel.runCommandForTag("");
-        assertFilterResult_success(td.meeting, td.travel);
+        assertFilterSuccess(td.meeting, td.travel);
         filterPanel.runCommandForDone();
-        assertFilterResult_success();
+        assertFilterSuccess();
         filterPanel.runCommandForUndone();
-        assertFilterResult_success(td.meeting, td.travel);
+        assertFilterSuccess(td.meeting, td.travel);
         filterPanel.runCommandForStartDate("11.10.2016");
-        assertFilterResult_success(td.travel);
+        assertFilterSuccess(td.travel);
         filterPanel.runCommandForEndDate("11.10.2016");
-        assertFilterResult_success();
+        assertFilterSuccess();
         filterPanel.runCommandForStartDate("");
         filterPanel.runCommandForEndDate("");
         filterPanel.runCommandForTask();
-        assertFilterResult_success(td.friend, td.friendEvent, td.lunch, td.book, td.work, td.movie);
+        assertFilterSuccess(td.friend, td.friendEvent, td.lunch, td.book, td.work, td.movie);
         filterPanel.runCommandForDeadline("11.10.2016-12");
-        assertFilterResult_success(td.lunch);
+        assertFilterSuccess(td.lunch);
     }
     
-    private void assertFilterResult_success(TestTask... expectedHits) {
+    private void assertFilterSuccess(TestTask... expectedHits) {
         assertFilterResult(expectedHits);
         assertResultMessage(FilterPanel.SUCCESS_FILTER);
     }
 
-    private void assertFilterResult_fail(String message, TestTask... expectedHits) {
+    private void assertFilterFail(String message, TestTask... expectedHits) {
         assertFilterResult(expectedHits);
         assertResultMessage(FilterPanel.INVALID_FILTER + message);
     }
