@@ -89,13 +89,13 @@ public class BackgroundTest {
 			Activity testOldEvent = new Activity(Activity.EVENT_TYPE, new ActivityName("Test Past Event"),
 					new Note("Hope this works too"), new ActivityDate("09-09-1999"), new ActivityTime("0001"),
 					new ActivityDate("09-11-1999"), new ActivityTime("0001"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			model.addEvent(testOldEvent);
 			
 			Activity testNewEvent = new Activity(Activity.EVENT_TYPE, new ActivityName("Test New Event"),
 					new Note("Hope this works too"), new ActivityDate("09-09-2050"), new ActivityTime("0001"),
 					new ActivityDate("09-11-2050"), new ActivityTime("0001"),
-					new Completed(Completed.UNCOMPLETED_ACTIVITY));
+					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
 			model.addEvent(testNewEvent);
 			
 		} catch (IllegalValueException e) {

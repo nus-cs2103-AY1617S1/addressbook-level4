@@ -29,11 +29,9 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * This method does a check on all the activities in Menion
 	 */
 	public void checkActivities(Model model){
-		
 		Calendar currentTime = Calendar.getInstance();
 		checkTasks(model, currentTime);
 		checkEvents(model, currentTime);
-		
 	}
 	
 	/**
@@ -41,39 +39,32 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * @param model
 	 * @param currentTime
 	 */
-	private void checkTasks(Model model, Calendar currentTime){
-		
+	private void checkTasks(Model model, Calendar currentTime){	
 		ReadOnlyActivityManager activityManager = model.getActivityManager();
 
 		List<ReadOnlyActivity> taskList = activityManager.getTaskList();
 		
-		for (int i = 0 ; i < taskList.size(); i++){	
-		    
+		for (int i = 0 ; i < taskList.size(); i++){	 
 			ReadOnlyActivity taskToCheck = taskList.get(i);
 			
 			// Yet to send email due to no internet connection. But task deadline has passed
 			if (!taskToCheck.isEmailSent() && taskToCheck.isTimePassed()){
-				
 			    SendEmail sender = new SendEmail();
 				try {
                     sender.send(taskToCheck);
                     taskToCheck.setEmailSent(true);
                     raise(new ActivityManagerChangedEventNoUI(activityManager));
-
                 } catch (FileNotFoundException e) {
 
                     
                 } catch (MessagingException e) {
                     
-                }
-				
+                }	
 			}
 			
 			// Check if there a task is overdue.
 			if (!taskToCheck.isTimePassed() && taskToCheck.getActivityStatus().toString().equals(Completed.UNCOMPLETED_ACTIVITY)){
-
-				if (isActivityOver(currentTime, taskToCheck)){
-					
+				if (isActivityOver(currentTime, taskToCheck)){		
 					taskToCheck.setTimePassed(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
 					
@@ -99,7 +90,6 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * @param currentTime
 	 */
 	private void checkEvents(Model model, Calendar currentTime){
-		
 		ReadOnlyActivityManager activityManager = model.getActivityManager();
 		List<ReadOnlyActivity> eventList = activityManager.getEventList();
 		
@@ -107,28 +97,61 @@ public class BackgroundDateCheck extends ComponentManager{
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
 			if (!eventToCheck.isTimePassed()){
-
-				if (isActivityOver(currentTime, eventToCheck)){
-					
-					eventToCheck.setTimePassed(true);
+				// Event is ongoing.
+				if (!isActivityOver(currentTime, eventToCheck) && isEventStarted(currentTime, eventToCheck)){
+					eventToCheck.setEventOngoing(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
-					
 				}
 
+				// Event is over.
+				else if(isActivityOver(currentTime, eventToCheck)){
+					eventToCheck.setTimePassed(true);
+					raise(new ActivityManagerChangedEventNoUI(activityManager));
+				}
 			}
-			
 		}
-		
 	}
 	
 	/**
+	 * This method checks if the event specified is ongoing.
+	 * @param currentTime
+	 * @param activityToCheck
+	 * @return
+	 */
+	private static boolean isEventStarted(Calendar currentTime, ReadOnlyActivity activityToCheck){
+		assert(activityToCheck.getActivityType().equals(Activity.EVENT_TYPE));
+		
+		String activityStartDateString;
+		String activityStartTimeString;
+		
+		activityStartDateString = activityToCheck.getActivityStartDate().toString();
+		activityStartTimeString = activityToCheck.getActivityStartTime().toString();
+		
+		int [] dateValues = new int[3];
+		int [] timeValues = new int[2];
+		extractDateValues(activityStartDateString, dateValues);
+		extractTimeValues(activityStartTimeString, timeValues);
+		
+		Calendar activityDateCal = Calendar.getInstance();
+		activityDateCal.set(dateValues[2], dateValues[1], dateValues[0], timeValues[0], timeValues[1]);
+		
+		// Activity has started
+		if (currentTime.compareTo(activityDateCal) <= 0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * This method checks if the activity specified is over.
 	 * @param currentTime
 	 * @param activityToCheck
 	 * @return true: the current time is later than the activity time. 
 	 */
 	private static boolean isActivityOver(Calendar currentTime, ReadOnlyActivity activityToCheck){
-		
-		assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
+			assert(activityToCheck != null && (activityToCheck.getActivityType().equals(Activity.EVENT_TYPE) ||
 				activityToCheck.getActivityType().equals(Activity.TASK_TYPE)));
 		
 		String activityDateString;
@@ -160,19 +183,18 @@ public class BackgroundDateCheck extends ComponentManager{
 		}
 	}
 	
+	
 	/**
 	 * This method extracts the time values from a time string.
 	 * @param time
 	 * @param timeValues[0]: hours, timeValues[1]: minutes
 	 */
 	private static void extractTimeValues(String time, int[] timeValues){
-	
 		// Makes sure that the date is in the correct HHMM format.
 		assert(time.length() == 4);
 		
 		timeValues[0] = Integer.parseInt(time.substring(0, 2));
-		timeValues[1] = Integer.parseInt(time.substring(2,4));
-		
+		timeValues[1] = Integer.parseInt(time.substring(2,4));	
 	}
 	
 	/**
@@ -181,12 +203,9 @@ public class BackgroundDateCheck extends ComponentManager{
 	 * @param dateValues[0]: day in months, dateValues[1]: month, dateValues[2]: year
 	 */
 	private static void extractDateValues(String date, int[] dateValues){
-		
 		String[] parts = date.split("-");
 		dateValues[0] = Integer.parseInt(parts[0]);
 		dateValues[1] = Integer.parseInt(parts[1]) - 1;
 		dateValues[2] = Integer.parseInt(parts[2]);
-		
-	}
-	
+	}	
 }

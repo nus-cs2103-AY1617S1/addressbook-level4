@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
             datecheck.validEventDate(startDate, startTime, endDate, endTime); // Throws error if invalid date.
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status, null, null);
         }
     }
     

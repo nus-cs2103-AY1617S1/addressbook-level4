@@ -47,6 +47,7 @@ public class Activity implements ReadOnlyActivity {
     private Completed status;
     private Boolean emailSent;
     private Boolean activityTimePassed;
+    private Boolean eventOngoing;
     
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
@@ -83,7 +84,7 @@ public class Activity implements ReadOnlyActivity {
         else {
         	this.activityTimePassed = activityTimePassed;
         }
-        if (emailSent ==null){
+        if (emailSent == null){
         	this.emailSent = false;
         }
         else {
@@ -96,9 +97,11 @@ public class Activity implements ReadOnlyActivity {
     /**
      * For Event
      * Every field must be present and not null.
+     * @param activityTimePassed TODO
+     * @param eventOngoing TODO
      */
     public Activity(String type, ActivityName name, Note note, ActivityDate startDate, 
-            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status) {
+            ActivityTime startTime, ActivityDate endDate, ActivityTime endTime, Completed status, Boolean activityTimePassed, Boolean eventOngoing) {
         
         this.activityType = type;
         this.name = name;
@@ -108,7 +111,19 @@ public class Activity implements ReadOnlyActivity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.status = status;
-        this.activityTimePassed = false;
+        if (activityTimePassed == null){
+        	this.activityTimePassed = false;
+        }
+        else {
+        	this.activityTimePassed = activityTimePassed;
+        }
+        if (eventOngoing == null){
+        	this.eventOngoing = false;
+        }
+        else {
+        	this.eventOngoing = eventOngoing;
+        }
+        
         setActivityDetails();
     }
     
@@ -144,6 +159,7 @@ public class Activity implements ReadOnlyActivity {
             endTime = source.getActivityEndTime();
             status = source.getActivityStatus();
             activityTimePassed = source.isTimePassed();
+            eventOngoing = source.isEventOngoing();
 
         }
         this.status = source.getActivityStatus();
@@ -265,12 +281,20 @@ public class Activity implements ReadOnlyActivity {
     	return this.activityTimePassed;
     }
     
+    public Boolean isEventOngoing(){
+    	return this.eventOngoing;
+    }
+    
     public void setEmailSent(Boolean sentStatus){
     	this.emailSent = sentStatus;
     }
     
     public void setTimePassed(Boolean timePassed){
     	this.activityTimePassed = timePassed;
+    }
+    
+    public void setEventOngoing(Boolean eventOngoing){
+    	this.eventOngoing = eventOngoing;
     }
     
     @Override
