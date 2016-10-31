@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * A time period with start and end time
+ */
 public class Period implements Comparator {
     
     public String start;

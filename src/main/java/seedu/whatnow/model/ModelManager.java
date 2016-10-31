@@ -136,8 +136,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139772U
     private void initialiseFreeTime() {
-        for (int i = 0; i < filteredTasks.size(); i++) {
-            blockFreeTime(filteredTasks.get(i));   
+        for (int i = 0; i < filteredSchedules.size(); i++) {
+            blockFreeTime(filteredSchedules.get(i));   
         }
     }
     //@@author A0139128A
@@ -188,6 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized int deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         int indexRemoved = whatNow.removeTask(target);
+        unblockFreeTime();
         indicateWhatNowChanged();
         return indexRemoved;
     }
@@ -212,6 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         whatNow.updateTask(old, toUpdate);
         indicateUpdateTask(toUpdate);
+        unblockFreeTime();
         indicateWhatNowChanged();
     }
     //@@author A0139772U
@@ -313,6 +315,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139772U
     @Override
     public FreePeriod getFreeTime(String date) {
+        if (freeTimes.get(date) == null) {
+            freeTimes.put(date, new FreePeriod());
+        }
         freeTimes.get(date).getList().sort(new Period());
         return freeTimes.get(date);
     }
@@ -331,6 +336,11 @@ public class ModelManager extends ComponentManager implements Model {
                 freeTimes.get(date).block(startTime, endTime);
             }
         }
+    }
+    
+    private void unblockFreeTime() {
+        freeTimes.clear();
+        initialiseFreeTime();
     }
     
     //=========== Filtered Task List Accessors ===============================================================
