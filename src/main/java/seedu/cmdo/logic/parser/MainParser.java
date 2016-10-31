@@ -38,15 +38,26 @@ public class MainParser {
 	
 	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MIN;	// All floating tasks are giving this date.
 	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
+	public static final LocalDateTime NO_DATETIME_DEFAULT = LocalDateTime.of(LocalDate.MIN, LocalTime.MAX);
+	public static final String EMPTY_STRING = "";
+	
+	private static LocalDateTime dt = NO_DATETIME_DEFAULT;
+	private static LocalDateTime dtStart = NO_DATETIME_DEFAULT;
+	private static LocalDateTime dtEnd = NO_DATETIME_DEFAULT;
+	private static ArrayList<LocalDateTime> datesAndTimes;
+	private static String args;
+	private static String detailToAdd;
+	private static Integer dateTimeType;
+	private static String[] splittedArgs;
+	private static Boolean floatingRequestInEdit;
+	private static Boolean priorityRequestInEdit;
+	private static Integer targetIndex;
 	
 	// Singleton
 	private static MainParser mainParser;
-	private static Parser parser;
-	private static Blocker blocker;
-	private ArrayList<LocalDateTime> datesAndTimes;
-	private String reducedArgs;
-	private static String detailToAdd;
-	
+	private static final Parser parser = new Parser();
+
+		
     /**
      * Private constructor
      */
@@ -63,12 +74,11 @@ public class MainParser {
     /**
      * Initialize main parser.
      * 
-     * Natty is a natural language parser for dates by Joe Stelmach
+     * Natty is a natural language parser for dates by Joe Stelmach.
      * 
      * @@author A0139661Y
      */
     private void init() {
-    	parser = new Parser();
     	datesAndTimes = new ArrayList<LocalDateTime>();
     }
 
@@ -79,6 +89,7 @@ public class MainParser {
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
+    	reset();
     	String[] splitedInput = userInput.split("\\s+");
     	String commandWord, arguments; 
     	if(splitedInput.length == 2 && 
@@ -99,26 +110,26 @@ public class MainParser {
             arguments = matcher.group("arguments");
             
     	}
-    	arguments = getCleanString(arguments);
+    	args = getCleanString(arguments);
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return prepareAdd(arguments);
+            return prepareAdd();
        
         case BlockCommand.COMMAND_WORD:
-            return prepareBlock(arguments);
+            return prepareBlock();
 
         case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
+            return prepareSelect();
 
         case StorageCommand.COMMAND_WORD:
-        	return prepareStorage(arguments);
+        	return prepareStorage();
             
         case DeleteCommand.COMMAND_WORD:
-            return prepareDelete(arguments);
+            return prepareDelete();
             
         case DoneCommand.COMMAND_WORD:
-            return prepareDone(arguments);
+            return prepareDone();
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -130,10 +141,10 @@ public class MainParser {
             return new ClearCommand();
             
         case EditCommand.COMMAND_WORD:
-        	return prepareEdit(arguments);
+        	return prepareEdit();
 
         case FindCommand.COMMAND_WORD:
-            return prepareFind(arguments);
+            return prepareFind();
             
         case ListCommand.COMMAND_WORD_DONE:	
         case ListCommand.COMMAND_WORD_SHORT_DONE:
@@ -144,7 +155,7 @@ public class MainParser {
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_ALL:        	
         case ListCommand.COMMAND_WORD_SHORT_ALL:
-        	return prepareList(arguments);
+        	return prepareList(args);
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -156,65 +167,20 @@ public class MainParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
-    /**
-     * Ensures that file paths are presented properly.
-     * 
-     * @@author A0139661Y
-     */
-    private Command prepareStorage(String args) {
-    	if (args.equals("")) {
-    		return new StorageCommand("data/cmdo.xml");
-    	}
-    	if (args.lastIndexOf("/cmdo.xml") == -1) {
-    		args = new StringBuilder(args + "/cmdo.xml").toString();
-    	}
-    	return new StorageCommand(args);
-    }
     
-    /**
-     * Parses arguments in the context of the add task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0139661Y
-     */
-    private Command prepareAdd(String args){
+    /** PREPARATION METHODS **/
+    //@@author A0139661Y
+    private Command prepareAdd(){
     	datesAndTimes.clear();
     	try {
-        	args = extractDetail(args);	// Saves to detailToAdd
-        	args = extractDueByDateAndTime(args);
-        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
-        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
-        	LocalDateTime dt = LocalDateTime.MIN;
-        	LocalDateTime dtStart = LocalDateTime.MIN;
-        	LocalDateTime dtEnd = LocalDateTime.MIN;
-        	String[] splittedArgs = getCleanString(args).split(" ");
-        	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
-        	int dataMode;
-        	if (datesAndTimes.size() == 1) {
-        		dt = datesAndTimes.get(0);
-        		dataMode = 1;
-        	} else if (datesAndTimes.size() == 2) {
-        		dtStart = datesAndTimes.get(0);
-        		dtEnd = datesAndTimes.get(1);
-        		dataMode = 2;
-        	} else {
-        		dt = LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT);
-        		dataMode = 0;
-        	}
-        	
-        	// Clear dates and times
-            datesAndTimes.clear();
-        	
-    		if (dataMode <= 1) {
+        	process();
+    		if (dateTimeType <= 1) {
     			return new AddCommand(
     					detailToAdd,
     					dt.toLocalDate(),
     					dt.toLocalTime(),
-    					extractPriority(splittedArgs),
-    					getTagsFromArgs(splittedArgs));
+    					extractPriority(),
+    					getTagsFromArgs());
     		} else {
     			return new AddCommand(
     					detailToAdd,
@@ -222,58 +188,19 @@ public class MainParser {
     					dtStart.toLocalTime(),
     					dtEnd.toLocalDate(),
     					dtEnd.toLocalTime(),
-    					extractPriority(splittedArgs),
-    					getTagsFromArgs(splittedArgs));
+    					extractPriority(),
+    					getTagsFromArgs());
     		}
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
-    /**
-     * Parses arguments in the context of the block task command.
-     * 
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0141128R
-     */
-    private Command prepareBlock(String args){
-    	datesAndTimes.clear();
+    
+    //@@author A0141128R
+    private Command prepareBlock(){
     	try {
-        	args = extractDetail(args);	// Saves to detailToBlock
-        	args = extractDueByDateAndTime(args);
-        	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
-        		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
-        	LocalDateTime dt = LocalDateTime.MIN;
-        	LocalDateTime dtStart = LocalDateTime.MIN;
-        	LocalDateTime dtEnd = LocalDateTime.MIN;
-        	String[] splittedArgs = getCleanString(args).split(" ");
-        	if (datesAndTimes.size() == 0) {
-        		throw new IllegalValueException("Specify a time/date range for the block.");
-        	}
-        	// Only one time or date or both
-        	if (datesAndTimes.size() == 1) {
-        		dt = datesAndTimes.get(0);
-        		// Case 1: Date only
-        		if (dt.toLocalTime().equals(LocalTime.MAX)) {
-        			dtStart = dt;
-        			dtEnd = dt;
-        		}
-        		// Case 2: Time only or date and time only
-        		else {
-        			dtStart = dt;
-        			dtEnd = dt.plusHours(1);
-        		}
-        	} 
-        	// Otherwise there is a start and end time, date.
-        	else {
-        		dtStart = datesAndTimes.get(0);
-        		dtEnd = datesAndTimes.get(1);
-        	}
-        	
-        	// Clear dates and times
-            datesAndTimes.clear();
-        	
+    		process();
+    		overrideDueByDateAndTimeForBlock();
     		return new BlockCommand(
     			detailToAdd,
     			dtStart.toLocalDate(),
@@ -281,175 +208,80 @@ public class MainParser {
     			dtEnd.toLocalDate(),
     			dtEnd.toLocalTime(),
     			"",
-    			getTagsFromArgs(splittedArgs));
+    			getTagsFromArgs());
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
     
-    /**
-     * Parses arguments in the context of the edit task command.
-     * 
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0141128R
-     */
-    private Command prepareEdit(String args){
+     //@@author A0141128R
+     private Command prepareDelete() {
+         if (!isIndexInCommandPresent()) {
+             return new IncorrectCommand(
+                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+         }
+         return new DeleteCommand(targetIndex);
+     }
+
+     //@@author A0141128R
+     private Command prepareDone() {
+     	if (!isIndexInCommandPresent()) {
+             return new IncorrectCommand(
+                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+         }
+         return new DoneCommand(targetIndex);
+     }
+    
+    //@@author A0141128R
+    private Command prepareEdit(){
     	try {
-    	// Determine if edit command is input correctly
-    	Optional<Integer> checkForIndex = parseLooseIndex(args);
-    	
-        if(!checkForIndex.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-    	//check for empty detail
-        if (args.lastIndexOf("'") == args.indexOf("'"))
-        	detailToAdd = "";
-        // Determine if the edit command is used correctly
-    	String[] splittedArgs = getCleanString(args).split(" ");
-        
-    	Integer index = Integer.valueOf(splittedArgs[0]);
-        if(index == null){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        // Store index and remove
-        int targetIndex = index;
+    		if (!isLooseIndexInCommandPresent()) {
+    			return new IncorrectCommand(
+    	                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    		}    	
         args = args.replaceFirst("[0-9]+\\s", "");
         //If details is not empty, extract details
-        if(detailToAdd == null || !detailToAdd.equals(""))
-        extractDetail(args);
-        //used a flag to check if floating task
-        boolean floating = false;
-        //used flag to check if want to remove priority
-        boolean removePriority = false;
+        if(detailToAdd == null || !detailToAdd.equals("")) {
+        	extractDetailForEdit();
+        }
+    	splittedArgs = getCleanString(args).split(" ");
         // Parse date and time
-        reducedArgs = extractDueByDateAndTime(args);
-        //if keyword float is entered, it becomes a floating task (no date no time)
-        if(reducedArgs.toLowerCase().contains("floating")){
-        	floating = true;
-        }
-        //if keyword rp or remove priority is entered, priority is removed
-        if(reducedArgs.toLowerCase().contains("remove priority")||reducedArgs.toLowerCase().contains("rp")){
-        	removePriority = true;
-        }
-        // used as flag for task type. 0 for floating, 1 for non-range, 2 for range
-    	int dataNo;
-        LocalDateTime dt = LocalDateTime.MIN;
-    	LocalDateTime dtStart = LocalDateTime.MIN;
-    	LocalDateTime dtEnd = LocalDateTime.MIN;
-    	
-    	if (datesAndTimes.size() == 1) {
-    		dt = datesAndTimes.get(0);
-    		dataNo = 1;
-    	} else if (datesAndTimes.size() == 2) {
-    		dtStart = datesAndTimes.get(0);
-    		dtEnd = datesAndTimes.get(1);
-    		dataNo = 2;
-    	} else{
-    		dt = LocalDateTime.of(NO_DATE_DEFAULT, LocalTime.MAX);
-        			dataNo = 0;
-    	}
-        datesAndTimes.clear();
-        String detailToEdit = detailToAdd;
-        detailToAdd = null;
-    	
+        extractDueByDateAndTime();
+        saveDueByDateAndTime();
+        checkSpecialRequestInEdit();
     	//need to change constructor of edit
-		if (dataNo <= 1) {
+		if (dateTimeType <= 1) {
 			return new EditCommand(
-					removePriority,
-					floating,
+					priorityRequestInEdit,
+					floatingRequestInEdit,
 					targetIndex,
-					detailToEdit,
+					detailToAdd,
 					dt.toLocalDate(),
 					dt.toLocalTime(),
-					extractPriority(splittedArgs),
-					getTagsFromArgs(splittedArgs));
+					extractPriority(),
+					getTagsFromArgs());
 		} 
 		else{ 
 			//only use this constructor when timing is keyed in
-			assert(dataNo!=0);
+			assert(dateTimeType!=0);
 			return new EditCommand(
-					removePriority,
+					priorityRequestInEdit,
 					targetIndex,
-					detailToEdit,
+					detailToAdd,
 					dtStart.toLocalDate(),
 					dtStart.toLocalTime(),
 					dtEnd.toLocalDate(),
 					dtEnd.toLocalTime(),
-					extractPriority(splittedArgs),
-					getTagsFromArgs(splittedArgs));
+					extractPriority(),
+					getTagsFromArgs());
     		}
     	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
 
-    /**
-     * Parses arguments in the context of the delete task command.
-	 *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0141128R
-     */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the done task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0141128R
-     */
-    private Command prepareDone(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-        }
-
-        return new DoneCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
-    /**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0141128R
-     */
-    private Command prepareFind(String args) {
+    //@@author A0141128R
+    private Command prepareFind() {
         boolean taskStatus = false; // we assume the user is searching for undone tasks
     	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -466,15 +298,27 @@ public class MainParser {
         }
         return new FindCommand(keywordSet, taskStatus);
     }
-    
-    /**
-     * Parses arguments in the context of the list task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     * 
-     * @@author A0139661Y
-     */
+
+    private Command prepareSelect() {
+    	if(!isIndexInCommandPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        }
+        return new SelectCommand(targetIndex);
+    }
+
+    //@@author A0139661Y
+    private Command prepareStorage() {
+    	if (args.equals("")) {
+    		return new StorageCommand("data/cmdo.xml");
+    	}
+    	if (args.lastIndexOf("/cmdo.xml") == -1) {
+    		args = new StringBuilder(args + "/cmdo.xml").toString();
+    	}
+    	return new StorageCommand(args);
+    }
+     
+    //@@author A0139661Y
     private Command prepareList(String args) {
         int type = 0; // we assume the user is searching for undone tasks
         if (args.contains("--done")) {
@@ -485,32 +329,56 @@ public class MainParser {
         return new ListCommand(type);
     }
     
+    /** HELPER METHODS **/
     /**
-     * Utility method which replaces all redundant spaces
-     * @param args an uncleaan string
-     * @return a cleaned up string
+     * Processes parameters detail, dbt, dbd, priority.
+     * 
+     * @throws IllegalValueException
      * 
      * @@author A0139661Y
      */
-    private String getCleanString(String args) {
-    	return args.trim().replaceAll("\\s+", " ");
-    }
-    
 //    ============== HELPER METHODS
+    //@@author A0139661Y
+    private void process() throws IllegalValueException {
+    	extractDetail();			// Saves to detailToAdd
+    	extractDueByDateAndTime(); 	// Saves to datesAndTimes
+    	checkPriorityValidity(); 	// Throws exception if priority entered wrongly
+    	splittedArgs = getCleanString(args).split(" ");
+    	saveDueByDateAndTime(); 	// Saves to dt family.
+    	reset();         			// Clear dates and times		
+	}
+
+    
     /**
      * Extracts the detail embedded in user input ' '.
      * 
-     * @throws IllegalValueException if only one ' found
+     * @throws IllegalValueException if only one ' found, or if detail is blank.
      * 
      * @@author A0139661Y
      */
-    private static String extractDetail(String args) throws IllegalValueException {
-    	// Check if only one ' used
-    	if (args.lastIndexOf("'") == args.indexOf("'"))
-    		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
-    	// Check if detail is empty.
-    	if (args.lastIndexOf("'") == args.indexOf("'")+1) {
-    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
+    private void extractDetail() throws IllegalValueException {
+    	checkValidDetailInput();
+    	// Split into '  ...  '
+    	String[] details = args.split("^ '(.+)'$");
+    	// Details only, get rid of anything after the '
+    	String output = new StringBuilder(details[0]).replace(details[0].lastIndexOf("'"), 
+    													details[0].length(), 
+    													"").toString();
+    	// Get rid of the first '
+    	output = output.replaceFirst("'","");
+    	// Save to instance
+    	detailToAdd = output;
+    	// return rear end
+    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+    }
+    
+     //@@author A0139661Y
+    
+    //@@author A0139661Y
+    private void extractDetailForEdit() throws IllegalValueException {
+    	if (!checkValidDetailInputForEdit()) {
+    		detailToAdd = "";
+    		return;
     	}
     	// Split into '  ...  '
     	String[] details = args.split("^ '(.+)'$");
@@ -522,12 +390,12 @@ public class MainParser {
     	output = output.replaceFirst("'","");
     	// Save to instance
     	detailToAdd = output;
-    	
     	// return rear end
-    	return new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
+    	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
     
-	/**
+	
+    /**
      * Extracts the priority out of the args.
      * If / precedes neither high, medium or low, it will throw an error
      * Otherwise, it is taken to have default no priority.
@@ -537,7 +405,7 @@ public class MainParser {
      * 
      * @@author A0139661Y
      */ 
-    private String extractPriority(String[] splittedArgs) throws IllegalValueException {
+    private String extractPriority() throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
     	for (String rawArg : rawArgs) {
     		if (rawArg.toLowerCase().startsWith("/")) {
@@ -555,6 +423,7 @@ public class MainParser {
     	}
     	return "";
     }
+    
     
     /**
      * Computes the distance btw the 2 strings, via the Levenshtein Distance Algorithm
@@ -593,16 +462,10 @@ public class MainParser {
         return costToChange[s2.length()];
     }
     
-    /**
-     * Extracts the dueByDate and dueByTime out of the args.
-     * 
-     * This snippet of code uses natty by Joel Ostenmach and its implementation was inspired by
-     * 
-     * @@author A0139661Y
-     */
-    public String extractDueByDateAndTime(String dirtyArgs) {
-    	List<DateGroup> groups = parser.parse(dirtyArgs);
-    	String cleanArgs = dirtyArgs;
+    //@@author A0139661Y
+    public void extractDueByDateAndTime() {
+    	List<DateGroup> groups = parser.parse(args);
+    	String cleanArgs = args;
     	
     	try {
     		// This retrieves either the start date/time, or the only date/time.
@@ -627,28 +490,36 @@ public class MainParser {
     		}
     		// Sort dates and times according to whichever is earlier
     		Collections.sort(datesAndTimes);
-    		return cleanArgs;	// Return a cleaned up string
-    	} catch (IndexOutOfBoundsException e) {
-    		return dirtyArgs;
-    	}
+    		args = cleanArgs;	// Return a cleaned up string
+    	} catch (IndexOutOfBoundsException e) {} // No date/time found. Do nothing
     }
     
-    /**
-     * Checks for non-essential groups.
-     * 
-     * @author A0139661Y-unused
-     */
-    private static String checkEmpty(String argument) {
-    	if (argument.isEmpty()) {
-    		return "";
-    	} return argument;
-    }
+    //@@author A0139661Y
+	private void checkValidDetailInput() throws IllegalValueException {
+    	// Check if only one ' used
+    	if (args.lastIndexOf("'") == args.indexOf("'"))
+    		throw new IllegalValueException(MESSAGE_ENCAPSULATE_DETAIL_WARNING);
+    	// Check if detail is empty.
+    	if (args.lastIndexOf("'") == args.indexOf("'")+1)
+    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
+	}
+	
+    //@@author A0139661Y
+	private boolean checkValidDetailInputForEdit() throws IllegalValueException {
+    	// Check if only one ' used
+    	if (args.lastIndexOf("'") == args.indexOf("'"))
+    		return false;
+    	// Check if detail is empty.
+    	if (args.lastIndexOf("'") == args.indexOf("'")+1)
+    		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
+    	return true;
+	}
 
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String[] splittedArgs) throws IllegalValueException {
+    private static Set<String> getTagsFromArgs() throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
     	Collection<String> tagStrings = new ArrayList<String>();
     	boolean isEmpty = true;
@@ -665,8 +536,21 @@ public class MainParser {
     }
     
     /**
+     * Utility method which replaces all redundant spaces
+     * @param args an uncleaan string
+     * @return a cleaned up string
+     * 
+     * @@author A0139661Y
+     */
+    private String getCleanString(String args) {
+    	return args.trim().replaceAll("\\s+", " ");
+    }
+    
+    /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * The index here does not precede anything.  
+	 *
+     * @return {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -683,8 +567,10 @@ public class MainParser {
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * An index is loose if there are arguments after the index.  
      *   
+     * @return {@code Optional.empty()} otherwise.
+     *
      * @@author A0139661Y
      */
     private Optional<Integer> parseLooseIndex(String command) {
@@ -699,4 +585,99 @@ public class MainParser {
         }
         return Optional.of(Integer.parseInt(index));
     } 
+
+	//@@author A0139661Y
+    private void checkPriorityValidity() throws IllegalValueException {
+    	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+    		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
+	}
+
+	//@@author A0139661Y
+    private void checkSpecialRequestInEdit() {
+        //if keyword float is entered, it becomes a floating task (no date no time)
+        if(args.toLowerCase().contains("floating") || args.toLowerCase().contains("f")){
+        	floatingRequestInEdit = true;
+        }
+        //if keyword rp or remove priority is entered, priority is removed
+        if(args.toLowerCase().contains("no priority") || args.toLowerCase().contains("rp")) {
+        	priorityRequestInEdit = true;
+        }
+
+    }
+    
+	//@@author A0139661Y
+    private boolean isIndexInCommandPresent() {
+    	Optional<Integer> checkForIndex = parseIndex(args);
+    	if (!checkForIndex.isPresent()) 
+    		return false;
+    	targetIndex = checkForIndex.get();
+    	return true;
+    }
+
+	//@@author A0139661Y
+    private boolean isLooseIndexInCommandPresent() {
+    	Optional<Integer> checkForIndex = parseLooseIndex(args);
+    	if (!checkForIndex.isPresent()) 
+    		return false;
+    	targetIndex = checkForIndex.get();
+    	return true;
+    }
+    
+	/**
+	 * Saves the date and time from list to dt family according to the following table
+	 * 
+	 * ______________________
+	 * | type 	| condition	|
+	 * ----------------------
+	 * | 0		| no DT		|
+	 * | 1		| single DT	|
+	 * | 2		| two DT	|
+	 * ======================
+	 * 
+	 * @@author A0139661Y
+	 */
+    private void saveDueByDateAndTime() {
+    	if (datesAndTimes.size() == 1) {
+    		dt = datesAndTimes.get(0);
+    		dateTimeType = 1;
+    	} else if (datesAndTimes.size() == 2) {
+    		dtStart = datesAndTimes.get(0);
+    		dtEnd = datesAndTimes.get(1);
+    		dateTimeType = 2;
+    	} else {
+    		dt = LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT);
+    		dateTimeType = 0;
+    	}
+	}
+    
+    //@@author A0139661Y
+    private void overrideDueByDateAndTimeForBlock() throws IllegalValueException {
+		// Override saveDueByDateAndTime()
+    	if (dateTimeType == 0) {
+    		throw new IllegalValueException("Specify a time/date range for the block.");
+    	}
+    	// Only one time or date or both
+    	if (dateTimeType == 1) {
+    		// Case 1: Date only
+    		if (dt.toLocalTime().equals(NO_TIME_DEFAULT)) {
+    			dtStart = dt;
+    			dtEnd = dt;
+    		} else {
+        		// Case 2: Time only or date and time only
+    			dtStart = dt;
+    			dtEnd = dt.plusHours(1);
+    		}
+			dt = NO_DATETIME_DEFAULT;
+    	}
+    }
+
+    //@@author A0139661Y
+    //@@author A0139661Y
+	private void reset() {
+        datesAndTimes.clear();
+        args = EMPTY_STRING;
+        floatingRequestInEdit = false;
+        priorityRequestInEdit = false;
+	}
+
 }
