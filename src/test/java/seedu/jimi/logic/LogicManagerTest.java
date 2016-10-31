@@ -27,22 +27,18 @@ import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
+import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.commons.util.ConfigUtil;
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CommandResult;
-import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
-import seedu.jimi.logic.commands.EditCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.ListCommand;
-import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-import seedu.jimi.logic.commands.ShowCommand;
-import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
@@ -72,22 +68,8 @@ public class LogicManagerTest {
     private boolean helpShown;
     private int targetedJumpIndex;
     
-    private List<Command> cmdStubList = Arrays.asList( 
-            new AddCommand(), 
-            new EditCommand(), 
-            new CompleteCommand(), 
-            new ShowCommand(), 
-            new DeleteCommand(),
-            new ClearCommand(), 
-            new FindCommand(), 
-            new ListCommand(),
-            new UndoCommand(),
-            new RedoCommand(),
-            new ExitCommand(), 
-            new HelpCommand(), 
-            new SaveAsCommand()
-    );
-
+    private List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
+    
     @Subscribe
     private void handleLocalModelChangedEvent(TaskBookChangedEvent tbce) {
         latestSavedTaskBook = new TaskBook(tbce.data);
@@ -165,19 +147,19 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         
         /* exit and clear should have the user type the full command word for it to be valid */
         unknownCommand = "ex";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "exi";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "cl";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "cle";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "clea";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
     }
 
     @Test
@@ -215,14 +197,8 @@ public class LogicManagerTest {
     
     @Test
     public void execute_help_unknown_cmd() throws Exception {
-        String allCmds = cmdStubList.stream()
-                .map(c -> c.getCommandWord())
-                .filter(s -> s != null && !s.isEmpty())
-                .collect(Collectors.joining(", "));
-        
         String invalidCmd = "asdasdasdasd";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                String.format(HelpCommand.UNKNOWN_HELP_COMMAND, invalidCmd, allCmds));
+        String expectedMessage = String.format(MESSAGE_UNKNOWN_COMMAND, invalidCmd);
         
         helpShown = false;
         assertCommandBehavior("help " + invalidCmd, expectedMessage);
