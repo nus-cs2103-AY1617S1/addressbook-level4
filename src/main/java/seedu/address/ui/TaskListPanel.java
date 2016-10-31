@@ -180,7 +180,7 @@ public class TaskListPanel extends UiPart {
             	setGraphic(cardPane);
             	
             	// Set the color of the card based on whether it's overdue
-            	if (task.isOverdue()) {
+            	if (task.isOverdue() && !task.isCompleted()) {
             		currentCard.setOverdueStyle();
             	} 
             	
