@@ -127,12 +127,12 @@ public class CommandBox extends UiPart {
         if (currentText.isEmpty()) {
             setResultDisplayAndCmdBoxToDefault();
         } else {
-            postRealTimeSuggestions(currentText);
+            postCommandSuggestions(currentText);
         }
     }
     
-    /** Posts suggestions for commands in real time according to the first word of {@code currentText} */
-    private void postRealTimeSuggestions(String currentText) {
+    /** Posts suggestions for commands according to the first word of {@code currentText} */
+    private void postCommandSuggestions(String currentText) {
         String firstWordOfInput = StringUtil.getFirstWord(currentText);
         List<String> commandWordMatches = CommandUtil.getInstance().getCommandWordMatches(firstWordOfInput);
         
@@ -193,7 +193,7 @@ public class CommandBox extends UiPart {
         }
     }
     
-    /** Shifts caret to the right end of text field */
+    /** Shifts caret to the right end of {@code commandTextField} */
     private void setCaretToRightEnd() {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
