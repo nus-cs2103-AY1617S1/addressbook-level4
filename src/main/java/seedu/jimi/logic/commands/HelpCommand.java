@@ -18,14 +18,17 @@ import seedu.jimi.logic.parser.JimiParser;
 public class HelpCommand extends Command {
     
     public static final String COMMAND_WORD = "help";
-
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Shows program usage instructions.\n"
             + "You can also get specific help for commands.\n"
-            + "For example, getting help for add command: " + COMMAND_WORD + " add"
-            + "\n";
+            + "For example, getting help for add command: " + COMMAND_WORD + " add \n"
+            + Messages.MESSAGE_ALL_AVAIL_CMD;
+
+    public static final String SHOWING_HELP_MESSAGE = 
+            "Opened help window.\n" 
+            + "\n"
+            + MESSAGE_USAGE;
     
     private Command toHelp;
     
