@@ -154,11 +154,9 @@ public class Parser {
         Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
         String newDetail = matcher.group("newDetail");
         System.out.println(newDetail);
-        String detailType = extractDetailType(newDetail); 
         
-        if(detailType != "name") {
-        	newDetail = newDetail.substring(2);
-        }
+        String detailType = extractDetailType(newDetail); 
+        newDetail = prepareNewDetail(detailType, newDetail);
         
         System.out.println(index.get() + " " +  detailType + " " + newDetail);
         
@@ -177,6 +175,19 @@ public class Parser {
     	case "p/": return "priority";
     	default: return "name";
     	}
+    }
+    
+    private String prepareNewDetail(String detailType, String newDetail) {
+  
+    	if(detailType == "name") {
+        	return newDetail;
+        }
+    	
+    	newDetail = newDetail.substring(2);
+    	if(detailType == "dueDate") {
+    		newDetail = parseDueDate(newDetail);
+    	}
+    	return newDetail;
     }
     
     //@@author addressbook-level4

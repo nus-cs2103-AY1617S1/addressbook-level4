@@ -7,4 +7,8 @@ public class DataConversionException extends Exception {
     public DataConversionException(Exception cause) {
         super(cause);
     }
+    
+    public DataConversionException(String cause) {
+        super(cause);
+    }
 }
