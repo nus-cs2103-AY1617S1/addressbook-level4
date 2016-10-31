@@ -104,7 +104,7 @@ public class BackgroundDateCheck extends ComponentManager{
 				}
 
 				// Event is over.
-				else if(isActivityOver(currentTime, eventToCheck)){
+				if(isActivityOver(currentTime, eventToCheck)){
 					eventToCheck.setTimePassed(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
 				}

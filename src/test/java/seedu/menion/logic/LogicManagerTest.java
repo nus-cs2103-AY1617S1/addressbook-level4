@@ -188,7 +188,7 @@ public class LogicManagerTest {
         List<? extends ReadOnlyActivity> expectedList = expectedAB.getTaskList();
         // prepare address book state
         helper.addToModel(model, 2);
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedAB,
                 expectedList);

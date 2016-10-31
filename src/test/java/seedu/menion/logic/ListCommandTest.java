@@ -41,12 +41,12 @@ public class ListCommandTest {
 	}
 	
 	@Test
-	public void checkListTypeNoArguments_returnsListTypeAll() throws IllegalValueException {
+	public void checkListTypeNoArguments_returnsListTypeBlank() throws IllegalValueException {
 		
 		String argument = "";
 		ListCommand list = new ListCommand(argument);
 		
-		assertEquals(list.LIST_ALL, list.checkListType(argument));
+		assertEquals(list.LIST_BLANK, list.checkListType(argument));
 	}
 	
 	
