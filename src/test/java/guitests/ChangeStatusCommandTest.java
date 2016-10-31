@@ -108,35 +108,5 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		updatedList.add(doneList);
 		return updatedList;
 	}
-//	public TestTask[] assertChangeStatusSuccess(String command, String newStatus, int[] indices,
-//			TestTask[] pendingList, TestTask[] doneList) {
-//		commandBox.runCommand(command);
-//
-//		ArrayList<TestTask> changedTasks = new ArrayList<TestTask>();
-//
-//		for (int i = 0; i < indices.length; i++) {
-//			TestTask taskChanged = currentList[indices[i] - 1];
-//			taskChanged.setStatus(new Status(newStatus));
-//			changedTasks.add(taskChanged);
-//			currentList = TestUtil.replaceTaskFromList(currentList, taskChanged, indices[i] - 1);
-//			//to remove the done tasks from
-//			currentList = (TestTask[]) Arrays.copyOfRange(currentList, 0, currentList.length);
-//		}
-//
-//		String message;
-//		if (newStatus.equals("done")) {
-//			message = String.format(ChangeStatusCommand.MESSAGE_TASK_SUCCESS_DONE, changedTasks);
-//		} else {
-//			message = String.format(ChangeStatusCommand.MESSAGE_TASK_SUCCESS_PENDING, changedTasks);
-//		}
-//
-//		// confirm the targeted tasks are replaced
-//		assertTrue(taskListPanel.isListMatching(currentList));
-//
-//		// confirm the result message is correct
-//		assertResultMessage(message);
-//
-//		return currentList;
-//	}
 
 }
