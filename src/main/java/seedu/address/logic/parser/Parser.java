@@ -265,7 +265,8 @@ public class Parser {
             return recurringType;
         } else {
 
-            recurringType = extractRecurringInfo(matcher.group("recurring"));
+            recurringType = RecurringDateParser.getInstance().
+                    extractRecurringInfo(matcher.group("recurring"));
         }
         return recurringType;
     }
@@ -757,12 +758,5 @@ public class Parser {
         return resultSet;
     }
     // @@author
-
-
-    private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
-        recurringInfo = recurringInfo.toUpperCase().trim();
-        RecurringDateParser recurringParser = RecurringDateParser.getInstance();
-        return recurringParser.getRecurringType(recurringInfo);
-    }
 
 }

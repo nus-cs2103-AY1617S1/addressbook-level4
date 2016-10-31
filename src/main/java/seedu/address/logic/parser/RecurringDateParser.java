@@ -34,11 +34,16 @@ public class RecurringDateParser {
         recurringTypes.remove(RecurringType.IGNORED);
     }
     
-    public RecurringType getRecurringType(String input) throws IllegalArgumentException {
+    private RecurringType getRecurringType(String input) throws IllegalArgumentException {
         if (recurringTypes.contains(RecurringType.valueOf(input))) {
             return RecurringType.valueOf(input);
         }
         return RecurringType.IGNORED;
+    }
+    
+    public RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
+        recurringInfo = recurringInfo.toUpperCase().trim();
+        return getRecurringType(recurringInfo);
     }
     
     /**
