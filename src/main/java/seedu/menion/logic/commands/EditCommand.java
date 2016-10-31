@@ -86,7 +86,7 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
-        //model.updateRecentChangedActivity(activityToEdit);
+        model.updateRecentChangedActivity(activityToEdit);
         
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
