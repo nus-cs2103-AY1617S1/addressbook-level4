@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
  * Duplicates are not allowed (by .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
-
+	
+	//@@author addressbook-level4
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
@@ -81,6 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.add(t);
     }
     
+    //@@author A0146130W
     /**
      * Edits a task in the address book.
      * Also checks the updated task's tags and updates {@link #tags} with any new tags found,
@@ -92,7 +94,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncTagsWithMasterList(t);
         tasks.edit(index, t);
     }
-
+    
+    //@@author addressbook-level4
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

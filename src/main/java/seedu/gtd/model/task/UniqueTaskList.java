@@ -16,7 +16,7 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
-
+	//@@author addressbook-level4
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -60,6 +60,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
+    //@@author A0146130W
     /**
      * Edits an equivalent task from the list.
      *
@@ -77,7 +78,8 @@ public class UniqueTaskList implements Iterable<Task> {
     	if(i < 0 || i >= internalList.size()) return true;
     	return false;
     }
-
+    
+    //@@author addressbook-level4
     /**
      * Removes the equivalent task from the list.
      *

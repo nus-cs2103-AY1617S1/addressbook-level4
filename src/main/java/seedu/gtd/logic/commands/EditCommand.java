@@ -7,6 +7,7 @@ import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.Task;
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
  
+//@@author A0146130W
  /**
   * Adds a task to the address book.
   */
@@ -18,7 +19,7 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
              + "Edits the task identified by the index number used in the last task listing.\n\t"
              + "Parameters: [INDEX] (must be a positive integer) prefix/[NEW DETAIL]\n\t"
              + "Example: " + COMMAND_WORD
-             + " 1 p/98756433";
+             + " 1 p/9";
  
      public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task updated: %1$s";
      

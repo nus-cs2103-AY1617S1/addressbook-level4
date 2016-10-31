@@ -19,6 +19,8 @@ import java.util.logging.Logger;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+	//@@author addressbook-level4
+	
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -77,13 +79,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     
+    //@@author A0146130W
     @Override
     public synchronized void editTask(int targetIndex, Task task) throws TaskNotFoundException {
         addressBook.editTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
-
+    
+    //@@author addressbook-level4
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
