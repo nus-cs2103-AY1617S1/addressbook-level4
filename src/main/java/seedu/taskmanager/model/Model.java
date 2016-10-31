@@ -17,7 +17,6 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
   
-    //@@author A0140060A-reused
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 
@@ -35,7 +34,6 @@ public interface Model {
     /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();
     
-    //@@author A0140060A-reused
     /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredItemList(Set<String> keywords);
     

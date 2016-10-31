@@ -6,7 +6,6 @@ import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
-//@@author A0140060A-reused
 /**
  * Selects an item identified using it's last displayed index from the task manager
  */

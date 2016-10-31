@@ -2,7 +2,6 @@ package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
-//@@author A0140060A-reused
 /**
  * Represents a Item's type in the task manager.
  */
