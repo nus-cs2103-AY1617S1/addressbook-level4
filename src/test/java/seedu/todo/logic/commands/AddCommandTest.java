@@ -171,7 +171,7 @@ public class AddCommandTest extends CommandTest {
         execute(true);
 
         ImmutableTask task = getTaskAt(1);
-        assertEquals("Pokemon with tags", task.getTitle());
+        assertEquals("Hello with tags", task.getTitle());
         assertEquals(expectedTags, task.getTags());
     }
 
@@ -201,35 +201,35 @@ public class AddCommandTest extends CommandTest {
 
     @Test (expected = ValidationException.class)
     public void testAddTag_tooManyTags() throws Exception {
-        setParameter("Pokemon with tags");
+        setParameter("Chinatown with tags");
         setParameter("t", "pikachu123 , charizard_-  -pichu-  ---raichu,  gasly, oops");
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
     public void testAddTag_tagNameTooLong() throws Exception {
-        setParameter("Pokemon with tags");
+        setParameter("Pikachu with tags");
         setParameter("t", "123456789012345678901");
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
     public void testAddTag_invalidTagCharacters() throws Exception {
-        setParameter("Pokemon with tags");
+        setParameter("Penguin with tags");
         setParameter("t", "invalid@");
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
     public void testAddTag_duplicatedTags() throws Exception {
-        setParameter("Pokemon with tags");
+        setParameter("Some bored task with tags");
         setParameter("t", "say duplicated again say");
         execute(false);
     }
 
     @Test (expected = ValidationException.class)
     public void testAddTag_noTagsSupplied() throws Exception {
-        setParameter("Pokemon with tags");
+        setParameter("Hello world with tags");
         setParameter("t", "   ");
         execute(false);
     }

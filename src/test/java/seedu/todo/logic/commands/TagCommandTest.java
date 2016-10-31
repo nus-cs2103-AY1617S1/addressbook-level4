@@ -185,7 +185,7 @@ public class TagCommandTest extends CommandTest {
 
         try {
             execute(false);
-            assertTrue(false); //After the above line, not supposed to happen!
+            assert false; //After the above line, not supposed to happen!
         } catch (ValidationException e) {
             //Okay, exception is expected. Now to check the state of the object.
             Set<Tag> outcomeTags = new HashSet<>(getTaskAt(5).getTags());
@@ -248,7 +248,7 @@ public class TagCommandTest extends CommandTest {
 
         try {
             execute(false);
-            assertTrue(false); //After the above line, not supposed to happen!
+            assert false; //After the above line, not supposed to happen!
         } catch (ValidationException e) {
             //Validation exception expected, now check that the tags are unmodified.
             for (int taskIndex = 1; taskIndex <= 5 ; taskIndex ++) {
