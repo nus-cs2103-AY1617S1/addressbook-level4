@@ -93,11 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     }
     
-    /**
-     * Redo functionality
-     * 
-     * @@author A0141006B
-     */
+    //@@author A0141006B
     @Override
     public synchronized void redo() throws CannotUndoException {
     	try {
@@ -202,6 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     // Used by find done <...> or find <...> where taskStatus depends on user input.
+    // @@author A0139661Y
     @Override
     public void updateFilteredTaskList(Set<String> keywords, boolean taskStatus){
         updateFilteredTaskList(new PredicateExpression(new DetailQualifier(keywords, taskStatus)));
@@ -247,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         private final boolean taskStatus;
         
         // Keywords, specified tasks status
-        // Likely a find done <...>
+        // Likely a find done <...> or find <...>
         DetailQualifier(Set<String> detailKeyWords, boolean taskStatus) {
             this.detailKeyWords = detailKeyWords;
             this.taskStatus = taskStatus;
@@ -266,7 +263,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
         /*
-         * shows only undone tasks
+         * Matches tasks with command done parameter, and filters.
          * 
          * @return boolean: true if match, false if not
          */

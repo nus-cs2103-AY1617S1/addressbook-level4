@@ -15,6 +15,7 @@ import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
 import seedu.cmdo.logic.commands.*;
+import seedu.cmdo.model.Model;
 import seedu.cmdo.model.task.Priority;
 
 /**
@@ -51,11 +52,13 @@ public class MainParser {
 	private static String[] splittedArgs;
 	private static Boolean floatingRequestInEdit;
 	private static Boolean priorityRequestInEdit;
+	private static Boolean onlyOneDateOrTimeRequestInEdit;
 	private static Integer targetIndex;
 	
 	// Singleton
 	private static MainParser mainParser;
 	private static final Parser parser = new Parser();
+
 
 		
     /**
@@ -254,6 +257,7 @@ public class MainParser {
 			return new EditCommand(
 					priorityRequestInEdit,
 					floatingRequestInEdit,
+					onlyOneDateOrTimeRequestInEdit,
 					targetIndex,
 					detailToAdd,
 					dt.toLocalDate(),
@@ -262,7 +266,7 @@ public class MainParser {
 					getTagsFromArgs());
 		} 
 		else{ 
-			//only use this constructor when timing is keyed in
+			//only use this constructor when time range is keyed in
 			assert(dateTimeType!=0);
 			return new EditCommand(
 					priorityRequestInEdit,
@@ -329,15 +333,14 @@ public class MainParser {
         return new ListCommand(type);
     }
     
-    /** HELPER METHODS **/
+//  ============== HELPER METHODS
     /**
      * Processes parameters detail, dbt, dbd, priority.
      * 
-     * @throws IllegalValueException
+     * @throws IllegalValueException if any are invalid.
      * 
      * @@author A0139661Y
      */
-//    ============== HELPER METHODS
     //@@author A0139661Y
     private void process() throws IllegalValueException {
     	extractDetail();			// Saves to detailToAdd
@@ -371,10 +374,15 @@ public class MainParser {
     	// return rear end
     	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
-    
-     //@@author A0139661Y
-    
-    //@@author A0139661Y
+        
+    /**
+     * Extracts the detail embedded in user input ' ' for edit purposes.
+     * ie details are optional, and if they are input, should not be empty.
+     * 
+     * @throws IllegalValueException if detail is blank.
+     * 
+     * @@author A0139661Y
+     */
     private void extractDetailForEdit() throws IllegalValueException {
     	if (!checkValidDetailInputForEdit()) {
     		detailToAdd = "";
@@ -393,7 +401,6 @@ public class MainParser {
     	// return rear end
     	args = new StringBuilder(details[0]).substring(details[0].lastIndexOf("'")+1).toString();
     }
-    
 	
     /**
      * Extracts the priority out of the args.
@@ -424,45 +431,11 @@ public class MainParser {
     	return "";
     }
     
-    
-    /**
-     * Computes the distance btw the 2 strings, via the Levenshtein Distance Algorithm
-     * 
-	 * @param s1 - First string to check with.
-	 * @param s2 - Second string to check with.
-     * @return the new cost to change to make the string same
-     * 
-     * @@author A0112898U-reused
+    /** 
+     * Takes out the date and time of the natural language input
+     *
+     * @@author A0139661Y
      */
-    public static int extractLDistance(String s1, String s2) {
-        s1 = s1.toLowerCase();
-        s2 = s2.toLowerCase();
-        int[] costToChange = new int[s2.length() + 1];
-        for (int i = 0; i <= s1.length(); i++) {
-            int lastValue = i;
-            for (int j = 0; j <= s2.length(); j++) {
-                if (i == 0) {
-                	costToChange[j] = j;
-                }  else {
-                    if (j > 0) {
-                        int newValue = costToChange[j - 1];
-                        if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
-                            newValue = Math.min(Math.min(newValue, lastValue),
-                            		costToChange[j]) + 1;
-                        }
-                        costToChange[j - 1] = lastValue;
-                        lastValue = newValue;
-                    }
-                }
-            }
-            if (i > 0) {
-            	costToChange[s2.length()] = lastValue;
-            }
-        }
-        return costToChange[s2.length()];
-    }
-    
-    //@@author A0139661Y
     public void extractDueByDateAndTime() {
     	List<DateGroup> groups = parser.parse(args);
     	String cleanArgs = args;
@@ -494,7 +467,14 @@ public class MainParser {
     	} catch (IndexOutOfBoundsException e) {} // No date/time found. Do nothing
     }
     
-    //@@author A0139661Y
+    /**
+     * Checks if the detail input is valid, as in, it requires the use of encapsulating ' ',
+     * and must not be blank. This is used in conjunction with {@link #extractDetail()}.
+     * 
+     * @throws IllegalValueException if only one ' found, or if detail is blank.
+     * 
+     * @@author A0139661Y
+     */
 	private void checkValidDetailInput() throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
@@ -504,7 +484,14 @@ public class MainParser {
     		throw new IllegalValueException(MESSAGE_BLANK_DETAIL_WARNING);
 	}
 	
-    //@@author A0139661Y
+    /**
+     * Checks if the detail input is valid, as in, it must not be blank. 
+     * This is used in conjunction with {@link #extractDetailForEdit()}.
+     * 
+     * @throws IllegalValueException if only one ' found, or if detail is blank.
+     * 
+     * @@author A0139661Y
+     */
 	private boolean checkValidDetailInputForEdit() throws IllegalValueException {
     	// Check if only one ' used
     	if (args.lastIndexOf("'") == args.indexOf("'"))
@@ -518,6 +505,8 @@ public class MainParser {
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
+     * 
+     * @throws IllegalValueException if tag input is invalid.
      */
     private static Set<String> getTagsFromArgs() throws IllegalValueException {
     	List<String> rawArgs = Arrays.asList(splittedArgs);
@@ -537,6 +526,7 @@ public class MainParser {
     
     /**
      * Utility method which replaces all redundant spaces
+     * 
      * @param args an uncleaan string
      * @return a cleaned up string
      * 
@@ -586,26 +576,47 @@ public class MainParser {
         return Optional.of(Integer.parseInt(index));
     } 
 
-	//@@author A0139661Y
+	/**
+	 * Checks for accidental '/' instead of ' /'.
+	 * 
+	 * @throws IllegalValueException
+	 *
+	 * @@author A0139661Y
+	 */
     private void checkPriorityValidity() throws IllegalValueException {
-    	if (args.contains("/") && !args.contains(" /")) // Checks for accidental '/' instead of ' /'
+    	if (args.contains("/") && !args.contains(" /"))
     		throw new IllegalValueException(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
 	}
 
-	//@@author A0139661Y
+    /**
+     * Checks if the user wants to edit time or priority.
+     * Used in conjunction with {@link #prepareEdit()}
+     * 
+     * @@author A0139661Y
+     */
     private void checkSpecialRequestInEdit() {
         //if keyword float is entered, it becomes a floating task (no date no time)
-        if(args.toLowerCase().contains("floating") || args.toLowerCase().contains("f")){
+        if(args.toLowerCase().contains("floating") || args.toLowerCase().contains("fl")){
         	floatingRequestInEdit = true;
         }
+        //if keyword is only, we take it that the user means to have a single time or date.
+        else if (args.toLowerCase().contains("only")) {
+        	onlyOneDateOrTimeRequestInEdit = true;
+        }
         //if keyword rp or remove priority is entered, priority is removed
-        if(args.toLowerCase().contains("no priority") || args.toLowerCase().contains("rp")) {
+        if(args.toLowerCase().contains("no priority") || args.toLowerCase().contains("np")) {
         	priorityRequestInEdit = true;
         }
-
+        
     }
     
-	//@@author A0139661Y
+    /**
+     * Tests to see if command ends in an index.
+     * 
+     * @return boolean indicative of where index is present
+     * 
+     * @@author A0139661Y
+     */
     private boolean isIndexInCommandPresent() {
     	Optional<Integer> checkForIndex = parseIndex(args);
     	if (!checkForIndex.isPresent()) 
@@ -614,7 +625,14 @@ public class MainParser {
     	return true;
     }
 
-	//@@author A0139661Y
+    /**
+     * Tests to see if command ends in a loose index.
+     * A loose index is an index with proceeding strings.
+     * 
+     * @return boolean indicative of where loose index is present
+     * 
+     * @@author A0139661Y
+     */    
     private boolean isLooseIndexInCommandPresent() {
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
     	if (!checkForIndex.isPresent()) 
@@ -650,7 +668,14 @@ public class MainParser {
     	}
 	}
     
-    //@@author A0139661Y
+    /**
+     * Overrides the DBD and DBT when editing or adding a block task.
+     * This is to comply with the constraints specified for blocks.
+     * 
+     * @throws IllegalValueException
+     * 
+     * @@author A0139661Y
+     */
     private void overrideDueByDateAndTimeForBlock() throws IllegalValueException {
 		// Override saveDueByDateAndTime()
     	if (dateTimeType == 0) {
@@ -671,7 +696,6 @@ public class MainParser {
     	}
     }
 
-    //@@author A0139661Y
     //@@author A0139661Y
 	private void reset() {
         datesAndTimes.clear();

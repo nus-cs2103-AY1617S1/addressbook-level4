@@ -45,7 +45,6 @@ public class LogicManager extends ComponentManager implements Logic {
         // Pop redo stack unless command is undo
         if (!command.getClass().equals(UndoCommand.class) && 
         		!command.getClass().equals(RedoCommand.class)) {
-        	System.out.println(command.getClass().toString());
         	undoer.clearRedoStack();
         	logger.info("Redo stack cleared.");
         }
