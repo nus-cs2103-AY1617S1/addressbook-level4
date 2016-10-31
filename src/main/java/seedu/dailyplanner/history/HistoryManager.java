@@ -17,7 +17,7 @@ import seedu.dailyplanner.logic.parser.*;
 public class HistoryManager extends Command {
 	
 	
-	private static Stack<Instruction> recordCommand = new Stack<Instruction>();
+	private Stack<Instruction> recordCommand = new Stack<Instruction>();
 	
 	
 	
@@ -40,10 +40,9 @@ public class HistoryManager extends Command {
 		//this.recordCommand.push(latestCommand);
 		
 	}
-	public void stackDelCommand (int targInd){
+	public void stackDelCommand (ReadOnlyTask toPush){
 		
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-		ReadOnlyTask toPush = lastShownList.get(targInd - 1);
+		
 		String pushName = toPush.getName().toString();
 		String pushDate = toPush.getPhone().toString();
 		String pushStart = toPush.getEmail().toString();
@@ -53,7 +52,7 @@ public class HistoryManager extends Command {
 		      pushTag.add(tagName.toString());
 		 }				
 		
-		this.recordCommand.push(new Instruction("A", pushName, pushDate, pushStart, pushEnd, pushTag));
+		recordCommand.push(new Instruction("A", pushName, pushDate, pushStart, pushEnd, pushTag));
 		
 	}
 
