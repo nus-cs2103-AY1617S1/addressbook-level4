@@ -5,7 +5,6 @@ import seedu.taskmanager.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
-//@@author A0140060A-reused
 /**
  * Represents a Item in the task manager.
  * Guarantees: details are present and not null, field values are validated.
