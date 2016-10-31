@@ -55,7 +55,7 @@ public class CommandUtil {
         return instance;
     }
     
-    /** Returns a list of command words that match {@code target} */
+    /** Returns a list of command words that nearly matches {@code target} */
     public List<String> getCommandWordMatches(String target) {
         return cmdStubList.stream()
                 .filter(c -> 
