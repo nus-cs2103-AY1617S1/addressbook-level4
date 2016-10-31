@@ -145,15 +145,9 @@ public class CommandBox extends UiPart {
         if (currentText.length() > firstWordOfInput.length() || commandWordMatches.isEmpty()) {
             setResultDisplayToDefault();
         } else {
-            resultDisplay.postMessage(String.format(MESSAGE_COMMAND_SUGGESTIONS, String.join(", ", commandWordMatches)));
+            resultDisplay.postMessage(
+                    String.format(MESSAGE_COMMAND_SUGGESTIONS, String.join(", ", commandWordMatches)));
         }
-    }
-    
-    /** Sets {@code resultDisplay} to its default posting */
-    private void setResultDisplayToDefault() {
-        // If most recent result does not exist, post welcome message instead.
-        resultDisplay.postMessage(
-                mostRecentResult == null ? Messages.MESSAGE_WELCOME_JIMI : mostRecentResult.feedbackToUser);
     }
     
     /** Sets {@code commandTextField} and {@code resultDisplay} to their default styles/postings */
@@ -172,11 +166,11 @@ public class CommandBox extends UiPart {
         setCaretToRightEnd();
         
         // Last input text does not need to be popped so as to avoid double counting.
-        if (aheadInputs.size() > 1) { 
+        if (aheadInputs.size() > 1) {
             previousInputs.push(aheadInputs.pop());
         }
     }
-
+    
     /** Shifts caret to the right end of text field */
     private void setCaretToRightEnd() {
         commandTextField.positionCaret(commandTextField.getText().length());
@@ -192,7 +186,7 @@ public class CommandBox extends UiPart {
         setCaretToRightEnd();
         
         // Last input text does not need to be popped so as to avoid double counting.
-        if (previousInputs.size() > 1) { 
+        if (previousInputs.size() > 1) {
             aheadInputs.push(previousInputs.pop());
         }
     }
@@ -203,8 +197,15 @@ public class CommandBox extends UiPart {
             previousInputs.push(aheadInputs.pop());
         }
     }
+    
+    /** Sets {@code resultDisplay} to its default posting */
+    private void setResultDisplayToDefault() {
+        // If most recent result does not exist, post welcome message instead.
+        resultDisplay.postMessage(
+                mostRecentResult == null ? Messages.MESSAGE_WELCOME_JIMI : mostRecentResult.feedbackToUser);
+    }
     // @@author
-
+    
     /**
      * Sets the command box style to indicate a correct command.
      */
