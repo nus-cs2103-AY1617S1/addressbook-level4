@@ -4,7 +4,9 @@ package seedu.whatnow.logic.parser;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,6 +93,9 @@ public class Parser {
     private static final int CHANGE_LOCATION = 0;
     private static final int CHANGE_LOCATION_TO = 1;
     private static final int CHANGE_LOCATION_TO_PATH = 2;
+    
+    private static final int INCREASE_DATE_BY_ONE_DAY = 1;
+    private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
 
     /**
      * String Constants
@@ -187,6 +192,9 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+        case FreeTimeCommand.COMMAND_WORD:
+            return prepareFreeTimeCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -843,4 +851,74 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    //@@author A0139772U
+    /**
+     * Parses arguments in the context of the free time command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFreeTimeCommand(String args) {
+        String date = args.trim();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+        if (!(DATE_WITH_SLASH_FORMAT.matcher(date).find()
+                || TODAY_OR_TOMORROW.matcher(date).find()
+                || DAYS_IN_FULL.matcher(date).find()
+                || DAYS_IN_SHORT.matcher(date).find())) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
+        } else if (TODAY_OR_TOMORROW.matcher(date).find()) {
+            if (date.equalsIgnoreCase("today")) {
+                date = df.format(cal.getTime());
+            } else {
+                cal.add(Calendar.DATE, INCREASE_DATE_BY_ONE_DAY);
+                date = df.format(cal.getTime());
+            }
+        } else if (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
+            switch(date) {
+            case "mon":
+                //fallthrough
+            case "monday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                break;
+            case "tue":
+                //fallthrough
+            case "tuesday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                break;
+            case "wed":
+                //fallthrough
+            case "wednesday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                break;
+            case "thur":
+                //fallthrough
+            case "thursday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                break;
+            case "fri":
+                //fallthrough
+            case "friday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                break;
+            case "sat":
+                //fallthrough
+            case "saturday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                break;
+            case "sun":
+                //fallthrough
+            case "sunday":
+                cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                break;
+            }
+            if (cal.getTime().before(today.getTime())) {
+                cal.add(Calendar.DATE, INCREASE_DATE_BY_SEVEN_DAYS);
+            }
+            date = df.format(cal.getTime());
+        }
+        return new FreeTimeCommand(date);
+    }
+    
 }

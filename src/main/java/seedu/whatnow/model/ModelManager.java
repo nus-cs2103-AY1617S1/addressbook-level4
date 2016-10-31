@@ -15,6 +15,8 @@ import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.Command;
+import seedu.whatnow.model.freetime.FreePeriod;
+import seedu.whatnow.model.freetime.Period;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
@@ -23,7 +25,14 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -40,6 +49,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
     private static final String TASK_STATUS_COMPLETED = "completed";
     private static final String TASK_STATUS_INCOMPLETE = "incomplete";
+    private static final String DEFAULT_START_TIME = "12:00am";
+    private static final String DEFAULT_END_TIME = "11:59pm";
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
@@ -61,6 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfMarkUndoneRedo;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
+    private final HashMap<String, FreePeriod> freeTimes;
     
     //@@author A0139128A
     /**
@@ -95,6 +107,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        freeTimes = new HashMap<String, FreePeriod>();
+        initialiseFreeTime();
     }
     //@@author A0141021H-reused
     public ModelManager() {
@@ -123,12 +137,22 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        freeTimes = new HashMap<String, FreePeriod>();
+        initialiseFreeTime();
+    }
+    
+    //@@author A0139772U
+    private void initialiseFreeTime() {
+        for (int i = 0; i < filteredSchedules.size(); i++) {
+            blockFreeTime(filteredSchedules.get(i));   
+        }
     }
     //@@author A0139128A
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
         stackOfWhatNow.push(new WhatNow(whatNow));
         whatNow.resetData(newData);
+        initialiseFreeTime();
         indicateWhatNowChanged();
     }
     
@@ -172,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized int deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         int indexRemoved = whatNow.removeTask(target);
+        unblockFreeTime();
         indicateWhatNowChanged();
         return indexRemoved;
     }
@@ -179,6 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
+        blockFreeTime(task);
         updateFilteredListToShowAllIncomplete();
         indicateAddTask(task, false);
         indicateWhatNowChanged();
@@ -195,6 +221,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         whatNow.updateTask(old, toUpdate);
         indicateUpdateTask(toUpdate);
+        unblockFreeTime();
         indicateWhatNowChanged();
     }
     //@@author A0139772U
@@ -291,6 +318,107 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public Stack<String> getStackOfListTypesRedo() {
         return stackOfListTypesRedo;
+    }
+    
+    //@@author A0139772U
+    @Override
+    public FreePeriod getFreeTime(String date) {
+        if (freeTimes.get(date) == null) {
+            freeTimes.put(date, new FreePeriod());
+        }
+        freeTimes.get(date).getList().sort(new Period());
+        return freeTimes.get(date);
+    }
+    
+    //@@author A0139772U
+    /**
+     * Remove from the freetime block the period that coincides with the task duration
+     */
+    private void blockFreeTime(Task task) {
+        String date = task.getTaskDate();
+        String startDate = task.getStartDate();
+        String endDate = task.getEndDate();
+        String startTime = task.getStartTime();
+        String endTime = task.getEndTime();
+        if (date != null && startTime != null && endTime != null) {
+            blockTaskWithOneDateTwoTime(date, startTime, endTime);
+        } else if (date == null && startTime != null && endTime != null) {
+            blockTaskWithTwoDateTwoTime(startDate, endDate, startTime, endTime);
+        }
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, for task with one date and two time
+     */
+    private void blockTaskWithOneDateTwoTime(String date, String startTime, String endTime) {
+        if (freeTimes.get(date) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(startTime, endTime);
+            freeTimes.put(date, newFreePeriod);
+        } else {
+            freeTimes.get(date).block(startTime, endTime);
+        }
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, for task with two date and two time
+     */
+    private void blockTaskWithTwoDateTwoTime(String startDate, String endDate, String startTime, String endTime) {
+        if (freeTimes.get(startDate) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(startTime, DEFAULT_END_TIME);
+            System.out.println(startTime);
+            System.out.println(DEFAULT_END_TIME);
+            System.out.println(newFreePeriod.toString());
+            freeTimes.put(startDate, newFreePeriod);
+        } else {
+            freeTimes.get(startDate).block(startTime, DEFAULT_END_TIME);
+        }
+        if (freeTimes.get(endDate) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(DEFAULT_START_TIME, endTime);
+            System.out.println(endTime);
+            System.out.println(DEFAULT_START_TIME);
+            System.out.println(newFreePeriod.toString());
+            freeTimes.put(endDate, newFreePeriod);
+        } else {
+            freeTimes.get(endDate).block(DEFAULT_START_TIME, endTime);
+        }
+        blockDatesInBetween(startDate, endDate);
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, between startdate and end date
+     */
+    private void blockDatesInBetween(String start, String end) {
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        try {
+            Date startDate = df.parse(start);
+            Date endDate = df.parse(end);
+            cal.setTime(startDate);
+            while (cal.getTime().before(endDate)) {
+                cal.add(Calendar.DATE, 1);
+                if (cal.getTime().equals(endDate)) {
+                    break;
+                }
+                if(freeTimes.get(cal.getTime()) == null) {
+                    FreePeriod newFreePeriod = new FreePeriod();
+                    newFreePeriod.getList().clear();
+                    freeTimes.put(df.format(cal.getTime()), newFreePeriod);
+                } else {
+                    freeTimes.get(cal.getTime()).getList().clear();
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void unblockFreeTime() {
+        freeTimes.clear();
+        initialiseFreeTime();
     }
     
     //=========== Filtered Task List Accessors ===============================================================
