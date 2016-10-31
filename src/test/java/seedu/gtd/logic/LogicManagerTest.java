@@ -168,20 +168,14 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
-
-
+    
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 d/valid@dueDate.butNoDueDatePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name d/12345 valid@address.butNoPrefix p/valid, priority", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name d/12345 a/valid@email.butNoAddressPrefix valid, priority", expectedMessage);
+    	String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+    		assertCommandBehavior(
+    				"add ", expectedMessage);
     }
+    
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -211,6 +205,22 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
 
+    }
+    
+    @Test
+    public void execute_add_optional_successful() throws Exception {
+    	
+        // setup expectations
+    	TestDataHelper helper = new TestDataHelper();
+    	Task intendedResult = helper.optionalAddressDateChanged();
+    	AddressBook expectedAB = new AddressBook();
+    	expectedAB.addTask(intendedResult);
+    	String optionalAddressCmd = "add clean room d/noon p/3 t/tag1";
+    	
+        assertCommandBehavior(optionalAddressCmd,
+                String.format(AddCommand.MESSAGE_SUCCESS, intendedResult),
+                expectedAB,
+                expectedAB.getTaskList());
     }
 
     @Test
@@ -438,7 +448,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            Name name = new Name("Pick up laundry");
             DueDate privateDueDate = new DueDate("noon");
             Address address = new Address("111, alpha street");
             Priority privatePriority = new Priority("1");
@@ -449,10 +459,23 @@ public class LogicManagerTest {
         Task adamChanged() throws Exception {
         	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
         	String formattedDate = nlpTest.formatString("noon");
-        	Name name = new Name("Adam Brown");
+        	Name name = new Name("Pick up laundry");
             DueDate privateDueDate = new DueDate(formattedDate);
             Address address = new Address("111, alpha street");
             Priority privatePriority = new Priority("1");
+            Tag tag1 = new Tag("tag1");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, privateDueDate, address, privatePriority, tags);
+        }
+        
+        
+        Task optionalAddressDateChanged() throws Exception {
+        	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
+        	String formattedDate = nlpTest.formatString("noon");
+        	Name name = new Name("clean room");
+            DueDate privateDueDate = new DueDate(formattedDate);
+            Address address = new Address("none");
+            Priority privatePriority = new Priority("3");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(name, privateDueDate, address, privatePriority, tags);

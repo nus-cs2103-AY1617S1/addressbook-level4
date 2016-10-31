@@ -16,9 +16,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the GTD. "
-            + "Parameters: NAME d/DUEDATE a/ADDRESS p/PRIORITY  [t/TAG]...\n"
+            + "Parameters: NAME [d/DUEDATE a/ADDRESS p/PRIORITY t/TAGS]...\n"
+    		+ "All parameters except name is optional.\n"
             + "Example: " + COMMAND_WORD
-            + " Do CS2103 Tutorial 4 d/noon a/NUS p/3 t/CS2103 t/tutorial";
+            + " Do CS2103 Tutorial 4 d/noon a/NUS p/3 t/CS2103 tutorial fun";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
