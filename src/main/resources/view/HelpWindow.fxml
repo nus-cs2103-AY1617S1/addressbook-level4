@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.HelpWindow">
-   <children>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
+<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.HelpWindow">
+   <children>
+      <VBox prefHeight="650.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="100.0">
+               <children>
+                  <Label style="-fx-font-size: 30;" text="Command Cheat Sheet" />
+                  <Label text="Press any key to close this window." />
+               </children>
+            </VBox>
+            <HBox prefHeight="600.0" prefWidth="1000.0">
+               <children>
+                  <GridPane gridLinesVisible="true">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="-Infinity" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="900.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #dcdcdc;" GridPane.columnIndex="1" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #dcdcdc;" />
+                        <Label style="-fx-font-size: 19; -fx-font-weight: bold;" text="Command" GridPane.halignment="CENTER" />
+                        <Label style="-fx-font-size: 19; -fx-font-weight: bold;" text="Format" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Label text="Help" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="Add" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label text="Edit" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label text="Delete" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Label text="Undo" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <Label text="Redo" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                        <Label text="Done" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <Label text="List" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                        <Label text="Find" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                        <Label text="Store" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                        <Label text="help" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Label text="edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Label text="delete INDEX" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Label text="undo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <Label text="redo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                        <Label text="done INDEX" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+                        <Label text="list [done]" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
+                        <Label text="find NAME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                        <Label text="store FILEPATH" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
+                        <Label text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+                        <Label text="exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

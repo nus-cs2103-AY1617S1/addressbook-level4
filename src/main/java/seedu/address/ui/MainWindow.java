@@ -35,7 +35,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -91,6 +91,7 @@ public class MainWindow extends UiPart {
         mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic, history);
         return mainWindow;
     }
+       
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
                            Logic logic, InputHistory inputHistory) {
@@ -120,13 +121,19 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         //do not show the browser area
         //browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, inputHistory);
         commandBox2 = SwitchViewButtons.load(primaryStage, getSwitchViewButtonsPlaceholder(), resultDisplay, logic, inputHistory);
     }
-
+    
+    //@@author A0093960X
+    public void swapTaskList(boolean isDoneList) {
+        taskListPanel.reloadLists(logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList(), isDoneList);
+    }
+    
+    //@@author
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -198,8 +205,8 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public TaskListPanel getPersonListPanel() {
+        return this.taskListPanel;
     }
 
     public void loadPersonPage(ReadOnlyTask person) {

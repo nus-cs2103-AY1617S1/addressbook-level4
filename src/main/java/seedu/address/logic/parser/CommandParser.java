@@ -4,6 +4,7 @@ import seedu.address.logic.commands.*;
 import seedu.address.model.item.DateTime;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
@@ -83,7 +84,7 @@ public class CommandParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return prepareHelp(arguments);
+            return new HelpCommand();
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -264,13 +265,13 @@ public class CommandParser {
         return new ListCommand(isListDoneCommand);
     }
     
-    //@@author A0139498J
     /**
      * Parses arguments in the context of the help command.
      *
      * @param args full command args string
      * @return the prepared command
      */
+    /*
     private Command prepareHelp(String args) {
         
         if (args != null) {
@@ -279,6 +280,7 @@ public class CommandParser {
         
         return new HelpCommand(HelpCommand.COMMAND_WORD);
     }
+    */
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -362,7 +364,7 @@ public class CommandParser {
      * @param userInput user input string
      * @return a list of Strings for tooltips
      */
-    public String parseForTooltip(String userInput) {
+    public String parseForTooltip(String userInput, boolean isViewingDoneList) {
         assert userInput != null;
 
         String trimmedUserInput = userInput.trim();
@@ -376,7 +378,7 @@ public class CommandParser {
         final String commandWord = matcher.group("commandWord");
         boolean interpretAsNoArgs = commandWord.equals(userInput);
          
-        return getTooltip(commandWord, interpretAsNoArgs);
+        return getTooltip(commandWord, interpretAsNoArgs, isViewingDoneList);
     }
 
     /**
@@ -386,13 +388,106 @@ public class CommandParser {
      * @param commandWord the user input command word
      * @param inputHasNoArgs boolean representing whether user input has no arguments
      */
-    private String getTooltip(final String commandWord, boolean inputHasNoArgs) {               
+    private String getTooltip(final String commandWord, boolean inputHasNoArgs, boolean isViewingDoneList) { 
+        if (isViewingDoneList) {
+            return getTooltipForDoneList(commandWord, inputHasNoArgs);          
+        }
+        
+        return getTooltipForUndoneList(commandWord, inputHasNoArgs);
+    }
+
+    private String getTooltipForDoneList(final String commandWord, boolean inputHasNoArgs) {
+     // tooltip depends on whether the input command has arguments
+        if (inputHasNoArgs) {
+            return getTooltipForCmdWithNoArgsDoneList(commandWord);
+        } else {
+            return getTooltipForCmdWithArgsDoneList(commandWord);
+        }
+    }
+
+    private String getTooltipForCmdWithNoArgsDoneList(String commandWord) {
+        List<String> tooltips = new ArrayList<String>();
+
+        if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(ClearCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(DeleteCommand.TOOL_TIP);
+        }   
+        if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(ExitCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(FindCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(HelpCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(ListCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(RedoCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(SelectCommand.TOOL_TIP);
+        }
+        if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(UndoCommand.TOOL_TIP);
+        }
+
+        boolean hasNoTooltipMatches = tooltips.isEmpty();
+        if (hasNoTooltipMatches) {
+            return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
+        }
+
+        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        return combinedTooltip;
+    }
+    
+    private String getTooltipForCmdWithArgsDoneList(String commandWord) {
+        
+        if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
+            return ClearCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
+            return DeleteCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
+            return ExitCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
+            return FindCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
+            return HelpCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
+            return ListCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
+            return RedoCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
+            return SelectCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
+            return UndoCommand.TOOL_TIP;
+            
+        } else {
+            return Messages.MESSAGE_DONE_LIST_RESTRICTED_COMMANDS;
+            
+        }
+    }
+
+    
+
+    private String getTooltipForUndoneList(final String commandWord, boolean inputHasNoArgs) {
         // tooltip depends on whether the input command has arguments
         if (inputHasNoArgs) {
-            return getTooltipForCmdWithNoArgs(commandWord);
-        }
-        else {
-            return getTooltipForCmdWithArgs(commandWord);
+            return getTooltipForCmdWithNoArgsUndoneList(commandWord);
+        } else {
+            return getTooltipForCmdWithArgsUndoneList(commandWord);
         }
     }
 
@@ -402,7 +497,7 @@ public class CommandParser {
      * @param commandWord the command part of the user input
      * @return the tooltip
      */
-    private String getTooltipForCmdWithNoArgs(final String commandWord) {
+    private String getTooltipForCmdWithNoArgsUndoneList(final String commandWord) {
         List<String> tooltips = new ArrayList<String>();
         
         if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
@@ -457,46 +552,47 @@ public class CommandParser {
      * @param commandWord the command part of the user input
      * @return the tooltip
      */
-    private String getTooltipForCmdWithArgs(final String commandWord) {        
+    private String getTooltipForCmdWithArgsUndoneList(final String commandWord) {        
         if (commandWord.equals(AddCommand.COMMAND_WORD)) {
             return AddCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
             return ClearCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
             return DeleteCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(DoneCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(DoneCommand.COMMAND_WORD)) {
             return DoneCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(EditCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(EditCommand.COMMAND_WORD)) {
             return EditCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
             return ExitCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
             return FindCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
             return HelpCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
             return ListCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
             return RedoCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
             return SelectCommand.TOOL_TIP;
-        }
-        else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
+            
+        } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
             return UndoCommand.TOOL_TIP;
-        }
-        else {
+            
+        } else {
             // default command is an add command
             return AddCommand.TOOL_TIP;
+            
         }
 
     }

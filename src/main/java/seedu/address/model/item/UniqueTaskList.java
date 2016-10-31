@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -95,6 +95,10 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public ObservableList<Task> getInternalList() {
         return internalList;
+    }
+    
+    public void setInternalList(ObservableList<Task> list) {
+        internalList = list;
     }
 
     @Override

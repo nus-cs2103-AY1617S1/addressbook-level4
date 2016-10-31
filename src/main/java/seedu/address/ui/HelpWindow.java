@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -19,8 +22,6 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
 
@@ -33,7 +34,7 @@ public class HelpWindow extends UiPart {
         return helpWindow;
     }
 
-    @Override
+
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;
     }
@@ -47,16 +48,23 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+        
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                dialogStage.close();
+            }
+        });
     }
 
     public void show() {
         dialogStage.showAndWait();
     }
+    
+    @FXML
+    public void handleKeyPressed() {
+        dialogStage.close();
+    }
+    
+    
 }
