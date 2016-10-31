@@ -24,6 +24,7 @@ public class UpdateCommand extends Command {
 	public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
 	public static final String MESSAGE_ILLEGAL_VALUE = "Start or end time is invalid!";
     public static final String MESSAGE_OVERLAP = "There is an overlap with other existing task(s).";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
 
 	private int targetIndex;
 	private TaskDetails taskDetails;
@@ -68,6 +69,11 @@ public class UpdateCommand extends Command {
 			    return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
 			}
 			try {
+			    Task stubTask = new Task(taskToUpdate);
+			    model.updateTask(stubTask, taskDetails, startTime, endTime, priority, recurringFrequency);
+			    if (model.isDuplicate(stubTask)){
+	                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+	            }
 			    model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
 			    if (model.isOverlapping(taskToUpdate)) {
 	                model.updateFilteredListToShowOverlapping(taskToUpdate);
