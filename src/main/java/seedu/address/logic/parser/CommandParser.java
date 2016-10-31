@@ -131,6 +131,7 @@ public class CommandParser {
         }
     }
 
+    //@@author
     /**
      * Extracts the new person's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.

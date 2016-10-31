@@ -1,6 +1,10 @@
 package seedu.address.model.item;
 
 //@@author A0139655U
+/**
+ * Represents a Task's name in the task manager.
+ * Guarantees: immutable
+ */
 public class Name {
 
     public String name;

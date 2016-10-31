@@ -14,36 +14,58 @@ public class DateTimeTest {
 
     @Test
     public void convertStringToDate() {
-        Date date = DateTime.convertStringToDate("11th Sep 2016 7:15am");
-        Calendar calendarActual = Calendar.getInstance();
-        calendarActual.setTime(date);
-        Calendar calendarExpected = Calendar.getInstance();
-        calendarExpected.set(2016, Calendar.SEPTEMBER, 11, 7, 15);
-        assertEquals(calendarActual.get(Calendar.YEAR), calendarExpected.get(Calendar.YEAR));
-        assertEquals(calendarActual.get(Calendar.MONTH), calendarExpected.get(Calendar.MONTH));
-        assertEquals(calendarActual.get(Calendar.DAY_OF_MONTH), calendarExpected.get(Calendar.DAY_OF_MONTH));
-        assertEquals(calendarActual.get(Calendar.HOUR_OF_DAY), calendarExpected.get(Calendar.HOUR_OF_DAY));
-        assertEquals(calendarActual.get(Calendar.MINUTE), calendarExpected.get(Calendar.MINUTE));
+        Date date;
+        try {
+            date = DateTime.convertStringToDate("11th Sep 2016 7:15am");
+            Calendar calendarActual = Calendar.getInstance();
+            calendarActual.setTime(date);
+            Calendar calendarExpected = Calendar.getInstance();
+            calendarExpected.set(2016, Calendar.SEPTEMBER, 11, 7, 15);
+            assertEquals(calendarActual.get(Calendar.YEAR), calendarExpected.get(Calendar.YEAR));
+            assertEquals(calendarActual.get(Calendar.MONTH), calendarExpected.get(Calendar.MONTH));
+            assertEquals(calendarActual.get(Calendar.DAY_OF_MONTH), calendarExpected.get(Calendar.DAY_OF_MONTH));
+            assertEquals(calendarActual.get(Calendar.HOUR_OF_DAY), calendarExpected.get(Calendar.HOUR_OF_DAY));
+            assertEquals(calendarActual.get(Calendar.MINUTE), calendarExpected.get(Calendar.MINUTE));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+        
     }
     
     @Test
     public void hasDateValue_True() {
-        assertTrue(DateTime.hasDateValue("11th Sep 2016"));
+        try {
+            assertTrue(DateTime.hasDateValue("11th Sep 2016"));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
     }
     
     @Test
     public void hasDateValue_False() {
-        assertFalse(DateTime.hasDateValue("11:30pm"));
+        try {
+            assertFalse(DateTime.hasDateValue("11:30pm"));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
     }
     
     @Test
     public void hasTimeValue_True() {
-        assertTrue(DateTime.hasTimeValue("11:30pm"));
+        try {
+            assertTrue(DateTime.hasTimeValue("11:30pm"));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
     }
     
     @Test
     public void hasTimeValue_False() {
-        assertFalse(DateTime.hasTimeValue("11th Sep 2016"));
+        try {
+            assertFalse(DateTime.hasTimeValue("11th Sep 2016"));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
     }
 
     @Test
@@ -100,8 +122,13 @@ public class DateTimeTest {
     
     @Test
     public void assignStartDateToSpecifiedWeekday() {
-        Date date = DateTime.assignStartDateToSpecifiedWeekday("monday");
-        assertTrue(date.toString().contains("Mon"));
+        Date date;
+        try {
+            date = DateTime.assignStartDateToSpecifiedWeekday("monday");
+            assertTrue(date.toString().contains("Mon"));
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
     }
     
     @Test
@@ -137,13 +164,15 @@ public class DateTimeTest {
         
         try {
             RecurrenceRate recurrenceRate = new RecurrenceRate("1", "month");
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
+            Date date = calendar.getTime();
+            date = DateTime.updateDateByRecurrenceRate(date, recurrenceRate);
+            calendar.setTime(date);
             assertEquals(calendar.get(Calendar.YEAR), 2016);
             assertEquals(calendar.get(Calendar.MONTH), Calendar.NOVEMBER);
             assertEquals(calendar.get(Calendar.DAY_OF_MONTH), 24);
             assertEquals(calendar.get(Calendar.HOUR_OF_DAY), 10);
             assertEquals(calendar.get(Calendar.MINUTE), 0);
-        } catch (IllegalValueException e) {
+        } catch (IllegalValueException ive) {
             assert false;
         }
     }
@@ -159,7 +188,9 @@ public class DateTimeTest {
         
         try {
             RecurrenceRate recurrenceRate = new RecurrenceRate("2", "wednesday");
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
+            Date date = calendar.getTime();
+            date = DateTime.updateDateByRecurrenceRate(date, recurrenceRate);
+            calendar.setTime(date);
             assertEquals(calendar.get(Calendar.YEAR), 2016);
             assertEquals(calendar.get(Calendar.MONTH), Calendar.NOVEMBER);
             assertEquals(calendar.get(Calendar.DAY_OF_MONTH), 2);

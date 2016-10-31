@@ -221,7 +221,7 @@ public class LogicManagerTest {
 
     }
     
-    //@@author A0139655U
+    //@@author A0139552B
     @Test
     public void execute_edit_successful() throws Exception {
         // setup expectations

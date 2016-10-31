@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
@@ -10,6 +9,7 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.events.ui.SwapTaskListEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.item.Task;
@@ -17,7 +17,6 @@ import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
-import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
@@ -113,6 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(task)));
     }
     
 
@@ -194,6 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(floatingTask)));
     }
     //@@author
     

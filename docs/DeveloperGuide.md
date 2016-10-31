@@ -113,7 +113,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultsDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -147,7 +147,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelClassDiagram.PNG" width="800"><br>
 > _The class diagram for the Model component of DearJim_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
@@ -278,18 +278,19 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add tasks to the todo list | be reminded of what to do
 `* * *` | user | add tasks with deadline | remember by what time I have to complete a task
 `* * *` | user | add tasks with timeframe | know what I have to attend an event
-`* * *` | user | view upcoming tasks | check what I need to do / have to do soon
+`* * *` | user | view upcoming tasks in chronological order| check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
 `* * *` | user | delete a task that has been completed | completely remove it from my task manager	
 `* * *` | user | mark a task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
-`* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
 `* * *` | user | undo my actions | reverse any mistake that I have made
 `* * *` | user | redo my undo | correct any accidental undo
 `* * *` | user | edit tasks | keep them up to date
+`* * *` | user | store my tasks in different locations | share the tasks with multiple devices 
 `* *` | user | sync my task with other computers | keep track of what to do anywhere
 `* *` | user | enter synonyms for the commands | use natural language to accomplish what I want
 `*` | user | tag tasks | classify them and search for them according to these tags
+`*` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
 
 ## Appendix B : Use Cases
 
@@ -356,6 +357,11 @@ Use case ends
 
 > Use case ends
 
+3a. Index is not given
+
+> 3a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
+ Use case resumes at step 3
+  
 4a. The given index is invalid
 
 > 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot edit any task <br>

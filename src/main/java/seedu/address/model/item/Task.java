@@ -7,9 +7,11 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 
+/**
+ * Represents a Task in the task manager.
+ * Guarantees: field values are validated.
+ */
 public class Task implements ReadOnlyTask, Comparable<Task> {
-
-    public static final String VARIABLE_CONNECTOR = ", Priority: ";
 
     protected Name taskName;
     private Date startDate;
@@ -61,6 +63,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *             if given value is invalid.
      */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
+        // TODO: is the code below necessary? (comment by ZY)
         assert !CollectionUtil.isAnyNull(taskName);
         assert taskName != null;
         assert priorityValue != null;
@@ -72,23 +75,41 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     //@@author A0139655U
-    //TODO: Comments - Zhi Yuan
+    /**
+     * Updates the startDate and/or endDate of the completed recurring task.
+     */
+    //TODO: Not sure to put this here or at DoneCommand
     public void updateRecurringTask() {
+        if (recurrenceRate == null || (startDate == null && endDate == null)) {
+            
+        }
         assert recurrenceRate != null && recurrenceRate.timePeriod != null && recurrenceRate.rate != null &&
                 (startDate != null || endDate != null);
 
-        if (startDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(startDate);
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
-            startDate = calendar.getTime();
+        if (startDate != null && endDate == null) {
+            startDate = DateTime.updateDateByRecurrenceRate(startDate, recurrenceRate);
+        } else if (startDate == null && endDate != null) {
+            endDate = DateTime.updateDateByRecurrenceRate(endDate, recurrenceRate);
+        } else if (startDate != null && endDate != null) {
+            int timeDifference = (int) (endDate.getTime() - startDate.getTime());
+            startDate = DateTime.updateDateByRecurrenceRate(startDate, recurrenceRate);
+            endDate = updateEndDate(timeDifference);
         }
-        if (endDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(endDate);
-            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
-            endDate = calendar.getTime();
-        }
+    }
+
+    /**
+     * Updates endDate using the timeDifference from startDate.
+     * 
+     * @param timeDifference    the difference in days between end date and start date
+     * @return updated value of endDate
+     */
+    private Date updateEndDate(int timeDifference) {
+        Calendar endCalendar = Calendar.getInstance();
+        endCalendar.setTime(startDate);
+        endCalendar.add(Calendar.MILLISECOND, timeDifference);
+        Date date = endCalendar.getTime();
+        
+        return date;
     }
 
     //@@author A0139498J

@@ -152,7 +152,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getDoneTaskList() {
         return Collections.unmodifiableList(doneTasks.getInternalList());
     }
-    
+
     @Override
     public UniqueTaskList getUniqueUndoneTaskList() {
         return this.undoneTasks;
