@@ -4,6 +4,7 @@ import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +15,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Date;
+
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
@@ -48,7 +51,9 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    
     //@@author A0153411W
     public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
@@ -154,6 +159,16 @@ public class Parser {
 		    //For deadlines - if there is startDate, set dueDatePrefix as required
 			if (argsTokenizer.getValue(startDatePrefix)!=null) {
 				dueDatePrefix.SetIsOptional(false);
+			}
+			
+			if (!isInputPresent(argsTokenizer.getValue(startDatePrefix)).equals("Not Set")
+			        && (!isInputPresent(argsTokenizer.getValue(dueDatePrefix)).equals("Not Set"))){
+			    Date startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix));
+			    Date dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix));
+			    if (startDate.compareTo(dueDate) > 0) {
+			        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_INVALID_DATE));
+			    }
+			
 			}
 			//@@author
 		    //@@author A0153411W

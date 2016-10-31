@@ -1,7 +1,11 @@
 package seedu.task.logic.commands;
 
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +40,9 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_EVENT_USAGE = "To add an event, DUE_DATE is required\n" + "Example: "
 			+ COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
 
+	public static final String MESSAGE_INVALID_DATE = "The DUE DATE is before the START DATE\n" + "Example: "
+	        + COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
+	
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -58,6 +65,7 @@ public class AddCommand extends Command {
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
+		
 		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
 				new Status("ONGOING"), new UniqueTagList(tagSet));
