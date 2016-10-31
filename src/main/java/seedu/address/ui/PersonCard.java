@@ -26,6 +26,7 @@ public class PersonCard extends UiPart{
     private Label tags;
 
     private ReadOnlyTask task;
+    private String indexAlphabet;
     private int displayedIndex;
 
 
@@ -33,10 +34,11 @@ public class PersonCard extends UiPart{
 
     }
 
-    public static PersonCard load(ReadOnlyTask task, int displayedIndex){
+    public static PersonCard load(ReadOnlyTask task, int displayedIndex, String indexAlphabet){
         PersonCard card = new PersonCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
+        card.indexAlphabet = indexAlphabet;
         return UiPartLoader.loadUiPart(card);
 
     }
@@ -49,8 +51,8 @@ public class PersonCard extends UiPart{
         //name.setMaxWidth(450);
         //name.setPrefWidth(400);
         name.setMinWidth(50);
-        id.setText(displayedIndex + ". ");
         id.setWrapText(true);
+        id.setText(indexAlphabet + displayedIndex + ". ");
         description.setText(task.getDescription().value);
         description.setWrapText(true);
         date.setText(task.getDatetime().getDateString());

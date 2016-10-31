@@ -25,9 +25,8 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList datedTasks;
     private final UniqueTaskList undatedTasks;
-    private final UniqueTagList tags; 
-
-
+    private final UniqueTagList tags;
+    public static enum TaskType {DATED, UNDATED}; 
     {
         datedTasks = new UniqueTaskList();
         undatedTasks = new UniqueTaskList();

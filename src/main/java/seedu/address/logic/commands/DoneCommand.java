@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CommandUtil;
+import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -10,60 +11,67 @@ import seedu.address.ui.PersonListPanel;
 
 //@@author A0139145E
 /**
- * Sets as completed a task identified using it's last displayed index from the address book.
+ * Sets as completed a task identified using it's last displayed index from the task book.
  */
 public class DoneCommand extends Command implements Undoable{
 
-    public final int targetIndex;
+    public final String targetIndex;
     public ReadOnlyTask toComplete;
 
     public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets as completed the task identified by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Sets as completed the task identified by the index number used in the last task listing.\n"
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " A1";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
     public static final String MESSAGE_TASK_ALREADY_DONE = "Task is already completed.";
 
-    public DoneCommand(int targetIndex) {
+    public DoneCommand(String targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
         
+        
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
-                lastShownList.size(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)){
+                lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            toComplete = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+        
+        TaskType type = CommandUtil.getTaskType(targetIndex);
+        int indexNum = CommandUtil.getIndex(targetIndex);
+        
+        if (type == TaskType.DATED) {
+            toComplete = lastDatedTaskList.get(indexNum - 1);
+        }
+        else if (type == TaskType.UNDATED){
+            toComplete = lastUndatedTaskList.get(indexNum - 1);
         }
         else {
-            toComplete = lastUndatedTaskList.get(targetIndex - 1);
+            assert false : "Task type not found";
         }
 
-        if (!toComplete.getStatus().equals(new Status(Status.State.DONE))){
+        // Task already completed
+        if (toComplete.getStatus().equals(new Status(Status.State.DONE))){
+            return new CommandResult(String.format(MESSAGE_TASK_ALREADY_DONE));
+        }
+        else {
             try {
                 model.completeTask(toComplete);
                 populateUndo();
-            } catch (TaskNotFoundException pnfe) {
+            } catch (TaskNotFoundException tnfe) {
                 assert false : "The target task cannot be found";
             }
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, toComplete));
+            
         }
-        else {
-            return new CommandResult(String.format(MESSAGE_TASK_ALREADY_DONE));
-        }
-        //TODO look at posting a set as completed event.
-        //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
 
     }
 

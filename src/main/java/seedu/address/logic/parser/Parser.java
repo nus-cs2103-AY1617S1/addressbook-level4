@@ -191,7 +191,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
-        Optional<Integer> index = parseIndex(args);
+        Optional<String> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -208,7 +208,7 @@ public class Parser {
      */
     private Command prepareDone(String args) {
 
-        Optional<Integer> index = parseIndex(args);
+        Optional<String> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
@@ -234,7 +234,7 @@ public class Parser {
 
         try {
             return new EditCommand(
-                    Integer.parseInt(matcher.group("index")),
+                    (matcher.group("index")),
                     matcher.group("name"),
                     matcher.group("description"),
                     matcher.group("date"),
@@ -253,7 +253,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<String> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
@@ -266,17 +266,19 @@ public class Parser {
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
-    private Optional<Integer> parseIndex(String command) {
+    private Optional<String> parseIndex(String command) {
         final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
 
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (index.split(" ").length == 1) {
+            return Optional.of(index);
+        }
+        else {
             return Optional.empty();
         }
-        return Optional.of(Integer.parseInt(index));
 
     }
 
