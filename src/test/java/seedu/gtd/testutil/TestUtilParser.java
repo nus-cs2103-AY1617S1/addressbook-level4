@@ -16,11 +16,12 @@ public class TestUtilParser {
 	public static TestTask editTask(TestTask task, String change) throws IllegalValueException {
 		
 		TestTask newTask = task;
+		String changeWithoutPrefix = change.substring(2);
 		
 		switch(change.substring(0, 2)) {
-    	case "d/": newTask = new TestTask(task.getName(), new DueDate(parseDueDate(change)), task.getAddress(), task.getPriority(), task.getTags());
-    	case "a/": newTask = new TestTask(task.getName(), task.getDueDate(), new Address(change), task.getPriority(), task.getTags());
-    	case "p/": newTask = new TestTask(task.getName(), task.getDueDate(), task.getAddress(), new Priority(change), task.getTags());
+    	case "d/": newTask = new TestTask(task.getName(), new DueDate(parseDueDate(changeWithoutPrefix)), task.getAddress(), task.getPriority(), task.getTags());
+    	case "a/": newTask = new TestTask(task.getName(), task.getDueDate(), new Address(changeWithoutPrefix), task.getPriority(), task.getTags());
+    	case "p/": newTask = new TestTask(task.getName(), task.getDueDate(), task.getAddress(), new Priority(changeWithoutPrefix), task.getTags());
     	default: newTask = new TestTask(new Name(change), task.getDueDate(), task.getAddress(), task.getPriority(), task.getTags());
 		}
 		return newTask;
