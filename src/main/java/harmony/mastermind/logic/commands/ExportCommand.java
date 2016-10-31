@@ -14,6 +14,7 @@ import org.apache.commons.csv.CSVPrinter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 
+//@@author A0138862W
 public class ExportCommand extends Command {
 
     public static final String COMMAND_KEYWORD_EXPORT = "export";
@@ -32,6 +33,8 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_EXAMPLE = "export tasks deadlines to C:\\Desktop\\mastermind.csv";
 
     public static final String MESSAGE_SUCCESS = "CSV exported.";
+    
+    public static final String MESSAGE_FAILURE = "Failed to export CSV.";
 
     private static final String NEWLINE_CHARACTER = "\n";
 
@@ -51,6 +54,17 @@ public class ExportCommand extends Command {
 
     private final boolean isExportingArchives;
 
+    //@@author A0138862W
+    /**
+     * Create a ExportCommand
+     * 
+     * @param destination the file output destination
+     * @param isExportingTasks whether to export all floating tasks
+     * @param isExportingDeadlines whether to export all deadlines
+     * @param isExportingEvents whether to export all events
+     * @param isExportingArchives whether to export all archives
+     * @throws IOException if destination file path is invalid
+     */
     public ExportCommand(String destination, boolean isExportingTasks, boolean isExportingDeadlines, boolean isExportingEvents, boolean isExportingArchives) throws IOException {
         this.destination = destination;
         this.isExportingTasks = isExportingTasks;
@@ -59,6 +73,7 @@ public class ExportCommand extends Command {
         this.isExportingArchives = isExportingArchives;
     }
 
+    //@@author A0138862W
     @Override
     public CommandResult execute() {
 
@@ -70,16 +85,18 @@ public class ExportCommand extends Command {
             printDeadlines(csvPrinter);
             printEvents(csvPrinter);
             printArchives(csvPrinter);
+            return new CommandResult(COMMAND_KEYWORD_EXPORT, MESSAGE_SUCCESS);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new CommandResult(COMMAND_KEYWORD_EXPORT, MESSAGE_FAILURE);
         }
-        return new CommandResult(COMMAND_KEYWORD_EXPORT, MESSAGE_SUCCESS);
     }
 
+    //@@author A0138862W
     private void printHeader(CSVPrinter csvPrinter) throws IOException {
         csvPrinter.printRecord(GOOGLE_CALENDAR_HEADER);
     }
 
+    //@@author A0138862W
     private void printTasks(CSVPrinter csvPrinter) throws IOException {
         if (isExportingTasks) {
             UnmodifiableObservableList<ReadOnlyTask> tasks = model.getFilteredFloatingTaskList();
@@ -87,6 +104,7 @@ public class ExportCommand extends Command {
         }
     }
     
+    //@@author A0138862W
     private void printDeadlines(CSVPrinter csvPrinter) throws IOException{
         if(isExportingDeadlines){
             UnmodifiableObservableList<ReadOnlyTask> deadlines = model.getFilteredDeadlineList();
@@ -94,13 +112,15 @@ public class ExportCommand extends Command {
         }
     }
     
+    //@@author A0138862W
     private void printEvents(CSVPrinter csvPrinter) throws IOException{
         if(isExportingEvents){
             UnmodifiableObservableList<ReadOnlyTask> events = model.getFilteredEventList();
             printDataBody(csvPrinter, events);
         }
     }
-    
+
+    //@@author A0138862W
     private void printArchives(CSVPrinter csvPrinter) throws IOException{
         if(isExportingArchives){
             UnmodifiableObservableList<ReadOnlyTask> archives = model.getFilteredArchiveList();
@@ -108,6 +128,21 @@ public class ExportCommand extends Command {
         }
     }
 
+    //@@author A0138862W
+    /**
+     * A helper method to print list of tasks into csv.
+     * Due to the limitation of Google Calendar (must specify start and end date):
+     * 
+     * - Floating tasks are assigned with dummy date (exported date) as their start and end date, in addition set the all day event as true.
+     * - Deadlines will share the same start and end dates
+     * - Event will and distinct start and end dates
+     * 
+     * All tags are exported under descriptions
+     * 
+     * @param csvPrinter CSVPrinter object
+     * @param tasks list of tasks to print
+     * @throws IOException if file is not writable
+     */
     private void printDataBody(CSVPrinter csvPrinter, UnmodifiableObservableList<ReadOnlyTask> tasks) throws IOException {
         for (ReadOnlyTask task : tasks) {
             List<Object> data = new ArrayList<>();
