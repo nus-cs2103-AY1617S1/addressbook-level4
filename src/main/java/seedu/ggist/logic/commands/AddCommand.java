@@ -2,6 +2,7 @@ package seedu.ggist.logic.commands;
 
 
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.*;
 
@@ -29,7 +30,22 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, String priority) throws IllegalValueException {      
-
+        
+        if (startTime.equals("")) {
+            startTime = Messages.MESSAGE_NO_START_TIME_SET;
+        }
+        
+        if (startDate.equals("")) {
+            startDate = Messages.MESSAGE_NO_START_DATE_SPECIFIED;
+        }
+        
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
+        }
+        
+        if (endDate.equals("")) {
+            endDate = Messages.MESSAGE_NO_END_DATE_SPECIFIED;
+        }
         this.toAdd = new EventTask(
                 new TaskName(taskName),
                 new TaskDate(startDate),
@@ -47,6 +63,14 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String taskName, String date, String endTime, String priority) throws IllegalValueException {      
+        
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
+        }
+        
+        if (date.equals("")) {
+            date = Messages.MESSAGE_NO_END_DATE_SPECIFIED;
+        }
         
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
