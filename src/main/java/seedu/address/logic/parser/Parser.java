@@ -325,7 +325,12 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    
+    /**
+     * Parses arguments in the context of the repeat task command
+     * @param String args
+     * @return the repeat command
+     */
     private Command prepareRepeat(String args){
     	 final Matcher matcher = REPEAT_DATE_ARGS_FORMAT.matcher(args.trim());
     	 // Validate arg string format
