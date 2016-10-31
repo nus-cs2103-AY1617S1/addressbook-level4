@@ -18,6 +18,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
+import java.util.Collections;
+
 public class EditCommandTest extends AddressBookGuiTest {
     
     //@@author A0139552B
@@ -77,6 +79,12 @@ public class EditCommandTest extends AddressBookGuiTest {
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));
         
+    }
+    
+    @Test
+    public void editCheckInvalid(){
+        TestTask[] currentList = td.getTypicalTasks();
+
         //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");
         assertResultMessage("The item index provided is invalid");
@@ -86,11 +94,9 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
     }
-    
-
 /*
     @Test
-    public void editCheckSort() {
+    public void editCheckSort() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
@@ -105,7 +111,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         } catch (IllegalValueException e) {
             assert false : "The test data provided cannot be invalid";
         }
-        personToAdd.setPriority(Priority.HIGH);        
+        personToAdd.setPriority(Priority.HIGH);    
         //TODO
         //update currentList after the edit
         assertTrue(personListPanel.isListMatching(currentList));

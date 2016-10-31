@@ -16,6 +16,7 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
 
+//@@author A0139552B
 public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
@@ -50,7 +51,6 @@ public class EditCommand extends UndoableCommand {
     Priority priority;
     boolean removeReccurence, removeStartDate, removeEndDate;
 
-    //@@author A0139552B
 	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
 			Optional<String> priorityString, String resetFieldString) throws IllegalValueException {       
