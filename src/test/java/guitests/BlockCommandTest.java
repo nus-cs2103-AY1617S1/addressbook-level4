@@ -18,12 +18,13 @@ public class BlockCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask timeToBlock = td.meeting;
         assertBlockSuccess(timeToBlock, currentList);
-        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        currentList = updateList(timeToBlock, currentList);
         
         //add block a timeslot with date/time range
         timeToBlock = td.businessDeal;
         assertBlockSuccess(timeToBlock, currentList);
-        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        updateList(timeToBlock, currentList);
+
         
         //cannot add task to a blocked timeslot with same timing
         TestTask taskToAdd = td.eat;
@@ -51,17 +52,34 @@ public class BlockCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("blocks meeting with OCBC");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
+    
+    //confirm the new card contains the right details
+    private void checkCard(TestTask timeToBlock){
+    	 TaskCardHandle addedCard = taskListPanel.navigateToTask(timeToBlock.getDetail().details);
+         assertMatching(timeToBlock, addedCard);
+    }
+    
+    //run command
+    private void runBlockCommand(TestTask timeToBlock){
+    	commandBox.runCommand(timeToBlock.getBlockCommand());
+    }
+    
+    //update list
+    private TestTask[] updateList(TestTask timeToBlock, TestTask... currentList){
+    	return TestUtil.addTasksToList(currentList, timeToBlock);
+    }
 
     private void assertBlockSuccess(TestTask timeToBlock, TestTask... currentList) {
  
-        commandBox.runCommand(timeToBlock.getBlockCommand());
+    	runBlockCommand(timeToBlock);
+    	
+    	//update list
+    	TestTask[] expectedList = updateList(timeToBlock, currentList);
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(timeToBlock.getDetail().details);
-        assertMatching(timeToBlock, addedCard);
+        checkCard(timeToBlock);
 
         //confirm the list now contains the new blocked slot
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, timeToBlock);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
