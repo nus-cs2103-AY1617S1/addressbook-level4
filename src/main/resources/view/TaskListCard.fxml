@@ -35,13 +35,16 @@
                   <HBox>
                      <children>
                                  <Label fx:id="id" styleClass="cell_big_label" text="\$index" />
-                        <Label fx:id="name"  styleClass="cell_big_label" text="\$name" />
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$name">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></Label>
                      </children>
                   </HBox>
                   <HBox>
                      <children>
                         <Label fx:id="startDate" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$startDate" />
-                        <Label fx:id="endDate" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$endDate" />
+                        <Label fx:id="endDate" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$endDate" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="342.0" />
