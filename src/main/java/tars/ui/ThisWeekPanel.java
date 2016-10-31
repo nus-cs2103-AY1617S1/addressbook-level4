@@ -1,13 +1,18 @@
 package tars.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,30 +22,40 @@ import tars.commons.util.DateTimeUtil;
 import tars.model.task.ReadOnlyTask;
 
 /**
- * Controller for overview panel
+ * Controller for this week panel
  */
-public class OverviewPanel extends UiPart {
-    private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
-    private static final String FXML = "OverviewPanel.fxml";
-    private static final String OVERVIEW_PANEL_STYLE_SHEET = "overview-panel";
+public class ThisWeekPanel extends UiPart {
+    private static final Logger logger = LogsCenter.getLogger(ThisWeekPanel.class);
+    private static final String FXML = "ThisWeekPanel.fxml";
+    private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
     private static final String STATUS_UNDONE = "Undone";
-
+    private static final DateFormat df = new SimpleDateFormat("E d, MMM");
+       
     private static ObservableList<ReadOnlyTask> list;
+    private static ObservableList<ReadOnlyTask> upcomingTasks = FXCollections.observableArrayList();
+    private static ObservableList<ReadOnlyTask> overduedTasks = FXCollections.observableArrayList();
+    
+    private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
-    private VBox panel;
+    private Label date;
     @FXML
     private Label numUpcoming;
     @FXML
     private Label numOverdue;
+    @FXML
+    private Label overduedTasksList;
+    @FXML
+    private Label upcomingTasksList;
+    
 
-    public static OverviewPanel load(Stage primaryStage, AnchorPane overviewPanelPlaceHolder
+    public static ThisWeekPanel load(Stage primaryStage, AnchorPane thisWeekPanelPlaceHolder
             , ObservableList<ReadOnlyTask> taskList) {
-        OverviewPanel overviewPanel = UiPartLoader.loadUiPart(primaryStage, overviewPanelPlaceHolder, new OverviewPanel());
+        ThisWeekPanel thisWeekPanel = UiPartLoader.loadUiPart(primaryStage, thisWeekPanelPlaceHolder, new ThisWeekPanel());
         list = taskList;
-        overviewPanel.configure();
-        return overviewPanel;
+        thisWeekPanel.configure();
+        return thisWeekPanel;
     }
 
     @Override
@@ -59,15 +74,22 @@ public class OverviewPanel extends UiPart {
     }
 
     private void addToPlaceholder() {
+        SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
 
     private void configure(){
-        panel.getStyleClass().add(OVERVIEW_PANEL_STYLE_SHEET);
+        panel.getStyleClass().add(THISWEEK_PANEL_STYLE_SHEET);
+        setDate();
         setUpcoming();
         setOverdue();
         addToPlaceholder();
         registerAsAnEventHandler(this);
+    }
+    
+    private void setDate() {
+        Date today = new Date();
+        date.setText(df.format(today));        
     }
 
     private void setUpcoming() {
@@ -76,9 +98,16 @@ public class OverviewPanel extends UiPart {
             if (DateTimeUtil.isWithinWeek(t.getDateTime().getEndDate())
                     && t.getStatus().toString().equals(STATUS_UNDONE)) {
                 count++;
+                upcomingTasks.add(t);
             }
         }
         numUpcoming.setText(String.valueOf(count));
+        if (count == 0) {
+            upcomingTasksList.setText("");
+        } else {
+            String list = Formatter.formatThisWeekPanelTasksList(upcomingTasks);
+            upcomingTasksList.setText(list);
+        }
     }
 
     private void setOverdue() {
@@ -87,15 +116,24 @@ public class OverviewPanel extends UiPart {
             if (DateTimeUtil.isOverDue(t.getDateTime().getEndDate())
                     && t.getStatus().toString().equals(STATUS_UNDONE)) {
                 count++;
+                overduedTasks.add(t);
             }
         }
         numOverdue.setText(String.valueOf(count));
+        if (count == 0) {
+            overduedTasksList.setText("");
+        } else {
+            String list = Formatter.formatThisWeekPanelTasksList(overduedTasks);
+            overduedTasksList.setText(list);
+        }
     }
 
     @Subscribe
     public void handleTarsChangedEvent(TarsChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Update information header"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Update this week panel"));
+        upcomingTasks.clear();
         setUpcoming();
+        overduedTasks.clear();
         setOverdue();
     }
 }

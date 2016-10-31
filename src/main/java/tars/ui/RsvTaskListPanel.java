@@ -68,7 +68,6 @@ public class RsvTaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             rsvTaskListView.scrollTo(index);
-            rsvTaskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

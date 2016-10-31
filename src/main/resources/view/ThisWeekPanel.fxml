@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.ThisWeekPanel">
+   <children>
+      <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+         <children>
+            <AnchorPane HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="65.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="35.0" vgrow="ALWAYS" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+                        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <AnchorPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <Label fx:id="numUpcoming" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="thisWeek-panel-label" text="\$n" AnchorPane.leftAnchor="15.0">
+                                             <graphic>
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="thisWeek-panel-label" text="Upcoming" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label fx:id="upcomingTasksList" text="\$upcomingTasks">
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                    </Label>
+                                    <AnchorPane>
+                                       <children>
+                                          <Label fx:id="numOverdue" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="thisWeek-panel-label" text="\$n" AnchorPane.leftAnchor="15.0">
+                                             <graphic>
+                                                <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="thisWeek-panel-label" text="Overdue" />
+                                             </graphic>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </AnchorPane>
+                                    <Label fx:id="overduedTasksList" text="\$overduedTasks">
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" styleClass="date-label" text="\$date" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                           <padding>
+                              <Insets right="15.0" top="10.0" />
+                           </padding></Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </children>
+         <stylesheets>
+            <URL value="@TarsTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </HBox>
+   </children>
+</VBox>

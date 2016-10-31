@@ -40,11 +40,11 @@
               <tabs>
                   <Tab closable="false" text="This Week">
                      <content>
-                        <AnchorPane fx:id="overviewTabAnchorPane" prefHeight="171.0" prefWidth="315.0">
+                        <AnchorPane fx:id="thisWeekTabAnchorPane" prefHeight="171.0" prefWidth="315.0">
                            <children>
-                              <VBox fx:id="overview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fx:id="thisWeek" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <AnchorPane fx:id="overviewPanelPlaceholder" prefHeight="172.0" prefWidth="315.0" VBox.vgrow="ALWAYS" />
+                                    <AnchorPane fx:id="thisWeekPanelPlaceholder" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
