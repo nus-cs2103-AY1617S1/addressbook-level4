@@ -21,4 +21,14 @@ public class IncorrectCommand extends Command {
     public boolean isValidCommandWord(String commandWord) {
         return false;
     }
+    
+    @Override
+    public String getMessageUsage() {
+        return "";
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return "";
+    }
 }

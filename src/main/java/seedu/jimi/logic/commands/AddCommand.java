@@ -115,4 +115,14 @@ public class AddCommand extends Command implements TaskBookEditor {
         }
         return false;
     }
+
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }

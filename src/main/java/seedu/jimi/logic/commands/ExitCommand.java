@@ -12,6 +12,8 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Jimi as requested ...";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Closes Jimi.";
+    
     public ExitCommand() {}
 
     @Override
@@ -26,4 +28,14 @@ public class ExitCommand extends Command {
         return commandWord.toLowerCase().equals(COMMAND_WORD);
     }
     // @@author
+    
+    @Override
+    public String getMessageUsage() {
+        return MESSAGE_USAGE;
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
