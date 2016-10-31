@@ -32,23 +32,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<keyword>\\S+)(?<arguments>.*)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // keywords
-                                                                                                           // separated
-                                                                                                           // by
-                                                                                                           // whitespace
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes
-                                                         // are reserved for
-                                                         // delimiter prefixes
-            Pattern.compile(
-                    "(?<name>[^/]+)" + " at/(?<time>[^/]+)" + " on/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
-                                                                                                                        // number
-                                                                                                                        // of
-                                                                                                                        // tags
-
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
@@ -130,7 +114,9 @@ public class Parser {
                 
             case ImportCommand.COMMAND_WORD:
                 return new ImportCommand(arguments);
-
+                
+            case ImportIcsCommand.COMMAND_KEYWORD_IMPORTICS:
+                return prepareImportIcs(arguments);
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
@@ -231,6 +217,26 @@ public class Parser {
      */
     private boolean shouldParseAsEvent(List<Date> dates){
         return dates.size() == 2;
+    }
+    
+    //@@author A0138862W
+    /*
+     * Extract the source destination string and prepare the Import ICS command. 
+     * 
+     */
+    private Command prepareImportIcs(String args){
+        final Matcher matcher = ImportIcsCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportIcsCommand.MESSAGE_EXAMPLE));
+        }
+        
+        final String source = matcher.group("source");
+        
+        assert source != null;
+        
+        return new ImportIcsCommand(source);
     }
     
     /**
