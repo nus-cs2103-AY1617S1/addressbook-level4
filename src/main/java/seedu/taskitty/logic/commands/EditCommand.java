@@ -86,7 +86,7 @@ public class EditCommand extends Command{
                 return result.get();
             }
             model.editTask(taskToEdit, toEdit);
-            model.storeEditCommandInfo(taskToEdit, toEdit, commandText);
+            model.storeCommandInfo(COMMAND_WORD, commandText, toEdit, taskToEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {

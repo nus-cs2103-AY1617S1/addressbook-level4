@@ -104,20 +104,12 @@ public class UniqueTaskList implements Iterable<Task> {
         Task editableToUnmark = (Task) toUnmark;
         editableToUnmark.unmarkAsDone();
         
-        checkAndSetOverdueDeadline(editableToUnmark);
-        
         try {
             addSorted(editableToUnmark);
         } catch (DuplicateTaskException e) {
             assert false: "Should not have duplicate task";
         }
     }
-
-    private void checkAndSetOverdueDeadline(Task taskToCheck) {
-        if (taskToCheck.isDeadline() && taskToCheck.isOverdue()) {
-            taskToCheck.markAsOverdue();
-        }
-    }  
     
     //@@author A0130853L
     /** Marks the given task as done from the list.

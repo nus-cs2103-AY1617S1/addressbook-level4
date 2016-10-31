@@ -43,30 +43,22 @@ public interface Model {
     /** Redoes the previous undo command if there is any 
      * @throws NoRecentUndoCommandException */
     String redo() throws NoRecentUndoCommandException;
-    /**
-     * stores the info from an add command that is needed for undoing/redoing functions
-     */
-    public void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText);
     
     /**
-     * stores the info from an edit command that is needed for undoing/redoing functions
+     * stores the info from an add/edit command that is needed for undoing/redoing functions
      */
-    public void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText);
+    public void storeCommandInfo(String commandWord, String commandText, ReadOnlyTask... tasks);
     
     /**
-     * stores the info from a delete command that is needed for undoing/redoing functions
+     * stores the info from a delete/done command that is needed for undoing/redoing functions
      */
-    public void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText);
-    
-    /**
-     * stores the info from a done command that is needed for undoing/redoing functions
-     */
-    public void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText);
+    public void storeCommandInfo(String commandWord, String commandText, List<ReadOnlyTask> deletedTasks);
     
     /**
      * stores the info from a clear command that is needed for undoing/redoing functions
      */
-    public void storeClearCommandInfo();
+    public void storeCommandInfo(String commandWord);
+
     
     //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

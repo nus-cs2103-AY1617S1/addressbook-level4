@@ -141,45 +141,30 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
    	
-    //@@author A0139052L   	
+    //@@author A0139052L   	   	
    	@Override
-    public synchronized void storeAddCommandInfo(ReadOnlyTask addedTask, String commandText) {
-        undoHistory.storeCommandWord(AddCommand.COMMAND_WORD);
-        undoHistory.storeTask(addedTask);
-        undoHistory.storeCommandText(AddCommand.COMMAND_WORD + commandText);
-        redoHistory.clear();
-    }
-   	
-   	@Override
-    public synchronized void storeEditCommandInfo(ReadOnlyTask taskBeforeEdit, ReadOnlyTask taskAfterEdit, String commandText) {
-   	    undoHistory.storeCommandWord(EditCommand.COMMAND_WORD);
-   	    undoHistory.storeTask(taskAfterEdit);
-   	    undoHistory.storeTask(taskBeforeEdit);
-   	    undoHistory.storeCommandText(EditCommand.COMMAND_WORD + commandText);
+    public synchronized void storeCommandInfo(String commandWord, String commandText, ReadOnlyTask... tasks) {
+   	    undoHistory.storeCommandWord(commandWord);
+   	    undoHistory.storeCommandText(commandWord + commandText);
+   	    for (ReadOnlyTask task: tasks) {
+   	        undoHistory.storeTask(task);
+   	    }   	    
    	    redoHistory.clear();
    	}
    	
    	@Override
-    public synchronized void storeDeleteCommandInfo(List<ReadOnlyTask> deletedTasks, String commandText) {
-        undoHistory.storeCommandWord(DeleteCommand.COMMAND_WORD);
-        undoHistory.storeListOfTasks(deletedTasks);
-        undoHistory.storeCommandText(DeleteCommand.COMMAND_WORD + commandText);
-        redoHistory.clear();
-    }
-   	
-   	@Override
-    public synchronized void storeDoneCommandInfo(List<ReadOnlyTask> markedTasks, String commandText) {
-        undoHistory.storeCommandWord(DoneCommand.COMMAND_WORD);
+    public synchronized void storeCommandInfo(String commandWord, String commandText, List<ReadOnlyTask> markedTasks) {
+        undoHistory.storeCommandWord(commandWord);
         undoHistory.storeListOfTasks(markedTasks);
-        undoHistory.storeCommandText(DoneCommand.COMMAND_WORD + commandText);
+        undoHistory.storeCommandText(commandWord + commandText);
         redoHistory.clear();
     }
    	
    	@Override
-    public synchronized void storeClearCommandInfo() {
-        undoHistory.storeCommandWord(ClearCommand.COMMAND_WORD);
-        undoHistory.storeTaskManager(new TaskManager(taskManager));
-        undoHistory.storeCommandText(ClearCommand.COMMAND_WORD);
+    public synchronized void storeCommandInfo(String commandWord) {
+        undoHistory.storeCommandWord(commandWord);
+        undoHistory.storeCommandText(commandWord);
+        undoHistory.storeTaskManager(new TaskManager(taskManager));        
         redoHistory.clear();
     }
    	

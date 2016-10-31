@@ -91,7 +91,7 @@ public class DeleteCommand extends Command {
         
         try {
              model.deleteTasks(listOfTaskToDelete);
-             model.storeDeleteCommandInfo(listOfTaskToDelete, commandText);
+             model.storeCommandInfo(COMMAND_WORD, commandText, listOfTaskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
