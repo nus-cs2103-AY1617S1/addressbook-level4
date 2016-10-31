@@ -12,6 +12,7 @@ public abstract class DateTime {
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
     protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm a");
     protected static final DateUtil DATE_PARSER = new DateUtil();
+    public boolean recurring = false;
 
     public DateTime(Calendar date) {
         if (date == null) {
@@ -38,7 +39,7 @@ public abstract class DateTime {
      * Returns true if a given string is a valid task reminder.
      */
     protected static boolean isValidDate(String test) {
-        if (DATE_PARSER.validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
+        if (DATE_PARSER.validate(test) || test.equals("") ||test.contains("year") ||test.contains("month") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
             return true;
         else
             return false;

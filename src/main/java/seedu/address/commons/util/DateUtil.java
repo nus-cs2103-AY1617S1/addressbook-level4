@@ -196,7 +196,7 @@ public class DateUtil {
             dayindex = Calendar.SATURDAY;
         else if(date.contains("sun"))
             dayindex = Calendar.SUNDAY;
-        return diff = (today >= dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
+        return diff = (today > dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
     }
     
     public static Date DueDateConvert(String date) throws IllegalValueException {
@@ -263,4 +263,35 @@ public class DateUtil {
     	} return false;
     }
  
+    public static String everyMonth(String date) throws IllegalValueException {
+        String[] recurday = date.split(" ", 2);
+        String day = recurday[0];
+        String months = "";
+        Calendar cal = Calendar.getInstance();
+        if (recurday.length != 1) {
+            int month = cal.get(Calendar.MONTH);
+            if (month < 10)
+                months = "0" + month;
+            else
+                months = "" + month;
+            int year = cal.get(Calendar.YEAR);
+            day = day.concat("-" + months + "-" + year + " " + recurday[1]);
+        } else
+            throw new IllegalValueException(INVALID_TIME);
+        return day;
+    }
+
+    public static String everyYear(String date) throws IllegalValueException {
+        String[] recurday = date.split(" ", 2);
+        if (recurday.length == 1)
+            throw new IllegalValueException(INVALID_TIME);
+        String day = recurday[0];
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        day = day.concat("-" + year + " " + recurday[1]);
+        return day;
+    }
+ 
 }
+
+

@@ -1,5 +1,6 @@
 package seedu.address.model.activity;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
@@ -9,6 +10,7 @@ import seedu.address.model.activity.task.ReadOnlyTask;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -107,10 +109,14 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public String toStringCompletionStatus() {
-        if(isCompleted) {
-            return "Completed";
-        } 
-            return ""; 
+        String message = "";
+        if(reminder.recurring)
+            message = "Recurring";
+        if(isCompleted && reminder.recurring) {
+            message =  "Completed - Recurring";
+         recurringActivity();
+            }
+            return message; 
     }
 
 	@Override
@@ -143,5 +149,19 @@ public class Activity implements ReadOnlyActivity {
     public boolean getisOver() {
         return isOver;
     }
+
+    
+    public void recurringActivity(){ 
+        if(this.reminder.recurring && Calendar.getInstance().after(this.reminder.value)){
+            setCompletionStatus(false);  
+            String[] recur;
+                recur = this.reminder.RecurringMessage.split(" ", 2);
+                String date = recur [1];
+                try {
+                    this.reminder.setDate(date);
+                } catch (IllegalValueException e) {
+                    e.printStackTrace();
+                }}    
+    };
 
 }
