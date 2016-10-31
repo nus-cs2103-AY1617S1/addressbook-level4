@@ -26,11 +26,7 @@ import seedu.forgetmenot.logic.commands.IncorrectCommand;
 import seedu.forgetmenot.logic.commands.RedoCommand;
 import seedu.forgetmenot.logic.commands.SelectCommand;
 import seedu.forgetmenot.logic.commands.SetStorageCommand;
-import seedu.forgetmenot.logic.commands.ShowAllCommand;
 import seedu.forgetmenot.logic.commands.ShowCommand;
-import seedu.forgetmenot.logic.commands.ShowDateCommand;
-import seedu.forgetmenot.logic.commands.ShowDoneCommand;
-import seedu.forgetmenot.logic.commands.ShowOverdueCommand;
 import seedu.forgetmenot.logic.commands.UndoCommand;
 import seedu.forgetmenot.logic.commands.UndoneCommand;
 import seedu.forgetmenot.model.task.Time;
@@ -165,24 +161,24 @@ public class Parser {
     	args = args.trim();
     	
     	if(args.equals("done")) {
-    		return new ShowDoneCommand();
+    		return new ShowCommand("done");
     	}
     	
     	else if(args.equals("all")) {
-    		return new ShowAllCommand();
+    		return new ShowCommand("all");
     	}
     	else if (args.equals("")) {
-    		return new ShowCommand();
+    		return new ShowCommand("");
     	}
     	
         else if (args.equals("overdue")) {
-            return new ShowOverdueCommand();
+            return new ShowCommand("overdue");
         }
     	
     	else {
     		Time time = new Time(args);
     		if (time.isValidDate(time.appearOnUIFormatForDate())) {
-            return new ShowDateCommand(time.appearOnUIFormatForDate());
+            return new ShowCommand(time.appearOnUIFormatForDate());
         	} 
     		else {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
