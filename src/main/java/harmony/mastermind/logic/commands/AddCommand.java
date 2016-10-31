@@ -15,6 +15,7 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
+import harmony.mastermind.logic.parser.Parser;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
@@ -175,7 +176,9 @@ public class AddCommand extends Command implements Undoable, Redoable {
             taskBuilder.asRecurring(addCommandBuilder.getRecur());
         }
         
-        toAdd = taskBuilder.build();        
+        toAdd = taskBuilder.build();
+        
+        Parser.mem.add(new GenericMemory(toAdd.getTags().toString(), toAdd.getName(), ""));        
     }
 
     @Override
