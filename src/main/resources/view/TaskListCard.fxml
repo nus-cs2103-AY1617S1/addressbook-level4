@@ -20,9 +20,9 @@
       	</stylesheets>
       
       	<children>
-      		<HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="926.0" spacing="5">
+      		<HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="5">
       			<children>
-      				<HBox maxWidth="1.7976931348623157E308" minWidth="200.0" prefHeight="30.0" prefWidth="596.0" HBox.hgrow="ALWAYS">
+      				<HBox maxWidth="1.7976931348623157E308" minWidth="200.0" prefHeight="30.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
       					<ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
       						<HBox.margin>
       							<Insets left="10.0" top="8.0" />
