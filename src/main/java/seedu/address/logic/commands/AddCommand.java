@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -130,12 +132,24 @@ public class AddCommand extends Command {
         
         try {
             model.addTask(toAdd);
-            if (toAdd.getTaskCategory() == 1) 
-            	return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
-            else if (toAdd.getTaskCategory() == 2)
-            	return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
-            else
-            	return new CommandResult(String.format(TODO_SUCCESS, toAdd));
+            if (toAdd.getTaskCategory() == 1){
+                char category = 'E';
+                int index = model.getFilteredEventList().indexOf(toAdd);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
+                return new CommandResult(String.format(EVENT_SUCCESS, toAdd));
+            }
+            else if (toAdd.getTaskCategory() == 2){
+            	char category = 'D';
+                int index = model.getFilteredDeadlineList().indexOf(toAdd);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
+                return new CommandResult(String.format(DEADLINE_SUCCESS, toAdd));
+            }
+            else{
+                char category = 'T';
+                int index = model.getFilteredTodoList().indexOf(toAdd);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(index, category));
+                return new CommandResult(String.format(TODO_SUCCESS, toAdd));
+            }
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
