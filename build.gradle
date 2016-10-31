@@ -54,6 +54,7 @@ allprojects {
         compile "com.google.guava:guava:$guavaVersion"
         compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
         compile 'org.ocpsoft.prettytime:prettytime-nlp:4.0.0.Final'
+        compile 'net.sf.biweekly:biweekly:0.6.0'
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
