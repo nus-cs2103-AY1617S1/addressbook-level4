@@ -2,10 +2,13 @@ package seedu.menion.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.menion.commons.core.LogsCenter;
+import seedu.menion.commons.util.AppUtil;
 import seedu.menion.commons.util.FxViewUtil;
 
 import java.util.logging.Logger;
@@ -19,9 +22,8 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://s22.postimg.org/8q33in1tt/Cheat_Sheet.png";
-
+    private static final String USERGUIDE_FILEPATH = "/images/CheatSheet.png";
+    
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -45,15 +47,17 @@ public class HelpWindow extends UiPart {
 
     private void configure(){
         Scene scene = new Scene(mainPane);
+        Image image = AppUtil.getImage(USERGUIDE_FILEPATH);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setHeight(image.getHeight());
+        dialogStage.setWidth(image.getWidth());
         setIcon(dialogStage, ICON);
+        
+        ImageView imageView = new ImageView(image);
+        FxViewUtil.applyAnchorBoundaryParameters(imageView, 0.0, 0.0, 0.0, 0.0);
+        mainPane.getChildren().add(imageView);
 
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
     }
 
     public void show() {
