@@ -283,7 +283,6 @@ public class TaskBook implements ReadOnlyTaskBook {
   //@@author A0139430L JingRui
     public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
         for (Task task: events) {
-            System.out.println("events:" + task.toString());
             if(task.getTaskCategory()!=1){
                 events.remove(task);
                 System.out.println("events:" + task.toString());
@@ -306,7 +305,6 @@ public class TaskBook implements ReadOnlyTaskBook {
                     todo.add(task);
                 }    
             }   
-            System.out.println("events:" + task.toString());
         }
         for (Task task: todo) {
             if(task.getTaskCategory()!=3){
@@ -318,7 +316,6 @@ public class TaskBook implements ReadOnlyTaskBook {
                     deadlines.add(task);
                 }    
             }    
-            System.out.println("events:" + task.toString());
         }
     }
     
