@@ -13,19 +13,19 @@
 
 <!-- @@author A0146107M -->
 
-<VBox prefHeight="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.TaskListPanel">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.TaskListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <ScrollPane vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scrollPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
         <content>
-          <AnchorPane prefHeight="597.0" prefWidth="972.0">
+          <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="972.0">
                <children>
-                  <VBox prefHeight="597.0" prefWidth="1134.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1134.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane prefHeight="29.0" prefWidth="1053.0">
+                        <Pane maxWidth="1.7976931348623157E308" minHeight="29.0" prefHeight="29.0" prefWidth="1103.0">
                            <children>
                               <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -42,7 +42,7 @@
                               <Label id="task_det" layoutX="719.0" layoutY="4.0" text="Priority" />
                            </children>
                         </Pane>
-                          <ListView fx:id="personListView" prefHeight="568.0" prefWidth="1103.0" VBox.vgrow="ALWAYS" />
+                          <ListView fx:id="personListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1103.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
