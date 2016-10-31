@@ -265,22 +265,6 @@ public class CommandParser {
         return new ListCommand(isListDoneCommand);
     }
     
-    /**
-     * Parses arguments in the context of the help command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    /*
-    private Command prepareHelp(String args) {
-        
-        if (args != null) {
-            return new HelpCommand(args.trim());
-        }
-        
-        return new HelpCommand(HelpCommand.COMMAND_WORD);
-    }
-    */
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -317,7 +301,7 @@ public class CommandParser {
         String[] indexesArray = indexes.split(" ");
         List<Integer> indexesToHandle = new ArrayList<Integer>();
         for (String index: indexesArray) {
-            if (StringUtil.isUnsignedInteger(index)) {
+            if (StringUtil.isUnsignedInteger(index) && !indexesToHandle.contains(Integer.parseInt(index))) {
                 indexesToHandle.add(Integer.parseInt(index));
             }
         }

@@ -66,7 +66,7 @@ public class DoneCommand extends UndoableCommand {
         updateHistory();
         
         if (doneTasks.isEmpty()) {
-            logger.warning("No tasks archived. Non of the given task indexes are valid.");
+            logger.warning("No tasks archived. None of the given task indexes are valid.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
