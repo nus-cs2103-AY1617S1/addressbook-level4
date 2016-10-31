@@ -31,6 +31,8 @@ public class TaskCard extends UiPart{
     private Label address;
     @FXML
     private Label start;
+    @FXML
+    private Label recur;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -67,6 +69,9 @@ public class TaskCard extends UiPart{
         if (task.checkOverdue() == true && task.getDone().getDoneValue() == false) {
         	tasklabel.setImage(overdueicon.getImage());
         	cardPane.setStyle("-fx-background-color : #ff7f7f");
+        }
+        if (task.getRecurrence().getValue()) {
+            recur.setText("Recurrence: " +  task.getRecurrence().getRecurFreq());
         }
        
 
