@@ -12,6 +12,7 @@ import seedu.address.testutil.TestUtil;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.Status.StatusType;
 
 //@@author A0139339W
 public class ChangeStatusCommandTest extends TaskManagerGuiTest {
@@ -40,21 +41,25 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		assertResultMessage(message);
 	}
 
-//	@Test
-//	public void pending() {
-//		// mark tasks as pending
-//		commandBox.runCommand("list done");
-//		doneList = td.getDoneTasks();
-//		String command = "pending 3 2";
-//		int[] indices = new int[] { 3, 2 };
-//		assertChangeStatusSuccess(command, "pending", indices, currentList);
-//
-//		// mark index out of bound
-//		command = "pending 0";
-//		commandBox.runCommand(command);
-//		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-//		assertResultMessage(message);
-//	}
+	@Test
+	public void pending() {
+		// mark tasks as pending
+		commandBox.runCommand("list done");
+		doneList = td.getDoneTasks();
+		pendingList = td.getNotDoneTasks();
+		String command = "pending 3 2";
+		int[] indices = new int[] { 3, 2 };
+		updatedList = pendingTasks(indices, pendingList, doneList);
+		pendingList = updatedList.get(0);
+		doneList = updatedList.get(1);
+		assertChangeStatusSuccess(command, pendingList, doneList);
+
+		// mark index out of bound
+		command = "pending 0";
+		commandBox.runCommand(command);
+		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		assertResultMessage(message);
+	}
 
 	public void assertChangeStatusSuccess(String command, 
 			TestTask[] pendingList, TestTask[] doneList) {
@@ -77,6 +82,26 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		}
 		pendingList = TestUtil.removeTasksFromList(pendingList, tasksTargeted);
 		doneList = TestUtil.addTasksToList(doneList, tasksDone);
+		ArrayList<TestTask[]> updatedList = new ArrayList<TestTask[]>();
+		updatedList.add(pendingList);
+		updatedList.add(doneList);
+		return updatedList;
+	}
+	
+	public ArrayList<TestTask[]> pendingTasks(int[] indices, 
+			TestTask[] pendingList, TestTask[] doneList) {
+		TestTask[] tasksTargeted = new TestTask[0];
+		TestTask[] tasksPending = new TestTask[0];
+		for(int i = 0; i < indices.length; i++) {
+			TestTask task = doneList[indices[i] - 1];
+			tasksTargeted = TestUtil.addTasksToList(tasksTargeted, task);
+			task.setStatus(new Status("pending"));
+			if(task.getStatus().equals(StatusType.PENDING)) {
+				tasksPending = TestUtil.addTasksToList(tasksPending, task);
+			}
+		}
+		doneList = TestUtil.removeTasksFromList(doneList, tasksTargeted);
+		pendingList = TestUtil.addTasksToList(pendingList, tasksPending);
 		ArrayList<TestTask[]> updatedList = new ArrayList<TestTask[]>();
 		updatedList.add(pendingList);
 		updatedList.add(doneList);
