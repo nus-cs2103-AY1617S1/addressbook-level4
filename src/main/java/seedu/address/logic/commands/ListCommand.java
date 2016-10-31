@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -28,16 +29,26 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
         
-    private Boolean isListDoneCommand;
+    private final Set<String> keywords;
 
-    public ListCommand(Boolean isListDoneCommand) {
-        this.isListDoneCommand = isListDoneCommand;
+    public ListCommand(Set<String> listKeywords) {
+        this.keywords = listKeywords;
     }
 
     @Override
     public CommandResult execute() {
         logger.info("Updating lists, to show all tasks");
         model.updateFilteredListsToShowAll();
+        
+        assert model != null;
+        if (model.isCurrentListDoneList()) {
+            model.updateFilteredDoneTaskListDatePred(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+        } else {
+            model.updateFilteredUndoneTaskListDatePred(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+        }
+        /*
         if (isListDoneCommand) {
             logger.info("Showing all done tasks");
             model.setCurrentListToBeDoneList();
@@ -47,6 +58,7 @@ public class ListCommand extends Command {
             model.setCurrentListToBeUndoneList();
             return new CommandResult(MESSAGE_SUCCESS);
         }
+        */
     }
     
 }

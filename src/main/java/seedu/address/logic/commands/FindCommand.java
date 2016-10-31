@@ -29,10 +29,10 @@ public class FindCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         if (model.isCurrentListDoneList()) {
-            model.updateFilteredDoneTaskList(keywords);
+            model.updateFilteredDoneTaskListNamePred(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
         } else {
-            model.updateFilteredUndoneTaskList(keywords);
+            model.updateFilteredUndoneTaskListNamePred(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
         }
     }

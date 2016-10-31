@@ -257,12 +257,16 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareList(String args) {
-        Boolean isListDoneCommand = false;
-        if (args != null && args.trim().equalsIgnoreCase(ListCommand.DONE_COMMAND_WORD)) {
-            isListDoneCommand = true;
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
         }
 
-        return new ListCommand(isListDoneCommand);
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindCommand(keywordSet);
     }
     
     /**

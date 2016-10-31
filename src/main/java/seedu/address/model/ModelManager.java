@@ -9,10 +9,12 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.events.ui.SwapTaskListEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -216,8 +218,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredUndoneTaskList(Set<String> keywords){
+    public void updateFilteredUndoneTaskListNamePred(Set<String> keywords){
         updateFilteredUndoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredUndoneTaskListDatePred(Set<String> keywords){
+        updateFilteredUndoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
     private void updateFilteredUndoneTaskList(Expression expression) {
@@ -225,8 +232,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredDoneTaskList(Set<String> keywords){
+    public void updateFilteredDoneTaskListNamePred(Set<String> keywords){
         updateFilteredDoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredDoneTaskListDatePred(Set<String> keywords){
+        updateFilteredDoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
     private void updateFilteredDoneTaskList(Expression expression) {
@@ -282,6 +294,41 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private Set<String> dateKeyWords;
+
+        DateQualifier(Set<String> dateKeyWords) {
+            this.dateKeyWords = dateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            int today;
+            try {
+                today = DateTime.convertStringToDate("today").getDate();
+            } catch (IllegalValueException e1) {
+                return false;
+            }
+            System.out.println(today);
+            
+            return dateKeyWords.stream()
+                    .filter(keyword -> {
+                        try {
+                            return DateTime.convertStringToDate(keyword).getDate()==today;
+                        } catch (IllegalValueException e) {
+                            return false;
+                        }
+                    })
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", dateKeyWords);
         }
     }
     
