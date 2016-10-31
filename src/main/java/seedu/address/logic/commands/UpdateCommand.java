@@ -76,7 +76,7 @@ public class UpdateCommand extends Command {
 		
 			try{
 				toAdd = new Task(name, new Startline(startline), new Deadline(deadline), priority, tagSet);
-				toAdd.setRepeating(new Repeating(true, task.getRepeating().getTimeInterval()));
+				toAdd.setRepeating(new Repeating(task.getRepeating().getRepeating(), task.getRepeating().getTimeInterval()));
 			} catch (IllegalValueException ive) {
 				return new CommandResult("FAILED " + ive.getMessage());
 			}
