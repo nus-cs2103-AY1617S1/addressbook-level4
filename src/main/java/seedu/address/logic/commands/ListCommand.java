@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 
+import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -28,16 +29,59 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
         
-    private Boolean isListDoneCommand;
+    private final Set<String> keywords;
+    private final boolean isListDoneCommand;
+    private final boolean isListUndoneCommand;
 
-    public ListCommand(Boolean isListDoneCommand) {
-        this.isListDoneCommand = isListDoneCommand;
+    public ListCommand(Set<String> listKeywords) {
+        this.keywords = listKeywords;
+        if (listKeywords.contains(ListCommand.DONE_COMMAND_WORD)) {
+            isListDoneCommand = true;
+        }
+        else {
+            isListDoneCommand = false;
+        }
+        
+        if (listKeywords.isEmpty()) {
+            isListUndoneCommand = true;
+        }
+        else {
+            isListUndoneCommand = false;
+        }
+        
     }
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+
         logger.info("Updating lists, to show all tasks");
         model.updateFilteredListsToShowAll();
+        
+        //TODO: prevent user from entering retarded list commands
+        if (isListUndoneCommand) {
+            logger.info("Showing all undone tasks");
+            model.setCurrentListToBeUndoneList();
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        
+        if (isListDoneCommand) {
+            logger.info("Showing all done tasks");
+            model.setCurrentListToBeDoneList();
+            if (keywords.size() > 1) {
+                model.updateFilteredDoneTaskListDatePred(keywords);
+            }
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+        }
+        
+        if (model.isCurrentListDoneList()) {
+            model.updateFilteredDoneTaskListDatePred(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+        } else {
+            model.updateFilteredUndoneTaskListDatePred(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+        }
+        /*
         if (isListDoneCommand) {
             logger.info("Showing all done tasks");
             model.setCurrentListToBeDoneList();
@@ -47,6 +91,7 @@ public class ListCommand extends Command {
             model.setCurrentListToBeUndoneList();
             return new CommandResult(MESSAGE_SUCCESS);
         }
+        */
     }
     
 }

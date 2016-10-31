@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- @@author A0093960X -->
 
 <?import java.net.URL?>
@@ -20,12 +21,12 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="Help" />
                </items>
             </Menu>
          </menus>
@@ -35,7 +36,9 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="65" prefHeight="65" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+
+       <AnchorPane fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="SOMETIMES">
+
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>

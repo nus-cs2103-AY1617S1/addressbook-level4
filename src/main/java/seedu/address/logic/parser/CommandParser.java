@@ -257,12 +257,17 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareList(String args) {
-        Boolean isListDoneCommand = false;
-        if (args != null && args.trim().equalsIgnoreCase(ListCommand.DONE_COMMAND_WORD)) {
-            isListDoneCommand = true;
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            // no arguments
+            
+            return new ListCommand(new HashSet<String>());
         }
 
-        return new ListCommand(isListDoneCommand);
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new ListCommand(keywordSet);
     }
     
     /**
@@ -376,9 +381,10 @@ public class CommandParser {
         }    
         
         final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
         boolean interpretAsNoArgs = commandWord.equals(userInput);
          
-        return getTooltip(commandWord, interpretAsNoArgs, isViewingDoneList);
+        return getTooltip(arguments, commandWord, interpretAsNoArgs, isViewingDoneList);
     }
 
     /**
@@ -388,13 +394,23 @@ public class CommandParser {
      * @param commandWord the user input command word
      * @param inputHasNoArgs boolean representing whether user input has no arguments
      */
-    private String getTooltip(final String commandWord, boolean inputHasNoArgs, boolean isViewingDoneList) { 
+    private String getTooltip(final String arguments, final String commandWord, boolean inputHasNoArgs, boolean isViewingDoneList) { 
         if (isViewingDoneList) {
             return getTooltipForDoneList(commandWord, inputHasNoArgs);          
         }
         
-        return getTooltipForUndoneList(commandWord, inputHasNoArgs);
+        return getTooltipForUndoneList(arguments, commandWord, inputHasNoArgs);
     }
+    
+    private String getTooltipForUndoneList(final String arguments, final String commandWord, boolean inputHasNoArgs) {
+        // tooltip depends on whether the input command has arguments
+        if (inputHasNoArgs) {
+            return getTooltipForCmdWithNoArgsUndoneList(commandWord);
+        } else {
+            return getTooltipForCmdWithArgsUndoneList(arguments, commandWord);
+        }
+    }
+
 
     private String getTooltipForDoneList(final String commandWord, boolean inputHasNoArgs) {
      // tooltip depends on whether the input command has arguments
@@ -481,16 +497,6 @@ public class CommandParser {
     }
 
     
-
-    private String getTooltipForUndoneList(final String commandWord, boolean inputHasNoArgs) {
-        // tooltip depends on whether the input command has arguments
-        if (inputHasNoArgs) {
-            return getTooltipForCmdWithNoArgsUndoneList(commandWord);
-        } else {
-            return getTooltipForCmdWithArgsUndoneList(commandWord);
-        }
-    }
-
     /**
      * Get the tooltip string appropriate for the current user input that has no arguments.
      * 
@@ -539,7 +545,7 @@ public class CommandParser {
         
         boolean hasNoTooltipMatches = tooltips.isEmpty();       
         if (hasNoTooltipMatches) {
-            return AddCommand.TOOL_TIP;
+            tooltips.add(AddCommand.TOOL_TIP);           
         } 
         
         String combinedTooltip = StringUtil.combineStrings(tooltips);
@@ -552,9 +558,9 @@ public class CommandParser {
      * @param commandWord the command part of the user input
      * @return the tooltip
      */
-    private String getTooltipForCmdWithArgsUndoneList(final String commandWord) {        
+    private String getTooltipForCmdWithArgsUndoneList(final String arguments, final String commandWord) {        
         if (commandWord.equals(AddCommand.COMMAND_WORD)) {
-            return AddCommand.TOOL_TIP;
+            return prepareAddDetailedTooltip(arguments);
             
         } else if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
             return ClearCommand.TOOL_TIP;
@@ -566,7 +572,7 @@ public class CommandParser {
             return DoneCommand.TOOL_TIP;
             
         } else if (commandWord.equals(EditCommand.COMMAND_WORD)) {
-            return EditCommand.TOOL_TIP;
+            return prepareEditDetailedTooltip(arguments);
             
         } else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
             return ExitCommand.TOOL_TIP;
@@ -591,8 +597,122 @@ public class CommandParser {
             
         } else {
             // default command is an add command
-            return AddCommand.TOOL_TIP;
+            return prepareAddDetailedTooltip(commandWord + arguments);
             
+        }
+
+    }
+
+    private String prepareEditDetailedTooltip(final String arguments) {
+        try {
+            if (arguments.isEmpty()) {
+                throw new IllegalValueException("No arguments found");
+            }
+            
+            String trimmedArgs = arguments.trim();
+            String indexToEdit = trimmedArgs.substring(0, 1);
+            String argumentsWithoutIndex = trimmedArgs.substring(1).trim();
+            
+            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(argumentsWithoutIndex);
+            
+            Optional<String> name = fieldMap.get("taskName");
+            Optional<String> startDate = fieldMap.get("startDate");
+            Optional<String> endDate = fieldMap.get("endDate");
+            Optional<String> rate = fieldMap.get("rate");
+            Optional<String> timePeriod = fieldMap.get("timePeriod");
+            Optional<String> priority = fieldMap.get("priority");
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append(EditCommand.TOOL_TIP);
+            sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
+
+            if (name.isPresent() && trimmedArgs.length()>1) {
+                sb.append("\n\tName:\t" + name.get());
+            } else {
+                sb.append("\n\tName:\tNo Change");
+            }
+            
+            if (startDate.isPresent()) {
+                sb.append("\n\tStart Date:\t" + startDate.get());
+            } else {
+                sb.append("\n\tStart Date:\tNo Change");
+            }
+            
+            if (endDate.isPresent()) {
+                sb.append("\n\tEnd Date:\t\t" + endDate.get());
+            } else {
+                sb.append("\n\tEnd Date:\t\tNo Change");
+            }
+            
+            if (rate.isPresent()) {
+                sb.append("\n\tRecurrence Rate:\t" + rate.get());
+            } else {
+                sb.append("\n\tRecurrence Rate:\tNo Change");
+            }
+            
+            if (timePeriod.isPresent()) {
+                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
+            } else {
+                sb.append("\n\tRecurrence Rate Time Period:\tNo Change");
+            }
+            
+            if (!priority.get().equals("null")) {
+                sb.append("\n\tPriority:\t" + priority.get());
+            } else {
+                sb.append("\n\tPriority:\tNo Change");
+            }
+            
+            return sb.toString();
+            
+        } catch (IllegalValueException e) {
+            return EditCommand.TOOL_TIP;
+        }
+    }
+
+    private String prepareAddDetailedTooltip(final String arguments) {
+        try {
+            if (arguments.isEmpty()) {
+                throw new IllegalValueException("No arguments found");
+            }
+            
+            String trimmedArgs = arguments.trim();
+            
+            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareAdd(trimmedArgs);
+            
+            Optional<String> name = fieldMap.get("taskName");
+            Optional<String> startDate = fieldMap.get("startDate");
+            Optional<String> endDate = fieldMap.get("endDate");
+            Optional<String> rate = fieldMap.get("rate");
+            Optional<String> timePeriod = fieldMap.get("timePeriod");
+            Optional<String> priority = fieldMap.get("priority");
+            
+            StringBuilder sb = new StringBuilder();
+            sb.append(AddCommand.TOOL_TIP);
+            sb.append("\n\tAdding task: ");
+
+            if (name.isPresent()) {
+                sb.append("\n\tName:\t" + name.get());
+            }
+            if (startDate.isPresent()) {
+                sb.append("\n\tStart Date:\t" +startDate.get());
+            }
+            if (endDate.isPresent()) {
+                sb.append("\n\tEnd Date:\t\t" + endDate.get());
+            }
+            if (rate.isPresent()) {
+                sb.append("\n\tRecurrence Rate:\t" + rate.get());
+            }
+            if (timePeriod.isPresent()) {
+                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
+            }
+            if (priority.isPresent()) {
+                sb.append("\n\tPriority:\t" + priority.get());
+            }
+            
+            return sb.toString();
+            
+        } catch (IllegalValueException e) {
+            return AddCommand.TOOL_TIP;
         }
 
     }
