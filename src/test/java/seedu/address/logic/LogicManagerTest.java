@@ -252,15 +252,15 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingFromDateToDate();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
     }
     
     @Test
@@ -269,15 +269,15 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingFromDateToDate();
         toBeAdded.setTags(new UniqueTagList(new Tag("same")));
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded)+" t/same",
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     // @@author
@@ -287,15 +287,15 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingFromDateToDate();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -303,15 +303,15 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingByDate();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     // @@author A0147967J
@@ -320,15 +320,15 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task list
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddFloatingCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -339,17 +339,17 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(), new TaskDate("2 oct 10am"),
                 new TaskDate("2 oct 11am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
-        expectedAB.addTask(toBeAddedAfter);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
+        expectedTM.addTask(toBeAddedAfter);
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task list
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter),
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
+                expectedTM.getTaskComponentList());
 
     }
 
@@ -361,19 +361,19 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name("Task two"), new UniqueTagList(),
                 new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 11am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
-        expectedAB.addTask(toBeAddedAfter);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
+        expectedTM.addTask(toBeAddedAfter);
 
         // setup starting state
         model.addTask(toBeAdded); // task already in internal task list
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter),
-                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter), expectedTM,
+                expectedTM.getTaskComponentList());
 
     }
 
@@ -383,11 +383,11 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name("Task one"), new UniqueTagList(), new TaskDate("2 oct 6am"),
                 new TaskDate("2 oct 5am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddNonFloatingCommand.MESSAGE_ILLEGAL_TIME_SLOT,
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
 
     }
     // @@author
@@ -396,14 +396,14 @@ public class LogicManagerTest {
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskMaster expectedAB = helper.generateTaskList(2);
-        List<? extends TaskOccurrence> expectedList = expectedAB.getTaskComponentList();
+        TaskMaster expectedTM = helper.generateTaskList(2);
+        List<? extends TaskOccurrence> expectedList = expectedTM.getTaskComponentList();
 
         // prepare task list state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
-        assertUndoRedoAble(ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
+        assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
+        assertUndoRedoAble(ListCommand.MESSAGE_SUCCESS, expectedTM, expectedList);
     }
 
     // @@author A0147967J
@@ -423,14 +423,14 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 2am"),
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateBlockCommand(toBeAdded),
-                String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM, expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
 
     }
 
@@ -442,15 +442,15 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
                 new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeBlocked);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeBlocked);
 
         // setup starting state
         model.addTask(toBeBlocked); // task already in internal task list
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter), BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -462,15 +462,15 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
         Task toBeAddedAfter = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(),
                 new TaskDate("2 oct 10am"), new TaskDate("2 oct 11am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeBlocked);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeBlocked);
 
         // setup starting state
         model.addTask(toBeBlocked); // task already in internal task list
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAddedAfter), BlockCommand.MESSAGE_TIMESLOT_OCCUPIED,
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -480,11 +480,11 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeBlocked = new Task(new Name(BlockCommand.DUMMY_NAME), new UniqueTagList(), new TaskDate("2 oct 6am"),
                 new TaskDate("2 oct 5am"), RecurringType.NONE);
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
         assertCommandBehavior(helper.generateBlockCommand(toBeBlocked), BlockCommand.MESSAGE_ILLEGAL_TIME_SLOT,
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -494,12 +494,12 @@ public class LogicManagerTest {
     @Test
     public void execute_undoredoNothing_notAllowed() throws Exception {
         // setup expectations
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
 
         // execute command and verify result
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
 
-        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -507,26 +507,26 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
 
-        expectedAB = new TaskMaster();
-        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskComponentList());
+        expectedTM = new TaskMaster();
+        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedTM, expectedTM.getTaskComponentList());
 
-        expectedAB.addTask(toBeAdded);
-        assertCommandBehavior("r", String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB,
-                expectedAB.getTaskComponentList());
+        expectedTM.addTask(toBeAdded);
+        assertCommandBehavior("r", String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
     public void execute_undoredoReachMaxTimes_notAllowed() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         for (int i = 1; i < 5; i++) {
             Task t = helper.generateTask(i);
             logic.execute(helper.generateAddCommand(t));
@@ -535,23 +535,23 @@ public class LogicManagerTest {
             logic.execute("u");
         }
 
-        expectedAB.addTask(helper.generateTask(1));
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        expectedTM.addTask(helper.generateTask(1));
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
 
         for (int i = 0; i < 3; i++) {
             logic.execute("r");
-            expectedAB.addTask(helper.generateTask(2 + i));
+            expectedTM.addTask(helper.generateTask(2 + i));
         }
 
-        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("r", RedoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
     }
 
     @Test
     public void execute_undoInvalidCommand_notAllowed() throws Exception {
 
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         logic.execute("adds t");
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -559,15 +559,15 @@ public class LogicManagerTest {
     public void execute_undoFailedCommand_notAllowed() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         Task toBeAdded = helper.adam();
 
-        expectedAB.addTask(toBeAdded);
+        expectedTM.addTask(toBeAdded);
         model.addTask(toBeAdded);
 
         logic.execute(helper.generateAddCommand(toBeAdded));
 
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -577,37 +577,37 @@ public class LogicManagerTest {
     @Test
     public void execute_changeDirectoryIllegalDirectory_notAllowed() throws Exception {
 
-        TaskMaster expectedAB = new TaskMaster();
-        assertCommandBehavior("cd random path", ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedAB,
-                expectedAB.getTaskComponentList());
+        TaskMaster expectedTM = new TaskMaster();
+        assertCommandBehavior("cd random path", ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
     public void execute_changeDirectoryWrongFileType_notAllowed() throws Exception {
 
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         assertCommandBehavior("cd " + saveFolder.getRoot().getPath() + "cdtest.txt",
-                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedAB, expectedAB.getTaskComponentList());
+                ChangeDirectoryCommand.MESSAGE_CONVENSION_ERROR, expectedTM, expectedTM.getTaskComponentList());
     }
 
     @Test
     public void execute_changeDirectory_Successful() throws Exception {
 
         TestDataHelper helper = new TestDataHelper();
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         assertCommandBehavior("cd " + saveFolder.getRoot().getPath() + "cdtest.xml",
                 String.format(ChangeDirectoryCommand.MESSAGE_SUCCESS, saveFolder.getRoot().getPath() + "cdtest.xml"),
-                expectedAB, expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
 
         // CD is irreversible
-        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskComponentList());
+        assertCommandBehavior("u", UndoCommand.MESSAGE_FAIL, expectedTM, expectedTM.getTaskComponentList());
 
         // Ensure model writes to this file
-        expectedAB.addTask(helper.adam());
+        expectedTM.addTask(helper.adam());
         logic.execute(helper.generateAddCommand(helper.adam()));
         ReadOnlyTaskMaster retrieved = new StorageManager(saveFolder.getRoot().getPath() + "cdtest.xml",
                 saveFolder.getRoot().getPath() + "TempPreferences.json").readTaskList().get();
-        assertEquals(expectedAB, new TaskMaster(retrieved));
+        assertEquals(expectedTM, new TaskMaster(retrieved));
         assertEquals(model.getTaskMaster(), new TaskMaster(retrieved));
 
     }
@@ -677,13 +677,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTasks(3);
 
-        TaskMaster expectedAB = helper.generateTaskList(threeTasks);
+        TaskMaster expectedTM = helper.generateTaskList(threeTasks);
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTM,
+                expectedTM.getTaskComponentList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getTaskList().get(1), threeTasks.get(1));
     }
@@ -704,14 +704,14 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTasks(3);
 
-        TaskMaster expectedAB = helper.generateTaskList(threeTasks);
-        expectedAB.removeTask(threeTasks.get(1));
+        TaskMaster expectedTM = helper.generateTaskList(threeTasks);
+        expectedTM.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
-                expectedAB, expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedAB,
-                expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedTM,
+                expectedTM.getTaskComponentList());
 
     }
 
@@ -732,13 +732,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
 
         Task toComplete = helper.adam();
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toComplete);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toComplete);
         model.addTask(toComplete);
 
         assertCommandBehavior("done 1", String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
-                expectedAB, new TaskMaster().getTaskComponentList());
-        assertUndoRedoAble(String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete), expectedAB,
+                expectedTM, new TaskMaster().getTaskComponentList());
+        assertUndoRedoAble(String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete), expectedTM,
                 new TaskMaster().getTaskComponentList());
 
     }
@@ -760,21 +760,21 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTasks(p1, pTarget1, p2, pTarget2);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        TaskMaster expectedTM = helper.generateTaskList(fourTasks);
         List<Task> originalList = helper.generateTasks(p1, pTarget1, p2, pTarget2);
         List<TaskOccurrence> originalComponentList = helper.buildTaskComponentsFromTaskList(originalList);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
         
         //Verifies undo/redo
-        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedAB,
+        assertCommandBehavior("u", UndoCommand.MESSAGE_SUCCESS, expectedTM,
                 originalComponentList);
         
-        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
         
     }
@@ -788,12 +788,12 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTasks(p3, p1, p4, p2);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        TaskMaster expectedTM = helper.generateTaskList(fourTasks);
         List<Task> expectedList = fourTasks;
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
-        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
     }
 
@@ -806,13 +806,13 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        TaskMaster expectedTM = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2, pTarget3);
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB, expectedComponentList);
+                expectedTM, expectedComponentList);
     }
 
     // @@author A0147967J
@@ -833,11 +833,11 @@ public class LogicManagerTest {
         Task test2 = helper.nonFloatingFromDateToDate();
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        TaskMaster expectedTM = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(test);
 
-        expectedAB.addTask(test);
-        expectedAB.addTask(test2);
+        expectedTM.addTask(test);
+        expectedTM.addTask(test2);
         helper.addToModel(model, fourTasks);
         model.addTask(test);
         model.addTask(test2);
@@ -846,13 +846,13 @@ public class LogicManagerTest {
 
         // find by exact time successful
         assertCommandBehavior("find by 20 oct 11am", Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB, componentList);
+                expectedTM, componentList);
         // find by earlier time boundary lists nothing
-        assertCommandBehavior("find by 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0), expectedAB,
+        assertCommandBehavior("find by 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0), expectedTM,
                 new TaskMaster().getTaskComponentList());
         // find by later time boundary successful
         assertCommandBehavior("find by 20 oct 11.01pm", Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB, componentList);
+                expectedTM, componentList);
     }
 
     @Test
@@ -866,11 +866,11 @@ public class LogicManagerTest {
         Task test2 = helper.nonFloatingByDate();
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
+        TaskMaster expectedTM = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(test);
 
-        expectedAB.addTask(test);
-        expectedAB.addTask(test2);
+        expectedTM.addTask(test);
+        expectedTM.addTask(test2);
 
         helper.addToModel(model, fourTasks);
         model.addTask(test);
@@ -879,16 +879,16 @@ public class LogicManagerTest {
 
         // find by exact boundary successful
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 11am",
-                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB, expectedComponentList);
+                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM, expectedComponentList);
         // find by smaller boundary lists nothing
         assertCommandBehavior("find from 19 oct 10.01pm to 20 oct 11am", Command.getMessageForTaskListShownSummary(0),
-                expectedAB, new TaskMaster().getTaskComponentList());
+                expectedTM, new TaskMaster().getTaskComponentList());
 
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0),
-                expectedAB, new TaskMaster().getTaskComponentList());
+                expectedTM, new TaskMaster().getTaskComponentList());
         // find by lax boundary successful
         assertCommandBehavior("find from 19 oct 9pm to 20 oct 1pm",
-                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB, expectedComponentList);
+                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM, expectedComponentList);
     }
 
     @Test
@@ -901,11 +901,11 @@ public class LogicManagerTest {
         Task test = helper.nonFloatingFromDateToDate();
 
         List<Task> threeTasks = helper.generateTasks(pTarget1, pTarget2, pTarget3);
-        TaskMaster expectedAB = helper.generateTaskList(threeTasks);
+        TaskMaster expectedTM = helper.generateTaskList(threeTasks);
         List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2, pTarget3);
 
-        expectedAB.addTask(test);
-        expectedAB.addTask(p1);
+        expectedTM.addTask(test);
+        expectedTM.addTask(p1);
 
         helper.addToModel(model, threeTasks);
         model.addTask(test);
@@ -914,7 +914,7 @@ public class LogicManagerTest {
 
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
 
-        assertCommandBehavior("find -F", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find -F", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
 
     }
@@ -925,11 +925,11 @@ public class LogicManagerTest {
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task test = helper.nonFloatingFromDateToDate();
 
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         List<Task> expectedList = helper.generateTasks(test);
 
-        expectedAB.addTask(pTarget1);
-        expectedAB.addTask(test);
+        expectedTM.addTask(pTarget1);
+        expectedTM.addTask(test);
 
         model.addTask(pTarget1);
         model.addTask(test);
@@ -938,7 +938,7 @@ public class LogicManagerTest {
 
         logic.execute("done 2");
 
-        assertCommandBehavior("find -C", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find -C", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
 
     }
@@ -949,11 +949,11 @@ public class LogicManagerTest {
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task test = helper.nonFloatingFromDateToDate();
 
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         List<Task> expectedList = helper.generateTasks(test);
 
-        expectedAB.addTask(pTarget1);
-        expectedAB.addTask(test);
+        expectedTM.addTask(pTarget1);
+        expectedTM.addTask(test);
 
         model.addTask(pTarget1);
         model.addTask(test);
@@ -961,7 +961,7 @@ public class LogicManagerTest {
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
 
         assertCommandBehavior("find non floating from 19 oct 1am to 21 oct 3am",
-                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB, expectedComponentList);
+                Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM, expectedComponentList);
 
     }
 
@@ -971,18 +971,18 @@ public class LogicManagerTest {
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task test = helper.nonFloatingFromDateToDate();
 
-        TaskMaster expectedAB = new TaskMaster();
+        TaskMaster expectedTM = new TaskMaster();
         List<Task> expectedList = helper.generateTasks(test);
 
-        expectedAB.addTask(pTarget1);
-        expectedAB.addTask(test);
+        expectedTM.addTask(pTarget1);
+        expectedTM.addTask(test);
 
         model.addTask(pTarget1);
         model.addTask(test);
 
         List<TaskOccurrence> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
 
-        assertCommandBehavior("find t/tag1", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
+        assertCommandBehavior("find t/tag1", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM,
                 expectedComponentList);
 
     }
@@ -1092,13 +1092,13 @@ public class LogicManagerTest {
         Task toBeAdded = new Task(new Name("anything"), new UniqueTagList(), new TaskDate("2 oct 2am"),
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(toBeAdded);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(toBeAdded);
         model.addTask(toBeAdded);
-        assertCommandBehavior("edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedAB,
-                expectedAB.getTaskComponentList());
-        assertCommandBehavior("edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB,
-                expectedAB.getTaskComponentList());
+        assertCommandBehavior("edit 1 []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS, expectedTM,
+                expectedTM.getTaskComponentList());
+        assertCommandBehavior("edit 1 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS, expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1107,12 +1107,12 @@ public class LogicManagerTest {
         Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(beforeModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(beforeModification);
 
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 1pm to 2 oct 1am",
-                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT), expectedAB, expectedAB.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT), expectedTM, expectedTM.getTaskComponentList());
 
     }
 
@@ -1126,13 +1126,13 @@ public class LogicManagerTest {
 
         model.addTask(dummyTask);
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(dummyTask);
-        expectedAB.addTask(beforeModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(dummyTask);
+        expectedTM.addTask(beforeModification);
 
         // execute command and verify result
         assertCommandBehavior("edit 2 from 10 oct 1pm to 10 oct 6pm",
-                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED), expectedAB, expectedAB.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_TIMESLOT_OCCUPIED), expectedTM, expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1142,14 +1142,14 @@ public class LogicManagerTest {
         Task afterModification = new Task(new Name("changed"), new UniqueTagList());
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
 
         // execute command and verify result
         assertCommandBehavior("edit 1 changed", String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
-                expectedAB, expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+                expectedTM, expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1161,15 +1161,15 @@ public class LogicManagerTest {
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(tagSet));
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
 
         // execute command and verify result
         assertCommandBehavior("edit 1 t/anytag",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1183,16 +1183,16 @@ public class LogicManagerTest {
         Task afterModification = new Task(new Name("anything"), new UniqueTagList(newTagSet));
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.getUniqueTagList().add(new Tag("anytag"));
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.getUniqueTagList().add(new Tag("anytag"));
+        expectedTM.addTask(afterModification);
 
         // execute command and verify result
         assertCommandBehavior("edit 1 t/anothertag",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1204,18 +1204,18 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
 
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 2am to 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1227,17 +1227,17 @@ public class LogicManagerTest {
                 new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1250,17 +1250,17 @@ public class LogicManagerTest {
                 new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1271,18 +1271,18 @@ public class LogicManagerTest {
                 new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
 
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 from 2 oct 2am to 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1293,17 +1293,17 @@ public class LogicManagerTest {
                 new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.NONE);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
 
     @Test
@@ -1314,17 +1314,17 @@ public class LogicManagerTest {
                 new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.DAILY);
 
         model.addTask(beforeModification);
-        TaskMaster expectedAB = new TaskMaster();
-        expectedAB.addTask(afterModification);
+        TaskMaster expectedTM = new TaskMaster();
+        expectedTM.addTask(afterModification);
         TestDataHelper helper = new TestDataHelper();
         List<TaskOccurrence> expectedComponentList = helper
-                .buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+                .buildReadOnlyTaskComponentsFromTaskList(expectedTM.getTaskList());
         // execute command and verify result
         assertCommandBehavior("edit 1 by 2 oct 1pm daily",
-                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
                 expectedComponentList);
-        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedAB,
-                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification), expectedTM,
+                expectedTM.getTaskComponentList());
     }
     // @@author
 
