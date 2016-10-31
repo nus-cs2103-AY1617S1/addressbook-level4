@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " cs2103";
     
     //@@author A0146130W
     private final String keywords;
@@ -36,10 +36,11 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords, keywordSet);
         
         if(model.getFilteredTaskList().isEmpty()) {
-        	model.updateFilteredTaskList(keywordSet);
-        	if(!model.getFilteredTaskList().isEmpty()) return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
-        }        
-        
+        	model.updateFilteredTaskList(keywords, "cmd");
+        	if(!model.getFilteredTaskList().isEmpty()) {
+        		return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
+        	}
+        }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

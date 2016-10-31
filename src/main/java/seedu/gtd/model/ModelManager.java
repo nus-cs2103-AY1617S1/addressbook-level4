@@ -7,10 +7,13 @@ import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.commons.events.model.AddressBookChangedEvent;
 import seedu.gtd.commons.util.StringUtil;
 import seedu.gtd.model.task.Task;
+import seedu.gtd.model.tag.Tag;
+import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.UniqueTaskList;
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -109,6 +112,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywordSet) {
     	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
     }
+    
+    @Override
+    public void updateFilteredTaskList(String keywords, String cmd) {
+    	updateFilteredTaskList(new PredicateExpression(new otherFieldsNameQualifier(keywords, cmd)));
+    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -154,15 +162,47 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return keywordSet.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
+        	return keywordSet.stream()
+            .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            .findAny()
+            .isPresent();
         }
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", keywordSet);
+        }
+    }
+    
+    private class otherFieldsNameQualifier implements Qualifier {
+        protected String nameKeyWords;
+
+        otherFieldsNameQualifier(String keywords, String cmd) {
+            this.nameKeyWords = keywords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
+        	String priority = task.getPriority().toString();
+        	String address = task.getAddress().toString().toLowerCase();
+        	String dueDate = task.getDueDate().toString();
+        	UniqueTagList tagsList = task.getTags();
+        	
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        	boolean priorityMatch = priority.contains(nameKeyWords);
+        	boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        	boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        	boolean eachWordMatch = false;
+        	
+        	String[] eachWord = nameKeyWords.split(" ");
+        	for (String word : eachWord) {
+        		System.out.println("each: " + word);
+        		eachWordMatch = eachWordMatch || taskFullNameLowerCase.contains(word.toLowerCase());
+        	}
+        	
+            return eachWordMatch || nameMatch || addressMatch || priorityMatch || dueDateMatch || tagsMatch;
         }
     }
     
@@ -177,14 +217,13 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
         	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
-        	boolean orderMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
         	
         	boolean eachWordMatch = keywordSet.stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
             .findAny()
             .isPresent();
-        	
-            return eachWordMatch && orderMatch;
+        	return eachWordMatch && nameMatch;
         }
     }
 }
