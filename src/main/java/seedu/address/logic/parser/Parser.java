@@ -89,7 +89,7 @@ public class Parser {
                     + "([E|D|T]\\d+-[E|D|T]\\d+)");
     
     private static final Pattern SELECT_ARGS_FORMAT = 
-    		Pattern.compile("[E|D|T]\\d{1}");
+    		Pattern.compile("[E|D|T]\\d+");
     
     public Parser() {}
 
@@ -517,7 +517,7 @@ public class Parser {
         args = args.trim();
         
         char category = args.charAt(0);
-        Optional<Integer> index = parseIndex(Character.toString(args.charAt(1)));
+        Optional<Integer> index = parseIndex(args.substring(1));
         args = args.substring(args.indexOf(' ') + 1);
         
         if(!index.isPresent()) {
