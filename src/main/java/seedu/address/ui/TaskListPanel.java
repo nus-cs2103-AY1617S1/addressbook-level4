@@ -9,10 +9,14 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -79,8 +83,18 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
     
+    /*
+     * Consume all events except for scrolling
+     */
     private void setSelectableCharacteristics() {
-    	taskListView.setMouseTransparent(true);		
+    	taskListView.addEventFilter(Event.ANY, new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+               if (event.getEventType().getSuperType() != ScrollEvent.ANY) {
+                   event.consume();
+               }
+            }
+    	});
 	}
 
     public void scrollTo(int index) {
