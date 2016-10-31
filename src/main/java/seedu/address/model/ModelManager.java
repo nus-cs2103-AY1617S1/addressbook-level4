@@ -69,50 +69,84 @@ public class ModelManager extends ComponentManager implements Model {
         UniqueTaskList floating = taskBook.getUniqueUndatedTaskList();
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");       
-
+        checkDatedTaskStatus(tasks, currentTime, formatter);
+        checkUndatedTaskStatus(floating);
+    }
+    
+    /*
+     * Update the status of all Undated/Floating Tasks in application
+     */
+    private void checkUndatedTaskStatus(UniqueTaskList floating) {
+        for (Task undatedTarget : floating) {
+            if (undatedTarget.getStatus().status == Status.State.OVERDUE || undatedTarget.getStatus().status == Status.State.OVERDUE ) {
+                try {
+                    taskBook.resetFloatingTaskStatus(undatedTarget);
+                }catch (TaskNotFoundException e){}
+            }
+        }
+    }
+    
+    /*
+     * Update the status of all Dated Tasks in application
+     */
+    private void checkDatedTaskStatus(UniqueTaskList tasks, LocalDateTime currentTime, DateTimeFormatter formatter) {
         for (Task target : tasks) {
             assert target.getDatetime().getStart() != null;
             //Deadline
-            if(target.getDatetime().getEnd() == null){
-                LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
-                if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
-                    try {
-                        taskBook.overdueTask(target);
-                    } catch (TaskNotFoundException e) {}                
-                }
-                else if(dateTime.isAfter(currentTime) && (target.getStatus().toString() == "OVERDUE" || target.getStatus().toString() == "EXPIRE")){
-                    try{
-                        taskBook.postponed(target);
-                    }catch(TaskNotFoundException e) {}
-                }
+            if (target.getDatetime().getEnd() == null) {
+                updateDeadlineStatus(currentTime, formatter, target);
             }
             //Event
-            else if(target.getDatetime().getEnd() != null){
-                String endDateTime = target.getDatetime().toString().substring(21);
-                LocalDateTime dateTime = LocalDateTime.parse(endDateTime,formatter);
-                if(dateTime.isBefore(currentTime) && target.getStatus().toString() != "DONE"){
-                    try {
-                        taskBook.expireTask(target);
-                    } catch (TaskNotFoundException e) {}                
-                }
-                else if(dateTime.isAfter(currentTime) && (target.getStatus().toString() == "EXPIRE" || target.getStatus().toString() == "OVERDUE")){
-                    try{
-                        taskBook.postponed(target);
-                    }catch(TaskNotFoundException e) {}
-                }                                
+            else if (target.getDatetime().getEnd() != null) {
+                updateEventStatus(currentTime, formatter, target);                                
             }
         }
-
-        for(Task undatedTarget : floating){
-            if(undatedTarget.getStatus().toString() == "EXPIRE" || undatedTarget.getStatus().toString() == "OVERDUE" ){
-                try{
-                    taskBook.floatingStatusReset(undatedTarget);
-                }catch(TaskNotFoundException e){}
+    }
+    
+    /*
+     * Updated the status of all Event Tasks in application
+     */
+    private void updateEventStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
+        String endDateTime = target.getDatetime().toString().substring(21);
+        LocalDateTime dateTime = LocalDateTime.parse(endDateTime,formatter);
+        if (dateTime.isBefore(currentTime) && target.getStatus().status != Status.State.DONE) {
+            try {
+                taskBook.setExpire(target);
+            }catch (TaskNotFoundException e) {
+                throw new AssertionError("Impossible!");
+            }                
+        }
+        else if (dateTime.isAfter(currentTime) && (target.getStatus().status == Status.State.EXPIRE || target.getStatus().status == Status.State.OVERDUE)) {
+            try {
+                taskBook.postponeTask(target);
+            }catch (TaskNotFoundException e) {
+                throw new AssertionError("Impossible!");
+            }
+        }
+    }
+    
+    /*
+     * Updated the status of all Deadline tasks in application
+     */
+    private void updateDeadlineStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
+        LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
+        if (dateTime.isBefore(currentTime) && target.getStatus().status != Status.State.DONE) {
+            try {
+                taskBook.setTaskOverdue(target);
+            }catch (TaskNotFoundException e) {
+                throw new AssertionError("Impossible!");
+            }                
+        }
+        else if (dateTime.isAfter(currentTime) && (target.getStatus().status == Status.State.OVERDUE || target.getStatus().status == Status.State.EXPIRE)) {
+            try {
+                taskBook.postponeTask(target);
+            }catch (TaskNotFoundException e) {
+                throw new AssertionError("Impossible!");
             }
         }
     }
     //@@author
-
+    
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -188,7 +222,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.overdueTask(target);
+        taskBook.setTaskOverdue(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
