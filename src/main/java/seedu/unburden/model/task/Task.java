@@ -88,18 +88,8 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, endTime, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
-<<<<<<< HEAD
-<<<<<<< HEAD
-		this.date = new Date("  ");
-		this.startTime = new Time("       ");
-=======
-		this.date = new Date("       ");
-		this.startTime = new Time("  ");
->>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
-=======
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
->>>>>>> 51d0f57928832d90f193bc3d0b31728ae4309b29
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -109,18 +99,8 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, taskD, endTime, tags);
 		this.name = name;
 		this.taskD = taskD;
-<<<<<<< HEAD
-<<<<<<< HEAD
-		this.date = new Date("  ");
-		this.startTime = new Time("       ");
-=======
-		this.date = new Date("       ");
-		this.startTime = new Time("  ");
->>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
-=======
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
->>>>>>> 51d0f57928832d90f193bc3d0b31728ae4309b29
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -140,21 +120,9 @@ public class Task implements ReadOnlyTask {
 		assert !CollectionUtil.isAnyNull(name, taskD, tags);
 		this.name = name;
 		this.taskD = taskD;
-<<<<<<< HEAD
-<<<<<<< HEAD
-		this.date = new Date("  ");
-		this.startTime = new Time("       ");
-		this.endTime = new Time("       ");
-=======
-		this.date = new Date("       ");
-		this.startTime = new Time("  ");
-		this.endTime = new Time("  ");
->>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
-=======
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");
->>>>>>> 51d0f57928832d90f193bc3d0b31728ae4309b29
 		this.tags = tags;
 	}
 
@@ -163,21 +131,9 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
-<<<<<<< HEAD
-<<<<<<< HEAD
-		this.date = new Date("  ");
-		this.startTime = new Time("       ");
-		this.endTime = new Time("       ");
-=======
-		this.date = new Date("       ");
-		this.startTime = new Time("  ");
-		this.endTime = new Time("  ");
->>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
-=======
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");
->>>>>>> 51d0f57928832d90f193bc3d0b31728ae4309b29
 		this.tags = tags;
 	}
 	//@@Nathanael Chan
