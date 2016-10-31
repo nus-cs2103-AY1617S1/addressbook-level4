@@ -57,18 +57,24 @@ public class UniqueTaskList implements Iterable<Task> {
 
     //@@author A0139430L JingRui
     public boolean contains(ReadOnlyTask toCheck) {
-        assert toCheck != null;
-        for(int i =0; i<internalList.size(); i++){
-            Task temp = internalList.get(i);
-            if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
-                if(temp.getIsCompleted() == true){
-                    continue;
+        if(toCheck.getTaskCategory()==3){
+            assert toCheck != null;
+            for(int i =0; i<internalList.size(); i++){
+                Task temp = internalList.get(i);
+                if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
+                    if(temp.getIsCompleted() == true){
+                        continue;
+                    }
+                    else 
+                        return true;
                 }
-                else 
-                    return true;
             }
+
+            return false;
         }
-        return false;
+        else 
+            assert toCheck != null;
+        return internalList.contains(toCheck);
     }
 
     /**
