@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" prefWidth="342.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="58.0" stroke="BLACK" strokeType="INSIDE" width="7.0">
+      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" stroke="BLACK" strokeType="INSIDE" width="7.0">
          <HBox.margin>
             <Insets top="1.0" />
          </HBox.margin>
