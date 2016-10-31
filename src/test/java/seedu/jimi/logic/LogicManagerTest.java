@@ -1,6 +1,8 @@
 package seedu.jimi.logic;
 
 import com.google.common.eventbus.Subscribe;
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import seedu.jimi.TestApp;
 import seedu.jimi.commons.core.Config;
@@ -13,6 +15,8 @@ import seedu.jimi.logic.Logic;
 import seedu.jimi.logic.LogicManager;
 import seedu.jimi.logic.commands.*;
 import seedu.jimi.model.TaskBook;
+import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
@@ -32,6 +36,7 @@ import org.junit.rules.TemporaryFolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -195,7 +200,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         assertCommandBehavior(
@@ -208,7 +213,7 @@ public class LogicManagerTest {
     // @@author
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_addFloatingtask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
@@ -245,8 +250,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatingTask toBeAdded = helper.adam();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
+        TaskBook expectedTB = new TaskBook();
+        expectedTB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -255,23 +260,102 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTB,
+                expectedTB.getTaskList());
         
         assertCommandBehavior(
                 helper.generateAddCommand_A(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTB,
+                expectedTB.getTaskList());
         
         assertCommandBehavior(
                 helper.generateAddCommand_Ad(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTB,
+                expectedTB.getTaskList());
 
     }
+    
+    // @@author A0143471L
+    @Test 
+    public void execute_addDeadlineTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.holiday();
+        TaskBook expectedTB = new TaskBook();
+        expectedTB.addTask(toBeAdded);
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
 
+        toBeAdded = helper.holiday();
+        expectedTB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_ad(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
+        
+        toBeAdded = helper.submission();
+        expectedTB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_a(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
+    }
+    
+    @Test 
+    public void execute_addDeadlineTask_invalid() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        
+        assertCommandBehavior("add \"Valid deadline task\" tmr", expectedMessage);
+        assertCommandBehavior("add \"Valid deadline task\" to tmr", expectedMessage);
+        assertCommandBehavior("add \"Valid deadline task\" on tmr", expectedMessage);
+    }
+    
+    @Test
+    public void execute_addEvent_successful() throws Exception {
+     // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.exam();
+        TaskBook expectedTB = new TaskBook();
+        expectedTB.addTask(toBeAdded);
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
+
+        toBeAdded = helper.tuition();
+        expectedTB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
+        
+        toBeAdded = helper.meeting();
+        expectedTB.addTask(toBeAdded);
+        
+        assertCommandBehavior(
+                helper.generateAddCommand_a(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTB,
+                expectedTB.getTaskList());
+    }
+    
+    
+    
+    // @@author
     
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -555,6 +639,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    // @@author A0143471L
     @Test
     public void execute_saveAs_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveAsCommand.MESSAGE_USAGE);
@@ -594,6 +679,8 @@ public class LogicManagerTest {
         String expectedMessage = String.format(SaveAsCommand.MESSAGE_DUPLICATE_SAVE_DIRECTORY);
         assertCommandBehavior(helper.generateSaveAsCommand(originalTaskBookFilePathName), expectedMessage);
     }
+    
+    // @@author
 
     /**
      * A utility class to generate test data.
@@ -623,7 +710,66 @@ public class LogicManagerTest {
             Priority priority = new Priority("LOW");
             return new FloatingTask(name, tags, priority);
         }
-
+        
+        // @@author A0143471L
+        DeadlineTask submission() throws Exception {
+            Name name = new Name("Submission");
+            DateTime deadline = new DateTime("Tonight 9pm");
+            Tag tag = new Tag("impt");
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("HIGH");
+            return new DeadlineTask(name, deadline, tags, priority);
+        }
+        
+        DeadlineTask holiday() throws Exception {
+            Name name = new Name("Plan holiday itinerary");
+            DateTime deadline = new DateTime("2016-10-31 19:00");
+            Tag tag = new Tag("Japan");
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("LOW");
+            return new DeadlineTask(name, deadline, tags, priority);
+        }
+        
+        DeadlineTask toiletPaper() throws Exception {
+            Name name = new Name("Buy toilet paper");
+            DateTime deadline = new DateTime("tmr 6pm");
+            Tag tag = new Tag("Necessities");
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("MED");
+            return new DeadlineTask(name, deadline, tags, priority);
+        }
+        
+        Event tuition() throws Exception {
+            Name name = new Name ("Math tuition");
+            DateTime start = new DateTime("Tues 7pm");
+            DateTime end = new DateTime("Tues 9pm");
+            Tag tag = new Tag(null);
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("MED");
+            return new Event(name, start, end, tags, priority);
+        }
+        
+        Event exam() throws Exception {
+            Name name = new Name ("Practical exam");
+            DateTime start = new DateTime("next thurs 6pm");
+            DateTime end = new DateTime("next thurs 9pm");
+            Tag tag = new Tag("Programming");
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("HIGH");
+            return new Event(name, start, end, tags, priority);
+        }
+        
+        Event meeting() throws Exception {
+            Name name = new Name ("Committee meeting");
+            DateTime start = new DateTime("Next Wed 9am");
+            DateTime end = new DateTime("Next Wed 11am");
+            Tag tag = new Tag("School");
+            UniqueTagList tags = new UniqueTagList(tag);
+            Priority priority = new Priority ("HIGH");
+            return new Event(name, start, end, tags, priority);
+        }
+        
+        // @@author
         /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
@@ -686,6 +832,117 @@ public class LogicManagerTest {
                 cmd.append(" t/").append(t.tagName);
             }
             cmd.append(" p/").append(p.getPriority().tagName);
+            
+            return cmd.toString();
+        }
+        // @@author
+        
+        // @@author A0143471L
+        String generateAddCommand(DeadlineTask dt) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("add ")
+               .append("\"")
+               .append(dt.getName())
+               .append("\" due ")
+               .append(dt.getDeadline().getDate() + " ")
+               .append(dt.getDeadline().getTime());
+           UniqueTagList tags = dt.getTags();
+           for (Tag t: tags) {
+               cmd.append(" t/").append(t.tagName);
+           }
+           cmd.append(" p/").append(dt.getPriority().tagName);
+               
+           return cmd.toString();
+        }
+        
+        String generateAddCommand_ad(DeadlineTask dt) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("ad")
+               .append("\"")
+               .append(dt.getName())
+               .append("\" due ")
+               .append(dt.getDeadline());
+            UniqueTagList tags = dt.getTags();
+            for (Tag t: tags) {
+               cmd.append(" t/").append(t.tagName);
+            }
+            cmd.append(" p/").append(dt.getPriority().tagName);
+               
+            return cmd.toString();
+        }
+        
+        String generateAddCommand_a(DeadlineTask dt) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("a")
+               .append("\"")
+               .append(dt.getName())
+               .append("\" due ")
+               .append(dt.getDeadline());
+            UniqueTagList tags = dt.getTags();
+            for (Tag t: tags) {
+               cmd.append(" t/").append(t.tagName);
+            }
+            cmd.append(" p/").append(dt.getPriority().tagName);
+               
+            return cmd.toString();
+        }
+        
+        String generateAddCommand(Event e) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("add")
+               .append("\"")
+               .append(e.getName())
+               .append("\" on ")
+               .append(e.getStart())
+               .append(" to ")
+               .append(e.getEnd());
+            UniqueTagList tags = e.getTags();
+            for (Tag t: tags) {
+                cmd.append(" t/").append(t.tagName);
+            }
+            cmd.append(" p/").append(e.getPriority().tagName);
+            
+            return cmd.toString();
+        }
+        
+        String generateAddCommand_ad(Event e) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("ad")
+               .append("\"")
+               .append(e.getName())
+               .append("\" from ")
+               .append(e.getStart())
+               .append(" to ")
+               .append(e.getEnd());
+            UniqueTagList tags = e.getTags();
+            for (Tag t: tags) {
+                cmd.append(" t/").append(t.tagName);
+            }
+            cmd.append(" p/").append(e.getPriority().tagName);
+            
+            return cmd.toString();
+        }
+        
+        String generateAddCommand_a(Event e) {
+            StringBuffer cmd = new StringBuffer();
+            
+            cmd.append("a")
+               .append("\"")
+               .append(e.getName())
+               .append("\" from ")
+               .append(e.getStart())
+               .append(" to ")
+               .append(e.getEnd());
+            UniqueTagList tags = e.getTags();
+            for (Tag t: tags) {
+                cmd.append(" t/").append(t.tagName);
+            }
+            cmd.append(" p/").append(e.getPriority().tagName);
             
             return cmd.toString();
         }
