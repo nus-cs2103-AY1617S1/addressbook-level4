@@ -38,23 +38,23 @@ public class TagCommandTest extends CommandTest {
     public void setUp() throws Exception{
         //Task indexed at 5
         model.add("Task 5 With 5 Tags");
-        Thread.sleep(20);
+        Thread.sleep(10);
 
         //Task indexed at 4
         model.add("Task 4 With 3 Tags");
-        Thread.sleep(20);
+        Thread.sleep(10);
 
         //Task indexed at 3
         model.add("Task 3 With 1 Tag");
-        Thread.sleep(20);
+        Thread.sleep(10);
 
         //Task indexed at 2
         model.add("Task 2 With 1 Tag");
-        Thread.sleep(20);
+        Thread.sleep(10);
 
         //Task indexed at 1
         model.add("Task 1 With 0 Tags");
-        Thread.sleep(20);
+        Thread.sleep(10);
 
         //Add tags to dummy tasks
         model.addTagsToTask(5, TAG_NAMES[0], TAG_NAMES[1], TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);

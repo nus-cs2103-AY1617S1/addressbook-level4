@@ -7,7 +7,12 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.*;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Collections;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -134,10 +139,12 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that given tag names are alphanumeric, which also can contain dashes and underscores.
      */
     private void validateIllegalNameChar(String... tagNames) {
-        for (String tagName : tagNames) {
-            if (!isValidTagName(tagName)) {
-                errorBag.put(parameterName, ERROR_TAGS_ILLEGAL_CHAR + YOU_SUPPLIED + tagName);
-            }
+        List<String> possibleViolations = Arrays.stream(tagNames).filter(tagName -> !isValidTagName(tagName))
+                .collect(Collectors.toList());
+
+        if (!possibleViolations.isEmpty()) {
+            errorBag.put(parameterName, ERROR_TAGS_ILLEGAL_CHAR + YOU_SUPPLIED
+                    + StringUtil.convertIterableToString(possibleViolations));
         }
     }
 
@@ -145,11 +152,12 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that the provided character limit is within 20 characters.
      */
     private void validateNameCharLimit(String... tagNames) {
-        for (String tag : tagNames) {
-            if (tag.length() > 20) {
-                errorBag.put(parameterName, ERROR_TAGS_TOO_LONG + YOU_SUPPLIED + tag);
-                return;
-            }
+        List<String> possibleViolations = Arrays.stream(tagNames).filter(tagName -> tagName.length() > 20)
+                .collect(Collectors.toList());
+
+        if (!possibleViolations.isEmpty()) {
+            errorBag.put(parameterName, ERROR_TAGS_TOO_LONG + YOU_SUPPLIED
+                    + StringUtil.convertIterableToString(possibleViolations));
         }
     }
 
@@ -168,7 +176,8 @@ public class UniqueTagCollectionValidator {
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         Set<String> tagPoolNameSet = tagPool.stream().map(Tag::getTagName).collect(Collectors.toSet());
-        List<String> tagsDoNotExist = tagNamesSet.stream().filter(tagName -> !tagPoolNameSet.contains(tagName))
+        List<String> tagsDoNotExist = tagNamesSet.stream()
+                .filter(tagName -> !tagPoolNameSet.contains(tagName))
                 .collect(Collectors.toList());
 
         if (!tagsDoNotExist.isEmpty()) {
@@ -205,7 +214,7 @@ public class UniqueTagCollectionValidator {
      */
     private void validateTagNamesDoNotExist(ImmutableTask task, String... tagNames) {
         if (task != null) {
-            validateTagNamesExist(task.getTags(), tagNames);
+            validateTagNamesDoNotExist(task.getTags(), tagNames);
         }
     }
 

@@ -78,9 +78,17 @@ public class AddCommand extends BaseCommand {
     //@@author A0135803H
     @Override
     protected void validateArguments() {
-        //Validate Tags
-        String[] tagNames = StringUtil.splitString(tags.getValue());
-        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(tags.getName(), errors);
-        validator.validateAddTags(tagNames);
+        validateTagArguments();
+    }
+
+    /**
+     * Helper method to validate tag arguments.
+     */
+    private void validateTagArguments() {
+        if (tags.hasBoundValue()) {
+            String[] tagNames = StringUtil.splitString(tags.getValue());
+            UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(tags.getName(), errors);
+            validator.validateAddTags(tagNames);
+        }
     }
 }
