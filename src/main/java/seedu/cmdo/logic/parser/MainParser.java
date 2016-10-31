@@ -52,11 +52,13 @@ public class MainParser {
 	private static String[] splittedArgs;
 	private static Boolean floatingRequestInEdit;
 	private static Boolean priorityRequestInEdit;
+	private static Boolean onlyOneDateOrTimeRequestInEdit;
 	private static Integer targetIndex;
 	
 	// Singleton
 	private static MainParser mainParser;
 	private static final Parser parser = new Parser();
+
 
 		
     /**
@@ -255,6 +257,7 @@ public class MainParser {
 			return new EditCommand(
 					priorityRequestInEdit,
 					floatingRequestInEdit,
+					onlyOneDateOrTimeRequestInEdit,
 					targetIndex,
 					detailToAdd,
 					dt.toLocalDate(),
@@ -263,7 +266,7 @@ public class MainParser {
 					getTagsFromArgs());
 		} 
 		else{ 
-			//only use this constructor when timing is keyed in
+			//only use this constructor when time range is keyed in
 			assert(dateTimeType!=0);
 			return new EditCommand(
 					priorityRequestInEdit,
@@ -593,13 +596,18 @@ public class MainParser {
      */
     private void checkSpecialRequestInEdit() {
         //if keyword float is entered, it becomes a floating task (no date no time)
-        if(args.toLowerCase().contains("floating") || args.toLowerCase().contains("f")){
+        if(args.toLowerCase().contains("floating") || args.toLowerCase().contains("fl")){
         	floatingRequestInEdit = true;
         }
+        //if keyword is only, we take it that the user means to have a single time or date.
+        else if (args.toLowerCase().contains("only")) {
+        	onlyOneDateOrTimeRequestInEdit = true;
+        }
         //if keyword rp or remove priority is entered, priority is removed
-        if(args.toLowerCase().contains("no priority") || args.toLowerCase().contains("rp")) {
+        if(args.toLowerCase().contains("no priority") || args.toLowerCase().contains("np")) {
         	priorityRequestInEdit = true;
         }
+        
     }
     
     /**

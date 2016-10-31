@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
@@ -36,12 +37,14 @@ public class EditCommand extends Command {
     private final int targetIndex;
     private final Task toEditWith;
     private final boolean floating;
+    private final boolean onlyOne;
     private final boolean removePriority;
     private boolean tagIsEmpty = false;
     
     
     public EditCommand(	boolean removePriority,
-    					boolean floating, 
+    					boolean floating,
+    					boolean onlyOne,
     					int targetIndex,
     					String newDetail,
     					LocalDate newDueByDate,
@@ -66,6 +69,7 @@ public class EditCommand extends Command {
         this.targetIndex = targetIndex;
         this.removePriority = removePriority;
         this.isUndoable=true;
+        this.onlyOne = onlyOne;
     }
         
     /**
@@ -102,6 +106,7 @@ public class EditCommand extends Command {
         floating = false;//since if range constructor is used, user would have keyed in a timing 
         this.removePriority = removePriority; 
         this.isUndoable=true;
+        this.onlyOne = false;
     }
     
     public ReadOnlyTask getTask() {
@@ -115,9 +120,21 @@ public class EditCommand extends Command {
         }
     //check for changes in date and time and append
     public void editDateTime(ReadOnlyTask taskToEdit){
-    	//check if changing to floating task
+    	try {//check if changing to floating task
         if(floating)
         	toEditWith.setFloating();
+        // check if the user only meant to key in only one of either date or time
+        else if (onlyOne) {
+        	if (toEditWith.getDueByDate().dateNotEntered() && toEditWith.getDueByTime().timeNotEntered()) {
+        		// The user accidentally typed in only. Ignore.
+        	} else if (toEditWith.getDueByDate().dateNotEntered()) {
+        		// The user used time only, so he must mean today's time.
+        		toEditWith.setDueByDate(new DueByDate(LocalDate.now()));
+        	} else if (toEditWith.getDueByTime().timeNotEntered()) {
+        		// The user used date only, so he must mean one single date only.
+        		toEditWith.setDueByTime(new DueByTime(MainParser.NO_TIME_DEFAULT));
+        	}
+        }
         //check for if time is empty and append and check if have changes in date otherwise append old date
         else{
         if(toEditWith.getDueByDate().dateNotEntered() && toEditWith.getDueByTime().timeNotEntered()){
@@ -133,8 +150,11 @@ public class EditCommand extends Command {
         else if(!(toEditWith.getDueByDate().dateNotEntered()) && toEditWith.getDueByTime().timeNotEntered()){
         	toEditWith.setDueByTime(taskToEdit.getDueByTime());
         			}
-        		}
-        	}
+        }
+    	}catch (Exception e) {
+    		// This is an internal method, no exception should be thrown.
+    	}
+    }
    
     //check if priority is empty and append with old details
     public void editPriority(ReadOnlyTask taskToEdit){
