@@ -240,9 +240,12 @@ public class UniqueTagCollectionValidator {
     /* Public Helper Methods */
     /**
      * Abstracts the series of steps for performing data validation.
+     *
+     * @param actionName Name of the Command action
+     * @param consumer The method call that performs the actual validation.
      */
     public static UniqueTagCollectionValidator validate(String actionName,
-                                                        Consumer<UniqueTagCollectionValidator> consumer) throws ValidationException {
+            Consumer<UniqueTagCollectionValidator> consumer) throws ValidationException {
 
         UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(actionName);
         consumer.accept(validator);

@@ -260,12 +260,10 @@ public class TodoModel implements Model {
     public void addTagsToTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
 
-        //Perform Validation
         ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator.validate("add tags",
-                validator -> validator.validateAddTags(task, tagNames));
+        UniqueTagCollectionValidator
+                .validate("add tags", validator -> validator.validateAddTags(task, tagNames));
 
-        //Perform actual tag adding.
         addTagsToTaskHelper(index, task, tagNames);
     }
 
@@ -281,12 +279,10 @@ public class TodoModel implements Model {
     public void deleteTagsFromTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
 
-        //Perform Validation
         ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator.validate("delete tags",
-                validator -> validator.validateDeleteTags(task, tagNames));
+        UniqueTagCollectionValidator
+                .validate("delete tags", validator -> validator.validateDeleteTags(task, tagNames));
 
-        //Perform actual tag deletion
         deleteTagsFromTaskHelper(index, tagNames);
     }
 
@@ -294,11 +290,9 @@ public class TodoModel implements Model {
     public void deleteTags(String... tagNames) throws ValidationException {
         saveUndoState();
 
-        //Perform validation
         UniqueTagCollectionValidator.validate("delete tags",
                 validator -> validator.validateDeleteTags(uniqueTagCollection, tagNames));
 
-        //Perform actual tag deletion
         deleteTagsHelper(tagNames);
     }
 
@@ -306,11 +300,9 @@ public class TodoModel implements Model {
     public void renameTag(String oldName, String newName) throws ValidationException {
         saveUndoState();
 
-        //Perform validation
         UniqueTagCollectionValidator.validate("rename tag",
                 validator -> validator.validateRenameCommand(uniqueTagCollection, oldName, newName));
 
-        //Perform actual tag renaming
         renameTagHelper(oldName, newName);
     }
 
