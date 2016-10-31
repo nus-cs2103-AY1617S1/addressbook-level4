@@ -4,8 +4,11 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.Before;
@@ -15,6 +18,7 @@ import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -33,12 +37,6 @@ public class RecurringTaskManagerTest {
     @Test(expected=AssertionError.class)
     public void setNullTasklist_throwAssert() {
         recurringManager.setTaskList(null);
-    }
-    
-    @Test(expected=AssertionError.class)
-    public void setNullTaskList_updateRecurringTask_throwAssert() {
-        recurringManager.setTaskList(null);
-        recurringManager.updateAnyRecurringTasks();
     }
     
     @Test(expected=AssertionError.class)
