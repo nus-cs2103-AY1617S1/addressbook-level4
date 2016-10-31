@@ -1,8 +1,11 @@
 package seedu.cmdo.logic.commands;
 
+import java.util.Set;
+
 import seedu.cmdo.commons.core.EventsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.cmdo.commons.util.SearchUtil;
 import seedu.cmdo.model.Model;
 
 /**
@@ -32,6 +35,16 @@ public abstract class Command {
      */
     public static String getMessageForDoneTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_DONE_TASKS_LISTED_OVERVIEW, displaySize);
+    }
+    
+    /**
+     * Constructs a feedback message to summarise an operation that displayed finding of tasks.
+     *
+     * @param keywords Set of keywords input by the user
+     * @return summary message for tasks displayed
+     */
+    public static String getMessageForFindSummary(Set<String> keywords) {
+        return String.format(Messages.MESSAGE_TASKS_FOUND_OVERVIEW, keywords.toString(), SearchUtil.levenshtein_tolerance);
     }
 
     /**
