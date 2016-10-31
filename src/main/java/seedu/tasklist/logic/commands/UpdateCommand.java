@@ -20,7 +20,7 @@ public class UpdateCommand extends Command {
 			+ "Parameters: INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]\n"
 			+ "Example: " + COMMAND_WORD + " 1 at 13/09/2016 5pm";
 
-
+	public static final String MESSAGE_NOT_CHRONO_TASK = "The start time must be before the end time.";
 	public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
 	public static final String MESSAGE_ILLEGAL_VALUE = "Start or end time is invalid!";
 
@@ -56,11 +56,36 @@ public class UpdateCommand extends Command {
 		} else {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 			try {
-				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
-				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
+			    if (startTime!=null && endTime!=null)
+			       isNotChronoTime(new StartTime(startTime), new EndTime(endTime));
+			    else if (startTime!=null)
+			       isNotChronoTime(new StartTime(startTime), taskToUpdate.getEndTime());
+			    else isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
+			}
+			catch (IllegalValueException e) {
+			    return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
+			}
+			try {
+			    model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
+			    return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
 			} catch (IllegalValueException e) {
 				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
 			}
 		}
 	}
+	
+	public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
+        if(endtime.time.getTimeInMillis()==0){
+            return false;
+        }
+        boolean finalres;
+        finalres = starttime.getAsCalendar().after(endtime.getAsCalendar());
+        if(finalres){
+            throw new IllegalValueException(MESSAGE_NOT_CHRONO_TASK);
+        }
+        else{
+            return false;
+        }
+    }
+	
 }
