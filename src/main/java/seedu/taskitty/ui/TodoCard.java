@@ -44,7 +44,7 @@ public class TodoCard extends UiPart {
         
         //@@author A0139930B
         name.setText(task.getName().fullName);
-        id.setText("t" + displayedIndex + ". ");
+        id.setText("t" + displayedIndex);
         tags.setText(task.tagsString());
     }
 

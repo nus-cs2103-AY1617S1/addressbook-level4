@@ -33,10 +33,14 @@
                           <Label fx:id="tags" styleClass="cell_tag_label" text="\$tags" />
                     </children>
                 </VBox>
-                     <Label fx:id="id" ellipsisString="" styleClass="cell_id_label" text="\$id">
+            <HBox alignment="CENTER">
                <GridPane.margin>
                   <Insets />
-               </GridPane.margin></Label>
+               </GridPane.margin>
+               <children>
+                           <Label fx:id="id" ellipsisString="" styleClass="cell_id_label" text="\$id" />
+               </children>
+            </HBox>
             </children>
          <rowConstraints>
             <RowConstraints />
