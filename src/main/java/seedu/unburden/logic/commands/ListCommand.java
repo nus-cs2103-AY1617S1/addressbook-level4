@@ -38,7 +38,7 @@ public class ListCommand extends Command {
     }
 
     public ListCommand(String args, String mode) throws ParseException {
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		this.date = df.parse(args);
 		this.mode = "date";
 	}

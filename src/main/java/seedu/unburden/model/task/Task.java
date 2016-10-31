@@ -43,7 +43,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, date, startTime, endTime, tags);
         this.name = name;
-        this.taskD = new TaskDescription("  ");
+        this.taskD = new TaskDescription("       ");
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -65,7 +65,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, endTime, tags);
 		this.name = name;
-		this.taskD = new TaskDescription("  ");
+		this.taskD = new TaskDescription("       ");
 		this.date = date;
 		this.startTime = new Time("       ");
 		this.endTime = endTime;
@@ -76,7 +76,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, tags);
 		this.name = name;
-		this.taskD = new TaskDescription("  ");
+		this.taskD = new TaskDescription("       ");
 		this.date = date;
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");
@@ -87,7 +87,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, endTime, tags);
 		this.name = name;
-		this.taskD = new TaskDescription("  ");
+		this.taskD = new TaskDescription("       ");
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
 		this.endTime = endTime;
@@ -130,7 +130,7 @@ public class Task implements ReadOnlyTask {
 	public Task(Name name, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
-		this.taskD = new TaskDescription("  ");
+		this.taskD = new TaskDescription("       ");
 		this.date = new Date("       ");
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");

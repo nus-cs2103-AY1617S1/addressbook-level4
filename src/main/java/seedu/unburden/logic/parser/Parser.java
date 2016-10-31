@@ -32,7 +32,7 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
+	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[^/]+)");
 
 	// @@author A0143095H
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[^/]+)");
@@ -103,7 +103,7 @@ public class Parser {
 
 	private static final String UNDONE = "undone";
 
-	private static final DateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Parser() {
 	}
@@ -214,9 +214,7 @@ public class Parser {
 				details.add(matcher0.group("endTimeArguments"));
 				return new AddCommand("event with everything", details,
 						getTagsFromArgs(matcher0.group("tagArguments")));
-
 			}
-
 			if (matcher1.matches()) {
 				details.add(matcher1.group("name"));
 				details.add(matcher1.group("date"));
@@ -351,40 +349,34 @@ public class Parser {
 	}
 
 	private Command prepareList(String args) throws ParseException {
+		args = args.trim();
 		if (args.equals("")) {
 			return new ListCommand();
 		}
 		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
-		final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
-		if (!matcherDate.matches() && !matcherWord.matches()) {
+		//final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+		if (!matcherDate.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-		if (matcherDate.matches()) {
-			try {
-				return new ListCommand(args, "date");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			Calendar calendar = Calendar.getInstance();
-			switch (matcherWord.group("keywords").toLowerCase()) {
-			case TOMORROW:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
-				return new ListCommand(tomorrowKeyword, "date");
-			case NEXTWEEK:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.WEEK_OF_YEAR, 1);
-				final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
-				return new ListCommand(nextWeekKeyword, "date");
-			case DONE:
-				return new ListCommand(DONE);
-			case UNDONE:
-				return new ListCommand(UNDONE);
-			}
+		Calendar calendar = Calendar.getInstance();
+		switch (args.toLowerCase()) {
+		case TOMORROW:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
+			System.out.println(tomorrowKeyword);
+			return new ListCommand(tomorrowKeyword, "date");
+		case NEXTWEEK:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
+			return new ListCommand(nextWeekKeyword, "date");
+		case DONE:
+			return new ListCommand(DONE);
+		case UNDONE:
+			return new ListCommand(UNDONE);
 		}
-		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+		return new ListCommand(args, "date");
 	}
 
 	/**
