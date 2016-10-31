@@ -2,33 +2,46 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+   * [Help](#viewing-help-help)
+   * [Add](#adding-a-task-add)
+   * [Edit](#editing-a-task-edit)
+   * [Delete](#deleting-a-task-delete)
+   * [Clear](#clearing-all-tasks-clear)
+   * [Done](#archiving-a-task-done)
+   * [Undo](#undoing-a-command-undo)
+   * [Redo](#redoing-a-command-redo)
+   * [List](#listing-tasks-list)
+   * [Find](#finding-a-task-find)
+   * [Store](#changing-storage-location-store)
+   * [Exit](#exiting-the-application-exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+<br>
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for DearJim.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+2. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for DearJim.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <img src="images/dearjim_initial.png" width="650">
 
 <p align="center">
 Figure 1: GUI of DearJim
 </p>
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
+6. Some example commands you can try:
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
      adds a task to DearJim.
    * **`delete`**` 1` : deletes the first task shown in the current list.
    * **`exit`** : exits the app.
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 <br>
 ## Features
@@ -40,10 +53,9 @@ Figure 1: GUI of DearJim
 > * The order of parameters is fixed.
 
 <br>
-### Viewing help : `help`
+### Viewing help: `help`
 Opens the user guide with a new window.<br>
 Format: `help`<br>
-
 
  <img src="images/dearjim_help.png" width="650">
 
@@ -145,8 +157,7 @@ Examples:
 * `Buy coffee for boss by 7:00`
 * `finish CS2101 assignment by 13th Sep`
 
-> Inputs with numbers from 1000 to 2359 may be wrongly interpreted as time. <br>
-If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
+Inputs with numbers from 1000 to 2359 may be wrongly interpreted as time. If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
 
 Example:
 
@@ -248,7 +259,7 @@ Example:
 <br/>
 
 
-### Clearing the task in DearJim: `clear`
+### Clearing all tasks: `clear`
 Deletes all tasks in DearJim.<br>
 Format: `clear`
 
@@ -290,7 +301,7 @@ Format: `redo`
 
 <br/>
 
-### Listing tasks : `list`
+### Listing tasks: `list`
 **_Listing all undone tasks_**
 
 Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
@@ -307,8 +318,9 @@ Format: `list done`
 
 Example:
 * `list done`
+<br>
 
-### Finding a task : `find`
+### Finding a task: `find`
 Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
 Format: `find NAME`
 > `find` is case-insensitive - `find AKSHAY` will match `find akshay`
