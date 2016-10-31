@@ -88,8 +88,13 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, endTime, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
+<<<<<<< HEAD
 		this.date = new Date("  ");
 		this.startTime = new Time("       ");
+=======
+		this.date = new Date("       ");
+		this.startTime = new Time("  ");
+>>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -99,8 +104,13 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, taskD, endTime, tags);
 		this.name = name;
 		this.taskD = taskD;
+<<<<<<< HEAD
 		this.date = new Date("  ");
 		this.startTime = new Time("       ");
+=======
+		this.date = new Date("       ");
+		this.startTime = new Time("  ");
+>>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
 		this.endTime = endTime;
 		this.tags = tags;
 	}
@@ -120,9 +130,15 @@ public class Task implements ReadOnlyTask {
 		assert !CollectionUtil.isAnyNull(name, taskD, tags);
 		this.name = name;
 		this.taskD = taskD;
+<<<<<<< HEAD
 		this.date = new Date("  ");
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");
+=======
+		this.date = new Date("       ");
+		this.startTime = new Time("  ");
+		this.endTime = new Time("  ");
+>>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
 		this.tags = tags;
 	}
 
@@ -131,9 +147,15 @@ public class Task implements ReadOnlyTask {
 		assert!CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("  ");
+<<<<<<< HEAD
 		this.date = new Date("  ");
 		this.startTime = new Time("       ");
 		this.endTime = new Time("       ");
+=======
+		this.date = new Date("       ");
+		this.startTime = new Time("  ");
+		this.endTime = new Time("  ");
+>>>>>>> 8a1b350fb65c13d903387eab227aacc8af930ace
 		this.tags = tags;
 	}
 	//@@Nathanael Chan

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -31,35 +32,45 @@
             </Menu>
          </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.748546511627907" prefHeight="200.0" prefWidth="200.0">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.743849493487699" VBox.vgrow="ALWAYS">
          <items>
-            <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" SplitPane.resizableWithParent="false">
-               <padding>
-                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-               </padding>
-            </AnchorPane>
-             <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="199.0" minHeight="100.0" prefHeight="120.0" prefWidth="114.0" styleClass="anchor-pane-with-border" SplitPane.resizableWithParent="false">
-                 <padding>
-                     <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-                 </padding>
-             </AnchorPane>
-         </items>
-      </SplitPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.748546511627907" VBox.vgrow="ALWAYS">
-         <items>
-            <VBox fx:id="personList" minWidth="340" prefWidth="340.0" SplitPane.resizableWithParent="false">
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TextField editable="false" style="-fx-background-color: #015166;" />
+                         <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="200.0" prefHeight="200.0" styleClass="anchor-pane-with-border">
+                             <padding>
+                                 <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                             </padding>
+                         </AnchorPane>
+                        <TextField alignment="CENTER" editable="false" prefHeight="72.0" prefWidth="230.0" style="-fx-background-color: #015166;" />
+                        <AnchorPane fx:id="summaryPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="200.0" prefHeight="250.0">
+                            <padding>
+                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox fx:id="personList" minWidth="940.0" prefWidth="940.0" SplitPane.resizableWithParent="false">
                 <padding>
                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                 </padding>
                <children>
-                  <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  <AnchorPane fx:id="commandBoxPlaceholder" prefHeight="37.0" prefWidth="792.0" styleClass="anchor-pane-with-border">
+                     <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
+                  <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" SplitPane.resizableWithParent="false">
-                <padding>
-                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                </padding>
-            </AnchorPane>
          </items>
       </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
