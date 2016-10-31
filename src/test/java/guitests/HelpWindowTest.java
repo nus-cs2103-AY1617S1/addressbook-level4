@@ -14,8 +14,6 @@ public class HelpWindowTest extends AddressBookGuiTest {
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
-
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
     }

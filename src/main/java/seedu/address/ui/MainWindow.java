@@ -13,12 +13,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.events.model.ViewCategoryChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0135767U
 /**
@@ -115,7 +113,7 @@ public class MainWindow extends UiPart {
     }
 
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl+F1"));
         listAllItem.setAccelerator(KeyCombination.valueOf("Ctrl+1"));
         listOverdueItem.setAccelerator(KeyCombination.valueOf("Ctrl+2"));
         listUpcomingItem.setAccelerator(KeyCombination.valueOf("Ctrl+3"));
