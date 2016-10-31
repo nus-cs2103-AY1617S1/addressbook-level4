@@ -37,7 +37,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		
 		//list not done
 		expectedList = td.getNotDoneTasks();
-		assertListResult("list not-done", expectedList);
+		assertListResult("list pending", expectedList);
 		
 		//list overdue
 		expectedList = td.getOverdueTasks();

@@ -283,7 +283,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_listValidOrder_listCommandReturned() {
-		String userInput = "list   deadline not-done";
+		String userInput = "list   deadline pending";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(listCommand.getClass(), command.getClass());
@@ -291,7 +291,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_listValidOrder2_listCommandReturned() {
-		String userInput = "list not-done	 someday";
+		String userInput = "list pending	 someday";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(listCommand.getClass(), command.getClass());
