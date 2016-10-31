@@ -12,6 +12,7 @@ import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.EventsCollector;
+import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TimeUtil;
 
 import java.util.HashSet;
@@ -148,20 +149,9 @@ public class AddCommandTest extends CommandTest {
     }
 
     //@@author A0135805H
-    /**
-     * Helps to convert a varang of tag names to a set of tags.
-     */
-    private Set<Tag> convertTagNamesToTags(String... tagNames) {
-        Set<Tag> outcomeTags = new HashSet<>();
-        for (String tagName : tagNames) {
-            outcomeTags.add(new Tag(tagName));
-        }
-        return outcomeTags;
-    }
-
     @Test
     public void testAddTag_singleTag() throws Exception {
-        Set<Tag> expectedTags = convertTagNamesToTags("pikachu");
+        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags("pikachu");
 
         setParameter("Task with tags");
         setParameter("t", "pikachu");
@@ -175,7 +165,7 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddTag_maxTags() throws Exception {
         Set<Tag> expectedTags
-                = convertTagNamesToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
+                = TaskFactory.convertTagNamesToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
 
         setParameter("Pokemon with tags");
         setParameter("t", "pikachu123 , charizaRD_-  -pichu-  ---raichu,  gasly");
@@ -188,7 +178,7 @@ public class AddCommandTest extends CommandTest {
 
     @Test
     public void testAddTag_fullEventWithTags() throws Exception {
-        Set<Tag> expectedTags = convertTagNamesToTags("leisure", "pokemon", "pikachu");
+        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags("leisure", "pokemon", "pikachu");
 
         setParameter("Pokemon with tags");
         setParameter("m", "Some long long very very long long massively long description. Thank you.");

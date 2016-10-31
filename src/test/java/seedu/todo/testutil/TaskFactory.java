@@ -5,12 +5,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.model.tag.Tag;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 //@@author A0135817B
 public class TaskFactory {
@@ -192,5 +195,16 @@ public class TaskFactory {
             tasks.add(random());
         }
         return tasks;
+    }
+
+    /**
+     * Helps to convert a varang of tag names to a set of tags.
+     */
+    public static Set<Tag> convertTagNamesToTags(String... tagNames) {
+        Set<Tag> outcomeTags = new HashSet<>();
+        for (String tagName : tagNames) {
+            outcomeTags.add(new Tag(tagName));
+        }
+        return outcomeTags;
     }
 }
