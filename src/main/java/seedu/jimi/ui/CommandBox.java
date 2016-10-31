@@ -36,7 +36,7 @@ public class CommandBox extends UiPart {
     private Stack<String> previousInputs = new Stack<String>();
     private Stack<String> aheadInputs = new Stack<String>();
     
-    public static final String MESSAGE_INPUT_MATCHES = 
+    public static final String MESSAGE_COMMAND_SUGGESTIONS = 
             "Are you looking for these commands? \n" 
             + "> %1$s";
     
@@ -145,7 +145,7 @@ public class CommandBox extends UiPart {
         if (currentText.length() > firstWordOfInput.length() || commandWordMatches.isEmpty()) {
             setResultDisplayToDefault();
         } else {
-            resultDisplay.postMessage(String.format(MESSAGE_INPUT_MATCHES, String.join(", ", commandWordMatches)));
+            resultDisplay.postMessage(String.format(MESSAGE_COMMAND_SUGGESTIONS, String.join(", ", commandWordMatches)));
         }
     }
     
