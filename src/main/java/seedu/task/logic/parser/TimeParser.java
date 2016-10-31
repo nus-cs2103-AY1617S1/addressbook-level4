@@ -60,8 +60,7 @@ public class TimeParser {
         if (node.getText().equals(NATTY_DATE_TIME)){
             dateTimeCount++;
         }
-        //if (node.getText().equals(NATTY_RELATIVE_DATE) || node.getText().equals(NATTY_EXPLICIT_DATE)) {
-            if (dateTimeCount == ONE_DATE_TIME) {
+        if (dateTimeCount == ONE_DATE_TIME) {
                 timeParserResult.setFirstDate(dates.get(FIRST_DATE_INDEX));
                 timeParserResult.setFirstTime(dates.get(FIRST_DATE_INDEX));
             } else if (dateTimeCount == TWO_DATE_TIME) {
