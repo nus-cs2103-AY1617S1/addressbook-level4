@@ -76,7 +76,7 @@ Two of those classes play important roles at the architecture level:
 
 The rest of the App consists of four components.
 * [**`UI`**](#ui-component) : Handles user interactions with the application.
-* [**`Logic`**](#logic-component) : Executes commands.
+* [**`Logic`**](#logic-component) : Parses and executes commands.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -104,7 +104,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br></br>
 
 Figure 3 above, the _Sequence Diagram_, shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `delete d1`.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -164,9 +164,9 @@ The `UI` component:
 
 **API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)<br>
 Figure 6 shows the Logic class diagram.<br>
-`Logic` uses the `Parser` class to parse the user command.<br>
+`Logic` uses the `CommandParser` class to parse the user command.<br>
 This results in a `Command` object which is executed by the `LogicManager`.<br>
-The command execution can affect the `Model` (e.g. adding a task) and/or raise events.<br>
+The command execution can affect the `Model` (e.g. adding a task) or `Storage` (e.g. set new save file path) and/or raise events.<br>
 The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 <br><br>
 
@@ -177,8 +177,9 @@ The result of the command execution is encapsulated as a `CommandResult` object 
 </p>
 <br></br>
 
-Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete d1")`
 API call.<br>
+> Note that commands that affects the `TaskManager` inside of `Model` will store the command information after successful execution, with exception of Clear Command which stores the command information before execution, while other commands doesn't.<br>
 
 ### Model component
 <br></br>
@@ -194,6 +195,7 @@ Figure 8 above shows the Model class diagram.<br>
 The `Model`component:
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Task Manager data.
+* stores previous executed command information necessary for undo/redo function in a `CommandHistoryManager` class.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -335,7 +337,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | mark a task as done | record what I have completed
 `* * *` | user | store all tasks in a file | share and sync the file on different computers
 `* *` | user | enter commands in any format | insert tasks more intuitively according to my own style
-`* *` | user| be notified of overdue tasks | complete those tasks as soon as possible
+`* *` | user | be notified of overdue tasks | complete those tasks as soon as possible
+`* *` | user with many tasks | delete multiple tasks at once | remove multiple tasks more conveniently
+`* *` | user with many tasks | mark multiple tasks as done at once | mark multiple tasks as done more conveniently
 `*` | user | add recurring tasks | avoid adding the same commands multiple times
 `*` | user | view instructions as I type | remember less commands
 `*` | user | use keyboard shortcuts | use the task manager more quickly
@@ -499,7 +503,7 @@ Use case ends
 
 **Extension**
 
-* There are no tasks for the specified date
+* There are no tasks in the selected view status
 
 > Use case ends
 
@@ -531,31 +535,36 @@ Use case ends
 **MSS**
 
 1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
-2. User requests to delete a task from the list
-3. Program removes the task from storage<br>
+2. User requests to delete the tasks from the list
+3. Program removes the tasks from storage<br>
 
 Use case ends
 
 **Extension**
 
-* There are no tasks for the specified date
+* There are no tasks in the selected view status
 
 > Use case ends.
+<!-- @@author A0139052L -->
 
-* The given index is invalid
+* The given index of any provided is invalid
 
-> * Program returns error message, saying that index is invalid<br>
+> * Program returns an error message, stating all invalid indexes that were provided<br>
+  Use case resumes at step 2
+  
+* Duplicate index was provided
+
+> * Program returns an error message, stating all indexes provided that has duplicates<br>
   Use case resumes at step 2
 
-<!-- @@author A0139052L -->
-* The given alphabet is invalid (not `t`, `d`, or `e`)
+* The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
 
-> * Program defaults to the todo list<br>
+> * Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
   
-* No alphabet is given
+* No alphabet is given for any provided index
 
-> * Program defaults to the todo list<br>
+> * Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
 
 <br></br>
@@ -565,31 +574,42 @@ Use case ends
 **MSS**
 
 1. User requests to view tasks [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)
-2. User requests to mark a task from the list as `done`
-3. Program tags the task as `done`<br>
+2. User requests to mark tasks from the list as `done`
+3. Program tags the tasks as `done`<br>
 
 Use case ends
 
 **Extension**
 
-* There are no tasks for the specified date
+* There are no tasks in the selected view status
 
 > Use case ends
 
-* The given index is invalid
+<!-- @@author A0139052L -->
 
-> * Program returns error message, saying that index is invalid<br>
+* The given index of any provided is invalid
+
+> * Program returns an error message, stating all invalid indexes that were provided<br>
+  Use case resumes at step 2
+  
+* Duplicate index was provided
+
+> * Program returns an error message, stating all indexes provided that has duplicates<br>
   Use case resumes at step 2
 
-<!-- @@author A0139052L -->
-* The given alphabet is invalid (not `t`, `d`, or `e`)
+* The given index of any provided is for a task that is already marked done
 
-> * Program defaults to the todo list<br>
+> * Program returns an error message, stating all indexes of tasks provided that were already marked done<br>
+  Use case resumes at step 2
+  
+* The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
+
+> * Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
   
-* No alphabet is given
+* No alphabet is given for any provided index
 
-> * Program defaults to the todo list<br>
+> * Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
  
 <br></br> 
@@ -605,9 +625,25 @@ Use case ends
 
 * There are no previous valid actions to undo.
 
-> * Program returns error message, saying that no more previous valid action was executed for the current session<br>
+> * Program returns an error message, saying that no more previous valid action was executed for the current session<br>
   Use case ends.
 
+<br></br> 
+### Use case: Redo undone action
+
+**MSS**
+
+1. User requests to redo previous undone action
+2. Program restores the state of program before undoing<br>
+Use case ends
+
+**Extension**
+
+* There are no recent undo actions.
+
+> * Program returns an error message, saying that no more recent undo action executed for the current session<br>
+  Use case ends.
+  
 <br></br> 
 <!-- @@author A0135793W -->
 ### Use case: Save data to a specified folder
