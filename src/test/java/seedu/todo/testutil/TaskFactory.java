@@ -3,6 +3,7 @@ package seedu.todo.testutil;
 import com.github.javafaker.Faker;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
@@ -81,7 +82,32 @@ public class TaskFactory {
     public static String eventTitle() {
         return substitute(choice(events));
     }
-    
+
+    //@@author A0135805H
+    /**
+     * Generates a random tag from the pool of tags.
+     */
+    public static String randomTag() {
+        return tags.get(random.nextInt(tags.size()));
+    }
+
+    /**
+     * Generates a list of unique tags from the pool of tags.
+     */
+    public static String[] randomTags(int numberOfTags) {
+        List<String> copyOfTagNames = new ArrayList<>(tags);
+        Collections.shuffle(copyOfTagNames);
+        return copyOfTagNames.subList(0, numberOfTags).toArray(new String[0]);
+    }
+
+    /**
+     * Generates a randomly sized list of unique tags from the pool of tags.
+     */
+    public static String[] randomTags() {
+        return randomTags(1 + random.nextInt(4));
+    }
+
+    //@@author A0135817B
     public static ImmutableTask task() {
         return TaskBuilder.name(taskTitle()).build();
     }
@@ -90,6 +116,14 @@ public class TaskFactory {
         return TaskBuilder.name(taskTitle())
             .description(faker.lorem().paragraph(2))
             .due(randomDate())
+            .build();
+    }
+
+    public static ImmutableTask fullTaggedTask() {
+        return TaskBuilder.name(taskTitle())
+            .description(faker.lorem().paragraph(2))
+            .due(randomDate())
+            .tagged(randomTags())
             .build();
     }
     
@@ -107,17 +141,30 @@ public class TaskFactory {
             .location(choice(locations))
             .build();
     }
+
+    public static ImmutableTask fullTaggedEvent() {
+        LocalDateTime start = randomDate();
+        return TaskBuilder.name(eventTitle())
+            .event(start, start.plusMinutes((random.nextInt(6) + 2) * 15))
+            .location(choice(locations))
+            .tagged(randomTags())
+            .build();
+    }
     
     public static ImmutableTask random() {
-        switch (random.nextInt(4)) {
+        switch (random.nextInt(6)) {
             case 0:
                 return task();
             case 1:
                 return fullTask();
             case 2:
+                return fullTaggedTask();
+            case 3:
                 return event();
-            default: 
+            case 4:
                 return fullEvent();
+            default:
+                return fullTaggedEvent();
         }
     }
     
