@@ -14,7 +14,6 @@ public class UndoCommandTest extends ToDoListGuiTest {
     public void undo() {
         
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask[] expectedList = currentList;
         
         //undo up to 2 times
         for(int i=0;i<3;i++){
@@ -24,7 +23,7 @@ public class UndoCommandTest extends ToDoListGuiTest {
         for(int y=0;y<2;y++)
         commandBox.runCommand("undo");
         
-        assertUndoSuccess(expectedList, currentList);
+        assertUndoSuccess(currentList);
         
         //nothing to undo
         commandBox.runCommand("undo");
@@ -33,82 +32,80 @@ public class UndoCommandTest extends ToDoListGuiTest {
         //undo add task with date/time range
         TestTask taskToAdd = td.vacation;
         commandBox.runCommand(taskToAdd.getAddRangeCommand());
-        assertUndoSuccess(expectedList, currentList);
+        assertUndoSuccess(currentList);
         
         //undo a block command
         TestTask timeToBlock = td.meeting;
         commandBox.runCommand(timeToBlock.getBlockCommand());
-        assertUndoSuccess(expectedList, currentList);
+        assertUndoSuccess(currentList);
         
         //undo a delete command
-        commandBox.runCommand("delete " + "1");
-        assertUndoSuccess(expectedList, currentList);
+        run("delete " + "1",currentList);
        
         //undo a done command
-        commandBox.runCommand("done " + "2");
-        assertUndoSuccess(expectedList, currentList);
+        run("done " + "2", currentList);
         
         //undo a redo
         taskToAdd = td.dog;
         commandBox.runCommand(taskToAdd.getAddCommand());
         commandBox.runCommand("undo");
-        commandBox.runCommand("redo");
-        assertUndoSuccess(expectedList, currentList);
+        run("redo", currentList);
       
         //undo clear command
-        commandBox.runCommand("clear");
-        assertUndoSuccess(expectedList, currentList);
+        run("clear", currentList);
         
         //undo the edit the time of the first task in the list  
-        commandBox.runCommand("edit " + "2 " + "'Eat Buffet'");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + "2 " + "'Eat Buffet'", currentList);
 
 
         //undo the edit the priority of the last task in the list
         int targetIndex = currentList.length;
-        commandBox.runCommand("edit " + targetIndex + " /low");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " /low", currentList);
         
         //undo the action of making last task floating
         targetIndex = 1;
-        commandBox.runCommand("edit " + targetIndex + " floating");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " floating",currentList);
         
         //undo the change tags of last task
         targetIndex = currentList.length;
-        commandBox.runCommand("edit " + targetIndex + " -dangerous");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " -dangerous",currentList);
         
         //undo the edit of removing priority of first task using 'rp' or 'remove priority'
         targetIndex = 1;
-        commandBox.runCommand("edit " + targetIndex + " rp");
-        assertUndoSuccess(expectedList, currentList);
-        commandBox.runCommand("edit " + targetIndex + " remove priority");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " rp", currentList);
+        run("edit " + targetIndex + " remove priority", currentList);
         
         //undo the edit of time of task 2
         targetIndex = 2;
-        commandBox.runCommand("edit " + targetIndex + " 1120");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " 1120",currentList);
         
         //undo the edit of date of task 2
         targetIndex = 2;
-        commandBox.runCommand("edit " + targetIndex + " 10/20/2016");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " 10/20/2016", currentList);
         
         //undo the edit of task 3 to a range task
         targetIndex = 3;
-        commandBox.runCommand("edit " + targetIndex + " 11/12/2016 1300 to 12/12/2016 1500");
-        assertUndoSuccess(expectedList, currentList);
+        run("edit " + targetIndex + " 11/12/2016 1300 to 12/12/2016 1500", currentList);
 
     }
+    
+    //confirm the list now contains all previous tasks except the deleted task
+    private void compareList(TestTask[] expectedRemainder){
+    	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
+    }
+    
+    //run successful commands
+    private void run(String input,TestTask... currentList){
+    	commandBox.runCommand(input);
+    	assertUndoSuccess(currentList);
+    }
 
-    private void assertUndoSuccess(TestTask[] expectedList, TestTask... currentList) {
+    private void assertUndoSuccess(TestTask... currentList) {
     	
     	commandBox.runCommand("undo");
     	
     	//confirm the list matches
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        compareList(currentList);
         
         //confirm
         assertResultMessage(MESSAGE_UNDO_SUCCESS);

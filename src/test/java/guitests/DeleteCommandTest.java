@@ -31,14 +31,18 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         currentList = updateList(targetIndex,currentList);
 
         //invalid index
-        runDeleteCommand(currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
+        invalidCommand("delete " + currentList.length + 1);
         
         //delete something from an empty list
         commandBox.runCommand("clear");
         targetIndex = 1;
-        runDeleteCommand(targetIndex);
-        assertResultMessage("The task index provided is invalid");
+        invalidCommand("delete " + targetIndex);
+    }
+   
+    //check if invalid command throws the right error
+    private void invalidCommand(String input){
+    	commandBox.runCommand(input);
+    	assertResultMessage("The task index provided is invalid");
     }
     
     private TestTask[] updateList(int targetIndex, TestTask... currentList){
@@ -47,6 +51,11 @@ public class DeleteCommandTest extends ToDoListGuiTest {
     
     private void runDeleteCommand(int targetIndex){
     	commandBox.runCommand("delete " + targetIndex);
+    }
+    
+    //confirm the list now contains all previous tasks except the deleted task
+    private void compareList(TestTask[] expectedRemainder){
+    	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
     }
 
     /**
@@ -61,7 +70,7 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         TestTask[] expectedRemainder = updateList(targetIndexOneIndexed,currentList);
 
         //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        compareList(expectedRemainder);
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS,taskToDelete));

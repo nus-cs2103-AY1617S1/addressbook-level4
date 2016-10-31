@@ -50,6 +50,12 @@ public class DoneCommandTest extends ToDoListGuiTest {
     private TestTask[] updateList(int targetIndex, TestTask... currentList){
     	return TestUtil.removeTaskFromList(currentList, targetIndex);
     }
+    
+    //confirm the list now contains all previous tasks except the deleted task
+    private void compareList(TestTask[] expectedRemainder){
+    	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
+    }
+
 
     /**
      * Runs the done command to change the task done status at specified index and confirms the result is correct.
@@ -64,7 +70,7 @@ public class DoneCommandTest extends ToDoListGuiTest {
         TestTask[] expectedRemainder = updateList(targetIndexOneIndexed, currentList);
 
         //confirm the list now contains all previous tasks except the done task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        compareList(expectedRemainder);
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
