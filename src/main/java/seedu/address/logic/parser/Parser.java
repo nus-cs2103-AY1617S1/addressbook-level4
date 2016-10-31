@@ -32,8 +32,6 @@ public class Parser {
                                                                                                            // by
                                                                                                            // whitespace
 
-    private static final Pattern TASK_NAME_ARGS_FORMAT = Pattern.compile("[\\p{Alnum} ]+");
-
     //@@author A0138717X
     private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
 			+ "(?<edit>(?: [dsenr]/[^/]+)?)"

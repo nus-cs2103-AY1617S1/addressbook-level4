@@ -17,17 +17,22 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.RedoStoragePathChangedEvent;
 import seedu.address.commons.events.storage.StoragePathChangedBackEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
+import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -189,76 +194,123 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0142325R
     @Override
     public void updateFilteredTaskList(String type) {
+        updateFilteredTaskList(getPredicateForType(type));
+    }
+    
+    private Expression getPredicateForType(String type) {
         switch (type) {
         case EVENTS:
-            updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
-            break;
+            return new PredicateExpression(new EventQualifier());
         case TASKS:
-            updateFilteredTaskList(new PredicateExpression(new TaskQualifier()));
-            break;
+            return new PredicateExpression(new TaskQualifier());
         case DONE:
         case UNDONE:
-            updateFilteredTaskList(new PredicateExpression(new DoneQualifier(type)));
-            break;
+            return new PredicateExpression(new DoneQualifier(type));
         default:
-            updateFilteredListToShowAll();
-            break;
+            return null;
         }
     }
 
     //@@author A0146123R
     @Override
     public void updateFilteredTaskList(String keyword, String type) {
+        updateFilteredTaskList(getPredicateForKeywordType(type, keyword));
+    }
+
+    private Expression getPredicateForKeywordType(String type, String keyword) {
         switch (type) {
         case START_DATE:
         case DEADLINE:
         case END_DATE:
-            updateFilteredTaskList(new PredicateExpression(new DateQualifier(keyword, type)));
-            break;
+            return new PredicateExpression(new DateQualifier(keyword, type));
         case RECURRING:
-            updateFilteredTaskList(new PredicateExpression(new RecurringQualifier(keyword)));
-            break;
+            return new PredicateExpression(new RecurringQualifier(keyword));
         default:
-            updateFilteredListToShowAll();
-            break;
+            return null;
         }
     }
 
     @Override
-    public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups){
-        PredicateExpression[] predicate = new PredicateExpression[keywordsGroups.size()];
-        int i = 0;
-        for (Set<String> keywords : keywordsGroups) {
-            predicate[i] = new PredicateExpression(new NameQualifier(keywords));
-            i++;
+    public void updateFilteredTaskList(Map<String, String> qualifications, Set<String> tags) {
+        updateFilteredTaskListAndOperation(getPredicateForMultipleQualifications(qualifications, tags));
+    }
+
+    private ArrayList<Expression> getPredicateForMultipleQualifications(Map<String, String> qualifications,
+            Set<String> tags) {
+        ArrayList<Expression> predicate = new ArrayList<>();
+        qualifications.forEach((type, keyword) -> predicate.add(getPredicateForKeywordType(type, keyword)));
+        if (!tags.isEmpty()) {
+            predicate.add(getPredicateForTags(tags));
         }
-        updateFilteredTaskList(predicate);
+        return predicate;
     }
 
     @Override
-    public void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups){
-        PredicateExpression[] predicate = new PredicateExpression[keywordsGroups.size()];
-        int i = 0;
+    public void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags) {
+        ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
+        types.forEach(type -> predicate.add(getPredicateForType(type)));
+        updateFilteredTaskListAndOperation(predicate);
+    }
+
+    @Override
+    public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups) {
+        ArrayList<Expression> predicate = new ArrayList<>();
         for (Set<String> keywords : keywordsGroups) {
-            predicate[i] = new PredicateExpression(new StemmedNameQualifier(keywords));
-            i++;
+            predicate.add(new PredicateExpression(new NameQualifier(keywords)));
         }
-        updateFilteredTaskList(predicate);
+        updateFilteredTaskListAndOperation(predicate);
+    }
+
+    @Override
+    public void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups) {
+        ArrayList<Expression> predicate = new ArrayList<>();
+        for (Set<String> keywords : keywordsGroups) {
+            predicate.add(new PredicateExpression(new StemmedNameQualifier(keywords)));
+        }
+        updateFilteredTaskListAndOperation(predicate);
     }
 
     @Override
     public void updateFilteredTaskListByTags(Set<String> keyword) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
+        updateFilteredTaskList(getPredicateForTags(keyword));
     }
 
-    private void updateFilteredTaskList(Expression... expression) {
+    private Expression getPredicateForTags(Set<String> keyword) {
+        return new PredicateExpression(new TagQualifier(keyword));
+    }
+
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    private void updateFilteredTaskListAndOperation(ArrayList<Expression> expression) {
         Predicate<? super Task> predicate;
-        Predicate<Task> predicates = task -> expression[0].satisfies(task);;
-        for (Expression e: expression) {
+        Predicate<Task> predicates = task -> true;
+        for (Expression e : expression) {
             predicate = task -> e.satisfies(task);
             predicates = predicates.and(predicate);
         }
         filteredTasks.setPredicate(predicates);
+    }
+
+    private void updateFilteredTaskListOrOperation(ArrayList<Expression> expression) {
+        Predicate<? super Task> predicate;
+        if (expression.size() == 0) {
+            filteredTasks.setPredicate(null);
+        } else {
+            Predicate<Task> predicates = task -> expression.get(0).satisfies(task);
+            for (Expression e : expression) {
+                predicate = task -> e.satisfies(task);
+                predicates = predicates.or(predicate);
+            }
+            filteredTasks.setPredicate(predicates);
+        }
+    }
+    
+    @Subscribe
+    @Override
+    public void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
+        updateFilteredTaskList(abce.getTypes(), abce.getQualifications(), abce.getTags());
     }
     //@@author
 

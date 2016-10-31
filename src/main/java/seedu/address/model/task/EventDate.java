@@ -11,7 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class EventDate implements Date{
     
-    public static final String MESSAGE_EVENT_DATE_CONSTRAINTS = "Event date should follow DD.MM.YYYY[-Time(in 24 hrs)]";
+    public static final String MESSAGE_EVENT_DATE_CONSTRAINTS = "Event date must be a valid date";
     
     private String date;
     
@@ -27,12 +27,24 @@ public class EventDate implements Date{
         assert startDate != null && endDate != null;
         startDate = startDate.trim();
         endDate = endDate.trim();
-        if (!isValidDate(startDate) || !isValidDate(endDate)) {
-            throw new IllegalValueException(MESSAGE_EVENT_DATE_CONSTRAINTS);
+        this.startDate = getValidDate(startDate);
+        assert isValidDate(this.startDate);
+        this.endDate = getValidDate(endDate);
+        assert isValidDate(this.endDate);
+        this.date = this.startDate + " to " + this.endDate;
+    }
+    
+    public static String getValidDate(String date) throws IllegalValueException {
+        if (!isValidDate(date)) {
+            try {
+                return Date.parseDate(date);
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalValueException(MESSAGE_EVENT_DATE_CONSTRAINTS);
+            }
+        } else if (Date.needAddLeadingZero(date)) {
+            return Date.addLeadingZero(date);
         }
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.date = startDate + " to " + endDate;
+        return date;
     }
     
     /**

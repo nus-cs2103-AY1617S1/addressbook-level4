@@ -1,6 +1,10 @@
 
 .error {
-    -fx-background-color: red;
+    -fx-background-color: #d9534f;
+}
+
+.error-text {
+    -fx-text-fill: #d9534f;
 }
 
 

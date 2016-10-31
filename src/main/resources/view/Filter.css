@@ -1,0 +1,36 @@
+#filter {
+	-fx-font-size: 24px;
+	-fx-font-family: "Segoe UI";
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+}
+
+.toggle-button, .label {
+	-fx-font-size: 14px;
+	-fx-font-family: "Segoe UI Semibold";
+	-fx-text-fill: black;
+}
+
+.text-field, .choice-box, .toggle-button {
+	-fx-background-radius: 5;
+	-fx-border-radius: 5;
+	-fx-border-insets: -1;
+	-fx-border-width: 2px;
+}
+
+.toggle-button {
+    -fx-border-color: #b1b1b1;
+    -fx-background-color: #e2e2e2;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #c4c4c4;
+}
+
+.choice-box {
+	-fx-mark-color: black;
+}
+
+.text-field {
+    -fx-font-size: 11pt;
+ }

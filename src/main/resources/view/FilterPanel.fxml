@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxWidth="420.0" prefWidth="370.0" style="-fx-background-color: #bdbdbd; -fx-border-color: #d6d6d6; -fx-border-width: 2;" stylesheets="@Filter.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FilterPanel">
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="25.0" prefHeight="60.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="40.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="40.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="43.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="27.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="46.0" />
+      <RowConstraints maxHeight="50.0" minHeight="24.0" prefHeight="24.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="44.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="26.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="45.0" />
+      <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="25.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="210.0" minWidth="80.0" prefWidth="185.0" />
+      <ColumnConstraints maxWidth="210.0" minWidth="80.0" prefWidth="185.0" />
+   </columnConstraints>
+   <children>
+      <ToggleButton fx:id="eventsToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Events">
+          <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="isEvent" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="tasksToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Tasks" toggleGroup="$isEvent" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+         <effect>
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="doneToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Done" GridPane.rowIndex="1"> 
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="isDone" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="undoneToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Undone" toggleGroup="$isDone" GridPane.columnIndex="1" GridPane.rowIndex="1"> 
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+         <effect>
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
+         </effect>
+      </ToggleButton>
+      <Label text="Deadline:" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Recurring:" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font name="Segoe UI Semibold" size="14.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="deadlineTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="recurringTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="Start Date:" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="End Date:" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="startDateTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="endDateTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="20.0" right="10.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="Tag/s:" GridPane.rowIndex="6" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="tagsTextField" maxHeight="30.0" minHeight="20.0" onAction="#handleFilterChanged" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" GridPane.columnSpan="2" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="20.0" right="50.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="Priority Level:" GridPane.rowIndex="8" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+      <ChoiceBox fx:id="priorityChoiceBox" maxHeight="30.0" minHeight="20.0" prefHeight="28.0" style="-fx-background-color: white; -fx-border-color: white;" value="1" GridPane.rowIndex="9">
+         <GridPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </GridPane.margin>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ChoiceBox>
+   </children>
+</GridPane>

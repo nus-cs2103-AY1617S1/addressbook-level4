@@ -1,9 +1,14 @@
 package seedu.address.logic.commands;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.model.task.Date;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.Deadline;
+import seedu.address.model.task.EventDate;
+import seedu.address.model.task.Recurring;
 
 //@@author A0146123R
 /**
@@ -18,9 +23,6 @@ public class FilterCommand extends Command {
             + "Parameters: KEYWORD [s/START_DATE] [e/END_DATE] [d/DEADLINE] [r/RECURRING] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD + " s/23.10.2016 r/daily";
     
-    // Temporary
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should follow DD.MM.YYYY[-Time(in 24 hrs)]";
-
     private static final String DEADLINE = "deadline";
     private static final String START_DATE = "startDate";
     private static final String END_DATE = "endDate";
@@ -42,26 +44,31 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll(); // clear previous filtered results
-        if (deadline.isPresent()) {
-            if (!deadline.get().matches(Date.DATE_VALIDATION_REGEX)) { 
-                // Temporary, it will be updated if the date parser changes. So omit the date validation for others.
-                return new CommandResult(MESSAGE_DATE_CONSTRAINTS); 
+        Map<String, String> filterQualifications = new HashMap<>();
+        try {
+            if (deadline.isPresent()) {
+                String deadlineString = Deadline.getValidDate(deadline.get());
+                filterQualifications.put(DEADLINE, deadlineString);
             }
-            model.updateFilteredTaskList(deadline.get(), DEADLINE);
+            if (startDate.isPresent()) {
+                String startDateString = EventDate.getValidDate(startDate.get());
+                filterQualifications.put(START_DATE, startDateString);
+            }
+            if (endDate.isPresent()) {
+                String endDateString = EventDate.getValidDate(endDate.get());
+                filterQualifications.put(END_DATE, endDateString);
+            }
+            if (recurring.isPresent()) {
+                if (Recurring.isValidFrequency(recurring.get())) {
+                    filterQualifications.put(RECURRING, recurring.get());
+                } else {
+                    throw new IllegalValueException(Recurring.MESSAGE_RECURRING_CONSTRAINTS);
+                }
+            }
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage()); 
         }
-        if (startDate.isPresent()) {
-            model.updateFilteredTaskList(startDate.get(), START_DATE);
-        }
-        if (endDate.isPresent()) {
-            model.updateFilteredTaskList(endDate.get(), END_DATE);
-        }
-        if (recurring.isPresent()) {
-            model.updateFilteredTaskList(recurring.get(), RECURRING);
-        }
-        if (!tags.isEmpty()) {
-            model.updateFilteredTaskListByTags(tags);
-        }
+        model.updateFilteredTaskList(filterQualifications, tags);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

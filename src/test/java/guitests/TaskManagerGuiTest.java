@@ -42,6 +42,7 @@ public abstract class TaskManagerGuiTest {
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
+    protected FilterPanelHandle filterPanel;
     private Stage stage;
 
     @BeforeClass
@@ -62,6 +63,7 @@ public abstract class TaskManagerGuiTest {
             taskListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
+            filterPanel = mainGui.getFilterPanel();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();

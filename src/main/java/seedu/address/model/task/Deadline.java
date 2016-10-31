@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Deadline implements Date{
     
-    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Deadline should follow DD.MM.YYYY[-Time(in 24 hrs)]";
+    public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Deadline must be a valid date";
     
     private String date;
 
@@ -21,10 +21,21 @@ public class Deadline implements Date{
      */
     public Deadline(String date) throws IllegalValueException {
         assert date != null;
+        this.date = getValidDate(date);
+        assert isValidDeadline(this.date);
+    }
+    
+    public static String getValidDate(String date) throws IllegalValueException {
         if (!isValidDeadline(date)) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+            try {
+                return Date.parseDate(date);
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
+            }
+        } else if (Date.needAddLeadingZero(date)) { 
+            return Date.addLeadingZero(date);
         }
-        this.date = date;
+        return date;
     }
 
     /**
