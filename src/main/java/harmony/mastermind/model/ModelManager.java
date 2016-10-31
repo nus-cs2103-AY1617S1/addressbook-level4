@@ -266,17 +266,6 @@ public class ModelManager extends ComponentManager implements Model {
         return br;
     }
 
-    // @@author: A0139194X
-    @Override
-    public synchronized void relocateSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        raise(new RelocateFilePathEvent(newFilePath));
-        indicateTaskManagerChanged();
-    }
-
-    public synchronized void indicateConfirmationToUser() throws CommandCancelledException {
-        raise(new ExpectingConfirmationEvent());
-    }
-    
     // =========== Methods for Recurring Tasks=============================
 
     @Override

@@ -842,13 +842,6 @@ public class MainWindow extends UiPart {
 
         autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
     }
-    
-    @Subscribe
-    //@@author A0124797R
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
-        restoreCommandText();
-    }
 
     // @@author A0124797R
     private void updateTab(CommandResult result) {
