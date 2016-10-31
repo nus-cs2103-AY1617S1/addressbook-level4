@@ -651,7 +651,12 @@ public class CommandParser {
             }
             
             if (timePeriod.isPresent()) {
-                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
+                if (rate.isPresent()) {
+                    String recurRate = rate.get();
+                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every " + recurRate + " " + timePeriod.get());
+                } else {
+                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every 1 " + timePeriod.get());
+                }
             } else {
                 sb.append("\n\tRecurrence Rate Time Period:\tNo Change");
             }
@@ -699,11 +704,15 @@ public class CommandParser {
             if (endDate.isPresent()) {
                 sb.append("\n\tEnd Date:\t\t" + endDate.get());
             }
-            if (rate.isPresent()) {
-                sb.append("\n\tRecurrence Rate:\t" + rate.get());
-            }
             if (timePeriod.isPresent()) {
-                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
+                
+                if (rate.isPresent()) {
+                    String recurRate = rate.get();
+                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every " + recurRate + " " + timePeriod.get());
+                }
+                else {
+                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every 1 " + timePeriod.get());
+                }
             }
             if (priority.isPresent()) {
                 sb.append("\n\tPriority:\t" + priority.get());
