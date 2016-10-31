@@ -138,7 +138,6 @@ public abstract class DateTime {
         assert dateString != null;
         List<DateGroup> dates = new Parser().parse(dateString.trim());
         try {
-            dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
             int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
             String matchingValue = dates.get(BASE_INDEX).getText();
             
