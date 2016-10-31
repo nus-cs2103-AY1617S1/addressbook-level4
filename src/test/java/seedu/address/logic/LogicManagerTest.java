@@ -1057,6 +1057,79 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  
+    //@@author A0138993L
+    @Test
+    public void execute_edit_eventToTodo() throws Exception {
+    	 TestDataHelper helper = new TestDataHelper();
+    	 Task p1 = helper.generateEventWithName("lala");
+         Task p2 = helper.generateEventWithName("lalala");
+
+         Task d1 = helper.generateDeadlineWithName("deadline");
+         Task d2 = helper.generateDeadlineWithName("deadline1");
+
+         Task t1 = helper.generateTodoWithName("todo");
+         Task t2 = helper.generateTodoWithName("todo1");
+         Task t3 = helper.generateTodoWithName("lala");
+         
+         List<Task> twoEvents = helper.generateEventList(p1, p2);
+         List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
+         List<Task> twoTodos = helper.generateTodoList(t1, t2);
+         
+         List<Task> expectedEventList = helper.generateEventList(p2);
+         List<Task> expectedDeadlinesList = helper.generateDeadlineList(d1, d2);
+         List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
+         
+         TaskBook expectedAB = helper.generateAddressBook(twoEvents, twoDeadlines, twoTodos);
+         helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
+         expectedAB.changeTask(p1, "date no date", 'E');
+         expectedAB.changeTaskCategory();
+         
+         assertCommandBehavior("edit E1 date no date",
+        		 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1", "date no date"),
+        		 expectedAB,
+        		 expectedEventList,
+        		 expectedDeadlinesList,
+        		 expectedTodosList);
+         
+    }
+    
+    //@@author A0138993L
+    @Test
+    public void execute_edit_deadlineToTodo() throws Exception {
+    	 TestDataHelper helper = new TestDataHelper();
+    	 Task p1 = helper.generateEventWithName("lala");
+         Task p2 = helper.generateEventWithName("lalala");
+
+         Task d1 = helper.generateDeadlineWithName("deadline");
+         Task d2 = helper.generateDeadlineWithName("deadline1");
+
+         Task t1 = helper.generateTodoWithName("todo");
+         Task t2 = helper.generateTodoWithName("todo1");
+         Task t3 = helper.generateTodoWithName("deadline");
+         
+         List<Task> twoEvents = helper.generateEventList(p1, p2);
+         List<Task> twoDeadlines = helper.generateDeadlineList(d1, d2);
+         List<Task> twoTodos = helper.generateTodoList(t1, t2);
+         
+         List<Task> expectedEventList = helper.generateEventList(p1, p2);
+         List<Task> expectedDeadlinesList = helper.generateDeadlineList(d2);
+         List<Task> expectedTodosList = helper.generateTodoList(t1, t2, t3);
+         
+         TaskBook expectedAB = helper.generateAddressBook(twoEvents, twoDeadlines, twoTodos);
+         helper.addToModel(model, twoEvents, twoDeadlines, twoTodos);
+         expectedAB.changeTask(d1, "date no date", 'D');
+         expectedAB.changeTaskCategory();
+         
+         assertCommandBehavior("edit D1 date no date",
+        		 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "D", "1", "date no date"),
+        		 expectedAB,
+        		 expectedEventList,
+        		 expectedDeadlinesList,
+        		 expectedTodosList);
+         
+    }
+    
     //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventStart() throws Exception {      
