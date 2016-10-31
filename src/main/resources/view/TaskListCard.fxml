@@ -28,8 +28,8 @@
 
                     <children>
                           <HBox prefHeight="57.0" prefWidth="431.0">
-                              <Label fx:id="id" ellipsisString="" minWidth="20.0" prefHeight="29.0" prefWidth="38.0" styleClass="cell_big_label" textOverrun="CLIP" />
-                              <Label fx:id="description" prefHeight="29.0" prefWidth="574.0" styleClass="cell_big_label" text="\$description" wrapText="true" />
+                              <Label fx:id="id" ellipsisString="" minWidth="20.0" prefHeight="29.0" styleClass="cell_big_label" textOverrun="CLIP" />
+                              <Label fx:id="description" prefHeight="29.0" styleClass="cell_big_label" text="\$description" wrapText="true" />
                           </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="426.0" spacing="4">
                             <children>
