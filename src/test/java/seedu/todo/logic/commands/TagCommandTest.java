@@ -10,6 +10,8 @@ import seedu.todo.testutil.TaskFactory;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -50,7 +52,7 @@ public class TagCommandTest extends CommandTest {
         Thread.sleep(20);
 
         //Task indexed at 1
-        model.add("Task 1 No Tags");
+        model.add("Task 1 With 0 Tags");
         Thread.sleep(20);
 
         //Add tags
@@ -212,7 +214,7 @@ public class TagCommandTest extends CommandTest {
 
     /* Delete Tags Globally Test */
     @Test
-    public void testDeleteTagGlobally_deleteOneTag() throws Exception{
+    public void testDeleteTagGlobally_deleteOneTag() throws Exception {
         //Deletes one tag from the list of tags. All other tags should stay intact.
         Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
         Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1]);
@@ -231,7 +233,7 @@ public class TagCommandTest extends CommandTest {
     }
 
     @Test
-    public void testDeleteTagGlobally_deleteMoreTags() throws Exception{
+    public void testDeleteTagGlobally_deleteMoreTags() throws Exception {
         //Deletes two tags from the list of tags. All other tags should stay intact.
         Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
         Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[2]);
@@ -247,4 +249,53 @@ public class TagCommandTest extends CommandTest {
         assertEquals(expectsOneTags, getTaskAt(4).getTags());
         assertEquals(expectsThreeTags, getTaskAt(5).getTags());
     }
+
+    @Test (expected = ValidationException.class)
+    public void testDeleteTagGlobally_deleteMissingTagsWithException() throws Exception {
+        //Deletes a tag that does not exist.
+        setParameter("d", VALID_TAG_NAMES[1] + " " + VALID_TAG_NAMES[5]);
+        execute(false);
+    }
+
+    @Test
+    public void testDeleteTagGlobally_deleteMissingTagsWithNoOp() {
+        //Deletes a tag that does not exist. This should result in no op.
+        List<Set<Tag>> listOfExpectedOutcome = new ArrayList<>();
+        for (int taskIndex = 1; taskIndex <= 5; taskIndex ++) {
+            listOfExpectedOutcome.add(new HashSet<>(getTaskAt(taskIndex).getTags()));
+        }
+
+        setParameter("d", VALID_TAG_NAMES[1] + " " + VALID_TAG_NAMES[5]);
+        try {
+            execute(false);
+
+            //After the above line, not supposed to happen!
+            assertTrue(false);
+        } catch (ValidationException e) {
+            //Validation exception expected, now check that the tags are unmodified.
+            for (int taskIndex = 1; taskIndex <= 5 ; taskIndex ++) {
+                assertEquals(listOfExpectedOutcome.get(taskIndex), getTaskAt(taskIndex).getTags());
+            }
+        }
+    }
+
+    /* Rename Tag Test */
+    @Test
+    public void renameTag_renameTagSuccess() throws Exception {
+        //Renames a tag successfully
+
+    }
+
+    @Test (expected = ValidationException.class)
+    public void renameTag_newNameExists() throws Exception {
+
+    }
+
+    @Test (expected = ValidationException.class)
+    public void renameTag_oldNameMissing() throws Exception {
+
+    }
+
+    /* Helper Method */
+
 }
