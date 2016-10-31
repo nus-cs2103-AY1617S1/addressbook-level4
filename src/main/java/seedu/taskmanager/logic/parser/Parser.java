@@ -73,8 +73,8 @@ public class Parser {
     private static final Prefix tagPrefix = new Prefix("#");
     private static final String removeTagPrefixString = "-";
     
-    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    private static final int PARSE_DATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSE_DATETIME_ARRAY_TIME_INDEX = 1;
     
     //@@author A0140060A-unused
     //Used in earlier version, functionality replaced by ArgumentTokenizer
@@ -355,7 +355,7 @@ public class Parser {
         if (tagsToAdd == null) {
             tagsToAdd = new ArrayList<String>();
         }
-        if (endDateTime != null || startDateTime != null) {
+        if (containsInput(endDateTime) || containsInput(startDateTime)) {
         	return addNlpEvent(eventMatcher);
         } else {
         	if (name == null || startDate == null || endDate == null) {
@@ -432,7 +432,7 @@ public class Parser {
         
         try {
             //Handle case where user enters end date and time using natural language via edt/
-            if (endDateTime != null) {
+            if (containsInput(endDateTime)) {
                 return addNlpDeadline(deadlineMatcher);
             } else {
             	if (name == null || endDate == null) {
@@ -490,56 +490,90 @@ public class Parser {
      * @return the prepared EditCommand
      */
     private Command prepareEdit(String args) {
-        assert args != null;
+        assert containsInput(args);
         final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
         
-        if (matcher.matches()) {
-            Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
-            if (index.isPresent()) {
-                String editCommandArgs = matcher.group("editCommandArguments");
-                ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
-                                                                        startDateTimePrefix, endDatePrefix, endTimePrefix,
-                                                                        endDateTimePrefix, tagPrefix);
-                logger.fine("In prepareEdit, before tokenize");
-                argsTokenizer.tokenize(editCommandArgs);
-                
-                //Capture argument values into their respective variables if available
-                String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
-                String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
-                String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
-                String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
-                String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
-                String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
-                String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
-                List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
-                List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
-                
-                try {
-                    //Handle case where user enters start date and time using natural language via sdt/
-                    if (startDateTime != null) {
-                        String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
-                        startDate = startDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
-                        startTime = startDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
-                    }
+        if (matcher.matches() && hasParsableIndex(matcher.group("targetIndex"))) {
+            Integer index = parseIndex(matcher.group("targetIndex")).get();
+            
+            String editCommandArgs = matcher.group("editCommandArguments");
+            ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, 
+                                                    startTimePrefix, startDateTimePrefix, endDatePrefix, 
+                                                    endTimePrefix, endDateTimePrefix, tagPrefix);
+            logger.fine("In prepareEdit, before tokenize");
+            argsTokenizer.tokenize(editCommandArgs);
+            
+            //Capture argument values into their respective variables if available
+            String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+            String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
+            String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
+            String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+            String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+            String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+            String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+            List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+            List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
+            
+            try {
+                if (containsInput(startDateTime)) {
+                    String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, 
+                                                              ItemTime.TIME_FORMAT);
                     
-                    //Handle case where user enters end date and time using natural language via edt/
-                    if (endDateTime != null) {
-                        String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
-                        endDate = endDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
-                        endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
-                    }
+                    startDate = startDateTimeArr[PARSE_DATETIME_ARRAY_DATE_INDEX];
+                    startTime = startDateTimeArr[PARSE_DATETIME_ARRAY_TIME_INDEX];
+                }
+                
+                if (containsInput(endDateTime)) {
+                    String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, 
+                                                            ItemTime.TIME_FORMAT);
                     
-                    //Ensure EditCommand is created with at least one non-null parameter other than targetIndex
-                    if (name != null || startDate != null || startTime!= null || endDate != null 
-                        || endTime != null || tagsToAdd != null || tagsToRemove != null) {
-                        return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime, tagsToAdd, tagsToRemove);
-                    }
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                }   
-            }
+                    endDate = endDateTimeArr[PARSE_DATETIME_ARRAY_DATE_INDEX];
+                    endTime = endDateTimeArr[PARSE_DATETIME_ARRAY_TIME_INDEX];
+                }
+                
+                if (containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
+                                                        endTime, tagsToAdd, tagsToRemove)) {
+                    return new EditCommand(index, name, startDate, startTime, 
+                                           endDate, endTime, tagsToAdd, tagsToRemove);
+                }
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }   
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * @param indexToParse String containing user input for index parameter
+     * @return true if index was parsed successfully
+     */
+    private boolean hasParsableIndex(final String indexToParse) {
+        return parseIndex(indexToParse).isPresent();
+    }
+
+    /**
+     * @param name
+     * @param startDate
+     * @param startTime
+     * @param endDate
+     * @param endTime
+     * @param tagsToAdd
+     * @param tagsToRemove
+     * @return true if at least one parameter contains input
+     */
+    private boolean containsInputForAtLeastOneParameter(String name, String startDate, String startTime,
+            String endDate, String endTime, List<String> tagsToAdd, List<String> tagsToRemove) {
+        return containsInput(name) || containsInput(startDate) || containsInput(startTime) 
+               || containsInput(endDate) || containsInput(endTime) || containsInput(tagsToAdd) 
+               || containsInput(tagsToRemove);
+    }
+
+    /**
+     * @param argument
+     * @return true if argument contains input from user
+     */
+    private boolean containsInput(Object argument) {
+        return argument != null;
     }
 
     /**
@@ -635,10 +669,12 @@ public class Parser {
      * @return parsed argument as string or null if argument not parsed 
      */
     private String[] parseDateTime(String argument, String dateFormat, String timeFormat) throws IllegalValueException {
-        assert dateFormat != null && !dateFormat.isEmpty();
-        assert timeFormat != null && !timeFormat.isEmpty();
-        assert argument != null;
-    
+        assert containsInput(dateFormat) && !dateFormat.isEmpty();
+        assert containsInput(timeFormat) && !timeFormat.isEmpty();
+        assert containsInput(argument);
+        
+        String[] parsedDateTime = new String[2];
+        
         List<Date> dateTimes = new PrettyTimeParser().parse(argument);
         
         if (dateTimes.isEmpty()) {
@@ -651,9 +687,9 @@ public class Parser {
         String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
         String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
         
-        String[] parsedDateTime = new String[2];
-        parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
-        parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
+        
+        parsedDateTime[PARSE_DATETIME_ARRAY_DATE_INDEX] = parsedDate;
+        parsedDateTime[PARSE_DATETIME_ARRAY_TIME_INDEX] = parsedTime;
         
         return parsedDateTime;
     }

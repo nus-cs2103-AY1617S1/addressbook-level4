@@ -11,6 +11,7 @@ import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.taskmanager.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.testutil.TestItem;
 import seedu.taskmanager.testutil.TestUtil;
@@ -23,10 +24,9 @@ import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUC
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.taskmanager.logic.commands.EditCommand.COMMAND_WORD;
 import static seedu.taskmanager.logic.commands.EditCommand.SHORT_COMMAND_WORD;
-import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_TAG_NOT_FOUND;
+import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_NOTHING_EDITED;
 import static seedu.taskmanager.model.item.ItemTime.MESSAGE_TIME_CONSTRAINTS;
 import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
-import static seedu.taskmanager.logic.commands.Command.MESSAGE_DUPLICATE_ITEM;
 import static seedu.taskmanager.logic.commands.Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME;
 
 import java.util.Set;
@@ -146,37 +146,37 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestItem[] currentList = td.getTypicalItems();
         //invalid parameters for item type task
         commandBox.runCommand("edit " + (currentList.length/2 + 1) + " et/" + validEndTime);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
         commandBox.runCommand("edit " + (currentList.length/2 + 1) + " ed/" + validEndDate);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
         commandBox.runCommand("edit " + currentList.length/2 + " st/" + validStartTime);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
         commandBox.runCommand("edit " + currentList.length/2 + " sd/" + validStartDate);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
         //invalid parameters for item type deadline
         commandBox.runCommand("edit 2  st/" + validStartTime);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
         commandBox.runCommand("edit 2 sd/" + validStartDate);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
     
     
     @Test
     public void edit_addDuplicateTag_duplicateItemMessage() {
         commandBox.runCommand("edit 2 #work");
-        assertResultMessage(MESSAGE_DUPLICATE_ITEM);
+        assertResultMessage(MESSAGE_NOTHING_EDITED);
     }
     
     @Test
     public void edit_deleteNonExistentTag_TagNotFoundMessage() {
         commandBox.runCommand("edit 2 #-" + nonexistentTag );
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                            String.format(MESSAGE_TAG_NOT_FOUND, "[" + nonexistentTag + "]")));
+                            String.format(TagNotFoundException.MESSAGE_TAG_NOT_FOUND, "[" + nonexistentTag + "]")));
     }
        
     @Test

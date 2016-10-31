@@ -3,7 +3,9 @@ package seedu.taskmanager.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.taskmanager.commons.exceptions.DuplicateDataException;
+import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.CollectionUtil;
+import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.*;
 
@@ -26,7 +28,19 @@ public class UniqueTagList implements Iterable<Tag> {
             super("Operation would result in duplicate tags");
         }
     }
-
+    
+    //@@author A0140060A
+    /**
+     * Signals that an operation tried to access a nonexistent tag.
+     */
+    public static class TagNotFoundException extends IllegalValueException {
+        public static final String MESSAGE_TAG_NOT_FOUND = "Tag %1$s does not exist! Tags must exist in order to be deletable";
+        protected TagNotFoundException(Tag tag) {
+            super(String.format(MESSAGE_TAG_NOT_FOUND, tag));
+        }
+    }
+    //@@author
+    
     /**
      * Constructs empty TagList.
      */
@@ -96,7 +110,31 @@ public class UniqueTagList implements Iterable<Tag> {
             }
         }
     }
-
+    
+    //@@author A0140060A
+    /**
+     * removes every tag in the argument list from this list.
+     * @param tagsToRemove 
+     * @throws TagNotFoundException if the Tag to remove does not exist in the list.
+     */
+    public void remove(UniqueTagList tagsToRemove) throws TagNotFoundException {
+        for (Tag tag : tagsToRemove) {
+            if (!this.internalList.contains(tag)) {
+                throw new TagNotFoundException(tag); 
+            }
+        }
+        
+        ObservableList<Tag> internalListCopy = FXCollections.observableArrayList(internalList);
+        this.internalList.clear();
+        
+        for (Tag tag : internalListCopy) {
+            if (!tagsToRemove.contains(tag)) {
+                internalList.add(tag);
+            }
+        }
+    }
+    //@@author
+    
     /**
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
