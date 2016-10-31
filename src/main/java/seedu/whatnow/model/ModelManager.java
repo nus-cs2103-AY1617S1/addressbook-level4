@@ -15,6 +15,8 @@ import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.Command;
+import seedu.whatnow.model.freetime.FreePeriod;
+import seedu.whatnow.model.freetime.Period;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
@@ -23,7 +25,9 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -61,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfMarkUndoneTaskTypes;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
+    private final HashMap<String, FreePeriod> freeTimes;
     
     //@@author A0139128A
     /**
@@ -95,6 +100,8 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneTaskTypes = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        freeTimes = new HashMap<String, FreePeriod>();
+        initialiseFreeTime();
     }
     //@@author A0141021H-reused
     public ModelManager() {
@@ -123,6 +130,15 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfMarkUndoneTaskTypes = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
+        freeTimes = new HashMap<String, FreePeriod>();
+        initialiseFreeTime();
+    }
+    
+    //@@author A0139772U
+    private void initialiseFreeTime() {
+        for (int i = 0; i < filteredTasks.size(); i++) {
+            blockFreeTime(filteredTasks.get(i));   
+        }
     }
     //@@author A0139128A
     @Override
@@ -179,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
+        blockFreeTime(task);
         updateFilteredListToShowAllIncomplete();
         indicateAddTask(task, false);
         indicateWhatNowChanged();
@@ -291,6 +308,29 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public Stack<String> getStackOfListTypesRedo() {
         return stackOfListTypesRedo;
+    }
+    
+    //@@author A0139772U
+    @Override
+    public FreePeriod getFreeTime(String date) {
+        freeTimes.get(date).getList().sort(new Period());
+        return freeTimes.get(date);
+    }
+    
+    //@@author A0139772U
+    private void blockFreeTime(Task task) {
+        String date = task.getTaskDate();
+        String startTime = task.getStartTime();
+        String endTime = task.getEndTime();
+        if (date != null && startTime != null && endTime != null) {
+            if (freeTimes.get(date) == null) {
+                FreePeriod newFreePeriod = new FreePeriod();
+                newFreePeriod.block(startTime, endTime);
+                freeTimes.put(date, newFreePeriod);
+            } else {
+                freeTimes.get(date).block(startTime, endTime);
+            }
+        }
     }
     
     //=========== Filtered Task List Accessors ===============================================================

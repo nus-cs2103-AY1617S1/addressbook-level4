@@ -187,6 +187,9 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+        case FreeTimeCommand.COMMAND_WORD:
+            return new FreeTimeCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
