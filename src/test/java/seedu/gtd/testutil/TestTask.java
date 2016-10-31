@@ -18,7 +18,15 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public TestTask(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
+    	this.name = name;
+        this.dueDate = dueDate;
+        this.address = address;
+        this.priority = priority;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+	}
+
+	public void setName(Name name) {
         this.name = name;
     }
     
