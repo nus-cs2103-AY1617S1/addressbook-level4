@@ -20,7 +20,7 @@ public class TypicalTestTasks {
             benson = new TaskBuilder().withName("Benson Meier").withEnd("6pm")
                     .withStart("2am").withDate("01.05.23")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDate("12/12/16").withStart("default").withEnd("2359").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withDate("12/12/16").withStart("default").withEnd("2350").build();
             daniel = new TaskBuilder().withName("Daniel Meier").withDate("15.11.23").withStart("7am").withEnd("11pm").build();
             elle = new TaskBuilder().withName("Elle Meyer").withDate("29/05/12").withStart("0001").withEnd("1212").build();
             fiona = new TaskBuilder().withName("Fiona Kunz").withDate("no date").withStart("no start").withEnd("no end").build();

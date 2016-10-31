@@ -40,7 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private final TaskBook addressBook;
+    private final TaskBook taskBook;
     private final FilteredList<Task> filteredEvents;
     private final Stack<SaveState> undoStack;
     private final Stack<SaveState> redoStack;
@@ -60,10 +60,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskBook(src);
-        filteredEvents = new FilteredList<>(addressBook.getEvents());
-        filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
-        filteredTodos = new FilteredList<>(addressBook.getTodo());
+        taskBook = new TaskBook(src);
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
+        filteredDeadlines = new FilteredList<>(taskBook.getDeadlines());
+        filteredTodos = new FilteredList<>(taskBook.getTodo());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
         commandHistory = new ArrayList<String>();
@@ -75,10 +75,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs, Config config) {
-        addressBook = new TaskBook(initialData);
-        filteredEvents = new FilteredList<>(addressBook.getEvents());
-        filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
-        filteredTodos = new FilteredList<>(addressBook.getTodo());
+        taskBook = new TaskBook(initialData);
+        filteredEvents = new FilteredList<>(taskBook.getEvents());
+        filteredDeadlines = new FilteredList<>(taskBook.getDeadlines());
+        filteredTodos = new FilteredList<>(taskBook.getTodo());
         undoStack = new Stack<SaveState>();
         redoStack = new Stack<SaveState>();
         commandHistory = new ArrayList<String>();
@@ -94,7 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0147890U
     @Override
     public void addToUndoStack() {
-        TaskBook taskBookToBeAdded = new TaskBook(addressBook);
+        TaskBook taskBookToBeAdded = new TaskBook(taskBook);
         //Config configToBeAdded = new Config(config);
         SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, config);
         
@@ -127,19 +127,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
-        addressBook.resetData(newData);
+        taskBook.resetData(newData);
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyTaskBook getAddressBook() {
-        return addressBook;
+        return taskBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(taskBook));
     }
     
     //@@author A0147890U
@@ -151,13 +151,13 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139430L JingRui
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.removeTask(target);
+        taskBook.removeTask(target);
         indicateAddressBookChanged();
     }
     
     @Override 
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
-        addressBook.changeTask(target, args, category);
+        taskBook.changeTask(target, args, category);
         //updateFilteredListToShowAll(); // why was this line commented out?
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
@@ -165,14 +165,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        addressBook.addTask(task);
+        taskBook.addTask(task);
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
     
     //@@author A0135722L Zhiyuan
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
-        addressBook.completeTask(target);
+        taskBook.completeTask(target);
         updateFilteredListToShowAllUncompleted();
         indicateAddressBookChanged();
     }
@@ -182,7 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void overdueTask() {
     	final Runnable overdue = new Runnable() {
     		public void run() {
-    			addressBook.overdueTask();
+    			taskBook.overdueTask();
     			indicateTaskOverdueChanged();
     	        indicateAddressBookChanged();
     		};
@@ -194,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void changeTaskCategory() {
         try {
-            addressBook.changeTaskCategory();
+            taskBook.changeTaskCategory();
         } catch (DuplicateTaskException | TaskNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

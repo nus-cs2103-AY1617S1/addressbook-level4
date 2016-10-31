@@ -122,17 +122,21 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
     //@@author A0138993L
-    public boolean markOverdue(ReadOnlyTask key) {
+    public int markOverdue(ReadOnlyTask key) {
     	assert key != null;
     	int overdueIndex = internalList.indexOf(key);
     	Task overduedTask = internalList.get(overdueIndex);
-    	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd())) {
+    	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 1) {
     		overduedTask.setOverdue(1);
-    		return true;
+    		return overduedTask.getOverdue();
+    	}
+    	else if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd()) == 2) {
+    		overduedTask.setOverdue(2);
+    		return overduedTask.getOverdue();
     	}
     	else {
-    		overduedTask.setOverdue(0);;
-    		return false;
+    		overduedTask.setOverdue(0);
+    		return overduedTask.getOverdue();
     	}
     }
 

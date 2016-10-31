@@ -40,8 +40,10 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
         this.taskCategory = taskCategory;
         this.isCompleted = isCompleted;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        if (isOverdue(this.getDate(), this.getEnd()))
+        if (isOverdue(this.getDate(), this.getEnd())==1)
         	this.overdue =1;
+        else if (isOverdue(this.getDate(), this.getEnd()) ==2)
+        	this.overdue =2;
         else
         	this.overdue =0;
     }
@@ -58,8 +60,10 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
         this.taskCategory = taskCategory;
         this.isCompleted = isCompleted;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        if (isOverdue(this.getDate(), this.getEnd()))
+        if (isOverdue(this.getDate(), this.getEnd())==1)
         	this.overdue =1;
+        else if (isOverdue(this.getDate(), this.getEnd()) ==2)
+        	this.overdue =2;
         else 
         	this.overdue =0;
     }
@@ -87,15 +91,18 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
         this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getOverdue(),source.getIsCompleted(), source.getTags());
     }
     //@@author A0138993L
-    public boolean isOverdue(Date checkDate, End checkEnd) {
+    public int isOverdue(Date checkDate, End checkEnd) {
     	if (checkDate.isAfterCurrentDate(checkDate.toString()) == 0){
-    		return true;
+    		return 1;
     	}
     	else if ((checkDate.isAfterCurrentDate(checkDate.toString()) ==2) &&  (checkEnd.isPastEndTime(checkEnd.toString()))){
-    		return true;
+    		return 1;
+    	}
+    	else if ((checkDate.isAfterCurrentDate(checkDate.toString()) ==2) &&  (!checkEnd.isPastEndTime(checkEnd.toString()))){
+    		return 2;
     	}
     	else {
-    		return false;
+    		return 0;
     	}
   	}
 
