@@ -62,10 +62,12 @@ public class RepeatCommand extends Command{
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
         
+        /**
+         * "Uncompletes" a task on repeat
+         */
         String name = taskToDelete.getName().toString();
-        // TODO: Allow completed tasks to be repeated
-        if(name.contains(" is completed")){
-        	return new CommandResult(MESSAGE_TASK_IS_COMPLETE);
+        if(name.contains(" is completed") && !timeInterval.equalsIgnoreCase("off")){
+        	name = name.replace(" is completed", "");
         }
         
         /**
@@ -90,7 +92,7 @@ public class RepeatCommand extends Command{
         
         try{
 	        this.toAdd = new Task(
-	        		new Name(taskToDelete.getName().fullName), 
+	        		new Name(name), 
 	        		new Startline(taskToDelete.getStartline().value), 
 	        		new Deadline(taskToDelete.getDeadline().value),
 	        		new Priority(taskToDelete.getPriority().value),
