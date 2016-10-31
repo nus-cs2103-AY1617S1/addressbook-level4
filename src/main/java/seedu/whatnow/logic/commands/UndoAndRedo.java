@@ -1,4 +1,4 @@
-//@@author A0139128A
+//@@author A0139128A-unused
 package seedu.whatnow.logic.commands;
 
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;

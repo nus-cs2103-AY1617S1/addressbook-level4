@@ -48,8 +48,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredSchedules;
-    private final Stack<Command> stackOfUndo;
-    private final Stack<Command> stackOfRedo;
+    private final Stack<String> stackOfUndo;
+    private final Stack<String> stackOfRedo;
     private final Stack<ReadOnlyTask> stackOfOldTask;
     private final Stack<ReadOnlyTask> stackOfNewTask;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
@@ -60,9 +60,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
     private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
     private final Stack<ReadOnlyTask> stackOfMarkDone;
+    private final Stack<ReadOnlyTask> stackOfMarkDoneRedo;
     private final Stack<ReadOnlyTask> stackOfMarkUndone;
-    private final Stack<String> stackOfMarkDoneTaskTypes;
-    private final Stack<String> stackOfMarkUndoneTaskTypes;
+    private final Stack<ReadOnlyTask> stackOfMarkUndoneRedo;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
     private final HashMap<String, FreePeriod> freeTimes;
@@ -95,9 +95,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfDeletedTasksAdd = new Stack<>();
         stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone= new Stack<>();
+        stackOfMarkDoneRedo = new Stack<>();
         stackOfMarkUndone = new Stack<>();
-        stackOfMarkDoneTaskTypes = new Stack<>();
-        stackOfMarkUndoneTaskTypes = new Stack<>();
+        stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
         freeTimes = new HashMap<String, FreePeriod>();
@@ -125,9 +125,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfDeletedTasksAdd = new Stack<>();
         stackOfDeletedTasksAddRedo = new Stack<>();
         stackOfMarkDone = new Stack<>();
+        stackOfMarkDoneRedo = new Stack<>();
         stackOfMarkUndone = new Stack<>();
-        stackOfMarkDoneTaskTypes = new Stack<>();
-        stackOfMarkUndoneTaskTypes = new Stack<>();
+        stackOfMarkUndoneRedo = new Stack<>();
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
         freeTimes = new HashMap<String, FreePeriod>();
@@ -228,12 +228,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author A0139128A
     @Override
-    public Stack<Command> getUndoStack() {
+    public Stack<String> getUndoStack() {
         return stackOfUndo;
     }
     //@@author A0139128A
     @Override
-    public Stack<Command> getRedoStack() {
+    public Stack<String> getRedoStack() {
         return stackOfRedo;
     }
     //@@author A0139128A
@@ -285,19 +285,19 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
         return stackOfMarkDone;
     }
+    //@@author A0139128A
+    @Override
+    public Stack<ReadOnlyTask> getStackOfMarkDoneTaskRedo() {
+    	return stackOfMarkDoneRedo;
+    }
     //@@author A0141021H
     @Override
     public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
         return stackOfMarkUndone;
     }
-    //@@author A0139128A 
-    @Override
-    public Stack<String> getStackOfMarkDoneTaskTaskType() {
-        return stackOfMarkDoneTaskTypes;
-    }
-    //@@author A0141021H
-    public Stack<String> getStackOfMarkUndoneTaskTaskType() {
-        return stackOfMarkUndoneTaskTypes;
+    //@@author A0139128A
+    public Stack<ReadOnlyTask> getStackOfMarkUndoneTaskRedo() {
+    	return stackOfMarkUndoneRedo;
     }
     //@@author A0139128A
     @Override
