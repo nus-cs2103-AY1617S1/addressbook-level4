@@ -161,6 +161,7 @@ The `UI` component:
 <em>Fig. 6 Logic Class Diagram</em>
 </p>
 <br></br>
+<!-- @@author A0139052L -->
 
 **API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)<br>
 Figure 6 shows the Logic class diagram.<br>
@@ -173,13 +174,22 @@ The result of the command execution is encapsulated as a `CommandResult` object 
 <p align="center">
 <img src="images/DeleteTaskSDforLogic.png" width="800"><br>
 
-<em>Fig. 7 Delete Task Sequence Diagram for Logic</em>
+<em>Fig. 7 Delete Task Sequence Diagram for Logic DeleteCommand</em>
 </p>
 <br></br>
 
-Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete d1")`
-API call.<br>
-> Note that commands that affects the `TaskManager` inside of `Model` will store the command information after successful execution, with exception of Clear Command which stores the command information before execution, while other commands doesn't.<br>
+Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component and with the Model for the `execute("delete d1")` API call.<br>
+> Note that commands that affects the `TaskManager` inside of `Model` will store the command information after successful execution (before execution for ClearCommand) , while other commands does not need to store any command information.<br>
+
+<p align="center">
+<img src="images/DeleteTaskSDforLogicHelp.png" width="800"><br>
+
+<em>Fig. 8 Delete Task Sequence Diagram for Logic HelpCommand</em>
+</p>
+<br></br>
+
+Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component, where the Command directly posts an Event to the `EventsCenter` for the `execute("help")` API call.<br>
+<!-- @@author -->
 
 ### Model component
 <br></br>
