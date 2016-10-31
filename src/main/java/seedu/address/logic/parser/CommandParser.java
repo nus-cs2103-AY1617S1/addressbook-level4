@@ -611,10 +611,11 @@ public class CommandParser {
             
             String trimmedArgs = arguments.trim();
             String indexToEdit = trimmedArgs.substring(0, 1);
-            String argumentsWithoutIndex = trimmedArgs.substring(1).trim();
+            String argumentsWithoutIndex = trimmedArgs.substring(1);
             String resetField = null;
+            String[] resetSplit = argumentsWithoutIndex.split("-reset");
             
-            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(argumentsWithoutIndex);
+            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(" " + resetSplit[ZERO]);
             
             Optional<String> name = fieldMap.get("taskName");
             Optional<String> startDate = fieldMap.get("startDate");
@@ -623,7 +624,6 @@ public class CommandParser {
             Optional<String> timePeriod = fieldMap.get("timePeriod");
             Optional<String> priority = fieldMap.get("priority");
 
-            String[] resetSplit = argumentsWithoutIndex.split("-reset");
             if(resetSplit.length == TWO){
                 resetField = resetSplit[ONE];
             }
@@ -674,9 +674,9 @@ public class CommandParser {
             }
             
             if (resetField != null) {
-                sb.append("\n\tReset Field:\t" + resetField);
+                sb.append("\n\tReset:\t" + resetField);
             } else {
-                sb.append("\n\tReset Field:\tNo Change");
+                sb.append("\n\tReset:\tNo Change");
             }
             return sb.toString();
             
