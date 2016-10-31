@@ -18,7 +18,7 @@ public class DateNaturalLanguageProcessor implements NaturalLanguageProcessor {
 		return refineDateGroupList(dateGroups);
 	}
 	
-	/*Does not tolerate alternative dates*/
+	/** Does not tolerate alternative dates */
 	private String refineDateGroupList(List<DateGroup> groups) {
 	  if(groups.size() == 1) {
 		  return formatDateToString(groups.get(0).getDates().get(0));
