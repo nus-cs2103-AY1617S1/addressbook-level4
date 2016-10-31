@@ -30,14 +30,21 @@ public class Startline  {
      */
 	public Startline(String startline) throws IllegalValueException {
 		if(startline != null){
-			String [] date_time = startline.trim().split("\\s+");
-			this.value = mutateToDash(date_time[0])  + " " + date_time[1];
-			this.date = mutateToDate(this.value);
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(this.date);
-			this.calendar = cal;
+			if(startline.equals("")){
+				this.value = "";
+				this.date = null;
+				this.calendar = null;
+			}
+			else{
+				String [] date_time = startline.trim().split("\\s+");
+				this.value = mutateToDash(date_time[0])  + " " + date_time[1];
+				this.date = mutateToDate(this.value);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(this.date);
+				this.calendar = cal;
+			}
 		}
-		else{
+		else {
 			this.value = "";
 			this.date = null;
 			this.calendar = null;
