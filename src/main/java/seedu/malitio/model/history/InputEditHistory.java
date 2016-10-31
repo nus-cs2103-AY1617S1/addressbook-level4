@@ -20,7 +20,6 @@ public class InputEditHistory extends InputHistory {
     
     public InputEditHistory(Object edited, Object beforeEdit) {
         this.commandForUndo = EditCommand.COMMAND_WORD;
-        this.commandForRedo = EditCommand.COMMAND_WORD;
         this.taskToEdit = edited;
         if (isFloatingTask(edited)) {
             createEditedFloatingTask(beforeEdit);

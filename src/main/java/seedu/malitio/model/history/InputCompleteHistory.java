@@ -1,6 +1,5 @@
 package seedu.malitio.model.history;
 
-import seedu.malitio.logic.commands.CompleteCommand;
 import seedu.malitio.logic.commands.UncompleteCommand;
 
 public class InputCompleteHistory extends InputHistory {
@@ -10,7 +9,6 @@ public class InputCompleteHistory extends InputHistory {
     public InputCompleteHistory(Object taskToUncomplete) {
         this.taskToUncomplete = taskToUncomplete;
         this.commandForUndo = UncompleteCommand.COMMAND_WORD;
-        this.commandForRedo = CompleteCommand.COMMAND_WORD;
     }
     
     public Object getTask() {

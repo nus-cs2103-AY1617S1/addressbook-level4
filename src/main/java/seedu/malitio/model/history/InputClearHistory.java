@@ -20,7 +20,6 @@ public class InputClearHistory extends InputHistory{
         this.originalEventList.getInternalList().addAll(event.getInternalList());
         this.originalTagList.getInternalList().addAll(tag.getInternalList());
         this.commandForUndo = ClearCommand.COMMAND_WORD;
-        this.commandForRedo = ClearCommand.COMMAND_WORD;
     }
     
     public UniqueFloatingTaskList getFloatingTask() {
