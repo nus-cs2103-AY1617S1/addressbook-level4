@@ -325,6 +325,9 @@ public class Parser {
      */
     //@@author A0124797R
     private Command prepareMark(String args, String currentTab) {
+        if (currentTab.equals(TAB_ARCHIVES)) {
+            return new IncorrectCommand(MarkCommand.MESSAGE_TASK_MARKED);
+        }
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
