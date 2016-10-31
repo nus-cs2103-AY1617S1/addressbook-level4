@@ -24,7 +24,11 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     
-    private static final Pattern FILE_PATH_ARGS_FORMAT =Pattern.compile("([a-zA-Z]:/)?(([a-zA-Z0-9]+/)+)?([a-zA-Z0-9]+)");
+    private static final Pattern FILE_PATH_ARGS_FORMAT =
+            Pattern.compile("([a-zA-Z]:/)?"
+                    + "(([a-zA-Z0-9 _-]+/)+)?"
+                    + "([a-zA-Z0-9 _-]+)"
+                    + "(\\.xml)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace

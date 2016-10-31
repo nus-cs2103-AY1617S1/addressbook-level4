@@ -8,15 +8,15 @@ public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes file name and the saving directory.\n"
-            + "Parameters: FILE_PATH/FILE_NAME\n"
-            + "Example: " + COMMAND_WORD + " Data/ToDoList2";
+            + "Parameters: FILE_PATH/FILE_NAME.xml\n"
+            + "Example: " + COMMAND_WORD + " data/ToDoList2.xml";
     public static final String MESSAGE_SUCCESS = "File is successfully saved to: %1$s";
     public static final String MESSAGE_INVALID_PATH = "File path %1$s is a wrong file path";
     
     private final String filePath;
     
     public SaveCommand(String filePath){
-        this.filePath = filePath + ".xml";
+        this.filePath = filePath;
     }
     
     @Override
