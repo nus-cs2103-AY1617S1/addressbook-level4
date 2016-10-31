@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -198,7 +198,8 @@ public class LogicManagerTest {
         helpShown = false;
         
         for (Command c : cmdStubList) {
-            if (c.getCommandWord().isEmpty()) { // to account for some commands having no command words e.g. IncorrectCommand
+            // to account for some commands having no command words e.g. IncorrectCommand
+            if (c.getCommandWord().isEmpty()) { 
                 continue;
             }
             assertCommandBehavior("help " + c.getCommandWord(), c.getMessageUsage());
@@ -214,15 +215,14 @@ public class LogicManagerTest {
     
     @Test
     public void execute_help_unknown_cmd() throws Exception {
-        StringJoiner sj = new StringJoiner(", ");
-        cmdStubList.stream()
-            .map(c -> c.getCommandWord())
-            .filter(s -> s != null && !s.isEmpty())
-            .forEach(s -> sj.add(s));
+        String allCmds = cmdStubList.stream()
+                .map(c -> c.getCommandWord())
+                .filter(s -> s != null && !s.isEmpty())
+                .collect(Collectors.joining(", "));
         
         String invalidCmd = "asdasdasdasd";
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                String.format(HelpCommand.UNKNOWN_HELP_COMMAND, invalidCmd, sj.toString()));
+                String.format(HelpCommand.UNKNOWN_HELP_COMMAND, invalidCmd, allCmds));
         
         helpShown = false;
         assertCommandBehavior("help " + invalidCmd, expectedMessage);
