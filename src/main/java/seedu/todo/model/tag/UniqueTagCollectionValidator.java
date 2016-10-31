@@ -7,12 +7,7 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -90,15 +85,15 @@ public class UniqueTagCollectionValidator {
         validateNameCharLimit(tagNames);
         validateDuplicatedNameTag(tagNames);
         validateNumberOfTags(task, tagNames);
-        validateTagNamesDoNotExist(task.getTags(), tagNames);
         validateTagNameMissing(tagNames);
+        validateTagNamesDoNotExist(task, tagNames);
     }
 
     /**
      * Validates the delete tag from task command.
      */
     public void validateDeleteTags(ImmutableTask task, String[] tagNames) {
-        validateTagNamesExist(task.getTags(), tagNames);
+        validateTagNamesExist(task, tagNames);
         validateTagNameMissing(tagNames);
     }
 
@@ -171,10 +166,6 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names exist in the {@code tagPool}.
      */
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
-        if (tagPool == null || tagPool.isEmpty()) {
-            return;
-        }
-
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         Set<String> tagPoolNameSet = tagPool.stream().map(Tag::getTagName).collect(Collectors.toSet());
         List<String> tagsDoNotExist = tagNamesSet.stream().filter(tagName -> !tagPoolNameSet.contains(tagName))
@@ -187,13 +178,18 @@ public class UniqueTagCollectionValidator {
     }
 
     /**
+     * Checks to ensure that tag names found in {@code task} exist in the {@code tagPool}.
+     */
+    private void validateTagNamesExist(ImmutableTask task, String... tagNames) {
+        if (task != null) {
+            validateTagNamesExist(task.getTags(), tagNames);
+        }
+    }
+
+    /**
      * Checks to ensure that tag names do not exist in the {@code tagPool}.
      */
     private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
-        if (tagPool == null || tagPool.isEmpty()) {
-            return;
-        }
-
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         List<String> tagsExist = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName()))
                 .map(Tag::getTagName).collect(Collectors.toList());
@@ -201,6 +197,15 @@ public class UniqueTagCollectionValidator {
         if (!tagsExist.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
                     + StringUtil.convertIterableToString(tagsExist));
+        }
+    }
+
+    /**
+     * Checks to ensure that tag names found in {@code task} do not exist in the {@code tagPool}.
+     */
+    private void validateTagNamesDoNotExist(ImmutableTask task, String... tagNames) {
+        if (task != null) {
+            validateTagNamesExist(task.getTags(), tagNames);
         }
     }
 

@@ -226,4 +226,11 @@ public class AddCommandTest extends CommandTest {
         setParameter("t", "say duplicated again say");
         execute(false);
     }
+
+    @Test (expected = ValidationException.class)
+    public void testAddTag_noTagsSupplied() throws Exception {
+        setParameter("Pokemon with tags");
+        setParameter("t", "   ");
+        execute(false);
+    }
 }
