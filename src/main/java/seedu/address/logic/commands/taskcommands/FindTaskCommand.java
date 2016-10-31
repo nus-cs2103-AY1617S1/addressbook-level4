@@ -31,7 +31,6 @@ public class FindTaskCommand extends TaskCommand {
 
         @Override
         public CommandResult execute() {
-            EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.Find));
             model.filterTasks(keywords);
             EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
