@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.taskcommands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 
 /**
@@ -25,6 +27,7 @@ public class UndoTaskCommand extends TaskCommand {
     	} catch (IllegalStateException ise) {
     		return new CommandResult(MESSAGE_UNDO_INVALID_STATE);
     	}
+    	EventsCenter.getInstance().post(new HideHelpRequestEvent());
     	return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }
     

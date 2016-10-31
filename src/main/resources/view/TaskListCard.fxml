@@ -33,7 +33,7 @@
                           </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="426.0" spacing="4">
                             <children>
-                        <Label fx:id="id1" minWidth="20.0" prefHeight="20.0" prefWidth="35.0" styleClass="cell_big_label" />
+                        <Label fx:id="id1" minWidth="16.0" prefHeight="20.0" prefWidth="0.0" styleClass="cell_big_label" />
                               <Label fx:id="first_date" minHeight="-Infinity" minWidth="-Infinity" styleClass="cell_small_label" text="\$first_date" wrapText="true" />
       						<Label fx:id="second_date" styleClass="cell_small_label" text="\$second_date" />
                             </children>
