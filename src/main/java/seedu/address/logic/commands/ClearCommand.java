@@ -37,7 +37,7 @@ public class ClearCommand extends UndoableCommand {
         assert model != null;
         
         // record the target list if this is a new action (and not a redo action)
-        if (!checkIfRedoAction()) {
+        if (!isRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         

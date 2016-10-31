@@ -52,8 +52,7 @@ public class DoneCommand extends UndoableCommand {
     public CommandResult execute() {
         
         assert model != null;
-        // check with Edmund, can rename to isRedoAction()
-        if (!checkIfRedoAction()) {
+        if (!isRedoAction()) {
             setCurrentViewingList();
         }
         if (isViewingDoneList) {
@@ -78,15 +77,14 @@ public class DoneCommand extends UndoableCommand {
     }
 
     /**
-     * Goes through the list of target indexes provided.
-     * Archives these tasks if target index is valid.
-     * Ignores any invalid target indexes provided.
+     * Archives the tasks denoted by the list of target indexes.
+     * Invalid target indexes in the list will be ignored.
      */
     private void archiveTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-            boolean taskTargetIndexIsOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
-            if (taskTargetIndexIsOutOfBounds) {
+            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
+            if (isTaskTargetIndexOutOfBounds) {
                 logger.warning("Task target index out of bounds detected. Skipping task with current target index.");
                 continue;
             }
@@ -111,7 +109,6 @@ public class DoneCommand extends UndoableCommand {
     /**
      * Adds the recurring task back into the undone task list
      * with their start and end dates updated, if present.
-     * @param taskToArchive
      */
     private void updateRecurrenceAndReAddTask(Task taskToArchive) {
         logger.fine("In updateRecurrenceAndReAddTask(). Task is recurring. Updating task details.");

@@ -32,7 +32,7 @@ public abstract class UndoableCommand extends Command {
      * as part of a redo command.
      * @return boolean representing if the current command is executed as part of a redo command
      */
-    public boolean checkIfRedoAction() {
+    public boolean isRedoAction() {
         return isRedoAction;
     }
 
