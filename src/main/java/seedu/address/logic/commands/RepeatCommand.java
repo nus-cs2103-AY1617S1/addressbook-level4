@@ -1,10 +1,11 @@
 package seedu.address.logic.commands;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
@@ -17,7 +18,11 @@ import seedu.address.model.task.Startline;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-
+/**
+ * Sets whether or not a task repeats itself in intervals
+ * @author Muhammad Arif Bin Syed Nasser
+ *
+ */
 public class RepeatCommand extends Command{
 	public static final String MESSAGE_SUCCESS = "Task repeated: ";
 	public static final String MESSAGE_FAILURE = "Task unable to repeat";
@@ -42,6 +47,7 @@ public class RepeatCommand extends Command{
 		}
 	}
 	
+	@Override
 	public CommandResult execute(){
 		
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
@@ -54,20 +60,26 @@ public class RepeatCommand extends Command{
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
         
         String name = taskToDelete.getName().toString();
+        // TODO: Allow completed tasks to be repeated
         if(name.contains(" is completed")){
         	return new CommandResult(MESSAGE_TASK_IS_COMPLETE);
         }
         
-        Repeating isRepeating = taskToDelete.getRepeating();
-        
+        /**
+         * Adds tags if given valid time interval, else removes tags entirely.
+         */
         UniqueTagList tagSet = taskToDelete.getTags();
         try{
-        	if(!tagSet.contains(new Tag("repeats"))){
+        	if((!tagSet.contains(new Tag("repeats"))) && (!timeInterval.equalsIgnoreCase("off"))) {
         		tagSet.add(new Tag("repeats"));
         		tagSet.add(new Tag(timeInterval));
         	}
         	else{
         		tagSet = removeOldTags(tagSet);
+        		if(!timeInterval.equalsIgnoreCase("off")) { // Allows tasks that are already repeating to switch to a
+        			tagSet.add(new Tag("repeats"));			// different time interval
+            		tagSet.add(new Tag(timeInterval));
+        		}
         	}
         } catch (IllegalValueException iv) {
         	return new CommandResult(MESSAGE_FAILURE + " " + iv.getMessage());
@@ -83,12 +95,26 @@ public class RepeatCommand extends Command{
         } catch (IllegalValueException ive){
         	return new CommandResult(MESSAGE_FAILURE + " " + ive.getMessage());
         }
-        toAdd.setRepeating(new Repeating(!isRepeating.getRepeating(), timeInterval));
+        /**
+         * Switches repeat off if time interval is specified as such. Else changes repeat statement.
+         */
+        if(timeInterval.equalsIgnoreCase("off")) {
+        	toAdd.setRepeating(new Repeating(false, timeInterval));
+        } else {
+        	toAdd.setRepeating(new Repeating(true, timeInterval));
+        }
+        
         deleteTask(taskToDelete);
         addTask(toAdd);
-		return new CommandResult(MESSAGE_SUCCESS + !isRepeating.getRepeating());
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
+		return new CommandResult(MESSAGE_SUCCESS + toAdd.getRepeating().getRepeating());
 	}
 	
+	/**
+	 * Checks if the timeInterval specified is a valid one.
+	 * @param timeInterval
+	 * @return	true if valid
+	 */
 	private boolean validTimeInterval(String timeInterval){
 		switch (timeInterval){
 			case "weekly":
@@ -97,11 +123,19 @@ public class RepeatCommand extends Command{
 				return true;
 			case "yearly":
 				return true;
+			case "off":
+				return true;
 			default:
 				return false;
 		}
 	}
 	
+	
+	/**
+	 * Adds the given task.
+	 * @param task
+	 * 
+	 */
 	private void addTask(Task task){
 		assert model != null;
         try {
@@ -110,6 +144,11 @@ public class RepeatCommand extends Command{
         }
 	}
 	
+	/**
+	 * Deletes the given task.
+	 * @param task
+	 * @throws false assertion if task is missing.
+	 */
 	private void deleteTask(ReadOnlyTask task){
 		try {
             model.deleteTask(task);
@@ -118,11 +157,17 @@ public class RepeatCommand extends Command{
         }
 	}
 	
+	/**
+	 * Removes old tags from task.
+	 * @param tagSet
+	 * @return UniqueTagList tagSet without tags relevant to repeat.
+	 * @throws IllegalValueException
+	 */
 	private UniqueTagList removeOldTags(UniqueTagList tagSet) throws IllegalValueException{
 		Set<Tag> tags = tagSet.toSet();
 		tags.remove(new Tag("repeats"));
 		tags.remove(new Tag("weekly"));
-		tags.remove(new Tag("montly"));
+		tags.remove(new Tag("monthly"));
 		tags.remove(new Tag("yearly"));
 		tagSet = new UniqueTagList(tags);
 		return tagSet;
