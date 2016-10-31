@@ -21,7 +21,7 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
+        name = name.replace('\\', '\0').trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
