@@ -88,18 +88,7 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-  	-fx-padding: 2px ;
-    -fx-background-color: transparent, -fx-background ;
-    -fx-background-insets: 0px, 2px ;
-
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1.8, 0, 0, 0);
-}
-
-.list-cell:empty {
-    -fx-padding: 2px ;
-    -fx-background-color: transparent ;
-    -fx-background-insets: 0 ;
-    -fx-border-color: transparent;
+    -fx-padding: 0 0 0 0;
 }
 
 .list-cell .label {
@@ -107,13 +96,13 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 25px;
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
 	-fx-font-family: "Segoe UI";
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-text-fill: #010504;
 }
 
@@ -125,7 +114,7 @@
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
-     -fx-font-size: 18px;
+     -fx-font-size: 12px;
 }
 
 .status-bar {
