@@ -172,12 +172,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0139552B
-    public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
+    public synchronized void editTask(ReadOnlyTask task, Name name, Date startDate,
             Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
-        taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
+        taskManager.editFloatingTask(task, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(floatingTask)));
+        jumpToCurrentEditedTask(task);
+    }
+    
+    /*
+     * Show the user the most recently edited item
+     */
+    private void jumpToCurrentEditedTask(ReadOnlyTask task) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(task)));
     }
     //@@author
     
