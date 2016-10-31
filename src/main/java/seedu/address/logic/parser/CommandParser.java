@@ -597,7 +597,7 @@ public class CommandParser {
             
         } else {
             // default command is an add command
-            return prepareAddDetailedTooltip(arguments);
+            return prepareAddDetailedTooltip(commandWord + arguments);
             
         }
 
@@ -651,7 +651,7 @@ public class CommandParser {
             }
             
             if (timePeriod.isPresent()) {
-                sb.append("\n\tRecurrence Rate Time Period:\t" + timePeriod.get());
+                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
             } else {
                 sb.append("\n\tRecurrence Rate Time Period:\tNo Change");
             }
@@ -703,7 +703,7 @@ public class CommandParser {
                 sb.append("\n\tRecurrence Rate:\t" + rate.get());
             }
             if (timePeriod.isPresent()) {
-                sb.append("\n\tRecurrence Rate Time Period:\t" + timePeriod.get());
+                sb.append("\n\tRecurrence Rate Time Period:\t" + (timePeriod.get().isEmpty() ? "1" : timePeriod.get()));
             }
             if (priority.isPresent()) {
                 sb.append("\n\tPriority:\t" + priority.get());
