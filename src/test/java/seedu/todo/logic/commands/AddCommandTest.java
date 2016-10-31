@@ -5,12 +5,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.events.ui.HighlightTaskEvent;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TimeUtil;
+
+import java.util.HashSet;
+import java.util.Set;
 
 //@@author A0092382A
 public class AddCommandTest extends CommandTest {
@@ -141,6 +146,88 @@ public class AddCommandTest extends CommandTest {
         assertTotalTaskCount(1);
         assertVisibleTaskCount(1);
     }
-    
-    
+
+    //@@author A0135805H
+    /**
+     * Helps to convert a varang of tag names to a set of tags.
+     */
+    private Set<Tag> convertTagNamesToTags(String... tagNames) {
+        Set<Tag> outcomeTags = new HashSet<>();
+        for (String tagName : tagNames) {
+            outcomeTags.add(new Tag(tagName));
+        }
+        return outcomeTags;
+    }
+
+    @Test
+    public void testAddTag_singleTag() throws Exception {
+        Set<Tag> expectedTags = convertTagNamesToTags("pikachu");
+
+        setParameter("Task with tags");
+        setParameter("t", "pikachu");
+        execute(true);
+
+        ImmutableTask task = getTaskAt(1);
+        assertEquals("Task with tags", task.getTitle());
+        assertEquals(expectedTags, task.getTags());
+    }
+
+    @Test
+    public void testAddTag_maxTags() throws Exception {
+        Set<Tag> expectedTags
+                = convertTagNamesToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
+
+        setParameter("Pokemon with tags");
+        setParameter("t", "pikachu123 , charizaRD_-  -pichu-  ---raichu,  gasly");
+        execute(true);
+
+        ImmutableTask task = getTaskAt(1);
+        assertEquals("Pokemon with tags", task.getTitle());
+        assertEquals(expectedTags, task.getTags());
+    }
+
+    @Test
+    public void testAddTag_fullEventWithTags() throws Exception {
+        Set<Tag> expectedTags = convertTagNamesToTags("leisure", "pokemon", "pikachu");
+
+        setParameter("Pokemon with tags");
+        setParameter("m", "Some long long very very long long massively long description. Thank you.");
+        setParameter("t", "leisure   pokemon, pikachu  ");
+        setParameter("d", "tomorrow 8am to 9am");
+        setParameter("p", null);
+        setParameter("l", "some weird location at bukit timah");
+        execute(true);
+
+        ImmutableTask task = getTaskAt(1);
+        assertEquals("Pokemon with tags", task.getTitle());
+        assertEquals("Some long long very very long long massively long description. Thank you.",
+                task.getDescription().get());
+        assertEquals(TimeUtil.tomorrow().withHour(8), task.getStartTime().get());
+        assertEquals(TimeUtil.tomorrow().withHour(9), task.getEndTime().get());
+        assertEquals("some weird location at bukit timah", task.getLocation().get());
+        assertEquals(expectedTags, task.getTags());
+        assertTrue(task.isPinned());
+        assertTrue(task.isEvent());
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testAddTag_tooManyTags() throws Exception {
+        setParameter("Pokemon with tags");
+        setParameter("t", "pikachu123 , charizard_-  -pichu-  ---raichu,  gasly, oops");
+        execute(false);
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testAddTag_tagNameTooLong() throws Exception {
+        setParameter("Pokemon with tags");
+        setParameter("t", "123456789012345678901");
+        execute(false);
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testAddTag_invalidTagCharacters() throws Exception {
+        setParameter("Pokemon with tags");
+        setParameter("t", "invalid@");
+        execute(false);
+    }
 }
