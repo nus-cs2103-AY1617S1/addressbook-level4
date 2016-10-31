@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,8 +51,10 @@ public class CommandBox extends UiPart {
         commandBox.addToPlaceholder();
         commandBox.setKeyListener();
         commandBox.setTextChangedListener();
+        commandBox.requestFocus();
         return commandBox;
     }
+
 
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
@@ -150,6 +153,16 @@ public class CommandBox extends UiPart {
     
     private void removeTextChangedListener() {
     	commandTextField.textProperty().removeListener(textChangedListener);
+    }
+    
+    private void requestFocus() {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                commandTextField.requestFocus();
+                
+            }
+        });
     }
     
     //@@author

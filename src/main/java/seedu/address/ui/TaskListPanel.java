@@ -11,10 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollToEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
@@ -84,15 +86,16 @@ public class TaskListPanel extends UiPart {
     }
     
     /*
-     * Consume all events except for scrolling
+     * Consume all events except for scrolling and scrollevents from control up/down
      */
     private void setSelectableCharacteristics() {
     	taskListView.addEventFilter(Event.ANY, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-               if (event.getEventType().getSuperType() != ScrollEvent.ANY) {
+               EventType<?> type = event.getEventType().getSuperType();
+               if (type != ScrollEvent.ANY && type != ScrollToEvent.ANY) {
                    event.consume();
-               }
+               } 
             }
     	});
 	}
