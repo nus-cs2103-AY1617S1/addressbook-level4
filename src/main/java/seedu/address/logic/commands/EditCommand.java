@@ -16,6 +16,7 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
 
+//@@author A0139552B
 public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
@@ -50,7 +51,6 @@ public class EditCommand extends UndoableCommand {
     Priority priority;
     boolean removeReccurence, removeStartDate, removeEndDate;
 
-    //@@author A0139552B
 	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
 			Optional<String> priorityString, String resetFieldString) throws IllegalValueException {       
@@ -62,11 +62,17 @@ public class EditCommand extends UndoableCommand {
         assignStartDateIfPresent(startDateString);
         assignEndDateIfPresent(endDateString);
         assignRecurrenceRateIfPresent(rateString, timePeriodString); 
-        assignPriority(priorityString);                         
-        fieldsToReset(resetFieldString); 
+        
+        if(priorityString != null){
+            assignPriority(priorityString);                                     
+        }
+        
+        if(resetFieldString != null){
+            fieldsToReset(resetFieldString); 
+        }
 
         if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
-                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") && 
                 startDate == null && endDate == null) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
@@ -82,13 +88,24 @@ public class EditCommand extends UndoableCommand {
         removeStartDate = false;
         removeEndDate = false;
     }
-
+    
+    /**
+     * Converts given String into the Name representation for task name.
+     * 
+     * @param taskNameString user's input of task name
+     */
     private void assignTaskNameIfPresent(Optional<String> taskNameString) {
         if (taskNameString.isPresent() && !taskNameString.get().toString().trim().equals("")) {
     		taskName = new Name(taskNameString.get());
         }
     }
-
+    
+    /**
+     * Converts given String into the Date representation for start date.
+     * 
+     * @param startDateString user's input of start date
+     * @throws IllegalValueException if startDateString cannot be converted into a Date object
+     */
     private void assignStartDateIfPresent(Optional<String> startDateString) throws IllegalValueException {
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
@@ -97,7 +114,13 @@ public class EditCommand extends UndoableCommand {
             }
         }
     }
-
+    
+    /**
+     * Converts given String into the Date representation for end date.
+     * 
+     * @param endDateString user's input of end date
+     * @throws IllegalValueException if endDateString cannot be converted into a Date object
+     */
     private void assignEndDateIfPresent(Optional<String> endDateString) throws IllegalValueException {
         if (endDateString.isPresent()) {
             endDate = DateTime.convertStringToDate(endDateString.get());
@@ -109,7 +132,15 @@ public class EditCommand extends UndoableCommand {
             }
         }
     }
-
+    
+    /**
+     * Converts given String into the RecurrenceRate representation. 
+     *
+     * @param rateString user's input of rate
+     * @param timePeriodString user's input of time period
+     * @throws IllegalValueException if rateString is present but timePeriodString isn't present
+     * (for e.g, "3" is invalid. Examples such as "3 days" or "week" is valid).
+     */
     private void assignRecurrenceRateIfPresent(Optional<String> rateString, Optional<String> timePeriodString)
             throws IllegalValueException {
         if (rateString.isPresent() && timePeriodString.isPresent()) {
@@ -121,34 +152,41 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
-    /*
-     * Assign priority depending on the level stated
-     * Otherwise leave it as null
+    /**
+     * Assigns priority depending on the level stated
+     * 
+     * @param priorityString user's input of priority
      */
     private void assignPriority(Optional<String> priorityString) {
-        if (priorityString.isPresent()) {
-            switch (priorityString.get()) {
-                case ("low"): case ("l"): priority = Priority.LOW; break; 
-                case ("high"): case ("h"): priority = Priority.HIGH; break;
-                case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
-            }
+        switch (priorityString.get()) {
+        case ("low"):
+        case ("l"):
+            priority = Priority.LOW; break; 
+        case ("high"):
+        case ("h"):
+            priority = Priority.HIGH; break;
+        case ("medium"):
+        case ("m"):
+        case ("med"):
+            priority = Priority.MEDIUM; break;
         }
     }
 	
-    /*
+    /**
      * Check which field is to be reset
+     * 
+     * @param resetFieldString user's input of fields to be reset
+     * set the remove fields as true if present
      */
     private void fieldsToReset(String resetFieldString) {
-        if(resetFieldString != null){
-        	String[] resetField = resetFieldString.trim().split(" ");
-        	for(int i = 0; i < resetField.length; i++){
-        		switch (resetField[i].trim()) {
-            		case ("repeat"):  removeReccurence = true; break; 
-            		case ("start"): removeStartDate = true; break;
-            		case ("end"): removeEndDate = true; break;
-        		}
-        	}
-        }
+        String[] resetField = resetFieldString.trim().split(" ");
+        for(int i = 0; i < resetField.length; i++){
+            switch (resetField[i].trim()) {
+                case ("repeat"):  removeReccurence = true; break; 
+                case ("start"): removeStartDate = true; break;
+                case ("end"): removeEndDate = true; break;
+            }
+        }        
     }
 
 	@Override
@@ -182,6 +220,7 @@ public class EditCommand extends UndoableCommand {
             startDate = toEdit.getStartDate().get();
         }
         
+        //assign startDate as null if user choose to reset start date
         if (removeStartDate) {
         	startDate = null;
         }
@@ -191,6 +230,7 @@ public class EditCommand extends UndoableCommand {
         	endDate = toEdit.getEndDate().get();
         }
         
+        //assign endDate as null if user choose to reset end date
         if (removeEndDate) {
         	endDate = null;
         }

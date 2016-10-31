@@ -707,7 +707,7 @@ public class CommandParserHelper {
         task.priority = Optional.of(matchesPriority());
     }
 
-    //@@author
+    //@@author A0139552B
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
         task.taskName = Optional.of(matcher.group("taskName").trim());
         HashMap<String, Optional<String>> recurrenceRateMap = matchesRateAndTimePeriod();
