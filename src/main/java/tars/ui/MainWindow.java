@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private HelpPanel helpPanel;
-    private OverviewPanel overviewPanel;
+    private ThisWeekPanel thisWeekPanel;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -81,19 +81,17 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
     @FXML
-    private AnchorPane overviewPanelPlaceholder;
+    private AnchorPane thisWeekPanelPlaceholder;
     @FXML
     private AnchorPane helpPanelPlaceholder;
 
     @FXML
     private Label taskListLabel;
-    @FXML
-    private Label rsvTaskListLabel;
 
     @FXML
     private TabPane tabPane;
     @FXML
-    private AnchorPane overviewTabAnchorPane;
+    private AnchorPane thisWeekTabAnchorPane;
     @FXML
     private AnchorPane rsvTabAnchorPane;
     @FXML
@@ -197,7 +195,7 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         helpPanel = HelpPanel.load(primaryStage, getHelpPanelPlaceholder());
-        overviewPanel = OverviewPanel.load(primaryStage, getOverviewPanelPlaceholder(), logic.getFilteredTaskList());
+        thisWeekPanel = ThisWeekPanel.load(primaryStage, getThisWeekPanelPlaceholder(), logic.getFilteredTaskList());
     }
 
     /**
@@ -234,8 +232,8 @@ public class MainWindow extends UiPart {
         return helpPanelPlaceholder;
     }
 
-    public AnchorPane getOverviewPanelPlaceholder() {
-        return overviewPanelPlaceholder;
+    public AnchorPane getThisWeekPanelPlaceholder() {
+        return thisWeekPanelPlaceholder;
     }
 
     public void hide() {
