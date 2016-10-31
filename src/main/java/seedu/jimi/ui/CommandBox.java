@@ -95,7 +95,7 @@ public class CommandBox extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        setTextFieldAndCommandBoxToDefault();
+        setResultDisplayAndCmdBoxToDefault();
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
@@ -125,7 +125,7 @@ public class CommandBox extends UiPart {
         logger.info("Text in text field: " + currentText);
         
         if (currentText.isEmpty()) {
-            setTextFieldAndCommandBoxToDefault();
+            setResultDisplayAndCmdBoxToDefault();
         } else {
             postRealTimeSuggestions(currentText);
         }
@@ -157,8 +157,8 @@ public class CommandBox extends UiPart {
     }
     
     /** Sets {@code commandTextField} and {@code resultDisplay} to their default styles/postings */
-    private void setTextFieldAndCommandBoxToDefault() {
-        setStyleToDefaultCommandBox();
+    private void setResultDisplayAndCmdBoxToDefault() {
+        setCommandBoxtoDefault();
         setResultDisplayToDefault();
     }
     
@@ -208,7 +208,7 @@ public class CommandBox extends UiPart {
     /**
      * Sets the command box style to indicate a correct command.
      */
-    private void setStyleToDefaultCommandBox() {
+    private void setCommandBoxtoDefault() {
         commandTextField.getStyleClass().remove("error");
         commandTextField.setText("");
     }
