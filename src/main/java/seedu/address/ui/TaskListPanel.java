@@ -32,6 +32,8 @@ public class TaskListPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
 
+
+    
     @FXML
     private ListView<Task> taskListView;
 
@@ -111,12 +113,15 @@ public class TaskListPanel extends UiPart {
                
             	setGraphic(cardPane);
             	
-            	// Set the color of the card based on whether it's pind
+            	// Set the color of the card based on whether it's overdue
+            	if (task.isOverdue()) {
+            		currentCard.setOverdueStyle();
+            	} 
+            	
+            	// Set the color of the card based on whether it's favorited
                 if (task.isPinned()) {
-                	cardPane.setStyle("-fx-background-color: yellow;");
-                } else {
-                	cardPane.setStyle(null);
-                }
+                	currentCard.setPinnedStyle();
+                } 
             }
         }
     }

@@ -60,4 +60,9 @@ public class DeadlineTask extends Task implements PinnableTask, CompletableTask 
 					description, DateUtil.dateFormat.format(deadline));
 		}
 	}
+	
+	@Override
+	public boolean isOverdue() {
+	    return deadline.before(new Date());
+	}
 }

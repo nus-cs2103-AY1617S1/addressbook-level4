@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.taskcommands;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.FilterLabelChangeEvent;
+import seedu.address.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowAliasListEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -26,6 +28,7 @@ public class ListTaskCommand extends TaskCommand {
     public static final String MESSAGE_COMPLETED_SUCCESS = "Listed all completed tasks";
     public static final String MESSAGE_NO_COMPLETED_TASKS = "No completed tasks to list";
     public static final String HELP_MESSAGE_USAGE = "List tasks: \t" +  COMMAND_WORD + "<parameter>";
+
     
     public final String argument;
     
@@ -47,6 +50,7 @@ public class ListTaskCommand extends TaskCommand {
 
         }
         if(argument.equals("complete") || argument.equals("completed")){
+            EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.ListComplete));
         	model.filterCompletedTasks();
         	if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NO_COMPLETED_TASKS);
@@ -54,6 +58,7 @@ public class ListTaskCommand extends TaskCommand {
         	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
         }
         else{
+            EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.List));
             model.clearTasksFilter();
             if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NOTASKS);

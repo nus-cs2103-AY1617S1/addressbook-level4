@@ -133,8 +133,8 @@ public class UpdateTaskCommandTest {
 		/*
 		 * Adding a deadline to the floating task by changing it to a deadline task.
 		 */
-		// Index 1 is a floating task
-		CommandResult result = createAndExecuteUpdateDeadline(1, firstDate);
+		// Index 5 is a floating task (after filters)
+		CommandResult result = createAndExecuteUpdateDeadline(5, firstDate);
 		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 0");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
@@ -142,7 +142,7 @@ public class UpdateTaskCommandTest {
 		/*
 		 * Adding a start date and end date to the floating task by changing it to an event task.
 		 */
-		result = createAndExecuteUpdateStartEndDate(1, firstDate, secondDate);
+		result = createAndExecuteUpdateStartEndDate(5, firstDate, secondDate);
 		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 0");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
@@ -151,14 +151,14 @@ public class UpdateTaskCommandTest {
 	
 	@Test
 	public void execute_deadlineTask_updateDate() throws IllegalValueException {
-		Date firstDate = new GregorianCalendar(2016, Calendar.AUGUST, 20).getTime();
-		Date secondDate = new GregorianCalendar(2016, Calendar.AUGUST, 21).getTime();
+		Date firstDate = new GregorianCalendar(2018, Calendar.AUGUST, 20).getTime();
+		Date secondDate = new GregorianCalendar(2018, Calendar.AUGUST, 21).getTime();
 		
 		/*
 		 * Updating the deadline of a deadline task
 		 */
-		// Index 2 is a deadline task
-		CommandResult result = createAndExecuteUpdateDeadline(2, firstDate);
+		// Index 1 is a deadline task (after filters)
+		CommandResult result = createAndExecuteUpdateDeadline(1, firstDate);
 		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 1");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
@@ -167,7 +167,7 @@ public class UpdateTaskCommandTest {
 		 * Giving a start and end date to the deadline task by changing it to an event task.
 		 */
 		result = createAndExecuteUpdateStartEndDate(2, firstDate, secondDate);
-		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 1");
+		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 4");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -180,8 +180,8 @@ public class UpdateTaskCommandTest {
 		/*
 		 * Updating the start and end date of a event task
 		 */
-		// Index 3 is an event task
-		CommandResult result = createAndExecuteUpdateDeadline(3, firstDate);
+		// Index 2 is an event task (after filters)
+		CommandResult result = createAndExecuteUpdateDeadline(2, firstDate);
 		String expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 2");
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
@@ -189,7 +189,7 @@ public class UpdateTaskCommandTest {
 		/*
 		 * Updating the start and end date of a event task
 		 */
-		result = createAndExecuteUpdateStartEndDate(3, firstDate, secondDate);
+		result = createAndExecuteUpdateStartEndDate(4, firstDate, secondDate);
 		expected = String.format(UpdateTaskCommand.MESSAGE_UPDATE_TASK_SUCCESS, "Task 2");
 		feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);
