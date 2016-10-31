@@ -86,26 +86,24 @@ public class CommandBox extends UiPart {
         if (commandTextField.getText().trim().isEmpty()) {
             return; // Do nothing for empty input.
         }
-        
-        
         previousCommandTest = commandTextField.getText().trim(); // Take a copy of the command text.
-        resetInputHistoryToMostRecent(); 
+        resetInputHistoryToMostRecent();
         previousInputs.push(previousCommandTest); // Updating history of inputs for up/down cycling.
-
+        
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setResultDisplayAndCmdBoxToDefault();
         executeCommand();
     }
-
+    
     /** Parses and executes the command given by {@code previousCommandTest} */
     private void executeCommand() {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
+    
     @FXML
     private void handleTextFieldKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
@@ -119,6 +117,7 @@ public class CommandBox extends UiPart {
             return; // Do nothing since {@link #handleCommandInputChanged} already handles this. 
         default :
             handleTextFieldKeyTyped();
+            return;
         }
     }
     
