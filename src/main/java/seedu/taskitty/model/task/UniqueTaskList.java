@@ -71,9 +71,6 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         
-        checkAndSetOverdueDeadline(toAdd);
-        checkAndSetIsOverEvent(toAdd);
-        
         for (int i = 0; i < internalList.size(); i++) {
             if (toAdd.compareTo(internalList.get(i)) < 0) {
                 internalList.add(i, toAdd);
@@ -102,10 +99,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void unmark(ReadOnlyTask toUnmark) {
         assert toUnmark != null && toUnmark.getIsDone();
         final boolean taskFoundAndUnmarkedAsDone = internalList.remove(toUnmark);
-        
-        if (!taskFoundAndUnmarkedAsDone) {
-            assert false: "Task should not be missing";
-        }
+        assert taskFoundAndUnmarkedAsDone;
         
         Task editableToUnmark = (Task) toUnmark;
         editableToUnmark.unmarkAsDone();
@@ -202,15 +196,21 @@ public class UniqueTaskList implements Iterable<Task> {
      * When an event is over, automatically mark it as done.
      */
     private void checkAndSetIsOverToday() {
+        final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
     	for (Task t: internalList) {
-    		checkAndSetIsOverEvent(t);
+    	    if (t.isEvent() && isOverdue(t)) {
+    	        eventsToSetOver.add(t);
+    	    }
     	}
-    }
-
-    private void checkAndSetIsOverEvent(Task taskToCheck) {
-        if (taskToCheck.isEvent() && isOverdue(taskToCheck)) {
-        	taskToCheck.markAsDone();
-        }
+    	for (Task overEvents: eventsToSetOver) {
+    	    try {
+                mark(overEvents);
+            } catch (TaskNotFoundException e) {
+                assert false: "Task should not be missing";
+            } catch (DuplicateMarkAsDoneException e) {
+                assert false: "Task should not be marked done";
+            }
+    	}
     }
     
     private boolean isOverdue(Task t) {
