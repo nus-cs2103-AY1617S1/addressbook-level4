@@ -29,7 +29,7 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    String previousCommandTest;
+    String previousCommandText;
 
     private Logic logic;
 
@@ -86,9 +86,9 @@ public class CommandBox extends UiPart {
         if (commandTextField.getText().trim().isEmpty()) {
             return; // Do nothing for empty input.
         }
-        previousCommandTest = commandTextField.getText().trim(); // Take a copy of the command text.
+        previousCommandText = commandTextField.getText().trim(); // Take a copy of the command text.
         resetInputHistoryToMostRecent();
-        previousInputs.push(previousCommandTest); // Updating history of inputs for up/down cycling.
+        previousInputs.push(previousCommandText); // Updating history of inputs for up/down cycling.
         
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
@@ -97,9 +97,9 @@ public class CommandBox extends UiPart {
         executeCommand();
     }
     
-    /** Parses and executes the command given by {@code previousCommandTest} */
+    /** Parses and executes the command given by {@code previousCommandText} */
     private void executeCommand() {
-        mostRecentResult = logic.execute(previousCommandTest);
+        mostRecentResult = logic.execute(previousCommandText);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -219,7 +219,7 @@ public class CommandBox extends UiPart {
 
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
         setCaretToRightEnd();
@@ -229,7 +229,7 @@ public class CommandBox extends UiPart {
      * Restores the command box text to the previously entered command
      */
     private void restoreCommandText() {
-        commandTextField.setText(previousCommandTest);
+        commandTextField.setText(previousCommandText);
     }
 
     /**
