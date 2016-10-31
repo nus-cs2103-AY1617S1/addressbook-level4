@@ -62,7 +62,7 @@ public class ShowCommand extends Command {
         
         ListId sectionToShow = null;
         
-        if(userSelection.contains("all")) {
+        if(userSelection.equals("all")) {
             model.updateAllFilteredListsToNormalListing();
             return new CommandResult(MESSAGE_SUCCESS);
         }
