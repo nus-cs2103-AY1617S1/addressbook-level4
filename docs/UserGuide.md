@@ -145,7 +145,7 @@ Deletes the 2nd floating task in all the listed. <br><br>
 Deletes the 1st event or deadline task in the result of the `find` command.<br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: `undo` </b><br>
->Undo the previous command entered by user. (up to 3)<br>
+>Undo the previous command entered by user. (up to 10)<br>
 A message will be displayed to inform the user that the previous command has been undone. <br>
 Format: `undo`
 
@@ -223,7 +223,7 @@ Save | `save FOLDERPATH`
 - Changes location of storage data to specified folder
 
 Undo | `undo`
-- Reverts the last reversible action (up to 3)
+- Reverts the last reversible action (up to 10)
 
 ## 6. Appendix
 
