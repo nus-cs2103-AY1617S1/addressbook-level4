@@ -203,7 +203,7 @@ Displays the help window containing a command summary. <br>
 Format: `help`
 
 > The help tooltip will open in a new window.
-> On pressing enter while in the help window, the help window will be closed and the user will be taken back to the command line.
+> On pressing any key while in the help window, the help window will be closed and the user will be taken back to the command line.
 
 /* @@author */
 
