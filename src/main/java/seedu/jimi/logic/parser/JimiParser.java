@@ -81,6 +81,8 @@ public class JimiParser {
     
     private static final String XML_FILE_EXTENSION = ".xml";
     
+    private static final List<Command> COMMAND_STUB_LIST = CommandUtil.getInstance().getCommandStubList();
+
     public JimiParser() {}
 
     /**
@@ -109,9 +111,8 @@ public class JimiParser {
      * @return correct Command corresponding to the command word if valid, else returns incorrect command.
      */
     private Command prepareCommand(String commandWord, String arguments) {
-        List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
         Optional<Command> prepared = 
-                cmdStubList.stream().filter(c -> c.isValidCommandWord(commandWord)).map(c -> {
+                COMMAND_STUB_LIST.stream().filter(c -> c.isValidCommandWord(commandWord)).map(c -> {
             if (c instanceof AddCommand) {
                 return prepareAdd(arguments);
             } else if (c instanceof HelpCommand) {
