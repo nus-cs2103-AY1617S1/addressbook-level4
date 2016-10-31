@@ -15,21 +15,20 @@ public class AddCommandTest extends ToDoListGuiTest {
 
     @Test
     public void add() {
-        //add one task
+     
         TestTask[] currentList = td.getTypicalTasks();
+        
+        //add one task
         TestTask taskToAdd = td.car;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        currentList = execute(taskToAdd, currentList);
 
         //add another task
         taskToAdd = td.dog;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        currentList = execute(taskToAdd, currentList);
         
         //add task with date/time range
         taskToAdd = td.vacation;
-        assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        currentList = execute(taskToAdd, currentList);
         
         //invalid detail parameter
         commandBox.runCommand("add 'ppp");
@@ -47,25 +46,44 @@ public class AddCommandTest extends ToDoListGuiTest {
         
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.house);
+        currentList = td.getEmptyTasks();
+        currentList = execute(taskToAdd, currentList);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    }
+    
+    //runs the add command,updates the list and asserts add success
+    private TestTask[] execute(TestTask taskToAdd, TestTask... currentList){
+    	assertAddSuccess(taskToAdd, currentList);
+        return TestUtil.addTasksToList(currentList, taskToAdd);
+    }
+    
+    //confirm the new card contains the right data
+    private void checkCard(TestTask taskToAdd){
+    	TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getDetail().details);
+    	assertMatching(taskToAdd, addedCard);
+   }
+   
+    //confirm the list now contains all tasks after edit
+    private void compareList(TestTask[] expectedList){
+    	  assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         if (taskToAdd.getDueByDate().isRange() || taskToAdd.getDueByTime().isRange())
         	commandBox.runCommand(taskToAdd.getAddRangeCommand());
         else commandBox.runCommand(taskToAdd.getAddCommand());
+        
+        //update expected list
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getDetail().details);
-        assertMatching(taskToAdd, addedCard);
-
+        checkCard(taskToAdd);
+        
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        compareList(expectedList);
         
         //confirm
         assertResultMessage(String.format(MESSAGE_SUCCESS,taskToAdd));
