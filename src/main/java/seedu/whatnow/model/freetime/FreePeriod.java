@@ -43,14 +43,14 @@ public class FreePeriod {
                     freePeriod.remove(i);
                     freePeriod.add(new Period(curr.getStart(), start));
                     freePeriod.add(new Period(end, curr.getEnd()));
+                } else if (isExactlyThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
+                    freePeriod.remove(i);
                 } else if (isPartlyBeforeThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     curr.setStart(df.format(reqEndTime));
                 } else if (isPartlyAfterThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     curr.setEnd(df.format(reqStartTime));
                 } else if (isBiggerThanThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     freePeriod.remove(i);
-                } else {
-                    //To do: more conditions to be checked later
                 }
             }
         } catch (ParseException e) {
@@ -71,7 +71,7 @@ public class FreePeriod {
      * @return true if time period of task is within the time period of a free block
      */
     private boolean isWithinThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime, Date freeSlotEndTime) {
-        return reqStartTime.compareTo(freeSlotStartTime) >= 0  && reqEndTime.compareTo(freeSlotEndTime) <= 0;
+        return reqStartTime.compareTo(freeSlotStartTime) > 0  && reqEndTime.compareTo(freeSlotEndTime) < 0;
     }
     
     /**
@@ -113,6 +113,18 @@ public class FreePeriod {
     private boolean isBiggerThanThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime, Date freeSlotEndTime) {
         return (reqStartTime.compareTo(freeSlotStartTime) < 0 && reqEndTime.compareTo(freeSlotEndTime) >= 0) 
                 || (reqStartTime.compareTo(freeSlotStartTime) <= 0 && reqEndTime.compareTo(freeSlotEndTime) >= 0);
+    }
+    
+    /**
+     * 
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task is exactly the time period of a free block
+     */
+    private boolean isExactlyThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime, Date freeSlotEndTime) {
+        return reqStartTime.compareTo(freeSlotStartTime) == 0 && reqEndTime.compareTo(freeSlotEndTime) == 0;
     }
     
     @Override

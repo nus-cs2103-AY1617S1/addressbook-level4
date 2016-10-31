@@ -145,6 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyWhatNow newData) {
         stackOfWhatNow.push(new WhatNow(whatNow));
         whatNow.resetData(newData);
+        initialiseFreeTime();
         indicateWhatNowChanged();
     }
     
@@ -335,6 +336,8 @@ public class ModelManager extends ComponentManager implements Model {
             } else {
                 freeTimes.get(date).block(startTime, endTime);
             }
+        } else if (date == null && startTime != null && endTime != null) {
+            
         }
     }
     
