@@ -38,9 +38,10 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
+        
+   
         try {
-        	model.getHistory().stackDelCommand(taskToDelete);
+        	model.getHistory().stackAddInstruction(taskToDelete);
             model.deletePerson(taskToDelete);
             
         } catch (PersonNotFoundException pnfe) {

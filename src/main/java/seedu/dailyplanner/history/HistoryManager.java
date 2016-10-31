@@ -14,51 +14,46 @@ import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.logic.commands.*;
 import seedu.dailyplanner.logic.parser.*;
 
-public class HistoryManager extends Command {
-	
-	
+public class HistoryManager {
+
 	private Stack<Instruction> recordCommand = new Stack<Instruction>();
-	
-	
-	
-	public AddCommand undoLastCommand (){
-		
-		Instruction redo = recordCommand.pop();
-		try {
-			return new AddCommand(redo.getTaskName(), redo.getTaskDate(), redo.getTaskStart(), redo.getTaskEnd(), redo.getTag());
-		} catch (IllegalValueException e) {
-			
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public void stackCommand (DeleteCommand latestCommand){
-		/*int targetIndex;
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-		ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);*/
-		//this.recordCommand.push(latestCommand);
+
+	public Instruction getLastInstruction() {
+
+		return recordCommand.pop();
 		
 	}
-	public void stackDelCommand (ReadOnlyTask toPush){
-		
-		
+
+
+
+	public void stackAddInstruction(ReadOnlyTask toPush) {
+
 		String pushName = toPush.getName().toString();
 		String pushDate = toPush.getPhone().toString();
 		String pushStart = toPush.getEmail().toString();
 		String pushEnd = toPush.getAddress().toString();
 		Set<String> pushTag = new HashSet<>();
 		for (Tag tagName : toPush.getTags().toSet()) {
-		      pushTag.add(tagName.toString());
-		 }				
-		
+			pushTag.add(tagName.toString());
+		}
+
 		recordCommand.push(new Instruction("A", pushName, pushDate, pushStart, pushEnd, pushTag));
-		
+
+	}
+	
+	public void stackDeleteInstruction(ReadOnlyTask toPush) {
+
+		String pushName = toPush.getName().toString();
+		String pushDate = toPush.getPhone().toString();
+		String pushStart = toPush.getEmail().toString();
+		String pushEnd = toPush.getAddress().toString();
+		Set<String> pushTag = new HashSet<>();
+		for (Tag tagName : toPush.getTags().toSet()) {
+			pushTag.add(tagName.toString());
+		}
+
+		recordCommand.push(new Instruction("D", pushName, pushDate, pushStart, pushEnd, pushTag));
+
 	}
 
-	@Override
-	public CommandResult execute() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -51,6 +51,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
+        	model.getHistory().stackDeleteInstruction(toAdd);
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
