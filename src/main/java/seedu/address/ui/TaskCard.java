@@ -11,11 +11,7 @@ import seedu.address.model.task.EventTask;
 import seedu.address.model.task.Task;
 
 public class TaskCard extends UiPart{
-
-
-
-
-
+    
     @FXML
     private HBox cardPane;
     @FXML
@@ -48,16 +44,10 @@ public class TaskCard extends UiPart{
     }
 
     public static TaskCard load(Task task, int displayedIndex){
-    	//if(task.isComplete()){
-    		TaskCard card = new TaskCard();
-    		card.task = task;
-    		card.displayedIndex = displayedIndex;
-    		return UiPartLoader.loadUiPart(card);
-    	/*}
-    	else{
-    		return null;
-    	}
-    	*/
+        TaskCard card = new TaskCard();
+        card.task = task;
+        card.displayedIndex = displayedIndex;
+        return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
