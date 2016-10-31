@@ -42,23 +42,23 @@ public class UndoCommand extends Command {
                 break;
 
             case EditCommand.COMMAND_WORD:
-            	model.addTask(toUndo.getPreData());
+                model.addTask(toUndo.getPreData());
                 model.deleteTask(toUndo.getPostData());               
                 break;
 
             case DoneCommand.COMMAND_WORD:
                 model.uncompleteTask(toUndo.getPostData());               
                 break;
-            
+
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
         }
         catch (UniqueTaskList.TaskNotFoundException tnfe){
-            //Not possible
+            assert false : "Task not found";
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
         catch (UniqueTaskList.DuplicateTaskException dte){
-            //Not possible
+            assert false : "Duplicate task found";
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
 
