@@ -32,7 +32,7 @@
                                     <Image url="@../images/calendar-icon.png" />
                                  </image>
                               </ImageView>
-                              <Label id="dateTimeLabel" fx:id="dateTimeLabel" maxWidth="1.7976931348623157E308" minWidth="700.0" text="Test" HBox.hgrow="ALWAYS">
+                              <Label id="dateTimeLabel" fx:id="dateTimeLabel" maxWidth="1.7976931348623157E308" minWidth="450.0" text="Test" HBox.hgrow="ALWAYS">
                                  <padding>
                                     <Insets left="8.0" />
                                  </padding>
