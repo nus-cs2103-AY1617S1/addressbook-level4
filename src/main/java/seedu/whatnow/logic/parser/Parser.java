@@ -221,8 +221,8 @@ public class Parser {
     
     /**
      * Formats the input date to the DD/MM/YYYY format
-     * @param date The date to be formatted
-     * @return the formatted date
+     * @param date The date to be formatted in DD/MM/YYYY format but DD and MM may be single digit
+     * @return the formatted date with a zero padded in front of single digits in DD and MM
      */
     private static String formatDate(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);
@@ -230,7 +230,7 @@ public class Parser {
         
         for (int i = 0; i < splitDate.length; i++) {
             date += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
-            if (i < splitDate.length - 1) {
+            if (i < splitDate.length - ONE) {
                 date += FORWARD_SLASH;
             }
         }
