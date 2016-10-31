@@ -114,14 +114,15 @@
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #FFFFFF;
+}
+
 .list-cell {
+	-fx-background-color: #FFFFFF;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
-}
-
-.list-cell .label {
-    -fx-text-fill: #010504;
 }
 
 .label-done {
@@ -137,14 +138,29 @@
 	-fx-background-color: grey;
 	-fx-text-fill: #FFFFFF;
 }
-.cell_big_label {
-    -fx-font-size: 16px;
+
+.cell_id_label {
+    -fx-font-size: 40px;
     -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_big_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_tag_label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #999999;
+    -fx-font-family: "Helvetica";
 }
 
 .cell_small_label {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
 }
 
 .anchor-pane {
@@ -167,6 +183,7 @@
     -fx-border-radius: 10 10 10 10;
   	-fx-background-radius: 10 10 10 10;
 }
+
 
 .status-bar .label {
     -fx-text-fill: white;
