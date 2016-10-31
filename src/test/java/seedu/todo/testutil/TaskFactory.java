@@ -200,7 +200,7 @@ public class TaskFactory {
     /**
      * Helps to convert a varang of tag names to a set of tags.
      */
-    public static Set<Tag> convertTagNamesToTags(String... tagNames) {
+    public static Set<Tag> convertToTags(String... tagNames) {
         Set<Tag> outcomeTags = new HashSet<>();
         for (String tagName : tagNames) {
             outcomeTags.add(new Tag(tagName));

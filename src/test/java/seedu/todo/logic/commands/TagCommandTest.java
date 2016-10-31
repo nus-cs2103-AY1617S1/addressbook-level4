@@ -5,16 +5,17 @@ import org.junit.Test;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.testutil.TaskFactory;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.todo.testutil.TaskFactory.convertToTags;
 
 //@@author A0135805H
 /**
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class TagCommandTest extends CommandTest {
 
     /* Constants */
-    private static final String[] VALID_TAG_NAMES = {
+    private static final String[] TAG_NAMES = {
         "MacBook_Pro1", "MacBook_Air", "Mac_PrO2", "Surface_-Pro3", "Surface-STUDIO", "SurFACE_BoOk"
     };
 
@@ -55,20 +56,19 @@ public class TagCommandTest extends CommandTest {
         model.add("Task 1 With 0 Tags");
         Thread.sleep(20);
 
-        //Add tags
-        model.addTagsToTask(5, VALID_TAG_NAMES[0], VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
-                VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
-        model.addTagsToTask(4, VALID_TAG_NAMES[0], VALID_TAG_NAMES[1], VALID_TAG_NAMES[2]);
-        model.addTagsToTask(3, VALID_TAG_NAMES[1]);
-        model.addTagsToTask(2, VALID_TAG_NAMES[0]);
+        //Add tags to dummy tasks
+        model.addTagsToTask(5, TAG_NAMES[0], TAG_NAMES[1], TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);
+        model.addTagsToTask(4, TAG_NAMES[0], TAG_NAMES[1], TAG_NAMES[2]);
+        model.addTagsToTask(3, TAG_NAMES[1]);
+        model.addTagsToTask(2, TAG_NAMES[0]);
     }
 
     /* Add Tag Test */
     @Test
     public void testAddTag_addSingleTag() throws Exception {
         //Adds a single tag to a task without tags.
-        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[5]);
-        setParameter("1 " + VALID_TAG_NAMES[5]);
+        Set<Tag> expectedTags = convertToTags(TAG_NAMES[5]);
+        setParameter("1 " + TAG_NAMES[5]);
         execute(true);
 
         ImmutableTask task = getTaskAt(1);
@@ -78,18 +78,12 @@ public class TagCommandTest extends CommandTest {
     @Test
     public void testAddTag_addMaxTags() throws Exception {
         //Adds 5 tags to a task without tags.
-        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[0],
-                VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
-                VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
+        Set<Tag> expectedTags = convertToTags(
+                TAG_NAMES[0], TAG_NAMES[1], TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);
 
         StringJoiner joiner = new StringJoiner(" ");
         joiner.add("1")
-                .add(VALID_TAG_NAMES[0])
-                .add(VALID_TAG_NAMES[1])
-                .add(VALID_TAG_NAMES[2])
-                .add(VALID_TAG_NAMES[3])
-                .add(VALID_TAG_NAMES[4]);
-
+                .add(TAG_NAMES[0]).add(TAG_NAMES[1]).add(TAG_NAMES[2]).add(TAG_NAMES[3]).add(TAG_NAMES[4]);
         setParameter(joiner.toString());
         execute(true);
 
@@ -100,7 +94,7 @@ public class TagCommandTest extends CommandTest {
     @Test
     public void testAddTag_unrestrictedSeparators() throws Exception {
         //Allows separators such as space, commas.
-        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags("Pikachu", "Pichu", "Raichu");
+        Set<Tag> expectedTags = convertToTags("Pikachu", "Pichu", "Raichu");
         setParameter("1   Pichu, Pikachu Raichu   ");
         execute(true);
 
@@ -155,10 +149,10 @@ public class TagCommandTest extends CommandTest {
     public void testDeleteTagFromTask_deleteOneTag() throws Exception {
         //Deletes one tag from a task with 3 tags. Expects 2 tags left.
         Set<Tag> expectedTags = new HashSet<>(getTaskAt(4).getTags());
-        expectedTags.remove(new Tag(VALID_TAG_NAMES[0]));
+        expectedTags.remove(new Tag(TAG_NAMES[0]));
 
         setParameter("4");
-        setParameter("d", VALID_TAG_NAMES[0]);
+        setParameter("d", TAG_NAMES[0]);
         execute(true);
 
         ImmutableTask task = getTaskAt(4);
@@ -171,11 +165,7 @@ public class TagCommandTest extends CommandTest {
         Set<Tag> expectedTags = new HashSet<>();
 
         StringJoiner joiner = new StringJoiner(" ");
-        joiner.add(VALID_TAG_NAMES[0])
-              .add(VALID_TAG_NAMES[1])
-              .add(VALID_TAG_NAMES[2])
-              .add(VALID_TAG_NAMES[3])
-              .add(VALID_TAG_NAMES[4]);
+        joiner.add(TAG_NAMES[0]).add(TAG_NAMES[1]).add(TAG_NAMES[2]).add(TAG_NAMES[3]).add(TAG_NAMES[4]);
 
         setParameter("5");
         setParameter("d", joiner.toString());
@@ -185,26 +175,17 @@ public class TagCommandTest extends CommandTest {
         assertEquals(expectedTags, task.getTags());
     }
 
-    @Test (expected = ValidationException.class)
-    public void testDeleteTagFromTask_deleteMissingTagWithException() throws Exception {
-        //Deletes a tag that is not found.
-        setParameter("5");
-        setParameter("d", VALID_TAG_NAMES[5]);
-        execute(false);
-    }
-
     @Test
-    public void testDeleteTagFromTask_deleteMissingTagNoOperation() {
+    public void testDeleteTagFromTask_deleteMissing() {
         //Deletes a tag that is not found. This should result in no-op.
         Set<Tag> expectedTags = new HashSet<>(getTaskAt(5).getTags());
 
         setParameter("5");
-        setParameter("d", VALID_TAG_NAMES[5]);
+        setParameter("d", TAG_NAMES[1] + " " + TAG_NAMES[5]);
+
         try {
             execute(false);
-
-            //After the above line, not supposed to happen!
-            assertTrue(false);
+            assertTrue(false); //After the above line, not supposed to happen!
         } catch (ValidationException e) {
             //Okay, exception is expected. Now to check the state of the object.
             Set<Tag> outcomeTags = new HashSet<>(getTaskAt(5).getTags());
@@ -212,90 +193,123 @@ public class TagCommandTest extends CommandTest {
         }
     }
 
+    @Test (expected = ValidationException.class)
+    public void testDeleteTagFromTask_deleteNoParam() throws Exception {
+        //Declares no parameters to delete command.
+        setParameter("1");
+        setParameter("d", "   ");
+        execute(false);
+    }
+
     /* Delete Tags Globally Test */
     @Test
     public void testDeleteTagGlobally_deleteOneTag() throws Exception {
         //Deletes one tag from the list of tags. All other tags should stay intact.
-        Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
-        Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1]);
-        Set<Tag> expectsTwoTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1], VALID_TAG_NAMES[2]);
-        Set<Tag> expectsFourTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
-                VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
+        Set<Tag> expects0Tags = convertToTags();
+        Set<Tag> expects1Tags = convertToTags(TAG_NAMES[1]);
+        Set<Tag> expects2Tags = convertToTags(TAG_NAMES[1], TAG_NAMES[2]);
+        Set<Tag> expects4Tags = convertToTags(TAG_NAMES[1], TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);
 
-        setParameter("d", VALID_TAG_NAMES[0]);
+        setParameter("d", TAG_NAMES[0]);
         execute(true);
 
-        assertEquals(expectsNoTags, getTaskAt(1).getTags());
-        assertEquals(expectsNoTags, getTaskAt(2).getTags());
-        assertEquals(expectsOneTags, getTaskAt(3).getTags());
-        assertEquals(expectsTwoTags, getTaskAt(4).getTags());
-        assertEquals(expectsFourTags, getTaskAt(5).getTags());
+        assertEquals(expects0Tags, getTaskAt(1).getTags());
+        assertEquals(expects0Tags, getTaskAt(2).getTags());
+        assertEquals(expects1Tags, getTaskAt(3).getTags());
+        assertEquals(expects2Tags, getTaskAt(4).getTags());
+        assertEquals(expects4Tags, getTaskAt(5).getTags());
     }
 
     @Test
     public void testDeleteTagGlobally_deleteMoreTags() throws Exception {
         //Deletes two tags from the list of tags. All other tags should stay intact.
-        Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
-        Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[2]);
-        Set<Tag> expectsThreeTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[2], VALID_TAG_NAMES[3],
-                VALID_TAG_NAMES[4]);
+        Set<Tag> expects0Tags = convertToTags();
+        Set<Tag> expects1Tags = convertToTags(TAG_NAMES[2]);
+        Set<Tag> expects3Tags = convertToTags(TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);
 
-        setParameter("d", VALID_TAG_NAMES[0] + " " + VALID_TAG_NAMES[1]);
+        setParameter("d", TAG_NAMES[0] + " " + TAG_NAMES[1]);
         execute(true);
 
-        assertEquals(expectsNoTags, getTaskAt(1).getTags());
-        assertEquals(expectsNoTags, getTaskAt(2).getTags());
-        assertEquals(expectsNoTags, getTaskAt(3).getTags());
-        assertEquals(expectsOneTags, getTaskAt(4).getTags());
-        assertEquals(expectsThreeTags, getTaskAt(5).getTags());
-    }
-
-    @Test (expected = ValidationException.class)
-    public void testDeleteTagGlobally_deleteMissingTagsWithException() throws Exception {
-        //Deletes a tag that does not exist.
-        setParameter("d", VALID_TAG_NAMES[1] + " " + VALID_TAG_NAMES[5]);
-        execute(false);
+        assertEquals(expects0Tags, getTaskAt(1).getTags());
+        assertEquals(expects0Tags, getTaskAt(2).getTags());
+        assertEquals(expects0Tags, getTaskAt(3).getTags());
+        assertEquals(expects1Tags, getTaskAt(4).getTags());
+        assertEquals(expects3Tags, getTaskAt(5).getTags());
     }
 
     @Test
-    public void testDeleteTagGlobally_deleteMissingTagsWithNoOp() {
+    public void testDeleteTagGlobally_deleteMissingTags() {
         //Deletes a tag that does not exist. This should result in no op.
-        List<Set<Tag>> listOfExpectedOutcome = new ArrayList<>();
-        for (int taskIndex = 1; taskIndex <= 5; taskIndex ++) {
-            listOfExpectedOutcome.add(new HashSet<>(getTaskAt(taskIndex).getTags()));
-        }
+        List<Set<Tag>> listOfExpectedOutcome = model.getObservableList().stream()
+                .map((Function<ImmutableTask, Set<Tag>>) task -> new HashSet<>(task.getTags()))
+                .collect(Collectors.toList());
 
-        setParameter("d", VALID_TAG_NAMES[1] + " " + VALID_TAG_NAMES[5]);
+        setParameter("d", TAG_NAMES[1] + " " + TAG_NAMES[5]);
+
         try {
             execute(false);
-
-            //After the above line, not supposed to happen!
-            assertTrue(false);
+            assertTrue(false); //After the above line, not supposed to happen!
         } catch (ValidationException e) {
             //Validation exception expected, now check that the tags are unmodified.
             for (int taskIndex = 1; taskIndex <= 5 ; taskIndex ++) {
-                assertEquals(listOfExpectedOutcome.get(taskIndex), getTaskAt(taskIndex).getTags());
+                assertEquals(listOfExpectedOutcome.get(taskIndex - 1), getTaskAt(taskIndex).getTags());
             }
         }
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testDeleteTagGlobally_deleteNoParam() throws Exception {
+        //Declares no parameters to delete command.
+        setParameter("d", "   ");
+        execute(false);
     }
 
     /* Rename Tag Test */
     @Test
     public void renameTag_renameTagSuccess() throws Exception {
         //Renames a tag successfully
+        Set<Tag> expectsTask1Tag = convertToTags();
+        Set<Tag> expectsTask2Tag = convertToTags(TAG_NAMES[5]);
+        Set<Tag> expectsTask3Tag = convertToTags(TAG_NAMES[1]);
+        Set<Tag> expectsTask4Tag = convertToTags(TAG_NAMES[5], TAG_NAMES[1], TAG_NAMES[2]);
+        Set<Tag> expectsTask5Tag
+                = convertToTags(TAG_NAMES[5], TAG_NAMES[1], TAG_NAMES[2], TAG_NAMES[3], TAG_NAMES[4]);
 
+        setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[5]);
+        execute(true);
+
+        assertEquals(expectsTask1Tag, getTaskAt(1).getTags());
+        assertEquals(expectsTask2Tag, getTaskAt(2).getTags());
+        assertEquals(expectsTask3Tag, getTaskAt(3).getTags());
+        assertEquals(expectsTask4Tag, getTaskAt(4).getTags());
+        assertEquals(expectsTask5Tag, getTaskAt(5).getTags());
     }
 
     @Test (expected = ValidationException.class)
     public void renameTag_newNameExists() throws Exception {
-
+        //Renames to a name that already exists.
+        setParameter("r", TAG_NAMES[0] + " " + TAG_NAMES[1]);
+        execute(false);
     }
 
     @Test (expected = ValidationException.class)
     public void renameTag_oldNameMissing() throws Exception {
-
+        //Renames from a name that does not exist
+        setParameter("r", TAG_NAMES[5] + " " + TAG_NAMES[1]);
+        execute(false);
     }
 
-    /* Helper Method */
+    @Test (expected = ValidationException.class)
+    public void renameTag_oneTagNameOnly() throws Exception {
+        //Provides one tag name for rename only. This is incorrect.
+        setParameter("r", TAG_NAMES[5]);
+        execute(false);
+    }
 
+    @Test (expected = ValidationException.class)
+    public void renameTag_renameNoParams() throws Exception {
+        //Provides no tag names for renaming. This is incorrect.
+        setParameter("r", "   ");
+        execute(false);
+    }
 }

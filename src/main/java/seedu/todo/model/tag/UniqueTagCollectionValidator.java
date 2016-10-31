@@ -40,6 +40,8 @@ public class UniqueTagCollectionValidator {
             = "The tag names you have entered do not exist.";
     private static final String ERROR_TAGS_EXIST
             = "The tag names you have entered are already in the task.";
+    private static final String ERROR_TAGS_EMPTY
+            = "You need to supply tag names.";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
@@ -88,9 +90,8 @@ public class UniqueTagCollectionValidator {
         validateNameCharLimit(tagNames);
         validateDuplicatedNameTag(tagNames);
         validateNumberOfTags(task, tagNames);
-        if (task != null) {
-            validateTagNamesDoNotExist(task.getTags(), tagNames);
-        }
+        validateTagNamesDoNotExist(task.getTags(), tagNames);
+        validateTagNameMissing(tagNames);
     }
 
     /**
@@ -98,6 +99,7 @@ public class UniqueTagCollectionValidator {
      */
     public void validateDeleteTags(ImmutableTask task, String[] tagNames) {
         validateTagNamesExist(task.getTags(), tagNames);
+        validateTagNameMissing(tagNames);
     }
 
     /**
@@ -105,6 +107,7 @@ public class UniqueTagCollectionValidator {
      */
     public void validateDeleteTags(UniqueTagCollectionModel tagCollection, String[] tagNames) {
         validateTagNamesExist(tagCollection.getUniqueTagList(), tagNames);
+        validateTagNameMissing(tagNames);
     }
 
     /**
@@ -168,6 +171,10 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names exist in the {@code tagPool}.
      */
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
+        if (tagPool == null || tagPool.isEmpty()) {
+            return;
+        }
+
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         Set<String> tagPoolNameSet = tagPool.stream().map(Tag::getTagName).collect(Collectors.toSet());
         List<String> tagsDoNotExist = tagNamesSet.stream().filter(tagName -> !tagPoolNameSet.contains(tagName))
@@ -183,6 +190,10 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names do not exist in the {@code tagPool}.
      */
     private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
+        if (tagPool == null || tagPool.isEmpty()) {
+            return;
+        }
+
         Set<String> tagNamesSet = Sets.newHashSet(tagNames);
         List<String> tagsExist = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName()))
                 .map(Tag::getTagName).collect(Collectors.toList());
@@ -190,6 +201,15 @@ public class UniqueTagCollectionValidator {
         if (!tagsExist.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
                     + StringUtil.convertIterableToString(tagsExist));
+        }
+    }
+
+    /**
+     * Checks to prevent the case where the tag names provided are actually empty.
+     */
+    private void validateTagNameMissing(String... tagNames) {
+        if (tagNames == null || tagNames.length == 0) {
+            errorBag.put(parameterName, ERROR_TAGS_EMPTY);
         }
     }
 

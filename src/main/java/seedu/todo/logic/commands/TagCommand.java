@@ -71,32 +71,47 @@ public class TagCommand extends BaseCommand {
         };
     }
 
+    /* Methods to get command argument for add tags */
     /**
      * Partitions two flag-less parameters index and list of tags by overriding this method.
      */
     @Override
     protected void setPositionalArgument(String argument) {
         String[] tokens = argument.trim().split(" ", 2);
-        boolean isFirstArgNumber = StringUtil.isUnsignedInteger(tokens[0]);
-        boolean isSecondArgAvailable = tokens.length == 2;
+        getPossibleIndexForAddCommand(tokens[0]);
+        if (tokens.length == 2) {
+            getPossibleTagsForAddCommand(tokens[1]);
+        }
+    }
 
+    /**
+     * If the input parameter resembles the add command with an index, extracts the index of the add command
+     * input.
+     */
+    private void getPossibleIndexForAddCommand(String argument) {
+        boolean isFirstArgNumber = StringUtil.isUnsignedInteger(argument);
         if (isFirstArgNumber) {
             try {
-                index.setValue(tokens[0]);
+                index.setValue(argument);
             } catch (IllegalValueException e) {
                 errors.put(index.getName(), e.getMessage());
             }
         }
+    }
 
-        if (isSecondArgAvailable) {
-            try {
-                addTags.setValue(tokens[1]);
-            } catch (IllegalValueException e) {
-                errors.put(addTags.getName(), e.getMessage());
-            }
+    /**
+     * If the input parameter resembles the add command with tag names, extracts the tag names of the add
+     * command input.
+     */
+    private void getPossibleTagsForAddCommand(String argument) {
+        try {
+            addTags.setValue(argument);
+        } catch (IllegalValueException e) {
+            errors.put(addTags.getName(), e.getMessage());
         }
     }
 
+    /* Remaining Override Methods */
     @Override
     public String getCommandName() {
         return "tag";
@@ -135,12 +150,13 @@ public class TagCommand extends BaseCommand {
         String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
         String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
         String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
-        CommandResult result = new CommandResult();
+        CommandResult result;
 
         //Performs the actual execution with the data
         if (isShowTags()) {
             ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
             EventsCenter.getInstance().post(tagsEvent);
+            result = new CommandResult("Type [Enter] to dismiss.");
 
         } else if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);

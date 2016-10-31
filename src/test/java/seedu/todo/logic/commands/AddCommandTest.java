@@ -150,7 +150,7 @@ public class AddCommandTest extends CommandTest {
     //@@author A0135805H
     @Test
     public void testAddTag_singleTag() throws Exception {
-        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags("pikachu");
+        Set<Tag> expectedTags = TaskFactory.convertToTags("pikachu");
 
         setParameter("Task with tags");
         setParameter("t", "pikachu");
@@ -164,7 +164,7 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddTag_maxTags() throws Exception {
         Set<Tag> expectedTags
-                = TaskFactory.convertTagNamesToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
+                = TaskFactory.convertToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
 
         setParameter("Pokemon with tags");
         setParameter("t", "pikachu123 , charizaRD_-  -pichu-  ---raichu,  gasly");
@@ -177,7 +177,7 @@ public class AddCommandTest extends CommandTest {
 
     @Test
     public void testAddTag_fullEventWithTags() throws Exception {
-        Set<Tag> expectedTags = TaskFactory.convertTagNamesToTags("leisure", "pokemon", "pikachu");
+        Set<Tag> expectedTags = TaskFactory.convertToTags("leisure", "pokemon", "pikachu");
 
         setParameter("Pokemon with tags");
         setParameter("m", "Some long long very very long long massively long description. Thank you.");
