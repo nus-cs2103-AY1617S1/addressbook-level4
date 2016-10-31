@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.events.model.ViewCategoryChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.DoneCommand;
@@ -232,6 +233,10 @@ public class MainWindow extends UiPart {
 
     public void releaseResources() {
     	
+    }
+    
+    public void updateViewStatus(String status) {
+    	statusBarFooter.setViewStatus("Viewing " + status + "items");
     }
 
 	//@@author A0135812L

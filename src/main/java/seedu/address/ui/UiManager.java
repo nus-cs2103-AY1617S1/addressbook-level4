@@ -11,6 +11,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.ViewCategoryChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -148,9 +149,16 @@ public class UiManager extends ComponentManager implements Ui {
     
     //@@author A0135812L
     @Subscribe
-    private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event){
+    private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.markTaskCard(event.getDisplayedIndex());
     }
-
+    
+    //@@author A0135767U
+    @Subscribe
+    private void handleViewCategoryChangedEvent(ViewCategoryChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.updateViewStatus(event.getView());
+    }
+    
 }

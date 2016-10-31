@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
-    private StatusBar syncStatus;
+    private StatusBar viewStatus;
     private StatusBar saveLocationStatus;
 
     private GridPane mainPane;
@@ -28,7 +28,7 @@ public class StatusBarFooter extends UiPart {
     private AnchorPane saveLocStatusBarPane;
 
     @FXML
-    private AnchorPane syncStatusBarPane;
+    private AnchorPane viewStatusBarPane;
 
     private AnchorPane placeHolder;
 
@@ -42,8 +42,8 @@ public class StatusBarFooter extends UiPart {
 
     public void configure(String saveLocation) {
         addMainPane();
-        addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
+        addViewStatus();
+        setViewStatus("Viewing all items");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -64,14 +64,14 @@ public class StatusBarFooter extends UiPart {
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
 
-    private void setSyncStatus(String status) {
-        this.syncStatus.setText(status);
+    public void setViewStatus(String status) {
+        this.viewStatus.setText(status);
     }
 
-    private void addSyncStatus() {
-        this.syncStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
-        syncStatusBarPane.getChildren().add(syncStatus);
+    private void addViewStatus() {
+        this.viewStatus = new StatusBar();
+        FxViewUtil.applyAnchorBoundaryParameters(viewStatus, 0.0, 0.0, 0.0, 0.0);
+        viewStatusBarPane.getChildren().add(viewStatus);
     }
 
     @Override
@@ -93,6 +93,6 @@ public class StatusBarFooter extends UiPart {
     public void handleToDoChangedEvent(ToDoChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus("Last Updated: " + lastUpdated);
+        setViewStatus("Last Updated: " + lastUpdated);
     }
 }
