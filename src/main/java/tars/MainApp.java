@@ -60,7 +60,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
         
         // to improve the natty parser runtime for the first query
-        new Thread(() -> DateTimeUtil.getDateTimeFromArgs("today")).start();
+        new Thread(() -> DateTimeUtil.parseStringToDateTime("today")).start();
 
         initEventsCenter();
     }

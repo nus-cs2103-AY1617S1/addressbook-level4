@@ -6,6 +6,11 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.RedoCommand;
 
+/**
+ * Redo command parser
+ *
+ * @@author A0139924W
+ */
 public class RedoCommandParser extends CommandParser {
 
     @Override

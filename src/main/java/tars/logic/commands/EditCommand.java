@@ -71,10 +71,10 @@ public class EditCommand extends UndoableCommand {
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
+    
+    //@@author
 
-    /**
-     * @@author A0139924W
-     */
+    //@@author A0139924W
     @Override
     public CommandResult undo() {
         assert model != null;
@@ -88,9 +88,7 @@ public class EditCommand extends UndoableCommand {
         }
     }
     
-    /**
-     * @@author A0139924W
-     */
+    //@@author A0139924W
     @Override
     public CommandResult redo() {
         assert model != null;

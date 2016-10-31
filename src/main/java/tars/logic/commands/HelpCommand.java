@@ -1,6 +1,5 @@
 package tars.logic.commands;
 
-
 import tars.commons.core.EventsCenter;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 

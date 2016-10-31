@@ -11,8 +11,13 @@ import tars.logic.commands.IncorrectCommand;
 import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
-//@@author A0124333U
 
+/**
+ * Free command parser
+ * 
+ * @@author A0124333U
+ *
+ */
 public class FreeCommandParser extends CommandParser {
 
     @Override
@@ -26,7 +31,7 @@ public class FreeCommandParser extends CommandParser {
         String[] dateTimeStringArray = { "" };
 
         try {
-            dateTimeStringArray = DateTimeUtil.getDateTimeFromArgs(args);
+            dateTimeStringArray = DateTimeUtil.parseStringToDateTime(args);
         } catch (DateTimeException dte) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
         }

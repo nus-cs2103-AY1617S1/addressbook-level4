@@ -86,13 +86,12 @@ public class Tars implements ReadOnlyTars {
         this.rsvTasks.getInternalList().setAll(rsvTasks);
     }
 
-	/**
-	 * Replaces task in tars internal list
-	 *
-	 * @@author A0121533W
-	 * @throws DuplicateTaskException
-	 *             if replacement task is the same as the task to replace
-	 */
+    /**
+     * Replaces task in tars internal list
+     *
+     * @@author A0121533W
+     * @throws DuplicateTaskException if replacement task is the same as the task to replace
+     */
 	public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
 		if (toReplace.isSameStateAs(replacement)) {
 			throw new DuplicateTaskException();
@@ -124,14 +123,12 @@ public class Tars implements ReadOnlyTars {
 
 	//// task-level operations
 
-	/**
-	 * Adds a task to tars. Also checks the new task's tags and updates
-	 * {@link #tags} with any new tags found, and updates the Tag objects in the
-	 * task to point to those in {@link #tags}.
-	 *
-	 * @throws UniqueTaskList.DuplicateTaskException
-	 *             if an equivalent task already exists.
-	 */
+    /**
+     * Adds a task to tars. Also checks the new task's tags and updates {@link #tags} with any new
+     * tags found, and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
 	public void addTask(Task p) throws DuplicateTaskException {
 		syncTagsWithMasterList(p);
 		tasks.add(p);
@@ -147,22 +144,17 @@ public class Tars implements ReadOnlyTars {
         rsvTasks.add(rt);
     }
 
-	/**
-	 * Edits a task in tars
-	 * 
-	 * @@author A0121533W
-	 * @throws UniqueTaskList.TaskNotFoundException
-	 *             if task to edit could not be found.
-	 * @throws DateTimeException
-	 *             if problem encountered while parsing dateTime.
-	 * @throws DuplicateTagException
-	 *             if the Tag to add is a duplicate of an existing Tag in the
-	 *             list.
-	 * @throws TagNotFoundException
-	 *             if no such tag could be found.
-	 * @throws IllegalValueException
-	 *             if argument(s) in argsToEdit is/are invalid.
-	 */
+    /**
+     * Edits a task in tars
+     * 
+     * @@author A0121533W
+     * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
+     * @throws DateTimeException if problem encountered while parsing dateTime.
+     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the
+     *         list.
+     * @throws TagNotFoundException if no such tag could be found.
+     * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
+     */
 	public Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer) throws TaskNotFoundException,
 			DateTimeException, DuplicateTagException, TagNotFoundException, IllegalValueException {
 		if (!tasks.getInternalList().contains(toEdit)) {
@@ -192,7 +184,7 @@ public class Tars implements ReadOnlyTars {
 		// Edit DateTime
         if (!argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
             String[] dateTimeArray =
-                    DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).get());
+                    DateTimeUtil.parseStringToDateTime(argsTokenizer.getValue(dateTimePrefix).get());
             DateTime editedDateTime = new DateTime(dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
                     dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
             taskToEdit.setDateTime(editedDateTime);
@@ -224,12 +216,12 @@ public class Tars implements ReadOnlyTars {
 		return taskToEdit;
 	}
 
-	/**
-	 * Marks every task in respective lists as done or undone
-	 * 
-	 * @@author A0121533W
-	 * @throws DuplicateTaskException
-	 */
+    /**
+     * Marks every task in respective lists as done or undone
+     * 
+     * @@author A0121533W
+     * @throws DuplicateTaskException
+     */
 	public void mark(ArrayList<ReadOnlyTask> toMarkList, Status status) throws DuplicateTaskException {
 		for (ReadOnlyTask t : toMarkList) {
 			if (!t.getStatus().equals(status)) {
@@ -337,17 +329,20 @@ public class Tars implements ReadOnlyTars {
 
 	//// tag-level operations
 
+	//@@author A0139924W
 	public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
 		tags.add(t);
 	}
 
+	//@@author A0139924W
 	public void removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
 		tags.remove(t);
 	}
 	
-	/**
+    /**
      * Rename all task with the new tag
      * 
+     * @@author A0139924W
      * @param toBeRenamed tag to be replaced with new the new tag
      * @param newTag new tag
      * @throws IllegalValueException if the given tag name string is invalid.
@@ -371,6 +366,7 @@ public class Tars implements ReadOnlyTars {
     /**
      * Remove the tag from all tasks
      * 
+     * @@author A0139924W
      * @param toBeDeleted
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
@@ -396,6 +392,7 @@ public class Tars implements ReadOnlyTars {
     /**
      * Remove the tag from all tasks
      * 
+     * @@author A0139924W
      * @param toBeDeleted
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
@@ -415,6 +412,8 @@ public class Tars implements ReadOnlyTars {
             }
         }
     }
+    
+    //@@author
 
 	//// util methods
 
@@ -462,11 +461,11 @@ public class Tars implements ReadOnlyTars {
                         && this.tags.equals(((Tars) other).tags));
     }
 
-	@Override
-	public int hashCode() {
+    @Override
+    public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-		return Objects.hash(tasks, tags, rsvTasks);
-	}
+        return Objects.hash(tasks, tags, rsvTasks);
+    }
 
 }

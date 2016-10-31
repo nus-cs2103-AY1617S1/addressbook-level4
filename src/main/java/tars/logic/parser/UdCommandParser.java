@@ -9,6 +9,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.UdCommand;
 
+/**
+ * Undone command parser
+ */
 public class UdCommandParser extends CommandParser {
 
     private static final String INVALID_RANGE = "Start index should be before end index.";

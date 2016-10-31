@@ -14,12 +14,16 @@ import tars.logic.commands.AddCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Add command parser
+ * 
+ * @@author A0139924W
+ */
 public class AddCommandParser extends CommandParser {
 
     /**
      * Parses arguments in the context of the add task command.
-     *
-     * @@author A0139924W
+     * 
      * @param args full command args string
      * @return the prepared command
      */
@@ -31,7 +35,7 @@ public class AddCommandParser extends CommandParser {
 
         try {
             return new AddCommand(argsTokenizer.getPreamble().get(),
-                    DateTimeUtil.getDateTimeFromArgs(
+                    DateTimeUtil.parseStringToDateTime(
                             argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)),
                     argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
                     argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<String>()),

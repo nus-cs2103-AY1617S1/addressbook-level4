@@ -5,6 +5,12 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+/**
+ * Prefix test
+ * 
+ * @@author A0139924W
+ *
+ */
 public class PrefixTest {
     
     @Test

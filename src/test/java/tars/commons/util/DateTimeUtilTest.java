@@ -15,8 +15,12 @@ import tars.commons.core.Messages;
 import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
+/**
+ * Date time util test
+ */
 public class DateTimeUtilTest {
-
+    
+    //@@authorA0139924W
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -25,22 +29,22 @@ public class DateTimeUtilTest {
         thrown.expect(DateTimeException.class);
         thrown.expectMessage(Messages.MESSAGE_INVALID_DATE);
 
-        DateTimeUtil.getDateTimeFromArgs("abc");
-        DateTimeUtil.getDateTimeFromArgs("hello world");
+        DateTimeUtil.parseStringToDateTime("abc");
+        DateTimeUtil.parseStringToDateTime("hello world");
 
-        DateTimeUtil.getDateTimeFromArgs("+1");
-        DateTimeUtil.getDateTimeFromArgs("-1");
+        DateTimeUtil.parseStringToDateTime("+1");
+        DateTimeUtil.parseStringToDateTime("-1");
     }
 
     @Test
     public void natty_parser_empty_args() {
         String[] expected = new String[] { "", "" };
-        String[] actual = DateTimeUtil.getDateTimeFromArgs(" ");
+        String[] actual = DateTimeUtil.parseStringToDateTime(" ");
 
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
 
-        actual = DateTimeUtil.getDateTimeFromArgs("");
+        actual = DateTimeUtil.parseStringToDateTime("");
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
     }
@@ -48,10 +52,12 @@ public class DateTimeUtilTest {
     @Test
     public void extract_date_successful() {
         String[] expectedDateTime = { "", "01/01/2016 1500" };
-        String[] actualDateTime = DateTimeUtil.getDateTimeFromArgs("1/1/2016 1500");
+        String[] actualDateTime = DateTimeUtil.parseStringToDateTime("1/1/2016 1500");
 
         assertArrayEquals(expectedDateTime, actualDateTime);
     }
+    
+    //@@author
 
     // @@author A0140022H
     @Test

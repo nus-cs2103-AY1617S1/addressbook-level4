@@ -1,7 +1,5 @@
 package tars.logic.parser;
 
-//@@author A0124333U
-
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.DateTimeException;
@@ -18,6 +16,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.RsvCommand;
 
+/**
+ * Reserve command parser
+ * 
+ * @@author A0124333U
+ *
+ */
 public class RsvCommandParser extends CommandParser {
 
     @Override
@@ -49,7 +53,7 @@ public class RsvCommandParser extends CommandParser {
 
         try {
             for (String dateTimeString : argsTokenizer.getMultipleValues(dateTimePrefix).get()) {
-                dateTimeStringSet.add(DateTimeUtil.getDateTimeFromArgs(dateTimeString));
+                dateTimeStringSet.add(DateTimeUtil.parseStringToDateTime(dateTimeString));
             }
 
             return new RsvCommand(argsTokenizer.getPreamble().get(), dateTimeStringSet);

@@ -113,10 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TarsChangedEvent(tars));
     }
 
+    //@@author A0121533W
     @Override
-    /**
-     * @@author A0121533W
-     */
     public synchronized Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
             throws TaskNotFoundException, DateTimeException, IllegalDateException, DuplicateTagException,
             TagNotFoundException, IllegalValueException {
@@ -125,8 +123,8 @@ public class ModelManager extends ComponentManager implements Model {
         return editedTask;
     }
 
+    //@@author A0139924W
     @Override
-    /** @@author A0139924W */
     public synchronized void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
 
@@ -136,8 +134,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTarsChanged();
     }
 
+    //@@author A0139924W
     @Override
-    /** @@author A0139924W */
     public synchronized ArrayList<ReadOnlyTask> removeTagFromAllTasks(ReadOnlyTag toBeDeleted)
             throws TagNotFoundException, IllegalValueException {
 
@@ -148,8 +146,8 @@ public class ModelManager extends ComponentManager implements Model {
         return editedTasks;
     }
     
+    //@@author A0139924W
     @Override
-    /** @@author A0139924W */
     public synchronized void addTagToAllTasks(ReadOnlyTag toBeAdded, ArrayList<ReadOnlyTask> allTasks)
             throws DuplicateTagException, IllegalValueException, TagNotFoundException {
         tars.addTagToAllTasks(toBeAdded, allTasks);
@@ -157,6 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         indicateTarsChanged();
     }
+    
+    //@@author
 
     @Override
     public synchronized void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException {
@@ -190,10 +190,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTarsChanged();
     }
 
+    //@@author A0121533W
     @Override
-    /**
-     * @@author A0121533W
-     */
     public synchronized void mark(ArrayList<ReadOnlyTask> toMarkList, Status status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
@@ -201,8 +199,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * @@author A0124333U Returns a string of tasks and rsv tasks whose datetime
-     *          conflicts with a specified datetime
+     * Returns a string of tasks and rsv tasks whose datetime conflicts with a specified datetime
+     * 
+     * @@author A0124333U
      */
     public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck) {
         StringBuilder conflictingTasksStringBuilder = new StringBuilder("");
@@ -295,9 +294,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    /**
-     * @@author A0140022H
-     */
+    //@@author A0140022H
     public void updateFilteredTaskListUsingDate(DateTime dateTime) {
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateTime)));
     }
@@ -462,9 +459,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    /**
-     * @@author A0140022H
-     */
+    //@@author A0140022H
     private class DateQualifier implements Qualifier {
         private final LocalDateTime startDateTime;
         private final LocalDateTime endDateTime;

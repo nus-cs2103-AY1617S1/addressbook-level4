@@ -18,14 +18,12 @@ public class ConfigUtil {
     private static final String configFilePath = "config.json";
 
     /**
-     * Returns the Config object from the given file or {@code Optional.empty()}
-     * object if the file is not found. If any values are missing from the file,
-     * default values will be used, as long as the file is a valid json file.
+     * Returns the Config object from the given file or {@code Optional.empty()} object if the file
+     * is not found. If any values are missing from the file, default values will be used, as long
+     * as the file is a valid json file.
      * 
-     * @param configFilePath
-     *            cannot be null.
-     * @throws DataConversionException
-     *             if the file format is not as expected.
+     * @param configFilePath cannot be null.
+     * @throws DataConversionException if the file format is not as expected.
      */
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
 
@@ -51,15 +49,12 @@ public class ConfigUtil {
     }
 
     /**
-     * Saves the Config object to the specified file. Overwrites existing file
-     * if it exists, creates a new file if it doesn't.
+     * Saves the Config object to the specified file. Overwrites existing file if it exists, creates
+     * a new file if it doesn't.
      * 
-     * @param config
-     *            cannot be null
-     * @param configFilePath
-     *            cannot be null
-     * @throws IOException
-     *             if there was an error during writing to the file
+     * @param config cannot be null
+     * @param configFilePath cannot be null
+     * @throws IOException if there was an error during writing to the file
      */
     public static void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;

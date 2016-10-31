@@ -13,7 +13,6 @@ import tars.model.task.rsv.RsvTask;
  * 
  * @author A0139924W
  */
-
 public class Formatter {
     /** Format of indexed list item */
     private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d.\t%2$s";

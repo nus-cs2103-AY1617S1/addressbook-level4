@@ -6,6 +6,14 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Argument tokenizer test.
+ * 
+ * Credit: Test adapted from nus-cs2103-AY1617S1/addressbook-level4
+ * 
+ * @@author A0139924W
+ *
+ */
 public class ArgumentTokenizerTest {
     private static final Prefix unknownPrefix = new Prefix("/uuuuuu");
     private static final Prefix tagPrefix = new Prefix("/t");

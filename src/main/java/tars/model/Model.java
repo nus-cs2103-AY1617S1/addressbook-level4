@@ -99,8 +99,7 @@ public interface Model {
      * consisting of all the attributes of each task*/
     void updateFilteredTaskListUsingQuickSearch(ArrayList<String> lazySearchKeywords);
 
-    /**@@author 
-     * Returns the undoable command history stack */
+    /** Returns the undoable command history stack */
     Stack<Command> getUndoableCmdHist();
     
     /** Returns the redoable command history stack */
@@ -122,9 +121,7 @@ public interface Model {
      */
 	void sortFilteredTaskList(Set<String> keywords);
 
-	/**
-     * @@author A0140022H
-     */
+	//@@author A0140022H
 	void updateFilteredTaskListUsingDate(DateTime dateTime);
 
 }

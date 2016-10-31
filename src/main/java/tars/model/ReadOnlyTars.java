@@ -1,6 +1,5 @@
 package tars.model;
 
-
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;

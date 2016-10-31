@@ -9,6 +9,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.DoCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Do command parser
+ */
 public class DoCommandParser extends CommandParser {
 
     private static final String INVALID_RANGE = "Start index should be before end index.";

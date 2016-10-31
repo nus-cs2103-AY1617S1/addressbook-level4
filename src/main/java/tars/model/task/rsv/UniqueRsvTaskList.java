@@ -19,7 +19,6 @@ import tars.commons.util.CollectionUtil;
  * @see RsvTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-
 public class UniqueRsvTaskList implements Iterable<RsvTask> {
 
     /**

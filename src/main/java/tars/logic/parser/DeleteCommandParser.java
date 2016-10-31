@@ -9,6 +9,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.DeleteCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Delete command parser
+ */
 public class DeleteCommandParser extends CommandParser {
 
     /**

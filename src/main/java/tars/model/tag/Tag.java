@@ -1,6 +1,5 @@
 package tars.model.tag;
 
-
 import tars.commons.exceptions.IllegalValueException;
 
 /**
@@ -14,7 +13,7 @@ public class Tag implements ReadOnlyTag {
 
     public String tagName;
     
-    public Tag() { }
+    public Tag() {}
 
     /**
      * Validates given tag name.
