@@ -448,9 +448,13 @@ public class CommandParser {
         if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(SelectCommand.TOOL_TIP);
         }
+        if (StringUtil.isSubstringFromStart(StoreCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(StoreCommand.TOOL_TIP);
+        }
         if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
+        
 
         boolean hasNoTooltipMatches = tooltips.isEmpty();
         if (hasNoTooltipMatches) {
@@ -486,6 +490,9 @@ public class CommandParser {
             
         } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
             return SelectCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(StoreCommand.COMMAND_WORD)) {
+            return StoreCommand.TOOL_TIP;
             
         } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
             return UndoCommand.TOOL_TIP;
@@ -539,6 +546,9 @@ public class CommandParser {
         if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(SelectCommand.TOOL_TIP);
         }
+        if (StringUtil.isSubstringFromStart(StoreCommand.COMMAND_WORD, commandWord)) {
+            tooltips.add(StoreCommand.TOOL_TIP);
+        }
         if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
             tooltips.add(UndoCommand.TOOL_TIP);
         }
@@ -591,6 +601,9 @@ public class CommandParser {
             
         } else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
             return SelectCommand.TOOL_TIP;
+            
+        } else if (commandWord.equals(StoreCommand.COMMAND_WORD)) {
+            return StoreCommand.TOOL_TIP;
             
         } else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
             return UndoCommand.TOOL_TIP;
