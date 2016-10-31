@@ -71,10 +71,6 @@ public class CommandMap {
         }
     }
 
-    /**
-     * Gets a map of command keys to command summaries
-     * @return map of command summaries
-     */
     public static Map<String, List<CommandSummary>> getCommandSummaryMap() {
         if (commandSummaryMap == null) {
             buildCommandSummariesMap();
@@ -83,10 +79,6 @@ public class CommandMap {
         return commandSummaryMap;
     }
 
-    /**
-     * Gets a full list of all command summaries.
-     * @return list of command summaries
-     */
     public static List<CommandSummary> getAllCommandSummary() {
         // convert map to list
         List<CommandSummary> commandSummariesList = new ArrayList<>();

@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.ui.MainWindow;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.logic.commands.CommandSummary;
 import seedu.todo.ui.UiPart;
