@@ -130,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.editTask(index, task);
         checkForOverdueTasks();
         indicateTaskManagerChanged();
-	}
+    }
     
     //@@author A0141019U
     @Override

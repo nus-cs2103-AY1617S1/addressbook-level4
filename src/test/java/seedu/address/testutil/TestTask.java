@@ -51,7 +51,7 @@ public class TestTask implements ReadOnlyTask {
         }
         else {
             this.setTaskType(new TaskType("event"));
-        	startDate = Optional.of(date);
+            startDate = Optional.of(date);
         }
     }
 
