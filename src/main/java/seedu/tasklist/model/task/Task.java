@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.commons.util.RecurringUtil;
 
@@ -52,9 +53,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	/**
 	 * Copy constructor.
+	 * @throws IllegalValueException 
 	 */
-	public Task(ReadOnlyTask source) {
-		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getRecurringFrequency());
+	public Task(ReadOnlyTask source) throws IllegalValueException {
+		this(new TaskDetails(source.getTaskDetails().taskDetails), new StartTime(source.getStartTime().toString()), new EndTime(source.getEndTime().toString()), new Priority(source.getPriority().priorityLevel), new String(source.getRecurringFrequency()));
 		if(source.isComplete()){
 			this.markAsComplete();
 		}

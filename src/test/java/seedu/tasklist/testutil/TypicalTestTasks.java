@@ -51,6 +51,9 @@ public class TypicalTestTasks {
             ab.addTask(new Task(task11));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "Some of the tasks could not be added!";
+        } 
+        catch (IllegalValueException e) {
+            e.printStackTrace();
         }
         Collections.sort(ab.getTasks());
     }
