@@ -61,6 +61,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -163,7 +164,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList(), Collections.emptyList());
     }
 
     /**
@@ -175,14 +176,16 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyTask> expectedShownTaskList,
+                                       List<? extends ReadOnlyTask> expectedShownEventList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredAgendaTaskList());
+        assertEquals(expectedShownTaskList, model.getFilteredAgendaTaskList());
+        assertEquals(expectedShownEventList, model.getFilteredAgendaEventList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
@@ -271,7 +274,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateFloatingTask(2));
         model.addTask(helper.generateFloatingTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList(), Collections.emptyList());
     }
 
     @Test
@@ -316,7 +319,8 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList(),
+                Collections.emptyList());
 
         toBeAdded = helper.laundry();
         expectedAB.addTask(toBeAdded);
@@ -325,7 +329,8 @@ public class LogicManagerTest {
                 helper.generateAddCommand_A(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList(),
+                Collections.emptyList());
         
         toBeAdded = helper.homework();
         expectedAB.addTask(toBeAdded);
@@ -334,7 +339,8 @@ public class LogicManagerTest {
                 helper.generateAddCommand_Ad(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList(),
+                Collections.emptyList());
     }
 
     @Test
@@ -353,19 +359,22 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
         
         assertCommandBehavior(
                 helper.generateAddCommand_A(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
         
         assertCommandBehavior(
                 helper.generateAddCommand_Ad(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
 
     }
     
@@ -382,16 +391,18 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
 
-        toBeAdded = helper.holiday();
+        toBeAdded = helper.toiletPaper();
         expectedTB.addTask(toBeAdded);
         
         assertCommandBehavior(
                 helper.generateAddCommand_ad(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
         
         toBeAdded = helper.submission();
         expectedTB.addTask(toBeAdded);
@@ -400,7 +411,8 @@ public class LogicManagerTest {
                 helper.generateAddCommand_a(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
-                expectedTB.getTaskList());
+                expectedTB.getTaskList(),
+                Collections.emptyList());
     }
     
     @Test 
@@ -409,7 +421,7 @@ public class LogicManagerTest {
         
         assertCommandBehavior("add \"Valid deadline task\" tmr", expectedMessage);
         assertCommandBehavior("add \"Valid deadline task\" to tmr", expectedMessage);
-        assertCommandBehavior("add \"Valid deadline task\" on tmr", expectedMessage);
+        assertCommandBehavior("add \"Valid deadline task\" by tmr", expectedMessage);
     }
     
     @Test
@@ -424,6 +436,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
+                Collections.emptyList(),
                 expectedTB.getTaskList());
 
         toBeAdded = helper.tuition();
@@ -433,6 +446,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
+                Collections.emptyList(),
                 expectedTB.getTaskList());
         
         toBeAdded = helper.meeting();
@@ -442,6 +456,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand_a(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedTB,
+                Collections.emptyList(),
                 expectedTB.getTaskList());
     }
     
@@ -462,19 +477,23 @@ public class LogicManagerTest {
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("l",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("li",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("lis",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
     }
 
 
@@ -507,7 +526,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " t3", expectedMessage, model.getTaskBook(), floatingTaskList);
+        assertCommandBehavior(commandWord + " t3", expectedMessage, model.getTaskBook(), floatingTaskList, Collections.emptyList());
     }
     
     /*
@@ -620,7 +639,8 @@ public class LogicManagerTest {
         assertCommandBehavior("delete t2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
                 expectedAB,
-                expectedAB.getTaskList());
+                expectedAB.getTaskList(),
+                Collections.emptyList());
     }
 
 
@@ -649,20 +669,23 @@ public class LogicManagerTest {
         assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("fi \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
-
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("fin \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("f \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
 
 
     }
@@ -684,20 +707,24 @@ public class LogicManagerTest {
         assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("fi \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
 
         assertCommandBehavior("fin \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("f \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
     }
 
     @Test
@@ -716,19 +743,23 @@ public class LogicManagerTest {
         assertCommandBehavior("find \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("f \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("fi \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
         assertCommandBehavior("fin \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedList);
+                expectedList,
+                Collections.emptyList());
     }
     
     // @@author A0143471L
@@ -806,7 +837,7 @@ public class LogicManagerTest {
         // @@author A0143471L
         DeadlineTask submission() throws Exception {
             Name name = new Name("Submission");
-            DateTime deadline = new DateTime("Tonight 9pm");
+            DateTime deadline = new DateTime("2016-11-02 21:00");
             Tag tag = new Tag("impt");
             UniqueTagList tags = new UniqueTagList(tag);
             Priority priority = new Priority ("HIGH");
@@ -824,7 +855,7 @@ public class LogicManagerTest {
         
         DeadlineTask toiletPaper() throws Exception {
             Name name = new Name("Buy toilet paper");
-            DateTime deadline = new DateTime("tmr 6pm");
+            DateTime deadline = new DateTime("2016-11-01 18:00");
             Tag tag = new Tag("Necessities");
             UniqueTagList tags = new UniqueTagList(tag);
             Priority priority = new Priority ("MED");
@@ -833,18 +864,17 @@ public class LogicManagerTest {
         
         Event tuition() throws Exception {
             Name name = new Name ("Math tuition");
-            DateTime start = new DateTime("Tues 7pm");
-            DateTime end = new DateTime("Tues 9pm");
-            Tag tag = new Tag(null);
-            UniqueTagList tags = new UniqueTagList(tag);
+            DateTime start = new DateTime("2016-12-05 19:00");
+            DateTime end = new DateTime("2016-12-05 21:00");
+            UniqueTagList tags = new UniqueTagList();   // No tags
             Priority priority = new Priority ("MED");
             return new Event(name, start, end, tags, priority);
         }
         
         Event exam() throws Exception {
             Name name = new Name ("Practical exam");
-            DateTime start = new DateTime("next thurs 6pm");
-            DateTime end = new DateTime("next thurs 9pm");
+            DateTime start = new DateTime("2016-12-01 18:00");
+            DateTime end = new DateTime("2016-12-01 21:00");
             Tag tag = new Tag("Programming");
             UniqueTagList tags = new UniqueTagList(tag);
             Priority priority = new Priority ("HIGH");
@@ -853,8 +883,8 @@ public class LogicManagerTest {
         
         Event meeting() throws Exception {
             Name name = new Name ("Committee meeting");
-            DateTime start = new DateTime("Next Wed 9am");
-            DateTime end = new DateTime("Next Wed 11am");
+            DateTime start = new DateTime("2016-12-08 09:00");
+            DateTime end = new DateTime("2016-12-08 11:00");
             Tag tag = new Tag("School");
             UniqueTagList tags = new UniqueTagList(tag);
             Priority priority = new Priority ("HIGH");
@@ -951,11 +981,12 @@ public class LogicManagerTest {
         String generateAddCommand_ad(DeadlineTask dt) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("ad")
+            cmd.append("ad ")
                .append("\"")
                .append(dt.getName())
                .append("\" due ")
-               .append(dt.getDeadline());
+               .append(dt.getDeadline().getDate() + " ")
+               .append(dt.getDeadline().getTime());
             UniqueTagList tags = dt.getTags();
             for (Tag t: tags) {
                cmd.append(" t/").append(t.tagName);
@@ -968,11 +999,12 @@ public class LogicManagerTest {
         String generateAddCommand_a(DeadlineTask dt) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("a")
+            cmd.append("a ")
                .append("\"")
                .append(dt.getName())
                .append("\" due ")
-               .append(dt.getDeadline());
+               .append(dt.getDeadline().getDate() + " ")
+               .append(dt.getDeadline().getTime());
             UniqueTagList tags = dt.getTags();
             for (Tag t: tags) {
                cmd.append(" t/").append(t.tagName);
@@ -985,7 +1017,7 @@ public class LogicManagerTest {
         String generateAddCommand(Event e) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("add")
+            cmd.append("add ")
                .append("\"")
                .append(e.getName())
                .append("\" on ")
@@ -1004,7 +1036,7 @@ public class LogicManagerTest {
         String generateAddCommand_ad(Event e) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("ad")
+            cmd.append("ad ")
                .append("\"")
                .append(e.getName())
                .append("\" from ")
@@ -1023,7 +1055,7 @@ public class LogicManagerTest {
         String generateAddCommand_a(Event e) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("a")
+            cmd.append("a ")
                .append("\"")
                .append(e.getName())
                .append("\" from ")
