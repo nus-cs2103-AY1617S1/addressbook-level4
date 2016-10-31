@@ -78,6 +78,7 @@ public class EditCommand extends UndoableCommand {
         startDate = null;
         endDate = null;
         priority = null;
+        recurrenceRate = null;
         removeReccurence = false;
         removeStartDate = false;
         removeEndDate = false;

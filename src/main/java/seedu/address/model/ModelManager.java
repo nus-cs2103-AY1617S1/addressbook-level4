@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.item.Task;
@@ -94,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(task)));
     }
     
 
@@ -175,6 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(floatingTask)));
     }
     //@@author
     
