@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.*;
@@ -12,9 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.unburden.commons.core.Config;
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
+import seedu.unburden.model.task.Date;
+import seedu.unburden.model.task.Time;
 
 /**
  * Parses user input.
@@ -402,23 +406,40 @@ public class Parser {
 	 * @@author A0139714B
 	 */
 	private Command prepareEdit(String args) {
+		String newName, newTaskDescription, newDate, newStartTime, newEndTime; 
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-		String tempArgs = args.trim();
+		try {
+			
+			String tempArgs = args.trim();
+	
+			String[] newArgs = tempArgs.split(" ", 2); // if no parameters is entered
+			if (newArgs.length <= 1)
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+	
+			Optional<Integer> index = parseIndex(newArgs[0]);
+			if (!index.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
+			}
+			
+			/*
+			newName = (matcher.group("name") == null) ? null : matcher.group("name");
+			newTaskDescription = (matcher.group("taskDescriptions") == null) ? null : matcher.group("taskDescriptions");
+			newDate = (matcher.group("date") == null) ? null : matcher.group("date");
+			newStartTime = (matcher.group("startTimeArguments") == null) ? null : matcher.group("startTimeArguments");
+			newEndTime = (matcher.group("endTimeArguments") == null) ? null : matcher.group("endTimeArguments"); 	
 
-		String[] newArgs = tempArgs.split(" ", 2);
-		if (newArgs.length <= 1)
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-		Optional<Integer> index = parseIndex(newArgs[0]);
-		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			return new EditCommand(index.get(), newName, newTaskDescription, newDate, newStartTime, newEndTime);
+			*/
+			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"), 
+								   matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
+			
+		} catch (IllegalValueException ive) {
+			return new IncorrectCommand(ive.getMessage());
 		}
-
-		return new EditCommand(index.get(), newArgs[1].trim());
 	}
 	
 	/**
