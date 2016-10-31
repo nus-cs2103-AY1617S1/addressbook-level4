@@ -156,7 +156,7 @@ public class CommandBox extends UiPart {
         setResultDisplayToDefault();
     }
     
-    /** Sets {@code commandTextField} with input texts following the most recent input texts. */
+    /** Sets {@code commandTextField} with input texts cycling forwards in input history. */
     private void cycleAheadInput() {
         if (aheadInputs.isEmpty()) {
             return;
@@ -171,12 +171,7 @@ public class CommandBox extends UiPart {
         }
     }
     
-    /** Shifts caret to the right end of text field */
-    private void setCaretToRightEnd() {
-        commandTextField.positionCaret(commandTextField.getText().length());
-    }
-    
-    /** Sets texts field with input texts following the latest input text. */
+    /** Sets {@code commandTextField} with input texts cycling backwards in input history. */
     private void cyclePreviousInput() {
         if (previousInputs.isEmpty()) {
             return;
@@ -196,6 +191,11 @@ public class CommandBox extends UiPart {
         while (!aheadInputs.isEmpty()) {
             previousInputs.push(aheadInputs.pop());
         }
+    }
+    
+    /** Shifts caret to the right end of text field */
+    private void setCaretToRightEnd() {
+        commandTextField.positionCaret(commandTextField.getText().length());
     }
     
     /** Sets {@code resultDisplay} to its default posting */
