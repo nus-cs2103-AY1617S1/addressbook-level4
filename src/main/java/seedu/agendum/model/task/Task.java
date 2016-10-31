@@ -174,9 +174,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             return comparedCompletionStatus;
         }
 
-        int comparedTime = compareTime(other);
-        if (comparedTime != 0) {
-            return comparedTime;
+        int comparedTaskTime = compareTaskTime(other);
+        if (!isCompleted() && comparedTaskTime != 0) {
+            return comparedTaskTime;
         }
 
         int comparedLastUpdatedTime = compareLastUpdatedTime(other);
@@ -191,7 +191,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Boolean.compare(this.isCompleted(), other.isCompleted());
     }
 
-    public int compareTime(Task other) {
+    public int compareTaskTime(Task other) {
         if (this.hasTime() && other.hasTime()) {
             return this.getTaskTime().compareTo(other.getTaskTime());
         } else if (this.hasTime()) {
