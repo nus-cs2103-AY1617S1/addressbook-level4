@@ -69,7 +69,7 @@ public class Startline  {
     }
 	
 	private Date mutateToDate(String startline) throws IllegalValueException{
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy HH:mm");
 		try{
 			return sdf.parse(startline);
 		}

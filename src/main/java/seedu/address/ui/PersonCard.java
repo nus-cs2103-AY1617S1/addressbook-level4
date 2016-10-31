@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import java.util.Calendar;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.address.model.deadline.DateManager;
 import seedu.address.model.task.ReadOnlyTask;
 
 public class PersonCard extends UiPart{
@@ -42,7 +45,20 @@ public class PersonCard extends UiPart{
     @FXML
     public void initialize() {    	
         name.setText(task.getName().fullName);
-        if(task.getDeadline().isOverdue){
+        Calendar cal = task.getDeadline().calendar;
+        if(cal != null) {
+	        DateManager datemanager = new DateManager(task.getDeadline().calendar);
+	        switch(datemanager.calculateDaysRemaining()){
+	        	case 4: name.setStyle("-fx-text-fill: blue;"); break;
+	        	case 3: name.setStyle("-fx-text-fill: green;"); break; 
+	        	case 2: name.setStyle("-fx-text-fill: purple;"); break;
+	        	case 1: case 0: name.setStyle("-fx-text-fill: orange;"); break;
+	        }
+	        if(datemanager.checkOverdue()) {
+	        	name.setStyle("-fx-text-fill: red;");
+	        }
+        }
+        if(task.getDeadline().isOverdue) {
         	name.setStyle("-fx-text-fill: red;");
         }
         id.setText(displayedIndex + ". ");
