@@ -8,7 +8,6 @@ import java.util.Optional;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.DateParser;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.TimePeriod;
 import seedu.address.model.item.DateTime;

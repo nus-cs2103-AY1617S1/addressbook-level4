@@ -405,7 +405,7 @@ public class CommandParser {
     private String getTooltipForUndoneList(final String arguments, final String commandWord, boolean inputHasNoArgs) {
         // tooltip depends on whether the input command has arguments
         if (inputHasNoArgs) {
-            return getTooltipForCmdWithNoArgsUndoneList(arguments, commandWord);
+            return getTooltipForCmdWithNoArgsUndoneList(commandWord);
         } else {
             return getTooltipForCmdWithArgsUndoneList(arguments, commandWord);
         }
@@ -503,7 +503,7 @@ public class CommandParser {
      * @param commandWord the command part of the user input
      * @return the tooltip
      */
-    private String getTooltipForCmdWithNoArgsUndoneList(final String arguments, final String commandWord) {
+    private String getTooltipForCmdWithNoArgsUndoneList(final String commandWord) {
         List<String> tooltips = new ArrayList<String>();
         
         if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
@@ -603,9 +603,17 @@ public class CommandParser {
 
     }
 
-    private String prepareEditDetailedTooltip(final String userInput) {
+    private String prepareEditDetailedTooltip(final String arguments) {
         try {
-            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(userInput);
+            if (arguments.isEmpty()) {
+                throw new IllegalValueException("No arguments found");
+            }
+            
+            String trimmedArgs = arguments.trim();
+            String indexToEdit = trimmedArgs.substring(0, 1);
+            String argumentsWithoutIndex = trimmedArgs.substring(1).trim();
+            
+            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(argumentsWithoutIndex);
             
             Optional<String> name = fieldMap.get("taskName");
             Optional<String> startDate = fieldMap.get("startDate");
@@ -616,25 +624,42 @@ public class CommandParser {
             
             StringBuilder sb = new StringBuilder();
             sb.append(EditCommand.TOOL_TIP);
-            sb.append("\n\tEditing task: ");
+            sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
 
-            if (name.isPresent()) {
+            if (name.isPresent() && trimmedArgs.length()>1) {
                 sb.append("\n\tName:\t" + name.get());
+            } else {
+                sb.append("\n\tName:\tNo Change");
             }
+            
             if (startDate.isPresent()) {
-                sb.append("\n\tStart Date:\t" +startDate.get());
+                sb.append("\n\tStart Date:\t" + startDate.get());
+            } else {
+                sb.append("\n\tStart Date:\tNo Change");
             }
+            
             if (endDate.isPresent()) {
-                sb.append("\n\tEnd Date:\t" + endDate.get());
+                sb.append("\n\tEnd Date:\t\t" + endDate.get());
+            } else {
+                sb.append("\n\tEnd Date:\t\tNo Change");
             }
+            
             if (rate.isPresent()) {
                 sb.append("\n\tRecurrence Rate:\t" + rate.get());
+            } else {
+                sb.append("\n\tRecurrence Rate:\tNo Change");
             }
+            
             if (timePeriod.isPresent()) {
                 sb.append("\n\tRecurrence Rate Time Period:\t" + timePeriod.get());
+            } else {
+                sb.append("\n\tRecurrence Rate Time Period:\tNo Change");
             }
-            if (priority.isPresent()) {
+            
+            if (!priority.get().equals("null")) {
                 sb.append("\n\tPriority:\t" + priority.get());
+            } else {
+                sb.append("\n\tPriority:\tNo Change");
             }
             
             return sb.toString();
@@ -644,9 +669,15 @@ public class CommandParser {
         }
     }
 
-    private String prepareAddDetailedTooltip(final String userInput) {
+    private String prepareAddDetailedTooltip(final String arguments) {
         try {
-            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareAdd(userInput);
+            if (arguments.isEmpty()) {
+                throw new IllegalValueException("No arguments found");
+            }
+            
+            String trimmedArgs = arguments.trim();
+            
+            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareAdd(trimmedArgs);
             
             Optional<String> name = fieldMap.get("taskName");
             Optional<String> startDate = fieldMap.get("startDate");
@@ -666,7 +697,7 @@ public class CommandParser {
                 sb.append("\n\tStart Date:\t" +startDate.get());
             }
             if (endDate.isPresent()) {
-                sb.append("\n\tEnd Date:\t" + endDate.get());
+                sb.append("\n\tEnd Date:\t\t" + endDate.get());
             }
             if (rate.isPresent()) {
                 sb.append("\n\tRecurrence Rate:\t" + rate.get());
