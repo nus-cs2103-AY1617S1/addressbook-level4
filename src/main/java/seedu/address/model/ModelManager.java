@@ -18,6 +18,7 @@ import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.RecurringTaskManager;
+import seedu.address.logic.util.DateFormatterUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -178,6 +179,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void setSystemTime(AgendaTimeRangeChangedEvent atrce){
         previousDate = atrce.getInputDate();
+        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, atrce.getInputDate().getDate());
     }
 
     // ========== Inner classes/interfaces used for filtering ==================================================
@@ -363,8 +365,7 @@ public class ModelManager extends ComponentManager implements Model {
 
             Date deadline = new Date(task.getEndDate().getDateInLong());
 
-            if ((deadline.before(this.deadline) || this.deadline.equals(deadline))
-                    && task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
+            if ( this.deadline.equals(DateFormatterUtil.getEndOfDay(deadline)))
                 return true;
 
             return false;
