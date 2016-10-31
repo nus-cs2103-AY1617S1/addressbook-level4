@@ -13,7 +13,7 @@ import com.joestelmach.natty.DateGroup;
  */
 public interface Date{
     
-    public static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9].[0-1]?[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
+   public static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9][.][0-1]?[0-9][.]([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "15.10.2016-14"
     public static final String DATE_NEED_ADD_ZERO_REGEX = "^[0-9].[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "5.10.2016-14"

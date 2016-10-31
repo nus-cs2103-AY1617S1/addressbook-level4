@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.*;
 
-public class LogicManagerTest {
+public class CommandTest {
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
@@ -60,6 +60,8 @@ public class LogicManagerTest {
         targetedJumpIndex = je.targetIndex;
     }
 
+    /*************************Pre and Post setup******************************************/
+    
     @Before
     public void setup() {
         model = new ModelManager();
@@ -77,6 +79,8 @@ public class LogicManagerTest {
     public void teardown() {
         EventsCenter.clearSubscribers();
     }
+    
+    /*************************test cases***********************************************/
 
     @Test
     public void execute_invalid() throws Exception {
@@ -84,13 +88,22 @@ public class LogicManagerTest {
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
+    
+    @Test
+    public void execute_unknownCommandWord() throws Exception {
+        String unknownCommand = "uicfhmowqewca";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+    
+    
+    /*********************Utility methods*****************************************/
 
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+    protected void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new TaskManager(), Collections.emptyList());
     }
 
@@ -101,7 +114,7 @@ public class LogicManagerTest {
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage,
+    protected void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskManager expectedAddressBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
@@ -116,109 +129,6 @@ public class LogicManagerTest {
         assertEquals(expectedAddressBook, model.getTaskManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
-
-
-    @Test
-    public void execute_unknownCommandWord() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    @Test
-    public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
-        assertTrue(helpShown);
-    }
-
-    @Test
-    public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
-    }
-
-    @Test
-    public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
-    }
-
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add Valid Name 02.03.2014 e/02.03.2014 t/validtag.butNoStartDatePrefix", expectedMessage);
-        assertCommandBehavior(
-                "add n/Valid Name s/02.03.2014 02.03.2014 t/validtag.butNoPrefix", expectedMessage);
-        assertCommandBehavior(
-                "add d/01.01.2016 t/validTag", expectedMessage);
-    }
-
-    @Test
-    public void execute_add_invalidTaskData() throws Exception {
-        assertCommandBehavior(
-                "add n/[]\\[;] d/11.12.2016", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add n/Valid Name d/11.12.2016-14 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
-    }
-
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_TASK_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-
-    //@Test
-   // public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-     //   TestDataHelper helper = new TestDataHelper();
-       // Task toBeAdded = helper.adam();
-        //TaskManager expectedAB = new TaskManager();
-        //expectedAB.addTask(toBeAdded);
-
-        // setup starting state
-        //model.addTask(toBeAdded); // task already in internal address book
-
-        // execute command and verify result
-        //assertCommandBehavior(
-          //      helper.generateAddCommand(toBeAdded),
-            //    AddCommand.MESSAGE_DUPLICATE_TASK,
-              //  expectedAB,
-                //expectedAB.getTaskList());
-
-    //}
-
-
-    @Test
-    public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -242,13 +152,13 @@ public class LogicManagerTest {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
-
+        
         // set AB state to 2 tasks
         model.resetData(new TaskManager());
         for (Task p : taskList) {
             model.addTask(p);
         }
-
+        
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), taskList);
     }
     
@@ -260,6 +170,51 @@ public class LogicManagerTest {
     private void assertAbsenceKeywordFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //keyword missing
     }
+    
+   /***********************test cases to be copy pasted to other places***************************/
+
+    @Test
+    public void execute_help() throws Exception {
+        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+    }
+
+    @Test
+    public void execute_exit() throws Exception {
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Test
+    public void execute_clear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        model.addTask(helper.generateTask(1));
+        model.addTask(helper.generateTask(2));
+        model.addTask(helper.generateTask(3));
+
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+    }
+
+
+   
+
+    @Test
+    public void execute_list_showsAllTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedAB = helper.generateTaskManager(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+
+
 
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -384,15 +339,41 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
-
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Deadline time = new Deadline("11.12.2016-14");
+        
+        Task getFloatingTask() throws Exception {
+            Name name = new Name("Visit grandma");
             Tag tag1 = new Tag("tag1");
-            //Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, time, tags);
+            return new Task(name,tags);
         }
+        
+        Task getDeadlineTask() throws Exception{
+            Name name=new Name("project due");
+            Date deadline=new Deadline("01.01.2016");
+            return new Task(name,deadline,new UniqueTagList());
+        }
+        
+        Task getEvent() throws Exception{
+            Name name=new Name("do homework");
+            Date date=new EventDate("01.01.2016","02.01.2016");
+            return new Task(name,date,new UniqueTagList());
+        }
+        
+        Task getRecurringDeadlineTask() throws Exception{
+            Name name=new Name("post on GitHub");
+            Date deadline=new Deadline("02.03.2016");
+            Recurring recurring=new Recurring("weekly");
+            return new Task(name,deadline,new UniqueTagList(),recurring);
+        }
+        
+        Task getRecurringEvent() throws Exception{
+            Name name=new Name("eat lunch");
+            Date date=new EventDate("01.01.2016-14","02.01.2016-16");
+            Recurring recurring=new Recurring("monthly");
+            return new Task(name,date,new UniqueTagList(),recurring);
+        }
+        
+        
 
         /**
          * Generates a valid task using the given seed.
@@ -412,21 +393,46 @@ public class LogicManagerTest {
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add n/");
-
             cmd.append(p.getName().toString());
-
+            if(p.isEvent()){
+                EventDate date=(EventDate) p.getDate();
+                cmd.append(" s/ ").append(date.getStartDate());
+                cmd.append(" e/ ").append(date.getEndDate());
+            }else{
             cmd.append(" d/").append(p.getDate());
-
-
-
+            }
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
-
+            if(p.isRecurring())
+                cmd.append("r/ "+p.getRecurring().recurringFrequency);
             return cmd.toString();
+        }
+    
+        
+        /** Generates the correct flexi add command based on the task given */
+        public String generateFlexiAddCommand(Task p) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("add ");
+            if (p.getDate() instanceof EventDate) {
+                EventDate eventDate = (EventDate) p.getDate();
+                sb.append("e/" + eventDate.getEndDate() + " ");
+                sb.append("s/" + eventDate.getStartDate() + " ");
+            } else {
+                assert p.getDate() instanceof Deadline;
+                String deadline = p.getDate().getValue();
+                if (!deadline.equals("")) {
+                    sb.append("d/" + deadline + " ");
+                }
+            }
+            sb.append("n/"+p.getName().taskName + " ");
+            if(p.isRecurring()){
+                sb.append("r/ "+p.getRecurring().recurringFrequency);
+            }
+            p.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+            return sb.toString();
         }
 
         /**
