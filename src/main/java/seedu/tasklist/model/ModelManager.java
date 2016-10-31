@@ -458,31 +458,9 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
         public boolean run(ReadOnlyTask person) {
-
-    		// Overlapping task is task w/start only and compared task is an event
-    		if (task.getEndTime().toCardString().equals("-") && !person.getEndTime().toCardString().equals("-")) {
-    			return !task.getStartTime().toCardString().equals("-")
-    					&& !person.getStartTime().toCardString().equals("-")
-    					&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
-    					&& !person.getStartTime().getAsCalendar().after(task.getStartTime().getAsCalendar());
-    		}
-    		
-    		// Overlapping task is an event and compared task is task w/start only DONE
-    		else if (!task.getEndTime().toCardString().equals("-") && person.getEndTime().toCardString().equals("-")) {
-    			return !person.getStartTime().toCardString().equals("-")
-    					&& !task.getStartTime().getAsCalendar().after(person.getStartTime().getAsCalendar())
-    					&& !task.getEndTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
-    		}
-    		
-    		// Compare 2 events DONE
-    		else if (!task.getEndTime().toCardString().equals("-") && !person.getEndTime().toCardString().equals("-")) {
-    			return !person.getStartTime().toCardString().equals("-")
-    					&& !task.getStartTime().getAsCalendar().after(person.getStartTime().getAsCalendar())
-    					&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
-    		}
-    		
-    		// Compare 2 tasks w/start only DONE
-    		return task.getStartTime().getAsCalendar().equals(person.getStartTime().getAsCalendar());
+    	    return task.isEvent() && person.isEvent()
+                    && task.getStartTime().compareTo(person.getEndTime()) < 0
+                    && task.getEndTime().compareTo(person.getStartTime()) > 0;
         }
     }
     //@@author A0146107M
