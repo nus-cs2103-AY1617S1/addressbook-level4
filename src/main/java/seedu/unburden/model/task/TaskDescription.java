@@ -1,5 +1,8 @@
 package seedu.unburden.model.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
 /**
@@ -25,7 +28,7 @@ public class TaskDescription {
 	 */
 	public TaskDescription(String details) throws IllegalValueException {
 		assert details != null;
-		if (details.equals("       ")) {
+		if (!details.equals("       ")) {
 			details = details.trim();
 			if (!isValidDetails(details)) {
 				throw new IllegalValueException(MESSAGE_TASK_CONSTRAINTS);
@@ -38,8 +41,10 @@ public class TaskDescription {
 		}
 	}
 
-	private boolean isValidDetails(String details) {
-		return details.matches(TASK_VALIDATION_REGEX);
+	private boolean isValidDetails(String test) {
+		final Pattern pattern = Pattern.compile(TASK_VALIDATION_REGEX);
+		final Matcher matcher = pattern.matcher(test.trim());
+		return matcher.matches();
 	}
 
 	@Override

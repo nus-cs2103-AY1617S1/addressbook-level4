@@ -1,6 +1,8 @@
 package seedu.unburden.model.task;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
 
@@ -27,6 +29,7 @@ public class Name {
         assert name != null;
         name = name.trim();
        if (!isValidName(name)) {
+    	   System.out.println("error in the constructor");
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
         this.fullName = name;
@@ -36,7 +39,9 @@ public class Name {
      * Returns true if a given string is a valid person name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+    	final Pattern pattern = Pattern.compile(NAME_VALIDATION_REGEX);
+    	final Matcher matcher = pattern.matcher(test.trim());
+        return matcher.matches();
     }
     
     public boolean contains (Set<String> args){
