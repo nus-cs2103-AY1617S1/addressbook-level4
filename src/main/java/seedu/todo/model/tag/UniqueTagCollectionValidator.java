@@ -241,8 +241,8 @@ public class UniqueTagCollectionValidator {
     /**
      * Abstracts the series of steps for performing data validation.
      */
-    public static UniqueTagCollectionValidator performTagValidation(String actionName,
-            Consumer<UniqueTagCollectionValidator> consumer) throws ValidationException {
+    public static UniqueTagCollectionValidator validate(String actionName,
+                                                        Consumer<UniqueTagCollectionValidator> consumer) throws ValidationException {
 
         UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(actionName);
         consumer.accept(validator);
