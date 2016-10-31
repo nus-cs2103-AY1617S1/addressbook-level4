@@ -30,17 +30,50 @@ public class ListCommand extends Command {
     public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
         
     private final Set<String> keywords;
+    private final boolean isListDoneCommand;
+    private final boolean isListUndoneCommand;
 
     public ListCommand(Set<String> listKeywords) {
         this.keywords = listKeywords;
+        if (listKeywords.contains(ListCommand.DONE_COMMAND_WORD)) {
+            isListDoneCommand = true;
+        }
+        else {
+            isListDoneCommand = false;
+        }
+        
+        if (listKeywords.isEmpty()) {
+            isListUndoneCommand = true;
+        }
+        else {
+            isListUndoneCommand = false;
+        }
+        
     }
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+
         logger.info("Updating lists, to show all tasks");
         model.updateFilteredListsToShowAll();
         
-        assert model != null;
+        //TODO: prevent user from entering retarded list commands
+        if (isListUndoneCommand) {
+            logger.info("Showing all undone tasks");
+            model.setCurrentListToBeUndoneList();
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        
+        if (isListDoneCommand) {
+            logger.info("Showing all done tasks");
+            model.setCurrentListToBeDoneList();
+            if (keywords.size() > 1) {
+                model.updateFilteredDoneTaskListDatePred(keywords);
+            }
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+        }
+        
         if (model.isCurrentListDoneList()) {
             model.updateFilteredDoneTaskListDatePred(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));

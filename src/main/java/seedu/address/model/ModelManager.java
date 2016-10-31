@@ -22,6 +22,7 @@ import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -298,29 +299,46 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class DateQualifier implements Qualifier {
-        private Set<String> dateKeyWords;
+        private Set<Date> dates;
 
         DateQualifier(Set<String> dateKeyWords) {
-            this.dateKeyWords = dateKeyWords;
+            dates = new HashSet<Date>();
+            for (String dateKeyword : dateKeyWords) {
+                try {
+                    dates.add(DateTime.convertStringToDate(dateKeyword));
+                } catch (IllegalValueException e) {
+                    // Do something here.
+                    return;
+                }
+            }
         }
 
         @Override
-        public boolean run(ReadOnlyTask person) {
-            int today;
-            try {
-                today = DateTime.convertStringToDate("today").getDate();
-            } catch (IllegalValueException e1) {
-                return false;
-            }
-            System.out.println(today);
-            
-            return dateKeyWords.stream()
-                    .filter(keyword -> {
-                        try {
-                            return DateTime.convertStringToDate(keyword).getDate()==today;
-                        } catch (IllegalValueException e) {
+        public boolean run(ReadOnlyTask task) {
+            return dates.stream()
+                    .filter(currentDate -> { 
+
+                        int date = currentDate.getDate();
+
+                        if (!task.getStartDate().isPresent() && !task.getEndDate().isPresent()) {
                             return false;
                         }
+
+                        if (task.getStartDate().isPresent()) {
+                            if (task.getStartDate().get().getDate() == date) {
+                                return true;
+                            }
+                        }
+
+                        if (task.getEndDate().isPresent()) {
+                            if (task.getEndDate().get().getDate() == date) {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                        
+
                     })
                     .findAny()
                     .isPresent();
@@ -328,7 +346,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", dateKeyWords);
+            return "dates=" + String.join(", ", dates.toString());
         }
     }
     
