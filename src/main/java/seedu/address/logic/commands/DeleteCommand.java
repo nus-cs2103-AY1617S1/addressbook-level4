@@ -30,6 +30,7 @@ public class DeleteCommand extends Command {
     		+"Example: "+COMMAND_WORD+" 1";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
+    public static final String MESSAGE_DELETE_NOT_FOUND="Task to delete is not found: %1$s";
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     public final int targetIndex;
@@ -42,14 +43,14 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(String name,Pattern k){
     	this.name = name;
-    	this.targetIndex = -1;
+    	this.targetIndex = Integer.MIN_VALUE;
     }
     
     @Override
     public CommandResult execute() {
         ReadOnlyTask TaskToDelete = null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (targetIndex != -1) {
+        if (targetIndex != Integer.MIN_VALUE) {
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
