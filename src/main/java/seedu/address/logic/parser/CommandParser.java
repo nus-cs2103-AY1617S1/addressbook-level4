@@ -112,7 +112,6 @@ public class CommandParser {
         
         logger.finer("Entering CommandParser, prepareAdd()");
         String argsTrimmed = args.trim();
-        
         if(argsTrimmed.isEmpty()) {
             logger.finer("Trimmed argument is empty");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -122,7 +121,6 @@ public class CommandParser {
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
             logger.finer("Exiting CommandParser, prepareAdd()");
             return new AddCommand(extractedValues);
-            
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 

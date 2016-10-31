@@ -22,6 +22,18 @@ public class AddCommandHelperTest {
     AddCommand command;
     
     @Test
+    public void addCommand_endDateEarlierThanStartDate() {
+        testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "10th Dec 11pm", 
+                "9th Dec 1am", "3", "days", "medium");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert false;
+        } catch (IllegalValueException ive) {
+            assertEquals(ive.getMessage(), "End date should be later than start date");
+        }
+    }
+    
+    @Test
     public void addCommand_invalidRate() {
         testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "11pm", "1am", "0", "days", "medium");
         try {

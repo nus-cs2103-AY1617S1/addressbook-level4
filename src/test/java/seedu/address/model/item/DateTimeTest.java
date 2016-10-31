@@ -81,7 +81,8 @@ public class DateTimeTest {
         
         Calendar expectedCalendarEndDate = Calendar.getInstance();
         expectedCalendarEndDate.setTime(endDate);
-        assertEquals(expectedCalendarEndDate.get(Calendar.DATE), calendarStartDate.get(Calendar.DATE) + 1);
+        assertEquals(expectedCalendarEndDate.get(Calendar.DATE), (calendarStartDate.get(Calendar.DATE) + 1) %
+                calendarStartDate.getActualMaximum(Calendar.DATE));
     }
     
     @Test

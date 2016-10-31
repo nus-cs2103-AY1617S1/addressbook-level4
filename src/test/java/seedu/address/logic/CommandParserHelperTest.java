@@ -113,13 +113,24 @@ public class CommandParserHelperTest {
     }
     
     @Test
-    public void prepareAdd_RepeatDates_TwoKeywords() {
+    public void prepareAdd_RepeatStartDates_TwoKeywords() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from 10:30pm from 10:40pm");
+            helper.prepareAdd("have dinner from 10:30pm from 10:40pm");
             assert false;
         } catch (IllegalValueException ive) {
             assertEquals(ive.getMessage(), "Repeated start times are not allowed.");
+        }
+    }
+    
+    @Test
+    public void prepareAdd_RepeatEndDates_TwoKeywords() {
+        try {
+            helper = new CommandParserHelper();
+            helper.prepareAdd("have dinner to 10:30pm by 10:40pm");
+            assert false;
+        } catch (IllegalValueException ive) {
+            assertEquals(ive.getMessage(), "Repeated end times are not allowed.");
         }
     }
     
