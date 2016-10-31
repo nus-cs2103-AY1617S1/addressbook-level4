@@ -2,6 +2,7 @@ package seedu.menion;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -94,7 +95,7 @@ public class BackgroundTest {
 					new Note("Hope this works too"), new ActivityDate("09-09-2050"), new ActivityTime("0001"),
 					new ActivityDate("09-11-2050"), new ActivityTime("0001"),
 					new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
-			model.addEvent(testNewEvent);
+			model.addEvent(testNewEvent);	
 			
 		} catch (IllegalValueException e) {
 			
@@ -103,5 +104,6 @@ public class BackgroundTest {
 		}
 		
 	}
+	
 	
 }

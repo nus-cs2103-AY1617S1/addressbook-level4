@@ -97,17 +97,20 @@ public class BackgroundDateCheck extends ComponentManager{
 			ReadOnlyActivity eventToCheck = eventList.get(i);
 			
 			if (!eventToCheck.isTimePassed()){
-				// Event is ongoing.
-				if (!isActivityOver(currentTime, eventToCheck) && isEventStarted(currentTime, eventToCheck)){
-					eventToCheck.setEventOngoing(true);
-					raise(new ActivityManagerChangedEventNoUI(activityManager));
-				}
-
+				
 				// Event is over.
 				if(isActivityOver(currentTime, eventToCheck)){
 					eventToCheck.setTimePassed(true);
 					raise(new ActivityManagerChangedEventNoUI(activityManager));
 				}
+				
+				// Event is ongoing.
+				else if (isEventStarted(currentTime, eventToCheck)){
+					eventToCheck.setEventOngoing(true);
+					raise(new ActivityManagerChangedEventNoUI(activityManager));
+				}
+
+				
 			}
 		}
 	}
@@ -136,7 +139,7 @@ public class BackgroundDateCheck extends ComponentManager{
 		activityDateCal.set(dateValues[2], dateValues[1], dateValues[0], timeValues[0], timeValues[1]);
 		
 		// Activity has started
-		if (currentTime.compareTo(activityDateCal) <= 0){
+		if (currentTime.compareTo(activityDateCal) >= 0){
 			return true;
 		}
 		else {
