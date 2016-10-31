@@ -24,7 +24,8 @@ public class AddCommandHelper {
     
     private static final String STRING_CONSTANT_ONE = "1";
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
-            + "at least one DATE_TIME must be provided";
+            + "at least one DATE_TIME must be provided.";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "End date should be later than start date";
     
     /**
      * Returns a HashMap containing values of taskName, startDate, endDate, recurrenceRate and priority.
@@ -43,12 +44,32 @@ public class AddCommandHelper {
         
         if (isRecurWeekdaysButDatesNotGiven(startDate, endDate, recurrenceRate)) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
-        } else if (isOtherRecurrenceButDatesNotGiven(startDate, endDate, recurrenceRate)) {
+        } 
+        
+        checkInvalidCombinations(startDate, endDate, recurrenceRate);
+        
+        return mapContainingVariables(taskName, startDate, endDate, recurrenceRate, priority);
+    }
+
+    /**
+     * Checks whether the combination of startDate, endDate and recurrenceRate is valid.
+     *
+     * @param startDate start date of Task.
+     * @param endDate   end date of Task.
+     * @param recurrenceRate    recurrence rate of Task
+     * @throws IllegalValueException  if invalid combination of startDate, endDate and recurrenceRate exists.
+     */
+    private static void checkInvalidCombinations(Date startDate, Date endDate, RecurrenceRate recurrenceRate)
+            throws IllegalValueException {
+        if (isOtherRecurrenceButDatesNotGiven(startDate, endDate, recurrenceRate)) {
             logger.log(Level.FINE, "IllegalValueException caught in AddCommandHelper, recurrence rate given but dates not given");
             throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
         
-        return mapContainingVariables(taskName, startDate, endDate, recurrenceRate, priority);
+        if (endDate != null && startDate != null && endDate.before(startDate)) {
+            logger.log(Level.FINE, "IllegalValueException caught in AddCommandHelper, end date is before start date");
+            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+        }
     }
 
     /**
