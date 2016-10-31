@@ -1,8 +1,5 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
-
 /**
  * Represents the result of a command execution.
  */

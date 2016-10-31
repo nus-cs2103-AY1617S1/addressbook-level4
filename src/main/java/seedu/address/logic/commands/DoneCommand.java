@@ -52,16 +52,14 @@ public class DoneCommand extends UndoableCommand {
     public CommandResult execute() {
         
         assert model != null;
-        if (!isRedoAction()) {
-            setCurrentViewingList();
-        }
+        prepareToArchiveTasks(); 
+
         if (isViewingDoneList) {
             logger.warning("Invalid command, cannot do done command on done list.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
         
-        prepareToArchiveTasks(); 
         archiveTasksFromGivenTargetIndexes();
         updateHistory();
         
@@ -83,25 +81,31 @@ public class DoneCommand extends UndoableCommand {
     private void archiveTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+            
             boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
             if (isTaskTargetIndexOutOfBounds) {
                 logger.warning("Task target index out of bounds detected. Skipping task with current target index.");
                 continue;
             }
+            
             int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
             Task taskToArchive = new Task(lastShownList.get(adjustedTaskIndex));
             assert isViewingDoneList == false;
+            
             try {
                 model.deleteTask(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
+            
             doneTasks.add(taskToArchive);
+            
             if (taskToArchive.getRecurrenceRate().isPresent()) {
                 updateRecurrenceAndReAddTask(taskToArchive);
             } else {
                 adjustmentForRemovedTask++;
             }
+            
             model.addDoneTask(taskToArchive);
         }
     }
@@ -120,8 +124,8 @@ public class DoneCommand extends UndoableCommand {
 
     /**
      * Sets the boolean attribute isViewingDoneList to reflect if the current
-     * list view is done. This attribute is used to ensure that the done operation will not occur
-     * while viewing the done list.
+     * list view is done. This attribute is used to ensure that the done operation
+     * will not occur while viewing the done list.
      */
     private void setCurrentViewingList() {
         logger.fine("In setCurrentViewingList(), updating boolean isViewingDoneList.");
@@ -135,6 +139,9 @@ public class DoneCommand extends UndoableCommand {
      */
     private void prepareToArchiveTasks() {
         logger.fine("In prepareToArchiveTasks(). Setting up.");
+        if (!isRedoAction()) {
+            setCurrentViewingList();
+        }
         doneTasks = new ArrayList<Task>();
         readdedRecurringTasks = new ArrayList<Task>();
         Collections.sort(targetIndexes);

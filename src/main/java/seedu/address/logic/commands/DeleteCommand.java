@@ -19,7 +19,7 @@ public class DeleteCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the last item listing.\n"
+            + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
@@ -32,8 +32,8 @@ public class DeleteCommand extends UndoableCommand {
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
     
     //@@author A0139498J
-    private List<Task> deletedTasks;
     public final List<Integer> targetIndexes;
+    private List<Task> deletedTasks;
     private int adjustmentForRemovedTask;
     private boolean isViewingDoneList;
 
@@ -48,42 +48,53 @@ public class DeleteCommand extends UndoableCommand {
         assert model != null;
         
         prepareToDeleteTasks();
+        deleteTasksFromGivenTargetIndexes();
+        updateHistory();
         
+        if (deletedTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        String toDisplay = deletedTasks.toString().replace("[", "").replace("]", "");
+        return (deletedTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
+        
+    }
+
+
+    /**
+     * Deletes the tasks denoted by the list of target indexes.
+     * Invalid target indexes in the list will be ignored.
+     */
+    private void deleteTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-            if (isViewingDoneList) {
-                lastShownList = model.getFilteredDoneTaskList();
-            } else {
-                lastShownList = model.getFilteredUndoneTaskList();
-            }
-    
-            if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
+            lastShownList = isViewingDoneList? 
+                    model.getFilteredDoneTaskList():
+                    model.getFilteredUndoneTaskList();
+                    
+            boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
+ 
+            if (isTaskTargetIndexOutOfBounds) {
                 continue;
             }
     
-            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
+            int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
+            ReadOnlyTask taskToDelete = lastShownList.get(adjustedTaskIndex);
     
-            if (isViewingDoneList) {
-                try {
+            try {
+                if (isViewingDoneList) {
                     model.deleteDoneTask(taskToDelete);
-                    deletedTasks.add((Task) taskToDelete);
-                } catch (TaskNotFoundException pnfe) {
-                    assert false : "The target task cannot be missing";
-                }
-            } else {
-                try {
+                } else {
                     model.deleteTask(taskToDelete);
-                    deletedTasks.add((Task) taskToDelete);
-                } catch (TaskNotFoundException pnfe) {
-                    assert false : "The target task cannot be missing";
                 }
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
             }
+            deletedTasks.add((Task) taskToDelete);
             adjustmentForRemovedTask++;
         }
-        
-        updateHistory();
-        return generateCommandResult();
-        
     }
 
 
@@ -100,26 +111,11 @@ public class DeleteCommand extends UndoableCommand {
         deletedTasks = new ArrayList<Task>();
         Collections.sort(targetIndexes);
     }
-    
-    /**
-     * Generates CommandResult based on how many tasks have been deleted.
-     */
-    private CommandResult generateCommandResult() {
-        if (deletedTasks.isEmpty()) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        String toDisplay = deletedTasks.toString().replace("[", "").replace("]", "");
-        return (deletedTasks.size() == 1)? 
-                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
-                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
-    }
 
 
     /**
-     * Sets the boolean attribute isViewingDoneList to reflect if the current
-     * list view is done. This attribute is used to ensure that the delete operation will not occur
-     * while viewing the done list.
+     * Sets the boolean attribute isViewingDoneList to reflect 
+     * if the current list view is done.
      */
     private void setCurrentViewingList() {
         isViewingDoneList = model.isCurrentListDoneList();
