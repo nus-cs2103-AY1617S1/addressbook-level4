@@ -21,19 +21,19 @@ public class Deadline implements Date{
      */
     public Deadline(String date) throws IllegalValueException {
         assert date != null;
-        this.date = validateDate(date);
+        this.date = getValidDate(date);
+        assert isValidDeadline(this.date);
     }
     
-    public static String validateDate(String date) throws IllegalValueException {
+    public static String getValidDate(String date) throws IllegalValueException {
         if (!isValidDeadline(date)) {
             try {
-                date = Date.parseDate(date);
+                return Date.parseDate(date);
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
             }
-        } else if (Date.needCorrection(date)) {
-            date = Date.addLeadingZero(date);
-            assert isValidDeadline(date);
+        } else if (Date.needAddLeadingZero(date)) { 
+            return Date.addLeadingZero(date);
         }
         return date;
     }

@@ -12,7 +12,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void filter_nonEmptyList() {
+    public void filterNonEmptyList() {
         assertFilterResult("filter d/12.10.2016"); //no results
         assertFilterResult("filter d/11.10.2016", td.friendEvent, td.work); //multiple results
         assertFilterResult("filter s/11.10.2016", td.travel);
@@ -27,7 +27,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filter_emptyList(){
+    public void filterEmptyList(){
         commandBox.runCommand("clear");
         assertFilterResult("filter d/11.10.2016"); //no results
     }

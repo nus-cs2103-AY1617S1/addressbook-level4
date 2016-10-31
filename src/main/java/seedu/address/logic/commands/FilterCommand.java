@@ -47,15 +47,15 @@ public class FilterCommand extends Command {
         Map<String, String> filterQualifications = new HashMap<>();
         try {
             if (deadline.isPresent()) {
-                String deadlineString = Deadline.validateDate(deadline.get());
+                String deadlineString = Deadline.getValidDate(deadline.get());
                 filterQualifications.put(DEADLINE, deadlineString);
             }
             if (startDate.isPresent()) {
-                String startDateString = EventDate.validateDate(startDate.get());
+                String startDateString = EventDate.getValidDate(startDate.get());
                 filterQualifications.put(START_DATE, startDateString);
             }
             if (endDate.isPresent()) {
-                String endDateString = EventDate.validateDate(endDate.get());
+                String endDateString = EventDate.getValidDate(endDate.get());
                 filterQualifications.put(END_DATE, endDateString);
             }
             if (recurring.isPresent()) {

@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.task.ReadOnlyTask;
 
 /**
  * Represents a change in the Filter Panel

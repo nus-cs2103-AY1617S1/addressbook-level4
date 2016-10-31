@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.events.storage.RedoStoragePathChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.StateLimitException;

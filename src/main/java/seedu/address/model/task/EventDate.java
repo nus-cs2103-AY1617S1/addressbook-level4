@@ -27,21 +27,22 @@ public class EventDate implements Date{
         assert startDate != null && endDate != null;
         startDate = startDate.trim();
         endDate = endDate.trim();
-        this.startDate = validateDate(startDate);
-        this.endDate = validateDate(endDate);
+        this.startDate = getValidDate(startDate);
+        assert isValidDate(this.startDate);
+        this.endDate = getValidDate(endDate);
+        assert isValidDate(this.endDate);
         this.date = this.startDate + " to " + this.endDate;
     }
     
-    public static String validateDate(String date) throws IllegalValueException {
+    public static String getValidDate(String date) throws IllegalValueException {
         if (!isValidDate(date)) {
             try {
-                date = Date.parseDate(date);
+                return Date.parseDate(date);
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalValueException(MESSAGE_EVENT_DATE_CONSTRAINTS);
             }
-        } else if (Date.needCorrection(date)) {
-            date = Date.addLeadingZero(date);
-            assert isValidDate(date);
+        } else if (Date.needAddLeadingZero(date)) {
+            return Date.addLeadingZero(date);
         }
         return date;
     }

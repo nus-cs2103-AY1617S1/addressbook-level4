@@ -160,18 +160,18 @@ public class FilterPanel extends UiPart {
             if (deadline.equals(NIL)) {
                 qualifications.put(DEADLINE, EMPTY);
             } else {
-                deadline = Deadline.validateDate(deadline);
+                deadline = Deadline.getValidDate(deadline);
                 qualifications.put(DEADLINE, deadline);
             }
         }
         String startDate = startDateTextField.getText().trim();
         if (!startDate.equals(EMPTY)) {
-            startDate = EventDate.validateDate(startDate);
+            startDate = EventDate.getValidDate(startDate);
             qualifications.put(START_DATE, startDate);
         }
         String endDate = endDateTextField.getText().trim();
         if (!endDate.equals(EMPTY)) {
-            endDate = EventDate.validateDate(endDate);
+            endDate = EventDate.getValidDate(endDate);
             qualifications.put(END_DATE, endDate);
         }
         String recurring = recurringTextField.getText().trim();

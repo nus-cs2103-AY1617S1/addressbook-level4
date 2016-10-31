@@ -14,19 +14,19 @@ import seedu.address.ui.FilterPanel;
 public class FilterPanelTest extends TaskManagerGuiTest {
 
     @Test
-    public void filterPanel_toggleButtonStays() {
+    public void filterPanelToggleButtonStays() {
         filterPanel.runCommandForEvent();
         assertEquals(filterPanel.getEventInput(), true);
     }
 
     @Test
-    public void filterPanel_textStays() {
+    public void filterPanelTextStays() {
         filterPanel.runCommandForDeadline("3.12.2016");
         assertEquals(filterPanel.getDeadlineInput(), "3.12.2016");
     }
 
     @Test
-    public void filterPanel_events() {
+    public void filterEvents() {
         filterPanel.runCommandForEvent();
         assertFilterResult_success(td.meeting, td.travel);
         filterPanel.runCommandForEvent(); // Click twice to disable the button
@@ -34,7 +34,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_tasks() {
+    public void filterTasks() {
         filterPanel.runCommandForTask();
         assertFilterResult_success(td.friend, td.friendEvent, td.lunch, td.book, td.work, td.movie);
         filterPanel.runCommandForTask(); // Click twice to disable the button
@@ -42,7 +42,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_done() {
+    public void filterDone() {
         commandBox.runCommand("done 1");
         td.friend.markAsDone();
         filterPanel.runCommandForDone();
@@ -52,7 +52,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_undone() {
+    public void filterUndone() {
         commandBox.runCommand("done 1");
         td.friend.markAsDone();
         filterPanel.runCommandForUndone();
@@ -62,7 +62,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_deadline() {
+    public void filterDeadline() {
         filterPanel.runCommandForDeadline("11.10.2016");
         assertFilterResult_success(td.friendEvent, td.work);
         filterPanel.runCommandForDeadline("hi");
@@ -74,7 +74,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_startDate() {
+    public void filterStartDate() {
         filterPanel.runCommandForStartDate("11.10.2016");
         assertFilterResult_success(td.travel);
         filterPanel.runCommandForStartDate("hi");
@@ -84,7 +84,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_endDate() {
+    public void filterEndDate() {
         filterPanel.runCommandForEndDate("15.10.2016");
         assertFilterResult_success(td.travel);
         filterPanel.runCommandForEndDate("hi");
@@ -94,7 +94,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void filterPanel_recurring() {
+    public void filterRecurring() {
         commandBox.runCommand(td.lecture.getAddCommand());
         filterPanel.runCommandForRecurring("weekly");
         assertFilterResult_success(td.lecture);
@@ -103,7 +103,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void filterPanel_tag() {
+    public void filterTag() {
         filterPanel.runCommandForTag("friends");
         assertFilterResult_success(td.friend, td.friendEvent, td.lunch);
         filterPanel.runCommandForTag("");
@@ -111,7 +111,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void filterPanel_integral() {
+    public void filterIntegral() {
         filterPanel.runCommandForTag("friends");
         assertFilterResult_success(td.friend, td.friendEvent, td.lunch);
         filterPanel.runCommandForEvent();
