@@ -32,9 +32,9 @@ public class TaskCard extends UiPart{
     private static final String OVERDUE_ID_CSS = "-fx-text-fill: white;";
     private static final String OVERDUE_DESCRIPTION_CSS = OVERDUE_ID_CSS;
     
-    private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(9, 198, 9, 0.85);";//"-fx-background-color: #09c609; -fx-background-opacity: 0.85;";
-    private static final String FAVORITE_SECONDDATE_CSS = OVERDUE_SECONDDATE_CSS;
-    private static final String FAVORITE_FIRSTDATE_CSS = OVERDUE_FIRSTDATE_CSS;
+    private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(255, 255, 9, 0.75);";//"-fx-background-color: rgba(9, 198, 9, 0.85);";//"-fx-background-color: #09c609; -fx-background-opacity: 0.85;";
+    private static final String FAVORITE_SECONDDATE_CSS = "-fx-text-fill: rgba(0, 0, 0, 1.0);";
+    private static final String FAVORITE_FIRSTDATE_CSS = FAVORITE_SECONDDATE_CSS;
     private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";//"-fx-text-fill: #006600;";
     private static final String FAVORITE_DESCRIPTION_CSS = FAVORITE_ID_CSS;
     
