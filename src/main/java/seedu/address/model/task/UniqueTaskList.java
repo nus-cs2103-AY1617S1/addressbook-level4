@@ -76,7 +76,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 && internalList.contains(toCheck);
     }
 
-    //@@author A0147967J
+    // @@author A0147967J
     /**
      * Returns true if the given task requests to use a blocked time slot.
      */
@@ -122,9 +122,9 @@ public class UniqueTaskList implements Iterable<Task> {
                 || !given.getLastAppendedComponent().getStartDate().getDate()
                         .before(toCheck.getLastAppendedComponent().getEndDate().getDate()));
     }
-    //@@author
+    // @@author
 
-    //@@author A0135782Y
+    // @@author A0135782Y
     /**
      * Adds a task to the list.
      *

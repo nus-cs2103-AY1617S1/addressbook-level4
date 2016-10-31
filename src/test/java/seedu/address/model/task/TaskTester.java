@@ -1,9 +1,8 @@
 package seedu.address.model.task;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -34,7 +33,7 @@ public class TaskTester {
         task = new Task(new Name("Name"), new UniqueTagList(), new TaskDate(10), new TaskDate(20), RecurringType.NONE);
         assertEquals(task.getTaskType(), TaskType.NON_FLOATING);
     }
-
+    
     @Test
     public void create_nonFloatingTask_failure() throws Exception {
         task = new Task(new Name("Name"), new UniqueTagList());

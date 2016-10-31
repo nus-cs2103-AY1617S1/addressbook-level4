@@ -5,12 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.stub.NameStub;
+import seedu.address.model.task.stub.TaskStub;
+import seedu.address.model.task.stub.UniqueTagListStub;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
-import seedu.address.model.task.stub.*;
 
 //@@author A0135782Y
 /**
