@@ -10,21 +10,22 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
+ <!-- @@author A0127570H -->
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="15.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="10" left="20" right="10" top="10" />
                     </padding>
 
                     <children>
@@ -34,15 +35,15 @@
                                    <children>
                                        <Label fx:id="index" prefHeight="20.0" prefWidth="15.0" styleClass="cell_small_label" text="\$index">
                                  <font>
-                                    <Font size="5.0" />
+                                    <Font size="6.0" />
                                  </font>
                               </Label>
-                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                    </children>
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="description" styleClass="cell_small_label" text="\\$desc" />
+                        <Label fx:id="description" styleClass="cell_small_label" text="\\$desc" wrapText="true" />
                         <Label fx:id="duration" styleClass="cell_small_label" text="\\$duration" />
                     </children>
                 </VBox>

@@ -13,6 +13,7 @@ import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
 /**
@@ -74,7 +75,8 @@ public class HelpCommandTest extends CommandTest {
 	 *  edit 
 	 *  mark 
 	 *  undo
-	 *  clear 
+	 *  clear
+	 *  select
 	 *  exit
 	 */
 
@@ -88,6 +90,7 @@ public class HelpCommandTest extends CommandTest {
 		assertHelpCommandBehavior("help mark", MarkCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help undo", UndoCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help clear", ClearCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help select", SelectCommand.MESSAGE_USAGE);
 		assertHelpCommandBehavior("help exit", ExitCommand.MESSAGE_USAGE);
 
 	}

@@ -1,13 +1,18 @@
 package seedu.task.logic;
 
+import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
+import seedu.task.logic.commands.AddCommand;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
+import seedu.task.logic.parser.ArgumentTokenizer;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.Event;
+import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.taskcommons.core.Messages;
@@ -23,6 +28,7 @@ public class EditCommandTest extends CommandTest {
      * 1) Invalid Edit Task and Event Command EPs
      *  - Editing a task to an existing task, DuplicateTaskException
      *  - Editing an event to an existing event, DuplicateEventException
+     *  - Illegal Value exception
      *  - Invalid edit command input
      *  - Invalid edit task index input
      *  - Invalid edit event index input
@@ -74,15 +80,36 @@ public class EditCommandTest extends CommandTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
         expectedAB.addTask(toBeAdded);
-        String invalidEditCommand = "edit ajsdn 1";
         
-        // execute command and verify result
+        // invalid edit command
         assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
-                invalidEditCommand,
+                "edit ajsdn 1",
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE),
                 expectedAB,
                 expectedAB.getTaskList()); 
         
+        // invalid name value
+        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+                "edit /t 1 /name la/la",
+                Name.MESSAGE_NAME_CONSTRAINTS,
+                expectedAB,
+                expectedAB.getTaskList()); 
+        
+        // empty value
+        assertEditTaskCommandBehavior(helper.generateAddTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+                "edit /t 1 /name   ",
+                String.format(ArgumentTokenizer.MESSAGE_EMPTY_VALUE),
+                expectedAB,
+                expectedAB.getTaskList()); 
+        
+    }
+    
+    // Invalid argument format
+    @Test
+    public void execute_edit_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        assertCommandBehavior_task(
+                "edit", expectedMessage);
     }
     
     @Test
@@ -115,6 +142,23 @@ public class EditCommandTest extends CommandTest {
         // execute command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
                 helper.generateEditEventCommand(toBeEdited,2),
+                String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+    
+    @Test
+    public void execute_edit_invalidIndex_unsuccessful() throws Exception {
+     // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingUpComingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+
+        // execute command and verify result
+        assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
+                "edit /e 10.2 /name blah blah",
                 String.format(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX),
                 expectedAB,
                 expectedAB.getEventList());

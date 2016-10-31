@@ -141,6 +141,13 @@ class TestDataHelper{
         return new Event(name, null, dur);
     }
     
+    public Event computingEndDurationUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        EventDuration dur = new EventDuration("", "tomorrow 4pm");
+        
+        return new Event(name, null, dur);
+    }
+    
     public Event computingEditedNameUpComingEvent() throws Exception {
         Name name = new Name("Attend CS2106 Workshop");
         Description des = new Description("post on Github");

@@ -37,12 +37,20 @@ public class EventCard extends UiPart {
     public void initialize() {
         name.setText(event.getNameWithStatus());
         index.setText(displayedIndex + ". ");
-        description.setText(event.getDescriptionValue());
-        duration.setText(event.getDuration().toString());
+        initialiseDescription();
+        duration.setText(event.getDuration().toString().trim());
         setCompletionBackgroundText();
     }
 
-    //@@author-A0127570H
+    private void initialiseDescription() {
+        description.setText(event.getDescriptionToString().trim());
+        if (event.getDescription().isPresent()) {
+            description.setManaged(true);
+        } else {
+            description.setManaged(false);
+        }
+    }
+    
     //Adds the lavender colour to the background if the task status is completed
     private void setCompletionBackgroundText() {
         if (event.isEventCompleted()) {
@@ -50,6 +58,7 @@ public class EventCard extends UiPart {
         }
     }
 
+    //@@author
     public HBox getLayout() {
         return cardPane;
     }

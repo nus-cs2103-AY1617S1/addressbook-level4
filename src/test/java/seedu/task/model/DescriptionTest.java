@@ -15,8 +15,10 @@ public class DescriptionTest {
     public void descriptionTest () throws Exception {
         try {            
             Description description = new Description (".,$#@%&():");
+            assert true;
+            description = new Description ("/");
         } catch (IllegalValueException ive) {
-            String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS + "LOL";
+            String expectedMessage = Description.MESSAGE_DESCRIPTION_CONSTRAINTS;
             assertEquals(ive.getMessage(),expectedMessage);
         }
     }

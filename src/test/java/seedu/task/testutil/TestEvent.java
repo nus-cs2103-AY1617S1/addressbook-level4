@@ -47,14 +47,6 @@ public class TestEvent implements ReadOnlyEvent {
 		return getAsText();
 	}
 	
-	public String getListEventCommand() {
-		return "list -e";
-	}
-	
-	public String getListAllEventCommand() {
-		return "list -e -a";
-	}
-	
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getEvent().fullName + " ");

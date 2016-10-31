@@ -16,10 +16,13 @@ public class DeadlineTest {
         Deadline d2 = new Deadline("01-01-15");
         Deadline d3 = new Deadline("01-02-15");
         Deadline d4 = null;
+        String test = "blah";
 
         assertEquals(d1,d2);
-        assertFalse(d1 == d3);
-        assertFalse(d1 == d4);
+        assertEquals(d1,d1);
+        assertFalse(d1.equals(test));
+        assertFalse(d1.equals(d3));
+        assertFalse(d1.equals(d4));
         
     }
 

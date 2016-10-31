@@ -12,7 +12,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 //@@author A0127570H
 public class Description {
     
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task/Event description should be spaces, alphanumeric characters or these symbols .,:$#@%&()_";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task/Event description should be spaces, alphanumeric characters or these symbols -.,:$#@%&()_";
     public static final String DESCRIPTION_VALIDATION_REGEX = "[a-zA-Z0-9#\\$\\.\\(\\)%&\\s\\,\\@\\:\\_\\-]+";
 
     public final String value;
