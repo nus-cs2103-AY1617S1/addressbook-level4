@@ -2,9 +2,15 @@ package seedu.address.logic.commands;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -26,6 +32,11 @@ public class AddCommandHelper {
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided.";
     public static final String MESSAGE_DATE_CONSTRAINTS = "End date should be later than start date";
+    
+    // used to check for invalid dates e.g 40 Oct
+    private static final String REGEX_VALIDATE_DATE = ".*?(?:SEEK > by_day (?<date>\\d+)).*";
+
+    private static final int BASE_INDEX = 0;
     
     /**
      * Returns a HashMap containing values of taskName, startDate, endDate, recurrenceRate and priority.
@@ -108,12 +119,24 @@ public class AddCommandHelper {
         Date startDate = null;
         
         if (startDateString.isPresent()) {
+            validateDateString(startDateString.get());
             startDate = DateTime.convertStringToDate(startDateString.get());
+
             if (!DateTime.hasTimeValue(startDateString.get())) {
                 startDate = DateTime.setTimeToStartOfDay(startDate);
             }
         }
         return startDate;
+    }
+
+    private static void validateDateString(String dateString) throws IllegalValueException {
+        List<DateGroup> dates = new Parser().parse(dateString);
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+        Pattern pattern = Pattern.compile(REGEX_VALIDATE_DATE);
+        Matcher matcher = pattern.matcher(syntaxTree);
+        if (matcher.matches()) {
+            throw new IllegalValueException("Invalid start date!");
+        }
     }
     
     /**
@@ -130,6 +153,7 @@ public class AddCommandHelper {
         Date endDate = null;
         
         if (endDateString.isPresent()) {
+            validateDateString(endDateString.get());
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
                 endDate = DateTime.setEndDateToStartDate(startDate, endDate);
