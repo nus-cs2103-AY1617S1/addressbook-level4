@@ -47,9 +47,7 @@ public class BackgroundTest {
 		ReadOnlyActivity testNewTask = taskList.get(1);		
 		
 		assertTrue(testOldTask.isTimePassed());
-		assertTrue(testOldTask.isEmailSent());
 		assertFalse(testNewTask.isTimePassed());
-		assertFalse(testNewTask.isEmailSent());
 		
 		List<ReadOnlyActivity> eventList = menion.getEventList();
 		ReadOnlyActivity testOldEvent = eventList.get(0);
