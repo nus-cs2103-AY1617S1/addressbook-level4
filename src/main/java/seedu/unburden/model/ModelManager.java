@@ -91,8 +91,9 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139714B
     @Override
-    public synchronized void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        listOfTask.editTask(target, args);
+    public synchronized void editTask(ReadOnlyTask target, Task toEdit) 
+    		throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
+        listOfTask.editTask(target, toEdit);
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
