@@ -17,7 +17,7 @@ import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.DueByTime;
 
 public class SearchUtil {
-	public static int levenshtein_tolerance = 50;
+	public static int levenshtein_tolerance = 60;
 	private static final int LEVENSHTEIN_FULL = 100;
 	
 	//@@author A0139661Y-unused
