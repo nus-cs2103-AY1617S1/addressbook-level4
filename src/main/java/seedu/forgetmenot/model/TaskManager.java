@@ -146,10 +146,16 @@ public class TaskManager implements ReadOnlyTaskManager {
         counter();
 
     }
-
+    
+    // possible remove since all instances would have been created when adding recurring tasks
     // @@author A0139671X
     public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
-        tasks.editRecurFreq(task, new Recurrence(newRecur));
+        try {
+            tasks.editRecurFreq(task, new Recurrence(newRecur));
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         counter();
 
     }

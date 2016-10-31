@@ -1,27 +1,43 @@
 package seedu.forgetmenot.model.task;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+
 /**
  * Represents a Task's recurrence in the task manager.
  * @@author A0139671X
  */
 public class Recurrence {
 
-    public static final int DEFAULT_OCCURENCE = 10;
+    public static final int DEFAULT_OCCURENCE = 12;
     
+    private static final Pattern RECURRENCE_DATA_ARGS_FORMAT = Pattern.compile("(?<freq>((\\d* )?(day|week|month|year)(s)?))"
+            + "( x(?<occ>(\\d++)))?");
+
     private boolean value;
     public String days;
     public int occurences;
     
-    public Recurrence (String numOfDays) {
-        if (numOfDays.equals("")) {
+    public Recurrence (String args) throws IllegalValueException {
+        final Matcher matcher = RECURRENCE_DATA_ARGS_FORMAT.matcher(args.trim());
+        
+        if (args.equals("")) {
             this.days = "";
             this.value = false;
+            this.occurences = 0;
         }
+        
+        else if (!matcher.matches()) {
+            throw new IllegalValueException("Sorry! Your recurrence format was invalid! Please try again.");
+        }
+        
         else {
-            this.days = numOfDays;
-            this.value = true;
+            assignRecurrenceValues(args, matcher);
         }
     }
+
     
     public boolean getValue() {
         return this.value;
@@ -33,6 +49,10 @@ public class Recurrence {
 
     public void setRecurFreq(String days) {
         this.days = days;
+    }
+    
+    public int getOccurence() {
+        return this.occurences;
     }
     
     @Override
@@ -52,5 +72,21 @@ public class Recurrence {
     @Override
     public int hashCode() {
         return days.hashCode();
+    }
+    
+    /**
+     * Assigns the recurrence attributes to follow either a default occurence or a assigned occurence by the user 
+     */
+    private void assignRecurrenceValues(String recurrenceString, final Matcher matcher) {
+        
+        if(!recurrenceString.contains("x")) {
+            this.occurences = DEFAULT_OCCURENCE;
+        }
+        else {
+            this.occurences = Integer.parseInt(matcher.group("occ").trim());
+        }
+
+        this.days = matcher.group("freq");
+        this.value = true;
     }
 }

@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="120.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane fx:id="gridpane" prefHeight="120.0" prefWidth="509.0" HBox.hgrow="ALWAYS">
+        <GridPane fx:id="gridpane" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="254.0" minWidth="246.0" prefWidth="246.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="354.0" minWidth="346.0" prefWidth="354.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="138.0" prefWidth="171.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="97.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -29,7 +29,7 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="5">
                             <children>
                                 <HBox>
                                     <Label fx:id="id" style="-fx-font-size: 160%;" styleClass="cell_big_label" />
@@ -43,10 +43,8 @@
                 </VBox>
             <AnchorPane prefHeight="120.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="overdue" fitHeight="60.0" fitWidth="80.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="recurring" fitHeight="60.0" fitWidth="80.0" layoutX="88.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="floating" fitHeight="60.0" fitWidth="80.0" layoutX="176.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="stateicon" fitHeight="60.0" fitWidth="80.0" layoutX="267.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="stateicon" fitHeight="60.0" fitWidth="80.0" layoutX="113.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="tasklabel" fitHeight="93.0" fitWidth="99.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </AnchorPane>
             </children>

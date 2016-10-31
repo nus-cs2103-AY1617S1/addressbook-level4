@@ -73,7 +73,7 @@ public class CommandBox extends UiPart {
 					getDownLine();
 					keyEvent.consume();
 				}
-				if (keyEvent.getCode() == KeyCode.TAB || keyEvent.getCode() == KeyCode.SPACE) {
+				if (keyEvent.getCode() == KeyCode.TAB) { // || keyEvent.getCode() == KeyCode.SPACE) {
 					autoComplete();
 					keyEvent.consume();
 				}

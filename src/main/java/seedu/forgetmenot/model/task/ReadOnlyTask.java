@@ -14,6 +14,11 @@ public interface ReadOnlyTask {
     Done getDone();
     boolean checkOverdue();
     
+    boolean isStartTask();
+    boolean isDeadlineTask();
+    boolean isEventTask();
+    boolean isFloatingTask();
+    
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      * @@author A0147619W
@@ -30,6 +35,7 @@ public interface ReadOnlyTask {
 
     /**
      * Formats the task as text, showing all contact details.
+     * @@author A0139671X
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
