@@ -33,6 +33,9 @@ public abstract class TaskManagerGuiTest {
     TestApp testApp;
 
     protected TypicalTestTasks td = new TypicalTestTasks();
+    
+    protected TaskManager taskManager;
+    
     public static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
 
     /*
@@ -81,6 +84,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager tm = TestUtil.generateEmptyTaskManager();
+        taskManager = tm;
         TypicalTestTasks.loadTaskManagerWithSampleData(tm);
         return tm;
     }

@@ -96,6 +96,23 @@ public class TestUtil {
         return Arrays.asList(sampleTaskData);
     }
 
+    //@@author A0138862W
+    /**
+     * Generate List of Task object given with the number specified
+     * 
+     * @param numOfTasks: Number of tasks to generate
+     * @return List of Task
+     */
+    public static List<Task> getSampleTaskList(int numOfTasks){
+        List<Task> sampleTaskList = new ArrayList<>();
+        for(int i = 0; i < numOfTasks; i++){
+            TaskBuilder taskBuilder = new TaskBuilder();
+            sampleTaskList.add(new Task(taskBuilder.withName("Task"+i).build()));
+        }
+        return sampleTaskList;
+    }
+    //@@author
+    
     /**
      * Appends the file name to the sandbox folder path.
      * Creates the sandbox folder if it doesn't exist.

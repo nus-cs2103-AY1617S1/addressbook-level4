@@ -12,6 +12,7 @@ import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskBuilder;
+import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 //@@author A0138862W
 /*
@@ -31,6 +32,8 @@ public class ImportIcsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Imported ics.";
     
     public static final String MESSAGE_FAILURE = "Failed to import ics.";
+    
+    public static final String MESSAGE_FAILURE_DUPLICATE_TASK = "Failed to import ics. Duplicate task detected when importing.";
 
     private final String source;
 
@@ -50,7 +53,11 @@ public class ImportIcsCommand extends Command {
             }
 
             return new CommandResult(COMMAND_KEYWORD_IMPORTICS, MESSAGE_SUCCESS);
-        } catch (InvalidEventDateException | IOException | IllegalValueException e) {
+        } catch (InvalidEventDateException | IOException e) {
+            return new CommandResult(COMMAND_KEYWORD_IMPORTICS, MESSAGE_FAILURE);
+        } catch (DuplicateTaskException e){
+            return new CommandResult(COMMAND_KEYWORD_IMPORTICS, MESSAGE_FAILURE_DUPLICATE_TASK);
+        } catch (IllegalValueException e){
             return new CommandResult(COMMAND_KEYWORD_IMPORTICS, MESSAGE_FAILURE);
         }
     }
