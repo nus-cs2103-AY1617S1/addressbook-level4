@@ -68,7 +68,7 @@ public class DeleteTaskCommandTest {
 		
 		CommandResult result = createAndExecuteDelete(2);
 		String feedback = result.feedbackToUser;
-		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "[Floating Task][Description: Task 1]");
+		String expected = String.format(DeleteTaskCommand.MESSAGE_DELETE_TASK_SUCCESS, "Task 1");
 		assertEquals(feedback, expected);
 	}
 

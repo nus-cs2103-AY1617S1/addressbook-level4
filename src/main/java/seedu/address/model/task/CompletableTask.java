@@ -20,6 +20,6 @@ public interface CompletableTask {
 	 * Checks if a task is completed
 	 */
 	 
-	public boolean isComplete();
+	public boolean isCompleted();
 
 }

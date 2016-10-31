@@ -3,7 +3,7 @@ package seedu.address.model.task;
 /**
  * A simple Task implementation that does not have a deadline
  */
-public class FloatingTask extends Task implements FavoritableTask, CompletableTask {
+public class FloatingTask extends Task implements PinnableTask, CompletableTask {
 
 	public FloatingTask(Description description) {
 		super(description);
@@ -18,15 +18,15 @@ public class FloatingTask extends Task implements FavoritableTask, CompletableTa
 		Description newDescription = new Description(this.description.getContent());
 		FloatingTask newTask = new FloatingTask(newDescription);
 		
-		// Copy favorite status
-		if (this.isFavorite()) {
-			newTask.setAsFavorite();
+		// Copy pin status
+		if (this.isPinned()) {
+			newTask.setAsPin();
 		} else {
-			newTask.setAsNotFavorite();
+			newTask.setAsNotPin();
 		}
 		
 		// Copy completed status
-		if (this.isComplete()) {
+		if (this.isCompleted()) {
 			newTask.setAsComplete();
 		} else {
 			newTask.setAsUncomplete();
@@ -37,6 +37,11 @@ public class FloatingTask extends Task implements FavoritableTask, CompletableTa
 	
 	@Override
 	public String toString() {
+		return description.toString();
+	}
+	
+	@Override
+	public String getTaskDetails(boolean withTime) {
 		return String.format("[Floating Task][Description: %s]", description);
 	}
 }

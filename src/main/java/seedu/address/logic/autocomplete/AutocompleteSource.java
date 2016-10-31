@@ -25,19 +25,15 @@ public class AutocompleteSource {
 		for (Class<?> parser : parserTypes) {
 			try {
 				String commandWord = (String) parser.getField("COMMAND_WORD").get(null);
+				String altCommandWord = (String) parser.getField("ALTERNATE_COMMAND_WORD").get(null);
+				
 				commandWords.add(commandWord);
+				if (altCommandWord != null) {
+				    commandWords.add(altCommandWord);
+				}
 				
 			} catch (NoSuchFieldException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (IllegalArgumentException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (IllegalAccessException ex) {
-				logger.severe(ex.getMessage());
-				assert false;
-			} catch (SecurityException ex) {
-				logger.severe(ex.getMessage());
+				logger.severe("No such field - check parser list, exception: " + ex.getMessage());
 				assert false;
 			} catch (Exception e) {
 				logger.severe("Generic exception: " + e.getMessage());

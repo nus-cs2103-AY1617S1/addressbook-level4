@@ -11,6 +11,8 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
 //@@author A0143107U
 public class DeleteAliasCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = DeleteAliasCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = DeleteAliasCommand.ALTERNATE_COMMAND_WORD;
+
 	public static final String MESSAGE_INVALID_ARGUMENT = "You should only provide 1 alias";
 
 	/**

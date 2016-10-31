@@ -19,7 +19,7 @@ public class XmlAdaptedTask {
     private String description;
     
     @XmlElement(required = true)
-    private boolean favorite;
+    private boolean pin;
     
     @XmlElement(required = true)
     private boolean complete;
@@ -47,8 +47,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(Task source) {
     	description = source.getDescription().toString();
-    	favorite = source.isFavorite();
-    	complete = source.isComplete();
+    	pin = source.isPinned();
+    	complete = source.isCompleted();
     	taskType = source.getClass();
     	
     	// Set dates appropriately
@@ -90,11 +90,11 @@ public class XmlAdaptedTask {
     		throw new IllegalValueException("Incorrect task type: " + taskType.toString());
     	}
     	
-    	// Set favorite
-    	if (favorite) {
-    		taskToReturn.setAsFavorite();
+    	// Set pin
+    	if (pin) {
+    		taskToReturn.setAsPin();
     	} else {
-    		taskToReturn.setAsNotFavorite();
+    		taskToReturn.setAsNotPin();
     	}
     	
     	//Set complete

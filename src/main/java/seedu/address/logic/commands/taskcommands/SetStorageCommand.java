@@ -17,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 public class SetStorageCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "setstorage";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD 
 			+ ": Sets the folder to be used for storage\n" 

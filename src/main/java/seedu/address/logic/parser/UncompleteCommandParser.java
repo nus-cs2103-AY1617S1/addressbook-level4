@@ -17,6 +17,8 @@ import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
 //@@author A0143107U
 public class UncompleteCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = UncompleteTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = UncompleteTaskCommand.ALTERNATE_COMMAND_WORD;
+
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**

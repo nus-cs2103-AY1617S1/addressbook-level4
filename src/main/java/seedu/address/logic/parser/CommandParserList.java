@@ -10,9 +10,10 @@ public class CommandParserList {
 				AddCommandParser.class, 
 				UpdateCommandParser.class,
 				DeleteCommandParser.class, 
+				ClearCommandParser.class,
 				FindCommandParser.class,
-				FavoriteCommandParser.class,
-				UnfavoriteCommandParser.class,
+				PinCommandParser.class,
+				UnpinCommandParser.class,
 				CompleteCommandParser.class,
 				UncompleteCommandParser.class,
 				UndoCommandParser.class,
@@ -21,6 +22,7 @@ public class CommandParserList {
 				AddAliasCommandParser.class, 
 				DeleteAliasCommandParser.class,
 				HelpCommandParser.class,
-				SetStorageCommandParser.class};
+				SetStorageCommandParser.class,
+				ExitCommandParser.class};
 	}
 }

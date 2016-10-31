@@ -30,26 +30,29 @@ public class AddTaskCommandTest {
 		/* CommandResult should return a string that denotes success in execution if description 
 		 * given to AddTaskCommand constructor is a string with size > 0
 		 */
+		// Floating task
 		AddTaskCommand command = new AddTaskCommand("Meeting");
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "[Floating Task][Description: Meeting]")));
+		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "Meeting")));
 
+		// Deadline task
 		Date deadline = new GregorianCalendar(2016, Calendar.OCTOBER, 31).getTime();
 		command = new AddTaskCommand("Meeting", deadline);
 		command.setData(model);
 		result = command.execute();
 		feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "[Deadline Task][Description: Meeting][Deadline: 31.10.2016]")));
+		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "Meeting")));
 		
+		// Event task
 		Date startDate = new GregorianCalendar(2016, Calendar.OCTOBER, 30).getTime();
 		Date endDate = new GregorianCalendar(2016, Calendar.OCTOBER, 31).getTime();
 		command = new AddTaskCommand("Meeting", startDate, endDate);
 		command.setData(model);
 		result = command.execute();
 		feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "[Event Task][Description: Meeting][Start date: 30.10.2016][End date: 31.10.2016]")));
+		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "Meeting")));
 	}
 	
 	@Test(expected=IllegalValueException.class)

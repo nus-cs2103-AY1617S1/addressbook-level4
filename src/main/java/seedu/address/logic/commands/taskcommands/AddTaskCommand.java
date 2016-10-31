@@ -20,6 +20,7 @@ import seedu.address.model.task.EventTask;
 public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String HELP_MESSAGE_USAGE = "Add a task: \t" + "add <description> \n" +
             "Add a deadline: \t" + "add <description> by <date> \n" +
@@ -85,10 +86,10 @@ public class AddTaskCommand extends TaskCommand {
     }
     
     /**
-     * Retrieve the details of the task for testing purposes
+     * Retrieve the details of the task (with or without time information) for testing purposes
      */
-    public String getTaskDetails() {
-    	return toAdd.toString();
+    public String getTaskDetails(boolean withTime) {
+    	return toAdd.getTaskDetails(withTime);
     }
     
     /**

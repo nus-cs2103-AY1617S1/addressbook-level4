@@ -12,7 +12,6 @@ import seedu.address.model.task.InMemoryTaskList;
  */
 public abstract class TaskCommand {
 	protected InMemoryTaskList model;
-
 	
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.

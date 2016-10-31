@@ -2,43 +2,56 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="999.0" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<VBox maxHeight="999.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: derive(#1d1d1d, 20%);" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-         </padding>
-      </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-           <padding>
-               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-           </padding>
-       </AnchorPane>
+      <HBox maxHeight="10.0" prefHeight="10.0" styleClass="anchor-pane">
+         <children>
+            <Label fx:id="notComplete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #9999;" text="Not Complete" textFill="WHITE">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="25.0" right="10.0" top="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Font Regular" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="complete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" text="Complete" textFill="WHITE">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Font Regular" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="find" prefHeight="5.0" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;" text="Find" textFill="WHITE">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="10.0" top="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font name="System Font Regular" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <StackPane fx:id="stackPane" styleClass="stack-pane">
          <children>
             <VBox fx:id="taskList" maxHeight="999.0" prefHeight="999.0" prefWidth="340.0">
@@ -59,6 +72,19 @@
             </VBox>
          </children>
       </StackPane>
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+           <padding>
+               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+           </padding>
+       </AnchorPane>
+      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </AnchorPane>
       <AnchorPane fx:id="statusbarPlaceholder" maxHeight="999.0" VBox.vgrow="NEVER" />
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+   </padding>
 </VBox>

@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.NewTaskListEvent;
@@ -17,16 +19,18 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.taskcommands.AddAliasCommand;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
+import seedu.address.logic.commands.taskcommands.ClearTaskCommand;
 import seedu.address.logic.commands.taskcommands.CompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
-import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.PinTaskCommand;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
 import seedu.address.logic.commands.taskcommands.ListTaskCommand;
 import seedu.address.logic.commands.taskcommands.RedoTaskCommand;
 import seedu.address.logic.commands.taskcommands.SetStorageCommand;
 import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.UndoTaskCommand;
-import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.UnpinTaskCommand;
+import seedu.address.logic.parser.ParserSelector;
 import seedu.address.model.Alias;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.UserPrefs;
@@ -35,6 +39,7 @@ import seedu.address.model.UserPrefs;
  * Manages a list of tasks & aliases and acts as a gateway for Commands to perform CRUD operations on the list
  */
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
+	private static final Logger logger = LogsCenter.getLogger(TaskManager.class);
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;
 	private FilteredList<Task> filteredTasks;
@@ -53,8 +58,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 	
 	@Override
+	public UniqueItemCollection<Task> getTasks(){
+		return tasks;
+	}
+	
+	@Override
 	public synchronized void addTask(Task toAdd) throws DuplicateItemException {
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when add task is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 		
 		tasks.add(toAdd);
@@ -68,7 +78,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public synchronized void updateTask(Task toUpdate, Task newTask) throws ItemNotFoundException {
 		assert tasks.contains(toUpdate);
 		
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when update task is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 		
 		tasks.replace(toUpdate, newTask);
@@ -80,7 +90,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 
 	@Override
 	public synchronized void deleteTask(Task toRemove) throws ItemNotFoundException {
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when delete task is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();		
 		
 	    tasks.remove(toRemove);
@@ -91,27 +101,50 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
 	
 	@Override
-	public void favoriteTask(Task toFavorite) {
-		assert tasks.contains(toFavorite);
+	public void pinTask(Task toPin) {
+		assert tasks.contains(toPin);
 		
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when favorite is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 		
-		toFavorite.setAsFavorite();
+		toPin.setAsPin();
 		
 		// Update stored values of tasks
 		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
+	
+	// Returns the number of tasks successfully deleted
+	@Override
+	public int clearTasks() {
+		// Create a temporary storage of tasks and update the global copy only when clear tasks is successful
+		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
+		
+		int deleted = 0;
+		for (int i = filteredTasks.size() - 1; i >= 0; i--) {
+			try {
+				tasks.remove(filteredTasks.get(i));
+				deleted++;
+			} catch (ItemNotFoundException infe) {
+				logger.warning("Failed to remove task while clearing tasks: " + filteredTasks.get(i).getDescription().getContent());
+			}
+		}
+		
+		// Update stored values of tasks
+		modelHistory.storeOldTasks(tempTasks);
+	    indicateTaskManagerChanged();
+	    clearTasksFilter();
+	    return deleted;
+	}
 
 	@Override
-	public void unfavoriteTask(Task toUnfavorite) {
-		assert tasks.contains(toUnfavorite);
+	public void unpinTask(Task toUnpin) {
+		assert tasks.contains(toUnpin);
 		
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when unfavorite is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();
 						
-		toUnfavorite.setAsNotFavorite();
+		toUnpin.setAsNotPin();
 		
 		// Update stored values of tasks
 		modelHistory.storeOldTasks(tempTasks);
@@ -122,7 +155,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public void completeTask(Task toComplete) {
 		assert tasks.contains(toComplete);
 		
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when complete task is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();				
 		
 		toComplete.setAsComplete();
@@ -136,7 +169,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public void uncompleteTask(Task toUncomplete) {
 		assert tasks.contains(toUncomplete);
 		
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when uncomplete task is successful
 		UniqueItemCollection<Task> tempTasks = tasks.copyCollection();		
 		
 		toUncomplete.setAsUncomplete();
@@ -148,7 +181,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public synchronized void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException{
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when add alias is successful
 		UniqueItemCollection<Alias> tempAliases = aliases.copyCollection();
 		 
 		aliases.add(toAdd);
@@ -160,7 +193,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public synchronized void deleteAlias(Alias toRemove) throws ItemNotFoundException {
-		// Create a temporary storage of tasks and update the global copy only when update is successful
+		// Create a temporary storage of tasks and update the global copy only when delete alias is successful
 		UniqueItemCollection<Alias> tempAliases = aliases.copyCollection();
 		
 		aliases.remove(toRemove);
@@ -266,14 +299,15 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
         helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
         helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(ClearTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(CompleteTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(UndoTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(FavoriteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UnfavoriteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(PinTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UnpinTaskCommand.HELP_MESSAGE_USAGE);
         helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
         return helpItems;
     }
@@ -306,12 +340,12 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterUncompletedTasks() {
-		filteredTasks.setPredicate(p -> !p.isComplete());
+		filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
 	@Override
 	public void clearTasksFilter() {
-	    filteredTasks.setPredicate(p -> !p.isComplete());
+	    filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
 	//@@author A0138978E
@@ -324,7 +358,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterCompletedTasks(){
-		filteredTasks.setPredicate(p -> p.isComplete());
+		filteredTasks.setPredicate(p -> p.isCompleted());
 	}
 
 	//@@author A0139708W

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.taskcommands;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import seedu.address.model.task.Task;
 public class UpdateTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "update";
+    public static final String ALTERNATE_COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"
@@ -121,9 +123,9 @@ public class UpdateTaskCommand extends TaskCommand {
     		assert false : "At least task, description or date should have new values";
     	}
     	
-    	// Retain favorite status
-		if (taskToUpdate.isFavorite()) {
-			updatedTask.setAsFavorite();
+    	// Retain pin status
+		if (taskToUpdate.isPinned()) {
+			updatedTask.setAsPin();
 		}
     }
     
@@ -167,19 +169,27 @@ public class UpdateTaskCommand extends TaskCommand {
     }
     
     /**
-     * Retrieve the details of the values to be updated for testing purposes
+     * Retrieve the details of the values (with or without time) to be updated for testing purposes
      */
-    public String getTaskDetails() {
+    public String getTaskDetails(boolean withTime) {
+    	SimpleDateFormat dateFormat;
+    	// Decide which date format to use
+    	if (withTime) {
+    		dateFormat = DateUtil.dateFormatWithTime;
+    	} else {
+    		dateFormat = DateUtil.dateFormat;
+    	}
+    	
     	if (newTask != null) {
-    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask);
+    		return String.format(TASK_DETAILS_UPDATE_TASK, newTask.getTaskDetails(withTime));
     	} else if (newDescription != null) {
     		return String.format(TASK_DETAILS_UPDATE_DESCRIPTION, newDescription);
     	} else if (newDeadline != null) {
     		return String.format(TASK_DETAILS_UPDATE_DEADLINE,
-    				DateUtil.dateFormat.format(newDeadline));
+    				dateFormat.format(newDeadline));
     	} else if (newStartDate != null && newEndDate != null) {
     		return String.format(TASK_DETAILS_UPDATE_START_END_DATE, 
-    				DateUtil.dateFormat.format(newStartDate), DateUtil.dateFormat.format(newEndDate));
+    				dateFormat.format(newStartDate), dateFormat.format(newEndDate));
     	} else {
     		return "Error";
     	}
@@ -209,7 +219,7 @@ public class UpdateTaskCommand extends TaskCommand {
             assert false : "The target item cannot be missing";
         } 
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, updatedTask.getDescription().getContent()));
     }
 
 }

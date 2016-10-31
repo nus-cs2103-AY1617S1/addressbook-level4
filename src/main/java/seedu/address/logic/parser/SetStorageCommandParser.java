@@ -9,6 +9,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
  */
 public class SetStorageCommandParser extends CommandParser{
     public static final String COMMAND_WORD = SetStorageCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = SetStorageCommand.ALTERNATE_COMMAND_WORD;
 
     @Override
     public TaskCommand prepareCommand(String arguments) {
