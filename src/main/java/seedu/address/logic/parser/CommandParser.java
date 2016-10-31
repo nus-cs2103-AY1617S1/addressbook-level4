@@ -612,6 +612,7 @@ public class CommandParser {
             String trimmedArgs = arguments.trim();
             String indexToEdit = trimmedArgs.substring(0, 1);
             String argumentsWithoutIndex = trimmedArgs.substring(1).trim();
+            String resetField = null;
             
             HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(argumentsWithoutIndex);
             
@@ -621,7 +622,12 @@ public class CommandParser {
             Optional<String> rate = fieldMap.get("rate");
             Optional<String> timePeriod = fieldMap.get("timePeriod");
             Optional<String> priority = fieldMap.get("priority");
-            
+
+            String[] resetSplit = argumentsWithoutIndex.split("-reset");
+            if(resetSplit.length == TWO){
+                resetField = resetSplit[ONE];
+            }
+                        
             StringBuilder sb = new StringBuilder();
             sb.append(EditCommand.TOOL_TIP);
             sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
@@ -662,6 +668,11 @@ public class CommandParser {
                 sb.append("\n\tPriority:\tNo Change");
             }
             
+            if (resetField != null) {
+                sb.append("\n\tReset Field:\t" + resetField);
+            } else {
+                sb.append("\n\tReset Field:\tNo Change");
+            }
             return sb.toString();
             
         } catch (IllegalValueException e) {
