@@ -3,6 +3,7 @@ package tars.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
@@ -90,5 +91,19 @@ public class Formatter {
             count++;
         }
         return formatted;
+    }
+    
+    /**
+     * Formats a given tasks list to display on This Week Panel
+     */
+    public static String formatThisWeekPanelTasksList(ObservableList<ReadOnlyTask> tasksList) {
+        String formatted = "";
+        for (ReadOnlyTask t : tasksList) {
+            String taskName = t.getName().toString();
+            if (!formatted.contains(taskName)) {
+                formatted += "[" + t.getName().toString() + "] ";
+            }
+        }
+        return formatted.trim();
     }
 }
