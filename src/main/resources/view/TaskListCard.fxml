@@ -33,11 +33,11 @@
                             <children>
                                 <HBox>
                                     <Label fx:id="id" style="-fx-font-size: 160%;" styleClass="cell_big_label" />
-                                    <Label fx:id="name" prefHeight="35.0" style="-fx-font-size: 160%;" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="name" style="-fx-font-size: 160%;" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="start" prefHeight="27.0" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$start" />
+                        <Label fx:id="start" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$start" />
                         <Label fx:id="address" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$address" />
                     </children>
                 </VBox>
