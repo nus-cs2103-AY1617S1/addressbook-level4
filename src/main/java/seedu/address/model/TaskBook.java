@@ -25,7 +25,8 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList datedTasks;
     private final UniqueTaskList undatedTasks;
-    private final UniqueTagList tags;
+    private final UniqueTagList tags; 
+
 
     {
         datedTasks = new UniqueTaskList();
@@ -188,45 +189,57 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
-    public boolean overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-        if(datedTasks.contains(target)){
+    
+  //@@author A0139024M 
+    
+    /*
+     * Set deadline task as overdue
+     */
+    public boolean setTaskOverdue(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if (datedTasks.contains(target)) {
             datedTasks.overdue(target);
             return true;
         }
-        else{
+        else {
             throw new UniqueTaskList.TaskNotFoundException();	
         }
     }
-
-    //@@author A0139024M 
-    public boolean postponed(Task target) throws UniqueTaskList.TaskNotFoundException {
-        if(datedTasks.contains(target)){
+    
+    /*
+     * Reset the status of dated Task to None
+     */
+    public boolean postponeTask(Task target) throws UniqueTaskList.TaskNotFoundException {
+        if (datedTasks.contains(target)) {
             datedTasks.postponed(target);
             return true;
         }
-        else{
+        else {
             throw new UniqueTaskList.TaskNotFoundException();   
         }        
     }
-
-    public boolean expireTask(Task target) throws UniqueTaskList.TaskNotFoundException {
-        if(datedTasks.contains(target)){
+    
+    /*
+     * Set Event task as expired
+     */
+    public boolean setExpire(Task target) throws UniqueTaskList.TaskNotFoundException {
+        if (datedTasks.contains(target)) {
             datedTasks.expire(target);
             return true;
         }
-        else{
+        else {
             throw new UniqueTaskList.TaskNotFoundException(); 
         }
 
     }
-
-    public boolean floatingStatusReset(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
-        if(undatedTasks.contains(undatedTarget)){
+    /*
+     * Clear all unwanted status (Expire/Overdue) status on floating/undated task
+     */
+    public boolean resetFloatingTaskStatus(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
+        if (undatedTasks.contains(undatedTarget)) {
             undatedTasks.postponed(undatedTarget);
             return true;
         }
-        else{
+        else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
