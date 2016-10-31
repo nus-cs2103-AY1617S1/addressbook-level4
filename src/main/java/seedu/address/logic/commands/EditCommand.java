@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
@@ -66,6 +68,7 @@ public class EditCommand extends Command{
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
                 model.editTask(eventToEdit, editArgs, category);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -90,6 +93,7 @@ public class EditCommand extends Command{
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
                 model.editTask(deadlineToEdit, editArgs, category);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -114,6 +118,7 @@ public class EditCommand extends Command{
                 model.addToUndoStack();
                 model.getCommandHistory().add("edit");
                 model.editTask(todoToEdit, editArgs, category);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex-1, category));
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
