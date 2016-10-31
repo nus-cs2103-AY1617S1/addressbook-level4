@@ -28,4 +28,4 @@
 
 #### Licence : [MIT](LICENSE)
 
-[release]: https://github.com/CS2103AUG2016-W10-C4/main/releases/tag/v0.3 
+[release]: https://github.com/CS2103AUG2016-W10-C4/main/releases/tag/v0.4 
