@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.util.FxViewUtil;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 /**
@@ -20,7 +22,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#command-cheatsheet";
+            "src/main/resources/images/HelpWindowUI.png";
 
     private AnchorPane mainPane;
 
