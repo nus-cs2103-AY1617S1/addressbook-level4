@@ -12,65 +12,65 @@ import seedu.address.logic.parser.ListCommandParser;
 //@@author A0143107U
 public class ListCommandParserTest {
 	// Initialized to support the tests
-		ListCommandParser parser = new ListCommandParser();
+	ListCommandParser parser = new ListCommandParser();
 		
-		/**
-		 * Testing correct handling of invalid formats, list types
-		 */
-		@Test
-		public void prepareCommand_invalidFormat() {
-			String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE);
-			
-			IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("meeting");
-			String feedback = command.feedbackToUser;
-			assertEquals(feedback, expected);
-			
-			command = (IncorrectTaskCommand) parser.prepareCommand("all");
-			feedback = command.feedbackToUser;
-			assertEquals(feedback, expected);
-		}
-		/**
-		 * Testing correct list alias type
-		 */
-		@Test
-		public void prepareCommand_listAlias() {
-			String expected = "alias";
-			
-			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("alias");
-			String feedback = command.getType();
-			assertEquals(feedback, expected);
-			
-		}
+	/**
+	 * Testing correct handling of invalid formats
+	 */
+	@Test
+	public void prepareCommand_invalidFormat() {
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE);
 		
-		/**
-		 * Testing correct list completed type
-		 */
-		@Test
-		public void prepareCommand_listCompleted() {
-			String expected = "completed";
+		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("meeting");
+		String feedback = command.feedbackToUser;
+		assertEquals(feedback, expected);
 			
-			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("completed");
-			String feedback = command.getType();
-			assertEquals(feedback, expected);
-			
-			expected = "complete";
-			
-			command = (ListTaskCommand) parser.prepareCommand("complete");
-			feedback = command.getType();
-			assertEquals(feedback, expected);
-			
-		}
+		command = (IncorrectTaskCommand) parser.prepareCommand("all");
+		feedback = command.feedbackToUser;
+		assertEquals(feedback, expected);
+	}
+	/**
+	 * Testing correct list alias type
+	 */
+	@Test
+	public void prepareCommand_listAlias() {
+		String expected = "alias";
 		
-		/**
-		 * Testing correct list all type
-		 */
-		@Test
-		public void prepareCommand_listAll() {
-			String expected = "";
-			
-			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("");
-			String feedback = command.getType();
-			assertEquals(feedback, expected);
-			
-		}
+		ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("alias");
+		String feedback = command.getType();
+		assertEquals(feedback, expected);
+		
+	}
+		
+	/**
+	 * Testing correct list completed type
+	 */
+	@Test
+	public void prepareCommand_listCompleted() {
+		String expected = "completed";
+		
+		ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("completed");
+		String feedback = command.getType();
+		assertEquals(feedback, expected);
+		
+		expected = "complete";
+		
+		command = (ListTaskCommand) parser.prepareCommand("complete");
+		feedback = command.getType();
+		assertEquals(feedback, expected);
+		
+	}
+	
+	/**
+	 * Testing correct list all type
+	 */
+	@Test
+	public void prepareCommand_listAll() {
+		String expected = "";
+		
+		ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("");
+		String feedback = command.getType();
+		assertEquals(feedback, expected);
+		
+	}
 }

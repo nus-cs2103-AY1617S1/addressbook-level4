@@ -14,6 +14,8 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
 //@@author A0139817U
 public class AddCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddTaskCommand.COMMAND_WORD;
+    public static final String ALTERNATE_COMMAND_WORD = AddTaskCommand.ALTERNATE_COMMAND_WORD;
+
 	/**
      * Parses arguments in the context of the add task command.
      *

@@ -53,7 +53,7 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         description.setText(task.getDescription().getContent());
-        if(task.isComplete()){
+        if(task.isCompleted()){
         	id.setText(displayedIndex + ". [Completed] ");
         }
         else{

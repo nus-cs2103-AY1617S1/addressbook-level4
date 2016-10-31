@@ -119,7 +119,7 @@ public class TaskListPanel extends UiPart {
             	} 
             	
             	// Set the color of the card based on whether it's favorited
-                if (task.isFavorite()) {
+                if (task.isPinned()) {
                 	currentCard.setPinnedStyle();
                 } 
             }

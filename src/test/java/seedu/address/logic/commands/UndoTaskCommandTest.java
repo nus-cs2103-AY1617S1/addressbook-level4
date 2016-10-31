@@ -2,18 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.taskcommands.AddTaskCommand;
-import seedu.address.logic.commands.taskcommands.DeleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.UndoTaskCommand;
 import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.InMemoryTaskList;

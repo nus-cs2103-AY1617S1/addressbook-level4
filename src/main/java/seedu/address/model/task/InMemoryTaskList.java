@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.util.Set;
 
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
@@ -13,6 +14,11 @@ import seedu.address.model.Alias;
  */
 public interface InMemoryTaskList {
 
+	/*
+	 * Gets collection of tasks
+	 */
+	UniqueItemCollection<Task> getTasks();
+	
 	/*
 	 * Adds a task to the current in-memory representation of the Task List
 	 */
@@ -34,14 +40,14 @@ public interface InMemoryTaskList {
 	int clearTasks();
 	
 	/*
-	 * Favorites a task in the current in-memory representation of the Task List
+	 * Pins a task in the current in-memory representation of the Task List
 	 */
-	void favoriteTask(Task toFavorite);
+	void pinTask(Task toPin);
 	
 	/*
-	 * Unfavorites a task in the current in-memory representation of the Task List
+	 * Unpins a task in the current in-memory representation of the Task List
 	 */
-	void unfavoriteTask(Task toFavorite);
+	void unpinTask(Task toPin);
 	
 	/*
 	 * Completes a task in the current in-memory representation of the Task List

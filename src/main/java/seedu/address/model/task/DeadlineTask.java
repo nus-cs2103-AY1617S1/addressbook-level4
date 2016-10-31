@@ -9,7 +9,7 @@ import seedu.address.model.Copiable;
  * A DeadlineTask is a task that holds a date as the deadline
  */
 //@@author A0139817U
-public class DeadlineTask extends Task implements FavoritableTask, CompletableTask {
+public class DeadlineTask extends Task implements PinnableTask, CompletableTask {
 
 	private Date deadline;
 
@@ -28,15 +28,15 @@ public class DeadlineTask extends Task implements FavoritableTask, CompletableTa
 		Date newDeadline = new Date(this.deadline.getTime());
 		DeadlineTask newTask = new DeadlineTask(newDescription, newDeadline);
 		
-		// Copy favorite status
-		if (this.isFavorite()) {
-			newTask.setAsFavorite();
+		// Copy pin status
+		if (this.isPinned()) {
+			newTask.setAsPin();
 		} else {
-			newTask.setAsNotFavorite();
+			newTask.setAsNotPin();
 		}
 		
 		// Copy completed status
-		if (this.isComplete()) {
+		if (this.isCompleted()) {
 			newTask.setAsComplete();
 		} else {
 			newTask.setAsUncomplete();

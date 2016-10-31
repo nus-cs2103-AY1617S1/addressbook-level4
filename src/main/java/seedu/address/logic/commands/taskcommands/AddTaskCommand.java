@@ -20,6 +20,7 @@ import seedu.address.model.task.EventTask;
 public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String HELP_MESSAGE_USAGE = "Add a task: \t" + "add <description> \n" +
             "Add a deadline: \t" + "add <description> by <date> \n" +

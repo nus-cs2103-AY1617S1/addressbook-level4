@@ -14,6 +14,7 @@ import seedu.address.model.Alias;
 public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";
+    public static final String ALTERNATE_COMMAND_WORD = null;
 
     public static final String HELP_MESSAGE_USAGE = "Add an Alias: \t" + "alias <alias> <valid command sentence>"; 
     

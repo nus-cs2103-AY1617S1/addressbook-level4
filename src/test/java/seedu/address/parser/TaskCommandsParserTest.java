@@ -12,6 +12,9 @@ import seedu.address.logic.parser.*;
 //@@author A0143107U
 public class TaskCommandsParserTest {
 
+	/**
+	 * Testing correct handling of invalid formats 
+	 */
 	@Test
 	public void parserSelector_invalidCommand(){
 		/* CommandResult should return a string that denotes that 
@@ -24,6 +27,9 @@ public class TaskCommandsParserTest {
         assertTrue(feedback.equals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Type help if you want to know the list of commands.")));
 	}
 	
+	/**
+	 * Testing parsing of valid format
+	 */
 	@Test
 	public void parserSelector_validCommand(){
 		/* CommandResult should return a string that denotes that 

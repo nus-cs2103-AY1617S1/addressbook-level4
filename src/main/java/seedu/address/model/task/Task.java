@@ -7,7 +7,7 @@ import seedu.address.model.Copiable;
 /*
  * Represents a highly general Task object to be subclassed
  */
-public abstract class Task implements FavoritableTask, CompletableTask, Comparable<Task>, Copiable<Task> {
+public abstract class Task implements PinnableTask, CompletableTask, Comparable<Task>, Copiable<Task> {
 	//@@author A0138978E
 	/*
 	 * All tasks are required to minimally have a description
@@ -15,9 +15,9 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	protected Description description;
 		
 	/*
-	 * Indicates if this task is favorited
+	 * Indicates if this task is pind
 	 */
-	protected boolean favorite = false;
+	protected boolean pin = false;
 	
 	//@@author 
 	/*
@@ -27,18 +27,18 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	
 	//@@author A0138978E
 	@Override
-	public void setAsFavorite() {
-		this.favorite = true;
+	public void setAsPin() {
+		this.pin = true;
 	}
 	
 	@Override
-	public void setAsNotFavorite() {
-		this.favorite = false;
+	public void setAsNotPin() {
+		this.pin = false;
 	}
 	
 	@Override
-	public boolean isFavorite() {
-		return this.favorite;
+	public boolean isPinned() {
+		return this.pin;
 	}
 	
 	//@@author 
@@ -53,7 +53,7 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	}
 	
 	@Override
-	public boolean isComplete(){
+	public boolean isCompleted(){
 		return this.complete;
 	}
 	
@@ -95,10 +95,10 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	    // For now: this is very subclass dependant - assert these conditions
 	    assert (this instanceof FloatingTask) || (this instanceof DeadlineTask) || (this instanceof EventTask);
 	    
-	    // Favorite tasks are the highest priority
-		if (this.isFavorite() && !other.isFavorite()) {
+	    // Pinned tasks are the highest priority
+		if (this.isPinned() && !other.isPinned()) {
 			return -1;
-		} else if (!this.isFavorite() && other.isFavorite()) {
+		} else if (!this.isPinned() && other.isPinned()) {
 			return 1;
 		} 
 

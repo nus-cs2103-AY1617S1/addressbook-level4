@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.taskcommands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 
 /**

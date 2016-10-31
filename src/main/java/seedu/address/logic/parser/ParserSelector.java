@@ -23,8 +23,16 @@ public class ParserSelector {
 		for(int i=0; i<parserTypes.length; i++){
 			try {
 				Field type = parserTypes[i].getField("COMMAND_WORD");
-				if(type.get(null).equals(commandWord)){
+				String command = (String)type.get(null);
+				if(command.equals(commandWord)){
 					return (CommandParser)parserTypes[i].newInstance();
+				}
+				else{
+					type = parserTypes[i].getField("ALTERNATE_COMMAND_WORD");
+					command = (String)type.get(null);
+					if(command!=null && command.equals(commandWord)){
+						return (CommandParser)parserTypes[i].newInstance();
+					}
 				}
 			} 
 			catch (NoSuchFieldException e) {
