@@ -109,6 +109,7 @@ public class FileUtil {
     }
     
     //@@author A0139194X
+    //Checks if file path string exists
     public static void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
         assert newFilePath != null;
         Path filePath = Paths.get(newFilePath);
