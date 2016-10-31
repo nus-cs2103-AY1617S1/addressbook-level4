@@ -6,7 +6,7 @@ import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0141128R
 public class ListCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -16,7 +16,10 @@ public class ListCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         assertListSuccess("list", currentList);
         assertListSuccess("la", currentList);
-
+        
+        //test for list block
+        
+        //redudent test
         //done a task that is the last in the list
         commandBox.runCommand("done 1");
         TestTask[] doneList = td.getEmptyTasks();

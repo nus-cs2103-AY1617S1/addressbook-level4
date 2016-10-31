@@ -118,7 +118,7 @@ public class EditCommand extends Command {
     	//check if changing to floating task
         if(floating)
         	toEditWith.setFloating();
-        //check for if time is empty and append and check if have changes in date otherwise append old date
+        //check for if time and date is empty then append
         else{
         if(toEditWith.getDueByDate().dateNotEntered() && toEditWith.getDueByTime().timeNotEntered()){
         	toEditWith.setDueByDate(taskToEdit.getDueByDate());
@@ -163,6 +163,7 @@ public class EditCommand extends Command {
         }
        
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        System.out.println(taskToEdit.getAsText());
         // Check if task is done.
         if (taskToEdit.checkDone().value) {
             indicateAttemptToExecuteIncorrectCommand();
