@@ -1,5 +1,30 @@
 .root {
-	
+	-fx-font-family: Verdana, Geneva, sans-serif;
+}
+
+.cell_big_label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_desc_label {
+    -fx-font-size: 11px !important;
+    -fx-text-fill: #bdc3c7;
+    
+}
+
+.cell_ddl_label {
+    -fx-font-size: 11px !important;
+    -fx-text-fill: #c0392b;
+    -fx-background-image: url('/images/calendar.png');
+    -fx-background-position: left center;
+  	-fx-background-repeat: no-repeat;
+  	 -fx-background-size: 15px;
+}
+
+.cell_small_label {
+    -fx-font-size: 9px;
+    -fx-text-fill: #010504;
 }
 
 .background {
@@ -8,8 +33,7 @@
 
 .label {
     -fx-font-size: 11pt;
-    
-    -fx-text-fill: #555555;
+    -fx-font-family: Verdana, Geneva, sans-serif;
     -fx-opacity: 0.9;
 }
 
@@ -21,14 +45,14 @@
 
 .label-header {
     -fx-font-size: 20pt;
-    
+    -fx-font-family: Verdana, Geneva, sans-serif;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    
+    -fx-font-family: Verdana, Geneva, sans-serif;
 }
 
 .tab-pane {
@@ -79,14 +103,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-color: transparent, white;
 }
 
 .split-pane {
     -fx-border-radius: 1;
-    -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
 }
 
 .list-cell {
@@ -95,32 +119,18 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
-
-.cell_big_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
-}
-
-.cell_small_label {
-    -fx-font-size: 12px;
+.cell_index_label {
+    -fx-font-size: 10px;
     -fx-text-fill: #010504;
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: white;
 }
 
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     
-}
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: white;
     -fx-text-fill: black;
 }
 
@@ -129,7 +139,7 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: black;
 }
 
 .status-bar .label {
@@ -137,8 +147,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: white;
+    -fx-border-color: transparent;
     
 }
 
@@ -277,6 +287,7 @@
 
 #cardPane {
     -fx-border-color: #d6d6d6;
+    
     
 }
 

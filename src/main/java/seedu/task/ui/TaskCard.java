@@ -50,7 +50,7 @@ public class TaskCard extends UiPart{
     }
 
     private void initialiseDeadline() {
-        deadline.setText(task.getDeadlineToString().trim());
+        deadline.setText(task.getDeadlineToString());
         if (task.getDeadline().isPresent()) {
             deadline.setManaged(true);
         } else {

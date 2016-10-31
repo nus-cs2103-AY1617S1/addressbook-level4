@@ -1,7 +1,9 @@
 
 .group0 { -fx-background-color: #A47AE2; -fx-fill: #AC725E; }
 
-
+.anchor-pane{
+	-fx-background-color: transparent;
+}
 
 .Agenda .Selected { 
 	-xfx-color: -fx-focused-base;
@@ -15,7 +17,12 @@
 }
 
 .status-complete {
-    -fx-background-color: lavender;
+    -fx-background-color: #2ecc71;
+    -fx-background-image: url('/images/checked.png');
+    -fx-background-position: right center;
+  	-fx-background-repeat: no-repeat;
+  	-fx-background-size: 25px;
+  	-fx-right-padding: 10px;
 }
 
 

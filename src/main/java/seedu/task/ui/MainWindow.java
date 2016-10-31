@@ -118,7 +118,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	AquaFx.style();
+//    	AquaFx.style();
     	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());

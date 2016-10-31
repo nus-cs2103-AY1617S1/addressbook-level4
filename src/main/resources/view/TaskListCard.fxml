@@ -10,6 +10,7 @@
 <?import java.net.URL?>
 
 <!-- @@author A0127570H -->
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
@@ -18,7 +19,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="15.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" VBox.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -32,7 +33,7 @@
                             <children>
                                 <HBox>
                                    <children>
-                                       <Label fx:id="index" prefHeight="20.0" prefWidth="15.0" styleClass="cell_small_label" text="\$index">
+                                       <Label fx:id="index" prefHeight="20.0" prefWidth="20.0" styleClass="cell_index_label" text="\$index">
                                  <font>
                                     <Font size="6.0" />
                                  </font>
@@ -42,8 +43,8 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="description" styleClass="cell_small_label" text="\\$desc" wrapText="true" />
-                        <Label fx:id="deadline" styleClass="cell_small_label" text="\\$deadline" />
+                        <Label fx:id="description" styleClass="cell_desc_label" text="\\$desc" textFill="#685252" wrapText="true" />
+                        <Label fx:id="deadline" styleClass="cell_ddl_label" text="\\$deadline" />
                     </children>
                 </VBox>
             </children>

@@ -53,7 +53,7 @@ public interface ReadOnlyTask {
      * If null, empty string is returned
      */
     default String getDeadlineToString() {
-        return getDeadline().isPresent()? " Deadline: " + getDeadline().get().toString() : "";
+        return getDeadline().isPresent()? "      " + getDeadline().get().toString() : "";
     }
     
     /**
