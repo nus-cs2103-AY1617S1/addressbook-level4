@@ -23,6 +23,7 @@ public class UpdateCommand extends Command {
 	public static final String MESSAGE_NOT_CHRONO_TASK = "The start time must be before the end time.";
 	public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
 	public static final String MESSAGE_ILLEGAL_VALUE = "Start or end time is invalid!";
+    public static final String MESSAGE_OVERLAP = "There is an overlap with other existing task(s).";
 
 	private int targetIndex;
 	private TaskDetails taskDetails;
@@ -60,14 +61,19 @@ public class UpdateCommand extends Command {
 			       isNotChronoTime(new StartTime(startTime), new EndTime(endTime));
 			    else if (startTime!=null)
 			       isNotChronoTime(new StartTime(startTime), taskToUpdate.getEndTime());
-			    else isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
+			    else if (endTime!=null)
+			       isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
 			}
 			catch (IllegalValueException e) {
 			    return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
 			}
 			try {
 			    model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
-			    return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
+			    if (model.isOverlapping(taskToUpdate)) {
+	                model.updateFilteredListToShowOverlapping(taskToUpdate);
+	                return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS + ". " + MESSAGE_OVERLAP, taskToUpdate.getTaskDetails()));
+	            }
+			    else return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
 			} catch (IllegalValueException e) {
 				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
 			}
