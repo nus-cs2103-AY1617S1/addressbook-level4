@@ -23,33 +23,33 @@ public class BlockCommandTest extends ToDoListGuiTest {
         //add block a timeslot with date/time range
         timeToBlock = td.businessDeal;
         assertBlockSuccess(timeToBlock, currentList);
-        updateList(timeToBlock, currentList);
+        currentList = updateList(timeToBlock, currentList);
 
         
         //cannot add task to a blocked timeslot with same timing
         TestTask taskToAdd = td.eat;
-        commandBox.runCommand(taskToAdd.getAddCommand());
+        runCommand(taskToAdd.getAddCommand());
         assertResultMessage(Messages.MESSAGE_TIMESLOT_BLOCKED);
-        commandBox.runCommand("list all");//to go back to general list
+        runCommand("list all");//to go back to general list
         
         //cannot done a block task
-        commandBox.runCommand("done 5");
+        runCommand("done 5");
         assertResultMessage(Messages.MESSAGE_CANNOT_DONE);
         
         //invalid detail parameter
-        commandBox.runCommand("block 'ppp");
+        runCommand("block 'ppp");
         assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
-        commandBox.runCommand("block ppp'");
+        runCommand("block ppp'");
         assertResultMessage(Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
-        commandBox.runCommand("block ''");
+        runCommand("block ''");
         assertResultMessage(Messages.MESSAGE_BLANK_DETAIL_WARNING);
         
         //block a time slot in an empty list
-        commandBox.runCommand("clear");
+        runCommand("clear");
         assertBlockSuccess(td.deal);
 
         //invalid command
-        commandBox.runCommand("blocks meeting with OCBC");
+        runCommand("blocks meeting with OCBC");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
     
@@ -57,6 +57,11 @@ public class BlockCommandTest extends ToDoListGuiTest {
     private void checkCard(TestTask timeToBlock){
     	 TaskCardHandle addedCard = taskListPanel.navigateToTask(timeToBlock.getDetail().details);
          assertMatching(timeToBlock, addedCard);
+    }
+    
+    //run other commands
+    private void runCommand(String input){
+    	commandBox.runCommand(input);
     }
     
     //run command
@@ -68,7 +73,7 @@ public class BlockCommandTest extends ToDoListGuiTest {
     private TestTask[] updateList(TestTask timeToBlock, TestTask... currentList){
     	return TestUtil.addTasksToList(currentList, timeToBlock);
     }
-
+    
     private void assertBlockSuccess(TestTask timeToBlock, TestTask... currentList) {
  
     	runBlockCommand(timeToBlock);

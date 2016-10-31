@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0141006B
 public class ClearCommandTest extends ToDoListGuiTest {
 
     @Test
@@ -16,15 +16,21 @@ public class ClearCommandTest extends ToDoListGuiTest {
         //verify other commands can work after a clear command
         commandBox.runCommand(td.grocery.getAddCommand());
         assertTrue(taskListPanel.isListMatching(td.grocery));
-        commandBox.runCommand("delete 1");
+        
+        runCommand("delete 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
     }
+    
+    //run commands other than add
+    private void runCommand(String input){
+    	commandBox.runCommand(input);
+    }
 
     private void assertClearCommandSuccess() {
-        commandBox.runCommand("clear");
+        runCommand("clear");
         assertListSize(0);
     }
 }
