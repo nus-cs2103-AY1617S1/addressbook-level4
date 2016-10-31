@@ -134,11 +134,11 @@ public class JimiParser {
             }
         }).findFirst();
         
-        if (prepared.isPresent()) {
-            return prepared.get();
+        if (!prepared.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND, commandWord));
         }
         
-        return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND, commandWord));
+        return prepared.get();
     }
     
     private Command prepareHelp(String args) {
