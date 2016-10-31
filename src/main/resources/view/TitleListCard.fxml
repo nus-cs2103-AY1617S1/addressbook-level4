@@ -10,9 +10,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <!-- @@author A0126649W -->
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox id="cardPane" fx:id="cardPane" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -20,21 +22,21 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="56.0" prefHeight="56.0" prefWidth="150.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" minHeight="56.0" prefWidth="149.0" GridPane.columnIndex="0" GridPane.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
                             <children>
+                        <Text fx:id="id" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" />
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                 </HBox>
                             </children>
                         </HBox>
