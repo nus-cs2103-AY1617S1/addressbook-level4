@@ -14,13 +14,9 @@ import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.commons.core.Config;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -98,9 +94,9 @@ public class StorageManager extends ComponentManager implements Storage {
     @Subscribe
     public void handleRelocateEvent(RelocateFilePathEvent event) {
         assert event != null;
-        assert event.newFilePath != null;
+        assert event.getFilePath() != null;
         String oldPath = taskManagerStorage.getTaskManagerFilePath();
-        String newPath = correctFilePathFormat(event.newFilePath);
+        String newPath = correctFilePathFormat(event.getFilePath());
         taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
             taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
