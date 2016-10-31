@@ -49,9 +49,13 @@ Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report
 List | `list`  
 Listall | `listall`
 Complete | 'complete INDEX' | complete 1
-Help | `help` 
+Help | `help`
+Undo | `undo`
+Revert | `rev`
 Select | `select INDEX` | select 4
 View | `view TASKNAME` | view Reservist
+Exit | `exit`
+Update | `update` 
 Clear | `clear`
 
 <div style="page-break-after: always;"></div>
@@ -176,6 +180,18 @@ Format: `help`
 
 <div style="page-break-after: always;"></div>
 
+#### Undoing a command: `undo`
+Format: `undo`
+
+> Key thing to note:
+> Undo can only be used for up to 10 commands in a row
+
+#### Reverting back from an undo command: `rev`
+Format: `rev`
+
+> Key thing to note:
+> Revert can only be used for up to 10 undoes in a row
+
 #### Selecting a task : `select`
 Description: Selects the task identified by the index number used in the last task listing.<br>
 Format: `select INDEX`
@@ -206,6 +222,17 @@ Examples:
 #### Exiting the program : `exit`
 Description: Exits the program.<br>
 Format: `exit`
+
+#### Updating the task manager: `update`
+Description: Updates the task manager if the date and time is out of synchronisation with the computer and checks the amount of time left to do a task or prepare for an event.
+Format: `update`
+
+> Key things to note:
+> The name of the task/event will be highlighted in blue, if the task or event has only four days left. 
+> The name will be highlighted in green, if there are three days left. 
+> The name will be highlighted in purple, if there are two days left. 
+> The name will be highlighted in orange, if there is only a day left. 
+> The name will be highlighted in red, if the task or event is not labelled complete as it will be taken to be overdue or unattended. 
 
 #### Clearing all entries : `clear`
 Description: Clears all entries from the task manager.<br>
