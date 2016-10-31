@@ -40,6 +40,10 @@ public class Parser {
 
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
+    public static final String MESSAGE_MISSING_START_END = "Expecting start and end times\nExample: start thursday 800 end thursday 900";
+    
+    public static final String MESSAGE_CONFLICTING_ARG = "Expecting either a duedate or start and end time.";
+    
     public Parser() {}
 
     /**
@@ -132,11 +136,7 @@ public class Parser {
         }
         try {
             String name = matcher.group("name");
-            
-            String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
-            if (!deadline.isEmpty()) {
-                name = name.replaceAll("by " + deadline, "");
-            }
+
             
             String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
             if (!start.isEmpty()) {
@@ -150,6 +150,10 @@ public class Parser {
                 hasEnd = true;
             }
             
+            String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
+            if (!deadline.isEmpty()) {
+                name = name.replaceAll("by " + deadline, "");
+            }
             if (!deadline.isEmpty() && !hasStart && !hasEnd) {
                 return new AddCommand(
                         name,
@@ -163,11 +167,10 @@ public class Parser {
                         end,
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
+            } else if ((!deadline.isEmpty() && hasStart) || (!deadline.isEmpty() && hasEnd)) {
+                return new IncorrectCommand(MESSAGE_CONFLICTING_ARG);
             } else if (hasStart ^ hasEnd) {
-                return new IncorrectCommand("Expecting start and end times\nExample: start thursday 800 end thursday 900");
-            } else if (!deadline.isEmpty() && hasStart || !deadline.isEmpty() && hasEnd) {
-                return new IncorrectCommand("Expecting either a duedate or start and end time.");
-
+                return new IncorrectCommand(MESSAGE_MISSING_START_END);
             }
             return new AddCommand(
                     name,

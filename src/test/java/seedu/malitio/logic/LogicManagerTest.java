@@ -13,6 +13,7 @@ import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.logic.LogicManager;
 import seedu.malitio.logic.commands.*;
+import seedu.malitio.logic.parser.Parser;
 import seedu.malitio.model.Malitio;
 import seedu.malitio.model.Model;
 import seedu.malitio.model.ModelManager;
@@ -88,7 +89,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyMalitio, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new Malitio(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new Malitio(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
     /**
@@ -100,14 +101,18 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyMalitio expectedmalitio,
-                                       List<? extends ReadOnlyFloatingTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyFloatingTask> expectedTaskShownList, 
+                                       List<? extends ReadOnlyDeadline> expectedDeadlineShownList,
+                                       List<? extends ReadOnlyEvent> expectedEventShownList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredFloatingTaskList());
+        assertEquals(expectedTaskShownList, model.getFilteredFloatingTaskList());
+        assertEquals(expectedDeadlineShownList, model.getFilteredDeadlineList());
+        assertEquals(expectedEventShownList, model.getFilteredEventList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedmalitio, model.getMalitio());
@@ -138,8 +143,14 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(1));
         model.addTask(helper.generateTask(2));
         model.addTask(helper.generateTask(3));
+        model.addTask(helper.generateDeadline(1));
+        model.addTask(helper.generateDeadline(2));
+        model.addTask(helper.generateDeadline(3));
+        model.addTask(helper.generateEvent(1));
+        model.addTask(helper.generateEvent(2));
+        model.addTask(helper.generateEvent(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Malitio(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Malitio(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
     }
 
 
@@ -159,58 +170,135 @@ public class LogicManagerTest {
                 "add Valid t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
+    
+    //@@author A0129595N
+    @Test
+    public void execute_add_invalidDeadline() throws Exception {
+        String expectedMessage = DateTime.MESSAGE_DATETIME_CONSTRAINTS;
+        assertCommandBehavior(
+                "add do this by todayyy", expectedMessage);
+    }
+    
+    @Test
+    public void execute_add_invalidEvent() throws Exception {
+        String expectedMessage = Event.MESSAGE_INVALID_EVENT;
+        assertCommandBehavior(
+                "add do now start today end yesterday", expectedMessage);        
+    }
+    
+    @Test
+    public void execute_add_unclearTask() throws Exception {
+        String expectedMessage = Parser.MESSAGE_CONFLICTING_ARG;
+        assertCommandBehavior(
+                "add do now by today start tomorrow", expectedMessage);
+        assertCommandBehavior(
+                "add do now by today end tomorrow", expectedMessage);       
+    }
+   
 
+    /**
+     * Test to make sure all three types of task can be added
+     * @throws Exception
+     */
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask toBeAdded = helper.adam();
+        FloatingTask floatingTaskToBeAdded = helper.sampleFloatingTask();
+        Deadline deadlineToBeAdded = helper.sampleDeadline();
+        Event eventToBeAdded = helper.sampleEvent();
         Malitio expectedAB = new Malitio();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(floatingTaskToBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+        assertCommandBehavior(helper.generateAddCommand(floatingTaskToBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, floatingTaskToBeAdded),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
 
+        expectedAB.addTask(deadlineToBeAdded);
+        assertCommandBehavior(helper.generateAddCommand(deadlineToBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, deadlineToBeAdded),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        expectedAB.addTask(eventToBeAdded);
+        assertCommandBehavior(helper.generateAddCommand(eventToBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, eventToBeAdded),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
     }
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask toBeAdded = helper.adam();
+        FloatingTask floatingTaskToBeAdded = helper.sampleFloatingTask();
+        Deadline deadlineToBeAdded = helper.sampleDeadline();
+        Event eventToBeAdded = helper.sampleEvent();
         Malitio expectedAB = new Malitio();
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(floatingTaskToBeAdded);
+        expectedAB.addTask(deadlineToBeAdded);
+        expectedAB.addTask(eventToBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal Malitio
+        model.addTask(floatingTaskToBeAdded); // floating task already in internal Malitio
+        model.addTask(deadlineToBeAdded); // deadline already in internal Malitio
+        model.addTask(eventToBeAdded); // event already in internal Malitio
 
-        // execute command and verify result
+        // execute command and verify result for floating task
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                helper.generateAddCommand(floatingTaskToBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getFloatingTaskList());
-
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // execute command and verify result for deadline
+        assertCommandBehavior(
+                helper.generateAddCommand(deadlineToBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_DEADLINE,
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // execute command and verify result for event
+        assertCommandBehavior(
+                helper.generateAddCommand(eventToBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_EVENT,
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
     }
-
+//@@author
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Malitio expectedAB = helper.generateMalitio(2);
-        List<? extends ReadOnlyFloatingTask> expectedList = expectedAB.getFloatingTaskList();
-
+        List<? extends ReadOnlyFloatingTask> expectedFloatingTaskList = expectedAB.getFloatingTaskList();
+        List<? extends ReadOnlyDeadline> expectedDeadlineList = expectedAB.getDeadlineList();
+        List<? extends ReadOnlyEvent> expectedEventList = expectedAB.getEventList();
+ 
         // prepare malitio state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
                 ListCommand.ALL_MESSAGE_SUCCESS,
                 expectedAB,
-                expectedList);
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);
     }
 
 
@@ -233,21 +321,25 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, getCommandMessageFromString(commandWord));
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<FloatingTask> floatingTaskList = helper.generateFloatingTaskList(2);
+        List<Deadline> deadlineList = helper.generateDeadlineList(2);
+        List<Event> eventList = helper.generateEventList(2);
 
-        // set AB state to 2 tasks
+        // set AB state to 2 tasks each for floating tasks, deadlines and events
         model.resetData(new Malitio());
-        for (FloatingTask p : floatingTaskList) {
-            model.addTask(p);
+        for (FloatingTask f : floatingTaskList) {
+            model.addTask(f);
+        }
+        for (Deadline d : deadlineList) {
+            model.addTask(d);
+        }
+        for (Event e : eventList) {
+            model.addTask(e);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getMalitio(), floatingTaskList);
-    }
-
-    private Object getCommandMessageFromString(String commandWord) {
-        return DeleteCommand.MESSAGE_USAGE;
+        assertCommandBehavior(commandWord + " d3", expectedMessage, model.getMalitio(), floatingTaskList, deadlineList, eventList);
     }
 
     @Test
@@ -261,21 +353,44 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
 
+    //@@author A0129595N
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<FloatingTask> threeTasks = helper.generateFloatingTaskList(3);
-
-        Malitio expectedAB = helper.generateMalitio(threeTasks);
+        List<Deadline> fiveDeadlines = helper.generateDeadlineList(5);
+        List<Event> fourEvents = helper.generateEventList(4);
+        Malitio expectedAB = helper.generateMalitio(threeTasks, fiveDeadlines, fourEvents);
         expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks);
+        helper.addToModel(model, threeTasks, fiveDeadlines, fourEvents);
 
+        // execute command and verify result for floating task
         assertCommandBehavior("delete f2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
-                expectedAB.getFloatingTaskList());
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // execute command and verify result for deadline (boundary case)
+        expectedAB.removeTask(fiveDeadlines.get(0));
+        assertCommandBehavior("delete d1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fiveDeadlines.get(0)),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // execute command and verify result for event (boundary case)
+        expectedAB.removeTask(fourEvents.get(3));
+        assertCommandBehavior("delete e4",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, fourEvents.get(3)),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
     }
-
+    //@@author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -283,6 +398,7 @@ public class LogicManagerTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
+    //@@author A0129595N
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -290,35 +406,61 @@ public class LogicManagerTest {
         FloatingTask pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         FloatingTask p1 = helper.generateTaskWithName("KE Y");
         FloatingTask p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        
+        Deadline dTarget1 = helper.generateDeadlineWithName("bla hey KEY bla");
+        Deadline dTarget2 = helper.generateDeadlineWithName("KEY asdalksjdjas");
+        Deadline d1 = helper.generateDeadlineWithName("K E Y");
+        
+        Event eTarget1 = helper.generateEventWithName("askldj KEY");
+        Event e1 = helper.generateEventWithName("LOL KLEY");
 
-        List<FloatingTask> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        Malitio expectedAB = helper.generateMalitio(fourTasks);
-        List<FloatingTask> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
+        List<Event> twoEvents = helper.generateEventList(eTarget1, e1);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, twoEvents);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
+        List<Event> expectedEventList = helper.generateEventList(eTarget1);
+        helper.addToModel(model, fourTasks, threeDeadlines, twoEvents);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedFloatingTaskList.size() + expectedDeadlineList.size() + expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);
     }
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask p1 = helper.generateTaskWithName("bla bla KEY bla");
-        FloatingTask p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        FloatingTask p3 = helper.generateTaskWithName("key key");
-        FloatingTask p4 = helper.generateTaskWithName("KEy sduauo");
+        FloatingTask f1 = helper.generateTaskWithName("bla bla KEY bla");
+        FloatingTask f2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        FloatingTask f3 = helper.generateTaskWithName("key key");
+        FloatingTask f4 = helper.generateTaskWithName("KEy sduauo");
+        
+        Deadline d1 = helper.generateDeadlineWithName("KeY");
+        Deadline d2 = helper.generateDeadlineWithName("KeY KEY keY");
+        Deadline d3 = helper.generateDeadlineWithName("Ksd KEY");
+        
+        Event e1 = helper.generateEventWithName("KeY keY");
+        Event e2 = helper.generateEventWithName("Kasdasd key");
 
-        List<FloatingTask> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        Malitio expectedAB = helper.generateMalitio(fourTasks);
-        List<FloatingTask> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f3, f1, f4, f2);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(d1, d2, d3);
+        List<Event> twoEvents = helper.generateEventList(e1, e2);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, twoEvents);
+        List<FloatingTask> expectedFloatingTaskList = fourTasks;
+        List<Deadline> expectedDeadlineList = threeDeadlines;
+        List<Event> expectedEventList = twoEvents;
+        helper.addToModel(model, fourTasks, threeDeadlines, twoEvents);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedFloatingTaskList.size() + expectedDeadlineList.size() + expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);
     }
 
     @Test
@@ -328,62 +470,317 @@ public class LogicManagerTest {
         FloatingTask pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
         FloatingTask pTarget3 = helper.generateTaskWithName("key key");
         FloatingTask p1 = helper.generateTaskWithName("sduauo");
+        
+        Deadline dTarget1 = helper.generateDeadlineWithName("bla bla KEY");
+        Deadline dTarget2 = helper.generateDeadlineWithName("hehe rAnDoM");
+        Deadline d1 = helper.generateDeadlineWithName("hello");
+        
+        Event eTarget1 = helper.generateEventWithName("bla heyyy rAnDoM");
+        Event eTarget2 = helper.generateEventWithName("rAnDoM lol");
+        Event e1 = helper.generateEventWithName("i want to sleep");
 
-        List<FloatingTask> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        Malitio expectedAB = helper.generateMalitio(fourTasks);
-        List<FloatingTask> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
+        List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, e1);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
+        List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2);
+        helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedFloatingTaskList.size() + expectedDeadlineList.size() + expectedEventList.size()),
                 expectedAB,
-                expectedList);
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);
     }
 
+    @Test
+    public void execute_find_onlyWithinFloatingTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        FloatingTask pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        FloatingTask pTarget3 = helper.generateTaskWithName("key key");
+        FloatingTask p1 = helper.generateTaskWithName("sduauo");
+        
+        Deadline d1 = helper.generateDeadlineWithName("bla bla KEY");
+        
+        Event e1 = helper.generateEventWithName("bla heyyy rAnDoM");
+        
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(d1);
+        List<Event> threeEvents = helper.generateEventList(e1);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        List<Deadline> expectedDeadlineList = helper.generateDeadlineList(d1); // deadline list is unchanged when finding other task
+        List<Event> expectedEventList = helper.generateEventList(e1); // event list is unchanged when finding other task
+        helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
+        
+        assertCommandBehavior("find f key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedFloatingTaskList.size()),
+                expectedAB,
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);     
+    }
+    
+    @Test
+    public void execute_find_onlyWithinDeadline() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask f1 = helper.generateTaskWithName("bla bla KEY bla");
+        
+        Deadline dTarget1 = helper.generateDeadlineWithName("bla bla KEY");
+        Deadline dTarget2 = helper.generateDeadlineWithName("hehe rAnDoM");
+        Deadline d1 = helper.generateDeadlineWithName("hello");
+        
+        Event e1 = helper.generateEventWithName("bla heyyy rAnDoM");
+        
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f1);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
+        List<Event> threeEvents = helper.generateEventList(e1);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(f1); // floating task list is unchanged when finding other task
+        List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
+        List<Event> expectedEventList = helper.generateEventList(e1); // event list is unchanged when finding other task
+        helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
+        
+        assertCommandBehavior("find d key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedDeadlineList.size()),
+                expectedAB,
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);     
+    }
+    
+    @Test
+    public void execute_find_onlyWithinEvent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask f1 = helper.generateTaskWithName("bla bla KEY bla");
+        
+        Deadline d1 = helper.generateDeadlineWithName("bla bla KEY");
+        
+        Event eTarget1 = helper.generateEventWithName("bla heyyy KEY");
+        Event eTarget2 = helper.generateEventWithName("rAnDoM lol");
+        Event e1 = helper.generateEventWithName("i want to sleep");
+        
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f1);
+        List<Deadline> threeDeadlines = helper.generateDeadlineList(d1);
+        List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, e1);
+        Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(f1); // floating task list is unchanged when finding other task
+        List<Deadline> expectedDeadlineList = helper.generateDeadlineList(d1); // deadline list is unchanged when finding other task
+        List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2); 
+        helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
+        
+        assertCommandBehavior("find e key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedEventList.size()),
+                expectedAB,
+                expectedFloatingTaskList,
+                expectedDeadlineList,
+                expectedEventList);     
+    }
+    
+    @Test
+    public void execute_undo_afterAdd() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask floatingTaskToBeAdded = helper.sampleFloatingTask();
+        Malitio expectedAB = new Malitio();
+        expectedAB.addTask(floatingTaskToBeAdded);
 
+        //Since floating task, deadline and event are similar in terms of the way they are created
+        //and added to their respective list, we shall only test one of them to save resources.
+        
+        //Confirm add floating task succeeds
+        assertCommandBehavior(helper.generateAddCommand(floatingTaskToBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, floatingTaskToBeAdded),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // remove task from expected
+        expectedAB.removeTask(floatingTaskToBeAdded);
+        // execute command and verify result
+        assertCommandBehavior("undo", 
+                String.format(UndoCommand.MESSAGE_UNDO_ADD_SUCCESS, floatingTaskToBeAdded),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());         
+    }
+    
+    @Test
+    public void execute_undo_afterDelete() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<FloatingTask> tasks = helper.generateFloatingTaskList(0);
+        List<Deadline> deadlines = helper.generateDeadlineList(1);
+        List<Event> events = helper.generateEventList(0);
+        Malitio expectedAB = helper.generateMalitio(tasks, deadlines, events);
+        helper.addToModel(model, tasks, deadlines, events);
+
+        //Since floating task, deadline and event are similar in terms of the way they are deleted
+        //from their respective list, we shall only test one of them to save resources.
+        
+        expectedAB.removeTask(deadlines.get(0));
+        //Confirm delete deadline succeeds
+        assertCommandBehavior("delete d1",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, deadlines.get(0)),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());
+        
+        // add task to expected
+        expectedAB.addTask(deadlines.get(0));
+        // execute command and verify result
+        assertCommandBehavior("undo", 
+                String.format(UndoCommand.MESSAGE_UNDO_DELETE_SUCCESS, deadlines.get(0)),
+                expectedAB,
+                expectedAB.getFloatingTaskList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getEventList());         
+    }
+    
+    
     /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
 
-        FloatingTask adam() throws Exception {
+        FloatingTask sampleFloatingTask() throws Exception {
             Name task = new Name("Eat lunch");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new FloatingTask(task, tags);
         }
+        
+        Deadline sampleDeadline() throws Exception {
+            Name deadline = new Name("Buy food");
+            DateTime due = new DateTime("tomorrow 3pm");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Deadline(deadline, due, tags);
+        }
+        
+        Event sampleEvent() throws Exception {
+            Name event = new Name("lecture");
+            DateTime start = new DateTime("next week 12pm");
+            DateTime end = new DateTime("next week 2pm");
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Event(event, start, end, tags);
+        }
 
         /**
-         * Generates a valid task using the given seed.
-         * Running this function with the same parameter values guarantees the returned task will have the same state.
-         * Each unique seed will generate a unique Task object.
+         * Generates a valid Floating Task using the given seed.
+         * Running this function with the same parameter values guarantees the returned Floating Task will have the same state.
+         * Each unique seed will generate a unique Floating Task object.
          *
          * @param seed used to generate the task data field values
          */
         FloatingTask generateTask(int seed) throws Exception {
-            return new FloatingTask(
-                    new Name("Task " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+            return new FloatingTask(new Name("Task " + seed),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
+        }
+        
+        /**
+         * Generates a valid deadline using the given seed.
+         * Running this function with the same parameter values guarantees the returned Deadline will have the same state.
+         * Each unique seed will generate a unique Deadline object.
+         *
+         * @param seed used to generate the task data field values
+         */
+        Deadline generateDeadline(int seed) throws Exception {
+            return new Deadline(new Name("Deadline " + seed), new DateTime("tomorrow 3pm"),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
+        }
+        
+        /**
+         * Generates a valid event using the given seed.
+         * Running this function with the same parameter values guarantees the returned event will have the same state.
+         * Each unique seed will generate a unique Event object.
+         *
+         * @param seed used to generate the task data field values
+         */
+        Event generateEvent(int seed) throws Exception {
+            return new Event(new Name("Deadline " + seed), new DateTime("tomorrow 3pm"), new DateTime("next week 4pm"),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(FloatingTask p) {
+        String generateAddCommand(Object p) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+            if (isFloatingTask(p)) {
+                cmd.append(getArgFromFloatingTaskObj(p));
+            } else if (isDeadline(p)) {
+                cmd.append(getArgFromDeadlineObj(p));
+            } else {
+                cmd.append(getArgFromEventObj(p));
             }
-
             return cmd.toString();
         }
 
+        /**
+         * Helper method to get the arguments for Floating Task
+         * @param p Floating Task Object
+         */
+        private String getArgFromFloatingTaskObj(Object p) {
+            StringBuffer arg = new StringBuffer();
+            arg.append(((FloatingTask) p).getName().fullName);
+            UniqueTagList tags = ((FloatingTask) p).getTags();
+            for (Tag t : tags) {
+                arg.append(" t/").append(t.tagName);
+            }
+            return arg.toString();
+        }
+        
+        /**
+         * Helper method to get the arguments for Deadline
+         * @param p Deadline Object
+         */
+        private String getArgFromDeadlineObj(Object p) {
+            StringBuffer arg = new StringBuffer();
+            arg.append(((Deadline) p).getName().fullName);
+            arg.append(" by ");
+            arg.append(((Deadline) p).getDue().toString());
+            UniqueTagList tags = ((Deadline) p).getTags();
+            for (Tag t : tags) {
+                arg.append(" t/").append(t.tagName);
+            }
+            return arg.toString();
+        }
+
+        /**
+         * Helper method to get the arguments for Event
+         * @param p Event Object
+         */
+        private String getArgFromEventObj(Object p) {
+            StringBuffer arg = new StringBuffer();
+            arg.append(((Event) p).getName().fullName);
+            arg.append(" start ");
+            arg.append(((Event) p).getStart().toString());
+            arg.append(" end ");
+            arg.append(((Event) p).getEnd().toString());
+            UniqueTagList tags = ((Event) p).getTags();
+            for (Tag t : tags) {
+                arg.append(" t/").append(t.tagName);
+            }
+            return arg.toString();
+        }
+
+        boolean isFloatingTask(Object p) {
+            return p instanceof FloatingTask;
+        }
+        
+        boolean isDeadline(Object p) {
+            return p instanceof Deadline;
+        }
+//@@author
         /**
          * Generates Malitio with auto-generated tasks.
          */
@@ -396,9 +793,9 @@ public class LogicManagerTest {
         /**
          * Generates Malitio based on the list of Tasks given.
          */
-        Malitio generateMalitio(List<FloatingTask> tasks) throws Exception{
+        Malitio generateMalitio(List<FloatingTask> tasks, List<Deadline> deadlines, List<Event> events) throws Exception{
             Malitio malitio = new Malitio();
-            addToMalitio(malitio, tasks);
+            addToMalitio(malitio, tasks, deadlines, events);
             return malitio;
         }
 
@@ -407,15 +804,21 @@ public class LogicManagerTest {
          * @param The malitio to which the Tasks will be added
          */
         void addToMalitio(Malitio malitio, int numGenerated) throws Exception{
-            addToMalitio(malitio, generateFloatingTaskList(numGenerated));
+            addToMalitio(malitio, generateFloatingTaskList(numGenerated), generateDeadlineList(numGenerated), generateEventList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given Malitio
          */
-        void addToMalitio(Malitio malitio, List<FloatingTask> tasksToAdd) throws Exception{
+        void addToMalitio(Malitio malitio, List<FloatingTask> tasksToAdd, List<Deadline> deadlinesToAdd, List<Event> eventsToAdd) throws Exception{
             for(FloatingTask p: tasksToAdd){
                 malitio.addTask(p);
+            }
+            for (Deadline d: deadlinesToAdd) {
+                malitio.addTask(d);
+            }
+            for (Event e: eventsToAdd) {
+                malitio.addTask(e);
             }
         }
 
@@ -424,15 +827,21 @@ public class LogicManagerTest {
          * @param model The model to which the Tasks will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generateFloatingTaskList(numGenerated));
+            addToModel(model, generateFloatingTaskList(numGenerated), generateDeadlineList(numGenerated), generateEventList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<FloatingTask> tasksToAdd) throws Exception{
+        void addToModel(Model model, List<FloatingTask> tasksToAdd, List<Deadline> deadlinesToAdd, List<Event> eventsToAdd) throws Exception{
             for(FloatingTask p: tasksToAdd){
                 model.addTask(p);
+            }
+            for (Deadline d: deadlinesToAdd) {
+                model.addTask(d);
+            }
+            for (Event e: eventsToAdd) {
+                model.addTask(e);
             }
         }
 
@@ -447,12 +856,42 @@ public class LogicManagerTest {
             return tasks;
         }
 
-        List<FloatingTask> generateTaskList(FloatingTask... floatingtasks) {
+        List<FloatingTask> generateFloatingTaskList(FloatingTask... floatingtasks) {
             return Arrays.asList(floatingtasks);
+        }
+        
+        /**
+         * Generates a list of Deadlines based on the flags.
+         */
+        List<Deadline> generateDeadlineList(int numGenerated) throws Exception{
+            List<Deadline> deadlines = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                deadlines.add(generateDeadline(i));
+            }
+            return deadlines;
+        }
+
+        List<Deadline> generateDeadlineList(Deadline... deadlines) {
+            return Arrays.asList(deadlines);
+        }
+        
+        /**
+         * Generates a list of Events based on the flags.
+         */
+        List<Event> generateEventList(int numGenerated) throws Exception{
+            List<Event> events = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                events.add(generateEvent(i));
+            }
+            return events;
+        }
+
+        List<Event> generateEventList(Event... events) {
+            return Arrays.asList(events);
         }
 
         /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
+         * Generates a Floating Task object with given name. Other fields will have some dummy values.
          */
         FloatingTask generateTaskWithName(String name) throws Exception {
             return new FloatingTask(
@@ -460,5 +899,28 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        /**
+         * Generates a Deadline object with given name. Other fields will have some dummy values
+         */
+        Deadline generateDeadlineWithName(String name) throws Exception {
+            return new Deadline(new Name(name), 
+                    new DateTime("tomorrow 3pm"), 
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        
+        /**
+         * Generates a Event object with given name. Other fields will have some dummy values
+         */
+        Event generateEventWithName(String name) throws Exception {
+            return new Event(new Name(name), 
+                    new DateTime("tomorrow 3pm"),
+                    new DateTime("next week 5pm"),
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        
     }
 }
+    

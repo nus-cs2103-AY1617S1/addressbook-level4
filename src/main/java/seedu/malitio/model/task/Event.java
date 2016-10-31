@@ -12,7 +12,7 @@ public class Event implements ReadOnlyEvent {
     private UniqueTagList tags;
     private boolean marked;
 	
-    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
+    public static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
 
     /**
      * Constructor for events.
