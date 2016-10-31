@@ -79,6 +79,9 @@ public interface Model {
 	
 	/** Updates the filter of the filtered task list to show overdue tasks */
 	void updateFilteredTaskListToShowOverdue();
+	
+	/** Checks if the current task clashes with other tasks in ForgetMeNot or not */
+	boolean isClashing(Task toAdd);
 
 
 }

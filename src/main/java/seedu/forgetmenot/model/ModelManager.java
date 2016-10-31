@@ -215,6 +215,47 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized boolean isClashing(Task toAdd) {
+    	Time start = toAdd.getStartTime();
+    	Time end = toAdd.getEndTime();
+    	
+    	if(start.isMissing() && end.isMissing())
+    		return false;
+    	
+    	if(!start.isMissing()) {
+    		for(Task task: taskManager.getTasks()) {
+    			if(!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
+    				System.out.println("a");
+    				return true;
+    			}
+    			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
+    					task.getStartTime().time.compareTo(start.time) <= 0 && 
+    					task.getEndTime().time.compareTo(start.time) > 0) {
+    				System.out.println("b");
+    				return true;
+    			}
+    		}
+    	}
+    	
+    	if(!end.isMissing()) {
+    		for(Task task: taskManager.getTasks()) {
+    			if(!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
+    				System.out.println("c");
+    				return true;
+    			}
+    			if(!task.getStartTime().isMissing() && !task.getEndTime().isMissing() && 
+    					task.getStartTime().time.compareTo(end.time) <= 0 && 
+    					task.getEndTime().time.compareTo(end.time) > 0) {
+    				System.out.println("d");
+    				return true;
+    			}
+    		}
+    	}
+    	
+    	return false;
+    }
 
     // =========== Filtered Task List Accessors
     // ===============================================================
@@ -269,6 +310,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowOverdue() {
+    	sortTasks();
         filteredTasks.setPredicate(isOverdue());
         taskManager.counter();
     }

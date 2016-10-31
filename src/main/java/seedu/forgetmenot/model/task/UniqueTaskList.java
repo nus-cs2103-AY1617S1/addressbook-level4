@@ -116,7 +116,8 @@ public class UniqueTaskList implements Iterable<Task> {
     				}
     				else {
     					System.out.println("7");
-    					return start1.time.compareTo(end2.time);
+    					return start1.time.compareTo(end2.time) == 0?
+    							1: start1.time.compareTo(end2.time);
     				}
     			}
     			else if(!end1IsMissing) {
@@ -126,8 +127,9 @@ public class UniqueTaskList implements Iterable<Task> {
     							-1: end1.time.compareTo(start2.time);
     				}
     				
-    				if(!end1IsMissing) {
-    					return end1.time.compareTo(start2.time);
+    				if(!start2IsMissing) {
+    					return end1.time.compareTo(start2.time) == 0?
+    							-1: end1.time.compareTo(start2.time);
     				}
     				else {
     					System.out.println("10");

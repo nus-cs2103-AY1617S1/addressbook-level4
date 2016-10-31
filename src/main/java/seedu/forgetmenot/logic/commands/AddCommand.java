@@ -26,6 +26,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
+    public static final String MESSAGE_CLASH_WARNING = "WARNING! This task clashes with one of the tasks in ForgetMeNot. Type undo if you want to undo the previous add.";
     
     private final Task toAdd;
 //    private Storage storage;
@@ -63,12 +64,18 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
+        	boolean clashCheck = false;
+        	if(model.isClashing(toAdd))
+        		clashCheck = true;
+        	
             model.saveToHistory();
             model.addTask(toAdd);
             if (toAdd.getRecurrence().getValue())
                 model.addRecurringTask(toAdd);
             model.updateFilteredTaskListToShowNotDone();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            
+        	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
+        					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             System.out.println("wow");
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
