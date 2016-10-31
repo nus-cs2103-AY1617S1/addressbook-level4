@@ -124,9 +124,9 @@ public interface Model {
 	/**Gets a stack of String that corresponds to the list of Commands that were undone */
 	Stack<String> getStackOfListTypesRedo();
 	
-	//@@author A0139772U
 	//=========== Methods for Schedule List ===============================================================
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	//@@author A0139772U
+	/** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

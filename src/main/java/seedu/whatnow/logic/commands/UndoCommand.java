@@ -104,24 +104,27 @@ public class UndoCommand extends Command{
 				return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
 			}else {
 				String reqCommandListType = model.getStackOfListTypes().peek();
-				if(reqCommandListType.equals(ListCommand.TASK_STATUS_ALL)) {
-					model.updateFilteredListToShowAll();
-					model.updateFilteredScheduleListToShowAll();
-					return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-				}else if(reqCommandListType.equals(ListCommand.TASK_STATUS_INCOMPLETE)) {
-					model.updateFilteredListToShowAllIncomplete();
-					model.updateFilteredScheduleListToShowAllIncomplete();
-					return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-				}else {
-					model.updateFilteredListToShowAllCompleted();
-					model.updateFilteredScheduleListToShowAllCompleted();
-					return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-				}
+				return performRequiredUndoUpdateList(reqCommandListType);
 			}
 		}
 	}
 
-	private CommandResult performUndoMarkDone() {
+	private CommandResult performRequiredUndoUpdateList(String reqCommandListType) {
+	    if(reqCommandListType.equals(ListCommand.TASK_STATUS_ALL)) {
+            model.updateFilteredListToShowAll();
+            model.updateFilteredScheduleListToShowAll();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        }else if(reqCommandListType.equals(ListCommand.TASK_STATUS_INCOMPLETE)) {
+            model.updateFilteredListToShowAllIncomplete();
+            model.updateFilteredScheduleListToShowAllIncomplete();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        }else {
+            model.updateFilteredListToShowAllCompleted();
+            model.updateFilteredScheduleListToShowAllCompleted();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        }
+    }
+    private CommandResult performUndoMarkDone() {
 		if(model.getStackOfMarkDoneTask().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}else {
