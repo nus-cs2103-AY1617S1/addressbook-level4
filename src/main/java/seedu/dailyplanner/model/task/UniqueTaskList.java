@@ -65,6 +65,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	    throw new DuplicatePersonException();
 	}
 	internalList.add(toAdd);
+	FXCollections.sort(internalList);
     }
 
     /**
@@ -79,6 +80,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	if (!personFoundAndDeleted) {
 	    throw new PersonNotFoundException();
 	}
+	FXCollections.sort(internalList);
 	return personFoundAndDeleted;
     }
 
@@ -94,7 +96,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	final Task completedTask = internalList.get(taskIndex);
 	completedTask.markAsComplete();
 	internalList.set(taskIndex, completedTask);
-	
+	FXCollections.sort(internalList);
     	}
 
     public ObservableList<Task> getInternalList() {
