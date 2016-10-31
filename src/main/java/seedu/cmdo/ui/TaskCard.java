@@ -1,6 +1,8 @@
 package seedu.cmdo.ui;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -9,12 +11,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
 /**
  * Task Card displays the individual tasks in the list.
  * 
- * @author A0141006B
+ * @@author A0141006B
  */
 
 public class TaskCard extends UiPart{
@@ -23,9 +26,18 @@ public class TaskCard extends UiPart{
     private static final String DEADLINE_SOON = "/images/deadlinesoon.png";
     private static final String CHILL = "/images/chillzone.png";
     private static final String OVERDUE = "/images/overduestatus.png";
+    private static final String FLOATING = "/images/floating.png";
     
+    //@FXML
+    //private VBox cardPane;
     @FXML
     private HBox cardPane;
+    @FXML
+    private HBox firstLine;
+    @FXML
+    private HBox secondLine;
+    @FXML
+    private HBox thirdLine;
     @FXML
     private Label detail;
     @FXML
@@ -59,17 +71,80 @@ public class TaskCard extends UiPart{
     }
 
     @FXML
-    public void initialize() {
+    public void initialize() {   	
+    	setStatus();    
+    	setId();
+    	setStartDateAndTime();
+    	setDueDateAndTime();
+    	setDetails();    	
+    	setTags();
+    	setPriority();                   
+    }
+
+    private void setPriority() {
+    	priority.setText(task.getPriority().value);        
+        	switch(task.getPriority().value) {
+          		case "low": 
+          			priority.setTextFill(Color.LAWNGREEN);
+          		break;
+          	case "medium":
+          			priority.setTextFill(Color.GOLD);
+          		break;
+          	case "high":
+          			priority.setTextFill(Color.RED);
+          		break;
+          }
+	}
+
+	private void setTags() {
+    	 tags.setText(task.tagsString());
+         tags.setTextFill(Color.MAROON);
+	}
+
+	private void setDetails() {
+		detail.setText(task.getDetail().details);
+    	setFont(detail, "Times New Roman", 18);
+    	detail.wrapTextProperty();
+    	detail.setWrapText(true);
+    }
+
+	private void setId() {
+        id.setText(displayedIndex + ". ");
+	}
+
+	private void setDueDateAndTime() {
+    	  dbd.setText(task.getDueByDate().getFriendlyEndString());      
+          //format due time
+          if(task.getDueByTime().end.equals(LocalTime.MAX)) {
+          	dbt.setText(task.getDueByTime().getFriendlyEndString());
+          }
+          else {
+          	dbt.setText(", "+ task.getDueByTime().getFriendlyEndString());
+          }
+	}
+
+	private void setStartDateAndTime() {
+    	 sd.setText(task.getDueByDate().getFriendlyStartString());  		
+    	  //format start time
+         if(task.getDueByTime().start.equals(LocalTime.MAX)) {
+         	st.setText(task.getDueByTime().getFriendlyStartString());
+         }else {
+         	st.setText(", " + task.getDueByTime().getFriendlyStartString());
+         } 
+	}
+
+	private void setStatus() {
     	//Images for status
     	Image deadlineSoon = new Image(DEADLINE_SOON);
     	Image chill = new Image(CHILL);
     	Image overdue = new Image (OVERDUE);
+    	Image floating = new Image (FLOATING);
     	
-    	status.setStrokeWidth(0.0);
-    	
+    	//status.setStrokeWidth(0.0);    	
     	status.setFill(Color.TRANSPARENT);
+    	
     	if(task.getDueByDate().start.isBefore(LocalDate.now().plusDays(3)) 
-    			&& task.getDueByDate().start.isAfter(LocalDate.now())) {
+    			&& task.getDueByDate().start.isAfter(LocalDate.now().plusDays(-1))) {
     		status.setFill(new ImagePattern(deadlineSoon));
     	} else if(task.getDueByDate().start.isBefore(LocalDate.now().plusDays(9999)) 
     			&& task.getDueByDate().start.isAfter(LocalDate.now())) {
@@ -83,8 +158,9 @@ public class TaskCard extends UiPart{
     		st.setTextFill(Color.RED);
     		dbd.setTextFill(Color.RED);
     		dbt.setTextFill(Color.RED);
+    	} else {
+    		status.setFill(new ImagePattern(floating));
     	}
-    	
     	// Done all green
     	if(task.checkDone().value) {
     		status.setFill(Color.GREEN);
@@ -94,35 +170,13 @@ public class TaskCard extends UiPart{
     		st.setTextFill(Color.BLACK);
     		dbd.setTextFill(Color.BLACK);
     		dbt.setTextFill(Color.BLACK);
-    	} 
-    	// Not done, check for
-    	// Floating tasks
-    	else if (task.getDueByDate().start == LocalDate.MIN) {
-	    	status.setFill(Color.TRANSPARENT);
-    	}
+    	}    	
+	}
 
-        id.setText(displayedIndex + ". ");
-    	detail.setText(task.getDetail().details);    		
-        sd.setText(task.getDueByDate().getFriendlyStartString());                    
-        st.setText(task.getDueByTime().getFriendlyStartString());
-        dbd.setText(task.getDueByDate().getFriendlyEndString());        	
-        dbt.setText(task.getDueByTime().getFriendlyEndString());
-        priority.setText(task.getPriority().value);        
-        switch(task.getPriority().value) {
-        	case "low": 
-        		priority.setTextFill(Color.LAWNGREEN);
-        		break;
-        	case "medium":
-        		priority.setTextFill(Color.GOLD);
-        		break;
-        	case "high":
-        		priority.setTextFill(Color.RED);
-        		break;
-        }
-        tags.setText(task.tagsString());
-        tags.setTextFill(Color.MAROON);        
+	private void setFont(Label element, String font, int fontSize) {
+    	element.setFont(new Font(font, fontSize));
     }
-
+    
     public HBox getLayout() {
         return cardPane;
     }
