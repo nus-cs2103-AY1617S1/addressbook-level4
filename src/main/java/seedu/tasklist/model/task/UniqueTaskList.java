@@ -71,6 +71,8 @@ public class UniqueTaskList implements Iterable<Task> {
     				&& !i.getStartTime().toCardString().equals("-")
     				&& !i.getEndTime().toCardString().equals("-")
     				&& !toAdd.getStartTime().getAsCalendar().after(i.getEndTime().getAsCalendar())
+    				&& (toAdd.getEndTime().time.getTime().compareTo(i.getEndTime().getAsCalendar().getTime())==0)
+    				&& (toAdd.getStartTime().time.getTime().compareTo(i.getStartTime().getAsCalendar().getTime())==0)
     				&& !toAdd.getStartTime().getAsCalendar().before(i.getStartTime().getAsCalendar())) {
     				return true;
     			}
@@ -82,6 +84,8 @@ public class UniqueTaskList implements Iterable<Task> {
     				&& !i.getStartTime().toCardString().equals("-")
     				&& !i.getEndTime().toCardString().equals("-")
     				&& !toAdd.getStartTime().getAsCalendar().after(i.getEndTime().getAsCalendar())
+    				&& (toAdd.getEndTime().time.getTime().compareTo(i.getEndTime().getAsCalendar().getTime())==0)
+    				&& (toAdd.getStartTime().time.getTime().compareTo(i.getStartTime().getAsCalendar().getTime())==0)
     				&& !i.getStartTime().getAsCalendar().after(toAdd.getEndTime().getAsCalendar())) {
     			return true;
     		}
