@@ -28,7 +28,7 @@ public class PersonCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    
+
     public PersonCard(){
 
     }
@@ -38,18 +38,27 @@ public class PersonCard extends UiPart{
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
-        
+
     }
-    
+
 
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
+        name.setWrapText(true);  //wrapping function of name 
+        //name.setMaxWidth(450);
+        //name.setPrefWidth(400);
+        name.setMinWidth(50);
         id.setText(displayedIndex + ". ");
+        id.setWrapText(true);
         description.setText(task.getDescription().value);
+        description.setWrapText(true);
         date.setText(task.getDatetime().getDateString());
+        date.setWrapText(true);
         time.setText(task.getDatetime().getTimeString());
+        time.setWrapText(true);
         tags.setText(task.tagsString());
+        tags.setWrapText(true);
         setStyleToIndicateOverdueTask(task);
     }
 
@@ -66,45 +75,49 @@ public class PersonCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
-    
-    
+
+
     /**
      * Sets the command box style to indicate an overdue,completed or no status tasks.
      */
     private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
         String status = task.getStatus().toString();
         if(status.equals("OVERDUE")){
-            name.setStyle("-fx-text-fill: red");
-            id.setStyle("-fx-text-fill: red");
-            description.setStyle("-fx-text-fill: red");
-            date.setStyle("-fx-text-fill: red");
-            time.setStyle("-fx-text-fill: red");
-            tags.setStyle("-fx-text-fill: red");
+            cardPane.setStyle("-fx-border-color: red");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("DONE")){
-            name.setStyle("-fx-text-fill: #2149f1");
-            id.setStyle("-fx-text-fill: #2149f1");
-            description.setStyle("-fx-text-fill: royalblue");
-            date.setStyle("-fx-text-fill: royalblue");
-            time.setStyle("-fx-text-fill: royalblue");
-            tags.setStyle("-fx-text-fill: royalblue");
+            cardPane.setStyle("-fx-border-color: blue");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("NONE")){
-        	name.setStyle("-fx-text-fill: black");
-        	id.setStyle("-fx-text-fill: black");
-        	description.setStyle("-fx-text-fill: #202020");
-        	date.setStyle("-fx-text-fill: #202020");
-        	time.setStyle("-fx-text-fill: #202020");
-        	tags.setStyle("-fx-text-fill: #202020");
+            cardPane.setStyle("-fx-border-color: #F0F0F0");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("EXPIRE")){
-            name.setStyle("-fx-text-fill: hotpink");
-            id.setStyle("-fx-text-fill: hotpink");
-            description.setStyle("-fx-text-fill: hotpink");
-            date.setStyle("-fx-text-fill: hotpink");
-            time.setStyle("-fx-text-fill: hotpink");
-            tags.setStyle("-fx-text-fill: hotpink");
+            cardPane.setStyle("-fx-border-color: magenta");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
-        
+
     }   
 }
