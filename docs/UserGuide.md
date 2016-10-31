@@ -188,7 +188,7 @@ Format: `select INDEX`
 Examples:
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd task in the address book.<br>
+  Selects the 2nd task in the task manager.<br>
 * `find CS2103T` <br>
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
