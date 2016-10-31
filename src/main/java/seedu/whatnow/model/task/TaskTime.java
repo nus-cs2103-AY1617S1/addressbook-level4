@@ -13,8 +13,6 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /** This class checks if the user input date and time are of a valid one by checking currentTime/currentDate/Range and throws
  *  its respective message if the input is invalid
- * @author A0139128A
- *
  */
 public class TaskTime {
 
