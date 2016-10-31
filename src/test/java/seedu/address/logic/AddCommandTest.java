@@ -39,15 +39,6 @@ public class AddCommandTest extends CommandTest{
         //Invalid name
         assertCommandBehavior(
                 "add n/[]\\[;] d/11.12.2016", Name.MESSAGE_NAME_CONSTRAINTS);
-        //invalid deadline
-        assertCommandBehavior(
-                "add n/Valid Name d/1.1.2016 r/daily",Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        //invalid start date
-        assertCommandBehavior(
-                "add n/Valid Name s/1.1.2016 e/01.02.2016",EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS);
-        //invalid end date
-        assertCommandBehavior(
-                "add n/Valid Name s/01.01.2016 e/1.2.2016",EventDate.MESSAGE_EVENT_DATE_CONSTRAINTS);
         //invalid recurring frequency
         assertCommandBehavior(
                 "add n/Valid Name d/01.01.2016 r/everyday",Recurring.MESSAGE_RECURRING_CONSTRAINTS);
