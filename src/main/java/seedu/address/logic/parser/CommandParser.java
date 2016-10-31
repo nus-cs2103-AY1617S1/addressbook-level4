@@ -162,23 +162,23 @@ public class CommandParser {
         String[] indexSplit = args.split(" ");
         String indexNum = indexSplit[ZERO];
 
-            if(indexSplit.length == ONE){
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            }
+        if(indexSplit.length == ONE){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
             
-            try{
-                index = Integer.parseInt(indexNum);
-            } catch (NumberFormatException e){
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            }
+        try{
+            index = Integer.parseInt(indexNum);
+        } catch (NumberFormatException e){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
            
-            String[] resetSplit = args.substring(TWO).split("-reset");
+        String[] resetSplit = args.substring(TWO).split("-reset");
 
-            String argsTrimmed = " " + resetSplit[ZERO];        
+        String argsTrimmed = " " + resetSplit[ZERO];        
 
-            logger.finer("Entering CommandParser, prepareEdit()");
+        logger.finer("Entering CommandParser, prepareEdit()");
                        
-        try {  
+        try {
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareEdit()");
