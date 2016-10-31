@@ -26,14 +26,29 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isDueDatePrivate>p?)d/(?<dueDate>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+//    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+//            Pattern.compile("(?<name>[^/]+)"
+//                    + " d/(?<dueDate>[^/]+)"
+//                    + " a/(?<address>[^/]+)"
+//                    + " p/(?<priority>[^/]+)"
+//                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
-    private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern NAME_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile("(?<name>[^/]+) (t|p|a|d|e)/.*");
+    
+    private static final Pattern PRIORITY_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|e)/.*");
+    
+    private static final Pattern ADDRESS_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|e)/.*");
+    
+    private static final Pattern DUEDATE_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|e)/.*");
+    
+    private static final Pattern TAGS_TASK_DATA_ARGS_FORMAT =
+            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|e)/.*");
+    
+    private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
                     + " (?<newDetail>.*)");
 
@@ -94,25 +109,59 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+    	String preprocessedArg = appendEnd(args.trim());
+    	
+        final Matcher nameMatcher = NAME_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
+        
+        String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "none");
+        String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "none");
+        String addressToAdd = checkEmptyAndAddDefault(addressMatcher, "address", "none");
+        String priorityToAdd = checkEmptyAndAddDefault(priorityMatcher, "priority", "1");
+//        String tagsToAdd = checkEmptyAndAddDefault(tagsMatcher, "tagsArgument", "");
+        
+        // format date if due date is specified
+        if (dueDateMatcher.matches()) {
+        	dueDateToAdd = parseDueDate(dueDateToAdd);
+        }
+        
+        Set<String> tagsProcessed = Collections.emptySet();
+        
+        if (tagsMatcher.matches()) {
+        	tagsProcessed = getTagsFromArgs(tagsMatcher.group("tagArguments"));
+        }
+        
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!nameMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-        String dueDate = parseDueDate(matcher.group("dueDate"));
-        
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    dueDate,
-                    matcher.group("address"),
-                    matcher.group("priority"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    nameToAdd,
+                    dueDateToAdd,
+                    addressToAdd,
+                    priorityToAdd,
+                    tagsProcessed
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    private String appendEnd(String args) {
+    	return args + " e/";
+    }
+    
+    private String checkEmptyAndAddDefault(Matcher matcher, String groupName, String defaultValue) {
+    	if (matcher.matches()) {
+    		return matcher.group(groupName);
+    	} else {
+    		return defaultValue;
+    	}
     }
     
     //@@author A0146130W
@@ -126,13 +175,13 @@ public class Parser {
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+    private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);
     }
     
