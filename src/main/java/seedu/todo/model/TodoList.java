@@ -12,6 +12,9 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+
+import com.google.common.collect.Lists;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.todo.commons.core.EventsCenter;
@@ -118,8 +121,8 @@ public class TodoList implements TodoListModel {
     }
     
     public ImmutableTask delete(int index) throws ValidationException {
-        List<Integer> indexes = new ArrayList<>();
-        indexes.add(index);
+        List<Integer> indexes = Lists.newArrayList(index);
+        //get(0) because there should be only one element returned in the list of deleted tasks
         return delete(indexes).get(0);
     }
 
@@ -133,6 +136,8 @@ public class TodoList implements TodoListModel {
             update.accept(validationTask);
             validationTask.validate();
         }
+        
+        //All updates are validated so second for loop carries out actual updates
         List<ImmutableTask> tasksUpdated = new ArrayList<>();
         for (Integer i : indexes) {
             MutableTask task = tasks.get(i);
@@ -146,8 +151,8 @@ public class TodoList implements TodoListModel {
     
     @Override
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
-        List<Integer> indexes = new ArrayList<>();
-        indexes.add(index);
+        List<Integer> indexes = Lists.newArrayList(index);
+        //get(0) since list of updated tasks only contain one element
         return update(indexes, update).get(0);
     }
     //@@author

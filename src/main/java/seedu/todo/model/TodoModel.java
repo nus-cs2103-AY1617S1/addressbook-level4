@@ -143,20 +143,26 @@ public class TodoModel implements Model {
         saveUndoState();
         int taskIndex = getTaskIndex(index);
         ImmutableTask taskToDelete = tasks.get(taskIndex);
+        ImmutableTask taskDeleted = todoList.delete(taskIndex);
+        //Notification only sent if delete is valid
         uniqueTagCollection.notifyTaskDeleted(taskToDelete);
-        return todoList.delete(taskIndex);
+        return taskDeleted;
     }
     
     @Override
     public List<ImmutableTask> deleteAll() throws ValidationException{
         saveUndoState();
         List<Integer> indexes = new ArrayList<>();
-        for (int i = 1 ; i <= getObservableList().size() ; i++) {
+        for (int i = 1; i <= getObservableList().size(); i++) {
             indexes.add(getTaskIndex(i));
-            ImmutableTask taskToDelete = tasks.get(getTaskIndex(i));
-            uniqueTagCollection.notifyTaskDeleted(taskToDelete);
         }
-        return todoList.delete(indexes);
+        //Notification only sent if deletions are valid
+        List<ImmutableTask> deletedTasks = todoList.delete(indexes);
+        for (ImmutableTask task : deletedTasks) {
+            uniqueTagCollection.notifyTaskDeleted(task);
+        }
+        return deletedTasks;
+
     }
 
     @Override
@@ -170,7 +176,7 @@ public class TodoModel implements Model {
     public List<ImmutableTask> updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
         List<Integer> indexes = new ArrayList<>();
-        for (int i = 1 ; i <= getObservableList().size() ; i++) {
+        for (int i = 1; i <= getObservableList().size(); i++) {
             indexes.add(getTaskIndex(i));
         }
         return todoList.update(indexes, update);
