@@ -3,10 +3,7 @@ package seedu.forgetmenot.logic.parser;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -29,13 +26,10 @@ import seedu.forgetmenot.logic.commands.IncorrectCommand;
 import seedu.forgetmenot.logic.commands.RedoCommand;
 import seedu.forgetmenot.logic.commands.SelectCommand;
 import seedu.forgetmenot.logic.commands.SetStorageCommand;
-import seedu.forgetmenot.logic.commands.ShowAllCommand;
 import seedu.forgetmenot.logic.commands.ShowCommand;
-import seedu.forgetmenot.logic.commands.ShowDateCommand;
-import seedu.forgetmenot.logic.commands.ShowDoneCommand;
-import seedu.forgetmenot.logic.commands.ShowOverdueCommand;
 import seedu.forgetmenot.logic.commands.UndoCommand;
 import seedu.forgetmenot.logic.commands.UndoneCommand;
+import seedu.forgetmenot.model.task.Time;
 
 /**
  * Parses user input.
@@ -64,7 +58,6 @@ public class Parser {
             + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
     		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
             );
-    private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
     public Parser() {}
 
@@ -106,10 +99,18 @@ public class Parser {
             return prepareFind(arguments);
 
         case ShowCommand.COMMAND_WORD:
-        	return prepareShow(arguments);
+        	try {
+				return prepareShow(arguments);
+			} catch (IllegalValueException e1) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+			}
 
-        case ShowDateCommand.COMMAND_WORD:
-        	return new ShowDateCommand(arguments.trim());
+//        case ShowDateCommand.COMMAND_WORD:
+//        	try {
+//				return new ShowDateCommand(arguments.trim());
+//			} catch (IllegalValueException e) {
+//				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+//			}
         	
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -154,44 +155,35 @@ public class Parser {
     }
     
     //@@author A0139198N
-    private Command prepareShow(String args){
-    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
+    private Command prepareShow(String args) throws IllegalValueException{
+//    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
     	
     	args = args.trim();
     	
     	if(args.equals("done")) {
-    		return new ShowDoneCommand();
+    		return new ShowCommand("done");
     	}
     	
     	else if(args.equals("all")) {
-    		return new ShowAllCommand();
+    		return new ShowCommand("all");
     	}
     	else if (args.equals("")) {
-    		return new ShowCommand();
+    		return new ShowCommand("");
     	}
     	
         else if (args.equals("overdue")) {
-            return new ShowOverdueCommand();
+            return new ShowCommand("overdue");
         }
     	
-    	else if (args.equals("today") || args.equals("tdy") ) {
-    		Calendar cal = Calendar.getInstance();
-    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
-    	}
-    	
-    	else if (args.equals("tomorrow") || args.equals("tmr") ) {
-    		Calendar cal = Calendar.getInstance();
-    		cal.add(Calendar.DATE, 1);
-    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
-    	}
-    	
-    	else if (matcher.matches()){
-            return new ShowDateCommand(args.trim());
-        } 
-    	else
+    	else {
+    		Time time = new Time(args);
+    		if (time.isValidDate(time.appearOnUIFormatForDate())) {
+            return new ShowCommand(time.appearOnUIFormatForDate());
+        	} 
+    		else {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+    		}
+    	}
     }
     //@@author A0147619W
     private Command prepareSetStorage(String args) {
