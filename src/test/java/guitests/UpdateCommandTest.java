@@ -50,6 +50,11 @@ public class UpdateCommandTest extends TaskListGuiTest {
         commandBox.runCommand("update 3 at 5pm");
         TypicalTestTasks.task3.getStartTime().updateTime("5pm");
         assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[2].getTaskDetails()));
+        
+        //updating recurring frequency for a task
+        commandBox.runCommand("update 8 r/monthly");
+        TypicalTestTasks.task3.setRecurringFrequency("monthly");
+        assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[7].getTaskDetails()));
 
     }
   

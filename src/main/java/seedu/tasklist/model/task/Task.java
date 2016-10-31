@@ -139,6 +139,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.priority = priority;
 	}
 	
+	//@@author A0142102E
 	public void setRecurringFrequency(String frequency) {
 		if (this.isValidFrequency(frequency) && (this.hasStartTime() || this.hasEndTime())) {
 			this.recurringFrequency = frequency;
@@ -150,7 +151,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		}
 	}
 
-	//@@author A0142102E
 	public void setRecurringTime() {
 	    if (isRecurring && !this.recurringFrequency.equals("")) {
 	    	if (isComplete) {
@@ -158,7 +158,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    		RecurringUtil.updateRecurringDate(endTime.time, recurringFrequency, 1);
 	    	}
 
-	        if (!startTime.isMissing() || !endTime.isMissing()) {
+	        if (this.hasStartTime() || this.hasEndTime()) {
 	            isComplete = false;
 	        }
 	    }
@@ -171,6 +171,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return false;
 	}
 	
+	//@@author
 	public boolean isFloating(){
 		return endTime.isMissing()&&startTime.isMissing();
 	}
