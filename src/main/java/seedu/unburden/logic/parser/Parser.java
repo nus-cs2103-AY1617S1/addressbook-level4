@@ -35,7 +35,7 @@ public class Parser {
 	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[^/]+)");
 
 	// @@author A0143095H
-	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[^/]+)");
+	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9]))");
 
 	// Event
 	private static final Pattern ADD_FORMAT_0 = Pattern.compile(
@@ -353,9 +353,9 @@ public class Parser {
 		if (args.equals("")) {
 			return new ListCommand();
 		}
-		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
-		//final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
-		if (!matcherDate.matches()) {
+		//final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
+		final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+		if (!matcherWord.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
 		Calendar calendar = Calendar.getInstance();
