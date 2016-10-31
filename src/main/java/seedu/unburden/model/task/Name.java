@@ -14,7 +14,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX = "[A-Za-z0-9 ,.?!\'\"]+";
 
     public final String fullName;
 
@@ -26,7 +26,7 @@ public class Name {
     public Name(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
-        if (!isValidName(name)) {
+       if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
         this.fullName = name;
