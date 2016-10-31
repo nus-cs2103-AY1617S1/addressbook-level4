@@ -36,7 +36,8 @@ public class StringUtil {
 
     /** 
      * Returns the first word separated by spaces in {@code text}. 
-     * Adapted from StackOverflow because I'm too lazy to create my own method.
+     * Adapted from StackOverflow because I'm too lazy to create my own 
+     * method to extract the first word of a string.
      */
     public static String getFirstWord(String text) {
         String trimmed = new String(text.trim());
