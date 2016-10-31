@@ -25,7 +25,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Update a task with new description/date/time/tag using it's last displayed index from WhatNow.
  */
-public class UpdateCommand extends UndoAndRedo {
+public class UpdateCommand extends Command {
     
     public static final String COMMAND_WORD = "update";
     
@@ -235,7 +235,7 @@ public class UpdateCommand extends UndoAndRedo {
             model.updateTask(taskToUpdate, toUpdate);
             model.getOldTask().push(taskToUpdate);
             model.getNewTask().push(toUpdate);
-            model.getUndoStack().push(this);
+            model.getUndoStack().push(COMMAND_WORD);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -243,45 +243,4 @@ public class UpdateCommand extends UndoAndRedo {
         }
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
     }
-
-	//@@author A0139128A
-	@Override
-	public CommandResult undo() throws TaskNotFoundException {
-		assert model != null;
-		if(model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		else {
-			ReadOnlyTask originalTask = model.getOldTask().pop();
-			ReadOnlyTask unwantedTask = model.getNewTask().pop();
-			model.getOldTask().push(unwantedTask);
-			model.getNewTask().push(originalTask);
-			try {
-				model.updateTask(unwantedTask, (Task) originalTask);
-			} catch(UniqueTaskList.DuplicateTaskException e) {
-				return new CommandResult(UndoCommand.MESSAGE_FAIL);
-			}
-			return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
-		}
-	}
-	
-	@Override
-	public CommandResult redo() throws TaskNotFoundException {
-		assert model != null;
-		if(model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-		}
-		else {
-			ReadOnlyTask originalTask = model.getNewTask().pop();
-			ReadOnlyTask wantedTask = model.getOldTask().pop();
-			model.getOldTask().push(originalTask);
-			model.getNewTask().push(wantedTask);
-			try {
-				model.updateTask(originalTask, (Task) wantedTask);
-			} catch (UniqueTaskList.DuplicateTaskException e) {
-				return new CommandResult(RedoCommand.MESSAGE_FAIL);
-			}
-			return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
-		}
-	}
 }

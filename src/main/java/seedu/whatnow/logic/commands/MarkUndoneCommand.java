@@ -11,7 +11,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Marks a task identified using it's last displayed index from WhatNow as completed.
  */
-public class MarkUndoneCommand extends UndoAndRedo {
+public class MarkUndoneCommand extends Command {
 
     public static final String COMMAND_WORD = "undone";
 
@@ -56,53 +56,12 @@ public class MarkUndoneCommand extends UndoAndRedo {
 
         try {
             model.unMarkTask(taskToMark);
-            model.getUndoStack().push(this);
+            model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfMarkUndoneTask().push(taskToMark);
-            model.getStackOfMarkUndoneTaskTaskType().push(taskType);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
         }
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
-    }
-
-    @Override
-    public CommandResult undo() {
-        if(model.getStackOfMarkUndoneTask().isEmpty() || model.getStackOfMarkUndoneTaskTaskType().isEmpty()) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-        }
-
-        ReadOnlyTask taskToReAdd = model.getStackOfMarkUndoneTask().pop();
-        String taskTypeToReAdd = model.getStackOfMarkUndoneTaskTaskType().pop();
-        try {
-            model.markTask(taskToReAdd);
-        } catch(TaskNotFoundException pufe) {
-            return new CommandResult(UndoCommand.MESSAGE_FAIL);
-        }
-        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
-    }
-
-
-    @Override
-    public CommandResult redo() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-        if (taskType.equals(TASK_TYPE_FLOATING)) {
-            lastShownList = model.getCurrentFilteredTaskList();
-        } else {
-            lastShownList = model.getCurrentFilteredScheduleList();
-        }
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
-        try {
-            model.unMarkTask(taskToMark);
-            model.getStackOfMarkUndoneTask().push(taskToMark);
-            model.getStackOfMarkUndoneTaskTaskType().push(taskType);
-        } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-        }
-        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
     }
 }

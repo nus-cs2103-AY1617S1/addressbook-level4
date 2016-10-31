@@ -8,7 +8,7 @@ import seedu.whatnow.model.WhatNow;
 /**
  * Clears WhatNow.
  */
-public class ClearCommand extends UndoAndRedo {
+public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "WhatNow has been cleared!";
@@ -22,20 +22,7 @@ public class ClearCommand extends UndoAndRedo {
         assert model != null;
         
         model.resetData(WhatNow.getEmptyWhatNow());
-        model.getUndoStack().push(this);
+        model.getUndoStack().push(COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
-	@Override
-	public CommandResult undo() {
-		assert model != null;
-		model.revertData();
-		return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-	}
-	
-	@Override
-	public CommandResult redo() {
-		model.resetData(WhatNow.getEmptyWhatNow());
-		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
-	}
 }
