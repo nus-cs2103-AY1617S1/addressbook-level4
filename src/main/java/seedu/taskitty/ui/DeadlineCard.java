@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
@@ -18,8 +19,6 @@ public class DeadlineCard extends UiPart {
     private Label name;
     @FXML
     private Label endDate;
-    @FXML
-    private Label endTime;
     @FXML
     private Label id;
     @FXML
@@ -46,7 +45,6 @@ public class DeadlineCard extends UiPart {
             name.setStyle("-fx-text-fill: white");
             id.setStyle("-fx-text-fill: white");
             endDate.setStyle("-fx-text-fill: white");
-            endTime.setStyle("-fx-text-fill: white");
             
         } else {
             
@@ -60,19 +58,12 @@ public class DeadlineCard extends UiPart {
         //@@author A0139930B
         name.setText(task.getName().fullName);
         endDate.setText("");
-        endTime.setText("");
         
-        TaskDate endTaskDate = task.getPeriod().getEndDate();
-        if (endTaskDate != null) {
-            endDate.setText(endTaskDate.toString());
-        }
+        TaskDate endTaskDate = task.getPeriod().getEndDate();  
+        TaskTime endTaskTime = task.getPeriod().getEndTime();
+        endDate.setText(DateUtil.formatDateTimeForUI(endTaskDate, endTaskTime));
         
-        TaskTime taskEndTime = task.getPeriod().getEndTime();
-        if (taskEndTime != null) {
-            endTime.setText(taskEndTime.toString());
-        }
-        
-        id.setText("d" + displayedIndex + ". ");
+        id.setText("d" + displayedIndex);
         tags.setText(task.tagsString());
     }
 
