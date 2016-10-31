@@ -4,7 +4,7 @@ import java.util.Date;
 
 import seedu.address.model.task.TaskDate;
 
-class TaskDateStub extends TaskDate {
+public class TaskDateStub extends TaskDate {
     public String getFormattedDate() {
         return "";
     }

@@ -58,7 +58,15 @@ public class Task implements ReadOnlyTask {
         this.recurringType = recurringType;
     }
     
-    public Task(){}
+    public Task(Name name, UniqueTagList tags, TaskOccurrence occurrence, RecurringType recurringType){
+        this(name, tags);
+        assert !CollectionUtil.isAnyNull(occurrence, recurringType);
+        this.taskType = TaskType.NON_FLOATING;
+        this.recurringType = recurringType;
+        this.recurringDates.set(0, occurrence);
+    }
+    
+    public Task() {}
 
     /**
      * Copy constructor.

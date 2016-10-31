@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.testutil.TaskBuilder;
@@ -24,8 +25,16 @@ public class UniqueTaskListTest {
     }
     
     @Test
-    public void addToTaskList() throws Exception {
+    public void addToTaskList_unitTest() throws Exception {
         taskList.add(new TaskStub());
+        assertEquals(taskList.getInternalTaskList().size(), 1);
+        assertEquals(taskList.getInternalComponentList().size(), 1);
+    }
+    
+    @Test
+    public void addToTaskList_integrationTest() throws Exception {
+        Task toAdd = new Task(new NameStub("dummy"), new UniqueTagListStub());
+        taskList.add(toAdd);
         assertEquals(taskList.getInternalTaskList().size(), 1);
         assertEquals(taskList.getInternalComponentList().size(), 1);
     }
