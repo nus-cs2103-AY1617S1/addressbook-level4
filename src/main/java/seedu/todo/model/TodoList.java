@@ -91,7 +91,6 @@ public class TodoList implements TodoListModel {
     public ImmutableTask add(String title) {
         Task task = new Task(title);
         tasks.add(task);
-        
         saveTodoList();
         return task;
     }
@@ -108,10 +107,8 @@ public class TodoList implements TodoListModel {
 
     @Override
     public List<ImmutableTask> delete(List<Integer> indexes) throws ValidationException {
-        List<ImmutableTask> tasksRemoved = new ArrayList<>();
-        
-        for (Integer i : indexes) {
-            int index = i;
+        List<ImmutableTask> tasksRemoved = new ArrayList<>();  
+        for (Integer index : indexes) {
             ImmutableTask task = tasks.get(index);
             tasksRemoved.add(task);
         }
@@ -130,8 +127,8 @@ public class TodoList implements TodoListModel {
     @Override
     public List<ImmutableTask> update(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
         
-        for (Integer x: indexes) {
-            MutableTask task = tasks.get(x);
+        for (Integer index : indexes) {
+            MutableTask task = tasks.get(index);
             ValidationTask validationTask = new ValidationTask(task);
             update.accept(validationTask);
             validationTask.validate();
@@ -139,12 +136,11 @@ public class TodoList implements TodoListModel {
         
         //All updates are validated so second for loop carries out actual updates
         List<ImmutableTask> tasksUpdated = new ArrayList<>();
-        for (Integer i : indexes) {
-            MutableTask task = tasks.get(i);
+        for (Integer index : indexes) {
+            MutableTask task = tasks.get(index);
             tasksUpdated.add(task);
             update.accept(task);
         }
-        
         saveTodoList();
         return tasksUpdated;
     }
