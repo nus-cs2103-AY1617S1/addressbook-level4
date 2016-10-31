@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -227,7 +228,6 @@ public class UniqueTagCollectionValidator {
         }
     }
 
-
     /* Private Helper Methods */
     /**
      * Returns true if a given string is a valid tag name (alphanumeric, can contain dashes and underscores)
@@ -235,5 +235,18 @@ public class UniqueTagCollectionValidator {
      */
     private static boolean isValidTagName(String test) {
         return TAG_VALIDATION_REGEX.matcher(test).matches();
+    }
+
+    /* Public Helper Methods */
+    /**
+     * Abstracts the series of steps for performing data validation.
+     */
+    public static UniqueTagCollectionValidator performTagValidation(String actionName,
+            Consumer<UniqueTagCollectionValidator> consumer) throws ValidationException {
+
+        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(actionName);
+        consumer.accept(validator);
+        validator.throwsExceptionIfNeeded();
+        return validator;
     }
 }

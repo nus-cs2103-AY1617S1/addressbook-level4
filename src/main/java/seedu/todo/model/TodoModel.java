@@ -262,9 +262,8 @@ public class TodoModel implements Model {
 
         //Perform Validation
         ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("add tags");
-        validator.validateAddTags(task, tagNames);
-        validator.throwsExceptionIfNeeded();
+        UniqueTagCollectionValidator.performTagValidation("add tags", validator
+                -> validator.validateAddTags(task, tagNames));
 
         //Perform actual tag adding.
         update(index, mutableTask -> {
@@ -277,7 +276,7 @@ public class TodoModel implements Model {
     public void addTagsToTask(MutableTask task, String... tagNames) {
         saveUndoState();
 
-        //Do not perform validation. Perform actual tag adding.
+        //Do not perform validation (disallowed by Consumer interface). Perform actual tag adding.
         Set<Tag> newTags = new HashSet<>(uniqueTagCollection.associateTaskToTags(task, tagNames));
         newTags.addAll(task.getTags());
         task.setTags(newTags);
@@ -289,9 +288,8 @@ public class TodoModel implements Model {
 
         //Perform Validation
         ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("delete tags");
-        validator.validateDeleteTags(task, tagNames);
-        validator.throwsExceptionIfNeeded();
+        UniqueTagCollectionValidator.performTagValidation("delete tags", validator
+                -> validator.validateDeleteTags(task, tagNames));
 
         //Perform actual tag deletion
         update(index, mutableTask -> {
@@ -307,9 +305,8 @@ public class TodoModel implements Model {
         saveUndoState();
 
         //Perform validation
-        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("delete tags");
-        validator.validateDeleteTags(uniqueTagCollection, tagNames);
-        validator.throwsExceptionIfNeeded();
+        UniqueTagCollectionValidator.performTagValidation("delete tags", validator
+                -> validator.validateDeleteTags(uniqueTagCollection, tagNames));
 
         //Perform actual tag deletion
         Collection<Tag> deletedTags = uniqueTagCollection.deleteTags(tagNames);
@@ -325,9 +322,8 @@ public class TodoModel implements Model {
         saveUndoState();
 
         //Perform validation
-        UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator("rename tag");
-        validator.validateRenameCommand(uniqueTagCollection, oldName, newName);
-        validator.throwsExceptionIfNeeded();
+        UniqueTagCollectionValidator.performTagValidation("rename tag", validator
+                -> validator.validateRenameCommand(uniqueTagCollection, oldName, newName));
 
         //Perform actual tag renaming
         Set<ImmutableTask> tasksWithTag = uniqueTagCollection.getTasksLinkedToTag(oldName);
