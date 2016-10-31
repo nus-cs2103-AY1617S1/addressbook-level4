@@ -37,8 +37,7 @@ public class RedoCommand extends Command{
 		assert model != null;
 		if(model.getRedoStack().isEmpty()) {
 			return new CommandResult(MESSAGE_FAIL);
-		}
-		else {
+		} else {
 			String reqCommand = model.getRedoStack().pop();
 			model.getUndoStack().push(reqCommand);
 			return performReqRedo(reqCommand);
@@ -71,10 +70,10 @@ public class RedoCommand extends Command{
 		} else {
 			try {
 				ReadOnlyTask reqTask = model.getDeletedStackOfTasksAddRedo().pop();
+				model.addTask((Task) reqTask);
 				model.getDeletedStackOfTasksAdd().push(reqTask);
-				model.addTask((Task)reqTask);
 			} catch (DuplicateTaskException e) {
-				return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
+			    return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 			}
 			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 		}
@@ -103,22 +102,25 @@ public class RedoCommand extends Command{
 		} else {
 			String prevCommandListType = model.getStackOfListTypesRedo().pop();
 			model.getStackOfListTypes().push(prevCommandListType);
-			if(prevCommandListType.equals(ListCommand.TASK_STATUS_ALL)) {
-				model.updateFilteredListToShowAll();
-				model.updateFilteredScheduleListToShowAll();
-				return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-			} else if(prevCommandListType.equals(ListCommand.TASK_STATUS_INCOMPLETE)) {
-				model.updateFilteredListToShowAllIncomplete();
-				model.updateFilteredScheduleListToShowAllIncomplete();
-				return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-			} else {
-				model.updateFilteredListToShowAllCompleted();
-				model.updateFilteredScheduleListToShowAllCompleted();
-				return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
-			}
+			return performReqRedoList(prevCommandListType);
 		}
 	}
-	//@@author A0139128A
+	private CommandResult performReqRedoList(String prevCommandListType) {
+	    if(prevCommandListType.equals(ListCommand.TASK_STATUS_ALL)) {
+            model.updateFilteredListToShowAll();
+            model.updateFilteredScheduleListToShowAll();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        } else if(prevCommandListType.equals(ListCommand.TASK_STATUS_INCOMPLETE)) {
+            model.updateFilteredListToShowAllIncomplete();
+            model.updateFilteredScheduleListToShowAllIncomplete();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        } else {
+            model.updateFilteredListToShowAllCompleted();
+            model.updateFilteredScheduleListToShowAllCompleted();
+            return new CommandResult(UndoCommand.MESSAGE_SUCCESS);
+        }        
+    }
+    //@@author A0139128A
 	private CommandResult performRedoMarkDone() {
 		if(model.getStackOfMarkDoneTaskRedo().isEmpty()) {
 			return new CommandResult(RedoCommand.MESSAGE_FAIL);
@@ -161,7 +163,9 @@ public class RedoCommand extends Command{
 			try {
 				model.updateTask(originalTask, (Task) wantedTask);
 			} catch (UniqueTaskList.DuplicateTaskException utle) {
-				return new CommandResult(RedoCommand.MESSAGE_FAIL);
+				model.getOldTask().pop();
+				model.getNewTask().pop();
+			    return new CommandResult(RedoCommand.MESSAGE_FAIL);
 			}
 			return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 		}
