@@ -110,33 +110,34 @@ public class JimiParser {
      */
     private Command prepareCommand(String commandWord, String arguments) {
         List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
-        for (Command command : cmdStubList) {
-            // if validation checks implemented by the respective commands are passed
-            if (command.isValidCommandWord(commandWord)) {
-                // identify which command this is
-                if (command instanceof AddCommand) {
-                    return prepareAdd(arguments);
-                } else if (command instanceof HelpCommand) {
-                    return prepareHelp(arguments);
-                } else if (command instanceof EditCommand) {
-                    return prepareEdit(arguments);
-                } else if (command instanceof CompleteCommand) {
-                    return prepareComplete(arguments);
-                } else if (command instanceof ShowCommand) {
-                    return prepareShow(arguments);
-                } else if (command instanceof DeleteCommand) {
-                    return prepareDelete(arguments);
-                } else if (command instanceof FindCommand) {
-                    return prepareFind(arguments);
-                } else if (command instanceof SaveAsCommand) {
-                    return prepareSaveAs(arguments);
-                } else { // commands that do not require arguments e.g. exit
-                    return command;
-                }
+        Optional<Command> prepared = 
+                cmdStubList.stream().filter(c -> c.isValidCommandWord(commandWord)).map(c -> {
+            if (c instanceof AddCommand) {
+                return prepareAdd(arguments);
+            } else if (c instanceof HelpCommand) {
+                return prepareHelp(arguments);
+            } else if (c instanceof EditCommand) {
+                return prepareEdit(arguments);
+            } else if (c instanceof CompleteCommand) {
+                return prepareComplete(arguments);
+            } else if (c instanceof ShowCommand) {
+                return prepareShow(arguments);
+            } else if (c instanceof DeleteCommand) {
+                return prepareDelete(arguments);
+            } else if (c instanceof FindCommand) {
+                return prepareFind(arguments);
+            } else if (c instanceof SaveAsCommand) {
+                return prepareSaveAs(arguments);
+            } else { // commands that do not require arguments e.g. exit
+                return c;
             }
+        }).findFirst();
+        
+        if (prepared.isPresent()) {
+            return prepared.get();
         }
         
-        return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND, commandWord));
     }
     
     private Command prepareHelp(String args) {
@@ -147,7 +148,7 @@ public class JimiParser {
         try {
             return new HelpCommand(args.trim());
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
+            return new IncorrectCommand(ive.getMessage());
         }
     }
 
