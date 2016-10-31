@@ -6,8 +6,13 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.FinishStateException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.ModelManager.Qualifier;
 import seedu.address.model.deadline.Deadline;
+import seedu.address.model.state.StateManager;
+import seedu.address.model.state.TaskCommandState;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -32,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	private final TaskManager addressBook;
 	private final FilteredList<Task> filteredPersons;
+	private final StateManager stateManager;
 
 	/**
 	 * Initializes a ModelManager with the given AddressBook AddressBook and its
@@ -46,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		addressBook = new TaskManager(src);
 		filteredPersons = new FilteredList<>(addressBook.getTasks());
+		stateManager = new StateManager(new TaskCommandState(addressBook, ""));
 	}
 
 	public ModelManager() {
@@ -55,6 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
 		addressBook = new TaskManager(initialData);
 		filteredPersons = new FilteredList<>(addressBook.getTasks());
+		stateManager = new StateManager(new TaskCommandState(addressBook, ""));
 	}
 
 	@Override
@@ -85,8 +93,30 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 	}
+	
+	@Override
+	public void currentState(String command) {
+		stateManager.currentState(new TaskCommandState(addressBook, command));	
+	}
 
-	// =========== Filtered Person List Accessors
+	@Override
+	public String getPreviousState() throws FinishStateException {
+		TaskCommandState previousState = stateManager.getPreviousState();
+		return getState(previousState);
+	}
+
+	@Override
+	public String getInitialState() throws FinishStateException {
+		TaskCommandState initialState = stateManager.getInitialState();
+		return getState(initialState);
+	}
+	
+	private String getState(TaskCommandState state) {
+		resetData(state.getTaskCommand());
+		return state.getCommand();
+	}
+
+	// =========== Filtered Task List Accessors
 	// ===============================================================
 
 	@Override
@@ -102,6 +132,11 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void updateFilteredPersonList(Set<String> keywords) {
 		updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+	}
+	
+	@Override
+	public void updateFilteredPersonGroup(String keywords) {
+		updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));
 	}
 
 	private void updateFilteredPersonList(Expression expression) {
@@ -136,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
 		
-		for (int i = 0; i < filteredPersons.size() - 1; i++){
+		for (int i = 0; i <= filteredPersons.size() - 1; i++){
 			boolean isIncompleted = false;
 			Task task = filteredPersons.get(i);
 			if (!task.getName().toString().contains(" is completed")) isIncompleted = true;
@@ -146,8 +181,8 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		}
 		
-		FilteredList<Task> clashingTasks = new FilteredList<Task>(taskmanager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(clashingTasks)));
+		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
+		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
 	}
 
 	// ========== Inner classes/interfaces used for filtering
@@ -193,9 +228,14 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
-			return nameKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword)).findAny()
-					.isPresent();
+			boolean isContained = false;
+			
+			for (String temp : nameKeyWords){
+				if (person.getName().toString().toLowerCase().contains(temp.toLowerCase()))
+				    isContained = true;
+				
+			}
+			return isContained;
 		}
 
 		@Override
@@ -219,6 +259,30 @@ public class ModelManager extends ComponentManager implements Model {
 				}
 			}
 			return false;
+		}
+	}
+	
+	private class TagQualifier implements Qualifier {
+		private String keyWords;
+
+		TagQualifier(String keyWords) {
+			this.keyWords = keyWords;
+		}
+
+		@Override // for loop embedded
+		public boolean run(ReadOnlyTask person) {
+			try {
+				return person.getTags().contains(new Tag(keyWords));
+			} catch (IllegalValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", keyWords);
 		}
 	}
 
