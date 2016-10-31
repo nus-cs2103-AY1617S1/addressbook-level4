@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.commons.util.RecurringUtil;
-import seedu.tasklist.model.tag.UniqueTagList;
+
 
 /**
  * Represents a Person in the address book.
@@ -24,19 +24,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private boolean isComplete;
 	private boolean isRecurring;
 	private String recurringFrequency;
-	private UniqueTagList tags;
+	//private UniqueTagList tags;
 	
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags, String recurringFrequency) {
-		assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, tags, recurringFrequency);
+	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, String recurringFrequency) {
+		assert !CollectionUtil.isAnyNull(taskDetails, startTime, endTime, priority, recurringFrequency);
 		this.taskDetails = taskDetails;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.priority = priority;
 		this.uniqueID = currentID++;
-		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+		//this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 		this.isComplete = false;
 
 		if (recurringFrequency==null) recurringFrequency = "";
@@ -46,15 +46,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 //		endTimeOnly();	
 	}
 	
-	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
-		this(taskDetails, startTime, endTime, priority, tags, "");
+	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority) {
+		this(taskDetails, startTime, endTime, priority, "");
 	}
 
 	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
-		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getTags(), source.getRecurringFrequency());
+		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getRecurringFrequency());
 		if(source.isComplete()){
 			this.markAsComplete();
 		}
@@ -79,16 +79,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public String getRecurringFrequency() {
 	    return recurringFrequency;
 	}
-
-//	public void endTimeOnly(){
-//		if(!startTime.isMissing()&&endTime.isMissing()){
-//		     Time time = new Time(startTime.getAsCalendar());
-//		     time.getAsCalendar().set(Calendar.HOUR_OF_DAY, endTime.DEFAULT_HOUR_VAL);
-//		     time.getAsCalendar().set(Calendar.MINUTE, endTime.DEFAULT_MINUTE_VAL);
-//		     endTime.setCalendar(time.getAsCalendar());
-//		}
-//	}
-	
 	
 	@Override
 	public int getUniqueID() {
@@ -99,17 +89,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		uniqueID = newuniqueId;
 	}
 
-	@Override
+	/*@Override
 	public UniqueTagList getTags() {
 		return new UniqueTagList(tags);
 	}
 
-	/**
+	*//**
 	 * Replaces this person's tags with the tags in the argument tag list.
-	 */
+	 *//*
 	public void setTags(UniqueTagList replacement) {
 		tags.setTags(replacement);
-	}
+	}*/
     
 	public boolean isRecurring() {
 	    return this.isRecurring;
@@ -205,7 +195,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	@Override
 	public int hashCode() {
 		// use this method for custom fields hashing instead of implementing your own
-		return Objects.hash(taskDetails, startTime, endTime, priority, uniqueID, tags);
+		return Objects.hash(taskDetails, startTime, endTime, priority, uniqueID, recurringFrequency);
 	}
 
 	@Override

@@ -2,8 +2,6 @@ package seedu.tasklist.model;
 
 import javafx.collections.ObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
 import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.ReadOnlyTask;
@@ -24,11 +22,11 @@ public class TaskList implements ReadOnlyTaskList{
 
 
 	private final UniqueTaskList tasks;
-	private final UniqueTagList tags;
+	//private final UniqueTagList tags;
 
 	{
 		tasks = new UniqueTaskList();
-		tags = new UniqueTagList();
+		//tags = new UniqueTagList();
 	}
 
 	public TaskList() {
@@ -40,14 +38,14 @@ public class TaskList implements ReadOnlyTaskList{
 	 * tasks and Tags are copied into this task list
 	 */
 	public TaskList(ReadOnlyTaskList toBeCopied) {
-		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+		this(toBeCopied.getUniqueTaskList());
 	}
 
 	/**
 	 * tasks and Tags are copied into this task list
 	 */
-	public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-		resetData(tasks.getInternalList(), tags.getInternalList());
+	public TaskList(UniqueTaskList tasks) {
+		resetData(tasks.getInternalList());
 	}
 
 	public static ReadOnlyTaskList getEmptyTaskList() {
@@ -65,17 +63,17 @@ public class TaskList implements ReadOnlyTaskList{
 		this.tasks.getInternalList().setAll(tasks);
 	}
 
-	public void setTags(Collection<Tag> tags) {
+	/*public void setTags(Collection<Tag> tags) {
 		this.tags.getInternalList().setAll(tags);
-	}
+	}*/
 
-	public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
+	public void resetData(Collection<? extends ReadOnlyTask> newtasks) {
 		setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
-		setTags(newTags);
+		//setTags(newTags);
 	}
 
 	public void resetData(ReadOnlyTaskList newData) {
-		resetData(newData.getTaskList(), newData.getTagList());
+		resetData(newData.getTaskList());
 	}
 
 	//// person-level operations
@@ -86,7 +84,7 @@ public class TaskList implements ReadOnlyTaskList{
 	 * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
 	 */
 	public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-		syncTagsWithMasterList(p);
+	//	syncTagsWithMasterList(p);
 		tasks.add(p);
 	}
 	
@@ -99,7 +97,7 @@ public class TaskList implements ReadOnlyTaskList{
 	 *  - exists in the master list {@link #tags}
 	 *  - points to a Tag object in the master list
 	 */
-	private void syncTagsWithMasterList(Task task) {
+	/*private void syncTagsWithMasterList(Task task) {
 		final UniqueTagList personTags = task.getTags();
 		tags.mergeFrom(personTags);
 
@@ -115,7 +113,7 @@ public class TaskList implements ReadOnlyTaskList{
 			commonTagReferences.add(masterTagObjects.get(tag));
 		}
 		task.setTags(new UniqueTagList(commonTagReferences));
-	}
+	}*/
 
 	public void removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
 		tasks.remove(key);
@@ -127,15 +125,15 @@ public class TaskList implements ReadOnlyTaskList{
 
 	//// tag-level operations
 
-	public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+	/*public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
 		tags.add(t);
-	}
+	}*/
 
 	//// util methods
 
 	@Override
 	public String toString() {
-		return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+		return tasks.getInternalList().size() + " tasks ";
 		// TODO: refine later
 	}
 
@@ -148,10 +146,6 @@ public class TaskList implements ReadOnlyTaskList{
         return tasks.getInternalList();
     }
 
-	@Override
-	public List<Tag> getTagList() {
-		return Collections.unmodifiableList(tags.getInternalList());
-	}
 
 	@Override
 	public UniqueTaskList getUniqueTaskList() {
@@ -162,23 +156,18 @@ public class TaskList implements ReadOnlyTaskList{
 	public boolean isEmpty(){
 		return tasks.isEmpty();
 	}
-	@Override
-	public UniqueTagList getUniqueTagList() {
-		return this.tags;
-	}
 
 	@Override
 	public boolean equals(Object other) {
 		return other == this // short circuit if same object
 				|| (other instanceof TaskList // instanceof handles nulls
-						&& this.tasks.equals(((TaskList) other).tasks)
-						&& this.tags.equals(((TaskList) other).tags));
+						&& this.tasks.equals(((TaskList) other).tasks));
 	}
 
 	@Override
 	public int hashCode() {
 		// use this method for custom fields hashing instead of implementing your own
-		return Objects.hash(tasks, tags);
+		return Objects.hash(tasks);
 	}
 	//@@author A0146107M
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime,

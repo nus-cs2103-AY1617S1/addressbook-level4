@@ -4,8 +4,11 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -13,9 +16,14 @@ import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.events.TickEvent;
+import seedu.tasklist.commons.events.model.TaskModifiedEvent;
 import seedu.tasklist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -30,15 +38,27 @@ public class TaskListPanel extends UiPart {
 	private AnchorPane placeHolderPane;
 
 	@FXML
+	private Label dateTimeLabel;
+	@FXML
 	private ListView<ReadOnlyTask> personListView;
+	@FXML
+	private ScrollPane scrollPane;
 
 	public TaskListPanel() {
 		super();
 	}
+
 	//@@author A0146107M
 	@Subscribe
 	public void tickEventHandler(TickEvent te){
 		personListView.refresh();
+		setLabelText();
+	}
+
+	@Subscribe
+	public void taskModifiedEventHandler(TaskModifiedEvent tme){
+		personListView.scrollTo(tme.task);
+		personListView.getSelectionModel().select(tme.task);
 	}
 	//@@author
 	@Override
@@ -61,7 +81,10 @@ public class TaskListPanel extends UiPart {
 		TaskListPanel taskListPanel =
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
 		taskListPanel.configure(personList);
+		taskListPanel.setLabelText();
 		//@@author A0146107M
+		taskListPanel.scrollPane.setFitToHeight(true);
+		taskListPanel.scrollPane.setFitToWidth(true);
 		EventsCenter.getInstance().registerHandler(taskListPanel);
 		//@@author
 		return taskListPanel;
@@ -98,6 +121,26 @@ public class TaskListPanel extends UiPart {
 			personListView.getSelectionModel().clearAndSelect(index);
 		});
 	}
+
+	//@@author A0144919W
+	public void setLabelText() {
+		assert dateTimeLabel != null;
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
+		dateTimeLabel.setText(dateFormatter.format(new Date()));
+	}
+	private String getDateSuffix(int date) {
+		checkArgument(date >= 1 && date <= 31, "illegal day of month: " + date);
+		if (date >= 11 && date <= 13) {
+			return "th";
+		}
+		switch (date % 10) {
+		case 1:  return "st";
+		case 2:  return "nd";
+		case 3:  return "rd";
+		default: return "th";
+		}
+	}
+	//@@author
 
 	class PersonListViewCell extends ListCell<ReadOnlyTask> {
 

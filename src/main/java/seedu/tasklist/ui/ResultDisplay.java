@@ -37,7 +37,7 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
-        resultDisplayArea.setText("");
+       // resultDisplayArea.setText();
         displayed.setValue("Welcome to Lazyman's Friend!");
         resultDisplayArea.textProperty().bind(displayed);
         //resultDisplayArea.setAlignment(Component.CENTER_ALIGNMENT);

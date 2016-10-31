@@ -1,46 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author A0146107M -->
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #FFFFFF;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.MainWindow">
    <children>
-      <SplitPane prefHeight="39.0" prefWidth="1115.0" style="-fx-border-color: white;">
-         <items>
-            <Pane minHeight="35.0" prefHeight="35.0" prefWidth="1108.0" style="-fx-background-color: white; -fx-border-color: white;">
-               <children>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/calendar-icon.png" />
-                           </image>
-                        </ImageView>
-                        <Label id="dateTimeLabel" fx:id="dateTimeLabel" layoutX="23.0" layoutY="5.0" style="-fx-background-color: white;" text="Test">
-                           <padding>
-                              <Insets left="8.0" />
-                           </padding>
-                        </Label>
-                        <Label id="task_det" layoutX="799.0" layoutY="4.0" text="Start" />
-                        <Label id="task_det" layoutX="900.0" layoutY="4.0" text="End" />
-                        <Label id="task_det" layoutX="708.0" layoutY="4.0" text="Priority" />
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
-         </items>
-         <VBox.margin>
-            <Insets left="380.0" right="10.0" />
-         </VBox.margin>
-      </SplitPane>
 
             <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <items>
@@ -49,12 +17,12 @@
                     <Insets bottom="10.0" left="10.0" right="2.0" top="10.0" />
                 </padding>
             </AnchorPane>
-            <VBox fx:id="personList" minWidth="340" prefHeight="20.0" prefWidth="1132.0" style="-fx-background-color: white;">
+            <VBox fx:id="personList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="340" prefHeight="20.0" prefWidth="1132.0" style="-fx-background-color: white;">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
                <children>
-                  <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  <AnchorPane fx:id="personListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </items>

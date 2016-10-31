@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.model.tag.Tag;
-import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.*;
 
 /**
@@ -16,7 +14,7 @@ public class AddCommand extends Command {
 	public static final String COMMAND_WORD = "add";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Adds a task to the to-do list."
-			+ "Parameters: NAME s/START e/END p/PRIORITY [t/TAG]...\n\t"
+			+ "Parameters: NAME s/START e/END p/PRIORITY \n\t"
 			+ "Example: " + COMMAND_WORD
 			+ " Sleep s/8 Oct e/9 Oct p/high";
 
@@ -32,32 +30,36 @@ public class AddCommand extends Command {
 	 *
 	 * @throws IllegalValueException if any of the raw values are invalid
 	 */
-	public AddCommand(String name, String startTime, String endTime, String priority, Set<String> tags, String frequency) throws IllegalValueException {
-		final Set<Tag> tagSet = new HashSet<>();
-		for (String tagName : tags) {
+	public AddCommand(String name, String startTime, String endTime, String priority, String frequency) throws IllegalValueException {
+		/*final Set<Tag> tagSet = new HashSet<>();
+	    for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
-		}
+		}*/
 		this.toAdd = new Task(
 				new TaskDetails(name.replace("\\", "")),
 				new StartTime(startTime),
 				new EndTime(endTime),
 				new Priority(priority),
-				new UniqueTagList(tagSet),
+				//new UniqueTagList(tagSet),
 				frequency
 				);
 	}
-
-	public AddCommand(String name, String startTime, String endTime, String priority, Set<String> tags) throws IllegalValueException {
-		this(name, startTime, endTime, priority, tags, "");
+	
+	public AddCommand(String name, String startTime, String endTime, String priority) throws IllegalValueException {
+		this(name, startTime, endTime, priority, "");
 	}
+
+	/*public AddCommand(String name, String startTime, String endTime, String priority, Set<String> tags) throws IllegalValueException {
+		this(name, startTime, endTime, priority, tags, "");
+	}*/
 
 	/**
 	 * Constructor for floating tasks.
 	 * 
 	 * @throws IllegalValueException if any of the raw values are invalid
 	 */
-	public AddCommand(String name, String priority, Set<String> tags) throws IllegalValueException {
-		this(name, "", "", priority ,tags, "");
+	public AddCommand(String name, String priority) throws IllegalValueException {
+		this(name, "", "", priority, "");
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package seedu.tasklist.testutil;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.task.*;
 
 /**
@@ -20,12 +19,12 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
+    /*public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));
         }
         return this;
-    }
+    }*/
 
     public TaskBuilder withUniqueID(int uniqueID) throws IllegalValueException {
         this.task.setUniqueID(uniqueID);

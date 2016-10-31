@@ -107,10 +107,10 @@ public class UndoCommand extends Command {
     }
 
     private void undoUpdate(Task newTask, Task originalTask){
-        Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getTags(), newTask.getRecurringFrequency());
+        Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getRecurringFrequency());
         try {
-            model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags(), originalTask.getRecurringFrequency());
-            model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags(), originalTask.getRecurringFrequency());
+            model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getRecurringFrequency());
+            model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), originalTask.getRecurringFrequency());
         } catch (IllegalValueException e) {
 			e.printStackTrace();
 		}
