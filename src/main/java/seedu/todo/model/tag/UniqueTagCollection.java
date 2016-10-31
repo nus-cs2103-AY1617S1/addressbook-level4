@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Iterator;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -47,39 +49,32 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
 
     @Override
     public Collection<Tag> associateTaskToTags(ImmutableTask task, String[] tagNames) {
-        Set<Tag> tags = new HashSet<>();
-        for (String tagName : tagNames) {
-            Tag tag = getTagWithName(tagName);
-            associateTaskToTag(task, tag);
-            tags.add(tag);
-        }
-        return tags;
+        return Arrays.stream(tagNames)
+                .map(name -> associateTaskToTag(task, getTagWithName(name)))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames) {
-        Set<Tag> tags = new HashSet<>();
-        for (String tagName : tagNames) {
-            //Data validation at TodoModel should have checked if this is available.
-            //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
-            Tag tag = getTagWithName(tagName);
-            dissociateTaskFromTag(task, tag);
-            tags.add(tag);
-        }
-        return tags;
+        //Data validation at TodoModel should have checked if this is available.
+        //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+
+        return Arrays.stream(tagNames)
+                .map(name -> dissociateTaskFromTag(task, getTagWithName(name)))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Collection<Tag> deleteTags(String[] tagNames) {
-        Set<Tag> tagsDeleted = new HashSet<>();
-        for (String tagName : tagNames) {
-            //Data validation at TodoModel should have checked if this is available.
-            //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
-            Tag tag = getTagWithName(tagName);
-            tagsDeleted.add(tag);
-            uniqueTagsToTasksMap.remove(tag);
-        }
-        return tagsDeleted;
+        //Data validation at TodoModel should have checked if this is available.
+        //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+
+        return Arrays.stream(tagNames)
+                .map(name -> {
+                    Tag tag = getTagWithName(name);
+                    uniqueTagsToTasksMap.remove(tag);
+                    return tag;
+                }).collect(Collectors.toSet());
     }
 
     /* Helper Methods */
@@ -100,12 +95,14 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     /**
      * Removes the association between the {@code task} from the {@code tag} in
      * the {@link #uniqueTagsToTasksMap}.
+     * @return an instance of the {@code tag}
      */
-    private void dissociateTaskFromTag(ImmutableTask task, Tag tag) {
+    private Tag dissociateTaskFromTag(ImmutableTask task, Tag tag) {
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks != null) {
             setOfTasks.remove(task);
         }
+        return tag;
     }
 
     /**
@@ -120,7 +117,8 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private Tag getTagWithName(String tagName) {
         Optional<Tag> possibleTag = uniqueTagsToTasksMap.keySet().stream()
-                .filter(tag -> tag.getTagName().equals(tagName)).findAny();
+                .filter(tag -> tag.getTagName().equals(tagName))
+                .findAny();
 
         Tag targetTag;
         if (possibleTag.isPresent()) {
@@ -137,7 +135,8 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private Optional<Tag> findTagWithName(String tagName) {
         return uniqueTagsToTasksMap.keySet().stream()
-                .filter(tag -> tag.getTagName().equals(tagName)).findAny();
+                .filter(tag -> tag.getTagName().equals(tagName))
+                .findAny();
     }
 
     /* Interfacing Getters */
