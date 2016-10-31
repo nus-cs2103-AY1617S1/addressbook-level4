@@ -76,7 +76,12 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("edit 1 Call Alice from 2pm repeat every day -high");
         //commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
         aliceTask.setName(new Name("Call Alice"));
-        aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
+        //TODO: Edited by Zhi Yuan because I edited DateTime. Edmund take note :)
+        try {
+            aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
+        } catch (IllegalValueException e1) {
+            assert false : "The test data provided cannot be invalid";
+        }
         //aliceTask.setEndDate(DateTime.convertStringToEndDate("3pm", aliceTask.getStartDate().get()));
         try {
             aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
@@ -90,7 +95,11 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertRedoSuccess(aliceTask);        
 
         TestTask recurredAliceTask = new TestTask(aliceTask);
-        recurredAliceTask.setStartDate(DateTime.convertStringToDate("tomorrow 2pm"));
+        try {
+            recurredAliceTask.setStartDate(DateTime.convertStringToDate("tomorrow 2pm"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
 
         // primitive done undo and redo testing until the assertDoneSuccess is complete
         commandBox.runCommand("done 1");

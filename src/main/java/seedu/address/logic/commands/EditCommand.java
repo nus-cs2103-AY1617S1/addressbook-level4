@@ -90,7 +90,7 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
-    private void assignStartDateIfPresent(Optional<String> startDateString) {
+    private void assignStartDateIfPresent(Optional<String> startDateString) throws IllegalValueException {
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
             if (!DateTime.hasTimeValue(startDateString.get())) {
@@ -99,7 +99,7 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
-    private void assignEndDateIfPresent(Optional<String> endDateString) {
+    private void assignEndDateIfPresent(Optional<String> endDateString) throws IllegalValueException {
         if (endDateString.isPresent()) {
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
