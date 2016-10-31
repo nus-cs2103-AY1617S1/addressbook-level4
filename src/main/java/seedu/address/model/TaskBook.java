@@ -285,7 +285,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         for (Task task: events) {
             if(task.getTaskCategory()!=1){
                 events.remove(task);
-                System.out.println("events:" + task.toString());
                 if(task.getTaskCategory()==2){
                     deadlines.add(task);
                 }
