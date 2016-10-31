@@ -11,15 +11,15 @@ public class InputHistoryManager implements InputHistory{
     private static InputHistoryManager theInputHistoryManager;
     
     // command inputs
-    private Stack<String> prevCommands;
-    private Stack<String> nextCommands;
-    private String currentStoredCommandShown;
+    private Stack<String> prevInputs;
+    private Stack<String> nextInputs;
+    private String currentStoredInputShown;
     
     // Private constructor for Singleton Pattern
     private InputHistoryManager(){
-        prevCommands = new Stack<String>();
-        nextCommands = new Stack<String>();
-        currentStoredCommandShown = "";
+        prevInputs = new Stack<String>();
+        nextInputs = new Stack<String>();
+        currentStoredInputShown = "";
     }
     
     // Use Singleton Pattern here
@@ -32,35 +32,55 @@ public class InputHistoryManager implements InputHistory{
     
     @Override
     public void updateInputHistory(String userInput) {
-        assert prevCommands != null && nextCommands != null && currentStoredCommandShown != null;
+        assert prevInputs != null && nextInputs != null && currentStoredInputShown != null;
         
+        // user tried to access a prev input
+        // first store back that prev input that was shown
         if (!isLatestInput()) {
-            pushPrevInput(currentStoredCommandShown);
+            pushPrevInput(currentStoredInputShown);
         }
         
+        // transfer all the next input back to prev input in the right order
         while (!isLatestInput()) {
+            
             // last 'next' is the one that i typed halfway, don't push it in my history 
-            if (nextCommands.size() == 1){
-                nextCommands.pop();
+            if (isLastNextInput()) {
+                nextInputs.pop();
                 break;
             }
                 
-            prevCommands.push(nextCommands.pop());
+            transferNextInputToPrevInputHistory();
         }
+        
         pushPrevInput(userInput);
-        currentStoredCommandShown = "";
+        currentStoredInputShown = "";
+    }
+
+    /**
+     * @return
+     */
+    private boolean isLastNextInput() {
+        return nextInputs.size() == 1;
+    }
+
+    /**
+     * Transfers a next input to the prev input stack.
+     */
+    private void transferNextInputToPrevInputHistory() {
+        String nextCmdToTransfer = nextInputs.pop();
+        prevInputs.push(nextCmdToTransfer);
     }
     
     @Override
     public boolean isEarliestInput() {
-        assert prevCommands != null;
-        return prevCommands.isEmpty();
+        assert prevInputs != null;
+        return prevInputs.isEmpty();
     }
     
     @Override
     public boolean isLatestInput() {
-        assert nextCommands != null;
-        return nextCommands.isEmpty();
+        assert nextInputs != null;
+        return nextInputs.isEmpty();
     }
     
     @Override
@@ -69,43 +89,42 @@ public class InputHistoryManager implements InputHistory{
         
         if (isLatestInput()) {
             inputToStore = currentInput;
+        } else {
+            inputToStore = currentStoredInputShown;
         }
-            
-        else {
-            inputToStore = currentStoredCommandShown;
-        }
+        
         pushNextInput(inputToStore);
         return popPrevInput();
     }
     
     @Override
     public String nextStep() {
-        pushPrevInput(currentStoredCommandShown);
+        pushPrevInput(currentStoredInputShown);
         return popNextInput();
     }
     
     // private helper methods below
     
     private String popPrevInput() {
-        assert prevCommands != null;
-        currentStoredCommandShown = prevCommands.pop();
-        return currentStoredCommandShown;
+        assert prevInputs != null;
+        currentStoredInputShown = prevInputs.pop();
+        return currentStoredInputShown;
     }  
     
     private String pushPrevInput(String input) {
-        assert prevCommands != null;
-        return prevCommands.push(input);
+        assert prevInputs != null;
+        return prevInputs.push(input);
     }
     
     private String popNextInput() {
-        assert nextCommands != null;
-        currentStoredCommandShown = nextCommands.pop();
-        return currentStoredCommandShown;
+        assert nextInputs != null;
+        currentStoredInputShown = nextInputs.pop();
+        return currentStoredInputShown;
     }
     
     private String pushNextInput(String input) {
-        assert nextCommands != null;
-        return nextCommands.push(input);
+        assert nextInputs != null;
+        return nextInputs.push(input);
     }
-    
+
 }

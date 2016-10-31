@@ -16,6 +16,7 @@ import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.SwapTaskListEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.history.InputHistory;
@@ -136,6 +137,13 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getPersonListPanel().switchToUndoneTaskListView();
     }
+    
+    @Subscribe
+    private void handleSwapTaskListEvent(SwapTaskListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.swapTaskList(event.getIsDoneList());
+    }
+    
     //@@author
     /*
     @Subscribe

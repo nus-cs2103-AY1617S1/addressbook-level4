@@ -12,14 +12,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
+
 //@@author A0093960X
 /**
  * JAXB-friendly version of the Person.
  */
 public class XmlAdaptedTask {
-    
-    private static SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
+    private static SimpleDateFormat dateParser = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
     @XmlElement(required = true)
     private String name;
@@ -32,28 +32,29 @@ public class XmlAdaptedTask {
     @XmlElement
     private XmlAdaptedRecurrenceRate recurrenceRate;
 
-
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
-
+    public XmlAdaptedTask() {
+    }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created
+     *            XmlAdaptedPerson
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         saveName(source);
-        savePriority(source); 
-        saveStartDateIfPresent(source);    
+        savePriority(source);
+        saveStartDateIfPresent(source);
         saveEndDateIfPresent(source);
-        saveRecurrenceRateIfPresent(source); 
+        saveRecurrenceRateIfPresent(source);
     }
 
-
     /**
+     * Saves the priority of the source ReadOnlyTask into the XmlAdaptedTask.
+     * 
      * @param source
      */
     private void savePriority(ReadOnlyTask source) {
@@ -61,16 +62,19 @@ public class XmlAdaptedTask {
         priorityValue = priorityString.toLowerCase();
     }
 
-
     /**
+     * Saves the name of the source ReadOnlyTask into the XmlAdaptedTask.
+     * 
      * @param source
      */
     private void saveName(ReadOnlyTask source) {
         name = source.getName().name;
     }
 
-
     /**
+     * Saves the recurrence rate of the source ReadOnlyTask into the
+     * XmlAdaptedTask.
+     * 
      * @param source
      */
     private void saveRecurrenceRateIfPresent(ReadOnlyTask source) {
@@ -80,8 +84,9 @@ public class XmlAdaptedTask {
         }
     }
 
-
     /**
+     * Saves the end date of the source ReadOnlyTask into the XmlAdaptedTask.
+     * 
      * @param source
      */
     private void saveEndDateIfPresent(ReadOnlyTask source) {
@@ -92,8 +97,9 @@ public class XmlAdaptedTask {
         }
     }
 
-
     /**
+     * Saves the start date of the source ReadOnlyTask into the XmlAdaptedTask.
+     * 
      * @param source
      */
     private void saveStartDateIfPresent(ReadOnlyTask source) {
@@ -103,83 +109,95 @@ public class XmlAdaptedTask {
         }
     }
 
-
     /**
-     * @param source
-     * @return
+     * Returns whether the source ReadOnlyTask has a recurrence rate.
+     * 
+     * @param source the ReadOnlyTask to check
+     * @return boolean representing if it has recurrence rate
      */
     private boolean hasRecurrenceRate(ReadOnlyTask source) {
         return source.getRecurrenceRate().isPresent();
     }
 
-
     /**
-     * @param source
-     * @return
+     * Returns whether the source ReadOnlyTask has an end date.
+     * 
+     * @param source the ReadOnlyTask to check
+     * @return boolean representing if it has end date
      */
     private boolean taskHasEndDate(ReadOnlyTask source) {
         return source.getEndDate().isPresent();
     }
 
-
     /**
-     * @param source
-     * @return
+     * Returns whether the source ReadOnlyTask has a start date.
+     * 
+     * @param source the ReadOnlyTask to check
+     * @return boolean representing if it has start date
      */
     private boolean taskHasStartDate(ReadOnlyTask source) {
         return source.getStartDate().isPresent();
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted person object into the model's Person
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
-     * @throws ParseException 
+     * @throws IllegalValueException if there were any data constraints violated
+     *             in the adapted person
+     * @throws ParseException
      */
     public Task toModelType() throws IllegalValueException, ParseException {
         final String nameForModel = retrieveNameFromStoredTask();
         Priority priorityForModel = retrievePriorityFromStoredTask();
-        
+
         Date startDateForModel = retrieveStartDateFromStoredTask();
         Date endDateForModel = retrieveEndDateFromStoredTask();
         RecurrenceRate recurrenceRateForModel = retrieveRecurrenceRateFromStoredTask();
-    
-        return new Task(new Name(nameForModel), startDateForModel, endDateForModel, recurrenceRateForModel, priorityForModel);
+
+        return new Task(new Name(nameForModel), startDateForModel, endDateForModel, recurrenceRateForModel,
+                priorityForModel);
     }
 
-
     /**
-     * @param recurrenceRateForModel
-     * @return
+     * Retrieves the ReccurenceRate associated with the stored task. Returns
+     * null if there is no recurrence rate associated with the stored task.
+     * 
+     * @return the RecurrenceRate associated with the task, or null if no
+     *         recurrence rate is associated with the current stored task.
+     * 
      * @throws IllegalValueException
      * @throws ParseException
      */
-    private RecurrenceRate retrieveRecurrenceRateFromStoredTask()
-            throws IllegalValueException, ParseException {
+    private RecurrenceRate retrieveRecurrenceRateFromStoredTask() throws IllegalValueException, ParseException {
         if (this.recurrenceRate == null) {
             return null;
         }
         return recurrenceRate.toModelType();
     }
 
-
     /**
-     * @param endDateForModel
-     * @return
+     * Retrieves the end date Date associated with the stored task. Returns
+     * null if there is no end date associated with the stored task.
+     * 
+     * @return the end date Date associated with the task, or null if no
+     *         end date is associated with the current stored task.
      * @throws ParseException
      */
     private Date retrieveEndDateFromStoredTask() throws ParseException {
         if (this.endDate == null) {
             return null;
         }
-        
+
         return dateParser.parse(this.endDate);
     }
 
-
     /**
-     * @param startDateForModel
-     * @return
+     * Retrieves the start date Date associated with the stored task. Returns
+     * null if there is no start date associated with the stored task.
+     * 
+     * @return the start date Date associated with the task, or null if no
+     *         start date is associated with the current stored task.
      * @throws ParseException
      */
     private Date retrieveStartDateFromStoredTask() throws ParseException {
@@ -189,14 +207,15 @@ public class XmlAdaptedTask {
         return dateParser.parse(this.startDate);
     }
 
-
     /**
-     * @return
-     * @throws IllegalValueException 
+     * Retrieves the Priority associated with the stored task.
+     * 
+     * @return the Priority associated with the stored task
+     * @throws ParseException
      */
-    private Priority retrievePriorityFromStoredTask() throws IllegalValueException {    
+    private Priority retrievePriorityFromStoredTask() throws IllegalValueException {
         String storedPriority = this.priorityValue;
-        
+
         switch (storedPriority) {
             case "high":
             case "h":
@@ -211,16 +230,18 @@ public class XmlAdaptedTask {
             default:
                 // invalid value
                 throw new IllegalValueException("The priority value stored is invalid");
-        }
+            }
     }
 
-
     /**
-     * @return
+     * Retrieves the Name associated with the stored task.
+     * 
+     * @return the Name associated with the stored task
+     * @throws ParseException
      */
     private String retrieveNameFromStoredTask() {
         assert this.name != null;
-        
+
         return new String(this.name);
     }
 }

@@ -20,24 +20,24 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String PERSON_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public PersonListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyTask> getSelectedPersons() {
-        ListView<ReadOnlyTask> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public List<ReadOnlyTask> getSelectedTasks() {
+        ListView<ReadOnlyTask> taskList = getListView();
+        return taskList.getSelectionModel().getSelectedItems();
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
@@ -168,6 +168,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public int getNumberOfPeople() {
+        //System.out.println(getListView().getItems());
         return getListView().getItems().size();
     }
 }

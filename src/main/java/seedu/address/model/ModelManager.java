@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -7,6 +8,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
+import seedu.address.commons.events.ui.SwapTaskListEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
@@ -15,7 +17,6 @@ import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.RecurrenceRate;
-import seedu.address.model.item.UniqueTaskList;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
@@ -31,8 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredUndoneTasks;
-    private final FilteredList<Task> filteredDoneTasks;
+    private FilteredList<Task> filteredUndoneTasks;
+    private FilteredList<Task> filteredDoneTasks;
     private Boolean isDoneList = false;
     
     /**
@@ -71,6 +72,22 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetDoneData(ReadOnlyTaskManager newData) {
         taskManager.resetDoneData(newData);
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void setTaskManagerUndoneList(ObservableList<Task> list) {
+        taskManager.getUniqueUndoneTaskList().setInternalList(list);
+        filteredUndoneTasks = new FilteredList<>(taskManager.getUndoneTasks());
+        indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new SwapTaskListEvent(false));
+    }
+    
+    @Override
+    public void setTaskManagerDoneList(ObservableList<Task> list) {
+        taskManager.getUniqueDoneTaskList().setInternalList(list);
+        filteredDoneTasks = new FilteredList<>(taskManager.getDoneTasks());
+        indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new SwapTaskListEvent(true));
     }
 
     @Override

@@ -88,7 +88,18 @@
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+  	-fx-padding: 2px ;
+    -fx-background-color: transparent, -fx-background ;
+    -fx-background-insets: 0px, 2px ;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 1.8, 0, 0, 0);
+}
+
+.list-cell:empty {
+    -fx-padding: 2px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+    -fx-border-color: transparent;
 }
 
 .list-cell .label {
