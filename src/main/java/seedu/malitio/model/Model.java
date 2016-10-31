@@ -104,5 +104,8 @@ public interface Model {
     
     /** Indicate the directory of data file has changed. Save data into new directory*/
     void dataFilePathChanged();
+    
+    /** Show all task from beginning of time*/
+	void ShowAllTask();
 
 }
