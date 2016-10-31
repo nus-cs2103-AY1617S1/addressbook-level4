@@ -14,6 +14,7 @@ public class TestTask implements ReadOnlyTask {
     private Deadline deadlines;
     private Priority priority;
     private UniqueTagList tags;
+    private Repeating repeating;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -74,5 +75,14 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public Repeating getRepeating() {
+		return repeating;
+	}
+
+	public void toggleRepeat() {
+		repeating.setRepeating(!repeating.getRepeating());;		
+	}
 }
  

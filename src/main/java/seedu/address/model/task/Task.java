@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private Startline startline;
     private Deadline deadline;
+    private Repeating repeating;
 
     private UniqueTagList tags;
 
@@ -29,6 +30,7 @@ public class Task implements ReadOnlyTask {
         this.deadline = deadline;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.repeating = new Repeating();
     }
 
     /**
@@ -63,13 +65,39 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    @Override
+    public Repeating getRepeating(){
+    	return repeating;
+    }
+        
+    /**
+     * Sets whether this task is overdue.
+     * @param boolean
+     */
+    public void setOverdue(boolean value){
+    	this.getDeadline().setOverdue(value);
+    }
+    
     /**
      * Replaces this person's deadlines with the deadlines in the argument deadline list.
      */
     public void setDeadline(Deadline replacement) {
         deadline = replacement;
     }
-
+    
+    /**
+     * Sets whether the task is repeating.
+     * @param true/false
+     */
+    public void setRepeating(Repeating replacement){
+    	repeating = replacement;
+    }
+    /**
+     * Toggles whether a task is repeating. 
+     */
+    public void toggleRepeat(){
+    	repeating.setRepeating(!repeating.getRepeating());
+    }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.
