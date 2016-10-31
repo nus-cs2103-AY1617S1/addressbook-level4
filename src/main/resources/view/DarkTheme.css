@@ -138,12 +138,10 @@
 .result-display .content {
     -fx-background-color: #050505;
     -fx-text-fill: #EEEEEE;
-	-fx-border-width 0 0 0 0;
 }
 
 .result-display .label {
     -fx-text-fill: #EEEEEE;
-	-fx-border-width 0 0 0 0;
 }
 
 .status-bar .label {
@@ -313,9 +311,9 @@
 
 .text-area {
 	-fx-text-fill: #00CC00;
-	-fx-border-width 0 0 0 0;
+	-fx-border-width: 0 0 0 0;
 }
 
 .result-main-pane .content {
-	-fx-border-width 0 0 0 0;
+	-fx-border-width: 0 0 0 0;
 }
