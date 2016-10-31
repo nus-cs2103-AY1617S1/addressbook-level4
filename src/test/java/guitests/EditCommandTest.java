@@ -50,36 +50,39 @@ public class EditCommandTest extends ToDoListGuiTest {
         execute(targetIndex, currentList, "11/12/2016 1300 to 12/12/2016 1500",td.editedCar);
         
         //invalid priority parameter
-        runEditCommand("edit", 1, "/yolo");
+        runEditCommand(1, "/yolo");
         assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY);
-        
-        //invalid index
-        runEditCommand("edit", currentList.length + 1, "/high");
-        assertResultMessage("The task index provided is invalid");
         
         //cannot edit a done task
         commandBox.runCommand("done 1");
         commandBox.runCommand("ld");
-        runEditCommand("edit", 1, "/high");
+        runEditCommand(1, "/high");
         assertResultMessage("Cannot edit a done task!");
+        
+        //invalid index
+        invalidCommand(currentList.length + 1, "/high");
         
         //edit something from an empty list
         commandBox.runCommand("clear");
-        targetIndex = 1;
-        runEditCommand("edit", targetIndex, "/high");
-        assertResultMessage("The task index provided is invalid");
+        invalidCommand(1, "/high");
 
+    }
+    //invalid index execution
+    private void invalidCommand(int targetIndex, String changes){
+    	 runEditCommand(targetIndex,changes);
+    	 assertResultMessage("The task index provided is invalid");
     }
     
     
-    //slap for successful cases, need to comment
+    
+    //executes successful edits
     private void execute(int targetIndex, TestTask[] currentList, String change, TestTask editedTask){
         assertEditSuccess(targetIndex, currentList,change,editedTask);
         currentList = updateList(currentList,editedTask,targetIndex);
     }
     
     //run commands
-    private void runEditCommand(String command, int index, String change){
+    private void runEditCommand(int index, String change){
     	commandBox.runCommand("edit " + index +" " + change);
     }
     
@@ -94,6 +97,11 @@ public class EditCommandTest extends ToDoListGuiTest {
     	TaskCardHandle EditedCard = taskListPanel.navigateToTask(editedTask.getDetail().details);
         assertMatching(editedTask, EditedCard);
     }
+    
+    //confirm the list now contains all tasks after edit
+    private void compareList(TestTask[] expectedRemainder){
+    	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
+    }
 
     /**
      * Runs the edit command to delete the task at specified index and confirms the result is correct.
@@ -102,7 +110,7 @@ public class EditCommandTest extends ToDoListGuiTest {
      */
     private void assertEditSuccess(int targetIndexOneIndexed, final TestTask[] currentList, String change, TestTask ed) {
     	
-        runEditCommand("edit", targetIndexOneIndexed, change);
+        runEditCommand(targetIndexOneIndexed, change);
         
         //updateList
         TestTask[] expectedRemainder = updateList(currentList,ed,targetIndexOneIndexed);
@@ -111,7 +119,7 @@ public class EditCommandTest extends ToDoListGuiTest {
         checkCard(ed);
 
         //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        compareList(expectedRemainder);
         
         //confirm the result message is correct
         assertResultMessage(MESSAGE_EDITED_TASK_SUCCESS);
