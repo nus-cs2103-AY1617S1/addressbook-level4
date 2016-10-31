@@ -122,6 +122,11 @@ public class ModelManager extends ComponentManager implements Model {
         return flexiTracker.checkBlock(toCheck);
     }
     
+    @Override
+    public boolean checkOverlapEvent(Task toCheck) {
+        return flexiTracker.checkOverlapEvent(toCheck);
+    }
+    
     //@@author
 
     @Override
