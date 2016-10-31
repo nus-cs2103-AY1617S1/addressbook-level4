@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="gridpane" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -39,6 +39,7 @@
                         </HBox>
                         <Label fx:id="start" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$start" />
                         <Label fx:id="address" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$address" />
+                  <Label fx:id="recur" style="-fx-font-size: 120%;" styleClass="cell_small_label" />
                     </children>
                 </VBox>
             <AnchorPane prefHeight="120.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">

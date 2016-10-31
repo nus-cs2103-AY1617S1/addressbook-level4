@@ -44,6 +44,7 @@ public class Recurrence {
     }
     
     public String getRecurFreq() {
+        System.out.println(this.days);
         return this.days;
     }
 
@@ -89,4 +90,5 @@ public class Recurrence {
         this.days = matcher.group("freq");
         this.value = true;
     }
+
 }
