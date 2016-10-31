@@ -21,7 +21,7 @@ import seedu.address.ui.PersonListPanel;
 
 //@@author A0143884W
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the address book.
  */
 public class EditCommand extends Command implements Undoable{
 
@@ -97,7 +97,7 @@ public class EditCommand extends Command implements Undoable{
             model.deleteTask(toEdit);           
             populateUndo();
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     
+            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);     
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

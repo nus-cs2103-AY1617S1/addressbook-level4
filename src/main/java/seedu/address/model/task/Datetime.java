@@ -23,12 +23,9 @@ public class Datetime {
     public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date should be in DD-MM-YYYY format and cannot contain '.' character";
 
     public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
-        		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
+            + "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
     public static final Pattern DATE_CORRECT_REGEX = Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))" + "-" 
-    		+ "(?<month>(0?[1-9]|1[012]))" + "-" + "(?<year>\\d{2}(\\{2}){0,1})" + "(?<time>.*)");
-
-    //public static final String MESSAGE_TIME_CONSTRAINTS = "Time should be in 24hr format. Eg. 2359";
-    //    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
+            + "(?<month>(0?[1-9]|1[012]))" + "-" + "(?<year>\\d{2}(\\{2}){0,1})" + "(?<time>.*)");
 
     private Date start;
     private Date end;
@@ -44,7 +41,7 @@ public class Datetime {
         }
         // check input for '.' characters in date
         else if (input.matches(DATE_INCORRECT_REGEX)){
-    		throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
+            throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
         }
         // empty string preceding "date/" -> convert deadline or event to floating task
         else if (input.equals("")) {
@@ -52,18 +49,18 @@ public class Datetime {
         }
         // natty returns non-empty list if input is parse-able
         else if (!natty.parse(input).isEmpty()) {
-        	// rearrange DD-MM-YY to parse-able MM-DD-YY 
-        	final Matcher matcher = DATE_CORRECT_REGEX.matcher(input.trim());
+            // rearrange DD-MM-YY to parse-able MM-DD-YY 
+            final Matcher matcher = DATE_CORRECT_REGEX.matcher(input.trim());
             if (matcher.matches()){
-        		input = matcher.group("month") + "-" + matcher.group("day") + "-" + matcher.group("year") + matcher.group("time");
-        	}
+                input = matcher.group("month") + "-" + matcher.group("day") + "-" + matcher.group("year") + matcher.group("time");
+            }
             listOfDate = natty.parse(input).get(0).getDates();
         }
         // natty returns empty list if input is not parse-able
         else {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
-        
+
         //floating task
         if (listOfDate == null) {
             start = null;
@@ -71,20 +68,20 @@ public class Datetime {
         }
         //deadline task
         else if (listOfDate.size() == 1){ 	
-        	// date and time were specified 
-        	if (listOfDate.get(0).getSeconds() == 0){
-        		start = listOfDate.get(0);
-        		end = null;
-        	}
-        	// only date was specified; default time will be set to 23:59
-        	else{  		
-        		Date newDate = listOfDate.get(0);
-        		newDate.setHours(23);
-        		newDate.setMinutes(59);
-        		newDate.setSeconds(0);
-        		start = newDate;
-        		end = null;
-        	}
+            // date and time were specified 
+            if (listOfDate.get(0).getSeconds() == 0){
+                start = listOfDate.get(0);
+                end = null;
+            }
+            // only date was specified; default time will be set to 23:59
+            else{  		
+                Date newDate = listOfDate.get(0);
+                newDate.setHours(23);
+                newDate.setMinutes(59);
+                newDate.setSeconds(0);
+                start = newDate;
+                end = null;
+            }
         }
         //event task
         else if (listOfDate.size() == 2){

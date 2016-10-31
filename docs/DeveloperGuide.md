@@ -1,4 +1,5 @@
-//@@author A0139024M
+<!--@@author A0139024M-->
+
 # Developer Guide 
 
 1. [Setting Up](#1-setting-up)

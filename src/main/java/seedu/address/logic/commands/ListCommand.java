@@ -18,9 +18,10 @@ public class ListCommand extends Command {
     public static final String LIST_KEYWORD_ALL = "all";
     public static final String LIST_KEYWORD_OD = "od";
     public static final String LIST_KEYWORD_DONE = "done";
-
     public static final String LIST_KEYWORDS = LIST_KEYWORD_ALL + "/" + LIST_KEYWORD_OD + "/" + LIST_KEYWORD_DONE;
-
+    public static Set<String> keywordsList = new HashSet<>(Arrays.asList(LIST_KEYWORDS.split("/")));
+    
+    
     public static final String MESSAGE_LIST_USAGE = COMMAND_WORD + ": Lists the tasks in the address book.\n"
             + "Parameters: list " + LIST_KEYWORDS + "\n"
             + "Example: " + COMMAND_WORD
@@ -31,7 +32,7 @@ public class ListCommand extends Command {
     private final String keyword;
 
     public ListCommand(String key) throws IllegalValueException{
-        Set<String> keywordsList = new HashSet<>(Arrays.asList(LIST_KEYWORDS.split("/")));
+        
         if (keywordsList.contains(key)) {
             this.keyword = key;
         }
@@ -61,8 +62,8 @@ public class ListCommand extends Command {
             break;
 
         default:
-            //Not possible
             taskStatus = "";
+            assert false : "Missing case in switch statement";
             break;
         }
 
