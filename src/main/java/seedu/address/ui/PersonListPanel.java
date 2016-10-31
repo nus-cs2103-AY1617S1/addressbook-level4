@@ -104,6 +104,10 @@ public class PersonListPanel extends UiPart {
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void clearSelection(){
+    	personListView.getSelectionModel().clearSelection();
+    }
 
     class PersonListViewCell extends ListCell<ReadOnlyTask> {
 

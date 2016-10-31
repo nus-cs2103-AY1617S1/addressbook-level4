@@ -105,6 +105,10 @@ public class UndatedListPanel extends UiPart {
             undatedListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void clearSelection(){
+    	undatedListView.getSelectionModel().clearSelection();
+    }
 
     class UndatedListViewCell extends ListCell<ReadOnlyTask> {
 

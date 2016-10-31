@@ -1,6 +1,6 @@
 
 .error {
-    -fx-background-color: red;
+    -fx-background-color: #cc102c;
 }
 
 
@@ -12,5 +12,5 @@
 }
 
 .tooltip-text {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }

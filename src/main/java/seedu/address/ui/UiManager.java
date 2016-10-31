@@ -115,6 +115,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        clearListSelection();
         if (event.listType == JumpToListRequestEvent.DATED_LIST){
         	mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
         }
@@ -122,6 +123,11 @@ public class UiManager extends ComponentManager implements Ui {
         	mainWindow.getUndatedListPanel().scrollTo(event.targetIndex);
         }
     }
+
+	private void clearListSelection() {
+		mainWindow.getPersonListPanel().clearSelection();
+        mainWindow.getUndatedListPanel().clearSelection();
+	}
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
