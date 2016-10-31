@@ -303,7 +303,6 @@ public class TaskCategory extends UiPart {
         assert taskObservableList != null;
     	List<Integer> countMap = new ArrayList<Integer>();
         for (ReadOnlyTask t:taskObservableList) {
-        	logger.info("Cycle 1");
             countMap.add(getTaskTimeState(t));        
         }
         return countMap;

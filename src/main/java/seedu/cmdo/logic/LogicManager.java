@@ -43,8 +43,11 @@ public class LogicManager extends ComponentManager implements Logic {
         	logger.info("Snapshot taken of " + model.getToDoList().toString());
         }
         // Pop redo stack unless command is undo
-        if (!(command.getClass().equals(UndoCommand.class) && command.getClass().equals(RedoCommand.class))) {
+        if (!command.getClass().equals(UndoCommand.class) && 
+        		!command.getClass().equals(RedoCommand.class)) {
+        	System.out.println(command.getClass().toString());
         	undoer.clearRedoStack();
+        	logger.info("Redo stack cleared.");
         }
         command.setData(model);
         return command.execute();

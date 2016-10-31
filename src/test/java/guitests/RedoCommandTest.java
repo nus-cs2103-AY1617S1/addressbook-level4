@@ -16,19 +16,17 @@ public class RedoCommandTest extends ToDoListGuiTest {
         
         TestTask[] currentList = td.getTypicalTasks();
         
-        //redo up to 5 times
+        // redo up to 5 times
         for(int i=0;i<5;i++){
         	TestTask taskToAdd = td.car;
         	commandBox.runCommand(taskToAdd.getAddCommand());
         	currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         }
-        
         for(int y=0;y<5;y++)
         	commandBox.runCommand("undo");
         
         for(int y=0;y<4;y++)
-            commandBox.runCommand("redo");
-        
+            commandBox.runCommand("redo"); 
         assertRedoSuccess(currentList);
         
         //nothing to redo
@@ -55,11 +53,10 @@ public class RedoCommandTest extends ToDoListGuiTest {
         TestTask editedTask = td.editedGrocery;
         commandBox.runCommand("undo");
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
-        System.out.println(currentList[0].getDetail());
         assertRedoSuccess(currentList);
 
         //redo undo of edit the priority of the last task in the list
-        targetIndex = currentList.length;
+        targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " /low");
         editedTask = td.editedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
@@ -75,7 +72,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertRedoSuccess(currentList);
         
         //redo undo of change tags of last task
-        targetIndex = currentList.length;
+        targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " -dangerous");
         editedTask = td.taggedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
