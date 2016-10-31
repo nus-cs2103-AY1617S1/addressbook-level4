@@ -1,6 +1,5 @@
 package tars.logic.parser;
 
-//@@author A0124333U
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
@@ -13,6 +12,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Confirm command parser
+ * 
+ * @@author A0124333U
+ *
+ */
 public class ConfirmCommandParser extends CommandParser {
 
     @Override

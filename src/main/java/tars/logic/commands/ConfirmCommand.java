@@ -55,38 +55,6 @@ public class ConfirmCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult undo() {
-        try {
-            model.addRsvTask(rsvTask);
-            model.deleteTask(toConfirm);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
-        } catch (TaskNotFoundException e) {
-            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
-        }
-        
-        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, ""));
-    }
-
-    @Override
-    public CommandResult redo() {
-        try {
-            model.deleteRsvTask(rsvTask);
-            model.addTask(toConfirm);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(
-                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
-        } catch (RsvTaskNotFoundException e) {
-            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
-                    Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
-        }
-
-        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, ""));
-    }
-
-    @Override
     public CommandResult execute() {
         assert model != null;
         UnmodifiableObservableList<RsvTask> lastShownList = model.getFilteredRsvTaskList();
@@ -137,6 +105,42 @@ public class ConfirmCommand extends UndoableCommand {
         }
 
         return summary;
+    }
+    
+    // @@author
+    
+    //@@author A0139924W
+    @Override
+    public CommandResult undo() {
+        try {
+            model.addRsvTask(rsvTask);
+            model.deleteTask(toConfirm);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(
+                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+        }
+        
+        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, ""));
+    }
+
+    // @@author A0139924W
+    @Override
+    public CommandResult redo() {
+        try {
+            model.deleteRsvTask(rsvTask);
+            model.addTask(toConfirm);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+        } catch (RsvTaskNotFoundException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
+        }
+
+        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, ""));
     }
 
 }

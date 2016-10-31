@@ -16,6 +16,9 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.IncorrectCommand;
 import tars.model.task.TaskQuery;
 
+/**
+ * Find command parser
+ */
 public class FindCommandParser extends CommandParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
@@ -68,7 +71,7 @@ public class FindCommandParser extends CommandParser {
         taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING)
                 .replaceAll("( )+", EMPTY_SPACE_ONE));
         taskQuery.createDateTimeQuery(DateTimeUtil
-                .getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)));
+                .parseStringToDateTime(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)));
         taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING));
         if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty()
                 && !argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {

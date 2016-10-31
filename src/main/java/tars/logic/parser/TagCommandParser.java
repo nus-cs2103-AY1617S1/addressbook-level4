@@ -9,13 +9,18 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.TagCommand;
 
+/**
+ * Tag command parser
+ * 
+ * @@author A0139924W
+ *
+ */
 public class TagCommandParser extends CommandParser {
     private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
 
     /**
      * Parses arguments in the context of the tag command.
      * 
-     * @@author A0139924W
      * @param args full command args string
      * @return the prepared command
      */

@@ -35,16 +35,13 @@ public class DateTime implements Comparable<DateTime> {
     /**
      * Default constructor
      */
-    public DateTime() {
-    }
+    public DateTime() {}
 
     /**
      * Validates given task dateTime.
      *
-     * @throws DateTimeException
-     *             if given dateTime string is invalid.
-     * @throws IllegalDateException
-     *             end date occurring before start date.
+     * @throws DateTimeException if given dateTime string is invalid.
+     * @throws IllegalDateException end date occurring before start date.
      */
     public DateTime(String startDate, String endDate) throws DateTimeException, IllegalDateException {
         if (endDate != null && endDate.length() > DATETIME_SIZE_EMPTY) {

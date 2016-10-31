@@ -13,7 +13,6 @@ import tars.model.task.DateTime.IllegalDateException;
 
 /**
  * @@author A0124333U
- *
  */
 public class TaskQuery extends Task {
 

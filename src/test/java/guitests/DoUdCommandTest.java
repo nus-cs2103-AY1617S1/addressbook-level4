@@ -1,9 +1,5 @@
 package guitests;
 
-/**
- * @@author A0121533W
- */
-
 import org.junit.Test;
 import tars.commons.exceptions.IllegalValueException;
 import tars.logic.commands.DoCommand;
@@ -15,7 +11,9 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.*;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-
+/**
+ * @@author A0121533W
+ */
 public class DoUdCommandTest extends TarsGuiTest {
 
     @Test

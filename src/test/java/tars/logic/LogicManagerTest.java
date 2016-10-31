@@ -154,9 +154,7 @@ public class LogicManagerTest {
         assertEquals(expectedTars, latestSavedTars);
     }
 
-    /**
-     * @@author A0140022H
-     */
+    //@@author A0140022H
     private void assertCommandBehaviorForList(String inputCommand, String expectedMessage, ReadOnlyTars expectedTars,
             List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
@@ -218,9 +216,7 @@ public class LogicManagerTest {
 
     // ---------------- Tests for empty undo history ----------------
 
-    /**
-     * @@author A0139924W
-     */
+    //@@author A0139924W
     @Test
     public void execute_undo_emptyCmdHistStack() throws Exception {
         assertCommandBehavior(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_EMPTY_UNDO_CMD_HIST);
@@ -228,9 +224,6 @@ public class LogicManagerTest {
 
     // ---------------- Tests for empty redo history ----------------
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_redo_emptyCmdHistStack() throws Exception {
         assertCommandBehavior(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
@@ -277,9 +270,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_add_unsuccessful() throws Exception {
         // setup expectations
@@ -308,9 +298,6 @@ public class LogicManagerTest {
                 expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_del_successful() throws Exception {
         // setup expectations
@@ -345,9 +332,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_del_unsuccessful() throws Exception {
         // setup expectations
@@ -383,9 +367,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_edit_successful() throws Exception {
         // setup expectations
@@ -427,9 +408,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_rsv_successful() throws Exception {
         // setup expectations
@@ -460,9 +438,6 @@ public class LogicManagerTest {
 
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_rsv_unsuccessful() throws Exception {
         // setup expectations
@@ -493,9 +468,6 @@ public class LogicManagerTest {
         
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_rsv_del_successful() throws Exception {
         // setup expectations
@@ -529,9 +501,6 @@ public class LogicManagerTest {
         
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_rsv_del_unsuccessful() throws Exception {
         // setup expectations
@@ -565,9 +534,6 @@ public class LogicManagerTest {
         
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_confirm_successful() throws Exception {
         // setup expectations
@@ -601,9 +567,6 @@ public class LogicManagerTest {
 
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_confirm_unsuccessful() throws Exception {
         // setup expectations
@@ -639,9 +602,6 @@ public class LogicManagerTest {
 
     }
     
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_tag_edit_successful() throws Exception {
         // setup expectations
@@ -683,9 +643,6 @@ public class LogicManagerTest {
                 expectedTars.getTaskList());
     }
     
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_undo_and_redo_tag_del_successful() throws Exception {
      // setup expectations
@@ -719,6 +676,8 @@ public class LogicManagerTest {
                 String.format(RedoCommand.MESSAGE_SUCCESS, ""), expectedTars,
                 expectedTars.getTaskList());
     }
+    
+    //@@author
 
     // ---------------- Tests for add command ----------------
 
@@ -770,9 +729,7 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
+    //@@author A0139924W
     @Test
     public void execute_add_floatingTaskSuccessful() throws Exception {
         // setup expectations
@@ -795,26 +752,17 @@ public class LogicManagerTest {
 
     // ---------------- Tests for tag command ----------------
     
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_invalidPrefix() throws Exception {
         assertCommandBehavior("tag /gg", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_invalidFormat() throws Exception {
         assertCommandBehavior("tag ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         assertCommandBehavior("tag RANDOM_TEXT", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_invalidIndex() throws Exception {
         // EP: negative number
@@ -839,9 +787,6 @@ public class LogicManagerTest {
         assertCommandBehavior("tag /del bbb", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_emptyParameters() throws Exception {
         assertCommandBehavior("tag", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
@@ -852,18 +797,12 @@ public class LogicManagerTest {
         assertCommandBehavior("tag -del  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
     
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_list_emptyTagListsuccessful() throws Exception {
         // execute command and verify result
         assertCommandBehavior("tag /ls", new Formatter().formatTags(model.getUniqueTagList()));
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_list_filledTagListsuccessful() throws Exception {
         // setup expectations
@@ -879,9 +818,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_rename_successful() throws Exception {
         // setup expectations
@@ -904,9 +840,6 @@ public class LogicManagerTest {
                 expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_rename_duplicate() throws Exception {
         // setup expectations
@@ -921,9 +854,6 @@ public class LogicManagerTest {
         assertCommandBehavior("tag /e 1 tag2", MESSAGE_DUPLICATE_TAG, expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_rename_invalidIndex() throws Exception {
         // setup expectations
@@ -942,9 +872,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
     
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_rename_invalidTagName() throws Exception {
         // setup expectations
@@ -960,9 +887,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_del_successful() throws Exception {
         // setup expectations
@@ -983,9 +907,6 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
-    /**
-     * @@author A0139924W
-     */
     @Test
     public void execute_tag_del_invalidIndex() throws Exception {
         // setup expectations
@@ -1003,10 +924,10 @@ public class LogicManagerTest {
         assertCommandBehavior("tag /del 4", MESSAGE_INVALID_TAG_DISPLAYED_INDEX, expectedTars,
                 expectedTars.getTaskList());
     }
+    
+    //@@author
 
-    /**
-     * @@author A0140022H
-     */
+    //@@author A0140022H
     @Test
     public void execute_add_recurring() throws Exception {
         // setup expectations
@@ -1216,9 +1137,7 @@ public class LogicManagerTest {
         }
     }
 
-    /**
-     * @@author A0124333U
-     */
+    //@@author A0124333U
     private void assertInvalidInputBehaviorForEditCommand(String inputCommand, String expectedMessage)
             throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1576,9 +1495,11 @@ public class LogicManagerTest {
     }
 
     /**
+     * 
+     * Logic tests for edit command
+     * 
      * @@author A0124333U
      * 
-     *          logic tests for edit command
      */
     @Test
     public void execute_edit_invalidArgsFormatErrorMessageShown() throws Exception {
@@ -1683,10 +1604,9 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Tars expectedTars = helper.fillModelAndTarsForFreeCommand();
         
-        
-
-        assertCommandBehavior("free 01/11/2016", String.format(FreeCommand.MESSAGE_FREE_DAY, "Tuesday, 01/11/2016"),
-                expectedTars, expectedTars.getTaskList());
+        assertCommandBehavior("free 01/11/2016",
+                String.format(FreeCommand.MESSAGE_FREE_DAY, "Tuesday, 01/11/2016"), expectedTars,
+                expectedTars.getTaskList());
     }
     
     @Test

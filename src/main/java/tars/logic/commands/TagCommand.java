@@ -33,7 +33,7 @@ public class TagCommand extends UndoableCommand {
     private static final Prefix listPrefix = new Prefix("/ls");
     private static final Prefix editPrefix = new Prefix("/e");
     private static final Prefix deletePrefix = new Prefix("/del");
-    
+
     private ReadOnlyTag toBeRenamed;
     private ReadOnlyTag toBeDeleted;
     private Tag newTag;
@@ -84,10 +84,11 @@ public class TagCommand extends UndoableCommand {
             return new CommandResult(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         }
 
-        toBeRenamed = model.getUniqueTagList().get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+        toBeRenamed =
+                model.getUniqueTagList().get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
         newTag = new Tag(newTagName);
         model.renameTasksWithNewTag(toBeRenamed, newTag);
-        
+
         model.getUndoableCmdHist().push(this);
         return new CommandResult(String.format(
                 String.format(MESSAGE_RENAME_TAG_SUCCESS, toBeRenamed.getAsText(), newTagName)));
@@ -104,7 +105,7 @@ public class TagCommand extends UndoableCommand {
         toBeDeleted =
                 model.getUniqueTagList().get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
         editedTaskList = model.removeTagFromAllTasks(toBeDeleted);
-        
+
         model.getUndoableCmdHist().push(this);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, toBeDeleted));
     }

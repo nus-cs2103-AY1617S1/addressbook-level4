@@ -7,13 +7,17 @@ import tars.logic.commands.CdCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Change directory command parser
+ * 
+ * @author A0124333U
+ */
 public class CdCommandParser extends CommandParser {
     private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
     /**
      * Parses arguments in the context of the change storage file directory (cd) command.
      * 
-     * @@author A0124333U
      * @param args full command args string
      * @return the prepared command
      */
@@ -34,7 +38,6 @@ public class CdCommandParser extends CommandParser {
     /**
      * Checks if new file type is a valid file type
      * 
-     * @@author A0124333U
      * @param args
      * @return Boolean variable of whether the file type is valid
      **/

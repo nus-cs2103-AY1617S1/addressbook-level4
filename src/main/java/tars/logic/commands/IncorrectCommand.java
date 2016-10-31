@@ -1,6 +1,5 @@
 package tars.logic.commands;
 
-
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
@@ -19,4 +18,3 @@ public class IncorrectCommand extends Command {
     }
 
 }
-

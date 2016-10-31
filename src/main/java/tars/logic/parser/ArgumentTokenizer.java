@@ -17,8 +17,9 @@ import java.util.TreeMap;
  * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
  * 3. A prefix need to have leading and trailing spaces e.g. the {@code /d today at 3pm /t tag1} in the above example<br>
  * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code /t} in the above example.<br>
+ * 
+ * @@author A0139924W
  */
-
 public class ArgumentTokenizer {
     private static final int INVALID_POS = -1;
     private static final int START_INDEX_POS = -1;
@@ -145,23 +146,22 @@ public class ArgumentTokenizer {
         return Optional.of(args.substring(0, prefixPosMap.firstKey()).trim());
     }
 
-    private Set<String> getMultipleFromArgs(String tagArguments, Prefix prefix) {
-        // no tagArguments
-        if (tagArguments.isEmpty()) {
+    private Set<String> getMultipleFromArgs(String multipleArguments, Prefix prefix) {
+        if (multipleArguments.isEmpty()) {
             return Collections.emptySet();
         }
 
-        tagArguments = tagArguments.trim();
-        
+        multipleArguments = multipleArguments.trim();
+
         // replace first delimiter prefix, then split
         List<String> multipleArgList = Arrays
-                .asList(tagArguments.replaceFirst(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING)
+                .asList(multipleArguments.replaceFirst(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING)
                         .split(EMPTY_SPACE_ONE + prefix.value + EMPTY_SPACE_ONE));
-        
-        for(int i = 0; i < multipleArgList.size(); i++) {
+
+        for (int i = 0; i < multipleArgList.size(); i++) {
             multipleArgList.set(i, multipleArgList.get(i).trim());
         }
-        
+
         return new HashSet<>(multipleArgList);
     }
     

@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.model.task.rsv.RsvTask;
 
-
 /**
  * Panel containing the list of reserved tasks.
  */

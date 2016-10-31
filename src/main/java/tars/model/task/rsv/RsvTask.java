@@ -11,7 +11,6 @@ import tars.model.task.Name;
  * 
  * @@author A0124333U
  */
-
 public class RsvTask {
 
     protected Name name;

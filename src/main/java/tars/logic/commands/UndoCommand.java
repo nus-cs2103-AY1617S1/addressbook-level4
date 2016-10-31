@@ -6,7 +6,7 @@ package tars.logic.commands;
  * @@author A0139924W
  */
 public class UndoCommand extends Command {
-    
+
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_SUCCESS = "Undo successfully.\n%1$s";
@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
 
         UndoableCommand command = (UndoableCommand) model.getUndoableCmdHist().pop();
         model.getRedoableCmdHist().push(command);
-        
+
         return command.undo();
     }
 

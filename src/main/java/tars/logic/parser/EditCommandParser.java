@@ -11,6 +11,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.IncorrectCommand;
 
+/**
+ * Edit command parser
+ * 
+ * @@author A0121533W
+ *
+ */
 public class EditCommandParser extends CommandParser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
@@ -18,7 +24,6 @@ public class EditCommandParser extends CommandParser {
     /**
      * Parses arguments in the context of the edit task command.
      * 
-     * @@author A0121533W
      * @param args full command args string
      * @return the prepared command
      */

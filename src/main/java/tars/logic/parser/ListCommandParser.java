@@ -12,6 +12,12 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 
+/**
+ * List command parser
+ * 
+ * @@author @A0140022H
+ *
+ */
 public class ListCommandParser extends CommandParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
@@ -19,7 +25,6 @@ public class ListCommandParser extends CommandParser {
     /**
      * Parses arguments in the context of the list task command.
      *
-     * @@author @A0140022H
      * @param args full command args string
      * @return the prepared command
      */

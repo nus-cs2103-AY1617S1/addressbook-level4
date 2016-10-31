@@ -20,9 +20,6 @@ import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to tars.
- * 
- * @@author A0139924W
- * @@author A0140022H
  */
 public class AddCommand extends UndoableCommand {
 
@@ -58,10 +55,9 @@ public class AddCommand extends UndoableCommand {
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException
-     *             if any of the raw values are invalid
-     * @throws DateTimeException
-     *             if given dateTime string is invalid.
+     * @@author A0140022H
+     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws DateTimeException if given dateTime string is invalid.
      */
     public AddCommand(String name, String[] dateTime, String priority, Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {
@@ -130,6 +126,7 @@ public class AddCommand extends UndoableCommand {
 
     }
 
+    // @@author A0139924W
     @Override
     public CommandResult undo() {
         assert model != null;
@@ -137,13 +134,15 @@ public class AddCommand extends UndoableCommand {
             for (Task toAdd : toAddArray) {
                 model.deleteTask(toAdd);
             }
-            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
-        } catch (TaskNotFoundException e) {
             return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+                    String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
 
+    // @@author A0139924W
     @Override
     public CommandResult redo() {
         assert model != null;
@@ -153,7 +152,8 @@ public class AddCommand extends UndoableCommand {
             }
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, messageSummary()));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
 

@@ -3,6 +3,8 @@ package tars.logic.parser;
 /**
  * A prefix that marks the beginning of an argument
  * e.g. '/t' in 'add CS2103 Project Meeting /t meeting'
+ * 
+ * @@author A0139924W
  */
 public class Prefix {
     public final String value;
