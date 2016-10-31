@@ -27,13 +27,6 @@ public class HelpCommand extends Command {
             + "For example, getting help for add command: " + COMMAND_WORD + " add"
             + "\n";
     
-    public static final String UNKNOWN_HELP_COMMAND = 
-            Messages.MESSAGE_UNKNOWN_COMMAND + " - \"%1$s\" \n"
-            + "\n"
-            + "All available commands: %2$s \n"
-            + "\n"
-            + MESSAGE_USAGE;
-    
     private Command toHelp;
     
     public HelpCommand() {}
@@ -49,8 +42,7 @@ public class HelpCommand extends Command {
         if (match.isPresent()) {
             toHelp = match.get();
         } else { // User specified an unknown command.
-            String allCmds = CommandUtil.getInstance().commandsToString();
-            throw new IllegalValueException(String.format(UNKNOWN_HELP_COMMAND, cmdToShow, allCmds));
+            throw new IllegalValueException(String.format(Messages.MESSAGE_UNKNOWN_COMMAND, cmdToShow));
         }
     }
     

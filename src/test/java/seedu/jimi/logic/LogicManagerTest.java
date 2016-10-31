@@ -147,19 +147,19 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         
         /* exit and clear should have the user type the full command word for it to be valid */
         unknownCommand = "ex";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "exi";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "cl";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "cle";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
         unknownCommand = "clea";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, String.format(MESSAGE_UNKNOWN_COMMAND, unknownCommand));
     }
 
     @Test
@@ -197,10 +197,8 @@ public class LogicManagerTest {
     
     @Test
     public void execute_help_unknown_cmd() throws Exception {
-        String allCmds = CommandUtil.getInstance().commandsToString();        
         String invalidCmd = "asdasdasdasd";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                String.format(HelpCommand.UNKNOWN_HELP_COMMAND, invalidCmd, allCmds));
+        String expectedMessage = String.format(MESSAGE_UNKNOWN_COMMAND, invalidCmd);
         
         helpShown = false;
         assertCommandBehavior("help " + invalidCmd, expectedMessage);
