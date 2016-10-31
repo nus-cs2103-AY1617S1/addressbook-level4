@@ -30,7 +30,7 @@ public class EditCommand extends Command {
     + ": Edits the task identified by the index number used in the last task listing.\n"
     + "Parameters: INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]\n"
     + "Example: " + COMMAND_WORD
-    + " 4 name, do new homework";
+    + " 4 tag, school";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edit Task: %1$s";
     
@@ -113,12 +113,11 @@ public class EditCommand extends Command {
             case EDIT_TAG:
                 try{
                     for (String tagName : this.toEditTags) {
-                        System.out.println(tagName);
                         tagSet.add(new Tag(tagName));
                     }
                     toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus());
                 }catch(IllegalValueException e){
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    return new CommandResult("Invalid tag format");
                 }
                 break;
             default:

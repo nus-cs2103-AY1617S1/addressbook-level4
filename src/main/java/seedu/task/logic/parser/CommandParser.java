@@ -246,7 +246,9 @@ public class CommandParser {
         if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
             start.append(time.getFirstDate().toString());
             start.append(" ");
-            start.append(time.getFirstTime().toString());
+            start.append(time.getFirstTime().getHour());
+            start.append(":");
+            start.append(time.getFirstTime().getMinute());
         }
         if(start.length() == 0){
             return new IncorrectCommand("Incorrect time format");
@@ -258,6 +260,7 @@ public class CommandParser {
         }
         
     }
+    
     
     
     
@@ -274,10 +277,14 @@ public class CommandParser {
         if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
             start.append(time.getFirstDate().toString());
             start.append(" ");
-            start.append(time.getFirstTime().toString());
+            start.append(time.getFirstTime().getHour());
+            start.append(":");
+            start.append(time.getFirstTime().getMinute());
             end.append(time.getSecondDate().toString());
             end.append(" ");
-            end.append(time.getSecondTime().toString());
+            end.append(time.getSecondTime().getHour());
+            end.append(":");
+            end.append(time.getSecondTime().getMinute());
         }
         if(start.length() == 0 || end.length() == 0){
             return new IncorrectCommand("Incorrect time format");
@@ -299,12 +306,16 @@ public class CommandParser {
         StringBuilder start = new StringBuilder();
         StringBuilder end = new StringBuilder();
         if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
-            start.append(time.getFirstDate().toString());
-            start.append(" ");
-            start.append(time.getFirstTime().toString());
-            end.append(time.getSecondDate().toString());
-            end.append(" ");
-            end.append(time.getSecondTime().toString());
+        	 start.append(time.getFirstDate().toString());
+             start.append(" ");
+             start.append(time.getFirstTime().getHour());
+             start.append(":");
+             start.append(time.getFirstTime().getMinute());
+             end.append(time.getSecondDate().toString());
+             end.append(" ");
+             end.append(time.getSecondTime().getHour());
+             end.append(":");
+             end.append(time.getSecondTime().getMinute());
         }
         if(start.length() == 0 || end.length() == 0){
             return new IncorrectCommand("Incorrect time format");
@@ -331,15 +342,21 @@ public class CommandParser {
         if(deadlineTime.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
             deadString.append(deadlineTime.getFirstDate().toString());
             deadString.append(" ");
-            deadString.append(deadlineTime.getFirstTime().toString());
+            deadString.append(deadlineTime.getFirstTime().getHour());
+            deadString.append(":");
+            deadString.append(deadlineTime.getFirstTime().getMinute());
         }
         if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
-            start.append(time.getFirstDate().toString());
+        	start.append(time.getFirstDate().toString());
             start.append(" ");
-            start.append(time.getFirstTime().toString());
+            start.append(time.getFirstTime().getHour());
+            start.append(":");
+            start.append(time.getFirstTime().getMinute());
             end.append(time.getSecondDate().toString());
             end.append(" ");
-            end.append(time.getSecondTime().toString());
+            end.append(time.getSecondTime().getHour());
+            end.append(":");
+            end.append(time.getSecondTime().getMinute());
         }
         if(start.length() == 0 || end.length() == 0 || deadString.length() == 0){
             return new IncorrectCommand("Incorrect time format");
@@ -391,9 +408,11 @@ public class CommandParser {
             case EDIT_END_TIME:
             case EDIT_DEADLINE:
                 if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
-                    start.append(time.getFirstDate().toString());
+                	start.append(time.getFirstDate().toString());
                     start.append(" ");
-                    start.append(time.getFirstTime().toString());
+                    start.append(time.getFirstTime().getHour());
+                    start.append(":");
+                    start.append(time.getFirstTime().getMinute());
                 }
                 if(start.length() == 0){
                     return new IncorrectCommand("Incorrect time format");
