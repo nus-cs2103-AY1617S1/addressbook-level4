@@ -6,6 +6,7 @@ import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
 import seedu.dailyplanner.commons.util.StringUtil;
+import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
@@ -23,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Task> filteredPersons;
-
+    private final HistoryManager history;
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        history = new HistoryManager(); 
     }
 
     public ModelManager() {
@@ -46,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        history = new HistoryManager(); 
     }
 
     @Override
@@ -185,4 +188,10 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+	@Override
+	public HistoryManager getHistory() {
+		
+		return history;
+	}
     }

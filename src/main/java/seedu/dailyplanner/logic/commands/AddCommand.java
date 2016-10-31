@@ -7,6 +7,7 @@ import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.*;
+import seedu.dailyplanner.history.*;
 
 /**
  * Adds a person to the address book.
@@ -44,6 +45,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
 
     @Override
     public CommandResult execute() {
@@ -56,5 +58,5 @@ public class AddCommand extends Command {
         }
 
     }
-
+    
 }
