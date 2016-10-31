@@ -12,7 +12,9 @@ import seedu.address.model.task.Task;
 
 public class TaskCard extends UiPart{
 
-    private static final String FXML = "TaskListCard.fxml";
+
+
+
 
     @FXML
     private HBox cardPane;
@@ -27,7 +29,21 @@ public class TaskCard extends UiPart{
 
     private Task task;
     private int displayedIndex;
-
+    
+    private static final String OVERDUE_CARDPANE_CSS = "-fx-background-color: rgba(214, 14, 14, 0.85);";//"-fx-background-color: #d60e0e; -fx-background-opacity: 0.85;";
+    private static final String OVERDUE_SECONDDATE_CSS = "-fx-text-fill: rgba(225, 242, 225, 1.0);";//"-fx-text-fill: #e1f2e1;";
+    private static final String OVERDUE_FIRSTDATE_CSS = OVERDUE_SECONDDATE_CSS;
+    private static final String OVERDUE_ID_CSS = "-fx-text-fill: white;";
+    private static final String OVERDUE_DESCRIPTION_CSS = OVERDUE_ID_CSS;
+    
+    private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(9, 198, 9, 0.85);";//"-fx-background-color: #09c609; -fx-background-opacity: 0.85;";
+    private static final String FAVORITE_SECONDDATE_CSS = OVERDUE_SECONDDATE_CSS;
+    private static final String FAVORITE_FIRSTDATE_CSS = OVERDUE_FIRSTDATE_CSS;
+    private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";//"-fx-text-fill: #006600;";
+    private static final String FAVORITE_DESCRIPTION_CSS = FAVORITE_ID_CSS;
+    
+    private static final String FXML = "TaskListCard.fxml";
+    
     public TaskCard(){
     }
 
@@ -75,19 +91,21 @@ public class TaskCard extends UiPart{
     }
     
     // Set the colors for overdue tasks
-    public void setOverdueColors() {
-    	description.setStyle("-fx-text-fill: white;");
-    	id.setStyle("-fx-text-fill: white;");
-    	first_date.setStyle("-fx-text-fill: #e1f2e1;");
-    	second_date.setStyle("-fx-text-fill: #e1f2e1;");
+    public void setOverdueStyle() {
+        cardPane.setStyle(OVERDUE_CARDPANE_CSS);
+    	description.setStyle(OVERDUE_DESCRIPTION_CSS);
+    	id.setStyle(OVERDUE_ID_CSS);
+    	first_date.setStyle(OVERDUE_FIRSTDATE_CSS);
+    	second_date.setStyle(OVERDUE_SECONDDATE_CSS);
     }
     
     // Set the colors for pinned tasks
-    public void setPinnedColors() {
-    	description.setStyle("-fx-text-fill: #006600;");
-    	id.setStyle("-fx-text-fill: #006600;");
-    	first_date.setStyle("-fx-text-fill: #e1f2e1;");
-    	second_date.setStyle("-fx-text-fill: #e1f2e1;");
+    public void setPinnedStyle() {
+        cardPane.setStyle(FAVORITE_CARDPANE_CSS);
+    	description.setStyle(FAVORITE_DESCRIPTION_CSS);
+    	id.setStyle(FAVORITE_ID_CSS);
+    	first_date.setStyle(FAVORITE_FIRSTDATE_CSS);
+    	second_date.setStyle(FAVORITE_SECONDDATE_CSS);
     }
 
     public HBox getLayout() {
