@@ -116,10 +116,14 @@ public class CommandBox extends UiPart {
             if(event.getCode() == KeyCode.UP && event.isControlDown() == false) {
             	String previousCommand = logic.getPreviousCommand();
             	commandTextField.setText(previousCommand);
+            	setCaretPositionToEnd();
+            	event.consume();
             	
             } else if(event.getCode() == KeyCode.DOWN && event.isControlDown() == false) {
             	String nextCommand = logic.getNextCommand();
             	commandTextField.setText(nextCommand);
+            	setCaretPositionToEnd();
+            	event.consume();
             	
             } else if(event.getCode() == KeyCode.TAB) {
             	// If we've gotten a totally new value in the text box - set the autocomplete souce

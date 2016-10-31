@@ -50,7 +50,6 @@ public class ListTaskCommand extends TaskCommand {
 
         }
         if(argument.equals("complete") || argument.equals("completed")){
-            EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.ListComplete));
         	model.filterCompletedTasks();
         	if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NO_COMPLETED_TASKS);
@@ -58,7 +57,6 @@ public class ListTaskCommand extends TaskCommand {
         	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
         }
         else{
-            EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.List));
             model.clearTasksFilter();
             if(model.getCurrentFilteredTasks().size() == 0) {
                 return new CommandResult(MESSAGE_NOTASKS);

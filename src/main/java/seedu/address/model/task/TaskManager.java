@@ -11,26 +11,28 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.ui.FilterLabelChangeEvent;
+import seedu.address.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.taskcommands.AddAliasCommand;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.ClearTaskCommand;
 import seedu.address.logic.commands.taskcommands.CompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
-import seedu.address.logic.commands.taskcommands.PinTaskCommand;
 import seedu.address.logic.commands.taskcommands.FindTaskCommand;
 import seedu.address.logic.commands.taskcommands.ListTaskCommand;
+import seedu.address.logic.commands.taskcommands.PinTaskCommand;
 import seedu.address.logic.commands.taskcommands.RedoTaskCommand;
 import seedu.address.logic.commands.taskcommands.SetStorageCommand;
 import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
 import seedu.address.logic.commands.taskcommands.UndoTaskCommand;
 import seedu.address.logic.commands.taskcommands.UnpinTaskCommand;
-import seedu.address.logic.parser.ParserSelector;
 import seedu.address.model.Alias;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.UserPrefs;
@@ -330,6 +332,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 
 	@Override
 	public void filterTasks(Set<String> keywords) {
+	    EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.Find));
 	    filterTasks(new PredicateExpression(new NameQualifier(keywords)));
 	}
 	
@@ -340,11 +343,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterUncompletedTasks() {
+	    EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.List));
 		filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
 	@Override
 	public void clearTasksFilter() {
+	    EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.List));
 	    filteredTasks.setPredicate(p -> !p.isCompleted());
 	}
 	
@@ -358,6 +363,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	
 	@Override
 	public void filterCompletedTasks(){
+	    EventsCenter.getInstance().post(new FilterLabelChangeEvent(COMMANDTYPE.ListComplete));
 		filteredTasks.setPredicate(p -> p.isCompleted());
 	}
 
