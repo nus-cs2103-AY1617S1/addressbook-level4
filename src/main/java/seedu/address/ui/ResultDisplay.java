@@ -38,6 +38,15 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.setText("");
         resultDisplayArea.setWrapText(true);
         resultDisplayArea.textProperty().bind(displayed);
+        resultDisplayArea.setPrefHeight(120);
+        
+        resultDisplayArea.textProperty().addListener( e -> {
+            int newHeight = resultDisplayArea.getText().toString().split("\\\n").length * 30;
+            resultDisplayArea.setMinHeight( 90+ newHeight);
+            resultDisplayArea.setPrefHeight(90+ newHeight);
+            resultDisplayArea.setMaxHeight( 90+newHeight);
+        });
+        
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
