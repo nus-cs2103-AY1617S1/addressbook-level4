@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- @@author A0093960X -->
-
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -12,16 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="131.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="128.0" stroke="BLACK" strokeType="INSIDE" width="8.0">
+      <Rectangle fx:id="priority" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="63.0" stroke="BLACK" strokeType="INSIDE" width="7.0">
          <HBox.margin>
             <Insets top="1.0" />
          </HBox.margin>
       </Rectangle>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="342.0" />
             </columnConstraints>
             <children>
                 <VBox alignment="CENTER_LEFT">
@@ -37,24 +35,20 @@
                   <HBox>
                      <children>
                                  <Label fx:id="id" styleClass="cell_big_label" text="\$index" />
-                        <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$name">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></Label>
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+                        <Label fx:id="startDate" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$startDate" />
+                        <Label fx:id="endDate" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="342.0" styleClass="cell_small_label" text="\$endDate" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
-                     </children>
-                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="342.0" />
                   <Label fx:id="recurrenceRate" styleClass="cell_small_label" text="\$recurrenceRate" />
-                  <Label style="-fx-padding: 4; -fx-text-fill: #FFFFFF; -fx-background-color: #777777; -fx-font-size: 14; -fx-background-radius: 3; -fx-border-radius: 3;" text="Test Label">
-                     <VBox.margin>
-                        <Insets top="1.0" />
-                     </VBox.margin></Label>
                     </children>
                 </VBox>
             </children>
