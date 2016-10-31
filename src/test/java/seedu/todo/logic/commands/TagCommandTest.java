@@ -34,38 +34,31 @@ public class TagCommandTest extends CommandTest {
     @Before
     public void setUp() throws Exception{
         //Task indexed at 5
-        model.add("Task 5 With 5 Tags", mutableTask -> {
-            Set<Tag> newTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[0],
-                    VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
-                    VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
-            mutableTask.setTags(newTags);
-        });
-        Thread.sleep(50);
+        model.add("Task 5 With 5 Tags");
+        Thread.sleep(20);
 
         //Task indexed at 4
-        model.add("Task 4 With 3 Tags", mutableTask -> {
-            Set<Tag> newTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[0],
-                    VALID_TAG_NAMES[1], VALID_TAG_NAMES[2]);
-            mutableTask.setTags(newTags);
-        });
-        Thread.sleep(50);
+        model.add("Task 4 With 3 Tags");
+        Thread.sleep(20);
 
         //Task indexed at 3
-        model.add("Task 3 With 1 Tag", mutableTask -> {
-            Set<Tag> newTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1]);
-            mutableTask.setTags(newTags);
-        });
-        Thread.sleep(50);
+        model.add("Task 3 With 1 Tag");
+        Thread.sleep(20);
 
         //Task indexed at 2
-        model.add("Task 2 With 1 Tag", mutableTask -> {
-            Set<Tag> newTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[0]);
-            mutableTask.setTags(newTags);
-        });
-        Thread.sleep(50);
+        model.add("Task 2 With 1 Tag");
+        Thread.sleep(20);
 
         //Task indexed at 1
         model.add("Task 1 No Tags");
+        Thread.sleep(20);
+
+        //Add tags
+        model.addTagsToTask(5, VALID_TAG_NAMES[0], VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
+                VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
+        model.addTagsToTask(4, VALID_TAG_NAMES[0], VALID_TAG_NAMES[1], VALID_TAG_NAMES[2]);
+        model.addTagsToTask(3, VALID_TAG_NAMES[1]);
+        model.addTagsToTask(2, VALID_TAG_NAMES[0]);
     }
 
     /* Add Tag Test */
@@ -217,5 +210,41 @@ public class TagCommandTest extends CommandTest {
         }
     }
 
-    /* Helper Methods */
+    /* Delete Tags Globally Test */
+    @Test
+    public void testDeleteTagGlobally_deleteOneTag() throws Exception{
+        //Deletes one tag from the list of tags. All other tags should stay intact.
+        Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
+        Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1]);
+        Set<Tag> expectsTwoTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1], VALID_TAG_NAMES[2]);
+        Set<Tag> expectsFourTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[1], VALID_TAG_NAMES[2],
+                VALID_TAG_NAMES[3], VALID_TAG_NAMES[4]);
+
+        setParameter("d", VALID_TAG_NAMES[0]);
+        execute(true);
+
+        assertEquals(expectsNoTags, getTaskAt(1).getTags());
+        assertEquals(expectsNoTags, getTaskAt(2).getTags());
+        assertEquals(expectsOneTags, getTaskAt(3).getTags());
+        assertEquals(expectsTwoTags, getTaskAt(4).getTags());
+        assertEquals(expectsFourTags, getTaskAt(5).getTags());
+    }
+
+    @Test
+    public void testDeleteTagGlobally_deleteMoreTags() throws Exception{
+        //Deletes two tags from the list of tags. All other tags should stay intact.
+        Set<Tag> expectsNoTags = TaskFactory.convertTagNamesToTags();
+        Set<Tag> expectsOneTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[2]);
+        Set<Tag> expectsThreeTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[2], VALID_TAG_NAMES[3],
+                VALID_TAG_NAMES[4]);
+
+        setParameter("d", VALID_TAG_NAMES[0] + " " + VALID_TAG_NAMES[1]);
+        execute(true);
+
+        assertEquals(expectsNoTags, getTaskAt(1).getTags());
+        assertEquals(expectsNoTags, getTaskAt(2).getTags());
+        assertEquals(expectsNoTags, getTaskAt(3).getTags());
+        assertEquals(expectsOneTags, getTaskAt(4).getTags());
+        assertEquals(expectsThreeTags, getTaskAt(5).getTags());
+    }
 }
