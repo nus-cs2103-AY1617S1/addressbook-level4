@@ -44,7 +44,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public boolean isSameActivity(ReadOnlyActivity activity){
         return getActivityName().equals(activity.getActivityName().fullName) && getNote().equals(activity.getNote().value)
-                && getStartDate().equals(activity.getActivityStartDate().value) && getStartTime().equals(activity.getActivityStartTime().value);
+                && getStartDate().equals(activity.getActivityStartDate().toFormattedDateString()) && getStartTime().equals(activity.getActivityStartTime().value);
     }
 
     @Override

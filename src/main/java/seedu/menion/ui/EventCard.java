@@ -47,9 +47,9 @@ public class EventCard extends UiPart{
     public void initialize() {
         name.setText(event.getActivityName().fullName);
         note.setText(event.getNote().toString());
-        startDate.setText(event.getActivityStartDate().toString());
+        startDate.setText(event.getActivityStartDate().toFormattedDateString());
         startTime.setText(event.getActivityStartTime().toString()); 
-        endDate.setText(event.getActivityEndDate().toString());
+        endDate.setText(event.getActivityEndDate().toFormattedDateString());
         endTime.setText(event.getActivityEndTime().toString());
         id.setText(displayedIndex + ". ");    
     }

@@ -115,7 +115,7 @@ public abstract class ActivityManagerGuiTest {
      * Asserts the floating task shown in the card is same as the given floating task
      */
     public void assertEventMatching(ReadOnlyActivity event, EventCardHandle card) {
-        assertTrue(TestUtil.compareCardAndEvent(card, event));
+    	assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
 
     /**
