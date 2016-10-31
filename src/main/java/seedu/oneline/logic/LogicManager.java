@@ -60,8 +60,7 @@ public class LogicManager extends ComponentManager implements Logic {
     
     //@@author A0121657H
     @Override
-    public void setTaskBookFilePath(Storage storage) {
-        String currentFilePath = storage.getTaskBookFilePath();
+    public void setTaskBookFilePath(String currentFilePath) {
         model.setTaskBookFilePath(currentFilePath);
     }
 }

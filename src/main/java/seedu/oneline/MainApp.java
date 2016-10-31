@@ -52,18 +52,18 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
-
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, config.getTaskBookFilePath());
 
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
     }
 
     private String getApplicationParameter(String parameterName){
@@ -71,7 +71,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs, String filePath) {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
@@ -88,7 +88,7 @@ public class MainApp extends Application {
             initialData = new TaskBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, filePath);
     }
 
     private void initLogging(Config config) {
@@ -203,11 +203,11 @@ public class MainApp extends Application {
             
             // Reinitialize the current storage object
             storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
-            
+            logic.setTaskBookFilePath(config.getTaskBookFilePath());
             // Save the current status of taskBook into the new location
             // This is if we close the app without adding new tasks
             storage.saveTaskBook(tasks);
-            logic.setTaskBookFilePath(storage);
+
         
         } catch (IOException iox) {
             EventsCenter.getInstance().post(new DataSavingExceptionEvent(iox));
