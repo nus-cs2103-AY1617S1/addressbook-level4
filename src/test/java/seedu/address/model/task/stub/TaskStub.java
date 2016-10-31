@@ -18,7 +18,10 @@ public class TaskStub extends Task {
     
     private List<TaskOccurrenceStub> recurringDates;
     
-    public TaskStub() throws IllegalValueException {    
+    public TaskStub(Name name, UniqueTagList tags) throws IllegalValueException {   
+        super(name, tags);
+    }
+    public TaskStub() throws IllegalValueException {
         name = new NameStub("dummy");
         recurringDates = new ArrayList<TaskOccurrenceStub>();
     }
