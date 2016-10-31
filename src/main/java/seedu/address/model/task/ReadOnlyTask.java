@@ -12,7 +12,7 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
     public static final String BLANK = "";
-    enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE }
+    enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE, EVENT }
 
     Name getName();
     Optional<Time> getTime();
@@ -55,12 +55,15 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             case DEADLINE:
                 time = getTime().get().getStartDateString();
                 break;
+            case EVENT:
+                time = getTime().get().getStartDateString() + " - " + getTime().get().getEndDateString() + " " +
+                        getTime().get().getEndTimeString();
             case TIMERANGE:
                 time = getTime().get().getStartDateString() + " - " + getTime().get().getEndTimeString();
                 break;
             default:
-                time = null;
                 assert false: "not possible for task to be uncategorised.";
+                time = null;
         }
 
         builder.append(getName())

@@ -317,6 +317,13 @@ public class Time implements Comparable<Time> {
 
     }
 
+    public String getEndDateString() {
+        if (!endDate.isPresent()) {
+            return null;
+        }
+        return endDate.get().toLocalDate().format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
+    }
+
     public String getEndTimeString() {
         if (!endDate.isPresent()) {
             return null;
