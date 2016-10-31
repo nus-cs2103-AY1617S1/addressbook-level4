@@ -51,10 +51,10 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             model.clearRedoHistory();
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARK_SUCCESS, taskToMark));
-        } catch (TaskAlreadyMarkedException ex) {
+        } catch (TaskAlreadyMarkedException tame) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARK_FAILURE, taskToMark));
-        } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (TaskNotFoundException tnfe) {
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (DuplicateTaskException e) {
             return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         } catch (NotRecurringTaskException e) {
@@ -79,10 +79,10 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             requestHighlightLastActionedRow(taskToMark);
 
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
-        } catch (DuplicateTaskException e) {
+        } catch (DuplicateTaskException dte) {
             return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
-        } catch (ArchiveTaskList.TaskNotFoundException e) {
-            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+        } catch (ArchiveTaskList.TaskNotFoundException tnfe) {
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
     }
 
@@ -102,22 +102,20 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARK_FAILURE, taskToMark));
-        } catch (IndexOutOfBoundsException ex) {
+        } catch (TaskNotFoundException tnfe) {
             return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         } catch (DuplicateTaskException | NotRecurringTaskException e) {
             return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         }
     }
 
     //@@author A0124797R
-    private void executeMark() throws TaskAlreadyMarkedException, IndexOutOfBoundsException, TaskNotFoundException, DuplicateTaskException, NotRecurringTaskException {
+    private void executeMark() throws TaskAlreadyMarkedException, TaskNotFoundException, DuplicateTaskException, NotRecurringTaskException {
         ObservableList<Task> lastShownList = model.getListToMark();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            throw new IndexOutOfBoundsException();
+            throw new TaskNotFoundException();
         }
         
         taskToMark = lastShownList.get(targetIndex - 1);

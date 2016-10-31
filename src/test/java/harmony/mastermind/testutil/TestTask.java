@@ -56,8 +56,6 @@ public class TestTask implements ReadOnlyTask {
             cmd.append(" from ").append(startDate);
             cmd.append(" to ").append(endDate);
         }
-        
-        
         cmd.append(" #");
 
         for (Tag t: tags) {
@@ -66,6 +64,10 @@ public class TestTask implements ReadOnlyTask {
         }
         
         cmd.deleteCharAt(cmd.length()-1);
+        
+        if (recur != null) {
+            cmd.append(recur);
+        }
 
         return cmd.toString();
     }
