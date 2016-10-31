@@ -1,6 +1,7 @@
 package seedu.task.ui;
 
 import java.time.LocalDateTime;
+import com.aquafx_project.AquaFx;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -117,6 +118,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	AquaFx.style();
     	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());

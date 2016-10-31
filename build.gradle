@@ -52,10 +52,11 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-        
+        compile 'org.kordamp.bootstrapfx:bootstrapfx-core:0.2.0' 
         compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '8.0-r5' 
         compile group: 'org.jfxtras', name: 'jfxtras-controls', version: '8.0-r5' 
-
+        compile group: 'com.guigarage', name: 'flatter', version: '0.7'
+        compile group: 'com.aquafx-project', name: 'aquafx', version: '0.2'
         compile files('lib/prettytime-nlp-4.0.1.Final.jar')
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"

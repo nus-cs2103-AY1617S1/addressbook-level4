@@ -1,5 +1,5 @@
 .root {
-	-fx-font-family: "Times New Roman";
+	
 }
 
 .background {
@@ -8,28 +8,27 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Times New Roman";
+    
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Century Gothic";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 20pt;
-    -fx-font-family: "Times New Roman";
+    
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Times New Roman";
+    
 }
 
 .tab-pane {
@@ -57,7 +56,7 @@
 
 .table-view .column-header, .table-view .filler {
     -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
+    
     -fx-background-color: transparent;
     -fx-border-color:
         transparent
@@ -117,7 +116,7 @@
 .anchor-pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     
 }
 
 .status-bar {
@@ -140,7 +139,7 @@
 .status-bar-with-border {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
+    
 }
 
 .status-bar-with-border .label {
@@ -150,7 +149,7 @@
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
+    
 }
 
 .grid-pane .anchor-pane {
@@ -269,16 +268,16 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1 1 1 1;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 1 1 1 1;
 }
 
 #cardPane {
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 1;
+    
 }
 
 #commandTypeLabel {

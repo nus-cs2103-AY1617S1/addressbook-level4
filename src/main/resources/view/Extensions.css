@@ -1,11 +1,6 @@
 
 .group0 { -fx-background-color: #A47AE2; -fx-fill: #AC725E; }
 
-.panel-header {
-    -fx-font-size: 15pt;
-    -fx-font-family: "Times New Roman";
-    -fx-text-fill:white;
-}
 
 
 .Agenda .Selected { 
@@ -34,3 +29,6 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+
+
