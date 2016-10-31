@@ -31,6 +31,7 @@ public class SaveCommand extends Command{
     public static final String MESSAGE_VALID_FILEPATH_USAGE = "Filepath must end with .xml";
 
     public static final String MESSAGE_SUCCESS = "Data saved to: %1$s";
+    public static final String MESSAGE_CANCELLED = "Save function cancelled.";
     public static final String MESSAGE_FAILED = "Failed to save data to: %1$s";
     public static final String MESSAGE_INVALID_FILEPATH = "Filepath is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_MISSING_FILEPATH = "Filepath is invalid. \n%1$s";
@@ -49,9 +50,13 @@ public class SaveCommand extends Command{
     public CommandResult execute() {
        
         try {
+            if (!storage.toOverwriteOrLoad(filepath)) {
+                return new CommandResult(MESSAGE_CANCELLED);
+            }
+            
             config.setTaskManagerFilePath(filepath);
             ConfigUtil.saveConfig(config, configFile);
-            
+
             storage.setFilePath(config.getTaskManagerFilePath());
             
             MainWindow.getStatusBarFooter().setSaveLocation("./"+config.getTaskManagerFilePath());

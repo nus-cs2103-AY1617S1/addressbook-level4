@@ -2,14 +2,19 @@ package seedu.taskitty.storage;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskitty.commons.exceptions.DataConversionException;
+import seedu.taskitty.commons.util.FileUtil;
 import seedu.taskitty.model.ReadOnlyTaskManager;
 import seedu.taskitty.model.UserPrefs;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -35,15 +40,15 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     //@@author A0135793W
+    /**
+     * Sets appropriate filepath in TaskManagerStorage using an internal method ({@link #changeTaskManager(String, Optional)})
+     */
     public void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException {
         Optional<ReadOnlyTaskManager> data;
         try {
             data = taskManagerStorage.readTaskManager();
             if (data.isPresent()) {
-                //copy current data into new file path
-                taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath); 
-                taskManagerStorage.setFilePath(taskManagerFilePath);
-                handleTaskManagerChangedEvent(new TaskManagerChangedEvent(data.get()));
+                changeTaskManager(taskManagerFilePath, data);
             } 
         } catch (DataConversionException e) {
             e.printStackTrace();
@@ -51,6 +56,56 @@ public class StorageManager extends ComponentManager implements Storage {
             e.printStackTrace();
         }     
     }
+    
+    /**
+     * Actual method that changes the filepath of TaskManagerStorage
+     * @param taskManagerFilePath
+     * @param data
+     * @throws IOException
+     * @throws DataConversionException
+     */
+    private void changeTaskManager(String taskManagerFilePath, Optional<ReadOnlyTaskManager> data)
+            throws IOException, DataConversionException {
+        //copy current data into new file path
+        taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath); 
+        taskManagerStorage.setFilePath(taskManagerFilePath);
+        handleTaskManagerChangedEvent(new TaskManagerChangedEvent(data.get()));
+    }
+    
+    /**
+     * Allows users to decide whether or not to overwrite or load an existing file. 
+     * There are 2 cases:
+     * 1) Filepath input by user exists and there is new data on the current task manager.
+     *    In this case, users will be prompted as to whether or not they want to overwrite
+     *    the existing file with the new data on the current task manager.
+     *    @return false if user chooses not to overwrite the existing file.
+     * 2) Filepath input by user exists but there is no data on the current task manager
+     *    (task manager is empty). 
+     *    @return true for this case. The data on the existing file will be loaded onto the 
+     *    task manager
+     */
+    public boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException {
+        File file = new File(filepath);
+        Optional<ReadOnlyTaskManager> data;
+        try {
+            data = taskManagerStorage.readTaskManager();
+            //current file exists and there is data present in the current task manager
+            if (FileUtil.isFileExists(file) && data.isPresent()) {
+                Alert alert = new Alert(AlertType.CONFIRMATION, "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+                alert.showAndWait();
+
+                if (alert.getResult() == ButtonType.NO) {
+                    return false;
+                } 
+            }
+            return true;
+        } catch (DataConversionException e) {
+            throw new DataConversionException(e);
+        } catch (IOException e) {
+            throw new IOException(e);
+        }
+    }
+    
     //@@author
 
     // ================ UserPrefs methods ==============================
