@@ -131,7 +131,7 @@ public class CommandBox extends UiPart {
         }
     }
     
-    /** Posts suggestions for commands in real time according to the first word of {@code text} */
+    /** Posts suggestions for commands in real time according to the first word of {@code currentText} */
     private void postRealTimeSuggestions(String currentText) {
         String firstWordOfInput = StringUtil.getFirstWord(currentText);
         List<String> commandWordMatches = CommandUtil.getInstance().getCommandWordMatches(firstWordOfInput);
