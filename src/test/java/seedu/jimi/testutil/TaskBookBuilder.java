@@ -2,7 +2,9 @@ package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.TaskBook;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
@@ -23,7 +25,17 @@ public class TaskBookBuilder {
         taskBook.addTask(floatingTask);
         return this;
     }
+    
+    public TaskBookBuilder withDeadlineTask(DeadlineTask deadlineTask) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(deadlineTask);
+        return this;
+    }
 
+    public TaskBookBuilder withEvent(Event event) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(event);
+        return this;
+    }
+    
     public TaskBookBuilder withTag(String tagName) throws IllegalValueException {
         taskBook.addTag(new Tag(tagName));
         return this;
