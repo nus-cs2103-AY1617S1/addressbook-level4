@@ -49,6 +49,6 @@
         </GridPane>
     </children>
    <effect>
-      <DropShadow color="#11235cee" height="12.0" offsetX="1.0" offsetY="3.0" radius="4.5" width="8.0" />
+      <DropShadow color="#9fa1a6ac" height="10.0" offsetX="1.0" offsetY="2.0" radius="4.0" width="8.0" />
    </effect>
 </HBox>

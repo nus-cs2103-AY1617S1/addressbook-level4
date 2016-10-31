@@ -84,39 +84,39 @@ public class PersonCard extends UiPart{
         String status = task.getStatus().toString();
         if(status.equals("OVERDUE")){
             cardPane.setStyle("-fx-border-color: red");
-            name.setStyle("-fx-text-fill: red");
-            id.setStyle("-fx-text-fill: red");
-            description.setStyle("-fx-text-fill: red");
-            date.setStyle("-fx-text-fill: red");
-            time.setStyle("-fx-text-fill: red");
-            tags.setStyle("-fx-text-fill: red");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: #888888");
         }
         else if(status.equals("DONE")){
             cardPane.setStyle("-fx-border-color: blue");
-            name.setStyle("-fx-text-fill: blue");
-            id.setStyle("-fx-text-fill: blue");
-            description.setStyle("-fx-text-fill: blue");
-            date.setStyle("-fx-text-fill: blue");
-            time.setStyle("-fx-text-fill: blue");
-            tags.setStyle("-fx-text-fill: blue");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: #888888");
         }
         else if(status.equals("NONE")){
-            cardPane.setStyle("-fx-border-color: aliceblue");
-            name.setStyle("-fx-text-fill: black");
-            id.setStyle("-fx-text-fill: black");
-            description.setStyle("-fx-text-fill: #202020");
-            date.setStyle("-fx-text-fill: #202020");
-            time.setStyle("-fx-text-fill: #202020");
-            tags.setStyle("-fx-text-fill: #202020");
+            cardPane.setStyle("-fx-border-color: #F0F0F0");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: #888888");
         }
         else if(status.equals("EXPIRE")){
             cardPane.setStyle("-fx-border-color: magenta");
-            name.setStyle("-fx-text-fill: magenta");
-            id.setStyle("-fx-text-fill: magenta");
-            description.setStyle("-fx-text-fill: magenta");
-            date.setStyle("-fx-text-fill: magenta");
-            time.setStyle("-fx-text-fill: magenta");
-            tags.setStyle("-fx-text-fill: magenta");
+            name.setStyle("-fx-text-fill: #888888");
+            id.setStyle("-fx-text-fill: #888888");
+            description.setStyle("-fx-text-fill: #888888");
+            date.setStyle("-fx-text-fill: #888888");
+            time.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: #888888");
         }
 
     }   

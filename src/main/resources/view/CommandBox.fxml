@@ -7,6 +7,6 @@
 <AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.CommandBox">
    <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here...">
       <effect>
-         <InnerShadow choke="0.05" color="#1d2143f5" height="15.0" offsetX="1.0" offsetY="1.8" radius="7.0" width="15.0" />
+         <InnerShadow color="WHITE" height="12.0" radius="5.5" width="12.0" />
       </effect></TextField>
 </AnchorPane>
