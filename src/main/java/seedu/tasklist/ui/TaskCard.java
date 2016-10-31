@@ -5,7 +5,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -27,7 +29,7 @@ public class TaskCard extends UiPart{
 	private static final String PRIORITY_LOW_FILE = "one_star.png";
 	
 	@FXML
-	private HBox cardPane;
+	private AnchorPane cardPane;
 	@FXML
 	private Label name;
 	@FXML
@@ -74,7 +76,7 @@ public class TaskCard extends UiPart{
 		setStatusButtonColour();
 	}
 
-	public HBox getLayout() {
+	public AnchorPane getLayout() {
 		return cardPane;
 	}
 
@@ -142,7 +144,7 @@ public class TaskCard extends UiPart{
 
 	@Override
 	public void setNode(Node node) {
-		cardPane = (HBox)node;
+		cardPane = (AnchorPane)node;
 	}
 
 	@Override
