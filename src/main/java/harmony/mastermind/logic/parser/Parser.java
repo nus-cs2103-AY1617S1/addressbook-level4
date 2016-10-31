@@ -3,7 +3,7 @@ package harmony.mastermind.logic.parser;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -117,6 +117,9 @@ public class Parser {
                 
             case ImportIcsCommand.COMMAND_KEYWORD_IMPORTICS:
                 return prepareImportIcs(arguments);
+                
+            case ExportCommand.COMMAND_KEYWORD_EXPORT:
+                return prepareExport(arguments);
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
@@ -278,10 +281,59 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {
             return new IncorrectCommand(pe.getMessage());
-
         }
 
     }
+    
+    private Command prepareExport(String args){
+        final Matcher matcher = ExportCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_EXAMPLE));
+        }
+        
+        try {
+            // mandatory
+            final String destination = matcher.group("destination");
+            
+            // at this point destination variable should never be null because the regex only capture full match of mandatory components
+            // check for bug in regex expression if the following throws assertion error
+            assert destination != null;
+            
+            // capture all matched string if present
+            final Optional<String> tasks = Optional.ofNullable(matcher.group("tasks"));
+            final Optional<String> deadlines = Optional.ofNullable(matcher.group("deadlines"));
+            final Optional<String> events = Optional.ofNullable(matcher.group("events"));
+            final Optional<String> archives = Optional.ofNullable(matcher.group("archives"));
+            
+            if(isExportingAll(tasks, deadlines, events, archives)){
+                return new ExportCommand(destination, true, true, true, true);
+            }else{
+                boolean isExportingTasks = tasks.isPresent();
+                boolean isExportingDeadlines = deadlines.isPresent();
+                boolean isExportingEvents = events.isPresent();
+                boolean isExportingArchives = archives.isPresent();
+                
+                return new ExportCommand(destination, isExportingTasks, isExportingDeadlines, isExportingEvents, isExportingArchives);
+            }
+        } catch (IOException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+    
+    /*
+     * This method return true if user did not specify any categories to export,
+     * then we assume user wants to export all categories.
+     * eg: export to C:\User\Jim\Workspace\mastermind.csv
+     */
+    private boolean isExportingAll(Optional<String> tasks, Optional<String> deadlines, Optional<String> events, Optional<String> archives){
+        return tasks.isPresent() == false &&
+                deadlines.isPresent() == false &&
+                events.isPresent() == false &&
+                archives.isPresent() == false;
+    }
+    
     // @@author
 
     /**
