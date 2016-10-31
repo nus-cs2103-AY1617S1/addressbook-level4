@@ -69,7 +69,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         aliceTask.setName(new Name("Trying out new things from the list"));
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        
+        //test to edit every detail
         commandBox.runCommand("edit 1 Visit distant relative at 1pm repeat every 3 years -h");
         aliceTask.setName(new Name("Visit distant relative"));
         aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
@@ -87,6 +87,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         
     }
     
+
 /*
     @Test
     public void editCheckSort() {
@@ -111,6 +112,12 @@ public class EditCommandTest extends AddressBookGuiTest {
         
     }
 */    
+    
+    /**
+     * Runs the add command to add the specified task and confirms the result is correct.
+     * @param taskToAdd the task to be added
+     * @param currentList A copy of the current list of persons (before deletion).
+     */
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 
@@ -123,7 +130,9 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
-    
+    /**
+     * Runs the clear command to clear the current list and confirms the result is correct.
+     */
     private void assertClearCommandSuccess() {
     	commandBox.runCommand("clear");
     	assertListSize(0);
