@@ -1,34 +1,22 @@
 package tars.commons.util;
 
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
-
-import tars.commons.core.Messages;
 import tars.model.task.DateTime;
 
 /**
  * Date Time Utility package
- * 
- * @@author A0139924W
  */
 public class DateTimeUtil {
-    private static final SimpleDateFormat CONVERT_NATTY_TIME_FORMAT = new SimpleDateFormat("dd/MM/yyyy HHmm");
-    private static final String NATTY_TIME_PREFIX = "EXPLICIT_TIME";
 
     private static final String DATETIME_DAY = "day";
     private static final String DATETIME_WEEK = "week";
@@ -42,66 +30,14 @@ public class DateTimeUtil {
     private static final DateTimeFormatter stringFormatterWithoutDate = DateTimeFormatter.ofPattern("HHmm");
 
     /**
-     * Extracts the new task's dateTime from the string arguments using natty.
+     * Extracts the new task's dateTime from the string arguments.
      * 
-     * @return String[] with first index being the startDate time and second
-     *         index being the end date time
+     * @@author A0139924W
+     * @return String[] with first index being the startDate time and second index being the end
+     *         date time
      */
-    public static String[] getDateTimeFromArgs(String dateArgs) {
-        String endDateTime = "";
-        String startDateTime = "";
-        Parser parser = new Parser(TimeZone.getDefault());
-
-        // swap the date format as natty read dates in US format
-        List<DateGroup> groups = parser.parse(dateArgs.trim().replaceAll("(\\b\\d{1,2})/(\\d{1,2})", "$2/$1")
-                .replaceAll("(\\b\\d{1,2})-(\\d{1,2})", "$2-$1"));
-
-        // invalid date format
-        if (dateArgs.trim().length() > 0 && groups.size() == 0) {
-            throw new DateTimeException(Messages.MESSAGE_INVALID_DATE);
-        }
-
-        if (groups.size() == 0) {
-            return new String[] { startDateTime, endDateTime };
-        }
-
-        DateGroup group = groups.get(0);
-        String firstTreeString;
-        String secondTreeString;
-        Date firstDate;
-        Date secondDate;
-
-        if (group.getDates().size() == 1 && group.getSyntaxTree().getChildCount() == 1) {
-            firstTreeString = group.getSyntaxTree().getChild(0).toStringTree();
-            firstDate = group.getDates().get(0);
-            if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
-                firstDate = setDateTime(firstDate, 23, 59, 0);
-            }
-
-            endDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
-
-        }
-
-        if (group.getDates().size() == 2 && group.getSyntaxTree().getChildCount() == 2) {
-            firstTreeString = group.getSyntaxTree().getChild(0).toStringTree();
-            secondTreeString = group.getSyntaxTree().getChild(1).toStringTree();
-            firstDate = group.getDates().get(0);
-            secondDate = group.getDates().get(1);
-
-            if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
-                firstDate = setDateTime(firstDate, 0, 0, 0);
-            }
-
-            if (!secondTreeString.contains(NATTY_TIME_PREFIX)) {
-                secondDate = setDateTime(secondDate, 23, 59, 0);
-            }
-
-            startDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
-            endDateTime = CONVERT_NATTY_TIME_FORMAT.format(secondDate);
-            return new String[] { startDateTime, endDateTime };
-        }
-
-        return new String[] { startDateTime, endDateTime };
+    public static String[] parseStringToDateTime(String dateTimeArg) {
+        return NattyDateTimeUtil.parseStringToDateTime(dateTimeArg);
     }
 
     /**
