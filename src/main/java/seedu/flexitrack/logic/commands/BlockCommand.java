@@ -24,8 +24,10 @@ public static final String COMMAND_WORD = "block";
 
     public static final String MESSAGE_SUCCESS = "Block the date for %1$s";
     public static final String MESSAGE_DUPLICATE_TIME = "This period of time has already taken by other event, Please choose another time.";
-
+    public static final String MESSAGE_OVERLAPPING_EVENT_WARNING = "\nWarning: this event is overlaping a existing event!";
+    
     private Task toBlock;
+    private boolean isOverlapping = false;
     
     /**
      * Convenience constructor using raw values.
@@ -50,12 +52,15 @@ public static final String COMMAND_WORD = "block";
             if(model.checkBlock(toBlock)) {
                 return new CommandResult(BlockCommand.MESSAGE_DUPLICATE_TIME);
             }
+            this.isOverlapping = model.checkOverlapEvent(toBlock);
+            
             model.addTask(toBlock);
             toBlock = toBlock.copy();
             recordCommand(this);
             if (toBlock.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toBlock)) + "\n" + DateTimeInfo
-                        .durationOfTheEvent(toBlock.getStartTime().toString(), toBlock.getEndTime().toString()));
+                        .durationOfTheEvent(toBlock.getStartTime().toString(), toBlock.getEndTime().toString())
+                        + (isOverlapping? MESSAGE_OVERLAPPING_EVENT_WARNING : ""));
             } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
             }
