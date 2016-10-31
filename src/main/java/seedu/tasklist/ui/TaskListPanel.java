@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +41,8 @@ public class TaskListPanel extends UiPart {
 	private Label dateTimeLabel;
 	@FXML
 	private ListView<ReadOnlyTask> personListView;
+	@FXML
+	private ScrollPane scrollPane;
 
 	public TaskListPanel() {
 		super();
@@ -80,6 +83,8 @@ public class TaskListPanel extends UiPart {
 		taskListPanel.configure(personList);
 		taskListPanel.setLabelText();
 		//@@author A0146107M
+		taskListPanel.scrollPane.setFitToHeight(true);
+		taskListPanel.scrollPane.setFitToWidth(true);
 		EventsCenter.getInstance().registerHandler(taskListPanel);
 		//@@author
 		return taskListPanel;
