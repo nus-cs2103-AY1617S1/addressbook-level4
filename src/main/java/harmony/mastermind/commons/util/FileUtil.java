@@ -3,6 +3,11 @@ package harmony.mastermind.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
 
 /**
  * Writes and reads file
@@ -91,5 +96,25 @@ public class FileUtil {
     public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+    
+    //@@author A0139194X
+    //Checks if directory is writable
+    public static void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
+        assert newFilePath != null;
+        File newFile = new File(newFilePath);
+        if (!(newFile.isDirectory() && newFile.canWrite())) {
+            throw new UnwrittableFolderException(newFilePath + " is not writtable.");
+        }
+    }
+    
+    //@@author A0139194X
+    public static void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
+        assert newFilePath != null;
+        Path filePath = Paths.get(newFilePath);
+        
+        if (!Files.exists(filePath)) {
+            throw new FolderDoesNotExistException(newFilePath + " does not exist");
+        }
     }
 }

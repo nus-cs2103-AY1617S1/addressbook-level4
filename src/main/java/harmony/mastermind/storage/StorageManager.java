@@ -8,8 +8,6 @@ import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
-import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
-import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
 import harmony.mastermind.commons.util.ConfigUtil;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.model.ReadOnlyTaskManager;
@@ -91,25 +89,6 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //@@author A0139194X
-    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        assert newFilePath != null;
-        Path filePath = Paths.get(newFilePath);
-        
-        if (!Files.exists(filePath)) {
-            throw new FolderDoesNotExistException(newFilePath + " does not exist");
-        }
-    }
-    
-    //@@author A0139194X
-    //Checks if directory is writable
-    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
-        assert newFilePath != null;
-        File newFile = new File(newFilePath);
-        if (!(newFile.isDirectory() && newFile.canWrite())) {
-            throw new UnwrittableFolderException(newFilePath + " is not writtable.");
-        }
-    }
     
     //@@author A0139194X
     /**

@@ -49,11 +49,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
 
     @Override
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
-
-    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException;
-    
-    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException;
-    
+        
     /**
      * Saves the current version of the Mastermind to the hard disk.
      *   Creates the data file if it is missing.
