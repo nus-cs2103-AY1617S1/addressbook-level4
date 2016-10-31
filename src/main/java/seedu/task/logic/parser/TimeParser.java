@@ -11,10 +11,6 @@ import java.util.List;
 public class TimeParser {
 
     private static final String NATTY_DATE_TIME = "DATE_TIME";
-    private static final String NATTY_RELATIVE_DATE = "RELATIVE_DATE";
-    private static final String NATTY_EXPLICIT_DATE = "EXPLICIT_DATE";
-    private static final String NATTY_RELATIVE_TIME = "RELATIVE_TIME";
-    private static final String NATTY_EXPLICIT_TIME = "EXPLICIT_TIME";
     private static final int NO_DATE_TIME = 0;
     private static final int ONE_DATE_TIME = 1;
     private static final int TWO_DATE_TIME = 2;
@@ -64,23 +60,17 @@ public class TimeParser {
         if (node.getText().equals(NATTY_DATE_TIME)){
             dateTimeCount++;
         }
-        if (node.getText().equals(NATTY_RELATIVE_DATE) || node.getText().equals(NATTY_EXPLICIT_DATE)) {
+        //if (node.getText().equals(NATTY_RELATIVE_DATE) || node.getText().equals(NATTY_EXPLICIT_DATE)) {
             if (dateTimeCount == ONE_DATE_TIME) {
                 timeParserResult.setFirstDate(dates.get(FIRST_DATE_INDEX));
-            } else if (dateTimeCount == TWO_DATE_TIME) {
-                timeParserResult.setSecondDate(dates.get(SECOND_DATE_INDEX));
-            }else if (dateTimeCount == THREE_DATE_TIME) {
-                timeParserResult.setThirdDate(dates.get(THIRD_DATE_INDEX));
-            }
-        } else if (node.getText().equals(NATTY_RELATIVE_TIME) || node.getText().equals(NATTY_EXPLICIT_TIME)) {
-            if (dateTimeCount == ONE_DATE_TIME) {
                 timeParserResult.setFirstTime(dates.get(FIRST_DATE_INDEX));
             } else if (dateTimeCount == TWO_DATE_TIME) {
+                timeParserResult.setSecondDate(dates.get(SECOND_DATE_INDEX));
                 timeParserResult.setSecondTime(dates.get(SECOND_DATE_INDEX));
             }else if (dateTimeCount == THREE_DATE_TIME) {
+                timeParserResult.setThirdDate(dates.get(THIRD_DATE_INDEX));
                 timeParserResult.setThirdTime(dates.get(THIRD_DATE_INDEX));
             }
-        }
         for (int i = 0; i < node.getChildCount(); i++) {
             postTraverseSyntaxTree(node.getChild(i), dates);
         }

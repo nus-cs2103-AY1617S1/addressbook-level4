@@ -30,29 +30,40 @@ public class EditCommand extends Command {
             + ": Edits the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]\n"
             + "Example: " + COMMAND_WORD
-            + " 4 night class at 08.00pm to 10.00pm by 12.00am";
+            + " 4 name, do new homework";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edit Task: %1$s";
 
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     public final int targetIndex;
-    private final Task toEdit;
+    //private final Task toEdit;
+    private final String toEdit;
+    private final String toEditItem;
+    private final Set<String> toEditTags; 
 
-
-    public EditCommand(int targetIndex, String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toEdit = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status());
-        this.targetIndex = targetIndex;
+//    public EditCommand(int targetIndex, String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
+//        final Set<Tag> tagSet = new HashSet<>();
+//        for (String tagName : tags) {
+//            tagSet.add(new Tag(tagName));
+//        }
+//        this.toEdit = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status());
+//        this.targetIndex = targetIndex;
+//    }
+    
+    public EditCommand(int targetIndex, String item, String editResult,  Set<String> tags) throws IllegalValueException {
+    	this.targetIndex = targetIndex;
+    	this.toEdit = editResult;
+    	this.toEditItem = item;
+    	this.toEditTags = tags;
+        
     }
 
 
 
+
     @Override
-    public CommandResult execute(boolean isUndo) {
+    public CommandResult execute(boolean isUndo){
         assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
@@ -63,9 +74,62 @@ public class EditCommand extends Command {
 
         ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
         ReadOnlyTask editedTask = null;
-
+        Task toAdd = null;
+        final Set<Tag> tagSet = new HashSet<>();
+        switch(this.toEditItem){
+        	case "name":
+        		try{
+                    toAdd = new Task(new Name(this.toEdit), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+        		break;
+        	case "start time":
+        		try{
+                    toAdd = new Task(currentTask.getName(), new StartTime(this.toEdit), currentTask.getEndTime(), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+        		break;
+        	case "end time":
+        		try{
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), new EndTime(this.toEdit), currentTask.getDeadline(), currentTask.getTags(), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+        		break;
+        	case "deadline":
+        		try{
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), new Deadline(this.toEdit), currentTask.getTags(), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+        		break;
+        	case "tag":
+        		try{
+        			for (String tagName : this.toEditTags) {
+                    	System.out.println(tagName);
+                        tagSet.add(new Tag(tagName));
+                    }
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+                break;
+        	default:
+        		try{
+        			for (String tagName : this.toEditTags) {
+                    	System.out.println(tagName);
+                        tagSet.add(new Tag(tagName));
+                    }
+                    toAdd = new Task(currentTask.getName(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getDeadline(), new UniqueTagList(tagSet), currentTask.getStatus());
+        		}catch(IllegalValueException e){
+                	return new CommandResult(MESSAGE_DUPLICATE_TASK);
+                }
+        }
+        
         try {
-            model.addTask(targetIndex - 1, toEdit);
+            model.addTask(targetIndex - 1, toAdd);
             editedTask = lastShownList.get(targetIndex - 1);
         }  catch (UniqueTaskList.DuplicateTaskException e) {
             try {
@@ -83,7 +147,7 @@ public class EditCommand extends Command {
         }
 
         if (isUndo == false) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toEdit, (Task) currentTask));
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, (Task) currentTask));
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
     }
