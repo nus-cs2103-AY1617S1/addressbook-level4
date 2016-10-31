@@ -79,11 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ToDoListChangedEvent(toDoList));
     }
     
-    /**
-     * Undo functionality
-     * 
-     * @@author A0139661Y
-     */
+    //@@author A0139661Y
     @Override
     public synchronized void undo() throws CannotUndoException {
     	try {
