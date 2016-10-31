@@ -9,6 +9,14 @@
     -fx-opacity: 0.9;
 }
 
+.label:selected{
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: lightslategrey;
+    -fx-opacity: 0.9;
+}
+
+
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -100,14 +108,16 @@
 }
 
 .list-cell:selected {
-    -fx-background-color: black;
+    -fx-background-color: #00cc00;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 5 5 5 5;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
 }
 
 .list-cell .label {
-    -fx-text-fill: black;
+    -fx-text-fill: #00cc00;
 }
 
 .cell_big_label {

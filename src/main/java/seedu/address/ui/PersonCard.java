@@ -89,7 +89,7 @@ public class PersonCard extends UiPart{
             description.setStyle("-fx-text-fill: #888888");
             date.setStyle("-fx-text-fill: #888888");
             time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("DONE")){
             cardPane.setStyle("-fx-border-color: blue");
@@ -98,7 +98,7 @@ public class PersonCard extends UiPart{
             description.setStyle("-fx-text-fill: #888888");
             date.setStyle("-fx-text-fill: #888888");
             time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("NONE")){
             cardPane.setStyle("-fx-border-color: #F0F0F0");
@@ -107,7 +107,7 @@ public class PersonCard extends UiPart{
             description.setStyle("-fx-text-fill: #888888");
             date.setStyle("-fx-text-fill: #888888");
             time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("EXPIRE")){
             cardPane.setStyle("-fx-border-color: magenta");
@@ -116,7 +116,7 @@ public class PersonCard extends UiPart{
             description.setStyle("-fx-text-fill: #888888");
             date.setStyle("-fx-text-fill: #888888");
             time.setStyle("-fx-text-fill: #888888");
-            tags.setStyle("-fx-text-fill: #888888");
+            tags.setStyle("-fx-text-fill: ##00CC0");
         }
 
     }   
