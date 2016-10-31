@@ -86,7 +86,7 @@ public class MainApp extends Application {
             initialData = new ToDo();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, storage);
     }
 
     private void initLogging(Config config) {
@@ -179,8 +179,21 @@ public class MainApp extends Application {
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        saveConfig();
         this.stop();
     }
+    
+    //@@author A0126649W
+    public void saveConfig(){
+        config.setToDoFilePath(storage.getToDoFilePath());
+        
+        try{    
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        }catch (IOException e){
+            assert false : "The file path must be valid";
+        }
+    }
+    //@author
 
     public static void main(String[] args) {
         launch(args);

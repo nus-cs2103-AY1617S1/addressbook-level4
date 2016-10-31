@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 public class XmlAddressBookStorage implements ToDoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
-
+    private static final String DEFAULT_FILEPATH = "data/ToDoList.xml";
+    
     private String filePath;
 
     public XmlAddressBookStorage(String filePath){
@@ -33,7 +34,7 @@ public class XmlAddressBookStorage implements ToDoStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyToDo> readToDo(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyToDo> readToDo(String filePath) throws DataConversionException, IOException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -61,10 +62,24 @@ public class XmlAddressBookStorage implements ToDoStorage {
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
     }
 
+    //@@author A0126649W
     @Override
     public Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException {
-        return readToDo(filePath);
+        assert filePath != null;
+
+        File addressBookFile = new File(filePath);
+
+        if (!addressBookFile.exists()) {
+            logger.info("ToDo file "  + addressBookFile + " not found");
+            this.filePath = DEFAULT_FILEPATH;
+            return Optional.empty();
+        }
+
+        ReadOnlyToDo addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+
+        return Optional.of(addressBookOptional);
     }
+    //@@author
 
     @Override
     public void saveToDo(ReadOnlyToDo addressBook) throws IOException {

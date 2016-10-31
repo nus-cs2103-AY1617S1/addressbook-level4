@@ -29,6 +29,12 @@ public interface Storage extends ToDoStorage, UserPrefsStorage {
 
     @Override
     void saveToDo(ReadOnlyToDo toDo) throws IOException;
+    
+    /**
+     * Loads new XmlAddressBookStorage from file path.
+     * @param toDo cannot be null.
+     */
+    void loadToDo(String filePath);
 
     /**
      * Saves the current version of the Address Book to the hard disk.

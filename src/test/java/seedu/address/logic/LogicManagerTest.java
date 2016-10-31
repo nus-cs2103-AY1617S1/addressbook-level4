@@ -19,6 +19,7 @@ import seedu.address.model.ReadOnlyToDo;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -65,9 +66,9 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
+        model = new ModelManager(new StorageManager(tempAddressBookFile, tempPreferencesFile));
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 

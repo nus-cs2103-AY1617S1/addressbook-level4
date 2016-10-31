@@ -56,7 +56,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException {
-        return readToDo(toDoStorage.getToDoFilePath());
+        return toDoStorage.readToDo();
     }
 
     @Override
@@ -70,12 +70,19 @@ public class StorageManager extends ComponentManager implements Storage {
         saveToDo(toDo, toDoStorage.getToDoFilePath());
     }
 
+    //@@author A0126649W
     @Override
     public void saveToDo(ReadOnlyToDo toDo, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         toDoStorage.saveToDo(toDo, filePath);
+        toDoStorage = new XmlAddressBookStorage(filePath);
     }
-
+    
+    @Override
+    public void loadToDo(String filePath){
+        toDoStorage = new XmlAddressBookStorage(filePath);
+    }
+    //@@author
 
     @Override
     @Subscribe
