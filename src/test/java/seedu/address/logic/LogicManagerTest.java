@@ -452,6 +452,34 @@ public class LogicManagerTest {
     }
     //@@author
 
+    //@@author A0139145E
+    @Test
+    public void execute_list_od_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
+        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
+        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        
+        assertCommandBehavior("list od", String.format(ListCommand.MESSAGE_SUCCESS, "overdue and expired"),
+                expectedAB, Collections.emptyList(), Collections.emptyList());
+ 
+        Task overdueDeadline = helper.overdueA();
+        expectedAB.addTask(overdueDeadline);
+        model.addTask(overdueDeadline);
+        List<ReadOnlyTask> expectedOverdue = new ArrayList<>();
+        expectedOverdue.add(overdueDeadline);
+        
+        assertCommandBehavior("list od",
+                String.format(ListCommand.MESSAGE_SUCCESS, "overdue and expired"),
+                expectedAB, expectedOverdue,
+                Collections.emptyList());
+        
+    }
+    //@@author
+
+    
     //@@author A0143884W
     @Test
     public void execute_edit_name_successful() throws Exception {
@@ -551,7 +579,7 @@ public class LogicManagerTest {
 
         // initial task in actual model to be edited
         Task original = new Task (new Name("adam"), new Description("111111"),
-                new Datetime("11-11-2011 1111"), new Status(State.NONE), 
+                new Datetime("11-11-2018 1111"), new Status(State.NONE), 
                 new UniqueTagList(new Tag("tag1"), new Tag("tag2")));
 
         model.addTask(original);
@@ -559,19 +587,19 @@ public class LogicManagerTest {
         String [] editInputs = new String [] {
                 "edit 11 name changed t/tag1 t/tag2", // edit name
                 "edit 11 d/change description too t/tag1 t/tag2", // edit description
-                "edit 11 date/12-11-2011 1111 t/tag1 t/tag2", // edit date
+                "edit 11 date/12-11-2018 1111 t/tag1 t/tag2", // edit date
                 "edit 11 t/tag3 t/tag4", // edit tags
                 "edit 11 date/ t/tag3 t/tag4" // edit dated -> undated
         };
 
         Task editedTasks [] = new Task [] {
-                new Task (new Name("name changed"), new Description("111111"), new Datetime("11-11-2011 1111"),
+                new Task (new Name("name changed"), new Description("111111"), new Datetime("11-11-2018 1111"),
                         new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
-                new Task (new Name("name changed"), new Description("change description too"), new Datetime("11-11-2011 1111"),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("11-11-2018 1111"),
                         new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
-                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2011 1111"),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2018 1111"),
                         new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
-                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2011 1111"),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2018 1111"),
                         new Status(State.NONE), new UniqueTagList(new Tag("tag3"), new Tag("tag4"))),
                 new Task (new Name("name changed"), new Description("change description too"), new Datetime(""),
                         new Status(State.NONE), new UniqueTagList(new Tag("tag3"), new Tag("tag4")))
@@ -641,6 +669,26 @@ public class LogicManagerTest {
     }
     //@@author
 
+  //@@author A0139145E
+    @Test
+    public void execute_undo_done() throws Exception {
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
+                Collections.emptyList(), Collections.emptyList());
+
+        TestDataHelper helper = new TestDataHelper();
+        TaskBook expectedAB = helper.generateAddressBook(2);
+        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
+        helper.addToModel(model, 2);    
+
+        model.completeTask(toUndo);
+        model.addUndo("done", toUndo);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedAB, 
+                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
+                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+    }
+    //@@author
+    
     //@@author A0139145E
     @Test
     public void execute_undo_edit() throws Exception {
@@ -730,6 +778,18 @@ public class LogicManagerTest {
             return new Task(name, description, datetime, status, tags);
         }
 
+        Task overdueA() throws Exception {
+            Name name = new Name("File income tax");
+            Description description = new Description("tax online portal");
+            Datetime datetime = new Datetime("14-JAN-2015 11pm");
+            Tag tag1 = new Tag("epic");
+            Tag tag2 = new Tag("tax");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
+
+        
         /**
          * Generates a valid dated task using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
@@ -742,7 +802,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Description("" + Math.abs(seed)),
                     new Datetime(
-                            (seed%2==1) ? "11-NOV-201" + seed + " 111" + seed
+                            (seed%2==1) ? "1" + seed + "-NOV-2018 111" + seed
                                     : "1" + seed + "-NOV-2018 111" + seed + " to 1" + seed + "-NOV-2019 111" + seed),
                     new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))

@@ -3,6 +3,8 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -152,10 +154,17 @@ public class UniqueTaskList implements Iterable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+        if (other == this){ // short circuit if same object
+            return true;
+        }
+        if (!(other instanceof UniqueTaskList)) { // other is null
+            return false;
+        }
+        else { //compare data in list 
+            final Set<Task> s1 = new HashSet<>(this.internalList);
+            final Set<Task> s2 = new HashSet<>(((UniqueTaskList) other).internalList);
+            return s1.equals(s2);
+        }
     }
 
     @Override

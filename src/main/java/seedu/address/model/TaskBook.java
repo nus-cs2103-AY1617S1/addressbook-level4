@@ -53,31 +53,31 @@ public class TaskBook implements ReadOnlyTaskBook {
         return new TaskBook();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
-    
+
     public ObservableList<Task> getDatedTasks() {
-    	sortDatedTaskLists();
+        sortDatedTaskLists();
         return datedTasks.getInternalList();
     }
-    
+
     public ObservableList<Task> getUndatedTasks() {
-    	sortUndatedTaskLists();
+        sortUndatedTaskLists();
         return undatedTasks.getInternalList();
     }
-    
+
     private void sortUndatedTaskLists(){
-   	undatedTasks.sort(Task.Comparators.NAME);
+        undatedTasks.sort(Task.Comparators.NAME);
     }
 
     private void sortDatedTaskLists(){
         datedTasks.sort(Task.Comparators.DATE);
     }
-    
+
     public void setDatedTasks(List<Task> datedTasks) {
         this.datedTasks.getInternalList().setAll(datedTasks);
     }
-    
+
     public void setUndatedTasks(List<Task> undatedTasks) {
         this.undatedTasks.getInternalList().setAll(undatedTasks);
     }
@@ -98,7 +98,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         resetData(newData.getDatedTaskList(), newData.getUndatedTaskList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
      * Adds a task to the task book.
@@ -116,7 +116,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             undatedTasks.add(p);
         }
     }
-    
+
     private boolean checkIfDated(ReadOnlyTask d){
         if(d.getDatetime().toString().equals("")){
             return false;
@@ -132,7 +132,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
-        
+
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
@@ -160,7 +160,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-   
+
     public boolean completeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(key)) {
             datedTasks.complete(key);
@@ -174,7 +174,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     public boolean uncompleteTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(key)) {
             datedTasks.uncomplete(key);
@@ -188,7 +188,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     public boolean overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         if(datedTasks.contains(target)){
             datedTasks.overdue(target);
@@ -197,76 +197,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         else{
             throw new UniqueTaskList.TaskNotFoundException();	
         }
-    }
-    
-
-    
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
-//// util methods
-
-    @Override
-    public String toString() {
-        return datedTasks.getInternalList().size() + " datedTasks, " +
-               undatedTasks.getInternalList().size() + " undatedTasks, "+
-               tags.getInternalList().size() +  " tags";
-        // TODO: refine later
-    }
-
-    //this gets called when ModelManager.indicateTaskBookChanged() 
-    @Override
-    public List<ReadOnlyTask> getDatedTaskList() {
-    	sortDatedTaskLists();
-        return Collections.unmodifiableList(datedTasks.getInternalList());
-    }
-    
-    //this also gets called when ModelManager.indicateTaskBookChanged() 
-    @Override
-    public List<ReadOnlyTask> getUndatedTaskList() {
-    	sortUndatedTaskLists();
-        return Collections.unmodifiableList(undatedTasks.getInternalList());
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueDatedTaskList() {
-    	sortDatedTaskLists();
-        return this.datedTasks;
-    }
-    
-    @Override
-    public UniqueTaskList getUniqueUndatedTaskList() {
-    	sortUndatedTaskLists();
-        return this.undatedTasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TaskBook // instanceof handles nulls
-                && this.datedTasks.equals(((TaskBook) other).datedTasks)
-                && this.undatedTasks.equals(((TaskBook) other).undatedTasks)
-                && this.tags.equals(((TaskBook) other).tags));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(datedTasks, undatedTasks, tags);
     }
 
     //@@author A0139024M 
@@ -279,7 +209,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();   
         }        
     }
-    
+
     public boolean expireTask(Task target) throws UniqueTaskList.TaskNotFoundException {
         if(datedTasks.contains(target)){
             datedTasks.expire(target);
@@ -288,7 +218,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         else{
             throw new UniqueTaskList.TaskNotFoundException(); 
         }
-        
+
     }
 
     public boolean floatingStatusReset(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
@@ -301,4 +231,73 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     //@@author 
+
+    //// tag-level operations
+
+    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+        tags.add(t);
+    }
+
+    //// util methods
+
+    @Override
+    public String toString() {
+        return datedTasks.getInternalList().size() + " datedTasks, " +
+                undatedTasks.getInternalList().size() + " undatedTasks, "+
+                tags.getInternalList().size() +  " tags";
+        // TODO: refine later
+    }
+
+    //this gets called when ModelManager.indicateTaskBookChanged() 
+    @Override
+    public List<ReadOnlyTask> getDatedTaskList() {
+        sortDatedTaskLists();
+        return Collections.unmodifiableList(datedTasks.getInternalList());
+    }
+
+    //this also gets called when ModelManager.indicateTaskBookChanged() 
+    @Override
+    public List<ReadOnlyTask> getUndatedTaskList() {
+        sortUndatedTaskLists();
+        return Collections.unmodifiableList(undatedTasks.getInternalList());
+    }
+
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags.getInternalList());
+    }
+
+    @Override
+    public UniqueTaskList getUniqueDatedTaskList() {
+        sortDatedTaskLists();
+        return this.datedTasks;
+    }
+
+    @Override
+    public UniqueTaskList getUniqueUndatedTaskList() {
+        sortUndatedTaskLists();
+        return this.undatedTasks;
+    }
+
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TaskBook // instanceof handles nulls
+                        && this.datedTasks.equals(((TaskBook) other).datedTasks)
+                        && this.undatedTasks.equals(((TaskBook) other).undatedTasks)
+                        && this.tags.equals(((TaskBook) other).tags));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(datedTasks, undatedTasks, tags);
+    }
+
+
 }
