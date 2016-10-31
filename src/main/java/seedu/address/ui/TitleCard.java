@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTask.TaskType;
 import seedu.address.model.task.Time;
@@ -30,11 +33,19 @@ public class TitleCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
+    private HBox dateBox;
+    @FXML
     private Label name;
     @FXML
     private Text id;
     @FXML
     private Label date;
+    @FXML
+    private Label start;
+    @FXML
+    private Label end;
+    @FXML
+    private Label tag;
     @FXML
     private CheckBox completeStatus;
 
@@ -60,6 +71,8 @@ public class TitleCard extends UiPart{
         setEventHandlerForMarkChangedEvent();
         setDesign();
         setTextStyle();
+        setTime();
+        setTag();
     }
     
     private void setTextStyle() {
@@ -85,6 +98,29 @@ public class TitleCard extends UiPart{
     private void setColor(String s){
         name.getStyleClass().add(s);
         id.getStyleClass().add(s);
+    }
+    
+    public void setTime(){
+        switch(task.getTaskType()) {
+        case TIMERANGE:
+            end.setText(task.getTime().get().getEndDate().get().toLocalTime()
+                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+            start.setText("-");
+        case DEADLINE:
+        case UNTIMED:
+            date.setText(task.getTime().get().getStartDateString());
+            dateBox.setMaxHeight(HBox.USE_COMPUTED_SIZE);
+        case FLOATING: break;
+        default:
+            assert false: "Task must have TaskType";
+        }
+    }
+    
+    public void setTag(){
+        if(!task.getTags().isEmpty()){
+            tag.setText(task.tagsString());
+            tag.setMaxHeight(Label.USE_COMPUTED_SIZE);
+        }
     }
 
     //@@author A0121261Y-unused
