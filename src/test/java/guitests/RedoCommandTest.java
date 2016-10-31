@@ -16,24 +16,24 @@ public class RedoCommandTest extends ToDoListGuiTest {
         
         TestTask[] currentList = td.getTypicalTasks();
         
-//        //redo up to 5 times
-//        for(int i=0;i<5;i++){
-//        	TestTask taskToAdd = td.car;
-//        	commandBox.runCommand(taskToAdd.getAddCommand());
-//        	currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-//        }
-//        
-//        for(int y=0;y<5;y++)
-//        	commandBox.runCommand("undo");
-//        
-//        for(int y=0;y<4;y++)
-//            commandBox.runCommand("redo");
-//        
-//        assertRedoSuccess(currentList);
-//        
-//        //nothing to redo
-//        commandBox.runCommand("redo");
-//        assertResultMessage("Nothing to redo.");       
+        //redo up to 3 times
+        for(int i=0;i<3;i++){
+        	TestTask taskToAdd = td.car;
+        	commandBox.runCommand(taskToAdd.getAddCommand());
+        	currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        }
+        
+        for(int y=0;y<3;y++)
+        	commandBox.runCommand("undo");
+        
+        for(int y=0;y<2;y++)
+            commandBox.runCommand("redo");
+        
+        assertRedoSuccess(currentList);
+        
+        //nothing to redo
+        commandBox.runCommand("redo");
+        assertResultMessage("Nothing to redo.");       
         
         //redo undo of add task with date/time range
         TestTask taskToAdd = td.vacation;
@@ -42,14 +42,13 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertRedoSuccess(currentList);
         
-//        //redo undo of a block command
-//        TestTask timeToBlock = td.meeting;
-//        commandBox.runCommand(timeToBlock.getBlockCommand());
-//        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
-//        commandBox.runCommand("undo");
-//        assertRedoSuccess(currentList);
+        //redo undo of a block command
+        TestTask timeToBlock = td.meeting;
+        commandBox.runCommand(timeToBlock.getBlockCommand());
+        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        commandBox.runCommand("undo");
+        assertRedoSuccess(currentList);
         
-        //fails as edit eat buffet changes the timing when the timing is not supposed to change
         //redo undo of edit details
         int targetIndex = 1;
         System.out.println(taskListPanel.getTask(0));
@@ -61,7 +60,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertRedoSuccess(currentList);
 
         //redo undo of edit the priority of the last task in the list
-        targetIndex = currentList.length;
+        targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " /low");
         editedTask = td.editedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
@@ -77,7 +76,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         assertRedoSuccess(currentList);
         
         //redo undo of change tags of last task
-        targetIndex = currentList.length;
+        targetIndex = 4;
         commandBox.runCommand("edit " + targetIndex + " -dangerous");
         editedTask = td.taggedZika;
         currentList = TestUtil.replaceTaskFromList(currentList,editedTask,targetIndex-1);
@@ -131,16 +130,15 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertRedoSuccess(currentList);
         
-//        //unable to redo after undoing a task and then executing a new command
-//		  // fails test
-//        taskToAdd = td.vacation;
-//        commandBox.runCommand(taskToAdd.getAddRangeCommand());
-//        commandBox.runCommand("undo");
-//        targetIndex = 1;
-//        commandBox.runCommand("delete " + targetIndex);
-//        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-//        commandBox.runCommand("redo");
-//        assertResultMessage("Nothing to redo.");
+        //unable to redo after undoing a task and then executing a new command
+        taskToAdd = td.vacation;
+        commandBox.runCommand(taskToAdd.getAddRangeCommand());
+        commandBox.runCommand("undo");
+        targetIndex = 1;
+        commandBox.runCommand("delete " + targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        commandBox.runCommand("redo");
+        assertResultMessage("Nothing to redo.");
 
         
         //redo clear command
