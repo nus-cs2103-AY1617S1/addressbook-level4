@@ -119,7 +119,7 @@ Examples:
   Deletes the 1st task based on the results of the `find` command.
 
 #### Finding all tasks containing any keyword in their name: `find`
-Description: Finds task/s whose names contain any of the given keywords.<br>
+Description: Finds task/s whose names contain any of the specified keywords.<br>
 Format: `find KEYWORD <MORE_KEYWORDS>`
 
 > Key things to note:
