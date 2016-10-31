@@ -122,12 +122,4 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleTaskPanelSelectionChangedEvent(ActivityPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
-    
-    //@@author A0139515A
-    @Subscribe
-    public void handleModifyStorageEvent(ModifyStorageEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleModifyStorage();
-    }
-
 }
