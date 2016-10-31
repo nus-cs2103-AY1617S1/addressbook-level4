@@ -1,5 +1,6 @@
 package seedu.malitio.model.history;
 
+import seedu.malitio.logic.commands.ClearCommand;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueEventList;
@@ -18,7 +19,8 @@ public class InputClearHistory extends InputHistory{
         this.originalDeadlineList.getInternalList().addAll(deadline.getInternalList());
         this.originalEventList.getInternalList().addAll(event.getInternalList());
         this.originalTagList.getInternalList().addAll(tag.getInternalList());
-        this.commandForUndo = "clear";
+        this.commandForUndo = ClearCommand.COMMAND_WORD;
+        this.commandForRedo = ClearCommand.COMMAND_WORD;
     }
     
     public UniqueFloatingTaskList getFloatingTask() {

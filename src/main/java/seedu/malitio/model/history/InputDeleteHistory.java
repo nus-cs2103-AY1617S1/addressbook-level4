@@ -1,6 +1,7 @@
 package seedu.malitio.model.history;
 import javafx.collections.ObservableList;
-import seedu.malitio.commons.exceptions.IllegalValueException;
+import seedu.malitio.logic.commands.AddCommand;
+import seedu.malitio.logic.commands.DeleteCommand;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
@@ -8,7 +9,6 @@ import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 //@@author A0129595N
 public class InputDeleteHistory extends InputHistory {
@@ -16,7 +16,8 @@ public class InputDeleteHistory extends InputHistory {
     private int initialPositionOfFloatingTask = -1;
     
     public InputDeleteHistory(Object target, ObservableList<FloatingTask> observableList) {
-        this.commandForUndo = "add";
+        this.commandForUndo = AddCommand.COMMAND_WORD;
+        this.commandForRedo = DeleteCommand.COMMAND_WORD;
         String name = ((ReadOnlyFloatingTask)target).getName().fullName;
         UniqueTagList tags = ((ReadOnlyFloatingTask)target).getTags();
         this.initialPositionOfFloatingTask = observableList.indexOf(target);
