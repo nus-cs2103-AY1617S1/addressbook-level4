@@ -27,19 +27,19 @@ public class DoneCommand extends UndoableCommand {
             + ": Archives the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    
+    //@author
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
     
-    
-    private List<Task> doneTasks;
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
+    //@@author A0139498J
     private final List<Integer> targetIndexes;
-    private int adjustmentForRemovedTask = 0;
+    private List<Task> doneTasks;
+    private int adjustmentForRemovedTask;
     private boolean isViewingDoneList;
 
     
