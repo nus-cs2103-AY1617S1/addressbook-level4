@@ -11,31 +11,32 @@
 
 <!-- @@author A0139930B -->
 
-<HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="card-display" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="150.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                     </padding>
 
                     <children>
-                          <HBox>
-                              <Label fx:id="id" styleClass="cell_big_label" />
-                              <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
-                          </HBox>
-                          <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                           <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+                          <Label fx:id="tags" styleClass="cell_tag_label" text="\$tags" />
                     </children>
                 </VBox>
+                     <Label fx:id="id" ellipsisString="" styleClass="cell_id_label" text="\$id">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Label>
             </children>
          <rowConstraints>
             <RowConstraints />
