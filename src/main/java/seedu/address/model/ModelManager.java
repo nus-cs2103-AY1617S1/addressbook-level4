@@ -232,7 +232,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Map<String, String> qualifications, Set<String> tags) {
-        updateFilteredTaskListOrOperation(getPredicateForMultipleQualifications(qualifications, tags));
+        updateFilteredTaskListAndOperation(getPredicateForMultipleQualifications(qualifications, tags));
     }
 
     private ArrayList<Expression> getPredicateForMultipleQualifications(Map<String, String> qualifications,
@@ -249,7 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags) {
         ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
         types.forEach(type -> predicate.add(getPredicateForType(type)));
-        updateFilteredTaskListOrOperation(predicate);
+        updateFilteredTaskListAndOperation(predicate);
     }
 
     @Override

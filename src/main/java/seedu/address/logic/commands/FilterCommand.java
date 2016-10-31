@@ -44,7 +44,6 @@ public class FilterCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll(); // clear previous filtered results
         Map<String, String> filterQualifications = new HashMap<>();
         try {
             if (deadline.isPresent()) {

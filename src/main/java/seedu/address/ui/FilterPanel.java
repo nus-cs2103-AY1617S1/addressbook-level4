@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +26,9 @@ import seedu.address.model.task.Recurring;
 
 public class FilterPanel extends UiPart {
     
+    public static final String SUCCESS_FILTER = "Filter the todoList";
+    public static final String INVALID_FILTER = "Invalid filter: ";
+    
     private static final Logger logger = LogsCenter.getLogger(FilterPanel.class);
     private static final String FXML = "FilterPanel.fxml";
     
@@ -38,8 +41,7 @@ public class FilterPanel extends UiPart {
     private static final String DEADLINE = "deadline";
     private static final String RECURRING = "recurring";
     private static final String EMPTY = "";
-    private static final String INVALID_FILTER = "Invalid filter: ";
-    private static final String SUCCESS_FILTER = "Filter the todoList";
+    private static final String NIL = "nil";
     private static final String SPACE = "\\s+";
     private static final String ONE = "1";
     private static final String TWO = "2";
@@ -50,16 +52,16 @@ public class FilterPanel extends UiPart {
     private ResultDisplay resultDisplay;
     
     @FXML
-    private CheckBox eventsCheckBox;
+    private ToggleButton eventsToggleButton;
     
     @FXML
-    private CheckBox tasksCheckBox;
+    private ToggleButton tasksToggleButton;
     
     @FXML
-    private CheckBox doneCheckBox;
+    private ToggleButton doneToggleButton;
     
     @FXML
-    private CheckBox undoneCheckBox;
+    private ToggleButton undoneToggleButton;
     
     @FXML
     private TextField deadlineTextField;
@@ -136,16 +138,16 @@ public class FilterPanel extends UiPart {
     
     private Set<String> handleTypesChanged() {
         Set<String> types = new HashSet<>();
-        if (eventsCheckBox.isSelected()) {
+        if (eventsToggleButton.isSelected()) {
             types.add(EVENTS);
         }
-        if (tasksCheckBox.isSelected()) {
+        if (tasksToggleButton.isSelected()) {
             types.add(TASKS);
         }
-        if (doneCheckBox.isSelected()) {
+        if (doneToggleButton.isSelected()) {
             types.add(DONE);
         }
-        if (undoneCheckBox.isSelected()) {
+        if (undoneToggleButton.isSelected()) {
             types.add(UNDONE);
         }
         return types;
@@ -155,8 +157,12 @@ public class FilterPanel extends UiPart {
         HashMap<String, String> qualifications = new HashMap<>();
         String deadline = deadlineTextField.getText().trim();
         if (!deadline.equals(EMPTY)) {
-            deadline = Deadline.validateDate(deadline);
-            qualifications.put(DEADLINE, deadline);
+            if (deadline.equals(NIL)) {
+                qualifications.put(DEADLINE, EMPTY);
+            } else {
+                deadline = Deadline.validateDate(deadline);
+                qualifications.put(DEADLINE, deadline);
+            }
         }
         String startDate = startDateTextField.getText().trim();
         if (!startDate.equals(EMPTY)) {

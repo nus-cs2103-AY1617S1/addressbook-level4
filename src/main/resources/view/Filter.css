@@ -5,27 +5,26 @@
 	-fx-text-fill: black;
 }
 
-.check-box, .label {
+.toggle-button, .label {
 	-fx-font-size: 14px;
 	-fx-font-family: "Segoe UI Semibold";
 	-fx-text-fill: black;
 }
 
-.check-box {
-	-fx-label-padding: 0 0 0 15px;
-}
-
-.check-box .box, .text-field, .choice-box {
-	-fx-background-color: #0099cc;
+.text-field, .choice-box, .toggle-button {
 	-fx-background-radius: 5;
-	-fx-border-color: #0086b3;
-	-fx-border-width: 1.5px;
 	-fx-border-radius: 5;
 	-fx-border-insets: -1;
+	-fx-border-width: 2px;
 }
 
-.check-box:selected .mark {
-    -fx-background-color: black;
+.toggle-button {
+    -fx-border-color: #b1b1b1;
+    -fx-background-color: #e2e2e2;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #c4c4c4;
 }
 
 .choice-box {

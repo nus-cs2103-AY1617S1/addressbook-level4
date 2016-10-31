@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxWidth="420.0" prefWidth="370.0" style="-fx-background-color: #bdbdbd; -fx-border-color: #d6d6d6; -fx-border-width: 2;" stylesheets="@Filter.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FilterPanel">
+<GridPane maxWidth="420.0" prefWidth="370.0" style="-fx-background-color: #bdbdbd; -fx-border-color: #d6d6d6; -fx-border-width: 2;" stylesheets="@Filter.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FilterPanel">
    <rowConstraints>
       <RowConstraints maxHeight="60.0" minHeight="25.0" prefHeight="60.0" />
       <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="40.0" />
@@ -31,38 +32,44 @@
       <ColumnConstraints maxWidth="210.0" minWidth="80.0" prefWidth="185.0" />
    </columnConstraints>
    <children>
-      <CheckBox fx:id="eventsCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Events">
+      <ToggleButton fx:id="eventsToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Events">
+          <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="isEvent" />
+         </toggleGroup>
+         <effect>
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
+         </effect>
+      </ToggleButton>
+      <ToggleButton fx:id="tasksToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Tasks" toggleGroup="$isEvent" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
          <effect>
             <ColorAdjust brightness="-0.24" saturation="-1.0" />
          </effect>
-      </CheckBox>
-      <CheckBox fx:id="tasksCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Tasks" GridPane.columnIndex="1">
+      </ToggleButton>
+      <ToggleButton fx:id="doneToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Done" GridPane.rowIndex="1"> 
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="isDone" />
+         </toggleGroup>
          <effect>
-            <ColorAdjust brightness="-0.24" hue="0.02" saturation="-1.0" />
+            <ColorAdjust brightness="-0.24" saturation="-1.0" />
          </effect>
-      </CheckBox>
-      <CheckBox fx:id="doneCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Done" GridPane.rowIndex="1">
+      </ToggleButton>
+      <ToggleButton fx:id="undoneToggleButton" mnemonicParsing="false" onAction="#handleFilterChanged" prefWidth="97.0" text="Undone" toggleGroup="$isDone" GridPane.columnIndex="1" GridPane.rowIndex="1"> 
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>
          <effect>
             <ColorAdjust brightness="-0.24" saturation="-1.0" />
          </effect>
-      </CheckBox>
-      <CheckBox fx:id="undoneCheckBox" mnemonicParsing="false" onAction="#handleFilterChanged" text="Undone" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="20.0" />
-         </GridPane.margin>
-         <effect>
-            <ColorAdjust brightness="-0.24" saturation="-1.0" />
-         </effect>
-      </CheckBox>
+      </ToggleButton>
       <Label text="Deadline:" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <font>
             <Font name="Segoe UI Semibold" size="14.0" />

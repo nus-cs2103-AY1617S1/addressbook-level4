@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -52,10 +53,19 @@ public class GuiHandle {
     protected String getTextFieldText(String filedName) {
         return ((TextField) getNode(filedName)).getText();
     }
-
+    
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
         ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+    }
+    
+    protected boolean getToggleButtonInput(String filedName) {
+        return ((ToggleButton) getNode(filedName)).isSelected();
+    }
+    
+    protected void clickToggleButton(String toggleButtonId) {
+        guiRobot.clickOn(toggleButtonId);
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
 
