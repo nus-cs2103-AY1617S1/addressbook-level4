@@ -17,37 +17,37 @@
    <children>
       <HBox maxHeight="10.0" prefHeight="10.0" styleClass="anchor-pane">
          <children>
-            <Label fx:id="notComplete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #9999;" text="Not Complete" textFill="WHITE">
+            <Label fx:id="notComplete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #9999;" text="Incomplete" textFill="WHITE">
                <HBox.margin>
-                  <Insets bottom="2.0" left="25.0" right="10.0" top="10.0" />
+                  <Insets left="25.0" right="10.0" top="5.0" />
                </HBox.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <font>
-                  <Font name="System Font Regular" size="15.0" />
+                  <Font name="System Font Regular" size="18.0" />
                </font>
             </Label>
             <Label fx:id="complete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;" text="Complete" textFill="WHITE">
                <HBox.margin>
-                  <Insets bottom="2.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" right="10.0" top="5.0" />
                </HBox.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <font>
-                  <Font name="System Font Regular" size="15.0" />
+                  <Font name="System Font Regular" size="18.0" />
                </font>
             </Label>
             <Label fx:id="find" prefHeight="5.0" style="-fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;" text="Find" textFill="WHITE">
                <HBox.margin>
-                  <Insets bottom="2.0" left="10.0" top="10.0" />
+                  <Insets left="10.0" top="5.0" />
                </HBox.margin>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <font>
-                  <Font name="System Font Regular" size="15.0" />
+                  <Font name="System Font Regular" size="18.0" />
                </font>
             </Label>
          </children>
