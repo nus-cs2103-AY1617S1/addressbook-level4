@@ -3,6 +3,7 @@ package harmony.mastermind.storage;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,6 +26,8 @@ public class StorageManagerTest {
 
     private StorageManager storageManager;
     //@@author A0139194X
+    private final String TEST_FOLDER = "/TestFolder1";
+    private final String TEST_FOLDER_2 = "/TestFolder2";
     private final String FILEPATH_ENDING_WITH_SLASH = "TestFile/";
     private final String FILEPATH_NOT_ENDING_WITH_SLASH = "TestFile";
     
@@ -35,8 +38,7 @@ public class StorageManagerTest {
     //@@author A0139194X
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    //@@author A0139194X
+  
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
@@ -123,6 +125,15 @@ public class StorageManagerTest {
         thrown.expect(AssertionError.class);
         RelocateFilePathEvent event = new RelocateFilePathEvent(null);
         storageManager.handleRelocateEvent(event);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void handleRelocateEvent_unwrittableFilePath_exceptionThrown() {
+        String filePath = storageManager.getTaskManagerFilePath() + "/mastermind.xml";
+        RelocateFilePathEvent event = new RelocateFilePathEvent("");
+        storageManager.handleRelocateEvent(event);
+        assertEquals(filePath, storageManager.getTaskManagerFilePath() + "/mastermind.xml");
     }
 
     /**

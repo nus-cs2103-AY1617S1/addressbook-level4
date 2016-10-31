@@ -105,7 +105,9 @@ public class StorageManager extends ComponentManager implements Storage {
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Error occured while handling relocate event");
+            logger.warning("Reverting save location back to " + oldPath);
+            taskManagerStorage.setTaskManagerFilePath(oldPath);
         }
         updateConfig(newPath);
     }
