@@ -57,8 +57,6 @@ public class AddParser implements Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (NoSuchElementException nsee) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (EmptyValueException e) {
             return new IncorrectCommand(e.getMessage());
         }

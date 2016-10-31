@@ -4,9 +4,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.*;
 
-/**
- *
- */
+//@@author A0127570H
 public class TypicalTestTasks {
 
     public static TestTask cs1010, cs1020, computing, science, biz, engine, music, arts, socSciences, slack;

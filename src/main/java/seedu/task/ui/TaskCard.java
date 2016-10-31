@@ -41,19 +41,36 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getNameWithStatus());
         index.setText(displayedIndex + ". ");
-        description.setText(task.getDescriptionToString().trim());
-        deadline.setText(task.getDeadlineToString().trim());   
+        initialiseDescription();
+        initialiseDeadline();   
         setCompletionBackgroundText();
     }
 
-    //@@author-A0127570H
+    private void initialiseDeadline() {
+        deadline.setText(task.getDeadlineToString().trim());
+        if (task.getDeadline().isPresent()) {
+            deadline.setManaged(true);
+        } else {
+            deadline.setManaged(false);
+        }
+    }
+
+    private void initialiseDescription() {
+        description.setText(task.getDescriptionToString().trim());
+        if (task.getDescription().isPresent()) {
+            description.setManaged(true);
+        } else {
+            description.setManaged(false);
+        }
+    }
+
     //Adds the lavender colour to the background if the task status is completed
     private void setCompletionBackgroundText() {
         if (task.getTaskStatus()) {
             cardPane.getStyleClass().add("status-complete");
         }
     }
-
+    //@@author
 
     public HBox getLayout() {
         return cardPane;

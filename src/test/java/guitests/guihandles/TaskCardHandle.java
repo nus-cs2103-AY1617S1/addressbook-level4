@@ -35,13 +35,7 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getDeadline() {
         return getTextFromLabel(DEADLINE_FIELD_ID);
-    }
-    
-    public Boolean getTaskStatus() {
-    	return false;
-    }
-
-    
+    }    
 
     public boolean isSameTask(ReadOnlyTask task){
         return isSameName(task) && isSameDescription(task) && isSameDeadline(task);
@@ -52,11 +46,19 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     private boolean isSameDeadline(ReadOnlyTask task) {
-        return (task.getDeadlineValue().isEmpty() && getDeadline().isEmpty()) || (getDeadline().equals(task.getDeadlineToString().trim()));
+        if (!task.getDeadline().isPresent()) {
+            return true;
+        } else {
+            return (task.getDeadlineValue().isEmpty() && getDeadline().isEmpty()) || (getDeadline().equals(task.getDeadlineToString().trim()));
+        }
     }
     
     private boolean isSameDescription(ReadOnlyTask task) {
-        return (getDescription().equals(task.getDescriptionToString().trim())) || (task.getDescriptionValue().isEmpty() && getDescription().isEmpty()); 
+        if (!task.getDescription().isPresent()) {
+            return true;
+        } else {
+            return (getDescription().equals(task.getDescriptionToString().trim())) || (task.getDescriptionValue().isEmpty() && getDescription().isEmpty()); 
+        }
     }
 
     @Override

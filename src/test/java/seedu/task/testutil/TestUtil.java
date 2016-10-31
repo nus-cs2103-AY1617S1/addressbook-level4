@@ -77,26 +77,10 @@ public class TestUtil {
                     new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),null,false),
             };
         } catch (IllegalValueException e) {
-            assert false;
             //not possible
             return null;
         }
     }
-
-//    public static final Tag[] sampleTagData = getSampleTagData();
-//
-//    private static Tag[] getSampleTagData() {
-//        try {
-//            return new Tag[]{
-//                    new Tag("relatives"),
-//                    new Tag("friends")
-//            };
-//        } catch (IllegalValueException e) {
-//            assert false;
-//            return null;
-//            //not possible
-//        }
-//    }
 
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);

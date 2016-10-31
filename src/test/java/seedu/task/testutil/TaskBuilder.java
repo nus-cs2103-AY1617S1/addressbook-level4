@@ -24,7 +24,6 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
-        assert deadline != null;
         this.task.setDeadline(new Deadline(deadline));
         return this;
     

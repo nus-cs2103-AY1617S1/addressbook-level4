@@ -2,6 +2,7 @@ package seedu.task.model;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.EventDuration;
@@ -14,7 +15,11 @@ public class EventDurationTest {
 		EventDuration e1 = new EventDuration("01-01-15","");
 		EventDuration e2 = new EventDuration("01-01-15","");
 		EventDuration e3 = new EventDuration("01-02-15","");
+		String test = "blah";
 		
 		assertEquals(e1, e2);
+		assertFalse(e2.equals(e3));
+		assertFalse(e2.equals(null));
+		assertFalse(e1.equals(test));
 	}
 }

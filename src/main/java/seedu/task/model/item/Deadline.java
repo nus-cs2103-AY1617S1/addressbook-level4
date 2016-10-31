@@ -29,14 +29,9 @@ public class Deadline implements Comparable<Deadline> {
      *
      * @throws IllegalValueException if given deadline string is invalid.
      */
-    public Deadline(String deadlineArg) throws IllegalValueException {
+    public Deadline(String deadlineArg) throws IllegalValueException{
         assert deadlineArg != null;
-        deadlineArg = deadlineArg.trim();
-   
-        if (deadlineArg.isEmpty()) {
-            throw new IllegalValueException(MESSAGE_DEADLINE_CONSTRAINTS);
-        }   
-        
+        deadlineArg = deadlineArg.trim();          
         try {
         	this.deadLine = StringUtil.parseStringToTime(deadlineArg);
         } catch (IllegalValueException e) {

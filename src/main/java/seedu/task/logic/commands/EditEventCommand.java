@@ -42,7 +42,7 @@ public class EditEventCommand extends EditCommand {
 	 *             if any of the raw values are invalid
 	 */
 	public EditEventCommand(Integer index, String name, String description, 
-	        String startDuration, String endDuration) throws IllegalValueException, IndexOutOfBoundsException {
+	        String startDuration, String endDuration) throws IllegalValueException {
 
 		setTargetIndex(index);
 		newStartDuration = startDuration;
