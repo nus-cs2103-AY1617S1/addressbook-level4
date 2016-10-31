@@ -70,10 +70,10 @@ public class RedoCommand extends Command{
 		} else {
 			try {
 				ReadOnlyTask reqTask = model.getDeletedStackOfTasksAddRedo().pop();
+				model.addTask((Task) reqTask);
 				model.getDeletedStackOfTasksAdd().push(reqTask);
-				model.addTask((Task)reqTask);
 			} catch (DuplicateTaskException e) {
-				return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
+			    return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 			}
 			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 		}
@@ -163,7 +163,9 @@ public class RedoCommand extends Command{
 			try {
 				model.updateTask(originalTask, (Task) wantedTask);
 			} catch (UniqueTaskList.DuplicateTaskException utle) {
-				return new CommandResult(RedoCommand.MESSAGE_FAIL);
+				model.getOldTask().pop();
+				model.getNewTask().pop();
+			    return new CommandResult(RedoCommand.MESSAGE_FAIL);
 			}
 			return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 		}
