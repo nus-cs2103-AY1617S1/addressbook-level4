@@ -32,7 +32,7 @@ public class EditCommand extends Command {
     
     public EditCommand(String targetIndex, String name, String start, String end, String recur) {
         this.targetIndex = Integer.parseInt(targetIndex);
-        this.newName = name;
+        this.newName = name.replace('\\', '\0');
         this.newStart = start;
         this.newEnd = end;
         this.newRecur = recur;
