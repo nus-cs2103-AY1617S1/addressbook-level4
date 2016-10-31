@@ -227,18 +227,20 @@ Format: `exit`
 Description: Updates the task manager if the date and time is out of synchronisation with the computer and checks the amount of time left to do a task or prepare for an event.
 Format: `update`
 
-> Key things to note:
-> The name of the task/event will be highlighted in blue, if the task or event has only four days left. 
-> The name will be highlighted in green, if there are three days left. 
-> The name will be highlighted in purple, if there are two days left. 
-> The name will be highlighted in orange, if there is only a day left. 
-> The name will be highlighted in red, if the task or event is not labelled complete as it will be taken to be overdue or unattended. 
+> Key things to note:<br>
+> The name of the task/event will be highlighted in blue, if the task or event has only four days left.<br>
+> The name will be highlighted in green, if there are three days left.<br> 
+> The name will be highlighted in purple, if there are two days left.<br>
+> The name will be highlighted in orange, if there is only a day left.<br> 
+> The name will be highlighted in red, if the task or event is not labelled complete as it will be taken to be overdue or unattended.
 
 #### Clearing all entries : `clear`
 Description: Clears all entries from the task manager.<br>
 Format: `clear`
 
-> Please only use this if you need to reset the task manager. For example if you need to pass the task manager to someone else at your work terminal or if you are changing jobs this would be a good way to remove all your personal effects in one command.
+> Key things to note: <br>
+> Please only use this if you need to reset the task manager.<br>
+> For example if you need to pass the task manager to someone else at your work terminal or if you are changing jobs this would be a good way to remove all your personal effects in one command.
 
 #### Saving the data
 Task Manager data is saved in the hard disk automatically after any command that changes the data.<br>
