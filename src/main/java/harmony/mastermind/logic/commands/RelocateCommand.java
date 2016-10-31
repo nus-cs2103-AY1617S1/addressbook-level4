@@ -18,13 +18,12 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.storage.StorageManager;
-import harmony.mastermind.storage.*;
 
 /**
  * @@author A0139194X
  * Relocates save location
  */
-public class RelocateCommand extends Command{
+public class RelocateCommand extends Command {
 
     public static final String COMMAND_WORD = "relocate";
 
@@ -51,7 +50,6 @@ public class RelocateCommand extends Command{
     @Override
     public CommandResult execute() {
         assert model != null;
-        assert storage != null;
         assert newFilePath != null;
         try {
             FileUtil.checkSaveLocation(newFilePath);
