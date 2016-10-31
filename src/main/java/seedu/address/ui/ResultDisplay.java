@@ -2,8 +2,13 @@ package seedu.address.ui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollToEvent;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
@@ -41,6 +46,22 @@ public class ResultDisplay extends UiPart {
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
+        setSelectableCharacteristics();
+    }
+    
+    /*
+     * Consume all events except for scrolling and scrollevents from control up/down
+     */
+    private void setSelectableCharacteristics() {
+        resultDisplayArea.addEventFilter(Event.ANY, new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+               EventType<?> type = event.getEventType().getSuperType();
+               if (type != ScrollEvent.ANY && type != ScrollToEvent.ANY) {
+                   event.consume();
+               } 
+            }
+        });
     }
 
     @Override
