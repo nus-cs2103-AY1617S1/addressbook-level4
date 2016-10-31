@@ -33,7 +33,7 @@ public interface Model {
     
 
     //@@author A0139714B
-    void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+    void editTask(ReadOnlyTask target, Task toEdit) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
     
     //@@author A0139714B
     void saveToPrevLists();

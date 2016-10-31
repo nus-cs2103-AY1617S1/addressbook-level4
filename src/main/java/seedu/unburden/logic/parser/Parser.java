@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.unburden.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.*;
@@ -12,9 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.unburden.commons.core.Config;
+import seedu.unburden.commons.core.Messages;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
+import seedu.unburden.model.task.Date;
+import seedu.unburden.model.task.Time;
 
 /**
  * Parses user input.
@@ -28,10 +32,10 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
+	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[^/]+)");
 
 	// @@author A0143095H
-	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[^/]+)");
+	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>([0][1-9]|[1-2][0-9]|[3][0-1])[-]([0][1-9]|[1][0-2])[-]([2][0][1][6-9]|[2][1-9][0-9][0-9]))");
 
 	// Event
 	private static final Pattern ADD_FORMAT_0 = Pattern.compile(
@@ -99,7 +103,7 @@ public class Parser {
 
 	private static final String UNDONE = "undone";
 
-	private static final DateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
 	public Parser() {
 	}
@@ -210,9 +214,7 @@ public class Parser {
 				details.add(matcher0.group("endTimeArguments"));
 				return new AddCommand("event with everything", details,
 						getTagsFromArgs(matcher0.group("tagArguments")));
-
 			}
-
 			if (matcher1.matches()) {
 				details.add(matcher1.group("name"));
 				details.add(matcher1.group("date"));
@@ -347,40 +349,34 @@ public class Parser {
 	}
 
 	private Command prepareList(String args) throws ParseException {
+		args = args.trim();
 		if (args.equals("")) {
 			return new ListCommand();
 		}
-		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
+		//final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
 		final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
-		if (!matcherDate.matches() && !matcherWord.matches()) {
+		if (!matcherWord.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-		if (matcherDate.matches()) {
-			try {
-				return new ListCommand(args, "date");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			Calendar calendar = Calendar.getInstance();
-			switch (matcherWord.group("keywords").toLowerCase()) {
-			case TOMORROW:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.DAY_OF_YEAR, 1);
-				final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
-				return new ListCommand(tomorrowKeyword, "date");
-			case NEXTWEEK:
-				calendar.setTime(calendar.getTime());
-				calendar.add(Calendar.WEEK_OF_YEAR, 1);
-				final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
-				return new ListCommand(nextWeekKeyword, "date");
-			case DONE:
-				return new ListCommand(DONE);
-			case UNDONE:
-				return new ListCommand(UNDONE);
-			}
+		Calendar calendar = Calendar.getInstance();
+		switch (args.toLowerCase()) {
+		case TOMORROW:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			final String tomorrowKeyword = DATEFORMATTER.format(calendar.getTime());
+			System.out.println(tomorrowKeyword);
+			return new ListCommand(tomorrowKeyword, "date");
+		case NEXTWEEK:
+			calendar.setTime(calendar.getTime());
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			final String nextWeekKeyword = DATEFORMATTER.format(calendar.getTime());
+			return new ListCommand(nextWeekKeyword, "date");
+		case DONE:
+			return new ListCommand(DONE);
+		case UNDONE:
+			return new ListCommand(UNDONE);
 		}
-		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+		return new ListCommand(args, "date");
 	}
 
 	/**
@@ -393,23 +389,40 @@ public class Parser {
 	 * @@author A0139714B
 	 */
 	private Command prepareEdit(String args) {
+		String newName, newTaskDescription, newDate, newStartTime, newEndTime; 
 
 		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
-		String tempArgs = args.trim();
+		try {
+			
+			String tempArgs = args.trim();
+	
+			String[] newArgs = tempArgs.split(" ", 2); // if no parameters is entered
+			if (newArgs.length <= 1)
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+	
+			Optional<Integer> index = parseIndex(newArgs[0]);
+			if (!index.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, EditCommand.MESSAGE_USAGE));
+			}
+			
+			/*
+			newName = (matcher.group("name") == null) ? null : matcher.group("name");
+			newTaskDescription = (matcher.group("taskDescriptions") == null) ? null : matcher.group("taskDescriptions");
+			newDate = (matcher.group("date") == null) ? null : matcher.group("date");
+			newStartTime = (matcher.group("startTimeArguments") == null) ? null : matcher.group("startTimeArguments");
+			newEndTime = (matcher.group("endTimeArguments") == null) ? null : matcher.group("endTimeArguments"); 	
 
-		String[] newArgs = tempArgs.split(" ", 2);
-		if (newArgs.length <= 1)
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-
-		Optional<Integer> index = parseIndex(newArgs[0]);
-		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			return new EditCommand(index.get(), newName, newTaskDescription, newDate, newStartTime, newEndTime);
+			*/
+			return new EditCommand(index.get(), matcher.group("name"), matcher.group("taskDescriptions"), 
+								   matcher.group("date"), matcher.group("startTimeArguments"), matcher.group("endTimeArguments"));
+			
+		} catch (IllegalValueException ive) {
+			return new IncorrectCommand(ive.getMessage());
 		}
-
-		return new EditCommand(index.get(), newArgs[1].trim());
 	}
 
 	/**

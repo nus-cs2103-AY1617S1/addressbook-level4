@@ -115,8 +115,9 @@ public class ListOfTask implements ReadOnlyListOfTask {
     }
     
   //@@author A0139714B
-    public boolean editTask(ReadOnlyTask key, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
-        if (tasks.edit(key, args))
+    public boolean editTask(ReadOnlyTask key, Task toEdit) 
+    		throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
+        if (tasks.edit(key, toEdit))
             return true;
         else {
             throw new UniqueTaskList.TaskNotFoundException();
