@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import guitests.guihandles.TaskCardHandle;
 import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
@@ -17,27 +18,44 @@ public class DoneCommandTest extends ToDoListGuiTest {
     @Test
     public void done() {
 
-        //done the first task in the list
         TestTask[] currentList = td.getTypicalTasks();
+        
+        //done the first task in the list
         int targetIndex = 1;
         assertdoneSuccess(targetIndex, currentList);
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        currentList = updateList(targetIndex, currentList);
 
         //done a task that is the last in the list
         targetIndex = currentList.length;
         assertdoneSuccess(targetIndex, currentList);
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        currentList = updateList(targetIndex, currentList);
 
         //done task from the middle of the list
         targetIndex = currentList.length/2;
         assertdoneSuccess(targetIndex, currentList);
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        currentList = updateList(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("done " + currentList.length + 1);
+        runDoneCommand(currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }
+    
+    //run done command
+    private void runDoneCommand(int targetIndex){
+    	commandBox.runCommand("done " + targetIndex);
+    }
+    
+    //update list
+    private TestTask[] updateList(int targetIndex, TestTask... currentList){
+    	return TestUtil.removeTaskFromList(currentList, targetIndex);
+    }
+    
+    //confirm the list now contains all previous tasks except the deleted task
+    private void compareList(TestTask[] expectedRemainder){
+    	  assertTrue(taskListPanel.isListMatching(expectedRemainder));
+    }
+
 
     /**
      * Runs the done command to change the task done status at specified index and confirms the result is correct.
@@ -46,12 +64,13 @@ public class DoneCommandTest extends ToDoListGuiTest {
      */
     private void assertdoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
-
-        commandBox.runCommand("done " + targetIndexOneIndexed);
+        
+        runDoneCommand(targetIndexOneIndexed);
+        
+        TestTask[] expectedRemainder = updateList(targetIndexOneIndexed, currentList);
 
         //confirm the list now contains all previous tasks except the done task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        compareList(expectedRemainder);
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));

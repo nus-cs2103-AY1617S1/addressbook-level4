@@ -68,8 +68,6 @@ public class UniqueTaskList implements Iterable<Task> {
     		throw new TaskNotFoundException();
     	}
     	internalList.set(index, toEditWith);
-//    	internalList.remove(toEdit);
-//    	internalList.add(toEditWith);
     }
     
     /**

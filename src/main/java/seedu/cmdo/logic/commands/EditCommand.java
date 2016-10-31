@@ -183,6 +183,7 @@ public class EditCommand extends Command {
         }
        
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        System.out.println(taskToEdit.getAsText());
         // Check if task is done.
         if (taskToEdit.checkDone().value) {
             indicateAttemptToExecuteIncorrectCommand();
