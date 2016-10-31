@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class UndoRedoCommandTest extends ActivityManagerGuiTest {
 
     @Test
-    public void add() {
+    public void undoRedo() {
         //add one activity
         TestActivity[] originalList = td.getTypicalTask();
         TestActivity activityToAdd = td.task2;

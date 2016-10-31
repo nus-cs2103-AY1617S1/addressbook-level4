@@ -141,7 +141,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
         Collections.sort(events.getInternalList(), new EventComparator());
     }
-    //@@author A0146752B
+    
     
     //@@author A0139164A
     /**

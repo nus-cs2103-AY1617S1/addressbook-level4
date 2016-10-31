@@ -13,13 +13,13 @@
 
 <!-- @@author A0139515A -->
 
-<VBox maxWidth="1100.0" minWidth="1100.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.ActivityListPanel">
+<VBox maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="1100.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.ActivityListPanel">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
-		<GridPane>
+		<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
 			<columnConstraints>
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="750.0" minWidth="750.0" prefWidth="750.0" />
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="350.0" prefWidth="350.0" />
@@ -28,7 +28,7 @@
 				<RowConstraints vgrow="SOMETIMES" />
 			</rowConstraints>
 			<children>
-				<GridPane>
+				<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 					<columnConstraints>
 						<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 					</columnConstraints>
@@ -37,9 +37,9 @@
 						<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 					</rowConstraints>
 					<children>
-						<VBox maxWidth="750.0" minWidth="750.0" prefWidth="750.0" style="-fx-background-color: #87cefa; -fx-border-color: white; -fx-border-width: 6px;">
+						<VBox maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="750.0" prefWidth="750.0" style="-fx-background-color: #87cefa; -fx-border-color: white; -fx-border-width: 6px;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 							<children>
-								<GridPane maxWidth="750.0" minWidth="750.0" prefWidth="750.0">
+								<GridPane maxHeight="Infinity" maxWidth="750.0" minWidth="750.0" prefWidth="750.0" VBox.vgrow="NEVER">
 									<columnConstraints>
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" />
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
@@ -47,7 +47,7 @@
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 									</columnConstraints>
 									<rowConstraints>
-										<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+										<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
 									</rowConstraints>
 									<children>
 										<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Task" />
@@ -56,7 +56,7 @@
 										<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Status" GridPane.columnIndex="3" />
 									</children>
 								</GridPane>
-								<ListView fx:id="taskListView" maxWidth="750.0" minWidth="730.0" prefWidth="730.0" style="-fx-border-color: #87cefa;" styleClass="list-view-task">
+								<ListView fx:id="taskListView" maxHeight="Infinity" maxWidth="750.0" minWidth="730.0" prefWidth="730.0" style="-fx-border-color: #87cefa;" styleClass="list-view-task" VBox.vgrow="ALWAYS">
 									<effect>
 										<ColorAdjust />
 									</effect>
@@ -66,9 +66,9 @@
 								<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
 							</padding>
 						</VBox>
-						<VBox maxWidth="750.0" minWidth="750.0" prefWidth="750.0" style="-fx-background-color: #ffa07a; -fx-border-color: white; -fx-border-width: 6px;" GridPane.rowIndex="1">
+						<VBox maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="750.0" prefWidth="750.0" style="-fx-background-color: #ffa07a; -fx-border-color: white; -fx-border-width: 6px;" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
 							<children>
-								<GridPane maxWidth="750.0" minWidth="750.0" prefWidth="750.0">
+								<GridPane maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="750.0" prefWidth="750.0" VBox.vgrow="NEVER">
 									<columnConstraints>
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" />
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
@@ -76,7 +76,7 @@
 										<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 									</columnConstraints>
 									<rowConstraints>
-										<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+										<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
 									</rowConstraints>
 									<children>
 										<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Event" />
@@ -84,7 +84,7 @@
 										<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="To" GridPane.columnIndex="3" />
 									</children>
 								</GridPane>
-								<ListView fx:id="eventListView" maxWidth="750.0" minWidth="730.0" prefWidth="730.0" style="-fx-border-color: #ffa07a;" styleClass="list-view-event" />
+      								<ListView fx:id="eventListView" maxHeight="Infinity" maxWidth="750.0" minWidth="730.0" prefWidth="730.0" style="-fx-border-color: #ffa07a;" styleClass="list-view-event" VBox.vgrow="ALWAYS" />
 							</children>
 							<padding>
 								<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -92,22 +92,22 @@
 						</VBox>
 					</children>
 				</GridPane>
-				<VBox maxWidth="450.0" minWidth="450.0" prefWidth="450.0" style="-fx-background-color: #fafad2; -fx-border-color: white; -fx-border-width: 6px;" GridPane.columnIndex="1">
+				<VBox maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="450.0" prefWidth="450.0" style="-fx-background-color: #fafad2; -fx-border-color: white; -fx-border-width: 6px;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
 					<children>
-						<GridPane maxWidth="450.0" minWidth="450.0" prefWidth="450.0">
+						<GridPane maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="450.0" prefWidth="450.0" VBox.vgrow="NEVER">
 							<columnConstraints>
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" />
 								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
 							</columnConstraints>
 							<rowConstraints>
-								<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+								<RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS" />
 							</rowConstraints>
 							<children>
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Floating" />
 								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" text="Status" GridPane.columnIndex="1" />
 							</children>
 						</GridPane>
-						<ListView fx:id="floatingTaskListView" maxWidth="450.0" minWidth="430.0" prefWidth="430.0" style="-fx-border-color: #fafad2;" styleClass="list-view-floating" />
+						<ListView fx:id="floatingTaskListView" maxHeight="Infinity" maxWidth="1.7976931348623157E308" minWidth="430.0" prefWidth="430.0" style="-fx-border-color: #fafad2;" styleClass="list-view-floating" VBox.vgrow="ALWAYS" />
 					</children>
 					<padding>
 						<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

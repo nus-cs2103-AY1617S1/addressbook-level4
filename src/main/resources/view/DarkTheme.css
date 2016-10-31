@@ -288,6 +288,18 @@
     -fx-text-fill: #010504;
 }
 
+.list-view-task .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: darkgrey;
+}
+
+.list-view-event .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: darkgrey;
+}
+
+.list-view-floating .list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: darkgrey;
+}
+
 .list-view-event .list-cell {
 	-fx-background-color: #ffa07a;
     -fx-label-padding: 0.0 0.0 0.0 0.0;

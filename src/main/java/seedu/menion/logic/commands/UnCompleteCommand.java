@@ -65,6 +65,8 @@ public class UnCompleteCommand extends Command {
         callUnCompleteActivity(targetType, activityToUncomplete); // Calls the correct method depending on type of activity.
         activityToUncomplete = lastShownList.get(targetIndex);
         
+        model.updateRecentChangedActivity(activityToUncomplete);
+        
         return new CommandResult(String.format(MESSAGE_UNCOMPLETED_ACTIVITY_SUCCESS, activityToUncomplete));
     }
 

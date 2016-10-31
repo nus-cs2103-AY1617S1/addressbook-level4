@@ -19,6 +19,9 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        
+        model.updateRecentChangedActivity(null);
+        
         boolean ableToUndo = undo();
         if (ableToUndo) {
         	return new CommandResult(MESSAGE_SUCCESS);

@@ -1,7 +1,7 @@
 # Introduction
 
 
-[//]: # (@@author A0139515A)
+[//]: # (@@author A0146752B)
 
 Menion is a simple activity manager for students to track their activities so they can better manage their schedule. It is a command line interface that minimizes mouse usage and focuses on keyboard commands.
 
@@ -113,6 +113,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below give more details of each component.
 
+[//]: # (@@author A0139515A)
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -121,22 +122,31 @@ The sections below give more details of each component.
 API : [`Ui.java`](../src/main/java/seedu/menion/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts. 
-For example, `CommandBox`, `ResultDisplay`, `AcitivtyListPanel`, `StatusBarFooter`, `BrowserPanel` etc... All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+For example, `CommandBox`, `ResultDisplay`, `ActivityListPanel`, `StatusBarFooter` etc... All these, including the `MainWindow`, inherit from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+
+`ActivityListPanel` consists of three different activities lists whhich are `taskViewList`, `eventViewList` and `floatingTaskViewList`. Activities in each list is displayed `TaskCard`, `EventCard` and `FloatingTaskCard` respectively.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/menion/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/menion/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)<br>
+ `SceneBuilder` is the main tool that is used to create `.fxml` files.
+
+
+<img src="images/SDforModifyingStoragePath.png" width="800"><br>
+> Diagram 6: Sequence diagram for modifying storage path<br>
 
 The `UI` component
 
-* executes user commands using the `Logic` component.
-* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* responds to events raised from various parts of the App and updates the UI accordingly.
+* executes user commands using the `Logic` component by passing in strings that are captured by `CommandBox`
+* binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change
+* retrieves the three different lists from `Logic` at the start of the session
+* responds to events raised from various parts of the App and updates the UI accordingly. e.g. `ModifyStoragePathCommand` raise an event that leads to a pop up so as to show a message to the user (refer to diagram 6)
 
+[//]: # (@@author)
 
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
-> Diagram 6: Storage component<br>
+> Diagram 7: Storage component<br>
 
 API : [`Storage.java`](../src/main/java/seedu/menion/storage/Storage.java)
 
@@ -149,7 +159,7 @@ The `Storage` component
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
-> Diagram 7: Logic component <br>
+> Diagram 8: Logic component <br>
 
 API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
 
@@ -157,13 +167,22 @@ API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
 The command execution can affect the `Model` (e.g. adding an Activity) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
-> Diagram 8: Sequence Diagram<br>
+> Diagram 9: Sequence Diagram<br>
 
-Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete task 1")`API call.<br><br>
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete task 1")`API call.
+
+[//]: # (@@author A139515A)
+
+Under logic command, there are several commands that make use of `Model` for execution:
+
+* `UndoCommand` and `RedoCommand` make use of two stacks in `Model` which stores different states of `ReadOnlyActivityManager`. When there is a command that causes modification to `ReadOnlyActivityManager`, a copy of the state of `ReadOnlyActivityManager` before the modification will be pushed into the undo stack. Calling `UndoCommand` will cause a pop from the undo stack and the state will be pushed into the redo stack. Similarly, calling `RedoCommand` will cause a pop from redo stack and the state will be pushed back into the undo stack. This allows the application to jump around different states of `ReadOnlyActivityManager`.
+
+[//]: # (@@author)
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
-> Diagram 9: Model component<br>
+> Diagram 10: Model component<br>
 
 *API* : [`Model.java`](../src/main/java/seedu/menion/model/Model.java)
 

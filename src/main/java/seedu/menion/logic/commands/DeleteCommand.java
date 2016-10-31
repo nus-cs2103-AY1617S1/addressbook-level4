@@ -43,6 +43,7 @@ public class DeleteCommand extends Command {
     	assert model != null;
     	
     	storePreviousState();
+    	model.updateRecentChangedActivity(null);
     	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
         if (targetType.equals(Activity.TASK_TYPE)) {

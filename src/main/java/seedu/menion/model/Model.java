@@ -56,6 +56,7 @@ public interface Model {
     void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
     
+    
     //@@author A0139515A
     /**
      * Methods for undo 
@@ -85,7 +86,14 @@ public interface Model {
   
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-
+    
+    /**
+     * Methods for recently changed activity
+     */
+    
+    ReadOnlyActivity getMostRecentUpdatedActivity();
+    void updateRecentChangedActivity(ReadOnlyActivity activity);
+    
     //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
