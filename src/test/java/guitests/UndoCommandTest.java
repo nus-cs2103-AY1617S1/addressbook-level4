@@ -16,12 +16,12 @@ public class UndoCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask[] expectedList = currentList;
         
-        //undo up to 5 times
-        for(int i=0;i<5;i++){
+        //undo up to 2 times
+        for(int i=0;i<3;i++){
         	TestTask taskToAdd = td.car;
         	commandBox.runCommand(taskToAdd.getAddCommand());	
         }
-        for(int y=0;y<4;y++)
+        for(int y=0;y<2;y++)
         commandBox.runCommand("undo");
         
         assertUndoSuccess(expectedList, currentList);
@@ -30,13 +30,8 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertResultMessage("Nothing to undo.");
         
-        //undo one add command
-        TestTask taskToAdd = td.car;
-        commandBox.runCommand(taskToAdd.getAddCommand());
-        assertUndoSuccess(expectedList, currentList);
-        
         //undo add task with date/time range
-        taskToAdd = td.vacation;
+        TestTask taskToAdd = td.vacation;
         commandBox.runCommand(taskToAdd.getAddRangeCommand());
         assertUndoSuccess(expectedList, currentList);
         

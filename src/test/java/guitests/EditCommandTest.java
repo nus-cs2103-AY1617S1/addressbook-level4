@@ -71,6 +71,7 @@ public class EditCommandTest extends ToDoListGuiTest {
 
     }
     
+    
     //slap for successful cases, need to comment
     private void execute(int targetIndex, TestTask[] currentList, String change, TestTask editedTask){
         assertEditSuccess(targetIndex, currentList,change,editedTask);

@@ -16,17 +16,19 @@ public class RedoCommandTest extends ToDoListGuiTest {
         
         TestTask[] currentList = td.getTypicalTasks();
         
-        // redo up to 5 times
-        for(int i=0;i<5;i++){
+        //redo up to 3 times
+        for(int i=0;i<3;i++){
         	TestTask taskToAdd = td.car;
         	commandBox.runCommand(taskToAdd.getAddCommand());
         	currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         }
-        for(int y=0;y<5;y++)
+        
+        for(int y=0;y<3;y++)
         	commandBox.runCommand("undo");
         
-        for(int y=0;y<4;y++)
-            commandBox.runCommand("redo"); 
+        for(int y=0;y<2;y++)
+            commandBox.runCommand("redo");
+        
         assertRedoSuccess(currentList);
         
         //nothing to redo
@@ -49,6 +51,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         
         //redo undo of edit details
         int targetIndex = 1;
+        System.out.println(taskListPanel.getTask(0));
         commandBox.runCommand("edit " + targetIndex + " 'Eat Buffet'");
         TestTask editedTask = td.editedGrocery;
         commandBox.runCommand("undo");
@@ -126,16 +129,15 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertRedoSuccess(currentList);
         
-//        //unable to redo after undoing a task and then executing a new command
-//		  // fails test
-//        taskToAdd = td.vacation;
-//        commandBox.runCommand(taskToAdd.getAddRangeCommand());
-//        commandBox.runCommand("undo");
-//        targetIndex = 1;
-//        commandBox.runCommand("delete " + targetIndex);
-//        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-//        commandBox.runCommand("redo");
-//        assertResultMessage("Nothing to redo.");
+        //unable to redo after undoing a task and then executing a new command
+        taskToAdd = td.vacation;
+        commandBox.runCommand(taskToAdd.getAddRangeCommand());
+        commandBox.runCommand("undo");
+        targetIndex = 1;
+        commandBox.runCommand("delete " + targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        commandBox.runCommand("redo");
+        assertResultMessage("Nothing to redo.");
 
         
         //redo clear command
@@ -150,6 +152,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
     	
     	commandBox.runCommand("redo");
     	
+    	//System.out.println(taskListPanel.getTask(0));
     	//confirm the list matches
         assertTrue(taskListPanel.isListMatching(currentList));
         
