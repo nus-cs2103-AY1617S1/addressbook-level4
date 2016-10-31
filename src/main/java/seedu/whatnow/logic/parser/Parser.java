@@ -875,7 +875,7 @@ public class Parser {
                 cal.add(Calendar.DATE, INCREASE_DATE_BY_ONE_DAY);
                 date = df.format(cal.getTime());
             }
-        } else {
+        } else if (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
             switch(date) {
             case "mon":
                 //fallthrough

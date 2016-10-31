@@ -25,8 +25,13 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,6 +49,8 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
     private static final String TASK_STATUS_COMPLETED = "completed";
     private static final String TASK_STATUS_INCOMPLETE = "incomplete";
+    private static final String DEFAULT_START_TIME = "12:00am";
+    private static final String DEFAULT_END_TIME = "11:59pm";
 
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
@@ -324,20 +331,88 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0139772U
+    /**
+     * Remove from the freetime block the period that coincides with the task duration
+     */
     private void blockFreeTime(Task task) {
         String date = task.getTaskDate();
+        String startDate = task.getStartDate();
+        String endDate = task.getEndDate();
         String startTime = task.getStartTime();
         String endTime = task.getEndTime();
         if (date != null && startTime != null && endTime != null) {
-            if (freeTimes.get(date) == null) {
-                FreePeriod newFreePeriod = new FreePeriod();
-                newFreePeriod.block(startTime, endTime);
-                freeTimes.put(date, newFreePeriod);
-            } else {
-                freeTimes.get(date).block(startTime, endTime);
-            }
+            blockTaskWithOneDateTwoTime(date, startTime, endTime);
         } else if (date == null && startTime != null && endTime != null) {
-            
+            blockTaskWithTwoDateTwoTime(startDate, endDate, startTime, endTime);
+        }
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, for task with one date and two time
+     */
+    private void blockTaskWithOneDateTwoTime(String date, String startTime, String endTime) {
+        if (freeTimes.get(date) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(startTime, endTime);
+            freeTimes.put(date, newFreePeriod);
+        } else {
+            freeTimes.get(date).block(startTime, endTime);
+        }
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, for task with two date and two time
+     */
+    private void blockTaskWithTwoDateTwoTime(String startDate, String endDate, String startTime, String endTime) {
+        if (freeTimes.get(startDate) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(startTime, DEFAULT_END_TIME);
+            System.out.println(startTime);
+            System.out.println(DEFAULT_END_TIME);
+            System.out.println(newFreePeriod.toString());
+            freeTimes.put(startDate, newFreePeriod);
+        } else {
+            freeTimes.get(startDate).block(startTime, DEFAULT_END_TIME);
+        }
+        if (freeTimes.get(endDate) == null) {
+            FreePeriod newFreePeriod = new FreePeriod();
+            newFreePeriod.block(DEFAULT_START_TIME, endTime);
+            System.out.println(endTime);
+            System.out.println(DEFAULT_START_TIME);
+            System.out.println(newFreePeriod.toString());
+            freeTimes.put(endDate, newFreePeriod);
+        } else {
+            freeTimes.get(endDate).block(DEFAULT_START_TIME, endTime);
+        }
+        blockDatesInBetween(startDate, endDate);
+    }
+    
+    /**
+     * Remove from the freetime block the period that coincides with the task duration, between startdate and end date
+     */
+    private void blockDatesInBetween(String start, String end) {
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        try {
+            Date startDate = df.parse(start);
+            Date endDate = df.parse(end);
+            cal.setTime(startDate);
+            while (cal.getTime().before(endDate)) {
+                cal.add(Calendar.DATE, 1);
+                if (cal.getTime().equals(endDate)) {
+                    break;
+                }
+                if(freeTimes.get(cal.getTime()) == null) {
+                    FreePeriod newFreePeriod = new FreePeriod();
+                    newFreePeriod.getList().clear();
+                    freeTimes.put(df.format(cal.getTime()), newFreePeriod);
+                } else {
+                    freeTimes.get(cal.getTime()).getList().clear();
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
     
