@@ -57,9 +57,12 @@ public class DoneCommand extends Command {
         Collections.sort(intIndex);
         Collections.reverse(intIndex);
         
+        model.addToUndoStack();
+        
         for(int i = 0; i < targetIndexes.size(); i++) {
             if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'E') {
                 if(lastShownEventList.size() < intIndex.get(i)) {
+                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -67,10 +70,11 @@ public class DoneCommand extends Command {
                 ReadOnlyTask taskDone = lastShownEventList.get(intIndex.get(i) - 1);
                 
                 try {
-                    model.addToUndoStack();
+                    //model.addToUndoStack();
                     model.markDone(taskDone);
                     model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
+                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -78,6 +82,7 @@ public class DoneCommand extends Command {
 
             else if (Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'D') {
                 if (lastShownDeadlineList.size() < intIndex.get(i)) {
+                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -85,10 +90,11 @@ public class DoneCommand extends Command {
                 ReadOnlyTask taskDone = lastShownDeadlineList.get(intIndex.get(i) - 1);
                 
                 try {
-                    model.addToUndoStack();
+                    //model.addToUndoStack();
                     model.markDone(taskDone);
                     model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
+                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
@@ -96,17 +102,19 @@ public class DoneCommand extends Command {
         
             else if(Character.toUpperCase(targetIndexes.get(i).charAt(0)) == 'T') {
                 if (lastShownTodoList.size() < intIndex.get(i)) {
-                   indicateAttemptToExecuteIncorrectCommand();
-                   return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                    model.getUndoStack().pop();
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
                 
                 ReadOnlyTask taskDone = lastShownTodoList.get(intIndex.get(i) - 1);
 
                 try {
-                    model.addToUndoStack();
+                    //model.addToUndoStack();
                     model.markDone(taskDone);
                     model.getCommandHistory().add("done");
                 } catch (TaskNotFoundException e) {
+                    model.getUndoStack().pop();
                     indicateAttemptToExecuteIncorrectCommand();
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
