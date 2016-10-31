@@ -161,6 +161,7 @@ public class Parser {
 	}
 	
 	private Command prepareAddSomeday(String taskName, String arguments) {
+		// TODO better approach than using nulls as flag values
 		return getAddCommand(taskName, null, null);
 	}
 	
