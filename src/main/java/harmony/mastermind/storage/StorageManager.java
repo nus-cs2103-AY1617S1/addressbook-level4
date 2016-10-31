@@ -101,11 +101,12 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
         } catch (AccessDeniedException ade) {
+            System.out.println("here");
             logger.warning("Permission to access " + newPath + " denied." );
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
         } catch (IOException e) {
-            logger.warning("Error occured while handling relocate event");
+            logger.warning("Error occured while handling relocate event.");
             logger.warning("Reverting save location back to " + oldPath);
             taskManagerStorage.setTaskManagerFilePath(oldPath);
         }

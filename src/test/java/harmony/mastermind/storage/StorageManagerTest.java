@@ -26,8 +26,6 @@ public class StorageManagerTest {
 
     private StorageManager storageManager;
     //@@author A0139194X
-    private final String TEST_FOLDER = "/TestFolder1";
-    private final String TEST_FOLDER_2 = "/TestFolder2";
     private final String FILEPATH_ENDING_WITH_SLASH = "TestFile/";
     private final String FILEPATH_NOT_ENDING_WITH_SLASH = "TestFile";
     
@@ -129,7 +127,7 @@ public class StorageManagerTest {
     
     //@@author A0139194X
     @Test
-    public void handleRelocateEvent_unwrittableFilePath_exceptionThrown() {
+    public void handleRelocateEvent_unwrittableFilePath_IOExceptionThrown() {
         String filePath = storageManager.getTaskManagerFilePath() + "/mastermind.xml";
         RelocateFilePathEvent event = new RelocateFilePathEvent("");
         storageManager.handleRelocateEvent(event);

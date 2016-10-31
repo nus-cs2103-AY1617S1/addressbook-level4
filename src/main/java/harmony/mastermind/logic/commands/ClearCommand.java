@@ -1,6 +1,5 @@
 package harmony.mastermind.logic.commands;
 
-import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.model.TaskManager;
 
 //@@author A0139194X
