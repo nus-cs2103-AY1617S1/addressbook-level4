@@ -17,8 +17,6 @@ import seedu.gtd.TestApp;
 import seedu.gtd.commons.exceptions.IllegalValueException;
 import seedu.gtd.commons.util.FileUtil;
 import seedu.gtd.commons.util.XmlUtil;
-import seedu.gtd.logic.parser.DateNaturalLanguageProcessor;
-import seedu.gtd.logic.parser.NaturalLanguageProcessor;
 import seedu.gtd.model.AddressBook;
 import seedu.gtd.model.task.*;
 import seedu.gtd.model.tag.Tag;
@@ -318,21 +316,6 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
-    }
-    
-    /**
-     * Edits a task in the array of tasks.
-     * @param tasks A array of tasks.
-     * @param tasksToAdd The tasks that are to be appended behind the original array.
-     * @return The modified array of tasks.
-     * @throws IllegalValueException 
-     */
-    public static TestTask[] editTaskInList(final TestTask[] tasks, int index, String change, TestTask taskToEdit) throws IllegalValueException {
-        List<TestTask> listOfTasks = asList(tasks);
-        TestTask taskEditted = TestUtilParser.editTask(taskToEdit, change);
-        listOfTasks.set(index, taskEditted);
-        System.out.println(listOfTasks.toString());
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
