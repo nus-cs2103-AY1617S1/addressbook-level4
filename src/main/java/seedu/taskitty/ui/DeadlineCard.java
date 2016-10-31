@@ -57,7 +57,6 @@ public class DeadlineCard extends UiPart {
         
         //@@author A0139930B
         name.setText(task.getName().fullName);
-        endDate.setText("");
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();  
         TaskTime endTaskTime = task.getPeriod().getEndTime();

@@ -9,78 +9,62 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<!-- @@author A0130853L -->
+<!-- @@author A0139930B -->
 
-<HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="card-display" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane gridLinesVisible="true" HBox.hgrow="ALWAYS">
+        <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="80.0" prefWidth="80.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" GridPane.columnIndex="1">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                     </padding>
 
                     <children>
-                  <HBox alignment="CENTER_LEFT" spacing="5">
-                     <children>
-                        <HBox minWidth="150.0">
-                           <children>
-                              <Label fx:id="startDate" styleClass="cell_small_label" text="Start: \$startDate" />
-                              <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="2.0" />
-                                 </HBox.margin></Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <Label fx:id="endDate" styleClass="cell_small_label" text="End: \$endDate" />
-                        <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime">
-                           <HBox.margin>
-                              <Insets left="2.0" />
-                           </HBox.margin></Label>
-                     </children>
-                  </HBox>
-                          <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                           <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
+                          <Label fx:id="tags" styleClass="cell_tag_label" text="\$tags" />
                     </children>
-               <GridPane.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </GridPane.margin>
                 </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="102.0" prefWidth="94.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="2">
                <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                  <VBox alignment="CENTER">
                      <children>
-                                <HBox>
-                           <children>
-                                       <Label fx:id="id" styleClass="cell_big_label" />
-                                       <Label fx:id="name" styleClass="cell_big_label" text="\$name" />
-                           </children>
-                                </HBox>
+                        <Label fx:id="startDate" ellipsisString="" styleClass="cell_big_label" text="\$startDate">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label ellipsisString="" styleClass="cell_big_label" text="to">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="endDate" ellipsisString="" styleClass="cell_big_label" text="\$endDate">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
                      </children>
-                        </HBox>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
-               </padding>
-               <stylesheets>
-                  <URL value="@DarkTheme.css" />
-                  <URL value="@Extensions.css" />
-               </stylesheets>
+            </HBox>
+            <HBox alignment="CENTER">
                <GridPane.margin>
-                  <Insets right="5.0" />
+                  <Insets />
                </GridPane.margin>
-            </VBox>
+               <children>
+                           <Label fx:id="id" ellipsisString="" styleClass="cell_id_label" text="\$id" />
+               </children>
+            </HBox>
             </children>
          <rowConstraints>
             <RowConstraints />
