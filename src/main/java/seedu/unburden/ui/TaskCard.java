@@ -50,7 +50,7 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         if(task.getDone()){
-        	cardPane.setStyle("-fx-background-color : #f97f9c");
+        	cardPane.setStyle("-fx-background-color : #a5a5a5");
         }
         
         taskD.setText(task.getTaskDescription().fullTaskDescriptions);
