@@ -242,16 +242,16 @@ public class Parser {
     
     //@@author A0147890U
     private Command prepareSpecifyStorage(String args) {
-        args = args.trim().replace("\\", "/") + "/addressbook.xml";
+        args = args.trim().replace("\\", "/");
         try {
             Paths.get(args);
         } catch (InvalidPathException ipe) {
             return new IncorrectCommand("Please enter a valid file path");
         }
-        
-        if (new File(args).exists() == false) {
+        if (new File(args.trim()).exists() == false) {
             return new IncorrectCommand("Please enter a valid file path");
         }
+        args = args + "/addressbook.xml";
         
         return new SpecifyStorageCommand(args);
     }
