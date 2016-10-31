@@ -96,6 +96,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 			TestTask task = doneList[indices[i] - 1];
 			tasksTargeted = TestUtil.addTasksToList(tasksTargeted, task);
 			task.setStatus(new Status("pending"));
+			// Check for overdue cases
 			if(task.getStatus().equals(StatusType.PENDING)) {
 				tasksPending = TestUtil.addTasksToList(tasksPending, task);
 			}
