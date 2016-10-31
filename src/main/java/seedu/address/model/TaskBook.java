@@ -293,7 +293,6 @@ public class TaskBook implements ReadOnlyTaskBook {
                     todo.add(task);
                 }    
             }           
-            System.out.println("events:" + task.toString());
         }
         for (Task task: deadlines) {
             if(task.getTaskCategory()!=2){
