@@ -1,16 +1,12 @@
 package seedu.menion.logic.parser;
 
-import com.joestelmach.natty.*;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.AddCommand;
 import seedu.menion.model.activity.Activity;
 
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //@@author A0139277U
@@ -82,92 +78,7 @@ public class AddParser {
 
 	}
 	
-	/**
-	 * This method parses the date from the String argument into a Calendar object which
-	 * can be used in other classes.
-	 * @param args, dateTimeList
-	 * @return an array list with the first index containing the date and second index containing the time
-	 */
-	public static void parseDate (String args, ArrayList<String> dateTimeList) {
-		
-		Parser parser = new Parser();
-		List<DateGroup>groups = parser.parse(args);	
-		DateGroup group = groups.get(0);
-		List<Date> dates = group.getDates();
-		Date date = dates.get(0);
-	
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		
-		dateTimeList.add(0, formatDate(calendar));
-		dateTimeList.add(1, formatTime(calendar));
-			
-	}
-	
 
-	/**
-	 * This method formats the time into a presentable String format.
-	 * @param Calendar object cal.
-	 * @return a formatted string in the form of hhmm.
-	 */
-	private static String formatTime(Calendar cal){
-		
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		int min = cal.get(Calendar.MINUTE);
-		
-		String hourString;
-		if (hour < 10){
-			hourString =  "0" + Integer.toString(hour);
-		}
-		else {
-			hourString = Integer.toString(hour);
-		}
-		
-		String minString;
-		if (min < 10){
-			minString = "0" + Integer.toString(min);
-		}
-		else {
-			minString = Integer.toString(min);
-		}
-		
-		return hourString + minString;
-		
-	}
-	
-	/**
-	 * This method formats the date into a presentable String format.
-	 * @param Calendar object cal.
-	 * @return a format string in the form of dd-mm-yyyy
-	 */
-	private static String formatDate (Calendar cal){
-		
-		int day = cal.get(Calendar.DAY_OF_MONTH);
-		int month = cal.get(Calendar.MONTH);
-		int year = cal.get(Calendar.YEAR);
-		
-		// Converts month into XX format
-		String monthString;
-		if (month + 1 < 10){
-			monthString = "0" + Integer.toString(month + 1);
-		}
-		else {
-			monthString = Integer.toString(month + 1);
-		}
-		
-		// Converts day into XX format
-		String dayString;
-		if (day< 10){
-			dayString = "0" + Integer.toString(day);
-			
-		}
-		else {
-			dayString = Integer.toString(day);
-		}
-		
-		return (dayString + "-" + monthString + "-" + Integer.toString(year));
-	}
-	
 	/**
 	 * Input the arguments into the parsedArguments ArrayList.
 	 * list(1) = Floating Task Name
@@ -192,7 +103,7 @@ public class AddParser {
 		parsedArguments.add(1, matcher.group(1).trim());
 		parsedArguments.add(2, matcher.group(3).trim());
 		ArrayList<String> dateTimeList = new ArrayList<String>();
-		parseDate(matcher.group(2), dateTimeList);
+		NattyDateParser.parseDate(matcher.group(2), dateTimeList);
 		parsedArguments.add(3, dateTimeList.get(0));
 		parsedArguments.add(4, dateTimeList.get(1));		
 		
@@ -214,10 +125,10 @@ public class AddParser {
 			parsedArguments.add(1, matcher.group(1).trim());
 			parsedArguments.add(2, matcher.group(4).trim());
 			ArrayList<String> dateTimeList = new ArrayList<String>();
-			parseDate(matcher.group(2), dateTimeList);
+			NattyDateParser.parseDate(matcher.group(2), dateTimeList);
 			parsedArguments.add(3, dateTimeList.get(0));
 			parsedArguments.add(4, dateTimeList.get(1));
-			parseDate(matcher.group(3), dateTimeList);
+			NattyDateParser.parseDate(matcher.group(3), dateTimeList);
 			parsedArguments.add(5, dateTimeList.get(0));
 			parsedArguments.add(6, dateTimeList.get(1));
 			
@@ -228,19 +139,17 @@ public class AddParser {
 			parsedArguments.add(1, matcher.group(1).trim());
 			parsedArguments.add(2, matcher.group(4).trim());
 			ArrayList<String> dateTimeList = new ArrayList<String>();
-			parseDate(matcher.group(3), dateTimeList);
+			NattyDateParser.parseDate(matcher.group(3), dateTimeList);
 			parsedArguments.add(3, dateTimeList.get(0));
 			parsedArguments.add(4, dateTimeList.get(1));
-			parseDate(matcher.group(2), dateTimeList);
+			NattyDateParser.parseDate(matcher.group(2), dateTimeList);
 			parsedArguments.add(5, dateTimeList.get(0));
 			parsedArguments.add(6, dateTimeList.get(1));
 			
 		}
 		
-
 	}
 
-	
 	public static Boolean isFloatingTask(String args){
 		matcher = FLOATING_TASK_REGEX.matcher(args);
 		

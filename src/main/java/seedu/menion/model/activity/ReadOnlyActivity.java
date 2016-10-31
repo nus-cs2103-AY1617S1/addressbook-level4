@@ -41,6 +41,7 @@ public interface ReadOnlyActivity {
     
     Boolean isEmailSent();
     Boolean isTimePassed();
+    Boolean isEventOngoing();
     
     //@@author A0139164A
     /**
@@ -55,6 +56,7 @@ public interface ReadOnlyActivity {
     void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException;
     void setEmailSent(Boolean sentStatus);
     void setTimePassed(Boolean timePassed);
+    void setEventOngoing(Boolean eventOngoing);
     
     /**
      * For Floating Task

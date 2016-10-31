@@ -270,7 +270,7 @@ public class LogicManagerTest {
             ActivityTime startTime = new ActivityTime("1900");
             Completed status = new Completed(Completed.UNCOMPLETED_ACTIVITY);
             
-            return new Activity(activityType, name, note, startDate, startTime, status);
+            return new Activity(activityType, name, note, startDate, startTime, status, null, null);
         }
 
         /**
@@ -287,7 +287,7 @@ public class LogicManagerTest {
                     new Note("" + Math.abs(seed)),
                     new ActivityDate("18-08-1994"),
                     new ActivityTime("1900"),
-                    new Completed(Completed.UNCOMPLETED_ACTIVITY)
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null
             );
         }
 
@@ -386,7 +386,7 @@ public class LogicManagerTest {
                     new Note("test note"),
                     new ActivityDate("06-18-2016"),
                     new ActivityTime("1900"),
-                    new Completed(Completed.UNCOMPLETED_ACTIVITY));
+                    new Completed(Completed.UNCOMPLETED_ACTIVITY), null, null);
         }
     }
 }

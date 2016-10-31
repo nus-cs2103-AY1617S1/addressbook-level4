@@ -75,7 +75,8 @@ public class MainApp extends Application {
         	    		
         	        @Override
         	        public void run() {
-        	        	BackgroundDateCheck.checkActivities(model);
+        	        	BackgroundDateCheck backgroundChecker = new BackgroundDateCheck();
+        	        	backgroundChecker.checkActivities(model);
         	        }
         	        
         	    }, 0, BACKGROUND_REFRESH_RATE);

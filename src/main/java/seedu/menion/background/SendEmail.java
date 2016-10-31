@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import javax.crypto.SealedObject;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.MotivationalQuotes;
 import seedu.menion.logic.commands.RemindCommand;
-import seedu.menion.model.activity.Activity;
+import seedu.menion.logic.commands.UnremindCommand;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
 //@@author A0139164A
@@ -32,19 +32,20 @@ public class SendEmail {
     String motivationalQuote = null;
 
     String emailSubject = "Menion! You missed a deadline!";
-    String remind = RemindCommand.REMINDER_OFF;
+    String remind = UnremindCommand.REMINDER_OFF;
 
     // public void send(ReadOnlyActivity dub) {
 
     public void send(ReadOnlyActivity outdated) throws FileNotFoundException, MessagingException {
 
         // Retrieve the email of the user from the txt file.
-        Scanner fromFile = new Scanner(new File(RemindCommand.MESSAGE_FILE));
+        Scanner fromFile = new Scanner(new File(Messages.MESSAGE_FILE));
         remind = fromFile.next();
         fromFile.nextLine(); // Skips a line.
         userEmail = fromFile.nextLine();
         System.out.println("this is your remind: " + remind + ".");
         System.out.println("This is your email: " + userEmail + ".");
+        System.out.println("Going to attempt to send an email now...");
         fromFile.close(); // close input file stream
 
         if (remind.equals(RemindCommand.REMINDER_ON)) {
@@ -73,6 +74,10 @@ public class SendEmail {
             msg.setFrom(new InternetAddress(senderEmailID));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             Transport.send(msg);
+        }
+        else {
+            System.out.println("Unable to send email, as remind is :" + remind);
+            throw new MessagingException();
         }
     }
 

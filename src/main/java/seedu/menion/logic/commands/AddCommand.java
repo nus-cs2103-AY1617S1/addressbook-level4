@@ -55,7 +55,7 @@ public class AddCommand extends Command {
             note = new Note(activityDetails.get(Activity.INDEX_ACTIVITY_NOTE));
             startDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_STARTDATE));
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime, status);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, status, null, null);
         } else {
             activityType = activityDetails.get(Activity.INDEX_ACTIVITY_TYPE);
             name = new ActivityName(activityDetails.get(Activity.INDEX_ACTIVITY_NAME));
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
             datecheck.validEventDate(startDate, startTime, endDate, endTime); // Throws error if invalid date.
-            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
+            this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status, null, null);
         }
     }
     

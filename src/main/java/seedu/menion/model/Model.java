@@ -36,25 +36,26 @@ public interface Model {
      * Edits the name of the given Activity, given it's index. 
      * @throws IllegalValueException 
      */
-    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
-    void editTaskName(int index, String changes) throws IllegalValueException;
-    void editEventName(int index, String changes) throws IllegalValueException;
+    void editFloatingTaskName(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editTaskName(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editEventName(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
     
     /**
      * Edits the note of the given Activity, given it's index. 
      * @throws IllegalValueException 
      */
-    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
-    void editTaskNote(int index, String changes) throws IllegalValueException;
-    void editEventNote(int index, String changes) throws IllegalValueException;
+    void editFloatingTaskNote(ReadOnlyActivity floatingTaskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editTaskNote(ReadOnlyActivity taskToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
+    void editEventNote(ReadOnlyActivity eventToEdit, String changes) throws IllegalValueException, ActivityNotFoundException;
     
     /**
      * Edits the Start Date & Time of the given Task/Event, given it's index. 
      * @throws IllegalValueException 
      */
-    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editTaskDateTime(ReadOnlyActivity taskToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    void editEventEndDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    void editEventStartDateTime(ReadOnlyActivity eventToEdit, String newDate, String newTime) throws IllegalValueException, ActivityNotFoundException;
+    
     
     //@@author A0139515A
     /**
