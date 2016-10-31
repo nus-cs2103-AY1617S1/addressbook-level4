@@ -35,6 +35,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private DatetimeDisplay datetimeDisplay;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -62,6 +63,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane datetimeDisplayPlaceholder;
 
 
     public MainWindow() {
@@ -115,8 +119,9 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, activityListPanel);
+        datetimeDisplay = DatetimeDisplay.load(primaryStage, getDatetimeDisplayPlaceholder(), logic.getCurrentDateTime());
     }
-
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -131,6 +136,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getActivityListPlaceholder() {
         return activityListPanelPlaceholder;
+    }
+    
+    public AnchorPane getDatetimeDisplayPlaceholder() {
+        return datetimeDisplayPlaceholder;
     }
 
     public void hide() {

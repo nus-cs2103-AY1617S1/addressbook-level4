@@ -10,6 +10,9 @@ import seedu.menion.model.Model;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.storage.Storage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Logger;
 
 /**
@@ -56,4 +59,11 @@ public class LogicManager extends ComponentManager implements Logic {
     	return model.getMostRecentUpdatedActivity();
     }
     
+    @Override
+    public String getCurrentDateTime() {
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	Calendar cal = Calendar.getInstance();
+    	
+    	return dateFormat.format(cal.getTime());
+    }
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activitymanager>
+    <tasks>
+        <activityType>task</activityType>
+        <name>cs2106 lab5</name>
+        <note>ex1</note>
+        <startDate>31-10-2016</startDate>
+        <startTime>0014</startTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <emailSent>false</emailSent>
+    </tasks>
+    <tasks>
+        <activityType>task</activityType>
+        <name>cs2106 webcast</name>
+        <note>check if working</note>
+        <startDate>31-10-2016</startDate>
+        <startTime>2000</startTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>false</activityTimePassed>
+        <emailSent>false</emailSent>
+    </tasks>
+    <floatingTasks>
+        <activityType>floating</activityType>
+        <name>add buy lunch</name>
+        <note>hawker food</note>
+        <status>Completed</status>
+    </floatingTasks>
+    <floatingTasks>
+        <activityType>floating</activityType>
+        <name>research on fitbit flex 2</name>
+        <note>i want it!</note>
+        <status>Completed</status>
+    </floatingTasks>
+    <events>
+        <activityType>event</activityType>
+        <name>project meeting</name>
+        <note>celebrate</note>
+        <startDate>10-10-2016</startDate>
+        <startTime>1400</startTime>
+        <endDate>10-10-2016</endDate>
+        <endTime>1800</endTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <eventOngoing>false</eventOngoing>
+    </events>
+    <events>
+        <activityType>event</activityType>
+        <name>menion meeting</name>
+        <note>discuss 2101 and 2103</note>
+        <startDate>31-10-2016</startDate>
+        <startTime>1000</startTime>
+        <endDate>31-10-2016</endDate>
+        <endTime>1000</endTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <eventOngoing>false</eventOngoing>
+    </events>
+</activitymanager>
