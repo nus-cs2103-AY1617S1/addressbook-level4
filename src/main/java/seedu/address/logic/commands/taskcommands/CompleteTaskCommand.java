@@ -1,7 +1,9 @@
 package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
@@ -44,6 +46,7 @@ public class CompleteTaskCommand extends TaskCommand {
 
         Task taskToComplete = lastShownList.get(targetIndex - 1);
         if(!taskToComplete.isCompleted()){
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
         	model.completeTask(taskToComplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));
