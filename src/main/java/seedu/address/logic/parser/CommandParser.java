@@ -628,6 +628,8 @@ public class CommandParser {
             String resetField = null;
             String[] resetSplit = argumentsWithoutIndex.split("-reset");
             
+            boolean resetStartDate = false, resetEndDate = false, resetRecurrence = false, resetPriority = false;
+                        
             HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(" " + resetSplit[ZERO]);
             
             Optional<String> name = fieldMap.get("taskName");
@@ -640,12 +642,29 @@ public class CommandParser {
             if(resetSplit.length == TWO){
                 resetField = resetSplit[ONE];
             }
+            
+            if (resetField != null) {
+                String[] resetFieldNames = resetField.split("\\s+");
+                
+                for (String resetFieldStr : resetFieldNames) {
+                    if (resetFieldStr.equals("start")) {
+                        resetStartDate = true;
+                    } else if (resetFieldStr.equals("end")) {
+                        resetEndDate = true;
+                    } else if (resetFieldStr.equals("recurrence")) {
+                        resetRecurrence = true;
+                    } else if (resetFieldStr.equals("priority")) {
+                        resetPriority = true;
+                    }
+                }
+            }
+
                         
             StringBuilder sb = new StringBuilder();
             sb.append(EditCommand.TOOL_TIP);
             sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
 
-            if (name.isPresent() && trimmedArgs.length()>1) {
+            if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
                 sb.append("\n\tName:\t" + name.get());
             } else {
                 sb.append("\n\tName:\tNo Change");
@@ -653,44 +672,41 @@ public class CommandParser {
             
             if (startDate.isPresent()) {
                 sb.append("\n\tStart Date:\t" + startDate.get());
+            } else if (resetStartDate) {
+                sb.append("\n\tStart Date:\tRESET");
             } else {
                 sb.append("\n\tStart Date:\tNo Change");
             }
             
             if (endDate.isPresent()) {
                 sb.append("\n\tEnd Date:\t\t" + endDate.get());
+            } else if (resetEndDate) {
+                sb.append("\n\tEnd Date:\t\tRESET");
             } else {
                 sb.append("\n\tEnd Date:\t\tNo Change");
-            }
-            
-            if (rate.isPresent()) {
-                sb.append("\n\tRecurrence Rate:\t" + rate.get());
-            } else {
-                sb.append("\n\tRecurrence Rate:\tNo Change");
             }
             
             if (timePeriod.isPresent()) {
                 if (rate.isPresent()) {
                     String recurRate = rate.get();
-                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every " + recurRate + " " + timePeriod.get());
+                    sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
                 } else {
-                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every 1 " + timePeriod.get());
+                    sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
                 }
+            } else if (resetRecurrence) {
+                sb.append("\n\tRecurrence Rate:\tRESET");
             } else {
-                sb.append("\n\tRecurrence Rate Time Period:\tNo Change");
+                sb.append("\n\tRecurrence Rate:\tNo Change");
             }
             
             if (!priority.get().equals("null")) {
                 sb.append("\n\tPriority:\t" + priority.get());
+            } else if (resetPriority) {
+                sb.append("\n\tPriority:\tRESET");
             } else {
                 sb.append("\n\tPriority:\tNo Change");
             }
             
-            if (resetField != null) {
-                sb.append("\n\tReset:\t" + resetField);
-            } else {
-                sb.append("\n\tReset:\tNo Change");
-            }
             return sb.toString();
             
         } catch (IllegalValueException e) {
@@ -732,10 +748,10 @@ public class CommandParser {
                 
                 if (rate.isPresent()) {
                     String recurRate = rate.get();
-                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every " + recurRate + " " + timePeriod.get());
+                    sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
                 }
                 else {
-                    sb.append("\n\tRecurrence Rate Time Period:\t" + "every 1 " + timePeriod.get());
+                    sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
                 }
             }
             if (priority.isPresent()) {
