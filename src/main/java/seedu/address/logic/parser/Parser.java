@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_ILLEGAL_DATE_INPUT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
@@ -135,11 +135,7 @@ public class Parser {
 
     private static int targetIndex;
 
-    private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
-
-    public Parser() {
-
-    }
+    public Parser() {}
 
     /**
      * Parses user input into command for execution.
@@ -260,7 +256,6 @@ public class Parser {
         } else {
             return prepareAddNonFloatingFromDateToDate(matcher);
         }
-
     }
 
     private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
@@ -271,7 +266,6 @@ public class Parser {
         } else {
 
             recurringType = extractRecurringInfo(matcher.group("recurring"));
-
         }
         return recurringType;
     }
@@ -295,7 +289,7 @@ public class Parser {
         }
         try {
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate(getDateFromString(endInput).getTime()),
+                    new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate(RecurringDateParser.getInstance().getDateFromString(endInput).getTime()),
                     recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -323,9 +317,10 @@ public class Parser {
             recurringType = RecurringType.NONE;
         }
         try {
+            List<Date> datesToAdd = RecurringDateParser.getInstance().getFromToDatesFromString(startInput);
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(getDateFromString(startInput).getTime()),
-                    new TaskDate(getDateFromString(endInput).getTime()), recurringType);
+                    new TaskDate(datesToAdd.get(0)),
+                    new TaskDate(datesToAdd.get(1)), recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (IllegalArgumentException iae) {
@@ -345,8 +340,8 @@ public class Parser {
             String endInput = matcher.group("endTime");
 
             return new BlockCommand(getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(getDateFromString(startInput).getTime()),
-                    new TaskDate(getDateFromString(endInput).getTime()));
+                    new TaskDate(RecurringDateParser.getInstance().getDateFromString(startInput).getTime()),
+                    new TaskDate(RecurringDateParser.getInstance().getDateFromString(endInput).getTime()));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -731,7 +726,7 @@ public class Parser {
         // TODO Auto-generated method stub
         Date date;
         try {
-            date = getDateFromString(arguments);
+            date = RecurringDateParser.getInstance().getDateFromString(arguments);
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
@@ -746,15 +741,15 @@ public class Parser {
             String[] time = m.group("startTime").replace(" from ", "").split(" to ");
             resultSet.clear();
             try {
-                resultSet.add(getDateFromString(time[START_TIME_INDEX]));
-                resultSet.add(getDateFromString(time[END_TIME_INDEX]));
+                resultSet.add(RecurringDateParser.getInstance().getDateFromString(time[START_TIME_INDEX]));
+                resultSet.add(RecurringDateParser.getInstance().getDateFromString(time[END_TIME_INDEX]));
             } catch (IllegalValueException e) {              
                 throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
             }
         } catch (Exception ise) {
             resultSet.clear();
             try {
-                resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
+                resultSet.add(RecurringDateParser.getInstance().getDateFromString(m.group("deadline").replace(" by ", "")));
             } catch (Exception e) {
                 throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
             }
@@ -763,22 +758,6 @@ public class Parser {
     }
     // @@author
 
-    /**
-     * Parses through the dateInput and provides the Date from that input
-     * 
-     * @param dateInput
-     *            The date that we want to convert from string to Date
-     * @return A single Date from the string
-     * @throws IllegalValueException 
-     */
-    public static Date getDateFromString(String dateInput) throws IllegalValueException {
-        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
-        try {
-            return dateGroups.get(0).getDates().get(0);
-        } catch (Exception e) {
-            throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
-        }
-    }
 
     private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();

@@ -1,7 +1,14 @@
 package seedu.address.logic.parser;
 
-import java.util.HashSet;
+import static seedu.address.commons.core.Messages.MESSAGE_ILLEGAL_DATE_INPUT;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
+import com.joestelmach.natty.DateGroup;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.RecurringType;
 
 //@@A0135782Y
@@ -13,6 +20,7 @@ public class RecurringDateParser {
     private static RecurringDateParser instance;
     
     private HashSet<RecurringType> recurringTypes;
+    private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
     
     private RecurringDateParser () {
         populateSupportedRecurringTypes();
@@ -31,6 +39,32 @@ public class RecurringDateParser {
             return RecurringType.valueOf(input);
         }
         return RecurringType.IGNORED;
+    }
+    
+    /**
+     * Parses through the dateInput and provides the Date from that input
+     * 
+     * @param dateInput
+     *            The date that we want to convert from string to Date
+     * @return A single Date from the string
+     * @throws IllegalValueException 
+     */
+    public Date getDateFromString(String dateInput) throws IllegalValueException {
+        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
+        try {
+            return dateGroups.get(0).getDates().get(0);
+        } catch (Exception e) {
+            throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
+        }
+    }
+    
+    public List<Date> getFromToDatesFromString(String dateInput) throws IllegalValueException {
+        List<DateGroup> dateGroups = nattyParser.parse(dateInput);
+        try {
+            return dateGroups.get(0).getDates();
+        } catch (Exception e) {
+            throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
+        }
     }
     
     public static RecurringDateParser getInstance() {
