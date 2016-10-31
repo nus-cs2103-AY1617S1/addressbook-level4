@@ -15,7 +15,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Adds a task to WhatNow.
  */
-public class AddCommand extends UndoAndRedo {
+public class AddCommand extends Command {
 
 	public static final String COMMAND_WORD = "add";
 
@@ -70,42 +70,11 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-			model.getUndoStack().push(this);
+			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-	}
-	
-	@Override
-	public CommandResult undo() {
-		assert model != null;
-		if(model.getDeletedStackOfTasksAdd().isEmpty()) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		try {
-			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAdd().pop();
-			model.getDeletedStackOfTasksAddRedo().push(reqTask);
-			model.deleteTask(reqTask);
-		} catch (TaskNotFoundException pnfe) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		} 
-		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
-	}
-	
-	@Override
-	public CommandResult redo() {
-		assert model != null;
-		if(model.getDeletedStackOfTasksAddRedo().isEmpty()) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));		}
-		try {
-			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAddRedo().pop();
-			model.getDeletedStackOfTasksAdd().push(reqTask);
-			model.addTask((Task)reqTask);
-		} catch (DuplicateTaskException e) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
 }

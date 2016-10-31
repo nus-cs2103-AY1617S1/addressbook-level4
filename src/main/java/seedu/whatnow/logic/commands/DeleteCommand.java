@@ -13,7 +13,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from WhatNow.
  */
-public class DeleteCommand extends UndoAndRedo {
+public class DeleteCommand extends Command {
 
 	public static final String COMMAND_WORD = "delete";
 
@@ -54,48 +54,12 @@ public class DeleteCommand extends UndoAndRedo {
 		assert model != null;	 
 		try {
 			int indexRemoved = model.deleteTask(taskToDelete);
-			model.getUndoStack().push(this);
+			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasks().push(taskToDelete);
 			model.getDeletedStackOfTasksIndex().push(indexRemoved);
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-	}
-
-	//@@author A0139128A
-	@Override
-	public CommandResult undo() {
-		if(model.getDeletedStackOfTasks().isEmpty() || model.getDeletedStackOfTasksIndex().isEmpty()) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTasks().pop(); /**Gets the required task to reAdd */
-		model.getDeletedStackOfTasksRedo().push(taskToReAdd);			/**Stores the required task for redoCommand if needed */
-		int idxToReAdd = model.getDeletedStackOfTasksIndex().pop();		/**Gets the required task index to reAdd */
-		try {
-			model.addTaskSpecific((Task) taskToReAdd, idxToReAdd);
-			model.getDeletedStackOfTasksIndexRedo().push(idxToReAdd);
-		} catch (DuplicateTaskException e) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
-	}
-	
-	@Override
-	public CommandResult redo() {
-		if(model.getDeletedStackOfTasksRedo().isEmpty() || model.getDeletedStackOfTasksIndexRedo().isEmpty()) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-		}
-		ReadOnlyTask taskToDelete = model.getDeletedStackOfTasksRedo().pop();
-		model.getDeletedStackOfTasks().push(taskToDelete);
-		int idxToRedoAdd = model.getDeletedStackOfTasksIndexRedo().pop();
-		try {
-			System.out.println("At deleteCommand : redo : and idxToRedoAdd :  "+ idxToRedoAdd);
-			model.deleteTask((Task) taskToDelete);
-			model.getDeletedStackOfTasksIndex().push(idxToRedoAdd);
-		} catch(TaskNotFoundException e) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
 }
