@@ -112,7 +112,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     //@@author A0146123R
     public void markTask(ReadOnlyTask p)  {
         p.markAsDone();
@@ -126,6 +126,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
+    //@@author A0138717X
 	public void editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
         tasks.edit(p, type, details);
 	}

@@ -109,7 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
+    //@@author A0138717X
 	@Override
 	public void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException {
 		taskManager.editTask(task, type, details);
@@ -131,7 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+
     //@@author A0146123R
     @Override
     public void updateTaskManager(String filePath, boolean isToClearOld) {
@@ -144,13 +144,13 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new StoragePathChangedBackEvent(isToClearNew));
         indicateTaskManagerChanged();
     }
-    
+
     @Override
     public void redoUpdateTaskManager(boolean isToClearOld) {
         EventsCenter.getInstance().post(new RedoStoragePathChangedEvent(isToClearOld));
         indicateTaskManagerChanged();
     }
-    
+
     @Override
     public void saveState(String message) {
         stateManager.saveState(new TaskManagerState(taskManager, message));
@@ -210,7 +210,7 @@ public class ModelManager extends ComponentManager implements Model {
             return null;
         }
     }
-    
+
     //@@author A0146123R
     @Override
     public void updateFilteredTaskList(String keyword, String type) {
@@ -244,7 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return predicate;
     }
-    
+
     @Override
     public void updateFilteredTaskList(Set<String> types, Map<String, String> qualifications, Set<String> tags) {
         ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
@@ -365,7 +365,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+
     //@@author A0146123R
     private class StemmedNameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
@@ -392,13 +392,13 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "stemmed name=" + String.join(", ", nameKeyWords);
         }
-        
+
         private Set<String> getStemmedTaskName(ReadOnlyTask task) {
             String[] taskName = task.getName().taskName.split("\\s+");
             return new HashSet<>(Arrays.asList(taskName));
         }
     }
-    
+
     //@@author A0142325R
     private class EventQualifier implements Qualifier{
         EventQualifier(){}
@@ -443,7 +443,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "done=" + isDone;
         }
     }
-    
+
     //@@author A0146123R
     private class DateQualifier implements Qualifier {
         private String dateValue;
@@ -474,12 +474,12 @@ public class ModelManager extends ComponentManager implements Model {
             return "date type=" + dateType +  " date=" + dateValue;
         }
     }
-    
+
     //@@author A0142325R
     private class RecurringQualifier implements Qualifier{
         private String recurring;
         private static final String EMPTY = "";
-        
+
         RecurringQualifier(String recurring){
             this.recurring = recurring;
         }
@@ -492,13 +492,13 @@ public class ModelManager extends ComponentManager implements Model {
                 return task.getRecurring() != null && this.recurring.equals(task.getRecurring().recurringFrequency);
             }
         }
-        
+
         @Override
         public String toString(){
             return "recurring=" + recurring;
         }
     }
-    
+
     //@@author A0146123R
     private class TagQualifier implements Qualifier {
         private Set<String> tagKeyWords;

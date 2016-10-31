@@ -32,7 +32,7 @@ public class Parser {
                                                                                                            // by
                                                                                                            // whitespace
 
-    //    private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^.*?(?=[dsenr][/])])" + "(?<edit>[^/]+)" + "?[i][/](?<index>([^/]+)*)");
+    //@@author A0138717X
     private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
 			+ "(?<edit>(?: [dsenr]/[^/]+)?)"
 			+ "((i/(?<index>([0-9])+)*)?)" );
@@ -112,10 +112,10 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-            
+
         case UndoChangeCommand.COMMAND_WORD:
             return new UndoChangeCommand(arguments);
-            
+
         case RedoChangeCommand.COMMAND_WORD:
             return new RedoChangeCommand();
 
@@ -284,14 +284,14 @@ public class Parser {
         }
         return new FindCommand(keywordsGroup, matcher.group("keywords").contains("exact!"));
     }
-    
+
     //@@author A0142325R
     private Command prepareList(String args) {
         if (args.equals(""))
             return new ListCommand();
         return new ListCommand(args);
     }
-    
+
     //@@author A0146123R
     /**
      * Parses arguments in the context of the change storage location command.
@@ -330,29 +330,15 @@ public class Parser {
         Optional<String> endDate = argsTokenizer.getValue(endDatePrefix);
         Optional<String> recurring = argsTokenizer.getValue(recurringPrefix);
         Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
-        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent() 
+        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent()
                 || recurring.isPresent() || tags.isPresent()) {
            return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags));
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
-    
-    //@@author
-    private Command prepareEdit(String args) {
-//    	Optional<Integer> index = parseIndex(args);
 
-//    	final String[] edit = args.split("\\s+");
-//    	       String detailType = keywords[1];
-//    	       String newDetail = keywords[2];
-//    	       int targetIndex = Integer.parseInt(keywords[0]);
-//
-//    	       return new EditCommand(targetIndex, detailType, newDetail);
-//    	String name = edit[0];
-//        if (name == null || name.equals("")) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-//        }
-//        String type = edit[1];
-//        String details = edit[2];
+    //@@author A0138717X
+    private Command prepareEdit(String args) {
     	final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
     	 if (!matcher.matches()) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -371,10 +357,6 @@ public class Parser {
     	        	detailsType = "name";
     	        	details = argsTokenizer.getValue(namePrefix).get();
     	        }
-//    	        else if(argsTokenizer.getTokenizedArguments().containsKey(tagPrefix)) {
-//    	        	detailsType = "tag";
-//    	        	toSet(argsTokenizer.getAllValues(tagPrefix))
-//    	        }
     	        else if(argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
     	        	detailsType = "recurring";
     	        	details = argsTokenizer.getValue(recurringPrefix).get();
