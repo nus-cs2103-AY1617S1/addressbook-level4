@@ -11,8 +11,8 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Task Manager.
+1. Download the latest `toDoList.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your toDoList.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
    > UI mock up
 
@@ -61,19 +61,28 @@ Format: `list`
 
 #### Finding all events and tasks containing any keyword in their name: `find`
 Finds events and tasks whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]`
 
 > * The search is not case sensitive. e.g hans will match Hans
 > * The order of the keywords does not matter. e.g. `Project Deadline` will match `Deadline Project`
 > * Only the name is searched.
-> * Events or Tasks matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Project` will match `Project Deadline`
+> * By default, Events and Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    The matching will only compare word stems of keywords. <br>
+    e.g. `Projects` will match `Project Deadline`
+> * Only Events and Tasks matching the exact keyword will be returned if the command contains the `exact!` parameter.
+    e.g. `Projects exact!` will not match `Project Deadline`
+> * Only Events and Tasks matching both keywords will be returned if the two keywords are connected by `AND`
+    (i.e. `AND` search). e.g. `Project` AND `Deadline` will match `Project Deadline` but will not match `Project`
 
 Examples:
 * `find lecture`<br>
-  Returns `CS2103 Lecture` and `lecture`
+  Returns `CS2103 Lecture` and `lectures`
+* `find lecture exact!`<br>
+  Returns `CS2103 Lecture` but not `lectures`
 * `find CS2103 Software Project`<br>
   Returns any event or task having names `CS2103`, `Software`, or `Project`
+* `find CS2103 AND Software AND Project`<br>
+  Returns event or task having names `CS2103`, `Software`, and `Project`
 
 #### Deleting an event or task : `delete`
 Deletes the specified event or task from the list. Irreversible.<br>
@@ -135,25 +144,36 @@ There is no need to save manually.
 
 ####Changing default storage location: `change`
 Default storage location will be changed to the location specified by the user. Any data saved in the previous location will be cleared if specified.<br>
-Format: `change FILE_PATH`
+Format: `change FILE_PATH [clear]`
 
 > The file path must end with the file type extension, .xml
 
-Example: `change /Desktop/folder/taskManager.xml clear`
+Example: 
+* `change /Desktop/folder/taskManager.xml`
+* `change /Desktop/folder/taskManager.xml clear`
 
 #### Undo operations: `undo`
-Undo the most recent action.<br>
-Format: `undo` 
+Undo the most recent action (up to 5 times).<br>
+Format: `undo`
+
+> Able to undo add, delete, edit, clear, done commands from this session.
+
+Undo the most recent change of the default storage location (up to 1 time) and clear data saved in the new location if specified.<br>
+Format: `undochange [clear]` <br>
+
+#### Redo operations: `redo`
+Redo the most recent action that is undone.<br>
+Format: `redo`<br>
+Redo change the default storage location back to the new location.<br>
+Format: `redochange` <br>
 
 #### Filter events and tasks: `filter`
-Filter list for attributes such as event or task, done or yet to be done, start time, deadline, tag, and priority level.<br>
-Format: `filter [n/EVENT/TASK] [s/START_DATE] [d/DEADLINE] [c/DONE/UNDONE] [t/TAG] [p/PRIORITY_LEVEL]` 
+Filter list for attributes such as start date, end date, deadline and tag.<br>
+Format: `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]` 
 
 Examples:
-* `filter n/event s/7.10.2016-14 t/CS2103 `
+* `filter s/7.10.2016-14 t/CS2103` <br>
   List events that start from 7.10.2016-14 and have tag CS2103.
-* `filter n/task c/undone p/3 `
-  List tasks that are yet to be done and have priority 3.
 
 ## FAQ
 
@@ -166,7 +186,7 @@ Examples:
 Command | Format  
 -------- | :--------
 Add | `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG] [p/PRIORITY_LEVEL]`<br> `add TASK_NAME [d/DEADLINE] [t/TAG] [p/PRIORITY_LEVEL]`
-Change | `change FILEPATH`
+Change | `change FILE_PATH [clear]`<br> e.g. `change /Desktop/folder/taskManager.xml clear`
 Clear | `clear`
 Delete | `delete INDEX`<br> `delete EVENT_NAME/TASK_NAME`
 Done | `done INDEX`
