@@ -24,22 +24,18 @@ import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.logic.commands.AddCommand;
-import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.EditCommand;
-import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
-import seedu.jimi.logic.commands.ListCommand;
-import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.ShowCommand;
-import seedu.jimi.logic.commands.UndoCommand;
 import seedu.jimi.model.tag.Priority;
 
 /**
@@ -83,23 +79,6 @@ public class JimiParser {
     
     private static final Pattern SAVE_RESET_DIRECTORY_ARGS_FORMAT = Pattern.compile(SaveAsCommand.COMMAND_WORD_RESET);
     
-    private static final List<Command> COMMAND_STUB_LIST =
-            Arrays.asList(
-                    new AddCommand(), 
-                    new EditCommand(), 
-                    new CompleteCommand(), 
-                    new ShowCommand(), 
-                    new DeleteCommand(),
-                    new ClearCommand(), 
-                    new FindCommand(), 
-                    new ListCommand(),
-                    new UndoCommand(),
-                    new RedoCommand(),
-                    new ExitCommand(), 
-                    new HelpCommand(), 
-                    new SaveAsCommand()
-            );
-
     private static final String XML_FILE_EXTENSION = ".xml";
     
     public JimiParser() {}
@@ -130,7 +109,8 @@ public class JimiParser {
      * @return correct Command corresponding to the command word if valid, else returns incorrect command.
      */
     private Command prepareCommand(String commandWord, String arguments) {
-        for (Command command : getCommandStubList()) {
+        List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
+        for (Command command : cmdStubList) {
             // if validation checks implemented by the respective commands are passed
             if (command.isValidCommandWord(commandWord)) {
                 // identify which command this is
@@ -503,11 +483,6 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
     }
-    
 
-    public static List<Command> getCommandStubList() {
-        return COMMAND_STUB_LIST;
-    }
     // @@author
-
 }

@@ -8,6 +8,7 @@ import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.logic.parser.JimiParser;
 
 // @@author A0140133B
@@ -33,13 +34,12 @@ public class HelpCommand extends Command {
             + "\n"
             + MESSAGE_USAGE;
     
-    
     private Command toHelp;
     
     public HelpCommand() {}
     
     public HelpCommand(String cmdToShow) throws IllegalValueException {
-        List<Command> cmdStubList = JimiParser.getCommandStubList();
+        List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
         
         // Tries to find a match with all command words.
         Optional<Command> match = cmdStubList.stream()
@@ -48,13 +48,8 @@ public class HelpCommand extends Command {
         
         if (match.isPresent()) {
             toHelp = match.get();
-        } else {
-            // Creating string of all command words in Jimi.
-            String allCmds = cmdStubList.stream()
-                    .map(c -> c.getCommandWord())
-                    .filter(s -> s != null && !s.isEmpty())
-                    .collect(Collectors.joining(", "));
-            
+        } else { // User specified an unknown command.
+            String allCmds = CommandUtil.getInstance().commandsToString();
             throw new IllegalValueException(String.format(UNKNOWN_HELP_COMMAND, cmdToShow, allCmds));
         }
     }
@@ -64,7 +59,7 @@ public class HelpCommand extends Command {
         if (toHelp == null) {
             EventsCenter.getInstance().post(new ShowHelpRequestEvent());
             return new CommandResult(SHOWING_HELP_MESSAGE);
-        } else { // user specified command for help.
+        } else { // User specified a command for help.
             return new CommandResult(toHelp.getMessageUsage());
         }
     }
