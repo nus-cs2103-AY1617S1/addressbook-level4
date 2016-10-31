@@ -13,7 +13,7 @@ public class TypicalTestTasks {
 
     public static TestTask homework1, homework2, homework3, event, soccer, dinner, exam, midterm, basketball, lecture,
             job, homework1EditName, homework1EditDueDate, homework3EditName, homework3EditToTask, soccerEditName,
-            soccerEditStartTime, soccerEditEndTime, eventEditToEvent;
+            soccerEditStartTime, soccerEditEndTime, eventEditToEvent, tutorial1,tutorial2,tutorial3;
     
     // additional events to for testing 
     public static TestTask lecture1, lecture2, lecture3, lecture4, lecture5, exam1, exam2, exam3, study1, study2;
@@ -36,6 +36,8 @@ public class TypicalTestTasks {
                     .withEndTime("Feb 29 2000 00:00").withDueDate("Mar 23 2017 09:00").build();
             event = new TaskBuilder().withName("Event lol").withStartTime("Feb 29 2000 00:00")
                     .withEndTime("Feb 29 2000 00:00").withDueDate("Feb 29 2000 00:00").build();
+            tutorial2 = new TaskBuilder().withName("(Blocked) for CS 2103 tutorial 2").withStartTime("Nov 21 2017 19:00")
+                    .withEndTime("Nov 21 2017 20:15").withDueDate("Feb 29 2000 00:00").build();
             // Manually added
             basketball = new TaskBuilder().withName("Basketball training").withStartTime("Dec 25 2016 18:00")
                     .withEndTime("Dec 25 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
@@ -43,7 +45,11 @@ public class TypicalTestTasks {
                     .withEndTime("Oct 10 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
             job = new TaskBuilder().withName("Apply Job in Starbucks").withDueDate("Feb 29 2000 00:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
-
+            tutorial1 = new TaskBuilder().withName("CS2103 tutorial 1").withStartTime("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withDueDate("11 Nov 23:59").build(); 
+            tutorial3 = new TaskBuilder().withName("(Blocked) for CS 2103 tutorial 3").withStartTime("Nov 21 2017 19:00")
+                    .withEndTime("Nov 21 2017 20:15").withDueDate("Feb 29 2000 00:00").build();
+            
             // @@author A0127855W
             // After edit
             homework1EditName = new TaskBuilder().withName("Name Edited").withDueDate("Jan 11 2017 17:00")
@@ -105,7 +111,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(dinner));
             ab.addTask(new Task(exam));
             ab.addTask(new Task(midterm));
-            ab.addTask(new Task(event));
+            ab.addTask(new Task(event));           
             ab.sort();
 
         } catch (UniqueTaskList.DuplicateTaskException e) {

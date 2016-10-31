@@ -19,6 +19,7 @@ public class TestTask implements ReadOnlyTask {
     private boolean isEvent;
     private boolean isTask;
     private boolean isDone = false;
+    private boolean isBlock = false;
 
     /**
      * Every field must be present and not null.
@@ -32,6 +33,7 @@ public class TestTask implements ReadOnlyTask {
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
         this.isDone = name.getIsDone();
+        this.isBlock = name.getIsBlock();
     }
 
     public TestTask() {
@@ -80,9 +82,19 @@ public class TestTask implements ReadOnlyTask {
     public boolean getIsDone() {
         return isDone;
     }
+    
+    @Override
+    public boolean getIsBlock() {
+        return isBlock;
+    }
 
     public void setIsDone(boolean isDone) {
         this.isDone = isDone;
+    }
+    
+    public void setIsBlock(boolean isBlock) {
+        name.setBlock();
+        this.isBlock = isBlock;
     }
 
     @Override
@@ -118,7 +130,17 @@ public class TestTask implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    
+    //@@author A0138455Y
+    public String getBlockCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("block " + this.getName().toString() + " ");
+        sb.append("from/" + this.getStartTime().toString() + " ");
+        sb.append("to/" + this.getEndTime().toString() + " ");
+        return sb.toString();
+    }
+    //@@author
+    
     //@@author A0127686R
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
