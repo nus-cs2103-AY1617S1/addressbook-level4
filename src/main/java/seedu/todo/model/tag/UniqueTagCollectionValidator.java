@@ -175,7 +175,7 @@ public class UniqueTagCollectionValidator {
 
         if (!tagsDoNotExist.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST + YOU_SUPPLIED
-                    + StringUtil.convertListToString(tagsDoNotExist.toArray(new String[0])));
+                    + StringUtil.convertIterableToString(tagsDoNotExist));
         }
     }
 
@@ -189,7 +189,7 @@ public class UniqueTagCollectionValidator {
 
         if (!tagsExist.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
-                    + StringUtil.convertListToString(tagsExist.toArray(new String[0])));
+                    + StringUtil.convertIterableToString(tagsExist));
         }
     }
 

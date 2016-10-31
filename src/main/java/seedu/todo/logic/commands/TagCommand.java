@@ -33,7 +33,7 @@ public class TagCommand extends BaseCommand {
     private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED
             = "A list of tags \"tag1, tag2, ...\" to delete is required.";
     private static final String ERROR_INPUT_RENAME_TAGS_REQUIRED
-            = "An existing tag name, and a new tag name is required.";
+            = "Please provide an existing tag name and a new tag name.";
     private static final String ERROR_TWO_PARAMS
             = "You may only provide an existing tag name, and a new tag name for renaming.";
 
