@@ -214,7 +214,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else {
-            name = (matcher.group("name") == null) ? null : matcher.group("name");
+            name = (matcher.group("name") == null) ? null : matcher.group("name").replace('\\', '\0');
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
             recur = (matcher.group("recurring") == null) ? null : matcher.group("recurring");
