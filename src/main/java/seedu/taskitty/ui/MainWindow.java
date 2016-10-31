@@ -144,7 +144,7 @@ public class MainWindow extends UiPart {
     }
     
     //@@author A0130853L
-    void fillInnerParts() {
+    public void fillInnerParts() {
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
         deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new DeadlineListPanel());

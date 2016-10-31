@@ -33,6 +33,7 @@ public class SaveCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("save temp.pdf");
         assertResultMessage(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
                 SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+        
     }
 
 }
