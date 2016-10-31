@@ -80,28 +80,32 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
     
+    // @@author A0140133B
     @FXML
     private void handleCommandInputChanged() {
-        // Do nothing for empty input.
         if (commandTextField.getText().trim().isEmpty()) {
-            return; 
+            return; // Do nothing for empty input.
         }
         
-        //Take a copy of the command text
-        previousCommandTest = commandTextField.getText().trim();
-        resetTextInputStacks();
-        previousInputs.push(previousCommandTest);
+        
+        previousCommandTest = commandTextField.getText().trim(); // Take a copy of the command text.
+        resetInputHistoryToMostRecent(); 
+        previousInputs.push(previousCommandTest); // Updating history of inputs for up/down cycling.
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setResultDisplayAndCmdBoxToDefault();
+        executeCommand();
+    }
+
+    /** Parses and executes the command given by {@code previousCommandTest} */
+    private void executeCommand() {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-    // @@author A0140133B
     @FXML
     private void handleTextFieldKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
@@ -187,7 +191,7 @@ public class CommandBox extends UiPart {
     }
     
     /** Pushes all input text in {@code aheadInputs} into {@code previousInputs}. */
-    private void resetTextInputStacks() {
+    private void resetInputHistoryToMostRecent() {
         while (!aheadInputs.isEmpty()) {
             previousInputs.push(aheadInputs.pop());
         }
