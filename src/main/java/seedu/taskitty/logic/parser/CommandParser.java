@@ -102,8 +102,8 @@ public class CommandParser {
         	}
         	return prepareView(arguments);
         
-        case SaveCommand.COMMAND_WORD:
-            return prepareSave(arguments);
+        case PathCommand.COMMAND_WORD:
+            return preparePath(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -116,20 +116,20 @@ public class CommandParser {
      * @param argument full command args string
      * @return the prepared command
      */
-    private Command prepareSave(String argument) {
+    private Command preparePath(String argument) {
         String args = argument.trim();
         
         if (args.equals(EMPTY_STRING)) {
-            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_MISSING_FILEPATH, 
-                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_MISSING_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (args.length() < FILE_EXTENSION_LENGTH) {
-            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
-                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (!isValidFileXmlExtension(args)) {
-            return new IncorrectCommand(String.format(SaveCommand.MESSAGE_INVALID_FILEPATH, 
-                    SaveCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         }
-        return new SaveCommand(args);
+        return new PathCommand(args);
     }
     
     /**

@@ -21,13 +21,13 @@ import seedu.taskitty.commons.exceptions.DataConversionException;
  * @author JiaWern
  *
  */
-public class SaveCommand extends Command{
+public class PathCommand extends Command{
     
-    public static final String COMMAND_WORD = "save";
+    public static final String COMMAND_WORD = "path";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
             + " filepath.xml";
-    public static final String MESSAGE_USAGE = "This command saves data in TasKitty to a location of your choice, Meow!\n";
+    public static final String MESSAGE_USAGE = "This command saves data to/loads data from a location of your choice, Meow!\n";
     public static final String MESSAGE_VALID_FILEPATH_USAGE = "Filepath must end with .xml";
 
     public static final String MESSAGE_SUCCESS = "Data saved to: %1$s";
@@ -42,7 +42,7 @@ public class SaveCommand extends Command{
     
     public final String filepath;
     
-    public SaveCommand(String filepath) {
+    public PathCommand(String filepath) {
         this.filepath = filepath;
     }
 
