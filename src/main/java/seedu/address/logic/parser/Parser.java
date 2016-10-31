@@ -40,6 +40,7 @@ public class Parser {
 	
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
+	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 
 	
@@ -108,38 +109,88 @@ public class Parser {
 
 		final String name = matcher.group("taskName");
 		final String args = matcher.group("addTaskArgs");
-
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix);
-		argsTokenizer.tokenize(args);
-
-		Optional<String> startDateTimeStringOpt = argsTokenizer.getValue(startDateTimePrefix);
-		Optional<String> endDateTimeStringOpt = argsTokenizer.getValue(endDateTimePrefix);
-		Optional<String> dateStringOpt = argsTokenizer.getValue(datePrefix);
-
-		// TODO extract method
-		if (dateStringOpt.isPresent()) {
-			String date = dateStringOpt.get();
-
-			if (startDateTimeStringOpt.isPresent()) {
-				startDateTimeStringOpt = Optional.of(startDateTimeStringOpt.get() + " " + date);
-			}
-
-			if (endDateTimeStringOpt.isPresent()) {
-				endDateTimeStringOpt = Optional.of(endDateTimeStringOpt.get() + " " + date);
-			}
+		
+		if (args.toLowerCase().contains("on")) {
+			return prepareAddEventSameDay(name, args);
 		}
+		else if (args.toLowerCase().contains("to")) {
+			return prepareAddEventDifferentDays(name, args);
+		}
+		else if (args.toLowerCase().contains("by")) {
+			return prepareAddDeadline(name, args);
+		}
+		else if (args.trim().equals("")){
+			return prepareAddSomeday(name, args);
+		}
+		else {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
+	}
+	
+	
+	private Command prepareAddEventDifferentDays(String taskName, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix);
+		argsTokenizer.tokenize(arguments);
+
+		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get();
+		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
+
+		return getAddCommand(taskName, startDateTimeString, endDateTimeString);
+	}
+	
+	
+	private Command prepareAddEventSameDay(String taskName, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix);
+		argsTokenizer.tokenize(arguments);
+
+		String dateString = argsTokenizer.getValue(datePrefix).get();
+		String startDateTimeString = argsTokenizer.getValue(startDateTimePrefix).get() + " " + dateString;
+		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get() + " " + dateString;
+
+		return getAddCommand(taskName, startDateTimeString, endDateTimeString);
+	}
+
+	
+	private Command prepareAddDeadline(String taskName, String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix);
+		argsTokenizer.tokenize(arguments);
+
+		String endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix).get();
+
+		return getAddCommand(taskName, null, endDateTimeString);
+	}
+	
+	private Command prepareAddSomeday(String taskName, String arguments) {
+		return getAddCommand(taskName, null, null);
+	}
+	
+	
+	private Command getAddCommand(String taskName, String startDateTimeString, String endDateTimeString) {
+		Optional<LocalDateTime> startDateTimeOpt, endDateTimeOpt;
 
 		try {
-			Optional<LocalDateTime> startDateTimeOpt = DateParser.parse(startDateTimeStringOpt);
-			Optional<LocalDateTime> endDateTimeOpt = DateParser.parse(endDateTimeStringOpt);
-			return new AddCommand(name, startDateTimeOpt, endDateTimeOpt);
+			if (startDateTimeString == null) {
+				startDateTimeOpt = Optional.empty();
+			}
+			else {
+				startDateTimeOpt = Optional.of(DateParser.parse(startDateTimeString));
+			}
+			
+			if (endDateTimeString == null) {
+				endDateTimeOpt = Optional.empty();
+			}
+			else {
+				endDateTimeOpt = Optional.of(DateParser.parse(endDateTimeString));
+			}
+			
+			return new AddCommand(taskName, startDateTimeOpt, endDateTimeOpt);
 		} catch (ParseException e) {
 			return new IncorrectCommand(e.getMessage());
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
-
+	
 	
 	//@@author A0141019U
 	/**
@@ -163,7 +214,7 @@ public class Parser {
     }
 
 	//@@author A0141019U
-	// Only supports task type and done|not-done options.
+	// Only supports task type and done|pending options.
 	private Command prepareList(String arguments) {
 		if (arguments.equals("")) {
 			return new ListCommand();
@@ -184,7 +235,7 @@ public class Parser {
 				taskType = args[i];
 				break;
 			case "done":
-			case "not-done":
+			case "pending":
 			case "overdue":
 				status = args[i];
 				break;
@@ -369,7 +420,7 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-		p.parseCommand("find bob, oh my darling, clementine");
+		p.parseCommand("add 'dd' by 5pm today");
 	}
 	
 }

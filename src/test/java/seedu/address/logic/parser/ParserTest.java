@@ -94,22 +94,7 @@ public class ParserTest {
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 	
-	@Test
-	public void parseCommand_addEventInvalidOrder_incorrectCommandReturned() {
-		String userInput = "add event from 8:00 'party' to 10:00 on 12-12-12";
-		Command command = parser.parseCommand(userInput);
 
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
-	public void parseCommand_addEventInvalidOrder2_incorrectCommandReturned() {
-		String userInput = "add event from 8:00 to 10:00 'party' on 12-10-12";
-		Command command = parser.parseCommand(userInput);
-		
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
 	@Test
 	public void parseCommand_addEventNoDate_addCommandReturned() {
 		String userInput = "add ' party' from 8:00 to 9:00";
@@ -150,6 +135,23 @@ public class ParserTest {
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
+	@Test
+	public void parseCommand_addEventValidOrder5_incorrectCommandReturned() {
+		String userInput = "add from 8:00 'party' to 10:00 on 12-12-12";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addEventValidOrder6_incorrectCommandReturned() {
+		String userInput = "add from 8:00 to 10:00 'party' on 12-10-12";
+		Command command = parser.parseCommand(userInput);
+		
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	
 	/*
 	 * Tests for the `add deadline` command
 	 */
@@ -162,8 +164,8 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addDeadlineNoDate_incorrectCommandReturned() {
-		String userInput = "add deadline 'submission' at 5:00pm";
+	public void parseCommand_addDeadlineNoBy_incorrectCommandReturned() {
+		String userInput = "add 'submission' 5:00pm";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -200,7 +202,7 @@ public class ParserTest {
 
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
-	
+//	
 //	@Test
 //	public void parseCommand_addDeadlineValidOrder3_addCommandReturned() {
 //		String userInput = "add by 25-12-16 04:00 'submission' ";
@@ -283,7 +285,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_listValidOrder_listCommandReturned() {
-		String userInput = "list   deadline not-done";
+		String userInput = "list   deadline pending";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(listCommand.getClass(), command.getClass());
@@ -291,7 +293,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_listValidOrder2_listCommandReturned() {
-		String userInput = "list not-done	 someday";
+		String userInput = "list pending	 someday";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(listCommand.getClass(), command.getClass());
