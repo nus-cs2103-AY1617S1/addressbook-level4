@@ -7,10 +7,12 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskFactory;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 //@@author A0135805H
 /**
@@ -31,7 +33,6 @@ public class TagCommandTest extends CommandTest {
 
     @Before
     public void setUp() throws Exception{
-
         //Task indexed at 5
         model.add("Task 5 With 5 Tags", mutableTask -> {
             Set<Tag> newTags = TaskFactory.convertTagNamesToTags(VALID_TAG_NAMES[0],
@@ -65,7 +66,6 @@ public class TagCommandTest extends CommandTest {
 
         //Task indexed at 1
         model.add("Task 1 No Tags");
-
     }
 
     /* Add Tag Test */
@@ -150,9 +150,71 @@ public class TagCommandTest extends CommandTest {
 
     @Test (expected = ValidationException.class)
     public void testAddTag_duplicatedTagNames() throws Exception {
-        //Adds tags that contains duplicated tags
+        //Adds tags that contains duplicated tag names
         setParameter("1 hello say hello again");
         execute(false);
+    }
+
+    /* Delete Tag From Task Test */
+    @Test
+    public void testDeleteTagFromTask_deleteOneTag() throws Exception {
+        //Deletes one tag from a task with 3 tags. Expects 2 tags left.
+        Set<Tag> expectedTags = new HashSet<>(getTaskAt(4).getTags());
+        expectedTags.remove(new Tag(VALID_TAG_NAMES[0]));
+
+        setParameter("4");
+        setParameter("d", VALID_TAG_NAMES[0]);
+        execute(true);
+
+        ImmutableTask task = getTaskAt(4);
+        assertEquals(expectedTags, task.getTags());
+    }
+
+    @Test
+    public void testDeleteTagFromTask_deleteAllTags() throws Exception {
+        //Deletes all the tags from a task with 5 tags. Expects none left.
+        Set<Tag> expectedTags = new HashSet<>();
+
+        StringJoiner joiner = new StringJoiner(" ");
+        joiner.add(VALID_TAG_NAMES[0])
+              .add(VALID_TAG_NAMES[1])
+              .add(VALID_TAG_NAMES[2])
+              .add(VALID_TAG_NAMES[3])
+              .add(VALID_TAG_NAMES[4]);
+
+        setParameter("5");
+        setParameter("d", joiner.toString());
+        execute(true);
+
+        ImmutableTask task = getTaskAt(5);
+        assertEquals(expectedTags, task.getTags());
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testDeleteTagFromTask_deleteMissingTagWithException() throws Exception {
+        //Deletes a tag that is not found.
+        setParameter("5");
+        setParameter("d", VALID_TAG_NAMES[5]);
+        execute(false);
+    }
+
+    @Test
+    public void testDeleteTagFromTask_deleteMissingTagNoOperation() {
+        //Deletes a tag that is not found. This should result in no-op.
+        Set<Tag> expectedTags = new HashSet<>(getTaskAt(5).getTags());
+
+        setParameter("5");
+        setParameter("d", VALID_TAG_NAMES[5]);
+        try {
+            execute(false);
+
+            //After the above line, not supposed to happen!
+            assertTrue(false);
+        } catch (ValidationException e) {
+            //Okay, exception is expected. Now to check the state of the object.
+            Set<Tag> outcomeTags = new HashSet<>(getTaskAt(5).getTags());
+            assertEquals(expectedTags, outcomeTags);
+        }
     }
 
     /* Helper Methods */

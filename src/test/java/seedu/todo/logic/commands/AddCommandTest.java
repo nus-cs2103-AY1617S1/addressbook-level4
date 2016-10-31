@@ -15,7 +15,6 @@ import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TimeUtil;
 
-import java.util.HashSet;
 import java.util.Set;
 
 //@@author A0092382A
@@ -218,6 +217,13 @@ public class AddCommandTest extends CommandTest {
     public void testAddTag_invalidTagCharacters() throws Exception {
         setParameter("Pokemon with tags");
         setParameter("t", "invalid@");
+        execute(false);
+    }
+
+    @Test (expected = ValidationException.class)
+    public void testAddTag_duplicatedTags() throws Exception {
+        setParameter("Pokemon with tags");
+        setParameter("t", "say duplicated again say");
         execute(false);
     }
 }
