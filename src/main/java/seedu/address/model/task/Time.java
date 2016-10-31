@@ -21,6 +21,10 @@ public class Time implements Comparable<Time> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task Dates should be in valid UK-format "
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY";
+
+    public static final String MESSAGE_INVALID_DATETIME_RANGE = "Task end dates and/or time must be "
+            + "after start date and/or time.";
+
     /**
      * Date validation in UK format, includes checks for valid date during leap years.
      * Supported Formats: dd/mmm/yyyy, dd-mmm-yyyy, dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy
@@ -139,9 +143,6 @@ public class Time implements Comparable<Time> {
         assert startDate != null;
         assert startTime != null;
         assert endTime != null;
-/*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }*/
 
         isUntimed = false;
         startDate = fixMonthForJavaFormat(startDate);
@@ -154,9 +155,17 @@ public class Time implements Comparable<Time> {
         LocalTime localEndTime = LocalTime.parse(endTime, timeFormatter);
         this.startDate = localDate.atTime(localStartTime);
         this.endDate = Optional.of(localDate.atTime(localEndTime));
+        if (!isValidDateTime()) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATETIME_RANGE);
+        }
         value = timeToUkFormat();
     }
 
+    private boolean isValidDateTime() {
+        if (this.endDate.get().compareTo(this.startDate) < 0) // endDate before startDate
+            return false;
+        return true;
+    }
     /**
      * Validates given Event - startDate startTime endDate endTime- parameters.
      *
@@ -168,9 +177,6 @@ public class Time implements Comparable<Time> {
         assert startDate != null;
         assert startTime != null;
         assert endTime != null;
-/*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }*/
 
         isUntimed = false;
         startDate = fixMonthForJavaFormat(startDate);
@@ -185,6 +191,9 @@ public class Time implements Comparable<Time> {
         LocalTime localEndTime = LocalTime.parse(endTime, timeFormatter);
         this.startDate = localDate.atTime(localStartTime);
         this.endDate = Optional.of(localEndDate.atTime(localEndTime));
+        if (!isValidDateTime()) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATETIME_RANGE);
+        }
         value = timeToUkFormat();
     }
 
