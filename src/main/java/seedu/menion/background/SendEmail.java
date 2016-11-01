@@ -43,9 +43,6 @@ public class SendEmail {
         remind = fromFile.next();
         fromFile.nextLine(); // Skips a line.
         userEmail = fromFile.nextLine();
-        System.out.println("this is your remind: " + remind + ".");
-        System.out.println("This is your email: " + userEmail + ".");
-        System.out.println("Going to attempt to send an email now...");
         fromFile.close(); // close input file stream
 
         if (remind.equals(RemindCommand.REMINDER_ON)) {
@@ -76,7 +73,6 @@ public class SendEmail {
             Transport.send(msg);
         }
         else {
-            System.out.println("Unable to send email, as remind is :" + remind);
             throw new MessagingException();
         }
     }
