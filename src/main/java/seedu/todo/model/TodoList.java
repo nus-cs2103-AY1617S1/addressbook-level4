@@ -35,7 +35,8 @@ public class TodoList implements TodoListModel {
     private static final String INCORRECT_FILE_FORMAT_FORMAT = "%s doesn't seem to be in the correct format.";
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
-
+    private static final String FILE_LOAD_ERROR_FORMAT = "The data file %s does not appear to be in the correct format";
+    
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
 
     private MovableStorage<ImmutableTodoList> storage;
@@ -48,8 +49,11 @@ public class TodoList implements TodoListModel {
         
         try {
             setTasks(storage.read().getTasks(), false);
-        } catch (FileNotFoundException | DataConversionException e) {
+        } catch (FileNotFoundException e) {
             logger.info("Data file not found. Will be starting with an empty TodoList");
+        } catch (DataConversionException e) {
+            String message = String.format(FILE_LOAD_ERROR_FORMAT, storage.getLocation());
+            raiseStorageEvent(message, e);
         }
         
         // Update event status 
@@ -73,14 +77,16 @@ public class TodoList implements TodoListModel {
     }
 
     private void raiseStorageEvent(String message, Exception e) {
-        // TODO: Have this raise an event
+        logger.severe("Data IO error - " + e.getClass().getSimpleName() + " | " + e.getMessage());
+        events.post(new DataSavingExceptionEvent(message, e));
     }
     
     private void saveTodoList() {
         try {
             storage.save(this);
         } catch (IOException e) {
-            events.post(new DataSavingExceptionEvent(e));
+            String message = String.format(TodoList.FILE_SAVE_ERROR_FORMAT, e.getMessage());
+            raiseStorageEvent(message, e);
         }
     }
 
@@ -143,7 +149,7 @@ public class TodoList implements TodoListModel {
         
     } 
     
-
+    //@@author A0135817B
     @Override
     public void save(String location) throws ValidationException {
         try {

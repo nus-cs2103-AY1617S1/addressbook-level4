@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--@@author generated-->
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane>
-         <children>
-            <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
+      <BorderPane>
+         <right>
+            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <FlowPane fx:id="titleFlowPane" alignment="CENTER_LEFT" hgap="8.0" maxHeight="-Infinity" minHeight="-Infinity" prefWrapLength="0.0" vgap="2.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. $Tasking Title$">
+                  <Label fx:id="titleLabel" maxWidth="-Infinity" minHeight="-Infinity" styleClass="titleLabel" text="1. $Tasking Title$">
                   </Label>
                   <Label fx:id="typeLabel" text="Event" textFill="WHITE">
                      <padding>
                         <Insets left="8.0" right="8.0" />
                      </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                      <styleClass>
                         <String fx:value="highlightedBackground" />
                         <String fx:value="roundLabel" />
@@ -40,23 +41,12 @@
                      </styleClass>
                   </Label>
                </children>
-            </HBox>
-            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" StackPane.alignment="CENTER_RIGHT" />
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </StackPane>
-      <FlowPane fx:id="tagsBox" hgap="4.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin></FlowPane>
+            </FlowPane>
+         </center>
+      </BorderPane>
       <HBox fx:id="descriptionBox" spacing="8.0">
          <children>
-            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" minWidth="4.0">
+            <Label fx:id="descriptionDecoration" maxHeight="1.7976931348623157E308" maxWidth="4.0" minWidth="4.0">
                <styleClass>
                   <String fx:value="highlightedBackground" />
                   <String fx:value="roundLabel" />
@@ -114,7 +104,7 @@
             </HBox>
          </children>
          <VBox.margin>
-            <Insets />
+            <Insets bottom="2.0" />
          </VBox.margin>
          <opaqueInsets>
             <Insets />

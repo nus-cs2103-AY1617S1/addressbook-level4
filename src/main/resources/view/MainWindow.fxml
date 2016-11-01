@@ -21,11 +21,16 @@
                 </AnchorPane>
              </children>
           </VBox>
+<<<<<<< HEAD
            <AnchorPane fx:id="commandPreviewViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT" />
            <AnchorPane fx:id="helpViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT" />
            <AnchorPane fx:id="globalTagViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT" />
+=======
+           <AnchorPane fx:id="commandPreviewViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
+           <AnchorPane fx:id="helpViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
+           <AnchorPane fx:id="commandErrorViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
+>>>>>>> branch 'master' of https://github.com/CS2103AUG2016-W10-C4/main.git
        </StackPane>
-       <AnchorPane fx:id="commandErrorViewPlaceholder" />
        <AnchorPane fx:id="commandFeedbackViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
