@@ -41,6 +41,7 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         
         builder.append(getName())
+                .append(System.lineSeparator())
                 .append(" Start: ")
                 .append(getStartTime().easyReadDateFormatForUI())
                 .append(" End: ")
