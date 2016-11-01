@@ -2,6 +2,7 @@ package seedu.todo.commons.events.ui;
 
 import seedu.todo.commons.events.BaseEvent;
 
+//@@author A0135805H
 /**
  * An event when the user presses "ENTER" on the keyboard in the command input.
  */

@@ -3,11 +3,13 @@ package seedu.todo.logic.commands;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
+import seedu.todo.model.tag.UniqueTagCollectionValidator;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
@@ -30,10 +32,13 @@ public class AddCommand extends BaseCommand {
     private Argument<DateRange> date = new DateRangeArgument("deadline")
             .flag("d");
 
+    private Argument<String> tags = new StringArgument("tag")
+            .flag("t");
+
     @Override
     public Parameter[] getArguments() {
         return new Parameter[] {
-            title, date, description, location, pin,
+            title, date, description, location, pin, tags
         };
     }
 
@@ -44,7 +49,7 @@ public class AddCommand extends BaseCommand {
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        String eventArguments = Joiner.on(" ").join(title, "/d start and end time", description, location, pin);
+        String eventArguments = Joiner.on(" ").join(title, "/d start and end time", description, location, pin, "/t tag1 [, tag2, ...]");
         
         return ImmutableList.of(
             new CommandSummary("Add task", getCommandName(), getArgumentSummary()), 
@@ -59,13 +64,31 @@ public class AddCommand extends BaseCommand {
             task.setLocation(location.getValue());
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
+            model.addTagsToTask(task, StringUtil.splitString(tags.getValue()));
         });
         if(!model.getObservableList().contains(addedTask)) {
             model.view(TaskViewFilter.DEFAULT);
         }
+
         eventBus.post(new HighlightTaskEvent(addedTask));
         eventBus.post(new ExpandCollapseTaskEvent(addedTask));
         return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
     }
 
+    //@@author A0135803H
+    @Override
+    protected void validateArguments() {
+        validateTagArguments();
+    }
+
+    /**
+     * Helper method to validate tag arguments.
+     */
+    private void validateTagArguments() {
+        if (tags.hasBoundValue()) {
+            String[] tagNames = StringUtil.splitString(tags.getValue());
+            UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(tags.getName(), errors);
+            validator.validateAddTags(tagNames);
+        }
+    }
 }

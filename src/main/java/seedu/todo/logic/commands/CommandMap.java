@@ -2,6 +2,7 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 public class CommandMap {
     // List of command classes. Remember to register new commands here so that the
     // dispatcher can recognize them
-    public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
+    private static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
         AddCommand.class,
         CompleteCommand.class,
         DeleteCommand.class,
@@ -29,6 +30,7 @@ public class CommandMap {
     );
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;
+    private static Map<String, List<CommandSummary>> commandSummaryMap;
     
     private static void buildCommandMap() {
         commandMap = new LinkedHashMap<>();
@@ -39,18 +41,10 @@ public class CommandMap {
         }
     }
 
-    public static Map<String, Class<? extends BaseCommand>> getCommandMap() {
-        if (commandMap == null) {
-            buildCommandMap();
-        }
-        
-        return commandMap;
-    }
-    
     public static BaseCommand getCommand(String key) {
         return getCommand(getCommandMap().get(key));
     }
-    
+
     public static BaseCommand getCommand(Class<? extends BaseCommand> command) {
         try {
             return command.newInstance();
@@ -58,5 +52,37 @@ public class CommandMap {
             e.printStackTrace();
             return null; // This shouldn't happen
         }
+    }
+
+    public static Map<String, Class<? extends BaseCommand>> getCommandMap() {
+        if (commandMap == null) {
+            buildCommandMap();
+        }
+
+        return commandMap;
+    }
+
+    //@@author A0139021U
+    private static void buildCommandSummariesMap() {
+        // Use linked hashmap so summaries are presented to user in the same order every time
+        commandSummaryMap = new LinkedHashMap<>();
+        for (String key : getCommandMap().keySet()) {
+            commandSummaryMap.put(key, CommandMap.getCommand(key).getCommandSummary());
+        }
+    }
+
+    public static Map<String, List<CommandSummary>> getCommandSummaryMap() {
+        if (commandSummaryMap == null) {
+            buildCommandSummariesMap();
+        }
+
+        return commandSummaryMap;
+    }
+
+    public static List<CommandSummary> getAllCommandSummary() {
+        // convert map to list
+        List<CommandSummary> commandSummariesList = new ArrayList<>();
+        getCommandSummaryMap().values().forEach(commandSummariesList::addAll);
+        return commandSummariesList;
     }
 }

@@ -3,6 +3,7 @@ package seedu.todo.commons.events.ui;
 import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.model.task.ImmutableTask;
 
+//@@author A0135805H-reused
 /**
  * Represents a selection change in the To-do List Panel of an ImmutableTask.
  */

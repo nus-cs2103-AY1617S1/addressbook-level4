@@ -18,10 +18,11 @@ import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 //@@author A0135805H
@@ -31,10 +32,12 @@ import java.util.Optional;
  */
 public class TaskCardView extends UiPart {
     /*Constants*/
-    private static final String FXML = "TaskCardView.fxml";
+    public static final String TAG_LABEL_ID = "tagLabel";
 
+    private static final String FXML = "TaskCardView.fxml";
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
+    private static final int INSERT_TAG_INDEX = 2;
 
     /*Static Field*/
     /*
@@ -58,7 +61,7 @@ public class TaskCardView extends UiPart {
     @FXML
     private HBox descriptionBox, dateBox, locationBox;
     @FXML
-    private FlowPane tagsBox;
+    private FlowPane titleFlowPane;
     
     /* Variables */
     private ImmutableTask task;
@@ -113,16 +116,21 @@ public class TaskCardView extends UiPart {
      * Displays the tags in lexicographical order, ignoring case.
      */
     private void displayTags(){
-        List<Tag> tagList = new ArrayList<>(task.getTags());
-        if (tagList.isEmpty()) {
-            FxViewUtil.setCollapsed(tagsBox, true);
-        } else {
-            tagList.sort((o1, o2) -> o1.toString().compareToIgnoreCase(o2.toString()));
-            for (Tag tag : tagList) {
-                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.getTagName());
-                tagsBox.getChildren().add(tagLabel);
-            }
+        List<String> tagList = new ArrayList<>(Tag.getTagNames(task.getTags()));
+        if (!tagList.isEmpty()) {
+            tagList.sort(Comparator.reverseOrder());
+            tagList.forEach(tagName -> titleFlowPane.getChildren()
+                    .add(INSERT_TAG_INDEX, constructTagLabel(tagName)));
         }
+    }
+
+    /**
+     * Constructs an appropriately styled tag label.
+     */
+    private Label constructTagLabel(String tagName) {
+        Label tagLabel = ViewGeneratorUtil.constructRoundedText(tagName);
+        tagLabel.setId(TAG_LABEL_ID);
+        return tagLabel;
     }
     
     /**
@@ -151,7 +159,6 @@ public class TaskCardView extends UiPart {
     private void initialiseCollapsibleView() {
         ViewStyleUtil.addRemoveClassStyles(true, taskCard, ViewStyleUtil.STYLE_COLLAPSED);
         FxViewUtil.setCollapsed(moreInfoLabel, !isTaskCollapsible());
-        FxViewUtil.setCollapsed(tagsBox, isTaskCollapsible());
     }
     
     /**
@@ -195,7 +202,6 @@ public class TaskCardView extends UiPart {
             //Sets both the collapsed style of the card, and mark the visibility of the "more" label.
             boolean isCollapsing = ViewStyleUtil.toggleClassStyle(taskCard, ViewStyleUtil.STYLE_COLLAPSED);
             FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
-            FxViewUtil.setCollapsed(tagsBox, isCollapsing);
         }
     }
 
@@ -213,9 +219,7 @@ public class TaskCardView extends UiPart {
      * {@link ImmutableTask}
      */
     private boolean isTaskCollapsible() {
-        boolean hasDescription = task.getDescription().isPresent();
-        boolean hasTags = !task.getTags().isEmpty();
-        return hasDescription || hasTags;
+        return task.getDescription().isPresent();
     }
 
     /* Getters */

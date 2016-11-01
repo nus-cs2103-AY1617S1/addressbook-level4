@@ -135,6 +135,7 @@ public class CommandErrorView extends UiPart {
     private void addRowToGrid(GridPane targetGrid, int rowIndex, String leftText, String rightText) {
         Label leftLabel = ViewGeneratorUtil.constructLabel(leftText, ViewStyleUtil.STYLE_TEXT_4);
         Label rightLabel = ViewGeneratorUtil.constructLabel(rightText, ViewStyleUtil.STYLE_TEXT_4);
+        rightLabel.setWrapText(true);
         targetGrid.addRow(rowIndex, leftLabel, rightLabel);
     }
 

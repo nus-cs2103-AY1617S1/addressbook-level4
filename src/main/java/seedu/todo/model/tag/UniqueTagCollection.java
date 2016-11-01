@@ -1,16 +1,18 @@
 package seedu.todo.model.tag;
 
-import javafx.collections.ObservableList;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Iterator;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 //@@author A0135805H
 /**
@@ -21,16 +23,21 @@ import java.util.Set;
  * maintain uniqueness of the tag names.
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
-    /*
-        Stores a list of tags with unique tag names.
-        TODO: ImmutableTask does not have consistent hashing.
-        TODO: So, duplicated ImmutableTask may be found in the set of each Tag.
-     */
+
+    //Stores a list of tags with unique tag names.
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
+
+    /* Constructor */
+    /**
+     * Constructs this tag collection
+     */
+    public UniqueTagCollection(List<ImmutableTask> globalTaskList) {
+        update(globalTaskList);
+    }
 
     /* Interfacing Methods */
     @Override
-    public void update(ObservableList<ImmutableTask> globalTaskList) {
+    public void update(List<ImmutableTask> globalTaskList) {
         uniqueTagsToTasksMap.clear();
         globalTaskList.forEach(task -> task.getTags().forEach(tag -> associateTaskToTag(task, tag)));
     }
@@ -41,50 +48,61 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
-    public Tag registerTagWithTask(ImmutableTask task, String tagName) {
-        Tag tag = getTagWithName(tagName);
-        associateTaskToTag(task, tag);
-        return tag;
+    public Collection<Tag> associateTaskToTags(ImmutableTask task, String[] tagNames) {
+        return Arrays.stream(tagNames)
+                .map(name -> associateTaskToTag(task, getTagWithName(name)))
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) {
-        //TODO: Throw an error if the tag is not found.
-        Tag tag = getTagWithName(tagName);
-        dissociateTaskFromTag(task, tag);
-        return tag;
+    public Collection<Tag> dissociateTaskFromTags(ImmutableTask task, String[] tagNames) {
+        //Data validation at TodoModel should have checked if this is available.
+        //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+
+        return Arrays.stream(tagNames)
+                .map(name -> dissociateTaskFromTag(task, getTagWithName(name)))
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public void renameTag(String originalName, String newName) {
-        Tag tag = getTagWithName(originalName);
-        Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.remove(tag);
-        tag.rename(newName);
-        uniqueTagsToTasksMap.put(tag, setOfTasks);
+    public Collection<Tag> deleteTags(String[] tagNames) {
+        //Data validation at TodoModel should have checked if this is available.
+        //Even if it is not, getTagWithName(...) will recreate the tag which gets deleted again, safe op.
+
+        return Arrays.stream(tagNames)
+                .map(name -> {
+                    Tag tag = getTagWithName(name);
+                    uniqueTagsToTasksMap.remove(tag);
+                    return tag;
+                }).collect(Collectors.toSet());
     }
 
     /* Helper Methods */
     /**
      * Links a {@code task} to the {@code tag} in the {@link #uniqueTagsToTasksMap}.
+     * @return an instance of the {@code tag}
      */
-    private void associateTaskToTag(ImmutableTask task, Tag tag) {
+    private Tag associateTaskToTag(ImmutableTask task, Tag tag) {
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks == null) {
             setOfTasks = new HashSet<>();
             uniqueTagsToTasksMap.put(tag, setOfTasks);
         }
         setOfTasks.add(task);
+        return tag;
     }
 
     /**
      * Removes the association between the {@code task} from the {@code tag} in
      * the {@link #uniqueTagsToTasksMap}.
+     * @return an instance of the {@code tag}
      */
-    private void dissociateTaskFromTag(ImmutableTask task, Tag tag) {
+    private Tag dissociateTaskFromTag(ImmutableTask task, Tag tag) {
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks != null) {
             setOfTasks.remove(task);
         }
+        return tag;
     }
 
     /**
@@ -99,7 +117,8 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private Tag getTagWithName(String tagName) {
         Optional<Tag> possibleTag = uniqueTagsToTasksMap.keySet().stream()
-                .filter(tag -> tag.getTagName().equals(tagName)).findAny();
+                .filter(tag -> tag.getTagName().equals(tagName))
+                .findAny();
 
         Tag targetTag;
         if (possibleTag.isPresent()) {
@@ -116,7 +135,8 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private Optional<Tag> findTagWithName(String tagName) {
         return uniqueTagsToTasksMap.keySet().stream()
-                .filter(tag -> tag.getTagName().equals(tagName)).findAny();
+                .filter(tag -> tag.getTagName().equals(tagName))
+                .findAny();
     }
 
     /* Interfacing Getters */
@@ -126,13 +146,14 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
-    public List<ImmutableTask> getTasksLinkedToTag(String tagName) {
+    public Set<ImmutableTask> getTasksLinkedToTag(String tagName) {
         Optional<Tag> possibleTag = findTagWithName(tagName);
         if (possibleTag.isPresent()) {
+            //We are getting a copy of the set of tasks.
             Set<ImmutableTask> tasks = uniqueTagsToTasksMap.get(possibleTag.get());
-            return new ArrayList<>(tasks);
+            return new HashSet<>(tasks);
         } else {
-            return new ArrayList<>();
+            return new HashSet<>();
         }
     }
 

@@ -24,7 +24,6 @@ public class EditCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-        // TODO: fix sorting problems when adding tasks
         model.add("Task 1", task-> {
             task.setPinned(true);
             task.setLocation("NUS");
@@ -45,6 +44,16 @@ public class EditCommandTest extends CommandTest {
         setParameter("4");
         setParameter("l", "If this prints out this might hurt");
         execute(true);
+    }
+    
+    @Test
+    public void testNoParameter() throws Exception {
+        // Running the edit command with no fields specified shouldn't do anything
+        setParameter("1");
+        execute(true);
+        
+        assertVisibleTaskCount(3);
+        assertEquals("Task 1", getTaskAt(1).getTitle());
     }
     
     @Test

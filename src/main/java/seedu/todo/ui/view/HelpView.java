@@ -27,6 +27,7 @@ public class HelpView extends UiPart {
 
     /* Constants */
     private static final String FXML = "HelpView.fxml";
+    private static final int PREF_WIDTH = 340;
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(HelpView.class);
@@ -83,9 +84,10 @@ public class HelpView extends UiPart {
                 .constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
-        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
-
+        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE_BOLDER);
         TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
+        combinedCommand.setPrefWidth(PREF_WIDTH);
+
         helpGrid.addRow(rowIndex, commandScenario, combinedCommand);
     }
 

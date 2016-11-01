@@ -13,12 +13,6 @@ import java.util.StringJoiner;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
-    }
-
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
@@ -94,6 +88,17 @@ public class StringUtil {
             stringJoiner.add(string);
         }
         return stringJoiner.toString();
+    }
+
+    /**
+     * Given an iterable, join them together with comma as shown:
+     *      apple, pear, pineapple
+     */
+    public static String convertIterableToString( Iterable<?> iterable) {
+        if (iterable == null) {
+            return "";
+        }
+        return StringUtils.join(iterable, ", ");
     }
 
     //@@author A0139021U
