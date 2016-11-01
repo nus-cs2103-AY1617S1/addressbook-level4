@@ -38,8 +38,10 @@ public class TaskCard extends UiPart {
         String dateInfo;
         if (task.getIsTask()) {
             dateInfo = " by " + task.getDueDate();
+            cardPane.setStyle("-fx-background-color: #ffa54f");
         } else if (task.getIsEvent()) {
             dateInfo = " from " + task.getStartTime() + " to " + task.getEndTime();
+            cardPane.setStyle("-fx-background-color: #cd8500");
         } else {
             dateInfo = "";
         }
