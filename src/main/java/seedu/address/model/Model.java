@@ -27,8 +27,8 @@ public interface Model {
     //@@author A0143756Y
     /** Returns TaskManagerStorageFilePath */
     String getTaskManagerStorageFilePath();
-    //@@author 
-    
+
+    //@@author A0141019U
     /** Saves the state of the model in case the user wishes to undo an action. */
     void saveState();
     
@@ -37,7 +37,8 @@ public interface Model {
     
     /** Redoes an action after an undo. */
     void loadNextState();
-
+    //@@author
+    
     /** Deletes the given tasks. */
     void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
 
@@ -56,6 +57,9 @@ public interface Model {
     /** Sets task manager data storage location */    
     void setStorage(File newStorageFileFilePath, File oldStorageFileFilePath) throws IOException;
     //@@author
+
+    /** Updates the task status overdue if not marked as done and end time is before now */
+    void checkForOverdueTasks();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

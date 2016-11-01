@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -127,6 +129,26 @@ public class DateParserTest {
 		LocalDateTime oneAmNextWeek = LocalDateTime.now().plusDays(7).withHour(1).truncatedTo(ChronoUnit.HOURS);
 		
 		assertEquals(oneAmNextWeek, date);
+	}
+	
+	@Test
+	public void tuesday630am_valid_valueAsExpected() throws ParseException {
+		String userInput = "tuesday 6:30 am";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime tuesday630 = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY)).withHour(6).withMinute(30).truncatedTo(ChronoUnit.MINUTES);
+		
+		assertEquals(tuesday630, date);
+	}
+	
+	@Test
+	public void saturday630am_valid_valueAsExpected() throws ParseException {
+		String userInput = "sat 6:30am ";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime saturday630 = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY)).withHour(6).withMinute(30).truncatedTo(ChronoUnit.MINUTES);
+		
+		assertEquals(saturday630, date);
 	}
 	
 	@Test

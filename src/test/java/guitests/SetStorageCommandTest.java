@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class SetStorageCommand extends TaskManagerGuiTest {
+public class SetStorageCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void setStorage() {

@@ -46,7 +46,7 @@ public class EventTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        taskName.setText(task.getName().fullName);
+        taskName.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
         setTaskDateTime();
@@ -65,10 +65,10 @@ public class EventTaskCard extends UiPart{
 	}
 
     private void setTaskStatus() {
-		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
+		if (task.getStatus().value.equals(Status.StatusType.DONE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
 			taskStatus.setStyle("-fx-text-fill: green");
-		} else if (task.getStatus().value.equals(Status.DoneStatus.OVERDUE)) {
+		} else if (task.getStatus().value.equals(Status.StatusType.OVERDUE)) {
 			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
 			taskStatus.setStyle("-fx-text-fill: red");
 		}

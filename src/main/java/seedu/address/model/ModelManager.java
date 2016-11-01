@@ -6,7 +6,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -15,12 +14,14 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
+import seedu.address.model.task.Status;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -28,7 +29,6 @@ import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import com.google.common.io.Files;
-import java.nio.file.InvalidPathException;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -110,11 +110,13 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    //@@author A0143756Y
     @Override
     public String getTaskManagerStorageFilePath() {
     	return config.getTaskManagerFilePath();
     }
-
+    //@@author
+    
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
@@ -141,6 +143,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
     
+    //@@author A0141019U
+    @Override
+    public synchronized void checkForOverdueTasks() {
+    	LocalDateTime now = LocalDateTime.now();
+    	
+    	for (Task task : taskManager.getUniqueTaskList().getInternalList()) {
+    		if (!task.getStatus().isDone() && task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
+    			task.setStatus(new Status("overdue"));
+    		}
+    	}
+    }
+    //@@author
 
     //@@author A0143756Y
     @Override
@@ -233,7 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author
     @Override
     public void updateFilteredListToShowAll() {
-       filteredTasks.setPredicate(null);;
+       filteredTasks.setPredicate(null);
     }
     
     //@@author A0139339W
@@ -294,7 +308,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().value, keyword))
                     .findAny()
                     .isPresent();
         }

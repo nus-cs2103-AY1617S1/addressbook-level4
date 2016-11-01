@@ -100,7 +100,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskType().value + " '");
-        sb.append(this.getName().fullName + "'");
+        sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
         } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
@@ -114,7 +114,7 @@ public class TestTask implements ReadOnlyTask {
     public String getEditCommand(int index) {
     	StringBuilder sb = new StringBuilder();
         sb.append("edit " + this.getTaskType().value + " " + index + " '");
-        sb.append(this.getName().fullName + "'");
+        sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
         } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
@@ -125,4 +125,25 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+	@Override
+	public int compareTo(ReadOnlyTask other) {
+		int statusCompare = this.getStatus().compareTo(other.getStatus());
+		if (statusCompare != 0) {
+			return statusCompare;
+		}
+		else {
+			LocalDateTime thisDate = this.getStartDate().orElse(this.getEndDate().orElse(LocalDateTime.MAX));
+			LocalDateTime otherDate = other.getStartDate().orElse(other.getEndDate().orElse(LocalDateTime.MAX));
+			
+			int dateCompare = thisDate.compareTo(otherDate);
+			
+			if (dateCompare != 0) {
+				return dateCompare;
+			}
+			else {
+				return this.getName().compareTo(other.getName());
+			}
+		}
+	}
+    
 }
