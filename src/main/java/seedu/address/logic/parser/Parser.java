@@ -273,7 +273,7 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
-        if (index.split(" ").length == 1) {
+        if ((index.split(" ")).length == 1 && StringUtil.isUnsignedInteger(index.substring(1))) {
             return Optional.of(index);
         }
         else {

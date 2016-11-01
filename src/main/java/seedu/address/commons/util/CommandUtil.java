@@ -29,7 +29,7 @@ public class CommandUtil {
     }
     
     private static boolean isValidType(String target){
-       char taskType = target.trim().charAt(0);
+       char taskType = target.trim().toUpperCase().charAt(0);
        if (taskType == 'A' || taskType == 'B') {
            return true;
        }
