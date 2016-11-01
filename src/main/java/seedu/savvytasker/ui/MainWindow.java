@@ -31,6 +31,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private AliasSymbolListPanel aliasSymbolListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -53,7 +54,10 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane aliasSymbolListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -110,6 +114,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -128,7 +133,11 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+        return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getAliasSymbolPlaceholder() {
+        return aliasSymbolListPanelPlaceholder;
     }
 
     public void hide() {
@@ -181,8 +190,12 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
+    public AliasSymbolListPanel getAliasSymbolListPanel() {
+        return this.aliasSymbolListPanel;
+    }
 
-    public TaskListPanel getPersonListPanel() {
+    public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
 

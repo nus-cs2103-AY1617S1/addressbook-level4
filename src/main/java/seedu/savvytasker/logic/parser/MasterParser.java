@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.logic.commands.IncorrectCommand;
@@ -20,6 +23,8 @@ public class MasterParser {
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
     private final Map<String, AliasSymbol> aliasingSymbols;
+    private final ObservableList<AliasSymbol> aliasList = FXCollections.observableArrayList();
+    
     
     public MasterParser() {
         this.commandParsers = new HashMap<String, CommandParser<? extends Command>>();
@@ -182,7 +187,8 @@ public class MasterParser {
             return false;
         if (isCommandParserRegistered(symbol.getKeyword()))
             return false;
-        
+
+        aliasList.add(symbol);
         aliasingSymbols.put(symbol.getKeyword(), symbol);
         return true;
     }
@@ -197,7 +203,12 @@ public class MasterParser {
     public boolean removeAliasSymbol(String symbolKeyword) {
         assert symbolKeyword != null;
         
-        return aliasingSymbols.remove(symbolKeyword) != null;
+        AliasSymbol symbol = aliasingSymbols.remove(symbolKeyword);
+        if (symbol != null) {
+            return aliasList.remove(symbol);
+        } else {
+            return false;
+        }
     }
     
     /**
@@ -216,6 +227,11 @@ public class MasterParser {
      * @see #removeAliasSymbol
      */
     public void clearAllAliasSymbols() {
+        aliasList.clear();
         aliasingSymbols.clear();
+    }
+    
+    public ObservableList<AliasSymbol> getAliasSymbolList() {
+        return aliasList;
     }
 }

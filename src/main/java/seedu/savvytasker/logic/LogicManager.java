@@ -82,10 +82,17 @@ public class LogicManager extends ComponentManager implements Logic {
         return result;
     }
 
+    //@@author A0139915W
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
+
+    @Override
+    public ObservableList<AliasSymbol> getAliasSymbolList() {
+        return parser.getAliasSymbolList();
+    }
+    //@@author
     
     //@@author A0139916U
     private void registerAllDefaultCommandParsers() {
