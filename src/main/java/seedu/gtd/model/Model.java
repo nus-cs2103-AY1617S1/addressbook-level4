@@ -47,4 +47,7 @@ public interface Model {
 	
 	/** Updates the filter of the filtered task list to filter by the right parameter*/
 	void updateFilteredTaskList(String keywords, String cmd);
+	
+	/** Un-does a change to the AddressBook */
+	void undoAddressBookChange();
 }
