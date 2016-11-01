@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.todo.commons.exceptions.DuplicateDataException;
 import seedu.todo.commons.util.CollectionUtil;
-import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 

@@ -5,7 +5,6 @@ package seedu.todo.model.task;
 import java.time.LocalTime;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.commons.util.DateTimeUtil;
 
 import java.time.LocalDate;

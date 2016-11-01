@@ -1,6 +1,5 @@
 package seedu.todo.model.qualifiers;
 
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 

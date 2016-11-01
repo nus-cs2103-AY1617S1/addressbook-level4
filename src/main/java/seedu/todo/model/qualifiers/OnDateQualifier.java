@@ -4,7 +4,6 @@ package seedu.todo.model.qualifiers;
 import java.time.LocalDateTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 

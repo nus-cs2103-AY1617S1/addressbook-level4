@@ -3,7 +3,6 @@ package seedu.todo.model.task;
 
 import java.util.Objects;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;

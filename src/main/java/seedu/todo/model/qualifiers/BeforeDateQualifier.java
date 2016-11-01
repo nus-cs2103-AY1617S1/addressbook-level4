@@ -8,7 +8,6 @@ import java.time.LocalTime;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.TaskDate;
 
 /**
  * A qualifier that filters tasks if they are to be done before
