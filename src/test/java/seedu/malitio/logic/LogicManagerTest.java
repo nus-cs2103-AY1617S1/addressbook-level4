@@ -46,7 +46,6 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyMalitio latestSavedMalitio;
     private boolean helpShown;
-    private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(MalitioChangedEvent abce) {
@@ -68,7 +67,6 @@ public class LogicManagerTest {
 
         latestSavedMalitio = new Malitio(model.getMalitio()); // last saved assumed to be up to date before.
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -357,16 +355,16 @@ public class LogicManagerTest {
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<FloatingTask> threeTasks = helper.generateFloatingTaskList(3);
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(3);
         List<Deadline> fiveDeadlines = helper.generateDeadlineList(5);
         List<Event> fourEvents = helper.generateEventList(4);
-        Malitio expectedAB = helper.generateMalitio(threeTasks, fiveDeadlines, fourEvents);
-        expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks, fiveDeadlines, fourEvents);
+        Malitio expectedAB = helper.generateMalitio(threeFloatingTasks, fiveDeadlines, fourEvents);
+        expectedAB.removeTask(threeFloatingTasks.get(1));
+        helper.addToModel(model, threeFloatingTasks, fiveDeadlines, fourEvents);
 
         // execute command and verify result for floating task
         assertCommandBehavior("delete f2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
                 expectedAB,
                 expectedAB.getFloatingTaskList(),
                 expectedAB.getDeadlineList(),
@@ -402,10 +400,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        FloatingTask pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        FloatingTask p1 = helper.generateTaskWithName("KE Y");
-        FloatingTask p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        FloatingTask fTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        FloatingTask fTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        FloatingTask f1 = helper.generateTaskWithName("KE Y");
+        FloatingTask f2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
         
         Deadline dTarget1 = helper.generateDeadlineWithName("bla hey KEY bla");
         Deadline dTarget2 = helper.generateDeadlineWithName("KEY asdalksjdjas");
@@ -414,11 +412,11 @@ public class LogicManagerTest {
         Event eTarget1 = helper.generateEventWithName("askldj KEY");
         Event e1 = helper.generateEventWithName("LOL KLEY");
 
-        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f1, fTarget1, f2, fTarget2);
         List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
         List<Event> twoEvents = helper.generateEventList(eTarget1, e1);
         Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, twoEvents);
-        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(fTarget1, fTarget2);
         List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
         List<Event> expectedEventList = helper.generateEventList(eTarget1);
         helper.addToModel(model, fourTasks, threeDeadlines, twoEvents);
@@ -466,10 +464,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        FloatingTask pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        FloatingTask pTarget3 = helper.generateTaskWithName("key key");
-        FloatingTask p1 = helper.generateTaskWithName("sduauo");
+        FloatingTask fTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        FloatingTask fTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        FloatingTask fTarget3 = helper.generateTaskWithName("key key");
+        FloatingTask f1 = helper.generateTaskWithName("sduauo");
         
         Deadline dTarget1 = helper.generateDeadlineWithName("bla bla KEY");
         Deadline dTarget2 = helper.generateDeadlineWithName("hehe rAnDoM");
@@ -479,11 +477,11 @@ public class LogicManagerTest {
         Event eTarget2 = helper.generateEventWithName("rAnDoM lol");
         Event e1 = helper.generateEventWithName("i want to sleep");
 
-        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(fTarget1, f1, fTarget2, fTarget3);
         List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
         List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, e1);
         Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
-        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(fTarget1, fTarget2, fTarget3);
         List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
         List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2);
         helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
@@ -499,10 +497,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_withinEachTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        FloatingTask pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        FloatingTask pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        FloatingTask pTarget3 = helper.generateTaskWithName("key key");
-        FloatingTask p1 = helper.generateTaskWithName("sduauo");
+        FloatingTask fTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        FloatingTask fTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        FloatingTask fTarget3 = helper.generateTaskWithName("key key");
+        FloatingTask f1 = helper.generateTaskWithName("sduauo");
         
         Deadline dTarget1 = helper.generateDeadlineWithName("bla bla KEY");
         Deadline dTarget2 = helper.generateDeadlineWithName("hehe rAnDoM");
@@ -513,13 +511,13 @@ public class LogicManagerTest {
         Event e1 = helper.generateEventWithName("i want to sleep");
         
         //Setup Malitio to have 4 floating tasks, 3 deadlines and 3 events.
-        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(fTarget1, f1, fTarget2, fTarget3);
         List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
         List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, e1);
         Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, threeEvents);
         
         //Find within floating tasks
-        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(fTarget1, fTarget2, fTarget3);
         List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2, d1); // deadline list is unchanged when finding other task
         List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2, e1); // event list is unchanged when finding other task
         helper.addToModel(model, fourTasks, threeDeadlines, threeEvents);
@@ -693,6 +691,7 @@ public class LogicManagerTest {
                 expectedAB.getFloatingTaskList(), expectedAB.getDeadlineList(), expectedAB.getEventList());
         
     }
+    //@@author
     
     
     /**
@@ -762,7 +761,8 @@ public class LogicManagerTest {
             return new Event(new Name("Deadline " + seed), new DateTime("tomorrow 3pm"), new DateTime("next week 4pm"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
         }
-
+        
+        //@@author A0129595N
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Object p) {
             StringBuffer cmd = new StringBuffer();
@@ -832,7 +832,7 @@ public class LogicManagerTest {
         boolean isDeadline(Object p) {
             return p instanceof Deadline;
         }
-//@@author
+        //@@author
         /**
          * Generates Malitio with auto-generated tasks.
          */
