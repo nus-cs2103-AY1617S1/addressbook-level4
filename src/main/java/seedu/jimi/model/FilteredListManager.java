@@ -340,6 +340,26 @@ public class FilteredListManager {
         }
         
     }
+    
+    /**
+     * Qualifier to check if task/event is overdue w.r.t. current time.
+     * @author zexuan
+     *
+     */
+    private class OverdueQualifier implements Qualifier {
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if(task instanceof Event) { //needed?
+            } else if(task instanceof DeadlineTask) {
+                return LocalDateTime.now().compareTo(((DeadlineTask) task).getDeadline().getLocalDateTime()) >= 0;
+            }
+            
+            return false;
+        }
+        
+    }
+    
     //@@author
     
     private class WeekQualifier implements Qualifier {
