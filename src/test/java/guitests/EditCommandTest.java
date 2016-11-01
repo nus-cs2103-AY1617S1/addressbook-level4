@@ -13,12 +13,13 @@ import edu.emory.mathcs.backport.java.util.Arrays;
 import guitests.guihandles.DeadlineTaskCardHandle;
 import guitests.guihandles.EventTaskCardHandle;
 import guitests.guihandles.SomedayTaskCardHandle;
-import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskType;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 
+//TODO: Change arguments for postEdit for //Edits the first task in the list to //Edits an in-30-days task from the list
+//TODO: Change result message for //Edits task, new startDateTime given, new startDateTime but no endDateTime
 
 public class EditCommandTest extends TaskManagerGuiTest{
 	
@@ -159,7 +160,7 @@ public class EditCommandTest extends TaskManagerGuiTest{
         targetIndex = Arrays.asList(currentList).indexOf(TypicalTestTasks.someday3); //Task has to be someday task to have no existing endDateTime
         preEdit = new TestTask(currentList[targetIndex]);
         postEdit = preEdit.convertoToPostEditTestTask(preEdit.getTaskType(), preEdit.getName(), Optional.of(LocalDateTime.of(2016, 12, 1, 12, 40)), preEdit.getEndDate());
-        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME); //TODO Update result message
+        assertResultMessage(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME); 
         
         //Invalid index
         commandBox.runCommand("edit " + currentList.length + 1);
