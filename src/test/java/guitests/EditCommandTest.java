@@ -87,7 +87,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");
-        assertResultMessage("The item index provided is invalid");
+        assertResultMessage("The task index provided is invalid");
         
         //invalid command format
         commandBox.runCommand("edit " + 1);

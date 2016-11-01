@@ -35,7 +35,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " items listed!");
+        assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }
