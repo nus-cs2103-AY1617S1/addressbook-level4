@@ -109,9 +109,9 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         // browserPanel = BrowserPanel.load(browserPlaceholder);
         undatedListPanel = UndatedListPanel.load(primaryStage, getUndatedListPlaceholder(),
-                logic.getFilteredUndatedTaskList(), UndatedListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
+                logic.getFilteredUndatedTaskList());
         personListPanel = PersonListPanel.load(primaryStage, getDatedListPlaceholder(),
-                logic.getFilteredDatedTaskList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+                logic.getFilteredDatedTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

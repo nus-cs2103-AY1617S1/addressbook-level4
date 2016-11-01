@@ -57,11 +57,7 @@ public class UndoCommand extends Command {
             assert false : "Task not found";
             return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
         }
-        catch (UniqueTaskList.DuplicateTaskException dte){
-            assert false : "Duplicate task found";
-            return new CommandResult(MESSAGE_UNDO_NOT_POSSIBLE);
-        }
-
+        
     }
 }
 //@@author

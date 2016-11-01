@@ -7,6 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CommandUtil;
+import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -14,14 +15,12 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.ui.PersonListPanel;
 
 
 //@@author A0143884W
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the task book.
  */
 public class EditCommand extends Command implements Undoable{
 
@@ -29,21 +28,21 @@ public class EditCommand extends Command implements Undoable{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number given in the most recent listing.\n"
-            + "Parameters: INDEX (must be a positive integer) FIELD_TO_EDIT(include delimiter d/, date/, t/ etc)\n"
-            + "Example: " + COMMAND_WORD + " 1 do that instead date/13-10-16";
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " A1 do that instead date/13-10-16";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
     private ReadOnlyTask toEdit;
     private Task toAdd;
 
-    private int targetIndex;
+    private String targetIndex;
     private Name name;
     private Description description;
     private Datetime datetime;
     private UniqueTagList tags;
 
-    public EditCommand(int targetIndex, String name, String description, String datetime, Set<String> tags)
+    public EditCommand(String targetIndex, String name, String description, String datetime, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -53,7 +52,7 @@ public class EditCommand extends Command implements Undoable{
         populateNonNullFields(targetIndex, name, description, datetime, tagSet);
     }
 
-    private void populateNonNullFields(int targetIndex, String name, String description, String datetime,
+    private void populateNonNullFields(String targetIndex, String name, String description, String datetime,
             final Set<Tag> tagSet) throws IllegalValueException {
         if (name != null){
             this.name = new Name(name);       
@@ -73,36 +72,44 @@ public class EditCommand extends Command implements Undoable{
     @Override
     public CommandResult execute() {
         assert model != null;
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
-        if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
-                lastDatedTaskList.size(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)){
+        if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
+        TaskType type = CommandUtil.getTaskType(targetIndex);
+        int indexNum = CommandUtil.getIndex(targetIndex);
         
-        if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            toEdit = lastDatedTaskList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+        if (type == TaskType.DATED) {
+            toEdit = lastDatedTaskList.get(indexNum - 1);
+        }
+        else if (type == TaskType.UNDATED){
+            toEdit = lastUndatedTaskList.get(indexNum - 1);
         }
         else {
-            toEdit = lastUndatedTaskList.get(targetIndex - 1);
+            assert false : "Task type not found";
         }
-
+        
         populateEditedTaskFields();
-
+        boolean duplicate = false;
         try {
-        	model.addTask(toAdd);
-            model.deleteTask(toEdit);           
+        	model.deleteTask(toEdit);  
+            duplicate = model.addTask(toAdd);                
             populateUndo();
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);     
-        } catch (TaskNotFoundException pnfe) {
+        }  catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        if (duplicate){
+        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
+        }
+        else {
+        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        }
     }
 
     // use original task as base, insert fields that have been input in edit

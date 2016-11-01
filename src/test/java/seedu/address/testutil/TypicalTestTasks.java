@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.TaskBook;
-import seedu.address.model.task.*;
+import seedu.address.model.task.Task;
 
 /**
  *
@@ -30,13 +30,10 @@ public class TypicalTestTasks {
 
     public static void loadAddressBookWithSampleData(TaskBook ab) {
 
-        try {
-            ab.addTask(new Task(one));
-            //ab.addPerson(new Task(two));
-            //ab.addPerson(new Task(three));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+    	ab.addTask(new Task(one));
+        //ab.addPerson(new Task(two));
+        //ab.addPerson(new Task(three));
+    
     }
 
     public TestTask[] getTypicalPersons() {

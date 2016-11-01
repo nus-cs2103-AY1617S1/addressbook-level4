@@ -1,13 +1,13 @@
 package seedu.address.model.task;
 
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -54,12 +54,16 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public boolean add(Task toAdd) {
         assert toAdd != null;
+        
+        boolean duplicate = false;
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+        	duplicate = true;
         }
+        
         internalList.add(toAdd);
+        return duplicate;
     }
 
     /**
@@ -156,17 +160,22 @@ public class UniqueTaskList implements Iterable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){ // short circuit if same object
-            return true;
-        }
-        if (!(other instanceof UniqueTaskList)) { // other is null
-            return false;
-        }
-        else { //compare data in list 
-            final Set<Task> s1 = new HashSet<>(this.internalList);
-            final Set<Task> s2 = new HashSet<>(((UniqueTaskList) other).internalList);
-            return s1.equals(s2);
-        }
+//        if (other == this){ // short circuit if same object
+//            return true;
+//        }
+//        if (!(other instanceof UniqueTaskList)) { // other is null
+//            return false;
+//        }
+//        else { //compare data in list 
+//            final Set<Task> s1 = new HashSet<>(this.internalList);
+//            final Set<Task> s2 = new HashSet<>(((UniqueTaskList) other).internalList);
+//            return s1.equals(s2);
+//        }
+        return other == this // short circuit if same object
+                || (other instanceof UniqueTaskList // instanceof handles nulls
+                && this.internalList.equals(
+                ((UniqueTaskList) other).internalList));
+
     }
 
     @Override

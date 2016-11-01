@@ -26,11 +26,9 @@ import seedu.address.model.task.ReadOnlyTask;
 public class UndatedListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(UndatedListPanel.class);
     private static final String FXML = "UndatedListPanel.fxml";
-    public static final int DATED_DISPLAY_INDEX_OFFSET = 10;
-    public static final int UNDATED_DISPLAY_INDEX_OFFSET = 0;
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private int indexOffset;
+    private String indexAlphabet = "A";
 
     @FXML
     private Label label_count;
@@ -58,15 +56,14 @@ public class UndatedListPanel extends UiPart {
     }
 
     public static UndatedListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyTask> personList, int indexStart) {
+                                       ObservableList<ReadOnlyTask> personList) {
         UndatedListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new UndatedListPanel());
-        personListPanel.configure(personList, indexStart); 
+        personListPanel.configure(personList); 
         return personListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> personList, int indexStart) {
-        this.indexOffset = indexStart;
+    private void configure(ObservableList<ReadOnlyTask> personList) {
         setConnections(personList);
         addToPlaceholder();
         registerAsAnEventHandler(this);
@@ -123,7 +120,7 @@ public class UndatedListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1 + indexOffset).getLayout());
+                setGraphic(PersonCard.load(person, getIndex() + 1, indexAlphabet).getLayout());
             }
         }
     }

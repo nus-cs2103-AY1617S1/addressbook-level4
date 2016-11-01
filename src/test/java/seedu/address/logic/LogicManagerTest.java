@@ -23,6 +23,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -49,6 +50,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Status.State;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -61,6 +63,8 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private TaskBook expectedTB;
+    private TestDataHelper helper;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskBook latestSavedAddressBook;
@@ -94,6 +98,9 @@ public class LogicManagerTest {
         latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
+        
+        helper = new TestDataHelper();      
+        expectedTB = new TaskBook();
     }
 
     @After
@@ -225,6 +232,7 @@ public class LogicManagerTest {
         Task toBeAdded = helper.floatTaskA();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -232,7 +240,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
 
@@ -245,10 +253,7 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
-        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+        assertCommandBehavior(commandWord + " A 1", expectedMessage); //index should be unsigned
     }
 
     /**
@@ -271,10 +276,10 @@ public class LogicManagerTest {
             model.addTask(u);
         }
 
-        assertCommandBehavior(commandWord + " 5", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
-        assertCommandBehavior(commandWord + " 10", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
-        assertCommandBehavior(commandWord + " 15", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
-        assertCommandBehavior(commandWord + " 21", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " A5", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " A10", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " B5", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " B11", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
     }
 
     //@Test
@@ -296,7 +301,7 @@ public class LogicManagerTest {
         TaskBook expectedAB = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("select 2",
+        assertCommandBehavior("select A2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
@@ -328,14 +333,14 @@ public class LogicManagerTest {
         helper.addToModel(model, threeUndatedTasks);
         expectedAB.removeTask(threeDatedTasks.get(1));
 
-        assertCommandBehavior("delete 12",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeDatedTasks.get(1)),
+        assertCommandBehavior("delete B2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeDatedTasks.get(1)),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
 
         expectedAB.removeTask(threeUndatedTasks.get(1));
-        assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeUndatedTasks.get(1)),
+        assertCommandBehavior("delete A2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeUndatedTasks.get(1)),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
@@ -374,14 +379,14 @@ public class LogicManagerTest {
         expectedAB.completeTask(completeDated);
         expectedDatedTasks = helper.generateTaskList(helper.deadlineA());
 
-        assertCommandBehavior("done 12",
+        assertCommandBehavior("done B2",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeDated),
                 expectedAB, expectedDatedTasks,
                 expectedUndatedTasks);
 
         expectedAB.completeTask(completeUndated);
         expectedUndatedTasks = helper.generateTaskList();
-        assertCommandBehavior("done 1",
+        assertCommandBehavior("done A1",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeUndated),
                 expectedAB, expectedDatedTasks,
                 expectedUndatedTasks);
@@ -453,7 +458,6 @@ public class LogicManagerTest {
     //@@author
 
     //@@author A0139145E
-    @Test
     public void execute_list_od_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
@@ -482,13 +486,25 @@ public class LogicManagerTest {
     
     //@@author A0143884W
     @Test
-    public void execute_edit_name_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeEdited = helper.floatTaskA();
-        TaskBook expectedAB = new TaskBook();
+    public void execute_editName_successful() throws Exception {
+        genericEdit("A1", 1, "new name");
+    }
+    
+    @Test
+    public void execute_editDescription_sucessful() throws Exception {
+    	genericEdit("A1", 2, "new description");
+    }
+    
+    @Test
+    public void execute_editDate_sucessful() throws Exception {
+    	genericEdit("A1", 3, "today");
+    }
+    
+    //@@author
 
+	private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
         // actual to be edited
+		Task toBeEdited = helper.floatTaskA();
         toBeEdited.setTags(new UniqueTagList());
         model.addTask(toBeEdited);
 
@@ -496,16 +512,35 @@ public class LogicManagerTest {
         // NOTE: can't simply set description of toBeEdited; need to create new copy,
         // since it will edit the task in model (model's task is simply a reference)
         Task edited = copyTask(toBeEdited);
-        edited.setDescription(new Description("old name")); 
-        expectedAB.addTask(edited);
+        
+        switch (type){
+        case 1:
+        	edited.setName(new Name(field));
+        	break;
+        case 2:
+        	edited.setDescription(new Description(field));
+        	break;	
+        case 3:	
+        	edited.setDatetime(new Datetime(field));
+        	break;
+        case 4:
+        	String [] StringArray = field.split(" ");
+        	Tag [] tagsArray = new Tag [StringArray.length];
+        	for (int i = 0; i < tagsArray.length; i++){
+        		tagsArray[i] = new Tag(StringArray[i]);
+        	}
+        	edited.setTags(new UniqueTagList(tagsArray));
+        	break;	
+        }
+        
+        expectedTB.addTask(edited);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateEditCommand(1, 2, "old name"),
+        assertCommandBehavior(helper.generateEditCommand(index, type, field),
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, edited),
-                expectedAB, expectedAB.getDatedTaskList(),
-                expectedAB.getUndatedTaskList());
-    }
-    //@@author
+                expectedTB, expectedTB.getDatedTaskList(),
+                expectedTB.getUndatedTaskList());
+	}
     
     private Task copyTask(Task toBeEdited){
     	Task edited = new Task(toBeEdited.getName(), toBeEdited.getDescription(), toBeEdited.getDatetime(),
@@ -585,11 +620,11 @@ public class LogicManagerTest {
         model.addTask(original);
 
         String [] editInputs = new String [] {
-                "edit 11 name changed t/tag1 t/tag2", // edit name
-                "edit 11 d/change description too t/tag1 t/tag2", // edit description
-                "edit 11 date/12-11-2018 1111 t/tag1 t/tag2", // edit date
-                "edit 11 t/tag3 t/tag4", // edit tags
-                "edit 11 date/ t/tag3 t/tag4" // edit dated -> undated
+                "edit B1 name changed t/tag1 t/tag2", // edit name
+                "edit B1 d/change description too t/tag1 t/tag2", // edit description
+                "edit B1 date/12-11-2018 1111 t/tag1 t/tag2", // edit date
+                "edit B1 t/tag3 t/tag4", // edit tags
+                "edit B1 date/ t/tag3 t/tag4" // edit dated -> undated
         };
 
         Task editedTasks [] = new Task [] {
@@ -849,7 +884,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct edit command based on the person given */
-        String generateEditCommand(int index, int field, String params) {
+        String generateEditCommand(String index, int field, String params) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit " + index);
@@ -865,9 +900,6 @@ public class LogicManagerTest {
                 cmd.append(" date/").append(params);
                 break;
             case 4:
-                cmd.append(" time/").append(params);
-                break;
-            case 5:
                 String [] tagsArray = params.split(" ");
                 for(String t: tagsArray){
                     cmd.append(" t/").append(t);

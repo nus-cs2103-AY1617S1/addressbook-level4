@@ -152,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.resetData(newData);
         undoableTasks = new UndoList(); 
         indicateTaskBookChanged();
+        raise(new UpdateListCountEvent(this));
     }
 
     @Override
@@ -172,11 +173,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task target) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addTask(target);
+    public synchronized boolean addTask(Task target) {
+        boolean duplicate = taskBook.addTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
         scrollToAddedTask(target);
+        return duplicate;
     }
 
     // after task is added, scroll to it in the UndatedListPanel || DatedListPanel

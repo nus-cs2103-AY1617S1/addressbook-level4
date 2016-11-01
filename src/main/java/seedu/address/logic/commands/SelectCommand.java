@@ -5,6 +5,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.CommandUtil;
+import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.ui.PersonListPanel;
 
@@ -14,19 +15,19 @@ import seedu.address.ui.PersonListPanel;
  */
 public class SelectCommand extends Command {
 
-    public final int targetIndex;
+    public final String targetIndex;
 
     public static final String COMMAND_WORD = "select";
     public static final String COMMAND_ALIAS = "sel";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX\n"
+            + "Example: " + COMMAND_WORD + " A1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
 
-    public SelectCommand(int targetIndex) {
+    public SelectCommand(String targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -37,16 +38,22 @@ public class SelectCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
-                lastDatedTaskList.size(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)){
+                lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET - 1, JumpToListRequestEvent.DATED_LIST));
+        TaskType type = CommandUtil.getTaskType(targetIndex);
+        int indexNum = CommandUtil.getIndex(targetIndex);
+        
+        if (type == TaskType.DATED) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(indexNum - 1, JumpToListRequestEvent.DATED_LIST));
+        }
+        else if (type == TaskType.UNDATED){
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(indexNum - 1, JumpToListRequestEvent.UNDATED_LIST));
         }
         else {
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1, JumpToListRequestEvent.UNDATED_LIST));
+            assert false : "Task type not found";
         }
 
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));

@@ -25,9 +25,8 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     private final UniqueTaskList datedTasks;
     private final UniqueTaskList undatedTasks;
-    private final UniqueTagList tags; 
-
-
+    private final UniqueTagList tags;
+    public static enum TaskType {DATED, UNDATED}; 
     {
         datedTasks = new UniqueTaskList();
         undatedTasks = new UniqueTaskList();
@@ -108,13 +107,13 @@ public class TaskBook implements ReadOnlyTaskBook {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public boolean addTask(Task p) {
         syncTagsWithMasterList(p);
         if (checkIfDated(p)){
-            datedTasks.add(p);
+            return datedTasks.add(p);
         }
         else{
-            undatedTasks.add(p);
+            return undatedTasks.add(p);
         }
     }
 
