@@ -6,9 +6,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
-import seedu.todo.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**

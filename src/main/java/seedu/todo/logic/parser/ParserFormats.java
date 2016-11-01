@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
  */
 public class ParserFormats {
     
-    public static final String priorityFormat = " priority (?<priority>[^;]+)";
+    public static final int FIRST_INDEX = 0;
+	public static final String priorityFormat = " priority (?<priority>[^;]+)";
     public static final String ON_DATE_FORMAT = " (on|from) (?<onDateTime>[^;]+)";
     public static final String BY_DATE_FORMAT = " (by|to) (?<byDateTime>[^;]+)";
     public static final String DETAIL_FORMAT = "(?: ?; ?(?<detail>.+))?";
