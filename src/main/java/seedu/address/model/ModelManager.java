@@ -185,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+    //@@author A0143884W
     @Override
     public synchronized boolean addTask(Task target) {
         boolean duplicate = taskBook.addTask(target);
@@ -215,7 +216,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return result;
     }
-
+    //@@author
+    
+    //@@author A0139145E
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
@@ -251,7 +254,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
         undoableTasks.addToFront(command, postData, preData);
     }
-
+    //@@author 
+    
     //=========== Filtered Task List Accessors =============================================================== 
 
     @Override
@@ -268,8 +272,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredTaskListByStatus("NONE", "OVERDUE", "EXPIRE");
-        //filteredDatedTasks.setPredicate(null);
-        //filteredUndatedTasks.setPredicate(null);
     }
     //@@author
 
@@ -333,14 +335,14 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    //@@author A0139528W
     private class TaskQualifier implements Qualifier {
         private Set<String> taskKeyWords;
 
         TaskQualifier(Set<String> taskKeyWords) {
             this.taskKeyWords = taskKeyWords;
         }
-
-        //@@author A0139528W
+       
         @Override
         public boolean run(ReadOnlyTask task) {
             return (taskKeyWords.stream()
@@ -360,14 +362,15 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent());
         }
-        //@@author 
 
         @Override
         public String toString() {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
-
+    //@@author 
+    
+    //@@author A0139145E
     private class StatusQualifier implements Qualifier {
         private ArrayList<Status> statusList;
 
@@ -393,7 +396,9 @@ public class ModelManager extends ComponentManager implements Model {
             return "status=" + statusList.toString();
         }
     }
+    //@@author
     
+    //@@author A0143884W
     private class DateQualifier implements Qualifier {
         private Date date;
 
@@ -431,7 +436,6 @@ public class ModelManager extends ComponentManager implements Model {
         			&& date.getYear() == other.getYear();
         }
     }
-    
-   
+    //@@author
 
 }
