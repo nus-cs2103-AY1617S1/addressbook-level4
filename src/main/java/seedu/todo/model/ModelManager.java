@@ -5,6 +5,7 @@ import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.expressions.Expression;
 import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.qualifiers.*;
@@ -50,6 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
         todayTasks = new FilteredList<>(dodobird.getTasks());
         weekTasks = new FilteredList<>(dodobird.getTasks());
         tagList = new FilteredList<>(dodobird.getTags());
+        
+        updateFilteredListToShowAllNotCompleted();
         updateTodayListToShowAll();
         updateWeekListToShowAll();
     }
@@ -172,39 +175,40 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskListByKeywords(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredTaskListByKeywords(Set<String> keywords, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new KeywordQualifier(keywords, option)));
     }
 
     @Override
-    public void updateFilteredTaskListByTag(String tagName){
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagName)));
+    public void updateFilteredTaskListByTag(String tagName, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tagName, option)));
     }
     
     @Override
-    public void updateFilteredTaskListOnDate(LocalDateTime datetime){
-        updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime)));
+    public void updateFilteredTaskListOnDate(LocalDateTime datetime, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime, option)));
     }
     
     @Override
-    public void updateFilteredTaskListBeforeDate(LocalDateTime datetime){
-        updateFilteredTaskList(new PredicateExpression(new BeforeDateQualifier(datetime)));
+    public void updateFilteredTaskListBeforeDate(LocalDateTime datetime, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new BeforeDateQualifier(datetime, option)));
     }
 
     @Override
-    public void updateFilteredTaskListAfterDate(LocalDateTime datetime){
-        updateFilteredTaskList(new PredicateExpression(new AfterDateQualifier(datetime)));
+    public void updateFilteredTaskListAfterDate(LocalDateTime datetime, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new AfterDateQualifier(datetime, option)));
     }
     
     @Override
-    public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime){
-        updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
+    public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime, 
+            SearchCompletedOption option){
+        updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime, option)));
     }
 
     //@@author A0121643R
     @Override
-    public void updateFilteredTaskListByPriority(Priority priority) {
-        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));   
+    public void updateFilteredTaskListByPriority(Priority priority, SearchCompletedOption option) {
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority, option)));   
     }
 
     //@@author A0138967J-unused

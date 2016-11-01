@@ -3,6 +3,10 @@ package seedu.todo.model.task;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 
+/**
+ * Represents a Task's name in the to do list.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ */
 public class Recurrence {
     
     public enum Frequency {
@@ -48,6 +52,10 @@ public class Recurrence {
         }
     }
     
+    /**
+     * Update the dates for a task based on the recurrence of the task.
+     * Will mark the task as undone as well.
+     */
     public void updateTaskDate(Task task){
         task.getCompletion().setCompletion(false);
         switch(this.freq) {

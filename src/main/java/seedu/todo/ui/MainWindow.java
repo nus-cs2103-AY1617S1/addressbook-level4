@@ -13,7 +13,6 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -21,7 +20,7 @@ import seedu.todo.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/dodobirdlogo.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -220,17 +219,5 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-/*
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }*/
-
-    public void releaseResources() {
-        // TODO Auto-generated method stub
-        
-    }
 }

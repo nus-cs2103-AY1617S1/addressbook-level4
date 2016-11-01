@@ -6,20 +6,24 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.TaskDate;
 
 /**
  * A qualifier that filter tasks depending on the tasks starting 
  * and ending date.
  */
 public class FromTillDateQualifier implements Qualifier{
+  
     private LocalDateTime fromDateTime;
     private LocalDateTime tillDateTime;
-
-    public FromTillDateQualifier(LocalDateTime fromDateTime, LocalDateTime tillDateTime) {
+    private SearchCompletedOption option;
+    
+    public FromTillDateQualifier(LocalDateTime fromDateTime, LocalDateTime tillDateTime, 
+            SearchCompletedOption option) {
         this.fromDateTime = fromDateTime;
         this.tillDateTime = tillDateTime;
+        this.option = option;
     }
 
     @Override
@@ -43,7 +47,16 @@ public class FromTillDateQualifier implements Qualifier{
             byTill = onDateTime.isBefore(tillDateTime);
         }
         
-        return onFrom && byTill; //must be in between the both dates
+       
+        boolean taskIsFromTill = onFrom && byTill; //must be in between the both dates
+        
+        if (option == SearchCompletedOption.ALL) {
+            return taskIsFromTill;
+        } else if (option == SearchCompletedOption.DONE) {
+            return taskIsFromTill && task.getCompletion().isCompleted();
+        } else {
+            return taskIsFromTill && !task.getCompletion().isCompleted();
+        }
             
     }
 

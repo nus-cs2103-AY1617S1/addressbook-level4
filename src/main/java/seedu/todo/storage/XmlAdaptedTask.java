@@ -1,4 +1,4 @@
-//@@author A0093896H-reused
+//@@author A0093896H
 package seedu.todo.storage;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -43,7 +43,7 @@ public class XmlAdaptedTask {
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;

@@ -9,7 +9,7 @@
 
 <HBox fx:id="cardPane" maxWidth="130.0" minHeight="26.0" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-              <Label fx:id="tags" text="\$tags" translateY="4.0">
+              <Label fx:id="tags" translateY="4.0">
          <graphic>
             <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
          </graphic>
@@ -17,5 +17,6 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <Text fx:id="tasksCount" strokeType="OUTSIDE" strokeWidth="0.0" text="\$numtasks" translateX="10.0" translateY="21.0" wrappingWidth="61.5653076171875" />
     </children>
 </HBox>

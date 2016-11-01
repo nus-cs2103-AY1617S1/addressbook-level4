@@ -7,7 +7,8 @@ import seedu.todo.model.task.ReadOnlyTask;
  * A qualifier that filter tasks depending on whether the task
  * is completed or not.
  */
-public class CompletedQualifier implements Qualifier{
+public class CompletedQualifier implements Qualifier {
+    
     private boolean wantsDone;
     
     public CompletedQualifier(boolean wantsDone){

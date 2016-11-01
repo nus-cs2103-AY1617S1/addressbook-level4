@@ -2,8 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.todo.testutil.TestTask;
-import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;

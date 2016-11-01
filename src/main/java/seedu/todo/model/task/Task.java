@@ -3,7 +3,6 @@ package seedu.todo.model.task;
 
 import java.util.Objects;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
@@ -103,6 +102,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+  //@@author A0093896H
     @Override
     public boolean isRecurring() {
         return this.recurrence.isRecurring();
@@ -125,9 +125,11 @@ public class Task implements ReadOnlyTask {
     }
     //@@author A0121643R   
     public void setPriority(Priority p) {
-    	this.priority = p;
+        this.priority = p;
     }
+    //@@author
     
+    //@@author A0093896H
     public void setCompletion(Completion c) {
         this.completion = c;
     }
@@ -151,12 +153,13 @@ public class Task implements ReadOnlyTask {
     }
     
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-
+    //@@author
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

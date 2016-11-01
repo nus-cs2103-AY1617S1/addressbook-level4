@@ -1,16 +1,17 @@
+//@@author A0093896H
 package seedu.todo.model.task;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in the address book.
+ * Represents a Task's name in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-
+    public static final String NAME_VALIDATION_REGEX = "[^;]+";
+    public static final String ESCAPE = "'";
     public final String fullName;
 
     /**
@@ -20,7 +21,7 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        String tempName = name.trim();
+        String tempName = name.trim().replace(ESCAPE, "");
         if (!isValidName(tempName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
@@ -28,7 +29,7 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid task name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

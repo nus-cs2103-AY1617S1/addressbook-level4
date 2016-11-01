@@ -55,9 +55,16 @@ public class DateTimeUtilTest {
         TaskDate onDate = new TaskDate("today", TaskDate.TASK_DATE_ON);
         TaskDate byDate = new TaskDate("six days later", TaskDate.TASK_DATE_BY);
         
+        TaskDate onSameDate = new TaskDate("today 0900", TaskDate.TASK_DATE_ON);
+        TaskDate bySameDate = new TaskDate("today 1900", TaskDate.TASK_DATE_ON);
+        
         assertTrue(DateTimeUtil.beforeOther(onDate, byDate));
         assertFalse(DateTimeUtil.beforeOther(byDate, onDate));
         assertFalse(DateTimeUtil.beforeOther(onDate, onDate));
+        
+        assertTrue(DateTimeUtil.beforeOther(onSameDate, bySameDate));
+        assertFalse(DateTimeUtil.beforeOther(bySameDate, onSameDate));
+        assertFalse(DateTimeUtil.beforeOther(onSameDate, onSameDate));
     }
     
     @Test

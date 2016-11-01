@@ -4,6 +4,7 @@ package seedu.todo.logic.commands;
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
 import seedu.todo.model.task.Priority;
@@ -17,7 +18,7 @@ import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Updates a task identified using it's last displayed index from the to do list.
  */
-public class UpdateCommand extends Command{
+public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
@@ -28,7 +29,8 @@ public class UpdateCommand extends Command{
             + "Example: " + COMMAND_WORD + " 2 on 14/10/2017 by 18/10/2017 ";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Update Task: %1$s";
-
+    public static final String MESSAGE_INVALID_DATE_RANGE = "Cannot have on date later than by date";
+    
     private final int targetIndex;
     
     private final String name;
@@ -87,6 +89,10 @@ public class UpdateCommand extends Command{
             Priority newPriority = this.makeNewPriority(taskToUpdate);
             Recurrence newRecurrence = this.makeNewRecurrence(taskToUpdate);
             
+            if (!DateTimeUtil.beforeOther(newOnDate, newByDate)) {
+                throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
+            }
+            
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
                     newOnDate, newByDate, newPriority, newRecurrence, taskToUpdate.getTags());
             
@@ -100,7 +106,7 @@ public class UpdateCommand extends Command{
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);
         
         } catch (IllegalValueException e) {
-            return new CommandResult(MESSAGE_USAGE);
+            return new CommandResult(e.getMessage());
         }
         
     }
@@ -157,6 +163,21 @@ public class UpdateCommand extends Command{
         return newOnDate;
     }
     
+    /**
+     * Construct a new Recurrence based on user input
+     */
+    private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        Recurrence newRecurrence;
+        if (this.recurrence == null) {
+            newRecurrence = taskToUpdate.getRecurrence();
+        } else {
+            newRecurrence = this.recurrence.trim().equals("-") 
+                    ?  new Recurrence(Frequency.NONE) 
+                    : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
+        }
+        return newRecurrence;
+    } 
+    
     //@@author A0121643R   
     private Priority makeNewPriority(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Priority newPriority;
@@ -171,19 +192,5 @@ public class UpdateCommand extends Command{
     }    
     //@@author
     
-    /**
-     * Construct a new Recurrence based on user input
-     */
-    private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
-        Recurrence newRecurrence;
-        if (this.recurrence == null) {
-            newRecurrence = taskToUpdate.getRecurrence();
-        } else {
-            newRecurrence = this.recurrence.trim().equals("-") 
-                    ?  new Recurrence(Frequency.NONE) 
-                    : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
-        }
-        return newRecurrence;
-    }
     
 }

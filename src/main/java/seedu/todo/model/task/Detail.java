@@ -3,8 +3,8 @@ package seedu.todo.model.task;
 
 
 /**
- * Represents a Task's details in the to do application. Guarantees: mutable; no
- * constraints.
+ * Represents a Task's details in the to do application. 
+ * Guarantees: mutable; no constraints.
  */
 public class Detail {
 

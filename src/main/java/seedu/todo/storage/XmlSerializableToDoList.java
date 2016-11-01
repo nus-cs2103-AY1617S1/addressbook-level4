@@ -11,7 +11,6 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,7 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     @XmlElement
-    private List<Tag> tags;
+    private List<XmlAdaptedTag> tags;
 
     {
         tasks = new ArrayList<>();
@@ -35,37 +34,42 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
      * Empty constructor required for marshalling
      */
     public XmlSerializableToDoList() {}
-
+    
+    //@@author A0093896H
     /**
      * Conversion
      */
     public XmlSerializableToDoList(ReadOnlyToDoList src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
+    //@@author
 
     @Override
     public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
+        UniqueTagList list = new UniqueTagList();
+        for (XmlAdaptedTag t : tags) {
+            try {
+                list.add(t.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+                e.printStackTrace();
+            }
         }
+        return list;
     }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+        UniqueTaskList list = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                lists.add(p.toModelType());
+                list.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
         }
-        return lists;
+        return list;
     }
 
     @Override
@@ -80,10 +84,19 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
+    
+    //@@author A0093896H
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+        return tags.stream().map(t -> {
+            try {
+                return t.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

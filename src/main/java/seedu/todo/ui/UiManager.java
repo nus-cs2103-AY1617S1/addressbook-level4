@@ -12,7 +12,6 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
@@ -25,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/dodobirdlogo.png";
 
     private Logic logic;
     private Config config;

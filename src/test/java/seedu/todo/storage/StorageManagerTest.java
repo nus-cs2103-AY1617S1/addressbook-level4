@@ -56,21 +56,23 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
+    //@@author A0093896H
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void toDoListReadSave() throws Exception {
         DoDoBird original = new TypicalTestTasks().getTypicalToDoList();
         storageManager.saveToDoList(original);
         ReadOnlyToDoList retrieved = storageManager.readToDoList().get();
         
         DoDoBird retrievedDdb = new DoDoBird();
         
-        for (int i = retrieved.getTaskList().size() - 1 ; i >= 0 ; i--) {
+        for (int i = retrieved.getTaskList().size() - 1; i >= 0; i--) {
             retrievedDdb.addTask(new Task(retrieved.getTaskList().get(i)));
         }
         
         assertEquals(original, retrievedDdb);
         //More extensive testing of ToDoList saving/reading is done in XmlToDoListStorageTest
     }
+    //@@author
 
     @Test
     public void getToDoListFilePath(){
@@ -98,7 +100,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveToDoList(ReadOnlyToDoList addressBook, String filePath) throws IOException {
+        public void saveToDoList(ReadOnlyToDoList toDoList, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }
