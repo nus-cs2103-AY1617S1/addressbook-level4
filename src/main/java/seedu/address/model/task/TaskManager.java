@@ -57,6 +57,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		this.modelHistory = new ModelHistory();
 		filteredTasks = new FilteredList<>(this.tasks.getInternalList());
 		filterUncompletedTasks();
+		indicateTaskManagerChanged();
 	}
 	
 	@Override
