@@ -53,7 +53,7 @@ public class TaskCard extends UiPart{
         	cardPane.setStyle("-fx-background-color : #a5a5a5");
         }
         
-        taskD.setText(task.getTaskDescription().fullTaskDescriptions);
+        taskD.setText(task.getTaskDescription().getFullTaskDescription());
         date.setText(task.getDate().fullDate);
         startTime.setText(task.getStartTime().fullTime);
         endTime.setText(task.getEndTime().fullTime);       
