@@ -25,4 +25,8 @@ public class DateFormatterUtil {
     public static Date localDateToDate(LocalDate toConvert) {
         return Date.from(toConvert.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
+
+    public static LocalDate dateToLocalDate(Date toConvert) {
+        return toConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
 }
