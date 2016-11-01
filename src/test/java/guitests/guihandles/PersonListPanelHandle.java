@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.tasklist.TestApp;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.testutil.TestUtil;
@@ -144,7 +145,12 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
+        try {
+            return getPersonCardHandle(new Task(getListView().getItems().get(index)));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyTask person) {

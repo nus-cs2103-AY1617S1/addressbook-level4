@@ -20,9 +20,11 @@ public class UpdateCommand extends Command {
 			+ "Parameters: INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [p/PRIORITY]\n"
 			+ "Example: " + COMMAND_WORD + " 1 at 13/09/2016 5pm";
 
-
+	public static final String MESSAGE_NOT_CHRONO_TASK = "The start time must be before the end time.";
 	public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
 	public static final String MESSAGE_ILLEGAL_VALUE = "Start or end time is invalid!";
+    public static final String MESSAGE_OVERLAP = "There is an overlap with other existing task(s).";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
 
 	private int targetIndex;
 	private TaskDetails taskDetails;
@@ -56,11 +58,46 @@ public class UpdateCommand extends Command {
 		} else {
 			Task taskToUpdate = lastShownList.get(targetIndex);
 			try {
-				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
-				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
+			    if (startTime!=null && endTime!=null)
+			       isNotChronoTime(new StartTime(startTime), new EndTime(endTime));
+			    else if (startTime!=null)
+			       isNotChronoTime(new StartTime(startTime), taskToUpdate.getEndTime());
+			    else if (endTime!=null)
+			       isNotChronoTime(taskToUpdate.getStartTime(), new EndTime(endTime));
+			}
+			catch (IllegalValueException e) {
+			    return new CommandResult(MESSAGE_NOT_CHRONO_TASK);
+			}
+			try {
+			    Task stubTask = new Task(new TaskDetails(taskToUpdate.getTaskDetails().taskDetails), new StartTime(taskToUpdate.getStartTime().toString()), new EndTime(taskToUpdate.getEndTime().toString()), new Priority(taskToUpdate.getPriority().priorityLevel), taskToUpdate.getRecurringFrequency());
+			    model.updateTask(stubTask, taskDetails, startTime, endTime, priority, recurringFrequency);
+			    if (model.isDuplicate(stubTask)){
+	                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+	            }
+			    model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, recurringFrequency);
+			    if (model.isOverlapping(taskToUpdate)) {
+	                model.updateFilteredListToShowOverlapping(taskToUpdate);
+	                return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS + ". " + MESSAGE_OVERLAP, taskToUpdate.getTaskDetails()));
+	            }
+			    else return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate.getTaskDetails()));
 			} catch (IllegalValueException e) {
 				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
 			}
 		}
 	}
+	
+	public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
+        if(endtime.time.getTimeInMillis()==0){
+            return false;
+        }
+        boolean finalres;
+        finalres = starttime.getAsCalendar().after(endtime.getAsCalendar());
+        if(finalres){
+            throw new IllegalValueException(MESSAGE_NOT_CHRONO_TASK);
+        }
+        else{
+            return false;
+        }
+    }
+	
 }

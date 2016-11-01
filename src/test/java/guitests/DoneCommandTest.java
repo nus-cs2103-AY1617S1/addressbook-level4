@@ -46,6 +46,8 @@ public class DoneCommandTest {
             		new StartTime("5pm"), new EndTime("6pm"), new Priority("low")));
             model.addTask(new Task(new TaskDetails("test2"), 
             		new StartTime("3pm"), new EndTime("4pm"), new Priority("med")));
+            model.addTask(new Task(new TaskDetails("test3"), 
+                    new StartTime("6pm"), new EndTime("8pm"), new Priority("med"), "daily"));
     	}
     	catch (IllegalValueException e){
     		assert false: "Add task will succeed";
@@ -73,9 +75,19 @@ public class DoneCommandTest {
     }
 */    
     @Test
-    public void doneTest3_throws_invalid_index() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException {
+    public void doneTest3_recurring() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException{
+        setup();
+        Command doneCommand = new DoneCommand(3);
+        doneCommand.setData(model);
+        CommandResult result = doneCommand.execute();
+        String expectedString = String.format(MESSAGE_DONE_TASK_SUCCESS, model.getTaskList().getTaskList().get(2).getTaskDetails());
+        assertEquals(result.feedbackToUser, expectedString);
+    }
+    
+    @Test
+    public void doneTest4_throws_invalid_index() throws DuplicateTaskException, IllegalValueException, IOException, JSONException, ParseException {
     	setup();
-    	Command doneCommand = new DoneCommand(3);
+    	Command doneCommand = new DoneCommand(4);
     	doneCommand.setData(model);
     	CommandResult result = doneCommand.execute();
     	String expectedString = String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
