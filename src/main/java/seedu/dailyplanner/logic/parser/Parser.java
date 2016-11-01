@@ -89,6 +89,9 @@ public class Parser {
 
 	case CompleteCommand.COMMAND_WORD:
 	    return prepareComplete(arguments);
+	    
+	case UndoCommand.COMMAND_WORD:
+		return new UndoCommand();
 
 	case ShowCommand.COMMAND_WORD:
 	    if (arguments.equals(""))
@@ -101,7 +104,9 @@ public class Parser {
 	}
     }
 
-
+    private void prepareUndo(){
+    	
+    }
     private Command prepareComplete(String arguments) {
 	Optional<Integer> index = parseIndex(arguments);
 	if (!index.isPresent()) {
@@ -220,6 +225,8 @@ public class Parser {
 	} catch (IllegalValueException ive) {
 	    return new IncorrectCommand(ive.getMessage());
 	}
+	
+	
     }
 
 	private boolean isValidAddArgumentFormat(String trimmedArgs) {

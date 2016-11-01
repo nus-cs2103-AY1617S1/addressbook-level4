@@ -50,6 +50,7 @@ public class PersonCard extends UiPart{
         email.setText(person.getEmail().value);
         tags.setText(person.tagsString());
         isComplete.setText(person.getCompletion());
+        System.out.println("TESTING GUI ============== " + person.getCompletion());
     }
 
     public HBox getLayout() {
