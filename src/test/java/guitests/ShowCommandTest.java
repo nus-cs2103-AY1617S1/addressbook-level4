@@ -40,7 +40,7 @@ public class ShowCommandTest extends TaskListGuiTest {
     
     @Test
     public void show_datedListWithRecurring() {
-        assertShowResult("show 31 jan 2017", TypicalTestTasks.task10, TypicalTestTasks.task11);  
+        assertShowResult("show 31 jan 2017", TypicalTestTasks.task11);  
     }
  
     @Test

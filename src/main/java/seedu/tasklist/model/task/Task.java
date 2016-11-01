@@ -176,14 +176,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public boolean isFloating(){
 		return endTime.isMissing()&&startTime.isMissing();
 	}
-	
+	/*
 	@Override
 	public boolean equals(Object other) {
 		return other == this // short circuit if same object
 				|| (other instanceof ReadOnlyTask // instanceof handles nulls
 						&& this.isSameStateAs((ReadOnlyTask) other));
 	}
-
+*/
 	public boolean isOverDue(){
 		if(!hasEndTime()){
 			return false;
