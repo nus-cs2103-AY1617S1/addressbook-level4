@@ -234,7 +234,7 @@ public class MainWindow extends UiPart {
     }
     
     public void updateViewStatus(String status) {
-    	statusBarFooter.setViewStatus("Viewing " + status + "items");
+    	statusBarFooter.setViewStatus("Viewing " + status + " items");
     }
 
 	//@@author A0135812L

@@ -32,6 +32,11 @@ public class TaskWindow extends UiPart {
     private static final String FXML = "TaskWindow.fxml";
     
     private static final String TITLE = "Task";
+    
+    private static final int DEFAULT_TASK_SIZE = 300;
+    private static final int DEFAULT_BROWSER_SIZE = 600;
+    
+    private static UserPrefs sessionPrefs;
 
     private VBox mainPane;
 
@@ -46,9 +51,11 @@ public class TaskWindow extends UiPart {
     private MenuItem closeMenuItem;
 
     public static TaskWindow load(Stage primaryStage, UserPrefs prefs) {
-        logger.fine("Showing help page about the application.");
+    	sessionPrefs = prefs;
+    	
+        logger.fine("Showing task panel.");
         TaskWindow taskWindow = UiPartLoader.loadUiPart(primaryStage, new TaskWindow());
-        taskWindow.configure(prefs);
+        taskWindow.configure(sessionPrefs);
         return taskWindow;
     }
 
@@ -78,8 +85,18 @@ public class TaskWindow extends UiPart {
     }
     
     protected void setWindowDefaultSize(UserPrefs prefs) {
-        dialogStage.setHeight(300);
-        dialogStage.setWidth(300);
+        dialogStage.setHeight(DEFAULT_TASK_SIZE);
+        dialogStage.setWidth(DEFAULT_TASK_SIZE);
+        
+        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+        	dialogStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX() - dialogStage.getWidth());
+        	dialogStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        }
+    }
+    
+    protected void setWindowBrowserSize(UserPrefs prefs) {
+        dialogStage.setHeight(DEFAULT_BROWSER_SIZE);
+        dialogStage.setWidth(DEFAULT_BROWSER_SIZE);
         
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
         	dialogStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX() - dialogStage.getWidth());
@@ -88,10 +105,12 @@ public class TaskWindow extends UiPart {
     }
     
     public void loadTaskPage(ReadOnlyTask task) {
+        setWindowBrowserSize(sessionPrefs);
     	browserPanel.loadTaskPage(task);
     }
     
     public void loadTaskCard(ReadOnlyTask task) {
+    	setWindowDefaultSize(sessionPrefs);
     	browserPanel.loadTaskCard(task);
     }
 

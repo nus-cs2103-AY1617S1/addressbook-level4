@@ -102,6 +102,13 @@ public class TitleCard extends UiPart{
     
     public void setTime(){
         switch(task.getTaskType()) {
+        case EVENT:
+        	end.setText(task.getTime().get().getEndDateString());
+        	start.setText(" - ");
+            date.setText(task.getTime().get().getStartDate().toLocalDate()
+            		    .format(DateTimeFormatter.ofPattern("d MMM uuuu")));
+            dateBox.setMaxHeight(HBox.USE_COMPUTED_SIZE);
+        	break;
         case TIMERANGE:
             end.setText(task.getTime().get().getEndDate().get().toLocalTime()
                        .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));

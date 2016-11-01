@@ -14,8 +14,8 @@ import javafx.stage.Screen;
 public class UserPrefs {
 	
     private static final Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-    public static final double WINDOW_WIDTH = primaryScreenBounds.getWidth() / 5;
-    public static final double WINDOW_HEIGHT = primaryScreenBounds.getHeight();
+    private static final double WINDOW_WIDTH = primaryScreenBounds.getWidth() / 5;
+    private static final double WINDOW_HEIGHT = primaryScreenBounds.getHeight();
 
     public GuiSettings guiSettings;
 

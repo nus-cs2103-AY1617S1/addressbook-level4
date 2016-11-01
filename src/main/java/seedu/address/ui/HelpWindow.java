@@ -14,13 +14,16 @@ import java.util.logging.Logger;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart {
+	
+	private static final int WINDOW_HEIGHT = 400;
+	private static final int WINDOW_WIDTH = 600;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md";
+            "https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#5-summary";
 
     private AnchorPane mainPane;
 
@@ -47,13 +50,19 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        
+        setWindowDefaultSize();
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
         browser.getEngine().load(USERGUIDE_URL);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
+    }
+    
+    protected void setWindowDefaultSize() {
+        dialogStage.setHeight(WINDOW_HEIGHT);
+        dialogStage.setWidth(WINDOW_WIDTH);
     }
 
     public void show() {
