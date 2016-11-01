@@ -39,6 +39,7 @@
 
 .text-field {
     -fx-font-size: 12pt;
+    -fx-text-fill: #ffffff;
     -fx-font-family: "Segoe UI Semibold";
 }
 
@@ -127,17 +128,17 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: #010504;
+    -fx-text-fill: #ffffff;
 }
 
 .cell_big_label {
     -fx-font-size: 14px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #ffffff;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #ffffff;
 }
 
 .anchor-pane {
@@ -156,11 +157,13 @@
 }
 
 .result-display {
-    -fx-background-color: #ffffff;
+    -fx-font-family:"Consolas";
+    -fx-background: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
@@ -177,6 +180,17 @@
 
 .status-bar-with-border .label {
     -fx-font-size : 10px;
+    -fx-text-fill: white;
+}
+
+.command-box {
+    -fx-font-size : 14px;
+    -fx-font-family:"Consolas";
+    -fx-background-color: derive(#1d1d1d, 5%);
+}
+
+.command-box .label {
+    -fx-font-size : 14px;
     -fx-text-fill: white;
 }
 
