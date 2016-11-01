@@ -6,6 +6,7 @@ import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,9 +26,10 @@ public class DeleteCommand extends UndoableCommand {
             + "OR " + COMMAND_WORD + " 1..3";
     
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task:\n%1$s";
-    
     public static final String MESSAGE_UNDO = "Added Task:\n%1$s";
     public static final String MESSAGE_REDO = "Deleted Task:\n%1$s";
+    
+    private static final String MESSAGE_MISSING_TARGET_TASK = "The target task cannot be missing";
 
     private final String arguments;
     private ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
@@ -40,7 +42,7 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult execute() {
         ArrayList<ReadOnlyTask> tasksToDelete = null;
         try {
-            tasksToDelete = getTasksFromIndexes(this.arguments.split(" "));
+            tasksToDelete = getTasksFromIndexes(this.arguments.split(StringUtil.STRING_WHITESPACE));
         } catch (InvalidTaskDisplayedException itde) {
             return new CommandResult(itde.getMessage());
         }
@@ -48,7 +50,7 @@ public class DeleteCommand extends UndoableCommand {
             try {
                 model.deleteTask(t);
             } catch (TaskNotFoundException tnfe) {
-                assert false : "The target task cannot be missing";
+                assert false : MESSAGE_MISSING_TARGET_TASK;
             }
             deletedTasks.add(t);
         } 
@@ -69,13 +71,13 @@ public class DeleteCommand extends UndoableCommand {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
 
-        for (int i = 0; i < indexes.length; i++) {
+        for (int i = StringUtil.START_INDEX; i < indexes.length; i++) {
             int targetIndex = Integer.parseInt(indexes[i]);
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            ReadOnlyTask task = lastShownList.get(targetIndex - 1);
+            ReadOnlyTask task = lastShownList.get(targetIndex - StringUtil.LAST_INDEX);
             tasksList.add(task);
         }
         return tasksList;

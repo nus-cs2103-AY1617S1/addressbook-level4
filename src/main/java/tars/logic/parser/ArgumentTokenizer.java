@@ -10,6 +10,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 
+import tars.commons.util.StringUtil;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text /dt today at 3pm /t tag1 /t tag2 /ls}  where prefixes are {@code /dt /t}.<br>
@@ -21,10 +23,9 @@ import java.util.TreeMap;
  * @@author A0139924W
  */
 public class ArgumentTokenizer {
+    private static final int EMPTY_SIZE = 0;
     private static final int INVALID_POS = -1;
     private static final int START_INDEX_POS = -1;
-    private static final String EMPTY_SPACE_ONE = " ";
-    private static final String EMPTY_STRING = "";
 
     private final Prefix[] prefixes;
     private HashMap<Prefix, String> prefixValueMap;
@@ -44,7 +45,7 @@ public class ArgumentTokenizer {
     }
 
     private void init() {
-        this.args = EMPTY_STRING;
+        this.args = StringUtil.EMPTY_STRING;
         this.prefixValueMap = new HashMap<Prefix, String>();
         this.prefixPosMap = new TreeMap<Integer, Prefix>();
     }
@@ -59,16 +60,16 @@ public class ArgumentTokenizer {
     private TreeMap<Integer, Prefix> getPrefixPositon() {
         prefixPosMap = new TreeMap<Integer, Prefix>();
 
-        for (int i = 0; i < prefixes.length; i++) {
+        for (int i = StringUtil.START_INDEX; i < prefixes.length; i++) {
             int curIndexPos = START_INDEX_POS;
 
             do {
-                curIndexPos = args.indexOf(EMPTY_SPACE_ONE + prefixes[i].value, curIndexPos + 1);
+                curIndexPos = args.indexOf(StringUtil.STRING_WHITESPACE + prefixes[i].value, curIndexPos + StringUtil.LAST_INDEX);
                 
-                if (curIndexPos >= 0) {
+                if (curIndexPos >= StringUtil.START_INDEX) {
                     prefixPosMap.put(curIndexPos, prefixes[i]);
                 }
-            } while (curIndexPos >= 0);
+            } while (curIndexPos >= StringUtil.START_INDEX);
         }
 
         return prefixPosMap;
@@ -95,7 +96,7 @@ public class ArgumentTokenizer {
 
             if (prefixValueMap.containsKey(prefix)) {
                 prefixValueMap.put(prefix,
-                        prefixValueMap.get(prefix).concat(EMPTY_SPACE_ONE).concat(arg));
+                        prefixValueMap.get(prefix).concat(StringUtil.STRING_WHITESPACE).concat(arg));
             } else {
                 prefixValueMap.put(prefix, arg);
             }
@@ -125,7 +126,7 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
         
-        return Optional.of(prefixValueMap.get(prefix).replaceAll(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING));
+        return Optional.of(prefixValueMap.get(prefix).replaceAll(prefix.value + StringUtil.STRING_WHITESPACE, StringUtil.EMPTY_STRING));
     }
 
     public int numPrefixFound() {
@@ -133,17 +134,17 @@ public class ArgumentTokenizer {
     }
 
     public Optional<String> getPreamble() {
-        if (args.trim().length() == 0) {
+        if (args.trim().length() == StringUtil.EMPTY_STRING_LENGTH) {
             return Optional.empty();
         }
 
-        if (prefixPosMap.size() == 0) {
+        if (prefixPosMap.size() == EMPTY_SIZE) {
             return Optional.of(args.trim());
-        } else if (prefixPosMap.firstKey() == 0) {
+        } else if (prefixPosMap.firstKey() == StringUtil.START_INDEX) {
             return Optional.empty();
         }
 
-        return Optional.of(args.substring(0, prefixPosMap.firstKey()).trim());
+        return Optional.of(args.substring(StringUtil.START_INDEX, prefixPosMap.firstKey()).trim());
     }
 
     private Set<String> getMultipleFromArgs(String multipleArguments, Prefix prefix) {
@@ -155,10 +156,10 @@ public class ArgumentTokenizer {
 
         // replace first delimiter prefix, then split
         List<String> multipleArgList = Arrays
-                .asList(multipleArguments.replaceFirst(prefix.value + EMPTY_SPACE_ONE, EMPTY_STRING)
-                        .split(EMPTY_SPACE_ONE + prefix.value + EMPTY_SPACE_ONE));
+                .asList(multipleArguments.replaceFirst(prefix.value + StringUtil.STRING_WHITESPACE, StringUtil.EMPTY_STRING)
+                        .split(StringUtil.STRING_WHITESPACE + prefix.value + StringUtil.STRING_WHITESPACE));
 
-        for (int i = 0; i < multipleArgList.size(); i++) {
+        for (int i = StringUtil.START_INDEX; i < multipleArgList.size(); i++) {
             multipleArgList.set(i, multipleArgList.get(i).trim());
         }
 

@@ -15,6 +15,9 @@ import tars.logic.commands.IncorrectCommand;
  */
 public class EditCommandParser extends CommandParser {
 
+    private static final int START_INDEX = 0;
+    private static final int EMPTY_SIZE = 0;
+
     /**
      * Parses arguments in the context of the edit task command.
      * 
@@ -24,14 +27,14 @@ public class EditCommandParser extends CommandParser {
     @Override
     public Command prepareCommand(String args) {
         args = args.trim();
-        int targetIndex = 0;
-        if (args.indexOf(EMPTY_SPACE_ONE) != -1) {
-            targetIndex = args.indexOf(EMPTY_SPACE_ONE);
+        int targetIndex = START_INDEX;
+        if (args.indexOf(StringUtil.STRING_WHITESPACE) != StringUtil.INVALID_POSITION) {
+            targetIndex = args.indexOf(StringUtil.STRING_WHITESPACE);
         }
 
         String index;
         try {
-            index = StringUtil.indexString((args.substring(0, targetIndex)));
+            index = StringUtil.indexString((args.substring(StringUtil.START_INDEX, targetIndex)));
         } catch (Exception e) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -46,7 +49,7 @@ public class EditCommandParser extends CommandParser {
                 priorityPrefix, dateTimePrefix, addTagPrefix, removeTagPrefix);
         argsTokenizer.tokenize(args);
 
-        if (argsTokenizer.numPrefixFound() == 0) {
+        if (argsTokenizer.numPrefixFound() == EMPTY_SIZE) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }

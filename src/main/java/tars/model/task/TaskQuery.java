@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.util.StringUtil;
 import tars.model.tag.UniqueTagList;
 import tars.model.task.DateTime.IllegalDateException;
 
@@ -75,7 +76,7 @@ public class TaskQuery extends Task {
     /* --------------- GETTER METHODS -------------------- */
 
     public ArrayList<String> getNameKeywordsAsList() {
-        return new ArrayList<String>(Arrays.asList(getName().taskName.split(" ")));
+        return new ArrayList<String>(Arrays.asList(getName().taskName.split(StringUtil.STRING_WHITESPACE)));
     }
 
     public DateTime getDateTimeQueryRange() {
@@ -98,7 +99,7 @@ public class TaskQuery extends Task {
     }
 
     public ArrayList<String> getTagKeywordsAsList() {
-        return new ArrayList<String>(Arrays.asList(tagQuery.split(" ")));
+        return new ArrayList<String>(Arrays.asList(tagQuery.split(StringUtil.STRING_WHITESPACE)));
     }
 
     @Override

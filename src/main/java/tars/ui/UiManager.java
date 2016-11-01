@@ -89,7 +89,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
+        logger.severe(title + StringUtil.STRING_NEWLINE + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);

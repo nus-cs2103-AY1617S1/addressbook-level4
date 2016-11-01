@@ -38,20 +38,20 @@ public class DateTimeUtilTest {
 
     @Test
     public void natty_parser_empty_args() {
-        String[] expected = new String[] { "", "" };
-        String[] actual = DateTimeUtil.parseStringToDateTime(" ");
+        String[] expected = new String[] { StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING };
+        String[] actual = DateTimeUtil.parseStringToDateTime(StringUtil.STRING_WHITESPACE);
 
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
 
-        actual = DateTimeUtil.parseStringToDateTime("");
+        actual = DateTimeUtil.parseStringToDateTime(StringUtil.EMPTY_STRING);
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
     }
 
     @Test
     public void extract_date_successful() {
-        String[] expectedDateTime = { "", "01/01/2016 1500" };
+        String[] expectedDateTime = { StringUtil.EMPTY_STRING, "01/01/2016 1500" };
         String[] actualDateTime = DateTimeUtil.parseStringToDateTime("1/1/2016 1500");
 
         assertArrayEquals(expectedDateTime, actualDateTime);
@@ -126,7 +126,7 @@ public class DateTimeUtilTest {
     // @@author A0124333U
     @Test
     public void isDateTimeWithinRange_emptyDateTimeSource() throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("", "");
+        DateTime dateTimeSource = new DateTime(StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING);
         DateTime dateTimeQuery = new DateTime("17/01/2016 1200", "18/01/2016 1200");
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource, dateTimeQuery));
     }

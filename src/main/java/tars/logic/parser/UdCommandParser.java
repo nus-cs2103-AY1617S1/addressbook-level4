@@ -26,7 +26,7 @@ public class UdCommandParser extends CommandParser {
     public Command prepareCommand(String args) {
         args = args.trim();
 
-        if (EMPTY_STRING.equals(args)) {
+        if (StringUtil.EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));
         }
@@ -36,7 +36,7 @@ public class UdCommandParser extends CommandParser {
             args = rangeIndex;
         } catch (InvalidRangeException ire) {
             return new IncorrectCommand(
-                    String.format(INVALID_RANGE + "\n" + UdCommand.MESSAGE_USAGE));
+                    String.format(INVALID_RANGE + StringUtil.STRING_NEWLINE + UdCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UdCommand.MESSAGE_USAGE));

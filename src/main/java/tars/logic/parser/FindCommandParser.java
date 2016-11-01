@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.logic.commands.FindCommand;
 import tars.logic.commands.IncorrectCommand;
@@ -20,6 +21,7 @@ import tars.model.task.TaskQuery;
  * Find command parser
  */
 public class FindCommandParser extends CommandParser {
+    private static final int EMPTY_SIZE = 0;
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
 
@@ -41,7 +43,7 @@ public class FindCommandParser extends CommandParser {
                 dateTimePrefix, donePrefix, undonePrefix, tagPrefix);
         argsTokenizer.tokenize(args);
 
-        if (argsTokenizer.numPrefixFound() == 0) {
+        if (argsTokenizer.numPrefixFound() == EMPTY_SIZE) {
             return new FindCommand(generateKeywordSetFromArgs(args.trim()));
         }
 
@@ -68,24 +70,24 @@ public class FindCommandParser extends CommandParser {
         Boolean statusDone = true;
         Boolean statusUndone = false;
 
-        taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING)
-                .replaceAll("( )+", EMPTY_SPACE_ONE));
+        taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse(StringUtil.EMPTY_STRING)
+                .replaceAll("( )+", StringUtil.STRING_WHITESPACE));
         taskQuery.createDateTimeQuery(DateTimeUtil
-                .parseStringToDateTime(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)));
-        taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING));
-        if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty()
-                && !argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
+                .parseStringToDateTime(argsTokenizer.getValue(dateTimePrefix).orElse(StringUtil.EMPTY_STRING)));
+        taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(StringUtil.EMPTY_STRING));
+        if (!argsTokenizer.getValue(donePrefix).orElse(StringUtil.EMPTY_STRING).isEmpty()
+                && !argsTokenizer.getValue(undonePrefix).orElse(StringUtil.EMPTY_STRING).isEmpty()) {
             throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
         } else {
-            if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty()) {
+            if (!argsTokenizer.getValue(donePrefix).orElse(StringUtil.EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusDone);
             }
-            if (!argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
+            if (!argsTokenizer.getValue(undonePrefix).orElse(StringUtil.EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusUndone);
             }
         }
-        taskQuery.createTagsQuery(argsTokenizer.getMultipleRawValues(tagPrefix).orElse(EMPTY_STRING)
-                .replaceAll("( )+", EMPTY_SPACE_ONE));
+        taskQuery.createTagsQuery(argsTokenizer.getMultipleRawValues(tagPrefix).orElse(StringUtil.EMPTY_STRING)
+                .replaceAll("( )+", StringUtil.STRING_WHITESPACE));
 
         return taskQuery;
     }
