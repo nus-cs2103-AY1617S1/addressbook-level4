@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
             model.getUndoStack().push(COMMAND_WORD);
             model.getDeletedStackOfTasks().push(taskToDelete);
             model.getDeletedStackOfTasksIndex().push(indexRemoved);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));

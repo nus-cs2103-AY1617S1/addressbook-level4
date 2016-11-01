@@ -59,7 +59,7 @@ public class MarkDoneCommand extends Command {
             model.markTask(taskToMark);
             model.getUndoStack().push(COMMAND_WORD);
             model.getStackOfMarkDoneTask().push(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
         }
 
