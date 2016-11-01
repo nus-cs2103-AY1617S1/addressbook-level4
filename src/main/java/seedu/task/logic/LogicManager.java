@@ -65,6 +65,11 @@ public class LogicManager extends ComponentManager implements Logic {
     public List<ReadOnlyEvent> getAllEvents() {
     	return model.getTaskBook().getEventList();
     }
+	
+    @Override
+	public List<ReadOnlyTask> getAllTasks() {
+		return model.getTaskBook().getTaskList();
+	}
     
     
 }

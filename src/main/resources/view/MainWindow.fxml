@@ -10,8 +10,6 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-
-
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.task.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -48,13 +46,21 @@
                <items>
                   <VBox fx:id="taskList">
                      <children>
-                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Tasks TO DO!" />
+                        <AnchorPane styleClass="list-panel-head" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="event-panel-header" text="Tasks TO DO!" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                   <VBox fx:id="eventList">
                      <children>
-                        <Label alignment="TOP_LEFT" styleClass="panel-header" text="Events TO ATTEND!" />
+                        <AnchorPane VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="task-panel-header" text="Events TO ATTEND!" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
@@ -73,4 +79,3 @@
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
-

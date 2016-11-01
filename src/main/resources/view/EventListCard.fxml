@@ -35,7 +35,7 @@
                             <children>
                                 <HBox>
                                    <children>
-                                       <Label fx:id="index" prefHeight="20.0" prefWidth="20.0" styleClass="cell_small_label" text="\$index">
+                                       <Label fx:id="index" prefHeight="20.0" prefWidth="20.0" styleClass="cell_index_label" text="\$index">
                                  <font>
                                     <Font size="6.0" />
                                  </font>
@@ -46,7 +46,10 @@
                             </children>
                         </HBox>
                         <Label fx:id="description" styleClass="cell_desc_label" text="\\$desc" wrapText="true" />
-                        <Label fx:id="duration" styleClass="cell_ddl_label" text="\\$duration" />
+                        <Label fx:id="duration" styleClass="cell_ddl_label" text="\\$duration">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding></Label>
                     </children>
                 </VBox>
             </children>

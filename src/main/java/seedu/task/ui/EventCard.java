@@ -9,8 +9,6 @@ import seedu.task.model.item.ReadOnlyEvent;
 public class EventCard extends UiPart {
     private static final String FXML = "EventListCard.fxml";
 
-	private static final String PLACEHOLDER = "    ";
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -40,7 +38,7 @@ public class EventCard extends UiPart {
         name.setText(event.getNameWithStatus());
         index.setText(displayedIndex + ". ");
         initialiseDescription();
-        duration.setText(PLACEHOLDER+ event.getDuration().toString().trim());
+        duration.setText(event.getDuration().toString().trim());
         setCompletionBackgroundText();
     }
 

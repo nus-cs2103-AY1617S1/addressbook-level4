@@ -16,6 +16,7 @@ import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
 
@@ -119,7 +120,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
 //    	AquaFx.style();
-    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents());
+    	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents(), logic.getAllTasks());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -214,8 +215,8 @@ public class MainWindow extends UiPart {
         return this.calendarPanel;
     }
     
-	public void updateCalendarEvent(List<ReadOnlyEvent> eventList) {
-		this.calendarPanel.refresh(eventList);
+	public void updateCalendar(List<ReadOnlyEvent> eventList, List<ReadOnlyTask> taskList) {
+		this.calendarPanel.refresh(eventList,taskList);
 	}
 
 	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {

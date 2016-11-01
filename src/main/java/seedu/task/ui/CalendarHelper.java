@@ -2,6 +2,7 @@ package seedu.task.ui;
 
 import jfxtras.scene.control.agenda.Agenda.AppointmentImplBase;
 import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,9 @@ import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 
 //@@author A0144702N
 public class CalendarHelper extends AppointmentImplBase implements Appointment {
-	private static final String DEFAULT_GROUP = "group1";
+	private static final String EVENT_GROUP = "group0";
+	private static final long DEFAULT_DURATION = 1;
+	private static final String TASK_GROUP = "group10";
 	private static Map<String, AppointmentGroup> groupMap;
 	private static CalendarHelper instance;
 	
@@ -35,8 +38,19 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 		item.setStartLocalDateTime(event.getDuration().getStartTime());
 		item.setEndLocalDateTime(event.getDuration().getEndTime());
 		item.setDescription(event.getDescriptionValue());
-		item.setAppointmentGroup(groupMap.get(DEFAULT_GROUP));
+		item.setAppointmentGroup(groupMap.get(EVENT_GROUP));
 		
+		return item;
+	}
+	
+
+	public static Appointment convertFromTask(ReadOnlyTask task) {
+		Appointment item = new AppointmentImplLocal();
+		item.setSummary(task.getTask().fullName);
+		item.setStartLocalDateTime(task.getDeadline().get().getTime());
+		item.setEndLocalDateTime(item.getStartLocalDateTime().plusHours(DEFAULT_DURATION));
+		item.setDescription(task.getDescriptionValue());
+		item.setAppointmentGroup(groupMap.get(TASK_GROUP));
 		return item;
 	}
 
@@ -46,4 +60,5 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 		}
 		return instance;
 	}
+
 }

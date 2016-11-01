@@ -131,7 +131,7 @@ public class UiManager extends ComponentManager implements Ui {
 	@Subscribe
 	private void handleEventListUpdatedEvent(TaskBookChangedEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
-		mainWindow.updateCalendarEvent(event.data.getEventList());
+		mainWindow.updateCalendar(event.data.getEventList(), event.data.getTaskList());
 	}
 	
 	@Subscribe 

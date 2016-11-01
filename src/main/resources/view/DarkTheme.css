@@ -1,5 +1,15 @@
+@font-face {
+	src: url("/roboto/RobotoCondensed-Light.ttf");
+}
+@font-face {
+	src: url("./roboto/Roboto-Bold.ttf");
+}
+@font-face {
+	src: url("./roboto/Roboto-Medium.ttf");
+}
+
 .root {
-	-fx-font-family: Verdana, Geneva, sans-serif;
+	-fx-font-family: 'Roboto Condensed Light', Arial, sans-serif;
 }
 
 .cell_big_label {
@@ -33,7 +43,7 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: Verdana, Geneva, sans-serif;
+   	-fx-font-family: "Roboto Medium", Arial, sans-serif;
     -fx-opacity: 0.9;
 }
 
@@ -45,14 +55,14 @@
 
 .label-header {
     -fx-font-size: 20pt;
-    -fx-font-family: Verdana, Geneva, sans-serif;
+    -fx-font-family: "Roboto Condensed Light", Arial, sans-serif;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: Verdana, Geneva, sans-serif;
+    -fx-font-family: "Roboto Condensed Light", Arial, sans-serif;
 }
 
 .tab-pane {
@@ -92,7 +102,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Roboto Condensed Light", Arial, sans-serif;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -124,13 +134,9 @@
     -fx-text-fill: #010504;
 }
 
-.anchor-pane {
-     -fx-background-color: white;
-}
-
 
 .status-bar {
-    -fx-background-color: white;
+    -fx-background-color: #7f8c8d;
     -fx-text-fill: black;
 }
 
@@ -175,12 +181,12 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #7f8c8d;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Roboto Condensed Light", Arial, sans-serif;
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -200,7 +206,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Roboto Condensed Light", Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
