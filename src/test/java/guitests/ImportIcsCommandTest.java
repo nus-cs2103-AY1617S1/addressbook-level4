@@ -3,6 +3,8 @@ package guitests;
 import org.junit.Before;
 import org.junit.Test;
 
+import harmony.mastermind.logic.commands.ImportCommand;
+
 
 //@@author A0138862W
 public class ImportIcsCommandTest extends TaskManagerGuiTest{
@@ -19,8 +21,8 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
     public void importics_successWithEmptyTaskList(){        
         // run the importics command
         // sample.ics contains 3 items
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/sample.ics");
-        this.assertResultMessage("Imported ics.");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/sample.ics");
+        this.assertResultMessage("Import ics success.");
         
         // resulting task list in Mastermind should have 3 items
         this.assertListSize(3);
@@ -35,8 +37,8 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
         
         // run the importics command
         // sample.ics contains 3 items
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/sample.ics");
-        this.assertResultMessage("Imported ics.");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/sample.ics");
+        this.assertResultMessage("Import ics success.");
         
         // resulting task list in Mastermind should have 4 items
         this.assertListSize(4);
@@ -45,8 +47,8 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
     @Test
     public void importics_failure_invalidFilePath(){
         // invalid file path
-        this.commandBox.runCommand("importics from /invalid/file/path");
-        this.assertResultMessage("Failed to import ics.");
+        this.commandBox.runCommand("import from /invalid/file/path");
+        this.assertResultMessage("Invalid command format!\n" + ImportCommand.MESSAGE_USAGE);
         
         // resulting task list in Mastermind should have 0 items still
         this.assertListSize(0);
@@ -56,7 +58,7 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
     @Test
     public void importics_failure_malformedFileContent(){
         // malformed file content
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/empty.ics");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/empty.ics");
         this.assertResultMessage("Failed to import ics.");
         
         // resulting task list in Mastermind should have 0 items still
@@ -69,7 +71,7 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
         
         // the malformed date the second task
         // expect only the first task entry is successfully imported
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/startDateIsAfterEndDate.ics");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/startDateIsAfterEndDate.ics");
         this.assertResultMessage("Failed to import ics.");
         
         // resulting task list in Mastermind should have only 1 item
@@ -81,12 +83,12 @@ public class ImportIcsCommandTest extends TaskManagerGuiTest{
     public void importics_failure_importTwiceCauseDuplicateException(){
         
         // expect first import successful
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/sample.ics");
-        this.assertResultMessage("Imported ics.");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/sample.ics");
+        this.assertResultMessage("Import ics success.");
         this.assertListSize(3);
         
         // expect second import failure
-        this.commandBox.runCommand("importics from ./src/test/data/ImportIcsTest/sample.ics");
+        this.commandBox.runCommand("import from ./src/test/data/ImportIcsTest/sample.ics");
         this.assertResultMessage("Failed to import ics. Duplicate task detected when importing.");
         this.assertListSize(3);
     }

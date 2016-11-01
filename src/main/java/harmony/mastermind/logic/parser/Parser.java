@@ -259,7 +259,7 @@ public class Parser {
         
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportIcsCommand.MESSAGE_EXAMPLE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
         }
         
         final String source = matcher.group("source");

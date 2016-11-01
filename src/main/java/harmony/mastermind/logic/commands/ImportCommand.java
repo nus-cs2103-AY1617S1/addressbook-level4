@@ -55,8 +55,11 @@ public class ImportCommand extends Command {
                                                             + "like Subject, Start Date, Start Time, End Date, End Time";
     public static final String MESSAGE_IMPORT_TXT_SUCCESS = "Import success: %1$s tasks added";
     public static final String MESSAGE_IMPORT_TXT_FAILURE = "Import failure: %1$s tasks added \nInvalid lines: %2$s";
-    public static final String MESSAGE_IMPORT_ICS_SUCCESS = "Import ics success";
-    public static final String MESSAGE_IMPORT_ICS_FAILURE = "Failed to import ics file";
+    public static final String MESSAGE_IMPORT_ICS_SUCCESS = "Import ics success.";
+    public static final String MESSAGE_IMPORT_ICS_FAILURE = "Failed to import ics.";
+    
+    public static final String MESSAGE_FAILURE_DUPLICATE_TASK = "Failed to import ics. Duplicate task detected when importing.";
+
     
     public static final String EXT_CSV = "csv";
     public static final String EXT_ICS = "ics";
@@ -249,6 +252,8 @@ public class ImportCommand extends Command {
             }
 
             return new CommandResult(COMMAND_WORD, MESSAGE_IMPORT_ICS_SUCCESS);
+        } catch (DuplicateTaskException e){
+            return new CommandResult(COMMAND_WORD, MESSAGE_FAILURE_DUPLICATE_TASK);
         } catch (InvalidEventDateException | IOException | IllegalValueException e) {
             return new CommandResult(COMMAND_WORD, MESSAGE_IMPORT_ICS_FAILURE);
         }
