@@ -39,12 +39,23 @@ public class Parser {
 
     private static final Pattern SCHEDULE_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
 
+    private static final Pattern ALIAS_ARGS_FORMAT = Pattern.compile(
+            "(?<commandword>[\\p{Alnum}]+)\\s+(?<shorthand>[\\p{Alnum}]+)");
+
+    private static final Pattern UNALIAS_ARGS_FORMAT = Pattern.compile("(?<shorthand>[\\p{Alnum}]+)");
+
     private static final String ARGS_FROM = "from";
     private static final String ARGS_BY = "by";
     private static final String ARGS_TO = "to";
     private static final String[] TIME_TOKENS = new String[] { ARGS_FROM, ARGS_TO, ARGS_BY };
-	
+
+    private CommandLibrary commandLibrary;
+       	
     //@@author
+
+    public Parser(CommandLibrary commandLibrary) {
+        this.commandLibrary = commandLibrary;
+    }
 
     /**
      * Parses user input into command for execution.
@@ -58,7 +69,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord").toLowerCase();
+        String commandWord = matcher.group("commandWord").toLowerCase();
+        if (commandLibrary.isExistingAliasKey(commandWord)) {
+            commandWord = commandLibrary.getAliasedValue(commandWord);
+        }
+
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
@@ -89,6 +104,12 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case AliasCommand.COMMAND_WORD:
+            return prepareAlias(arguments);
+
+        case UnaliasCommand.COMMAND_WORD:
+            return prepareUnalias(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -289,6 +310,43 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    /**
+     * Parses arguments in the context of the alias command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareAlias(String args) {
+        final Matcher matcher = ALIAS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AliasCommand.MESSAGE_USAGE));
+        }
+
+        String aliasKey = matcher.group("shorthand").toLowerCase();
+        String aliasValue = matcher.group("commandword").toLowerCase();
+
+        return new AliasCommand(aliasKey, aliasValue);
+    }
+
+    /**
+     * Parses arguments in the context of the unalias command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUnalias(String args) {
+        final Matcher matcher = UNALIAS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnaliasCommand.MESSAGE_USAGE));
+        }
+
+        String aliasKey = matcher.group("shorthand").toLowerCase();
+
+        return new UnaliasCommand(aliasKey);
     }
 
     //@@author

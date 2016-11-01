@@ -13,6 +13,7 @@ import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.StringUtil;
 import seedu.agendum.logic.Logic;
 import seedu.agendum.logic.LogicManager;
+import seedu.agendum.logic.commands.CommandLibrary;
 import seedu.agendum.model.*;
 import seedu.agendum.commons.util.ConfigUtil;
 import seedu.agendum.storage.Storage;
@@ -22,6 +23,7 @@ import seedu.agendum.ui.UiManager;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Hashtable;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -48,9 +50,12 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath(), config);
+        storage = new StorageManager(config.getToDoListFilePath(), config.getAliasTableFilePath(),
+                config.getUserPrefsFilePath(), config);
 
         userPrefs = initPrefs(config);
+        
+        initAliasTable(config);
 
         initLogging(config);
 
@@ -150,6 +155,35 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+    protected void initAliasTable(Config config) {
+        assert config != null;
+
+        String aliasTableFilePath = config.getAliasTableFilePath();
+        logger.info("Using alias table file : " + aliasTableFilePath);
+
+        Hashtable<String, String> initializedAliasTable;
+        try {
+            Optional<Hashtable<String, String>> aliasTableOptional = storage.readAliasTable();
+            initializedAliasTable = aliasTableOptional.orElse(new Hashtable<String, String>());
+        } catch (DataConversionException e) {
+            logger.warning("Alias table file at " + aliasTableFilePath +
+                    " is not in the correct format. Using default empty alias table");
+            initializedAliasTable = new Hashtable<String, String>();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the alias table file. Will start with an empty alias table");
+            initializedAliasTable = new Hashtable<String, String>();
+        }
+
+        CommandLibrary.getInstance().loadAliasTable(initializedAliasTable);
+
+        //Update alias table file in case it was missing initially or there are new/unused fields
+        try {
+            storage.saveAliasTable(initializedAliasTable);
+        } catch (IOException e) {
+            logger.warning("Failed to save alias table file : " + StringUtil.getDetails(e));
+        }
     }
 
     private void initEventsCenter() {

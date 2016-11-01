@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Hashtable;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,7 +39,8 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"), new Config());
+        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("command"),
+                getTempFilePath("prefs"), new Config());
     }
 
 
@@ -61,6 +63,19 @@ public class StorageManagerTest {
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
     }
+    
+    /**
+     * Verifies that StorageManager is properly wired to {@link JsonAliasTableStorage} class
+     */
+    @Test
+    public void commandLibraryReadSave() throws Exception {
+        Hashtable<String, String> testingTable = new Hashtable<String, String>();
+        testingTable.put("a", "add");
+        testingTable.put("d", "delete");
+        storageManager.saveAliasTable(testingTable);
+        Hashtable<String, String> retrieved = storageManager.readAliasTable().get();
+        assertEquals(testingTable, retrieved); 
+    }
 
     @Test
     public void toDoListReadSave() throws Exception {
@@ -79,7 +94,8 @@ public class StorageManagerTest {
     @Test
     public void handleToDoListChangedEventExceptionThrownEventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"), new Config());
+        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), 
+                new JsonAliasTableStorage("dummy"), new JsonUserPrefsStorage("dummy"), new Config());
         EventsCollector eventCollector = new EventsCollector();
         storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);

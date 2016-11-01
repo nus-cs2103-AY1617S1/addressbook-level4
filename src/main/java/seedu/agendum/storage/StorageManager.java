@@ -1,6 +1,7 @@
 package seedu.agendum.storage;
 
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import seedu.agendum.commons.core.ComponentManager;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.LogsCenter;
 import seedu.agendum.commons.events.model.LoadDataRequestEvent;
+import seedu.agendum.commons.events.logic.AliasTableChangedEvent;
 import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
@@ -23,24 +25,42 @@ import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.UserPrefs;
 
 /**
- * Manages storage of ToDoList data in local storage.
+ * Manages storage of ToDoList, UserPrefs, CommandLibrary data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ToDoListStorage toDoListStorage;
     private UserPrefsStorage userPrefsStorage;
+    private AliasTableStorage aliasTableStorage;
     private Config config;
 
-    public StorageManager(ToDoListStorage toDoListStorage, UserPrefsStorage userPrefsStorage, Config config) {
+    public StorageManager(ToDoListStorage toDoListStorage, AliasTableStorage aliasTableStorage,
+            UserPrefsStorage userPrefsStorage, Config config) {
         super();
         this.toDoListStorage = toDoListStorage;
+        this.aliasTableStorage = aliasTableStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.config = config;
     }
 
-    public StorageManager(String toDoListFilePath, String userPrefsFilePath, Config config) {
-        this(new XmlToDoListStorage(toDoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath), config);
+    public StorageManager(String toDoListFilePath, String aliasTableFilePath,
+            String userPrefsFilePath, Config config) {
+        this(new XmlToDoListStorage(toDoListFilePath), new JsonAliasTableStorage(aliasTableFilePath),
+                new JsonUserPrefsStorage(userPrefsFilePath), config);
+    }
+    
+    // ================ Alias Table methods ==============================
+
+    @Override
+    public Optional<Hashtable<String, String>> readAliasTable()
+            throws DataConversionException, IOException {
+        return aliasTableStorage.readAliasTable();
+    }
+
+    @Override
+    public void saveAliasTable(Hashtable<String, String> table) throws IOException {
+        aliasTableStorage.saveAliasTable(table);
     }
 
     // ================ UserPrefs methods ==============================
@@ -107,6 +127,17 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveToDoList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleAliasTableChangedEvent(AliasTableChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Alias table changed, saving to file"));
+        try {
+            saveAliasTable(event.aliasTable);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

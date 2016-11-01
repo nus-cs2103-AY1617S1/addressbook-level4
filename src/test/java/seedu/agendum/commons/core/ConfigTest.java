@@ -9,14 +9,16 @@ import static org.junit.Assert.assertTrue;
 public class ConfigTest {
 
     @Test
-    public void toString_defaultObject_stringReturned() {
-        String sb = "App title : Agendum" +
-                "\nCurrent log level : INFO" +
-                "\nPreference file Location : " + Config.DEFAULT_USER_PREFS_FILE +
-                "\nLocal data file location : " + Config.DEFAULT_SAVE_LOCATION +
-                "\nToDoList name : MyToDoList";
+    public void toString_defaultObject_stringReturned() {        
+        StringBuilder sb = new StringBuilder();
+        sb.append("App title : Agendum");
+        sb.append("\nCurrent log level : INFO");
+        sb.append("\nAlias Table file location: " + Config.DEFAULT_ALIAS_TABLE_FILE);
+        sb.append("\nPreference file Location : " + Config.DEFAULT_USER_PREFS_FILE);
+        sb.append("\nLocal data file location : " + Config.DEFAULT_SAVE_LOCATION);
+        sb.append("\nToDoList name : MyToDoList");
 
-        assertEquals(sb, new Config().toString());
+        assertEquals(sb.toString(), new Config().toString());
     }
 
     @Test
