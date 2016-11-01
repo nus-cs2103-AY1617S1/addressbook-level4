@@ -9,11 +9,25 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    
+    //@@author a0126633j
+    /**
+     * Checks whether any of the query is part of the source string.
+     */
     public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
+        String[] splitSource = source.toLowerCase().split("\\s+");
+        String[] splitQuery = query.toLowerCase().split("\\s+");
+
+        for(int i = 0; i < splitQuery.length; i++) {
+            for(int j = 0; j < splitSource.length; j++) {
+               if (splitSource[j].contains(splitQuery[i])) {
+                   return true;
+               }
+            }
+        }
+        return false;
     }
+    //@@author
 
     /**
      * Returns a detailed message of the t, including the stack trace.
@@ -53,5 +67,12 @@ public class StringUtil {
             arg = arg.substring(1);
         }
         return arg;
+    }
+    /**
+     * Reformats a tag string into a string separated by white space.
+     * e.g. "[cs2103], [cs1010e]"  into "cs2103 cs1010e".
+     */
+    public static String reformatTagString(String arg) {
+        return arg.replaceAll(",", "").replaceAll("\\[|\\]", " ");
     }
 }

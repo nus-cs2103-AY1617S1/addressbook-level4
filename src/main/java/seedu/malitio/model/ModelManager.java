@@ -233,7 +233,14 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
-
+    
+	@Override
+	public void ShowAllTask() {
+		filteredFloatingTasks.setPredicate(null);
+		filteredDeadlines.setPredicate(null);
+        filteredEvents.setPredicate(null);
+	}
+    
     @Override
     public void updateFilteredTaskListToShowAll() {
         filteredFloatingTasks.setPredicate(null);
@@ -337,11 +344,13 @@ public class ModelManager extends ComponentManager implements Model {
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-
+        
+        //@@author a0126633j
         @Override
         public boolean run(ReadOnlyFloatingTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName 
+                            + " " + StringUtil.reformatTagString(task.tagsString()), keyword))
                     .findAny()
                     .isPresent();
         }
@@ -350,6 +359,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyDeadline deadline) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(deadline.getName().fullName
+                            + " " + StringUtil.reformatTagString(deadline.tagsString()) 
                             + " " + deadline.getDue().toString(), 
                             keyword))
                     .findAny() 
@@ -360,6 +370,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyEvent event) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(event.getName().fullName
+                            + " " + StringUtil.reformatTagString(event.tagsString()) 
                             + " " + event.getStart().toString()
                             + " " + event.getEnd().toString(), 
                             keyword))
@@ -374,6 +385,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author
     private class TimeQualifier implements Qualifier {
         private DateTime timeKeyWord;
 

@@ -56,13 +56,21 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
+        
+        updateModel();
+        
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
     }
+
+	private void updateModel() {
+		model.updateFilteredDeadlineListToShowAll();
+        model.updateFilteredEventListToShowAll();
+        model.updateFilteredTaskListToShowAll();
+	}
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
