@@ -227,52 +227,114 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         boolean otherHasStart = other.startDate != null, otherHasEnd = other.endDate != null;
         int comparedVal = 0;
         
-        if (hasStart && otherHasStart) {
-            comparedVal = this.startDate.compareTo(other.startDate);
-            if (comparedVal != 0){
-                return comparedVal;
-            }
+        boolean hasNoDate = !hasStart && !hasEnd;
+        boolean otherNoDate = !otherHasStart && !otherHasEnd;
+        
+        if (hasNoDate && otherNoDate) {
+            return 0;
+        } else if (hasNoDate) {
+            return 1;
+        } else if (otherNoDate) {
+            return -1;
         }
         
-        if (hasStart && otherHasEnd) {
-            comparedVal = this.startDate.compareTo(other.endDate);
-            if (comparedVal != 0){
-                return comparedVal;
-            }
-            else {
-                // if equal,  always put the one with start first
-                return -1;
-            }
+        // Easy case 1
+        if (!hasStart && hasEnd && !otherHasStart && otherHasEnd) {
+            comparedVal = this.endDate.compareTo(other.endDate);
+            return comparedVal;
         }
         
-        if (otherHasStart && hasEnd){
+        // Easy case 2
+        if (!hasStart && hasEnd && otherHasStart && !otherHasEnd) {
             comparedVal = this.endDate.compareTo(other.startDate);
-            if (comparedVal != 0){
-                return comparedVal;
-            }
-            else {
-             // if equal,  always put the one with start first
+            if (comparedVal == 0) {
                 return 1;
             }
+            return comparedVal;
         }
         
-        if (hasEnd && otherHasEnd) {
-            comparedVal = this.endDate.compareTo(other.endDate);
-            if (comparedVal != 0){
+        // Easy case 3
+        if (hasStart && !hasEnd && !otherHasStart && otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.endDate);
+            return comparedVal;
+        }
+        
+        // Easy case 4
+        if (hasStart && !hasEnd && otherHasStart && !otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.startDate);
+            return comparedVal;
+        }
+        
+        // Medium case 1
+        if (!hasStart && hasEnd && otherHasStart && otherHasEnd) {
+            comparedVal = this.endDate.compareTo(other.startDate);
+            if (comparedVal != 0) {
                 return comparedVal;
             }
+            
+            comparedVal = this.endDate.compareTo(other.endDate);
+            if (comparedVal == 0) {
+                return 1;
+            }
+            return comparedVal;
         }
         
-        if (hasStart || hasEnd)
-            return -1;
+        // Medium case 2
+        if (hasStart && !hasEnd && otherHasStart && otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.startDate);      
+            if (comparedVal != 0) {
+                return comparedVal;
+            }
+            
+            comparedVal = this.startDate.compareTo(other.endDate);
+            return comparedVal;
+        }
         
-        if (otherHasStart || otherHasEnd)
-            return 1;
+        // Medium case 3
+        if (hasStart && hasEnd && !otherHasStart && otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.endDate);
+            if (comparedVal != 0) {
+                return comparedVal;
+            }
+            
+            comparedVal = this.endDate.compareTo(other.endDate);
+            return comparedVal;
+        }
         
-        return 0;
+        // Medium case 4
+        if (hasStart && hasEnd && otherHasStart && !otherHasEnd) {
+            comparedVal = this.startDate.compareTo(other.startDate);
+            if (comparedVal != 0) {
+                return comparedVal;
+            }
+            
+            comparedVal = this.endDate.compareTo(other.startDate);
+            if (comparedVal == 0) {
+                return 1;
+            }
+            return comparedVal;
+        }
         
+        // Final case
+        // compare start first
+        comparedVal = this.startDate.compareTo(other.startDate);
+        if (comparedVal != 0) {
+            return comparedVal;
+        }
 
-        
+        comparedVal = this.startDate.compareTo(other.endDate);
+        if (comparedVal != 0) {
+            return comparedVal;
+        }
+
+        comparedVal = this.endDate.compareTo(other.startDate);
+        if (comparedVal != 0) {
+            return comparedVal;
+        }
+
+        comparedVal = this.endDate.compareTo(other.endDate);
+        return comparedVal;
+
     }
 
     /*

@@ -26,21 +26,20 @@ import seedu.address.model.item.TimePeriod;
  */
 public class AddCommandHelper {
     
-    private static final String STRING_CONSTANT_ZERO = "0";
-
-    private static final String MESSAGE_INVALID_DATE = "Invalid date!";
 
     private final static Logger logger = LogsCenter.getLogger(AddCommandHelper.class);
     
     private static final String STRING_CONSTANT_ONE = "1";
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided.";
-    public static final String MESSAGE_DATE_CONSTRAINTS = "End date should be later than start date";
+    public static final String MESSAGE_END_DATE_CONSTRAINTS = "End date should be later than start date";
+    private static final String MESSAGE_DATE_CONSTRAINTS = "Invalid date!";
     
     // used to check for invalid dates e.g 40 Oct
-    private static final String REGEX_VALIDATE_DATE = ".*?(?:SEEK > by_day (?<date>\\d+)).*";
+    private static final String REGEX_VALIDATE_DATE = ".*?(?:SEEK > by_day (?<date>\\d+) \\W+).*";
 
     private static final int BASE_INDEX = 0;
+    private static final int MAX_DAYS_IN_MONTH = 31;
     
     /**
      * Returns a HashMap containing values of taskName, startDate, endDate, recurrenceRate and priority.
@@ -83,7 +82,7 @@ public class AddCommandHelper {
         
         if (endDate != null && startDate != null && endDate.before(startDate)) {
             logger.log(Level.FINE, "IllegalValueException caught in AddCommandHelper, end date is before start date");
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_END_DATE_CONSTRAINTS);
         }
     }
 
@@ -133,13 +132,23 @@ public class AddCommandHelper {
         return startDate;
     }
 
+    /**
+     * Validates if dateString is valid.
+     *
+     * @param dateString   user's input of date
+     * @throws IllegalValueException if dateString is an invalid date e.g 40 Oct.
+     */
     private static void validateDateString(String dateString) throws IllegalValueException {
-        List<DateGroup> dates = new Parser().parse(dateString);
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
-        Pattern pattern = Pattern.compile(REGEX_VALIDATE_DATE);
-        Matcher matcher = pattern.matcher(syntaxTree);
-        if (matcher.matches() && !matcher.group("date").equals(STRING_CONSTANT_ZERO)) {
-            throw new IllegalValueException(MESSAGE_INVALID_DATE);
+        if (DateTime.isValidDate(dateString)) {
+            List<DateGroup> dates = new Parser().parse(dateString);
+            String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+            Pattern pattern = Pattern.compile(REGEX_VALIDATE_DATE);
+            Matcher matcher = pattern.matcher(syntaxTree);
+            if (matcher.matches() && Integer.parseInt(matcher.group("date")) > MAX_DAYS_IN_MONTH) {
+                throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            }
+        } else {
+            throw new IllegalValueException(DateTime.MESSAGE_VALUE_CONSTRAINTS);
         }
     }
     

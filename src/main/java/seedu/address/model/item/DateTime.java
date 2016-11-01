@@ -141,7 +141,11 @@ public abstract class DateTime {
             int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
             String matchingValue = dates.get(BASE_INDEX).getText();
             
-            if (positionOfMatchingValue > ONE || !matchingValue.equals(dateString)) {
+            /*if (positionOfMatchingValue > ONE || !matchingValue.equals(dateString)) {
+                return false;
+            }*/
+            
+            if (positionOfMatchingValue > ONE) {
                 return false;
             }
         } catch (IndexOutOfBoundsException ioobe) {

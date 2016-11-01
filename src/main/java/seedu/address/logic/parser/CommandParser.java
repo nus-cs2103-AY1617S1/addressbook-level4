@@ -1,14 +1,12 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
-import seedu.address.model.item.DateTime;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +35,19 @@ public class CommandParser {
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
+    private static final String RESET_KEYWORD = "-reset";
+    
+    private static final String MAP_NAME = "taskName";
+    private static final String MAP_START_DATE = "startDate";
+    private static final String MAP_END_DATE = "endDate";
+    private static final String MAP_RECURRENCE_RATE = "rate";
+    private static final String MAP_RECURRENCE_TIME_PERIOD = "timePeriod";
+    private static final String MAP_PRIORITY = "priority";
+    
+    private static final String RESET_START = "start";
+    private static final String RESET_END = "end";
+    private static final String RESET_RECURRENCE = "repeat";
+    private static final String RESET_PRIORITY = "priority";
 
     public CommandParser() {}
 
@@ -119,7 +130,7 @@ public class CommandParser {
         }
         
         try {  
-            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
+            HashMap<String, Optional<String>> extractedValues = retrieveAddFieldsFromArgs(argsTrimmed);
             logger.finer("Exiting CommandParser, prepareAdd()");
             return new AddCommand(extractedValues);
         } catch (IllegalValueException ive) {
@@ -257,6 +268,8 @@ public class CommandParser {
     private Command prepareList(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
+            // no arguments
+            
             return new ListCommand(new HashSet<String>());
         }
 
@@ -266,6 +279,22 @@ public class CommandParser {
         return new ListCommand(keywordSet);
     }
     
+    /**
+     * Parses arguments in the context of the help command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    /*
+    private Command prepareHelp(String args) {
+        
+        if (args != null) {
+            return new HelpCommand(args.trim());
+        }
+        
+        return new HelpCommand(HelpCommand.COMMAND_WORD);
+    }
+    */
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -302,7 +331,7 @@ public class CommandParser {
         String[] indexesArray = indexes.split(" ");
         List<Integer> indexesToHandle = new ArrayList<Integer>();
         for (String index: indexesArray) {
-            if (StringUtil.isUnsignedInteger(index) && !indexesToHandle.contains(Integer.parseInt(index))) {
+            if (StringUtil.isUnsignedInteger(index)) {
                 indexesToHandle.add(Integer.parseInt(index));
             }
         }
@@ -596,153 +625,248 @@ public class CommandParser {
 
     }
 
-    private String prepareEditDetailedTooltip(final String arguments) {
+    /**
+     * @param trimmedArgs
+     * @return
+     * @throws IllegalValueException
+     */
+    private String generateEditDetailedTooltip(String trimmedArgs) throws IllegalValueException {
+        String indexToEdit = trimmedArgs.substring(ZERO, ONE);
+        String argumentsWithoutIndex = trimmedArgs.substring(ONE);
+        String resetField = null;
+        String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
+        
+        boolean resetStartDate = false, resetEndDate = false, resetRecurrence = false, 
+                resetPriority = false;
+                    
+        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(resetSplit);
+        
+        Optional<String> name = fieldMap.get(MAP_NAME);
+        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
+        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
+        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
+        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
+        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+
+        if(resetSplit.length == TWO){
+            resetField = resetSplit[ONE];
+        }
+        
+        if (resetField != null) {
+            String[] resetFieldNames = resetField.split("\\s+");
+            
+            for (String resetFieldStr : resetFieldNames) {
+                if (resetFieldStr.equals(RESET_START)) {
+                    resetStartDate = true;
+                } else if (resetFieldStr.equals(RESET_END)) {
+                    resetEndDate = true;
+                } else if (resetFieldStr.equals(RESET_RECURRENCE)) {
+                    resetRecurrence = true;
+                } else if (resetFieldStr.equals(RESET_PRIORITY)) {
+                    resetPriority = true;
+                }
+            }
+        }
+
+                    
+        StringBuilder sb = new StringBuilder();
+        sb.append(EditCommand.TOOL_TIP);
+        sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
+
+        if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
+            sb.append("\n\tName:\t" + name.get());
+        } else {
+            sb.append("\n\tName:\tNo Change");
+        }
+        
+        if (resetStartDate) {
+            sb.append("\n\tStart Date:\tRESET");
+        } else if (startDate.isPresent()) {
+            sb.append("\n\tStart Date:\t" + startDate.get());
+        } else {
+            sb.append("\n\tStart Date:\tNo Change");
+        }
+        
+        if (resetEndDate) {
+            sb.append("\n\tEnd Date:\t\tRESET");
+        } else if (endDate.isPresent()) {
+            sb.append("\n\tEnd Date:\t\t" + endDate.get());
+        } else {
+            sb.append("\n\tEnd Date:\t\tNo Change");
+        }
+        
+        if (resetRecurrence) {
+            sb.append("\n\tRecurrence Rate:\tRESET");
+        } else if (timePeriod.isPresent()) {
+            if (rate.isPresent()) {
+                String recurRate = rate.get();
+                sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
+            } else {
+                sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
+            }
+        } else {
+            sb.append("\n\tRecurrence Rate:\tNo Change");
+        }
+        
+        if (resetPriority) {
+            sb.append("\n\tPriority:\tRESET");
+        } else if (!priority.get().equals("null")) {
+            sb.append("\n\tPriority:\t" + priority.get());
+        } else {
+            sb.append("\n\tPriority:\tNo Change");
+        }
+        
+        return sb.toString();
+    }
+
+    /**
+     * @param resetSplit
+     * @return
+     * @throws IllegalValueException
+     */
+    private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String[] resetSplit)
+            throws IllegalValueException {
+        return new CommandParserHelper().prepareEdit(" " + resetSplit[ZERO]);
+    }
+
+    private String prepareAddDetailedTooltip(final String arguments) {
         try {
+            
+            // should not use exceptions for this
             if (arguments.isEmpty()) {
                 throw new IllegalValueException("No arguments found");
             }
             
             String trimmedArgs = arguments.trim();
-            String indexToEdit = trimmedArgs.substring(0, 1);
-            String argumentsWithoutIndex = trimmedArgs.substring(1);
-            String resetField = null;
-            String[] resetSplit = argumentsWithoutIndex.split("-reset");
             
-            boolean resetStartDate = false, resetEndDate = false, resetRecurrence = false, resetPriority = false;
-                        
-            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(" " + resetSplit[ZERO]);
+            return generateAddDetailedTooltip(trimmedArgs);
             
-            Optional<String> name = fieldMap.get("taskName");
-            Optional<String> startDate = fieldMap.get("startDate");
-            Optional<String> endDate = fieldMap.get("endDate");
-            Optional<String> rate = fieldMap.get("rate");
-            Optional<String> timePeriod = fieldMap.get("timePeriod");
-            Optional<String> priority = fieldMap.get("priority");
+        } catch (IllegalValueException e) {
+            return AddCommand.TOOL_TIP;
+        }
 
-            if(resetSplit.length == TWO){
-                resetField = resetSplit[ONE];
+    }
+    
+    private String prepareEditDetailedTooltip(final String arguments) {
+        try {
+            
+            // should not use exceptions for this
+            if (arguments.isEmpty()) {
+                throw new IllegalValueException("No arguments found");
             }
             
-            if (resetField != null) {
-                String[] resetFieldNames = resetField.split("\\s+");
-                
-                for (String resetFieldStr : resetFieldNames) {
-                    if (resetFieldStr.equals("start")) {
-                        resetStartDate = true;
-                    } else if (resetFieldStr.equals("end")) {
-                        resetEndDate = true;
-                    } else if (resetFieldStr.equals("recurrence")) {
-                        resetRecurrence = true;
-                    } else if (resetFieldStr.equals("priority")) {
-                        resetPriority = true;
-                    }
-                }
-            }
+            String trimmedArgs = arguments.trim();
 
-                        
-            StringBuilder sb = new StringBuilder();
-            sb.append(EditCommand.TOOL_TIP);
-            sb.append("\n\tEditing task at INDEX " + indexToEdit + ": ");
-
-            if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
-                sb.append("\n\tName:\t" + name.get());
-            } else {
-                sb.append("\n\tName:\tNo Change");
-            }
-            
-            if (startDate.isPresent()) {
-                sb.append("\n\tStart Date:\t" + startDate.get());
-            } else if (resetStartDate) {
-                sb.append("\n\tStart Date:\tRESET");
-            } else {
-                sb.append("\n\tStart Date:\tNo Change");
-            }
-            
-            if (endDate.isPresent()) {
-                sb.append("\n\tEnd Date:\t\t" + endDate.get());
-            } else if (resetEndDate) {
-                sb.append("\n\tEnd Date:\t\tRESET");
-            } else {
-                sb.append("\n\tEnd Date:\t\tNo Change");
-            }
-            
-            if (timePeriod.isPresent()) {
-                if (rate.isPresent()) {
-                    String recurRate = rate.get();
-                    sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
-                } else {
-                    sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
-                }
-            } else if (resetRecurrence) {
-                sb.append("\n\tRecurrence Rate:\tRESET");
-            } else {
-                sb.append("\n\tRecurrence Rate:\tNo Change");
-            }
-            
-            if (!priority.get().equals("null")) {
-                sb.append("\n\tPriority:\t" + priority.get());
-            } else if (resetPriority) {
-                sb.append("\n\tPriority:\tRESET");
-            } else {
-                sb.append("\n\tPriority:\tNo Change");
-            }
-            
-            return sb.toString();
+            return generateEditDetailedTooltip(trimmedArgs);
             
         } catch (IllegalValueException e) {
             return EditCommand.TOOL_TIP;
         }
     }
 
-    private String prepareAddDetailedTooltip(final String arguments) {
-        try {
-            if (arguments.isEmpty()) {
-                throw new IllegalValueException("No arguments found");
-            }
-            
-            String trimmedArgs = arguments.trim();
-            
-            HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareAdd(trimmedArgs);
-            
-            Optional<String> name = fieldMap.get("taskName");
-            Optional<String> startDate = fieldMap.get("startDate");
-            Optional<String> endDate = fieldMap.get("endDate");
-            Optional<String> rate = fieldMap.get("rate");
-            Optional<String> timePeriod = fieldMap.get("timePeriod");
-            Optional<String> priority = fieldMap.get("priority");
-            
-            StringBuilder sb = new StringBuilder();
-            sb.append(AddCommand.TOOL_TIP);
-            sb.append("\n\tAdding task: ");
+    /**
+     * @param trimmedArgs
+     * @return
+     * @throws IllegalValueException
+     */
+    private String generateAddDetailedTooltip(String trimmedArgs) throws IllegalValueException {
+        HashMap<String, Optional<String>> fieldMap = retrieveAddFieldsFromArgs(trimmedArgs);
+        
+        Optional<String> name = fieldMap.get(MAP_NAME);
+        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
+        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
+        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
+        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
+        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+        
+        StringBuilder sb = generateAddDetailedTooltipHeader();
 
-            if (name.isPresent()) {
-                sb.append("\n\tName:\t" + name.get());
-            }
-            if (startDate.isPresent()) {
-                sb.append("\n\tStart Date:\t" +startDate.get());
-            }
-            if (endDate.isPresent()) {
-                sb.append("\n\tEnd Date:\t\t" + endDate.get());
-            }
-            if (timePeriod.isPresent()) {
-                
-                if (rate.isPresent()) {
-                    String recurRate = rate.get();
-                    sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriod.get());
-                }
-                else {
-                    sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriod.get());
-                }
-            }
-            if (priority.isPresent()) {
-                sb.append("\n\tPriority:\t" + priority.get());
-            }
-            
-            return sb.toString();
-            
-        } catch (IllegalValueException e) {
-            return AddCommand.TOOL_TIP;
+        generateAddDetailedTooltipName(name, sb);
+        generateAddDetailedTooltipStartDate(startDate, sb);
+        generateAddDetailedTooltipEndDate(endDate, sb);
+        generateAddDetailedTooltipRecurrence(rate, timePeriod, sb);
+        generateAddDetailedTooltipPriority(priority, sb);
+        
+        return sb.toString();
+    }
+
+    /**
+     * @param priority
+     * @param sb
+     */
+    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
+        if (priority.isPresent()) {
+            sb.append("\n\tPriority:\t" + priority.get());
         }
+    }
 
+    /**
+     * @param rate
+     * @param timePeriod
+     * @param sb
+     */
+    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
+            StringBuilder sb) {
+        
+        if (!timePeriod.isPresent()) {
+            return;
+        }
+        
+        String timePeriodStr = timePeriod.get();
+        if (rate.isPresent()) {
+            String recurRate = rate.get();
+            sb.append("\n\tRecurrence Rate:\t" + "every " + recurRate + " " + timePeriodStr);
+        } else {
+            sb.append("\n\tRecurrence Rate:\t" + "every 1 " + timePeriodStr);
+        }
+    }
+
+    /**
+     * @param endDate
+     * @param sb
+     */
+    private void generateAddDetailedTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
+        if (endDate.isPresent()) {
+            sb.append("\n\tEnd Date:\t\t" + endDate.get());
+        }
+    }
+
+    /**
+     * @param startDate
+     * @param sb
+     */
+    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
+        if (startDate.isPresent()) {
+            sb.append("\n\tStart Date:\t" +startDate.get());
+        }
+    }
+
+    /**
+     * @param name
+     * @param sb
+     */
+    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
+        if (name.isPresent()) {
+            sb.append("\n\tName:\t" + name.get());
+        }
+    }
+
+    /**
+     * @return
+     */
+    private StringBuilder generateAddDetailedTooltipHeader() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(AddCommand.TOOL_TIP);
+        sb.append("\n\tAdding task: ");
+        return sb;
+    }
+
+    /**
+     * @param trimmedArgs
+     * @return
+     * @throws IllegalValueException
+     */
+    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs) throws IllegalValueException {
+        return new CommandParserHelper().prepareAdd(trimmedArgs);
     }
 }
