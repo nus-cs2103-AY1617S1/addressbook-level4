@@ -96,11 +96,11 @@ public class UniqueTaskList implements Iterable<Task> {
     		updatedTask.setDate(oldTask.getDate());
     	}
     	
-    	if (updatedTask.getStartTime().fullTime == "       ") {
+    	if (updatedTask.getStartTime().getFullTime() == "       ") {
     		updatedTask.setStartTime(oldTask.getStartTime());
     	}
     	
-    	if (updatedTask.getEndTime().fullTime == "       ") {
+    	if (updatedTask.getEndTime().getFullTime() == "       ") {
     		updatedTask.setEndTime(oldTask.getEndTime());
     	}
     	

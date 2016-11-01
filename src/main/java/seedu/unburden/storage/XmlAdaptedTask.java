@@ -48,8 +48,8 @@ public class XmlAdaptedTask {
         name = source.getName().getFullName();
         taskD = source.getTaskDescription().getFullTaskDescription();
         date = source.getDate().getFullDate();
-        startTime = source.getStartTime().fullTime;
-        endTime = source.getEndTime().fullTime;
+        startTime = source.getStartTime().getFullTime();
+        endTime = source.getEndTime().getFullTime();
         done = source.getDoneString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {

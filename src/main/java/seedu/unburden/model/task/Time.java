@@ -20,7 +20,7 @@ public class Time {
 
 	// \\[0-9]{2}[0-9]{2}
 
-	public final String fullTime;
+	private final String fullTime;
 
 	/**
 	 * Validates given time.
@@ -50,6 +50,10 @@ public class Time {
 		final Pattern pattern = Pattern.compile(TIME_VALIDATION_REGEX);
 		final Matcher matcher = pattern.matcher(test);
 		return matcher.matches();
+	}
+	
+	public String getFullTime() {
+		return this.fullTime;
 	}
 
 	@Override
