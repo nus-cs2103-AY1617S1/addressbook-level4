@@ -328,11 +328,19 @@ public class TestUtil {
      * @return The modified array of tasks.
      * @throws IllegalValueException 
      */
-    public static TestTask[] editTaskInList(final TestTask[] tasks, int index, String change, TestTask taskToEdit) throws IllegalValueException {
+    public static TestTask[] editTaskInList(final TestTask[] tasks, int index, String change, TestTask taskToEdit) {
         List<TestTask> listOfTasks = asList(tasks);
-        TestTask taskEditted = TestUtilParser.editTask(taskToEdit, change);
-        listOfTasks.set(index, taskEditted);
-        System.out.println(listOfTasks.toString());
+        TestTask taskEditted;
+		try {
+			taskEditted = TestUtilParser.editTask(taskToEdit, change);
+		} catch (IllegalValueException e) {
+			taskEditted = taskToEdit;
+			System.out.println("Illegal Value");
+			e.printStackTrace();
+		}
+		System.out.println("New expected task: " + taskEditted.getName().fullName);
+        listOfTasks.set(index-1, taskEditted);
+        System.out.println("Editted list: " + listOfTasks.toString() + " size: " + listOfTasks.size());
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 

@@ -202,12 +202,9 @@ public class Parser {
         
         Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
         String newDetail = matcher.group("newDetail");
-        System.out.println(newDetail);
         
         String detailType = extractDetailType(newDetail); 
         newDetail = prepareNewDetail(detailType, newDetail);
-        
-        System.out.println(index.get() + " " +  detailType + " " + newDetail);
         
         return new EditCommand(
            (index.get() - 1),
@@ -217,7 +214,6 @@ public class Parser {
     }
     
     private String extractDetailType(String detailType) {
-    	System.out.println(detailType.substring(0, 2));
     	switch(detailType.substring(0, 2)) {
     	case "d/": return "dueDate";
     	case "a/": return "address";
@@ -284,7 +280,6 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
-        System.out.println(index);
         if(!StringUtil.isUnsignedInteger(index)){
             return Optional.empty();
         }
