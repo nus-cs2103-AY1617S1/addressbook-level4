@@ -85,6 +85,6 @@ public class CompleteCommandTest extends ActivityManagerGuiTest {
     
     private void assertMissingIndex() {
         commandBox.runCommand("complete task");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
     }
 }
