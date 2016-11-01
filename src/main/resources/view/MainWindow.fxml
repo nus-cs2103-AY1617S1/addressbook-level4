@@ -14,7 +14,7 @@
          <items>
             <VBox fx:id="taskList" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="273.0" prefWidth="273.0" SplitPane.resizableWithParent="false">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox>
                      <children>
                         <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
                            <padding>
