@@ -31,9 +31,6 @@ public class XmlAdaptedTask {
     
     @XmlElement(required = false)
     private boolean isImportant;
-
-    @XmlElement(required = false)
-    private int recurrenceWeek;
     
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -73,13 +70,12 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final DateTime openTime = new DateTime(this.openTime, true); 
-        final DateTime closeTime = new DateTime(this.closeTime, true);
+        final DateTime openTime = DateTime.fromEpoch(this.openTime);
+        final DateTime closeTime = DateTime.fromEpoch(this.closeTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         final boolean isImportant = this.isImportant;
         final boolean isComplete = this.isComplete;
-        final int recurrenceWeek= this.recurrenceWeek;
-        return new Task(name, openTime, closeTime, isImportant, isComplete, tags, recurrenceWeek); 
+        return new Task(name, openTime, closeTime, isImportant, isComplete, tags); 
     }
 }
 //@@author
