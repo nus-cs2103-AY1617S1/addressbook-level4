@@ -324,6 +324,7 @@ public class LogicManagerTest {
         model.addTask(toBeMarked2);        
        
         // execute command and verify result
+        logic.execute("search done");
         assertCommandBehavior("unmark 1",
                 String.format(UnmarkCommand.MESSAGE_SUCCESS, toBeMarked.getName()),
                 expectedAB,
