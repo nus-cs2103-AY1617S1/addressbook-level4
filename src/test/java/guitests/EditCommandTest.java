@@ -19,24 +19,24 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		//edit the first in the list, edit task name
 		TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        String newContent = " edited name";
-        String type = " task";
+        String newContent = "edited name";
+        String type = "task";
         TestTask taskToBeReplaced = currentList[targetIndex - 1];
         taskToBeReplaced.setTaskName(new TaskName(newContent));
         assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
 
         //edit the last in the list, edit time 
-        targetIndex = currentList.length;
-        newContent = " 10:00 AM";
-        type = " start time";
+        targetIndex = 1;
+        newContent = "today";
+        type = "start date";
         taskToBeReplaced = currentList[targetIndex - 1];
         taskToBeReplaced.setStartTime(new TaskTime(newContent));
         //assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
         
         //edit priority
         targetIndex = 1;
-        newContent = " med";
-        type = " priority";
+        newContent = "med";
+        type = "priority";
         taskToBeReplaced = currentList[targetIndex - 1];
         taskToBeReplaced.setPriority(new Priority(newContent));
 //        assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);

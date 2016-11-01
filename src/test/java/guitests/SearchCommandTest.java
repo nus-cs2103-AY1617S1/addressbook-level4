@@ -21,7 +21,7 @@ public class SearchCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("delete 1");
         assertFindResult("search go",TypicalTestTasks.floating);
     }
-    
+
     @Test
     public void find_emptyList() throws IllegalArgumentException, IllegalValueException{
         commandBox.runCommand("clear");

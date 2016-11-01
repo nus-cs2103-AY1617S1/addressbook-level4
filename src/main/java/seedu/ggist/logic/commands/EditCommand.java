@@ -23,20 +23,21 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
 
     public int targetIndex;
-    public String field;
-    public String value;
+    public String[] field;
+    public String[] value;
 
     /**
      * Convenience constructor using raw values.
      *
      */
-    public EditCommand(int targetIndex, String field, String value) {
+    public EditCommand(int targetIndex, String[] field, String[] value) {
         this.targetIndex = targetIndex;
         this.field = field;
         this.value = value;
 
     }
-  //@@author A0138420N
+
+    // @@author A0138420N
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
@@ -44,40 +45,46 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        boolean correctField = field.equals("task") || field.equals("start date") || field.equals("end date") || field.equals("start time") || field.equals("end time") || field.equals("priority");
-        if (!correctField) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
-        }
         
-        Task taskToEdit = (Task)lastShownList.get(targetIndex - 1);
-        try {
-            model.getEditTaskField().push(field);
-            
-            if (field.equals("task")) {
-                model.getEditTaskValue().push(taskToEdit.getTaskName().toString()); 
-            } else if (field.equals("start date")) {
-                model.getEditTaskValue().push(taskToEdit.getStartDate().toString());
-            } else if (field.equals("end date")) {
-                model.getEditTaskValue().push(taskToEdit.getEndDate().toString()); 
-            } else if (field.equals("start time")) {
-                model.getEditTaskValue().push(taskToEdit.getStartTime().toString()); 
-            } else if (field.equals("end time")) {
-                model.getEditTaskValue().push(taskToEdit.getEndTime().toString());
-            } else if (field.equals("priority")) {
-                model.getEditTaskValue().push(taskToEdit.getPriority().toString());
+        Task taskToEdit = (Task) lastShownList.get(targetIndex - 1);
+        
+        for (int i = 0; i < field.length; i++) {
+            boolean correctField = field[i].equals("task") || field[i].equals("start date") || field[i].equals("end date")
+                    || field[i].equals("start time") || field[i].equals("end time") || field[i].equals("priority");
+            if (!correctField) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
             }
-            model.editTask(taskToEdit, field, value);
-            model.getListOfCommands().push(COMMAND_WORD);
-            model.getListOfTasks().push(taskToEdit);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        } catch (IllegalValueException ive) {
-            return new CommandResult(ive.getMessage());
+
+            
+            try {
+                model.getEditTaskField().push(field[i]);
+
+                if (field[i].equals("task")) {
+                    model.getEditTaskValue().push(taskToEdit.getTaskName().toString());
+                } else if (field[i].equals("start date")) {
+                    model.getEditTaskValue().push(taskToEdit.getStartDate().toString());
+                } else if (field[i].equals("end date")) {
+                    model.getEditTaskValue().push(taskToEdit.getEndDate().toString());
+                } else if (field[i].equals("start time")) {
+                    model.getEditTaskValue().push(taskToEdit.getStartTime().toString());
+                } else if (field[i].equals("end time")) {
+                    model.getEditTaskValue().push(taskToEdit.getEndTime().toString());
+                } else if (field[i].equals("priority")) {
+                    model.getEditTaskValue().push(taskToEdit.getPriority().toString());
+                }
+                model.editTask(taskToEdit, field[i], value[i]);
+                model.getListOfCommands().push(COMMAND_WORD);
+                model.getListOfTasks().push(taskToEdit);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            } catch (IllegalValueException ive) {
+                return new CommandResult(ive.getMessage());
+            }
+            indicateCorrectCommandExecuted();
         }
-        indicateCorrectCommandExecuted();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
 
 }
-//@@author
+// @@author

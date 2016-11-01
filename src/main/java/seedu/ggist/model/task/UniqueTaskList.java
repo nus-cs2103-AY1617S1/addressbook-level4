@@ -93,7 +93,11 @@ public class UniqueTaskList implements Iterable<Task> {
             break;
         case "start time":
                 toEdit.getStartTime().editTime(value);
-                toEdit.constructStartDateTime(toEdit.getStartDate(), toEdit.getStartTime());
+                if (toEdit.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+                    toEdit.constructStartDateTime(toEdit.getEndDate(), toEdit.getStartTime());
+                } else {
+                    toEdit.constructStartDateTime(toEdit.getStartDate(), toEdit.getStartTime());   
+                }
                 toEdit.checkTimeClash();
             break;
         case "end date":
