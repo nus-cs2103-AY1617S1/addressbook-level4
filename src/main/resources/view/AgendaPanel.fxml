@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="table-view" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
+<VBox stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.AgendaPanel">
    <children>
       <TableView fx:id="tasksTableView" minHeight="20.0" stylesheets="@DarkTheme.css">
         <columns>
@@ -30,4 +31,8 @@
          </columnResizePolicy>
       </TableView>
    </children>
+   <styleClass>
+      <String fx:value="anchor-pane-with-border" />
+      <String fx:value="table-view" />
+   </styleClass>
 </VBox>
