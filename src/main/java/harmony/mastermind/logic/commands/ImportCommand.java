@@ -1,7 +1,9 @@
 package harmony.mastermind.logic.commands;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 
@@ -36,6 +38,19 @@ public class ImportCommand extends Command {
     public CommandResult execute() {
         assert fileToImport != null;
         assert lstOfCmd != null;
+        
+        File file = new File(fileToImport);
+        try  
+        {  
+           String fileType = Files.probeContentType(file.toPath());  
+           System.out.println(fileType);
+        }  
+        catch (IOException ioException)  
+        {  
+           System.out.println(  
+                "ERROR: Unable to determine file type for " + fileToImport  
+                   + " due to exception " + ioException);  
+        }  
 
         try {
             BufferedReader br = model.importFile(fileToImport);
