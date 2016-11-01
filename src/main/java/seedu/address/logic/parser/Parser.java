@@ -33,13 +33,6 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^;/]+)"
-            		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+))?)"
-            		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
-            		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
-            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     //@@author A0121261Y
     /**
      * Regex validation for time format duplicated from Time class.
@@ -69,11 +62,13 @@ public class Parser {
             + "12Hour format with AM/PM required or 24Hour format without AM/PM \n"
             + "eg: 10-12-2012 09:00AM 11:59PM";
 
-    enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
+    enum TaskType {UNTIMED, DEADLINE, TIMERANGE, EVENT}
 
     public static final int TASK_DATE_ONLY = 0;
     public static final int TASK_START_TIME = 1;
     public static final int TASK_END_TIME = 2;
+    public static final int EVENT_END_DATE = 2;
+    public static final int EVENT_END_TIME = 3;
 
     private static final Prefix namePrefix = new Prefix("n;");
     private static final Prefix datePrefix = new Prefix("t;");
@@ -262,14 +257,24 @@ public class Parser {
                             getPrefixValueElseBlank(argsTokenizer,locationPrefix),
                             toSet(argsTokenizer.getAllValues(tagsPrefix))
                     );
+                case EVENT:
+                    assert dateTimeArgs != null;
+                    return new AddCommand(
+                            taskName.get(),
+                            dateTimeArgs[TASK_DATE_ONLY], dateTimeArgs[TASK_START_TIME],
+                            dateTimeArgs[EVENT_END_DATE], dateTimeArgs[EVENT_END_TIME],
+                            getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
+                            getPrefixValueElseBlank(argsTokenizer,locationPrefix),
+                            toSet(argsTokenizer.getAllValues(tagsPrefix))
+                    );
                 default:
                     assert false: "Not suppose to happen.";
-                    return null;
             }
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+        return null;
     }
 
     private boolean isValidDateTimeFormat(String[] dateTimeArgs) {
@@ -277,8 +282,15 @@ public class Parser {
         TaskType taskType = TaskType.values()[args];
 
         switch (taskType) {
+            case EVENT:
+                if(!isValidDate(dateTimeArgs[EVENT_END_DATE])) {
+                    return false;
+                }
+                if(!isValidTime(dateTimeArgs[EVENT_END_TIME])){
+                    return false;
+                }
             case TIMERANGE:
-                if(!isValidTime(dateTimeArgs[TASK_END_TIME])) {
+                if(!isValidTime(dateTimeArgs[TASK_END_TIME]) && taskType == TaskType.TIMERANGE) {
                     return false;
                 }
             case DEADLINE:
@@ -291,7 +303,7 @@ public class Parser {
                 }
                 break;
             default:
-                assert false : "Not suppose to happen";
+                return false; //no. of arguments > expected arguments
         }
         return true;
     }

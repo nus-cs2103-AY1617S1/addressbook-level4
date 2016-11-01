@@ -15,12 +15,16 @@ import seedu.address.logic.parser.Parser;
 //@@author A0121261Y
 /**
  * Represents a Task's Date in the SmartyDo.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isCorrectConstructor(String)}
  */
 public class Time implements Comparable<Time> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task Dates should be in valid UK-format "
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY";
+
+    public static final String MESSAGE_INVALID_DATETIME_RANGE = "Task end dates and/or time must be "
+            + "after start date and/or time.";
+
     /**
      * Date validation in UK format, includes checks for valid date during leap years.
      * Supported Formats: dd/mmm/yyyy, dd-mmm-yyyy, dd/mm/yyyy, dd-mm-yyyy, dd.mm.yyyy
@@ -64,7 +68,7 @@ public class Time implements Comparable<Time> {
         assert date != null;
         date = fixStoredDataForTest(date);
         date = date.toUpperCase(); // fix for strings that bypass parser from other components..
-        assert (isValidDate(date)); // if this fails, you have used the wrong constructor
+        assert (isCorrectConstructor(date)); // if this fails, you have used the wrong constructor
         endDate = Optional.empty();
         isUntimed = true;
         DateTimeFormatter formatter = setDateFormatter();
@@ -120,7 +124,6 @@ public class Time implements Comparable<Time> {
         startTime = startTime.toUpperCase();
         endDate = Optional.empty();
         isUntimed = false;
-        startDate = startDate.toUpperCase(); // fix for strings that bypass parser from other components.
         startDate = fixMonthForJavaFormat(startDate);
         DateTimeFormatter dateFormatter = setDateFormatter();
         DateTimeFormatter timeFormatter = setTimeFormatter();
@@ -140,22 +143,57 @@ public class Time implements Comparable<Time> {
         assert startDate != null;
         assert startTime != null;
         assert endTime != null;
-/*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }*/
 
         isUntimed = false;
-        startDate = startDate.toUpperCase(); // fix for strings that bypass parser from other components.
         startDate = fixMonthForJavaFormat(startDate);
         startTime = startTime.toUpperCase();
         endTime = endTime.toUpperCase();
         DateTimeFormatter formatter = setDateFormatter();
         DateTimeFormatter timeFormatter = setTimeFormatter();
         LocalDate localDate = LocalDate.parse(startDate, formatter);
-        LocalTime localstartTime = LocalTime.parse(startTime, timeFormatter);
-        LocalTime localendTime = LocalTime.parse(endTime, timeFormatter);
-        this.startDate = localDate.atTime(localstartTime);
-        this.endDate = Optional.ofNullable(localDate.atTime(localendTime));
+        LocalTime localStartTime = LocalTime.parse(startTime, timeFormatter);
+        LocalTime localEndTime = LocalTime.parse(endTime, timeFormatter);
+        this.startDate = localDate.atTime(localStartTime);
+        this.endDate = Optional.of(localDate.atTime(localEndTime));
+        if (!isValidDateTime()) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATETIME_RANGE);
+        }
+        value = timeToUkFormat();
+    }
+
+    private boolean isValidDateTime() {
+        if (this.endDate.get().compareTo(this.startDate) < 0) // endDate before startDate
+            return false;
+        return true;
+    }
+    /**
+     * Validates given Event - startDate startTime endDate endTime- parameters.
+     *
+     * @param a string consisting of only the date and a start and end time
+     * @return a task with Time Range.
+     * @throws IllegalValueException if given time string is invalid.
+     */
+    public Time(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
+        assert startDate != null;
+        assert startTime != null;
+        assert endTime != null;
+
+        isUntimed = false;
+        startDate = fixMonthForJavaFormat(startDate);
+        startTime = startTime.toUpperCase();
+        endTime = endTime.toUpperCase();
+        endDate = fixMonthForJavaFormat(endDate);
+        DateTimeFormatter formatter = setDateFormatter();
+        DateTimeFormatter timeFormatter = setTimeFormatter();
+        LocalDate localDate = LocalDate.parse(startDate, formatter);
+        LocalDate localEndDate = LocalDate.parse(endDate, formatter);
+        LocalTime localStartTime = LocalTime.parse(startTime, timeFormatter);
+        LocalTime localEndTime = LocalTime.parse(endTime, timeFormatter);
+        this.startDate = localDate.atTime(localStartTime);
+        this.endDate = Optional.of(localEndDate.atTime(localEndTime));
+        if (!isValidDateTime()) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATETIME_RANGE);
+        }
         value = timeToUkFormat();
     }
 
@@ -237,13 +275,15 @@ public class Time implements Comparable<Time> {
     }
 
     /**
-     * TODO: Change validation to comparing valid time Range
-     *       Parsing of valid date arguments is in parser.
+     * Check if the correct constructor is used when calling Time(String)
+     * To ensure string contains a date only
+     *
+     * @param: A Date String in valid format
+     *
      * Returns true if a given string is a valid task time.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isCorrectConstructor(String test) {
         return test.matches(Parser.DATE_VALIDATION_FORMAT);
-
     }
 
     public boolean getUntimedStatus() {
@@ -284,6 +324,13 @@ public class Time implements Comparable<Time> {
             return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
         }
 
+    }
+
+    public String getEndDateString() {
+        if (!endDate.isPresent()) {
+            return null;
+        }
+        return endDate.get().toLocalDate().format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
     }
 
     public String getEndTimeString() {

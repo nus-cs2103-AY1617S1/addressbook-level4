@@ -60,7 +60,7 @@ public class AddCommand extends Command implements Undoable {
         isExecutedBefore = false;
     }
 
-    /*
+    /**
      * Task with time only
      */
     public AddCommand(String name, String date, String startTime, String description, String address, Set<String> tags)
@@ -82,7 +82,7 @@ public class AddCommand extends Command implements Undoable {
         isExecutedBefore = false;
     }
 
-    /*
+    /**
      * rangeTask
      */
     public AddCommand(String name, String date, String startTime, String endTime, String description, String address, Set<String> tags)
@@ -103,6 +103,26 @@ public class AddCommand extends Command implements Undoable {
         isExecutedBefore = false;
     }
 
+    /**
+     *  Events
+     */
+    public AddCommand(String name, String startDate, String startTime, String endDate, String endTime, String description, String address, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        assert !CollectionUtil.isAnyNull(startDate, startTime, endDate, endTime);
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        Time addTime = new Time(startDate, startTime, endDate, endTime);
+        this.toAdd = new Task(
+                new Name(name),
+                Optional.of(addTime),
+                new Description(description),
+                new Location(address),
+                new UniqueTagList(tagSet)
+        );
+        isExecutedBefore = false;
+    }
     @Override
     public CommandResult execute() {
         assert model != null;

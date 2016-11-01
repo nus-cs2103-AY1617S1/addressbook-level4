@@ -127,8 +127,11 @@ public class Task implements ReadOnlyTask {
                 return TaskType.UNTIMED;
             } else if (!time.get().getEndDate().isPresent()) {
                 return TaskType.DEADLINE;
-            } else {
+            } else if (time.get().getEndDate().get().toLocalDate()
+                    .equals(time.get().getStartDate().toLocalDate())){
                 return TaskType.TIMERANGE;
+            } else {
+                return TaskType.EVENT;
             }
         } else {
             return TaskType.FLOATING;
