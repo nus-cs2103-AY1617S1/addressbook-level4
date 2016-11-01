@@ -19,7 +19,6 @@ public class TagCard extends UiPart{
     private Text tasksCount;
     
     private Tag tag;
-    private int numTasksText;
     private static int displayedIndex;
     
     public TagCard() {}

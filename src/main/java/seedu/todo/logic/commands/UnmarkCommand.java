@@ -52,7 +52,7 @@ public class UnmarkCommand extends Command {
             toMark.setCompletion(new Completion(false));
             
             model.updateTask(taskToMark, toMark);
-            model.updateFilteredListToShowAll();
+            model.updateFilteredListToShowAllNotCompleted();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         } 

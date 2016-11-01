@@ -31,7 +31,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getTaskName() {
-        return getTextFromLabel(TASK_NAME_FIELD_ID);
+        return getTextFromText(TASK_NAME_FIELD_ID);
     }
 
     public String getDetail() {
