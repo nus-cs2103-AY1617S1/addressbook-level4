@@ -39,13 +39,13 @@ public class ListCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         assertListResult("list all"); //no results
     }
-/*
+
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("find milk");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-*/
+
     private void assertListResult(String command, TestTask... expectedHits ) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
