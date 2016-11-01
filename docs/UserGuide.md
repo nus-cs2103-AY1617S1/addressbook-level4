@@ -15,7 +15,7 @@
    
    Click [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) to download the latest Java version.
    
-2. Download the latest `tars.jar` from the 'releases' tab. [*No releases available yet*]
+2. Download the latest `tars.jar` from the '[releases](https://github.com/CS2103AUG2016-F10-C1/main/releases)' tab.
 3. Copy the file to the folder you want to use as the home folder for your TARS App.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.  
@@ -39,7 +39,7 @@ Format: `help`
  
 #### Adding a task : `add`
 Adds a task to TARS  
-Format: `add <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> /t <TAG>[, <TAG>, <TAG>,...] /r <NUM_TIMES> <FREQUENCY>` 
+Format: `add <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> /p <PRIORITY> [/t <TAG> /t...] /r <NUM_TIMES> <FREQUENCY>` 
  
 > Words in `UPPER_CASE` are the parameters. Other than `<TASK_NAME>`, all parameters are optional. 
 > You can add a floating task (i.e. tasks without datetime).
@@ -283,7 +283,7 @@ Examples:
 * `1/02/2016`
 * `2/2/16`
 
-#### formal dates
+#### relaxed dates
 Relaxed dates are those in which the month, day of week, day of month, and year may be given in a loose, non-standard manner, with most parts being optional.
 
 Examples:
