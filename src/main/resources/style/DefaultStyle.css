@@ -204,7 +204,7 @@
 }
 
 .taskCard .lightBackground {
-    -fx-background-color: #d2d2d2;
+    -fx-background-color: #777777;
 }
 
 .taskCard .roundLabel {
@@ -232,7 +232,7 @@
 
 /*Completed*/
 .completed {
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.4;
 }
 
 .completed.selected {
