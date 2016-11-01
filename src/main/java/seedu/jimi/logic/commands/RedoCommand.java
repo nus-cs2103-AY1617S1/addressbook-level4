@@ -26,9 +26,12 @@ public class RedoCommand extends Command {
 
     @Override
     public boolean isValidCommandWord(String commandWord) {
-        String lowerStr = commandWord.toLowerCase();
-        return lowerStr.equals(COMMAND_WORD.toLowerCase()) 
-                || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase());
+        for (int i = 1; i <= COMMAND_WORD.length(); i++) {
+            if (commandWord.toLowerCase().equals(COMMAND_WORD.substring(0, i))) {
+                return true;
+            }
+        }
+        return false;
     }
     
     @Override
