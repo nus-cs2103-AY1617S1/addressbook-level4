@@ -22,7 +22,7 @@ This user guide covers the features of the application and has a short summary o
 2. Copy the file to the folder you want to use as the home folder for your Task Manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <div style="text-align:center" markdown="1">
-<img src="images/UserGuide Mock up1.png" title="Task manager GUI on start up" width="900">
+<img src="images/UserGuide Mock up.png" title="Task manager GUI on start up" height = "800" width="500">
 <figcaption>Fig. 1: Task manager GUI on start up</figcaption>
 </div>
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
