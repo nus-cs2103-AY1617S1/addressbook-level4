@@ -34,6 +34,11 @@ public class ModelManager extends ComponentManager implements Model {
     private ArrayDeque<ListOfTask> prevLists = new ArrayDeque<ListOfTask>();
     private ArrayDeque<ListOfTask> undoHistory = new ArrayDeque<ListOfTask>();
 
+    private java.util.function.Predicate<? super Task> getAllUndone() {
+		return t -> {
+			return !t.getDone();
+		};
+	}
     /**
      * Initializes a ModelManager with the given ListOfTask
      * ListOfTask and its variables should not be null
@@ -85,7 +90,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         listOfTask.addTask(task);
-        updateFilteredListToShowAll();
+        //updateFilteredListToShowAll();
+        updateFilteredTaskList(getAllUndone());
         indicateTaskListChanged();
     }
     
@@ -94,7 +100,8 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(ReadOnlyTask target, Task toEdit) 
     		throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         listOfTask.editTask(target, toEdit);
-        updateFilteredListToShowAll();
+        //updateFilteredListToShowAll();
+        updateFilteredTaskList(getAllUndone());
         indicateTaskListChanged();
     }
     
@@ -104,7 +111,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
-    	updateFilteredListToShowAll();
+    	//updateFilteredListToShowAll();
+        updateFilteredTaskList(getAllUndone());
     	indicateTaskListChanged();
     }
     
@@ -112,7 +120,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override 
     public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
     	listOfTask.doneTask(taskToDone,isunDone);
-    	updateFilteredListToShowAll();
+    	//updateFilteredListToShowAll();
+        updateFilteredTaskList(getAllUndone());
     	indicateTaskListChanged();
     }
     
