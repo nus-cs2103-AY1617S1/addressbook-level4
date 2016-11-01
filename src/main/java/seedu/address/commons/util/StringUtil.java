@@ -54,6 +54,13 @@ public class StringUtil {
     }
     
     //@@author
+    /**
+     * Removes array brackets from a target String.
+     */
+    public static String removeArrayBrackets(String target) {
+        return target.replace("[", "").replace("]", "");
+    }
+    
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);

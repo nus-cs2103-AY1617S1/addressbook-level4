@@ -34,7 +34,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
 
         //invalid index
         commandBox.runCommand("done " + currentList.length + 1);
-        assertResultMessage("The item index provided is invalid");
+        assertResultMessage("The task index provided is invalid");
         
     }
 

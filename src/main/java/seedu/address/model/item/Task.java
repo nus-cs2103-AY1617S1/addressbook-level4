@@ -30,7 +30,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskName = taskName;
         this.priority = priorityValue;
     }
-
+    //@@author
     /**
      * Copy constructor.
      * 
@@ -353,11 +353,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private int compareByTaskName(Task other) {
         return this.taskName.name.compareTo(other.taskName.name);
     }
-    /*
-    private int compareByReccurenceRate(Task other) {
-        return this.recurrenceRate.compareTo(other.recurrenceRate);
-    }
-     */
     
     //@@author A0139498J
     public void setName(Name name) {

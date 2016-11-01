@@ -348,7 +348,7 @@ public class LogicManagerTest {
         Collections.sort(personList);
 
         // set AB state to 2 persons
-        model.resetData(new TaskManager());
+        model.resetUndoneData(new TaskManager());
         for (Task p : personList) {
             model.addTask(p);
         }
