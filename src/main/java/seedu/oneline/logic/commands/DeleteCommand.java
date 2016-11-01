@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
 
     public static DeleteCommand createFromArgs(String args) throws IllegalCmdArgsException {
         if (args.trim().startsWith(CommandConstants.TAG_PREFIX)){
-            return DeleteTagCommand.createFromArgs(args);
+            return DeleteTagCommand.createFromArgs(args.trim());
         }
         
         Integer index = null;
