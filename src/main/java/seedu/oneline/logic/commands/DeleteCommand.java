@@ -16,9 +16,15 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes a task or category in the task book. \n"
+                    + " === Delete Task === \n"
+                    + "Parameters: INDEX (must be a positive integer)\n"
+                    + "Example: " + COMMAND_WORD
+                    + " 1\n"
+                    + " === Delete Category === \n"
+                    + "Parameters: #catname \n"
+                    + "Example: " + COMMAND_WORD
+                    + "#meeting";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
