@@ -1,0 +1,9 @@
+diff a/src/test/java/seedu/address/logic/LogicManagerTest.java b/src/test/java/seedu/address/logic/LogicManagerTest.java	(rejected hunks)
+@@ -539,6 +539,7 @@
+ +        assertCommandBehavior(helper.generateEditCommand("A1", 1, "old name"),
+ +=======
+          assertCommandBehavior(helper.generateEditCommand(1, type, field),
+++>>>>>>> Stashed changes
+                  String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, edited),
+                  expectedAB, expectedAB.getDatedTaskList(),
+                  expectedAB.getUndatedTaskList());

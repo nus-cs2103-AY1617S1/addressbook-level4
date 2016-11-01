@@ -15,9 +15,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.ui.PersonListPanel;
 
 
 //@@author A0143884W
@@ -97,18 +95,21 @@ public class EditCommand extends Command implements Undoable{
         }
         
         populateEditedTaskFields();
-
+        boolean duplicate = false;
         try {
-            model.addTask(toAdd);
-            model.deleteTask(toEdit);           
+        	model.deleteTask(toEdit);  
+            duplicate = model.addTask(toAdd);                
             populateUndo();
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);     
-        } catch (TaskNotFoundException pnfe) {
+        }  catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        if (duplicate){
+        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK);
+        }
+        else {
+        	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
+        }
     }
 
     // use original task as base, insert fields that have been input in edit
