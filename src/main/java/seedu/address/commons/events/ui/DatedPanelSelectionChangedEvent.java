@@ -4,14 +4,13 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Dated List Panel
  */
-public class PersonPanelSelectionChangedEvent extends BaseEvent {
-
+public class DatedPanelSelectionChangedEvent extends BaseEvent {
 
     private final ReadOnlyTask newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public DatedPanelSelectionChangedEvent(ReadOnlyTask newSelection){
         this.newSelection = newSelection;
     }
 

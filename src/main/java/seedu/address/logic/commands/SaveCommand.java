@@ -94,7 +94,7 @@ public class SaveCommand extends Command {
 			config = ConfigUtil.readConfig(configFilePath).orElse(new Config());
 
 			// Moves the old task.xml file to the new location
-			File oldDataPath = new File(config.getAddressBookFilePath());
+			File oldDataPath = new File(config.getTaskBookFilePath());
 			if (filePath.equals(oldDataPath.toString())) {
 				return new CommandResult(MESSAGE_LOCATION_SPECIFIED_SAME);
 			}

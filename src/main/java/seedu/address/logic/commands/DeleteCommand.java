@@ -6,6 +6,7 @@ import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139024M
 /**
  * Deletes a task identified using it's last displayed index from the task book.
  */
@@ -15,7 +16,7 @@ public class DeleteCommand extends Command implements Undoable {
     public static final String COMMAND_ALIAS = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number given in the most recent listing.\n"
+            + ": Deletes the task identified by the index given in the most recent listing.\n"
             + "Parameters: INDEX\n"
             + "Example: " + COMMAND_WORD + " A1";
 
@@ -38,7 +39,7 @@ public class DeleteCommand extends Command implements Undoable {
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
                 lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
         toDelete = CommandUtil.getTaskFromCorrectList(targetIndex, lastDatedTaskList, lastUndatedTaskList);

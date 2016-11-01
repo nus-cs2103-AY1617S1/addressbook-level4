@@ -24,6 +24,6 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskListByDate(datetime.getStart());
-        return new CommandResult(datetime.getDateString() + " : " + getMessageForPersonListShownSummary(model.getFilteredDatedTaskList().size()));
+        return new CommandResult("Viewing tasks for " + datetime.getDateString());
     }
 }
