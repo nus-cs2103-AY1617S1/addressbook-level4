@@ -60,7 +60,7 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
         Task doneTask = null;
-        doneTask = taskToDone.markDone(taskToDone);
+        doneTask = taskToDone.markDone();
         
         if(taskToDone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));

@@ -191,9 +191,8 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
      * @return
      */
     @Override
-    public Task markDone(ReadOnlyTask task) {
-        assert task != null;
-        ReadOnlyTask oldTask = task;
+    public Task markDone() {
+        ReadOnlyTask oldTask = this;
         
         TaskName newName = oldTask.getName();
         TaskTime newStartTime = oldTask.getStartTime();
@@ -212,9 +211,8 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
      * @return
      */
     @Override
-    public Task markUndone(ReadOnlyTask task) {
-        assert task != null;
-        ReadOnlyTask oldTask = task;
+    public Task markUndone() {
+        ReadOnlyTask oldTask = this;
         
         TaskName newName = oldTask.getName();
         TaskTime newStartTime = oldTask.getStartTime();
