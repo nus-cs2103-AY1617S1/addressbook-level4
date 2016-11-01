@@ -1,9 +1,14 @@
 package seedu.task.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import seedu.task.model.task.ReadOnlyTask;
 import java.util.Date;
 import java.text.*;
@@ -52,6 +57,10 @@ public class TaskCard extends UiPart{
         dueDate.setText("Due Date: " + isDateNull(task.getDueDate().dueDate));
         status.setText(task.getStatus().status.toString());
         tags.setText(task.tagsString());
+        //@@author A0153751H
+        //cardPane.setBackground(new Background(new BackgroundFill(task.getTaskColor().getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+        cardPane.setStyle(task.getTaskColor().toStyle());
+        //@@author
     }
     
     public String isDateNull(Date inputDate) {
