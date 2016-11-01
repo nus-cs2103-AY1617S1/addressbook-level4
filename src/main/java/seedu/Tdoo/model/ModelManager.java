@@ -51,7 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
         
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     public ModelManager() {
@@ -67,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(eventList.getTasks());
         filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
 
-        undoer = new Undoer(this);
+        undoer = Undoer.getInstance(this);
     }
 
     @Override

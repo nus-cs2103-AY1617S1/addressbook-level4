@@ -10,8 +10,16 @@ public class Undoer {
 	
 	private final Stack<Command> undoStack;
 	private final Model model;
+	private static Undoer instance;
 	
-	public Undoer (Model model) {
+	public static Undoer getInstance(Model model) {
+		if(instance == null) {
+			instance = new Undoer(model);
+		}
+		return instance;
+	}
+	
+	private Undoer (Model model) {
 		this.model = model;
 		undoStack = new Stack<Command>();
 	}
@@ -50,6 +58,7 @@ public class Undoer {
 	}
 	
 	public void executeUndo() {
+		assert(!undoStack.isEmpty());
 		Command undoCommand = undoStack.pop();
     	undoCommand.setData(model, null);
     	undoCommand.execute();

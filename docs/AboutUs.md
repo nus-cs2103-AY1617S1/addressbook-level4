@@ -9,14 +9,14 @@ We are a team based in the [School of Computing, National University of Singapor
 * Role: Developer <br>
 * Responsibilities: Documentation & Front-end (UI and Integration to JavaFX) wizard
 * Components in charge of: [UI]() / [Storage]()
-* Aspect/tools in charge of: Documentation, Git
+* Aspect/tools in charge of: GitHub
 * Features implemented:  
- * [Storage]()
- * [Ui]()
+ * [Undo command]()
+ * [Clear list]()
 * Code written: [[stub entry]()]
 * Other major contributions:
- * Application design
- * Undo and clear commands
+ * Came out with the application design
+ * Did the initial refactoring from AddressBook to Tdoo
 
 -----
 
