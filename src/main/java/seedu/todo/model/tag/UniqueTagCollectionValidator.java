@@ -7,14 +7,13 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.task.ImmutableTask;
 
-import java.util.Set;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Collections;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 

@@ -15,7 +15,6 @@ import seedu.todo.ui.view.TodoListView;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
