@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.util.StringUtil;
@@ -45,18 +46,24 @@ public class FilteredListManager {
     private final HashMap<ListId, FilteredList<ReadOnlyTask>> listMap =
             new HashMap<ListId, FilteredList<ReadOnlyTask>>();
     
+    private final HashMap<ListId, SortedList<ReadOnlyTask>> sortedListMap =
+            new HashMap<ListId, SortedList<ReadOnlyTask>>();
+    
     private final HashMap<ListId, Expression> defaultExpressions = new HashMap<ListId, Expression>();
     
     
     public FilteredListManager(TaskBook taskBook) {
         initDefaultExpressions();
-        
-        /*
-         *  1. Initializing each list with taskBook's own internal list.
-         *  2. Setting default filters for each list.
-         *  
-         *  Adds in CompletedQualifiers when initializing agenda lists.
-         */
+        initFilteredLists(taskBook);
+        initSortedLists();
+    }
+    /*
+     *  1. Initializing each list with taskBook's own internal list.
+     *  2. Setting default filters for each list.
+     *  
+     *  Adds in CompletedQualifiers when initializing agenda lists.
+     */
+    private void initFilteredLists(TaskBook taskBook) {
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
             
@@ -70,6 +77,19 @@ public class FilteredListManager {
         }
     }
     
+    /**
+     * @@author A0138915X
+     * 
+     * Wraps all the filteredLists with sortedLists.
+     */
+    private void initSortedLists() {
+        for(ListId id : ListId.values()) {
+            sortedListMap.put(id, new SortedList<ReadOnlyTask>(listMap.get(id)));
+        }
+    }
+    //@@author
+    
+    // @@author A0140133B
     /**
      * Initializes default expressions used by all the filtered lists in {@code listMap}.
      */
@@ -112,12 +132,12 @@ public class FilteredListManager {
     
     /*
      * ===========================================================
-     *                  Getters for Filtered Lists
+     *                  Getters for Sorted-Filtered Lists
      * ===========================================================
      */
     
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
-        return new UnmodifiableObservableList<ReadOnlyTask>(listMap.get(id));
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredList(ListId id) {
+        return new UnmodifiableObservableList<ReadOnlyTask>(sortedListMap.get(id));
     }
     
     /*
