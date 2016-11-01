@@ -40,6 +40,9 @@ public class LogicManagerTest {
      */
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
+    
+    @Rule
+    public TemporaryFolder alternateFolder = new TemporaryFolder();
 
     private Model model;
     private Logic logic;
@@ -69,9 +72,9 @@ public class LogicManagerTest {
     public void setup() {
         model = new ModelManager();
         config = new Config();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempDoDoBirdFile = saveFolder.getRoot().getPath() + "TempDoDoBird.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, config, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, config, new StorageManager(tempDoDoBirdFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedToDoList = new DoDoBird(model.getToDoList()); // last saved assumed to be up to date before.
@@ -600,21 +603,24 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_store() throws Exception {
-        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
-        String newLocation = "C:\\Users\\Desmond\\Desktop\\NUS/" + config.getToDoListName() + ".xml";
-        assertEquals(newLocation, config.getToDoListFilePath());
-    }
-    
-    
-    @Test
     public void execute_reset() throws Exception {
         String origLocation = config.getToDoListFilePath();
-        logic.execute("store C:\\Users\\Desmond\\Desktop\\NUS");
         logic.execute("reset");
         
         assertEquals(origLocation, config.getToDoListFilePath());
     }
+    
+    
+    @Test
+    public void execute_store() throws Exception {
+        logic.execute("store " + alternateFolder.getRoot().getPath());
+        String newLocation = config.getToDoListFilePath();
+        assertEquals(newLocation, config.getToDoListFilePath());
+        logic.execute("reset");
+    }
+    
+    
+    
     
     
     //@@author
@@ -640,10 +646,6 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-        
-        //Confirm the ui display elements should contain the right data
-        System.out.println(expectedMessage);
-        System.out.println(result.feedbackToUser);
         
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
