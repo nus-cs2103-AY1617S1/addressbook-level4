@@ -84,7 +84,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	Task updatedTask = toEdit;
     	Task oldTask = internalList.get(taskIndex);
     	
-    	if (updatedTask.getName().fullName == "a") {
+    	if (updatedTask.getName().getFullName() == "a") {
     		updatedTask.setName(oldTask.getName());
     	}
     	

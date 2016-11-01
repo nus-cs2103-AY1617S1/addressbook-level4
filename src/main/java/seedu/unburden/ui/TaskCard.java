@@ -48,7 +48,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         
         id.setText(displayedIndex + ". ");
-        name.setText(task.getName().fullName);
+        name.setText(task.getName().getFullName());
         if(task.getDone()){
         	cardPane.setStyle("-fx-background-color : #a5a5a5");
         }
