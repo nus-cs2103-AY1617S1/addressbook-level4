@@ -21,10 +21,10 @@
                   <HBox alignment="CENTER_LEFT" spacing="5">
                       <children>
                           <HBox>
-                              <Label fx:id="id" styleClass="cell_big_label" />
-                              <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                              <Label fx:id="id" styleClass="cell_big_label" stylesheets="@DarkTheme.css" />
+                              <Label fx:id="name" styleClass="cell_big_label" stylesheets="@DarkTheme.css" text="\$first" />
                           </HBox>
-                          <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                          <Label fx:id="tags" styleClass="cell_small_label" stylesheets="@DarkTheme.css" text="\$tags" />
                       </children>
                   </HBox>
               </children>

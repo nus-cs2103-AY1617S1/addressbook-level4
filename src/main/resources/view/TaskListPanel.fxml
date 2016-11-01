@@ -12,7 +12,7 @@
    <children>
       <AnchorPane>
          <children>
-            <Accordion fx:id="tasksAccordion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Accordion fx:id="tasksAccordion" styleClass="table-view" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <panes>
                   <TitledPane fx:id="titleFloatingTasks" animated="false" text="\\$ Floating Tasks">
                      <content>
