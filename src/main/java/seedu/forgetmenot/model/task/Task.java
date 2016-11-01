@@ -112,7 +112,7 @@ public class Task implements ReadOnlyTask {
             builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
         
         if (getRecurrence().getValue())
-            builder.append(" Recurrence: Every " + getRecurrence());
+            builder.append(" Recurrence: " + getRecurrence());
         
         return builder.toString();
     }

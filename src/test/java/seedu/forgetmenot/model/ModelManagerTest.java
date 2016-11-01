@@ -18,16 +18,15 @@ public class ModelManagerTest {
                 .withEndTime("tomorrow 10pm").withDone(false).withRecurrence("day").build();
         ModelManager testModel = new ModelManager();
         testModel.addRecurringTask(recurringTask);
+        testModel.sortTasks();
 
         TestTask toCheck;
         StringBuilder addedTime = new StringBuilder("");
-        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE; i++) {
+        for (int i = 0; i < Recurrence.DEFAULT_OCCURENCE - 1; i++) {
+            addedTime.insert(0, "day after ");
             toCheck = new TaskBuilder().withName("recurring task").withStartTime(addedTime + "tomorrow 9pm")
                     .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("day").build();
-            System.out.println("toCheck: " + toCheck.toString());
-            System.out.println("from model: " + testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i).toString());
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
-            addedTime.insert(0, "day after ");
 
         }
 

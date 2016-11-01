@@ -11,7 +11,7 @@ import seedu.forgetmenot.commons.exceptions.IllegalValueException;
  */
 public class Recurrence {
 
-    public static final int DEFAULT_OCCURENCE = 12;
+    public static final int DEFAULT_OCCURENCE = 10;
     
     private static final Pattern RECURRENCE_DATA_ARGS_FORMAT = Pattern.compile("(?<freq>((\\d* )?(day|week|month|year)(s)?))"
             + "( x(?<occ>(\\d++)))?");
