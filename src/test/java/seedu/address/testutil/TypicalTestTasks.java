@@ -88,6 +88,12 @@ public class TypicalTestTasks {
     }
     
     //@@author
+    
+    public TestTask[] getUnsortedTypicalTasks() {
+    	return new TestTask[]{someday1, someday2, someday3,
+				   deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
+                   event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days};
+    }
     public TestTask[] getTodayTasks() {
         return new TestTask[] {eventToday, deadlineToday};
     }
