@@ -243,13 +243,12 @@ public class Time {
     
     @Override
     public String toString() {
+    	SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
         if(time.getTime().equals(new Date(0))) {
-        	return (new Date(0)).toString();
+        	return dateFormatter.format(new Date(0));
         }
-        else {
-        	SimpleDateFormat dateFormatter = new SimpleDateFormat("E, MMM d, yyyy, hh:mm a");
+        else
             return dateFormatter.format(time.getTime());
-        }
     }
 
     @Override
