@@ -1,5 +1,6 @@
 package seedu.oneline.logic.commands;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.tag.Tag;
@@ -24,7 +25,13 @@ public class DeleteTagCommand extends DeleteCommand {
     
     @Override
     public CommandResult execute() {
-        return null; //stub
+        FilteredList<Tag> tagList = model.getTagList().filtered(tag -> tag.getTagName().equals(tagName));
+        if (tagList.isEmpty()){
+            return new CommandResult(String.format(Tag.MESSAGE_INVALID_TAG, tagName));
+        } else {
+            // TODO
+            return new CommandResult(MESSAGE_DELETE_CAT_SUCCESS + " : " + tagName);
+        }
     }
     
     @Override
