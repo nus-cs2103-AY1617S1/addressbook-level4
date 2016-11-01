@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
-import seedu.ggist.model.tag.UniqueTagList;
 
 /**
  * Represents a EventTask in the task manager.

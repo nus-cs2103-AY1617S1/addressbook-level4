@@ -7,7 +7,6 @@ import seedu.ggist.logic.parser.DateTimeParser;
 import java.util.Comparator;
 import java.util.Date;
 
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
 /**
