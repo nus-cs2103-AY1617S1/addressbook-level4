@@ -5,8 +5,11 @@ package seedu.oneline.logic.commands;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+
+import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
+import seedu.oneline.commons.events.ui.ShowAllViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -60,6 +63,7 @@ public class EditTaskCommand extends EditCommand {
         }
         try {
             model.replaceTask(oldTask, newTask);
+            EventsCenter.getInstance().post(new ShowAllViewEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (UniqueTaskList.TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
