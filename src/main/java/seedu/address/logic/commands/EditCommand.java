@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * Adds a task to the SmartyDo.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -35,7 +35,10 @@ public class EditCommand extends Command {
 
     public final int targetIndex;
     private ReadOnlyTask taskToEdit;
+    private ReadOnlyTask editedTask;
     private HashMap<String, List<String>> field_and_newValue_pair;
+    private HashMap<String, List<String>> field_and_oldValue_pair;
+    private boolean isExecutedBefore;
 
     /**
      * Convenience constructor using raw values.
@@ -44,6 +47,7 @@ public class EditCommand extends Command {
     public EditCommand(int targetIndex, HashMap<String, List<String>> field_and_newValue_pair){
 		this.targetIndex = targetIndex;
     	this.field_and_newValue_pair = field_and_newValue_pair;
+    	isExecutedBefore = false;
     }
 
     @Override
@@ -62,23 +66,24 @@ public class EditCommand extends Command {
         taskToEdit = lastShownList.get(targetIndex - 1);
         Class<? extends ReadOnlyTask> taskClazz = Task.class;
         HashMap<Field, Object> changesToBeMade = new HashMap<>();
-        ReadOnlyTask editedTask = null;
+        editedTask = null;
         try {
             for(Entry<String, List<String>> entry : field_and_newValue_pair.entrySet()){
-                
+
                 String fieldString = entry.getKey();
                 List<String> valueString = entry.getValue();
                 Class<?>[] argTypes = new Class[valueString.size()];
                 for(int i=0; i<valueString.size(); i++){
                     argTypes[i] = valueString.get(0).getClass();
                 }
-                
+
                 Field field = taskClazz.getDeclaredField(fieldString);
                 Object new_value = getObject(valueString, field);
                 assert new_value !=null;
                 changesToBeMade.put(field, new_value);
             }
             editedTask = model.editTask(taskToEdit, changesToBeMade);
+            isExecutedBefore = pushCmdToUndo(isExecutedBefore);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         } catch (NoSuchFieldException e){
@@ -88,12 +93,43 @@ public class EditCommand extends Command {
             e.printStackTrace();
             assert false : e.getMessage();
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
 
+    //@@author A0121261Y
+    /**
+     * Updates the task back to its original form by deleting the edited task
+     * and restoring the original state.
+     */
+    public CommandResult unexecute() {
+        int toRemove;
+        toRemove = model.getToDo().getTaskList().indexOf(editedTask);
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        ReadOnlyTask taskToDelete = lastShownList.get(toRemove);
+
+        try {
+            model.deleteTask(taskToDelete);
+            model.addTask((Task) taskToEdit);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false: "impossible for person to be missing";
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
+    }
+
+    @Override
+    public boolean pushCmdToUndo(boolean isExecuted) {
+        if (!isExecuted) {
+            undoRedoManager.addToUndo(this);
+        }
+        return true;
+    }
+    //@@author
+
  // Modified from http://stackoverflow.com/a/13872171/7068957
-    private Object getObject(List<String> valueString, Field field) throws InstantiationException, 
+    private Object getObject(List<String> valueString, Field field) throws InstantiationException,
         IllegalAccessException, InvocationTargetException, IllegalValueException {
         Class type;
         if(field.getName() == "time"){
@@ -130,7 +166,7 @@ public class EditCommand extends Command {
                 return ctor.newInstance(valueString.get(0), valueString.get(1), valueString.get(2));
             }
         }
-        
+
     }
 
 }
