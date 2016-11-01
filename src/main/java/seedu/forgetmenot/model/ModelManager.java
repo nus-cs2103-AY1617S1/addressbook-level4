@@ -209,8 +209,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139671X
     @Override
-    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd,
-            String newRecur) throws TaskNotFoundException, IllegalValueException {
+    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd
+            ) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
             taskManager.editTaskName(task, newName);
 
@@ -219,9 +219,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         if (newEnd != null)
             taskManager.editTaskEndTime(task, newEnd);
-
-        if (newRecur != null)
-            taskManager.editTaskRecurFreq(task, newRecur);
 
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

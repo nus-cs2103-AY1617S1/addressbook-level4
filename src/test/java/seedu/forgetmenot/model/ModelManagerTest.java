@@ -5,11 +5,48 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
+import seedu.forgetmenot.model.task.Done;
+import seedu.forgetmenot.model.task.Name;
 import seedu.forgetmenot.model.task.Recurrence;
+import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
+import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.forgetmenot.testutil.TaskBuilder;
 import seedu.forgetmenot.testutil.TestTask;
 
 public class ModelManagerTest {
+    
+    @Test
+    public void editTask_editName_changesNameOfTask() throws IllegalValueException, TaskNotFoundException {
+        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        Task taskToCheck = new Task(new Name("second name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        ModelManager testModel = new ModelManager();
+        testModel.addTask(taskToChange);
+        testModel.editTask(taskToChange, "second name", null, null);
+        
+        assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
+    }
+    
+    @Test
+    public void editTask_editStartTime_changesStartOfTask() throws IllegalValueException, TaskNotFoundException {
+        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        Task taskToCheck = new Task(new Name("first name"), new Done(false), new Time("tmr 9pm"), new Time("tmr 11pm"), new Recurrence(""));
+        ModelManager testModel = new ModelManager();
+        testModel.addTask(taskToChange);
+        testModel.editTask(taskToChange, null, "tomorrow 9pm", null);
+        
+        assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
+    }
+    @Test
+    public void editTask_editEndTime_changesEndOfTask() throws IllegalValueException, TaskNotFoundException {
+        Task taskToChange = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 11pm"), new Recurrence(""));
+        Task taskToCheck = new Task(new Name("first name"), new Done(false), new Time("tmr 10pm"), new Time("tmr 12am"), new Recurrence(""));
+        ModelManager testModel = new ModelManager();
+        testModel.addTask(taskToChange);
+        testModel.editTask(taskToChange, null, null, "tmr midnight");
+        
+        assertEquals(taskToCheck, testModel.getTaskManager().getUniqueTaskList().getInternalList().get(0));
+    }
 
     @Test
     public void addRecurringTask_addDefaultNumberOfRecurringEventTask_addsNineInstancesToTaskManager()

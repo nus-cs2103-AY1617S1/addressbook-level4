@@ -177,7 +177,7 @@ public class Parser {
     	
     	else {
     		Time time = new Time(args);
-    		if (time.isValidDate(time.appearOnUIFormatForDate())) {
+    		if (Time.isValidDate(time.appearOnUIFormatForDate())) {
             return new ShowCommand(time.appearOnUIFormatForDate());
         	} 
     		else {
@@ -198,7 +198,7 @@ public class Parser {
     //@@author A0139671X
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String name, startTime, endTime, recur;
+        String name, startTime, endTime;
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -207,10 +207,9 @@ public class Parser {
             name = (matcher.group("name") == null) ? null : matcher.group("name");
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
-            recur = (matcher.group("recurring") == null) ? null : matcher.group("recurring");
         }
         
-        return new EditCommand(matcher.group("index"), name, startTime, endTime, recur);
+        return new EditCommand(matcher.group("index"), name, startTime, endTime);
     }
 
     /**
