@@ -30,9 +30,9 @@ public class SaveCommand extends Command{
                 + " C:/Users/Documents/OneDrive/data or ggist2.xml";
      
     public static final String MESSAGE_SUCCESS = "File location successfully changed to %1$s.";
-    private static final String MESSAGE_FAIL = "Specified directory does not exists";
-    private static final String DEFAULT_FILENAME = "/ggist.xml";
-    private static final String DEFAULT_FILE_FOLDER = "data/";
+    public static final String MESSAGE_FAIL = "Specified directory does not exists";
+    public static final String DEFAULT_FILENAME = "/ggist.xml";
+    public static final String DEFAULT_FILE_FOLDER = "data/";
     private static final String DEFAULT_FILE_EXTENSION = "xml";
     
     private String filePath;

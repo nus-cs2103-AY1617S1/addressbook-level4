@@ -35,16 +35,9 @@ public class AddCommand extends Command {
             startTime = Messages.MESSAGE_NO_START_TIME_SET;
         }
         
-        if (startDate.equals("")) {
-            startDate = Messages.MESSAGE_NO_START_DATE_SPECIFIED;
-        }
         
         if (endTime.equals("")) {
             endTime = Messages.MESSAGE_NO_END_TIME_SET;
-        }
-        
-        if (endDate.equals("")) {
-            endDate = Messages.MESSAGE_NO_END_DATE_SPECIFIED;
         }
         this.toAdd = new EventTask(
                 new TaskName(taskName),
@@ -66,10 +59,6 @@ public class AddCommand extends Command {
         
         if (endTime.equals("")) {
             endTime = Messages.MESSAGE_NO_END_TIME_SET;
-        }
-        
-        if (date.equals("")) {
-            date = Messages.MESSAGE_NO_END_DATE_SPECIFIED;
         }
         
         this.toAdd = new DeadlineTask(
