@@ -47,8 +47,10 @@ public class UnaliasCommand extends ModelRequiringCommand {
         }
         
         try {
-            if (toRemove == null)
+            if (toRemove == null) {
                 return new CommandResult(MESSAGE_UNREGOGNIZED_ALIAS);
+            }
+            
             toUndo = toRemove;
             model.removeAliasSymbol(toRemove);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));

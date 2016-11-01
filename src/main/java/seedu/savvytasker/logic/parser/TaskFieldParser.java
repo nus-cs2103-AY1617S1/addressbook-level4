@@ -1,6 +1,7 @@
 //@@author A0139916U
 package seedu.savvytasker.logic.parser;
 
+import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
@@ -8,24 +9,37 @@ import seedu.savvytasker.model.task.RecurrenceType;
 /**
  * This class contains common parsing methods for parsing Task fields.
  */
-public class TaskFieldParser {
+public abstract class TaskFieldParser<T extends Command> implements CommandParser<T> {
+    /*
+     * Provides standard regex ref names for various task fields that might be used by subclasses.
+     */
+    protected static final String REGEX_REF_TASK_NAME = "TaskName";
+    protected static final String REGEX_REF_START_DATE = "StartDate";
+    protected static final String REGEX_REF_END_DATE = "EndDate";
+    protected static final String REGEX_REF_LOCATION = "Location";
+    protected static final String REGEX_REF_PRIORITY_LEVEL = "Priority";
+    protected static final String REGEX_REF_RECURRING_TYPE = "RecurringType";
+    protected static final String REGEX_REF_NUMBER_OF_RECURRENCE = "RecurringNumber";
+    protected static final String REGEX_REF_CATEGORY = "Category";
+    protected static final String REGEX_REF_DESCRIPTION = "Description";
+    
     protected final DateParser dateParser;
     
-    public TaskFieldParser() {
+    protected TaskFieldParser() {
         this.dateParser = new DateParser();
     }
     
-    public String parseTaskName(String taskNameText) throws ParseException {
+    protected String parseTaskName(String taskNameText) throws ParseException {
         if (taskNameText == null)
             return null;
         return taskNameText.trim();
     }
     
-    public InferredDate parseStartDate(String dateText) throws ParseException {
+    protected InferredDate parseStartDate(String dateText) throws ParseException {
         return parseDate(dateText, "START_DATE: ");
     }
     
-    public InferredDate parseEndDate(String dateText) throws ParseException {
+    protected InferredDate parseEndDate(String dateText) throws ParseException {
         return parseDate(dateText, "END_DATE: ");
     }
     
@@ -41,13 +55,13 @@ public class TaskFieldParser {
         }
     }
     
-    public String parseLocation(String locationText) throws ParseException {
+    protected String parseLocation(String locationText) throws ParseException {
         if (locationText == null)
             return null;
         return locationText.trim();
     }
     
-    public PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
+    protected PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
         if (priorityLevelText == null)
             return null;
         
@@ -59,7 +73,7 @@ public class TaskFieldParser {
         }
     }
     
-    public RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
+    protected RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
         if (recurrenceTypeText == null)
             return null;
         
@@ -71,7 +85,7 @@ public class TaskFieldParser {
         }
     }
     
-    public Integer parseNumberOfRecurrence(String numRecurrenceText) throws ParseException {
+    protected Integer parseNumberOfRecurrence(String numRecurrenceText) throws ParseException {
         if (numRecurrenceText == null)
             return null;
         
@@ -93,13 +107,13 @@ public class TaskFieldParser {
         return numRecurrence;
     }
 
-    public String parseCategory(String categoryText) throws ParseException {
+    protected String parseCategory(String categoryText) throws ParseException {
         if (categoryText == null)
             return null;
         return categoryText.trim();
     }
     
-    public String parseDescription(String descriptionText) throws ParseException {
+    protected String parseDescription(String descriptionText) throws ParseException {
         if (descriptionText == null)
             return null;
         return descriptionText.trim();
