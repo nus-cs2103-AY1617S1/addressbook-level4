@@ -626,7 +626,7 @@ public class CommandParser {
             String resetField = null;
             String[] resetSplit = argumentsWithoutIndex.split("-reset");
             
-            boolean resetStartDate = false, resetEndDate = false, resetRecurrence = false, resetPriority = false;
+            boolean resetStartDate = false, resetEndDate = false, resetRecurrence = false;
                         
             HashMap<String, Optional<String>> fieldMap = new CommandParserHelper().prepareEdit(" " + resetSplit[ZERO]);
             
@@ -649,11 +649,9 @@ public class CommandParser {
                         resetStartDate = true;
                     } else if (resetFieldStr.equals("end")) {
                         resetEndDate = true;
-                    } else if (resetFieldStr.equals("recurrence")) {
+                    } else if (resetFieldStr.equals("repeat")) {
                         resetRecurrence = true;
-                    } else if (resetFieldStr.equals("priority")) {
-                        resetPriority = true;
-                    }
+                    } 
                 }
             }
 
@@ -699,8 +697,6 @@ public class CommandParser {
             
             if (!priority.get().equals("null")) {
                 sb.append("\n\tPriority:\t" + priority.get());
-            } else if (resetPriority) {
-                sb.append("\n\tPriority:\tRESET");
             } else {
                 sb.append("\n\tPriority:\tNo Change");
             }
