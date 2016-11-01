@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
+            + "Parameters: INDEX [MORE_INDICES] ... \n"
             + "Example: " + COMMAND_WORD + " 1 3";
  
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted tasks: %1$s";
@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTasks(tasksToDelete);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : "The target task is missing";
         }
         
         recentDeletedTasks = new ArrayList<>();
@@ -62,19 +62,4 @@ public class DeleteCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
     }
-
-
-//	@Override
-//	public CommandResult undo() {
-//		AddCommand addCommand;
-//		
-//		for (Task task : recentDeletedTasks) {
-//			addCommand = new AddCommand(task);
-//			addCommand.setData(model);
-//			addCommand.execute();
-//		}
-//		
-//		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, recentDeletedTasks));
-//	}
-
 }
