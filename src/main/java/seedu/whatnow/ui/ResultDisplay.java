@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

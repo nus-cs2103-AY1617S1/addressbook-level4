@@ -7,15 +7,18 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.UniqueTagList;
 
 /**
- * Represents a Task in WhatNow.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Task in WhatNow. Guarantees: details are present and not null,
+ * field values are validated.
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
+    private static final Logger logger = LogsCenter.getLogger(Task.class);
 
     private Name name;
     private String taskDate;
@@ -27,7 +30,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
     private String status;
     private String taskType;
-    
+
     private static final String FLOATING = "floating";
     private static final String NOT_FLOATING = "not_floating";
     private static final int COMPARE_TO_IS_EQUAL = 0;
@@ -39,64 +42,66 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private static final String DEFAULT_END_TIME = "11:59pm";
     public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma";
     private static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
-    
+
     public Task() {
-        
+
     }
-    
-  //@@author A0126240W
+
+    // @@author A0126240W
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, String taskDate, String startDate, String endDate, String taskTime, String startTime, String endTime, UniqueTagList tags, String status, String taskType) {
+    public Task(Name name, String taskDate, String startDate, String endDate, String taskTime, String startTime,
+            String endTime, UniqueTagList tags, String status, String taskType) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = new UniqueTagList(tags);
         this.status = status;
         this.taskType = FLOATING;
-             
+
         if (taskDate != null) {
             this.taskDate = taskDate;
             this.taskType = NOT_FLOATING;
         }
-        
+
         if (startDate != null) {
             this.startDate = startDate;
             this.taskType = NOT_FLOATING;
         }
-            
+
         if (endDate != null) {
             this.endDate = endDate;
             this.taskType = NOT_FLOATING;
         }
-            
+
         if (taskTime != null) {
             this.taskTime = taskTime;
             this.taskType = NOT_FLOATING;
         }
-            
+
         if (startTime != null) {
             this.startTime = startTime;
             this.taskType = NOT_FLOATING;
         }
-            
+
         if (endTime != null) {
             this.endTime = endTime;
             this.taskType = NOT_FLOATING;
         }
-        
+
         if (taskType != null) {
             this.taskType = taskType;
         }
     }
-    
+
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDate(), source.getStartDate(), source.getEndDate(), source.getTaskTime(), source.getStartTime(), source.getEndTime(), source.getTags(), source.getStatus(), source.getTaskType());
+        this(source.getName(), source.getTaskDate(), source.getStartDate(), source.getEndDate(), source.getTaskTime(),
+                source.getStartTime(), source.getEndTime(), source.getTags(), source.getStatus(), source.getTaskType());
     }
-   
+
     @Override
     public Name getName() {
         return name;
@@ -106,17 +111,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public String getTaskDate() {
         return taskDate;
     }
-    
+
     @Override
     public String getStartDate() {
         return startDate;
     }
-    
+
     @Override
     public String getEndDate() {
         return endDate;
     }
-    
+
     @Override
     public String getTaskTime() {
         return taskTime;
@@ -136,33 +141,33 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     @Override
     public String getStatus() {
         return status;
     }
-    
+
     @Override
     public String getTaskType() {
         return taskType;
     }
-    
+
     public void setName(Name name) {
         this.name = name;
     }
-    
+
     public void setTaskDate(String date) {
         this.taskDate = date;
     }
-    
+
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
-    
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
-    
+
     public void setTaskTime(String time) {
         this.taskTime = time;
     }
@@ -190,7 +195,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.taskType = taskType;
     }
 
-    //@@author A0139772U
+    // @@author A0139772U
     public int compareTo(Task task) {
         int compareToResult = 0;
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -204,13 +209,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             Date otherStartTime = tf.parse(getStartingTime(task));
             Date thisEndTime = tf.parse(getEndingTime());
             Date otherEndTime = tf.parse(getEndingTime(task));
-           
+
             if (thisStartDate.compareTo(otherStartDate) < 0) {
                 compareToResult = COMPARE_TO_SMALLER;
             } else if (thisStartDate.compareTo(otherStartDate) > 0) {
                 compareToResult = COMPARE_TO_BIGGER;
             } else if (thisEndDate.compareTo(otherEndDate) < 0) {
-               compareToResult = COMPARE_TO_SMALLER;
+                compareToResult = COMPARE_TO_SMALLER;
             } else if (thisEndDate.compareTo(otherEndDate) > 0) {
                 compareToResult = COMPARE_TO_BIGGER;
             } else if (thisStartTime.compareTo(otherStartTime) < 0) {
@@ -224,13 +229,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             } else {
                 compareToResult = COMPARE_TO_IS_EQUAL;
             }
-            
+
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.warning("ParseException at Task: \n" + e.getMessage());
         }
         return compareToResult;
     }
-
 
     private String getStartingDate() {
         String thisStartingDate;
@@ -244,7 +248,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (thisStartingDate == null) {
             thisStartingDate = DEFAULT_DATE;
         }
-        
+
         return thisStartingDate;
     }
 
@@ -260,7 +264,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (otherStartingDate == null) {
             otherStartingDate = DEFAULT_DATE;
         }
-        
+
         return otherStartingDate;
     }
 
@@ -296,7 +300,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (thisStartingTime == null) {
             thisStartingTime = DEFAULT_START_TIME;
         }
-        
+
         return thisStartingTime;
     }
 
@@ -312,9 +316,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (otherStartingTime == null) {
             otherStartingTime = DEFAULT_START_TIME;
         }
-        
+
         return otherStartingTime;
-        
+
     }
 
     private String getEndingTime() {
@@ -323,7 +327,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (thisEndingTime == null) {
             thisEndingTime = DEFAULT_END_TIME;
         }
-        
+
         return thisEndingTime;
     }
 
@@ -333,22 +337,21 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (otherEndingTime == null) {
             otherEndingTime = DEFAULT_END_TIME;
         }
-        
+
         return otherEndingTime;
     }
-
-
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, taskDate, startDate, endDate, taskTime, startTime, endTime, tags, status, taskType);
     }
 

@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0126240W-reused
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,7 +36,8 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableWhatNow() {}
+    public XmlSerializableWhatNow() {
+    }
 
     /**
      * Conversion
@@ -50,7 +52,7 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
+            // TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -63,11 +65,11 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                // TODO: better error handling
             } catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         return lists;
     }
@@ -79,13 +81,13 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // TODO: better error handling
                 return null;
             } catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 

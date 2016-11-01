@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0126240W
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,34 +21,40 @@ public class XmlWhatNowStorage implements WhatNowStorage {
 
     private String filePath;
 
-    public XmlWhatNowStorage(String filePath){
+    public XmlWhatNowStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getWhatNowFilePath(){
+    public String getWhatNowFilePath() {
         return filePath;
     }
-    
+
     /**
      * Sets the file path of the WhatNow data
-     * @param filePath new location of the WhatNow data file.
+     * 
+     * @param filePath
+     *            new location of the WhatNow data file.
      */
-    public void setWhatNowFilePath(String filePath){
+    public void setWhatNowFilePath(String filePath) {
         this.filePath = filePath;
     }
-    
+
     /**
      * Similar to {@link #readWhatNow()}
-     * @param filePath location of the data. Cannot be null
-     * @throws DataConversionException if the file is not in the correct format.
+     * 
+     * @param filePath
+     *            location of the data. Cannot be null
+     * @throws DataConversionException
+     *             if the file is not in the correct format.
      */
-    public Optional<ReadOnlyWhatNow> readWhatNow(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyWhatNow> readWhatNow(String filePath)
+            throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File whatNowFile = new File(filePath);
 
         if (!whatNowFile.exists()) {
-            logger.info("WhatNow file "  + whatNowFile + " not found");
+            logger.info("WhatNow file " + whatNowFile + " not found");
             return Optional.empty();
         }
 
@@ -58,7 +65,9 @@ public class XmlWhatNowStorage implements WhatNowStorage {
 
     /**
      * Similar to {@link #saveWhatNow(ReadOnlyWhatNow)}
-     * @param filePath location of the data. Cannot be null
+     * 
+     * @param filePath
+     *            location of the data. Cannot be null
      */
     public void saveWhatNow(ReadOnlyWhatNow whatNow, String filePath) throws IOException {
         assert whatNow != null;

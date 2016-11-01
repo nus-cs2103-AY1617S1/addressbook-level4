@@ -9,7 +9,8 @@ import seedu.whatnow.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectCommandAttemptedEvent(Command command) {}
+    public IncorrectCommandAttemptedEvent(Command command) {
+    }
 
     @Override
     public String toString() {

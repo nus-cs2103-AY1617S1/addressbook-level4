@@ -15,17 +15,19 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 public interface Logic {
     /**
      * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
+     * 
+     * @param commandText
+     *            The command as entered by the user.
      * @return the result of the command execution.
-     * @throws ParseException 
-     * @throws TaskNotFoundException 
-     * @throws DuplicateTaskException 
+     * @throws ParseException
+     * @throws TaskNotFoundException
+     * @throws DuplicateTaskException
      */
     CommandResult execute(String commandText) throws ParseException, DuplicateTaskException, TaskNotFoundException;
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
-    
+
     /** Returns the filtered list of schedule */
     ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
 

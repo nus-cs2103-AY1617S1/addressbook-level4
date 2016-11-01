@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -6,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.whatnow.model.task.ReadOnlyTask;
 
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
     private static final String INCOMPLETE = "";
@@ -37,11 +38,11 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
+    public TaskCard() {
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
@@ -53,45 +54,45 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
 
-        if(task.getTaskDate() != null) {
-        	taskDate.setText(task.getTaskDate());
-        } else if(task.getTaskDate() == null) {
-        	taskDate.setText("");
+        if (task.getTaskDate() != null) {
+            taskDate.setText(task.getTaskDate());
+        } else if (task.getTaskDate() == null) {
+            taskDate.setText("");
         }
-        
-        if(task.getStartDate() != null) {
+
+        if (task.getStartDate() != null) {
             startDate.setText(task.getStartDate());
-        } else if(task.getStartDate() == null) {
+        } else if (task.getStartDate() == null) {
             startDate.setText("");
         }
-        
-        if(task.getEndDate() != null) {
+
+        if (task.getEndDate() != null) {
             endDate.setText("to " + task.getEndDate());
-        } else if(task.getEndDate() == null) {
+        } else if (task.getEndDate() == null) {
             endDate.setText("");
         }
-        
-        if(task.getTaskTime() != null) {
+
+        if (task.getTaskTime() != null) {
             taskTime.setText(task.getTaskTime());
-        } else if(task.getTaskTime() == null) {
+        } else if (task.getTaskTime() == null) {
             taskTime.setText("");
         }
-        
-        if(task.getStartTime() != null) {
+
+        if (task.getStartTime() != null) {
             startTime.setText(task.getStartTime());
-        } else if(task.getStartTime() == null) {
+        } else if (task.getStartTime() == null) {
             startTime.setText("");
         }
-        
-        if(task.getEndTime() != null) {
+
+        if (task.getEndTime() != null) {
             if (task.getEndDate() == null)
                 endTime.setText("to " + task.getEndTime());
             else if (task.getEndDate() != null)
                 endTime.setText(task.getEndTime());
-        } else if(task.getEndTime() == null) {
+        } else if (task.getEndTime() == null) {
             endTime.setText("");
         }
-        
+
         tags.setText(task.tagsString());
         if (task.getStatus().equals("incomplete")) {
             status.setText(INCOMPLETE);
@@ -106,7 +107,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override

@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -48,9 +49,8 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+            ObservableList<ReadOnlyTask> taskList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
@@ -79,7 +79,7 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
-    
+
     /** Clears the task list view of any selection */
     public void clear() {
         taskListView.getSelectionModel().clearSelection();
