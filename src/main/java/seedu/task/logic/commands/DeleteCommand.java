@@ -63,7 +63,9 @@ public class DeleteCommand extends Command {
      * Save task for undo command before it is deleted.
      */
 	private void saveTaskForUndo(ReadOnlyTask task){
-		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()); 
+		//@@author A0153751H
+		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTaskColor(), task.getTags());
+		//@@author
 	}
 	
 	
