@@ -37,7 +37,7 @@ public class Parser {
 							   // delimiter prefixes
 	    Pattern.compile("(?<name>[^/]+)" + " (?<isPhonePrivate>p?)d/(?<date>[^/]+)"
 		    + " (?<isEmailPrivate>p?)st/(?<starttime>[^/]+)" + " (?<isAddressPrivate>p?)et/(?<endtime>[^/]+)"
-		    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
+		    + "(?<tagArguments>(?: c/[^/]+)*)"); // variable number of
 							 // tags
 
     public Parser() {
