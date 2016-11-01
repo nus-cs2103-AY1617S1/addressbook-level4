@@ -52,9 +52,6 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
     private AnchorPane personListPanelPlaceholder;
 
     @FXML
@@ -102,12 +99,12 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        setAccelerators();
+//        setAccelerators();
     }
 
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
+//    private void setAccelerators() {
+//        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+//    }
 
     void fillInnerParts() {
         summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic);

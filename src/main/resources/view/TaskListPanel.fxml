@@ -15,13 +15,13 @@
     <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="No." />
-          <Menu mnemonicParsing="false" text="                Task                      " />
-          <Menu mnemonicParsing="false" text="              Date      " />
-            <Menu mnemonicParsing="false" text="           Start   " />
-            <Menu mnemonicParsing="false" text="               End       " />
-            <Menu mnemonicParsing="false" text="               Tags         " />
-            <Menu mnemonicParsing="false" text="        Status  " />
+          <Menu mnemonicParsing="false" text=" No. " />
+          <Menu mnemonicParsing="false" text="                         Task                       " />
+          <Menu mnemonicParsing="false" text="           Date         " />
+            <Menu mnemonicParsing="false" text="          Start          " />
+            <Menu mnemonicParsing="false" text="           End         " />
+            <Menu mnemonicParsing="false" text="              Tags      " />
+            <Menu mnemonicParsing="false" text="          Status          " />
         </menus>
       </MenuBar>
         <ListView fx:id="taskListView" prefWidth="248.0" VBox.vgrow="ALWAYS" />
