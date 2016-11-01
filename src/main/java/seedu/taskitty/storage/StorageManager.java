@@ -87,23 +87,33 @@ public class StorageManager extends ComponentManager implements Storage {
     public boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException {
         File file = new File(filepath);
         Optional<ReadOnlyTaskManager> data;
+        boolean isAlertCreatedAndYes = false;
         try {
             data = taskManagerStorage.readTaskManager();
             //current file exists and there is data present in the current task manager
             if (FileUtil.isFileExists(file) && data.isPresent()) {
-                Alert alert = new Alert(AlertType.CONFIRMATION, "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-                alert.showAndWait();
-
-                if (alert.getResult() == ButtonType.NO) {
-                    return false;
-                } 
+                isAlertCreatedAndYes = createAlertToOverwriteExistingFile(); 
             }
-            return true;
+            return isAlertCreatedAndYes;
         } catch (DataConversionException e) {
             throw new DataConversionException(e);
         } catch (IOException e) {
             throw new IOException(e);
         }
+    }
+    
+    /**
+     * Creates an alert asking user whether to overwrite an existing file
+     * @return false if NO is selected and true otherwise
+     */
+    private boolean createAlertToOverwriteExistingFile() {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.NO) {
+            return false;
+        }
+        return true;
     }
     
     //@@author

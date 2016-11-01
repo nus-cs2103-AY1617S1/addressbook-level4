@@ -109,7 +109,7 @@ public class CommandParser {
     
     //@@author A0135793W
     /**
-     * Parses arguments in the context of save command
+     * Parses arguments in the context of path command
      * @param argument full command args string
      * @return the prepared command
      */
@@ -457,8 +457,10 @@ public class CommandParser {
         
         return new DoneCommand(listOfIndexes, args);
     }
+    //@@author
     
-    /**@@author A0139052L
+    //@@author A0139052L
+    /**
      * 
      * Parses each index string in the array and adds them to a list if valid
      * @param indexes the string array of indexes separated
@@ -497,6 +499,7 @@ public class CommandParser {
         return listOfIndexes;
     }
     
+    //@@author A0135793W
     /**
      * Parses arguments in the context of the edit task command.
      *
@@ -538,6 +541,7 @@ public class CommandParser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    //@@author
     
     //@@author A0139052L
     /**
