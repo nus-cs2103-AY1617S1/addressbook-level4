@@ -18,6 +18,7 @@ import seedu.address.testutil.TestOptionalHashMap;
 public class AddCommandHelperTest {
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
+    private static final int ONE = 1;
     TestOptionalHashMap testOptionalHashMap;
     AddCommand command;
     
@@ -30,6 +31,18 @@ public class AddCommandHelperTest {
             assert false;
         } catch (IllegalValueException ive) {
             assertEquals(ive.getMessage(), "End date should be later than start date");
+        }
+    }
+    
+    @Test
+    public void addCommand_invalidDate() {
+        testOptionalHashMap = new TestOptionalHashMap("eat bingsu from the beach", "40 Dec 11pm", 
+                "1st Jan 2016 1am", "3", "days", "medium");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert false;
+        } catch (IllegalValueException ive) {
+            assertEquals(ive.getMessage(), "Invalid date!");
         }
     }
     
@@ -132,6 +145,57 @@ public class AddCommandHelperTest {
                     25, 23, 59);
             assertEquals(recurrenceRate, new RecurrenceRate("1", "week"));
             assertEquals(priority, Priority.LOW);
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+    }
+    
+    @Test
+    public void addCommand_validRelativeDatesInputOne() {
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "this Wednesday", "next Thursday", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
+            /*HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            Date startDate = (Date) mapOfObjects.get("startDate");
+            Date endDate = (Date) mapOfObjects.get("endDate");
+            
+            Calendar calendarStartDate = Calendar.getInstance();
+            while (calendarStartDate.get(Calendar.DAY_OF_WEEK) != Calendar.WEDNESDAY) {
+                calendarStartDate.add(Calendar.DATE, ONE);
+            }
+            
+            Calendar calendarEndDate = Calendar.getInstance();
+            if (calendarEndDate.get(Calendar.DAY_OF_WEEK) <= Calendar.THURSDAY) {
+                calendarEndDate.add(Calendar.DATE, NUMBER_OF_DAYS_IN_A_WEEK);
+            }
+            while (calendarEndDate.get(Calendar.DAY_OF_WEEK) != Calendar.THURSDAY) {
+                calendarEndDate.add(Calendar.DATE, ONE);
+            }
+            */
+            
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+    }
+    
+    @Test
+    public void addCommand_validRelativeDatesInputTwo() {
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "tmr", "next week", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
+        } catch (IllegalValueException ive) {
+            assert false;
+        }
+    }
+    
+    @Test
+    public void addCommand_validRelativeDatesInputThree() {
+        testOptionalHashMap = new TestOptionalHashMap("eat food", "40 days later", "50 days later", null, "week", "h");
+        try {
+            AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
+            assert true;
         } catch (IllegalValueException ive) {
             assert false;
         }
