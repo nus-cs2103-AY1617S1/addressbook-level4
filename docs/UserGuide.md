@@ -305,8 +305,8 @@ View date | `view DATE`
 View done | `view done`
 Find | `find KEYWORDS...`
 Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Delete | `delete INDEX...`
-Done | `done INDEX...`
+Delete | `delete INDEXES...`
+Done | `done INDEXES...`
 Path | `path FILEPATH`
 Undo | `undo`
 Help | `help`
