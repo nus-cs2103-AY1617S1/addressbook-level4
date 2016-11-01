@@ -37,7 +37,7 @@ public class CompletedTasksPanel extends TasksPanel {
             completedTasksListView.getSelectionModel().clearAndSelect(index);
         });
     }
-    
+
     class CompletedTasksListViewCell extends ListCell<ReadOnlyTask> {
         public CompletedTasksListViewCell() {
             prefWidthProperty().bind(completedTasksListView.widthProperty());

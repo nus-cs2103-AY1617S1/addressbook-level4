@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.agendum.model.task.ReadOnlyTask;
 
-//@@author A0148031R
 /**
  * Provides a handle to a task card in the task list panel.
  */
@@ -64,6 +63,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTaskIndex() + " " + getName() + "Time: " + getTime();
     }
 
+    //@@author A0148031R
     private String formatTime(ReadOnlyTask task) {
         StringBuilder sb = new StringBuilder();
         Optional<LocalDateTime> start = task.getStartDateTime();

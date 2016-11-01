@@ -20,21 +20,26 @@ public class CommandBoxHistory {
     private String lastCommand = "";
     private String lastQuery = EMPTY_QUERY;
     
-    public CommandBoxHistory() {
+    private static CommandBoxHistory instance = null;
+    
+    protected CommandBoxHistory() {
         pastCommands = new LinkedList<>();
-        iterator = pastCommands.listIterator();      
+        iterator = pastCommands.listIterator();   
+    }
+    
+    public static CommandBoxHistory getInstance() {
+       if(instance == null) {
+          instance = new CommandBoxHistory();
+       }
+       return instance;
     }
 
-    /**
-     * Retrieves the last command entered
-     */
     public String getLastCommand() {
         return lastCommand;
     }
 
     /**
-     * Retrieves the previous valid/invalid command
-     * before the current command in the command box
+     * Retrieves the previous valid/invalid command.
      * If there is no previous command, returns an empty string to clear the command box
      */
     public String getPreviousCommand() {
@@ -49,9 +54,8 @@ public class CommandBoxHistory {
     }
 
     /**
-     * Retrieves the previous valid/invalid command
-     * after the current command in the command box
-     * If there is no new command, return an empty string to clear the command box
+     * Retrieves the next valid/invalid command.
+     * If there is no next command, return an empty string to clear the command box
      */
     public String getNextCommand() {
         if (!iterator.hasPrevious()) {
@@ -66,8 +70,8 @@ public class CommandBoxHistory {
     }
 
     /**
-     * Takes in the latest command string entered and add it to command box history
-     * Update the iterator to point to the latest element 
+     * Takes in the latest command string entered and add it to command box history.
+     * Updates the iterator to point to the latest element 
      */
     public void saveNewCommand(String newCommand) {
        lastCommand = newCommand;

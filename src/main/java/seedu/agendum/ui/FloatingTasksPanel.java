@@ -37,7 +37,7 @@ public class FloatingTasksPanel extends TasksPanel {
             floatingTasksListView.getSelectionModel().clearAndSelect(index);
         });
     }
-    
+
     class FloatingTasksListViewCell extends ListCell<ReadOnlyTask> {
         public FloatingTasksListViewCell() {
             prefWidthProperty().bind(floatingTasksListView.widthProperty());

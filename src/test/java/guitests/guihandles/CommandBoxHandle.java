@@ -31,7 +31,15 @@ public class CommandBoxHandle extends GuiHandle{
     public void runCommand(String command) {
         enterCommand(command);
         pressEnter();
-        guiRobot.sleep(2000); //Give time for the command to take effect
+        
+        //Give time for the command to take effect
+        guiRobot.sleep(2000);
+    }
+    
+    public HelpWindowHandle runHelpCommand() {
+        enterCommand("help");
+        pressEnter();
+        return new HelpWindowHandle(guiRobot, primaryStage);
     }
     
     public void scrollToPreviousCommand() {
@@ -44,9 +52,4 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200);
     }
 
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
-        pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
 }

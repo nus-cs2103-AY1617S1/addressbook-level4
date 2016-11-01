@@ -8,7 +8,6 @@ import seedu.agendum.TestApp;
 
 import java.util.Arrays;
 
-//@@author A0148031R
 /**
  * Provides a handle to the main menu of the app.
  */
@@ -22,6 +21,7 @@ public class MainMenuHandle extends GuiHandle {
         return this;
     }
 
+    //@@author A0148031R
     public HelpWindowHandle openHelpWindowUsingMenu() {
         clickOn("Help", "F5");
         return new HelpWindowHandle(guiRobot, primaryStage);

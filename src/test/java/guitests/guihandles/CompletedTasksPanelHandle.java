@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -17,7 +16,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0148031R
 /**
  * Provides a handle for the panel containing the task list.
  */
@@ -49,9 +47,6 @@ public class CompletedTasksPanelHandle extends GuiHandle {
         return this.isListMatching(0, tasks);
     }
     
-    /**
-     * Clicks on the ListView.
-     */
     public void clickOnListView() {
         Point2D point= TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
