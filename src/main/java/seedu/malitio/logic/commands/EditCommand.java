@@ -43,12 +43,8 @@ public class EditCommand extends Command{
 
     public static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited floating task.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
 
-    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
-
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
-    
     private final char taskType;
     
     private final int targetIndex;
