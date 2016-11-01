@@ -41,13 +41,13 @@ public class TypicalTestActivities {
     	
 
         try {
-            ab.addPerson(new Activity(findAlice));
-            ab.addPerson(new Task(findBenson));
-            ab.addPerson(new Task(findCarl));
-            ab.addPerson(new Task(findDaniel));
+        	ab.addPerson(new Event(findGeorge));
+            ab.addPerson(new Event(findFiona)); 
             ab.addPerson(new Event(findElle));
-            ab.addPerson(new Event(findFiona));
-            ab.addPerson(new Event(findGeorge)); 
+            ab.addPerson(new Task(findDaniel));
+            ab.addPerson(new Task(findCarl));
+            ab.addPerson(new Task(findBenson));
+            ab.addPerson(new Activity(findAlice));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             assert false : "not possible";
         }
