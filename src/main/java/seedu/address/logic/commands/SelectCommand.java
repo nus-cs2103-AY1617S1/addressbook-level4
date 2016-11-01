@@ -7,7 +7,6 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.ui.PersonListPanel;
 
 //@@author A0143884W
 /**
@@ -43,7 +42,16 @@ public class SelectCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        TaskType type = CommandUtil.getTaskType(targetIndex);
+        indicateScrollToTargetIndex();
+
+        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+    }
+
+    /**
+     * post an event to scroll to targetIndex
+     */
+	private void indicateScrollToTargetIndex() {
+		TaskType type = CommandUtil.getTaskType(targetIndex);
         int indexNum = CommandUtil.getIndex(targetIndex);
         
         if (type == TaskType.DATED) {
@@ -55,8 +63,6 @@ public class SelectCommand extends Command {
         else {
             assert false : "Task type not found";
         }
-
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-    }
+	}
 
 }
