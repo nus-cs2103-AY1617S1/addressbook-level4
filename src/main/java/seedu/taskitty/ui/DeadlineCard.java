@@ -19,10 +19,6 @@ public class DeadlineCard extends UiPart {
     @FXML
     private Label name;
     @FXML
-    private Label startDate;
-    @FXML
-    private Label startTime;
-    @FXML
     private Label endDate;
     @FXML
     private Label endTime;
@@ -44,8 +40,6 @@ public class DeadlineCard extends UiPart {
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
-        startDate.setText("");
-        startTime.setText("");
         endDate.setText("");
         endTime.setText("");
         
@@ -72,9 +66,7 @@ public class DeadlineCard extends UiPart {
             cardPane.setStyle("-fx-background-color: grey");
             name.setStyle("-fx-text-fill: white");
             id.setStyle("-fx-text-fill: white");
-            startDate.setStyle("-fx-text-fill: white");
             endDate.setStyle("-fx-text-fill: white");
-            startTime.setStyle("-fx-text-fill: white");
             endTime.setStyle("-fx-text-fill: white");
             
         } else {
