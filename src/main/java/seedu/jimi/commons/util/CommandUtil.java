@@ -82,7 +82,6 @@ public class CommandUtil {
                 new DeleteCommand(),
                 new ClearCommand(), 
                 new FindCommand(), 
-                new ListCommand(),
                 new UndoCommand(),
                 new RedoCommand(),
                 new ExitCommand(), 
