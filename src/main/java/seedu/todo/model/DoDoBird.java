@@ -146,14 +146,12 @@ public class DoDoBird implements ReadOnlyToDoList {
         updateTaskHistoryStack();
         updateTagHistoryStack();
         this.getUniqueTaskList().add(p);
-        updateTagTopList();
     }
     
     public void deleteTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
         this.getUniqueTaskList().remove(key);
-        updateTagTopList();
     }
     
     /**
@@ -185,8 +183,15 @@ public class DoDoBird implements ReadOnlyToDoList {
         Task toTag = this.getTasks().get(index); 
         for (Tag t : newTagList.getInternalList()) {
             try {
-                toTag.addTag(t);
-            } catch (DuplicateTagException e) {}
+                if (this.getTags().contains(t)) {
+                    Tag oldTag = this.getTags().get(this.getTags().indexOf(t));
+                    toTag.addTag(oldTag);
+                } else {
+                    toTag.addTag(t);
+                }    
+            } catch (DuplicateTagException e) {
+                //tag already added - do nothing
+            }
         }
         updateTagTopList();
     }
@@ -244,13 +249,23 @@ public class DoDoBird implements ReadOnlyToDoList {
         UniqueTagList topList = this.getUniqueTagList();
         topList.getInternalList().clear();
         
+        
         for (Task task : this.getTasks()) {
             for (Tag tag : task.getTags().getInternalList()) {
                 try {
-                    topList.add(tag);
-                } catch (DuplicateTagException e) {}
+                    if (!topList.contains(tag)) {
+                        tag.setCount(1);
+                        topList.add(tag);
+                    } else {
+                        tag.increaseCount();
+                    }
+                } catch (DuplicateTagException e) {
+                    tag.increaseCount();
+                    //if duplicate is encountered, do not add
+                }
             }
         }
+        
     }
     
     /******************

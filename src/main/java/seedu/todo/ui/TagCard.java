@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import seedu.todo.model.tag.Tag;
 
 public class TagCard extends UiPart{
@@ -12,10 +13,13 @@ public class TagCard extends UiPart{
 
     @FXML
     private HBox cardPane;
-    
     @FXML
     private Label tags;
+    @FXML
+    private Text tasksCount;
+    
     private Tag tag;
+    private int numTasksText;
     private static int displayedIndex;
     
     public TagCard() {}
@@ -29,6 +33,7 @@ public class TagCard extends UiPart{
     
     public void initialize() {
         tags.setText(tag.getName());
+        tasksCount.setText(tag.getCount() + "");
     }
     
     public HBox getLayout() {
