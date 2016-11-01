@@ -16,17 +16,17 @@ public class ClearCommandTest extends CommandTest {
     @Before
     public void setUp() throws Exception {
         task1 = model.add("Hello", task -> {task.setCompleted(true); 
-                                    task.setEndTime(LocalDateTime.now().plusHours(2));
-                                    task.setPinned(true);
-                                    } );
+                                            task.setEndTime(LocalDateTime.now().plusHours(2));
+                                            task.setPinned(true);
+                                           });
         task2 = model.add("Hi", task -> {task.setCompleted(true); 
                                          task.setEndTime(LocalDateTime.now().plusHours(2));
                                          task.setPinned(false);
-        } );
+                                        });
         task3 = model.add("Goodbye", task -> {task.setCompleted(false); 
-                                     task.setEndTime(LocalDateTime.now().plusHours(3));
-                                     task.setPinned(false);
-                                     });
+                                              task.setEndTime(LocalDateTime.now().plusHours(3));
+                                              task.setPinned(false);
+                                             });
     }
 
     @Test
