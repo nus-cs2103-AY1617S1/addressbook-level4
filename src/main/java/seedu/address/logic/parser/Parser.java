@@ -23,7 +23,7 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
+
     private static final Pattern FILE_PATH_ARGS_FORMAT =
             Pattern.compile("([a-zA-Z]:/)?"
                     + "(([a-zA-Z0-9 _-]+/)+)?"
@@ -69,6 +69,7 @@ public class Parser {
     public static final int TASK_END_TIME = 2;
     public static final int EVENT_END_DATE = 2;
     public static final int EVENT_END_TIME = 3;
+    //@@author
 
     private static final Prefix namePrefix = new Prefix("n;");
     private static final Prefix datePrefix = new Prefix("t;");
@@ -136,12 +137,12 @@ public class Parser {
 
         case ConfirmCommand.COMMAND_WORD:
             return new ConfirmCommand();
-            
+
         case SaveCommand.COMMAND_WORD:
             return prepareSave(arguments);
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
-            
+
         case MinimizeCommand.COMMAND_WORD:
             return new MinimizeCommand();
 
@@ -153,7 +154,7 @@ public class Parser {
     //@@author A0126649W
     /**
      * Parses arguments in context of the save todo command.
-     * 
+     *
      * @param args full command args string
      * @return the full prepared command
      */
@@ -164,10 +165,10 @@ public class Parser {
         }
         return new SaveCommand(args.trim());
     }
-    
+
     /**
      * Parses arguments in context of the save todo command.
-     * 
+     *
      * @param args full command args string
      * @return the full prepared command
      */
@@ -179,7 +180,7 @@ public class Parser {
         return new LoadCommand(args.trim());
     }
     //@@author
-    
+
     /**
      * Parses arguments in the context of the add mark command.
      *
@@ -324,6 +325,7 @@ public class Parser {
         }
         return false;
     }
+    //@@author
 
     /**
      * Takes the text before first valid prefix as task name if input does not contain namePrefix.
@@ -504,21 +506,21 @@ public class Parser {
         prefix_to_fieldName.put(tagsPrefix, "tags");
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, datePrefix, descriptionPrefix,
                 locationPrefix, tagsPrefix);
-        
+
         argsTokenizer.tokenize(args);
         HashMap<String, List<String>> field_and_newValue_pair = new HashMap<>();
-        
+
         try {
             Optional<String> taskName = getTaskNameFromArgs(argsTokenizer);
             if(taskName.isPresent()){
                 List<String> input = new ArrayList<String>();
                 input.add(taskName.get());
                 field_and_newValue_pair.put("name",input);
-            }     
+            }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-        
+
         // Validate arg string format
         for(Prefix prefix : prefix_to_fieldName.keySet()){
             Optional<List<String>> input = argsTokenizer.getAllValues(prefix);
@@ -529,7 +531,7 @@ public class Parser {
         return new EditCommand(index, field_and_newValue_pair);
     }
     //@@author
-    
+
     int farthestPoint(Pattern pattern, String input) {
         for (int i = input.length() - 1; i > 0; i--) {
             Matcher matcher = pattern.matcher(input.substring(0, i));
