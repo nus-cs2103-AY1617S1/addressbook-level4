@@ -153,7 +153,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             case TAG:
                 newTag = Tag.getTag(entry.getValue());
                 break;
-            case IS_COMPLETED:
+            case IS_DONE:
                 newCompleted = Boolean.getBoolean(entry.getValue());
                 break;
             }
@@ -189,7 +189,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     private Task markDone(boolean isDone) {
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
-        fields.put(TaskField.IS_COMPLETED, String.valueOf(isDone));
+        fields.put(TaskField.IS_DONE, String.valueOf(isDone));
         try {
             return this.update(fields);
         } catch (IllegalValueException e) {

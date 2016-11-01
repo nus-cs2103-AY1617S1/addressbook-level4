@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.oneline.commons.exceptions.IncorrectCommandException;
+import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
@@ -142,7 +143,7 @@ public class Parser {
      */
     private Class<? extends Command> getCommandClass(final String commandWord) throws IncorrectCommandException {
         if (!COMMAND_CLASSES.containsKey(commandWord)) {
-            throw new IncorrectCommandException(commandWord + " is not a valid command");
+            throw new IncorrectCommandException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
         Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
         return cmdClass;
@@ -225,7 +226,7 @@ public class Parser {
             throws IllegalCmdArgsException {
         List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
         TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
-                                               TaskField.DEADLINE, TaskField.RECURRENCE };
+                                               TaskField.DEADLINE, TaskField.RECURRENCE, TaskField.IS_DONE };
         for (TaskField tf : fields) {
             Integer index = getIndexesOfKeyword(splitted, tf.getKeyword());
             if (index != null) {
