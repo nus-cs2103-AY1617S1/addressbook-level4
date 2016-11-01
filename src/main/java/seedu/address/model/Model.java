@@ -39,6 +39,9 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Saves command alias and corresponding command phrase to XML file, "aliasbook.xml" in ./data folder. */
+    void addAlias(String commandAlias, String commandPhrase);
+    
     /** Updates the task status overdue if not marked as done and end time is before now */
     void checkForOverdueTasks();
     

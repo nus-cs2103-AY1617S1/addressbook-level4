@@ -129,6 +129,21 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
     
+    //@@author A0143756Y
+    @Override
+    public synchronized void addAlias(String commandAlias, String commandPhrase) {
+    	assert commandAlias != null;
+    	assert !commandAlias.isEmpty();
+    	assert commandPhrase != null;
+    	assert !commandPhrase.isEmpty();
+    	
+    	//Alias aliasToAdd = new Alias(commandAlias, commandPhrase);
+    	
+    	
+    	
+    	
+    }
+    
     //@@author A0141019U
     @Override
     public synchronized void checkForOverdueTasks() {
