@@ -8,26 +8,55 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 #### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
 <img src="images/Shailesh.JPG" width="150"><br>
 **Components in charge of :** Parsing <br>
-  *Features implemented: [set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage--setstorage)
+Features implemented: 
+[Set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage-setstorage)
+[Command history](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrow-keys)
+[Auto-complete](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button-or-space-bar)
+[Add] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+[Adding a floating task] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task)
+[Adding a task with start time only] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-with-a-start-time-only)
+[Adding a deadline task] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-deadline-task)
+[Adding an event task] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-an-event-task)
+
+  
 
 -----
 
 #### [Teh Chee Yeo](https://github.com/cheo1994) <br>
 <img src="images/Chee Yeo.png" width="150"><br>
-**Components in charge of:** Logic <br>  
+**Components in charge of:** Logic <br> 
+Features implemented:
+[Undo] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#undo-a-task-undo)
+[Redo] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#redo-a-task-redo)
+[Add recurring tasks] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-recurring-task)
+
 
 -----
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-**Components in charge of:** Storage <br>  
+**Components in charge of:** Storage <br>
+Features implemented:
+[Clear done] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#clearing-only-the-done-tasks-clear-done)
+[Show done] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#show-all-the-done-tasks-show-done)
+[Show] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-full-list-show)
+[Show today] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-today-show-today)
+[Show tomorrow] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-tomorrow-show-tomorrow)
+[Show upcoming] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-upcoming-show-upcoming)
+[Show date] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-list-for-specific-date-show-date)
+[Show overdue]
+(https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#showing-a-list-for-overdue-tasks-show-overdue) 
+[Done] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#mark-as-done-done)
+ 
 
 
 -----
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
-**Components in charge of:** UI <br>  
+**Components in charge of:** UI <br>
+Features implemented:
+[UI Design] (https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)  
 
 
 -----
