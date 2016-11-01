@@ -3,6 +3,12 @@ package seedu.address.model.task;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import org.hamcrest.core.IsInstanceOf;
+
 import java.util.Objects;
 import java.util.Optional;
 
@@ -128,4 +134,17 @@ public class Task implements ReadOnlyTask {
             return TaskType.FLOATING;
         }
     }
+
+    public Task setFields(HashMap<Field, Object> changes) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+        for(Entry<Field, Object> entry : changes.entrySet()){
+            Field field = entry.getKey();
+            Object new_value = entry.getValue();
+            if(new_value instanceof Time){
+                new_value = Optional.of(new_value);
+            }
+            Task.class.getDeclaredField(field.getName()).set(this, new_value);
+        }
+        return this;
+    }    
+    
 }

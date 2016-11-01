@@ -40,14 +40,6 @@ public class Parser {
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
             		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>\\d)"
-                    + "(( (?<name>(?:[^;]+)))?)"
-                    + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+))?)"
-                    + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
-                    + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
     //@@author A0121261Y
     /**
      * Regex validation for time format duplicated from Time class.
@@ -473,37 +465,56 @@ public class Parser {
     }
     //@@author
 
+    //@@author A0135812L
     /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareEdit(String args){
-        final Matcher matcher = PERSON_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+    private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)(?<arguments>.+)");
+    private Command prepareEdit(String allArgs){
+        final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(allArgs.trim());
+        if(!matcher.matches()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        int index = Integer.parseInt(matcher.group("targetIndex"));
+        String args = matcher.group("arguments");
+
+        HashMap<Prefix,String> prefix_to_fieldName= new HashMap<>();
+        prefix_to_fieldName.put(datePrefix, "time");
+        prefix_to_fieldName.put(descriptionPrefix, "description");
+        prefix_to_fieldName.put(locationPrefix, "location");
+        prefix_to_fieldName.put(tagsPrefix, "tags");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, datePrefix, descriptionPrefix,
+                locationPrefix, tagsPrefix);
+        
+        argsTokenizer.tokenize(args);
+        HashMap<String, List<String>> field_and_newValue_pair = new HashMap<>();
+        
         try {
-            final Optional<Integer> targetIndex = parseIndex(matcher.group("targetIndex"));
-            if(!targetIndex.isPresent()){
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, LocateCommand.MESSAGE_USAGE));
-            }
-            return new EditCommand(
-                    targetIndex.get(),
-                    matcher.group("name")==null?" ":matcher.group("name"),
-                    matcher.group("phone")==null?" ":matcher.group("phone"),
-                    matcher.group("email")==null?" ":matcher.group("email"),
-                    matcher.group("address")==null?" ":matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            Optional<String> taskName = getTaskNameFromArgs(argsTokenizer);
+            if(taskName.isPresent()){
+                List<String> input = new ArrayList<String>();
+                input.add(taskName.get());
+                field_and_newValue_pair.put("name",input);
+            }     
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+        
+        // Validate arg string format
+        for(Prefix prefix : prefix_to_fieldName.keySet()){
+            Optional<List<String>> input = argsTokenizer.getAllValues(prefix);
+            if(input.isPresent()){
+                field_and_newValue_pair.put(prefix_to_fieldName.get(prefix), input.get());
+            }
+        }
+        return new EditCommand(index, field_and_newValue_pair);
     }
-
+    //@@author
+    
     int farthestPoint(Pattern pattern, String input) {
         for (int i = input.length() - 1; i > 0; i--) {
             Matcher matcher = pattern.matcher(input.substring(0, i));

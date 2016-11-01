@@ -5,8 +5,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -54,4 +58,13 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by overdue*/
     void updateFilteredListToShowOverdue();
+
+    /** Updates the specific task's fields with changes 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws TaskNotFoundException */
+    ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changesToBeMade) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException;
+
 }

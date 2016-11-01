@@ -153,6 +153,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", String.format(RequiresConfirm.PROMPT_MESSAGE, "clear"), expectedAB, expectedAB.getTaskList());
         assertCommandBehavior("YeS", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
     }
+    //@@author
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -396,10 +397,11 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, Optional.of(privateTime), description, privateAddress, tags);
         }
-
+        
         /**
          * Generates a valid task using the given seed.
-         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Running this function with the same parameter values guarantees 
+         * the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
          *
          * @param seed used to generate the task data field values
@@ -407,7 +409,8 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    Optional.ofNullable(new Time("1" + String.valueOf((Math.abs(seed)%10)) + "-12-201" + String.valueOf((Math.abs(seed)%10)))),
+                    Optional.ofNullable(new Time("1" + String.valueOf((Math.abs(seed)%10)) 
+                    + "-12-201" + String.valueOf((Math.abs(seed)%10)))),                    
                     new Description(seed + "@email"),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))

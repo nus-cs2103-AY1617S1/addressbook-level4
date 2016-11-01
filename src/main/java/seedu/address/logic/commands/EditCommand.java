@@ -6,12 +6,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.Set;
 
 //@@author A0135812L
 /**
@@ -22,37 +26,24 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task to the SmartyDo. "
-            + "Parameters: INDEX [NAME] [t/TIME] [d/DESCRIPTION] [a/LOCATION]  [t/TAG]...\n"
+            + "Parameters: INDEX [PREFIX INPUT]..."
             + "Example: " + COMMAND_WORD
-            + " John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " CS2103 t;10-12-2016 10:00AM 11:00AM d;description a;Nus Computing t/sadLife";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
+    public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
 
 
-    private Task toAdd;
     public final int targetIndex;
-    private ReadOnlyTask taskToDelete;
-    private String name;
-    private String time;
-    private String description;
-    private String location;
-    private Set<String> tags;
+    private ReadOnlyTask taskToEdit;
+    private HashMap<String, List<String>> field_and_newValue_pair;
 
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String time, String description, String location, Set<String> tags)
-            throws IllegalValueException {
-    	this.targetIndex = targetIndex;
-    	this.name = name;
-    	this.time = time;
-    	this.description = description;
-    	this.location = location;
-    	this.tags = tags;
-
+    public EditCommand(int targetIndex, HashMap<String, List<String>> field_and_newValue_pair){
+		this.targetIndex = targetIndex;
+    	this.field_and_newValue_pair = field_and_newValue_pair;
     }
 
     @Override
@@ -68,59 +59,79 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        taskToDelete = lastShownList.get(targetIndex - 1);
-
+        taskToEdit = lastShownList.get(targetIndex - 1);
+        Class<? extends ReadOnlyTask> taskClazz = Task.class;
+        HashMap<Field, Object> changesToBeMade = new HashMap<>();
+        ReadOnlyTask editedTask = null;
         try {
-            Time timeObject;
-            Set<Tag> tagSet = new HashSet<>();
-            if(!tags.isEmpty()){
-                for (String tagName : tags) {
-                    tagSet.add(new Tag(tagName));
+            for(Entry<String, List<String>> entry : field_and_newValue_pair.entrySet()){
+                
+                String fieldString = entry.getKey();
+                List<String> valueString = entry.getValue();
+                Class<?>[] argTypes = new Class[valueString.size()];
+                for(int i=0; i<valueString.size(); i++){
+                    argTypes[i] = valueString.get(0).getClass();
                 }
-            }else{
-                UniqueTagList tagsToDelete = taskToDelete.getTags();
-                tagSet = tagsToDelete.toSet();
+                
+                Field field = taskClazz.getDeclaredField(fieldString);
+                Object new_value = getObject(valueString, field);
+                assert new_value !=null;
+                changesToBeMade.put(field, new_value);
             }
-            if(name== " "){
-                Name nameToDelete = taskToDelete.getName();
-                name = nameToDelete.toString();
-            }
-            if (time == " "){
-                if(taskToDelete.getTime().isPresent()){
-                    System.out.println("@ edit line 94:" + taskToDelete.getTime().get().getStartDateString());
-                    timeObject = new Time(taskToDelete.getTime().get().getStartDateString()); //TODO: temporary fix
-                }else{
-                    timeObject = null;    //TODO: A temporary fix added onto Filbert's by Kenneth. May the odd ever be in our favor and let these not resurface again
-                }
-            } else {
-                timeObject = new Time(time);
-            }
-            if (description == " "){
-                Description descriptionToDelete = taskToDelete.getDescription();
-                description = descriptionToDelete.toString();
-            }
-            if (location == " "){
-                Location locationToDelete = taskToDelete.getLocation();
-                location = locationToDelete.toString();
-            }
-            toAdd = new Task(
-                    new Name(name),
-                    Optional.ofNullable(timeObject),
-                    new Description(description),
-                    new Location(location),
-                    new UniqueTagList(tagSet)
-            );
-            model.deleteTask(taskToDelete);
-            model.addTask(toAdd);
-
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (IllegalValueException e) {
-            return new CommandResult(e.getMessage());
+            editedTask = model.editTask(taskToEdit, changesToBeMade);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
+        } catch (NoSuchFieldException e){
+            e.printStackTrace();
+            assert false : "Checking of inputs'validity should be done in parser.";
+        } catch (Exception e) {
+            e.printStackTrace();
+            assert false : e.getMessage();
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
+    }
+
+ // Modified from http://stackoverflow.com/a/13872171/7068957
+    private Object getObject(List<String> valueString, Field field) throws InstantiationException, 
+        IllegalAccessException, InvocationTargetException, IllegalValueException {
+        Class type;
+        if(field.getName() == "time"){
+            type = Time.class;
+        }else if(field.getName()== "tags"){
+            HashSet<Tag> tags = new HashSet<>();
+            for(String str : valueString){
+                tags.add(new Tag(str));
+            }
+            return new UniqueTagList(tags);
+        }else{
+            type = field.getType();
+        }
+        for (Constructor<?> ctor : type.getConstructors()) {
+            Class<?>[] paramTypes = ctor.getParameterTypes();
+            // If the arity matches, let's use it.
+            if (valueString.size() == paramTypes.length) {
+                return newInstance(valueString, ctor);
+            }
+        }
+        return null;
+    }
+
+    private Object newInstance(List<String> valueString, Constructor<?> ctor)
+            throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        try{
+            return ctor.newInstance(valueString);
+        }catch(IllegalArgumentException e){
+            if(valueString.size()==1){
+                return ctor.newInstance(valueString.get(0));
+            }else if(valueString.size()==2){
+                return ctor.newInstance(valueString.get(0), valueString.get(1));
+            }else{
+                return ctor.newInstance(valueString.get(0), valueString.get(1), valueString.get(2));
+            }
+        }
+        
     }
 
 }
+
