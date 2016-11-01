@@ -26,7 +26,7 @@ public class Priority implements Comparable<Priority> {
     private static final int PRIORITY_COMPARE_BIGGER = 1;
 
     public String priorityLevel;
-    public int level;
+    private int level;
 
     /**
      * Validates given task priority level.
