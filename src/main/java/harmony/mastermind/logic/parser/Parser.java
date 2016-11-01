@@ -139,10 +139,7 @@ public class Parser {
                 return new HelpCommand();
                 
             case ImportCommand.COMMAND_WORD:
-                return new ImportCommand(arguments);
-                
-            case ImportIcsCommand.COMMAND_KEYWORD_IMPORTICS:
-                return prepareImportIcs(arguments);
+                return prepareImport(arguments);
                 
             case ExportCommand.COMMAND_KEYWORD_EXPORT:
                 return prepareExport(arguments);
@@ -253,7 +250,7 @@ public class Parser {
      * Extract the source destination string and prepare the Import ICS command. 
      * 
      */
-    private Command prepareImportIcs(String args){
+    private Command prepareImport(String args){
         final Matcher matcher = ImportIcsCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
         
         // Validate arg string format
@@ -265,7 +262,7 @@ public class Parser {
         
         assert source != null;
         
-        return new ImportIcsCommand(source);
+        return new ImportCommand(source);
     }
     
     /**

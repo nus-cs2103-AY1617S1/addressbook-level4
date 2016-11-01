@@ -109,10 +109,10 @@ public class LogicManager extends ComponentManager implements Logic {
         
         int addCount = lineCounter - errCount;
         if (errLines.isEmpty()) {
-            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, addCount));
+            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_TXT_SUCCESS, addCount));
         } else {
             errLines = errLines.substring(0,errLines.length()-1);
-            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_FAILURE, addCount, errLines));
+            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_TXT_FAILURE, addCount, errLines));
         }
         
     }
