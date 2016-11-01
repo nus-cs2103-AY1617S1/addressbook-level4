@@ -86,6 +86,12 @@
     -fx-background-color: derive(#004A7F, 20%);
 }
 
+
+
+.split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;

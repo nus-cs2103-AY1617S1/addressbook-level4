@@ -30,5 +30,7 @@ public interface Logic {
 
     /** Returns the filtered list of schedule */
     ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
+    
+    ObservableList<ReadOnlyTask> getOverdueScheduleList();
 
 }

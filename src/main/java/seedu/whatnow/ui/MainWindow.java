@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -32,7 +33,7 @@ import seedu.whatnow.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/whatnow_32.png";
+    private static final String ICON = "/images/WhatNowWhiteOnBlack.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -47,6 +48,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private StatusPanel statusPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -71,6 +73,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane statusPanelPlaceholder;
 
     public MainWindow() {
         super();
@@ -109,8 +114,8 @@ public class MainWindow extends UiPart {
 
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
         setAccelerators();
+        
     }
 
     private void setAccelerators() {
@@ -118,6 +123,10 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+        statusPanel = StatusPanel.load(primaryStage, getStatusPanelPlaceholder());
+        statusPanel.postMessage("Number of ongoing tasks in schedule: " + String.valueOf(logic.getFilteredScheduleList(false).size()
+                + "\n"
+                + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
         scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(),
                 logic.getFilteredScheduleList(false));
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -144,6 +153,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getScheduleListPlaceholder() {
         return scheduleListPlaceholder;
+    }
+    
+    private AnchorPane getStatusPanelPlaceholder() {
+        return statusPanelPlaceholder;
     }
 
     public void hide() {
@@ -204,4 +217,9 @@ public class MainWindow extends UiPart {
     public ScheduleListPanel getScheduleListPanel() {
         return this.scheduleListPanel;
     }
+    
+    public StatusPanel getStatusPanel() {
+        return this.statusPanel;
+    }
 }
+
