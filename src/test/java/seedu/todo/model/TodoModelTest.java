@@ -114,8 +114,8 @@ public class TodoModelTest {
     //@@author A0092382A
     @Test
     public void testFilteredDeleteAll() throws Exception {
-        model.add("First NUS");
-        model.add("Second NUS");
+        model.add("First NUS", t -> t.setCompleted(true));
+        model.add("Second NUS", t -> t.setCompleted(true));
         model.add("Third NTU");
         model.find(t -> t.getTitle().contains("NUS"));
         model.deleteAll();
