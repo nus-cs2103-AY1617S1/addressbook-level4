@@ -6,8 +6,10 @@ import org.junit.Test;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.testutil.TestTask;
 import static org.junit.Assert.assertEquals;
+import seedu.ggist.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.ggist.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
@@ -40,7 +42,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      * @throws IllegalArgumentException 
      */
     private void assertDoneSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
-        TestTask taskToDone = (TestTask) taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
+        ReadOnlyTask taskToDone = taskListPanel.getTask(targetIndexOneIndexed - 1); //-1 because array uses zero indexing
         int number = taskListPanel.getNumberOfTasks();
 
         commandBox.runCommand("done " + targetIndexOneIndexed);
@@ -50,7 +52,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //confirms the task mark done is no longer on the listing view
         assertEquals(taskListPanel.getTaskIndex(taskToDone), -1);
         //confirm the task is marked done
-        assertTrue(taskToDone.isDone());
+        assertFalse(taskToDone.isDone());
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
