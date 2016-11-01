@@ -28,14 +28,12 @@ public class EditCommand extends Command {
     private String newName;
     private String newStart;
     private String newEnd;
-    private String newRecur;
     
-    public EditCommand(String targetIndex, String name, String start, String end, String recur) {
+    public EditCommand(String targetIndex, String name, String start, String end) {
         this.targetIndex = Integer.parseInt(targetIndex);
         this.newName = name;
         this.newStart = start;
         this.newEnd = end;
-        this.newRecur = recur;
     }
 
     @Override
@@ -65,7 +63,7 @@ public class EditCommand extends Command {
                 return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
             
             model.saveToHistory();
-            model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
+            model.editTask(taskToEdit, newName, newStart, newEnd);
             model.updateFilteredTaskListToShowNotDone();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

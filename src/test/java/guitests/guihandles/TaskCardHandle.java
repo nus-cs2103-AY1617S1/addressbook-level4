@@ -41,7 +41,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(START_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task) {
+    public boolean isSameTask(ReadOnlyTask task){
         return getFullName().equals(task.getName().fullName)
                 && getStartTime().equals("Start: " + task.getStartTime().easyReadDateFormatForUI()) && getEndTime().equals("End: " + task.getEndTime().easyReadDateFormatForUI());
     }

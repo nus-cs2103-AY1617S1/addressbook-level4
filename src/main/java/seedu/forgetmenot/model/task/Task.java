@@ -47,7 +47,8 @@ public class Task implements ReadOnlyTask {
     public Done getDone() {
         return done;
     }
-
+    //@@author
+    
     @Override
     public Time getStartTime() {
         return start;
@@ -111,7 +112,7 @@ public class Task implements ReadOnlyTask {
             builder.append(" End: " + getEndTime().easyReadDateFormatForUI());
         
         if (getRecurrence().getValue())
-            builder.append(" Recurrence: Every " + getRecurrence());
+            builder.append(" Recurrence: " + getRecurrence());
         
         return builder.toString();
     }
@@ -120,10 +121,10 @@ public class Task implements ReadOnlyTask {
      * @return true if the tasks is past the current time.
      */
     public boolean checkOverdue() {
-        if (start.isMissing() && !end.isMissing())
+        if (isDeadlineTask())
             return end.time.compareTo(Calendar.getInstance()) < 0;
         
-        if (!start.isMissing())
+        else if (isStartTask() || isEventTask())
             return start.time.compareTo(Calendar.getInstance()) < 0;
         
         return false;
@@ -159,4 +160,5 @@ public class Task implements ReadOnlyTask {
     public boolean isFloatingTask() {
         return start.isMissing() && end.isMissing();
     }
+    //@@author
 }

@@ -7,7 +7,6 @@ import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.UniqueTaskList;
-import seedu.forgetmenot.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -33,7 +32,7 @@ public interface Model {
     void addRecurringTask(ReadOnlyTask taskToMark) throws IllegalValueException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;
+    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
     
     /** Marks the given task as done */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

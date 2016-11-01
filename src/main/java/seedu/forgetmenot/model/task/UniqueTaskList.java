@@ -150,7 +150,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     //@@author A0139671X
-    public void editTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
+    public void editName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();

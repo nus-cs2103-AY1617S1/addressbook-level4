@@ -128,7 +128,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     // @@author A0139671X
     public void editTaskName(ReadOnlyTask task, String newInfo)
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.editTaskName(task, new Name(newInfo));
+        tasks.editName(task, new Name(newInfo));
         counter();
     }
 
@@ -144,20 +144,6 @@ public class TaskManager implements ReadOnlyTaskManager {
             throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editEndTime(task, new Time(newInfo));
         counter();
-
-    }
-    
-    // possible remove since all instances would have been created when adding recurring tasks
-    // @@author A0139671X
-    public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
-        try {
-            tasks.editRecurFreq(task, new Recurrence(newRecur));
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        counter();
-
     }
 
     //// util methods
@@ -203,7 +189,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
             Task toCount = tasks.getInternalList().get(i);
 
-            if (toCount.getStartTime().isMissing() && toCount.getEndTime().isMissing()
+            if (toCount.isFloatingTask()
                     && toCount.getDone().getDoneValue() == false) {
                 floating++;
             }

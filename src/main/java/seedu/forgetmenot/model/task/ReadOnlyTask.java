@@ -41,12 +41,13 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         
         builder.append(getName())
-                .append(" Start: ")
+                .append(System.lineSeparator())
+                .append("Start: ")
                 .append(getStartTime().easyReadDateFormatForUI())
                 .append(" End: ")
-                .append(getEndTime().easyReadDateFormatForUI())
-                .append(" Recurrence: ")
-                .append(getRecurrence());
+                .append(getEndTime().easyReadDateFormatForUI());
+        if(getRecurrence().getValue())
+                builder.append(" Recurrence: ").append(getRecurrence());
         return builder.toString();
     }
 
