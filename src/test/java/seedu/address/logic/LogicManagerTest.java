@@ -137,8 +137,8 @@ public class LogicManagerTest {
     //@@author A0135812L
     @Test
     public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", String.format(RequiresConfirm.PROMPT_MESSAGE, "exit"));
-        assertCommandBehavior("YES", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        //assertCommandBehavior("YES", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
