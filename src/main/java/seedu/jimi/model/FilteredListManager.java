@@ -3,6 +3,7 @@ package seedu.jimi.model;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +85,29 @@ public class FilteredListManager {
      */
     private void initSortedLists() {
         for(ListId id : ListId.values()) {
-            sortedListMap.put(id, new SortedList<ReadOnlyTask>(listMap.get(id)));
+            SortedList<ReadOnlyTask> sortedList = new SortedList<ReadOnlyTask>(listMap.get(id));
+            sortedList.setComparator(new Comparator<ReadOnlyTask>() {
+                @Override
+                public int compare(ReadOnlyTask arg0, ReadOnlyTask arg1) {
+                    if(arg0 instanceof Event) {
+                        if(arg1 instanceof Event) {
+                            return ((Event) arg0).getStart().compareTo(((Event) arg1).getStart());
+                        } else { //return -2, lowest natural ordering
+                            return -2;
+                        }
+                    } else if(arg0 instanceof DeadlineTask) {
+                        if(arg1 instanceof DeadlineTask) {
+                            return ((DeadlineTask) arg0).getDeadline().compareTo(((DeadlineTask) arg1).getDeadline());
+                        } else { //return -1, 2nd lowest natural ordering
+                            return -1;
+                        }
+                    } else {
+                        //compare names of floating tasks
+                        return arg0.getName().fullName.compareToIgnoreCase(arg1.getName().fullName);
+                    }
+                }
+            });
+            sortedListMap.put(id, sortedList);
         }
     }
     //@@author
