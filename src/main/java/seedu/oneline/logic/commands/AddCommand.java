@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.Maps;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.events.ui.ShowAllViewEvent;
@@ -42,7 +45,6 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
             throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
         this.toAdd = new Task(
                 new TaskName(name),
                 new TaskTime(startTime),
@@ -61,6 +63,7 @@ public class AddCommand extends Command {
         } catch (IllegalCmdArgsException e) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
+        System.out.println(Arrays.deepToString(fields.entrySet().toArray()));
         Task blankTask = new Task(new TaskName("A"), TaskTime.getDefault(), TaskTime.getDefault(), TaskTime.getDefault(), TaskRecurrence.getDefault(), Tag.EMPTY_TAG);
         return new AddCommand(blankTask.update(fields));
     }

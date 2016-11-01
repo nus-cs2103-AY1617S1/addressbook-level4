@@ -18,13 +18,13 @@ import seedu.oneline.model.tag.UniqueTagList;
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-    private TaskName name;
-    private TaskTime startTime;
-    private TaskTime endTime;
-    private TaskTime deadline;
-    private TaskRecurrence recurrence;
-    private Tag tag;
-    private boolean isCompleted;
+    private final TaskName name;
+    private final TaskTime startTime;
+    private final TaskTime endTime;
+    private final TaskTime deadline;
+    private final TaskRecurrence recurrence;
+    private final Tag tag;
+    private final boolean isCompleted;
 
     /**
      * Every field must be present and not null.
@@ -48,13 +48,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
-        this.setCompleted(isCompleted);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.deadline = deadline;
         this.recurrence = recurrence;
         this.tag = tag;
+        this.isCompleted = isCompleted;
         checkValidTaskTime(this);
     }
 
@@ -96,18 +96,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return tag;
     }
 
-    /**
-     * Replaces this person's tags with the tags in the argument tag list.
-     */
-    public void setTag(Tag replacement) {
-        this.tag = replacement;
-    }
-
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+        return other == this;
     }
 
     @Override
@@ -154,11 +145,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 newTag = Tag.getTag(entry.getValue());
                 break;
             case IS_DONE:
-                newCompleted = Boolean.getBoolean(entry.getValue());
+                newCompleted = Boolean.parseBoolean(entry.getValue());
                 break;
             }
         }
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, newCompleted);
+        System.out.println("C: " + newTask.isCompleted());
         return newTask;
     }
     
@@ -282,9 +274,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public boolean isCompleted() {
         return isCompleted; 
-    }
-    
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
     }
 }

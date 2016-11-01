@@ -8,7 +8,13 @@ import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.Logic;
+import seedu.oneline.logic.LogicManager;
 import seedu.oneline.logic.parser.Parser;
+import seedu.oneline.model.Model;
+import seedu.oneline.model.ModelManager;
+import seedu.oneline.model.TaskBook;
+import seedu.oneline.model.UserPrefs;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
@@ -56,15 +62,28 @@ public class GenerateCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        for (int i = 0; i < taskCount; i++) {
-            try {
-                model.addTask(generateTask());
-            } catch (DuplicateTaskException e) {
-                i--;
-            }
-        }
+//        for (int i = 0; i < taskCount; i++) {
+//            try {
+//                model.addTask(generateTask());
+//            } catch (DuplicateTaskException e) {
+//                i--;
+//            }
+//        }
+        model.resetData(getTaskBook(myTasks));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, taskCount));
     }
+    
+    public static TaskBook getTaskBook(String[] cmds) {
+        Model m = new ModelManager(new TaskBook(), new UserPrefs());
+        Logic l = new LogicManager(m, null);
+        for (int i = 0; i < cmds.length; i++) {
+            System.out.println("Executing: " + cmds[i]);
+            CommandResult r = l.execute(cmds[i]);
+            System.out.println(r.feedbackToUser);
+        }
+        return new TaskBook(m.getTaskBook());
+    }
+
     
     public static Task generateTask() {
         try {
@@ -183,4 +202,89 @@ public class GenerateCommand extends Command {
         return true;
     }
 
+    private static final String[] myTasks = new String[] {
+            "add CS2101 SEC .from 17 Oct 10am .to 17 Oct 12pm .done true #sch", 
+            "add GET1006 SEC .from 17 Oct 12pm .to 17 Oct 2pm .done true #sch", 
+            "add ST2132 LEC .from 17 Oct 2pm .to 17 Oct 4pm .done true #sch", 
+            "add CS1101S TUT .from 17 Oct 4pm .to 17 Oct 6pm .done true #sch", 
+            "add GEH1036 LEC .from 17 Oct 6pm .to 17 Oct 8pm .done true #sch", 
+            "add CS2103T TUT .from 19 Oct 9am .to 19 Oct 10am .done true #sch", 
+            "add CS1101S LEC .from 19 Oct 10am .to 19 Oct 12pm .done true #sch", 
+            "add GET1006 SEC .from 19 Oct 12pm .to 19 Oct 2pm .done true #sch", 
+            "add GEH1036 LEC .from 19 Oct 6pm .to 19 Oct 8pm .done true #sch", 
+            "add CS2101 SEC .from 20 Oct 10am .to 20 Oct 12pm .done true #sch", 
+            "add CS2106 LAB .from 20 Oct 12pm .to 20 Oct 1pm .done true #sch", 
+            "add ST2132 TUT .from 20 Oct 1pm .to 20 Oct 2pm .done true #sch", 
+            "add ST2132 LEC .from 20 Oct 2pm .to 20 Oct 4pm .done true #sch", 
+            "add GEH1036 TUT .from 20 Oct 5pm .to 20 Oct 6pm .done true #sch", 
+            "add CS1101S LEC .from 20 Oct 10am .to 20 Oct 11am .done true #sch", 
+            "add CS2106 TUT .from 21 Oct 11am .to 21 Oct 12pm .done true #sch", 
+            "add CS2106 LEC .from 21 Oct 12pm .to 21 Oct 2pm .done true #sch", 
+            "add CS2103 LEC .from 21 Oct 2pm .to 21 Oct 4pm .done true #sch", 
+            "add CS2101 SEC .from 24 Oct 10am .to 24 Oct 12pm .done true #sch", 
+            "add GET1006 SEC .from 24 Oct 12pm .to 24 Oct 2pm .done true #sch", 
+            "add ST2132 LEC .from 24 Oct 2pm .to 24 Oct 4pm .done true #sch", 
+            "add CS1101S TUT .from 24 Oct 4pm .to 24 Oct 6pm .done true #sch", 
+            "add GEH1036 LEC .from 24 Oct 6pm .to 24 Oct 8pm .done true #sch", 
+            "add CS2103T TUT .from 26 Oct 9am .to 26 Oct 10am .done true #sch", 
+            "add CS1101S LEC .from 26 Oct 10am .to 26 Oct 12pm .done true #sch", 
+            "add GET1006 SEC .from 26 Oct 12pm .to 26 Oct 2pm .done true #sch", 
+            "add GEH1036 LEC .from 26 Oct 6pm .to 26 Oct 8pm .done true #sch", 
+            "add CS2101 SEC .from 27 Oct 10am .to 27 Oct 12pm .done true #sch", 
+            "add CS2106 LAB .from 27 Oct 12pm .to 27 Oct 1pm .done true #sch", 
+            "add ST2132 TUT .from 27 Oct 1pm .to 27 Oct 2pm .done true #sch", 
+            "add ST2132 LEC .from 27 Oct 2pm .to 27 Oct 4pm .done true #sch", 
+            "add GEH1036 TUT .from 27 Oct 5pm .to 27 Oct 6pm .done true #sch", 
+            "add CS1101S LEC .from 28 Oct 10am .to 28 Oct 11am .done true #sch", 
+            "add CS2106 TUT .from 28 Oct 11am .to 28 Oct 12pm .done true #sch", 
+            "add CS2106 LEC .from 28 Oct 12pm .to 28 Oct 2pm .done true #sch", 
+            "add CS2103 LEC .from 28 Oct 2pm .to 28 Oct 4pm .done true #sch", 
+            "add CS2101 SEC .from 31 Oct 10am .to 24 Oct 12pm .done true #sch", 
+            "add GET1006 SEC .from 31 Oct 12pm .to 24 Oct 2pm .done true #sch", 
+            "add ST2132 LEC .from 31 Oct 2pm .to 24 Oct 4pm .done true #sch", 
+            "add CS1101S TUT .from 31 Oct 4pm .to 24 Oct 6pm .done true #sch", 
+            "add GEH1036 LEC .from 31 Oct 6pm .to 24 Oct 8pm .done true #sch", 
+            "add CS2103T TUT .from 2 Nov 9am .to 26 Oct 10am .done false #sch", 
+            "add CS1101S LEC .from 2 Nov 10am .to 26 Oct 12pm .done false #sch", 
+            "add GET1006 SEC .from 2 Nov 12pm .to 26 Oct 2pm .done false #sch", 
+            "add GEH1036 LEC .from 2 Nov 6pm .to 26 Oct 8pm .done false #sch", 
+            "add CS2101 SEC .from 3 Nov 10am .to 27 Oct 12pm .done false #sch", 
+            "add CS2106 LAB .from 3 Nov 12pm .to 27 Oct 1pm .done false #sch", 
+            "add ST2132 TUT .from 3 Nov 1pm .to 27 Oct 2pm .done false #sch", 
+            "add ST2132 LEC .from 3 Nov 2pm .to 27 Oct 4pm .done false #sch", 
+            "add GEH1036 TUT .from 3 Nov 5pm .to 27 Oct 6pm .done false #sch", 
+            "add CS1101S LEC .from 4 Nov 10am .to 28 Oct 11am .done false #sch", 
+            "add CS2106 TUT .from 4 Nov 11am .to 28 Oct 12pm .done false #sch", 
+            "add CS2106 LEC .from 4 Nov 12pm .to 28 Oct 2pm .done false #sch", 
+            "add CS2103 LEC .from 4 Nov 2pm .to 28 Oct 4pm .done false #sch", 
+            "add CS2101 Project .due 17 Oct11:59pm .done true #hw", 
+            "add Print GEH1036 notes .due 18 Oct 11:59pm .done true #hw", 
+            "add ST2132 Assignment 2 .due 19 Oct 11:59pm .done true #hw", 
+            "add ST2132 Assignment 3 .due 26 Oct 11:59pm .done true #hw", 
+            "add ST2132 Assignment 4 .due 5 Nov 11:59pm .done false #hw", 
+            "add CS2106 Lab 5 .due 7 Nov 11:59pm .done false #hw", 
+            "add GEH1036 Revision .due 15 Nov", 
+            "add GET1006 Revision .due 15 Nov", 
+            "add CS2101 Revision .due 15 Nov", 
+            "add CS2103 Revision .due 15 Nov", 
+            "add CS2106 Revision .due 15 Nov", 
+            "add ST2132 Revision .due 15 Nov", 
+            "add Dinner with family .from 19 Oct 7pm .to 19 Oct 9pm .done true #life", 
+            "add Dinner with Alex .from 20 Oct 7pm .to 20 Oct 9pm .done true #life", 
+            "add Lunch with Yu Kai .from 21 Oct 12pm .to 21 Oct 1pm .done true #life", 
+            "add Cycling .from 26 Nov9am .to 26 Oct 7pm .done false #life", 
+            "add Return library books .due 14 Nov .done false #life", 
+            "add Attend financial workshop .from 12 Nov 8am .to 12 Nov 6pm .done false #life", 
+            "add Buy stationery .done false #life", 
+            "add Plan night cycling trip .done false #life", 
+            "add Install telegram .done false #life", 
+            "add Set alarm for Monday .done true #life", 
+            "add Prepare cue cards for presentation .done true #sch", 
+            "add Haircut .done true #life", 
+            "add Call Nicole .done true #life", 
+            "add Collect EWP .done true #life",
+            "edit #life blue",
+            "edit #hw orange",
+            "edit #sch green"
+    };
 }

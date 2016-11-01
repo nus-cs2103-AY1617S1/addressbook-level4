@@ -129,6 +129,9 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void updateTags() {
         Set<Tag> allTags = new HashSet<Tag>();
         for (Task t : tasks.getInternalList()) {
+            if (t.getTag().equals(Tag.EMPTY_TAG)) {
+                continue;
+            }
             allTags.add(t.getTag());
         }
         setTags(allTags);
@@ -145,9 +148,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     
 //// tag-level operations
 
-//    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-//        tags.add(t);
-//    }
     
     public TagColor getTagColor(Tag t) {
        return tagColorMap.getTagColor(t);
