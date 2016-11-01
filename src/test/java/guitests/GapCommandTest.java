@@ -21,9 +21,6 @@ import seedu.flexitrack.testutil.TestTask;
 
 public class GapCommandTest extends FlexiTrackGuiTest {
 
-    /**
-     * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
-     */
     @ClassRule
     public static TemporaryFolder saveFolder = new TemporaryFolder();
 

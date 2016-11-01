@@ -165,10 +165,10 @@ public class TypicalTestTasks {
 
     public TestTask[] getExpectedTypicalFutureMarkTasks() {
         try {
-            homework1.setName(new Name ("(Done) " + homework1.getName().toString()));
-            soccer.setName(new Name ("(Done) " + soccer.getName().toString()));
-            exam.setName(new Name ("(Done) " + exam.getName().toString()));
-            event.setName(new Name ("(Done) " + event.getName().toString()));
+            homework1.setName(new Name (homework1.getName().toString()));
+            soccer.setName(new Name (soccer.getName().toString()));
+            exam.setName(new Name (exam.getName().toString()));
+            event.setName(new Name (event.getName().toString()));
         } catch (IllegalValueException e) {
             assert false;
         }

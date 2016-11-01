@@ -44,28 +44,28 @@ public class DateTimeInfoTest {
     @Test 
     public void RelaxValidInputWithNoSpecificHoursAndMinutes_returnsDate() { 
         final String validInput = "mon";
-        final String expectedSetTime = "Oct 31 2016 07:59";
+        final String expectedSetTime = "Nov 07 2016 07:59";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     
     @Test 
     public void RelaxValidInputWithSpecificHours_returnsDate() { 
         final String validInput = "tuesday 10am";
-        final String expectedSetTime = "Nov 01 2016 10:00";
+        final String expectedSetTime = "Nov 08 2016 10:00";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     
     @Test 
     public void RelativeValidInputWithNoSpecificHoursAndMinutes_returnsDate() { 
         final String validInput = "next month";
-        final String expectedSetTime = "Nov 30 2016 07:59";
+        final String expectedSetTime = "Dec 01 2016 07:59";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     
     @Test 
     public void RelativeValidInputWithSpecificHours_returnsDate() { 
         final String validInput = "last month";
-        final String expectedSetTime = "Sep 30 2016 07:59";
+        final String expectedSetTime = "Oct 01 2016 07:59";
         DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
     }
     
