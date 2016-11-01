@@ -77,25 +77,25 @@ PRIORITY is set to **normal** , all other parameters are empty.
 
 **Adding a task with PRIORITY**
 
-Command format : **add DESCRIPTION pr/PRIORITY**
+- Command format : **add DESCRIPTION pr/PRIORITY**
 
-Adds a task with its PRIORITY indicated.
+- Adds a task with its PRIORITY indicated.
 
-Example :   **add get groceries pr/high****  **
+- Example :   **add get groceries pr/high**
 
-Adds a task **get groceries**  with  **high**  PRIORITY to the task manager.
+- Adds a task **get groceries**  with  **high**  PRIORITY to the task manager.
 
 #### **Adding a task with deadline**
 
-Command format : **add DESCRIPTION ed/ENDTIME**
+-Command format : **add DESCRIPTION ed/ENDTIME**
 
-Adds a task with its ENDTIME indicated (the task&#39;s ENDTIME is its deadline).
+- Adds a task with its ENDTIME indicated (the task&#39;s ENDTIME is its deadline).
 
-Example :
+-Example :
 
-**add project ed/27.10.2016****  **
+**add project ed/27.10.2016  **
 
-#### Adds a task **project****   **with deadline** 27.10.2016**.
+#### Adds a task **project**with deadline** 27.10.2016**.
 
         **add project ed/27.10.2016****  16:00**
 
