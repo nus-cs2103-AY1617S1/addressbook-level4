@@ -26,7 +26,7 @@ public class DoCommandParser extends CommandParser {
     public Command prepareCommand(String args) {
         args = args.trim();
 
-        if (EMPTY_STRING.equals(args)) {
+        if (StringUtil.EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, DoCommand.MESSAGE_USAGE));
         }
@@ -36,7 +36,7 @@ public class DoCommandParser extends CommandParser {
             args = rangeIndex;
         } catch (InvalidRangeException ire) {
             return new IncorrectCommand(String
-                    .format(INVALID_RANGE + "\n" + DoCommand.MESSAGE_USAGE));
+                    .format(INVALID_RANGE + StringUtil.STRING_NEWLINE + DoCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, DoCommand.MESSAGE_USAGE));

@@ -5,6 +5,7 @@ import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.TagCommand;
@@ -38,7 +39,7 @@ public class TagCommandParser extends CommandParser {
             String editArgs = argsTokenizer.getValue(editPrefix).get();
             final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(editArgs);
             if (matcher.matches()) {
-                return new TagCommand(editPrefix, editArgs.split(EMPTY_SPACE_ONE));
+                return new TagCommand(editPrefix, editArgs.split(StringUtil.STRING_WHITESPACE));
             }
         }
 
