@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.util.FxViewUtil;
 
@@ -33,10 +34,12 @@ public class ResultDisplay extends UiPart {
 
     public void configure() {
         resultDisplayArea = new TextArea();
+        Font resultFont = new Font("Segoe-ui", 20);
         resultDisplayArea.setEditable(false);
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
-        resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
+//        resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
+        resultDisplayArea.setFont(resultFont);
        // resultDisplayArea.setText();
         displayed.setValue("Welcome to Lazyman's Friend!");
         resultDisplayArea.textProperty().bind(displayed);

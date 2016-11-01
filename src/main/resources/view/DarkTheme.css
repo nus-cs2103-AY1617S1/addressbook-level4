@@ -4,14 +4,14 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 /* @@author */
 .label-bright {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
@@ -25,7 +25,7 @@
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
@@ -113,7 +113,7 @@
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
 }
 
@@ -137,6 +137,7 @@
 }
 
 .result-display .label {
+	-fx-font-size: 15pt;
     -fx-text-fill: black !important;
 }
 
@@ -177,7 +178,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
@@ -245,7 +246,7 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 14px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
@@ -290,7 +291,7 @@
 }
 
 #commandTypeLabel {
-    -fx-font-size: 11px;
+    -fx-font-size: 15px;
     -fx-text-fill: #F70D1A;
 }
 
