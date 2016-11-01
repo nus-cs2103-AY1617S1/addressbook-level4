@@ -28,13 +28,13 @@ public class XmlTaskManagerStorageTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-
-    @Test
+/*
+   @Test
     public void readTaskManager_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(NullPointerException.class);
         readTaskManager(null);
     }
-
+*/
     private java.util.Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws Exception {
         return new XmlTaskManagerStorage(filePath).readTaskManager(addToTestDataPathIfNotNull(filePath));
     }
