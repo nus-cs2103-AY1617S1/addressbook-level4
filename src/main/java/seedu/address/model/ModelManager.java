@@ -148,11 +148,11 @@ public class ModelManager extends ComponentManager implements Model {
     	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
     	
     	if(java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
-    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
     	}
     	
     	if(!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
-    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
     	}        	        	        	
     	
     	Path newStorageFileFilePath = newStorageFolderFilePath.resolve(userSpecifiedStorageFileName +".xml");  //Throws InvalidPathException
@@ -160,15 +160,15 @@ public class ModelManager extends ComponentManager implements Model {
     	Path oldStorageFileFilePath = Paths.get(getTaskManagerStorageFilePath());  //Throws InvalidPathException
     	
     	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
-    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
     	}
     	
     	if(java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
-    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
     				+ ".xml", userSpecifiedStorageFolder));
     	}
     	
-    	return new Pair<Path, Path>(newStorageFolderFilePath, oldStorageFileFilePath);
+    	return new Pair<Path, Path>(newStorageFileFilePath, oldStorageFileFilePath);
     }
     
     @Override

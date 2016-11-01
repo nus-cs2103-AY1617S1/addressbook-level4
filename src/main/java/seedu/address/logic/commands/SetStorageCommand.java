@@ -1,10 +1,7 @@
 //@@author A0143756Y
 package seedu.address.logic.commands;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import javafx.util.Pair;
 
 import java.nio.file.InvalidPathException;
@@ -78,7 +75,7 @@ public class SetStorageCommand extends Command {
         } catch (SecurityException ex){
         	model.loadPreviousState();
         	return new CommandResult(MESSAGE_SECURITY_EXCEPTION);
-        } catch (//IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex){
         	model.loadPreviousState();
         	return new CommandResult(ex.getMessage());
         }
