@@ -147,7 +147,7 @@ public class Parser {
 			return prepareSetDir(arguments);
 
 		case ClearCommand.COMMAND_WORD:
-			return new ClearCommand();
+			return prepareClear(arguments);
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -436,6 +436,16 @@ public class Parser {
 
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
+		}
+	}
+	
+	private Command prepareClear(String args){
+		args = args.trim().toLowerCase();
+		if(args.equals(ALL)){
+			return new ClearCommand(ALL);
+		}
+		else{
+			return new ClearCommand();
 		}
 	}
 
