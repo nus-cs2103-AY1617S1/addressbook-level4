@@ -8,8 +8,10 @@ import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUncompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUncompletedException;
 
 //@@author A0122460W
 /**
@@ -70,12 +72,14 @@ public class UncompleteCommand extends Command{
                 
         try {
             assert model != null;
-            model.uncompleteFloatingTask(taskToUncomplete);
+            model.uncompleteTask(taskToUncomplete);
         } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (UniqueFloatingTaskList.FloatingTaskUncompletedException e) {
             return new CommandResult(MESSAGE_UNCOMPLETED_TASK);
-        }
+        } catch (DeadlineUncompletedException e) {
+		} catch (DeadlineNotFoundException e) {
+		}
         return new CommandResult(String.format(MESSAGE_UNCOMPLETED_TASK_SUCCESS, taskToUncomplete));
     }
     
@@ -90,12 +94,14 @@ public class UncompleteCommand extends Command{
                 
         try {
             assert model != null;
-            model.uncompleteDeadline(deadlineToUncomplete);
+            model.uncompleteTask(deadlineToUncomplete);
         } catch (DeadlineNotFoundException pnfe) {
             assert false : "The target deadline cannot be missing";
         } catch (UniqueDeadlineList.DeadlineUncompletedException e) {
             return new CommandResult(MESSAGE_UNCOMPLETED_DEADLINE);
-        }
+        } catch (FloatingTaskUncompletedException e) {
+		} catch (FloatingTaskNotFoundException e) {
+		}
         return new CommandResult(String.format(MESSAGE_UNCOMPLETED_DEADLINE_SUCCESS, deadlineToUncomplete));
     }
     

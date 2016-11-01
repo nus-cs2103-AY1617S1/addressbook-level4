@@ -128,14 +128,17 @@ public class ModelManager extends ComponentManager implements Model {
         updateAllListToShowAll();
         indicateMalitioChanged();
     }
-
+    
+    //@@author A0122460W
+    @Override
     public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
         malitio.completeTask(taskToComplete);
         history.add(new InputCompleteHistory(taskToComplete));
         updateAllListToShowAll();
         indicateMalitioChanged();
     }
-
+    
+    @Override
     public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
         malitio.uncompleteTask(taskToUncomplete);
         history.add(new InputUncompleteHistory(taskToUncomplete));
@@ -143,39 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateMalitioChanged();
     }
 
-    //@@author A0122460W
-    @Override
-    public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
-        malitio.completeTask(taskToComplete);
-        history.add(new InputCompleteHistory(taskToComplete));
-        updateFilteredTaskListToShowAll();
-        indicateMalitioChanged();
-    }
-
-    @Override
-    public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
-        malitio.completeDeadline(deadlineToComplete);
-        history.add(new InputCompleteHistory(deadlineToComplete));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-
-    @Override
-    public void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
-        malitio.uncompleteTask(taskToUncomplete);
-        history.add(new InputCompleteHistory(taskToUncomplete));
-        updateFilteredTaskListToShowAll();
-        indicateMalitioChanged();
-    }
-
-    @Override
-    public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
-        malitio.uncompleteDeadline(deadlineToUncomplete);
-        history.add(new InputCompleteHistory(deadlineToUncomplete));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-
+    //@@author
     @Override
     public void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
     DeadlineNotFoundException, DeadlineMarkedException, EventNotFoundException, EventMarkedException {

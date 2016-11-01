@@ -74,22 +74,12 @@ public interface Model {
             DeadlineNotFoundException, DuplicateEventException, EventNotFoundException;
     
     /** Complete the task.*/
-    void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException;
+    void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, 
+    FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException;
     
     /** Complete the task.*/
-    void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException;
-    
-    /** Complete the floating task.*/
-	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
-	
-	 /** Complete the deadline.*/
-	void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException;
-	
-	/** Uncomplete the floating task.*/
-	void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskNotFoundException, FloatingTaskUncompletedException;
-	
-	 /** Uncomplete the deadline.*/
-	void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException;
+    void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, 
+    FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException;
 	
 	/** Marks the task as a priority */
     void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,

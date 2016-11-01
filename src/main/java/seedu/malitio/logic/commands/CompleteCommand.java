@@ -8,8 +8,10 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 //@@author A0122460W
@@ -48,7 +50,7 @@ public class CompleteCommand extends Command{
     @Override
     public CommandResult execute() {
         CommandResult result;
-        if (taskType=='f') {
+        if (taskType == 'f') {
             result = executeCompleteFloatingTask();
             model.getFuture().clear();
             return result;
@@ -71,12 +73,14 @@ public class CompleteCommand extends Command{
                 
         try {
             assert model != null;
-            model.completeFloatingTask(taskToComplete);
+            model.completeTask(taskToComplete);
         } catch (FloatingTaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (UniqueFloatingTaskList.FloatingTaskCompletedException e) {
             return new CommandResult(MESSAGE_COMPLETED_TASK);
-        }
+        } catch (DeadlineCompletedException e) {
+		} catch (DeadlineNotFoundException e) {
+		}
         return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToComplete));
     }
     
@@ -91,12 +95,14 @@ public class CompleteCommand extends Command{
                 
         try {
             assert model != null;
-            model.completeDeadline(deadlineToComplete);
+            model.completeTask(deadlineToComplete);
         } catch (DeadlineNotFoundException pnfe) {
             assert false : "The target deadline cannot be missing";
         } catch (UniqueDeadlineList.DeadlineCompletedException e) {
             return new CommandResult(MESSAGE_COMPLETED_DEADLINE);
-        }
+        } catch (FloatingTaskCompletedException e) {
+		} catch (FloatingTaskNotFoundException e) {
+		}
         return new CommandResult(String.format(MESSAGE_COMPLETED_DEADLINE_SUCCESS, deadlineToComplete));
     }
     

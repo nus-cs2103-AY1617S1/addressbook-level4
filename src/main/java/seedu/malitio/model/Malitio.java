@@ -290,7 +290,9 @@ public class Malitio implements ReadOnlyMalitio {
         }
     }
     
-    public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
+    //@@author A0122460W
+    public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, 
+    FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
         if (isFloatingTask(taskToComplete)) {
             tasks.complete((ReadOnlyFloatingTask)taskToComplete);
         } else {
@@ -298,33 +300,15 @@ public class Malitio implements ReadOnlyMalitio {
         }        
     }
     
-    public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
+    public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, 
+    FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
         if (isFloatingTask(taskToUncomplete)) {
             tasks.uncomplete((ReadOnlyFloatingTask)taskToUncomplete);
         } else {
             deadlines.uncomplete((ReadOnlyDeadline)taskToUncomplete);
         }
     }
-    
-    //@@author A0122460W
-	public void completeTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
-        tasks.complete(taskToComplete);
-	}
-	
-	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
-		deadlines.complete(deadlineToComplete);
-		
-	}
-	
-	public void uncompleteTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
-        tasks.uncomplete(taskToUncomplete);
-	}
-	
-	public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
-		deadlines.uncomplete(deadlineToUncomplete);
-		
-	}
-	
+    	
 	//@@author A0153006W
     public void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
     DeadlineNotFoundException, DeadlineMarkedException, EventNotFoundException, EventMarkedException {
