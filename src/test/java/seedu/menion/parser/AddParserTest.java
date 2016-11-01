@@ -14,7 +14,7 @@ public class AddParserTest {
 
 	
 	@Test
-	public void checkIsTask_returnsTrue() {
+	public void correctTaskArgumentsShouldReturnTrue() {
 
 		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 
@@ -24,7 +24,7 @@ public class AddParserTest {
 
 	
 	@Test
-	public void checkIsEvent_returnsTrue(){
+	public void correctEventArgumentsShouldReturnTrue(){
 		
 		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		
@@ -32,7 +32,7 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkIsEvent_returnsFalse(){
+	public void wrongEventArgumentShouldReturnFalse(){
 		
 		String arguments = "meet prof damith from: 10-08-2016 1900 by: 11-08-2016 1900 n:he is fierce";
 	
@@ -41,19 +41,19 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkTypeOfActivity_returnsTask(){
+	public void taskShouldReturnTaskType(){
 		
 		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 
 		try{
-			assertEquals("task", AddParser.parseCommand(arguments).get(0));
+			assertEquals(Activity.TASK_TYPE, AddParser.parseCommand(arguments).get(0));
 		} catch (IllegalValueException e){
 			System.out.println(e.getMessage());
 		}
 	}
 	
 	@Test
-	public void checkTypeOfActivity_returnsEvents(){
+	public void eventShouldRetunEventType(){
 		
 		String arguments = "meet prof damith from: 10-08-2016 1900 to: 11-08-2016 1900 n:he is fierce";
 		try{
@@ -64,7 +64,7 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkTypeOfActivity_returnsFloatingTask(){
+	public void floatingTaskShouldReturnFloatingTaskType(){
 		
 		String arguments = "complete cs2103t n:important";
 		
@@ -77,7 +77,7 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkEventArguments_returnsCorrectArguments(){
+	public void parseEventCommandShouldReturnCorrectArguments(){
 		
 		String arguments = "meet prof damith from: 08-10-2016 1900 to: 08-11-2016 1900 n:he is fierce";
 		try {
@@ -93,7 +93,7 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkTaskArguments_returnsCorrectArguments(){
+	public void parseTaskCommandShouldReturnCorrectArguments(){
 	
 		String arguments = "complete cs2103t by : 10-08-2016 1900 n : important";
 		try{
@@ -108,7 +108,7 @@ public class AddParserTest {
 	}
 	
 	@Test
-	public void checkFloatingTaskArguments_returnsCorrectArguments(){
+	public void parseFloatingTaskCommandShouldReturnCorrectArguments(){
 		
 		String arguments = "complete cs2103t n:important";		
 		try {

@@ -149,14 +149,6 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-
-    }
-
-    @Test
     public void execute_add_invalidActivityData() throws Exception {
        
         assertCommandBehavior(

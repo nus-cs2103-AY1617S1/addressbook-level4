@@ -15,19 +15,23 @@ public class AddParser {
 	public AddParser() {
 	};
 
-	private static final Pattern REGULAR_TASK_REGEX = Pattern
+	private static final Pattern REGULAR_TASK_REGEX_WITH_NOTES = Pattern
 			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
-	private static final Pattern EVENTS_FROM_TO_REGEX = Pattern
+	private static final Pattern REGULAR_TASK_REGEX_WITHOUT_NOTES = Pattern
+			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
+	private static final Pattern EVENTS_FROM_TO_REGEX_WITH_NOTES = Pattern
 			.compile("(.+)[\\ ]*?from:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
-	private static final Pattern EVENTS_TO_FROM_REGEX = Pattern
+	private static final Pattern EVENTS_FROM_TO_REGEX_WITHOUT_NOTES = Pattern
+			.compile("(.+)[\\ ]*?from:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
+	private static final Pattern EVENTS_TO_FROM_REGEX_WITH_NOTES = Pattern
 			.compile("(.+)[\\ ]*?to:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
-	private static final Pattern FLOATING_TASK_REGEX = Pattern
+	private static final Pattern EVENTS_TO_FROM_REGEX_WITHOUT_NOTES = Pattern
+			.compile("(.+)[\\ ]*?to:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
+	private static final Pattern FLOATING_TASK_REGEX_WITH_NOTES = Pattern
 			.compile("(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+	private static final Pattern FLOATING_TASK_REGEX_WITHOUT_NOTES = Pattern
+			.compile("(.+)");
 		
-	
-	private static final String REGULAR_TASK = "task";
-	private static final String EVENTS = "event";
-	private static final String FLOATING_TASK = "floating";
 	
 	
 	private static Matcher matcher;
@@ -86,8 +90,15 @@ public class AddParser {
 	 */
 	private static void inputFloatingTaskArguments(){
 
-		parsedArguments.add(1, matcher.group(1).trim());
-		parsedArguments.add(2, matcher.group(2).trim());
+		if (matcher.pattern().equals(FLOATING_TASK_REGEX_WITHOUT_NOTES)){
+				parsedArguments.add(1, matcher.group(1).trim());
+				parsedArguments.add(2, null);
+				
+		}
+		else if (matcher.pattern().equals(FLOATING_TASK_REGEX_WITH_NOTES)){
+				parsedArguments.add(1, matcher.group(1).trim());
+				parsedArguments.add(2, matcher.group(2).trim());
+		}
 		
 	}
 	
@@ -99,14 +110,19 @@ public class AddParser {
 	 * list(4) = Task Start Time
 	 */
 	private static void inputTaskArguments() {
-
 		parsedArguments.add(1, matcher.group(1).trim());
-		parsedArguments.add(2, matcher.group(3).trim());
+
+		if (matcher.pattern().equals(REGULAR_TASK_REGEX_WITHOUT_NOTES)){
+			parsedArguments.add(2, null);			
+		}
+		else {
+			parsedArguments.add(2, matcher.group(3).trim());
+		}
+		
 		ArrayList<String> dateTimeList = new ArrayList<String>();
 		NattyDateParser.parseDate(matcher.group(2), dateTimeList);
 		parsedArguments.add(3, dateTimeList.get(0));
-		parsedArguments.add(4, dateTimeList.get(1));		
-		
+		parsedArguments.add(4, dateTimeList.get(1));			
 	}
 
 	/**
@@ -120,45 +136,53 @@ public class AddParser {
 	 */
 	private static void inputEventArguments() {
 
-		if (matcher.pattern().equals(EVENTS_FROM_TO_REGEX)){
+		parsedArguments.add(1, matcher.group(1).trim());
 
-			parsedArguments.add(1, matcher.group(1).trim());
+		if (matcher.pattern().equals(EVENTS_FROM_TO_REGEX_WITH_NOTES) || 
+				matcher.pattern().equals(EVENTS_TO_FROM_REGEX_WITH_NOTES)){
 			parsedArguments.add(2, matcher.group(4).trim());
-			ArrayList<String> dateTimeList = new ArrayList<String>();
-			NattyDateParser.parseDate(matcher.group(2), dateTimeList);
-			parsedArguments.add(3, dateTimeList.get(0));
-			parsedArguments.add(4, dateTimeList.get(1));
-			NattyDateParser.parseDate(matcher.group(3), dateTimeList);
-			parsedArguments.add(5, dateTimeList.get(0));
-			parsedArguments.add(6, dateTimeList.get(1));
-			
 		}
 		
+		else if (matcher.pattern().equals(EVENTS_FROM_TO_REGEX_WITHOUT_NOTES) || 
+				matcher.pattern().equals(EVENTS_TO_FROM_REGEX_WITHOUT_NOTES)){
+			parsedArguments.add(2, null);
+		}
+		
+		ArrayList<String> dateTimeList = new ArrayList<String>();
+		
+		if (matcher.pattern().equals(EVENTS_FROM_TO_REGEX_WITHOUT_NOTES) || 
+				matcher.pattern().equals(EVENTS_FROM_TO_REGEX_WITH_NOTES)){
+			NattyDateParser.parseDate(matcher.group(2), dateTimeList);
+			parsedArguments.add(3, dateTimeList.get(0));
+			parsedArguments.add(4, dateTimeList.get(1));
+			NattyDateParser.parseDate(matcher.group(3), dateTimeList);
+			parsedArguments.add(5, dateTimeList.get(0));
+			parsedArguments.add(6, dateTimeList.get(1));
+		}
 		else {
-			
-			parsedArguments.add(1, matcher.group(1).trim());
-			parsedArguments.add(2, matcher.group(4).trim());
-			ArrayList<String> dateTimeList = new ArrayList<String>();
 			NattyDateParser.parseDate(matcher.group(3), dateTimeList);
 			parsedArguments.add(3, dateTimeList.get(0));
 			parsedArguments.add(4, dateTimeList.get(1));
 			NattyDateParser.parseDate(matcher.group(2), dateTimeList);
 			parsedArguments.add(5, dateTimeList.get(0));
 			parsedArguments.add(6, dateTimeList.get(1));
-			
 		}
 		
 	}
 
 	public static Boolean isFloatingTask(String args){
-		matcher = FLOATING_TASK_REGEX.matcher(args);
+		matcher = FLOATING_TASK_REGEX_WITHOUT_NOTES.matcher(args);
 		
 		if (matcher.find()){
+			
+			matcher = FLOATING_TASK_REGEX_WITH_NOTES.matcher(args);
+			if (matcher.find() == false){
+				matcher = FLOATING_TASK_REGEX_WITHOUT_NOTES.matcher(args);
+				matcher.find();
+			}
 			return true;
 		}
-		
 		return false;
-		
 	}
 	
 	/**
@@ -168,14 +192,18 @@ public class AddParser {
 	 * @return
 	 */
 	public static Boolean isTask(String args) {
-		matcher = REGULAR_TASK_REGEX.matcher(args);
+		matcher = REGULAR_TASK_REGEX_WITHOUT_NOTES.matcher(args);
 
 		if (matcher.find()) {
+			// Check if the user has input notes.
+			matcher = REGULAR_TASK_REGEX_WITH_NOTES.matcher(args);
+			if (matcher.find() == false){
+				matcher = REGULAR_TASK_REGEX_WITHOUT_NOTES.matcher(args);
+				matcher.find();
+			}
 			return true;
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -185,20 +213,29 @@ public class AddParser {
 	 * @return
 	 */
 	public static Boolean isEvents(String args) {
-		matcher = EVENTS_FROM_TO_REGEX.matcher(args);
+		matcher = EVENTS_FROM_TO_REGEX_WITHOUT_NOTES.matcher(args);
 
+		// User input from: to: arguments.
 		if (matcher.find()) {
+			matcher = EVENTS_FROM_TO_REGEX_WITH_NOTES.matcher(args);
+			if (matcher.find() == false){
+				matcher = EVENTS_FROM_TO_REGEX_WITHOUT_NOTES.matcher(args);
+				matcher.find();
+			}
 			return true;
 		}
+		// User input to: from: arguments
 		else {
-			matcher = EVENTS_TO_FROM_REGEX.matcher(args);
+			matcher = EVENTS_TO_FROM_REGEX_WITHOUT_NOTES.matcher(args);
 			if (matcher.find()){
+				matcher = EVENTS_TO_FROM_REGEX_WITH_NOTES.matcher(args);
+				if (matcher.find() == false){
+					matcher = EVENTS_TO_FROM_REGEX_WITHOUT_NOTES.matcher(args);
+					matcher.find();
+				}
 				return true;
 			}
 		}
-
 		return false;
-
 	}
-
 }
