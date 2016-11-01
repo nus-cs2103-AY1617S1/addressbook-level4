@@ -39,9 +39,9 @@ public class DoneCommand extends Command {
     private int targetIndex;
     private String currentTaskIndex;
     
-    UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-    ArrayList<ReadOnlyTask> listOfTasksToMarkDone;
-    ReadOnlyTask taskToMark;
+    private UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+    private ArrayList<ReadOnlyTask> listOfTasksToMarkDone;
+    private ReadOnlyTask taskToMark;
     
     private StringBuilder invalidIndexMessage;
     private StringBuilder duplicateMarkAsDoneMessage;
