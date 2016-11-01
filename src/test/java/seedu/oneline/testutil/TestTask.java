@@ -15,12 +15,12 @@ import seedu.oneline.model.task.*;
 public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskName name;
-    private TaskTime startTime;
-    private TaskTime endTime;
-    private TaskTime deadline;
-    private TaskRecurrence recurrence;
-    private Tag tag;
-    private boolean isCompleted; 
+    private TaskTime startTime = TaskTime.getDefault();
+    private TaskTime endTime = TaskTime.getDefault();
+    private TaskTime deadline = TaskTime.getDefault();
+    private TaskRecurrence recurrence = TaskRecurrence.getDefault();
+    private Tag tag = Tag.getDefault();
+    private boolean isCompleted = false; 
 
     public TestTask() {
     }
@@ -201,7 +201,12 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
 
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, true);
+        Task newTask = null;
+        try {
+            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, true);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
         return newTask;
     }
     
@@ -221,7 +226,12 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
 
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+        Task newTask = null;
+        try {
+            newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
         return newTask;
     }
     

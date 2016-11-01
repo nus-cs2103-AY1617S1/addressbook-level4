@@ -433,8 +433,8 @@ public class LogicManagerTest {
 
         Task myTask() throws Exception {
             TaskName name = new TaskName("Adam Brown");
-            TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45");
-            TaskTime endTime = new TaskTime("Sun Oct 16 21:35:45");
+            TaskTime startTime = TaskTime.getDefault();
+            TaskTime endTime = TaskTime.getDefault();
             TaskTime deadline = new TaskTime("Sun Oct 16 21:35:45");
             TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag = Tag.getTag("tag1");
@@ -451,10 +451,10 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new TaskName("Task " + seed),
-                    new TaskTime("" + Math.abs(seed)),
-                    new TaskTime("" + seed),
-                    new TaskTime("" + seed),
-                    new TaskRecurrence("" + seed),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskRecurrence(""),
                     Tag.getTag("tag" + Math.abs(seed))
             );
         }
