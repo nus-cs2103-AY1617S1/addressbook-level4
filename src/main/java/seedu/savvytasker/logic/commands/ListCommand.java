@@ -1,6 +1,6 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.model.task.ListType;
+import seedu.savvytasker.model.ListType;
 
 /**
  * Lists all tasks in the savvy tasker to the user.

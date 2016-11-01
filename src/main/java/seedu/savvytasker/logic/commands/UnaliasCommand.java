@@ -56,7 +56,6 @@ public class UnaliasCommand extends ModelRequiringCommand {
             return new CommandResult(MESSAGE_UNREGOGNIZED_ALIAS);
         }
     }
-    //@@author
     
     //@@author A0097627N
     /**
