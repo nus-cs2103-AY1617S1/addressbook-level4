@@ -36,6 +36,8 @@ import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
 import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.task.model.task.DueDate;
+import seedu.task.model.task.StartDate;
 
 /**
  * Parses user input.
@@ -54,6 +56,7 @@ public class Parser {
     
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     
+    public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
     //@@author A0153411W
     public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
@@ -160,17 +163,47 @@ public class Parser {
 			if (argsTokenizer.getValue(startDatePrefix)!=null) {
 				dueDatePrefix.SetIsOptional(false);
 			}
+			//@@author
 			
+			//@@author A0139932X
+			//to validate start date is before due date
+			Date dueDate, startDate;
 			if (!isInputPresent(argsTokenizer.getValue(startDatePrefix)).equals("Not Set")
 			        && (!isInputPresent(argsTokenizer.getValue(dueDatePrefix)).equals("Not Set"))){
-			    Date startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix));
-			    Date dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix));
+			    
+			    if (!DueDate.isValidDateTime(argsTokenizer.getValue(dueDatePrefix)) 
+			            && !DueDate.isValidDate(argsTokenizer.getValue(dueDatePrefix))) {
+			        throw new IllegalValueException(DueDate.MESSAGE_DATE_CONSTRAINTS);
+			    }
+			    else {
+		            if (!DueDate.isValidDateTime(argsTokenizer.getValue(dueDatePrefix))) {
+		                dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix) + " 23:59");
+		            }
+		            else {
+		                dueDate = DATE_FORMAT.parse(argsTokenizer.getValue(dueDatePrefix));
+		            }
+		        }
+			    
+			    if (!StartDate.isValidDateTime(argsTokenizer.getValue(startDatePrefix)) 
+                        && !StartDate.isValidDate(argsTokenizer.getValue(startDatePrefix))) {
+                    throw new IllegalValueException(StartDate.MESSAGE_DATE_CONSTRAINTS);
+                }
+                else {
+                    if (!StartDate.isValidDateTime(argsTokenizer.getValue(startDatePrefix))) {
+                        startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix) + " 08:00");
+                    }
+                    else {
+                        startDate = DATE_FORMAT.parse(argsTokenizer.getValue(startDatePrefix));
+                    }
+                }
+			    
 			    if (startDate.compareTo(dueDate) > 0) {
 			        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_INVALID_DATE));
 			    }
 			
 			}
 			//@@author
+			
 		    //@@author A0153411W
 			return new AddCommand(argsTokenizer.getPreamble(), 
 					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),

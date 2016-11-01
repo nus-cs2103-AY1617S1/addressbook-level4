@@ -12,6 +12,8 @@ public class DueDate {
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task's due date should be entered as DD-MM-YYYY hh:mm\n"
             + "EXAMPLE: add Homework d/Math homework dd/02-01-2011 23:59";
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    
+    public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
   
     public final Date dueDate;
 
@@ -19,11 +21,16 @@ public class DueDate {
         if (dateToValidate.equals("Not Set")) {
             this.dueDate = null;
         }
-        else if (!isValidDate(dateToValidate)) {
+        else if (!isValidDateTime(dateToValidate) && !isValidDate(dateToValidate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         else {
-            this.dueDate = DATE_FORMAT.parse(dateToValidate);
+            if (!isValidDateTime(dateToValidate)) {
+                this.dueDate = DATE_FORMAT.parse(dateToValidate + " 23:59");
+            }
+            else {
+                this.dueDate = DATE_FORMAT.parse(dateToValidate);
+            }
         }
     }
   
@@ -31,7 +38,7 @@ public class DueDate {
 		dueDate = date;
 	}
 
-	public static boolean isValidDate(String inDate) {
+	public static boolean isValidDateTime(String inDate) {
 		DATE_FORMAT.setLenient(false);
 		try {
 			DATE_FORMAT.parse(inDate.trim());
@@ -39,6 +46,17 @@ public class DueDate {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean isValidDate(String inDate){
+	    DATE_FORMAT_WITHOUT_TIME.setLenient(false);
+	    try{
+	        DATE_FORMAT_WITHOUT_TIME.parse(inDate.trim());
+	    }
+	    catch (ParseException pe){
+	        return false;
+	    }
+	    return true;
 	}
 
 	@Override
