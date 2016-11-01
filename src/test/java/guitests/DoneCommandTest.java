@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.ggist.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
-    
+   /* 
     @Test
     public void done() throws IllegalArgumentException, IllegalValueException {
         

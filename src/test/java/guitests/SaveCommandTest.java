@@ -12,35 +12,33 @@ import seedu.ggist.logic.commands.SaveCommand;
 
 public class SaveCommandTest extends TaskManagerGuiTest {
 
-    private static final String DEFAULT_TEST_FILENAME = "/testData.xml";
-    private static final String DEFAULT_TEST_FILE_FOLDER = "/test/data/sandbox";
-/*
+    private static final String DEFAULT_TEST_FILENAME = "testData.xml";
+    private static final String DEFAULT_TEST_FILE_FOLDER = "./src/test/data/sandbox";
+
     @Test
     public void save_validDirectory() throws IllegalArgumentException, IllegalValueException {
-        commandBox.runCommand("save data/sandbox");
-        File fileIsPresent = new File(DEFAULT_TEST_FILE_FOLDER + DEFAULT_TEST_FILENAME);
-        if (fileIsPresent.exists()) {
-            assertSaveSuccess();
-        }
+        commandBox.runCommand("save " + DEFAULT_TEST_FILE_FOLDER);
+        assertSaveSuccess(DEFAULT_TEST_FILE_FOLDER + SaveCommand.DEFAULT_FILENAME);
     }
    
     @Test
     public void save_invalidDirectory_fail() throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand("save abc");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        assertResultMessage(SaveCommand.MESSAGE_FAIL + "\n" + SaveCommand.MESSAGE_USAGE);
     }
-/*    
+    
     @Test
     public void save_validFileExtension_fail() throws IllegalArgumentException, IllegalValueException {
-               
+        commandBox.runCommand("save " + DEFAULT_TEST_FILENAME);
+        assertSaveSuccess(SaveCommand.DEFAULT_FILE_FOLDER + DEFAULT_TEST_FILENAME);
     }
     
     @Test
     public void save_invalidFileExtension_fail() throws IllegalArgumentException, IllegalValueException {
                
     }
-*/
-    private void assertSaveSuccess() {
-        assertResultMessage(SaveCommand.MESSAGE_SUCCESS);
+
+    private void assertSaveSuccess(String filePath) {
+        assertResultMessage(String.format(SaveCommand.MESSAGE_SUCCESS, filePath));
     }
 }
