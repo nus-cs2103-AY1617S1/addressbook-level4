@@ -21,13 +21,14 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task in the task manager.
  */
+//@@author A0153751H
 
 public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName d/newDescription sd/11-11-2011 dd/11-11-2016 ts/tag ts/tag2"
+            + " 1 t/newTaskName d/newDescription sd/11-11-2011 11:11 dd/11-11-2016 01:01 ts/tag ts/tag2"
             + "\nNote: You must have at least one parameter other than the index of the task. Use multiple 'ts/' to list multiple tags.";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
@@ -222,6 +223,7 @@ public class EditCommand extends Command {
         }
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), new UniqueTagList(newTags));
 	}
+	//@@author
 
     //@@author A0153411W
 	/**
