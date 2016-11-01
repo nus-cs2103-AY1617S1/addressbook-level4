@@ -87,7 +87,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException {
         File file = new File(filepath);
         Optional<ReadOnlyTaskManager> data;
-        boolean isAlertCreatedAndYes = false;
+        boolean isAlertCreatedAndYes = true;
         try {
             data = taskManagerStorage.readTaskManager();
             //current file exists and there is data present in the current task manager
