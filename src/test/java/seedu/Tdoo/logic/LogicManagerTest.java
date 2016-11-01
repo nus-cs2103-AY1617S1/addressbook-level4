@@ -597,22 +597,22 @@ public class LogicManagerTest {
         helper.addToModel(model, fourtasks);
 
         assertCommandBehavior("done todo 1",
-                "Completed task: " + pTarget1.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone todo 1",
-                "Resumed task: " + pTarget1.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("done todo 3",
-                "Completed task: " + pTarget2.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone todo 3",
-                "Resumed task: " + pTarget2.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
@@ -641,22 +641,22 @@ public class LogicManagerTest {
         helper.addToModel(model, fourtasks);
 
         assertCommandBehavior("done event 1",
-                "Completed task: " + pTarget1.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone event 1",
-                "Resumed task: " + pTarget1.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("done event 3",
-                "Completed task: " + pTarget2.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone event 3",
-                "Resumed task: " + pTarget2.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
@@ -686,22 +686,22 @@ public class LogicManagerTest {
         helper.addToModel(model, fourtasks);
 
         assertCommandBehavior("done deadline 1",
-                "Completed task: " + pTarget1.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone deadline 1",
-                "Resumed task: " + pTarget1.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("done deadline 3",
-                "Completed task: " + pTarget2.toString(),
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
         assertCommandBehavior("undone deadline 3",
-                "Resumed task: " + pTarget2.toString(),
+                String.format(UndoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2),
                 expectedAB,
                 expectedList);
         
@@ -716,12 +716,12 @@ public class LogicManagerTest {
                 expectedList);
     }
     
-    @Test
-    //@@author A0132157M
-    public void execute_ChangeStorageLocation() throws Throwable {
-        assertCommandBehavior("storage /Documents/ShardFolder/TdooData",
-                StorageCommand.MESSAGE_SUCCESS.toString());
-    }
+//    @Test
+//    //@@author A0132157M
+//    public void execute_ChangeStorageLocation() throws Throwable {
+//        assertCommandBehavior("storage /Documents/ShardFolder/TdooData",
+//                String.format(StorageCommand.MESSAGE_SUCCESS, " /Documents/ShardFolder/TdooData"));
+//    }    
 
 
 //===========================================================================================

@@ -69,7 +69,7 @@ public class DeleteCommandTest extends ListGuiTest {
         
         addAllDummyEventTasks(currentList1);
         int targetIndex1 = 1;
-        assertDeleteEventSuccess(targetIndex1, currentList1);
+        assertDeleteEventSuccess(targetIndex1, currentList1); 
 
         //delete the last in the list
         currentList1 = TestUtil.removeEventFromList(currentList1, targetIndex1);
