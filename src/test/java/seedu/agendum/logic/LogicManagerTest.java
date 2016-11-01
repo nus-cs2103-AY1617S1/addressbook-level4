@@ -453,14 +453,9 @@ public class LogicManagerTest {
         model.resetData(new ToDoList());
         helper.addToModel(model, threeTasks);
 
-        // prepare for message
-        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(1);
-        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(threeTasks.get(0));
-        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
-
         // test boundary value (first task in the list)
         assertCommandBehavior("mark 1",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
+                MarkCommand.MESSAGE_MARK_TASK_SUCCESS,
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -479,15 +474,9 @@ public class LogicManagerTest {
         model.resetData(new ToDoList());
         helper.addToModel(model, fourTasks);
 
-        // prepare for message
-        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(3, 4);
-        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(
-                fourTasks.get(2), fourTasks.get(3));
-        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
- 
         // test boundary value (up to last task in the list)
         assertCommandBehavior("mark 3-4",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
+                MarkCommand.MESSAGE_MARK_TASK_SUCCESS,
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -506,14 +495,8 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, fourTasks);
 
-        // prepare for message
-        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
-        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(
-                fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
-        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
-
         assertCommandBehavior("mark 2,3 4",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
+                MarkCommand.MESSAGE_MARK_TASK_SUCCESS,
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -544,14 +527,9 @@ public class LogicManagerTest {
         model.resetData(new ToDoList());
         helper.addToModel(model, threeTasks);
 
-        // prepare for message
-        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(3);
-        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(threeTasks.get(2));
-        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
-
         // test boundary value - last task in the list
         assertCommandBehavior("unmark 3",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
+                UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS,
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -574,14 +552,8 @@ public class LogicManagerTest {
         model.resetData(new ToDoList());
         helper.addToModel(model, fourTasks);
 
-        // prepare for message
-        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(3, 4);
-        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(
-                fourTasks.get(2), fourTasks.get(3));
-        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
-
         assertCommandBehavior("unmark 3-4",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
+                UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS,
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -602,14 +574,8 @@ public class LogicManagerTest {
         // prepare model
         helper.addToModel(model, fourTasks);
 
-        // prepare for message
-        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
-        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(
-                fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
-        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
-
         assertCommandBehavior("unmark 2,3 4",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
+                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -682,7 +648,7 @@ public class LogicManagerTest {
 
         //boundary value: use the last task
         assertCommandBehavior("rename 3 " + newTaskName,
-                String.format(RenameCommand.MESSAGE_SUCCESS, "3", newTaskName),
+                String.format(RenameCommand.MESSAGE_SUCCESS, newTaskName),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -762,7 +728,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("schedule 3 from Sep 9 9:10 to Oct 10 10:10",
-                String.format(ScheduleCommand.MESSAGE_SUCCESS, "3", eventTask),
+                String.format(ScheduleCommand.MESSAGE_SUCCESS, eventTask),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }

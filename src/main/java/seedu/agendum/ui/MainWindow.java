@@ -34,7 +34,8 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/agendum_icon.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final String LIST_COMMAND = "list";
+    private static final String LIST_COMMAND = "list";
+    private static final String UNDO_COMMAND = "undo";
 
     private Logic logic;
 
@@ -123,7 +124,7 @@ public class MainWindow extends UiPart {
      * Set shortcut key for help menu item
      */
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F5"));
+        helpMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN));
     }
     
     /**
@@ -132,14 +133,15 @@ public class MainWindow extends UiPart {
     private void configureHelpWindowToggle() {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             KeyCombination toggleHelpWindow = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
-
+            KeyCombination undo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
             @Override
             public void handle(KeyEvent evt) {
                 if (toggleHelpWindow.match(evt) && messagePlaceHolder.getChildren().size() == 0) {
                     openHelpWindow();
                 } else if (toggleHelpWindow.match(evt) && messagePlaceHolder.getChildren().size() != 0) {
                     closeHelpWindow();
-
+                } else if(undo.match(evt)) {
+                    logic.execute(UNDO_COMMAND);
                 }
             }
         });
@@ -203,16 +205,17 @@ public class MainWindow extends UiPart {
         return floatingTasksPlaceHolder;
     }
 
-    public TasksPanel getUpcomingTasksPanel() {
-        return (UpcomingTasksPanel)this.upcomingTasksPanel;
+    public UpcomingTasksPanel getUpcomingTasksPanel() {
+        return (UpcomingTasksPanel) this.upcomingTasksPanel;
     }
-    
-    public TasksPanel getCompletedTasksPanel() {
-        return (CompletedTasksPanel)this.completedTasksPanel;
+
+    public CompletedTasksPanel getCompletedTasksPanel() {
+        return (CompletedTasksPanel) this.completedTasksPanel;
     }
-    
-    public TasksPanel getFloatingasksPanel() {
-        return (FloatingTasksPanel)this.floatingTasksPanel;
+
+    public FloatingTasksPanel getFloatingasksPanel() {
+        return (FloatingTasksPanel) this.floatingTasksPanel;
+
     }
 
     /**

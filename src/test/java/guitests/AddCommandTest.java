@@ -44,7 +44,7 @@ public class AddCommandTest extends ToDoListGuiTest {
 
         //confirm the new card contains the right data
         if (!taskToAdd.isCompleted() && !taskToAdd.hasTime()) {
-            TaskCardHandle addedCard = doItAnytimePanel.navigateToTask(taskToAdd.getName().fullName);
+            TaskCardHandle addedCard = floatingTasksPanel.navigateToTask(taskToAdd.getName().fullName);
             assertMatching(taskToAdd, addedCard);
         }
 

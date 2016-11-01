@@ -3,7 +3,9 @@ package seedu.agendum.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.agendum.commons.util.CollectionUtil;
+import seedu.agendum.commons.core.EventsCenter;
 import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.events.ui.JumpToListRequestEvent;
 import seedu.agendum.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -60,10 +62,13 @@ public class UniqueTaskList implements Iterable<Task> {
  
         if (contains(toAdd)) {
             logger.fine("[TASK LIST] --- Duplicate Task: " + toAdd.getDetailedText());
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(toAdd, false));
             throw new DuplicateTaskException();
         }
 
         internalList.add(toAdd);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(toAdd, false));
+        
         logger.fine("[TASK LIST] --- Added a Task: " + toAdd.getDetailedText());
     }
 
@@ -107,10 +112,12 @@ public class UniqueTaskList implements Iterable<Task> {
 
         if (contains(updatedTask)) {
             logger.fine("[TASK LIST] --- Duplicate Task: " + toUpdate.getDetailedText());
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(updatedTask, true));
             throw new DuplicateTaskException();
         }
 
         internalList.set(taskIndex, updatedTask);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(updatedTask, true));
         logger.fine("[TASK LIST] --- Updated Task: " + toUpdate.getDetailedText()
                 + " updated to " + updatedTask.getDetailedText());
 

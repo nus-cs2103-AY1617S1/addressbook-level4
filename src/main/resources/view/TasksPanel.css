@@ -1,11 +1,11 @@
 /* @@author A0148031R */
 .all-pane {
-	-fx-background-color:  #F39C12;
+	-fx-background-color:  #FFA000;
 	-fx-background-radius: 10;
 }
 
 .completed-pane {
-	-fx-background-color:  #03C9A9;
+	-fx-background-color:  #727a87;
 	-fx-background-radius: 10;
 }
 
@@ -20,12 +20,17 @@
 }
 
 .list-cell {
+	-fx-background-color: transparent;
     -fx-background-radius: 10;
-    -fx-background-color: transparent;
 }
 
 .list-cell:empty  {
 	-fx-background-color: transparent;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #4DD0E1;
+    -fx-text-fill: red;
 }
 
 .cell_big_label {
@@ -34,15 +39,8 @@
 }
 
 .cell_small_label {
-    -fx-font-size: 11pt;
-    -fx-text-fill: #555555;
+    -fx-text-fill: #3a3d42;
     -fx-opacity: 0.9;
-}
-
-.cell_time_label {
-    -fx-text-fill: #5284f2;
-    -fx-font-family: "Segoe UI Light";
-	-fx-opacity: 0.9;
 }
 
 .hbox {

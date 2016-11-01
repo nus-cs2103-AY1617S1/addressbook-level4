@@ -13,6 +13,8 @@ public interface ReadOnlyTask {
     boolean isCompleted();
     boolean isUpcoming();
     boolean isOverdue();
+    boolean isEvent();
+    boolean hasDeadline();
     boolean hasTime();
     Optional<LocalDateTime> getStartDateTime();
     Optional<LocalDateTime> getEndDateTime();

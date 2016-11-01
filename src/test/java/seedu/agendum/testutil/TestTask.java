@@ -94,6 +94,16 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     public boolean hasTime() {
         return (getStartDateTime().isPresent() || getEndDateTime().isPresent());
     }
+    
+    @Override
+    public boolean isEvent() {
+        return getStartDateTime().isPresent();
+    }
+
+    @Override
+    public boolean hasDeadline() {
+        return !getStartDateTime().isPresent() && getEndDateTime().isPresent();
+    }
 
     @Override
     public Optional<LocalDateTime> getStartDateTime() {

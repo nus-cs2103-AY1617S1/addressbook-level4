@@ -21,7 +21,7 @@ public class RenameCommand extends Command {
             + COMMAND_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " 2 Watch Star Trek";
 
-    public static final String MESSAGE_SUCCESS = "Task #%1$s renamed: %2$s";
+    public static final String MESSAGE_SUCCESS = "Task renamed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";
 
     public int targetIndex = -1;
@@ -60,7 +60,7 @@ public class RenameCommand extends Command {
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex, newTaskName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, newTaskName));
 
     }
 

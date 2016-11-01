@@ -69,13 +69,8 @@ public class ResultPopUp extends UiPart {
         show();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
-        delay.setOnFinished(event -> reFocusRoot());
+        delay.setOnFinished(event -> dialogStage.setOpacity(0));
         delay.play();
-    }
-
-    public void reFocusRoot() {
-        dialogStage.setOpacity(0);
-        root.requestFocus();
     }
 
     public void show() {

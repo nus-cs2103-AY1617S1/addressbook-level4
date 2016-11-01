@@ -25,7 +25,7 @@ public class UnmarkCommand extends Command {
             + "(The id must be a positive number)\n"
             + "Example: " + COMMAND_WORD + " 11-13 15";
 
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s): %1$s";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";
     public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
 
     public ArrayList<Integer> targetIndexes;
@@ -63,8 +63,7 @@ public class UnmarkCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE);
         }
 
-        return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS,
-                CommandResult.tasksToString(tasksToUnmark, targetIndexes)));
+        return new CommandResult(MESSAGE_UNMARK_TASK_SUCCESS);
     }
 
     private boolean isAnyIndexInvalid(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {

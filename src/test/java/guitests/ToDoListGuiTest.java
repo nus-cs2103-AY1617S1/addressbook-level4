@@ -40,8 +40,8 @@ public abstract class ToDoListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected UpcomingTasksHandle doItSoonPanel;
-    protected FloatingTasksPanelHandle doItAnytimePanel;
+    protected UpcomingTasksHandle upcomingTasksPanel;
+    protected FloatingTasksPanelHandle floatingTasksPanel;
     protected CompletedTasksPanelHandle completedTasksPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
@@ -62,8 +62,8 @@ public abstract class ToDoListGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            doItSoonPanel = mainGui.getDoItSoonPanel();
-            doItAnytimePanel = mainGui.getDoItAnytimePanel();
+            upcomingTasksPanel = mainGui.getDoItSoonPanel();
+            floatingTasksPanel = mainGui.getDoItAnytimePanel();
             completedTasksPanel = mainGui.getCompletedTasksPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
@@ -109,8 +109,8 @@ public abstract class ToDoListGuiTest {
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfTasks = doItSoonPanel.getNumberOfTasks()
-                          + doItAnytimePanel.getNumberOfTasks()
+        int numberOfTasks = upcomingTasksPanel.getNumberOfTasks()
+                          + floatingTasksPanel.getNumberOfTasks()
                           + completedTasksPanel.getNumberOfTasks();
         assertEquals(size, numberOfTasks);
     }
@@ -130,8 +130,8 @@ public abstract class ToDoListGuiTest {
         TestTask[] expectedDoItSoonTasks = TestUtil.getDoItSoonTasks(expectedList);
         TestTask[] expectedDoItAnytimeTasks = TestUtil.getDoItAnytimeTasks(expectedList);
         TestTask[] expectedDoneTasks = TestUtil.getDoneTasks(expectedList);
-        assertTrue(doItSoonPanel.isListMatching(expectedDoItSoonTasks));
-        assertTrue(doItAnytimePanel.isListMatching(expectedDoItAnytimeTasks));
+        assertTrue(upcomingTasksPanel.isListMatching(expectedDoItSoonTasks));
+        assertTrue(floatingTasksPanel.isListMatching(expectedDoItAnytimeTasks));
         assertTrue(completedTasksPanel.isListMatching(expectedDoneTasks));
     }
 }

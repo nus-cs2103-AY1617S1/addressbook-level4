@@ -61,8 +61,7 @@ public class RenameCommandTest extends ToDoListGuiTest {
             assertAllPanelsMatch(expectedList);
 
             //confirm the result message is correct
-            assertResultMessage(String.format(RenameCommand.MESSAGE_SUCCESS,
-                    Integer.toString(targetIndexOneIndexed), newTaskName));
+            assertResultMessage(String.format(RenameCommand.MESSAGE_SUCCESS, newTaskName));
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

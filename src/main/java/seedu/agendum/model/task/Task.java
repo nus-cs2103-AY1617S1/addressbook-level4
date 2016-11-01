@@ -100,6 +100,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     @Override
+    public boolean isEvent() {
+        return getStartDateTime().isPresent();
+    }
+
+    @Override
+    public boolean hasDeadline() {
+        return !getStartDateTime().isPresent() && getEndDateTime().isPresent();
+    }
+
+    @Override
     public Optional<LocalDateTime> getStartDateTime() {
         return Optional.ofNullable(startDateTime);
     }

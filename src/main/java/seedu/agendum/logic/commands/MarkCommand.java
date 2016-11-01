@@ -25,7 +25,7 @@ public class MarkCommand extends Command {
             + "(The id must be a positive number)\n"
             + "Example: " + COMMAND_WORD + " 1 3 5-6";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s): %1$s";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s)!";
     public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
 
     public ArrayList<Integer> targetIndexes;
@@ -63,8 +63,7 @@ public class MarkCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE);
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, 
-                CommandResult.tasksToString(tasksToMark, targetIndexes)));
+        return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);
     }
 
     private boolean isAnyIndexInvalid(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {

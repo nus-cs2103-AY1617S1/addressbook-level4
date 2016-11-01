@@ -46,7 +46,7 @@
          <items>
             <VBox fx:id="taskList">
                 <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                 </padding>
                <children>
                   <AnchorPane fx:id="upcomingTasksPlaceHolder" VBox.vgrow="ALWAYS" />
@@ -57,7 +57,7 @@
                   <AnchorPane fx:id="floatingTasksPlaceHolder" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </VBox>
             <VBox>
@@ -65,7 +65,7 @@
                   <AnchorPane fx:id="completedTasksPlaceHolder" VBox.vgrow="ALWAYS" />
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                </padding>
             </VBox>
          </items>

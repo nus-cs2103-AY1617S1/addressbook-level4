@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <!-- @@author A0148031R -->
 
@@ -26,29 +25,13 @@
          </rowConstraints>
          <children>
             <Label fx:id="id" minWidth="40.0" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$ID" wrapText="true" />
-            <VBox alignment="CENTER" styleClass="vbox" GridPane.columnIndex="1">
+            <VBox fx:id="taskVbox" alignment="CENTER" styleClass="vbox" GridPane.columnIndex="1">
                <children>
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <Label fx:id="name" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$task" wrapText="true">
-                           <padding>
-                              <Insets right="20.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <Label fx:id="time" styleClass="cell_time_label" stylesheets="@TasksPanel.css" text="\$time" wrapText="true">
-                           <font>
-                              <Font name="System Italic" size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </HBox>
+                  <Label fx:id="name" styleClass="cell_big_label" stylesheets="@TasksPanel.css" text="\$task" wrapText="true">
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
                </children>
             </VBox>
          </children>
