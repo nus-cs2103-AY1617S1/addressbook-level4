@@ -13,7 +13,7 @@
     <children>
         <GridPane prefHeight="109.0" prefWidth="446.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="626.0" minWidth="10.0" prefWidth="626.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="626.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="0.0" />
             </columnConstraints>
             <children>
