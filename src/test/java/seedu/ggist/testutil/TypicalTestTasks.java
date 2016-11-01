@@ -17,12 +17,13 @@ import seedu.ggist.model.task.*;
 //@@author A0147994J
 public class TypicalTestTasks {
     
-    public static TestTask floating, deadline, event, dance, soccer, lunch, report, reportWithNoTime, lunchWithNoStartTime, lunchWithNoEndTime;
+    public static TestTask floating, deadline, event, dance, soccer, lunch, report, reportWithNoTime, 
+                            lunchWithNoDate, lunchWithNoTime, dinnerWithNoStartDate, dinnerWithNoEndDate;
 
     Date currentDate = new Date();
     SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
     String startDateForTask = sdf.format(currentDate);
-    
+    //@@author A0138411N
     public TypicalTestTasks() {
         try {
             floating =  new TaskBuilder().withName("go buy milk")
@@ -60,15 +61,15 @@ public class TypicalTestTasks {
                     .withEndDate(startDateForTask)
                     .withEndTime("2pm")
                     .withPriority("low").build();
-            lunchWithNoStartTime =  new TaskBuilder().withName("lunch with friends with no start time")
-                    .withStartDate(startDateForTask)
-                    .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-                    .withEndDate(startDateForTask)
+            lunchWithNoDate =  new TaskBuilder().withName("lunch with friends with no date")
+                    .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    .withStartTime("1pm")
+                    .withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
                     .withEndTime("2pm")
                     .withPriority("med").build();
-            lunchWithNoEndTime =  new TaskBuilder().withName("lunch with friends with no end time")
+            lunchWithNoTime =  new TaskBuilder().withName("lunch with friends with no time")
                     .withStartDate(startDateForTask)
-                    .withStartTime("1pm")
+                    .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
                     .withEndDate(startDateForTask)
                     .withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
                     .withPriority("high").build();
@@ -78,11 +79,23 @@ public class TypicalTestTasks {
                     .withEndDate(startDateForTask)
                     .withEndTime("6pm")
                     .withPriority("med").build();
-            reportWithNoTime = new TaskBuilder().withName("submit report with no time dealine")
+            reportWithNoTime = new TaskBuilder().withName("submit report with no time deadline")
                     .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
                     .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
                     .withEndDate(startDateForTask)
                     .withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
+                    .withPriority("med").build();
+            dinnerWithNoStartDate = new TaskBuilder().withName("eat dinner with no start date")
+                    .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    .withStartTime("8pm")
+                    .withEndDate(startDateForTask)
+                    .withEndTime("9pm")
+                    .withPriority("med").build();
+            dinnerWithNoEndDate = new TaskBuilder().withName("eat dinner with no end date")
+                    .withStartDate(startDateForTask)
+                    .withStartTime("8pm")
+                    .withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+                    .withEndTime("9pm")
                     .withPriority("med").build();
             
         } catch (IllegalValueException e) {
@@ -90,7 +103,7 @@ public class TypicalTestTasks {
             assert false : "not possible";
         }
     }
-
+  //@@author A0147994J
     public static void loadTaskManagerWithSampleData(TaskManager ab) throws IllegalValueException {
 
         try {

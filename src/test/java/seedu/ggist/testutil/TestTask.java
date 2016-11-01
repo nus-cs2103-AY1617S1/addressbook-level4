@@ -115,8 +115,18 @@ public class TestTask implements ReadOnlyTask {
         // deadline task, append end date and end time
         } else if (this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
                     && this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
-        	sb.append("," + this.getEndTime().value + " ");
-            sb.append(endDate[1].trim());
+        	        sb.append("," + this.getEndTime().value + " ");
+        	        sb.append(endDate[1].trim());
+          //event task with no date, append time only
+        }  else if (this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
+                   && this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+                   sb.append(", " + this.getStartTime().value);
+                   sb.append(", " + this.getEndTime().value);
+        //event task with no time, append date only
+        }  else if (this.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)
+                   && this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+                sb.append(", " + startDate[1].trim().substring(0,endDate[1].trim().length()-2));
+                sb.append(", " + endDate[1].trim().substring(0,endDate[1].trim().length()-2));
         //event task with no start time, append start date only
         }  else if (this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
                 sb.append(", " + startDate[1].trim().substring(0,endDate[1].trim().length()-2)); 
@@ -125,8 +135,18 @@ public class TestTask implements ReadOnlyTask {
         //event task with no end time, append end date only
         }  else if (this.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) {
                 sb.append(" ,"+ this.getStartTime().value+ " ");
-                sb.append(startDate[1].trim() + ",");
-                sb.append(", " + endDate[1].trim().substring(0,endDate[1].trim().length()-2)); 
+                sb.append(startDate[1].trim().substring(0,endDate[1].trim().length()-2));
+                sb.append(", " + endDate[1].trim().substring(0,endDate[1].trim().length()-2));
+        //event task with no start date, append start time only
+        }  else if (this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+                sb.append(", " + this.getStartTime().value);
+                sb.append( ", " + this.getEndTime().value);
+                sb.append( " " + endDate[1].trim());
+        //event task with no end date, append end time only
+        }  else if (this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
+                sb.append(", " + this.getStartTime().value);
+                sb.append( " " + startDate[1].trim());
+                sb.append( ", " + this.getEndTime().value);
         } else {
         	// event task, append everything
         	sb.append(" ,"+ this.getStartTime().value+ " ");
