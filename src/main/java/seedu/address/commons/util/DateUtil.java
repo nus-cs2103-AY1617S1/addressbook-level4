@@ -21,10 +21,12 @@ public class DateUtil {
         DATE_FORMATS = new ArrayList<>();
         DATE_FORMATS1 = new ArrayList<>();
         DATE_FORMATS2 = new ArrayList<>();
-        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h:mm aa"));
-        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h:mm aa"));
-        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h.mm aa"));
-        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h.mm aa"));
+        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm a"));
+        DATE_FORMATS.add(new SimpleDateFormat("d.MM.yyyy h:mm a"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h:mm a"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h:mm a"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h.mm a"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy h.mm a"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HHmm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HHmm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy Hmm"));
@@ -38,6 +40,8 @@ public class DateUtil {
         DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy H.mm"));
         DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy H.mm"));
         DATE_FORMATS.add(new SimpleDateFormat("EEE, MMM d, yyyy h:mm a"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("d.MM.yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
         DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
@@ -166,7 +170,6 @@ public class DateUtil {
         String[] timeparts = date.split(" ");
         String part1 = strDate;
         String part2 = strDate;
-        System.out.println(date);
         if (timeparts.length != 1) {
             part2 = timeparts[1];
             if(timeparts.length== 3){
@@ -217,16 +220,11 @@ public class DateUtil {
         return taskDate;
     }
 
-    public static Date EndDateTime(Date date) throws IllegalValueException {
-        Date dateformat = null;
-
+    public static Calendar EndDateTime(Date date) throws IllegalValueException {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.HOUR_OF_DAY, 1);
-        dateformat = cal.getTime();
-
-  
-        return dateformat;
+        cal.add(Calendar.HOUR_OF_DAY, 1); 
+        return cal;
 
     }
     

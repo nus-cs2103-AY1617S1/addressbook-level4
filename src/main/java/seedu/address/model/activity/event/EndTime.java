@@ -29,10 +29,10 @@ public class EndTime extends DateTime {
      */
     public EndTime(String starttime, String date) throws IllegalValueException {
         super(Calendar.getInstance());
-        Date eventDate = null;
         Date startdate = convertStringtoDate(starttime);
-        if (date.equals(""))
-            eventDate = DateUtil.EndDateTime(startdate);
+        if (date.equals("")){
+            this.value= DateUtil.EndDateTime(startdate);
+        }
         else {
             String[] recur;
             if(date!=""){
@@ -46,7 +46,7 @@ public class EndTime extends DateTime {
             }
             setDate(date);
         }}    
-       if (eventDate.before(startdate)&&!this.recurring)
+      if (this.value.before(startdate)&&!this.recurring)
             throw new IllegalValueException(MESSAGE_ENDTIME_NOTVALID);
        else
            while (recurring && this.value.before(startdate)) {
@@ -87,10 +87,10 @@ public class EndTime extends DateTime {
         if(recurfreq.contains("year")){
             date = DateUtil.everyYear(recur[1]);   
         }
-        if (!isValidDate(date)) {
+/*        if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
-        if (!date.equals("")) {
+  */      if (!date.equals("")) {
             Date taskDate = DateUtil.FixedDateConvert(date);
 
 

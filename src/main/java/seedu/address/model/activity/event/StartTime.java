@@ -39,7 +39,6 @@ public class StartTime extends DateTime {
         }
 
         setDate(date);}
-        System.out.println(this.toString());
 
     }
 
@@ -57,10 +56,10 @@ public class StartTime extends DateTime {
         if(recurfreq.contains("year")){
             date = DateUtil.everyYear(recur[1]);   
         }
-    if (!isValidDate(date)) {
+ /*   if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
-        if (!date.equals("")) {
+   */     if (!date.equals("")) {
             Date taskDate = DateUtil.FixedDateConvert(date);
 
 
@@ -83,8 +82,6 @@ public class StartTime extends DateTime {
                 if (recurfreq.contains("day"))
                     this.value.add(Calendar.DAY_OF_MONTH, 1);
             }
-
-
         }
     }
     
