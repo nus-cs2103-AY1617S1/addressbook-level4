@@ -58,6 +58,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             case EVENT:
                 time = getTime().get().getStartDateString() + " - " + getTime().get().getEndDateString() + " " +
                         getTime().get().getEndTimeString();
+                break;
             case TIMERANGE:
                 time = getTime().get().getStartDateString() + " - " + getTime().get().getEndTimeString();
                 break;
@@ -85,20 +86,33 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         final StringBuilder builder = new StringBuilder();
         builder.append("<html>")
                 .append("<body bgcolor=\"#ffffff\">")
-                .append("<h2><font face=\"cambria\"><b>" + getName() + "</b></font></h2>")
-                .append("<p><font face=\"segoe ui semibold\">Date:</font> <font face=\"segoe ui light\">");
-        if(getTime().isPresent()){
-        builder.append(getTime().get().getStartDate().toLocalDate().format(DateTimeFormatter.ofPattern("d MMM uuuu")));
+                .append("<h2><font face=\"cambria\"><b>" + getName() + "</b></font></h2>");
+                
+        if (getTaskType() == TaskType.EVENT) {
+        	builder.append("<p><font face=\"segoe ui semibold\">Start Date:</font> <font face=\"segoe ui light\">")
+        	        .append(getTime().get().getStartDateString())
+        	        .append("</font></p>")
+        	        .append("<p><font face=\"segoe ui semibold\">End Date:</font> <font face=\"segoe ui light\">")
+        	        .append(getTime().get().getEndDateString())
+        	        .append(" ")
+                    .append(getTime().get().getEndTimeString());
+        } else {
+	        if (getTime().isPresent()) {
+	            builder.append("<p><font face=\"segoe ui semibold\">Date:</font> <font face=\"segoe ui light\">")
+	                    .append(getTime().get().getStartDate().toLocalDate().format(DateTimeFormatter.ofPattern("d MMM uuuu")));
+	        }
+	            builder.append("</font></p>")
+	                    .append("<p><font face=\"segoe ui semibold\">Time:</font> <font face=\"segoe ui light\">");
+	        
+	        if (getTaskType()==TaskType.DEADLINE) {
+	            builder.append(getTime().get().getStartDate().toLocalTime());
+	        } else if (getTaskType()==TaskType.TIMERANGE) {
+	            builder.append(getTime().get().getStartDate().toLocalTime())
+	                    .append(" ~ ")
+	                    .append(getTime().get().getEndDate().get().toLocalTime());
+	        }
         }
-        builder.append("</font></p>")
-                .append("<p><font face=\"segoe ui semibold\">Time:</font> <font face=\"segoe ui light\">");
-        if(getTaskType()==TaskType.DEADLINE){
-            builder.append(getTime().get().getStartDate().toLocalTime());
-        }else if(getTaskType()==TaskType.TIMERANGE){
-            builder.append(getTime().get().getStartDate().toLocalTime())
-                    .append(" ~ ")
-                    .append(getTime().get().getEndDate().get().toLocalTime());
-        }
+        
         builder.append("</font></p>")
                 .append("<p><font face=\"segoe ui semibold\">Description: </font>")
                 .append("<font face=\"segoe ui light\">" + getDescription()+ "</font></p>")
