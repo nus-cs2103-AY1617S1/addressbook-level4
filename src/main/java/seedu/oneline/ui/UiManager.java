@@ -14,6 +14,11 @@ import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
+import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
+import seedu.oneline.commons.events.ui.ShowAllViewEvent; 
+import seedu.oneline.commons.events.ui.ShowDayViewEvent; 
+import seedu.oneline.commons.events.ui.ShowWeekViewEvent; 
+import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.Logic;
 import seedu.oneline.model.UserPrefs;
@@ -25,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/oneline_32.png";
 
     private Logic logic;
     private Config config;
@@ -119,6 +124,30 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }
+    
+    @Subscribe
+    private void handleShowAllViewEvent(ShowAllViewEvent event) {
+        mainWindow.resetAllButtons();
+        mainWindow.getAllButton().setSelected(true); 
+    }
+    
+    @Subscribe
+    private void handleShowDayViewEvent(ShowDayViewEvent event) {
+        mainWindow.resetAllButtons();
+        mainWindow.getDayButton().setSelected(true); 
+    }
+    
+    @Subscribe
+    private void handleShowWeekViewEvent(ShowWeekViewEvent event) {
+        mainWindow.resetAllButtons();
+        mainWindow.getWeekButton().setSelected(true);
+    }
+    
+    @Subscribe
+    private void handleShowFloatViewEvent(ShowFloatViewEvent event) {
+        mainWindow.resetAllButtons();
+        mainWindow.getFloatButton().setSelected(true);
     }
 
 }

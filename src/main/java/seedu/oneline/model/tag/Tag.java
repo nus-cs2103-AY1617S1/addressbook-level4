@@ -93,9 +93,9 @@ public class Tag {
      */
     public String toString() {
         if (this == EMPTY_TAG) {
-            return "[No category]";
+            return "#uncategorised";
         }
-        return '[' + tagName + ']';
+        return '#' + tagName;
     }
     
     /**
