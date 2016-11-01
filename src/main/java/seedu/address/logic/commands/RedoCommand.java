@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.EmptyStackException;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
+
 //@@author A0121261Y
 /**
  * Reverse a undo command
@@ -36,6 +39,7 @@ public class RedoCommand extends Command {
         	assert lastCommand instanceof Undoable;
         	undoRedoManager.transferToUndo(lastCommand);
             lastUndoMessage = lastCommand.execute().feedbackToUser;
+            EventsCenter.getInstance().post(new MinimizeRequestEvent());
             return new CommandResult(MESSAGE_SUCCESS + System.lineSeparator() + lastUndoMessage);
         }catch (EmptyStackException ese) {
             return new CommandResult(MESSAGE_NO_UNDO_COMMAND + System.lineSeparator() + MESSAGE_USAGE);

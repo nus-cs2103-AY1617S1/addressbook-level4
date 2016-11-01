@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
+
 /**
  * Finds and lists all tasks in SmartyDo whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -24,6 +27,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
+        EventsCenter.getInstance().post(new MinimizeRequestEvent());
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }
