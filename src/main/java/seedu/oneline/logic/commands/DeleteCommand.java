@@ -27,49 +27,15 @@ public class DeleteCommand extends Command {
                     + "#meeting";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DELETE_CAT_SUCCESS = "Deleted category: %1$s";
 
-    public final int targetIndex;
-
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
-    public static DeleteCommand createFromArgs(String args) throws IllegalCmdArgsException {
-        if (args.trim().startsWith(CommandConstants.TAG_PREFIX)){
-            return DeleteTagCommand.createFromArgs(args.trim());
+    public static DeleteCommand createFromArgs(String args) throws IllegalCmdArgsException, IllegalValueException {
+        args = args.trim();
+        if (args.startsWith(CommandConstants.TAG_PREFIX)){
+            return DeleteTagCommand.createFromArgs(args);
+        } else {
+            return DeleteTaskCommand.createFromArgs(args);
         }
-        
-        Integer index = null;
-        try {
-            index = Parser.getIndexFromArgs(args);
-        } catch (IllegalValueException e) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
-        }
-        if (index == null) {
-            throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
-        }
-        return new DeleteCommand(index);
-    }
-
-    @Override
-    public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
     
     @Override
