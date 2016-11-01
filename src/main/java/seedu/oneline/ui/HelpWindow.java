@@ -80,7 +80,7 @@ public class HelpWindow extends UiPart {
     }
 
     private void configure(){
-        Scene scene = new Scene(mainPane);
+        Scene scene = new Scene(mainPane, 1020, 350);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         setIcon(dialogStage, ICON);
