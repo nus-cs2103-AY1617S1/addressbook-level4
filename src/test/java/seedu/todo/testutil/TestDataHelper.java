@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.todo.model.Model;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
@@ -17,7 +18,7 @@ import seedu.todo.model.task.TaskDate;
 /**
  * A utility class to generate test data.
  */
-public class TestDataHelper{
+public class TestDataHelper {
 
     /**
      * Generates a valid full task using the given seed.
@@ -26,7 +27,7 @@ public class TestDataHelper{
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateFullTask(int seed) throws Exception {
+    public Task generateFullTask(int seed) throws IllegalValueException {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
@@ -78,7 +79,7 @@ public class TestDataHelper{
     /**
      * Generates an ToDoList with auto-generated tasks.
      */
-    public DoDoBird generateToDoList(int numGenerated) throws Exception{
+    public DoDoBird generateToDoList(int numGenerated) throws IllegalValueException{
         DoDoBird toDoList = new DoDoBird();
         addToToDoList(toDoList, numGenerated);
         return toDoList;
@@ -87,7 +88,7 @@ public class TestDataHelper{
     /**
      * Generates an ToDoList based on the list of Tasks given.
      */
-    public DoDoBird generateToDoList(List<Task> tasks) throws Exception{
+    public DoDoBird generateToDoList(List<Task> tasks) throws IllegalValueException{
         DoDoBird toDoList = new DoDoBird();
         addToToDoList(toDoList, tasks);
         return toDoList;
@@ -97,14 +98,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given ToDoList
      * @param toDoList The ToDoList to which the Tasks will be added
      */
-    public void addToToDoList(DoDoBird toDoList, int numGenerated) throws Exception{
+    public void addToToDoList(DoDoBird toDoList, int numGenerated) throws IllegalValueException{
         addToToDoList(toDoList, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given ToDoList
      */
-    public void addToToDoList(DoDoBird toDoList, List<Task> tasksToAdd) throws Exception{
+    public void addToToDoList(DoDoBird toDoList, List<Task> tasksToAdd) throws IllegalValueException{
         for (Task p: tasksToAdd){
             toDoList.addTask(p);
         }
@@ -114,14 +115,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given model
      * @param model The model to which the Tasks will be added
      */
-    public void addToModel(Model model, int numGenerated) throws Exception{
+    public void addToModel(Model model, int numGenerated) throws IllegalValueException {
         addToModel(model, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given model
      */
-    public void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+    public void addToModel(Model model, List<Task> tasksToAdd) throws IllegalValueException {
         for (Task p: tasksToAdd){
             model.addTask(p);
         }
@@ -130,7 +131,7 @@ public class TestDataHelper{
     /**
      * Generates a list of Tasks based on the flags.
      */
-    public List<Task> generateTaskList(int numGenerated) throws Exception{
+    public List<Task> generateTaskList(int numGenerated) throws IllegalValueException{
         List<Task> tasks = new ArrayList<>();
         for (int i = 1; i <= numGenerated; i++){
             tasks.add(generateFullTask(i));
@@ -138,7 +139,7 @@ public class TestDataHelper{
         return tasks;
     }
     
-    public List<Task> generateReverseTaskList(int numGenerated) throws Exception {
+    public List<Task> generateReverseTaskList(int numGenerated) throws IllegalValueException {
         List<Task> tasks = new ArrayList<>();
         for (int i = 1; i <= numGenerated; i++){
             tasks.add(0, generateFullTask(i));
@@ -161,7 +162,7 @@ public class TestDataHelper{
     /**
      * Generates a Task object with given name. Other fields will have some dummy values.
      */
-    public Task generateTaskWithName(String name) throws Exception {
+    public Task generateTaskWithName(String name) throws IllegalValueException {
         return new Task(
                 new Name(name),
                 new Detail("1"),
@@ -175,7 +176,7 @@ public class TestDataHelper{
     /**
      * Generates a Task object with given dates. Other fields will have some dummy values.
      */
-    public Task generateTaskWithDates(String onDateString, String byDateString) throws Exception {
+    public Task generateTaskWithDates(String onDateString, String byDateString) throws IllegalValueException {
         return new Task(
                 new Name("Task"),
                 new Detail("1"),

@@ -13,7 +13,8 @@ import seedu.todo.model.task.ReadOnlyTask;
  *  A qualifier that filters tasks if they are to be done after
  * a certain datetime
  */
-public class AfterDateQualifier implements Qualifier{
+public class AfterDateQualifier implements Qualifier {
+  
     private LocalDateTime datetime;
     private SearchCompletedOption option;
     

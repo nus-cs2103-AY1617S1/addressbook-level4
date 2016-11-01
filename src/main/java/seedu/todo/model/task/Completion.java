@@ -1,6 +1,9 @@
 //@@author A0093896H
 package seedu.todo.model.task;
 
+/**
+ * Represents a Task's completion.
+ */
 public class Completion {
 
     private boolean isCompleted;

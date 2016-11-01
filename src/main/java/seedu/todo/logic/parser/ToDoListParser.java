@@ -89,6 +89,7 @@ public class ToDoListParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+    //@@author
     
     private String matchNameResult(Matcher matcher) {
         return matcher.group("name");
@@ -126,7 +127,7 @@ public class ToDoListParser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0121643R 
+    //@@author A0093896H
     private Command prepareAdd(String args) {
         
         Pattern[] dataPatterns = {ParserFormats.ADD_PRIORITY_FT, ParserFormats.ADD_PRIORITY_ON, 
@@ -211,7 +212,9 @@ public class ToDoListParser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } 
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
@@ -371,7 +374,7 @@ public class ToDoListParser {
         
 
     }
-    //@@author A0121643R
+    
     /**
      * Parses arguments in the context of the search task command.
      *
@@ -420,8 +423,10 @@ public class ToDoListParser {
                                              option,
                                              SearchCommand.SearchIndex.FT);
                     
-                } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != ParserFormats.FIRST_INDEX
-                            && tempArgs.indexOf("priority") != ParserFormats.FIRST_INDEX && tempArgs.indexOf("undone") != ParserFormats.FIRST_INDEX 
+                } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) 
+                            && tempArgs.indexOf("tag") != ParserFormats.FIRST_INDEX
+                            && tempArgs.indexOf("priority") != ParserFormats.FIRST_INDEX 
+                            && tempArgs.indexOf("undone") != ParserFormats.FIRST_INDEX 
                             && tempArgs.indexOf("done") != ParserFormats.FIRST_INDEX) {
                     return new SearchCommand(matcher.group("keywords"), 
                                              option,

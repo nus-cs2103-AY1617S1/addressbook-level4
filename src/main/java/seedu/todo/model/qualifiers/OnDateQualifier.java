@@ -11,7 +11,8 @@ import seedu.todo.model.task.ReadOnlyTask;
  * A qualifier that filter tasks based on whether their
  * starting date is on a certain date.
  */
-public class OnDateQualifier implements Qualifier{
+public class OnDateQualifier implements Qualifier {
+    
     private LocalDateTime datetime;
     private SearchCompletedOption option;
     

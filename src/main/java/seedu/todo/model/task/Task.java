@@ -102,6 +102,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+  //@@author A0093896H
     @Override
     public boolean isRecurring() {
         return this.recurrence.isRecurring();
@@ -124,9 +125,11 @@ public class Task implements ReadOnlyTask {
     }
     //@@author A0121643R   
     public void setPriority(Priority p) {
-    	this.priority = p;
+        this.priority = p;
     }
+    //@@author
     
+    //@@author A0093896H
     public void setCompletion(Completion c) {
         this.completion = c;
     }
@@ -155,7 +158,8 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-
+    //@@author
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

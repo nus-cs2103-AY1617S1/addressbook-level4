@@ -19,6 +19,11 @@ import seedu.todo.model.task.TaskDate;
  */
 public class DateTimeUtil {
 
+    public static final int DEFAULT_ON_HOUR = 0;
+    public static final int DEFAULT_ON_MINUTE = 0;        
+    public static final int DEFAULT_BY_HOUR = 23;
+    public static final int DEFAULT_BY_MINUTE = 59;
+    
     public static boolean isEmptyDateTimeString(String dateTimeString) {
         return (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" "));
     }
@@ -42,26 +47,25 @@ public class DateTimeUtil {
         if (groups.size() == 0) {
             return null;
         } else {
-            DateGroup group = groups.get(0);
-            Map<String, List<ParseLocation>> m = group.getParseLocations();
-
-            Date date = group.getDates().get(0);
+            Map<String, List<ParseLocation>> m = groups.get(0).getParseLocations();
+            Date date = groups.get(0).getDates().get(0);
+            
             Calendar c = Calendar.getInstance();
             c.setTime(date);
             
             LocalDateTime ldt;
             if (!m.keySet().contains("date")) {
-                ldt = LocalDateTime.now();
-                ldt = LocalDateTime.of(ldt.getYear(), ldt.getMonth(), ldt.getDayOfMonth(), 
+                LocalDateTime now = LocalDateTime.now();
+                ldt = LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), 
                         c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
             } else {
                 if (!m.keySet().contains("explicit_time")) {
                     if (onOrBy.equals(TaskDate.TASK_DATE_BY)) {
                         ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 
-                                c.get(Calendar.DATE), 23, 59);
+                                c.get(Calendar.DATE), DEFAULT_BY_HOUR, DEFAULT_BY_MINUTE);
                     } else {
                         ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 
-                                c.get(Calendar.DATE), 00, 00);
+                                c.get(Calendar.DATE), DEFAULT_ON_HOUR, DEFAULT_ON_MINUTE);
                     }
                 } else {
                     ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 
@@ -114,17 +118,29 @@ public class DateTimeUtil {
         }
     }
     
+    /**
+     * Checks whether onDate is before byDate
+     * 
+     * @param onDate
+     * @param byDate
+     * @return boolean
+     */
     public static boolean beforeOther(TaskDate onDate, TaskDate byDate) {
         if (onDate.getDate() == null || byDate.getDate() == null) {
             return true;
         } else if (onDate.getDate().equals(byDate.getDate())) {
             return onDate.getTime().isBefore(byDate.getTime());
         } else {
-        	return onDate.getDate().isBefore(byDate.getDate());
+            return onDate.getDate().isBefore(byDate.getDate());
         }
     }
     
-    
+    /**
+     * Combines LocalDate and LocalTime to LocalDateTime with default time being 2359
+     * @param date
+     * @param time
+     * @return
+     */
     public static LocalDateTime combineLocalDateAndTime(LocalDate date, LocalTime time) {
         assert date != null;
         if (time == null) {

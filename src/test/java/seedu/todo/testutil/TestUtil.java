@@ -65,6 +65,7 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
     
+    //@@author A0093896H
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
@@ -121,6 +122,7 @@ public class TestUtil {
             return null;
         }
     }
+    //@@author
 
     private static Tag[] getSampleTagData() {
         try {
@@ -340,9 +342,10 @@ public class TestUtil {
         tasks[index] = task;
         return tasks;
     }
-
+    
+    //@@author A0093896H
     /**
-     * Appends tasks to the array of tasks.
+     * Prepends tasks to the array of tasks.
      * @param tasks A array of tasks.
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
@@ -350,10 +353,11 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         for (TestTask t : tasksToAdd) {
-           listOfTasks.add(0, t); 
+            listOfTasks.add(0, t); 
         }
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    //@@author
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();

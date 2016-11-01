@@ -73,7 +73,7 @@ public class Tag {
     }
     
     public void decreaseCount() {
-        if(tasksCount > 0) {
+        if (tasksCount > 0) {
             this.tasksCount--;
         }
     }

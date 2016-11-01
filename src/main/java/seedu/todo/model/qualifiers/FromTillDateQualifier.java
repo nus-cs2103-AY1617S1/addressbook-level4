@@ -14,6 +14,7 @@ import seedu.todo.model.task.ReadOnlyTask;
  * and ending date.
  */
 public class FromTillDateQualifier implements Qualifier{
+  
     private LocalDateTime fromDateTime;
     private LocalDateTime tillDateTime;
     private SearchCompletedOption option;

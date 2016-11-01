@@ -49,7 +49,7 @@ public class XmlToDoListStorageTest {
         assertFalse(readToDoList("NonExistentFile.xml").isPresent());
     }
    
-    
+    //@@author A0093896H
     @Test
     public void readAndSaveToDoList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
@@ -79,6 +79,7 @@ public class XmlToDoListStorageTest {
         assertEquals(original, readbackDdb);
 
     }
+    //@@author
 
     @Test
     public void saveToDoList_nullToDoList_assertionFailure() throws IOException {
@@ -86,8 +87,8 @@ public class XmlToDoListStorageTest {
         saveToDoList(null, "SomeFile.xml");
     }
 
-    private void saveToDoList(ReadOnlyToDoList addressBook, String filePath) throws IOException {
-        new XmlToDoListStorage(filePath).saveToDoList(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveToDoList(ReadOnlyToDoList toDoList, String filePath) throws IOException {
+        new XmlToDoListStorage(filePath).saveToDoList(toDoList, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class XmlToDoListStorageTest {
     private DoDoBird addTaskToDoDoBird(ReadOnlyToDoList rotdl) throws DuplicateTaskException {
         DoDoBird readbackDdb = new DoDoBird();
         
-        for (int i = rotdl.getTaskList().size() - 1 ; i >= 0 ; i--) {
+        for (int i = rotdl.getTaskList().size() - 1; i >= 0; i--) {
             readbackDdb.addTask(new Task(rotdl.getTaskList().get(i)));
         }
         return readbackDdb;
