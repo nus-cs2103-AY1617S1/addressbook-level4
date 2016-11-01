@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
@@ -65,36 +66,37 @@ public class EditCommand extends Command {
      *      
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String startDate, String startTime, 
-                       String endDate, String endTime, List<String> tagsToAdd, List<String> tagsToRemove)
+    public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, 
+                       Optional<String> startTime, Optional<String> endDate, Optional<String> endTime, 
+                       Optional<List<String>> tagsToAdd, Optional<List<String>> tagsToRemove)
             throws IllegalValueException {
         
-        assert (containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
-                                                    endTime, tagsToAdd, tagsToRemove));
+        assert containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
+                                                    endTime, tagsToAdd, tagsToRemove);
         
         this.targetIndex = targetIndex;
-        if (containsInput(name)) {
-            this.name = new Name(name);
+        if (name.isPresent()) {
+            this.name = new Name(name.get());
         }
-        if (containsInput(startDate)) {
-            this.startDate = new ItemDate(startDate);
+        if (startDate.isPresent()) {
+            this.startDate = new ItemDate(startDate.get());
         }
-        if (containsInput(startTime)) {
-            this.startTime = new ItemTime(startTime);
+        if (startTime.isPresent()) {
+            this.startTime = new ItemTime(startTime.get());
         }
-        if (containsInput(endDate)) {
-            this.endDate = new ItemDate(endDate);
+        if (endDate.isPresent()) {
+            this.endDate = new ItemDate(endDate.get());
         }
-        if (containsInput(endTime)) {
-            this.endTime = new ItemTime(endTime);
-        }
-        
-        if (containsInput(tagsToAdd)) {
-            this.tagsToAdd = createUniqueTagList(tagsToAdd);
+        if (endTime.isPresent()) {
+            this.endTime = new ItemTime(endTime.get());
         }
         
-        if (containsInput(tagsToRemove)) {
-            this.tagsToRemove = createUniqueTagList(tagsToRemove);
+        if (tagsToAdd.isPresent()) {
+            this.tagsToAdd = createUniqueTagList(tagsToAdd.get());
+        }
+        
+        if (tagsToRemove.isPresent()) {
+            this.tagsToRemove = createUniqueTagList(tagsToRemove.get());
         }
         
         logger.fine("EditCommand object successfully created!");
@@ -148,13 +150,10 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param tags
-     * @param tagListToPopulate 
-     * @throws IllegalValueException
-     * @return created unique tag list
+     * Creates a UniqueTagList from a List of Strings
      */
     private UniqueTagList createUniqueTagList(List<String> tags) throws IllegalValueException {
-        assert containsInput(tags);
+        assert isToBeEdited(tags);
         
         UniqueTagList uniqueTagList = new UniqueTagList();
         for (String tag : tags) {
@@ -167,8 +166,7 @@ public class EditCommand extends Command {
     }
     
     /**
-     * @param itemToReplace
-     * @return true if itemToReplace is an event and its end datetime comes before its start datetime 
+     * Checks if itemToReplace is an event and if its end datetime comes before its start datetime 
      */
     private boolean isEventEndDateTimeBeforeStartDateTime(Item itemToReplace) {
         return itemToReplace.getItemType().isAnEvent() 
@@ -177,12 +175,11 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param itemToEdit
-     * @param itemToReplace
+     * Removes tags from item being edited if possible 
      * @return tag not found command result if an attempt to remove a non existent tag is made
      */
     private void removeTagsIfApplicable(ReadOnlyItem itemToEdit, Item itemToReplace) throws TagNotFoundException{
-        if (containsInput(this.tagsToRemove)) {
+        if (isToBeEdited(this.tagsToRemove)) {
             UniqueTagList tagListToEdit = getTagListToEditForTagRemoval(itemToEdit, itemToReplace);
             tagListToEdit.remove(tagsToRemove);
             itemToReplace.setTags(tagListToEdit);
@@ -190,12 +187,10 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param itemToEdit
-     * @param itemToReplace
-     * @return appropriate tag list to remove tags from 
+     * Gets appropriate tag list to remove tags from (dependent on whether user is adding tags in same command)
      */
     private UniqueTagList getTagListToEditForTagRemoval(ReadOnlyItem itemToEdit, Item itemToReplace) {
-        if (containsInput(this.tagsToAdd)) {
+        if (isToBeEdited(this.tagsToAdd)) {
             return itemToReplace.getTags();
         } else {
             return itemToEdit.getTags();
@@ -203,68 +198,48 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param itemToEdit
-     * @param itemToReplace
+     * Adds tags to item being edited if possible 
      */
     private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {
-        if (containsInput(this.tagsToAdd)) {
+        if (isToBeEdited(this.tagsToAdd)) {
             UniqueTagList tagListToEdit = itemToEdit.getTags();
             tagListToEdit.mergeFrom(this.tagsToAdd);
             itemToReplace.setTags(tagListToEdit);
         }
     }
 
-    /**
-     * @param itemToReplace
-     */
     private void setEndTimeIfAvailable(Item itemToReplace) {
-        if (containsInput(this.endTime)) {
+        if (isToBeEdited(this.endTime)) {
             itemToReplace.setEndTime(this.endTime);
         }
     }
 
-    /**
-     * @param itemToReplace
-     */
     private void setEndDateIfAvailable(Item itemToReplace) {
-        if (containsInput(this.endDate)) {
+        if (isToBeEdited(this.endDate)) {
             itemToReplace.setEndDate(this.endDate);
         }
     }
 
-    /**
-     * @param itemToReplace
-     */
     private void setStartTimeIfAvailable(Item itemToReplace) {
-        if (containsInput(this.startTime)) {
+        if (isToBeEdited(this.startTime)) {
             itemToReplace.setStartTime(this.startTime);
         }
     }
 
-    /**
-     * @param itemToReplace
-     */
     private void setStartDateIfAvailable(Item itemToReplace) {
-        if (containsInput(this.startDate)) {
+        if (isToBeEdited(this.startDate)) {
             itemToReplace.setStartDate(this.startDate);
         }
     }
 
-    /**
-     * @param itemToReplace
-     */
     private void setNameIfAvailable(Item itemToReplace) {
-        if (containsInput(this.name)) {
+        if (isToBeEdited(this.name)) {
             itemToReplace.setName(this.name);
         }
     }
 
     /**
-     * @param startItemDate
-     * @param endItemDate
-     * @param startItemTime
-     * @param endItemTime
-     * @return true if end datetime comes before start datetime
+     * Checks if end datetime comes before start datetime
      */
     private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, ItemDate endItemDate, ItemTime endItemTime) {
         if (isEndDateEqualsStartDate(startItemDate, endItemDate)) {
@@ -275,26 +250,21 @@ public class EditCommand extends Command {
     }
     
     /**
-     * @param startItemDate
-     * @param endItemDate
-     * @return true if endItemDate comes before startItemDate, false otherwise
+     * Checks if endItemDate comes before startItemDate, false otherwise
      */
     private boolean isEndDateBeforeStartDate(ItemDate startItemDate, ItemDate endItemDate) {
         return compareStartDateToEndDate(startItemDate, endItemDate) < 0;
     }
     
     /**
-     * @param startItemDate
-     * @param endItemDate
-     * @return true if endItemDate is equal to startItemDate, false otherwise
+     * Checks if endItemDate is equal to startItemDate, false otherwise
      */
     private boolean isEndDateEqualsStartDate(ItemDate startItemDate, ItemDate endItemDate) {
         return compareStartDateToEndDate(startItemDate, endItemDate) == 0;
     }
     
     /**
-     * @param startItemDate
-     * @param endItemDate
+     * Compares start date to end date
      * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
      */
     private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
@@ -318,9 +288,7 @@ public class EditCommand extends Command {
     
     
     /**
-     * @param startItemTime
-     * @param endItemTime
-     * @return true if endItemTime comes before startItemTime, false otherwise
+     * Checks if endItemTime comes before startItemTime, false otherwise
      */
     private boolean isEndTimeBeforeStartTime(ItemTime startItemTime, ItemTime endItemTime) {
         boolean result = true;
@@ -338,8 +306,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param itemToReplace
-     * @return true if parameters input by user is not valid for the item that is being edited
+     * Detects if parameters input by user is not valid for the item being edited
      */
     private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
         String itemType = itemToReplace.getItemType().toString();
@@ -363,27 +330,20 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param name
-     * @param startDate
-     * @param startTime
-     * @param endDate
-     * @param endTime
-     * @param tagsToAdd
-     * @param tagsToRemove
-     * @return true if at least one parameter contains user input
+     * Checks if at least one parameter contains input
      */
-    private boolean containsInputForAtLeastOneParameter(String name, String startDate, String startTime,
-            String endDate, String endTime, List<String> tagsToAdd, List<String> tagsToRemove) {
-        return containsInput(name) || containsInput(startDate) || containsInput(startTime) 
-               || containsInput(endDate) || containsInput(endTime) || containsInput(tagsToAdd) 
-               || containsInput(tagsToRemove);
+    private boolean containsInputForAtLeastOneParameter(Optional<String> name, Optional<String> startDate,
+                        Optional<String> startTime, Optional<String> endDate, Optional<String> endTime, 
+                        Optional<List<String>> tagsToAdd, Optional<List<String>> tagsToRemove) {
+        
+        return name.isPresent() || startDate.isPresent() || startTime.isPresent() || endDate.isPresent() 
+               || endTime.isPresent() || tagsToAdd.isPresent() || tagsToRemove.isPresent();
     }
 
     /**
-     * Checks if argument contains user input
-     * @param argument argument to be checked
+     * Checks if argument is to be edited
      */
-    private boolean containsInput(Object argument) {
+    private boolean isToBeEdited(Object argument) {
         return argument != null;
     }
     

@@ -31,6 +31,9 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 //@@author A0140060A
+/*
+ * Integration tests for the edit command
+ */
 public class EditCommandTest extends TaskManagerGuiTest {
     private static final Logger logger = LogsCenter.getLogger(EditCommandTest.class);
     
@@ -286,42 +289,42 @@ public class EditCommandTest extends TaskManagerGuiTest {
         final StringBuilder commandBuilder = new StringBuilder();
         commandBuilder.append(commandWord + " " + targetIndexOneIndexed);
         
-        if (containsInput(name)) {
+        if (isToBeEdited(name)) {
             commandBuilder.append(" n/")
                           .append(name);
         }
-        if (containsInput(startDate)) {
+        if (isToBeEdited(startDate)) {
             commandBuilder.append(" sd/")
                           .append(startDate);
         }
-        if (containsInput(startTime)) {
+        if (isToBeEdited(startTime)) {
             commandBuilder.append(" st/")
                           .append(startTime);
         }
-        if (containsInput(startDateTime)) {
+        if (isToBeEdited(startDateTime)) {
             commandBuilder.append(" sdt/")
                           .append(startDateTime);
         }
-        if (containsInput(endDate)) {
+        if (isToBeEdited(endDate)) {
             commandBuilder.append(" ed/")
                           .append(endDate);
         }
-        if (containsInput(endTime)) {
+        if (isToBeEdited(endTime)) {
             commandBuilder.append(" et/")
                           .append(endTime);
         }
-        if (containsInput(endDateTime)) {
+        if (isToBeEdited(endDateTime)) {
             commandBuilder.append(" edt/")
                           .append(endDateTime);
         }
-        if (containsInput(tagsToAdd)) {
+        if (isToBeEdited(tagsToAdd)) {
             Set<Tag> tagsToAddSet = tagsToAdd.toSet();
             for (Tag tag : tagsToAddSet) {
                 commandBuilder.append(" #")
                               .append(tag.tagName);
             }
         }
-        if (containsInput(tagsToRemove)) {
+        if (isToBeEdited(tagsToRemove)) {
             Set<Tag> tagsToRemoveSet = tagsToRemove.toSet();
             for (Tag tag : tagsToRemoveSet) {
                 commandBuilder.append(" #-")
@@ -332,35 +335,34 @@ public class EditCommandTest extends TaskManagerGuiTest {
         return commandBuilder;
     }
 
-    /**
-     * Generates an edited test item for use in edit command tests with the 
-     * @throws IllegalValueException
+    /*
+     * Edits test item according to parameters specified
      */
     private TestItem editTestItem(TestItem itemToEdit, String name, String startDate, 
-                                            String startTime, String endDate, String endTime, 
-                                            UniqueTagList tagsToAdd, UniqueTagList tagsToRemove) throws IllegalValueException {
+                String startTime, String endDate, String endTime, 
+                UniqueTagList tagsToAdd, UniqueTagList tagsToRemove) throws IllegalValueException {
         
-        if (containsInput(name)) {
+        if (isToBeEdited(name)) {
             itemToEdit.setName(new Name(name));
         }
-        if (containsInput(startDate)) {
+        if (isToBeEdited(startDate)) {
             itemToEdit.setStartDate(new ItemDate(startDate));
         }
-        if (containsInput(startTime)) {
+        if (isToBeEdited(startTime)) {
             itemToEdit.setStartTime(new ItemTime(startTime));
         }
-        if (containsInput(endDate)) {
+        if (isToBeEdited(endDate)) {
             itemToEdit.setEndDate(new ItemDate(endDate));
         }
-        if (containsInput(endTime)) {
+        if (isToBeEdited(endTime)) {
             itemToEdit.setEndTime(new ItemTime(endTime));
         }
-        if (containsInput(tagsToAdd)) {
+        if (isToBeEdited(tagsToAdd)) {
             UniqueTagList tagsToEdit = itemToEdit.getTags();
             tagsToEdit.mergeFrom(tagsToAdd);
             itemToEdit.setTags(tagsToEdit);
         }
-        if (containsInput(tagsToRemove)) {
+        if (isToBeEdited(tagsToRemove)) {
             UniqueTagList tagsToEdit = itemToEdit.getTags();
             tagsToEdit.remove(tagsToRemove);
             itemToEdit.setTags(tagsToEdit);
@@ -369,10 +371,9 @@ public class EditCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * Checks if argument contains user input
-     * @param argument argument to be checked
+     * Checks if argument is to be edited
      */
-    private boolean containsInput(Object argument) {
+    private boolean isToBeEdited(Object argument) {
         return argument != null;
     }
 }
