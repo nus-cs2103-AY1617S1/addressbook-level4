@@ -18,7 +18,8 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
             HEADER+"\\s+((?<=\\s)(" +
                     "(r/(?<"+REGEX_REF_REPRESENTATION+">[^/]+)(?!.*\\sr/))|" +
                     "(k/(?<"+REGEX_REF_KEYWORD+">[^/]+)(?!.*\\sk/))" +
-                    ")(\\s|$)){2}"
+                    ")(\\s|$)){2}",
+            Pattern.CASE_INSENSITIVE
     );
     
     @Override

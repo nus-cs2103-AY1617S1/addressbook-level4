@@ -32,6 +32,7 @@ public class ParserTest {
     private RedoCommandParser redoParser;
     private AliasCommandParser aliasParser;
     private UnaliasCommandParser unaliasParser;
+    private StorageCommandParser storageParser;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -52,6 +53,7 @@ public class ParserTest {
         redoParser = new RedoCommandParser();
         aliasParser = new AliasCommandParser();
         unaliasParser = new UnaliasCommandParser();
+        storageParser = new StorageCommandParser();
     }
     
     @Test
@@ -461,7 +463,19 @@ public class ParserTest {
     }
 
     //==================================================================================
-    
+
+    @Test
+    public void parse_storage_invalid() throws ParseException {
+        thrown.expect(ParseException.class);
+        storageParser.parse("storage  ");
+    }
+
+    @Test
+    public void parse_storage_valid() throws ParseException {
+        assertNotNull(storageParser.parse("storage C:/Users/Brown/Desktop/file.xml "));
+    }
+
+    //==================================================================================
     @Test
     public void parse_master_subparser() throws ParseException {
         MasterParser parser = new MasterParser();
