@@ -13,6 +13,8 @@ import tars.commons.exceptions.InvalidRangeException;
  */
 public class StringUtil {
     private static final String RANGE_SEPARATOR = "..";
+    public static final String EMPTY_STRING = "";
+    public static final int EMPTY_STRING_LENGTH = 0;
     
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");

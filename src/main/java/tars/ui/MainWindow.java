@@ -269,8 +269,12 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getY());
     }
 
+    /**
+     * @@author A0140022H
+     */
     @FXML
-    public void handleHelp() {
+    public void handleHelp(String args) {
+        helpPanel.loadUserGuide(args);
         tabPane.getSelectionModel().select(HELP_PANEL_TAB_PANE_INDEX);
     }
 
