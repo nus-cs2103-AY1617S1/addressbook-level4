@@ -12,5 +12,8 @@ public interface Ui {
 
     /** Stops the UI. */
     void stop();
+    
+    /** Shows/Hides the task list */
+    void showTaskList(boolean isShown);
 
 }

@@ -65,6 +65,11 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
         mainWindow.releaseResources();
     }
+    
+    @Override
+    public void showTaskList(boolean isShown) {
+        mainWindow.showTaskList(isShown);
+    }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
