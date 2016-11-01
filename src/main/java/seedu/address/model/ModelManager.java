@@ -191,8 +191,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void setSystemTime(AgendaTimeRangeChangedEvent atrce){
         previousDate = atrce.getInputDate();
-        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(),
-                DateFormatterUtil.getStartOfDay(atrce.getInputDate().getDate()), DateFormatterUtil.getEndOfDay(atrce.getInputDate().getDate()), null);
+        updateFilteredTaskList(new PredicateExpression(new DeadlineQualifier(DateFormatterUtil.getEndOfDay(atrce.getInputDate().getDate()))));
     }
     //@@author
 

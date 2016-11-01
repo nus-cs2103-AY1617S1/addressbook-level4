@@ -25,8 +25,8 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 1020;
+    public static final int MIN_WIDTH = 1200;
     
     private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
     private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
@@ -222,7 +222,7 @@ public class MainWindow extends UiPart {
     }
 
     public void switchToInitialTab() {
-        logic.execute("find from 12am to tomorrow 12am");
+        logic.execute("view today");
     }
     
     
