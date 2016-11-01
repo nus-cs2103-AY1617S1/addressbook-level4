@@ -56,7 +56,6 @@ public class SaveCommand extends Command{
    
     }
 
-    
     @Override
     public CommandResult execute() {
         assert model != null;

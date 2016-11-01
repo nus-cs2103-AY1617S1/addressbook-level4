@@ -13,7 +13,8 @@ import seedu.ggist.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskManagerGuiTest {
-
+    
+    //@@author A0138411N
     @Test
     public void add() throws IllegalArgumentException, IllegalValueException {
         //add one task
@@ -22,7 +23,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
 
-        //add another task
+       //add another task
         TaskToAdd = td.floating;
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
@@ -36,10 +37,25 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(eventTaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, eventTaskToAdd);
         
-   /*     //add deadline task
+        //add deadline task
         TestTask deadlineTaskToAdd = td.report;
         assertAddSuccess(deadlineTaskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, deadlineTaskToAdd);*/
+        currentList = TestUtil.addTasksToList(currentList, deadlineTaskToAdd); 
+        
+        //add deadline task with no time specified
+        TestTask deadlineTaskToAddWithNoTime = td.reportWithNoTime;
+        assertAddSuccess(deadlineTaskToAddWithNoTime, currentList);
+        currentList = TestUtil.addTasksToList(currentList, deadlineTaskToAddWithNoTime);
+        
+        //add event task with no start time specified
+        TestTask eventTaskToAddWithNoStartTime = td.lunchWithNoStartTime;
+        assertAddSuccess(eventTaskToAddWithNoStartTime, currentList);
+        currentList = TestUtil.addTasksToList(currentList, eventTaskToAddWithNoStartTime);
+        
+        //add event task with no end time specified
+        TestTask eventTaskToAddWithNoEndTime = td.lunchWithNoEndTime;
+        assertAddSuccess(eventTaskToAddWithNoEndTime, currentList);
+        currentList = TestUtil.addTasksToList(currentList, eventTaskToAddWithNoEndTime);
 
         //add to empty list
         commandBox.runCommand("clear");

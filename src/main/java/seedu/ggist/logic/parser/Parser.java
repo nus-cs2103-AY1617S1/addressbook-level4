@@ -53,8 +53,8 @@ public class Parser {
   //regex for tasks with start and end time on same days
     private static final Pattern EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<taskName>.+)"
-                    + "((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+"
-                    + ")((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)"
+                    + "((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+)"
+                    + "((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)"
                     + "((\\s*(,)\\s*)|(\\s+?to\\s+?))(?<endTime>.+)" , Pattern.CASE_INSENSITIVE);
     
     //regex for edit
