@@ -203,7 +203,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
             Task toCount = tasks.getInternalList().get(i);
 
-            if (toCount.getStartTime().isMissing() && toCount.getEndTime().isMissing()
+            if (toCount.isFloatingTask()
                     && toCount.getDone().getDoneValue() == false) {
                 floating++;
             }

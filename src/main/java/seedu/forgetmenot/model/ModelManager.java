@@ -159,44 +159,52 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0139671X
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task) throws IllegalValueException {
-
         String freq = task.getRecurrence().getRecurFreq();
         int occur = task.getRecurrence().getOccurence();
 
         // Recurring task with only start time.
-       if (task.isStartTask()) {
-            StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
-            for (int i = 0; i < occur - 1; i++) {
-                recurStartTime.insert(0, freq + " after ");
-                addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()), new Time(""),
-                        new Recurrence(task.getRecurrence().getRecurFreq())));
-            }
-        }
+       if (task.isStartTask())
+            addRecurringTaskWithStartOnly(task, freq, occur);
 
        // Recurring task with only end time.
-       else if (task.isDeadlineTask()) {
-           StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
+       else if (task.isDeadlineTask()) 
+           addRecurringDeadline(task, freq, occur);
+       
+        // Recurring task with both start and end times
+        else if (task.isEventTask()) 
+            addRecurringEvent(task, freq, occur);
+
+        updateFilteredTaskListToShowNotDone();
+        indicateTaskManagerChanged();
+    }
+
+    public void addRecurringEvent(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
+        StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
+        StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
+        for (int i = 0; i < occur - 1; i++) {
+            recurStartTime.insert(0, freq + " after ");
+            recurEndTime.insert(0, freq + " after ");
+            addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()),
+                    new Time(recurEndTime.toString()), new Recurrence(task.getRecurrence().getRecurFreq())));
+        }
+    }
+
+    public void addRecurringDeadline(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
+        StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
            for (int i = 0; i < occur - 1; i++) {
                recurEndTime.insert(0, freq + " after ");
                addTask(new Task(task.getName(), new Done(false), new Time(""), new Time(recurEndTime.toString()),
                        new Recurrence(task.getRecurrence().getRecurFreq())));
            }
-       }
-       
-        // Recurring task with both start and end times
-        else if (task.isEventTask()) {
-            StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
-            StringBuilder recurEndTime = new StringBuilder(task.getEndTime().appearOnUIFormat());
-            for (int i = 0; i < occur - 1; i++) {
-                recurStartTime.insert(0, freq + " after ");
-                recurEndTime.insert(0, freq + " after ");
-                addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()),
-                        new Time(recurEndTime.toString()), new Recurrence(task.getRecurrence().getRecurFreq())));
-            }
-        }
+    }
 
-        updateFilteredTaskListToShowNotDone();
-        indicateTaskManagerChanged();
+    public void addRecurringTaskWithStartOnly(ReadOnlyTask task, String freq, int occur) throws IllegalValueException {
+        StringBuilder recurStartTime = new StringBuilder(task.getStartTime().appearOnUIFormat());
+        for (int i = 0; i < occur - 1; i++) {
+            recurStartTime.insert(0, freq + " after ");
+            addTask(new Task(task.getName(), new Done(false), new Time(recurStartTime.toString()), new Time(""),
+                    new Recurrence(task.getRecurrence().getRecurFreq())));
+        }
     }
 
     //@@author A0139671X

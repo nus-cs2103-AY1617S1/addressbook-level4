@@ -121,10 +121,10 @@ public class Task implements ReadOnlyTask {
      * @return true if the tasks is past the current time.
      */
     public boolean checkOverdue() {
-        if (start.isMissing() && !end.isMissing())
+        if (isDeadlineTask())
             return end.time.compareTo(Calendar.getInstance()) < 0;
         
-        if (!start.isMissing())
+        else if (isStartTask() || isEventTask())
             return start.time.compareTo(Calendar.getInstance()) < 0;
         
         return false;
