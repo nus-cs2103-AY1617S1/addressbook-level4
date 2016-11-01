@@ -4,6 +4,7 @@ import java.text.ParseException;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -21,6 +22,8 @@ import seedu.unburden.commons.util.FxViewUtil;
 import seedu.unburden.logic.Logic;
 import seedu.unburden.logic.commands.CommandResult;
 import seedu.unburden.model.task.ReadOnlyTask;
+import seedu.unburden.ui.TaskListPanel;
+import seedu.unburden.model.ModelManager;
 
 /**
  * The Summary panel
@@ -46,8 +49,9 @@ public class SummaryPanel extends UiPart{
     private Label normal;
     @FXML
     private Label nonurgent;
-    @FXML
     */
+    
+    @FXML
     private Label done;
     @FXML
     private Label undone;
@@ -78,6 +82,17 @@ public class SummaryPanel extends UiPart{
         this.logic = logic;
     }
 
+    @FXML
+    public void initialize() {
+    	
+   	    today.setText(ModelManager.getSize1());
+        done.setText(ModelManager.getSize2());
+        undone.setText(ModelManager.getSize3());
+       
+    }
+             
+    
+    
     private  void addToPlaceholder() {
         
         SplitPane.setResizableWithParent(placeHolderPane, false);
