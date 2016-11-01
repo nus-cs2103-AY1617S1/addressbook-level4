@@ -13,12 +13,6 @@ import java.util.StringJoiner;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
-    }
-
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
