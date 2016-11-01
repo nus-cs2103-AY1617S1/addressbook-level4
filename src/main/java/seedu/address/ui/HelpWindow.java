@@ -5,9 +5,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Logger;
 
 /**
@@ -22,8 +25,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#5-summary";
+    private static final String USERGUIDE_URL = "/helpPage.html";
 
     private AnchorPane mainPane;
 
@@ -55,7 +57,15 @@ public class HelpWindow extends UiPart {
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
+        try {
+            browser.getEngine().loadContent((AppUtil.getHtmlString(USERGUIDE_URL)));
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
