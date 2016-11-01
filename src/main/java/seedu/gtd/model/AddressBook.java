@@ -44,7 +44,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public static ReadOnlyAddressBook getEmptyAddressBook() {
         return new AddressBook();
     }
-
+    
+//@@author A0139072H    
+//// application-wide operations
+    public void setFilePathTask(String newFilePath){
+    	
+    };
+    
+//@@author addressbook-level4
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {

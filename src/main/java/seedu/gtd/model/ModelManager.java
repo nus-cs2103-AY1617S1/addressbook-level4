@@ -252,4 +252,10 @@ public class ModelManager extends ComponentManager implements Model {
         	return eachWordMatch && nameMatch;
         }
     }
+
+	@Override
+	public void setFilePathTask(String newFilePath) {
+		// TODO Auto-generated method stub
+		
+	}
 }
