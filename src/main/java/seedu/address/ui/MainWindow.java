@@ -20,7 +20,7 @@ import seedu.address.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/icon3.png";
+    private static final String ICON = "/images/icon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -129,7 +129,7 @@ public class MainWindow extends UiPart {
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
-    
+
     private AnchorPane getFilterPlaceholder() {
         return filterPlaceholder;
     }
