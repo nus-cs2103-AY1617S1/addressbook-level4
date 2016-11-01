@@ -29,6 +29,8 @@ public class TaskListPanel extends UiPart {
     // store reference to undone and done task list for switching between views
     private ObservableList<ReadOnlyTask> undoneTaskList;
     private ObservableList<ReadOnlyTask> doneTaskList;
+    
+    private boolean isListDoneView = false;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -93,10 +95,12 @@ public class TaskListPanel extends UiPart {
         
     //@@author A0139498J
     public void switchToDoneTaskListView() {
+        isListDoneView = true;
         taskListView.setItems(doneTaskList);
     }
     
     public void switchToUndoneTaskListView() {
+        isListDoneView = false;
         taskListView.setItems(undoneTaskList);
     }
 
@@ -129,6 +133,12 @@ public class TaskListPanel extends UiPart {
     public void reloadLists(ObservableList<ReadOnlyTask> undoneTaskList, ObservableList<ReadOnlyTask>doneTaskList, boolean isDoneList) {
         this.undoneTaskList = undoneTaskList;
         this.doneTaskList = doneTaskList;
+        
+        boolean doNotResetConnections = (isListDoneView != isDoneList);
+        
+        if (doNotResetConnections) {
+            return;
+        }
         
         if (isDoneList) {
             setConnections(doneTaskList);

@@ -18,11 +18,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
+import java.util.Collections;
+
 public class EditCommandTest extends AddressBookGuiTest {
     
     //@@author A0139552B
     @Test
-    public void edit() {    	
+    public void edit() throws IllegalValueException {    	
     	
         TestTask[] currentList = td.getTypicalTasks();
         assertClearCommandSuccess();
@@ -33,32 +35,16 @@ public class EditCommandTest extends AddressBookGuiTest {
         //test to check each parameter
         commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
         aliceTask.setName(new Name("Call Alice"));
-        try {
-            aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
-        } catch (IllegalValueException e1) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceTask.setEndDate(DateTime.convertStringToDate("3pm"));
-        } catch (IllegalValueException e1) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
+        aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
+        aliceTask.setEndDate(DateTime.convertStringToDate("3pm"));
+        aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));
         
         //test to check that edit allows edit of combinations of parameters
         commandBox.runCommand("edit 1 Do stuff by 10pm -m");
         aliceTask.setName(new Name("Do stuff"));
-        try {
-            aliceTask.setEndDate(DateTime.convertStringToDate("10pm"));
-        } catch (IllegalValueException e1) {
-            assert false : "The test data provided cannot be invalid";
-        }      
+        aliceTask.setEndDate(DateTime.convertStringToDate("10pm"));
         aliceTask.setPriority(Priority.MEDIUM);       
         assertTrue(personListPanel.isListMatching(aliceTask));
         
@@ -76,11 +62,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         
         //ensure that reset command will overwrite any previous edit
         commandBox.runCommand("edit 1 from 10am -reset start");
-        try {
-            aliceTask.setStartDate(DateTime.convertStringToDate("10am"));
-        } catch (IllegalValueException e1) {
-            assert false : "The test data provided cannot be invalid";
-        }
+        aliceTask.setStartDate(DateTime.convertStringToDate("10am"));
         aliceTask.setStartDate(null);
         assertTrue(personListPanel.isListMatching(aliceTask));
 
@@ -89,22 +71,20 @@ public class EditCommandTest extends AddressBookGuiTest {
         aliceTask.setName(new Name("Trying out new things from the list"));
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        
+        //test to edit every detail
         commandBox.runCommand("edit 1 Visit distant relative at 1pm repeat every 3 years -h");
         aliceTask.setName(new Name("Visit distant relative"));
-        try {
-            aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
-        } catch (IllegalValueException e1) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
+        aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
+        aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));
         
+    }
+    
+    @Test
+    public void editCheckInvalid(){
+        TestTask[] currentList = td.getTypicalTasks();
+
         //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");
         assertResultMessage("The item index provided is invalid");
@@ -114,10 +94,9 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
     }
-    
 /*
     @Test
-    public void editCheckSort() {
+    public void editCheckSort() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
@@ -132,13 +111,19 @@ public class EditCommandTest extends AddressBookGuiTest {
         } catch (IllegalValueException e) {
             assert false : "The test data provided cannot be invalid";
         }
-        personToAdd.setPriority(Priority.HIGH);        
+        personToAdd.setPriority(Priority.HIGH);    
         //TODO
         //update currentList after the edit
         assertTrue(personListPanel.isListMatching(currentList));
         
     }
 */    
+    
+    /**
+     * Runs the add command to add the specified task and confirms the result is correct.
+     * @param taskToAdd the task to be added
+     * @param currentList A copy of the current list of persons (before deletion).
+     */
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 
@@ -151,7 +136,9 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
-    
+    /**
+     * Runs the clear command to clear the current list and confirms the result is correct.
+     */
     private void assertClearCommandSuccess() {
     	commandBox.runCommand("clear");
     	assertListSize(0);

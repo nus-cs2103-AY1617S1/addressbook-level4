@@ -526,14 +526,18 @@ public class LogicManagerTest {
     
     @Test
     public void toolTip_commandBeginningSubstringsOfAdd_addToolTip() {
+        // simple add tooltip
         assertToolTipBehavior("a", AddCommand.TOOL_TIP);
         assertToolTipBehavior("ad", AddCommand.TOOL_TIP);
         assertToolTipBehavior("add", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("add f", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP);
         assertToolTipBehavior("    add", AddCommand.TOOL_TIP);    
-        assertToolTipBehavior("   lolo l ", AddCommand.TOOL_TIP);    
+
+        
+        //complicated add tooltip
+        assertToolTipBehavior("add f", AddCommand.TOOL_TIP+ "\n\tAdding task: \n\tName:\tf\n\tPriority:\tmedium");
+        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tmeet akshay\n\tStart Date:\t1pm\n\tPriority:\tmedium");
+        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tdo cs2103 tests\n\tPriority:\tmedium");
+        assertToolTipBehavior("   lolo l ", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tlolo l\n\tPriority:\tmedium");    
     }
     
     @Test
@@ -568,11 +572,16 @@ public class LogicManagerTest {
     
     @Test
     public void toolTip_commandBeginningSubstringsOfEdit_editToolTip() {
+        // simple edit tooltip
         assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP);
         assertToolTipBehavior("ed", EditCommand.TOOL_TIP);
         assertToolTipBehavior("edi", EditCommand.TOOL_TIP);
         assertToolTipBehavior("edit", EditCommand.TOOL_TIP);
-        assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP);
+        
+        // complicated edit tooltip
+        assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP + "\n\tEditing task at INDEX 0: \n\tName:\tNo Change" +
+                "\n\tStart Date:\tNo Change" + "\n\tEnd Date:\t\tNo Change" + "\n\tRecurrence Rate:\tNo Change" + 
+                "\n\tPriority:\tNo Change");
     }
     
     @Test
@@ -622,7 +631,7 @@ public class LogicManagerTest {
     
     @Test
     public void toolTip_commandBeginningSubstringsOfSelect_selectToolTip() {
-        assertToolTipBehavior("s", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("s", SelectCommand.TOOL_TIP + "\n" + StoreCommand.TOOL_TIP);
         assertToolTipBehavior("se", SelectCommand.TOOL_TIP);
         assertToolTipBehavior("sel", SelectCommand.TOOL_TIP);
         assertToolTipBehavior("sele", SelectCommand.TOOL_TIP);

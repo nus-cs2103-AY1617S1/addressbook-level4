@@ -9,10 +9,12 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.events.ui.SwapTaskListEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.item.Task;
+import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
@@ -20,6 +22,7 @@ import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -189,12 +192,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0139552B
-    public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
+    public synchronized void editTask(ReadOnlyTask task, Name name, Date startDate,
             Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
-        taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
+        taskManager.editFloatingTask(task, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(floatingTask)));
+        jumpToCurrentEditedTask(task);
+    }
+    
+    /*
+     * Show the user the most recently edited item
+     */
+    private void jumpToCurrentEditedTask(ReadOnlyTask task) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(getFilteredUndoneTaskList().indexOf(task)));
     }
     //@@author
     
@@ -216,8 +226,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredUndoneTaskList(Set<String> keywords){
+    public void updateFilteredUndoneTaskListNamePred(Set<String> keywords){
         updateFilteredUndoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredUndoneTaskListDatePred(Set<String> keywords){
+        updateFilteredUndoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
     private void updateFilteredUndoneTaskList(Expression expression) {
@@ -225,8 +240,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredDoneTaskList(Set<String> keywords){
+    public void updateFilteredDoneTaskListNamePred(Set<String> keywords){
         updateFilteredDoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredDoneTaskListDatePred(Set<String> keywords){
+        updateFilteredDoneTaskList(new PredicateExpression(new DateQualifier(keywords)));
     }
 
     private void updateFilteredDoneTaskList(Expression expression) {
@@ -282,6 +302,58 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class DateQualifier implements Qualifier {
+        private Set<Date> dates;
+
+        DateQualifier(Set<String> dateKeyWords) {
+            dates = new HashSet<Date>();
+            for (String dateKeyword : dateKeyWords) {
+                try {
+                    dates.add(DateTime.convertStringToDate(dateKeyword));
+                } catch (IllegalValueException e) {
+                    // Do something here.
+                    return;
+                }
+            }
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return dates.stream()
+                    .filter(currentDate -> { 
+
+                        int date = currentDate.getDate();
+
+                        if (!task.getStartDate().isPresent() && !task.getEndDate().isPresent()) {
+                            return false;
+                        }
+
+                        if (task.getStartDate().isPresent()) {
+                            if (task.getStartDate().get().getDate() == date) {
+                                return true;
+                            }
+                        }
+
+                        if (task.getEndDate().isPresent()) {
+                            if (task.getEndDate().get().getDate() == date) {
+                                return true;
+                            }
+                        }
+
+                        return false;
+                        
+
+                    })
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "dates=" + String.join(", ", dates.toString());
         }
     }
     

@@ -60,10 +60,10 @@ public interface Model {
     void updateFilteredListsToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredUndoneTaskList(Set<String> keywords);
+    void updateFilteredUndoneTaskListNamePred(Set<String> keywords);
 
     /** Updates the filter of the filtered done task list to filter by the given keywords*/
-    void updateFilteredDoneTaskList(Set<String> keywords);
+    void updateFilteredDoneTaskListNamePred(Set<String> keywords);
     
     /** Returns true is current list is done task list, false if current list is undone task list*/
     Boolean isCurrentListDoneList();
@@ -83,6 +83,10 @@ public interface Model {
     void setTaskManagerUndoneList(ObservableList<Task> list);
 
     void setTaskManagerDoneList(ObservableList<Task> list);
+
+    void updateFilteredUndoneTaskListDatePred(Set<String> keywords);
+
+    void updateFilteredDoneTaskListDatePred(Set<String> keywords);
 
 
 
