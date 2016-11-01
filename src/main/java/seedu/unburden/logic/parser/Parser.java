@@ -380,7 +380,7 @@ public class Parser {
 			case ALL:
 				return new ListCommand(ALL);
 			default:
-				return new IncorrectCommand("Try List, List all, List tomorrow or List done!");
+				return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
 			}
 		}
 		return new ListCommand(args, "date");
