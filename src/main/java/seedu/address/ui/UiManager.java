@@ -11,7 +11,8 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddTaskEvent;
+import seedu.address.commons.events.model.TaskAddedEvent;
+import seedu.address.commons.events.model.TaskEditedEvent;
 import seedu.address.commons.events.model.ToDoChangedEvent;
 import seedu.address.commons.events.model.ViewCategoryChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
@@ -157,11 +158,19 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
-    private void handleAddTaskEvent(AddTaskEvent event){
+    private void handleTaskAddedEvent(TaskAddedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTaskListPanel().scrollTo(event.getIndex());
         taskWindow.loadTaskPage(event.getAddedTask());
         taskWindow.show();  
+    }
+    
+    @Subscribe
+    private void handleTaskEditedEvent(TaskEditedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskListPanel().scrollTo(event.getIndex());
+        taskWindow.loadTaskPage(event.getAddedTask());
+        taskWindow.show(); 
     }
     
     //@@author
