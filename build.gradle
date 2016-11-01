@@ -138,7 +138,7 @@ task guiTests(type: AddressBookTest) {
 
 
 task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+    include 'seedu/Tdoo/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
