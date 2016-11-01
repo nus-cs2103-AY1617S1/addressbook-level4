@@ -5,8 +5,6 @@ import java.util.Objects;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
-import seedu.ggist.model.tag.UniqueTagList;
-
 /**
  * Represents a FloatingTask in the address book.
  * Guarantees: details are present and not null, field values are validated.

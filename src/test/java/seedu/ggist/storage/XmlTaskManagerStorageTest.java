@@ -32,7 +32,7 @@ public class XmlTaskManagerStorageTest {
    @Test
     public void readTaskManager_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(NullPointerException.class);
-        readTaskManager(null);
+        readTaskManager(null); 
     }
 */
     private java.util.Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws Exception {

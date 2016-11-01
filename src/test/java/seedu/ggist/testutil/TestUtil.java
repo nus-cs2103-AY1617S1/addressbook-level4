@@ -21,8 +21,6 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.FileUtil;
 import seedu.ggist.commons.util.XmlUtil;
 import seedu.ggist.model.TaskManager;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 import seedu.ggist.storage.XmlSerializableTaskManager;
 
@@ -82,21 +80,6 @@ public class TestUtil {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("project"),
-                    new Tag("miscellaneous")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 

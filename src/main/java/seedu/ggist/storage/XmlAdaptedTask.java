@@ -3,8 +3,6 @@ package seedu.ggist.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
 import java.util.ArrayList;

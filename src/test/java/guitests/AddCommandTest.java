@@ -3,6 +3,7 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.ArrayUtils;
 
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
@@ -23,11 +24,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TestTask TaskToAdd = td.soccer;
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
-
+      
        //add another task
         TaskToAdd = td.floating;
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
+      
 
         //add duplicate task
         commandBox.runCommand(td.dance.getAddCommand());
