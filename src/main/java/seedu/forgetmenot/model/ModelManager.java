@@ -123,7 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    // @@author A0147619W
+    //@@author A0147619W
     @Override
     public synchronized void sortTasks() {
         taskManager.sortTasksList();
