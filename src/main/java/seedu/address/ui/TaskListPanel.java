@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -64,6 +66,7 @@ public class TaskListPanel extends UiPart {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
+        setOnMouseClickEvent();
     }
 
     private void addToPlaceholder() {
@@ -112,5 +115,19 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
+    
+    //@@author A0135812L
+    private void setOnMouseClickEvent() {
+        taskListView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
+            @Override
+            public void handle(MouseEvent event) {
+                ReadOnlyTask selectedTask = taskListView.getSelectionModel().selectedItemProperty().get();
+                if(selectedTask!=null){
+                    raise(new TaskPanelSelectionChangedEvent(selectedTask));
+                }
+            }
+        });
+    }
+    //@@author
 }
