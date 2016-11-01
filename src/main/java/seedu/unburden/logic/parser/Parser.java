@@ -102,6 +102,8 @@ public class Parser {
 	private static final String DONE = "done";
 
 	private static final String UNDONE = "undone";
+	
+	private static final String ALL = "all";
 
 	private static final SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -373,8 +375,8 @@ public class Parser {
 			return new ListCommand(nextWeekKeyword, "date");
 		case DONE:
 			return new ListCommand(DONE);
-		case UNDONE:
-			return new ListCommand(UNDONE);
+		case ALL:
+			return new ListCommand(ALL);
 		}
 		return new ListCommand(args, "date");
 	}

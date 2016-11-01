@@ -11,76 +11,75 @@ import seedu.unburden.model.task.Task;
 
 /**
  * Lists all persons in the address book to the user.
+ * 
  * @@author A0139678J
  */
 
-//@@Nathanael Chan A0139678J
+// @@Nathanael Chan A0139678J
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+	public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+	public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD + "\" your specified date ";
-	
+	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD
+			+ "\" your specified date ";
+
 	public final Date date;
-	
-	public final String mode;
-	
-    public ListCommand() {
-    	this.date = null;
-    	this.mode = "all";
-    }
-    
-    public ListCommand(String done){
-    	this.date = null;
-    	this.mode = done;
-    }
 
-    public ListCommand(String args, String mode) throws ParseException {
+	public final String mode;
+
+	public ListCommand() {
+		this.date = null;
+		this.mode = "all";
+	}
+
+	public ListCommand(String doneOrUndone) {
+		this.date = null;
+		this.mode = doneOrUndone;
+	}
+
+	public ListCommand(String args, String mode) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		this.date = df.parse(args);
 		this.mode = "date";
 	}
-    
-    public java.util.function.Predicate<? super Task> getAllDatesBefore(Date date){
-    	return t -> {
+
+	public java.util.function.Predicate<? super Task> getAllDatesBefore(Date date) {
+		return t -> {
 			try {
 				return t.getDate().toDate().before(date) || t.getDate().toDate().equals(date);
 			} catch (ParseException e) {
 				return false;
 			}
 		};
-    }
-    
-    public java.util.function.Predicate<? super Task> getAllDone(){
-    	return t -> {
-    		return t.getDone();
-    	};
-    }
-    
-    public java.util.function.Predicate<? super Task> getAllUndone(){
-    	return t -> {
-    		return !t.getDone();
-    	};
-    }
-    
-    
+	}
+
+	public java.util.function.Predicate<? super Task> getAllDone() {
+		return t -> {
+			return t.getDone();
+		};
+	}
+
+	public java.util.function.Predicate<? super Task> getAllUndone() {
+		return t -> {
+			return !t.getDone();
+		};
+	}
 
 	@Override
-    public CommandResult execute() {
-		if(mode.equals("all")){
-			 model.updateFilteredListToShowAll();
-		}
-		else if(mode.equals("done")){
-			model.updateFilteredTaskList(getAllDone());
-		}
-		else if(mode.equals("undone")){
+	public CommandResult execute() {
+		if (mode.equals("all")) {
 			model.updateFilteredTaskList(getAllUndone());
-		}
-		else{
+			// model.updateFilteredListToShowAll();
+		} else if (mode.equals("done")) {
+			model.updateFilteredTaskList(getAllDone());
+		} else if (mode.equals("all")) {
+			//model.updateFilteredTaskList(getAllUndone());
+			model.updateFilteredListToShowAll();
+		} else {
 			model.updateFilteredTaskList(getAllDatesBefore(date));
 		}
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
+		return new CommandResult(MESSAGE_SUCCESS);
+	}
 }
