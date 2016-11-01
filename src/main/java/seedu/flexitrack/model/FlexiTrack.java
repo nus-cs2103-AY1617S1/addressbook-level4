@@ -257,14 +257,13 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      */
     private boolean canTheGapBeFound(Task task, DateTimeInfo dateNow, int keyword, int length) {
         if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())) {
-            return doesTheEventStartAfterTheCurrentTiming(task, dateNow, keyword, length);
+            return isTheLengthOfTheGapSatisfied(task, dateNow, keyword, length);
         }
         return false;
     }
 
     /**
-     * Process the task data to calculate if the starting timing of the task is
-     * after the current interest timing
+     * Process the task data to calculate if there is enough gap between the events
      * 
      * @param task      The current task of interest 
      * @param dateNow   The current date 
@@ -272,7 +271,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      * @param length    The length of the duration 
      * @return          True if the event starts after the current timing.
      */
-    private boolean doesTheEventStartAfterTheCurrentTiming(Task task, DateTimeInfo dateNow, int keyword, int length) {
+    private boolean isTheLengthOfTheGapSatisfied(Task task, DateTimeInfo dateNow, int keyword, int length) {
         int[] differenceInTime = new int[5];
         differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartingTimeInString());
         if (differenceInTime[0] >= 0) {

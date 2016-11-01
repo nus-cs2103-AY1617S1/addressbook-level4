@@ -25,7 +25,7 @@ public class GapCommand extends Command {
             + "Example of accepted specified timing: 20m, 30 minutes, 2 hours, 12 h, 2 days.\n"
             + "Example of rejected specified timing: 70 minutes, 2 hours 30 minutes";
             
-    public static final String MESSAGE_SUCCESS = "The earliest %1$s gap are found... ";
+    public static final String MESSAGE_SUCCESS = "The earliest %1$s free time are found... ";
     public static final String WORD_DAY = "day";
     public static final String WORD_HOUR = "hour";
     public static final String WORD_MINUTE = "minute";
@@ -88,7 +88,7 @@ public class GapCommand extends Command {
         String theListOfDates = ""; 
         int iter = 0; 
         for (; iter<listOfTiming.size()-1 ; iter++){
-            if ( iter == 0 ){
+            if ( iter == 0 && listOfTiming.get(iter).toString().equals(DateTimeInfo.getCurrentTime().toString())){
                 theListOfDates = theListOfDates + "\nBetween:  now                        ";
             } else {
                 theListOfDates = theListOfDates + "\nBetween:  " + listOfTiming.get(iter).toString();

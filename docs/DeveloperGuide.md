@@ -93,9 +93,10 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-
+//@@ author A0127686R
 <img src="images/UiClassDiagram.png" width="800"><br>
 
+//@@ author
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
@@ -129,14 +130,16 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
+//@@ author A0127686R
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
+//@@ author
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -293,7 +296,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `FlexiTrack` and the **Actor** is the `user`, unless specified otherwise)
 
-
+//@@ author A0127686R
 ####Use case:  UC01 – add new task or event
 
 **MSS**
@@ -313,6 +316,11 @@ Use case ends
 
   > 1b1. System output warning message that there is existing active task or event title
   > Use case ends 
+  
+1c. The user wish to add an event on top of another event 
+
+  > 1b1. System shows warning that the event clash 
+  > continue 2
 	
 	
 ####Use case:  UC02 – Edit a task 
@@ -331,16 +339,7 @@ Use case ends
   > Use case ends 
 
 
-####Use case:  UC03 – sort 
-
-**MSS**
-
-1.User request to sort the existing tasks  
-2.System sort the tasks 	
-Use case ends
-
-
-####Use case:  UC04 – delete 
+####Use case:  UC03 – delete 
 
 **MSS**
 
@@ -355,22 +354,7 @@ Use case ends
   > 1a1. System output an invalid input message
   > Use case ends 
 
-####Use case:  UC06 – unmark 
-
-**MSS**
-
-1.User request to unmark an event as not done  
-2.System unmark the event   
-Use case ends
- 
-**Extensions**
-
-1a. The user input an invalid list number 
-	
-  > 1a1. System output an invalid list number 
-  > Use case ends 
-
-####Use case:  UC06 – mark 
+####Use case:  UC04 – mark 
 
 **MSS**
 
@@ -386,7 +370,23 @@ Use case ends
   > Use case ends 
 
 
-####Use case:  UC07 – specify storage  
+####Use case:  UC05 – unmark 
+
+**MSS**
+
+1.User request to unmark an event as not done  
+2.System unmark the event   
+Use case ends
+ 
+**Extensions**
+
+1a. The user input an invalid list number 
+	
+  > 1a1. System output an invalid list number 
+  > Use case ends 
+
+
+####Use case:  UC06 – specify storage  
 
 **MSS**
 
@@ -402,7 +402,7 @@ Use case ends
   > Use case ends 
 
 
-####Use case:  UC08 – block multiple time slot 
+####Use case:  UC07 – block multiple time slot 
 
 **MSS**
 
@@ -421,6 +421,60 @@ Use case ends
 
   > 1b1. System output an unavailable timing message
   > Use case ends 
+
+
+//@@ author A0127686R
+####Use case:  UC09 – Find a free time with a specified length and number of occurrence 
+
+**MSS**
+
+1.User request to list the task in specific order
+2.System shows the list of task at the particular timing 
+Use case ends
+ 
+**Extensions**
+
+1a. The user input a command word not in the list of choice 
+	
+  > 1a1. System output an invalid input and how to use list command 
+  > Use case ends 
+
+  
+####Use case:  UC09 – Find a free time with a specified length and number of occurrence 
+
+**MSS**
+
+1.User request to find a specified length of free time (optional: and number of occurrence)   
+2.System shows the available timing 
+Use case ends
+ 
+**Extensions**
+
+1a. The user spell out the length of the free time
+	
+  > 1a1. System output an message to repeat command with digit
+  > Use case ends 
+
+1b. The user spell out the number of occurrence of the free time
+
+  > 1b1. System output an message to repeat command with digit
+  > Use case ends 
+
+1c. The user put in an invalid argument
+
+  > 1c1. System output a message on how to use the gap command
+  > Use case ends 
+
+The implementation of finding a free time is similar to the delete command shown earlier section.
+Below is the sequence diagram of finding a free time: 
+<img src="images\GapCommandSequenceDiagram.png" width="800">
+
+The two main implementation is parsing and preparing the argument to be passed to the GapCommand class and to find the 
+free time itself. Below are the activities diagram for the two implementations: 
+
+<img src="images\GapCommandPrepareGap.png" width="800">
+<img src="images\GapCommandExecute.png" width="800">
+
 
 
 ## Appendix C : Non Functional Requirements
