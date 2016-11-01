@@ -99,7 +99,7 @@ public class LogicManagerTest {
         latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
-        
+
         helper = new TestDataHelper();      
         expectedTB = new TaskBook();
     }
@@ -254,13 +254,18 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " A 1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " B 1", expectedMessage); //index should be typed together
+        //assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " A0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
+    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -277,37 +282,37 @@ public class LogicManagerTest {
             model.addTask(u);
         }
 
-        assertCommandBehavior(commandWord + " A5", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " A3", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
         assertCommandBehavior(commandWord + " A10", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
-        assertCommandBehavior(commandWord + " B5", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " B3", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
         assertCommandBehavior(commandWord + " B11", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
     }
 
-    //@Test
+    @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
-    //@Test
+    @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
-    //@Test
+    @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateDatedTaskList(3);
+        List<Task> threeUndatedTask = helper.generateUndatedTaskList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threePersons);
-        helper.addToModel(model, threePersons);
+        TaskBook expectedAB = helper.generateAddressBook(threeUndatedTask);
+        helper.addToModel(model, threeUndatedTask);
 
         assertCommandBehavior("select A2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, "A2"),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredDatedTaskList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredUndatedTaskList().get(1), threeUndatedTask.get(1));
     }
 
     @Test
@@ -407,12 +412,11 @@ public class LogicManagerTest {
 
     //@@author A0139145E
     @Test
-    public void execute_list_all_successful() throws Exception {
+    public void execute_listAll_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
         TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
-
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
@@ -432,12 +436,11 @@ public class LogicManagerTest {
 
     //@@author A0139145E
     @Test
-    public void execute_list_done_successful() throws Exception {
+    public void execute_listCompleted_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
         TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
-
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
@@ -459,53 +462,51 @@ public class LogicManagerTest {
     //@@author
 
     //@@author A0139145E
-    public void execute_list_od_successful() throws Exception {
+    @Test
+    public void execute_listOverdue_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
-        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
-        
-        assertCommandBehavior("list od", String.format(ListCommand.MESSAGE_SUCCESS, "overdue and expired"),
-                expectedAB, Collections.emptyList(), Collections.emptyList());
- 
+        TaskBook expectedAB = new TaskBook();
         Task overdueDeadline = helper.overdueA();
         expectedAB.addTask(overdueDeadline);
+        helper.addToAddressBook(expectedAB, expectedDatedTasks);
+        helper.addToAddressBook(expectedAB, expectedUndatedTasks);
+        
         model.addTask(overdueDeadline);
         List<ReadOnlyTask> expectedOverdue = new ArrayList<>();
         expectedOverdue.add(overdueDeadline);
-        
+
         assertCommandBehavior("list od",
                 String.format(ListCommand.MESSAGE_SUCCESS, "overdue and expired"),
                 expectedAB, expectedOverdue,
                 Collections.emptyList());
-        
+
     }
     //@@author
 
-    
     //@@author A0143884W
     @Test
     public void execute_editName_successful() throws Exception {
         genericEdit("A1", 1, "new name");
     }
-    
+
     @Test
     public void execute_editDescription_sucessful() throws Exception {
-    	genericEdit("A1", 2, "new description");
+        genericEdit("A1", 2, "new description");
     }
-    
+
     @Test
     public void execute_editDate_sucessful() throws Exception {
-    	genericEdit("A1", 3, "today");
+        genericEdit("A1", 3, "today");
     }
-    
     //@@author
 
-	private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
+    private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
         // actual to be edited
-		Task toBeEdited = helper.floatTaskA();
+        Task toBeEdited = helper.floatTaskA();
         toBeEdited.setTags(new UniqueTagList());
         model.addTask(toBeEdited);
 
@@ -513,27 +514,27 @@ public class LogicManagerTest {
         // NOTE: can't simply set description of toBeEdited; need to create new copy,
         // since it will edit the task in model (model's task is simply a reference)
         Task edited = copyTask(toBeEdited);
-        
+
         switch (type){
         case 1:
-        	edited.setName(new Name(field));
-        	break;
+            edited.setName(new Name(field));
+            break;
         case 2:
-        	edited.setDescription(new Description(field));
-        	break;	
+            edited.setDescription(new Description(field));
+            break;	
         case 3:	
-        	edited.setDatetime(new Datetime(field));
-        	break;
+            edited.setDatetime(new Datetime(field));
+            break;
         case 4:
-        	String [] StringArray = field.split(" ");
-        	Tag [] tagsArray = new Tag [StringArray.length];
-        	for (int i = 0; i < tagsArray.length; i++){
-        		tagsArray[i] = new Tag(StringArray[i]);
-        	}
-        	edited.setTags(new UniqueTagList(tagsArray));
-        	break;	
+            String [] StringArray = field.split(" ");
+            Tag [] tagsArray = new Tag [StringArray.length];
+            for (int i = 0; i < tagsArray.length; i++){
+                tagsArray[i] = new Tag(StringArray[i]);
+            }
+            edited.setTags(new UniqueTagList(tagsArray));
+            break;	
         }
-        
+
         expectedTB.addTask(edited);
 
         // execute command and verify result
@@ -541,14 +542,14 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, edited),
                 expectedTB, expectedTB.getDatedTaskList(),
                 expectedTB.getUndatedTaskList());
-	}
-    
-    private Task copyTask(Task toBeEdited){
-    	Task edited = new Task(toBeEdited.getName(), toBeEdited.getDescription(), toBeEdited.getDatetime(),
-    			toBeEdited.getStatus(), toBeEdited.getTags());
-    	return edited;
     }
-    
+
+    private Task copyTask(Task toBeEdited){
+        Task edited = new Task(toBeEdited.getName(), toBeEdited.getDescription(), toBeEdited.getDatetime(),
+                toBeEdited.getStatus(), toBeEdited.getTags());
+        return edited;
+    }
+
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -705,7 +706,7 @@ public class LogicManagerTest {
     }
     //@@author
 
-  //@@author A0139145E
+    //@@author A0139145E
     @Test
     public void execute_undo_done() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
@@ -724,7 +725,7 @@ public class LogicManagerTest {
                 expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
     }
     //@@author
-    
+
     //@@author A0139145E
     @Test
     public void execute_undo_edit() throws Exception {
@@ -742,7 +743,7 @@ public class LogicManagerTest {
         model.addTask(edited);
         model.deleteTask(orig);
         model.addUndo("edit", edited, orig);
-        
+
         assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedAB, 
                 expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
@@ -760,7 +761,7 @@ public class LogicManagerTest {
         TaskBook expectedAB = helper.generateAddressBook(2);
         Task toUndo = new Task(expectedAB.getDatedTaskList().get(0));
         helper.addToModel(model, 2);  
-        
+
         expectedAB.removeTask(toUndo);
         model.deleteTask(toUndo);
         model.addUndo("delete", toUndo);
@@ -785,9 +786,11 @@ public class LogicManagerTest {
                 "save where/", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
                 "save there/", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data", SaveCommand.MESSAGE_SUCCESS);
     }
     //@@author
-    
+
     //@@author A0139528W
     @Test
     public void execute_save_invalidArgsFormat() throws Exception {
@@ -810,8 +813,8 @@ public class LogicManagerTest {
                 "save //here", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
     }
     //@@author
-    
-    
+
+
     /**
      * A utility class to generate test data.
      */
@@ -861,7 +864,7 @@ public class LogicManagerTest {
             return new Task(name, description, datetime, status, tags);
         }
 
-        
+
         /**
          * Generates a valid dated task using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
