@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
@@ -10,37 +11,67 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <!-- @@author A0126649W -->
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox id="cardPane" fx:id="cardPane" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="192.0" />
+                <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="10.0" prefWidth="58.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="56.0" prefHeight="56.0" prefWidth="150.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" minHeight="56.0" prefWidth="149.0" GridPane.columnIndex="0" GridPane.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
                             <children>
+                        <Text fx:id="id" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_big_label" />
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                 </HBox>
                             </children>
                         </HBox>
+                  <HBox fx:id="dateBox" alignment="TOP_RIGHT" maxHeight="0.0" minHeight="0.0">
+                     <children>
+                        <Label fx:id="date" minHeight="0.0">
+                           <styleClass>
+                              <String fx:value="cell_small_label" />
+                              <String fx:value="label_grey" />
+                           </styleClass></Label>
+                        <Label fx:id="start" minHeight="0.0">
+                           <styleClass>
+                              <String fx:value="cell_small_label" />
+                              <String fx:value="label_grey" />
+                           </styleClass></Label>
+                        <Label fx:id="end" minHeight="0.0">
+                           <styleClass>
+                              <String fx:value="cell_small_label" />
+                              <String fx:value="label_grey" />
+                           </styleClass></Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT">
+                     <children>
+                        <Label fx:id="tag" maxHeight="0.0" minHeight="0.0">
+                           <styleClass>
+                              <String fx:value="cell_small_label" />
+                              <String fx:value="label_blue" />
+                           </styleClass></Label>
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
-            <CheckBox fx:id="completeStatus" minWidth="15.0" mnemonicParsing="false" prefWidth="15.0" scaleX="3.0" scaleY="3.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <CheckBox fx:id="completeStatus" alignment="CENTER_RIGHT" minWidth="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="12.0" scaleX="3.0" scaleY="3.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font size="8.0" />
                </font></CheckBox>

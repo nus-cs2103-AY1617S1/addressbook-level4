@@ -92,18 +92,36 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
-
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
     -fx-text-fill: #010504;
+    -fx-fill: #010504;
+}
+
+.label_red {
+    -fx-text-fill: #d30202;
+    -fx-fill: #d30202;
+}
+
+.label_grey {
+    -fx-text-fill: #a0a0a0;
+    -fx-fill: #a0a0a0;
+}
+
+.label_black {
+    -fx-text-fill: #010504;
+    -fx-fill: #010504;
+}
+
+.label_blue {
+    -fx-text-fill: #154ba3;
+    -fx-fill: #154ba3;
 }
 
 .anchor-pane {

@@ -127,6 +127,15 @@ public class UniqueTagList implements Iterable<Tag> {
     public ObservableList<Tag> getInternalList() {
         return internalList;
     }
+    
+    //@@author A0126649W
+    /**
+     * Returns true if the list is empty.
+     */
+    public boolean isEmpty(){
+        return internalList.isEmpty();
+    }
+    //@@author
 
     @Override
     public boolean equals(Object other) {
