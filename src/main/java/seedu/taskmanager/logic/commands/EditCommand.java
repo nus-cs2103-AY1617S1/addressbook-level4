@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
@@ -381,8 +380,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * @param argument
-     * @return true if argument contains user input
+     * Checks if argument contains user input
+     * @param argument argument to be checked
      */
     private boolean containsInput(Object argument) {
         return argument != null;

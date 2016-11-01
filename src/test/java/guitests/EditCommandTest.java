@@ -5,12 +5,10 @@ import org.junit.Test;
 
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.logic.commands.EditCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
-import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.taskmanager.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.testutil.TestItem;
@@ -64,8 +62,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
     public void setUp() throws Exception {
         tagsToAdd.add(new Tag("work"));
         tagsToRemove.add(new Tag("play"));
-        
-        
     }
     
     @Test
@@ -75,8 +71,11 @@ public class EditCommandTest extends TaskManagerGuiTest {
         int targetIndex = 1;
         TestItem itemToEdit = currentList[targetIndex-1];
         
-        assertEditSuccess(COMMAND_WORD, targetIndex, firstTestName, null, null, null, null, null, null, null, null, currentList);
-        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, null, null, null, null, tagsToRemove, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, firstTestName, null, null, null, null, null, null,
+                          null, null, currentList);
+        
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, null, null, null, 
+                          null, tagsToRemove, currentList);
         
         itemToEdit.setName(new Name(firstTestName));
         itemToEdit.setStartDate(new ItemDate(validStartDate));
@@ -84,18 +83,31 @@ public class EditCommandTest extends TaskManagerGuiTest {
     
         //edit the last in the list which is an event
         targetIndex = currentList.length;
-        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, expectedNlpEndDate, expectedNlpEndTime, validNlpEndDateTime, tagsToAdd, null, currentList);
-        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, validEndDate, null, null, tagsToAdd, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, expectedNlpEndDate, 
+                          expectedNlpEndTime, validNlpEndDateTime, tagsToAdd, null, currentList);
+        
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, validEndDate, null, null, 
+                          tagsToAdd, null, currentList);
+        
         tagsToRemove = new UniqueTagList();
         tagsToRemove.add(new Tag("work"));
-        assertEditSuccess(COMMAND_WORD, targetIndex, secondTestName, null, null, null, null, null, null, tagsToAdd, tagsToRemove, currentList);
+        
+        assertEditSuccess(COMMAND_WORD, targetIndex, secondTestName, null, null, null,
+                          null, null, null, tagsToAdd, tagsToRemove, currentList);
         
         tagsToAdd.add(new Tag("notplay"));
         
-        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, null, validEndTime, null, tagsToAdd, null, currentList);
-        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, expectedNlpStartDate, expectedNlpStartTime, validNlpStartDateTime, null, null, null, null, null, currentList);
-        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, null, validStartTime, null, null, null, null, null, null, currentList);
-        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, null, null, null, null, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, 
+                          null, validEndTime, null, tagsToAdd, null, currentList);
+        
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, expectedNlpStartDate, expectedNlpStartTime,
+                          validNlpStartDateTime, null, null, null, null, null, currentList);
+        
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, null, validStartTime, 
+                          null, null, null, null, null, null, currentList);
+        
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, null, validStartDate, null, null, 
+                          null, null, null, null, null, currentList);
         
         itemToEdit = currentList[targetIndex-1];
         itemToEdit.setName(new Name(secondTestName));
@@ -105,7 +117,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
         targetIndex = currentList.length/2;
         itemToEdit = currentList[targetIndex-1];
         
-        assertEditSuccess(COMMAND_WORD, targetIndex, thirdTestName, null, null, null, null, null, null, tagsToAdd, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, thirdTestName, null, null, null, 
+                          null, null, null, tagsToAdd, null, currentList);
         
         itemToEdit.setName(new Name(thirdTestName));
         currentList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndex-1);
@@ -113,17 +126,20 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //edit from the middle of the list which is a deadline
         targetIndex = 8;
         
-        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, validEndDate, null, null, null, null, currentList);
-        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, thirdTestName, null, null, null, null, null, null, tagsToAdd, null, currentList);
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, 
+                          validEndDate, null, null, null, null, currentList);
+        
+        assertEditSuccess(SHORT_COMMAND_WORD, targetIndex, thirdTestName, null, null, null, 
+                          null, null, null, tagsToAdd, null, currentList);
         
         tagsToRemove.add(new Tag("notwork"));
         
-        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, null, validEndTime, null, tagsToAdd, null, currentList);        
+        assertEditSuccess(COMMAND_WORD, targetIndex, null, null, null, null, 
+                          null, validEndTime, null, tagsToAdd, null, currentList);        
     }
     
     @Test
     public void edit_enterInvalidIndex_invalidCommandMessage() {
-        //invalid commands
         commandBox.runCommand("edit notAnIndex");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
@@ -142,9 +158,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void edit_invalidParameterSpecified_invalidCommandMessage() {
+    public void editTask_invalidParameterSpecified_invalidCommandMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        //invalid parameters for item type task
         commandBox.runCommand("edit " + (currentList.length/2 + 1) + " et/" + validEndTime);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
@@ -156,8 +171,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand("edit " + currentList.length/2 + " sd/" + validStartDate);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
-        
-        //invalid parameters for item type deadline
+    }
+    
+    @Test
+    public void editDeadline_invalidParameterSpecified_invalidCommandMessage() {
         commandBox.runCommand("edit 2  st/" + validStartTime);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         
@@ -176,13 +193,13 @@ public class EditCommandTest extends TaskManagerGuiTest {
     public void edit_deleteNonExistentTag_TagNotFoundMessage() {
         commandBox.runCommand("edit 2 #-" + nonexistentTag );
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                            String.format(TagNotFoundException.MESSAGE_TAG_NOT_FOUND, "[" + nonexistentTag + "]")));
+                            String.format(TagNotFoundException.MESSAGE_TAG_NOT_FOUND, 
+                                          "[" + nonexistentTag + "]")));
     }
        
     @Test
     public void edit_invalidIndexSpecified_invalidIndexMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " n/" + firstTestName);
         assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -190,7 +207,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit_invalidTimeFormat_timeConstraintsMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        //invalid time
         commandBox.runCommand("edit " + currentList.length + " et/" + invalidTime);
         assertResultMessage(MESSAGE_TIME_CONSTRAINTS);
     }
@@ -198,7 +214,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit_invalidDateFormat_dateConstraintsMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        //invalid date
         commandBox.runCommand("edit " + currentList.length + " ed/" + invalidDate);
         assertResultMessage(MESSAGE_DATE_CONSTRAINTS);
     }
@@ -206,16 +221,25 @@ public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit_endDateComesBeforeStartDate_endDateTimeBeforeStartDateTimeMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        commandBox.runCommand("edit " + currentList.length + " ed/" + invalidOrderEndDate + " sd/" + invalidOrderStartDate);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+        
+        commandBox.runCommand("edit " + currentList.length + " ed/" + invalidOrderEndDate + " sd/" 
+                              + invalidOrderStartDate);
+        
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                          MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
     }
     
     @Test
     public void edit_endTimeComesBeforeStartTimeOnSameStartEndDate_endDateTimeBeforeStartDateTimeMessage() {
         TestItem[] currentList = td.getTypicalItems();
-        commandBox.runCommand("edit " + currentList.length + " ed/" + validStartDate + " sd/" + validStartDate + " st/" + validStartTime + " et/" + validEndTime);
-        commandBox.runCommand("edit " + currentList.length + " et/" + invalidOrderEndTime+ " st/" + invalidOrderStartTime);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+        
+        commandBox.runCommand("edit " + currentList.length + " ed/" + validStartDate + " sd/" 
+                              + validStartDate + " st/" + validStartTime + " et/" + validEndTime);
+        commandBox.runCommand("edit " + currentList.length + " et/" + invalidOrderEndTime+ " st/" 
+                              + invalidOrderStartTime);
+        
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                          MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
     }
 
     /**
@@ -229,94 +253,79 @@ public class EditCommandTest extends TaskManagerGuiTest {
      */
     private void assertEditSuccess(String commandWord, int targetIndexOneIndexed, String name, 
                                    String startDate, String startTime, String nlpStartDateTime, 
-                                   String endDate, String endTime, String nlpEndDateTime, UniqueTagList tagsToAdd, UniqueTagList tagsToRemove, final TestItem[] currentList) throws IllegalValueException {
+                                   String endDate, String endTime, String nlpEndDateTime, 
+                                   UniqueTagList tagsToAdd, UniqueTagList tagsToRemove, 
+                                   final TestItem[] currentList) throws IllegalValueException {
         
-        TestItem itemToEdit = generateEditedTestItem(targetIndexOneIndexed, name, 
-                                                     startDate, startTime, endDate,
-                                                     endTime, tagsToAdd, tagsToRemove, 
-                                                     currentList);
+        TestItem itemToEdit = editTestItem(currentList[targetIndexOneIndexed-1], name, startDate, 
+                                           startTime, endDate, endTime, tagsToAdd, tagsToRemove);
         
         TestItem[] expectedList = TestUtil.replaceItemFromList(currentList, itemToEdit, targetIndexOneIndexed-1);
         
-        final StringBuilder commandBuilder = generateEditCommandString(commandWord, targetIndexOneIndexed, name,
-                                                                       startDate, startTime, nlpStartDateTime, endDate,
-                                                                       endTime, nlpEndDateTime, tagsToAdd, tagsToRemove);
+        final StringBuilder commandBuilder = generateEditCommandString(commandWord, targetIndexOneIndexed, 
+                                                 name, startDate, startTime, nlpStartDateTime, endDate, 
+                                                 endTime, nlpEndDateTime, tagsToAdd, tagsToRemove);
         
         logger.info(commandBuilder.toString());
         commandBox.runCommand(commandBuilder.toString());
 
-        //confirm the list now contains all items including the edited item
         assertTrue(shortItemListPanel.isListMatching(expectedList));
 
-        //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToEdit));
     }
 
     /**
-     * @param commandWord
-     * @param targetIndexOneIndexed
-     * @param name
-     * @param startDate
-     * @param startTime
-     * @param startDateTime
-     * @param endDate
-     * @param endTime
-     * @param endDateTime
-     * @param tagsToAdd
-     * @param tagsToRemove
+     * Creates command string in the context of the edit command using the arguments passed in
      * @return string containing the full edit command to be passed into runCommand
      */
-    private StringBuilder generateEditCommandString(String commandWord, int targetIndexOneIndexed, String name,
-            String startDate, String startTime, String startDateTime, String endDate, String endTime,
-            String endDateTime, UniqueTagList tagsToAdd, UniqueTagList tagsToRemove) {
+    private StringBuilder generateEditCommandString(String commandWord, int targetIndexOneIndexed, 
+                              String name, String startDate, String startTime, String startDateTime, 
+                              String endDate, String endTime, String endDateTime, UniqueTagList tagsToAdd, 
+                              UniqueTagList tagsToRemove) {
+        
         final StringBuilder commandBuilder = new StringBuilder();
         commandBuilder.append(commandWord + " " + targetIndexOneIndexed);
-        if (name != null) {
+        
+        if (containsInput(name)) {
             commandBuilder.append(" n/")
                           .append(name);
         }
-        if (startDate != null) {
+        if (containsInput(startDate)) {
             commandBuilder.append(" sd/")
                           .append(startDate);
         }
-        if (startTime != null) {
+        if (containsInput(startTime)) {
             commandBuilder.append(" st/")
                           .append(startTime);
         }
-        if (startDateTime != null) {
+        if (containsInput(startDateTime)) {
             commandBuilder.append(" sdt/")
                           .append(startDateTime);
         }
-        if (endDate != null) {
+        if (containsInput(endDate)) {
             commandBuilder.append(" ed/")
                           .append(endDate);
         }
-        if (endTime != null) {
+        if (containsInput(endTime)) {
             commandBuilder.append(" et/")
                           .append(endTime);
         }
-        if (endDateTime != null) {
+        if (containsInput(endDateTime)) {
             commandBuilder.append(" edt/")
                           .append(endDateTime);
         }
-        if (tagsToAdd != null) {
+        if (containsInput(tagsToAdd)) {
             Set<Tag> tagsToAddSet = tagsToAdd.toSet();
             for (Tag tag : tagsToAddSet) {
-                String tagString = tag.toString();
-                assert tagString.length() >= 2;
-                tagString = tagString.substring(1, tagString.length() - 1);
                 commandBuilder.append(" #")
-                              .append(tagString);
+                              .append(tag.tagName);
             }
         }
-        if (tagsToRemove != null) {
+        if (containsInput(tagsToRemove)) {
             Set<Tag> tagsToRemoveSet = tagsToRemove.toSet();
             for (Tag tag : tagsToRemoveSet) {
-                String tagString = tag.toString();
-                assert tagString.length() >= 2;
-                tagString = tagString.substring(1, tagString.length() - 1);
                 commandBuilder.append(" #-")
-                              .append(tagString);
+                              .append(tag.tagName);
 
             }
         }
@@ -324,55 +333,46 @@ public class EditCommandTest extends TaskManagerGuiTest {
     }
 
     /**
-     * @param targetIndexOneIndexed
-     * @param name
-     * @param startDate
-     * @param startTime
-     * @param endDate
-     * @param endTime
-     * @param tagsToAdd
-     * @param tagsToRemove
-     * @param currentList
-     * @return TestItem with edited parameters
+     * Generates an edited test item for use in edit command tests with the 
      * @throws IllegalValueException
      */
-    private TestItem generateEditedTestItem(int targetIndexOneIndexed, String name, String startDate, 
+    private TestItem editTestItem(TestItem itemToEdit, String name, String startDate, 
                                             String startTime, String endDate, String endTime, 
-                                            UniqueTagList tagsToAdd, UniqueTagList tagsToRemove, final TestItem[] currentList) throws IllegalValueException {
-        TestItem itemToEdit = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        if (name != null) {
+                                            UniqueTagList tagsToAdd, UniqueTagList tagsToRemove) throws IllegalValueException {
+        
+        if (containsInput(name)) {
             itemToEdit.setName(new Name(name));
         }
-        if (startDate != null) {
+        if (containsInput(startDate)) {
             itemToEdit.setStartDate(new ItemDate(startDate));
         }
-        if (startTime != null) {
+        if (containsInput(startTime)) {
             itemToEdit.setStartTime(new ItemTime(startTime));
         }
-        if (endDate != null) {
+        if (containsInput(endDate)) {
             itemToEdit.setEndDate(new ItemDate(endDate));
         }
-        if (endTime != null) {
+        if (containsInput(endTime)) {
             itemToEdit.setEndTime(new ItemTime(endTime));
         }
-        if (tagsToAdd != null) {
+        if (containsInput(tagsToAdd)) {
             UniqueTagList tagsToEdit = itemToEdit.getTags();
             tagsToEdit.mergeFrom(tagsToAdd);
             itemToEdit.setTags(tagsToEdit);
         }
-        if (tagsToRemove != null) {
+        if (containsInput(tagsToRemove)) {
             UniqueTagList tagsToEdit = itemToEdit.getTags();
-            UniqueTagList updatedTags = new UniqueTagList();
-            for (Tag tag : tagsToEdit) {
-                if (!tagsToRemove.contains(tag)) {
-                    try {
-                        updatedTags.add(tag);
-                    } catch (DuplicateTagException dte) {
-                    }
-                }
-            }
-            itemToEdit.setTags(updatedTags);
+            tagsToEdit.remove(tagsToRemove);
+            itemToEdit.setTags(tagsToEdit);
         }
         return itemToEdit;
+    }
+    
+    /**
+     * Checks if argument contains user input
+     * @param argument argument to be checked
+     */
+    private boolean containsInput(Object argument) {
+        return argument != null;
     }
 }
