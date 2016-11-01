@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -175,15 +176,13 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names exist in the {@code tagPool}.
      */
     private void validateTagNamesExist(Collection<Tag> tagPool, String... tagNames) {
-        Set<String> tagNamesSet = Sets.newHashSet(tagNames);
-        Set<String> tagPoolNameSet = tagPool.stream().map(Tag::getTagName).collect(Collectors.toSet());
-        List<String> tagsDoNotExist = tagNamesSet.stream()
-                .filter(tagName -> !tagPoolNameSet.contains(tagName))
-                .collect(Collectors.toList());
+        Collection<String> tagPoolNames = Tag.getTagNames(tagPool);
+        Set<String> missingTags = Sets.newHashSet(tagNames);
+        missingTags.removeAll(tagPoolNames);
 
-        if (!tagsDoNotExist.isEmpty()) {
+        if (!missingTags.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_DO_NOT_EXIST + YOU_SUPPLIED
-                    + StringUtil.convertIterableToString(tagsDoNotExist));
+                    + StringUtil.convertIterableToString(missingTags));
         }
     }
 
@@ -200,13 +199,13 @@ public class UniqueTagCollectionValidator {
      * Checks to ensure that tag names do not exist in the {@code tagPool}.
      */
     private void validateTagNamesDoNotExist(Collection<Tag> tagPool, String... tagNames) {
-        Set<String> tagNamesSet = Sets.newHashSet(tagNames);
-        List<String> tagsExist = tagPool.stream().filter(tag -> tagNamesSet.contains(tag.getTagName()))
-                .map(Tag::getTagName).collect(Collectors.toList());
+        Collection<String> tagPoolNames = Tag.getTagNames(tagPool);
+        Set<String> existingTags = Sets.newHashSet(tagNames);
+        existingTags.retainAll(tagPoolNames);
 
-        if (!tagsExist.isEmpty()) {
+        if (!existingTags.isEmpty()) {
             errorBag.put(parameterName, ERROR_TAGS_EXIST + YOU_SUPPLIED
-                    + StringUtil.convertIterableToString(tagsExist));
+                    + StringUtil.convertIterableToString(existingTags));
         }
     }
 
