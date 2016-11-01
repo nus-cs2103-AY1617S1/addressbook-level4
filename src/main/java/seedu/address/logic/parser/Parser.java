@@ -259,7 +259,7 @@ public class Parser {
         }
     }
 
-    private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
+    private RecurringType checkForRecurringTask(String args) {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         RecurringType recurringType = RecurringType.IGNORED;
         if (!matcher.find()) {
@@ -295,8 +295,6 @@ public class Parser {
                     recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         }
     }
 
@@ -325,8 +323,6 @@ public class Parser {
                     new TaskDate(datesToAdd.get(1)), recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         }
     }
 
@@ -466,8 +462,6 @@ public class Parser {
                 endTime = dateSet.get(END_TIME_INDEX);
             }
             tagSet = getTagsFromArgs(m.group("tagArguments"));
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -600,8 +594,6 @@ public class Parser {
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
             return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -630,8 +622,6 @@ public class Parser {
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
             return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
