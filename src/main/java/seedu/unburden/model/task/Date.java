@@ -126,7 +126,6 @@ public class Date implements Comparable<Date> {
 		int currentYear;
 		calendar.setTime(calendar.getTime());
 		currentYear = calendar.get(Calendar.YEAR);
-		System.out.println(currentYear);
 		
 		if (year >= currentYear) {
 			return true;
