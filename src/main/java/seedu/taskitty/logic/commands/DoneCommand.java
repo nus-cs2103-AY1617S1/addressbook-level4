@@ -24,18 +24,30 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 
-    public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " Tasks marked as done: ";
+    public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " tasks marked as done: ";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER = "These tasks has already been marked as done: ";
     
-    private boolean hasInvalidIndex;
-    
-    private boolean hasDuplicateMarkAsDoneTask;
-    
+    private boolean hasInvalidIndex;  
+    private boolean hasDuplicateMarkAsDoneTask;  
     private boolean hasDuplicateIndexesProvided;
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
     private final String commandText;
+    
+    private int categoryIndex;
+    private int targetIndex;
+    private String currentTaskIndex;
+    
+    UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+    ArrayList<ReadOnlyTask> listOfTasksToMarkDone;
+    ReadOnlyTask taskToMark;
+    
+    private StringBuilder invalidIndexMessage;
+    private StringBuilder duplicateMarkAsDoneMessage;
+    private StringBuilder duplicateIndexesProvidedMessage;
+    private StringBuilder resultMessage;
+    
     
     public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes, String commandText) {
         assert listOfIndexes != null;
@@ -48,75 +60,147 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
+     
+        initialiseMessageBuildersAndTasksToMarkList();
+        evaluatePresenceOfErrors();
         
-        int categoryIndex;
-        int targetIndex;
-        ArrayList<ReadOnlyTask> listOfTaskToMarkDone = new ArrayList<ReadOnlyTask>();
-        StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
-        StringBuilder duplicateMarkAsDoneMessageBuilder = new StringBuilder(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER);
-        StringBuilder duplicateIndexesProvidedMessageBuilder = new StringBuilder(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": ");
-        StringBuilder resultMessageBuilder = new StringBuilder(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, listOfIndexes.size()));
-        
-        for (Pair<Integer, Integer> indexPair: listOfIndexes) {
-            categoryIndex = indexPair.getKey();
-            targetIndex = indexPair.getValue();
-            assert categoryIndex >= 0 && categoryIndex < 3;
-            
-            String currentTaskIndex = Task.CATEGORIES[categoryIndex] + targetIndex + " ";
-            
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
-            
-            if (lastShownList.size() < targetIndex) {
-                hasInvalidIndex = true;
-                invalidIndexMessageBuilder.append(currentTaskIndex);
-                continue;                                
-            }
-            
-            ReadOnlyTask taskToBeMarkedDone = lastShownList.get(targetIndex - 1);
-            
-            if (taskToBeMarkedDone.getIsDone()) {
-                hasDuplicateMarkAsDoneTask = true;
-                duplicateMarkAsDoneMessageBuilder.append(currentTaskIndex);
-                continue;
-            }
-            
-            if (!listOfTaskToMarkDone.contains(taskToBeMarkedDone)) {
-                listOfTaskToMarkDone.add(taskToBeMarkedDone);
-                resultMessageBuilder.append(taskToBeMarkedDone.getName() + ", ");
-            } else {
-                hasDuplicateIndexesProvided = true;
-                duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
-            }
+        String errorMessage = generateErrorMessage();
+        if (errorMessage != null) { // there are errors
+            return new CommandResult(errorMessage);
         }
-        
-        if (hasInvalidIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            String invalidIndexMessage = invalidIndexMessageBuilder.toString().trim();
-            return new CommandResult(invalidIndexMessage);
-        }
-        
-        if (hasDuplicateIndexesProvided) {
-            indicateAttemptToExecuteIncorrectCommand();
-            String duplicateIndexesProvidedMessage = duplicateIndexesProvidedMessageBuilder.toString().trim();
-            return new CommandResult(duplicateIndexesProvidedMessage);
-        }
-        
-        if (hasDuplicateMarkAsDoneTask) {
-            String duplicateMarkAsDoneMessage = duplicateMarkAsDoneMessageBuilder.toString().trim();
-            return new CommandResult(duplicateMarkAsDoneMessage);
-        }
-                        
+                    
         try {
-            model.markTasksAsDone(listOfTaskToMarkDone);
-            model.storeCommandInfo(COMMAND_WORD, commandText, listOfTaskToMarkDone);
+            executeMarkTasks();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (DuplicateMarkAsDoneException e) {
             assert false: "The target task should not be marked done";
         }
+        return new CommandResult(generateSuccessMessage());
+    }
+    
+    /**
+     * This method evaluates each entered index for 3 types of errors: invalid index, duplicate mark as done,
+     * and duplicate indexes entered, and then sets the relevant boolean variables as true accordingly.
+     */
+    private void evaluatePresenceOfErrors() {
+        for (Pair<Integer, Integer> indexPair: listOfIndexes) {
+            setRelevantIndexesAndList(indexPair);
+            if (hasInvalidIndex()) {
+                continue;                                
+            }
+            if (hasDuplicateMarkAsDone()) {
+                continue;
+            }
+            evaluateHasDuplicateIndexes();     
+        }
+    }
+    
+    /**
+     * This method initialises the error message builders for each of the possible error cases, as well as the success message
+     * builder for the case of successful execution.
+     * It also initialises an empty arraylist to store the tasks to be marked as done so as to iterate through them subsequently.
+     */
+    private void initialiseMessageBuildersAndTasksToMarkList() {
+        listOfTasksToMarkDone = new ArrayList<ReadOnlyTask>();
+        invalidIndexMessage = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
+        duplicateMarkAsDoneMessage = new StringBuilder(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER);
+        duplicateIndexesProvidedMessage = new StringBuilder(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": ");
+        resultMessage = new StringBuilder(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, listOfIndexes.size()));
+    }
+    
+    /**
+     * This method takes in the relevant index that is currently being evaluated and extracts the actual index of the task in the list in
+     * each iteration of evaluation. It also targets the correct list out of the 3 lists.
+     */
+    private void setRelevantIndexesAndList(Pair<Integer, Integer> indexPair) {
+        categoryIndex = indexPair.getKey();
+        targetIndex = indexPair.getValue();
+        assert categoryIndex >= 0 && categoryIndex < 3;
         
-        resultMessageBuilder.delete(resultMessageBuilder.length() - 2, resultMessageBuilder.length());// remove the extra separator at the end
-        String resultMessage = resultMessageBuilder.toString();
-        return new CommandResult(resultMessage);
+        currentTaskIndex = Task.CATEGORIES[categoryIndex] + targetIndex + " ";
+        
+        lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
+    }
+    
+    /**
+     * This method calls the model to mark the specified tasks as done and stores the command for usage during undo/redo.
+     * @throws TaskNotFoundException
+     * @throws DuplicateMarkAsDoneException
+     */
+    private void executeMarkTasks() throws TaskNotFoundException, DuplicateMarkAsDoneException {
+        model.markTasksAsDone(listOfTasksToMarkDone);
+        model.storeCommandInfo(COMMAND_WORD, commandText, listOfTasksToMarkDone);
+    }
+    
+    /**
+     * This method generates a string representing the collated lists of tasks that were successfully marked as done
+     * built from the success message builder.
+     */
+    private String generateSuccessMessage() {
+        resultMessage.delete(resultMessage.length() - 2, resultMessage.length());// remove the extra separator at the end
+        return resultMessage.toString();     
+    }
+    
+    /** This method generates an error message based on the truth values of the 3 boolean error variables.
+     * If none of them are true, it means there are no errors detected and hence it returns null.
+     * @return either the specific error message based on one of the boolean variables, or null.
+     */
+    private String generateErrorMessage() {
+        if (hasInvalidIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return invalidIndexMessage.toString().trim();
+        }
+        
+        if (hasDuplicateIndexesProvided) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return duplicateIndexesProvidedMessage.toString().trim();
+        }
+        
+        if (hasDuplicateMarkAsDoneTask) {
+            return duplicateMarkAsDoneMessage.toString().trim();
+        }
+        
+        return null; // no errors
+    }
+    
+    /**
+     * This method evaluates to true if an invalid index is detected, and false otherwise.
+     * If true, it also appends the problematic task index to the message builder.
+     */
+    private boolean hasInvalidIndex() {
+        if (lastShownList.size() < targetIndex) {
+            invalidIndexMessage.append(currentTaskIndex);
+            return hasInvalidIndex = true;                               
+        }
+        return false;
+    }
+    
+    /**
+     * This method evaluates to true if a task that has already been marked as done is being marked again, and false otherwise.
+     * If true, it also appends the problematic task index to the message builder.
+     */
+    private boolean hasDuplicateMarkAsDone() {
+        taskToMark = lastShownList.get(targetIndex - 1); 
+        if (taskToMark.getIsDone()) {
+            duplicateMarkAsDoneMessage.append(currentTaskIndex);
+            return hasDuplicateMarkAsDoneTask = true;
+        }
+        return false;
+    }
+    
+    /**
+     *  This method checks if there are duplicate indexes that were entered by the user to mark as done.
+     *  If there are, then it appends the duplicated index to the message builder.
+     *  If not, it appends to the success message builder instead.
+     */
+    private void evaluateHasDuplicateIndexes() {
+        if (!listOfTasksToMarkDone.contains(taskToMark)) {
+            listOfTasksToMarkDone.add(taskToMark);
+            resultMessage.append(taskToMark.getName() + ", ");
+        } else {
+            duplicateIndexesProvidedMessage.append(currentTaskIndex);
+            hasDuplicateIndexesProvided = true;  
+        }
     }
 }
