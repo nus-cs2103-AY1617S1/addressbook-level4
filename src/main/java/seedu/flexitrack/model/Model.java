@@ -49,7 +49,8 @@ public interface Model {
      * keywords
      */
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0138455Y
     /**
      * Marks the given task as done
      * 
@@ -63,6 +64,7 @@ public interface Model {
      * @throws TaskNotFoundException
      */
     Task unmarkTask(ReadOnlyTask taskToMark) throws IllegalValueException;
+    //@@author
 
     //@@author A0127855W
     /**
@@ -74,12 +76,22 @@ public interface Model {
             throws UniqueTaskList.IllegalEditException, IllegalValueException;
 
     //@@author
+    
+    //@@author A0138455Y
     /**
      * 
      * @param Task toAdd
      * @return true if new event want to place at a period that reserve for other event
      */
     boolean checkBlock(Task toAdd) throws DuplicateTaskException;
+    
+    /**
+     * 
+     * @param Task toAdd
+     * @return true if new event overLapping other event
+     */
+    boolean checkOverlapEvent(Task toAdd);
+    //@@author
 
     // @@author A0127686R
     /**

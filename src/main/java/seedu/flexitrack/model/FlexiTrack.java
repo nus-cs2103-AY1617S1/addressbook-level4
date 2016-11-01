@@ -168,6 +168,24 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return false;
     }
     
+    public boolean checkOverlapEvent(Task toCheck) {
+        if(task.getInternalList().size()==0) {
+            return false;
+        }
+        for(Task forCheck: task) {
+            if(compareDate(toCheck,forCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * @param toCheck
+     * @param blockDate
+     * @return ture if 2 event overlapping each other
+     */
     private boolean compareDate(Task toCheck, Task blockDate) {
         Date start1 = toCheck.getStartTime().getTimeInfo().getTimingInfo().getDates().get(0);
         Date start2 = blockDate.getStartTime().getTimeInfo().getTimingInfo().getDates().get(0);
@@ -181,6 +199,10 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return false;
     }
     
+    /**
+     * return a list of Block task
+     * @throws DuplicateTaskException
+     */
     private void setBlockList() throws DuplicateTaskException {
         for(Task toAdd: task) {
             if(toAdd.getName().toString().contains("(Blocked) ")) {
@@ -188,6 +210,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
+    //@@author
     
   //@@author A0127686R
     /**
@@ -271,4 +294,5 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         }
         return false;
     }
+    
 }

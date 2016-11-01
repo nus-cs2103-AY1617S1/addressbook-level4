@@ -16,8 +16,9 @@ public class HelpCommand extends Command {
             + "List of Commands: " + AddCommand.COMMAND_WORD + ", " + ClearCommand.COMMAND_WORD + ", "
             + DeleteCommand.COMMAND_WORD + ", " + EditCommand.COMMAND_WORD + ", " + ExitCommand.COMMAND_WORD + ", "
             + FindCommand.COMMAND_WORD + ", " + ListCommand.COMMAND_WORD + ", " + MarkCommand.COMMAND_WORD + ", "
-            + SelectCommand.COMMAND_WORD + ", " + UnmarkCommand.COMMAND_WORD + "\n" + "Example: " + COMMAND_WORD + " "
-            + ClearCommand.COMMAND_WORD+ BlockCommand.COMMAND_WORD + UndoCommand.COMMAND_WORD;
+            + SelectCommand.COMMAND_WORD + ", " + UnmarkCommand.COMMAND_WORD + ", " + BlockCommand.COMMAND_WORD + ", " 
+            + UndoCommand.COMMAND_WORD + "\n" + "Example: " + COMMAND_WORD + " "
+            + ClearCommand.COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     private String userInput;

@@ -11,9 +11,11 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = ".+";
     public static final String DONE_PREFIX = "(Done) ";
+    public static final String BLOCK_PREFIX = "(Blocked) ";
         
     private String isDonePrefix;
     private String fullName;
+    private String isBlockPrefix;
     
     
     /**
@@ -34,6 +36,13 @@ public class Name {
         } else {
             this.fullName = name;
             this.isDonePrefix = ""; 
+        }
+        if (name.contains(BLOCK_PREFIX)){
+            this.isBlockPrefix = name.substring(0, 10); 
+            this.fullName = name.substring(10);
+        } else {
+            this.fullName = name;
+            this.isBlockPrefix = ""; 
         }
     }
 
@@ -65,10 +74,18 @@ public class Name {
         return isDonePrefix.equals(DONE_PREFIX);
     }
     
+    public boolean getIsBlock() {
+        return isBlockPrefix.equals(BLOCK_PREFIX);
+    }
+    
+    public String setBlock(){ 
+        return isBlockPrefix = BLOCK_PREFIX; 
+    }
+    
   //@@author A0127686R
     @Override
     public String toString(){ 
-        return isDonePrefix + fullName; 
+        return isDonePrefix + isBlockPrefix + fullName; 
     }
 
     public String getNameOnly(){ 

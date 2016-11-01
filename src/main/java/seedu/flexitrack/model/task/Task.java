@@ -18,6 +18,7 @@ public class Task implements ReadOnlyTask{
     private boolean isEvent;
     private boolean isTask;
     private boolean isDone = false;
+    private boolean isBlock = false;
 
     /**
      * Every field must be present and not null.
@@ -32,6 +33,7 @@ public class Task implements ReadOnlyTask{
         this.isEvent = startTime.isDateNull() ? false : true;
         this.endTime.isEndTimeInferred();
         this.isDone = name.getIsDone();
+        this.isBlock = name.getIsDone();
     }
 
     /**
@@ -59,6 +61,15 @@ public class Task implements ReadOnlyTask{
     @Override
     public boolean getIsDone() {
         return name.getIsDone();
+    }
+    
+    @Override
+    public boolean getIsBlock() {
+        return name.getIsBlock();
+    }
+    
+    public void setIsBlock() {
+        name.setBlock();
     }
 
     @Override

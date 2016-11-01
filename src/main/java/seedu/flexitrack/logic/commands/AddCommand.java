@@ -25,8 +25,10 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
+    public static final String MESSAGE_OVERLAPPING_EVENT_WARNING = "\nWarning: this event is overlaping a existing event!";
     
     private Task toAdd;
+    private boolean isOverlapping = false;
 
     /**
      * Convenience constructor using raw values.
@@ -52,6 +54,7 @@ public class AddCommand extends Command {
             if(model.checkBlock(toAdd)) {
                 return new CommandResult(BlockCommand.MESSAGE_DUPLICATE_TIME);
             }
+            this.isOverlapping = model.checkOverlapEvent(toAdd);
             
             model.addTask(toAdd);
             toAdd = toAdd.copy();
@@ -59,7 +62,8 @@ public class AddCommand extends Command {
             
             if (toAdd.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n" + DateTimeInfo
-                        .durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString()));
+                        .durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString())
+                        + (isOverlapping? MESSAGE_OVERLAPPING_EVENT_WARNING : ""));
             } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
             }

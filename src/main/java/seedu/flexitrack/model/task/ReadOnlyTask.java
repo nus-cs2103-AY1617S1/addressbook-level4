@@ -20,6 +20,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     boolean getIsTask();
     boolean getIsEvent();
     boolean getIsDone();
+    boolean getIsBlock();
     
     
     /**
@@ -44,7 +45,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         final StringBuilder builder = new StringBuilder();
         String text = (getIsTask() || getIsEvent())
                 ? getIsTask() ? " by/" + getDueDate() : " from/" + getStartTime() + " to/" + getEndTime() : "";
-        builder.append(getIsDone() ? "(Done)" : "" + getName()).append(text);
+        builder.append(getIsDone() ? "(Done)" : ""  + getName()).append(text);
         return builder.toString();
     }
     
