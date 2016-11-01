@@ -8,6 +8,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 #### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
 <img src="images/Shailesh.JPG" width="150"><br>
 **Components in charge of :**: Parsing <br>
+  *Features implemented: [set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage--setstorage)
 
 -----
 
