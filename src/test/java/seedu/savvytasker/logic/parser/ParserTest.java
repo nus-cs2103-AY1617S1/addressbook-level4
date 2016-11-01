@@ -57,46 +57,46 @@ public class ParserTest {
     }
     
     @Test
-    public void parse_add_reorder() throws ParseException {
+    public void parseAdd_reorder() throws ParseException {
         assertNotNull(addParser.parse("add task l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"));
     }
     
     @Test
-    public void parse_add_multipleSpaces() throws ParseException {
+    public void parseAdd_multipleSpaces() throws ParseException {
         assertNotNull(addParser.parse("add    Multiple   Spaces    s/  2pm"));
     }
     
     @Test
-    public void parse_add_sameOptionMultipleTimes() throws ParseException {
+    public void parseAdd_sameOptionMultipleTimes_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         addParser.parse("add task s/ tomorrow 3pm s/ tomorrow 10pm");
     }
     
     @Test
-    public void parse_add_missingTaskName() throws ParseException {
+    public void parseAdd_missingTaskName_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         addParser.parse("add s/ tomorrow 3pm");
     }
     
     @Test
-    public void parse_add_arbitrarySlash() throws ParseException {
+    public void parseAdd_arbitrarySlash_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         addParser.parse("add task s/ tomorrow 2pm/3pm e/ sunday");
     }
     
     @Test
-    public void parse_add_fullValid() throws ParseException {
+    public void parseAdd_fullValid() throws ParseException {
         assertNotNull(addParser.parse("add task s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"));
     }
     
     @Test
-    public void parse_add_invalidRecurrenceType() throws ParseException {
+    public void parseAdd_invalidRecurrenceType_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         addParser.parse("add task r/ Error ");
     }
 
     @Test
-    public void parse_add_invalidPriorityLevel() throws ParseException {
+    public void parseAdd_invalidPriorityLevel_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         addParser.parse("add task p/ Error ");
     }
@@ -104,34 +104,34 @@ public class ParserTest {
     //==================================================================================
     
     @Test
-    public void parse_delete_noIndexSpecified() throws ParseException {
+    public void parseDelete_noIndexSpecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         deleteParser.parse("delete");
     }
     
     @Test
-    public void parse_delete_oneIndex() throws ParseException {
+    public void parseDelete_oneIndex() throws ParseException {
         assertNotNull(deleteParser.parse("delete 1"));
     }
     
     @Test
-    public void parse_delete_multipleIndices() throws ParseException {
+    public void parseDelete_multipleIndices() throws ParseException {
         assertNotNull(deleteParser.parse("delete 1 2 3"));
     }
     
     @Test
-    public void parse_delete_multipleSpacesIndices() throws ParseException {
+    public void parseDelete_multipleSpacesIndices() throws ParseException {
         assertNotNull(deleteParser.parse("delete    1   2     3"));
     }
 
     @Test
-    public void parse_delete_negativeIndex() throws ParseException {
+    public void parseDelete_negativeIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         deleteParser.parse("delete -1");
     }
 
     @Test
-    public void parse_delete_zeroIndex() throws ParseException {
+    public void parseDelete_zeroIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         deleteParser.parse("delete 0");
     }
@@ -139,86 +139,86 @@ public class ParserTest {
     //==================================================================================
     
     @Test
-    public void parse_modify_noIndex() throws ParseException {
+    public void parseModify_noIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         modifyParser.parse("modify t/ newtask");
     }
 
     @Test
-    public void parse_modify_multipleIndex() throws ParseException {
+    public void parseModify_multipleIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         modifyParser.parse("modify 1 2 3 t/ newtask");
     }
 
     @Test
-    public void parse_modify_negativeIndex() throws ParseException {
+    public void parseModify_negativeIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         modifyParser.parse("modify -1 t/ newtask");
     }
     
     @Test
-    public void parse_modify_zeroIndex() throws ParseException {
+    public void parseModify_zeroIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         modifyParser.parse("modify 0 t/ newtask");
     }
 
     @Test
-    public void parse_modify_onlySpecifyIndex() throws ParseException {
+    public void parseModify_onlySpecifyIndex() throws ParseException {
         assertNotNull(modifyParser.parse("modify 1"));
     }
     
     @Test
-    public void parse_modify_fullValid() throws ParseException {
+    public void parseModify_fullValid() throws ParseException {
         assertNotNull(modifyParser.parse("modify 3 t/ newtask s/wednesday e/thursday l/ comp p/ high r/ none n/ 1 c/ test d/ test"));
     }
 
     @Test
-    public void parse_modify_reorder() throws ParseException {
+    public void parseModify_reorder() throws ParseException {
         assertNotNull(modifyParser.parse("modify 1 l/ comp e/ tomorrow, 3pm s/ today, 2pm n/ 2"));
     }
 
     @Test
-    public void parse_modify_multipleSpaces() throws ParseException {
+    public void parseModify_multipleSpaces() throws ParseException {
         assertNotNull(modifyParser.parse("modify   1  t/   Multiple   Spaces    s/  2pm"));
     }
     
     //==================================================================================
     
     @Test
-    public void parse_clear_spaces() throws ParseException {
+    public void parseClear_spaces() throws ParseException {
         assertNotNull(clearParser.parse("clear     "));
     }
     
     @Test
-    public void parse_clear_invalid() throws ParseException {
+    public void parseClear_invalid_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         clearParser.parse("clear 1");
     }
     
     @Test
-    public void parse_clear_valid() throws ParseException {
+    public void parseClear_valid() throws ParseException {
         assertNotNull(clearParser.parse("clear"));
     }
 
     //==================================================================================
     
     @Test
-    public void parse_list_noParameters() throws ParseException {
+    public void parseList_noParameters() throws ParseException {
         assertNotNull(listParser.parse("list"));
     }
 
     @Test
-    public void parse_list_noParametersSpaces() throws ParseException {
+    public void parseList_noParametersSpaces() throws ParseException {
         assertNotNull(listParser.parse("list   "));
     }
     
     @Test
-    public void parse_list_valid() throws ParseException {
+    public void parseList_valid() throws ParseException {
         assertNotNull(listParser.parse("list   t/ Priority Level "));
     }
     
     @Test
-    public void parse_list_invalidType() throws ParseException {
+    public void parseList_invalidType_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         listParser.parse("list t/ Error ");
     }
@@ -226,111 +226,111 @@ public class ParserTest {
     //==================================================================================
     
     @Test
-    public void parse_find_noKeywords() throws ParseException {
+    public void parseFind_noKeywords_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         findParser.parse("find");
     }
     
     @Test
-    public void parse_find_noKeywordsSpaces() throws ParseException {
+    public void parseFind_noKeywordsSpaces_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         findParser.parse("find    ");
     }
 
     @Test
-    public void parse_find_noKeywordsButWithType() throws ParseException {
+    public void parseFind_noKeywordsButWithType_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         findParser.parse("find t/ Exact ");
     }
     
     @Test
-    public void parse_find_invalidType() throws ParseException {
+    public void parseFind_invalidType_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         findParser.parse("find t/ Error some words");
     }
     
     @Test
-    public void parse_find_validAfter() throws ParseException {
+    public void parseFind_validAfter() throws ParseException {
         assertNotNull(findParser.parse("find t/ Exact this word "));
     }
     
     @Test
-    public void parse_find_validBefore() throws ParseException {
+    public void parseFind_validBefore() throws ParseException {
         assertNotNull(findParser.parse("find some words t/ Partial  "));
     }
 
     @Test
-    public void parse_find_validBeforeAndAfter() throws ParseException {
+    public void parseFind_validBeforeAndAfter() throws ParseException {
         assertNotNull(findParser.parse("find some words t/ Full some words after "));
     }
 
     //==================================================================================
     
     @Test
-    public void parse_help_spaces() throws ParseException {
+    public void parseHelp_spaces() throws ParseException {
         assertNotNull(helpParser.parse("help     "));
     }
     
     @Test
-    public void parse_help_invalid() throws ParseException {
+    public void parseHelp_invalid_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         helpParser.parse("help 1");
     }
     
     @Test
-    public void parse_help_valid() throws ParseException {
+    public void parseHelp_valid() throws ParseException {
         assertNotNull(helpParser.parse("help"));
     }
 
     //==================================================================================
 
     @Test
-    public void parse_exit_spaces() throws ParseException {
+    public void parseExit_spaces() throws ParseException {
         assertNotNull(exitParser.parse("exit     "));
     }
     
     @Test
-    public void parse_exit_invalid() throws ParseException {
+    public void parseExit_invalid_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         helpParser.parse("exit 1");
     }
     
     @Test
-    public void parse_exit_valid() throws ParseException {
+    public void parseExit_valid() throws ParseException {
         assertNotNull(exitParser.parse("exit"));
     }
 
     //==================================================================================
     
     @Test
-    public void parse_mark_noIndexSpecified() throws ParseException {
+    public void parseMark_noIndexSpecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         markParser.parse("mark");
     }
     
     @Test
-    public void parse_mark_oneIndex() throws ParseException {
+    public void parseMark_oneIndex() throws ParseException {
         assertNotNull(markParser.parse("mark 1"));
     }
     
     @Test
-    public void parse_mark_multipleIndices() throws ParseException {
+    public void parseMark_multipleIndices() throws ParseException {
         assertNotNull(markParser.parse("mark 1 2 3"));
     }
     
     @Test
-    public void parse_mark_multipleSpacesIndices() throws ParseException {
+    public void parseMark_multipleSpacesIndices() throws ParseException {
         assertNotNull(markParser.parse("mark    1   2     3"));
     }
 
     @Test
-    public void parse_mark_negativeIndex() throws ParseException {
+    public void parseMark_negativeIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         markParser.parse("mark -1");
     }
 
     @Test
-    public void parse_mark_zeroIndex() throws ParseException {
+    public void parseMark_zeroIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         markParser.parse("mark 0");
     }
@@ -338,34 +338,34 @@ public class ParserTest {
     //==================================================================================
     
     @Test
-    public void parse_unmark_noIndexSpecified() throws ParseException {
+    public void parseUnmark_noIndexSpecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         unmarkParser.parse("unmark");
     }
     
     @Test
-    public void parse_unmark_oneIndex() throws ParseException {
+    public void parseUnmark_oneIndex() throws ParseException {
         assertNotNull(unmarkParser.parse("unmark 1"));
     }
     
     @Test
-    public void parse_unmark_multipleIndices() throws ParseException {
+    public void parseUnmark_multipleIndices() throws ParseException {
         assertNotNull(unmarkParser.parse("unmark 1 2 3"));
     }
     
     @Test
-    public void parse_unmark_multipleSpacesIndices() throws ParseException {
+    public void parseUnmark_multipleSpacesIndices() throws ParseException {
         assertNotNull(unmarkParser.parse("unmark    1   2     3"));
     }
 
     @Test
-    public void parse_unmark_negativeIndex() throws ParseException {
+    public void parseUnmark_negativeIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         unmarkParser.parse("unmark -1");
     }
 
     @Test
-    public void parse_unmark_zeroIndex() throws ParseException {
+    public void parseUnmark_zeroIndex_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         unmarkParser.parse("unmark 0");
     }
@@ -373,118 +373,118 @@ public class ParserTest {
     //==================================================================================
 
     @Test
-    public void parse_undo_spaces() throws ParseException {
+    public void parseUndo_spaces() throws ParseException {
         assertNotNull(undoParser.parse("undo     "));
     }
     
     @Test
-    public void parse_undo_invalid() throws ParseException {
+    public void parseUndo_invalid() throws ParseException {
         thrown.expect(ParseException.class);
         helpParser.parse("undo 1");
     }
     
     @Test
-    public void parse_undo_valid() throws ParseException {
+    public void parseUndo_valid() throws ParseException {
         assertNotNull(undoParser.parse("undo"));
     }
 
     //==================================================================================
 
     @Test
-    public void parse_redo_spaces() throws ParseException {
+    public void parseRedo_spaces() throws ParseException {
         assertNotNull(redoParser.parse("redo     "));
     }
     
     @Test
-    public void parse_redo_invalid() throws ParseException {
+    public void parseRedo_invalid_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         helpParser.parse("redo 1");
     }
     
     @Test
-    public void parse_redo_valid() throws ParseException {
+    public void parseRedo_valid() throws ParseException {
         assertNotNull(redoParser.parse("redo"));
     }
 
     //==================================================================================
 
     @Test
-    public void parse_alias_keywordUnspecified() throws ParseException {
+    public void parseAlias_keywordUnspecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias r/ a string of things");
     }
 
     @Test
-    public void parse_alias_textUnspecified() throws ParseException {
+    public void parseAlias_textUnspecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias k/ xyz");
     }
     
     @Test
-    public void parse_alias_noSwitchesSpecified() throws ParseException {
+    public void parseAlias_noSwitchesSpecified_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias power overwhelming");
     }
     
     @Test
-    public void parse_alias_keywordTooLong() throws ParseException {
+    public void parseAlias_keywordNotSingleWord_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias k/ not a single word r/ project management");
     }
     
     @Test
-    public void parse_alias_keywordEmpty() throws ParseException {
+    public void parseAlias_keywordEmpty_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias k/   r/ project management");
     }
     
     @Test
-    public void parse_alias_textEmpty() throws ParseException {
+    public void parseAlias_textEmpty_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         aliasParser.parse("alias k/ pjm  r/  ");
     }
     
     @Test
-    public void parse_alias_fullValid() throws ParseException {
+    public void parseAlias_fullValid() throws ParseException {
         assertNotNull(aliasParser.parse("alias   k/ pjm  r/  project management  "));
     }
 
     //==================================================================================
 
     @Test
-    public void parse_unalias_emptyKeyword() throws ParseException {
+    public void parseUnalias_emptyKeyword_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         unaliasParser.parse("unalias    ");
     }
 
     @Test
-    public void parse_unalias_valid() throws ParseException {
+    public void parseUnalias_valid() throws ParseException {
         assertNotNull(unaliasParser.parse("unalias  something "));
     }
 
     //==================================================================================
 
     @Test
-    public void parse_storage_invalid() throws ParseException {
+    public void parseStorage_invalid_exceptionThrown() throws ParseException {
         thrown.expect(ParseException.class);
         storageParser.parse("storage  ");
     }
 
     @Test
-    public void parse_storage_valid() throws ParseException {
+    public void parseStorage_valid() throws ParseException {
         assertNotNull(storageParser.parse("storage C:/Users/Brown/Desktop/file.xml "));
     }
 
     //==================================================================================
     @Test
-    public void parse_master_subparser() throws ParseException {
+    public void masterParser_subparserParsing_returnParsedCommand() throws ParseException {
         MasterParser parser = new MasterParser();
         parser.registerCommandParser(new AddCommandParser());
         assertTrue(parser.parse(" add A New Task s/ tomorrow  e/ the day after tomorrow, l/ SR10 ") instanceof AddCommand);
     }
 
     @Test
-    public void parse_master_subparserRemoved() throws ParseException {
+    public void masterParser_subparserRemoved_returnIncorrectCommand() throws ParseException {
         MasterParser parser = new MasterParser();
         parser.registerCommandParser(new AddCommandParser());
         parser.unregisterCommandParser("add");
@@ -492,7 +492,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_master_alias() throws ParseException {
+    public void masterParser_alias_returnParsedCommand() throws ParseException {
         MasterParser parser = new MasterParser();
         parser.registerCommandParser(new AddCommandParser());
         parser.addAliasSymbol(new AliasSymbol("xyz", "add A New Task"));
@@ -501,14 +501,14 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_master_invalidAlias() throws ParseException {
+    public void masterParser_invalidAlias_returnFalse() throws ParseException {
         MasterParser parser = new MasterParser();
         parser.registerCommandParser(new AddCommandParser());
         assertFalse(parser.addAliasSymbol(new AliasSymbol("add", "add A New Task")));
     }
 
     @Test
-    public void parse_master_removedAlias() throws ParseException {
+    public void masterParser_removedAlias_returnIncorrectCommand() throws ParseException {
         MasterParser parser = new MasterParser();
         parser.registerCommandParser(new AddCommandParser());
         parser.addAliasSymbol(new AliasSymbol("xyz", "add A New Task"));
