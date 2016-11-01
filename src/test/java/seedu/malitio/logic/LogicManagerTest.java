@@ -298,8 +298,98 @@ public class LogicManagerTest {
                 expectedDeadlineList,
                 expectedEventList);
     }
+    
+    //@@author A0122460W
+    @Test
+    public void execute_complete_tests() throws Exception {
+    	
+    	//generate data
+    	TestDataHelper helper = new TestDataHelper();
+    	model.addTask(helper.generateTask(1));
+    	model.addTask(helper.generateDeadline(1));
+    	CommandResult result1 = logic.execute("complete f1");
+    	CommandResult result2 = logic.execute("complete d1");
+    	CommandResult result3 = logic.execute("complete f1");
+    	CommandResult result4 = logic.execute("complete d1");
+    	CommandResult result5 = logic.execute("complete f100");
+    	CommandResult result6 = logic.execute("complete d100");
+    	CommandResult result7 = logic.execute("complete asdf");
+    	CommandResult result8 = logic.execute("complete asdf");
+    	String expectedMessage1 = String.format(CompleteCommand.MESSAGE_COMPLETED_TASK_SUCCESS);
+    	String expectedMessage2 = String.format(CompleteCommand.MESSAGE_COMPLETED_DEADLINE_SUCCESS);
+    	String expectedMessage3 = String.format(CompleteCommand.MESSAGE_COMPLETED_TASK);
+    	String expectedMessage4 = String.format(CompleteCommand.MESSAGE_COMPLETED_DEADLINE);
+    	String expectedMessage5 = String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    	String expectedMessage6 = String.format(MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX);
+        String expectedMessage7 = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
+        String expectedMessage8 = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
+    	
+    	//successful complete
+        assertEquals(result1.feedbackToUser, expectedMessage1);
+        assertEquals(result2.feedbackToUser, expectedMessage2);
+        assertEquals(model.getFilteredFloatingTaskList().get(0).getCompleted(), true);
+        assertEquals(model.getFilteredDeadlineList().get(0).getCompleted(),true);
+        
+        //cannot complete completed task
+    	assertEquals(result3.feedbackToUser, expectedMessage3);
+        assertEquals(result4.feedbackToUser, expectedMessage4);
+        
+        //cannot complete invalid index
+        assertEquals(result5.feedbackToUser, expectedMessage5);
+        assertEquals(result6.feedbackToUser, expectedMessage6);
+        
+        //invalid complete argument
+        assertEquals(result7.feedbackToUser, expectedMessage7);
+        assertEquals(result8.feedbackToUser, expectedMessage8);
+    }
+    
+    @Test
+    public void execute_uncomplete_tests() throws Exception {
+    	
+    	//generate data
+    	TestDataHelper helper = new TestDataHelper();
+    	model.addTask(helper.generateTask(1));
+    	model.addTask(helper.generateDeadline(1));
+    	logic.execute("complete f1");
+    	logic.execute("complete d1");
+    	CommandResult result1 = logic.execute("uncomplete f1");
+    	CommandResult result2 = logic.execute("uncomplete d1");
+    	CommandResult result3 = logic.execute("uncomplete f1");
+     	CommandResult result4 = logic.execute("uncomplete d1");
+     	CommandResult result5 = logic.execute("uncomplete f100");
+    	CommandResult result6 = logic.execute("uncomplete d100");
+    	CommandResult result7 = logic.execute("uncomplete asdf");
+    	CommandResult result8 = logic.execute("uncomplete asdf");
+    	String expectedMessage1 = String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_TASK_SUCCESS);
+    	String expectedMessage2 = String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_DEADLINE_SUCCESS);
+     	String expectedMessage3 = String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_TASK);
+     	String expectedMessage4 = String.format(UncompleteCommand.MESSAGE_UNCOMPLETED_DEADLINE);
+     	String expectedMessage5 = String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+    	String expectedMessage6 = String.format(MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX);
+        String expectedMessage7 = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UncompleteCommand.MESSAGE_USAGE);
+        String expectedMessage8 = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UncompleteCommand.MESSAGE_USAGE);
+        
+        //successful uncomplete
+        assertEquals(result1.feedbackToUser, expectedMessage1);
+        assertEquals(result2.feedbackToUser, expectedMessage2);
+        assertEquals(model.getFilteredFloatingTaskList().get(0).getCompleted(), false);
+        assertEquals(model.getFilteredDeadlineList().get(0).getCompleted(),false);
+        
 
-
+        //cannot uncomplete uncompleted task   
+    	assertEquals(result3.feedbackToUser, expectedMessage3);
+        assertEquals(result4.feedbackToUser, expectedMessage4);
+        
+        //cannot uncomplete invalid index
+        assertEquals(result5.feedbackToUser, expectedMessage5);
+        assertEquals(result6.feedbackToUser, expectedMessage6);
+        
+        //invalid uncomplete argument
+        assertEquals(result7.feedbackToUser, expectedMessage7);
+        assertEquals(result8.feedbackToUser, expectedMessage8);
+    }
+   
+    //@@author
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
