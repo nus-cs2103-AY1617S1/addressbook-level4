@@ -1,14 +1,19 @@
 package seedu.jimi.logic.commands;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
+import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0140133B
 /**
- * Deletes a task identified using it's last displayed index from Jimi.
+ * Deletes a task or a range of tasks identified using it's last displayed index from Jimi.
  */
 public class DeleteCommand extends Command implements TaskBookEditor {
 
@@ -17,49 +22,58 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the specified task/event from Jimi.\n"
             + "You can specify the task/event by entering its index number given in the last listing. \n"
-            + "If you need to recover your deleted task, you can use the undo command. \n"
             + "Parameters: INDEX (must be t<positive integer> or e<positive integer>)\n"
-            + "Example: " + COMMAND_WORD + " t1";
+            + "Example: " + COMMAND_WORD + " t1\n"
+            + "\n"
+            + "You can also delete a range of tasks. \n"
+            + "Example: " + COMMAND_WORD + " t1 to t3";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Jimi has deleted this task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = 
+            "Jimi has deleted the following: \n"
+            + "%1$s";
 
-    public final String targetIndex;
-
-    public DeleteCommand() {
-        this(null);
+    private String startIdx;
+    private String endIdx;
+    
+    public DeleteCommand() {}
+    
+    
+    public DeleteCommand(String startIdx, String endIdx) throws IllegalValueException {
+        this.startIdx = startIdx.trim();
+        // If end index is not specified, default it to startIdx.
+        this.endIdx = endIdx == null ? startIdx : endIdx.trim(); 
     }
     
-    public DeleteCommand(String targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
-    // @@author A0140133B
-    @Override 
+    @Override
     public CommandResult execute() {
+        if (isIndicesReferringDifferentLists()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
         
-        Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = 
-                determineListFromIndexPrefix(targetIndex);
+        /* At this point, both indices refer to the same list as asserted by above condition.
+         * So {@code optionalList} refers to the list specified by both indices.
+         */
+        Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = determineListFromIndexPrefix(startIdx);
         
         // actual integer index is everything after the first character prefix.
-        int actualIdx = Integer.parseInt(targetIndex.substring(1).trim());
-        if (!optionalList.isPresent() || optionalList.get().size() < actualIdx) {
+        int actualStartIdx = Integer.parseInt(startIdx.substring(1));
+        int actualEndIdx = Integer.parseInt(endIdx.substring(1));
+        if (isInvalidIndices(optionalList, actualStartIdx, actualEndIdx)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = optionalList.get();
+        // endIdx can exceed list size, but apply a ceiling of lastShownList.size().
+        actualEndIdx = Math.min(actualEndIdx, lastShownList.size());
         
-        ReadOnlyTask taskToDelete = lastShownList.get(actualIdx - 1);        
-
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        List<ReadOnlyTask> toDelete = lastShownList.subList(actualStartIdx - 1, actualEndIdx);
+        String deletedFeedback = getListOfTasksAsText(toDelete);
+        deleteListOfTasks(toDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedFeedback));
     }
-    
+
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
@@ -69,7 +83,6 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         }
         return false;
     }
-    // @@author
     
     @Override
     public String getMessageUsage() {
@@ -80,4 +93,40 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+    
+    /*
+     * ===============================================================
+     *                          Helper Methods
+     * ===============================================================
+     */
+    
+    /** Returns true if indices are invalid i.e. end before start, start more than list size. */
+    private boolean isInvalidIndices(Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList, int start,
+            int end) {
+        return !optionalList.isPresent() || optionalList.get().size() < start || end < start;
+    }
+    
+    /** Returns true if prefixes of both indices are the same. */
+    private boolean isIndicesReferringDifferentLists() {
+        return startIdx.charAt(0) != endIdx.charAt(0);
+    }
+    
+    /** Converts {@code list} to a string with each task on a newline. */
+    private String getListOfTasksAsText(List<ReadOnlyTask> list) {
+        return list.stream()
+                .map(t -> t.toString())
+                .collect(Collectors.joining("\n"));
+    }
+
+    /** Deletes everything in {@code toDelete} from {@code model}. */
+    private void deleteListOfTasks(List<ReadOnlyTask> toDelete) {
+        toDelete.stream().forEach(t -> {
+            try {
+                model.deleteTask(t);
+            } catch (TaskNotFoundException e) {
+                assert false : "The target task cannot be missing";
+            }
+        });
+    }
+    
 }

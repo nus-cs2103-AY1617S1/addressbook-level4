@@ -62,6 +62,9 @@ public class JimiParser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>[^\\s/]+) (?<editDetails>.+)");
     
+    private static final Pattern DELETE_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<startIdx>((?!to).)*)(to (?<endIdx>.+))?");
+    
     // all fields optional
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
             "(\"(?<taskDetails>.+)\"\\s*)?((due (?<deadline>[^/]+))|((on|from) (?<startDateTime>((?!to )[^/])*))?(to (?<endDateTime>[^/]+))?)?"
@@ -362,14 +365,31 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        Optional<Integer> index = parseIndex(args); 
-        if (!index.isPresent()) {
+        final Matcher deleteArgsMatcher = DELETE_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!deleteArgsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
-        return new DeleteCommand(args.trim());
+        // Validating start index
+        Optional<Integer> startIdx = parseIndex(deleteArgsMatcher.group("startIdx"));
+        if (!startIdx.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        
+        // If end range is specified, validate it
+        if (deleteArgsMatcher.group("endIdx") != null) {
+            Optional<Integer> endIdx = parseIndex(deleteArgsMatcher.group("endIdx"));
+            if (!endIdx.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+        }
+        
+        try {
+            return new DeleteCommand(deleteArgsMatcher.group("startIdx"), deleteArgsMatcher.group("endIdx"));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
-
     
     /**
      * Parses arguments to filter section of task panel to be displayed to user.
