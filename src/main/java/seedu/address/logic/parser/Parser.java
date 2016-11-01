@@ -46,12 +46,12 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern ARGS_FORMAT_TASK_INDEX = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern ARGS_FORMAT_KEYWORDS =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ARGS_FORMAT_EVENT_DATA = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("\\[(?<name>[^;]+)"
                     + "(; (?<date>[^;]+))?"
                     + "(; (?<start>[^;]+))?"
@@ -59,36 +59,36 @@ public class Parser {
                     + "\\]"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
-    private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ARGS_FORMAT_DEADLINE_DATA = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^;]+)"
                     + "; (?<date>[^;#]+)"
                     + "(; (?<end>[^#]+))?"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
 
     
-    private static final Pattern TODO_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ARGS_FORMAT_TODO_DATA = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^#]+)"
                     + "(?<tagArguments>(?: #[^#]+)*)"); // variable number of tags
     
-    private static final Pattern EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
     		Pattern.compile("[E|D|T]\\d+ "
     				+ "(des|date|start|end|tag) "
     				+ ".+");
     
-    private static final Pattern ADD_TAGS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ARGS_FORMAT_ADD_TAGS = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("[E|D|T]\\d+"
                     + " #[^#]+"
                     + "(?<tagArguments>(?: #[^#]+)*)");// variable number of tags
     
-    private static final Pattern DELETE_ARGS_FORMAT = 
+    private static final Pattern ARGS_FORMAT_DELETE = 
     		Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
     				+ "([E|D|T]\\d+-[E|D|T]\\d+)");
     
-    private static final Pattern COMPLETE_ARGS_FORMAT =
+    private static final Pattern ARGS_FORMAT_COMPLETE =
             Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
                     + "([E|D|T]\\d+-[E|D|T]\\d+)");
     
-    private static final Pattern SELECT_ARGS_FORMAT = 
+    private static final Pattern ARGS_FORMAT_SELECT = 
     		Pattern.compile("[E|D|T]\\d+");
     
     public Parser() {}
@@ -110,17 +110,9 @@ public class Parser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD: {
-        	if (EVENT_DATA_ARGS_FORMAT.matcher(userInput).find())
-        		return prepareEvent(arguments);
-        	else if (DEADLINE_DATA_ARGS_FORMAT.matcher(userInput).find())
-        		return prepareDeadline(arguments);
-        	else if (ADD_TAGS_ARGS_FORMAT.matcher(userInput).find())
-                return prepareAddTags(arguments);
-        	else if (TODO_DATA_ARGS_FORMAT.matcher(userInput).find())
-        		return prepareToDo(arguments);
+        	return prepareAdd(userInput, arguments);
         }
-            
-        
+               
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
@@ -161,6 +153,25 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+    /**
+     * @@author A0138993L
+     * Chooses which kind of task to create and prepare
+     * @param userInput takes in the user input from the command line interface
+     * @param arguments full commands argument string
+     * @return the prepared command
+     */
+	private Command prepareAdd(String userInput, final String arguments) {
+		if (ARGS_FORMAT_EVENT_DATA.matcher(userInput).find())
+			return prepareEvent(arguments);
+		else if (ARGS_FORMAT_DEADLINE_DATA.matcher(userInput).find())
+			return prepareDeadline(arguments);
+		else if (ARGS_FORMAT_ADD_TAGS.matcher(userInput).find())
+		    return prepareAddTags(arguments);
+		else if (ARGS_FORMAT_TODO_DATA.matcher(userInput).find())
+			return prepareToDo(arguments);
+		else
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+	}
     
     /**
      * Parses arguments in the context of the add tag command.
@@ -170,7 +181,7 @@ public class Parser {
      */
   //@@author A0139430L JingRui
     private Command prepareAddTags(String args) {
-        final Matcher matcher = ADD_TAGS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_ADD_TAGS.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -263,7 +274,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareToDo(String args) {
-    	final Matcher matcher = TODO_DATA_ARGS_FORMAT.matcher(args.trim());
+    	final Matcher matcher = ARGS_FORMAT_TODO_DATA.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -285,7 +296,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDeadline(String args){
-        final Matcher matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_DEADLINE_DATA.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -310,7 +321,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEvent(String args){
-        final Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_EVENT_DATA.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -355,7 +366,7 @@ public class Parser {
      */
     //@@author A0139430L JingRui
     private Command prepareDelete(String args){
-        final Matcher matcher = DELETE_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_DELETE.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteCommand.MESSAGE_USAGE));
@@ -411,7 +422,7 @@ public class Parser {
     }
     //@@author A0139430L JingRui
     private Command prepareEdit(String args) {
-    	final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
+    	final Matcher matcher = ARGS_FORMAT_EDIT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditCommand.MESSAGE_USAGE));
@@ -442,7 +453,7 @@ public class Parser {
     
     //@@author A0135722L Zhiyuan
     private Command prepareComplete(String args) {
-        final Matcher matcher = COMPLETE_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_COMPLETE.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DoneCommand.MESSAGE_USAGE));
@@ -509,7 +520,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-    	final Matcher matcher = SELECT_ARGS_FORMAT.matcher(args.trim());
+    	final Matcher matcher = ARGS_FORMAT_SELECT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
@@ -535,7 +546,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = ARGS_FORMAT_TASK_INDEX.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -558,7 +569,7 @@ public class Parser {
      */
     //@@author A0139430L JingRui
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = ARGS_FORMAT_KEYWORDS.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
