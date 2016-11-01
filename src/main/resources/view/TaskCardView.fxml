@@ -14,10 +14,13 @@
 <VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane>
-         <left>
+         <right>
+            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
             <FlowPane fx:id="titleFlowPane" alignment="CENTER_LEFT" hgap="8.0" maxHeight="-Infinity" minHeight="-Infinity" prefWrapLength="0.0" vgap="2.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="titleLabel" maxWidth="-Infinity" minHeight="-Infinity" styleClass="titleLabel" text="1. $Tasking Title$" wrapText="true">
+                  <Label fx:id="titleLabel" maxWidth="-Infinity" minHeight="-Infinity" styleClass="titleLabel" text="1. $Tasking Title$">
                   </Label>
                   <Label fx:id="typeLabel" text="Event" textFill="WHITE">
                      <padding>
@@ -39,9 +42,6 @@
                   </Label>
                </children>
             </FlowPane>
-         </left>
-         <center>
-            <ImageView fx:id="pinImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="pinImage" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
       <HBox fx:id="descriptionBox" spacing="8.0">
