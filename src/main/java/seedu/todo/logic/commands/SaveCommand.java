@@ -28,8 +28,8 @@ public class SaveCommand extends BaseCommand {
     @Override
     public List<CommandSummary> getCommandSummary() {
         return ImmutableList.of(
-            new CommandSummary("Save to a different file", getCommandName(), "location"), 
-            new CommandSummary("Find my todo list file", getCommandName()));
+            new CommandSummary("Save to another file", getCommandName(), "location"), 
+            new CommandSummary("Show save location", getCommandName()));
     }
 
     @Override

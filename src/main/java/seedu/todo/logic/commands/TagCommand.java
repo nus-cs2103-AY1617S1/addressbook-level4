@@ -44,10 +44,10 @@ public class TagCommand extends BaseCommand {
     private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
     private static final String SUCCESS_RENAME_TAGS = " renamed to ";
 
-    private static final String DESCRIPTION_SHOW_TAGS = "Shows a global list of tags";
+    private static final String DESCRIPTION_SHOW_TAGS = "Shows all tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
-    private static final String DESCRIPTION_DELETE_TAGS_TASK = "Delete tags from tasks";
-    private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from all tasks";
+    private static final String DESCRIPTION_DELETE_TAGS_TASK = "Remove tags from a task";
+    private static final String DESCRIPTION_DELETE_TAGS = "Remove tags from all tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
 
     private static final String ARGUMENTS_SHOW_TAGS = "";
