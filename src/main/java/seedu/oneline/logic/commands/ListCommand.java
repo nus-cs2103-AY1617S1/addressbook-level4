@@ -18,8 +18,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    public static final String MESSAGE_INVALID = "Argument given is invalid. " +
-                                                "Supported formats: list done, undone, today, week, float";
+    public static final String MESSAGE_INVALID = "Argument given is invalid. \n" +
+                                                "Supported formats: list [done/undone/today/week/float/#<Category>]";
 
     public String listBy;
 
@@ -31,23 +31,27 @@ public class ListCommand extends Command {
         this.listBy = listBy;
     }
 
-    public static ListCommand createFromArgs(String args) throws IllegalCmdArgsException {
+    public static ListCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         String listBy = " ";
-        args = args.trim().toLowerCase();
+        args = args.trim();
         if(!args.isEmpty()){
-            Set<String> keywords = Parser.getKeywordsFromArgs(args);
-            if (keywords == null) {
-                throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_INVALID));
+            if (args.startsWith(CommandConstants.TAG_PREFIX)){
+                return ListTagCommand.createFromArgs(args);
+            } else {
+                args.toLowerCase();
+                Set<String> keywords = Parser.getKeywordsFromArgs(args);
+                if (keywords == null) {
+                    throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_INVALID));
+                }
+                Iterator<String> iter = keywords.iterator();
+                listBy = iter.next();
             }
-            Iterator<String> iter = keywords.iterator();
-            listBy = iter.next();
         }
         return new ListCommand(listBy);
     }
     
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAllNotDone();
         switch (listBy) {
         case " ":
             model.updateFilteredListToShowAllNotDone();
