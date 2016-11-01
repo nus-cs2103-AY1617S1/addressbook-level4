@@ -120,6 +120,9 @@ public class Parser {
                 
             case ExportCommand.COMMAND_KEYWORD_EXPORT:
                 return prepareExport(arguments);
+                
+            case ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY:
+                return new ActionHistoryCommand();
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
