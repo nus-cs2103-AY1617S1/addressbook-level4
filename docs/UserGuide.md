@@ -237,4 +237,4 @@ Following is the list of all commands:
 |             | `clear done`                                       | Clears all the done tasks from the done list   |
 | `select`    | `select` `<index>`                                 | Highlights the particular task at that index   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             |
-| `exit       | `exit`                                             | Exits the application                          |
+| `exit`      | `exit`                                             | Exits the application                          |
