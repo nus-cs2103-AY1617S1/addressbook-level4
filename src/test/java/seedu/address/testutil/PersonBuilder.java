@@ -44,7 +44,6 @@ public class PersonBuilder {
     }
     
     public PersonBuilder withCompletion(boolean completion) throws IllegalValueException {
-        this.person.setCompletion(false);
         return this;
     }
   

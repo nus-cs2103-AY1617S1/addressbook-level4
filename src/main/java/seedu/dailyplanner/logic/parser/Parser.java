@@ -172,6 +172,7 @@ public class Parser {
     //@@author A0140124B
     private Command prepareAdd(String args) {
 	String taskName = "", date = "", startTime = "", endTime = "", isRecurring = "";
+	Set<String> tagSet = Collections.emptySet();
 	String trimmedArgs = args.trim();
 	
 	
@@ -208,12 +209,14 @@ public class Parser {
 	if (mapArgs.containsKey("isRecurring")) {
 	    isRecurring = mapArgs.get("isRecurring");
 	}
-
-	Set<String> emptySet = new HashSet<String>();
+	if (mapArgs.containsKey("tags")) {
+	    String[] tagArray = mapArgs.get("tags").split(" ");
+	    tagSet = new HashSet<String>(Arrays.asList(tagArray));
+	}
 
 	try {
 
-	    return new AddCommand(taskName, date, startTime, endTime, emptySet);
+	    return new AddCommand(taskName, date, startTime, endTime, tagSet);
 	} catch (IllegalValueException ive) {
 	    return new IncorrectCommand(ive.getMessage());
 	}
@@ -332,6 +335,17 @@ public class Parser {
 		}
 		mapArgs.put("isRecurring", arg);
 	    }
+	    if (splitArgs[i].substring(0, 2).equals("t/")) {
+			int j = i + 1;
+			String arg = splitArgs[i].substring(2);
+			while (j < splitArgs.length) {
+			    arg += " " + splitArgs[j].substring(2);
+			    j++;
+			}
+			i = j;
+			mapArgs.put("tags", arg);
+			
+		    }
 	}
     }
   //@@author A0146749N
