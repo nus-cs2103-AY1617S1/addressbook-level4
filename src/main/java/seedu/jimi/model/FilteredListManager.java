@@ -41,7 +41,8 @@ public class FilteredListManager {
         COMPLETED, 
         INCOMPLETE, 
         TASKS_AGENDA, 
-        EVENTS_AGENDA
+        EVENTS_AGENDA,
+        OVERDUE
     }
     
     private final HashMap<ListId, FilteredList<ReadOnlyTask>> listMap =
@@ -150,6 +151,10 @@ public class FilteredListManager {
         // Expression matches if it's an event.
         defaultExpressions.put(ListId.EVENTS_AGENDA,
                 new PredicateExpression(new EventQualifier(true)));
+        
+        // Expression matches if task is overdue.
+        defaultExpressions.put(ListId.OVERDUE,
+                new PredicateExpression(new TaskQualifier(true), new OverdueQualifier()));
     }
     //@@author
     
