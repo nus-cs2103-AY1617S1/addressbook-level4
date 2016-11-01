@@ -13,7 +13,10 @@ import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 //@@author A0135805H
 /**
@@ -130,7 +133,6 @@ public class TagCommand extends BaseCommand {
 
     @Override
     protected void validateArguments() {
-
         if (!isInputParameterSufficient()) {
             handleUnavailableInputParameters();
         }
@@ -145,49 +147,36 @@ public class TagCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        //Obtain values for manipulation
-        Integer displayedIndex = index.getValue();
-        String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
-        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
-        String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
-        CommandResult result;
+        //Performs the actual execution with the data. Guarantees that only one action gets to run.
+        guaranteeOneActionExecutes();
 
-        //Performs the actual execution with the data
-        if (isShowTags()) {
-            ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
-            EventsCenter.getInstance().post(tagsEvent);
-            result = new CommandResult("Type [Enter] to dismiss.");
+        CommandResult result = chooseFirstAvailable(
+                performShowTagsWhenApplicable(),
+                performAddTagToTaskWhenApplicable(),
+                performDeleteTagsFromTaskWhenApplicable(),
+                performDeleteTagsGloballyWhenApplicable(),
+                performRenameTagWhenApplicable()
+        );
+        guaranteeCommandResultExists(result); //Just a sanity check.
 
-        } else if (isAddTagsToTask()) {
-            model.addTagsToTask(displayedIndex, tagsToAdd);
-            result = new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
-
-        } else if (isDeleteTagsFromTask()) {
-            model.deleteTagsFromTask(displayedIndex, tagsToDelete);
-            result = new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
-
-        } else if (isDeleteTagsFromAllTasks()) {
-            model.deleteTags(tagsToDelete);
-            result = new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
-
-        } else if (isRenamingTag()) {
-            model.renameTag(renameTagsParam[0], renameTagsParam[1]);
-            result = new CommandResult(renameTagsParam[0] + SUCCESS_RENAME_TAGS + renameTagsParam[1]);
-
-        } else {
-            //Invalid case, should not happen, as we have checked it validateArguments.
-            //However, for completeness, a command result is returned.
-            throw new ValidationException(ERROR_INCOMPLETE_PARAMETERS);
-        }
-
-        if (displayedIndex != null) {
-            eventBus.post(new HighlightTaskEvent(model.getTask(displayedIndex)));
-            eventBus.post(new ExpandCollapseTaskEvent(model.getTask(displayedIndex)));
-        }
+        highlightTaskWhenComplete();
         return result;
     }
 
-    /* Input Parameters Validation */
+    /* User Interface Helper Methods */
+    /**
+     * Highlights the task when a task index is available.
+     * @throws ValidationException when the index is invalid.
+     */
+    private void highlightTaskWhenComplete() throws ValidationException {
+        if (index.hasBoundValue()) {
+            int displayedIndex = index.getValue();
+            eventBus.post(new HighlightTaskEvent(model.getTask(displayedIndex)));
+            eventBus.post(new ExpandCollapseTaskEvent(model.getTask(displayedIndex)));
+        }
+    }
+
+    /* Show Tags Methods */
     /**
      * Returns true if the command parameters matches the action of show global tags
      */
@@ -197,6 +186,17 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
+     * Performs the following execution if the command indicates so:
+     *      Show a global list of tags
+     */
+    private CommandResult performShowTagsWhenApplicable() {
+        ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
+        EventsCenter.getInstance().post(tagsEvent);
+        return new CommandResult("Type [Enter] to dismiss.");
+    }
+
+    /* Add Tags to Task Method */
+    /**
      * Returns true if the command parameters matches the action of adding tag(s) to a task.
      */
     private boolean isAddTagsToTask() {
@@ -204,6 +204,22 @@ public class TagCommand extends BaseCommand {
                 && !renameTag.hasBoundValue();
     }
 
+    /**
+     * Performs the following execution if the command indicates so:
+     *      Adds Tags to a particular Task
+     */
+    private CommandResult performAddTagToTaskWhenApplicable() throws ValidationException {
+        Integer displayedIndex = index.getValue();
+        String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
+
+        if (isAddTagsToTask()) {
+            model.addTagsToTask(displayedIndex, tagsToAdd);
+            return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
+        }
+        return null;
+    }
+
+    /* Delete Tags from Task */
     /**
      * Returns true if the command parameters matches the action of deleting tag(s) from a task.
      */
@@ -213,6 +229,22 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
+     * Performs the following execution if the command indicates so:
+     *      Deletes tags from a task.
+     */
+    private CommandResult performDeleteTagsFromTaskWhenApplicable() throws ValidationException {
+        Integer displayedIndex = index.getValue();
+        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+
+        if (isDeleteTagsFromTask()) {
+            model.deleteTagsFromTask(displayedIndex, tagsToDelete);
+            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+        }
+        return null;
+    }
+
+    /* Delete Tags from All Tasks */
+    /**
      * Returns true if the command parameters matches the action of deleting tag(s) from all tasks.
      */
     private boolean isDeleteTagsFromAllTasks() {
@@ -221,11 +253,61 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
+     * Performs the following execution if the command indicates so:
+     *      Deletes tags from all tasks.
+     */
+    private CommandResult performDeleteTagsGloballyWhenApplicable() throws ValidationException {
+        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+
+        if (isDeleteTagsFromAllTasks()) {
+            model.deleteTags(tagsToDelete);
+            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+        }
+        return null;
+    }
+
+    /* Renaming Tags */
+    /**
      * Returns true if the command parameters matches the action of renaming tags.
      */
     private boolean isRenamingTag() {
         return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
                 && renameTag.hasBoundValue();
+    }
+
+    /**
+     * Performs the following execution if the command indicates so:
+     *      Rename a specific tag.
+     */
+    private CommandResult performRenameTagWhenApplicable() throws ValidationException {
+        String[] renameTagsParam = StringUtil.splitString(renameTag.getValue());
+
+        if (isRenamingTag()) {
+            String oldName = renameTagsParam[0];
+            String newName = renameTagsParam[1];
+            model.renameTag(oldName, newName);
+            return new CommandResult(oldName + SUCCESS_RENAME_TAGS + newName);
+        }
+        return null;
+    }
+
+    /* Command Validation Methods */
+    /**
+     * Guarantees that only one action gets to run, otherwise throws {@link ValidationException}.
+     */
+    private void guaranteeOneActionExecutes() throws ValidationException {
+        if (!isInputParameterSufficient()) {
+            throw new ValidationException(ERROR_INCOMPLETE_PARAMETERS);
+        }
+    }
+
+    /**
+     * Guarantees that result is not null. Otherwise, throw an error {@link ValidationException}.
+     */
+    private void guaranteeCommandResultExists(CommandResult result) throws ValidationException {
+        if (result == null) {
+            throw new ValidationException(ERROR_INCOMPLETE_PARAMETERS);
+        }
     }
 
     /**
@@ -291,5 +373,13 @@ public class TagCommand extends BaseCommand {
             }
         }
         return count;
+    }
+
+    /**
+     * Returns {@code object1} if {@code object1} is available. Otherwise, return {@code object2}.
+     */
+    private static <T> T chooseFirstAvailable(T... objects) {
+        Optional<T> optionalObject = Arrays.stream(objects).filter(t -> t != null).findFirst();
+        return (optionalObject.isPresent()) ? optionalObject.get() : null;
     }
 }

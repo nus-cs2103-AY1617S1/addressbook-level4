@@ -166,7 +166,7 @@ public class AddCommandTest extends CommandTest {
         Set<Tag> expectedTags
                 = TaskFactory.convertToTags("pikachu123", "charizaRD_-", "-pichu-", "---raichu", "gasly");
 
-        setParameter("Pokemon with tags");
+        setParameter("Hello with tags");
         setParameter("t", "pikachu123 , charizaRD_-  -pichu-  ---raichu,  gasly");
         execute(true);
 
