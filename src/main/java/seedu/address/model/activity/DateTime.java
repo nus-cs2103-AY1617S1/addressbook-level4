@@ -2,6 +2,7 @@ package seedu.address.model.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
@@ -32,6 +33,22 @@ public abstract class DateTime {
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
         }
+    }
+    
+    /**
+     * Returns true if the stored time is before the current time.
+     */
+    public boolean isBeforeNow() {
+        Date now = Calendar.getInstance().getTime();
+        return this.value.getTime().before(now);
+    }
+    
+    /**
+     * Returns true if the stored time is after the current time.
+     */
+    public boolean isAfterNow() {
+        Date now = Calendar.getInstance().getTime();
+        return this.value.getTime().after(now);
     }
 
     /**

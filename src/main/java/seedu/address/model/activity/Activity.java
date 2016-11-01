@@ -68,6 +68,10 @@ public class Activity implements ReadOnlyActivity {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    public boolean hasReminderPassed() {
+        return reminder.isBeforeNow();
+    }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.

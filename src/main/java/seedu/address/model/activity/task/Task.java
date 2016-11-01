@@ -106,8 +106,7 @@ public class Task extends Activity implements ReadOnlyTask {
         if(duedate.getCalendarValue() == null) {
         	return false;        	
         } else {
-            Date now = Calendar.getInstance().getTime();
-            return duedate.getCalendarValue().getTime().before(now);       
+            return duedate.isBeforeNow();     
         }
     }
 
