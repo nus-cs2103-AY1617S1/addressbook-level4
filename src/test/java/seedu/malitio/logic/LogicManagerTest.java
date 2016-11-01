@@ -398,12 +398,12 @@ public class LogicManagerTest {
 
     //@@author A0129595N
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_matchesPartialWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         FloatingTask fTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         FloatingTask fTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        FloatingTask fTarget3 = helper.generateTaskWithName("KEYKEYKEY sduauo");
         FloatingTask f1 = helper.generateTaskWithName("KE Y");
-        FloatingTask f2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
         
         Deadline dTarget1 = helper.generateDeadlineWithName("bla hey KEY bla");
         Deadline dTarget2 = helper.generateDeadlineWithName("KEY asdalksjdjas");
@@ -412,11 +412,11 @@ public class LogicManagerTest {
         Event eTarget1 = helper.generateEventWithName("askldj KEY");
         Event e1 = helper.generateEventWithName("LOL KLEY");
 
-        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f1, fTarget1, f2, fTarget2);
+        List<FloatingTask> fourTasks = helper.generateFloatingTaskList(f1, fTarget1, fTarget2, fTarget3);
         List<Deadline> threeDeadlines = helper.generateDeadlineList(dTarget1, dTarget2, d1);
         List<Event> twoEvents = helper.generateEventList(eTarget1, e1);
         Malitio expectedAB = helper.generateMalitio(fourTasks, threeDeadlines, twoEvents);
-        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(fTarget1, fTarget2);
+        List<FloatingTask> expectedFloatingTaskList = helper.generateFloatingTaskList(fTarget1, fTarget2, fTarget3);
         List<Deadline> expectedDeadlineList = helper.generateDeadlineList(dTarget1, dTarget2);
         List<Event> expectedEventList = helper.generateEventList(eTarget1);
         helper.addToModel(model, fourTasks, threeDeadlines, twoEvents);
