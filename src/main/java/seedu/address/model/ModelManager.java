@@ -66,7 +66,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-        showTaskToday();
     }
 
     // @@author
@@ -86,7 +85,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-        showTaskToday();
     }
     // @@author
 
@@ -167,7 +165,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredTaskList(Set<String> keywords, Set<String> tags, Date startDate, Date endDate,
             Date deadline) {
-        previousExpression = new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline));
         updateFilteredTaskList(
                 new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline)));
     }
@@ -181,11 +178,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void setSystemTime(AgendaTimeRangeChangedEvent atrce){
         previousDate = atrce.getInputDate();
-        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, DateFormatterUtil.getStartOfDay(atrce.getInputDate().getDate()));
+        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(),
+                DateFormatterUtil.getStartOfDay(atrce.getInputDate().getDate()), DateFormatterUtil.getEndOfDay(atrce.getInputDate().getDate()), null);
     }
     
     public void showTaskToday() {
-        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, DateFormatterUtil.localDateToDate(LocalDate.now()));
+        Date date = DateFormatterUtil.localDateToDate(LocalDate.now());
+        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), 
+                DateFormatterUtil.getStartOfDay(date), DateFormatterUtil.getEndOfDay(date), null);
     }
 
     // ========== Inner classes/interfaces used for filtering ==================================================
@@ -324,11 +324,12 @@ public class ModelManager extends ComponentManager implements Model {
                 return null;
             }
 
+            Date startDate;
             if (task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
-                return null;
+                startDate = null;
+            } else {
+                startDate = new Date(task.getStartDate().getDateInLong());
             }
-
-            Date startDate = new Date(task.getStartDate().getDateInLong());
             Date endDate = new Date(task.getEndDate().getDateInLong());
             return new Date[] { startDate, endDate };
         }
@@ -345,7 +346,12 @@ public class ModelManager extends ComponentManager implements Model {
 
             Date startDate = timeArray[START_DATE_INDEX];
             Date endDate = timeArray[END_DATE_INDEX];
-
+            if (startDate == null) {
+                if (!endDate.before(this.startTime) && !endDate.after(this.endTime)) {
+                    return true;
+                }
+                return false;
+            }
             if (!startDate.before(this.startTime) && !endDate.after(this.endTime))
                 return true;
             return false;
@@ -371,7 +377,8 @@ public class ModelManager extends ComponentManager implements Model {
 
             Date deadline = new Date(task.getEndDate().getDateInLong());
 
-            if ( this.deadline.equals(DateFormatterUtil.getStartOfDay(deadline)))
+            if ( (deadline.before(this.deadline) || this.deadline.equals(deadline)) && 
+                    task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
                 return true;
 
             return false;
