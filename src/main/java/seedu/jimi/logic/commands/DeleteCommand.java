@@ -46,7 +46,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     
     @Override
     public CommandResult execute() {
-        if (isIndicesReferringDifferentLists()) {
+        if (!isIndicesReferringToSameLists()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -107,8 +107,8 @@ public class DeleteCommand extends Command implements TaskBookEditor {
     }
     
     /** Returns true if prefixes of both indices are the same. */
-    private boolean isIndicesReferringDifferentLists() {
-        return startIdx.charAt(0) != endIdx.charAt(0);
+    private boolean isIndicesReferringToSameLists() {
+        return startIdx.charAt(0) == endIdx.charAt(0);
     }
     
     /** Converts {@code list} to a string with each task on an indexed newline. */
