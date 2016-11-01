@@ -18,25 +18,25 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": edit an activity using their type, index, [Parameters to change] and new changes: " + "\n"
-            + "Parameters: [Activity_Type] + [Activity_Index] [ 'name', 'note', 'by (Date & Time)', 'from (Date & Time) - to (Date & Time)' ], + [Changes]\n"
-            + "Example: " + COMMAND_WORD + " task 1 by 10-10-2016 1900 \n" + "Example: " + COMMAND_WORD
-            + " task 1 note write in red ink \n" + "Example: " + COMMAND_WORD + " event 1 name ORD";
-
     public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Menion editted your Activity to: %1$s";
     public static final String NAME_PARAM = "name";
-    public static final String NOTE_PARAM = "note";
-    public static final String TASK_DEADLINE_PARAM = "by";
-    public static final String EVENT_FROM_PARAM = "from";
-    public static final String EVENT_TO_PARAM = "to";
+    public static final String NOTE_PARAM = "n:";
+    public static final String TASK_DEADLINE_PARAM = "by:";
+    public static final String EVENT_FROM_PARAM = "from:";
+    public static final String EVENT_TO_PARAM = "to:";
     public static final String SEPARATOR = "/ ";
     public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter for the current type! \n" +
             "Please make sure it is, for: \n" + 
             Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + "\n" +
             Activity.TASK_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
             Activity.EVENT_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
-    
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": edit an activity using their type, index, [Parameters to change] and new changes: " + "\n"
+            + "Parameters: [Activity_Type] + [Activity_Index] [ '"+NAME_PARAM+"', '"+NOTE_PARAM+"', '"+TASK_DEADLINE_PARAM+" (Date & Time)', '"+EVENT_FROM_PARAM+" (Date & Time)' '"+EVENT_TO_PARAM+" (Date & Time)' ] + [Changes]\n"
+            + "Example: " + COMMAND_WORD + " task 1 by 10-10-2016 1900 \n" + "Example: " + COMMAND_WORD
+            + " task 1 note write in red ink \n" + "Example: " + COMMAND_WORD + " event 1 name ORD";
+
             
     
     public final int targetIndex;
