@@ -78,7 +78,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "tusk.jar"
 
         manifest {
             attributes "Main-Class": "seedu.address.MainApp"
