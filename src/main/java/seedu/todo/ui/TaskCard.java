@@ -52,7 +52,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         if (task.getCompletion().isCompleted()) {
         	name.setStyle("-fx-strikethrough: true");
-        	name.setFill(Color.GREY);
+        	name.setFill(Color.LIGHTGREY);
         	name.setOpacity(50);
         }
         
@@ -61,7 +61,10 @@ public class TaskCard extends UiPart{
         onDate.setText("Start: " + task.getOnDate().toString());
         byDate.setText("End: " + task.getByDate().toString());
         priority.setText("Priority: " + task.getPriority().toString());
-        if (task.getPriority().toString().equals(Priority.LOW)) {
+        if (task.getCompletion().isCompleted()) {
+        	priorityLevel.setFill(Color.WHITE);
+        	priorityLevel.setStroke(Color.WHITE);
+        } else if (task.getPriority().toString().equals(Priority.LOW)) {
         	priorityLevel.setFill(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
         	priorityLevel.setFill(Color.YELLOW);

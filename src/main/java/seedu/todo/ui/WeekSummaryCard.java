@@ -39,13 +39,16 @@ public class WeekSummaryCard extends UiPart{
         name.setText(task.getName().fullName);
         if (task.getCompletion().isCompleted()) {
         	name.setStyle("-fx-strikethrough: true");
-        	name.setFill(Color.GREY);
+        	name.setFill(Color.LIGHTGREY);
         	name.setOpacity(50);
         }
         details.setText(task.getDetail().value);
         tags.setText(task.tagsString());
-        if (task.getPriority().toString().equals(Priority.LOW)) {
-            priorityLevel.setFill(Color.LIMEGREEN);
+        if (task.getCompletion().isCompleted()) {
+        	priorityLevel.setFill(Color.WHITE);
+        	priorityLevel.setStroke(Color.WHITE);
+        } else if (task.getPriority().toString().equals(Priority.LOW)) {
+        	priorityLevel.setFill(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
             priorityLevel.setFill(Color.YELLOW);
         } else {
