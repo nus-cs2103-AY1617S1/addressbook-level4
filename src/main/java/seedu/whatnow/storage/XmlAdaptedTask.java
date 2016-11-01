@@ -1,6 +1,6 @@
+//@@author A0126240W
 package seedu.whatnow.storage;
 
-//@@author A0126240W
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -39,6 +39,12 @@ public class XmlAdaptedTask {
     private String endTime;
 
     @XmlElement
+    private String period;
+    
+    @XmlElement
+    private String endPeriod;
+    
+    @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     @XmlElement
@@ -60,18 +66,30 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
-        if (source.getTaskDate() != null)
-            taskDate = source.getTaskDate();
-        if (source.getStartDate() != null)
+        if(source.getTaskDate() != null) {
+        	taskDate = source.getTaskDate();
+        }
+        if (source.getStartDate() != null) {
             startDate = source.getStartDate();
-        if (source.getEndDate() != null)
+        }
+        if (source.getEndDate() != null) {
             endDate = source.getEndDate();
-        if (source.getTaskTime() != null)
+        }
+        if (source.getTaskTime() != null) {
             taskTime = source.getTaskTime();
-        if (source.getStartTime() != null)
+        }
+        if (source.getStartTime() != null) {
             startTime = source.getStartTime();
-        if (source.getEndTime() != null)
+        }
+        if (source.getEndTime() != null) {
             endTime = source.getEndTime();
+        }
+        if (source.getPeriod() != null) {
+            period = source.getPeriod();
+        }
+        if (source.getEndPeriod() != null) {
+            endPeriod = source.getEndPeriod();
+        }
         status = source.getStatus();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -94,6 +112,6 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, taskDate, startDate, endDate, taskTime, startTime, endTime, tags, status, null);
+        return new Task(name, taskDate, startDate, endDate, taskTime, startTime, endTime, period, endPeriod, tags, status, null);
     }
 }

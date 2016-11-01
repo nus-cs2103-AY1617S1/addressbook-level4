@@ -21,7 +21,6 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.TaskDate;
 import seedu.whatnow.model.task.TaskTime;
 import seedu.whatnow.model.task.UniqueTaskList;
-import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -86,6 +85,8 @@ public class UpdateCommand extends Command {
         String time = null;
         String startTime = null;
         String endTime = null;
+        String period = null;
+        String endPeriod = null;
         final Set<Tag> tagSet = new HashSet<>();
 
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == ZERO) {
@@ -145,9 +146,8 @@ public class UpdateCommand extends Command {
                 endDate = validateDate.getEndDate();
             }
         }
-
-        toUpdate = new Task(new Name(newName), date, startDate, endDate, time, startTime, endTime,
-                new UniqueTagList(tagSet), null, null);
+        
+        toUpdate = new Task(new Name(newName), date, startDate, endDate, time, startTime, endTime, period, endPeriod, new UniqueTagList(tagSet), null, null);
     }
 
     /**
