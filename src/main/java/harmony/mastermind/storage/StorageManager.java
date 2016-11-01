@@ -99,12 +99,8 @@ public class StorageManager extends ComponentManager implements Storage {
         String newPath = correctFilePathFormat(event.getFilePath());
         taskManagerStorage.setTaskManagerFilePath(newPath);
         try {
+            logger.info("Trying to move into new file path.");
             taskManagerStorage.migrateIntoNewFolder(oldPath, newPath);
-        } catch (AccessDeniedException ade) {
-            System.out.println("here");
-            logger.warning("Permission to access " + newPath + " denied." );
-            logger.warning("Reverting save location back to " + oldPath);
-            taskManagerStorage.setTaskManagerFilePath(oldPath);
         } catch (IOException e) {
             logger.warning("Error occured while handling relocate event.");
             logger.warning("Reverting save location back to " + oldPath);
@@ -141,6 +137,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
 
         config.setTaskManagerFilePath(newPath);
+        logger.fine("Updated config's data save location.");
         
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
