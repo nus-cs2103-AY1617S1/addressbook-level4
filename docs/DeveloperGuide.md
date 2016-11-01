@@ -314,6 +314,7 @@ Use Case ends
        Use case ends.
        
 <!-- @@author A0153411W -->
+
 #### Use case: UC02 Add an event 
 Actor: User<br>
 
@@ -396,6 +397,7 @@ Use Case end.
     2a. There are no upcoming task to be found
     >2a1. System shows a message no upcoming task are found.
     Use case ends
+
 <!-- @@author -->
 
 #### Use case: UC06 Delete task
@@ -420,6 +422,10 @@ Use Case end.
 
 <!-- @@author A0153411W -->
 
+<<<<<<< HEAD
+<!-- @@author A0153411W -->
+=======
+>>>>>>> 1e41ef63b34d61159454bdb4106b309b63897ef8
 #### Use case: UC07 edit task details
    Actor: User<br>
 

@@ -4,8 +4,10 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
@@ -96,6 +98,10 @@ public class EditCommand extends Command {
 			//@@author 
 			edit(selectedTask);
 			modifyList();
+			//@@author A0148083A
+            //to focus on the latest edited task
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(realIndex));
+            //@@author
 		} catch (TaskNotFoundException e) {
 			//remove this command from list for undo
 			model.getCommandForUndo();
