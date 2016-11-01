@@ -85,11 +85,9 @@ public class RecurringTaskManager {
         LocalDate localDateCurrently = currentDate;
         LocalDate startDateInLocalDate = null;
         if (!task.getLastAppendedComponent().hasOnlyEndDate()) {
-            startDateInLocalDate = task.getLastAppendedComponent().getStartDate().getDate().toInstant()
-                    .atZone(ZoneId.systemDefault()).toLocalDate();
+            startDateInLocalDate = DateFormatterUtil.dateToLocalDate(task.getLastAppendedComponent().getStartDate().getDate());
         }
-        LocalDate endDateInLocalDate = task.getLastAppendedComponent().getEndDate().getDate().toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDateInLocalDate = DateFormatterUtil.dateToLocalDate(task.getLastAppendedComponent().getEndDate().getDate());
         switch (task.getRecurringType()) {
         case DAILY:
             attemptCorrectDailyRecurringTask(task, localDateCurrently, startDateInLocalDate, endDateInLocalDate);
@@ -120,10 +118,9 @@ public class RecurringTaskManager {
         if (elapsedYear > 0) {
             correctYearlyRecurringTask(task, elapsedYear);
         } else {
-            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
-                    endDateInLocalDate, RecurringType.DAILY);
+            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.DAILY);
             if (elapsedDay > 0) {
-                correctYearlyRecurringTask(task, 1);
+                correctYearlyRecurringTask(task,1);
             }
         }
     }
@@ -139,8 +136,7 @@ public class RecurringTaskManager {
         if (elapsedMonth > 0) {
             correctMonthlyRecurringTask(task, elapsedMonth);
         } else {
-            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
-                    endDateInLocalDate, RecurringType.DAILY);
+            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, endDateInLocalDate, RecurringType.DAILY);
             if (elapsedDay > 0) {
                 correctMonthlyRecurringTask(task, 1);
             }
@@ -157,12 +153,6 @@ public class RecurringTaskManager {
                 endDateInLocalDate, RecurringType.WEEKLY);
         if (elapsedWeek > 0) {
             correctWeeklyRecurringTask(task, elapsedWeek);
-        } else {
-            final int elapsedDay = RecurringTaskUtil.getElapsedPeriod(localDateCurrently, startDateInLocalDate, 
-                    endDateInLocalDate, RecurringType.DAILY);
-            if (elapsedDay > 0) {
-                correctWeeklyRecurringTask(task, 1);
-            }
         }
     }
 

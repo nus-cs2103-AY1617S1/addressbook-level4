@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +10,14 @@ import java.util.Locale;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.*;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -70,9 +72,12 @@ public class RecurringTaskManagerTest {
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.DAILY);
         
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-12"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);
+        assertThat("Recurring tasks should be corrected", 
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))));
+        tryCorrect = helper.buildRecurringTask(RecurringType.DAILY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-09"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);        
+        assertEquals("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
     }
     
     @Test
@@ -82,9 +87,12 @@ public class RecurringTaskManagerTest {
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.WEEKLY);
         
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-12"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);
+        assertThat("Recurring tasks should be corrected", 
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))));
+        tryCorrect = helper.buildRecurringTask(RecurringType.WEEKLY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-09"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);        
+        assertEquals("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
     }            
     
     @Test
@@ -93,10 +101,20 @@ public class RecurringTaskManagerTest {
         TestTask tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.MONTHLY);
 
+        recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-12"));
+        assertThat("Recurring tasks should be corrected", 
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))));
+        
+        tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-11-12"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);
+        assertThat("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))))
+        ;
+        
+        tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-09"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);        
+        assertEquals("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));      
     }        
 
     @Test
@@ -106,9 +124,12 @@ public class RecurringTaskManagerTest {
         TestTask expectedTask = helper.buildRecurringTask(RecurringType.YEARLY);
         
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-12"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);
+        assertThat("Recurring tasks should be corrected", 
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))));
+        tryCorrect = helper.buildRecurringTask(RecurringType.YEARLY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-09"));
-        assertEquals("Recurring tasks should be corrected", tryCorrect, expectedTask);        
+        assertEquals("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
     }
     
     @Test
@@ -165,9 +186,6 @@ public class RecurringTaskManagerTest {
         
     class RecurringTaskHelper {
         private TaskBuilder builder;
-        public RecurringTaskHelper() {
-            builder = new TaskBuilder();
-        }
         
         public LocalDate getLocalDateByString(String dateToConsider) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -189,13 +207,20 @@ public class RecurringTaskManagerTest {
         }
         
         public TestTask buildRecurringTask(RecurringType type) throws IllegalValueException {
+            builder = new TaskBuilder();
             return builder.withName("recurring").withStartDate("11 oct 11pm")
                     .withEndDate("12 oct 11pm").withRecurringType(type).build();
         }
         
         public TestTask buildNonRecurringTask() throws IllegalValueException {
+            builder = new TaskBuilder();
             return builder.withName("non recurring").withStartDate("11 oct 11pm")
                     .withEndDate("12 oct 11pm").build();
+        }
+        
+        public TaskOccurrence getLastAppendedOccurrence(ReadOnlyTask task) {
+            int listLen = task.getTaskDateComponent().size();
+            return task.getTaskDateComponent().get(listLen-1);
         }
     }
 }
