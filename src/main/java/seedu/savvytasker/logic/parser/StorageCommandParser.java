@@ -31,7 +31,11 @@ public class StorageCommandParser implements CommandParser<StorageCommand> {
     public StorageCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            return new StorageCommand(matcher.group(REGEX_REF_PATH).trim());
+            String path = matcher.group(REGEX_REF_PATH).trim();
+            
+            if (!path.isEmpty()) {
+                return new StorageCommand(path);
+            }
         }
         
         throw new ParseException(commandText, String.format(
