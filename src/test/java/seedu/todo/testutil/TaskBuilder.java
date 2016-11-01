@@ -76,7 +76,7 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder tagged(String ... tags) throws ValidationException {
+    public TaskBuilder tagged(String ... tags) {
         Set<Tag> setOfTags = new HashSet<>();
         for (String tag: tags) {
             setOfTags.add(new Tag(tag));

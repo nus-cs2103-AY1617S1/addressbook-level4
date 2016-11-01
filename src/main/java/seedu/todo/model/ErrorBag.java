@@ -54,4 +54,13 @@ public class ErrorBag {
             throw new ValidationException(message, this);
         }
     }
+
+    //@@author A0135805H
+    /**
+     * Merge the given error bag in {@code errorBag} to this instance of {@link ErrorBag}.
+     */
+    public void merge(ErrorBag errorBag) {
+        this.nonFieldErrors.addAll(errorBag.getNonFieldErrors());
+        this.fieldErrors.putAll(errorBag.getFieldErrors());
+    }
 }
