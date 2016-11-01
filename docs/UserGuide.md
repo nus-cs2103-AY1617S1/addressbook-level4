@@ -58,8 +58,8 @@ General command format :
 
 - STARTTIME/ENDTIME
 
- Day can be in full or shorthand form (i.e. Wednesday, Wed or wed)
- Date in DD.MM.YYYY or D.M.YYYY format (i.e. 07.09.2016 or 7.9.2016)
+ Day can be in full or shorthand form (i.e. Wednesday, Wed or wed).
+ Date in DD.MM.YYYY or D.M.YYYY format (i.e. 07.09.2016 or 7.9.2016).
  Time in 24 hr format HH:MM or H:MM (i.e. 08:00, 8:00)
 
 - TAG – you can include any number of tags (including 0)
