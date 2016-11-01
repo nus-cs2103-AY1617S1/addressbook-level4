@@ -3,7 +3,7 @@
 
 # Task Manager
 
-<img src="docs/images/UserGuide Mock up1.png" width="600"><br>
+<img src="docs/images/UserGuide Mock up.png" width="600"><br>
 
 * This is a CLI (Command Line Interface) Task Scheduler application project by Techies with Gremlins.
 * It is **written in OOP fashion**, in Java and JavaFX for the GUI. 
