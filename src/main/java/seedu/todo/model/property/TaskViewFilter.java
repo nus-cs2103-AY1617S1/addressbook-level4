@@ -12,6 +12,10 @@ public class TaskViewFilter {
     private static final Comparator<ImmutableTask> CHRONOLOGICAL = (a, b) -> ComparisonChain.start()
         .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
         .result();
+    private static final Comparator<ImmutableTask> CHRONOLOGICAL_EVENT = (a, b) -> ComparisonChain.start()
+            .compareFalseFirst(a.isCompleted(), b.isCompleted())
+            .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
+            .result();
     
     private static final Comparator<ImmutableTask> LAST_UPDATED = (a, b) -> 
         b.getCreatedAt().compareTo(a.getCreatedAt());
@@ -26,7 +30,7 @@ public class TaskViewFilter {
         task -> !task.isCompleted() && !task.isEvent() && task.getEndTime().isPresent(), CHRONOLOGICAL);
     
     public static final TaskViewFilter EVENTS = new TaskViewFilter("events",
-        ImmutableTask::isEvent, CHRONOLOGICAL);
+        ImmutableTask::isEvent, CHRONOLOGICAL_EVENT);
     
     public static final TaskViewFilter COMPLETED = new TaskViewFilter("completed",
         ImmutableTask::isCompleted, LAST_UPDATED);
