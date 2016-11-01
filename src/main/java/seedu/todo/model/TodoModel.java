@@ -89,7 +89,7 @@ public class TodoModel implements Model {
         findFilteredTasks = new FilteredList<>(viewFilteredTasks);
         sortedTasks = new SortedList<>(findFilteredTasks);
 
-        uniqueTagCollection = new UniqueTagCollection(tasks);
+        uniqueTagCollection = new UniqueTagCollection(todoList.getTasks());
         
         // Sets the default view 
         view(TaskViewFilter.DEFAULT);
