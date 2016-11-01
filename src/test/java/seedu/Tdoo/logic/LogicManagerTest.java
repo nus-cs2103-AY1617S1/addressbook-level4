@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.Tdoo.commons.core.EventsCenter;
 import seedu.Tdoo.commons.core.LogsCenter;
+import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
 import seedu.Tdoo.commons.events.model.EventListChangedEvent;
 import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
@@ -495,12 +496,12 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
-    
+    @Test
   //@@author A0132157M
     public void execute_delete_removesCorrectDeadline() throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateDeadline("todo 2");
+        Task pTarget1 = helper.generateDeadline("todo 2"); 
         Task pTarget2 = helper.generateDeadline("todo 3");
         Task pTarget3 = helper.generateDeadline("todo 1");
         Task pTarget4 = helper.generateDeadline("todo 4");
@@ -580,8 +581,150 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_todo_done_undone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generatetask("todo 1");
+        Task pTarget2 = helper.generatetask("homework rAnDoM blabceofeia 1");
+        Task pTarget3 = helper.generatetask("assignment 1");
+        Task p1 = helper.generatetask("something sduauo");
+
+        List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourtasks);
+
+        assertCommandBehavior("done todo 1",
+                "Completed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone todo 1",
+                "Resumed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done todo 3",
+                "Completed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone todo 3",
+                "Resumed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done todo 43",
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone todo 43",
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+    }
+    //@@author A0132157M
+    @Test
+    public void execute_event_done_undone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateEvents("todo 1");
+        Task pTarget2 = helper.generateEvents("homework rAnDoM blabceofeia 1");
+        Task pTarget3 = helper.generateEvents("assignment 1");
+        Task p1 = helper.generateEvents("something sduauo");
+
+        List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourtasks);
+
+        assertCommandBehavior("done event 1",
+                "Completed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone event 1",
+                "Resumed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done event 3",
+                "Completed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone event 3",
+                "Resumed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done event 43",
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone event 43",
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_deadline_done_undone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateDeadline("todo 1");
+        Task pTarget2 = helper.generateDeadline("homework rAnDoM blabceofeia 1");
+        Task pTarget3 = helper.generateDeadline("assignment 1");
+        Task p1 = helper.generateDeadline("something sduauo");
+
+        List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourtasks);
+
+        assertCommandBehavior("done deadline 1",
+                "Completed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone deadline 1",
+                "Resumed task: " + pTarget1.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done deadline 3",
+                "Completed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone deadline 3",
+                "Resumed task: " + pTarget2.toString(),
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("done deadline 43", 
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+        
+        assertCommandBehavior("undone deadline 43",
+                Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0132157M
+    public void execute_ChangeStorageLocation() throws Throwable {
+        assertCommandBehavior("storage /Documents/ShardFolder/TdooData",
+                StorageCommand.MESSAGE_SUCCESS.toString());
+    }
 
 
+//===========================================================================================
     /**
      * A utility class to generate test data.
      */
@@ -632,7 +775,6 @@ public class LogicManagerTest {
                     "false"
             );
         }
-
 
         /** Generates the correct add command based on the task given */
         //@@author A0132157M
