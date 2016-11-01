@@ -19,10 +19,10 @@ import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("/src/test/data/XmlUtilTest/");
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validTodoList.xml");
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validList.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempTodoList.xml"));
 
     @Rule
@@ -30,14 +30,14 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(null, TaskList.class);
+        thrown.expect(NullPointerException.class);
+        XmlUtil.getDataFromFile(null, TaskList.class);//
     }
 
     @Test
     public void getDataFromFile_nullClass_AssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
-        XmlUtil.getDataFromFile(VALID_FILE, null);
+        thrown.expect(IllegalArgumentException.class);
+        XmlUtil.getDataFromFile(TEMP_FILE, null);//
     }
 
     @Test
@@ -49,12 +49,12 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
-        XmlUtil.getDataFromFile(EMPTY_FILE, TaskList.class);
+        XmlUtil.getDataFromFile(TEMP_FILE, TaskList.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTodoList.class);
+        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
         assertEquals(0, dataFromFile.getTaskList().size());
 
     }
@@ -67,8 +67,8 @@ public class XmlUtilTest {
 
     @Test
     public void saveDataToFile_nullClass_AssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
-        XmlUtil.saveDataToFile(VALID_FILE, null);
+        thrown.expect(NullPointerException.class);
+        XmlUtil.saveDataToFile(TEMP_FILE, null);//
     }
 
     @Test
@@ -90,7 +90,6 @@ public class XmlUtilTest {
 
 
         TodoListBuilder builder = new TodoListBuilder(new TaskList());
-        dataToWrite = new XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DeadlineList>
+    <tasks>
+        <name>DEADLINE 1</name>
+        <startDate>30-11-2017</startDate>
+        <endTime>10:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+</DeadlineList>
