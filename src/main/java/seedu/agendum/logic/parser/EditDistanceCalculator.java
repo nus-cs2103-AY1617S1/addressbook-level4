@@ -1,5 +1,3 @@
-//@@author A0003878Y
-
 package seedu.agendum.logic.parser;
 
 import org.reflections.Reflections;
@@ -13,6 +11,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+//@@author A0003878Y
 public class EditDistanceCalculator {
 
     private static final Logger logger = LogsCenter.getLogger(EditDistanceCalculator.class);

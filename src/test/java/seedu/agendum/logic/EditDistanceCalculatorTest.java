@@ -1,4 +1,3 @@
-//@@author A0003878Y
 package seedu.agendum.logic;
 
 import org.junit.Test;
@@ -8,6 +7,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
+//@@author A0003878Y
 public class EditDistanceCalculatorTest {
 
     @Test

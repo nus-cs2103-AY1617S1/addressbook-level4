@@ -85,6 +85,8 @@ public class AddCommand extends Command {
         }
     }
 
+    //@@author
+
     public static String getName() {
         return COMMAND_WORD;
     }

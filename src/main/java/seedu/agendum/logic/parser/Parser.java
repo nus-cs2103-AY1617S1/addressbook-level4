@@ -103,6 +103,7 @@ public class Parser {
             return new LoadCommand(arguments);
 
         default:
+            //@@author A0003878Y
             Optional<String> alternativeCommand = EditDistanceCalculator.closestCommandMatch(commandWord);
             if (alternativeCommand.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND_WITH_SUGGESTION, alternativeCommand.get()));
