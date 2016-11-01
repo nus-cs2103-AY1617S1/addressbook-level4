@@ -119,7 +119,7 @@ public class RedoCommand extends Command {
     
     private String executeUnmark(InputMarkHistory previous) {
         try {
-            model.markTask(previous.getTask(), false);
+            model.unmarkTask(previous.getTask());
         } catch (Exception e) {
             assert false : "Not possible";
         }
@@ -128,7 +128,7 @@ public class RedoCommand extends Command {
     
     private String executeMark(InputUnmarkHistory previous) {
         try {
-            model.markTask(previous.getTask(), true);
+            model.markTask(previous.getTask());
         } catch (Exception e) {
             assert false : "Not possible";
         }

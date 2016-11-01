@@ -7,9 +7,6 @@ import seedu.malitio.commons.util.CollectionUtil;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
-import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
-import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
@@ -30,7 +27,7 @@ public class UniqueEventList implements Iterable<Event> {
      */
     public static class DuplicateEventException extends DuplicateDataException {
         protected DuplicateEventException() {
-            super("Operation would result in duplicate deadlines");
+            super("Operation would result in duplicate events");
         }
     }
 
@@ -102,29 +99,49 @@ public class UniqueEventList implements Iterable<Event> {
     }
     //@@author
     
+  //@@author A0153006W
     /**
      * Marks the event in the list.
      *
-     * @throws DuplicateEventException if the task to add is a duplicate of an existing task in the list.
+     * @throws EventNotFoundException if the event doesn't exist.
      * @throws EventMarkedException if the event is already marked.
-     * @throws EventUnmarkedException if the event is already unmarked.
      */
-    public void mark(ReadOnlyEvent eventToMark, boolean marked)
-            throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
-        if (eventToMark.isMarked() && marked) {
+    public void mark(ReadOnlyEvent taskToMark)
+            throws EventNotFoundException, EventMarkedException {
+        if (taskToMark.isMarked()) {
             throw new EventMarkedException();
-        } else if (!eventToMark.isMarked() && !marked) {
-            throw new EventUnmarkedException();
-        }
-
-        if (!contains(eventToMark)) {
-            throw new EventNotFoundException();
         }
         
-        eventToMark.setMarked(marked);
-        updateEventList(eventToMark);
+        if (!contains(taskToMark)) {
+            throw new EventNotFoundException();
+        }
+        taskToMark.setMarked(true);
+        updateEventList(taskToMark);
     }
 
+    /**
+     * Unmarks the task in the list.
+     *
+     * @throws EventNotFoundException if the event doesn't exist.
+     * @throws EventUnmarkedException if the event is already unmarked.
+     */
+    public void unmark(ReadOnlyEvent taskToUnmark)
+            throws EventNotFoundException, EventUnmarkedException {
+        if (!taskToUnmark.isMarked()) {
+            throw new EventUnmarkedException();
+        }
+        
+        if (!contains(taskToUnmark)) {
+            throw new EventNotFoundException();
+        }
+        taskToUnmark.setMarked(false);
+        updateEventList(taskToUnmark);
+    }
+
+    //@@author
+    /*
+     * Updates Malitio
+     */
     private void updateEventList(ReadOnlyEvent eventToComplete) {
         int indexToReplace = internalList.indexOf(eventToComplete);
         internalList.remove(eventToComplete);

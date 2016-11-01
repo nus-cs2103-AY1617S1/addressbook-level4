@@ -42,7 +42,7 @@ public class Parser {
 
     public static final String MESSAGE_MISSING_START_END = "Expecting start and end times\nExample: start thursday 800 end thursday 900";
     
-    public static final String MESSAGE_CONFLICTING_ARG = "Expecting either a duedate or start and end time.";
+    public static final String MESSAGE_CONFLICTING_ARG = "Expecting either a due date or start and end time.";
     
     public Parser() {}
 

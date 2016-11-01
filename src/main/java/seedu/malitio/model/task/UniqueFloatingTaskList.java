@@ -120,9 +120,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     /**
      * Completes the task in the list.
      *
-     * @throws FloatingTaskCompletedException if the task to add is a duplicate of an existing task in the list.
-     * @throws FloatingTaskNotFoundException if the deadline is already marked.
-     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     * @throws FloatingTaskCompletedException if the task is already completed.
+     * @throws FloatingTaskNotFoundException if the floating task doesn't exist.
      */
     public void complete(ReadOnlyFloatingTask toComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         assert toComplete != null;
@@ -140,9 +139,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     /**
      * Marks the task in the list.
      *
-     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
-     * @throws FloatingTaskMarkedException if the deadline is already marked.
-     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     * @throws FloatingTaskUncompletedException if the task is already not completed.
+     * @throws FloatingTaskNotFoundException if the floating task doesn't exist.
      */
     public void uncomplete(ReadOnlyFloatingTask toUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
         assert toUncomplete != null;
@@ -157,35 +155,55 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         updateFloatingTaskList(toUncomplete);
     }
     
-    //@@author 
+    //@@author A0153006W
     /**
      * Marks the task in the list.
      *
-     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
-     * @throws FloatingTaskMarkedException if the deadline is already marked.
-     * @throws FloatingTaskUnmarkedException if the deadline is already unmarked.
+     * @throws FloatingTaskNotFoundException if the task doesn't exist.
+     * @throws FloatingTaskMarkedException if the task is already marked.
      */
-    public void mark(ReadOnlyFloatingTask taskToMark, boolean marked)
-            throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
-        if (taskToMark.isMarked() && marked) {
+    public void mark(ReadOnlyFloatingTask taskToMark)
+            throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
+        if (taskToMark.isMarked()) {
             throw new FloatingTaskMarkedException();
-        } else if (!taskToMark.isMarked() && !marked) {
-            throw new FloatingTaskUnmarkedException();
         }
         
         if (!contains(taskToMark)) {
             throw new FloatingTaskNotFoundException();
         }
-        taskToMark.setMarked(marked);
+        taskToMark.setMarked(true);
         updateFloatingTaskList(taskToMark);
     }
 
+    /**
+     * Unmarks the task in the list.
+     *
+     * @throws FloatingTaskNotFoundException if the task doesn't exist.
+     * @throws FloatingTaskUnmarkedException if the task is already unmarked.
+     */
+    public void unmark(ReadOnlyFloatingTask taskToUnmark)
+            throws FloatingTaskNotFoundException, FloatingTaskUnmarkedException {
+        if (!taskToUnmark.isMarked()) {
+            throw new FloatingTaskUnmarkedException();
+        }
+        
+        if (!contains(taskToUnmark)) {
+            throw new FloatingTaskNotFoundException();
+        }
+        taskToUnmark.setMarked(false);
+        updateFloatingTaskList(taskToUnmark);
+    }
+
+    /**
+     * Updates Malitio
+     */
 	private void updateFloatingTaskList(ReadOnlyFloatingTask toComplete) {
 		int indexToReplace = internalList.indexOf(toComplete);
         internalList.remove(toComplete);
         internalList.add(indexToReplace, (FloatingTask) toComplete);
 	}
 	
+	//@@ author
     /**
      * Removes the equivalent task from the list.
      *

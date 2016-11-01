@@ -126,7 +126,7 @@ public class UndoCommand extends Command {
     
     private String executeUnmark(InputMarkHistory previous) {
         try {
-            model.markTask(previous.getTask(), previous.getMarkWhat());
+            model.unmarkTask(previous.getTask());
         } catch (Exception e) {
             assert false : "Not possible";
         }
@@ -135,7 +135,7 @@ public class UndoCommand extends Command {
     
     private String executeMark(InputUnmarkHistory previous) {
         try {
-            model.markTask(previous.getTask(), previous.getMarkWhat());
+            model.markTask(previous.getTask());
         } catch (Exception e) {
         assert false : "Not possible";
         }

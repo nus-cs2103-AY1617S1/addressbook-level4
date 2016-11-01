@@ -325,37 +325,30 @@ public class Malitio implements ReadOnlyMalitio {
 		
 	}
 	
-	//@@author 
-
-    public void markTask(Object taskToMark, boolean marked)
-            throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException,
-            DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException, EventNotFoundException,
-            EventMarkedException, EventUnmarkedException {
+	//@@author A0153006W
+    public void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
+    DeadlineNotFoundException, DeadlineMarkedException, EventNotFoundException, EventMarkedException {
         if (isFloatingTask(taskToMark)) {
-            tasks.mark((ReadOnlyFloatingTask) taskToMark, marked);
+            tasks.mark((ReadOnlyFloatingTask) taskToMark);
         } else if (isDeadline(taskToMark)) {
-            deadlines.mark((ReadOnlyDeadline) taskToMark, marked);
+            deadlines.mark((ReadOnlyDeadline) taskToMark);
         } else {
-            events.mark((ReadOnlyEvent) taskToMark, marked);
+            events.mark((ReadOnlyEvent) taskToMark);
+        }
+    }
+    
+    public void unmarkTask(Object taskToUnmark) throws FloatingTaskNotFoundException, FloatingTaskUnmarkedException,
+    DeadlineNotFoundException, DeadlineUnmarkedException, EventNotFoundException, EventUnmarkedException {
+        if (isFloatingTask(taskToUnmark)) {
+            tasks.unmark((ReadOnlyFloatingTask) taskToUnmark);
+        } else if (isDeadline(taskToUnmark)) {
+            deadlines.unmark((ReadOnlyDeadline) taskToUnmark);
+        } else {
+            events.unmark((ReadOnlyEvent) taskToUnmark);
         }
     }
 
-    public void markTask(ReadOnlyFloatingTask taskToMark, boolean marked)
-            throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
-        tasks.mark(taskToMark, marked);
-    }
-
-    public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
-            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
-        deadlines.mark(deadlineToMark, marked);
-    }
-
-    public void markEvent(ReadOnlyEvent eventToMark, boolean marked)
-            throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
-        events.mark(eventToMark, marked);
-    }
-
-
+//@@author
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
