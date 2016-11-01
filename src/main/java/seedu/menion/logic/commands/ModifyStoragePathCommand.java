@@ -21,13 +21,19 @@ import seedu.menion.storage.XmlActivityManagerStorage;
 public class ModifyStoragePathCommand extends Command {
 
     public static final String COMMAND_WORD = "modify";
+    public static final String DEFAULT_STORAGE_PATH = "data/menion";
     public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n";
     public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
     private final String pathToChange;
     
     public ModifyStoragePathCommand(String pathToChange) {
     	if (!pathToChange.isEmpty()) {
-    		this.pathToChange = pathToChange.trim();
+    		if (pathToChange.toLowerCase().trim().equals("default")) {
+    			this.pathToChange = DEFAULT_STORAGE_PATH;
+    		}
+    		else {
+    			this.pathToChange = pathToChange.trim();
+    		}  		
     	}
     	else {
     		this.pathToChange = null;
