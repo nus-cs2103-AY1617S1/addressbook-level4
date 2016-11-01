@@ -13,7 +13,7 @@
 
 <!-- @@author A0139515A -->
 
-<HBox id="taskCardPane" fx:id="taskCardPane" maxWidth="710.0" minWidth="710.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="taskCardPane" fx:id="taskCardPane" maxWidth="700.0" minWidth="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane maxWidth="750.0" minWidth="750.0" prefHeight="50.0" prefWidth="750.0" HBox.hgrow="ALWAYS">
 			<columnConstraints>
