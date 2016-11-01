@@ -17,12 +17,12 @@ public class TaskConfigTest {
     //@@author A0138978E
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Task Manager\n" +
+        String defaultConfigAsString = "App title : Tusk\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : task-userpreferences.json\n" +
                 "Local data file location : data/tasks.xml\n" +
                 "Local alias file location : " + "data/alias.xml\n" +
-                "AddressBook name : TaskManager";
+                "AddressBook name : Tusk";
 
         assertEquals(defaultConfigAsString, new TaskConfig().toString());
     }

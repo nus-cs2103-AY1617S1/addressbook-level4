@@ -12,14 +12,14 @@ public class TaskConfig {
     public static final String DEFAULT_CONFIG_FILE = "taskconfig.json";
 
     // Config values customizable through config file
-    private String appTitle = "Task Manager";
+    private String appTitle = "Tusk";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "task-userpreferences.json";
     private String tasksFileName = "tasks.xml";
     private String tasksFilePath = "data/" + tasksFileName;
     private String aliasFileName = "alias.xml";
     private String aliasFilePath = "data/" + aliasFileName;
-    private String taskManagerName = "TaskManager";
+    private String taskManagerName = "Tusk";
 
 
     public TaskConfig() {
