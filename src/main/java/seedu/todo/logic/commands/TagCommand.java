@@ -136,12 +136,7 @@ public class TagCommand extends BaseCommand {
         if (!isInputParameterSufficient()) {
             handleUnavailableInputParameters();
         }
-
-        if (isRenamingTag()) {
-            //Check arguments for rename tags case
-            checkForTwoParams(renameTag.getName(), renameTag.getValue());
-        }
-
+        validateRenameParams();
         super.validateArguments();
     }
 
@@ -276,6 +271,18 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
+     * Performs validation to rename params (check for sufficient parameters to rename).
+     */
+    private void validateRenameParams() {
+        if (isRenamingTag()) {
+            String[] params = StringUtil.splitString(renameTag.getValue());
+            if (params != null && params.length != 2) {
+                errors.put(renameTag.getName(), ERROR_TWO_PARAMS);
+            }
+        }
+    }
+
+    /**
      * Performs the following execution if the command indicates so:
      *      Rename a specific tag.
      */
@@ -316,16 +323,6 @@ public class TagCommand extends BaseCommand {
     private boolean isInputParameterSufficient() {
         return getNumberOfTruth(isShowTags(), isAddTagsToTask(), isDeleteTagsFromTask(),
                 isDeleteTagsFromAllTasks(), isRenamingTag()) == 1;
-    }
-
-    /**
-     * Check if the command parameters contain exactly 2 items
-     */
-    private void checkForTwoParams(String argumentName, String paramString) {
-        String[] params = StringUtil.splitString(paramString);
-        if (params != null && params.length != 2) {
-            errors.put(argumentName, ERROR_TWO_PARAMS);
-        }
     }
 
     /**
