@@ -19,7 +19,10 @@ public class DateFormatterUtil {
     
     public static Date getStartOfDay(Date dateToFormat) {
         LocalDate date = dateToFormat.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        date = date.minusDays(1);
         return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+    
+    public static Date localDateToDate(LocalDate toConvert) {
+        return Date.from(toConvert.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 }

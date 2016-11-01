@@ -729,7 +729,7 @@ public class Parser {
         Date date;
         try {
             date = DateParser.getInstance().getDateFromString(arguments);
-            date = DateFormatterUtil.getEndOfDay(date);
+            date = DateFormatterUtil.getStartOfDay(date);
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }

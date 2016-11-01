@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -65,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-
+        showTaskToday();
     }
 
     // @@author
@@ -85,6 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
+        showTaskToday();
     }
     // @@author
 
@@ -179,7 +181,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     public void setSystemTime(AgendaTimeRangeChangedEvent atrce){
         previousDate = atrce.getInputDate();
-        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, atrce.getInputDate().getDate());
+        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, DateFormatterUtil.getStartOfDay(atrce.getInputDate().getDate()));
+    }
+    
+    public void showTaskToday() {
+        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), null, null, DateFormatterUtil.localDateToDate(LocalDate.now()));
     }
 
     // ========== Inner classes/interfaces used for filtering ==================================================
@@ -365,7 +371,7 @@ public class ModelManager extends ComponentManager implements Model {
 
             Date deadline = new Date(task.getEndDate().getDateInLong());
 
-            if ( this.deadline.equals(DateFormatterUtil.getEndOfDay(deadline)))
+            if ( this.deadline.equals(DateFormatterUtil.getStartOfDay(deadline)))
                 return true;
 
             return false;
