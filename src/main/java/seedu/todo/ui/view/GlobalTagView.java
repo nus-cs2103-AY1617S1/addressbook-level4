@@ -5,15 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.util.FxViewUtil;
-import seedu.todo.logic.commands.CommandSummary;
-import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
@@ -21,10 +16,9 @@ import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
-//@@author A0135805H
+//@@author A0092382A
 /**
  * A view that displays all the help commands in a single view.
  */
