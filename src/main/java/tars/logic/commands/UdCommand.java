@@ -16,10 +16,10 @@ public class UdCommand extends Command {
 
     public static final String COMMAND_WORD = "ud";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": mark a task as undone.\n"
-            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" 
-            + "Example: " + COMMAND_WORD + " 3 5 7"
-            + "OR " + COMMAND_WORD + " 1..3\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": mark a task as undone.\n"
+            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" + "Example: "
+            + COMMAND_WORD + " 3 5 7" + "OR " + COMMAND_WORD + " 1..3\n";
 
     private String toUndo;
 
@@ -38,21 +38,23 @@ public class UdCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-                
+
         try {
             handleMarkUndone();
         } catch (InvalidTaskDisplayedException e) {
             return new CommandResult(e.getMessage());
         } catch (DuplicateTaskException dte) {
             return new CommandResult(dte.getMessage());
-        }         
+        }
         return new CommandResult(tracker.getResultFromTracker());
     }
-    
-    private void handleMarkUndone() throws InvalidTaskDisplayedException, DuplicateTaskException {
+
+    private void handleMarkUndone()
+            throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status undone = new Status(false);
-        ArrayList<ReadOnlyTask> markUndoneTasks = tracker.getTasksFromIndexes(model, this.toUndo.split(" "), undone);
+        ArrayList<ReadOnlyTask> markUndoneTasks = tracker
+                .getTasksFromIndexes(model, this.toUndo.split(" "), undone);
         model.mark(markUndoneTasks, undone);
     }
-    
+
 }

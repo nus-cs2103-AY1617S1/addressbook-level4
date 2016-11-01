@@ -16,10 +16,10 @@ public class DoCommand extends Command {
 
     public static final String COMMAND_WORD = "do";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": mark a task as done.\n"
-            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" 
-            + "Example: " + COMMAND_WORD + " 3 5 7\n"
-            + "OR " + COMMAND_WORD + " 1..3";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": mark a task as done.\n"
+            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" + "Example: "
+            + COMMAND_WORD + " 3 5 7\n" + "OR " + COMMAND_WORD + " 1..3";
 
     private String toDo;
 
@@ -38,21 +38,23 @@ public class DoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-                
+
         try {
             handleMarkDone();
         } catch (InvalidTaskDisplayedException e) {
             return new CommandResult(e.getMessage());
         } catch (DuplicateTaskException dte) {
             return new CommandResult(dte.getMessage());
-        }         
+        }
         return new CommandResult(tracker.getResultFromTracker());
     }
-    
-    private void handleMarkDone() throws InvalidTaskDisplayedException, DuplicateTaskException {
+
+    private void handleMarkDone()
+            throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status done = new Status(true);
-        ArrayList<ReadOnlyTask> markDoneTasks = tracker.getTasksFromIndexes(model, this.toDo.split(" "), done);
+        ArrayList<ReadOnlyTask> markDoneTasks = tracker
+                .getTasksFromIndexes(model, this.toDo.split(" "), done);
         model.mark(markDoneTasks, done);
     }
-    
+
 }
