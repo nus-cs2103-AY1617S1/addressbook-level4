@@ -7,13 +7,16 @@ import seedu.agendum.model.ReadOnlyToDoList;
 public class ToDoListChangedEvent extends BaseEvent {
 
     public final ReadOnlyToDoList data;
+    
+    private String message;
 
     public ToDoListChangedEvent(ReadOnlyToDoList data){
         this.data = data;
+        this.message =  "number of tasks " + data.getTaskList().size();
     }
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getTaskList().size();
+        return message;
     }
 }

@@ -8,13 +8,16 @@ import seedu.agendum.model.ReadOnlyToDoList;
 public class LoadDataCompleteEvent extends BaseEvent {
 
     public final ReadOnlyToDoList data;
+    
+    private String message;
 
     public LoadDataCompleteEvent(ReadOnlyToDoList data){
         this.data = data;
+        this.message = "Todo list data load completed. Task list size: " + data.getTaskList().size();
     }
 
     @Override
     public String toString() {
-        return "Todo list data load completed. Task list size: " + data.getTaskList().size();
+        return message;
     }
 }

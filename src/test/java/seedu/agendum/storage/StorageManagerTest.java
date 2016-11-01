@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.agendum.commons.core.Config;
-import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.LoadDataRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
@@ -87,14 +87,14 @@ public class StorageManagerTest {
 
     //@@author A0148095X
     @Test
-    public void handleSaveLocationChangedEventValidFilePath() {
+    public void handleSaveLocationChangedEvent_validFilePath_success() {
         String validPath = "data/test.xml";
-        storageManager.handleChangeSaveLocationRequestEvent(new ChangeSaveLocationRequestEvent(validPath));
+        storageManager.handleChangeSaveLocationEvent(new ChangeSaveLocationEvent(validPath));
         assertEquals(storageManager.getToDoListFilePath(), validPath);
     }
     
     @Test
-    public void handleLoadDataRequestEventValidPathToFileInvalidFile() throws IOException, FileDeletionException {
+    public void handleLoadDataRequestEvent_validPathToFileInvalidFile_throwsException() throws IOException, FileDeletionException {
         EventsCollector eventCollector = new EventsCollector();
         String validPath = "data/testLoad.xml";
         assert !FileUtil.isFileExists(validPath);
@@ -113,24 +113,24 @@ public class StorageManagerTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathNull() {
+    public void setToDoListFilePath_nullPath_fail() {
         // null
         storageManager.setToDoListFilePath(null);
     }
 
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathEmpty() {
+    public void setToDoListFilePath_pathEmpty_fail() {
         // empty string
         storageManager.setToDoListFilePath("");
     }
 
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathInvalid() {
+    public void setToDoListFilePath_pathInvalid_fail() {
         // invalid file path
         storageManager.setToDoListFilePath("1:/.xml");
     }
 
-    public void setToDoListFilePathValid() {
+    public void setToDoListFilePath_pathValid_success() {
         // valid file path
         String validPath = "test/test.xml";
         storageManager.setToDoListFilePath(validPath);

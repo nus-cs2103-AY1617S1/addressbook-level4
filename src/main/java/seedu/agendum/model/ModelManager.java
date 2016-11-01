@@ -11,7 +11,7 @@ import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.agendum.commons.events.model.LoadDataRequestEvent;
-import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.LoadDataCompleteEvent;
 import seedu.agendum.commons.core.ComponentManager;
@@ -89,8 +89,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0148095X
     /** Raises an event to indicate that save location has changed */
-    private void indicateChangeSaveLocationRequest(String location) {
-        raise(new ChangeSaveLocationRequestEvent(location));
+    private void indicateChangeSaveLocation(String location) {
+        raise(new ChangeSaveLocationEvent(location));
     }
     
     /** Raises an event to indicate that save location has changed */
@@ -179,7 +179,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void changeSaveLocation(String location){
         assert StringUtil.isValidPathToFile(location);
-        indicateChangeSaveLocationRequest(location);
+        indicateChangeSaveLocation(location);
         indicateToDoListChanged();
     }
 
@@ -188,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert StringUtil.isValidPathToFile(location);
         assert XmlUtil.isFileCorrectFormat(location);
 
-        indicateChangeSaveLocationRequest(location);
+        indicateChangeSaveLocation(location);
         indicateLoadDataRequest(location);
     }
     //@@author

@@ -1,7 +1,7 @@
 package seedu.agendum.storage;
 
 import seedu.agendum.commons.events.model.LoadDataRequestEvent;
-import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
 import seedu.agendum.commons.exceptions.DataConversionException;
@@ -45,5 +45,5 @@ public interface Storage extends ToDoListStorage, UserPrefsStorage {
     void handleLoadDataRequestEvent(LoadDataRequestEvent event);
     
     /** Sets the save location **/
-    void handleChangeSaveLocationRequestEvent(ChangeSaveLocationRequestEvent event);
+    void handleChangeSaveLocationEvent(ChangeSaveLocationEvent event);
 }

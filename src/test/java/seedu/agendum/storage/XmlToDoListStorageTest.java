@@ -95,7 +95,7 @@ public class XmlToDoListStorageTest {
 
     //@@author A0148095X
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathNull() {
+    public void setToDoListFilePath_nullPath_throwsAssertionError() {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
@@ -103,7 +103,7 @@ public class XmlToDoListStorageTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathEmpty() {
+    public void setToDoListFilePath_emptyPath_throwsAssertionError() {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
@@ -112,7 +112,7 @@ public class XmlToDoListStorageTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void setToDoListFilePathInvalid() {
+    public void setToDoListFilePath_invalidPath_throwsAssertionError() {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
@@ -120,7 +120,7 @@ public class XmlToDoListStorageTest {
         xmlToDoListStorage.setToDoListFilePath("1:/.xml");
     }
 
-    public void setToDoListFilePathValid() {
+    public void setToDoListFilePath_validPath_success() {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 

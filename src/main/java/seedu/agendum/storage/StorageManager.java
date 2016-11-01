@@ -11,7 +11,7 @@ import seedu.agendum.commons.core.ComponentManager;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.LogsCenter;
 import seedu.agendum.commons.events.model.LoadDataRequestEvent;
-import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
@@ -115,7 +115,7 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0148095X
     @Override
     @Subscribe
-    public void handleChangeSaveLocationRequestEvent(ChangeSaveLocationRequestEvent event) {
+    public void handleChangeSaveLocationEvent(ChangeSaveLocationEvent event) {
         String location = event.location;
         
         setToDoListFilePath(location);

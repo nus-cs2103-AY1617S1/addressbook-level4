@@ -14,7 +14,7 @@ import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.logic.commands.*;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
 import seedu.agendum.commons.util.FileUtil;
-import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.model.ToDoList;
 import seedu.agendum.model.Model;
@@ -381,7 +381,7 @@ public class LogicManagerTest {
 
     //@@author A0148095X
     @Test
-    public void executeStoreSuccessful() throws Exception {
+    public void executeStore_validLocation_successful() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
         Task testTask = new Task(new Name("test_store"));
@@ -399,7 +399,7 @@ public class LogicManagerTest {
         result = logic.execute(inputCommand);
         feedback = String.format(StoreCommand.MESSAGE_SUCCESS, location);
         assertEquals(feedback, result.feedbackToUser);
-        assertTrue(eventCollector.get(0) instanceof ChangeSaveLocationRequestEvent);
+        assertTrue(eventCollector.get(0) instanceof ChangeSaveLocationEvent);
         assertTrue(eventCollector.get(1) instanceof ToDoListChangedEvent);
 
         // execute command and verify result
@@ -407,11 +407,11 @@ public class LogicManagerTest {
         result = logic.execute(inputCommand);
         feedback = String.format(StoreCommand.MESSAGE_LOCATION_DEFAULT, Config.DEFAULT_SAVE_LOCATION);
         assertEquals(feedback, result.feedbackToUser);
-        assertTrue(eventCollector.get(2) instanceof ChangeSaveLocationRequestEvent);
+        assertTrue(eventCollector.get(2) instanceof ChangeSaveLocationEvent);
         assertTrue(eventCollector.get(3) instanceof ToDoListChangedEvent);
     }
     
-    public void executeStoreFailFileExists() throws Exception {
+    public void executeStore_fileExists_fail() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
         String location = "data/test_store_fail.xml";
@@ -885,7 +885,7 @@ public class LogicManagerTest {
 
     //@@author A0148095X
     @Test
-    public void executeLoadSuccessful() throws Exception {
+    public void executeLoad_fileExists_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateTask(999);
@@ -906,8 +906,21 @@ public class LogicManagerTest {
         
         FileUtil.deleteFile(filePath);
     }
-    
+
+    @Test
+    public void executeLoad_fileDoesNotExist_fail() throws Exception {
+        // setup expectations
+        ToDoList expectedTDL = new ToDoList();
+        String filePath = "data/test/loadDoesNotExist.xml";
+
+        // execute command and verify result
+        assertCommandBehavior("load " + filePath,
+                String.format(LoadCommand.MESSAGE_FILE_DOES_NOT_EXIST, filePath),
+                expectedTDL,
+                expectedTDL.getTaskList());
+    }
     //@@author
+    
     /**
      * A utility class to generate test data.
      */
