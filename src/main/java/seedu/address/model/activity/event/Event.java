@@ -28,6 +28,7 @@ public class Event extends Activity implements ReadOnlyEvent{
      */
     public Event(ReadOnlyEvent source) {
         this(source.getName(), source.getStartTime(), source.getEndTime(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
     
     @Override

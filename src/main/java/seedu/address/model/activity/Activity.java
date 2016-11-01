@@ -38,6 +38,7 @@ public class Activity implements ReadOnlyActivity {
      */
     public Activity(ReadOnlyActivity source) {
         this(source.getName(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
 
     @Override

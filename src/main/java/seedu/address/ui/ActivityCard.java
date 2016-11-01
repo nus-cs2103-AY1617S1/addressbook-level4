@@ -51,46 +51,50 @@ public class ActivityCard extends UiPart {
     }
 
     @FXML
-    public void initialize() {
+	public void initialize() {
 
-        name.setText(activity.getName().fullName);
-        id.setText(displayedIndex + ". ");
+		name.setText(activity.getName().fullName);
+		id.setText(displayedIndex + ". ");
+		String type = activity.getClass().getSimpleName().toLowerCase();
 
-        if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
-            line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
-            line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
-            priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
-        } else if (activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
-            line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());
-        } else {
-            line1.setText("");
-            line2.setText("");
-        }
+		switch (type) {
 
-        reminder.setText(activity.getReminder().forDisplay());
+		case "activity":
+			line1.setText("");
+			line2.setText("");
 
-        tags.setText(activity.tagsString());
-        completion.setText(activity.toStringCompletionStatus());
+			break;
 
-        if (activity.getClass().getSimpleName().equalsIgnoreCase("event")) {
-            if (((Event) activity).isOngoing()) {
-                cardPane.setStyle("-fx-background-color: lightskyblue;");
-            }
-        } else {
-            if (activity.getClass().getSimpleName().equalsIgnoreCase("task")) {
-                if (((Task) activity).isDueDateApproaching()) {
-                    cardPane.setStyle("-fx-background-color: yellow;");
-                } else if (((Task) activity).hasPassedDueDate()) {
-                    cardPane.setStyle("-fx-background-color: salmon;");
-                }
-            }
-            
-            if (activity.getCompletionStatus()) {
-                cardPane.setStyle("-fx-background-color: springgreen;");
-            }
-        }
-    }
+		case "task":
+			line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+			line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
+			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
+
+			if (((Task) activity).isDueDateApproaching()) {
+				cardPane.setStyle("-fx-background-color: yellow;");
+			} else if (((Task) activity).hasPassedDueDate()) {
+				cardPane.setStyle("-fx-background-color: salmon;");
+			}
+			break;
+
+		case "event":
+			line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
+			line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());
+			if (((Event) activity).isOngoing()) {
+				cardPane.setStyle("-fx-background-color: lightskyblue;");
+			}
+			break;
+		}
+
+		reminder.setText(activity.getReminder().forDisplay());
+		tags.setText(activity.tagsString());
+		completion.setText(activity.toStringCompletionStatus());
+		
+		if (activity.getCompletionStatus()) {
+			cardPane.setStyle("-fx-background-color: springgreen;");
+		}
+	}
+    
 
     public HBox getLayout() {
         return cardPane;

@@ -150,28 +150,33 @@ public class XmlAdaptedActivity {
         final Name name = new Name(this.name);
         final Reminder reminder = new Reminder(this.reminder);
         final UniqueTagList tags = new UniqueTagList(activityTags);
+        Activity toModel = null;
         
         switch (this.type) {
        
         case "activity" :
-            return new Activity(name, reminder, tags);
-        	
+            toModel = new Activity(name, reminder, tags);
+        	break;
+            
         case "task" :
             final DueDate duedate = new DueDate(this.line1);
             final Priority priority = new Priority(this.line2);
-            //How to use Image to set priority?
 
-            return new Task(name, duedate, priority, reminder, tags);
+            toModel = new Task(name, duedate, priority, reminder, tags);
+            break;
             
         case "event" :
 
             final StartTime start = new StartTime(this.line1);
             final EndTime end = new EndTime(this.line2);
 
-            return new Event(name, start, end, reminder, tags);
-        	
+            toModel = new Event(name, start, end, reminder, tags);
+        	break;
         }
-		return null;
+		
+        toModel.setCompletionStatus(this.completion);
+        
+        return toModel;
     
     }
 }

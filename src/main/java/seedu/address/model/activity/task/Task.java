@@ -15,7 +15,6 @@ public class Task extends Activity implements ReadOnlyTask {
 
     private DueDate duedate;
     private Priority priority;
-    private boolean isCompleted;
     
     private static int DAYS_WARNING = -3;
     
@@ -36,6 +35,7 @@ public class Task extends Activity implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDueDate(), source.getPriority(), source.getReminder(), source.getTags());
+        this.isCompleted =  source.getCompletionStatus();
     }
     
     @Override
@@ -55,8 +55,6 @@ public class Task extends Activity implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
-
 
     @Override
     public boolean getCompletionStatus() {
