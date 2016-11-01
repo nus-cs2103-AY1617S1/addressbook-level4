@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 import org.junit.After;
 import org.junit.Before;
@@ -258,8 +259,9 @@ public class LogicManagerTest {
 
         // set AB state to 2 persons
         model.resetData(new AddressBook());
-        for (Activity p : personList) {
-            model.addTask(p);
+        for(int i = personList.size()-1; i >= 0; i--){
+            Activity  p = personList.get(i);
+        	model.addTask(p);
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getLifekeeper(), personList);
@@ -336,7 +338,7 @@ public class LogicManagerTest {
 
         List<Activity> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Activity> expectedList = Lists.reverse(helper.generatePersonList(pTarget1, pTarget2));
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -355,7 +357,7 @@ public class LogicManagerTest {
 
         List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Activity> expectedList = fourPersons;
+        List<Activity> expectedList = Lists.reverse(fourPersons);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -374,7 +376,7 @@ public class LogicManagerTest {
 
         List<Activity> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Activity> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        List<Activity> expectedList = Lists.reverse(helper.generatePersonList(pTarget1, pTarget2, pTarget3));
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
