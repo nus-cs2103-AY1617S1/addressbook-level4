@@ -329,14 +329,15 @@ public class TaskListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
+        protected void updateItem(ReadOnlyTask task, boolean isEmpty) {
+            super.updateItem(task, isEmpty);
 
-            if (empty || task == null) {
+            if (isEmpty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                this.setStyle("");
             }
         }
     }
