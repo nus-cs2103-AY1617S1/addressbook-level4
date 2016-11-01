@@ -42,12 +42,12 @@ public interface ReadOnlyTask {
         
         builder.append(getName())
                 .append(System.lineSeparator())
-                .append(" Start: ")
+                .append("Start: ")
                 .append(getStartTime().easyReadDateFormatForUI())
                 .append(" End: ")
-                .append(getEndTime().easyReadDateFormatForUI())
-                .append(" Recurrence: ")
-                .append(getRecurrence());
+                .append(getEndTime().easyReadDateFormatForUI());
+        if(getRecurrence().getValue())
+                builder.append(" Recurrence: ").append(getRecurrence());
         return builder.toString();
     }
 
