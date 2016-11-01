@@ -15,7 +15,7 @@ import com.joestelmach.natty.*;
 public class DateNaturalLanguageProcessor implements NaturalLanguageProcessor {
 	
 	private static final com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-	private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
+	private static final String DATE_FORMAT = "dd/MM/yyyy HH:mm";
 	
 	@Override
 	public String formatString(String naturalLanguageDate) {
