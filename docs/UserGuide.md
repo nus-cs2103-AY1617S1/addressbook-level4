@@ -74,30 +74,31 @@ Examples:
 
 <!--- @@author a0126633j --->
 #### Finding tasks: `find`
-Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>
+Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names or tags is a substring of the given keywords.<br>
+Find MM-DD-YYY also returns deadlines/events on the specified date time.
 If the type is not specified, all entries containing the keyword will be displayed. <br>
 Format: `find [f|d|e] KEYWORD  [MORE KEYWORDS]`
 
 > * The search is case insensitive.
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+> * The order of the keywords does not matter. e.g. `Race Car` will match `Car race`
 > * Only the task names are searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
+> * Part of the words will be matched e.g. `Han` will match `Hans`
 > * Task matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+    e.g. `Work` will match `workout daily`
 
 Examples: 
-* `find f lunch`<br>
-  Returns `lunch with mom in floating task` 
+* `find f work`<br>
+  Returns `workout with mom` in floating task list
 * `find d lunch`<br>
-  Returns `lunch with mom in deadlines` 
-* `find e lunch`<br>
-  Returns `lunch with mom in events` 
+  Returns `lunch with mom` in deadlines list 
+* `find e 10-31-2016`<br>
+  Returns all events that has start or end date as `10-31-2016`
 * `find lunch dinner breakfast`<br>
-  Returns any tasks having names `lunch`, `dinner`, or `breakfast`
+  Returns all tasks having names `lunch`, `dinner`, or `breakfast`
 
 
 #### Deleting a task : `delete`
-Deletes the specified task from the to-do list. Irreversible.<br>
+Deletes the specified task from lists.<br>
 
 Format: `delete INDEX`
 
