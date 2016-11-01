@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.util.FxViewUtil;
 
 /**
@@ -15,7 +16,7 @@ public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
-    private final StringProperty displayed = new SimpleStringProperty("");
+    private final StringProperty displayed = new SimpleStringProperty(Messages.MESSAGE_WELCOME_JIMI);
 
     private static final String FXML = "ResultDisplay.fxml";
 

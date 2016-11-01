@@ -2,12 +2,13 @@ package seedu.jimi.logic.commands;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.logic.parser.JimiParser;
 
 // @@author A0140133B
@@ -17,45 +18,34 @@ import seedu.jimi.logic.parser.JimiParser;
 public class HelpCommand extends Command {
     
     public static final String COMMAND_WORD = "help";
-
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Shows program usage instructions.\n"
             + "You can also get specific help for commands.\n"
-            + "For example, getting help for add command: " + COMMAND_WORD + " add"
-            + "\n";
-    
-    public static final String UNKNOWN_HELP_COMMAND = 
-            Messages.MESSAGE_UNKNOWN_COMMAND + " - \"%1$s\" \n"
-            + "\n"
-            + "All available commands: %2$s \n"
+            + "For example, getting help for add command: " + COMMAND_WORD + " add \n"
+            + Messages.MESSAGE_ALL_AVAIL_CMD;
+
+    public static final String SHOWING_HELP_MESSAGE = 
+            "Opened help window.\n" 
             + "\n"
             + MESSAGE_USAGE;
-    
     
     private Command toHelp;
     
     public HelpCommand() {}
     
     public HelpCommand(String cmdToShow) throws IllegalValueException {
-        List<Command> cmdStubList = JimiParser.getCommandStubList();
+        List<Command> cmdStubList = CommandUtil.getInstance().getCommandStubList();
         
         // Tries to find a match with all command words.
-        Optional<Command> match =
-                cmdStubList.stream().filter(c -> c.isValidCommandWord(cmdToShow)).findFirst();
+        Optional<Command> match = cmdStubList.stream()
+                .filter(c -> c.isValidCommandWord(cmdToShow))
+                .findFirst();
         
         if (match.isPresent()) {
             toHelp = match.get();
-        } else {
-            // Creating string of all command words in Jimi.
-            StringJoiner sj = new StringJoiner(", ");
-            cmdStubList.stream()
-                .map(c -> c.getCommandWord())
-                .filter(s -> s != null && !s.isEmpty())
-                .forEach(s -> sj.add(s));
-            
-            throw new IllegalValueException(String.format(UNKNOWN_HELP_COMMAND, cmdToShow, sj.toString()));
+        } else { // User specified an unknown command.
+            throw new IllegalValueException(String.format(Messages.MESSAGE_UNKNOWN_COMMAND, cmdToShow));
         }
     }
     
@@ -64,7 +54,7 @@ public class HelpCommand extends Command {
         if (toHelp == null) {
             EventsCenter.getInstance().post(new ShowHelpRequestEvent());
             return new CommandResult(SHOWING_HELP_MESSAGE);
-        } else { // user specified command for help.
+        } else { // User specified a command for help.
             return new CommandResult(toHelp.getMessageUsage());
         }
     }
