@@ -37,7 +37,6 @@ public class EditCommand extends Command implements Undoable {
     private ReadOnlyTask taskToEdit;
     private ReadOnlyTask editedTask;
     private HashMap<String, List<String>> field_and_newValue_pair;
-    private HashMap<String, List<String>> field_and_oldValue_pair;
     private boolean isExecutedBefore;
 
     /**
@@ -114,7 +113,7 @@ public class EditCommand extends Command implements Undoable {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false: "impossible for person to be missing";
+            assert false: "impossible for task to be missing";
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedTask));
     }
