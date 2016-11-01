@@ -1,6 +1,5 @@
 package seedu.whatnow.commons.util;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -46,8 +45,10 @@ public class ConfigUtilTest {
         thrown.expect(DataConversionException.class);
         read("NotJasonFormatConfig.json");
 
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
+        /*
+         * IMPORTANT: Any code below an exception-throwing line (like the one
+         * above) will be ignored. That means you should not have more than one
+         * exception test in one method
          */
     }
 
@@ -108,12 +109,12 @@ public class ConfigUtilTest {
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
         ConfigUtil configStorage = new ConfigUtil();
 
-        //Try writing when the file doesn't exist
+        // Try writing when the file doesn't exist
         configStorage.saveConfig(original, configFilePath);
         Config readBack = configStorage.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
-        //Try saving when the file exists
+        // Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
         configStorage.saveConfig(original, configFilePath);
@@ -127,10 +128,7 @@ public class ConfigUtilTest {
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
-        return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER + configFileInTestDataFolder
-                                  : null;
+        return configFileInTestDataFolder != null ? TEST_DATA_FOLDER + configFileInTestDataFolder : null;
     }
-
 
 }

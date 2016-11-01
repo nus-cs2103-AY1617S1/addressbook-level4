@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U-reused
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
@@ -71,7 +72,7 @@ public class StatusBarFooter extends UiPart {
     private void setSyncStatus(String status) {
         this.syncStatus.setText(status);
     }
-    
+
     private void setSaveLocationStatus(Path destination) {
         this.saveLocationStatus.setText(destination.toString());
     }
@@ -103,10 +104,10 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
-    
+
     @Subscribe
     public void handleFileLocationChangedEvent(ConfigChangedEvent event) {
         setSaveLocationStatus(event.destination);
     }
-    
+
 }

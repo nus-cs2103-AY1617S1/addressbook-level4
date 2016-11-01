@@ -22,7 +22,8 @@ public class FileUtil {
     }
 
     /**
-     * Creates a file if it does not exist along with its missing parent directories
+     * Creates a file if it does not exist along with its missing parent
+     * directories
      *
      * @return true if file is created, false if file already exists
      */
@@ -39,8 +40,10 @@ public class FileUtil {
     /**
      * Creates the given directory along with its parent directories
      *
-     * @param dir the directory to be created; assumed not null
-     * @throws IOException if the directory or a parent directory cannot be created
+     * @param dir
+     *            the directory to be created; assumed not null
+     * @throws IOException
+     *             if the directory or a parent directory cannot be created
      */
     public static void createDirs(File dir) throws IOException {
         if (!dir.exists() && !dir.mkdirs()) {
@@ -67,8 +70,8 @@ public class FileUtil {
     }
 
     /**
-     * Writes given string to a file.
-     * Will create the file if it does not exist yet.
+     * Writes given string to a file. Will create the file if it does not exist
+     * yet.
      */
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
@@ -76,8 +79,12 @@ public class FileUtil {
 
     /**
      * Converts a string to a platform-specific file path
-     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
-     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
+     * 
+     * @param pathWithForwardSlash
+     *            A String representing a file path but using '/' as the
+     *            separator
+     * @return {@code pathWithForwardSlash} but '/' replaced with
+     *         {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
         assert pathWithForwardSlash != null;

@@ -23,9 +23,8 @@ public class ChangeCommand extends Command {
     public static final String COMMAND_WORD = "change";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the WhatNow data file storage location. "
-            + "Parameters: PATH\n"
-            + "Example: " + COMMAND_WORD + " location to"
-            + " PATH: C:"+"\\" + "Users" + "\\" + "Jim"+"\\"+"Dropbox";
+            + "Parameters: PATH\n" + "Example: " + COMMAND_WORD + " location to" + " PATH: C:" + "\\" + "Users" + "\\"
+            + "Jim" + "\\" + "Dropbox";
 
     public static final String MESSAGE_SUCCESS = "The data storage location has been successfully changed to: %1$s";
 
@@ -37,23 +36,23 @@ public class ChangeCommand extends Command {
 
     public String newPath;
 
-    public Path source; 
+    public Path source;
 
-    public Path destination; 
+    public Path destination;
 
     public Config config = new Config();
 
     private static final Logger logger = LogsCenter.getLogger(ChangeCommand.class);
 
     public ChangeCommand(String newPath) {
-        this.newPath=newPath;
+        this.newPath = newPath;
     }
 
     @Override
     public CommandResult execute() {
         Path path = FileSystems.getDefault().getPath(newPath);
 
-        if(Files.exists(path)) {
+        if (Files.exists(path)) {
             if (newPath.contains(DOUBLE_BACKSLASH)) {
                 newPath = newPath + DOUBLE_BACKSLASH + WHATNOW_XMLFILE;
             } else if (newPath.contains(SINGLE_FORWARDSLASH)) {
@@ -82,10 +81,10 @@ public class ChangeCommand extends Command {
                 ConfigUtil.saveConfig(config, configFilePathUsed);
             } catch (IOException e) {
                 logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-            } 
+            }
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, newPath));
-        } else { 
+        } else {
             return new CommandResult(String.format(MESSAGE_INVALID_PATH, newPath));
         }
     }

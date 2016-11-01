@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0126240W-reused
 import javax.xml.bind.JAXBException;
 
@@ -15,8 +16,7 @@ public class XmlFileStorage {
     /**
      * Saves the given whatnow data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableWhatNow whatNow)
-            throws FileNotFoundException {
+    public static void saveDataToFile(File file, XmlSerializableWhatNow whatNow) throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, whatNow);
         } catch (JAXBException e) {
@@ -27,8 +27,8 @@ public class XmlFileStorage {
     /**
      * Returns WhatNow in the file or an empty WhatNow
      */
-    public static XmlSerializableWhatNow loadDataFromSaveFile(File file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static XmlSerializableWhatNow loadDataFromSaveFile(File file)
+            throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableWhatNow.class);
         } catch (JAXBException e) {

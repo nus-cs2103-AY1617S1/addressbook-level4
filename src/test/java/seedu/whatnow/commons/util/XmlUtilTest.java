@@ -83,14 +83,15 @@ public class XmlUtilTest {
         XmlSerializableWhatNow dataToWrite = new XmlSerializableWhatNow(new WhatNow());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableWhatNow dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableWhatNow.class);
-        assertEquals((new WhatNow(dataToWrite)).toString(),(new WhatNow(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
+        assertEquals((new WhatNow(dataToWrite)).toString(), (new WhatNow(dataFromFile)).toString());
+        // TODO: use equality instead of string comparisons
 
         WhatNowBuilder builder = new WhatNowBuilder(new WhatNow());
-        dataToWrite = new XmlSerializableWhatNow(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableWhatNow(
+                builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableWhatNow.class);
-        assertEquals((new WhatNow(dataToWrite)).toString(),(new WhatNow(dataFromFile)).toString());
+        assertEquals((new WhatNow(dataToWrite)).toString(), (new WhatNow(dataFromFile)).toString());
     }
 }

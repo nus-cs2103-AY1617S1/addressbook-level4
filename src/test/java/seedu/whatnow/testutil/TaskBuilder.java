@@ -20,53 +20,53 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
+    public TaskBuilder withTags(String... tags) throws IllegalValueException {
+        for (String tag : tags) {
             task.getTags().add(new Tag(tag));
         }
         return this;
     }
-    
+
     public TaskBuilder withStatus(String status) throws IllegalValueException {
         this.task.setStatus(status);
         return this;
     }
-    
+
     public TaskBuilder withTaskType(String taskType) throws IllegalValueException {
         this.task.setTaskType(taskType);
         return this;
     }
-    
+
     public TaskBuilder withDate(String date) throws IllegalValueException {
         this.task.setTaskDate(date);
         return this;
     }
-    
+
     public TaskBuilder withStartDate(String date) throws IllegalValueException {
         this.task.setStartDate(date);
         return this;
     }
-    
+
     public TaskBuilder withEndDate(String date) throws IllegalValueException {
         this.task.setEndDate(date);
         return this;
     }
-    
+
     public TaskBuilder withTime(String time) throws IllegalValueException {
         this.task.setTaskTime(time);
         return this;
     }
-    
+
     public TaskBuilder withStartTime(String time) throws IllegalValueException {
         this.task.setStartTime(time);
         return this;
     }
-    
+
     public TaskBuilder withEndTime(String time) throws IllegalValueException {
         this.task.setEndTime(time);
         return this;
     }
-       
+
     public TestTask build() {
         return this.task;
     }

@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0139772U
 import java.io.File;
 import java.io.IOException;
@@ -13,13 +14,13 @@ import seedu.whatnow.model.UserPrefs;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage{
+public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonUserPrefsStorage.class);
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath){
+    public JsonUserPrefsStorage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -35,8 +36,11 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
 
     /**
      * Similar to {@link #readUserPrefs()}
-     * @param prefsFilePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file format is not as expected.
+     * 
+     * @param prefsFilePath
+     *            location of the data. Cannot be null.
+     * @throws DataConversionException
+     *             if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(String prefsFilePath) throws DataConversionException {
         assert prefsFilePath != null;
@@ -44,7 +48,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
         File prefsFile = new File(prefsFilePath);
 
         if (!prefsFile.exists()) {
-            logger.info("Prefs file "  + prefsFile + " not found");
+            logger.info("Prefs file " + prefsFile + " not found");
             return Optional.empty();
         }
 
@@ -62,7 +66,9 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
 
     /**
      * Similar to {@link #saveUserPrefs(UserPrefs)}
-     * @param prefsFilePath location of the data. Cannot be null.
+     * 
+     * @param prefsFilePath
+     *            location of the data. Cannot be null.
      */
     public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
         assert userPrefs != null;

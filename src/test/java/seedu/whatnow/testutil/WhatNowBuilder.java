@@ -7,15 +7,14 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Whatnow objects.
- * Example usage: <br>
- *     {@code WhatNow ab = new WhatNowBuilder().withTask("John", "Doe").withTag("Friend").build();}
+ * A utility class to help with building Whatnow objects. Example usage: <br>
+ * {@code WhatNow ab = new WhatNowBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class WhatNowBuilder {
 
     private WhatNow whatNow;
 
-    public WhatNowBuilder(WhatNow whatNow){
+    public WhatNowBuilder(WhatNow whatNow) {
         this.whatNow = whatNow;
     }
 
@@ -29,7 +28,7 @@ public class WhatNowBuilder {
         return this;
     }
 
-    public WhatNow build(){
+    public WhatNow build() {
         return whatNow;
     }
 }

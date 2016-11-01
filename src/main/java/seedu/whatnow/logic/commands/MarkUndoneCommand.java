@@ -9,7 +9,8 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Marks a task identified using it's last displayed index from WhatNow as completed.
+ * Marks a task identified using it's last displayed index from WhatNow as
+ * completed.
  */
 public class MarkUndoneCommand extends Command {
 
@@ -17,9 +18,8 @@ public class MarkUndoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Mark the task identified by the index number used in the last task listing as incompleted.\n"
-            + "Parameters: TODO/SCHEDULE INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " todo 1\n"
-            + "Example: " + COMMAND_WORD + " schedule 1";
+            + "Parameters: TODO/SCHEDULE INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD
+            + " todo 1\n" + "Example: " + COMMAND_WORD + " schedule 1";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as incompleted: %1$s";
     public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as incomplete";
@@ -40,7 +40,7 @@ public class MarkUndoneCommand extends Command {
         if (taskType.equals(TASK_TYPE_FLOATING)) {
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredTaskList();
-        } else if(taskType.equals(TASK_TYPE_SCHEDULE)){
+        } else if (taskType.equals(TASK_TYPE_SCHEDULE)) {
             model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredScheduleList();
         } else {

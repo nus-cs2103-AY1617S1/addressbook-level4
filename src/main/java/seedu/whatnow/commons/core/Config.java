@@ -18,7 +18,6 @@ public class Config {
     private String whatNowFilePath = "data/whatnow.xml";
     private String whatNowName = "MyWhatNow";
 
-
     public Config() {
     }
 
@@ -62,23 +61,20 @@ public class Config {
         this.whatNowName = whatNowName;
     }
 
-
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { // this handles null as well.
             return false;
         }
 
-        Config o = (Config)other;
+        Config o = (Config) other;
 
-        return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
+        return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(whatNowFilePath, o.whatNowFilePath)
-                && Objects.equals(whatNowName, o.whatNowName);
+                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName);
     }
 
     @Override
@@ -87,7 +83,7 @@ public class Config {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);

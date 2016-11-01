@@ -1,4 +1,5 @@
 package seedu.whatnow.model;
+
 //@@author A0139772U-reused
 import javafx.collections.ObservableList;
 import seedu.whatnow.model.tag.Tag;
@@ -13,8 +14,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the WhatNow level
- * Duplicates are not allowed (by .equals comparison)
+ * Wraps all data at the WhatNow level Duplicates are not allowed (by .equals
+ * comparison)
  */
 public class WhatNow implements ReadOnlyWhatNow {
 
@@ -27,7 +28,8 @@ public class WhatNow implements ReadOnlyWhatNow {
         tags = new UniqueTagList();
     }
 
-    public WhatNow() {}
+    public WhatNow() {
+    }
 
     /**
      * Tasks and Tags are copied into this whatnow
@@ -46,9 +48,8 @@ public class WhatNow implements ReadOnlyWhatNow {
     public static ReadOnlyWhatNow getEmptyWhatNow() {
         return new WhatNow();
     }
-   
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
@@ -63,47 +64,52 @@ public class WhatNow implements ReadOnlyWhatNow {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        
-    	setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyWhatNow newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
-	public void revertEmptyWhatNow(ReadOnlyWhatNow backUp) {
-		resetData(backUp.getTaskList(),backUp.getTagList());
-	}
 
-//// task-level operations
+    public void revertEmptyWhatNow(ReadOnlyWhatNow backUp) {
+        resetData(backUp.getTaskList(), backUp.getTagList());
+    }
+
+    //// task-level operations
 
     /**
-     * Adds a task to WhatNow.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds a task to WhatNow. Also checks the new task's tags and updates
+     * {@link #tags} with any new tags found, and updates the Tag objects in the
+     * task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
-    /**
-     * Adds a task to WhatNow at the specific index
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
-     * @param task is the task to re-add, idx is the idx the task was originally at
-     * @throws DuplicateTaskException 
-     */
-	public void addTaskSpecific(Task p , int idx) throws DuplicateTaskException {
-		syncTagsWithMasterList(p);
-        tasks.addSpecific(p, idx);
-	}
 
     /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     * Adds a task to WhatNow at the specific index Also checks the new task's
+     * tags and updates {@link #tags} with any new tags found, and updates the
+     * Tag objects in the task to point to those in {@link #tags}.
+     * 
+     * @param task
+     *            is the task to re-add, idx is the idx the task was originally
+     *            at
+     * @throws DuplicateTaskException
+     */
+    public void addTaskSpecific(Task p, int idx) throws DuplicateTaskException {
+        syncTagsWithMasterList(p);
+        tasks.addSpecific(p, idx);
+    }
+
+    /**
+     * Ensures that every tag in this task: - exists in the master list
+     * {@link #tags} - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -126,36 +132,39 @@ public class WhatNow implements ReadOnlyWhatNow {
     /**
      * Remove a task from WhatNow.
      *
-     * @throws UniqueTaskList.TaskNotFoundException if the task does not exist.
+     * @throws UniqueTaskList.TaskNotFoundException
+     *             if the task does not exist.
      */
     public int removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-    	int indexRemoved = tasks.getInternalList().indexOf(key);
+        int indexRemoved = tasks.getInternalList().indexOf(key);
         if (tasks.remove(key)) {
             return indexRemoved;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
     public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
-        } 
+        }
     }
+
     /**
      * Updates a task on WhatNow.
      * 
      * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-    	if (tasks.update(old, toUpdate)) {
+        if (tasks.update(old, toUpdate)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+
     /**
      * Marks a task on WhatNow as completed.
      * 
@@ -169,26 +178,25 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
 
-	public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-		if(tasks.unmark(target)) {
-			return true;
-		} else {
-			throw new UniqueTaskList.TaskNotFoundException();
-		}
-	}
+    public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.unmark(target)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
-
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
     }
 
     @Override
@@ -211,18 +219,17 @@ public class WhatNow implements ReadOnlyWhatNow {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WhatNow // instanceof handles nulls
-                && this.tasks.equals(((WhatNow) other).tasks)
-                && this.tags.equals(((WhatNow) other).tags));
+                        && this.tasks.equals(((WhatNow) other).tasks) && this.tags.equals(((WhatNow) other).tags));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(tasks, tags);
     }
 }
