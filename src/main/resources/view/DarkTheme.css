@@ -163,15 +163,39 @@
     -fx-control-inner-background: #1d1d1d;
 }
 
-.result-display .scroll-bar:horizontal .track,
-.result-display .scroll-bar:vertical .track {
-     -fx-background-color: transparent;
-     -fx-border-color:derive(gray,80%);
-     -fx-background-radius: 0em;
+.result-display .label {
+    -fx-text-fill: black !important;
+    -fx-background: #1d1d1d;
+    -fx-control-inner-background: #1d1d1d;
 }
 
-.result-display .label {
-    -fx-text-fill: white !important;
+.text-area .scroll-bar {
+	-fx-background-color: #1d1d1d;
+}
+
+.text-area .corner {
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+}
+
+.text-area .scroll-bar:vertical .track, 
+.text-area .scroll-bar:horizontal .track{
+	-fx-background-color: #1d1d1d;
+}
+
+.text-area .scroll-bar .increment-button, 
+.text-area .scroll-bar .decrement-button {
+    -fx-background-color: #1d1d1d;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: #1d1d1d;
+}
+
+.text-area .scroll-bar .increment-arrow, 
+.text-area .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-background-color: #1d1d1d;
+    -fx-padding: 1 8 1 8;
+    -fx-control-inner-background: #1d1d1d;
 }
 
 .status-bar .label {
@@ -194,7 +218,7 @@
 .command-box {
     -fx-font-size : 14px;
     -fx-font-family:"Consolas";
-    -fx-background-color: derive(#1d1d1d, 5%);
+    -fx-background-color: #1d1d1d;
 }
 
 .command-box .label {
@@ -312,6 +336,10 @@
 .scroll-bar .thumb {
     -fx-background-color: derive(#1d1d1d, 50%);
     -fx-background-insets: 3;
+}
+
+.scroll-bar .track {
+	-fx-background-color: #1d1d1d;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
