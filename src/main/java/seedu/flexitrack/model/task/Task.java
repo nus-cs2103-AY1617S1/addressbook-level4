@@ -151,5 +151,17 @@ public class Task implements ReadOnlyTask{
         this.isEvent = bool;
     }
 
+    public String getStartingTimeInString(){
+        return this.startTime.toString();
+    }
+    
+    public String getEndingTimeInString(){
+        return this.endTime.toString();
+    }
+    
+    public String getDueDateInString(){
+        return this.dueDate.toString();
+    }
+
     
 }

@@ -11,9 +11,8 @@ import seedu.flexitrack.testutil.TestTask;
 public class UndoCommandTest extends FlexiTrackGuiTest {
 
     @Test
-    public void list() {
-        TestTask[] currentList = td.getTypicalSortedTasks();
-
+    public void undo() {
+        
         // undo fail
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_NOT_SUCCESS);

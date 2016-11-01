@@ -24,9 +24,11 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         Command undo = null; 
+        
         if (doneCommandStack.size() == 0 ){ 
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
+        
         undo = doneCommandStack.pop();
         undo.executeUndo();
         RedoCommand.undoneCommandStack.push(undo);

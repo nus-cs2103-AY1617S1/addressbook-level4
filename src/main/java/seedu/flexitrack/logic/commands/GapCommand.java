@@ -26,20 +26,20 @@ public class GapCommand extends Command {
             + "Example of rejected specified timing: 70 minutes, 2 hours 30 minutes";
             
     public static final String MESSAGE_SUCCESS = "The earliest %1$s gap are found... ";
-    public static final String DAY_WORD = "day";
-    public static final String DAY_INITIAL = "d";
-    public static final String HOUR_WORD = "hour";
-    public static final String HOUR_INITIAL = "h";
-    public static final String MINUTE_WORD = "minute";
-    public static final String MINUTE_INITIAL = "m";
+    public static final String WORD_DAY = "day";
+    public static final String WORD_HOUR = "hour";
+    public static final String WORD_MINUTE = "minute";
+    public static final String INITIAL_DAY = "d";
+    public static final String INITIAL_HOUR = "h";
+    public static final String INITIAL_MINUTE = "m";
     public static final int DEFAULT_NUMBER_OF_SLOT = 3;
-    public static final int DAY_REF_NO = 2;
-    public static final int HOUR_REF_NO = 1;
-    public static final int MINUTE_REF_NO = 0;
+    public static final int REF_NO_DAY = 2;
+    public static final int REF_NO_HOUR = 1;
+    public static final int REF_NO_MINUTE = 0;
 
-    public final int keyword;
-    public final int length; 
-    public final int numberOfSlot; 
+    private final int keyword;
+    private final int length; 
+    private final int numberOfSlot; 
 
     public GapCommand(int keyword, int length, int numberOfSlot) {
         this.keyword = keyword; 

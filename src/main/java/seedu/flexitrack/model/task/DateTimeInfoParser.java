@@ -40,17 +40,17 @@ public class DateTimeInfoParser {
     public String getParsedTimingInfo() {
         return timingInfo.getDates().toString();
     }
-    
-    //@@author A0147092E
+
+    // @@author A0147092E
     public Date getParsedDateTime() {
         return timingInfo.getDates().get(0);
     }
-    //@@author
     
-    public List<Date> getParsedTimingObject(){
+    // @@author A0127686R
+    public List<Date> getParsedTimingObject() {
         return timingInfo.getDates();
     }
-    
+
     public DateGroup getTimingInfo() {
         return timingInfo;
     }

@@ -67,13 +67,15 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if the list in panel is too short to contain the given
         // list
+        System.out.println("startPosition + tasks.length   :" + startPosition + tasks.length);
+        System.out.println(" tasksInList.size()            :" + tasksInList.size());
         if (startPosition + tasks.length > tasksInList.size()) {
             return false;
         }
 
         for (int i = 0; i < tasks.length; i++) {
-//            System.out.println("card handle:    " + tasksInList.get(startPosition + i).getName().toString());
-//            System.out.println("TASK:           " + tasks[i].getName().toString());
+            System.out.println("card handle:    " + tasksInList.get(startPosition + i).getName().toString());
+            System.out.println("TASK:           " + tasks[i].getName().toString());
             if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())) {
                 return false;
             }

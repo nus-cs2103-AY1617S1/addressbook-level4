@@ -145,13 +145,17 @@ public class TypicalTestTasks {
 
     public TestTask[] getExpectedTypicalMarkTasks() {
         try {
-            homework1.setName(new Name ("(Done) " + homework1.getName().toString()));
-            soccer.setName(new Name ("(Done) " + soccer.getName().toString()));
-            exam.setName(new Name ("(Done) " + exam.getName().toString()));
-            event.setName(new Name ("(Done) " + event.getName().toString()));
+            homework1.setName(new Name(homework1.getName().toString()));
+            soccer.setName(new Name(soccer.getName().toString()));
+            exam.setName(new Name(exam.getName().toString()));
+            event.setName(new Name(event.getName().toString()));
         } catch (IllegalValueException e) {
-            e.printStackTrace();
+            assert false;
         }
+        homework1.getName().setAsMark();
+        soccer.getName().setAsMark();
+        exam.getName().setAsMark();
+        event.getName().setAsMark();
         return new TestTask[] { homework1, soccer, exam, event };
     }
 
@@ -161,13 +165,17 @@ public class TypicalTestTasks {
 
     public TestTask[] getExpectedTypicalFutureMarkTasks() {
         try {
-            homework1.setName(new Name ("(Done) " + homework1.getName().toString()));
-            soccer.setName(new Name ("(Done) " + soccer.getName().toString()));
-            exam.setName(new Name ("(Done) " + exam.getName().toString()));
-            event.setName(new Name ("(Done) " + event.getName().toString()));
+            homework1.setName(new Name (homework1.getName().toString()));
+            soccer.setName(new Name (soccer.getName().toString()));
+            exam.setName(new Name (exam.getName().toString()));
+            event.setName(new Name (event.getName().toString()));
         } catch (IllegalValueException e) {
-            e.printStackTrace();
+            assert false;
         }
+        homework1.getName().setAsMark();
+        soccer.getName().setAsMark();
+        exam.getName().setAsMark();
+        event.getName().setAsMark();
         return new TestTask[] { homework1 };
     }
     
