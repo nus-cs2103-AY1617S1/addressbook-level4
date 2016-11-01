@@ -141,9 +141,23 @@ public class TodoList implements TodoListModel {
         
         saveTodoList();
         
-    } 
-    
+    }
 
+    //@@author A0135805H
+    @Override
+    public void updateAll(Consumer<MutableTask> update) throws ValidationException {
+        //Perform one round of validation first.
+        for (MutableTask task : tasks) {
+            ValidationTask validationTask = new ValidationTask(task);
+            update.accept(validationTask);
+            validationTask.validate();
+        }
+
+        //When there is no errors, actually do it.
+        tasks.forEach(update::accept);
+    }
+
+    //@@author A0092382A
     @Override
     public void save(String location) throws ValidationException {
         try {
