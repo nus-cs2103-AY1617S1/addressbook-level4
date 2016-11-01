@@ -136,7 +136,7 @@
     -fx-text-fill: #212121;
 }
 
-.info-header .label {
+.header .label {
 	-fx-text-fill: #F5F5F5;
 	-fx-font-size: 16px;
 }

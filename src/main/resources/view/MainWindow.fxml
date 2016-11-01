@@ -12,7 +12,7 @@
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.MainWindow">
    <children>
       
-      <AnchorPane fx:id="infoHeaderPlaceholder" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="692.0" styleClass="background" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="headerPlaceholder" maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="692.0" styleClass="background" VBox.vgrow="NEVER" />
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" prefHeight="0.0">

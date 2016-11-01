@@ -8,11 +8,11 @@ import javafx.stage.Stage;
 import tars.commons.util.FxViewUtil;
 
 /**
- * A Ui for the information header of the application
+ * UI Controller for the header of the application
  */
-public class InformationHeader extends UiPart {
-    private static final String INFO_HEADER_STYLE_SHEET = "info-header";
-    private static final String FXML = "InformationHeader.fxml";
+public class Header extends UiPart {
+    private static final String HEADER_STYLE_SHEET = "header";
+    private static final String FXML = "Header.fxml";
         
     private AnchorPane placeHolder;
     private AnchorPane mainPane;
@@ -20,14 +20,14 @@ public class InformationHeader extends UiPart {
     @FXML
     private HBox header;
     
-    public static InformationHeader load(Stage primaryStage, AnchorPane placeHolder) {
-        InformationHeader infoHeader = UiPartLoader.loadUiPart(primaryStage, placeHolder, new InformationHeader());
+    public static Header load(Stage primaryStage, AnchorPane placeHolder) {
+        Header infoHeader = UiPartLoader.loadUiPart(primaryStage, placeHolder, new Header());
         infoHeader.configure();
         return infoHeader;
     }
 
     public void configure() {
-        header.getStyleClass().add(INFO_HEADER_STYLE_SHEET);
+        header.getStyleClass().add(HEADER_STYLE_SHEET);
         
         FxViewUtil.applyAnchorBoundaryParameters(header, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);

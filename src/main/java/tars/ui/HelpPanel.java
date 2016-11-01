@@ -8,18 +8,22 @@ import javafx.stage.Stage;
 import tars.commons.util.FxViewUtil;
 
 /**
- * Controller for a help page
+ * UI Controller for a help page
+ * 
+ * @@author A0121533W
  */
 public class HelpPanel extends UiPart {
     private static final String FXML = "HelpPanel.fxml";
     private static final String USERGUIDE_URL = "/html/UserGuide.md.html";
-    
+
     private VBox panel;
     private AnchorPane placeHolderPane;
     private WebView browser;
     
-    public static HelpPanel load(Stage primaryStage, AnchorPane helpPanelPlaceHolder) {
-        HelpPanel helpPanel = UiPartLoader.loadUiPart(primaryStage, helpPanelPlaceHolder, new HelpPanel());
+    public static HelpPanel load(Stage primaryStage,
+        AnchorPane helpPanelPlaceHolder) {
+    HelpPanel helpPanel = UiPartLoader.loadUiPart(primaryStage,
+            helpPanelPlaceHolder, new HelpPanel());
         helpPanel.configure();
         return helpPanel;
     }
@@ -33,12 +37,12 @@ public class HelpPanel extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-    
+
     @Override
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-    
+
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
     }

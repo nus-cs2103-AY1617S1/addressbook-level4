@@ -10,7 +10,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import tars.model.task.rsv.RsvTask;
 
-public class RsvTaskCard extends UiPart{
+/**
+ * UI Controller for Reserve Task Card
+ * 
+ * @@author A0121533W
+ *
+ */
+public class RsvTaskCard extends UiPart {
 
     private static final String FXML = "RsvTaskListCard.fxml";
     private static final String DATETIMELIST_ID = "dateTimeList";
@@ -30,11 +36,11 @@ public class RsvTaskCard extends UiPart{
     private RsvTask rsvTask;
     private int displayedIndex;
 
-    public RsvTaskCard(){
+    public RsvTaskCard() {
 
     }
 
-    public static RsvTaskCard load(RsvTask rsvTask, int displayedIndex){
+    public static RsvTaskCard load(RsvTask rsvTask, int displayedIndex) {
         RsvTaskCard card = new RsvTaskCard();
         card.cardPane = new HBox();
         card.dateTimeListPane = new AnchorPane();
@@ -62,7 +68,7 @@ public class RsvTaskCard extends UiPart{
         dateTimeListArea.setPrefSize(200, 75);
         dateTimeListArea.textProperty().bind(dateTimeListdisplayed);
         dateTimeListArea.autosize();
-        
+
         dateTimeListPane.getChildren().add(dateTimeListArea);
         cardPane.getChildren().add(dateTimeListPane);
     }

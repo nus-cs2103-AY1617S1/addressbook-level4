@@ -47,7 +47,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private InformationHeader infoHeader;
+    private Header header;
     private TaskListPanel taskListPanel;
     private RsvTaskListPanel rsvTaskListPanel;
     private ResultDisplay resultDisplay;
@@ -71,7 +71,7 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane commandBoxPlaceholder;
     @FXML
-    private AnchorPane infoHeaderPlaceholder;
+    private AnchorPane headerPlaceholder;
     @FXML
     private AnchorPane taskListPanelPlaceholder;
     @FXML
@@ -187,7 +187,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder);
+        header = Header.load(primaryStage, headerPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(),
                 logic.getFilteredRsvTaskList());

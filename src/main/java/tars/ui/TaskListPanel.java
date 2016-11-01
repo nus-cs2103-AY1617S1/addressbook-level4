@@ -20,7 +20,9 @@ import tars.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * UI Controller for panel containing the list of tasks.
+ * 
+ * @@author A0121533W
  */
 public class TaskListPanel extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
@@ -47,10 +49,11 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TaskListPanel load(Stage primaryStage,
+            AnchorPane taskListPlaceholder,
             ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage,
+                taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
@@ -76,7 +79,6 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
         private ReadOnlyTask newlyAddedTask;
 
@@ -94,18 +96,19 @@ public class TaskListPanel extends UiPart {
             } else {
                 TaskCard card = TaskCard.load(task, getIndex() + 1);
                 HBox layout = card.getLayout();
-                if (this.newlyAddedTask != null && this.newlyAddedTask.isSameStateAs(task)) {
+                if (this.newlyAddedTask != null
+                        && this.newlyAddedTask.isSameStateAs(task)) {
                     layout.setStyle("-fx-border-color: #607D8B");
                 } else {
                     layout.setStyle("-fx-border-color: #9E9E9E");
-                } 
+                }
                 setGraphic(layout);
             }
         }
 
         @Subscribe
         private void handleTaskAddedEvent(TaskAddedEvent event) {
-            logger.info(LogsCenter.getEventHandlingLogMessage(event, 
+            logger.info(LogsCenter.getEventHandlingLogMessage(event,
                     "Updating layout for " + event.task.toString()));
             this.newlyAddedTask = event.task;
         }
