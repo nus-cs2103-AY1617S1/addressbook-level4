@@ -15,7 +15,6 @@ import seedu.todo.ui.view.TodoListView;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
@@ -36,7 +35,7 @@ public class TaskCardViewHandle extends GuiHandle {
     private static final String DESCRIPTION_BOX_ID = "#descriptionBox";
     private static final String DATE_BOX_ID = "#dateBox";
     private static final String LOCATION_BOX_ID = "#locationBox";
-    private static final String TAGS_BOX_ID = "#tagsBox";
+    private static final String TITLE_PANE_ID = "#titleFlowPane";
 
     private static final String PIN_IMAGE_ID = "#pinImage";
 
@@ -80,9 +79,12 @@ public class TaskCardViewHandle extends GuiHandle {
     }
 
     public Set<String> getDisplayedTags() {
-        FlowPane tagsBox = (FlowPane) getNode(TAGS_BOX_ID);
-        List<Node> displayedTagNodes = tagsBox.getChildren();
-        return displayedTagNodes.stream().map(node -> ((Label) node).getText()).collect(Collectors.toSet());
+        FlowPane tagsBox = (FlowPane) getNode(TITLE_PANE_ID);
+        List<Node> displayedTagNodes = tagsBox.getChildren()
+                .filtered(node -> node.getStyleClass().contains("collapsible")); //Tags can be collapsed!
+        
+        return displayedTagNodes.stream()
+                .map(node -> ((Label) node).getText()).collect(Collectors.toSet());
     }
 
     public boolean getMoreInfoLabelVisibility() {

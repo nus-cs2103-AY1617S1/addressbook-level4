@@ -410,7 +410,7 @@ public class TagCommand extends BaseCommand {
      */
     private static <T> T chooseFirst(Predicate<T> predicate, T... objects) {
         Optional<T> optionalObject = Arrays.stream(objects).filter(predicate).findFirst();
-        return (optionalObject.isPresent()) ? optionalObject.get() : null;
+        return optionalObject.isPresent() ? optionalObject.get() : null;
     }
 
     /**
