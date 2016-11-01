@@ -14,7 +14,7 @@ public class TaskEditedEvent extends BaseEvent {
     }
     @Override
     public String toString() {
-        return null;
+        return "Edited and scrolling to" + task.getAsText();
     }
     public int getIndex() {
         return index;

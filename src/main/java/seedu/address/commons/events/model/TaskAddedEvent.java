@@ -14,7 +14,7 @@ public class TaskAddedEvent extends BaseEvent {
     }
     @Override
     public String toString() {
-        return null;
+        return "Added and scrolling to" + task.getAsText();
     }
     public int getIndex() {
         return index;

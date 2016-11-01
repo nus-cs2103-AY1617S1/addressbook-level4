@@ -21,6 +21,7 @@ import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.commons.events.ui.LocateItemRequestEvent;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -171,6 +172,11 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().scrollTo(event.getIndex());
         taskWindow.loadTaskPage(event.getAddedTask());
         taskWindow.show(); 
+    }
+    
+    @Subscribe
+    private void handleMinimizeRequestEvent(MinimizeRequestEvent event){
+        taskWindow.hide();
     }
     
     //@@author
