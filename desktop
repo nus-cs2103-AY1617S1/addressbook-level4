@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<activitymanager/>
+<activitymanager>
+    <floatingTasks>
+        <activityType>floating</activityType>
+        <name>buy lunch</name>
+        <note>hawker food</note>
+        <status>Uncompleted</status>
+    </floatingTasks>
+</activitymanager>
