@@ -88,49 +88,45 @@ public class TestTask implements ReadOnlyTask {
         return getAsText();
     }
     
-    /**
-     * compares task based on start date and time
-     * @return dateTimeComparator
-     */
-    public static Comparator getTaskComparator(){
-        return new Comparator<TestTask>(){
-            public int compare (TestTask t1, TestTask t2){
-                    
-                if (t1.getStartDateTime().equals(t2.getStartDateTime())
-                    && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
-                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
-                } 
-                
-                if (t1.getStartDateTime().before(t2.getStartDateTime())) {
-                    return -1;
-                } else if (t1.getStartDateTime().after(t2.getStartDateTime())) {
-                    return 1;
-                } 
-                
-                if (t1.getEndDateTime().before(t2.getEndDateTime())) {
-                    return -1;
-                } else if (t1.getEndDateTime().after(t2.getEndDateTime())) {
-                    return 1;
-                }
-                
-                return 0;
-            }
-        };
-    }
     
+    //@@author A0138411N
     public String getAddCommand() {
         
-        String[] startDate = this.getStartDate().value.split(",");
-        String[] endDate = this.getEndDate().value.split(",");
+        String[] startDate = null;
+        String[] endDate = null;
+        if (!this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)) {
+             startDate = this.getStartDate().value.split(",");
+        }
+        if (!this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
+            endDate = this.getEndDate().value.split(",");
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskName().taskName);
-        if (this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
-        	//floating task, append nothing
+        //floating task, append nothing
+        if (this.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) 
+            && this.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)
+            && this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+            && this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+            // deadline task with no time, append end date only
+        }  else if (this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    && this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)
+                    && this.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) {
+                    sb.append(", " + endDate[1].trim().substring(0,endDate[1].trim().length()-2));        
+        // deadline task, append end date and end time
         } else if (this.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
                     && this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
-        	// deadline task, append end date and end time
         	sb.append("," + this.getEndTime().value + " ");
             sb.append(endDate[1].trim());
+        //event task with no start time, append start date only
+        }  else if (this.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
+                sb.append(", " + startDate[1].trim().substring(0,endDate[1].trim().length()-2)); 
+                sb.append(this.getEndTime().value + " ");
+                sb.append( endDate[1].trim());
+        //event task with no end time, append end date only
+        }  else if (this.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) {
+                sb.append(" ,"+ this.getStartTime().value+ " ");
+                sb.append(startDate[1].trim() + ",");
+                sb.append(", " + endDate[1].trim().substring(0,endDate[1].trim().length()-2)); 
         } else {
         	// event task, append everything
         	sb.append(" ,"+ this.getStartTime().value+ " ");
@@ -180,40 +176,6 @@ public class TestTask implements ReadOnlyTask {
         
     }
 
-    public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) && 
-            (time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            Date date4 = new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-            start =  date4;
-        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
-            Date date1 = new DateTimeParser("1st January 2050 " + time.value).getDateTime();
-            start =  date1;
-        } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            Date date2 = new DateTimeParser("11:59 pm " + date.value).getDateTime();
-            start =  date2;
-        } else {
-            Date date3 = new DateTimeParser(time.value + " " + date.value).getDateTime();
-            start =  date3;
-        }
-    }
-    
-    public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) && 
-            (time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            Date date4 = new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-            end =  date4;
-        } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
-            Date date1 = new DateTimeParser("1st January 2050 " + time.value).getDateTime();
-            end =  date1;
-        } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            Date date2 = new DateTimeParser("11:59 pm " + date.value).getDateTime();
-            end =  date2;
-        } else {
-            Date date3 = new DateTimeParser(time.value + " " + date.value).getDateTime();
-            end =  date3;
-        }
-    }
-
     @Override
     public void checkTimeClash() throws IllegalValueException {
         Date currentDate  = new Date();
@@ -225,6 +187,18 @@ public class TestTask implements ReadOnlyTask {
         if(end.before(start)) {
             throw new IllegalValueException("End cannot be earlier than start!");
         }      
+    }
+
+    @Override
+    public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
     }
 
 

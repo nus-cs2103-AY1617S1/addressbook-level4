@@ -58,6 +58,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
         commandBox.runCommand("undo");
         taskToBeReplaced.setPriority(originalPriority);
+
         
         //invalid command format
         commandBox.runCommand("edit task 1 wrong");
