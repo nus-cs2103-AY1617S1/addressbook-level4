@@ -280,6 +280,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+//@@author A0139655U
 ## Appendix A : User Stories
 
 Priorities: High - `* * *` Medium - `* *`  Low - `*`
