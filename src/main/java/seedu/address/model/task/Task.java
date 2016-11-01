@@ -11,7 +11,9 @@ import java.util.Objects;
 
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.util.Callback;
@@ -40,6 +42,8 @@ public class Task implements ReadOnlyTask {
     private Recurring recurring;
     private StringProperty recurringString;
     private UniqueTagList tags;
+    private Priority priorityLevel;
+    private IntegerProperty priorityInteger;
     /*
      * public static void main(String[] args) throws IllegalValueException{ Task
      * t=new Task(new Name("xiaowei"),new Deadline("22.09.2016-14"),new
@@ -54,18 +58,18 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     //@@author A0142325R
-    public Task(Name name, Date date, UniqueTagList tags) {
-        this(name, date, tags, false, false);
+    public Task(Name name, Date date, UniqueTagList tags, Priority priorityLevel) {
+        this(name, date, tags, false, false, priorityLevel);
         recurring = null;
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, Recurring recurring) {
-        this(name, date, tags, false, true);
+    public Task(Name name, Date date, UniqueTagList tags, Recurring recurring, Priority priorityLevel) {
+        this(name, date, tags, false, true, priorityLevel);
         this.recurring = recurring;
         recurringString.set(recurring.recurringFrequency);
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring) {
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring, Priority priorityLevel) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.nameString = new SimpleStringProperty(name.taskName);
@@ -82,9 +86,11 @@ public class Task implements ReadOnlyTask {
         this.done = new SimpleBooleanProperty(isDone);
         this.isRecurring = isRecurring;
         recurringString = new SimpleStringProperty();
+        this.priorityLevel = priorityLevel;
+        this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring) {
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring, Priority priorityLevel) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.nameString = new SimpleStringProperty(name.taskName);
@@ -102,21 +108,23 @@ public class Task implements ReadOnlyTask {
         this.isRecurring=true;
         this.recurring = Recurring;
         recurringString = new SimpleStringProperty(recurring.recurringFrequency);
+        this.priorityLevel = priorityLevel;
+        this.priorityInteger = new SimpleIntegerProperty(priorityLevel.priorityLevel);
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring());
+        this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring(), source.getPriorityLevel());
         if (source.isRecurring()) {
             this.recurring = source.getRecurring();
             recurringString.set(recurring.recurringFrequency);
         }
     }
 
-    public Task(Name name, UniqueTagList tags) throws IllegalValueException {
-        this(name, new Deadline(""), tags, false, false);
+    public Task(Name name, UniqueTagList tags, Priority priorityLevel) throws IllegalValueException {
+        this(name, new Deadline(""), tags, false, false, priorityLevel);
         this.recurring = null;
     }
 
@@ -235,6 +243,12 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
 
+    //@@author A0138717X
+    @Override
+    public Priority getPriorityLevel() {
+    	return priorityLevel;
+    }
+
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -310,14 +324,14 @@ public class Task implements ReadOnlyTask {
      */
     public static Callback<Task, Observable[]> extractor() {
         return (Task task) -> new Observable[] { task.getNameString(), task.getDateString(), task.getDone(),
-                task.getRecurringString() };
+                task.getRecurringString(), task.getPriorityInteger()};
     }
 
     //@@author A0138717X
 	public boolean editDetail(String type, String details) throws IllegalValueException {
 		switch(type) {
     	case "name": setName(new Name(details)); break;
-//    	case "tag": this.tag = new UniqueTagList(details); break;
+    	case "priority": setPriorityLevel(new Priority(Integer.parseInt(details))); break;
     	case "recurring": setRecurring(new Recurring(details)); break;
     	case "startDate": setDate(new EventDate(details,((EventDate) date).getEndDate().substring(0, 10))); break;
     	case "endDate": setDate(new EventDate(((EventDate) date).getEndDate().substring(0, 10), details)); break;
@@ -326,5 +340,20 @@ public class Task implements ReadOnlyTask {
 		}
 		return true;
 	}
+
+	public IntegerProperty getPriorityInteger() {
+		return priorityInteger;
+	}
+
+	public void setPriorityLevel(Priority priorityLevel) {
+		this.priorityLevel = priorityLevel;
+		priorityInteger.set(priorityLevel.priorityLevel);
+	}
+
+//	public boolean isValidPriorityLevel(int priorityLevel) {
+//		if(priorityLevel <= 3)
+//			return true;
+//		return false;
+//	}
 
 }

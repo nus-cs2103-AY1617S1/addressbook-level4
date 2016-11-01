@@ -14,8 +14,9 @@ public interface ReadOnlyTask {
     boolean isEvent();
     boolean isDone();
     boolean isRecurring();
+    Priority getPriorityLevel();
     void markAsDone();
-    
+
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -58,6 +59,8 @@ public interface ReadOnlyTask {
         if(isRecurring()){
             builder.append(" recurring "+getRecurring().recurringFrequency);
         }
+        if(!getPriorityLevel().isEmptyPriorityLevel())
+        	builder.append(" Priority Level: " + getPriorityLevel().priorityLevel);
         return builder.toString();
     }
 

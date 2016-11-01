@@ -17,9 +17,9 @@ public class AddCommand extends Command {
     //@@author A0146123R
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Add an event with a starting and ending date or a task (with or without deadline) to the task manager.\n"
-            + "Parameters: EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... or TASK_NAME [d/DEADLINE] [t/TAG]...\n"// [p/PRIORITY_LEVEL]
+            + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [p/PRIORITY_LEVEL] [t/TAG]... or TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103, add Project Deadline d/14.10.2016 t/CS2103"; // p/3
+            + " n/Lecture s/7.10.2016-14 e/7.10.2016-16 p/1 t/CS2103, add Project Deadline d/14.10.2016 p/3 t/CS2103";
 
     public static final String MESSAGE_EVENT_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "New task added: %1$s";
@@ -33,18 +33,18 @@ public class AddCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, Set<String> tags, String freq) throws IllegalValueException {
+    public AddCommand(String name, String deadline, Set<String> tags, String freq, int priorityLevel) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         if (deadline != "" && freq != "") {
             this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet),
-                    new Recurring(freq));
+                    new Recurring(freq), new Priority(priorityLevel));
         } else if (deadline != "") {
-            this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet));
+            this.toAdd = new Task(new Name(name), new Deadline(deadline), new UniqueTagList(tagSet), new Priority(priorityLevel));
         } else {
-            this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet));
+            this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet), new Priority(priorityLevel));
         }
     }
 
@@ -54,7 +54,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String freq)
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String freq, int priorityLevel)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -62,11 +62,11 @@ public class AddCommand extends Command {
         }
         if (freq != "" && startDate != "") {
             this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
-                    new Recurring(freq));
+                    new Recurring(freq), new Priority(priorityLevel));
         } else if (startDate != "") {
-            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet));
+            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet), new Priority(priorityLevel));
         } else {
-            this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet));
+            this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet), new Priority(priorityLevel));
         }
     }
 

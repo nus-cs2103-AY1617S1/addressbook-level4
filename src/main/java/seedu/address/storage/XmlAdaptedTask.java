@@ -27,6 +27,8 @@ public class XmlAdaptedTask {
     private boolean isRecurring;
     @XmlElement
     private String frequency = "";
+    @XmlElement
+    private int priorityLevel;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -55,6 +57,7 @@ public class XmlAdaptedTask {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+        priorityLevel = source.getPriorityLevel().priorityLevel;
     }
 
     /**
@@ -80,13 +83,14 @@ public class XmlAdaptedTask {
             assert dates.length == 3;
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
+        final Priority priorityLevel = new Priority(this.priorityLevel);
         final UniqueTagList tags = new UniqueTagList(personTags);
         if (isRecurring){
            // System.out.println("isrecurring is true");
-            return new Task(name, date, tags, isDone, new Recurring(frequency));
+            return new Task(name, date, tags, isDone, new Recurring(frequency), priorityLevel);
         }
-        
-            return new Task(name, date, tags, isDone, false);
-        
+
+            return new Task(name, date, tags, isDone, false, priorityLevel);
+
     }
 }

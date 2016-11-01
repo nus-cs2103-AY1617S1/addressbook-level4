@@ -51,6 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String DEADLINE = "deadline";
     private static final String RECURRING = "recurring";
     //@@author
+    //@@author A0138717X
+    private static final String PRIORITY = "priorityLevel";
+    //@@author
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
     private final StateManager stateManager;
@@ -196,7 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String type) {
         updateFilteredTaskList(getPredicateForType(type));
     }
-    
+
     private Expression getPredicateForType(String type) {
         switch (type) {
         case EVENTS:
@@ -218,13 +221,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private Expression getPredicateForKeywordType(String type, String keyword) {
-        switch (type) {
+    	switch (type) {
         case START_DATE:
         case DEADLINE:
         case END_DATE:
             return new PredicateExpression(new DateQualifier(keyword, type));
         case RECURRING:
             return new PredicateExpression(new RecurringQualifier(keyword));
+        case PRIORITY:
+        	return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
         default:
             return null;
         }
@@ -306,7 +311,7 @@ public class ModelManager extends ComponentManager implements Model {
             filteredTasks.setPredicate(predicates);
         }
     }
-    
+
     @Subscribe
     @Override
     public void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce) {
@@ -521,6 +526,25 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "tags=" + String.join(", ", tagKeyWords);
+        }
+    }
+
+    //@@author A0138717X
+    private class PriorityQualifier implements Qualifier {
+    	private int priorityLevel;
+
+    	PriorityQualifier(int priorityLevel) {
+    		this.priorityLevel = priorityLevel;
+    	}
+
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return task.getPriorityLevel().priorityLevel == priorityLevel;
+		}
+
+		@Override
+        public String toString(){
+            return "priority=" + priorityLevel;
         }
     }
 

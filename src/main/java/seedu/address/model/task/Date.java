@@ -12,25 +12,25 @@ import com.joestelmach.natty.DateGroup;
  * It can be deadline for tasks or event date for events.
  */
 public interface Date{
-    
+
    public static final String DATE_VALIDATION_REGEX = "^[0-3]?[0-9][.][0-1]?[0-9][.]([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "15.10.2016-14"
     public static final String DATE_NEED_ADD_ZERO_REGEX = "^[0-9].[0-9].([0-9]{4})(-[0-2]?[0-9]?)?";
     // EXAMPLE = "5.10.2016-14"
-    
+
     public static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     String getValue();
-    
+
     String toString();
-  
+
 
     int hashCode();
-    
+
     default boolean isEmptyDate() {
         return getValue().equals("");
     }
-    
+
     /**
      * Returns true if a given string need correction.
      * i.e, string in the format of 2.3.2016, it is valid but need add leading zero
@@ -39,7 +39,7 @@ public interface Date{
     static boolean needAddLeadingZero(String test) {
         return test.matches(DATE_NEED_ADD_ZERO_REGEX);
     }
-    
+
     /**
      * Add leading zero to make sure the date strictly follow DD.MM.YYYY
      */
@@ -55,7 +55,7 @@ public interface Date{
         String newDate = parts[0] + "." + parts[1] + "." + parts[2];
         return newDate;
     }
-    
+
     //@@author A0142325R
     static String parseDate(String date) {
         DateGroup dateGroup = new com.joestelmach.natty.Parser().parse(date).get(0);
@@ -66,5 +66,5 @@ public interface Date{
             return dateFormat.format(parsedDate.get(0)).toString() + "-" + parsedDate.get(0).toString().substring(11, 13);
         }
     }
-    
+
 }

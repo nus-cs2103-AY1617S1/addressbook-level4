@@ -19,7 +19,7 @@ public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + "Edit a field of a event/task in the task manager.\n"
-            + "Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] or TASK_NAME [d/DEADLINE] [r/RECURRING_EVENT] \n"
+            + "Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL] or TASK_NAME [d/DEADLINE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]\n"
             + "Examples: " + COMMAND_WORD
             + " CS3230 Lecture s/14.10.2016-10 \n"
             + COMMAND_WORD
@@ -30,7 +30,7 @@ public class EditCommand extends Command {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     public static final String MESSAGE_DELETE_SAME_NAME="Please select the Task identified "
-    		+ "by the index number.\n"+"Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [i/INDEX(must be a positive integer)]\n"
+    		+ "by the index number.\n"+"Parameters: EVENT_NAME [s/START_DATE] [e/END_DATE] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL] [i/INDEX(must be a positive integer)]\n"
     		+"Example: "+COMMAND_WORD+"CS3230 Lecture e/14.10.2016-12 i/1";
     public static final String MESSAGE_EVENT_SUCCESS = "This event has been edited: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "This task has been edited: %1$s";

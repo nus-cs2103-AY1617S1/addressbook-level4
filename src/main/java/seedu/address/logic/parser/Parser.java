@@ -34,7 +34,7 @@ public class Parser {
 
     //@@author A0138717X
     private static final Pattern EDIT_FORMAT = Pattern.compile("(?<name>[^/]+)"
-			+ "(?<edit>(?: [dsenr]/[^/]+)?)"
+			+ "(?<edit>(?: [dsenrp]/[^/]+)?)"
 			+ "((i/(?<index>([0-9])+)*)?)" );
 
     private static final String MESSAGE_INVALID_DATE = "Date format entered is invalid";
@@ -46,6 +46,7 @@ public class Parser {
     public static final Prefix namePrefix = new Prefix("n/");
     public static final Prefix recurringPrefix = new Prefix("r/");
   //@@author
+    public static final Prefix priorityPrefix = new Prefix("p/");
     public Parser() {
     }
 
@@ -153,41 +154,75 @@ public class Parser {
      */
     private Command prepareAdd(String args) {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
-                endDatePrefix, recurringPrefix);
+                endDatePrefix, recurringPrefix, priorityPrefix);
         argsTokenizer.tokenize(args);
+        System.out.println(args);
         try {
             if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
                 if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                         && !argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                    // non-recurring task
-                    return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
-                            toSet(argsTokenizer.getAllValues(tagPrefix)), "");
+                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
+                		// non-recurring task
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                            toSet(argsTokenizer.getAllValues(tagPrefix)), "", 0);
+                	else
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
+                                toSet(argsTokenizer.getAllValues(tagPrefix)), "", Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
                 }
                 // check if task is recurring floating task
                 if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)) {
-                    return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                             argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                            argsTokenizer.getValue(recurringPrefix).get());
+                            argsTokenizer.getValue(recurringPrefix).get(),0);
+                	else
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                                argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
+                                argsTokenizer.getValue(recurringPrefix).get(),Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
                     // non-recurring floating task
                 } else if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-                    return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                             argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
-                            "");
+                            "",0);
+                	else
+                		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                                argsTokenizer.getValue(deadlinePrefix).get(), toSet(argsTokenizer.getAllValues(tagPrefix)),
+                                "",Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
                 } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
                         && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
                     if (!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
-                        // non-recurring event
-                        return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    {
+                    	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
+                    		// non-recurring event
+                            return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                                 argsTokenizer.getValue(startDatePrefix).get(),
                                 argsTokenizer.getValue(endDatePrefix).get(),
-                                toSet(argsTokenizer.getAllValues(tagPrefix)), "");
+                                toSet(argsTokenizer.getAllValues(tagPrefix)), "",0);
+                    	else
+                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                                    argsTokenizer.getValue(startDatePrefix).get(),
+                                    argsTokenizer.getValue(endDatePrefix).get(),
+                                    toSet(argsTokenizer.getAllValues(tagPrefix)), "",
+                                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+                    }
                     else// recurring event
-                        return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                    {
+                    	if(!argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix))
+                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
                                 argsTokenizer.getValue(startDatePrefix).get(),
                                 argsTokenizer.getValue(endDatePrefix).get(),
                                 toSet(argsTokenizer.getAllValues(tagPrefix)),
-                                argsTokenizer.getValue(recurringPrefix).get());
+                                argsTokenizer.getValue(recurringPrefix).get(),0);
+                    	else
+                    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+                                    argsTokenizer.getValue(startDatePrefix).get(),
+                                    argsTokenizer.getValue(endDatePrefix).get(),
+                                    toSet(argsTokenizer.getAllValues(tagPrefix)),
+                                    argsTokenizer.getValue(recurringPrefix).get(),
+                                    Integer.parseInt(argsTokenizer.getValue(priorityPrefix).get()));
+                    }
                 }
             }
 
@@ -323,16 +358,17 @@ public class Parser {
      */
     private Command prepareFilter(String arguments) {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, startDatePrefix, endDatePrefix,
-                recurringPrefix, tagPrefix);
+                recurringPrefix, tagPrefix, priorityPrefix);
         argsTokenizer.tokenize(arguments);
         Optional<String> deadline = argsTokenizer.getValue(deadlinePrefix);
         Optional<String> startDate = argsTokenizer.getValue(startDatePrefix);
         Optional<String> endDate = argsTokenizer.getValue(endDatePrefix);
         Optional<String> recurring = argsTokenizer.getValue(recurringPrefix);
         Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        Optional<String> priority = argsTokenizer.getValue(priorityPrefix);
         if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent()
-                || recurring.isPresent() || tags.isPresent()) {
-           return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags));
+                || recurring.isPresent() || tags.isPresent() || priority.isPresent()) {
+           return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags), priority);
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
@@ -351,7 +387,7 @@ public class Parser {
     	        String detailsType = null;
     	        String details;
     	        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, namePrefix, tagPrefix, startDatePrefix,
-    	                endDatePrefix, recurringPrefix);
+    	                endDatePrefix, recurringPrefix, priorityPrefix);
     	        argsTokenizer.tokenize(type);
     	        if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
     	        	detailsType = "name";
@@ -372,6 +408,10 @@ public class Parser {
     	        else if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
     	        	detailsType = "deadline";
     	        	details = argsTokenizer.getValue(deadlinePrefix).get();
+    	        }
+    	        else if(argsTokenizer.getTokenizedArguments().containsKey(priorityPrefix)) {
+    	        	detailsType = "priority";
+    	        	details = argsTokenizer.getValue(priorityPrefix).get();
     	        }
     	        else
     	        {
