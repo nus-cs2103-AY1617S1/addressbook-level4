@@ -31,7 +31,7 @@ public class ListCommand extends Command {
 
 	public ListCommand() {
 		this.date = null;
-		this.mode = "all";
+		this.mode = "undone";
 	}
 
 	public ListCommand(String doneOrUndone) {
@@ -69,7 +69,7 @@ public class ListCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-		if (mode.equals("all")) {
+		if (mode.equals("undone")) {
 			model.updateFilteredTaskList(getAllUndone());
 			// model.updateFilteredListToShowAll();
 		} else if (mode.equals("done")) {
