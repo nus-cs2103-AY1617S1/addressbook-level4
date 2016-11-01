@@ -81,7 +81,7 @@ allprojects {
         archiveName = "tusk.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "w15c2.tusk.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
@@ -142,7 +142,7 @@ task guiTests(type: AddressBookTest) {
 
 
 task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+    include 'w15c2/tusk/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
