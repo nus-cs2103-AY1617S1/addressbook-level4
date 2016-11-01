@@ -17,7 +17,7 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import tars.ui.Formatter;
 
 /**
- * Adds a reserved task which has a list of reserved datetimes that can confirmed later on.
+ * Adds a reserved task which has a list of reserved date times that can confirmed later on.
  * 
  * @@author A0124333U
  */
@@ -32,12 +32,15 @@ public class RsvCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE_DEL = COMMAND_WORD_DEL
             + ": Deletes a reserved task in the last reserved task listing \n"
-            + "Parameters: INDEX (must be a positive integer)\n " + "Example: " + COMMAND_WORD_DEL + " 1\n" + "OR "
+            + "Parameters: INDEX (must be a positive integer)\n "
+            + "Example: " + COMMAND_WORD_DEL + " 1\n" + "OR "
             + COMMAND_WORD_DEL + " 1..3";
 
-    public static final String MESSAGE_DATETIME_NOTFOUND = "At least one DateTime is required!\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_DATETIME_NOT_FOUND =
+            "At least one DateTime is required!\n" + MESSAGE_USAGE;
 
-    public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX = "The Reserved Task Index is invalid!";
+    public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX =
+            "The Reserved Task Index is invalid!";
 
     public static final String MESSAGE_SUCCESS = "New task reserved: %1$s";
     public static final String MESSAGE_SUCCESS_DEL = "Deleted reserved tasks:\n%1$s";
@@ -128,7 +131,8 @@ public class RsvCommand extends UndoableCommand {
      * @param indexes
      * @throws InvalidTaskDisplayedException
      */
-    private ArrayList<RsvTask> getRsvTasksFromIndexes(String[] indexes) throws InvalidTaskDisplayedException {
+    private ArrayList<RsvTask> getRsvTasksFromIndexes(String[] indexes)
+            throws InvalidTaskDisplayedException {
         UnmodifiableObservableList<RsvTask> lastShownList = model.getFilteredRsvTaskList();
         ArrayList<RsvTask> rsvTasksList = new ArrayList<RsvTask>();
 
@@ -136,7 +140,8 @@ public class RsvCommand extends UndoableCommand {
             int targetIndex = Integer.parseInt(indexes[i]);
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
-                throw new InvalidTaskDisplayedException(Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
+                throw new InvalidTaskDisplayedException(
+                        Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
             }
             RsvTask rsvTask = lastShownList.get(targetIndex - 1);
             rsvTasksList.add(rsvTask);
@@ -161,26 +166,18 @@ public class RsvCommand extends UndoableCommand {
     public CommandResult undo() {
         if (toReserve != null) {
             try {
-                model.deleteRsvTask(toReserve);
-                return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
-                        String.format(MESSAGE_UNDO_DELETE, toReserve)));
+                return undoRsvAdd();
             } catch (RsvTaskNotFoundException e) {
                 return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
                         Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
             }
         } else {
-            for (RsvTask rsvTask : rsvTasksToDelete) {
-                try {
-                    model.addRsvTask(rsvTask);
-                } catch (DuplicateTaskException e) {
-                    return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
-                            Messages.MESSAGE_DUPLICATE_TASK));
-                }
+            try {
+                return undoRsvDelete();
+            } catch (DuplicateTaskException e) {
+                return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                        Messages.MESSAGE_DUPLICATE_TASK));
             }
-
-            String addedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
-            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
-                    String.format(MESSAGE_UNDO_ADD, addedRsvTasksList)));
         }
     }
 
@@ -189,24 +186,50 @@ public class RsvCommand extends UndoableCommand {
     public CommandResult redo() {
         if (toReserve != null) {
             try {
-                model.addRsvTask(toReserve);
+                return redoRsvAdd();
             } catch (DuplicateTaskException e) {
                 return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
                         Messages.MESSAGE_DUPLICATE_TASK));
             }
-            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO_ADD, toReserve)));
         } else {
-            for (RsvTask rsvTask : rsvTasksToDelete) {
-                try {
-                    model.deleteRsvTask(rsvTask);
-                } catch (RsvTaskNotFoundException e) {
-                    return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
-                            Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
-                }
+            try {
+                return redoRsvDelete();
+            } catch (RsvTaskNotFoundException e) {
+                return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS,
+                        Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND));
             }
-
-            String deletedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
-            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_REDO_DELETE, deletedRsvTasksList)));
         }
+    }
+
+    private CommandResult undoRsvAdd() throws RsvTaskNotFoundException {
+        model.deleteRsvTask(toReserve);
+        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                String.format(MESSAGE_UNDO_DELETE, toReserve)));
+    }
+    
+    private CommandResult undoRsvDelete() throws DuplicateTaskException {
+        for (RsvTask rsvTask : rsvTasksToDelete) {
+            model.addRsvTask(rsvTask);
+        }
+
+        String addedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
+        return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                String.format(MESSAGE_UNDO_ADD, addedRsvTasksList)));
+    }
+    
+    private CommandResult redoRsvAdd() throws DuplicateTaskException {
+        model.addRsvTask(toReserve);
+        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                String.format(MESSAGE_REDO_ADD, toReserve)));
+    }
+    
+    private CommandResult redoRsvDelete() throws RsvTaskNotFoundException {
+        for (RsvTask rsvTask : rsvTasksToDelete) {
+            model.deleteRsvTask(rsvTask);
+        }
+
+        String deletedRsvTasksList = new Formatter().formatRsvTaskList(rsvTasksToDelete);
+        return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                String.format(MESSAGE_REDO_DELETE, deletedRsvTasksList)));
     }
 }
