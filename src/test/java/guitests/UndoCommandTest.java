@@ -40,7 +40,7 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("delete 1");
         commandBox.runCommand("undo");
         assertUndoSuccess(reverseList);
-}
+    }
     
     
     /**

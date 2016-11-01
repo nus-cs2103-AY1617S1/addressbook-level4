@@ -13,7 +13,6 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -220,17 +219,5 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-/*
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }*/
-
-    public void releaseResources() {
-        // TODO Auto-generated method stub
-        
-    }
 }

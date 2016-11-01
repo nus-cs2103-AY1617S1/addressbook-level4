@@ -12,7 +12,6 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;

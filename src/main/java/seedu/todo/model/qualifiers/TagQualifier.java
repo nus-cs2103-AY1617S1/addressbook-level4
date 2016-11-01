@@ -1,6 +1,5 @@
 package seedu.todo.model.qualifiers;
 
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 
@@ -8,7 +7,8 @@ import seedu.todo.model.task.ReadOnlyTask;
  * A qualifier that filter tasks based on the tags
  * that the tasks have
  */
-public class TagQualifier implements Qualifier{
+public class TagQualifier implements Qualifier {
+    
     private String tagName;
     private SearchCompletedOption option;
     

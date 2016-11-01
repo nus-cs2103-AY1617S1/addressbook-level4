@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public String getTag() {
-    	return getTextFromLabel(TAG_FIELD_ID);
+        return getTextFromLabel(TAG_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){

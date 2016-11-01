@@ -1,4 +1,4 @@
-//@@author A0093896H-reused
+//@@author A0093896H
 package seedu.todo.storage;
 
 import javax.xml.bind.annotation.XmlElement;

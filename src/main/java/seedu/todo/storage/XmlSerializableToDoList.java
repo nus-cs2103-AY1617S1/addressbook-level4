@@ -11,7 +11,6 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +34,8 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
      * Empty constructor required for marshalling
      */
     public XmlSerializableToDoList() {}
-
+    
+    //@@author A0093896H
     /**
      * Conversion
      */
@@ -43,11 +43,12 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
+    //@@author
 
     @Override
     public UniqueTagList getUniqueTagList() {
         UniqueTagList list = new UniqueTagList();
-        for(XmlAdaptedTag t : tags) {
+        for (XmlAdaptedTag t : tags) {
             try {
                 list.add(t.toModelType());
             } catch (IllegalValueException e) {
@@ -83,7 +84,8 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
+    
+    //@@author A0093896H
     @Override
     public List<Tag> getTagList() {
         return tags.stream().map(t -> {

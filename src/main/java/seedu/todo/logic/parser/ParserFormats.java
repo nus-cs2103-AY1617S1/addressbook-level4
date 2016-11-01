@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
  */
 public class ParserFormats {
     
-    public static final String priorityFormat = " priority (?<priority>[^;]+)";
+    public static final int FIRST_INDEX = 0;
+    public static final String PRIORITY_FORMAT = " priority (?<priority>[^;]+)";
     public static final String ON_DATE_FORMAT = " (on|from) (?<onDateTime>[^;]+)";
     public static final String BY_DATE_FORMAT = " (by|to) (?<byDateTime>[^;]+)";
     public static final String DETAIL_FORMAT = "(?: ?; ?(?<detail>.+))?";
@@ -57,18 +58,18 @@ public class ParserFormats {
     //@@author A0121643R
     public static final Pattern ADD_PRIORITY_FT = Pattern
             .compile(NAME_FORMAT + ON_DATE_FORMAT + BY_DATE_FORMAT 
-                    + priorityFormat + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
+                    + PRIORITY_FORMAT + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_PRIORITY_ON = Pattern
-            .compile(NAME_FORMAT + ON_DATE_FORMAT + priorityFormat 
+            .compile(NAME_FORMAT + ON_DATE_FORMAT + PRIORITY_FORMAT 
                     + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_PRIORITY_BY = Pattern
-            .compile(NAME_FORMAT + BY_DATE_FORMAT + priorityFormat 
+            .compile(NAME_FORMAT + BY_DATE_FORMAT + PRIORITY_FORMAT 
                     + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
     
     public static final Pattern ADD_PRIORITY_FL = Pattern
-            .compile("(?<name>[a-zA-Z_0-9 ]+)" + priorityFormat 
+            .compile("(?<name>[a-zA-Z_0-9 ]+)" + PRIORITY_FORMAT 
                     + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
     
     //@@author A0093896H 
@@ -82,17 +83,20 @@ public class ParserFormats {
             .compile("after (?<afterDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
-            .compile("from (?<fromDateTime>.+?) to (?<tillDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("from (?<fromDateTime>.+?) to (?<tillDateTime>.+?)(?<comOpt> done|all|undone)?", 
+                    Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_TAG = Pattern
             .compile("tag (?<tags>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
-    public static final Pattern SEARCH_KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>.+?)(?<comOpt> done|all|undone)?"); 
+    public static final Pattern SEARCH_KEYWORDS_ARGS_FORMAT = Pattern
+            .compile("(?<keywords>.+?)(?<comOpt> done|all|undone)?"); 
     
     //@@author A0121643R   
     public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
+  //@@author A0093896H 
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? "
                       + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"

@@ -236,7 +236,6 @@ public class DoDoBird implements ReadOnlyToDoList {
      * TODO : Does not handle tags as of yet
      */
     public boolean undo() {
-        System.out.println(this.tasksHistory.size() + " " + this.tagsHistory.size());
         if (this.tasksHistory.size() > 1 && this.tagsHistory.size() > 1) {
             UniqueTaskList topTaskList = this.tasksHistory.pop();
             UniqueTaskList oldTaskList = this.tasksHistory.pop();
@@ -341,7 +340,7 @@ public class DoDoBird implements ReadOnlyToDoList {
     private UniqueTaskList copyTaskList(List<Task> old) {
         UniqueTaskList newList = new UniqueTaskList();
                 
-        for (int i = old.size() - 1; i >= 0 ; i--) {
+        for (int i = old.size() - 1; i >= 0; i--) {
             try {
                 newList.add(new Task(old.get(i)));
             } catch (UniqueTaskList.DuplicateTaskException e) {}

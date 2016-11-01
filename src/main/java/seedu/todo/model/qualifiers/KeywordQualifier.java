@@ -10,7 +10,7 @@ import seedu.todo.model.task.ReadOnlyTask;
  * A qualifier that filter tasks based on whether their names
  * matches the keywords
  */
-public class KeywordQualifier implements Qualifier{
+public class KeywordQualifier implements Qualifier {
     private Set<String> nameKeyWords;
     private SearchCompletedOption option;
     

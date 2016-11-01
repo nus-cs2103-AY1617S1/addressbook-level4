@@ -8,13 +8,13 @@ import java.time.LocalTime;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.TaskDate;
 
 /**
  * A qualifier that filter tasks depending on the tasks starting 
  * and ending date.
  */
 public class FromTillDateQualifier implements Qualifier{
+  
     private LocalDateTime fromDateTime;
     private LocalDateTime tillDateTime;
     private SearchCompletedOption option;

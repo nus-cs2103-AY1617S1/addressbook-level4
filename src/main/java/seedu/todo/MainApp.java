@@ -20,7 +20,6 @@ import seedu.todo.storage.StorageManager;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;

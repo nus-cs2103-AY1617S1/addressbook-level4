@@ -10,7 +10,6 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;

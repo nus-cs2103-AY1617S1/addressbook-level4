@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the to do list. "
-            + "Parameters: TASKNAME on STARTDATE by ENDDATE ; DETAILS...\n"
+            + "Parameters: TASKNAME on STARTDATE by ENDDATE priority PRIORITY every RECURRENCE; DETAILS...\n"
             + "Example: " + COMMAND_WORD
             + " get groceries on 10/10/2016 by 11/10/2016 ; bread, fruits, cinnamon powder, red pepper";
 

@@ -1,3 +1,4 @@
+//@@author A0093896H
 package guitests;
 
 import org.junit.Test;
@@ -16,7 +17,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 
-//@@author A0093896H
 public class UpdateCommandTest extends ToDoListGuiTest {
     
     @Rule
@@ -55,9 +55,12 @@ public class UpdateCommandTest extends ToDoListGuiTest {
         reverseList[1].setByDate(new TaskDate("2 days later", TaskDate.TASK_DATE_BY));
         reverseList[1].setPriority(new Priority("mid"));
         reverseList[1].setRecurrence(new Recurrence(Frequency.WEEK));
-        commandBox.runCommand("update 2 this is full update on tomorrow by 2 days later priority mid every week ; haha");
+        
+        commandBox.runCommand("update 2 this is full update "
+                + "on tomorrow by 2 days later priority mid every week ; haha");
+        
         assertUpdateSuccess(reverseList);
-}
+    }
     
     
     /**

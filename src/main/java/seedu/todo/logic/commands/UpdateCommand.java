@@ -18,7 +18,7 @@ import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Updates a task identified using it's last displayed index from the to do list.
  */
-public class UpdateCommand extends Command{
+public class UpdateCommand extends Command {
 
     public static final String COMMAND_WORD = "update";
 
@@ -163,6 +163,21 @@ public class UpdateCommand extends Command{
         return newOnDate;
     }
     
+    /**
+     * Construct a new Recurrence based on user input
+     */
+    private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        Recurrence newRecurrence;
+        if (this.recurrence == null) {
+            newRecurrence = taskToUpdate.getRecurrence();
+        } else {
+            newRecurrence = this.recurrence.trim().equals("-") 
+                    ?  new Recurrence(Frequency.NONE) 
+                    : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
+        }
+        return newRecurrence;
+    } 
+    
     //@@author A0121643R   
     private Priority makeNewPriority(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Priority newPriority;
@@ -177,19 +192,5 @@ public class UpdateCommand extends Command{
     }    
     //@@author
     
-    /**
-     * Construct a new Recurrence based on user input
-     */
-    private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
-        Recurrence newRecurrence;
-        if (this.recurrence == null) {
-            newRecurrence = taskToUpdate.getRecurrence();
-        } else {
-            newRecurrence = this.recurrence.trim().equals("-") 
-                    ?  new Recurrence(Frequency.NONE) 
-                    : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
-        }
-        return newRecurrence;
-    }
     
 }
