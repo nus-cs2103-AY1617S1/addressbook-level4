@@ -22,9 +22,6 @@ public class ActionHistoryEntry extends UiPart{
     @FXML
     private Label date;
     
-    @FXML
-    private Label description;
-    
     public void setTitle(String title){
         this.title.setText(title);
     }
@@ -32,11 +29,7 @@ public class ActionHistoryEntry extends UiPart{
     public void setDate(String date){
         this.date.setText(date);
     }
-    
-    public void setDescription(String description){
-        this.description.setText(description);
-    }
-    
+
     public Node getNode(){
         return actionHistoryItem;
     }

@@ -55,6 +55,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -217,6 +218,9 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsArchive;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurArchive;
+    
+    @FXML
+    private TitledPane actionHistoryMini;
 
     @FXML
     private ListView<ActionHistory> actionHistory;
@@ -436,7 +440,6 @@ public class MainWindow extends UiPart {
                         ActionHistoryEntry actionHistoryEntry = UiPartLoader.loadUiPart(new ActionHistoryEntry());
 
                         actionHistoryEntry.setTitle(item.getTitle().toUpperCase());
-                        actionHistoryEntry.setDescription(item.getDescription());
                         actionHistoryEntry.setDate(item.getDateActioned().toString().toUpperCase());
 
                         if (item.getTitle().toUpperCase().equals("INVALID COMMAND")) {
@@ -745,6 +748,7 @@ public class MainWindow extends UiPart {
          */
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
+        actionHistoryMini.setText(mostRecentResult.feedbackToUser);
 
         this.pushToActionHistory(mostRecentResult.title, mostRecentResult.feedbackToUser);
 
