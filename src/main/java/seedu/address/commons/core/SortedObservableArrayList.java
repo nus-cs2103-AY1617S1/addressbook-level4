@@ -111,8 +111,7 @@ public class SortedObservableArrayList<E extends Comparable<? super E>> implemen
 
     @Override
     public E set(int index, E element){
-        remove(index);
-        add(element);
+        backingList.set(index, element);
         return get(indexOf(element));
     }
 

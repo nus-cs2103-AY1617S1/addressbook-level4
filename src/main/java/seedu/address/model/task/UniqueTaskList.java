@@ -98,7 +98,6 @@ public class UniqueTaskList implements Iterable<Task> {
             return edited;
         }
     }
-    //@@author
 
     /**
      * Marks the equivalent task from the list.
@@ -109,18 +108,11 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toMark != null;
 
         int idToMark = internalList.indexOf(toMark);
-        // TODO: remove between the two todos when feedback has arrived.
         Task insertMark = internalList.get(idToMark);
         insertMark.toggleTaskStatus();
-        remove(toMark);
-        internalList.add(insertMark);
-        // TODO: remove after getting feedback
-        if (idToMark == -1)
-            throw new TaskNotFoundException();
-        // TODO FIX: this does not get updated internalList.get(idToMark).toggleTaskStatus();
-
+        internalList.set(idToMark, insertMark);
     }
-
+    //@@author
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
