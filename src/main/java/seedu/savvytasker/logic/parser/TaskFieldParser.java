@@ -7,6 +7,8 @@ import seedu.savvytasker.model.task.RecurrenceType;
 
 /**
  * This class contains common parsing methods for parsing Task fields.
+ * Each of the parse method takes in a string which can be null, and return
+ * the respective parsed object. 
  */
 public class TaskFieldParser {
     protected final DateParser dateParser;

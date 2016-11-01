@@ -16,7 +16,7 @@ import seedu.savvytasker.model.alias.AliasSymbol;
 
 public class MasterParser {
     private static final Pattern KEYWORD_PATTERN = 
-            Pattern.compile("(\\S+)(\\s+|$)");
+            Pattern.compile("([^\\s/]+)([\\s/]+|$)");
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
     private final Map<String, AliasSymbol> aliasingSymbols;
@@ -26,6 +26,16 @@ public class MasterParser {
         this.aliasingSymbols = new HashMap<String, AliasSymbol>();
     }
 
+    /**
+     * Parses the input text, selecting an appropriate registered parser to parse it.
+     * The parser selected is based on the first header word of the input text. The text
+     * is preprocessed, replacing any of its tokens that are keywords to an alias, before
+     * being passed to the parser. 
+     * 
+     * @param userInput the text to be parse
+     * @return the command that was parsed if successful, or IncorrectCommand if there is no
+     * parser that can parse the text or if there is a format error with the text.
+     */
     public Command parse(String userInput) {
         String[] pieces = preprocessInitial(userInput.trim());
         if (pieces == null) 
