@@ -19,7 +19,7 @@ import seedu.todo.model.task.TaskDate;
  */
 public class DateTimeUtil {
 
-    public static boolean isEmptyDateTimeString(String dateTimeString) {
+	public static boolean isEmptyDateTimeString(String dateTimeString) {
         return (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" "));
     }
 
@@ -117,6 +117,8 @@ public class DateTimeUtil {
     public static boolean beforeOther(TaskDate onDate, TaskDate byDate) {
         if (onDate.getDate() == null || byDate.getDate() == null) {
             return true;
+        } else if (onDate.getDate().equals(byDate.getDate())) {
+        	return onDate.getTime().isBefore(byDate.getTime());
         } else {
             return onDate.getDate().isBefore(byDate.getDate());
         }
