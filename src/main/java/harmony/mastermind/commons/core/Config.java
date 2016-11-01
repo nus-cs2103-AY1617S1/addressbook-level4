@@ -25,10 +25,13 @@ public class Config {
         return appTitle;
     }
 
+    //@@author A0139194X
     public void setAppTitle(String appTitle) {
+        assert appTitle != null;
         this.appTitle = appTitle;
     }
 
+    //@@author
     public Level getLogLevel() {
         return logLevel;
     }

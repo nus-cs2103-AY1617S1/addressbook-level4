@@ -8,9 +8,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
+
 public class ConfigTest {
+    
+    //@@author A0139194X
+    private Config config;
+    
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+    
+    //@@author A0139194X
+    @Before
+    public void setup() {
+        config = new Config();
+    }
 
     @Test
     public void toString_defaultObject_stringReturned() {
@@ -30,5 +42,23 @@ public class ConfigTest {
         assertTrue(defaultConfig.equals(defaultConfig));
     }
 
-
+    //@@author A0139194X
+    @Test
+    public void getAppTitle_success() {
+        assertEquals("Mastermind", config.getAppTitle());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setAppTitle_success() {
+        config.setAppTitle("Test");
+        assertEquals("Test", config.getAppTitle());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setAppTitle_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        config.setAppTitle(null);
+    }
 }

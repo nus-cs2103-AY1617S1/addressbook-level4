@@ -133,6 +133,20 @@ public class StorageManagerTest {
         storageManager.handleRelocateEvent(event);
         assertEquals(filePath, storageManager.getTaskManagerFilePath() + "/mastermind.xml");
     }
+    
+    //@@author A0139194X
+    @Test
+    public void updateConfig_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        storageManager.updateConfig(null);
+    }
+    
+//    //@@author A0139194X
+//    @Test
+//    public void updateConfig_nullInput_assertionFailure() {
+//        thrown.expect(AssertionError.class);
+//        storageManager.updateConfig(null);
+//    }
 
     /**
      * A Stub class to throw an exception when the save method is called
