@@ -155,8 +155,8 @@ public class TagCommand extends BaseCommand {
                 performAddTagToTaskWhenApplicable(),
                 performDeleteTagsFromTaskWhenApplicable(),
                 performDeleteTagsGloballyWhenApplicable(),
-                performRenameTagWhenApplicable()
-        );
+                performRenameTagWhenApplicable());
+
         guaranteeCommandResultExists(result); //Just a sanity check.
 
         highlightTaskWhenComplete();
@@ -319,6 +319,16 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
+     * Check if the command parameters contain exactly 2 items
+     */
+    private void checkForTwoParams(String argumentName, String paramString) {
+        String[] params = StringUtil.splitString(paramString);
+        if (params != null && params.length != 2) {
+            errors.put(argumentName, ERROR_TWO_PARAMS);
+        }
+    }
+
+    /**
      * Sets error messages for insufficient input parameters, dependent on input parameters supplied.
      */
     private void handleUnavailableInputParameters() {
@@ -327,38 +337,61 @@ public class TagCommand extends BaseCommand {
         boolean hasDelete = deleteTags.hasBoundValue();
         boolean hasRename = renameTag.hasBoundValue();
 
-        if (getNumberOfTruth(hasAdd, hasDelete, hasRename) > 1) {
-            //Only one set of tags can be available.
-            errors.put(ERROR_TOO_MANY_PARAMETERS);
+        Boolean errorPlaced = chooseFirstTrue(
+                handleTooManyParameters(hasAdd, hasDelete, hasRename),
+                handleMissingIndex(hasIndex, hasAdd, hasRename),
+                handleMissingTagParams(hasIndex, hasAdd, hasDelete, hasRename));
 
-        } else if (hasAdd && !hasIndex) {
-            //Add requires an index
-            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+        handleGenericIncompleteParams(errorPlaced);
+    }
 
-        } else if (hasRename && !hasIndex) {
-            //Rename requires an index
-            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
-
-        } else if (hasIndex && !hasAdd && !hasDelete && !hasRename) {
-            //Has an index and nothing else
-            errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
-            errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
-            errors.put(renameTag.getName(), ERROR_INPUT_RENAME_TAGS_REQUIRED);
-
-        } else {
-            //Falls into none of the cases above. Throw a generic error.
+    /**
+     * Sets a generic error for the error bag for {@link #handleUnavailableInputParameters()} if specific
+     * error checks did not spot any param errors.
+     * @param errorPlaced a boolean value indicated whether an error has been placed already.
+     */
+    private void handleGenericIncompleteParams(Boolean errorPlaced) {
+        if (errorPlaced != null && !errorPlaced) {
             errors.put(ERROR_INCOMPLETE_PARAMETERS);
         }
     }
 
     /**
-     * Check if the command parameters contain exactly 2 items
+     * Sets the error bag {@link #errors} if the parameters expects tags names as parameters but is missing.
+     * @return True when error is set.
      */
-    private void checkForTwoParams(String argumentName, String paramString) {
-        String[] params = StringUtil.splitString(paramString);
-        if (params != null && params.length != 2) {
-            errors.put(argumentName, ERROR_TWO_PARAMS);
+    private boolean handleMissingTagParams(boolean hasIndex, boolean hasAdd, boolean hasDelete, boolean hasRename) {
+        if (hasIndex && !hasAdd && !hasDelete && !hasRename) {
+            errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
+            errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
+            errors.put(renameTag.getName(), ERROR_INPUT_RENAME_TAGS_REQUIRED);
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * Sets the error bag {@link #errors} if the parameters expects an index but is missing.
+     * @return True when error is set.
+     */
+    private boolean handleMissingIndex(boolean hasIndex, boolean hasAdd, boolean hasRename) {
+        if ((hasAdd && !hasIndex) || (hasRename && !hasIndex)) {
+            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Sets the error bag {@link #errors} if the parameters have too many errors.
+     * @return True when error is set.
+     */
+    private boolean handleTooManyParameters(boolean hasAdd, boolean hasDelete, boolean hasRename) {
+        if (getNumberOfTruth(hasAdd, hasDelete, hasRename) > 1) {
+            errors.put(ERROR_TOO_MANY_PARAMETERS);
+            return true;
+        }
+        return false;
     }
 
     /* Helper Methods */
@@ -376,10 +409,24 @@ public class TagCommand extends BaseCommand {
     }
 
     /**
-     * Returns {@code object1} if {@code object1} is available. Otherwise, return {@code object2}.
+     * Returns the first object that cause the {@code predicate} to be true. Otherwise, return null.
+     */
+    private static <T> T chooseFirst(Predicate<T> predicate, T... objects) {
+        Optional<T> optionalObject = Arrays.stream(objects).filter(predicate).findFirst();
+        return (optionalObject.isPresent()) ? optionalObject.get() : null;
+    }
+
+    /**
+     * Returns the first object that is available. Otherwise, return null.
      */
     private static <T> T chooseFirstAvailable(T... objects) {
-        Optional<T> optionalObject = Arrays.stream(objects).filter(t -> t != null).findFirst();
-        return (optionalObject.isPresent()) ? optionalObject.get() : null;
+        return chooseFirst(t -> t != null, objects);
+    }
+
+    /**
+     * Returns the first object that is true. Otherwise, return null.
+     */
+    private static Boolean chooseFirstTrue(Boolean ... objects) {
+        return chooseFirst(aBoolean -> aBoolean != null && aBoolean, objects);
     }
 }
