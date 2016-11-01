@@ -300,7 +300,7 @@
 
 #cardPane {
     -fx-border-color: #202020;
-    -fx-border-width: 0 0 1 2;
+    -fx-border-width: 2 2 2 2;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
     -fx-background-color: #202020;
