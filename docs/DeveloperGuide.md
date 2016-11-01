@@ -319,6 +319,12 @@ Use case ends
 
 **Extensions**
 
+1a. User enters an input that needs to be escaped as it contains values that CommandParser is not able to parse properly. 
+
+> 1a1. TaskManager's instant parsing feature will reflect to the user that his / her input is being placed in the wrong field. 
+> 1a2. User uses the escape feature to explicitly denote the task name. <br>
+Use case ends.
+
 2a. User enters an input that does not follow the `add` command format
 
 > 2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `add` command and an example `add` command <br>
