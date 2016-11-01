@@ -141,6 +141,9 @@ public class Parser {
             return prepareSave(arguments);
         case LoadCommand.COMMAND_WORD:
             return prepareLoad(arguments);
+            
+        case MinimizeCommand.COMMAND_WORD:
+            return new MinimizeCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

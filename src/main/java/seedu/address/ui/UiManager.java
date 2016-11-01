@@ -11,12 +11,17 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskAddedEvent;
+import seedu.address.commons.events.model.TaskEditedEvent;
+import seedu.address.commons.events.model.ToDoChangedEvent;
+import seedu.address.commons.events.model.ViewCategoryChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.commons.events.ui.LocateItemRequestEvent;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -148,9 +153,40 @@ public class UiManager extends ComponentManager implements Ui {
     
     //@@author A0135812L
     @Subscribe
-    private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event){
+    private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.markTaskCard(event.getDisplayedIndex());
     }
-
+    
+    @Subscribe
+    private void handleTaskAddedEvent(TaskAddedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskListPanel().scrollTo(event.getIndex());
+        taskWindow.loadTaskPage(event.getAddedTask());
+        taskWindow.show();  
+    }
+    
+    @Subscribe
+    private void handleTaskEditedEvent(TaskEditedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskListPanel().scrollTo(event.getIndex());
+        taskWindow.loadTaskPage(event.getAddedTask());
+        taskWindow.show(); 
+    }
+    
+    @Subscribe
+    private void handleMinimizeRequestEvent(MinimizeRequestEvent event) {
+    	mainWindow.getTaskListPanel().deselectAll();
+        taskWindow.hide();
+    }
+    
+    //@@author
+    
+    //@@author A0135767U
+    @Subscribe
+    private void handleViewCategoryChangedEvent(ViewCategoryChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.updateViewStatus(event.getView());
+    }
+    
 }

@@ -17,7 +17,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0135767U
 /**
@@ -114,7 +113,7 @@ public class MainWindow extends UiPart {
     }
 
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl+F1"));
         listAllItem.setAccelerator(KeyCombination.valueOf("Ctrl+1"));
         listOverdueItem.setAccelerator(KeyCombination.valueOf("Ctrl+2"));
         listUpcomingItem.setAccelerator(KeyCombination.valueOf("Ctrl+3"));
@@ -195,27 +194,27 @@ public class MainWindow extends UiPart {
     
     @FXML
     private void handleListAll() {
-        logic.execute("list all");
+        logic.execute("view all");
     }
     
     @FXML
     private void handleListOverdue() {
-        logic.execute("list overdue");
+        logic.execute("view overdue");
     } 
     
     @FXML
     private void handleListUpcoming() {
-        logic.execute("list upcoming");
+        logic.execute("view upcoming");
     } 
     
     @FXML
     private void handleListCompleted() {
-        logic.execute("list completed");
+        logic.execute("view completed");
     } 
     
     @FXML
     private void handleListIncomplete() {
-        logic.execute("list incomplete");
+        logic.execute("view incomplete");
     } 
 
     /**
@@ -232,6 +231,10 @@ public class MainWindow extends UiPart {
 
     public void releaseResources() {
     	
+    }
+    
+    public void updateViewStatus(String status) {
+    	statusBarFooter.setViewStatus("Viewing " + status + "items");
     }
 
 	//@@author A0135812L

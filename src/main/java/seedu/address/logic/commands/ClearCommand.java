@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.model.ToDo;
 
 /**
@@ -18,6 +20,7 @@ public class ClearCommand extends Command implements RequiresConfirm{
         assert model != null;
         model.resetData(ToDo.getEmptyAddressBook());
         undoRedoManager.resetData();
+        EventsCenter.getInstance().post(new MinimizeRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

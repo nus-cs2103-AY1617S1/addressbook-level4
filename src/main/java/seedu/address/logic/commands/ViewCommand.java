@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.model.ViewCategoryChangedEvent;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 
 //@@author A0135767U
 /**
@@ -53,7 +56,9 @@ public class ViewCommand extends Command {
         	indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ARGUMENT);
     	}
-
+    	
+    	EventsCenter.getInstance().post(new MinimizeRequestEvent());
+    	EventsCenter.getInstance().post(new ViewCategoryChangedEvent(keyword));
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 }

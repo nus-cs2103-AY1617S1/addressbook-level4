@@ -84,14 +84,14 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     default String getAsHTML() {
         final StringBuilder builder = new StringBuilder();
         builder.append("<html>")
-                .append("<body>")
-                .append("<h1>" + getName() + "</h1>")
-                .append("<h3> Date: ");
+                .append("<body bgcolor=\"#ffffff\">")
+                .append("<h2><font face=\"cambria\"><b>" + getName() + "</b></font></h2>")
+                .append("<p><font face=\"segoe ui semibold\">Date:</font> <font face=\"segoe ui light\">");
         if(getTime().isPresent()){
         builder.append(getTime().get().getStartDate().toLocalDate().format(DateTimeFormatter.ofPattern("d MMM uuuu")));
         }
-        builder.append("</h3>")
-                .append("<h3> Time: ");
+        builder.append("</font></p>")
+                .append("<p><font face=\"segoe ui semibold\">Time:</font> <font face=\"segoe ui light\">");
         if(getTaskType()==TaskType.DEADLINE){
             builder.append(getTime().get().getStartDate().toLocalTime());
         }else if(getTaskType()==TaskType.TIMERANGE){
@@ -99,14 +99,14 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                     .append(" ~ ")
                     .append(getTime().get().getEndDate().get().toLocalTime());
         }
-        builder.append("</h3>")
-                .append("<h3> Description: </h3>")
-                .append("<p>" + getDescription()+ "</p>")
-                .append("<h3> Location: </h3>")
-                .append("<p>" + getLocation()+ "</p>")
-                .append("<h3> Tags: ");
+        builder.append("</font></p>")
+                .append("<p><font face=\"segoe ui semibold\">Description: </font>")
+                .append("<font face=\"segoe ui light\">" + getDescription()+ "</font></p>")
+                .append("<p><font face=\"segoe ui semibold\">Location: </font>")
+                .append("<font face=\"segoe ui light\">" + getLocation()+ "</font></p>")
+                .append("<p><font face=\"segoe ui semibold\">Tags:</font> <font face=\"segoe ui light\"> ");
         getTags().forEach(builder::append);
-        builder.append("</h3>")
+        builder.append("</font></p>")
                 .append("</body> </html>");
         return builder.toString();
     }
