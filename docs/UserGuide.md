@@ -50,22 +50,18 @@ In this application, you can record down tasks that contains the following param
 
 General command format :
 
-**add**** DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]... ****  **
+**add DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]...   **
 
 - DESCRIPTION - can only contain alphanumeric characters
 
-- PRIORITY - can only be either high, low or normal
-
-**If you don&#39;t specify PRIORITY, by default it will be normal**
-
-**One task can only accept one PRIORITY value**
+- PRIORITY - can only be either high, low or normal (If you don&#39;t specify PRIORITY, by default it will be normal.One task can only accept one PRIORITY value.)
 
 - STARTTIME/ENDTIME
 
-- --Day can be in full or shorthand form (i.e. Wednesday, Wed or wed)
-- --Date in DD.MM.YYYY or D.M.YYYY format (i.e. 07.09.2016 or 7.9.2016)
-- --Time in 24 hr format HH:MM or H:MM (i.e. 08:00, 8:00)
-- --
+ --Day can be in full or shorthand form (i.e. Wednesday, Wed or wed)
+ --Date in DD.MM.YYYY or D.M.YYYY format (i.e. 07.09.2016 or 7.9.2016)
+ --Time in 24 hr format HH:MM or H:MM (i.e. 08:00, 8:00)
+ --
 
 - TAG – you can include any number of tags (including 0)
 
