@@ -20,13 +20,13 @@ public class AddParser {
 	private static final Pattern REGULAR_TASK_REGEX_WITHOUT_NOTES = Pattern
 			.compile("(.+)[\\ ]*?by[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
 	private static final Pattern EVENTS_FROM_TO_REGEX_WITH_NOTES = Pattern
-			.compile("(.+)[\\ ]*?from:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern EVENTS_FROM_TO_REGEX_WITHOUT_NOTES = Pattern
-			.compile("(.+)[\\ ]*?from:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
+			.compile("(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
 	private static final Pattern EVENTS_TO_FROM_REGEX_WITH_NOTES = Pattern
-			.compile("(.+)[\\ ]*?to:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
+			.compile("(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern EVENTS_TO_FROM_REGEX_WITHOUT_NOTES = Pattern
-			.compile("(.+)[\\ ]*?to:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
+			.compile("(.+)[\\ ]*?to[\\ ]*?:[\\ ]*?(.+)[\\ ]*?from[\\ ]*?:[\\ ]*?(.+)[\\ ]*?");
 	private static final Pattern FLOATING_TASK_REGEX_WITH_NOTES = Pattern
 			.compile("(.+)[\\ ]*?n[\\ ]*?:[\\ ]*?(.+)");
 	private static final Pattern FLOATING_TASK_REGEX_WITHOUT_NOTES = Pattern
