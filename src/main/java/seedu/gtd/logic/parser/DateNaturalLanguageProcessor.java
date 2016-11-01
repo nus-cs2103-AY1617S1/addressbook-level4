@@ -38,7 +38,7 @@ public class DateNaturalLanguageProcessor implements NaturalLanguageProcessor {
 		return groups.get(0).getDates().get(0); 
 	}
 	
-	private String formatDateToString(Date date)
+	private String formatDateToString(Date date) {
 		Format formatter = new SimpleDateFormat(DATE_FORMAT);
 		return formatter.format(date);
 	}
