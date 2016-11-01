@@ -45,6 +45,9 @@
                                        <padding>
                                           <Insets left="15.0" />
                                        </padding>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <AnchorPane>
                                        <children>
