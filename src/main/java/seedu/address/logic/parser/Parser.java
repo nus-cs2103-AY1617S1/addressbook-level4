@@ -485,6 +485,7 @@ public class Parser {
 		System.out.println("File Name: " + fileName);
 		
 		return new SetStorageCommand(folderFilePath, fileName);
+	}
 
 	//@@author A0139339W
 	/**
