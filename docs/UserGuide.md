@@ -141,7 +141,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |Calendar (Date and Month)|`12 December`|12 December, Current Year
 |Calendar (Month)| `may`, `May`<br> `dec`, `Dec`, `December`| 1 May, Current Year<br> 1 December, Current Year|
 |Day|`monday`, `Mon`|Nearest upcoming Monday|
-|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`<br> `next Tues`<br> `5 days later`|Today<br> Tomorrow<br> next Tuesday<br> 5 days later|
+|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`<br> `next Tues`<br> `5 days later`|Today<br> Tomorrow<br> Next Tuesday<br> 5 days later|
 <br>
 
 |Time| Format| Interpreted Time|
@@ -157,7 +157,7 @@ Examples:
 * `Buy coffee for boss by 7:00`
 * `finish CS2101 assignment by 13th Sep`
 
-Inputs with numbers from 1000 to 2359 may be wrongly interpreted as time. If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
+Inputs with numbers from 0000 to 2359 may be wrongly interpreted as time. If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
 
 Example:
 
@@ -318,7 +318,7 @@ Format: `list done`
 
 Example:
 * `list done`
-<br>
+<br/>
 
 ### Finding a task: `find`
 Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
