@@ -102,6 +102,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredTaskList(Set<String> keywordSet) {
+    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
+    }
 
     @Override
     public void updateFilteredTaskList(String keywords, Set<String> keywordSet){
@@ -109,13 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskList(Set<String> keywordSet) {
-    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
-    }
-    
-    @Override
     public void updateFilteredTaskList(String keywords, String cmd) {
-    	updateFilteredTaskList(new PredicateExpression(new otherFieldsNameQualifier(keywords, cmd)));
+    	updateFilteredTaskList(new PredicateExpression(new otherFieldsQualifier(keywords, cmd)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -174,15 +174,41 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    private class otherFieldsNameQualifier implements Qualifier {
+    private class otherFieldsQualifier implements Qualifier {
         protected String nameKeyWords;
+        protected String cmd;
 
-        otherFieldsNameQualifier(String keywords, String cmd) {
+        otherFieldsQualifier(String keywords, String cmd) {
             this.nameKeyWords = keywords;
+            this.cmd = cmd;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
+        	if (cmd == "address") {
+        		System.out.println("finding address..");
+        		String address = task.getAddress().toString().toLowerCase();
+        		boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        		return addressMatch;
+        	} else if (cmd == "priority") {
+        		System.out.println("finding priority..");
+        		String priority = task.getPriority().toString();
+        		boolean priorityMatch = priority.contains(nameKeyWords);
+        		return priorityMatch;
+        	} else if (cmd == "dueDate") {
+        		System.out.println("finding dueDate..");
+        		String dueDate = task.getDueDate().toString();
+        		boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        		return dueDateMatch;
+        	} else if (cmd == "tagArguments") {
+        		System.out.println("finding tags.. ");
+        		UniqueTagList tagsList = task.getTags();
+        		boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        		return tagsMatch;
+        	}
+        	
+        	// cmd == "nil"
+        	
         	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
         	String priority = task.getPriority().toString();
         	String address = task.getAddress().toString().toLowerCase();

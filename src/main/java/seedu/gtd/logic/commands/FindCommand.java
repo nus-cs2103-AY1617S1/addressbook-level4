@@ -17,11 +17,13 @@ public class FindCommand extends Command {
     
     //@@author A0146130W
     private final String keywords;
-    private final Set<String> keywordSet;
+    private Set<String> keywordSet;
+	private final String cmd;
 
-    public FindCommand(String keywords, Set<String> keywordSet) {
+    public FindCommand(String keywords, Set<String> keywordSet, String cmd) {
         this.keywords = keywords;
         this.keywordSet = keywordSet;
+        this.cmd = cmd;
     }
     
     private String getMessageForTaskListShownSummaryIfExactPhraseNotFound(int displaySize) {
@@ -33,14 +35,26 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords, keywordSet);
-        
-        if(model.getFilteredTaskList().isEmpty()) {
-        	model.updateFilteredTaskList(keywords, "cmd");
-        	if(!model.getFilteredTaskList().isEmpty()) {
-        		return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
-        	}
+    	System.out.println("command: " + cmd);
+    	
+    	// search by parameter if specified
+    	if (cmd != "nil") {
+    		model.updateFilteredTaskList(keywords, cmd);
+    	} else {
+    		// search by exact name
+    		model.updateFilteredTaskList(keywords, keywordSet);
+    	}
+    	if (!model.getFilteredTaskList().isEmpty()) {
+    		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	}
+    	
+    	// search by keywords
+        model.updateFilteredTaskList(keywords, "nil");
+    	
+    	if (!model.getFilteredTaskList().isEmpty()) {
+    		return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
         }
+    	
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }
