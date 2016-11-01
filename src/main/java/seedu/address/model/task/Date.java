@@ -40,17 +40,15 @@ public class Date implements Comparable<Date> {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         date = standardFormatDate(date);
-        if (isAfterCurrentDate(date) ==1) {
-        	beforeCurrentDate =1; //correct
-        }
-        else if (isAfterCurrentDate(date) ==2) {
-        	beforeCurrentDate =2; //on the day itself
-        }
-        else
-        	beforeCurrentDate =0; //past date
-      	this.value = date;
+        beforeCurrentDate = isAfterCurrentDate(date);
+        this.value = date;
     }
     //@@author A0138993L
+    /**
+     * checks if the current date have been past
+     * @param date
+     * @return int value of 1 if date have past 2 if current date 0 if date is in the future
+     */
 	public int isAfterCurrentDate(String date) {
     	if (date.contains("-")) {
 			String[] date_cat = date.split("-");
@@ -68,6 +66,11 @@ public class Date implements Comparable<Date> {
     		return 1;
 	}
 	//@@author A0138993L
+	/**
+	 * standardize the date format to DD-MM-YY
+	 * @param date
+	 * @return the date format of DD-MM-YY
+	 */
 	private String standardFormatDate(String date) {
     	if (date.equals("default"))
     		return local_date();
@@ -85,14 +88,10 @@ public class Date implements Comparable<Date> {
 	}
 	//@@author A0138993L
 	public String local_date(){
-    	/*LocalDate current_date = LocalDate.now();
-    	System.out.println(current_date);
-    	System.out.println(current_date.getDayOfMonth() + "/" + current_date.getMonthValue() + "/" + current_date.getYear());*/
     	LocalDate now = LocalDate.now();
     	String date = now.toString();
     	String[] date_cat = date.split("-");
     	String shortened_year = new String(date_cat[0].substring(2));
-    	//System.out.println(date_cat[2] + date_cat[1] + shortened_year);
     	return date_cat[2] + "-" + date_cat[1] + "-" + shortened_year;
     }
     /**
