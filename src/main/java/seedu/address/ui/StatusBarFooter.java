@@ -20,12 +20,8 @@ import java.util.logging.Logger;
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar viewStatus;
-    private StatusBar saveLocationStatus;
 
     private GridPane mainPane;
-
-    @FXML
-    private AnchorPane saveLocStatusBarPane;
 
     @FXML
     private AnchorPane viewStatusBarPane;
@@ -43,9 +39,7 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addViewStatus();
-        setViewStatus("Viewing all items");
-        addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setViewStatus("Loaded ./" + saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -54,15 +48,6 @@ public class StatusBarFooter extends UiPart {
         placeHolder.getChildren().add(mainPane);
     }
 
-    private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
-    }
-
-    private void addSaveLocation() {
-        this.saveLocationStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
-        saveLocStatusBarPane.getChildren().add(saveLocationStatus);
-    }
 
     public void setViewStatus(String status) {
         this.viewStatus.setText(status);
@@ -95,4 +80,5 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setViewStatus("Last Updated: " + lastUpdated);
     }
+    
 }
