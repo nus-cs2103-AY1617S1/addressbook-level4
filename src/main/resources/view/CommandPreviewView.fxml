@@ -7,8 +7,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<<<<<<< HEAD
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" 
 style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandPreviewView">
+=======
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity"
+      styleClass="spacing, grey" stylesheets="@../style/DefaultStyle.css"
+      xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.CommandPreviewView">
+>>>>>>> branch 'master' of https://github.com/CS2103AUG2016-W10-C4/main.git
   <GridPane fx:id="previewGrid" styleClass="gridPanel">
      <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
