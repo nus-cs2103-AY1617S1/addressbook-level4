@@ -10,12 +10,12 @@ import seedu.savvytasker.model.ListType;
 
 public class ListCommandParser implements CommandParser<ListCommand> {
     private static final String HEADER = "list";
-    private static final String READABLE_FORMAT = HEADER+" [t/LIST_TYPE]";
+    private static final String READABLE_FORMAT = HEADER+" [LIST_TYPE]";
     
     private static final String REGEX_REF_LIST_TYPE = "ListType";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
-            HEADER+"\\s*((?<=\\s)t/(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
+            HEADER+"\\s*((?<=\\s)(?<"+REGEX_REF_LIST_TYPE+">[^/]+))?",
             Pattern.CASE_INSENSITIVE);
     
     @Override
