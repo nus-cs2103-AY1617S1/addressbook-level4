@@ -44,15 +44,20 @@ public class Config {
         return userPrefsFilePath;
     }
 
+    //@@author A0139194X
     public void setUserPrefsFilePath(String userPrefsFilePath) {
+        assert userPrefsFilePath != null;
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    //@@author
     public String getTaskManagerFilePath() {
         return taskManagerFilePath;
     }
 
+    //@@author A0139194X
     public void setTaskManagerFilePath(String taskManagerFilePath) {
+        assert taskManagerFilePath != null;
         this.taskManagerFilePath = taskManagerFilePath;
     }
 

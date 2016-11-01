@@ -61,4 +61,44 @@ public class ConfigTest {
         thrown.expect(AssertionError.class);
         config.setAppTitle(null);
     }
+    
+    //@@author A0139194X
+    @Test
+    public void getUserPrefsFilePath_success() {
+        assertEquals("preferences.json", config.getUserPrefsFilePath());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setUserPrefsFilePath_success() {
+        config.setUserPrefsFilePath("TestTest");
+        assertEquals("TestTest", config.getUserPrefsFilePath());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setUserPrefsFilePath_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        config.setUserPrefsFilePath(null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void getTaskManagerFilePath_success() {
+        assertEquals("data/mastermind.xml", config.getTaskManagerFilePath());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerFilePath_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        config.setTaskManagerFilePath(null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerFilePath_success() {
+        config.setTaskManagerFilePath("TestTestTest");
+        assertEquals("TestTestTest", config.getTaskManagerFilePath());
+    }
 }
