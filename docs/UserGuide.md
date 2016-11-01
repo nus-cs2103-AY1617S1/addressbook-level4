@@ -50,7 +50,7 @@ In this application, you can record down tasks that contains the following param
 
 General command format :
 
-**add DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]...   **
+**add DESCRIPTION [pr/PRIORITY] [st/STARTTIME] [ed/ENDTIME] [t/TAG]...**   
 
 - DESCRIPTION - can only contain alphanumeric characters
 
@@ -307,26 +307,6 @@ Exits the program.
 Q. How do I save data?                                                                           A. Task manager data are saved in the hard disk automatically after any command     that changes the data.There is no need to save manually.
 
 Q. How do I transfer my data to another computer?                                                A. Install this app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Task Manager folder.
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
-
-##
 
 ##
 
