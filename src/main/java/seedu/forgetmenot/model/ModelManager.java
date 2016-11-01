@@ -9,9 +9,11 @@ import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.forgetmenot.commons.core.ComponentManager;
+import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.events.model.TaskManagerChangedEvent;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.commons.util.StringUtil;
 import seedu.forgetmenot.model.task.Done;
@@ -145,12 +147,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    //@@author A0147619W
+    //@@author A0139671X
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
 
     //@@author A0139671X
@@ -214,6 +217,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
     
     @Override
