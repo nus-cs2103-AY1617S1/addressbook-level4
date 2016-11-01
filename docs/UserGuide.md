@@ -141,7 +141,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |Calendar (Date and Month)|`12 December`|12 December, Current Year
 |Calendar (Month)| `may`, `May`<br> `dec`, `Dec`, `December`| 1 May, Current Year<br> 1 December, Current Year|
 |Day|`monday`, `Mon`|Nearest upcoming Monday|
-|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`|Today<br> Tomorrow|
+|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`<br> `next Tues`<br> `5 days later`|Today<br> Tomorrow<br> next Tuesday<br> 5 days later|
 <br>
 
 |Time| Format| Interpreted Time|
