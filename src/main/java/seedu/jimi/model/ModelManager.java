@@ -207,6 +207,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList() {
+        return this.filteredListManager.getSortedFilteredList(ListId.OVERDUE);
+    }
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList() {
         return this.filteredListManager.getSortedFilteredList(ListId.DAY_AHEAD_0);
     }

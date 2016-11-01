@@ -36,6 +36,8 @@ public interface Model{
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
     
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
+    
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList();
     
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDay2TaskList();
@@ -88,8 +90,4 @@ public interface Model{
     UserPrefs getUserPrefs();
     
     Model clone();
-
-
-
-
 }
