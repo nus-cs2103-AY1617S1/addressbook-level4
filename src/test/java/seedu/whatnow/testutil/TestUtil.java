@@ -43,13 +43,13 @@ public class TestUtil {
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
-        }
-        catch (Throwable actualException) {
+        } catch (Throwable actualException) {
             if (!actualException.getClass().isAssignableFrom(expected)) {
                 String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
                         actualException.getClass().getName());
                 throw new AssertionFailedError(message);
-            } else return;
+            } else
+                return;
         }
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
@@ -77,7 +77,7 @@ public class TestUtil {
             };
         } catch (IllegalValueException e) {
             assert false;
-            //not possible
+            // not possible
             return null;
         }
     }
@@ -86,14 +86,11 @@ public class TestUtil {
 
     private static Tag[] getSampleTagData() {
         try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
+            return new Tag[] { new Tag("relatives"), new Tag("friends") };
         } catch (IllegalValueException e) {
             assert false;
             return null;
-            //not possible
+            // not possible
         }
     }
 
@@ -102,8 +99,9 @@ public class TestUtil {
     }
 
     /**
-     * Appends the file name to the sandbox folder path.
-     * Creates the sandbox folder if it doesn't exist.
+     * Appends the file name to the sandbox folder path. Creates the sandbox
+     * folder if it doesn't exist.
+     * 
      * @param fileName
      * @return
      */
@@ -143,8 +141,8 @@ public class TestUtil {
     }
 
     /**
-     * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
+     * Tweaks the {@code keyCodeCombination} to resolve the
+     * {@code KeyCode.SHORTCUT} to their respective platform-specific keycodes
      */
     public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
         List<KeyCode> keys = new ArrayList<>();
@@ -161,7 +159,7 @@ public class TestUtil {
             keys.add(KeyCode.CONTROL);
         }
         keys.add(keyCodeCombination.getCode());
-        return keys.toArray(new KeyCode[]{});
+        return keys.toArray(new KeyCode[] {});
     }
 
     public static boolean isHeadlessEnvironment() {
@@ -180,17 +178,17 @@ public class TestUtil {
 
     public static String descOnFail(Object... comparedObjects) {
         return "Comparison failed \n"
-                + Arrays.asList(comparedObjects).stream()
-                .map(Object::toString)
-                .collect(Collectors.joining("\n"));
+                + Arrays.asList(comparedObjects).stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 
-    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException{
+    public static void setFinalStatic(Field field, Object newValue)
+            throws NoSuchFieldException, IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
-        // ~Modifier.FINAL is used to remove the final modifier from field so that its value is no longer
+        // ~Modifier.FINAL is used to remove the final modifier from field so
+        // that its value is no longer
         // final and can be changed
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, newValue);
@@ -206,10 +204,11 @@ public class TestUtil {
     }
 
     /**
-     * Gets private method of a class
-     * Invoke the method using method.invoke(objectInstance, params...)
+     * Gets private method of a class Invoke the method using
+     * method.invoke(objectInstance, params...)
      *
-     * Caveat: only find method declared in the current Class, not inherited from supertypes
+     * Caveat: only find method declared in the current Class, not inherited
+     * from supertypes
      */
     public static Method getPrivateMethod(Class objectClass, String methodName) throws NoSuchMethodException {
         Method method = objectClass.getDeclaredMethod(methodName);
@@ -227,28 +226,31 @@ public class TestUtil {
 
     /**
      * Gets mid point of a node relative to the screen.
+     * 
      * @param node
      * @return
      */
     public static Point2D getScreenMidPoint(Node node) {
         double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScreenPos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
      * Gets mid point of a node relative to its scene.
+     * 
      * @param node
      * @return
      */
     public static Point2D getSceneMidPoint(Node node) {
         double x = getScenePos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScenePos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
      * Gets the bound of the node relative to the parent scene.
+     * 
      * @param node
      * @return
      */
@@ -274,8 +276,11 @@ public class TestUtil {
 
     /**
      * Removes a subset from the list of tasks.
-     * @param tasks The list of tasks
-     * @param tasksToRemove The subset of tasks.
+     * 
+     * @param tasks
+     *            The list of tasks
+     * @param tasksToRemove
+     *            The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
@@ -284,21 +289,28 @@ public class TestUtil {
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
-
     /**
      * Returns a copy of the list with the task at specified index removed.
-     * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     * 
+     * @param list
+     *            original list to copy from
+     * @param targetIndexInOneIndexedFormat
+     *            e.g. if the first element to be removed, 1 should be given as
+     *            index.
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
      * Replaces tasks[i] with a task.
-     * @param tasks The array of tasks.
-     * @param task The replacement task
-     * @param index The index of the task to be replaced.
+     * 
+     * @param tasks
+     *            The array of tasks.
+     * @param task
+     *            The replacement task
+     * @param index
+     *            The index of the task to be replaced.
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
@@ -308,8 +320,11 @@ public class TestUtil {
 
     /**
      * Appends tasks to the array of tasks.
-     * @param tasks A array of tasks.
-     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * 
+     * @param tasks
+     *            A array of tasks.
+     * @param tasksToAdd
+     *            The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
@@ -320,7 +335,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
+        for (T obj : objs) {
             list.add(obj);
         }
         return list;
@@ -333,7 +348,7 @@ public class TestUtil {
     public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
-            return new Tag[]{};
+            return new Tag[] {};
         }
 
         final String[] split = tags.split(", ");
@@ -342,7 +357,7 @@ public class TestUtil {
             try {
                 return new Tag(e.replaceFirst("Tag: ", ""));
             } catch (IllegalValueException e1) {
-                //not possible
+                // not possible
                 assert false;
                 return null;
             }

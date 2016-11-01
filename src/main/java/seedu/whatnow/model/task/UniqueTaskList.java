@@ -9,7 +9,8 @@ import seedu.whatnow.commons.util.CollectionUtil;
 import java.util.*;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not
+ * allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -19,7 +20,8 @@ import java.util.*;
 public class UniqueTaskList implements Iterable<Task> {
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
@@ -28,29 +30,32 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Signals that an operation targeting a specified task in the list would fail because
-     * there is no such matching task in the list.
+     * Signals that an operation targeting a specified task in the list would
+     * fail because there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {
+    }
 
     public static class NoPrevCommandException extends Exception {
-    	public  NoPrevCommandException() {
-    		super("No previous Command was found");
-    	}
+        public NoPrevCommandException() {
+            super("No previous Command was found");
+        }
     }
-    
+
     private ObservableList<Task> internalList = FXCollections.observableArrayList();
-    
- //   private Stack<Task[]> reqStack = new Stack<>();
-    
-    //private Task[] array = new Task[];
+
+    // private Stack<Task[]> reqStack = new Stack<>();
+
+    // private Task[] array = new Task[];
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public UniqueTaskList() {
+    }
 
     /**
-     * Returns true if the list contains an equivalent task as the given argument.
+     * Returns true if the list contains an equivalent task as the given
+     * argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
@@ -60,29 +65,33 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        
+
         internalList.add(toAdd);
     }
-    
+
     public void addSpecific(Task toAddSpecific, int idx) throws DuplicateTaskException {
-    	assert toAddSpecific != null;
-    	if(contains(toAddSpecific)) {
-    		throw new DuplicateTaskException();
-    	}
-    	
-    	internalList.add(idx, toAddSpecific);
+        assert toAddSpecific != null;
+        if (contains(toAddSpecific)) {
+            throw new DuplicateTaskException();
+        }
+
+        internalList.add(idx, toAddSpecific);
     }
+
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException
+     *             if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
@@ -92,12 +101,13 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-    
-    //@@author A0126240W
+
+    // @@author A0126240W
     /**
      * Updates the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException
+     *             if no such task could be found in the list.
      */
     public boolean update(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         assert old != null;
@@ -111,13 +121,13 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(old), toUpdate);
         return taskFoundAndUpdated;
     }
-    
-    //@@author A0139772U
+
+    // @@author A0139772U
     /**
      * Mark the equivalent task from the list as completed.
      */
     public boolean mark(ReadOnlyTask target) throws TaskNotFoundException {
-        assert target!= null;
+        assert target != null;
         final boolean taskFoundAndMarked = internalList.contains(target);
         if (!taskFoundAndMarked) {
             throw new TaskNotFoundException();
@@ -126,22 +136,23 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
         return taskFoundAndMarked;
     }
-    
-    //@@author A0141021H
+
+    // @@author A0141021H
     /**
      * 
      * Mark the equivalent task from the list as uncompleted.
      */
     public boolean unmark(ReadOnlyTask target) throws TaskNotFoundException {
-    	assert target!=null;
-    	final boolean taskFoundAndMarked = internalList.contains(target);
-    	if(!taskFoundAndMarked) {
-    		throw new TaskNotFoundException();
-    	}
-    	internalList.get(internalList.indexOf(target)).setStatus("incomplete");
-    	internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
-    	return taskFoundAndMarked;
+        assert target != null;
+        final boolean taskFoundAndMarked = internalList.contains(target);
+        if (!taskFoundAndMarked) {
+            throw new TaskNotFoundException();
+        }
+        internalList.get(internalList.indexOf(target)).setStatus("incomplete");
+        internalList.set(internalList.indexOf(target), internalList.get(internalList.indexOf(target)));
+        return taskFoundAndMarked;
     }
+
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
@@ -153,11 +164,10 @@ public class UniqueTaskList implements Iterable<Task> {
 
     @Override
     public boolean equals(Object other) {
-        
+
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(((UniqueTaskList) other).internalList));
     }
 
     @Override

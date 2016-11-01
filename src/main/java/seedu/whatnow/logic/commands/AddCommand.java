@@ -10,14 +10,13 @@ import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to WhatNow.
  */
-public class AddCommand extends UndoAndRedo {
+public class AddCommand extends Command {
 
-	public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. \n"
 			+ "Parameters: \"TASK_NAME\" [t/TAG]...\n"
@@ -29,10 +28,10 @@ public class AddCommand extends UndoAndRedo {
 			+ COMMAND_WORD + " \"Lesson\" on 24/2/2017 from 8.30am to 4:30pm every week till 25/4/2017 t/lowPriority\n"
 			+ COMMAND_WORD + " \"Submit homework\" by tomorrow 12pm t/lowPriority\n";
 
-	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
-	private static final String STATUS_INCOMPLETE = "incomplete";
-
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
+    private static final String STATUS_INCOMPLETE = "incomplete";
+    
 	private Task toAdd;
 	
 	//@@author A0126240W
@@ -78,7 +77,7 @@ public class AddCommand extends UndoAndRedo {
 	    
 	    while (recurring.hasNextTask(currentDate)) {  	        
 	        model.addTask(nextToAdd);
-	        model.getUndoStack().push(this);
+	        model.getUndoStack().push(COMMAND_WORD);
 	        model.getDeletedStackOfTasksAdd().push(nextToAdd);
 	        
 	        nextToAdd = recurring.getNextTask(nextToAdd);
@@ -99,7 +98,7 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-			model.getUndoStack().push(this);
+			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
 			Recurrence recurring = new Recurrence(toAdd.getPeriod(), toAdd.getTaskDate(), toAdd.getStartDate(), toAdd.getEndDate(), toAdd.getEndPeriod());
 			if (recurring.hasRecurring()) {
@@ -109,36 +108,5 @@ public class AddCommand extends UndoAndRedo {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-	}
-	
-	@Override
-	public CommandResult undo() {
-		assert model != null;
-		if(model.getDeletedStackOfTasksAdd().isEmpty()) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		}
-		try {
-			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAdd().pop();
-			model.getDeletedStackOfTasksAddRedo().push(reqTask);
-			model.deleteTask(reqTask);
-		} catch (TaskNotFoundException pnfe) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
-		} 
-		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
-	}
-	
-	@Override
-	public CommandResult redo() {
-		assert model != null;
-		if(model.getDeletedStackOfTasksAddRedo().isEmpty()) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));		}
-		try {
-			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAddRedo().pop();
-			model.getDeletedStackOfTasksAdd().push(reqTask);
-			model.addTask((Task)reqTask);
-		} catch (DuplicateTaskException e) {
-			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
-		}
-		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
 }

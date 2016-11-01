@@ -11,18 +11,18 @@ public class FindCommandTest extends WhatNowGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Party", td.k, td.p); //multiple results
+        assertFindResult("find Mark"); // no results
+        assertFindResult("find Party", td.k, td.p); // multiple results
 
-        //find after deleting one result
+        // find after deleting one result
         commandBox.runCommand("delete schedule 1");
         assertFindResult("find Party", td.p);
     }
 
     @Test
-    public void find_emptyList(){
+    public void find_emptyList() {
         commandBox.runCommand("clear");
-        assertFindResult("find Apricot"); //no results
+        assertFindResult("find Apricot"); // no results
     }
 
     @Test
@@ -31,7 +31,7 @@ public class FindCommandTest extends WhatNowGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

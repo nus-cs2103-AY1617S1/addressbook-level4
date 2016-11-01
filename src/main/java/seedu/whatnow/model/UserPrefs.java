@@ -1,4 +1,5 @@
 package seedu.whatnow.model;
+
 //@@author A0139772U-reused
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public UserPrefs(){
+    public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
     }
 
@@ -29,14 +30,14 @@ public class UserPrefs {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)){ //this handles null as well.
+        if (!(other instanceof UserPrefs)) { // this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs)other;
+        UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings);
     }
@@ -47,7 +48,7 @@ public class UserPrefs {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return guiSettings.toString();
     }
 

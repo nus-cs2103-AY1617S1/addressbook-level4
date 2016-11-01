@@ -22,7 +22,7 @@ public class TestTask implements ReadOnlyTask {
     private String endPeriod;
     private UniqueTagList tags;
     private String status;
-    private String taskType; //todo or schedule
+    private String taskType; // todo or schedule
 
     public TestTask() throws IllegalValueException {
         setTaskDate(null);
@@ -35,28 +35,28 @@ public class TestTask implements ReadOnlyTask {
         setStatus("incomplete");
         tags = new UniqueTagList();
     }
-    
+
     @Override
     public Name getName() {
         return this.name;
     }
-    
+
     public void setName(Name name) {
         this.name = name;
-    }    
-    
+    }
+
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    
+
     @Override
     public String getStatus() {
         return this.status;
@@ -65,7 +65,7 @@ public class TestTask implements ReadOnlyTask {
     public String setStatus(String status) {
         return this.status = status;
     }
-    
+
     @Override
     public String getTaskType() {
         return taskType;
@@ -74,7 +74,7 @@ public class TestTask implements ReadOnlyTask {
     public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
-    
+
     @Override
     public String getTaskDate() {
         return taskDate;
@@ -114,27 +114,27 @@ public class TestTask implements ReadOnlyTask {
     public String getEndPeriod() {
         return endPeriod;
     }
-    
+
     public void setTaskDate(String date) {
         this.taskDate = date;
     }
-    
+
     public void setStartDate(String date) {
         this.startDate = date;
     }
-    
+
     public void setEndDate(String date) {
         this.endDate = date;
     }
-    
+
     public void setTaskTime(String time) {
         this.taskTime = time;
     }
-    
+
     public void setStartTime(String time) {
         this.startTime = time;
     }
-    
+
     public void setEndTime(String time) {
         this.endTime = time;
     }
@@ -146,15 +146,16 @@ public class TestTask implements ReadOnlyTask {
     public void setEndPeriod(String endPeriod) {
         this.endPeriod = endPeriod;
     }
-    
+
     @Override
     public String toString() {
         return getAsText();
     }
-    
+
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, status, tags, taskType, startDate, endDate, startTime, endTime);
     }
 

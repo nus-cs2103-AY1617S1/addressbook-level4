@@ -19,25 +19,25 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    
+
     @XmlElement(required = true)
     private String taskDate;
-    
+
     @XmlElement
     private String startDate;
-    
+
     @XmlElement
     private String endDate;
-    
+
     @XmlElement
     private String taskTime;
-    
+
     @XmlElement
     private String startTime;
-    
+
     @XmlElement
     private String endTime;
-    
+
     @XmlElement
     private String period;
     
@@ -46,20 +46,22 @@ public class XmlAdaptedTask {
     
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-    
+
     @XmlElement
     private String status;
-    
+
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
-
+    public XmlAdaptedTask() {
+    }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source
+     *            future changes to this will not affect the created
+     *            XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
@@ -95,10 +97,13 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
-     * @throws ParseException 
+     * @throws IllegalValueException
+     *             if there were any data constraints violated in the adapted
+     *             task
+     * @throws ParseException
      */
     public Task toModelType() throws IllegalValueException, ParseException {
         final List<Tag> taskTags = new ArrayList<>();

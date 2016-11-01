@@ -1,4 +1,5 @@
 package seedu.whatnow.logic.commands;
+
 //A0139772U-reused
 import seedu.whatnow.commons.core.EventsCenter;
 import seedu.whatnow.commons.events.ui.ExitAppRequestEvent;
@@ -12,8 +13,12 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting WhatNow as requested ...";
 
-    public ExitCommand() {}
+    public ExitCommand() {
+    }
 
+    /**
+     * Executes ExitCommand to exit WhatNow
+     */
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());

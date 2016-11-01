@@ -31,7 +31,8 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException, DuplicateTaskException, TaskNotFoundException {
+    public CommandResult execute(String commandText)
+            throws ParseException, DuplicateTaskException, TaskNotFoundException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
@@ -42,7 +43,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-    
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
         return model.getFilteredScheduleList(isUndo);

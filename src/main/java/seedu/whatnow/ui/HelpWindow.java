@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U-reused
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -42,11 +43,12 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() {
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
+        // Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setMaximized(true); // TODO: set a more appropriate initial
+                                        // size
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();

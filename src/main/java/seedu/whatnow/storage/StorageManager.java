@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0141021H
 import com.google.common.eventbus.Subscribe;
 
@@ -30,7 +31,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private XmlWhatNowStorage xmlWhatNowStorage;
     private UserPrefsStorage userPrefsStorage;
 
-
     public StorageManager(XmlWhatNowStorage xmlWhatNowStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.xmlWhatNowStorage = xmlWhatNowStorage;
@@ -53,14 +53,13 @@ public class StorageManager extends ComponentManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
     // ================ WhatNow methods ==============================
 
     @Override
     public String getWhatNowFilePath() {
         return xmlWhatNowStorage.getWhatNowFilePath();
     }
-    
+
     @Override
     public Optional<ReadOnlyWhatNow> readWhatNow() throws DataConversionException, IOException {
         return readWhatNow(xmlWhatNowStorage.getWhatNowFilePath());
@@ -76,7 +75,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveWhatNow(ReadOnlyWhatNow whatNow) throws IOException {
         saveWhatNow(whatNow, xmlWhatNowStorage.getWhatNowFilePath());
     }
-    
+
     @Override
     public void saveConfig(Config config) throws IOException {
         saveConfig(config, xmlWhatNowStorage.getWhatNowFilePath());
@@ -94,7 +93,7 @@ public class StorageManager extends ComponentManager implements Storage {
         WhatNow whatNow = new WhatNow();
         xmlWhatNowStorage.saveWhatNow(whatNow, filePath);
     }
-    
+
     @Override
     @Subscribe
     public void handleWhatNowChangedEvent(WhatNowChangedEvent event) {
@@ -105,7 +104,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-    
+
     @Override
     @Subscribe
     /**
@@ -113,7 +112,7 @@ public class StorageManager extends ComponentManager implements Storage {
      */
     public void handleFileLocationChangedEvent(ConfigChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local config data changed, saving to file"));
-        try {     
+        try {
             Path source = FileSystems.getDefault().getPath(xmlWhatNowStorage.getWhatNowFilePath());
             xmlWhatNowStorage.setWhatNowFilePath(event.destination.toString());
             Files.move(source, event.destination, StandardCopyOption.REPLACE_EXISTING);
@@ -122,8 +121,8 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-    
-    
-    // ================ CompletedTask Storage methods ==============================
+
+    // ================ CompletedTask Storage methods
+    // ==============================
 
 }

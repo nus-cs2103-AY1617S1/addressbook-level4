@@ -43,17 +43,16 @@ public class GuiSettings implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof GuiSettings)){ //this handles null as well.
+        if (!(other instanceof GuiSettings)) { // this handles null as well.
             return false;
         }
 
-        GuiSettings o = (GuiSettings)other;
+        GuiSettings o = (GuiSettings) other;
 
-        return Objects.equals(windowWidth, o.windowWidth)
-                && Objects.equals(windowHeight, o.windowHeight)
+        return Objects.equals(windowWidth, o.windowWidth) && Objects.equals(windowHeight, o.windowHeight)
                 && Objects.equals(windowCoordinates.x, o.windowCoordinates.x)
                 && Objects.equals(windowCoordinates.y, o.windowCoordinates.y);
     }
@@ -64,7 +63,7 @@ public class GuiSettings implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Width : " + windowWidth + "\n");
         sb.append("Height : " + windowHeight + "\n");

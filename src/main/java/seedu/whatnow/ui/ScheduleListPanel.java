@@ -1,4 +1,5 @@
 package seedu.whatnow.ui;
+
 //@@author A0139772U
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -48,9 +49,9 @@ public class ScheduleListPanel extends UiPart {
     }
 
     public static ScheduleListPanel load(Stage primaryStage, AnchorPane scheduleListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        ScheduleListPanel scheduleListPanel =
-                UiPartLoader.loadUiPart(primaryStage, scheduleListPlaceholder, new ScheduleListPanel());
+            ObservableList<ReadOnlyTask> taskList) {
+        ScheduleListPanel scheduleListPanel = UiPartLoader.loadUiPart(primaryStage, scheduleListPlaceholder,
+                new ScheduleListPanel());
         scheduleListPanel.configure(taskList);
         return scheduleListPanel;
     }
@@ -84,7 +85,7 @@ public class ScheduleListPanel extends UiPart {
     public void clear() {
         scheduleListView.getSelectionModel().clearSelection();
     }
-    
+
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             scheduleListView.scrollTo(index);

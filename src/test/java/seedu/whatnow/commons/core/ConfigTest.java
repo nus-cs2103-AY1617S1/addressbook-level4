@@ -16,21 +16,18 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : WhatNow App\n" +
-                "Current log level : INFO\n" +
-                "Preference file Location : preferences.json\n" +
-                "Local data file location : data/whatnow.xml\n" +
-                "WhatNow name : MyWhatNow";
+        String defaultConfigAsString = "App title : WhatNow App\n" + "Current log level : INFO\n"
+                + "Preference file Location : preferences.json\n" + "Local data file location : data/whatnow.xml\n"
+                + "WhatNow name : MyWhatNow";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
 
     @Test
-    public void equalsMethod(){
+    public void equalsMethod() {
         Config defaultConfig = new Config();
         assertFalse(defaultConfig.equals(null));
         assertTrue(defaultConfig.equals(defaultConfig));
     }
-
 
 }

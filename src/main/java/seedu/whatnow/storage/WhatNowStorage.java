@@ -17,10 +17,13 @@ public interface WhatNowStorage {
     String getWhatNowFilePath();
 
     /**
-     * Returns WhatNow data as a {@link ReadOnlyWhatNow}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * Returns WhatNow data as a {@link ReadOnlyWhatNow}. Returns
+     * {@code Optional.empty()} if storage file is not found.
+     * 
+     * @throws DataConversionException
+     *             if the data in storage is not in the expected format.
+     * @throws IOException
+     *             if there was any problem when reading from the storage.
      */
     Optional<ReadOnlyWhatNow> readWhatNow() throws DataConversionException, IOException;
 
@@ -31,8 +34,11 @@ public interface WhatNowStorage {
 
     /**
      * Saves the given {@link ReadOnlyWhatNow} to the storage.
-     * @param whatNow cannot be null.
-     * @throws IOException if there was any problem writing to the file.
+     * 
+     * @param whatNow
+     *            cannot be null.
+     * @throws IOException
+     *             if there was any problem writing to the file.
      */
     void saveWhatNow(ReadOnlyWhatNow whatNow) throws IOException;
 

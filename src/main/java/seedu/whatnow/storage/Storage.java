@@ -1,4 +1,5 @@
 package seedu.whatnow.storage;
+
 //@@author A0141021H-reused
 import java.io.IOException;
 import java.nio.file.Path;
@@ -33,12 +34,12 @@ public interface Storage extends WhatNowStorage, UserPrefsStorage {
     void saveWhatNow(ReadOnlyWhatNow whatNow) throws IOException;
 
     /**
-     * Saves the current version of the WhatNow to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Saves the current version of the WhatNow to the hard disk. Creates the
+     * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+     * there was an error during saving.
      */
     void handleWhatNowChangedEvent(WhatNowChangedEvent abce);
-    
+
     void handleFileLocationChangedEvent(ConfigChangedEvent dfgh);
 
     void saveConfig(Config config) throws IOException;
