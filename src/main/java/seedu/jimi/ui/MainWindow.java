@@ -130,7 +130,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         agendaPanel = AgendaPanel.load(primaryStage, getAgendaPlaceholder(), logic.getFilteredAgendaTaskList(),
                 logic.getFilteredAgendaEventList());
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(),
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredOverdueTasksList(), logic.getFilteredFloatingTaskList(),
                 logic.getFilteredIncompleteTaskList(), logic.getFilteredCompletedTaskList(),
                 logic.getFilteredDaysTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());

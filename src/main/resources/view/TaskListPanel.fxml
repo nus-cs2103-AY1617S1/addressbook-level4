@@ -14,6 +14,23 @@
          <children>
             <Accordion fx:id="tasksAccordion" styleClass="table-view" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <panes>
+                  <TitledPane fx:id="titleOverdueTasks" animated="false" text="\\\$ Overdue">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <ListView fx:id="taskListView1" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <stylesheets>
+                                    <URL value="@Extensions.css" />
+                                    <URL value="@DarkTheme.css" />
+                                 </stylesheets>
+                              </ListView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TitledPane>
                   <TitledPane fx:id="titleFloatingTasks" animated="false" text="\\$ Floating Tasks">
                      <content>
                         <AnchorPane>

@@ -35,6 +35,7 @@ public class TaskListPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
     
+    private ObservableList<ReadOnlyTask> overdueTaskList;
     private ObservableList<ReadOnlyTask> floatingTaskList;
     private ObservableList<ReadOnlyTask> completedTaskList;
     private ObservableList<ReadOnlyTask> incompleteTaskList;
@@ -61,6 +62,7 @@ public class TaskListPanel extends UiPart {
     @FXML private TitledPane titleIncompleteTasks;
     
     //taskListPanel title labels
+    @FXML private TitledPane titleOverdueTasks;
     @FXML private TitledPane titleFloatingTasks;
     @FXML private TitledPane titleTaskDay1;
     @FXML private TitledPane titleTaskDay2;
@@ -90,16 +92,17 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
-            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+            ObservableList<ReadOnlyTask> overdueTaskList, ObservableList<ReadOnlyTask> floatingTaskList,
+            ObservableList<ReadOnlyTask> incompleteTaskList, ObservableList<ReadOnlyTask> completedTaskList,
+            ArrayList<ObservableList<ReadOnlyTask>> daysList) {
         TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
+        taskListPanel.configure(overdueTaskList, floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+    private void configure(ObservableList<ReadOnlyTask> overdueTaskList, ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
             ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
-        instantiateLists(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
+        instantiateLists(overdueTaskList, floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         setConnections();
         showFloatingTasks();
         updateAllTitles();
@@ -107,8 +110,9 @@ public class TaskListPanel extends UiPart {
         registerAsAnEventHandler(this); // to update labels
     }
 
-    private void instantiateLists(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+    private void instantiateLists(ObservableList<ReadOnlyTask> overdueTaskList, ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
             ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        this.overdueTaskList = overdueTaskList;
         this.floatingTaskList = floatingTaskList;
         this.incompleteTaskList = incompleteTaskList;
         this.completedTaskList = completedTaskList;
@@ -174,6 +178,10 @@ public class TaskListPanel extends UiPart {
         });
     }
     
+    private void updateOverdueTasksTitle() {
+        this.titleOverdueTasks.setText("Overdue Tasks (" + this.overdueTaskList.size() + ")");
+    }
+    
     private void updateFloatingTasksTitle() {
         this.titleFloatingTasks.setText("Floating Tasks (" + this.floatingTaskList.size() + ")");
     }
@@ -201,6 +209,7 @@ public class TaskListPanel extends UiPart {
     }
     
     private void updateAllTitles() {
+        updateOverdueTasksTitle();
         updateFloatingTasksTitle();
         updateCompleteTasksTitle();
         updateIncompleteTasksTitle();
@@ -228,6 +237,9 @@ public class TaskListPanel extends UiPart {
     @Subscribe
     public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
         switch (event.sectionToDisplay) {
+        case "overdue":
+            showOverdueTasks();
+            break;
         case "floating":
             showFloatingTasks();
             break;
@@ -278,6 +290,10 @@ public class TaskListPanel extends UiPart {
     }
 
     //========== Method calls to expand relevant listviews in panel. ===========================================
+    
+    public void showOverdueTasks() {
+        tasksAccordion.setExpandedPane(titleOverdueTasks);
+    }
     
     public void showFloatingTasks() {
         tasksAccordion.setExpandedPane(titleFloatingTasks); 
