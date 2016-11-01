@@ -145,24 +145,9 @@ public class EditCommand extends Command implements Undoable {
             argTypes[i] = valueString.get(i).getClass();
         }
         
-        Constructor suitableConstructor = getSuitableConstructor(type, argTypes);
+        Constructor suitableConstructor = type.getDeclaredConstructor(argTypes);
         
         return newInstance(valueString, suitableConstructor);
-    }
-
-    private Constructor getSuitableConstructor(Class type, Class<?>[] argTypes) throws NoSuchMethodException, SecurityException {
-        System.out.println("PARAM ARG: "+" " + Arrays.deepToString(argTypes) + " ");
-        System.out.println("type: "+ type.getName());
-        return type.getDeclaredConstructor(argTypes);
-//        for (Constructor<?> ctor : type.getConstructors()) {
-//            Class<?>[] paramTypes = ctor.getParameterTypes();
-//            System.out.println("PARAM ARG: "+ argTypes.equals(paramTypes)+" " + argTypes + " "+paramTypes);
-//            if (argTypes.length != paramTypes.length) {       
-//                for(int i=0; i<argTypes.length; i++){
-//                    argTypes[i] instanceof paramTypes[i];
-//                }
-//            }
-//        }
     }
 
     private Object newInstance(List<String> valueString, Constructor<?> ctor)
