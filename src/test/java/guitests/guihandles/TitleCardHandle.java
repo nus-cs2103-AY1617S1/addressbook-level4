@@ -29,7 +29,7 @@ public class TitleCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
+    public String getTaskName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
     
@@ -44,13 +44,12 @@ public class TitleCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task){
         switch(task.getTaskType()) {
         case TIMERANGE:
-            if(!getEndTime().equals(task.getTime().get().getEndDate().get().toLocalTime()
-                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)))){
+            if(!isEndTimeEqual(task)){
                 return false;
             }
         case DEADLINE:
         case UNTIMED:
-            if(!getDate().equals(task.getTime().get().getStartDateString())){
+            if(!isDateEqual(task)){
                 return false;
             }
         case FLOATING: break;
@@ -58,7 +57,20 @@ public class TitleCardHandle extends GuiHandle {
             assert false: "Task must have TaskType";
         }
         
-        return getFullName().equals(task.getName().taskName);
+        return isNameEqual(task);
+    }
+
+    private boolean isNameEqual(ReadOnlyTask task) {
+        return getTaskName().equals(task.getName().taskName);
+    }
+
+    private boolean isDateEqual(ReadOnlyTask task) {
+        return getDate().equals(task.getTime().get().getStartDateString());
+    }
+
+    private boolean isEndTimeEqual(ReadOnlyTask task) {
+        return getEndTime().equals(task.getTime().get().getEndDate().get().toLocalTime()
+                   .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
     }
     //@@author
 
@@ -66,13 +78,13 @@ public class TitleCardHandle extends GuiHandle {
     public boolean equals(Object obj) {
         if(obj instanceof TitleCardHandle) {
             TitleCardHandle handle = (TitleCardHandle) obj;
-            return getFullName().equals(handle.getFullName());
+            return getTaskName().equals(handle.getTaskName());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName();
+        return getTaskName();
     }
 }
