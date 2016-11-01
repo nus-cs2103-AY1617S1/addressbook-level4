@@ -36,6 +36,7 @@
                                 </HBox>
                             </children>
                         </HBox>
+                        <!-- @@author A0144939R -->
                         <VBox fx:id="cardDetails" spacing="5" alignment="CENTER_LEFT">
                         	<children>
                         		<HBox spacing="5" alignment="CENTER_LEFT">
@@ -52,6 +53,7 @@
 		                        </HBox>
                         	</children>
                         </VBox>
+                        <!-- @@author A0144939R -->
                         <AnchorPane fx:id="tagsListPlaceholder" />
                     </children>
                 </VBox>

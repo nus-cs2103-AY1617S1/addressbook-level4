@@ -19,11 +19,13 @@ public class AddParser extends BaseParser {
     private final static String FLAG_START_TIME = "starts";
     private final static String FLAG_CLOSE_TIME = "ends";
     private final static String FLAG_TAGS = "tag";
+    private final static String FLAG_RECURRING = "recurs";
     
     private final static String[] KEYWORD_ARGS_REQUIRED = new String[]{FLAG_NAME};
     private final static String[] KEYWORD_ARGS_OPTIONAL = new String[]{FLAG_START_TIME,
             FLAG_CLOSE_TIME,
-            FLAG_TAGS
+            FLAG_TAGS,
+            FLAG_RECURRING
     };
         
     @Override
@@ -33,11 +35,22 @@ public class AddParser extends BaseParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
+        int recurrentWeek = 0;
+        
+        if (getSingleKeywordArgValue(FLAG_RECURRING) != null) {
+            try {
+                recurrentWeek = Integer.parseInt(getSingleKeywordArgValue(FLAG_RECURRING));
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        }
+        
         try {
             return new AddCommand(getSingleKeywordArgValue(FLAG_NAME),
                     getSingleKeywordArgValue(FLAG_START_TIME),
                     getSingleKeywordArgValue(FLAG_CLOSE_TIME),
-                    getTags());
+                    getTags(),
+                    recurrentWeek);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

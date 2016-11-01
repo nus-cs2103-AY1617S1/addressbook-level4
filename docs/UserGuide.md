@@ -28,6 +28,7 @@
    * **`update`**`1 presentation c/10/10/2016:1200` : updates first task on the list to presentation having a deadline on 10/10/2016 on 12:00 while the number '1' is the index of task on the list
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
+   * **'change-to'**`1`: change the storage location
    * **`unpin`**`1` : unpin the pinned first task in the list
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -43,7 +44,7 @@
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
+Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs NUMBER_OF_WEEKLY_RECURRING_TASK]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
@@ -51,6 +52,7 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `tag TAG tag TAG`.
+* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 <!--@@author A0144939R -->
 Examples:
@@ -59,6 +61,8 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
+* `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
+
 
 <!--@@author -->
 
@@ -125,7 +129,6 @@ Format: `find KEYWORD` or `find t/TAG`
 > * The search is case insensitive. e.g `meeting` will match `Meeting`
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 > * Only task name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
 	e.g. `Hans` will match `Hans Bo`
 
@@ -134,6 +137,17 @@ Examples:
   Returns tasks having name `meeting` 
 * `find tag cs2103`<br>
   Returns tasks having tag `cs2103`
+
+<!-- @@author A0141052Y -->
+#### Activate real time search: `searchbox`
+Activates the real time search, which is located in the same input box used to input commands.<br/>
+Format: `searchbox`
+
+> * To exit from real time search, just hit <kbd>Enter</kbd>.
+> * Similar functionality to `find`
+
+<!-- @@author -->
+
 
 <!-- @@author A0144939R-->
 
@@ -182,6 +196,15 @@ Format: `exit`
 To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+<!-- @@author A0144939R -->
+
+#### Change storage location : `change-to`
+Shows a list of tasks and events in the todo list.<br>
+Format: `change-to NEWFILEPATH`
+Example: 'change-to data/taskmanager.xml'
+
+<!-- @@author -->
+
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
@@ -208,5 +231,6 @@ Update | `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME
 Undo | `undo`
 Pin | `pin`
 Unpin | `unpin`
+Live Search | `searchbox`
 Help | `help`
 Exit | `exit`

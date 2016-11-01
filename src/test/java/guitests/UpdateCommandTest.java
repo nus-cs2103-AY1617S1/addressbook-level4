@@ -47,14 +47,14 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("update " + targetIndex + " starts 2 hour later");
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         TestTask expectedTask = currentList[targetIndex - 1];
-        expectedTask.setOpenTime(new DateTime("2 hour later"));
+        expectedTask.setOpenTime(DateTime.fromUserInput("2 hour later"));
         assertMatching(expectedTask, updatedCard);
         
         // modify close time
         commandBox.runCommand("update " + targetIndex + " ends the day after tomorrow");
         updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         expectedTask = currentList[targetIndex - 1];
-        expectedTask.setCloseTime(new DateTime("the day after tomorrow"));
+        expectedTask.setCloseTime(DateTime.fromUserInput("the day after tomorrow"));
         assertMatching(expectedTask, updatedCard);
         
         // update with no changes
@@ -66,12 +66,6 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         // update own task without changing name
         targetIndex = 3;
         commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
-        assertTrue(taskListPanel.isListMatching(currentList));
-        
-        // update task to a name that is duplicated
-        targetIndex = 2;
-        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
-        assertResultMessage(UpdateCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // invalid index

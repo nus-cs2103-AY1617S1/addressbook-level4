@@ -11,6 +11,8 @@ import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.storage.Storage;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 /**
@@ -42,6 +44,12 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+
+    //@@author A0141052Y
+    @Override
+    public void updateTaskListFilter(String keyword) {
+        model.updateFilteredTaskList(new HashSet<String>(Arrays.asList(keyword)));
     }
     
     private void setPreviousCommand(boolean isSuccessful, Command command) {

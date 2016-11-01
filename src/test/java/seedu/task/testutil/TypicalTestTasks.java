@@ -1,3 +1,4 @@
+//@@author A0144939R
 package seedu.task.testutil;
 
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -9,7 +10,7 @@ import seedu.task.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, hoon, ida, same, recur, recur2, name;
 
     public TypicalTestTasks() {
         try {
@@ -30,9 +31,17 @@ public class TypicalTestTasks {
 
             //Manually added
             hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).build();
+                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).build();//.withRecurrentWeek(0)
             ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").build();
+                    .withCloseTime("the day after tomorrow").build();
+            same =new TaskBuilder().withName("Ida Mueller").withOpenTime("one week from now")
+                    .withCloseTime("two weeks from now").build();
+            recur = new TaskBuilder().withName("Ida").withOpenTime("one week from now")
+                    .withCloseTime("two weeks from now").build();
+            recur2 = new TaskBuilder().withName("Do Homework").withOpenTime("two days from now")
+                    .withCloseTime("five days from now").build();
+            name = new TaskBuilder().withName("task name").build();
+            
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

@@ -139,7 +139,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
-            if(tasksInList.get(i).getName().equals(targetTask.getName())){
+            if(tasksInList.get(i).isSameVisualStateAs(targetTask)){
                 return i;
             }
         }
@@ -178,7 +178,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
-    public int getNumberOfPeople() {
+    public int getNumberOfTask() {
         return getListView().getItems().size();
     }
 }
