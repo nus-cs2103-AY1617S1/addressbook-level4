@@ -70,22 +70,13 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 	        Date taskToEditDate = taskToEdit.getPhone();
 	        StartTime taskToEditStartTime = taskToEdit.getEmail();
 	        EndTime taskToEditEndTime = taskToEdit.getAddress();
-	        System.out.println("Task to be edited: ");
-	        System.out.println(taskToEditName);
-	        System.out.println(taskToEditDate);
-	        System.out.println(taskToEditStartTime);
-	        System.out.println(taskToEditEndTime);
-	        System.out.println("....");
+
 	        
 	        Name toAddName = toAdd.getName();
             Date toAddDate = toAdd.getPhone();
             StartTime toAddStartTime = toAdd.getEmail();
             EndTime toAddEndTime = toAdd.getAddress();
-            System.out.println("To be replaced with: ");
-            System.out.println(toAddName);
-            System.out.println(toAddDate);
-            System.out.println(toAddStartTime);
-            System.out.println(toAddEndTime);
+
             
             if (toAddName.toString().equals("")) {
                 toAdd.setName(taskToEditName);
@@ -103,6 +94,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
             
 
 	        try {
+	            model.getHistory().stackEditInstruction(taskToEdit,toAdd);
 	            model.deletePerson(taskToEdit);
 	            model.addPerson(toAdd);
 	            

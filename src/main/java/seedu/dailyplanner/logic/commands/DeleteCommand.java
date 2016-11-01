@@ -2,6 +2,7 @@ package seedu.dailyplanner.logic.commands;
 
 import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
+import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
@@ -36,15 +37,18 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
-
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        
+   
         try {
-            model.deletePerson(personToDelete);
+        	model.getHistory().stackAddInstruction(taskToDelete);
+            model.deletePerson(taskToDelete);
+            
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
     }
 
 }
