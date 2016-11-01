@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
@@ -12,6 +13,10 @@ import seedu.todo.ui.view.TaskCardView;
 import seedu.todo.ui.view.TodoListView;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
@@ -31,6 +36,7 @@ public class TaskCardViewHandle extends GuiHandle {
     private static final String DESCRIPTION_BOX_ID = "#descriptionBox";
     private static final String DATE_BOX_ID = "#dateBox";
     private static final String LOCATION_BOX_ID = "#locationBox";
+    private static final String TAGS_BOX_ID = "#tagsBox";
 
     private static final String PIN_IMAGE_ID = "#pinImage";
 
@@ -71,6 +77,12 @@ public class TaskCardViewHandle extends GuiHandle {
 
     public String getDisplayedTypeLabel() {
         return getTextFromLabel(TYPE_LABEL_ID);
+    }
+
+    public Set<String> getDisplayedTags() {
+        FlowPane tagsBox = (FlowPane) getNode(TAGS_BOX_ID);
+        List<Node> displayedTagNodes = tagsBox.getChildren();
+        return displayedTagNodes.stream().map(node -> ((Label) node).getText()).collect(Collectors.toSet());
     }
 
     public boolean getMoreInfoLabelVisibility() {
@@ -115,7 +127,7 @@ public class TaskCardViewHandle extends GuiHandle {
     }
 
     public boolean isTaskCollapsible() {
-        return !getDisplayedDescription().isEmpty();
+        return !getDisplayedDescription().isEmpty() || !getDisplayedTags().isEmpty();
     }
 
     /* General Methods */
@@ -138,7 +150,7 @@ public class TaskCardViewHandle extends GuiHandle {
         //JUnit Assertion Test: To know which test are failing in detail
         assertTrue(isTitleCorrect(displayedIndex, task));
         assertTrue(isDescriptionCorrect(task));
-        assertTrue(isTaskCardCollapsedStateCorrect());
+        assertTrue(isTaskCardCollapsibleStateCorrect());
         assertTrue(isCompletedDisplayCorrect(task));
         assertTrue(isDateTextCorrect(task));
         assertTrue(isLocationCorrect(task));
@@ -249,7 +261,7 @@ public class TaskCardViewHandle extends GuiHandle {
         return expected.equals(actual);
     }
 
-    public boolean isTaskCardCollapsedStateCorrect() {
+    public boolean isTaskCardCollapsibleStateCorrect() {
         boolean collapsedStyleApplied = UiTestUtil.containsStyleClass(rootNode, "collapsed");
         boolean moreInfoLabelDisplayed = UiTestUtil.isDisplayed(getNode(MOREINFO_LABEL_ID));
 

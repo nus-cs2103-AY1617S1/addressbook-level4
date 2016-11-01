@@ -96,6 +96,17 @@ public class StringUtil {
         return stringJoiner.toString();
     }
 
+    /**
+     * Given an iterable, join them together with comma as shown:
+     *      apple, pear, pineapple
+     */
+    public static String convertIterableToString( Iterable<?> iterable) {
+        if (iterable == null) {
+            return "";
+        }
+        return StringUtils.join(iterable, ", ");
+    }
+
     //@@author A0139021U
     /**
      * Calculates the levenstein distance between the two strings and returns
