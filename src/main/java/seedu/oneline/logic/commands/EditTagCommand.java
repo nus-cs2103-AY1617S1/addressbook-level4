@@ -34,8 +34,6 @@ public class EditTagCommand extends EditCommand {
     public static final String MESSAGE_USAGE = EditCommand.MESSAGE_USAGE;
     
     public static final String MESSAGE_SUCCESS = "Category updated: %1$s";
-    public static final String MESSAGE_INVALID_TAG = "The tag %1$s is invalid";
-    public static final String MESSAGE_DUPLICATE_TAG = "The tag %1$s already exists in the task book";
 
     
     public EditTagCommand(String name, Map<TagField, String> fields) throws IllegalValueException, IllegalCmdArgsException {
@@ -74,7 +72,7 @@ public class EditTagCommand extends EditCommand {
             } catch (IllegalValueException e) {
             }
             if (model.getTaskBook().getTagList().contains(newTag)) {
-                return new CommandResult(String.format(MESSAGE_DUPLICATE_TAG, newName));
+                return new CommandResult(String.format(Tag.MESSAGE_DUPLICATE_TAG, newName));
             }
             List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
             Map<TaskField, String> fields = new HashMap<TaskField, String>();
