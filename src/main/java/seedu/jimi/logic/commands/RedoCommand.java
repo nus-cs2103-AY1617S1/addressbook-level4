@@ -10,10 +10,10 @@ import seedu.jimi.logic.History;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String SHORT_COMMAND_WORD = "r";
     public static final String MESSAGE_USAGE = 
-            COMMAND_WORD + ": Redoes the previous task.\n" + "To redo a task, type redo\n"
-            + "> Tip: Typing 'r' instead of 'redo' works too.\n";
+            COMMAND_WORD + ": Redoes the previous task.\n" 
+            + "To redo a task, type redo.\n"
+            + "> Tip: Typing 'r', 're', 'red' instead of 'redo' works too.\n";
 
     public RedoCommand() {}
 
