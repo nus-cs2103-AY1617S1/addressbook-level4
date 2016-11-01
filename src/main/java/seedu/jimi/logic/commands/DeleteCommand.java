@@ -59,7 +59,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         // actual integer index is everything after the first character prefix.
         int actualStartIdx = Integer.parseInt(startIdx.substring(1));
         int actualEndIdx = Integer.parseInt(endIdx.substring(1));
-        if (isInvalidIndices(optionalList, actualStartIdx, actualEndIdx)) {
+        if (!isValidIndices(optionalList, actualStartIdx, actualEndIdx)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -101,9 +101,9 @@ public class DeleteCommand extends Command implements TaskBookEditor {
      */
     
     /** Returns true if indices are invalid i.e. end before start, start more than list size. */
-    private boolean isInvalidIndices(Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList, int start,
+    private boolean isValidIndices(Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList, int start,
             int end) {
-        return !optionalList.isPresent() || optionalList.get().size() < start || end < start;
+        return !(!optionalList.isPresent() || optionalList.get().size() < start || end < start);
     }
     
     /** Returns true if prefixes of both indices are the same. */
@@ -111,10 +111,10 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         return startIdx.charAt(0) != endIdx.charAt(0);
     }
     
-    /** Converts {@code list} to a string with each task on a newline. */
+    /** Converts {@code list} to a string with each task on an indexed newline. */
     private String getListOfTasksAsText(List<ReadOnlyTask> list) {
-        return list.stream()
-                .map(t -> t.toString())
+        return IntStream.range(0, list.size())
+                .mapToObj(i -> (i + 1) + ". " + list.get(i).toString())
                 .collect(Collectors.joining("\n"));
     }
 
