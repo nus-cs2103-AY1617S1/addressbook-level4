@@ -53,8 +53,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
 
         ReadOnlyTask taskToDone = taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
 
-        ReadOnlyTask taskToDone = taskListPanel.getTask(targetIndexOneIndexed - 1); //-1 because array uses zero indexing
-
         int number = taskListPanel.getNumberOfTasks();
 
         commandBox.runCommand("done " + targetIndexOneIndexed);
