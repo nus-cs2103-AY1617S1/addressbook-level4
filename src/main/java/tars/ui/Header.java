@@ -9,33 +9,34 @@ import tars.commons.util.FxViewUtil;
 
 /**
  * UI Controller for the header of the application
+ * 
+ * @@author A0121533W
  */
 public class Header extends UiPart {
     private static final String HEADER_STYLE_SHEET = "header";
     private static final String FXML = "Header.fxml";
-        
+
     private AnchorPane placeHolder;
     private AnchorPane mainPane;
 
     @FXML
     private HBox header;
-    
+
     public static Header load(Stage primaryStage, AnchorPane placeHolder) {
-        Header infoHeader = UiPartLoader.loadUiPart(primaryStage, placeHolder, new Header());
+        Header infoHeader = UiPartLoader.loadUiPart(primaryStage, placeHolder,
+                new Header());
         infoHeader.configure();
         return infoHeader;
     }
 
     public void configure() {
         header.getStyleClass().add(HEADER_STYLE_SHEET);
-        
         FxViewUtil.applyAnchorBoundaryParameters(header, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
         registerAsAnEventHandler(this);
     }
 
-            
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;
