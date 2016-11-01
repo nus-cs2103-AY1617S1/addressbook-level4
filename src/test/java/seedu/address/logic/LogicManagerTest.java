@@ -232,6 +232,7 @@ public class LogicManagerTest {
         Task toBeAdded = helper.floatTaskA();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
         model.addTask(toBeAdded); // person already in internal address book
@@ -239,7 +240,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
 
