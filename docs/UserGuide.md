@@ -2,33 +2,46 @@
 
 * [Quick Start](#quick-start)
 * [Features](#features)
+   * [Help](#viewing-help-help)
+   * [Add](#adding-a-task-add)
+   * [Edit](#editing-a-task-edit)
+   * [Delete](#deleting-a-task-delete)
+   * [Clear](#clearing-all-tasks-clear)
+   * [Done](#archiving-a-task-done)
+   * [Undo](#undoing-a-command-undo)
+   * [Redo](#redoing-a-command-redo)
+   * [List](#listing-tasks-list)
+   * [Find](#finding-a-task-find)
+   * [Store](#changing-storage-location-store)
+   * [Exit](#exiting-the-application-exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+<br>
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for DearJim.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+2. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for DearJim.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <img src="images/dearjim_initial.png" width="650">
 
 <p align="center">
 Figure 1: GUI of DearJim
 </p>
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
+6. Some example commands you can try:
    * **`list`** : lists all tasks. This is the default view.
    * **`add`**` Learn how to use DearJim` : 
      adds a task to DearJim.
    * **`delete`**` 1` : deletes the first task shown in the current list.
    * **`exit`** : exits the app.
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 <br>
 ## Features
@@ -40,10 +53,9 @@ Figure 1: GUI of DearJim
 > * The order of parameters is fixed.
 
 <br>
-### Viewing help : `help`
+### Viewing help: `help`
 Opens the user guide with a new window.<br>
 Format: `help`<br>
-
 
  <img src="images/dearjim_help.png" width="650">
 
@@ -51,34 +63,13 @@ Format: `help`<br>
 Figure 2: Help Command
 </p>
 
-### Listing tasks : `list`
-**_Listing all undone tasks_**
-
-Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
-Format: `list`
-
-Example:
-* `list`
-<br>
-
-**_Listing all done tasks_**
-
-Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
-Format: `list done`
-
-Example:
-* `list done`
-
-
-
 ### Adding a task: `add`
 Adds a task into DearJim.<br>
 Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 >You may also substitute `start` with `from/at`, `end` with `to/by`.
 
-By default, if no valid command is specified, the input will be treated as an `add` command.<br> 
-This means typing in `add` is optional. <br>
+By default, if no valid command is specified, the input will be treated as an `add` command. This means typing in `add` is optional. <br>
 If you would like to add a task with a name that begins with other command words, just include the `add` to override the other command words. <br>
 
 Example:
@@ -95,18 +86,18 @@ Format: `NAME `
 > The simplest form of a task. Type away!
 
 Example:
-* `Buy coffee powder`
+* `help my mum to buy cooking ingredients`
 
 <br/>
 
 **_Specifying task priority_**
 
-You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
+You can assign a `PRIORITY` of `low`, `medium` or `high` to your task. <br>
 Tasks have `medium` `PRIORITY` by default.<br>
 Keyword: `-PRIORITY`
 
 
-To specify the priority for a task, input a `-` followed by the `PRIORITY` you would like.<br>
+To specify the priority for a task, input a `-` followed by the `PRIORITY`.<br>
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
 `PRIORITY` | Variations  
@@ -117,7 +108,7 @@ To specify the priority for a task, input a `-` followed by the `PRIORITY` you w
 
 
 Examples:
-* `Do something later -l`
+* `Watch drama -l`
 * `Buy coffee powder -med`
 * `Buy washing powder -high`
 
@@ -126,16 +117,16 @@ Examples:
 
 **_Adding a task with deadline_**
 
-Nobody likes deadlines. What is worse, is missing them. <br>
+Nobody likes deadlines. What's worse is missing them. <br>
 Add deadlines to your task so you will know when you need to complete them!<br>
 Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 > `end` denotes a deadline. <br>
-> `end` can also be substituted with `by`.
+> `end` can also be substituted with `by` or `to`.
 
 `DATE_TIME` is flexible!<br>
-* If no `DATE` is specified, `DATE` will be assumed to be today<br>
-* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm 
+* If no `DATE` is specified, `DATE` will be assumed to be today.<br>
+* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm. 
 
 <br>
 
@@ -147,10 +138,10 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |MM/DD/YY| `12/12/16`|12 December 2016|
 |MM/DD| `12/12` |12 December, Current Year|
 |Calendar|`12 December 2016`, `12th December 2016`<br> `12 December 16`|12 December 2016
-|Calendar Day and Month|`12 December`|12 December, Current Year
-|Calendar Month only| `may`, `May`<br> `dec`, `Dec`, `December`| 1 May, Current Year<br> 1 December, Current Year|
-|Day|`monday`, `Monday`|Nearest upcoming Monday|
-|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`|Today<br> Tomorrow|
+|Calendar (Date and Month)|`12 December`|12 December, Current Year
+|Calendar (Month)| `may`, `May`<br> `dec`, `Dec`, `December`| 1 May, Current Year<br> 1 December, Current Year|
+|Day|`monday`, `Mon`|Nearest upcoming Monday|
+|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`<br> `next Tues`<br> `5 days later`|Today<br> Tomorrow<br> Next Tuesday<br> 5 days later|
 <br>
 
 |Time| Format| Interpreted Time|
@@ -161,37 +152,36 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 <br>
 
 Examples:
-* `Do project proposal by 5pm tomorrow`
-* `eat lunch by 1pm today -h`
+* `Do project proposal by 5pm tmr`
+* `eat lunch by 1pm today -high`
 * `Buy coffee for boss by 7:00`
 * `finish CS2101 assignment by 13th Sep`
 
-> Inputs with numbers may be interpreted as a date. <br>
-To prevent this, you can enclose the task name with double inverted commas to denote the task name explicitly.
+Inputs with numbers from 0000 to 2359 may be wrongly interpreted as time. If you need to add a task with these numbers, you can enclose the task name with double inverted commas to denote the task name explicitly.
 
 Example:
 
 |Input|Interpreted Command|Interpreted Task Name| Interpreted Deadline| Result|
 |---|---|---|---|---|
-|`lower word count by 1500`|`add`|`lower word count`|`by 1500`|`add` a task with name `lower word count` and deadline `1500`|
-|`"add lower word count by 1500"`|`add`|`lower word count by 1500`| NONE| `add` a task with name `lower word count by 1500`|
+|`Lower word count by 1500`|`add`|`Lower word count`|`by 1500`|`add` a task with name `Lower word count` and deadline `1500`|
+|`"Lower word count by 1500"`|`add`|`Lower word count by 1500`| NONE| `add` a task with name `Lower word count by 1500`|
 
 <br/>
 
 
 **_Adding a task with time interval_**
 
-Having that company meeting? Planning to have lunch with a friend next week? <br> 
-Add a task with a time interval so you will know the time interval!<br>
+Having a company meeting? Planning to have lunch with a friend next week? <br> 
+Add a task with a time interval so you will know what time your task starts and ends!<br>
+If you are unsure about the end time for the task, you can leave it blank.<br>  
 Format:
 `NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
 > Note: You may use `from` or `at` to indicate the start time, and `to` or `by` to indicate the end time.<br>
-> `end DATE_TIME` can be unspecified.
 
 Example: 
 * `Company meeting tonight at 7pm to 9pm`
 * `Family dinner at noon`
-* `Meet Akshay from 1pm to 2pm -h`
+* `Meet Akshay from 1pm -h`
 
 <br/>
 
@@ -214,8 +204,8 @@ Month | `month`, `2 months`
 Year | `year`, `6 years`
 
 Examples: 
-* `Go run at track at 7am repeat every 3 days`
-* `Go visit mum repeat every sun`
+* `Run at track at 7am repeat every 3 days`
+* `Visit mum repeat every sun`
 
 <br/>
 
@@ -225,7 +215,7 @@ Just in case you need to change any details, or add in missing ones into your ta
 Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 > `INDEX` refers to the task number in the current displayed list.<br>
-> Note: `edit` has a very similar format to `add` for your convenience!
+> Note: `edit` has a very similar format to `add`.
 
 Examples:
 * `Company meeting tonight at 7pm to 9pm`
@@ -238,7 +228,7 @@ Examples:
 
 **_Editing out details in a task_**
 
- You can also remove any sections if they are no longer relevant! <br>
+ You can also remove parameters that are no longer relevant. <br>
  Format: `edit INDEX [-reset parameter] [repeat] [start] [end] `
 
 |`-reset parameter`|Result|
@@ -252,7 +242,7 @@ Examples:
 * `edit 1 -reset repeat start`
 * `edit 2 -reset end`
 
->Note: `-reset` will override any `edit` of the same field that comes before it in your input.
+> Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
 <br/>
 
@@ -260,7 +250,7 @@ Examples:
 ### Deleting a task: `delete`
 Deletes an existing task in DearJim. This will remove them from the storage. <br>
 Format: `delete INDEX`
-> If you want to `delete` multiple tasks at once, simply key additional indices, separated by a space.  
+> You can `delete` multiple tasks using a single command by entering the indexes of the tasks you want to delete, separating each index with a space.
 
 Example:
 * `delete 2`
@@ -269,7 +259,7 @@ Example:
 <br/>
 
 
-### Clearing the task in DearJim: `clear`
+### Clearing all tasks: `clear`
 Deletes all tasks in DearJim.<br>
 Format: `clear`
 
@@ -279,7 +269,7 @@ Format: `clear`
 ### Archiving a task: `done`
 Marks a task as done and archives it in DearJim.<br>
 Format: `done INDEX`
-> If you want to `done` multiple tasks at once, simply key additional indices, separated by a space.
+> You can `done` multiple tasks using a single command by entering the indexes of the tasks you have completed, separating each index with a space.
 
 Example:
 * `done 3`
@@ -289,7 +279,7 @@ Example:
 
 
 ### Undoing a command: `undo`
-Reverses the effects of the previous command, if the command is reversible. Helps you get out of sticky situations! <br>
+Reverses the effects of the previous command if the command is reversible. Helps you to undo any accidental mistakes that you have made! <br>
 Format: `undo`
 > Commands that you can `undo`
 > * `add`
@@ -303,7 +293,7 @@ Format: `undo`
 
 
 ### Redoing a command: `redo`
-Reverses a previous `undo` command, if possible. <br>
+Reverses a previous `undo` command. <br>
 Format: `redo`
 > `redo` allows your to reverse your previous `undo` to get back your data!
 >
@@ -311,8 +301,27 @@ Format: `redo`
 
 <br/>
 
-### Finding a task : `find`
-Forgot the details about a task you added? Find an existing task by name.<br>
+### Listing tasks: `list`
+**_Listing all undone tasks_**
+
+Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
+Format: `list`
+
+Example:
+* `list`
+<br>
+
+**_Listing all done tasks_**
+
+Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
+Format: `list done`
+
+Example:
+* `list done`
+<br/>
+
+### Finding a task: `find`
+Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
 Format: `find NAME`
 > `find` is case-insensitive - `find AKSHAY` will match `find akshay`
 >
@@ -345,7 +354,7 @@ Format: `exit`
 
 
 ### Getting hints for command format
-If you do not know what to type, just type any word and DearJim will provide you hints on the command format that you might want to use!
+If you have forgotten about the command formats, simply type any word and DearJim will provide you hints on the command format that you might want to use!
 
 Examples:
 * Typing `add` in the command input generates the format for `add` in the result display
@@ -363,14 +372,13 @@ Figure 5: Hints for delete command
 <br>
 
 ### Saving the data 
-DearJim data are saved on the hard disk automatically after any command that changes the data.<br>
+Data in DearJim is automatically saved on the hard disk after any command that changes the data is executed.<br>
 There is no need to save manually.
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous *DearJim* folder.
+**A**: Install the app on the other computer. Upon starting DearJim, an empty data file is created. Overwrite the contents of the data file with the data file in your previous *DearJim* folder.
 
 **Q**: How do I install the program?<br>
 **A**: Double-click the DearJim.jar file.
@@ -383,9 +391,10 @@ Help | `help`
 Add | `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 Edit | `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]`
 Delete | `delete INDEX`
+Clear | `clear`
+Done | `done INDEX`
 Undo | `undo`
 Redo | `redo`
-Done | `done INDEX`
 List | `list [done]`
 Find | `find NAME`
 Store| `store FILEPATH`

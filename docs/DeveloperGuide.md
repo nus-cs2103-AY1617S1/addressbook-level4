@@ -1,10 +1,22 @@
 # Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
+    * [Architecture](#architecture)
+    * [UI](#ui-component)
+    * [Logic](#logic-component)
+    * [Model](#model-component)
+    * [Storage](#storage-component)
+    * [Common](#common-classes)
 * [Implementation](#implementation)
+    * [Logging](#logging)
+    * [Configuration](#configuration)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
+    * [Build Automation](#build-automation)
+    * [Continuous Integration](#continuous-integration)
+    * [Making a Release](#making-a-release)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -134,9 +146,9 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. `Logic` uses the `CommandParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -306,6 +318,12 @@ Priority | As a ... | I want to ... | So that I can...
 Use case ends
 
 **Extensions**
+
+1a. User enters an input that needs to be escaped as it contains values that CommandParser is not able to parse properly. 
+
+> 1a1. TaskManager's instant parsing feature will reflect to the user that his / her input is being placed in the wrong field. 
+> 1a2. User uses the escape feature to explicitly denote the task name. <br>
+Use case resumes at step 2
 
 2a. User enters an input that does not follow the `add` command format
 
