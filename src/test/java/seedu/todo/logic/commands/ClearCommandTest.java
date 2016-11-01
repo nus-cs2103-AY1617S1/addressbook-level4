@@ -33,7 +33,7 @@ public class ClearCommandTest extends CommandTest {
     public void testClear_Default() throws ValidationException {
         this.assertTotalTaskCount(3);
         execute(true);
-        this.assertTotalTaskCount(0);
+        this.assertTotalTaskCount(1);
     }
     
     @Test

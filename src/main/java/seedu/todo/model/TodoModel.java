@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //@@author A0135817B
 /**
@@ -154,7 +155,10 @@ public class TodoModel implements Model {
         saveUndoState();
         List<Integer> indexes = new ArrayList<>();
         for (int i = 1; i <= getObservableList().size(); i++) {
-            indexes.add(getTaskIndex(i));
+            ImmutableTask task = getObservableList().get(i-1);
+            if (task.isCompleted()){
+                indexes.add(getTaskIndex(i));
+            }
         }
         //Notification only sent if deletions are valid
         List<ImmutableTask> deletedTasks = todoList.delete(indexes);
