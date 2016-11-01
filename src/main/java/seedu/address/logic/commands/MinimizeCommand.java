@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.MinimizeRequestEvent;
 
+//@@author A0135812L
 public class MinimizeCommand extends Command {
 
     public static final String COMMAND_WORD = "minimize";
@@ -17,3 +18,4 @@ public class MinimizeCommand extends Command {
     }
 
 }
+//@@author

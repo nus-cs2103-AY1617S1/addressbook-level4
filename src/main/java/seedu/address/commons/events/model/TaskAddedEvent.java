@@ -3,6 +3,7 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0135812L
 public class TaskAddedEvent extends BaseEvent {
 
     private final int index;
@@ -24,3 +25,4 @@ public class TaskAddedEvent extends BaseEvent {
     }
 
 }
+//@@author
