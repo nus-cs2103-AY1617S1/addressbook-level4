@@ -126,7 +126,7 @@ public class StatusBarFooter extends UiPart {
     	String viewStatus = "Viewing: ";
     	switch(newView) {
     		case("date"):
-    			viewStatus += DateUtil.createUISpecifiedDateString(vtce.getDate());;
+    			viewStatus += DateUtil.createUISpecifiedDateString(vtce.getDate());
     			break;
     		case("done"):
     			viewStatus += COMPLETED_TASKS;
