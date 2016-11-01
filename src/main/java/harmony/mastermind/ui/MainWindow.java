@@ -65,6 +65,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -277,6 +278,13 @@ public class MainWindow extends UiPart {
         Comparator<ReadOnlyTask> comparator = new TaskListComparator();
         sortedTasks.setComparator(comparator);
         sortedTasks.comparatorProperty().bind(taskTableHome.comparatorProperty());
+        
+        Label placeholder = new Label("What's on your mind?\nTry adding a new task by executing \"add\" command!");
+        placeholder.setAlignment(Pos.CENTER);
+        placeholder.setTextAlignment(TextAlignment.CENTER);
+        
+        taskTableHome.setPlaceholder(placeholder);
+        
         taskTableHome.setItems(sortedTasks);
         
         taskTableTask.setItems(logic.getFilteredFloatingTaskList());
