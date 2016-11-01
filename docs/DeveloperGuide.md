@@ -283,6 +283,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a floating task | remove an entry that I no longer need or have completed
 `* * *` | user | delete an event | remove an event that has passed or has been cancelled
 `* * *` | user | delete a deadline | remove a deadline that has passed or been removed
+`* * *` | user | complete floating tasks or deadlines | complete floating tasks and deadlines to remind users that it is completed
 `* * *` | user | find a(n) event/deadline/floating task by name | locate details of the event/deadline/task without having to go through the entire list
 `* * *` | user | edit a(n) event/deadline/floating task | update it or correct any errors
 `* * *` | user | set a(n) event/deadlines/floating task as a priority | know which one should be completed first
