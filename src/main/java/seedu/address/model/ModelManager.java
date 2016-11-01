@@ -85,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
+        showTaskToday();
     }
     // @@author
 
