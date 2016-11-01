@@ -7,15 +7,13 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-//@@author A0139671X
-public class ValidDateTest {
-	
+//@@A0139671X
+public class TimeTest {
+    
     @Test
     public void isValidDate_trueIfDateFormatIsCorrect() {
 
         ArrayList<String> validDates = new ArrayList<String>();
-        ArrayList<String> invalidDates = new ArrayList<String>();
-
         validDates.add("01/1/18");
         validDates.add("1/1/16");
         validDates.add("1/01/16");
@@ -25,6 +23,7 @@ public class ValidDateTest {
         validDates.add("29/2/16");
         validDates.add("01/01/16");
 
+        ArrayList<String> invalidDates = new ArrayList<String>();
         invalidDates.add("32/1/16"); // day out of range
         invalidDates.add("1/13/20"); // month out of range
         invalidDates.add("29/2/17"); // 2017 not a leap year
@@ -34,12 +33,12 @@ public class ValidDateTest {
         invalidDates.add("22/2/2008"); // invalid year
         invalidDates.add("29/a/20"); // invalid month
 
-        for (int i = 0; i < validDates.size(); i++) {
+        for (int i = 0; i < validDates.size(); i++)
             assertTrue(Time.isValidDate(validDates.get(i)));
-        }
 
-        for (int i = 0; i < invalidDates.size(); i++) {
+        for (int i = 0; i < invalidDates.size(); i++)
             assertFalse(Time.isValidDate(invalidDates.get(i)));
-        }
     }
+    
+    
 }
