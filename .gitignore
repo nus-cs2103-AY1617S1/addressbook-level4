@@ -14,4 +14,6 @@ preferences.json
 ./screenshot*.png
 classes/
 /data/
-/bin/
+/bin/guitests
+/bin/seedu
+/bin/view
