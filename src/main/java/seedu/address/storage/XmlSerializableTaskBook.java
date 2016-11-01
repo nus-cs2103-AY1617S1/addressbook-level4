@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
+public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
     private List<XmlAdaptedTask> events;
@@ -39,12 +39,12 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskBook() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyTaskBook src) {
+    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         events.addAll(src.getEventList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         deadlines.addAll(src.getDeadlineList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         todos.addAll(src.getTodoList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
