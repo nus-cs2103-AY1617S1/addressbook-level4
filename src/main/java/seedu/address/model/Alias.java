@@ -1,11 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,16 +65,16 @@ public class Alias {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addAlias(String key, String value) throws UniqueTaskList.DuplicateTaskException {
+    public void addAlias(String key, String value) {
         alias.put(key, value);
     }
 
 
-    public String removeAlias(String key) throws UniqueTaskList.TaskNotFoundException {
+    public String removeAlias(String key) {
         return alias.remove(key);
     }
     
-    public String editAlias(String key, String value) throws UniqueTaskList.TaskNotFoundException {
+    public String editAlias(String key, String value) {
         //syncTagsWithMasterList(p);
     	return alias.replace(key, value);
     }
@@ -89,42 +83,46 @@ public class Alias {
 
     @Override
     public String toString() {
-        return alias.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
+    	String string = "";
+    	Set<String> keySet = alias.keySet();
+    	String[] keyArray = keySet.toArray(new String[0]);
+    	for(int i = 0; i < keyArray.length; i++) {
+    		string += ("key: " + keyArray[i] + " value: " + alias.get(keyArray[i]) + "\n");
+    	}
+    	return string;
     }
 
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+//    @Override
+//    public List<ReadOnlyTask> getTaskList() {
+//        return Collections.unmodifiableList(tasks.getInternalList());
+//    }
+//
+//    @Override
+//    public List<Tag> getTagList() {
+//        return Collections.unmodifiableList(tags.getInternalList());
+//    }
+
+    public String getValueOf(String key) {
+        return alias.get(key);
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+//    @Override
+//    public UniqueTagList getUniqueTagList() {
+//        return this.tags;
+//    }
 
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                || (other instanceof Alias // instanceof handles nulls
+                && this.alias.equals(((Alias) other).alias));
+                //&& this.tags.equals(((TaskManager) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(alias);
     }
 }
