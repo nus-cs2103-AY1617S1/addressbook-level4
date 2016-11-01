@@ -21,7 +21,11 @@ public class AddCommand extends Command {
             + "2. Add Event - Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"
             + "\tExample: " + COMMAND_WORD + " Summer school from/ 1st June to/ 31st July \n"
             + "3. Add Task - Parameters to add a task: [task title] by/ [due date]\n" + "\tExample: " + COMMAND_WORD
-            + " CS tutorial by/ Saturday 10am \n";
+            + " CS tutorial by/ Saturday 10am \n"
+            + "4. Add Recursive Task - Parameters: [task title] fr/[no. of times to recurse] ty/[day or week or month] by/[due date]\n"
+            + "\tExample: " + COMMAND_WORD + " Complete PC1222 homework fr/5 ty/week by/ Friday 2359\n"
+            + "5. Add Recursive Event - Parameters: [event title] fr/[no. of times to recurse] ty/[day or week or month] from/[start time] to/[ending Time] \n"
+            + "\tExample: " + COMMAND_WORD + " Attend PC1222 Lecture fr/10 ty/week from/Tue 12pm to/Tue 2pm \n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
