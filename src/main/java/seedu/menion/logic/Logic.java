@@ -1,5 +1,7 @@
 package seedu.menion.logic;
 
+import java.util.Calendar;
+
 import javafx.collections.ObservableList;
 import seedu.menion.logic.commands.CommandResult;
 import seedu.menion.model.activity.ReadOnlyActivity;
@@ -32,4 +34,7 @@ public interface Logic {
      * 	e.g. add, edit, complete etc...
      */
     ReadOnlyActivity getMostRecentUpdatedActivity();
+    
+    /** Returns the current date and time */
+    String getCurrentDateTime();
 }

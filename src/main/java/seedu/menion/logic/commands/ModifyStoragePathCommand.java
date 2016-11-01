@@ -18,6 +18,7 @@ import seedu.menion.commons.util.FileUtil;
 import seedu.menion.commons.util.XmlUtil;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
+import seedu.menion.storage.XmlFileStorage;
 import seedu.menion.storage.XmlSerializableActivityManager;
 
 //@@author A0139515A
@@ -28,8 +29,7 @@ public class ModifyStoragePathCommand extends Command {
 
     public static final String COMMAND_WORD = "modify";
     public static final String MESSAGE_POPUP = "You have successfully changed Menion's storage location. Please restart Menion (:";
-    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n" +
-    												"Please restart Menion (:";
+    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s \n";
     public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
     private final String pathToChange;
     
@@ -50,7 +50,8 @@ public class ModifyStoragePathCommand extends Command {
     	model.updateRecentChangedActivity(null);
     	
     	ReadOnlyActivityManager before = new ActivityManager(model.getActivityManager());
-        
+    	String newPath;
+    	
         if (pathToChange != null) {
             Config config = new Config();
             Optional<Config> configOptional = null;
@@ -62,29 +63,43 @@ public class ModifyStoragePathCommand extends Command {
     		
             Config initializedConfig = configOptional.orElse(new Config());
             
-        	initializedConfig.setActivityManagerFilePath(pathToChange);
+            String root = System.getProperty("user.home");
+            newPath = root + File.separator + pathToChange;
+            System.out.println(newPath);
+        	initializedConfig.setActivityManagerFilePath(newPath);
         	try {
 				ConfigUtil.saveConfig(initializedConfig, initializedConfig.DEFAULT_CONFIG_FILE);
 			} catch (IOException e) {
-				return new CommandResult(MESSAGE_FAILURE);
+				return new CommandResult("Unable to create file");
 			}
         	
-        	File file = new File(initializedConfig.getActivityManagerFilePath());
+        	File file = new File(newPath);
         	try {
 				FileUtil.createIfMissing(file);
 			} catch (IOException e) {
-				return new CommandResult(MESSAGE_FAILURE);
+				return new CommandResult("Unable to create file");
 			}
-        	
-        	try {
-				XmlUtil.saveDataToFile(file, new XmlSerializableActivityManager(before));
-			} catch (FileNotFoundException | JAXBException e) {
+        
+    		try {
+				XmlFileStorage.saveDataToFile(file, new XmlSerializableActivityManager(before));
+				
+			} catch (FileNotFoundException e) {
+				return new CommandResult("File not found");
+			} 
+    		ReadOnlyActivityManager dataToRead;
+			try {
+				dataToRead = XmlUtil.getDataFromFile(file, ReadOnlyActivityManager.class);
+				model.resetData(dataToRead);
+			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
-				return new CommandResult(MESSAGE_FAILURE);
+				e.printStackTrace();
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-        	
-        	EventsCenter.getInstance().post(new ModifyStorageEvent());
-        	//EventsCenter.getInstance().post(new ExitAppRequestEvent());
+    		
+         	
+        	EventsCenter.getInstance().post(new ModifyStorageEvent(newPath));
         	 
         	return new CommandResult(String.format(MESSAGE_SUCCESS, pathToChange));
         }

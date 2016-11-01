@@ -55,8 +55,8 @@ public class EventCardHandle extends GuiHandle {
 
     public boolean isSameActivity(ReadOnlyActivity activity){
         return getActivityName().equals(activity.getActivityName().fullName) && getNote().equals(activity.getNote().value)
-                && getStartDate().equals(activity.getActivityStartDate().value) && getStartTime().equals(activity.getActivityStartTime().value)
-                && getEndDate().equals(activity.getActivityEndDate().value) && getEndTime().equals(activity.getActivityEndTime().value);
+                && getStartDate().equals(activity.getActivityStartDate().toFormattedDateString()) && getStartTime().equals(activity.getActivityStartTime().value)
+                && getEndDate().equals(activity.getActivityEndDate().toFormattedDateString()) && getEndTime().equals(activity.getActivityEndTime().value);
     }
 
     @Override

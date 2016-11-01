@@ -65,7 +65,6 @@ public class CompleteCommand extends Command {
         
         callCompleteActivity(targetType, activityToComplete); // Calls the correct method depending
                                           // on type of activity.
-        ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
         
         model.updateRecentChangedActivity(activityToComplete);
 

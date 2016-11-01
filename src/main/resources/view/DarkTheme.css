@@ -99,9 +99,6 @@
     -fx-text-fill: black !important;
 }
 
-.status-bar .label {
-    -fx-text-fill: white;
-}
 
 .status-bar-with-border {
     -fx-background-color: lightgrey;
@@ -249,20 +246,14 @@
 /* @@author A0139515A */
 #eventCardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #ffa07a;
-    -fx-border-width: 1.0 1.0 1.0 1.0;
 }
 
 #taskCardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #87cefa;
-    -fx-border-width: 1.0 1.0 1.0 1.0;
 }
 
 #floatingTaskCardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #fafad2;
-    -fx-border-width: 1.0 1.0 1.0 1.0;
 }
 
 #activityList {
@@ -300,25 +291,71 @@
     -fx-background-color: darkgrey;
 }
 
-.list-view-event .list-cell {
-	-fx-background-color: #ffa07a;
-    -fx-label-padding: 0.0 0.0 0.0 0.0;
+.list-view-event .list-cell:filled {
+	-fx-background-color: whitesmoke;
     -fx-graphic-text-gap : 0.0;
-    -fx-padding: 0.0 0.0 0.0 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+
+.list-view-event .list-cell {
+	-fx-background-color: white;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.list-view-task .list-cell:filled {
+	-fx-background-color: whitesmoke;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
 }
 
 .list-view-task .list-cell {
-	-fx-background-color: #87cefa;
-    -fx-label-padding: 0.0 0.0 0.0 0.0;
+	-fx-background-color: white;
     -fx-graphic-text-gap : 0.0;
-    -fx-padding: 0.0 0.0 0.0 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
 }
 
-.list-view-floating .list-cell {
-	-fx-background-color: #fafad2;
-    -fx-label-padding: 0.0 0.0 0.0 0.0;
+.list-view-floating .list-cell:filled {
+	-fx-background-color: whitesmoke;
     -fx-graphic-text-gap : 0.0;
-    -fx-padding: 0.0 0.0 0.0 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.list-view-floating .list-cell{
+	-fx-background-color: white;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-background-insets: 3;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
 }
 
 .list-cell .label {
@@ -326,24 +363,28 @@
 }
 
 .status-bar {
-    -fx-background-color: darkgrey;
+    -fx-background-color: whitesmoke;
     -fx-text-fill: derive(#1d1d1d, 20.0%);
-    -fx-border-color: darkgrey;
+    -fx-border-color: whitesmoke;
+}
+
+.status-bar .label {
+    -fx-text-fill: derive(#1d1d1d, 20.0%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: darkgrey;
-     -fx-border-color: darkgrey;
+     -fx-background-color: whitesmoke;
+     -fx-border-color: whitesmoke;
      -fx-border-top-width: 1.0px;
 }
 
 .grid-pane {
-    -fx-background-color: darkgrey;
-    -fx-border-color: darkgrey;
+    -fx-background-color: whitesmoke;
+    -fx-border-color: whitesmoke;
     -fx-border-width: 1.0px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: darkgrey;
+    -fx-background-color: whitesmoke;
 }
 /* @@author */
