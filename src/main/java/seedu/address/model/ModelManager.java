@@ -15,6 +15,7 @@ import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.Datetime;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
@@ -404,25 +405,29 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0143884W
     private class DateQualifier implements Qualifier {
-        private Date date;
+        private Date inputDate;
 
         DateQualifier(Date date) {
-            this.date = date;
+            this.inputDate = date;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
         	
+        	Datetime taskDate = task.getDatetime();
+        	Date startDate = taskDate.getStart();
+        	Date endDate = taskDate.getEnd();
+        	
         	// check deadline and event start date
-        	if (sameDate(task.getDatetime().getStart())){
+        	if (sameDate(startDate)){
         		return true;
         	}
         	// check event end date but make sure deadlines are excluded
-        	else if (task.getDatetime().getEnd() != null && sameDate(task.getDatetime().getEnd())){
+        	else if (endDate != null && sameDate(endDate)){
         		return true;
         	}
-        	// check event dates between start date and end date
-        	else if (sameDate(task.getDatetime().getStart()) && sameDate(task.getDatetime().getEnd())){
+        	// check event dates between start date and end date but make sure deadlines are excluded
+        	else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){
         		return true;
         	}
         	else {
@@ -432,12 +437,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "date=" + date.toString();
+            return "date=" + inputDate.toString();
         }
         
         private boolean sameDate(Date other){
-        	return date.getDay() == other.getDay() && date.getMonth() == other.getMonth() 
-        			&& date.getYear() == other.getYear();
+        	return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
+        			&& inputDate.getYear() == other.getYear();
         }
     }
     //@@author

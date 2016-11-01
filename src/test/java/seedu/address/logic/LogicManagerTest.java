@@ -502,6 +502,25 @@ public class LogicManagerTest {
     public void execute_editDate_sucessful() throws Exception {
         genericEdit("A1", 3, "today");
     }
+    
+    @Test
+    public void execute_view_successful() throws Exception {
+    	List<Task> taskList = helper.generateDatedTaskList(9);
+    	taskList.forEach(temp -> {
+    		model.addTask(temp);
+    	});
+    	
+    	assertViewCommand("tmr", 0);
+    	assertViewCommand("12-Nov-2018", 1);
+    	assertViewCommand("14 Nov 2018", 2);
+    	assertViewCommand("16-11-2018", 3);
+    }
+    
+    private void assertViewCommand(String date, int listSize) {
+    	CommandResult result = logic.execute("view " + date);
+    	assertEquals(logic.getFilteredDatedTaskList().size(), listSize);   
+    }
+    
     //@@author
 
     private void genericEdit(String index, int type, String field) throws Exception, DuplicateTaskException, IllegalValueException {
