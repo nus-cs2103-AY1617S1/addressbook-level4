@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" minWidth="-Infinity" styleClass="spacing" stylesheets="@../style/DefaultStyle.css"
+<VBox maxHeight="-Infinity" minWidth="-Infinity" styleClass="grey, spacing" stylesheets="@../style/DefaultStyle.css"
       xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="seedu.todo.ui.view.CommandErrorView">
    <padding>
