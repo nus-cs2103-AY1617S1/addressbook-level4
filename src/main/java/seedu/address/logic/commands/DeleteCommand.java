@@ -77,7 +77,7 @@ public class DeleteCommand extends Command implements Undoable{
              model.addTask((Task) taskToDelete);
              return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
          } catch (UniqueTaskList.DuplicateTaskException e) {
-             assert false: "impossible for person to be duplicated";
+             assert false: "impossible for task to be duplicated";
              return new CommandResult(MESSAGE_DUPLICATE_TASK);
          }
     }

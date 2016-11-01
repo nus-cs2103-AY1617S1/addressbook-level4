@@ -12,14 +12,14 @@ import seedu.address.commons.events.ui.MinimizeRequestEvent;
  */
 public class RedoCommand extends Command {
 
-	public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_WORD = "redo";
 
     public static final String MESSAGE_SUCCESS = "Reversed your undo action successfully: ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reverses your last undo "
             + "action executed in SmartyDo. \n"
             + "Example: " + "add "
-            + "John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney \n"
+            + "CS2103 t;10-12-16 d;finish the project a;COM1-1-1 t/friends t/owesMoney \n"
             + "undo \n" + COMMAND_WORD;
 
     public static final String MESSAGE_NO_UNDO_COMMAND = "There was no undo command executed recently. ";
@@ -35,9 +35,9 @@ public class RedoCommand extends Command {
         assert undoRedoManager != null;
 
         try {
-        	lastCommand = undoRedoManager.getRedo().pop();
-        	assert lastCommand instanceof Undoable;
-        	undoRedoManager.transferToUndo(lastCommand);
+            lastCommand = undoRedoManager.getRedo().pop();
+            assert lastCommand instanceof Undoable;
+            undoRedoManager.transferToUndo(lastCommand);
             lastUndoMessage = lastCommand.execute().feedbackToUser;
             return new CommandResult(MESSAGE_SUCCESS + System.lineSeparator() + lastUndoMessage);
         }catch (EmptyStackException ese) {

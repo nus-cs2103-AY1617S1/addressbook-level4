@@ -92,7 +92,9 @@ public class Time implements Comparable<Time> {
             capsMonth = 3;
         }
         if (capsMonth != -1){
-            String fixedMonth = date.substring(0,capsMonth) + Character.toString(date.charAt(capsMonth)).toUpperCase()+date.substring(capsMonth + 1);
+            String fixedMonth = date.substring(0,capsMonth)
+                    + Character.toString(date.charAt(capsMonth)).toUpperCase()
+                    + date.substring(capsMonth + 1);
             return fixedMonth;
         } else {
             return date;
