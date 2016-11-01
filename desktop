@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activitymanager>
+    <tasks>
+        <activityType>task</activityType>
+        <name>complete cs2103t</name>
+        <note>must complete urgent</note>
+        <startDate>08-10-2016</startDate>
+        <startTime>1900</startTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <emailSent>false</emailSent>
+    </tasks>
+    <tasks>
+        <activityType>task</activityType>
+        <name>hello world there</name>
+        <note>hello world1 </note>
+        <startDate>01-11-2016</startDate>
+        <startTime>2100</startTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>true</activityTimePassed>
+        <emailSent>false</emailSent>
+    </tasks>
+    <floatingTasks>
+        <activityType>floating</activityType>
+        <name>hi there</name>
+        <note>hello world </note>
+        <status>Uncompleted</status>
+    </floatingTasks>
+    <events>
+        <activityType>event</activityType>
+        <name>hi there</name>
+        <note>hello world </note>
+        <startDate>01-11-2016</startDate>
+        <startTime>2200</startTime>
+        <endDate>01-11-2016</endDate>
+        <endTime>2300</endTime>
+        <status>Uncompleted</status>
+        <activityTimePassed>false</activityTimePassed>
+        <eventOngoing>true</eventOngoing>
+    </events>
+</activitymanager>
