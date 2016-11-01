@@ -113,25 +113,30 @@ public class Parser {
 		final String name = matcher.group("taskName");
 		final String args = matcher.group("addTaskArgs");
 		
-		if (args.toLowerCase().contains("on")) {
-			return prepareAddEventSameDay(name, args);
+		if (args.toLowerCase().contains(" on ")) {
+			System.out.println("ev same d path");
+			return prepareAddEventSameDay(name, "event", args);
 		}
-		else if (args.toLowerCase().contains("to")) {
-			return prepareAddEventDifferentDays(name, args);
+		else if (args.toLowerCase().contains(" to ")) {
+			System.out.println("ev diff d path");
+			return prepareAddEventDifferentDays(name, "event", args);
 		}
-		else if (args.toLowerCase().contains("by")) {
-			return prepareAddDeadline(name, args);
+		else if (args.toLowerCase().contains(" by ")) {
+			System.out.println("dl path");
+			return prepareAddDeadline(name, "deadline", args);
 		}
 		else if (args.trim().matches("\\s*(#.+)*\\s*")){
-			return prepareAddSomeday(name, args);
+			System.out.println("someday path");
+			return prepareAddSomeday(name, "someday", args);
 		}
 		else {
+			System.out.println("inc cmd");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 	}
 	
 	
-	private Command prepareAddEventDifferentDays(String taskName, String arguments) {
+	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
 
@@ -139,11 +144,11 @@ public class Parser {
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 
-		return getAddCommand(taskName, startDateTimeString, endDateTimeString, tagSet);
+		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
 	}
 	
 	
-	private Command prepareAddEventSameDay(String taskName, String arguments) {
+	private Command prepareAddEventSameDay(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, datePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
 
@@ -152,34 +157,33 @@ public class Parser {
 		String endDateTimeString = argsTokenizer.getValue(endDateTimePrefix).get() + " " + dateString;
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 
-		return getAddCommand(taskName, startDateTimeString, endDateTimeString, tagSet);
+		return getAddCommand(taskName, taskType, startDateTimeString, endDateTimeString, tagSet);
 	}
 
 	
-	private Command prepareAddDeadline(String taskName, String arguments) {
+	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
 
 		String endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix).get();
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 		
-		return getAddCommand(taskName, null, endDateTimeString, tagSet);
+		return getAddCommand(taskName, taskType, null, endDateTimeString, tagSet);
 	}
 	
-	private Command prepareAddSomeday(String taskName, String arguments) {
+	private Command prepareAddSomeday(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
 		argsTokenizer.tokenize(arguments);
 		
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
 		
 		// TODO better approach than using nulls as flag values
-		return getAddCommand(taskName, null, null, tagSet);
+		return getAddCommand(taskName, taskType, null, null, tagSet);
 	}
 	
 	
-	private Command getAddCommand(String taskName, String startDateTimeString, String endDateTimeString, Set<String> tagSet) {
+	private Command getAddCommand(String taskName, String taskType, String startDateTimeString, String endDateTimeString, Set<String> tagSet) {
 		Optional<LocalDateTime> startDateTimeOpt, endDateTimeOpt;
-		String taskType = "someday";
 
 		try {
 			if (startDateTimeString == null) {
@@ -187,12 +191,10 @@ public class Parser {
 			}
 			else {
 				startDateTimeOpt = Optional.of(DateParser.parse(startDateTimeString));
-				taskType = "event";
 			}
 			
 			if (endDateTimeString == null) {
 				endDateTimeOpt = Optional.empty();
-				taskType = "deadline";
 			}
 			else {
 				endDateTimeOpt = Optional.of(DateParser.parse(endDateTimeString));
