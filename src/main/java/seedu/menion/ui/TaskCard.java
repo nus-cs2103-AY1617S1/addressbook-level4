@@ -53,9 +53,15 @@ public class TaskCard extends UiPart{
         if (task.getActivityStatus().toString().equals("Completed")) {
         	completionStatus.setImage(new Image("/images/complete.png"));
         }
+        else if (task.isTimePassed()) {
+            System.out.println("This task's istimePAssed : " + task.isTimePassed());
+           // WEIJIE -> DISPLAY Overdue.png here!
+        }
+        /**
         else {
         	completionStatus.setImage(new Image("/images/uncomplete.png"));
         }
+        */
         id.setText(displayedIndex + ". ");    
     }
 
