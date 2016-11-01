@@ -1962,8 +1962,9 @@ public class LogicManagerTest {
         }
 
         /**
-         * @@author A0124333U Generates a Task object with given name and
-         *          datetime
+         * Generates a Task object with given name and datetime
+         * 
+         * @@author A0124333U
          */
         protected Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
             assert (dateTime != null && name != null);
