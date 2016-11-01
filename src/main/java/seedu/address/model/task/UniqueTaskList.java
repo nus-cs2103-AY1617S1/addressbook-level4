@@ -145,6 +145,12 @@ public class UniqueTaskList implements Iterable<Task> {
     		return overduedTask.getOverdue();
     	}
     }
+    
+    //@@author A0138993L
+    public int getTaskIndex(ReadOnlyTask key) {
+    	assert key != null;
+    	return internalList.indexOf(key);
+    }
 
   //@@author A0139430L JingRui
 	public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
