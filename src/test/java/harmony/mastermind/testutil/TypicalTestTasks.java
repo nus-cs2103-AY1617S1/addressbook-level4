@@ -8,14 +8,14 @@ import harmony.mastermind.model.TaskManager;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0124797R
 /**
- *
+ * to generate tasks for testing purposes
  */
 public class TypicalTestTasks {
 
-    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8;
+    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8, task9, task10;
 
-    //@@author A0124797R
     public TypicalTestTasks() {
         
         try {
@@ -24,7 +24,7 @@ public class TypicalTestTasks {
                     .withTags("homework").build();
             task2 = new TaskBuilder().withName("cs2105 assignment")
                     .withStartDate("23 oct 1pm").withEndDate("23 oct 5pm")
-                    .withTags("examPrep").build();
+                    .withTags("homework").build();
             task3 =  new TaskBuilder().withName("laundry")
                     .withTags("chores").build();
             task4 = new TaskBuilder().withName("finish assignment").build();
@@ -32,21 +32,25 @@ public class TypicalTestTasks {
             
             //manual inputs
             task5 = new TaskBuilder().withName("past year papers")
-                    .withTags("homework").build();
+                    .withTags("examPrep").build();
             task6 = new TaskBuilder().withName("sweep floor").build();
             
             //completed tasks
             task7 = new TaskBuilder().withName("lecture").build();
             task8 = new TaskBuilder().withName("submit PR").withEndDate("22 oct at 2359").build();
             
+            //reurring inputs
+            task9 = new TaskBuilder().withName("pick up grocery")
+                    .withEndDate("23 Oct 6pm").withRecur("weekly").build();
+            task10 = new TaskBuilder().withName("pick up grocery")
+                    .withEndDate("30 Oct 6pm").withRecur("weekly").build();
+            
         } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
+            assert false : "should not reach here";
         }
         
     }
 
-    //@@author A0124797R
     public static void loadTaskManagerWithSampleData(TaskManager tm) {
 
         try {
@@ -60,23 +64,21 @@ public class TypicalTestTasks {
             tm.markTask(new Task(task8));
             
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
+            assert false : "Should not reach here";
         } catch (TaskNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            assert false : "task is added before marking";            
         }
     }
 
-    //@@author A0124797R
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{task1, task2, task3, task4};
     }
     
-    //@@author A0124797R
     public TestTask[] getTypicalArchivedTasks() {
         return new TestTask[]{task7.mark(),task8.mark()};
     }
 
+    //@@author generated
     public TaskManager getTypicalTaskManager(){
         TaskManager tm = new TaskManager();
         loadTaskManagerWithSampleData(tm);

@@ -1,5 +1,10 @@
 package harmony.mastermind.storage;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,12 +16,6 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.TaskListComparator;
 import harmony.mastermind.model.task.UniqueTaskList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable TaskManager that is serializable to XML format
@@ -52,11 +51,10 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      */
     public XmlSerializableTaskManager() {}
 
-    /**
-     * Conversion
-     * 
-     */
     //@@author A0124797R
+    /**
+     * Conversion task manager to a JAXB-friendly version
+     */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         floatingTasks.addAll(src.getFloatingTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         events.addAll(src.getEventList().stream().map(XmlAdaptedEvent::new).collect(Collectors.toList()));
@@ -92,7 +90,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
             }
         }
-        
         lists.getInternalList().sort(comparator);
         return lists;
     }
@@ -229,6 +226,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    //@@author generated
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);

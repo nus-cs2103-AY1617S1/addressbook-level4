@@ -1,9 +1,7 @@
 package harmony.mastermind.model.task;
 
 import java.time.Duration;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
 
 import harmony.mastermind.model.tag.UniqueTagList;
 
@@ -36,9 +34,9 @@ public interface ReadOnlyTask {
     public Duration getDueDuration();
     public Duration getEventDuration();
     
-    //@@author A0124797R
     default boolean isSameTask(ReadOnlyTask task) {
-        return this.getName().equals(task.getName());
+        return task == this // short circuit if same object
+                || (this.toString().equals(task.toString())); // state check  
     }
     
     /**
@@ -64,11 +62,11 @@ public interface ReadOnlyTask {
                 
         return builder.toString();
     }
-    
+
+    //@@author A0124797R
     /**
      * Formats the Date as text, showing Task's date.
      */
-    //@@author A0124797R
     default String parse(Date date) {
         String[] dateArr = date.toString().split(" ");
         String[] timeArr = dateArr[INDEX_TIME].split(":");
@@ -80,11 +78,11 @@ public interface ReadOnlyTask {
         return builder.toString();
         
     }
-    
+
+    //@@author A0124797R
     /**
      * Formats the Date as text, showing Task's date.
      */
-    //@@author A0124797R
     default String parseForConsole(Date date) {
         String[] dateArr = date.toString().split(" ");
         String[] timeArr = dateArr[INDEX_TIME].split(":");

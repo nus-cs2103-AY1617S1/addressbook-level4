@@ -1,10 +1,7 @@
 package harmony.mastermind.logic.commands;
 
-import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
-import harmony.mastermind.commons.exceptions.TaskAlreadyUnmarkedException;
 import harmony.mastermind.model.task.ArchiveTaskList.TaskNotFoundException;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
@@ -27,16 +24,15 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
                                                  + COMMAND_WORD
                                                  + " INDEX";
 
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "%1$s has been unmarked";
+    public static final String MESSAGE_UNMARK_SUCCESS = "%1$s has been unmarked";
     public static final String MESSAGE_DUPLICATE_UNMARK_TASK = "%1$s already exist in not completed list";
-    public static final String MESSAGE_UNMARK_TASK_FAILURE = "Tasks in current tab has not been marked";
+    public static final String MESSAGE_UNMARK_FAILURE = "Tasks in current tab has not been marked";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Unmark Command] %1$s has been archived";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Unmark Command] %1$s has been unmarked";
 
-    public final int targetIndex;
-
-    Task taskToUnmark;
+    private final int targetIndex;
+    private Task taskToUnmark;
 
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -53,9 +49,7 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             
             requestHighlightLastActionedRow(taskToUnmark);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
-        } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_SUCCESS, taskToUnmark));
         } catch (DuplicateTaskException dte) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
@@ -63,8 +57,8 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
     }
 
-    @Override
     //@@author A0138862W
+    @Override
     /*
      * Strategy to undo unmark command
      * 
@@ -99,9 +93,7 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             
             requestHighlightLastActionedRow(taskToUnmark);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
-        } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_SUCCESS, taskToUnmark));
         } catch (DuplicateTaskException dte) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
@@ -111,7 +103,7 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
 
     //@@author A0124797R
     private void executeUnmark() throws IndexOutOfBoundsException, TaskNotFoundException,
-        TaskAlreadyUnmarkedException, DuplicateTaskException {
+        DuplicateTaskException {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredArchiveList();
 
         if (lastShownList.size() < targetIndex) {
@@ -120,10 +112,6 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
         }
         
         taskToUnmark = (Task) lastShownList.get(targetIndex - 1);
-        
-        if (!taskToUnmark.isMarked()) {
-            throw new TaskAlreadyUnmarkedException();
-        }
         
         model.unmarkTask(taskToUnmark);
     }

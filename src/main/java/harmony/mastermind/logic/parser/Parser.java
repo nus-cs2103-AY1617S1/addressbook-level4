@@ -5,7 +5,14 @@ import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +24,29 @@ import com.google.common.base.Strings;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.commons.util.StringUtil;
-import harmony.mastermind.logic.commands.*;
+import harmony.mastermind.logic.commands.ActionHistoryCommand;
+import harmony.mastermind.logic.commands.AddCommand;
+import harmony.mastermind.logic.commands.AddCommandBuilder;
+import harmony.mastermind.logic.commands.ClearCommand;
+import harmony.mastermind.logic.commands.Command;
+import harmony.mastermind.logic.commands.DeleteCommand;
+import harmony.mastermind.logic.commands.EditCommand;
+import harmony.mastermind.logic.commands.ExitCommand;
+import harmony.mastermind.logic.commands.ExportCommand;
+import harmony.mastermind.logic.commands.FindCommand;
+import harmony.mastermind.logic.commands.FindTagCommand;
+import harmony.mastermind.logic.commands.HelpCommand;
+import harmony.mastermind.logic.commands.ImportCommand;
+import harmony.mastermind.logic.commands.ImportIcsCommand;
+import harmony.mastermind.logic.commands.IncorrectCommand;
+import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.MarkCommand;
+import harmony.mastermind.logic.commands.RedoCommand;
+import harmony.mastermind.logic.commands.RelocateCommand;
+import harmony.mastermind.logic.commands.UndoCommand;
+import harmony.mastermind.logic.commands.UnmarkCommand;
+import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.memory.Memory;
-import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.tag.Tag;
 
 /**
@@ -35,7 +62,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    private static final Pattern TASK_ARCHIVE_ARGS_FORMAT = Pattern.compile("(?<type>[^/]+)");
+    private static final Pattern TAB_ARGS_FORMAT = Pattern.compile("(?<tab>home|tasks|events|deadlines|archives)");
     
     private static final String TAB_ARCHIVES = "Archives";
     
@@ -113,10 +140,7 @@ public class Parser {
                 return new HelpCommand();
                 
             case ImportCommand.COMMAND_WORD:
-                return new ImportCommand(arguments);
-                
-            case ImportIcsCommand.COMMAND_KEYWORD_IMPORTICS:
-                return prepareImportIcs(arguments);
+                return prepareImport(arguments);
                 
             case ExportCommand.COMMAND_KEYWORD_EXPORT:
                 return prepareExport(arguments);
@@ -230,7 +254,7 @@ public class Parser {
      * Extract the source destination string and prepare the Import ICS command. 
      * 
      */
-    private Command prepareImportIcs(String args){
+    private Command prepareImport(String args){
         final Matcher matcher = ImportIcsCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
         
         // Validate arg string format
@@ -242,7 +266,7 @@ public class Parser {
         
         assert source != null;
         
-        return new ImportIcsCommand(source);
+        return new ImportCommand(source);
     }
     
     /**
@@ -371,14 +395,12 @@ public class Parser {
         return result;
     }
 
-    /**
-     * Parses arguments in the context of the mark task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
     //@@author A0124797R
+    /**
+     * Parses arguments in the context of the mark task command. <br>
+     * 
+     * @return the prepared mark command
+     */
     private Command prepareMark(String args, String currentTab) {
 
         Optional<Integer> index = parseIndex(args);
@@ -387,31 +409,29 @@ public class Parser {
         }
         return new MarkCommand(index.get(), currentTab);
     }
-    
+
+    //@@author A0124797R
     /**
      * Parses arguments in the context of the list task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0124797R
     private Command prepareList(String args) {
-        Optional<String> type = parseType(args);
-        if (!type.isPresent()) {
-            return new ListCommand();
-        }else {
-            if (type.get().equals(ModelManager.TAB_TASKS.toLowerCase()) ||
-                    type.get().equals(ModelManager.TAB_EVENTS.toLowerCase()) || 
-                    type.get().equals(ModelManager.TAB_DEADLINES.toLowerCase()) ||
-                    type.get().equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
+        Optional<String> type = parseTab(args.toLowerCase());
+        if (type.isPresent()) {
+            if (type.get().equals("empty")) {
+                return new ListCommand();
+            } else {
                 return new ListCommand(type);
-            }else {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
+        } else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
     }
 
+
+    //@@author A0124797R
     /**
      * Parses arguments in the context of the unmark task command.
      *
@@ -419,10 +439,9 @@ public class Parser {
      *            full command args string
      * @return the prepared command
      */
-    //@@author A0124797R
     private Command prepareUnmark(String args, String currentTab) {
         if (!currentTab.equals(TAB_ARCHIVES)) {
-            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_TASK_FAILURE);
+            return new IncorrectCommand(UnmarkCommand.MESSAGE_UNMARK_FAILURE);
         }
 
         Optional<Integer> index = parseIndex(args);
@@ -432,6 +451,7 @@ public class Parser {
         return new UnmarkCommand(index.get());
     }
     
+    //@@author generated
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
      * integer is given as the index. Returns an {@code Optional.empty()}
@@ -451,37 +471,30 @@ public class Parser {
 
     }
     
-    /**
-     * checks if have the type to list archive
-     */
-    private Optional<String> parseType(String command) {
-        final Matcher matcher = TASK_ARCHIVE_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String type = matcher.group("type").toLowerCase();
-
-        return Optional.of(type);
-
-    }
     
-    private Optional<String> parseUpcoming(String command) {
+    //@@author A0124797R
+    /**
+     * Returns the specified Tab name in the {@code ListCommand}
+     * IF a correct Tab name is given. 
+     * Returns an {@code Optional.empty()} otherwise.
+     */
+    private Optional<String> parseTab(String command) {
         if (command.isEmpty()) {
             return Optional.of("empty");
         }
         
-        final Matcher matcher = UpcomingCommand.COMMAND_ARGUMENTS_PATTERN.matcher(command.trim());
+        final Matcher matcher = TAB_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
 
-        String type = matcher.group("taskType").toLowerCase();
+        String type = matcher.group("tab").toLowerCase();
 
         return Optional.of(type);
 
     }
 
+    //@@author generated
     /**
      * Parses arguments in the context of the find task command.
      *
@@ -501,14 +514,15 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
     
+
+    //@@author A0124797R
     /**
-     * Parses arguments in the context of the delete task command.
+     * Parses arguments in the context of the upcoming task command.
      *
      * @param args
      *            full command args string
      * @return the prepared command
      */
-    //@@author A0124797R
     private Command prepareUpcoming(String args) {
 
         Optional<String> taskType = parseUpcoming(args);
@@ -519,6 +533,27 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpcomingCommand.MESSAGE_USAGE));
         }
         
+    }
+    
+    //@@author A0124797R
+    /**
+     * Returns the specified arguments for {@code UpcomingCommand}
+     * IF a correct arguments is given.
+     */
+    private Optional<String> parseUpcoming(String command) {
+        if (command.isEmpty()) {
+            return Optional.of("empty");
+        }
+        
+        final Matcher matcher = UpcomingCommand.COMMAND_ARGUMENTS_PATTERN.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String type = matcher.group("taskType").toLowerCase();
+
+        return Optional.of(type);
+
     }
 
     /**
