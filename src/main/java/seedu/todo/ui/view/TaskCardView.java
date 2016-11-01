@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,14 +18,12 @@ import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 //@@author A0135805H
 /**
@@ -35,10 +32,12 @@ import java.util.function.Consumer;
  */
 public class TaskCardView extends UiPart {
     /*Constants*/
-    private static final String FXML = "TaskCardView.fxml";
+    public static final String TAG_LABEL_ID = "tagLabel";
 
+    private static final String FXML = "TaskCardView.fxml";
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
+    private static final int INSERT_TAG_INDEX = 2;
 
     /*Static Field*/
     /*
@@ -119,8 +118,9 @@ public class TaskCardView extends UiPart {
     private void displayTags(){
         List<String> tagList = new ArrayList<>(Tag.getTagNames(task.getTags()));
         if (!tagList.isEmpty()) {
-            tagList.sort(Comparator.naturalOrder());
-            tagList.forEach(tagName -> titleFlowPane.getChildren().add(constructTagLabel(tagName)));
+            tagList.sort(Comparator.reverseOrder());
+            tagList.forEach(tagName -> titleFlowPane.getChildren()
+                    .add(INSERT_TAG_INDEX, constructTagLabel(tagName)));
         }
     }
 
@@ -129,7 +129,7 @@ public class TaskCardView extends UiPart {
      */
     private Label constructTagLabel(String tagName) {
         Label tagLabel = ViewGeneratorUtil.constructRoundedText(tagName);
-        ViewStyleUtil.addClassStyles(tagLabel, ViewStyleUtil.STYLE_COLLAPSIBLE);
+        tagLabel.setId(TAG_LABEL_ID);
         return tagLabel;
     }
     
@@ -219,9 +219,7 @@ public class TaskCardView extends UiPart {
      * {@link ImmutableTask}
      */
     private boolean isTaskCollapsible() {
-        boolean hasDescription = task.getDescription().isPresent();
-        boolean hasTags = !task.getTags().isEmpty();
-        return hasDescription || hasTags;
+        return task.getDescription().isPresent();
     }
 
     /* Getters */

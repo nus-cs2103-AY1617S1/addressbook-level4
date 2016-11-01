@@ -81,7 +81,7 @@ public class TaskCardViewHandle extends GuiHandle {
     public Set<String> getDisplayedTags() {
         FlowPane tagsBox = (FlowPane) getNode(TITLE_PANE_ID);
         List<Node> displayedTagNodes = tagsBox.getChildren()
-                .filtered(node -> node.getStyleClass().contains("collapsible")); //Tags can be collapsed!
+                .filtered(node -> node.getId().equals(TaskCardView.TAG_LABEL_ID));
         
         return displayedTagNodes.stream()
                 .map(node -> ((Label) node).getText()).collect(Collectors.toSet());
@@ -129,7 +129,7 @@ public class TaskCardViewHandle extends GuiHandle {
     }
 
     public boolean isTaskCollapsible() {
-        return !getDisplayedDescription().isEmpty() || !getDisplayedTags().isEmpty();
+        return !getDisplayedDescription().isEmpty();
     }
 
     /* General Methods */
