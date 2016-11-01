@@ -18,7 +18,7 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <ListView fx:id="taskListView1" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ListView fx:id="overdueTaskListView" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <stylesheets>
                                     <URL value="@Extensions.css" />
                                     <URL value="@DarkTheme.css" />
