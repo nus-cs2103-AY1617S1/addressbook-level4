@@ -19,6 +19,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -158,12 +159,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0143756Y
     @Override
-    public synchronized Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName){	
+    public synchronized Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName) 
+    		throws InvalidPathException, SecurityException, IllegalArgumentException {	
     	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
     	
     	if(java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
-    	}
+    	} 
     	
     	if(!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
@@ -175,12 +177,12 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
-    	}
+    	} 
     	
     	if(java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
     				+ ".xml", userSpecifiedStorageFolder));
-    	}
+    	} 
     	
     	return new Pair<Path, Path>(newStorageFileFilePath, oldStorageFileFilePath);
     }
@@ -196,8 +198,8 @@ public class ModelManager extends ComponentManager implements Model {
     	//Updates taskManagerFilePath (attribute) in config (Config object)
     	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());  //Throws IOException
     	
-    	//Saves config (Config object) to config.json (JSON file), overwrites existing config.json
-    	ConfigUtil.saveConfig(config, "config.json");  //Throws IOException
+    	//Saves config (Config object) to config.configFilePath (JSON file path), overwrites existing config file
+    	ConfigUtil.saveConfig(config, config.getConfigFilePath());  //Throws IOException
     }
     //@@author 
     

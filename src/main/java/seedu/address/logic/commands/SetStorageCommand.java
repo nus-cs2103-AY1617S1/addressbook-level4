@@ -1,4 +1,3 @@
-//@@author A0143756Y
 package seedu.address.logic.commands;
 
 import java.nio.file.Path;
@@ -7,6 +6,7 @@ import javafx.util.Pair;
 import java.nio.file.InvalidPathException;
 import java.io.IOException;
 
+//@@author A0143756Y
 /**
  * Sets task manager data storage location, according to user specifications.
  * Task manager data to be saved to user-specified folder, with user-specified file name.
@@ -43,7 +43,7 @@ public class SetStorageCommand extends Command {
     private final String userSpecifiedStorageFolder; 
     
     private final String userSpecifiedStorageFileName;
-        
+    
     public SetStorageCommand(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName) {
     	this.userSpecifiedStorageFolder = userSpecifiedStorageFolder;
     	this.userSpecifiedStorageFileName = userSpecifiedStorageFileName;
@@ -56,13 +56,13 @@ public class SetStorageCommand extends Command {
         model.saveState();
         
         try{
-        	Pair<Path, Path> filePaths = model.validateSetStorage(userSpecifiedStorageFolder, userSpecifiedStorageFileName);
+        	Pair<Path, Path> filePaths = model.validateSetStorage(userSpecifiedStorageFolder, userSpecifiedStorageFileName); //Throws InvalidPathException, SecurityException, IllegalArgumentException
         	
         	Path newStorageFileFilePath = filePaths.getKey();
         	
         	Path oldStorageFileFilePath = filePaths.getValue();
         	
-        	model.setStorage(newStorageFileFilePath.toFile(), oldStorageFileFilePath.toFile());
+        	model.setStorage(newStorageFileFilePath.toFile(), oldStorageFileFilePath.toFile()); //Throws IOException
         	
         	return new CommandResult(String.format(MESSAGE_SUCCESS, model.getTaskManagerStorageFilePath()));
         	
