@@ -16,10 +16,10 @@ public class Instruction {
 	private String taskDate;
 	private String taskStart;
 	private String taskEnd;
-	private Set<String> tag = new HashSet<String>();
+	private UniqueTagList tag;
 	
-	public Instruction(String reverse, int taskIndex, String taskName, String taskDate, String taskStart,
-			String taskEnd, Set<String> tag) {
+	/*public Instruction(String reverse, int taskIndex, String taskName, String taskDate, String taskStart,
+			String taskEnd, UniqueTagList tag) {
 		super();
 		this.reverse = reverse;
 		this.taskIndex = taskIndex;
@@ -28,10 +28,10 @@ public class Instruction {
 		this.taskStart = taskStart;
 		this.taskEnd = taskEnd;
 		this.tag = tag;
-	}
+	}*/
 	
 	public Instruction(String reverse, String taskName, String taskDate, String taskStart,
-			String taskEnd, Set<String> pushTag) {
+			String taskEnd, UniqueTagList pushTag) {
 		
 		this.reverse = reverse;
 		//this.taskIndex = taskIndex;
@@ -84,10 +84,10 @@ public class Instruction {
 		this.taskEnd = taskEnd;
 	}
 	
-	public Set<String> getTag() {
+	public UniqueTagList getTag() {
 		return tag;
 	}
-	public void setTag(Set<String> tag) {
+	public void setTag(UniqueTagList tag) {
 		this.tag = tag;
 	}
 	

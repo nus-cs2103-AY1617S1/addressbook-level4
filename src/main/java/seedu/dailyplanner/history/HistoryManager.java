@@ -32,10 +32,7 @@ public class HistoryManager {
 		String pushDate = toPush.getPhone().toString();
 		String pushStart = toPush.getEmail().toString();
 		String pushEnd = toPush.getAddress().toString();
-		Set<String> pushTag = new HashSet<>();
-		for (Tag tagName : toPush.getTags().toSet()) {
-			pushTag.add(tagName.toString());
-		}
+		UniqueTagList pushTag = toPush.getTags();
 
 		recordCommand.push(new Instruction("A", pushName, pushDate, pushStart, pushEnd, pushTag));
 
@@ -47,10 +44,7 @@ public class HistoryManager {
 		String pushDate = toPush.getPhone().toString();
 		String pushStart = toPush.getEmail().toString();
 		String pushEnd = toPush.getAddress().toString();
-		Set<String> pushTag = new HashSet<>();
-		for (Tag tagName : toPush.getTags().toSet()) {
-			pushTag.add(tagName.toString());
-		}
+		UniqueTagList pushTag = toPush.getTags();
 
 		recordCommand.push(new Instruction("D", pushName, pushDate, pushStart, pushEnd, pushTag));
 
@@ -62,10 +56,7 @@ public class HistoryManager {
         String taskToEditDate = taskToEdit.getPhone().toString();
         String taskToEditStart = taskToEdit.getEmail().toString();
         String taskToEditEnd = taskToEdit.getAddress().toString();
-        Set<String> taskToEditTag = new HashSet<>();
-        for (Tag tagName : taskToEdit.getTags().toSet()) {
-            taskToEditTag.add(tagName.toString());
-        }
+        UniqueTagList taskToEditTag = taskToEdit.getTags();
 
         recordCommand.push(new Instruction("EA", taskToEditName, taskToEditDate, taskToEditStart, taskToEditEnd, taskToEditTag));
         
@@ -73,10 +64,7 @@ public class HistoryManager {
         String toAddDate = toAdd.getPhone().toString();
         String toAddStart = toAdd.getEmail().toString();
         String toAddEnd = toAdd.getAddress().toString();
-        Set<String> toAddTag = new HashSet<>();
-        for (Tag tagName : toAdd.getTags().toSet()) {
-            toAddTag.add(tagName.toString());
-        }
+        UniqueTagList toAddTag = toAdd.getTags();
 
         recordCommand.push(new Instruction("ED", toAddName, toAddDate, toAddStart, toAddEnd, toAddTag));
 

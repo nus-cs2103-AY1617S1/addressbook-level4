@@ -27,13 +27,9 @@ public class UndoCommand extends Command {
 		ReadOnlyTask taskToUndo = null;
 		
 		try {
-			final Set<Tag> tagSet = new HashSet<>();
-	        for (String tagName : undoInstruction.getTag()) {
-	            tagSet.add(new Tag(tagName));
-	        }
 	        
 			 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()), new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
-					new UniqueTagList(tagSet));
+					undoInstruction.getTag());
 			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
@@ -74,14 +70,10 @@ public class UndoCommand extends Command {
             taskToUndo = null;
 
             try {
-                final Set<Tag> tagSet = new HashSet<>();
-                for (String tagName : undoInstruction.getTag()) {
-                    tagSet.add(new Tag(tagName));
-                }
-
+                
                 taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()),
                         new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
-                        new UniqueTagList(tagSet));
+                        undoInstruction.getTag());
 
             } catch (IllegalValueException e) {
                 e.printStackTrace();
