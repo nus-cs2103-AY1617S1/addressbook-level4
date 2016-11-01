@@ -318,6 +318,10 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
+    	System.out.println("HI");
+    	System.out.println(card.toString());
+    	System.out.println("BYE");
+    	System.out.println(task.toString());
         return card.isSameTask(task);
     }
 

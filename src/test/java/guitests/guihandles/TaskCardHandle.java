@@ -16,8 +16,8 @@ public class TaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
-        super(guiRobot, primaryStage, null);
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {       
+    	super(guiRobot, primaryStage, null);
         this.node = node;
     }
 
@@ -41,9 +41,9 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(START_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && (getDate().equals(""))
-                && getStartTime().equals("Start Time: " + task.getStartTime().appearOnUIFormat()) && getEndTime().equals("End Time: " + task.getEndTime().appearOnUIFormat());
+    public boolean isSameTask(ReadOnlyTask task) {
+        return getFullName().equals(task.getName().fullName)
+                && getStartTime().equals("Start: " + task.getStartTime().easyReadDateFormatForUI()) && getEndTime().equals("End: " + task.getEndTime().easyReadDateFormatForUI());
     }
 
     @Override
