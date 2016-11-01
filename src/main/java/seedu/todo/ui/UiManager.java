@@ -125,6 +125,7 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().hideHelpPanel();
+        mainWindow.getGlobalTagView().hideGlobalTagViewPanel();
         mainWindow.getCommandFeedbackView().clearMessage();
     }
 
@@ -139,6 +140,12 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+    }
+    
+    @Subscribe
+    private void handleShowTagsEvent(ShowTagsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getGlobalTagView().displayGlobalTags(event.getListOfTags());;
     }
 
 }
