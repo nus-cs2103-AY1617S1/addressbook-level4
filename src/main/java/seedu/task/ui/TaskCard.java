@@ -50,7 +50,6 @@ public class TaskCard extends UiPart {
         name.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
         priority.setText("Priority: " + task.getPriority().toString());
-	    priority.setTextFill(Color.RED);
 
 	    if(task.getTimeStart().toString().equals("")){
 	    	startTime.setText("");
@@ -68,8 +67,15 @@ public class TaskCard extends UiPart {
 	    if(task.tagsString().equals(""))
 	    	tags.setText("");
 	    else tags.setText("Tags: " + task.tagsString());
-        completeStatus.setText(task.getCompleteStatus()? "  [Completed]":
-        			(task.getTimeEnd().isBefore(LocalDateTime.now())? "  [OverDue]" : "  [Not Completed]"));
+
+	    completeStatus.setText(task.getCompleteStatus()? "    [Completed]":
+        			(task.getTimeEnd().isBefore(LocalDateTime.now())? "    [OverDue]" : "    [Not Completed]"));
+
+	    if(task.getCompleteStatus())
+	    	completeStatus.setStyle("-fx-text-fill: green");
+	    else if(task.getTimeEnd().isBefore(LocalDateTime.now()))
+	    	completeStatus.setStyle("-fx-text-fill: red");
+
     }
     //@@author
 
