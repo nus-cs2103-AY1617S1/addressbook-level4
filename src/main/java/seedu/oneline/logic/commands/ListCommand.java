@@ -1,3 +1,4 @@
+//@@author A0121657H
 package seedu.oneline.logic.commands;
 
 import java.util.Iterator;
@@ -13,13 +14,12 @@ import seedu.oneline.logic.parser.Parser;
  */
 public class ListCommand extends Command {
     
-    //@@author A0121657H
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     public static final String MESSAGE_INVALID = "Argument given is invalid. \n" +
-                                                "Supported formats: list [done/today/week/float/#<Category>]";
+                                                "Supported formats: list [done/undone/today/week/float/#<Category>]";
 
     public String listBy;
 
@@ -59,6 +59,9 @@ public class ListCommand extends Command {
         case "done":
             model.updateFilteredListToShowAllDone();
             break;
+        case "undone":
+            model.updateFilteredListToShowAllNotDone();
+            break;
         case "today":
             model.updateFilteredListToShowToday();
             break;
@@ -73,7 +76,7 @@ public class ListCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    //@@author 
+
     @Override
     public boolean canUndo() {
         return true;

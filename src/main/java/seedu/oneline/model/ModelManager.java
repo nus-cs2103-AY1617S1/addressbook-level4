@@ -17,11 +17,12 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -41,6 +42,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
+    
+    //@@author A0121657H
+    private Path currentRelativePath = Paths.get("");
+    private String taskBookFilePath = currentRelativePath.toAbsolutePath().toString() + "\\data\\taskbook.xml";
 
     //@@author A0140156R
     private final Stack<ModelState> prevState = new Stack<ModelState>();
@@ -67,10 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs, String filePath) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
         filteredTasks.setPredicate(getNotDonePredicate());
+        this.taskBookFilePath = filePath;
     }
 
     @Override
@@ -107,7 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
 
@@ -127,6 +133,17 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
+    }
+    
+    @Override
+    public void setTaskBookFilePath(String filePath) {
+        this.taskBookFilePath = filePath;
+    }
+
+    
+    @Override
+    public String getTaskBookFilePath() {
+        return taskBookFilePath;
     }
     //@@author 
     
