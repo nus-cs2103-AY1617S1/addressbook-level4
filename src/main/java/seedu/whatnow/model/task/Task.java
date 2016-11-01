@@ -7,7 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.UniqueTagList;
 
@@ -16,6 +18,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
  * field values are validated.
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
+    private static final Logger logger = LogsCenter.getLogger(Task.class);
 
     private Name name;
     private String taskDate;
@@ -228,7 +231,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             }
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.warning("ParseException at Task: \n" + e.getMessage());
         }
         return compareToResult;
     }

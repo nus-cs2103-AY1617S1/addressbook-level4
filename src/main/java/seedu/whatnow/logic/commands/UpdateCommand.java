@@ -7,7 +7,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -28,6 +30,8 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class UpdateCommand extends Command {
 
+    private static final Logger logger = LogsCenter.getLogger(UpdateCommand.class);
+    
     public static final String COMMAND_WORD = "update";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -244,7 +248,7 @@ public class UpdateCommand extends Command {
             model.getNewTask().push(toUpdate);
             model.getUndoStack().push(COMMAND_WORD);
         } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
+            logger.warning("TaskNotFoundException at UpdateCommand: \n" + tnfe.getMessage());
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }

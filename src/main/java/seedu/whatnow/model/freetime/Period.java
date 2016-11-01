@@ -6,12 +6,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.logging.Logger;
+
+import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.model.task.Task;
 
 /**
  * A time period with start and end time
  */
 public class Period implements Comparator {
 
+    private static final Logger logger = LogsCenter.getLogger(Period.class);
+    
     public String start;
     public String end;
 
@@ -70,7 +76,7 @@ public class Period implements Comparator {
                     return BIGGER;
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
+                logger.warning("ParseException at Period: \n" + e.getMessage());
             }
 
         }

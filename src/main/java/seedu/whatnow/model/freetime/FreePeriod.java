@@ -10,10 +10,18 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
+import java.util.logging.Logger;
+
+import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.model.task.Task;
+
 /**
  * Stores the freeslots(time period with no time-based tasks) of a given date.
  */
 public class FreePeriod {
+    
+    private static final Logger logger = LogsCenter.getLogger(FreePeriod.class);
+    
     private ArrayList<Period> freePeriod;
 
     private static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma";
@@ -59,7 +67,7 @@ public class FreePeriod {
                 }
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.warning("ParseException at FreePeriod: \n" + e.getMessage());
         }
     }
 

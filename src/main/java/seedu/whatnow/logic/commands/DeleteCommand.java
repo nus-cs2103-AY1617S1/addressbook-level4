@@ -1,7 +1,10 @@
 //@@author A0139772U
 package seedu.whatnow.logic.commands;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.model.task.ReadOnlyTask;
@@ -9,6 +12,7 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.whatnow.storage.StorageManager;
 
 /**
  * Deletes a task identified using it's last displayed index from WhatNow.
@@ -16,7 +20,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
@@ -24,6 +28,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     private static final String TASK_TYPE_FLOATING = "todo";
+    private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
 
     private final int targetIndex;
     private final String taskType;
@@ -59,7 +64,7 @@ public class DeleteCommand extends Command {
             model.getDeletedStackOfTasks().push(taskToDelete);
             model.getDeletedStackOfTasksIndex().push(indexRemoved);
         } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task cannot be missing";
+            logger.warning("Task not found: " + taskToDelete + "\n" + tnfe.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
