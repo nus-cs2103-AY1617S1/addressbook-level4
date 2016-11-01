@@ -15,10 +15,10 @@ public class PrettifyDate {
             return "Today";
         }
         if (date.plusDays(1).equals(today)) {
-            return "Tomorrow";
+            return "Yesterday";
         }
         if (date.minusDays(1).equals(today)) {
-            return "Yesterday";
+            return "Tomorrow";
         }
         
         if(date.isBefore(today) && today.minusDays(THRESHOLD).isBefore(date)) {
