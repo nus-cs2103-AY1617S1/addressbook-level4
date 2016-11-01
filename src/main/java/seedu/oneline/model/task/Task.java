@@ -199,6 +199,28 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     //@@author A0138848M
     /**
+     * Returns a new Task with all fields of the current task duplicated and 
+     * with its tag updated to newTag
+     * 
+     * @param newTag
+     * @return task with updated tag
+     */
+    @Override
+    public Task updateTag(Tag newTag) {
+        assert newTag != null;
+        
+        ReadOnlyTask oldTask = this;
+        
+        TaskName newName = oldTask.getName();
+        TaskTime newStartTime = oldTask.getStartTime();
+        TaskTime newEndTime = oldTask.getEndTime();
+        TaskTime newDeadline = oldTask.getDeadline();
+        TaskRecurrence newRecurrence = oldTask.getRecurrence();
+
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
+        return newTask;
+    }
+    /**
      * Returns true if task is floating
      * 
      * floating task is defined as a task without a start/end time or a deadline
