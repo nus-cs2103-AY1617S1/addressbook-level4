@@ -43,22 +43,28 @@ public interface ReadOnlyTask {
     /**
      * Formats the task as text, showing all task details.
      */
+    //@@author A0142605N
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Time: ")
+        builder.append(getName());
+        if (!getStartTime().toString().isEmpty()) {
+            builder.append(" from ")
                 .append(getStartTime())
                 .append(" to ")
-                .append(getEndTime())
-                .append(" Deadline: ")
-                .append(getDeadline())
-                .append(" Recurrence: ")
-                .append(getRecurrence())
-                .append(" Tag: ")
-                .append(getTag());
+                .append(getEndTime());
+        }
+        if (!getDeadline().toString().isEmpty()) {
+            builder.append(" due ")
+                .append(getDeadline());
+        }
+        if (getRecurrence() != null) {
+            builder.append(getRecurrence());
+        }
+        builder.append(" " + getTag());
         return builder.toString();
     }
-
+    //@@author 
+    
     Task update(Map<TaskField, String> fields) throws IllegalValueException;
     
     //@@author A0121657H
@@ -75,5 +81,13 @@ public interface ReadOnlyTask {
      * @return
      */
     public Task markUndone(ReadOnlyTask taskToDone);
-    //@@author
+    
+    //@@author A0138848M
+    /**
+     * Returns a new Task which duplicates the existing task and updates its tag
+     * 
+     * @param newTag the updated tag
+     * @return
+     */
+    public Task updateTag(Tag newTag);
 }

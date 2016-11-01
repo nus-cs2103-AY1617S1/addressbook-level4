@@ -21,6 +21,7 @@ Components in charge of: User Interface
 Aspects/tools in charge of: UI, Documentation
 Features implemented: 
 - UI Design
+- Help Command
 Code written: [functional code][test code][docs]
 Other major contributions:
 - Collating User Guide & Developer Guide with Deshun 

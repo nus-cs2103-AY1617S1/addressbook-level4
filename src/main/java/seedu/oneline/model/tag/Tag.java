@@ -18,7 +18,11 @@ public class Tag {
     public static final String EMPTY_TAG_VALUE = "#"; // escape character
     
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_INVALID_TAG = "The category %1$s is invalid";
+    public static final String MESSAGE_DUPLICATE_TAG = "The category %1$s already exists in the task book";
+
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
+
 
     public static final Tag EMPTY_TAG = createEmptyTag();
     
@@ -93,9 +97,9 @@ public class Tag {
      */
     public String toString() {
         if (this == EMPTY_TAG) {
-            return "[No category]";
+            return "#uncategorised";
         }
-        return '[' + tagName + ']';
+        return '#' + tagName;
     }
     
     /**

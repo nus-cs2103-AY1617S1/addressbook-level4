@@ -226,6 +226,12 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
         return newTask;
     }
+
+    @Override
+    public Task updateTag(Tag newTag) {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
     //@@author
 
