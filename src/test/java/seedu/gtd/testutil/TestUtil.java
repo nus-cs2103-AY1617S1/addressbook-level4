@@ -1,30 +1,5 @@
 package seedu.gtd.testutil;
 
-import com.google.common.io.Files;
-import guitests.guihandles.TaskCardHandle;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import junit.framework.AssertionFailedError;
-import org.loadui.testfx.GuiTest;
-import org.testfx.api.FxToolkit;
-
-import seedu.gtd.TestApp;
-import seedu.gtd.commons.exceptions.IllegalValueException;
-import seedu.gtd.commons.util.FileUtil;
-import seedu.gtd.commons.util.XmlUtil;
-import seedu.gtd.logic.parser.DateNaturalLanguageProcessor;
-import seedu.gtd.logic.parser.NaturalLanguageProcessor;
-import seedu.gtd.model.AddressBook;
-import seedu.gtd.model.task.*;
-import seedu.gtd.model.tag.Tag;
-import seedu.gtd.model.tag.UniqueTagList;
-import seedu.gtd.storage.XmlSerializableAddressBook;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -36,11 +11,43 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
+import org.loadui.testfx.GuiTest;
+import org.testfx.api.FxToolkit;
+
+import com.google.common.io.Files;
+
+import guitests.guihandles.TaskCardHandle;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import junit.framework.AssertionFailedError;
+import seedu.gtd.TestApp;
+import seedu.gtd.commons.exceptions.IllegalValueException;
+import seedu.gtd.commons.util.FileUtil;
+import seedu.gtd.commons.util.XmlUtil;
+import seedu.gtd.model.AddressBook;
+import seedu.gtd.model.tag.Tag;
+import seedu.gtd.model.tag.UniqueTagList;
+import seedu.gtd.model.task.Address;
+import seedu.gtd.model.task.DueDate;
+import seedu.gtd.model.task.Name;
+import seedu.gtd.model.task.Priority;
+import seedu.gtd.model.task.ReadOnlyTask;
+import seedu.gtd.model.task.Task;
+import seedu.gtd.model.task.UniqueTaskList;
+import seedu.gtd.storage.XmlSerializableAddressBook;
+
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
-
+	
+	//@@author addressbook-level4
+	
     public static String LS = System.lineSeparator();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
@@ -321,6 +328,8 @@ public class TestUtil {
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
     
+    //@@author A0146130W
+    
     /**
      * Edits a task in the array of tasks.
      * @param tasks A array of tasks.
@@ -335,15 +344,14 @@ public class TestUtil {
 			taskEditted = TestUtilParser.editTask(taskToEdit, change);
 		} catch (IllegalValueException e) {
 			taskEditted = taskToEdit;
-			System.out.println("Illegal Value");
 			e.printStackTrace();
 		}
-		System.out.println("New expected task: " + taskEditted.getName().fullName);
         listOfTasks.set(index-1, taskEditted);
-        System.out.println("Editted list: " + listOfTasks.toString() + " size: " + listOfTasks.size());
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-
+    
+    //@@author addressbook-level4
+    
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
         for(T obj : objs) {

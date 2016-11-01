@@ -1,8 +1,8 @@
+//@@author A0146130W
+
 package seedu.gtd.logic.parser;
 
 import seedu.gtd.commons.exceptions.DataConversionException;
-
-//@@author A0146130W
 
 public interface NaturalLanguageProcessor {
 	

@@ -1,3 +1,5 @@
+//@@author A0146130W
+
 package guitests;
 
 import org.junit.Test;
@@ -16,7 +18,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         //edit the priority of the first task
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
-        String change = "Not Alice";
+        String change = "p/4";
         assertEditSuccess(targetIndex, change, currentList);
 
         //edit the dueDate of the last in the list
@@ -25,10 +27,15 @@ public class EditCommandTest extends AddressBookGuiTest {
         change = "d/2";
         assertEditSuccess(targetIndex, change, currentList);
 
-        //edit task from the middle of the list
+        //edit the name task from the middle of the list
         currentList = TestUtil.editTaskInList(currentList, targetIndex, change, currentList[targetIndex-1]);
         targetIndex = currentList.length/2;
         change = "Tutorial 4";
+        assertEditSuccess(targetIndex, change, currentList);
+        
+        //edit the address task from the middle of the list
+        currentList = TestUtil.editTaskInList(currentList, targetIndex, change, currentList[targetIndex-1]);
+        change = "a/NTU";
         assertEditSuccess(targetIndex, change, currentList);
 
         //invalid index
