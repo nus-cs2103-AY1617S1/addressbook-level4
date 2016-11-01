@@ -24,21 +24,21 @@ public class DateTimeUtil {
     private static final String DATETIME_YEAR = "year";
     private static final int DATETIME_INCREMENT = 1;
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter
-            .ofPattern("d/M/uuuu HHmm");
-    private static final DateTimeFormatter stringFormatter = DateTimeFormatter
-            .ofPattern("dd/MM/uuuu HHmm");
-    private static final DateTimeFormatter stringFormatterWithoutTime = DateTimeFormatter
-            .ofPattern("dd/MM/uuuu");
-    private static final DateTimeFormatter stringFormatterWithoutDate = DateTimeFormatter
-            .ofPattern("HHmm");
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatter =
+            DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm");
+    private static final DateTimeFormatter stringFormatterWithoutTime =
+            DateTimeFormatter.ofPattern("dd/MM/uuuu");
+    private static final DateTimeFormatter stringFormatterWithoutDate =
+            DateTimeFormatter.ofPattern("HHmm");
 
     /**
      * Extracts the new task's dateTime from the string arguments.
      * 
      * @@author A0139924W
-     * @return String[] with first index being the startDate time and second
-     *         index being the end date time
+     * @return String[] with first index being the startDate time and second index being the end
+     *         date time
      */
     public static String[] parseStringToDateTime(String dateTimeArg) {
         return NattyDateTimeUtil.parseStringToDateTime(dateTimeArg);
@@ -54,10 +54,10 @@ public class DateTimeUtil {
             return false;
         } else {
             LocalDateTime today = LocalDateTime.now();
-            LocalDateTime startThisWeek = today
-                    .with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
-            LocalDateTime endThisWeek = today
-                    .with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+            LocalDateTime startThisWeek =
+                    today.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+            LocalDateTime endThisWeek =
+                    today.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
             return endDateTime.isAfter(startThisWeek)
                     && endDateTime.isBefore(endThisWeek);
         }
@@ -78,8 +78,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks whether the dateTimeQuery falls within the range of the
-     * dateTimeSource
+     * Checks whether the dateTimeQuery falls within the range of the dateTimeSource
      * 
      * @@author A0124333U
      * @param dateTimeSource
@@ -244,18 +243,18 @@ public class DateTimeUtil {
         LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
 
         switch (frequency.toLowerCase()) {
-        case DATETIME_DAY:
-            date = date.plusDays(DATETIME_INCREMENT);
-            break;
-        case DATETIME_WEEK:
-            date = date.plusWeeks(DATETIME_INCREMENT);
-            break;
-        case DATETIME_MONTH:
-            date = date.plusMonths(DATETIME_INCREMENT);
-            break;
-        case DATETIME_YEAR:
-            date = date.plusYears(DATETIME_INCREMENT);
-            break;
+            case DATETIME_DAY:
+                date = date.plusDays(DATETIME_INCREMENT);
+                break;
+            case DATETIME_WEEK:
+                date = date.plusWeeks(DATETIME_INCREMENT);
+                break;
+            case DATETIME_MONTH:
+                date = date.plusMonths(DATETIME_INCREMENT);
+                break;
+            case DATETIME_YEAR:
+                date = date.plusYears(DATETIME_INCREMENT);
+                break;
         }
 
         dateToModify = date.format(stringFormatter);

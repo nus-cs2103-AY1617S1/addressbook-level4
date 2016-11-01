@@ -210,31 +210,40 @@ public class Tars implements ReadOnlyTars {
             taskToEdit.setDateTime(editedDateTime);
         }
     }
-    
+       
     private void addTags(ArgumentTokenizer argsTokenizer, Task taskToEdit)
-                    throws IllegalValueException, DuplicateTagException {
+            throws IllegalValueException, DuplicateTagException, TagNotFoundException {
         Prefix addTagPrefix = new Prefix(ADDTAG_PREFIX);
-        Set<String> tagsToAdd =
-                argsTokenizer.getMultipleValues(addTagPrefix).orElse(new HashSet<>());
-        for (String t : tagsToAdd) {
-            Tag toAdd = new Tag(t);
-            UniqueTagList replacement = taskToEdit.getTags();
-            replacement.add(toAdd);
-            taskToEdit.setTags(replacement);
-        }
+        handleTagsEdit(argsTokenizer, taskToEdit, addTagPrefix);
     }
 
     private void removeTags(ArgumentTokenizer argsTokenizer, Task taskToEdit)
                     throws IllegalValueException, TagNotFoundException {
         Prefix removeTagPrefix = new Prefix(REMOVETAG_PREFIX);
-        Set<String> tagsToRemove =
-                argsTokenizer.getMultipleValues(removeTagPrefix).orElse(new HashSet<>());
-        for (String t : tagsToRemove) {
-            Tag toRemove = new Tag(t);
+        handleTagsEdit(argsTokenizer, taskToEdit, removeTagPrefix);
+    }
+    
+    /**
+     * Edits a task by adding or removing its tags based on given prefix
+     * @throws TagNotFoundException 
+     * 
+     * @@author A0121533W
+     */
+    private void handleTagsEdit(ArgumentTokenizer argsTokenizer, Task taskToEdit, Prefix prefix) 
+            throws IllegalValueException, DuplicateTagException, TagNotFoundException {
+        Set<String> tagsToHandle =
+                argsTokenizer.getMultipleValues(prefix).orElse(new HashSet<>());
+        for (String t : tagsToHandle) {
+            Tag toHandle = new Tag(t);
             UniqueTagList replacement = taskToEdit.getTags();
-            replacement.remove(toRemove);
+            if (prefix.value.equals(ADDTAG_PREFIX)){
+                replacement.add(toHandle);
+            } else if (prefix.value.equals(REMOVETAG_PREFIX)) {
+                replacement.remove(toHandle);
+            }
             taskToEdit.setTags(replacement);
         }
+        
     }
 
     /**

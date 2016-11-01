@@ -15,7 +15,7 @@ public class StringUtil {
     private static final String RANGE_SEPARATOR = "..";
     public static final String EMPTY_STRING = "";
     public static final int EMPTY_STRING_LENGTH = 0;
-    
+
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
@@ -34,8 +34,8 @@ public class StringUtil {
 
     /**
      * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
-     * Will return false for null, empty string, "-1", "0", "+1", and " 2 "
-     * (untrimmed) "3 0" (contains whitespace).
+     * Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0"
+     * (contains whitespace).
      * 
      * @param s should be trimmed.
      */
@@ -44,8 +44,7 @@ public class StringUtil {
     }
 
     /**
-     * Handles three different cases of strings and return them in the
-     * appropriate format
+     * Handles three different cases of strings and return them in the appropriate format
      * 
      * @@author A0121533W
      */
@@ -79,8 +78,7 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if s is a list of indexes separated by white
-     * space
+     * Returns true if s is a list of indexes separated by white space
      * 
      * @@author A0121533W
      */
@@ -111,15 +109,14 @@ public class StringUtil {
     }
 
     /**
-     * Formats a range of indexes to a list of indexes separated by
-     * white space
+     * Formats a range of indexes to a list of indexes separated by white space
      * 
      * @@author A0121533W
      */
     private static String formateRangeOfIndexes(String s)
             throws IllegalValueException, InvalidRangeException {
         String rangeToReturn = "";
-        
+
         int toIndex = s.indexOf(RANGE_SEPARATOR);
         String start = s.substring(0, toIndex);
         String end = s.substring(toIndex + RANGE_SEPARATOR.length());

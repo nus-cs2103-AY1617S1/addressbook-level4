@@ -25,7 +25,8 @@ public class ConfigUtil {
      * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+    public static Optional<Config> readConfig(String configFilePath)
+            throws DataConversionException {
 
         assert configFilePath != null;
 
@@ -39,9 +40,11 @@ public class ConfigUtil {
         Config config;
 
         try {
-            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+            config = FileUtil.deserializeObjectFromJsonFile(configFile,
+                    Config.class);
         } catch (IOException e) {
-            logger.warning("Error reading from config file " + configFile + ": " + e);
+            logger.warning(
+                    "Error reading from config file " + configFile + ": " + e);
             throw new DataConversionException(e);
         }
 
@@ -56,16 +59,16 @@ public class ConfigUtil {
      * @param configFilePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public static void saveConfig(Config config, String configFilePath) throws IOException {
+    public static void saveConfig(Config config, String configFilePath)
+            throws IOException {
         assert config != null;
         assert configFilePath != null;
 
         FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
     }
-    
+
     public static void updateConfig(Config newConfig) throws IOException {
         saveConfig(newConfig, configFilePath);
     }
-
 
 }

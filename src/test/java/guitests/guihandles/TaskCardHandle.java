@@ -17,7 +17,7 @@ public class TaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -33,7 +33,7 @@ public class TaskCardHandle extends GuiHandle {
     public String getStartDate() {
         return getTextFromLabel(STARTDATE_FIELD_ID);
     }
-    
+
     public String getEndDate() {
         return getTextFromLabel(ENDDATE_FIELD_ID);
     }
@@ -47,18 +47,18 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task) {
-        return gettaskName().equals(task.getName().taskName) && getPriority().equals(task.priorityString())
-                && getStartDate().equals(task.getDateTime().startDateString) && getEndDate().equals(task.getDateTime().endDateString) 
-                && getStatus().equals(task.getStatus().toString());
+        return gettaskName().equals(task.getName().taskName)
+                && getStartDate().equals(task.getDateTime().startDateString)
+                && getEndDate().equals(task.getDateTime().endDateString);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
+        if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return gettaskName().equals(handle.gettaskName())
                     && getStartDate().equals(handle.getStartDate())
-                    && getEndDate().equals(handle.getEndDate()); //TODO: compare the rest
+                    && getEndDate().equals(handle.getEndDate());
         }
         return super.equals(obj);
     }

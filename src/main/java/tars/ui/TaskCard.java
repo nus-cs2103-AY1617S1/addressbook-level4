@@ -45,10 +45,6 @@ public class TaskCard extends UiPart {
     private Label tags;
     @FXML
     private Circle priorityCircle;
-    @FXML
-    private Label status;
-    @FXML
-    private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -73,7 +69,7 @@ public class TaskCard extends UiPart {
         setPriority();
         setTickColorByStatus();
         setTags();
-        setTextFillByStatus(); 
+        setTextFillByStatus();
     }
 
     private void setName() {
@@ -110,9 +106,6 @@ public class TaskCard extends UiPart {
         } else {
             statusTick.setStyle(UiColor.STATUS_DONE_TICK_COLOR);
         }
-        status.setText(task.getStatus().toString());
-        status.setVisible(false);
-        status.setManaged(false);
     }
 
     /**
@@ -121,7 +114,7 @@ public class TaskCard extends UiPart {
     private void setTextFillByStatus() {
         String taskStatus = task.getStatus().toString();
         String color = "";
-        if (taskStatus.equals(STATUS_UNDONE)){
+        if (taskStatus.equals(STATUS_UNDONE)) {
             color = UiColor.STATUS_UNDONE_TEXT_FILL;
         } else if (taskStatus.equals(STATUS_DONE)) {
             color = UiColor.STATUS_DONE_TEXT_FILL;
@@ -135,8 +128,7 @@ public class TaskCard extends UiPart {
         end.setStyle(color);
         startDate.setStyle(color);
         endDate.setStyle(color);
-        priority.setStyle(color);
-        tags.setStyle(color);        
+        tags.setStyle(color);
     }
 
     @Subscribe
@@ -152,21 +144,20 @@ public class TaskCard extends UiPart {
      */
     private void setPriority() {
         switch (task.priorityString()) {
-        case PRIORITY_HIGH:
-            priorityCircle.setFill(UiColor.Priority.HIGH.getCircleColor());
-            break;
-        case PRIORITY_MEDIUM:
-            priorityCircle.setFill(UiColor.Priority.MEDIUM.getCircleColor());
-            break;
-        case PRIORITY_LOW:
-            priorityCircle.setFill(UiColor.Priority.LOW.getCircleColor());
-            break;
-        default:
-            priorityCircle.setFill(UiColor.Priority.DEFAULT.getCircleColor());
+            case PRIORITY_HIGH:
+                priorityCircle.setFill(UiColor.Priority.HIGH.getCircleColor());
+                break;
+            case PRIORITY_MEDIUM:
+                priorityCircle
+                        .setFill(UiColor.Priority.MEDIUM.getCircleColor());
+                break;
+            case PRIORITY_LOW:
+                priorityCircle.setFill(UiColor.Priority.LOW.getCircleColor());
+                break;
+            default:
+                priorityCircle
+                        .setFill(UiColor.Priority.DEFAULT.getCircleColor());
         }
-        priority.setText(task.priorityString());
-        priority.setVisible(false);
-        priority.setManaged(false);
     }
 
     private void setTags() {

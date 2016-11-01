@@ -9,19 +9,20 @@ import tars.commons.events.BaseEvent;
  * @@author A0124333U
  */
 public class TarsStorageDirectoryChangedEvent extends BaseEvent {
-    
+
     private final String newFilePath;
     private final Config newConfig;
-    
-    public TarsStorageDirectoryChangedEvent (String newFilePath, Config newConfig) {
+
+    public TarsStorageDirectoryChangedEvent(String newFilePath,
+            Config newConfig) {
         this.newFilePath = newFilePath;
         this.newConfig = newConfig;
     }
-    
+
     public String getNewFilePath() {
         return this.newFilePath;
     }
-    
+
     public Config getNewConfig() {
         return this.newConfig;
     }

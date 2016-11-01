@@ -23,8 +23,10 @@ public class ResultDisplay extends UiPart {
 
     private AnchorPane mainPane;
 
-    public static ResultDisplay load(Stage primaryStage, AnchorPane placeHolder) {
-        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
+    public static ResultDisplay load(Stage primaryStage,
+            AnchorPane placeHolder) {
+        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(primaryStage,
+                placeHolder, new ResultDisplay());
         resultDisplay.configure();
         return resultDisplay;
     }
@@ -37,7 +39,8 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.getStyleClass().add(RESULT_DISPLAY_STYLE_SHEET);
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
-        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0,
+                0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);

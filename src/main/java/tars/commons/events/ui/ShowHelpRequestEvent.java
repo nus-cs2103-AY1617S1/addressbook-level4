@@ -10,15 +10,15 @@ import tars.commons.events.BaseEvent;
 public class ShowHelpRequestEvent extends BaseEvent {
 
     private String args;
-    
+
     public ShowHelpRequestEvent(String args) {
         this.args = args;
     }
-    
-    public String getHelpRequestEventArgs(){
+
+    public String getHelpRequestEventArgs() {
         return args;
     }
-    
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

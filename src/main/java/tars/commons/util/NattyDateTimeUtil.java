@@ -23,7 +23,7 @@ public class NattyDateTimeUtil {
     private static final String SLASH_DATE_FORMAT = "(\\b\\d{1,2})/(\\d{1,2})";
     private static final String DASH_DATE_REPLACEMENT = "$2-$1";
     private static final String SLASH_DATE_REPLACEMENT = "$2/$1";
-    
+
     private static final int EMPTY_GROUP_SIZE = 0;
     private static final int START_DATE_SIZE = 1;
     private static final int START_END_DATE_SIZE = 2;
@@ -64,7 +64,7 @@ public class NattyDateTimeUtil {
 
         return new String[] {startDateTime, endDateTime};
     }
-    
+
     /**
      * Change the date format to US date format.
      * 
@@ -73,11 +73,11 @@ public class NattyDateTimeUtil {
      */
     private static String convertToUsDateFormat(String rawDateTime) {
         String formattedDateTime = rawDateTime.trim()
-                                              .replaceAll(DASH_DATE_FORMAT, DASH_DATE_REPLACEMENT)
-                                              .replaceAll(SLASH_DATE_FORMAT, SLASH_DATE_REPLACEMENT);
+                .replaceAll(DASH_DATE_FORMAT, DASH_DATE_REPLACEMENT)
+                .replaceAll(SLASH_DATE_FORMAT, SLASH_DATE_REPLACEMENT);
         return formattedDateTime;
     }
-    
+
     /**
      * Change the date format to Asia date format.
      * 
@@ -87,18 +87,19 @@ public class NattyDateTimeUtil {
     private static String convertToAsiaDateFormat(Date toBeFormattedDateTime) {
         return CONVERT_NATTY_TIME_FORMAT.format(toBeFormattedDateTime);
     }
-    
+
     /**
      * Checks if the datetime is a invalid format.
      * 
      * @@author A0139924W
      * @return true if the given datetime is invalid
      */
-    private static boolean isInvalidDateTimeArg(String dateTimeArg, List<DateGroup> groups) {
+    private static boolean isInvalidDateTimeArg(String dateTimeArg,
+            List<DateGroup> groups) {
         return (dateTimeArg.trim().length() > StringUtil.EMPTY_STRING_LENGTH
                 && groups.size() == EMPTY_GROUP_SIZE);
     }
-    
+
     /**
      * Extracts start date time from natty group
      * 
@@ -133,8 +134,10 @@ public class NattyDateTimeUtil {
         Date firstDate;
         Date secondDate;
 
-        firstTreeString = group.getSyntaxTree().getChild(FIRST_CHILD).toStringTree();
-        secondTreeString = group.getSyntaxTree().getChild(SECOND_CHILD).toStringTree();
+        firstTreeString =
+                group.getSyntaxTree().getChild(FIRST_CHILD).toStringTree();
+        secondTreeString =
+                group.getSyntaxTree().getChild(SECOND_CHILD).toStringTree();
         firstDate = group.getDates().get(FIRST_GROUP);
         secondDate = group.getDates().get(SECOND_GROUP);
 
@@ -151,7 +154,7 @@ public class NattyDateTimeUtil {
 
         return new String[] {startDateTime, endDateTime};
     }
-    
+
     /**
      * Checks if time is present
      * 

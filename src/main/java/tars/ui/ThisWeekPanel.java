@@ -27,18 +27,18 @@ import tars.model.task.ReadOnlyTask;
  * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
-    private static final Logger logger = LogsCenter
-            .getLogger(ThisWeekPanel.class);
+    private static final Logger logger =
+            LogsCenter.getLogger(ThisWeekPanel.class);
     private static final String FXML = "ThisWeekPanel.fxml";
     private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
     private static final String STATUS_UNDONE = "Undone";
     private static final DateFormat df = new SimpleDateFormat("E d, MMM");
 
     private static ObservableList<ReadOnlyTask> list;
-    private static ObservableList<ReadOnlyTask> upcomingTasks = FXCollections
-            .observableArrayList();
-    private static ObservableList<ReadOnlyTask> overduedTasks = FXCollections
-            .observableArrayList();
+    private static ObservableList<ReadOnlyTask> upcomingTasks =
+            FXCollections.observableArrayList();
+    private static ObservableList<ReadOnlyTask> overduedTasks =
+            FXCollections.observableArrayList();
 
     private VBox panel;
     private AnchorPane placeHolderPane;

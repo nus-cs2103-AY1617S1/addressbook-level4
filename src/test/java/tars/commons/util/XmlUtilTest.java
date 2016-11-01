@@ -19,11 +19,16 @@ import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
-    private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
-    private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validTars.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempTars.xml"));
+    private static final String TEST_DATA_FOLDER = FileUtil
+            .getPath("src/test/data/XmlUtilTest/");
+    private static final File EMPTY_FILE = new File(
+            TEST_DATA_FOLDER + "empty.xml");
+    private static final File MISSING_FILE = new File(
+            TEST_DATA_FOLDER + "missing.xml");
+    private static final File VALID_FILE = new File(
+            TEST_DATA_FOLDER + "validTars.xml");
+    private static final File TEMP_FILE = new File(
+            TestUtil.getFilePathInSandboxFolder("tempTars.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -41,20 +46,23 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
+    public void getDataFromFile_missingFile_FileNotFoundException()
+            throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.getDataFromFile(MISSING_FILE, Tars.class);
     }
 
     @Test
-    public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
+    public void getDataFromFile_emptyFile_DataFormatMismatchException()
+            throws Exception {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, Tars.class);
     }
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTars.class);
+        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
+                XmlSerializableTars.class);
         assertEquals(1, dataFromFile.getTaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
@@ -72,7 +80,8 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
+    public void saveDataToFile_missingFile_FileNotFoundException()
+            throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new Tars());
     }
@@ -82,15 +91,21 @@ public class XmlUtilTest {
         TEMP_FILE.createNewFile();
         XmlSerializableTars dataToWrite = new XmlSerializableTars(new Tars());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTars.class);
-        assertEquals((new Tars(dataToWrite)).toString(),(new Tars(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
+        XmlSerializableTars dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+                XmlSerializableTars.class);
+        assertEquals((new Tars(dataToWrite)).toString(),
+                (new Tars(dataFromFile)).toString());
+        assertEquals((new Tars(dataToWrite)), (new Tars(dataFromFile)));
 
         TarsBuilder builder = new TarsBuilder(new Tars());
-        dataToWrite = new XmlSerializableTars(builder.withTask(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTars(
+                builder.withTask(TestUtil.generateSampleTaskData().get(0))
+                        .withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTars.class);
-        assertEquals((new Tars(dataToWrite)).toString(),(new Tars(dataFromFile)).toString());
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+                XmlSerializableTars.class);
+        assertEquals((new Tars(dataToWrite)).toString(),
+                (new Tars(dataFromFile)).toString());
     }
 }

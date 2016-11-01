@@ -13,7 +13,7 @@ public class RsvTaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public RsvTaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public RsvTaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -25,16 +25,16 @@ public class RsvTaskCardHandle extends GuiHandle {
     public String getRsvTaskName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
-
+    
     public boolean isSameRsvTask(RsvTask rsvTask) {
         return getRsvTaskName().equals(rsvTask.getName().taskName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof RsvTaskCardHandle) {
+        if (obj instanceof RsvTaskCardHandle) {
             RsvTaskCardHandle handle = (RsvTaskCardHandle) obj;
-            return getRsvTaskName().equals(handle.getRsvTaskName()); //TODO: compare the rest
+            return getRsvTaskName().equals(handle.getRsvTaskName());
         }
         return super.equals(obj);
     }

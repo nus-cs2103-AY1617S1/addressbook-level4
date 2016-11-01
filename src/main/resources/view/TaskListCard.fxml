@@ -69,16 +69,6 @@
                   <Insets left="15.0" />
                </padding>
                 </VBox>
-            <Label fx:id="status" text="Label" textFill="WHITE">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </Label>
-            <Label fx:id="priority" text="Label" textFill="WHITE">
-               <font>
-                  <Font size="1.0" />
-               </font>
-            </Label>
             <Circle fx:id="priorityCircle" fill="#8d9194" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="15.0" />

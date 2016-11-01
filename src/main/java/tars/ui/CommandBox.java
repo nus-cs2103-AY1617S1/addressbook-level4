@@ -43,12 +43,14 @@ public class CommandBox extends UiPart {
 
     @FXML
     private TextField commandTextField;
-    
+
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
+    public static CommandBox load(Stage primaryStage,
+            AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
             Logic logic) {
-        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
+        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage,
+                commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         commandBox.setTextFieldKeyPressedHandler();
@@ -66,10 +68,12 @@ public class CommandBox extends UiPart {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
         commandTextField.requestFocus();
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0,
+                0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0,
+                0.0, 0.0);
     }
-    
+
     // @@author A0124333U
     private void setTextFieldKeyPressedHandler() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -78,12 +82,14 @@ public class CommandBox extends UiPart {
                     setTextToShowPrevCmdText(ke);
                 } else if (ke.getCode().equals(KeyCode.DOWN)) {
                     setTextToShowNextCmdText(ke);
-                } else if (KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW.match(ke)) {
+                } else if (KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW
+                        .match(ke)) {
                     raise(new KeyCombinationPressedEvent(
                             KeyCombinations.KEY_COMB_CTRL_RIGHT_ARROW));
                     ke.consume();
                 } else if (KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW.match(ke)) {
-                    raise(new KeyCombinationPressedEvent(KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW));
+                    raise(new KeyCombinationPressedEvent(
+                            KeyCombinations.KEY_COMB_CTRL_LEFT_ARROW));
                     ke.consume();
                 } else if (KeyCombinations.KEY_COMB_CTRL_Z.match(ke)) {
                     handleUndoAndRedoKeyRequest(UndoCommand.COMMAND_WORD);
@@ -93,17 +99,20 @@ public class CommandBox extends UiPart {
             }
         });
     }
-    
+
     private void setTextFieldValueHandler() {
-        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals(RsvCommand.COMMAND_WORD) || newValue.equals(ConfirmCommand.COMMAND_WORD)) {
-                raise(new CommandBoxTextFieldValueChangedEvent(newValue));
-            }
-        });
-        
+        commandTextField.textProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue.equals(RsvCommand.COMMAND_WORD)
+                            || newValue.equals(ConfirmCommand.COMMAND_WORD)) {
+                        raise(new CommandBoxTextFieldValueChangedEvent(
+                                newValue));
+                    }
+                });
+
     }
-    
-    //@@author
+
+    // @@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
@@ -125,16 +134,15 @@ public class CommandBox extends UiPart {
         previousCommandTest = commandTextField.getText();
         addCmdTextToPrevStack(previousCommandTest);
         /*
-         * We assume the command is correct. If it is incorrect, the command box
-         * will be changed accordingly in the event handling code {@link
-         * #handleIncorrectCommandAttempted}
+         * We assume the command is correct. If it is incorrect, the command box will be changed
+         * accordingly in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-    
+
     /**
      * Handle any undo and redo request
      * 
@@ -171,8 +179,7 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Shows the prev cmdtext in the CommandBox. Does nothing if "prev" stack is
-     * empty
+     * Shows the prev cmdtext in the CommandBox. Does nothing if "prev" stack is empty
      */
     private void setTextToShowPrevCmdText(KeyEvent ke) {
         if (!prevCmdTextHistStack.isEmpty()) {
@@ -181,7 +188,8 @@ public class CommandBox extends UiPart {
             }
             String cmdTextToShow = prevCmdTextHistStack.pop();
             addCmdTextToNextStack(cmdTextToShow);
-            if (commandTextField.getText().equals(cmdTextToShow) && !prevCmdTextHistStack.isEmpty()) {
+            if (commandTextField.getText().equals(cmdTextToShow)
+                    && !prevCmdTextHistStack.isEmpty()) {
                 cmdTextToShow = prevCmdTextHistStack.pop();
                 addCmdTextToNextStack(cmdTextToShow);
             }
@@ -191,14 +199,14 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Shows the next cmdtext in the CommandBox. Does nothing if "next" stack is
-     * empty
+     * Shows the next cmdtext in the CommandBox. Does nothing if "next" stack is empty
      */
     private void setTextToShowNextCmdText(KeyEvent ke) {
         if (!nextCmdTextHistStack.isEmpty()) {
             String cmdTextToShow = nextCmdTextHistStack.pop();
             addCmdTextToPrevStack(cmdTextToShow);
-            if (commandTextField.getText().equals(cmdTextToShow) && !nextCmdTextHistStack.isEmpty()) {
+            if (commandTextField.getText().equals(cmdTextToShow)
+                    && !nextCmdTextHistStack.isEmpty()) {
                 cmdTextToShow = nextCmdTextHistStack.pop();
                 if (!nextCmdTextHistStack.isEmpty()) {
                     addCmdTextToNextStack(cmdTextToShow);
@@ -218,8 +226,10 @@ public class CommandBox extends UiPart {
     }
 
     @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
+    private void handleIncorrectCommandAttempted(
+            IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }

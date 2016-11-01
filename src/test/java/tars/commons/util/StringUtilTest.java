@@ -27,12 +27,12 @@ public class StringUtilTest {
         assertTrue(StringUtil.isUnsignedInteger("1"));
         assertTrue(StringUtil.isUnsignedInteger("10"));
     }
-    
+
     @Test
     public void containsIgnoreCase() {
         String upperCaseString = "TASK ABC";
         String lowerCaseString = "task";
-        
+
         assertTrue(StringUtil.containsIgnoreCase(upperCaseString, lowerCaseString));
     }
 

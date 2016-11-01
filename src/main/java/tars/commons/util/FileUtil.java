@@ -43,7 +43,8 @@ public class FileUtil {
      */
     public static void createDirs(File dir) throws IOException {
         if (!dir.exists() && !dir.mkdirs()) {
-            throw new IOException("Failed to make directories of " + dir.getName());
+            throw new IOException(
+                    "Failed to make directories of " + dir.getName());
         }
     }
 
@@ -66,15 +67,16 @@ public class FileUtil {
     }
 
     /**
-     * Writes given string to a file.
-     * Will create the file if it does not exist yet.
+     * Writes given string to a file. Will create the file if it does not exist yet.
      */
-    public static void writeToFile(File file, String content) throws IOException {
+    public static void writeToFile(File file, String content)
+            throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
 
     /**
      * Converts a string to a platform-specific file path
+     * 
      * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */
@@ -84,12 +86,15 @@ public class FileUtil {
         return pathWithForwardSlash.replace("/", File.separator);
     }
 
-    public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
-        FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
+    public static <T> void serializeObjectToJsonFile(File jsonFile,
+            T objectToSerialize) throws IOException {
+        FileUtil.writeToFile(jsonFile,
+                JsonUtil.toJsonString(objectToSerialize));
     }
 
-    public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
-            throws IOException {
-        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    public static <T> T deserializeObjectFromJsonFile(File jsonFile,
+            Class<T> classOfObjectToDeserialize) throws IOException {
+        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile),
+                classOfObjectToDeserialize);
     }
 }

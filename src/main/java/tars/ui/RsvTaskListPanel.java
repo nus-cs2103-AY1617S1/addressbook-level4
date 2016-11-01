@@ -77,8 +77,7 @@ public class RsvTaskListPanel extends UiPart {
 
     class RsvTaskListViewCell extends ListCell<RsvTask> {
 
-        public RsvTaskListViewCell() {
-        }
+        public RsvTaskListViewCell() {}
 
         @Override
         protected void updateItem(RsvTask task, boolean empty) {
@@ -88,7 +87,8 @@ public class RsvTaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(RsvTaskCard.load(task, getIndex() + START_INDEX).getLayout());
+                setGraphic(RsvTaskCard.load(task, getIndex() + START_INDEX)
+                        .getLayout());
             }
         }
     }

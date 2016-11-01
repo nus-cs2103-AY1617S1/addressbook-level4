@@ -5,6 +5,8 @@ import tars.model.task.ReadOnlyTask;
 
 /**
  * Indicates a task has been added
+ * 
+ * @@author A0121533W
  */
 public class TaskAddedEvent extends BaseEvent {
 

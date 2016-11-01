@@ -76,8 +76,7 @@ public class Formatter {
     /**
      * Formats a string as an indexed list item.
      *
-     * @param visibleIndex
-     *            index for this listing
+     * @param visibleIndex index for this listing
      */
     private static String getIndexedListItem(int visibleIndex,
             String listItem) {

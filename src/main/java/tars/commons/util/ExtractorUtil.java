@@ -20,16 +20,20 @@ public class ExtractorUtil {
      * Extracts the new task's dateTimes from the rsv command's dateTime arguments string. Merges
      * duplicate dateTime strings.
      */
-    public static Set<String> getDateTimeStringSetFromArgs(String dateTimeArguments, Prefix prefix)
+    public static Set<String> getDateTimeStringSetFromArgs(
+            String dateTimeArguments, Prefix prefix)
             throws IllegalValueException {
         // no dateTime
         if (EMPTY_STRING.equals(dateTimeArguments)) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> dateTimeStrings = Arrays.asList(
-                dateTimeArguments.replaceFirst(prefix.value + ONE_EMPTY_SPACE, EMPTY_STRING)
-                        .split(ONE_EMPTY_SPACE + prefix.value + ONE_EMPTY_SPACE));
+        final Collection<String> dateTimeStrings =
+                Arrays.asList(dateTimeArguments
+                        .replaceFirst(prefix.value + ONE_EMPTY_SPACE,
+                                EMPTY_STRING)
+                        .split(ONE_EMPTY_SPACE + prefix.value
+                                + ONE_EMPTY_SPACE));
         return new HashSet<>(dateTimeStrings);
     }
 
@@ -38,9 +42,10 @@ public class ExtractorUtil {
      * 
      * @@author A0140022H
      */
-    public static String[] getRecurringFromArgs(String recurringArguments, Prefix prefix)
-            throws IllegalValueException {
-        recurringArguments = recurringArguments.replaceFirst(prefix.value, EMPTY_STRING).trim();
+    public static String[] getRecurringFromArgs(String recurringArguments,
+            Prefix prefix) throws IllegalValueException {
+        recurringArguments = recurringArguments
+                .replaceFirst(prefix.value, EMPTY_STRING).trim();
         String[] recurringString = recurringArguments.split(ONE_EMPTY_SPACE);
 
         return recurringString;

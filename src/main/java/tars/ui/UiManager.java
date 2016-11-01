@@ -43,17 +43,18 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
 
-        //Set the application icon.
+        // Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.show(); // This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown("Fatal error during initializing",
+                    e);
         }
     }
 
@@ -63,21 +64,25 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
     }
 
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
+    private void showFileOperationAlertAndWait(String description,
+            String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
+        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description,
+                content);
     }
 
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    private void showAlertDialogAndWait(Alert.AlertType type, String title,
+            String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title,
+                headerText, contentText);
     }
 
-    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
-                                               String contentText) {
+    private static void showAlertDialogAndWait(Stage owner, AlertType type,
+            String title, String headerText, String contentText) {
         final Alert alert = new Alert(type);
         alert.getDialogPane().getStylesheets().add("view/TarsTheme.css");
         alert.initOwner(owner);
@@ -90,17 +95,21 @@ public class UiManager extends ComponentManager implements Ui {
 
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(),
+                e.toString());
         Platform.exit();
         System.exit(1);
     }
 
-    //==================== Event Handling Code =================================================================
+    // ==================== Event Handling Code
+    // =================================================================
 
     @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+    private void handleDataSavingExceptionEvent(
+            DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+        showFileOperationAlertAndWait("Could not save data",
+                "Could not save data to file", event.exception);
     }
 
     /**
@@ -111,10 +120,11 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp(event.getHelpRequestEventArgs());
     }
-        
+
     @Subscribe
     private void handleTaskAddedEvent(TaskAddedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Scrolling to newly added task"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Scrolling to newly added task"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
