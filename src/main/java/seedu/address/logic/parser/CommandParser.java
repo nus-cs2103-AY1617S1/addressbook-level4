@@ -779,13 +779,13 @@ public class CommandParser {
         Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
         Optional<String> priority = fieldMap.get(MAP_PRIORITY);
         
-        StringBuilder sb = generateDetailedAddTooltipHeader();
+        StringBuilder sb = generateAddDetailedTooltipHeader();
 
-        generateDetailedAddTooltipName(name, sb);
-        generateDetailedAddTooltipStartDate(startDate, sb);
-        generateDetailedAddTooltipEndDate(endDate, sb);
-        generateDetailedAddTooltipRecurrence(rate, timePeriod, sb);
-        generateDetailedAddTooltipPriority(priority, sb);
+        generateAddDetailedTooltipName(name, sb);
+        generateAddDetailedTooltipStartDate(startDate, sb);
+        generateAddDetailedTooltipEndDate(endDate, sb);
+        generateAddDetailedTooltipRecurrence(rate, timePeriod, sb);
+        generateAddDetailedTooltipPriority(priority, sb);
         
         return sb.toString();
     }
@@ -794,7 +794,7 @@ public class CommandParser {
      * @param priority
      * @param sb
      */
-    private void generateDetailedAddTooltipPriority(Optional<String> priority, StringBuilder sb) {
+    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
         if (priority.isPresent()) {
             sb.append("\n\tPriority:\t" + priority.get());
         }
@@ -805,7 +805,7 @@ public class CommandParser {
      * @param timePeriod
      * @param sb
      */
-    private void generateDetailedAddTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
+    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
             StringBuilder sb) {
         
         if (!timePeriod.isPresent()) {
@@ -825,7 +825,7 @@ public class CommandParser {
      * @param endDate
      * @param sb
      */
-    private void generateDetailedAddTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
         if (endDate.isPresent()) {
             sb.append("\n\tEnd Date:\t\t" + endDate.get());
         }
@@ -835,7 +835,7 @@ public class CommandParser {
      * @param startDate
      * @param sb
      */
-    private void generateDetailedAddTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
         if (startDate.isPresent()) {
             sb.append("\n\tStart Date:\t" +startDate.get());
         }
@@ -845,7 +845,7 @@ public class CommandParser {
      * @param name
      * @param sb
      */
-    private void generateDetailedAddTooltipName(Optional<String> name, StringBuilder sb) {
+    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
         if (name.isPresent()) {
             sb.append("\n\tName:\t" + name.get());
         }
@@ -854,7 +854,7 @@ public class CommandParser {
     /**
      * @return
      */
-    private StringBuilder generateDetailedAddTooltipHeader() {
+    private StringBuilder generateAddDetailedTooltipHeader() {
         StringBuilder sb = new StringBuilder();
         sb.append(AddCommand.TOOL_TIP);
         sb.append("\n\tAdding task: ");
