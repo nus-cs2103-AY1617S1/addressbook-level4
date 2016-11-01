@@ -42,7 +42,6 @@ public class ParseSwitcher {
                 parser = selectedParser.get().newInstance();
                 return parser.parse(commandWord, commandArgs);
             } catch (InstantiationException | IllegalAccessException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 return new IncorrectCommand(MESSAGE_INTERNAL_ERROR);
             }

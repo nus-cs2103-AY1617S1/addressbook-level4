@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -36,6 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -45,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -190,6 +193,16 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
-    }
 
+    }
+    
+    //@@author A0144939R
+
+    public String getAliasMapping(String alias) {
+        return userPrefs.getAliasMapping(alias);
+    }
+    
+    public void setMapping(String command, String alias) {
+        userPrefs.setMapping(command, alias);
+    }
 }

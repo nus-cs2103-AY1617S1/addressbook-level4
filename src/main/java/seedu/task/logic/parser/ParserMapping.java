@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.logic.LogicManager;
 
 /**
  * Provides command word and alias mappings

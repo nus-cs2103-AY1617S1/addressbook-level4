@@ -58,5 +58,19 @@ public interface Model {
      * keywords
      */
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0144939R
+    /**
+     * Gets mapping for a given alias.
+     * @param alias: a user defined string
+     * @return The command represented by the alias, or null if no mapping exists
+     */
+    public String getAliasMapping(String alias);
+    
+    /**
+     * Sets mapping for given alias
+     * @param command
+     * @param alias
+     */
+    public void setMapping(String command, String alias);
 }
