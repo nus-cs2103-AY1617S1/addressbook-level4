@@ -43,13 +43,12 @@ public class PersonCard extends UiPart{
 
     }
 
-
+    
+    //@@author A0139024M
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
         name.setWrapText(true);  //wrapping function of name 
-        //name.setMaxWidth(450);
-        //name.setPrefWidth(400);
         name.setMinWidth(50);
         id.setWrapText(true);
         id.setText(indexAlphabet + displayedIndex + ". ");
@@ -63,6 +62,7 @@ public class PersonCard extends UiPart{
         tags.setWrapText(true);
         setStyleToIndicateOverdueTask(task);
     }
+    //@@author
 
     public HBox getLayout() {
         return cardPane;
@@ -78,9 +78,10 @@ public class PersonCard extends UiPart{
         return FXML;
     }
 
-
+    //@@author
     /**
      * Sets the command box style to indicate an overdue,completed or no status tasks.
+     * @param task
      */
     private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
         String status = task.getStatus().toString();
@@ -121,5 +122,6 @@ public class PersonCard extends UiPart{
             tags.setStyle("-fx-text-fill: ##00CC0");
         }
 
-    }   
+    }
+    //@@author
 }
