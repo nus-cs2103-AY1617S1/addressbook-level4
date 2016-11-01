@@ -8,11 +8,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
+<VBox minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
    <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" styleClass="spacing">
       <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="196.0" styleClass="text2" text="Tags" />
+      <padding>
+         <Insets bottom="16.0" />
+      </padding>
+      <VBox.margin>
+         <Insets bottom="8.0" />
+      </VBox.margin>
    </HBox>
-   <FlowPane fx:id="tagFlowPane" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingBig" />
+   <FlowPane fx:id="tagFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="spacing" />
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
    </padding>
