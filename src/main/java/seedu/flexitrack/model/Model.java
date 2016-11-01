@@ -101,9 +101,9 @@ public interface Model {
 
     /**
      * Find gap with length and number of slots specified by the user
-     * @param keyword
-     * @param length
-     * @param numberOfSlot
+     * @param keyword       Represent the keyword in number. 0 represent minute and 4 represent years 
+     * @param length        The length of the duration 
+     * @param numberOfSlot  The number of slot to be found 
      * @return The list of the Starting time and ending time for each gap found
      */
     List<DateTimeInfo> findSpecifiedGapTiming(int keyword, int length, int numberOfSlot);

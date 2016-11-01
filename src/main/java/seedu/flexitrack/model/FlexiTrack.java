@@ -210,30 +210,35 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
             }
         }
     }
-    //@@author
-    
-  //@@author A0127686R
+
+    // @@author A0127686R
     /**
-     * Find the next available time slots that has minimum gap as specified by the users. 
-     * If there are less gap then specified, return the starting time where there are no more events
-     * @param keyword
-     * @param length
-     * @param numberOfSlot
-     * @return the list of dates where gap are available 
+     * Find the next available time slots that has minimum gap as specified by
+     * the users. If there are less gap then specified, return the starting time
+     * where there are no more events
+     * 
+     * @param keyword       Represent the keyword in number. 0 represent minute and 4 represent years 
+     * @param length        The length of the duration 
+     * @param numberOfSlot  The number of slot to be found 
+     * @return              The list of dates where gap are available
      */
-    public List<DateTimeInfo> findNextAvailableSlots (int keyword, int length, int numberOfSlot) {
+    public List<DateTimeInfo> findNextAvailableSlots(int keyword, int length, int numberOfSlot) {
         DateTimeInfo dateNow = DateTimeInfo.getCurrentTime();
-        List<DateTimeInfo> listOfPossibleTiming= new ArrayList<DateTimeInfo>();
-        for (Task task: task.getInternalList()){
-            if (listOfPossibleTiming.size()>(numberOfSlot*2-1)){
-                return listOfPossibleTiming; 
+        List<DateTimeInfo> listOfPossibleTiming = new ArrayList<DateTimeInfo>();
+
+        for (Task task : task.getInternalList()) {
+
+            if (listOfPossibleTiming.size() > (numberOfSlot * 2 - 1)) {
+                return listOfPossibleTiming;
             }
+
             if (canTheGapBeFound(task, dateNow, keyword, length)) {
                 listOfPossibleTiming.add(dateNow);
                 listOfPossibleTiming.add(task.getStartTime());
                 dateNow = task.getEndTime();
             }
-            if (DateTimeInfo.isInTheFuture(dateNow, task.getEndTime())){
+
+            if (DateTimeInfo.isInTheFuture(dateNow, task.getEndTime())) {
                 dateNow = task.getEndTime();
             }
         }
@@ -242,57 +247,58 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
     }
 
     /**
-     * Process the data to see if there is any gap available 
-     * @param task
-     * @param dateNow
-     * @param keyword
-     * @param length
+     * Process the data to see if there is any gap available
+     * 
+     * @param task          The current task of interest 
+     * @param dateNow       The current Date 
+     * @param keyword       Represent the keyword in number. 0 represent minute and 4 represent years 
+     * @param length        The length of the duration 
      * @return true when there is an available gap
      */
-    private boolean canTheGapBeFound (Task task, DateTimeInfo dateNow, int keyword, int length){ 
-        if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())){
+    private boolean canTheGapBeFound(Task task, DateTimeInfo dateNow, int keyword, int length) {
+        if (task.getIsEvent() && DateTimeInfo.isInTheFuture(dateNow, task.getStartTime())) {
             return doesTheEventStartAfterTheCurrentTiming(task, dateNow, keyword, length);
         }
         return false;
     }
 
     /**
-     * Process the task data to calculate if the starting timing of the task is after the current interest timing
-     * @param task
-     * @param dateNow
-     * @param keyword
-     * @param length
-     * @return true if the event starts after the current timing. 
+     * Process the task data to calculate if the starting timing of the task is
+     * after the current interest timing
+     * 
+     * @param task      The current task of interest 
+     * @param dateNow   The current date 
+     * @param keyword   Represent the keyword in number. 0 represent minute and 4 represent years 
+     * @param length    The length of the duration 
+     * @return          True if the event starts after the current timing.
      */
     private boolean doesTheEventStartAfterTheCurrentTiming(Task task, DateTimeInfo dateNow, int keyword, int length) {
         int[] differenceInTime = new int[5];
-        differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartTime().toString());
-        if (differenceInTime[0]>=0){
-            differenceInTime[keyword] = differenceInTime[keyword]-length;
+        differenceInTime = DateTimeInfo.durationBetweenTwoTiming(dateNow.toString(), task.getStartingTimeInString());
+        if (differenceInTime[0] >= 0) {
+            differenceInTime[keyword] = differenceInTime[keyword] - length;
             return doesTheGapAtLeastAsLongAsTimingSpecified(keyword, differenceInTime);
         }
         return false;
     }
 
     /**
-     * Decide if the gap between two timing is long enough to satisfied the user 
-     * @param keyword
-     * @param differenceInTime
-     * @return true if the gap is longer than what user specified.
+     * Decide if the gap between two timing is long enough to satisfied the user
+     * 
+     * @param keyword           Represent the keyword in number. 0 represent minute and 4 represent years 
+     * @param differenceInTime  The difference in time 
+     * @return                  True if the gap is longer than what user specified.
      */
     private boolean doesTheGapAtLeastAsLongAsTimingSpecified(int keyword, int[] differenceInTime) {
-        int countNumberOfZero = 0; 
-        for(int i=keyword; i<5 ; i++){
-            if (differenceInTime[i]>0) {
-                return true; 
-            } else if (differenceInTime[i]==0) {
-                countNumberOfZero = countNumberOfZero + 1; 
+        int countNumberOfZero = 0;
+        for (int i = keyword; i < 5; i++) {
+            if (differenceInTime[i] > 0) {
+                return true;
+            } else if (differenceInTime[i] == 0) {
+                countNumberOfZero = countNumberOfZero + 1;
             }
         }
-        if (countNumberOfZero == (5-keyword)){
-            return true; 
-        }
-        return false;
+        return (countNumberOfZero == (5 - keyword)) ? true : false;
     }
     
 }

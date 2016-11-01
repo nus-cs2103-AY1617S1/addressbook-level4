@@ -223,10 +223,13 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    //@@author A0127686R
+    // @@author A0127686R
+    /**
+     * Helper class to process if a particular task should be shown on the list
+     */
     private class DateQualifier implements Qualifier {
         private String keyWords;
-        private String dateInfo; 
+        private String dateInfo;
 
         DateQualifier(String keyWord) {
             this.keyWords = keyWord;
@@ -235,11 +238,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         /**
          * Delete all the list command that is not date from the keywords
-         * @param keyWord
-         * @return
+         * 
+         * @param keyrordArgs   A string containing the keywords and other input
+         * @return              The trimmed keyword in a string
          */
-        private String trimKeyWords(String keyWord) {
-            return keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
+        private String trimKeyWords(String keyrordArgs) {
+            return keyrordArgs.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
                     .replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "")
                     .replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").replace(ListCommand.LIST_LAST_MONTH_COMMAND, "")
                     .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "")
@@ -248,54 +252,58 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            
-            if (!isTaskGoingToBeShown(task)){ 
-                return false; 
+
+            if (!isTaskGoingToBeShown(task)) {
+                return false;
             }
-            
-            if (keyWords.contains(ListCommand.LIST_UNMARK_COMMAND)){
+
+            if (keyWords.contains(ListCommand.LIST_UNMARK_COMMAND)) {
                 return !task.getIsDone();
-            } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)){
+            } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)) {
                 return task.getIsDone();
             }
-            
+
             return isTaskGoingToBeShown(task);
-            
+
         }
 
         /**
          * Check of the task will be shown to the user in the panel list
-         * @param task
-         * @param willBeShown
-         * @return true if the task met all the requirement and will be shown
+         * 
+         * @param task  The current task of interest
+         * @return      True if the task met all the requirement and will be shown
          */
         private boolean isTaskGoingToBeShown(ReadOnlyTask task) {
             if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
                 return isTaskInTheFuture(task);
-            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
+            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)) {
                 return isTaskInThePast(task);
-            } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
+            } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND)
+                    || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)) {
                 return isTaskWithinTheSpecifiedTiming(task);
-            } else if (!dateInfo.equals("")){
+            } else if (!dateInfo.equals("")) {
                 return doesTaskCrossTheParticularStatedDate(task);
-            } else { 
-                return true; 
+            } else {
+                return true;
             }
         }
 
         /**
-         * Process If the task happens on a particular date 
-         * @param task
-         * @return true if task contain or cross the date
+         * Process If the task happens on a particular date
+         * 
+         * @param task  The current task of interest
+         * @return      True if task contain or cross the date
          */
         private boolean doesTaskCrossTheParticularStatedDate(ReadOnlyTask task) {
             return DateTimeInfo.isOnTheDate(dateInfo, task);
         }
 
         /**
-         * Process if the task happens between now and the time stated 
+         * Process if the task happens between now and the time stated
+         * 
          * @param task
-         * @return true if task is within the stated time
+         *            The current task of interest
+         * @return True if task is within the stated time
          */
         private boolean isTaskWithinTheSpecifiedTiming(ReadOnlyTask task) {
             return DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTime().toString());
@@ -303,8 +311,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         /**
          * Process if a particular task has passed
-         * @param task
-         * @return true if it has passed
+         * 
+         * @param task  The current task of interest
+         * @return      True if it has passed
          */
         private boolean isTaskInThePast(ReadOnlyTask task) {
             return DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
@@ -312,13 +321,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         /**
          * Process if a particular task has not passed yet
-         * @param task
-         * @return true if it has not passed yet
+         * 
+         * @param task  The current task of interest
+         * @return      True if it has not passed yet
          */
         private boolean isTaskInTheFuture(ReadOnlyTask task) {
-            if (task.getIsNotFloatingTask()){ 
+            if (task.getIsNotFloatingTask()) {
                 return DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTime(), task.getEndingTimeOrDueDate());
-            }else { 
+            } else {
                 return !task.getIsDone();
             }
         }

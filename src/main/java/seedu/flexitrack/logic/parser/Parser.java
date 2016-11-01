@@ -223,11 +223,11 @@ public class Parser {
      * @throws NumberFormatException
      */
     private int extractLength(String args) throws NumberFormatException {
-        String length = args.replace(GapCommand.DAY_WORD+"s", "").
-                replace(GapCommand.HOUR_WORD + "s", "").replace(GapCommand.MINUTE_WORD+"s", "").
-                replace(GapCommand.DAY_WORD, ""). replace(GapCommand.HOUR_WORD, "").
-                replace(GapCommand.MINUTE_WORD, "").replace(GapCommand.DAY_INITIAL, "").
-                replace(GapCommand.MINUTE_INITIAL, "").replace(GapCommand.HOUR_INITIAL, "");
+        String length = args.replace(GapCommand.WORD_DAY+"s", "").
+                replace(GapCommand.WORD_HOUR + "s", "").replace(GapCommand.WORD_MINUTE+"s", "").
+                replace(GapCommand.WORD_DAY, ""). replace(GapCommand.WORD_HOUR, "").
+                replace(GapCommand.WORD_MINUTE, "").replace(GapCommand.INITIAL_DAY, "").
+                replace(GapCommand.INITIAL_MINUTE, "").replace(GapCommand.INITIAL_HOUR, "");
         if (length.trim().equals("")){
             return 1; 
         } else {
@@ -241,16 +241,16 @@ public class Parser {
      * @return number representing each key word. 
      */
     private int extractKeywordFromArgs(String args) {
-        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")
-                ||args.contains(GapCommand.DAY_INITIAL)){
-            return GapCommand.DAY_REF_NO;
+        if (args.contains(GapCommand.WORD_DAY)||args.contains(GapCommand.WORD_DAY + "s")
+                ||args.contains(GapCommand.INITIAL_DAY)){
+            return GapCommand.REF_NO_DAY;
         }
-        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")
-                ||args.contains(GapCommand.HOUR_INITIAL)){
-            return GapCommand.HOUR_REF_NO; 
+        if (args.contains(GapCommand.WORD_HOUR)||args.contains(GapCommand.WORD_HOUR + "s")
+                ||args.contains(GapCommand.INITIAL_HOUR)){
+            return GapCommand.REF_NO_HOUR; 
         }
         else {
-            return GapCommand.MINUTE_REF_NO; 
+            return GapCommand.REF_NO_MINUTE; 
         }
     }
 
@@ -263,16 +263,16 @@ public class Parser {
     private boolean isGapArgumentValid(String args) {
         int numberOfMatch = 0; 
 
-        if (args.contains(GapCommand.DAY_WORD)||args.contains(GapCommand.DAY_WORD + "s")
-                ||args.contains(GapCommand.DAY_INITIAL)){
+        if (args.contains(GapCommand.WORD_DAY)||args.contains(GapCommand.WORD_DAY + "s")
+                ||args.contains(GapCommand.INITIAL_DAY)){
             numberOfMatch = numberOfMatch + 1; 
         }
-        if (args.contains(GapCommand.HOUR_WORD)||args.contains(GapCommand.HOUR_WORD + "s")
-                ||args.contains(GapCommand.HOUR_INITIAL)){
+        if (args.contains(GapCommand.WORD_HOUR)||args.contains(GapCommand.WORD_HOUR + "s")
+                ||args.contains(GapCommand.INITIAL_HOUR)){
             numberOfMatch = numberOfMatch + 1; 
         }
-        if (args.contains(GapCommand.MINUTE_WORD)||args.contains(GapCommand.MINUTE_WORD + "s")
-                ||args.contains(GapCommand.MINUTE_INITIAL)){
+        if (args.contains(GapCommand.WORD_MINUTE)||args.contains(GapCommand.WORD_MINUTE + "s")
+                ||args.contains(GapCommand.INITIAL_MINUTE)){
             numberOfMatch = numberOfMatch + 1; 
         }
         return numberOfMatch == 1;
