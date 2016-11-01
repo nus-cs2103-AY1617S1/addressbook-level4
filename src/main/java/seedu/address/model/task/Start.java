@@ -36,46 +36,107 @@ public class Start implements Comparable<Start> {
     	if (!isValidStart(start)) {
     		throw new IllegalValueException(MESSAGE_START_CONSTRAINTS);
     	}
-    	if (start.equals("default")) {
-    		String new_min = new String(LocalTime.now().getMinute() + "");
-    		String new_hr = new String(LocalTime.now().getHour() + "");
-    		if (new_hr.length() ==1)
-    			new_hr = "0" + new_hr;
-    		if (new_min.length() ==1 )
-    			new_min = "0" + new_min;
-    		this.value = new_hr +""+ new_min;
-    	}
-    	else if (start.equals("no start"))
-    		this.value = "no start";
-    	else
-    		this.value = changeTo24HourFormat(start);
+    	this.value = calculateStartTimeValue(start);
     	
     }
+    /**
+     *@@author A0138993L
+     * Calculates the start time of the task
+     * @param start the start time from the user input in any format
+     * @return standardized format of the start time
+     */
+	private String calculateStartTimeValue(String start) {
+		if (start.equals("default")) {
+    		String new_hr = startTimeHour();
+    		String new_min = startTimeMin();
+    		return new_hr +""+ new_min;
+    	}
+    	else if (start.equals("no start"))
+    		return "no start";
+    	else
+    		return changeTo24HourFormat(start);
+	}
+	/**
+	 * @@author A0138993L
+	 * calculates the local time minutes
+	 * @return the local minutes
+	 */
+	private String startTimeMin() {
+		String new_min = new String(LocalTime.now().getMinute() + "");
+		if (new_min.length() ==1 )
+			new_min = "0" + new_min;
+		return new_min;
+	}
+	/**
+	 * @@author A0138993L
+	 * calculates the local time hour
+	 * @return the local hour
+	 */
+	private String startTimeHour() {
+		String new_hr = new String(LocalTime.now().getHour() + "");
+		if (new_hr.length() ==1)
+			new_hr = "0" + new_hr;
+		return new_hr;
+	}
+	
     //@@author A0138993L
+	/**
+	 * changes the user input to 24 hour format
+	 * @param start
+	 * @return 24 hr clock
+	 */
     private String changeTo24HourFormat(String start) {
 		if (Character.isDigit(start.charAt(start.length()-1)))
 			return start;
 		else if (start.length() == 3) {
-			if (start.substring(1).equalsIgnoreCase("pm"))
-				return (Integer.parseInt(start.substring(0,1))+12) + "00";
-			else
-				return "0" + start.substring(0, 1) + "00";
+			return format1DigitStartTime(start);
 		}
 		else if (start.length() == 4) {
-			if (start.substring(2).equalsIgnoreCase("pm"))
-				return (Integer.parseInt(start.substring(0,2))+12) + "00";
-			else
-				return start.substring(0, 2) + "00";
+			return format2DigitStartTime(start);
 		}
 		else {
-			String[] time_cat = start.split("\\.");
-			if (time_cat[0].length() ==1)
-				time_cat[0] = "0" + time_cat[0];
-			if (time_cat[1].substring(2).equalsIgnoreCase("pm")) 
-				time_cat[0] = "" + (Integer.parseInt(time_cat[0]) + 12);
-			return time_cat[0] + time_cat[1].substring(0, 2);
+			return formatGeneralStartTime(start);
 		}
 			
+	}
+    
+    /**
+     * @@author A0138993L
+     * formats the general time format of hh.mm to 24 hour format
+     * @param start
+     * @return 24 hour clock format
+     */
+	private String formatGeneralStartTime(String start) {
+		String[] time_cat = start.split("\\.");
+		if (time_cat[0].length() ==1)
+			time_cat[0] = "0" + time_cat[0];
+		if (time_cat[1].substring(2).equalsIgnoreCase("pm")) 
+			time_cat[0] = "" + (Integer.parseInt(time_cat[0]) + 12);
+		return time_cat[0] + time_cat[1].substring(0, 2);
+	}
+    /**
+     * @@author A0138993L
+     * formats 2 digit start time to 24 hour clock
+     * @param start
+     * @return 24 hour clock format
+     */
+	private String format2DigitStartTime(String start) {
+		if (start.substring(2).equalsIgnoreCase("pm"))
+			return (Integer.parseInt(start.substring(0,2))+12) + "00";
+		else
+			return start.substring(0, 2) + "00";
+	}
+	/**
+	 * @@author A0138993L
+	 * formats 1 digit start time to 24 hour clock
+	 * @param start
+	 * @return 24 hour clock format
+	 */
+	private String format1DigitStartTime(String start) {
+		if (start.substring(1).equalsIgnoreCase("pm"))
+			return (Integer.parseInt(start.substring(0,1))+12) + "00";
+		else
+			return "0" + start.substring(0, 1) + "00";
 	}
 
 	/**
