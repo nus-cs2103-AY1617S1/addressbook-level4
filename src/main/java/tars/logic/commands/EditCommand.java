@@ -27,7 +27,8 @@ public class EditCommand extends UndoableCommand {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
-    private static final String MESSAGE_MISSING_TASK = "The target task cannot be missing";
+    private static final String MESSAGE_MISSING_TASK =
+            "The target task cannot be missing";
 
     public static final String MESSAGE_UNDO = "Edited to %1$s to %1$s";
     public static final String MESSAGE_REDO = "Edited to %1$s to %1$s";
@@ -50,8 +51,8 @@ public class EditCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model
-                .getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList =
+                model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

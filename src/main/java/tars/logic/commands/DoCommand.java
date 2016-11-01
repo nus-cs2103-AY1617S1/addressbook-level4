@@ -53,8 +53,8 @@ public class DoCommand extends Command {
     private void handleMarkDone()
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status done = new Status(true);
-        ArrayList<ReadOnlyTask> markDoneTasks = tracker
-                .getTasksFromIndexes(model, this.toDo.split(StringUtil.STRING_WHITESPACE), done);
+        ArrayList<ReadOnlyTask> markDoneTasks = tracker.getTasksFromIndexes(
+                model, this.toDo.split(StringUtil.STRING_WHITESPACE), done);
         model.mark(markDoneTasks, done);
     }
 

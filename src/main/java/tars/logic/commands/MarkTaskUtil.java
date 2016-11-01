@@ -21,10 +21,14 @@ public class MarkTaskUtil {
     private ArrayList<Integer> alreadyDoneTasks;
     private ArrayList<Integer> alreadyUndoneTasks;
 
-    public static final String SUCCESS_DONE = "Task: %1$s marked done successfully.\n";
-    public static final String SUCCESS_UNDONE = "Task: %1$s marked undone successfully.\n";
-    public static final String ALREADY_DONE = "Task: %1$s already marked done.\n";
-    public static final String ALREADY_UNDONE = "Task: %1$s already marked undone.\n";
+    public static final String SUCCESS_DONE =
+            "Task: %1$s marked done successfully.\n";
+    public static final String SUCCESS_UNDONE =
+            "Task: %1$s marked undone successfully.\n";
+    public static final String ALREADY_DONE =
+            "Task: %1$s already marked done.\n";
+    public static final String ALREADY_UNDONE =
+            "Task: %1$s already marked undone.\n";
 
     /**
      * Constructor
@@ -52,12 +56,10 @@ public class MarkTaskUtil {
     }
 
     /**
-     * Adds target index of task to relevant "Already Marked List" based on
-     * status
+     * Adds target index of task to relevant "Already Marked List" based on status
      * 
      * @param targetIndex
-     * @param status
-     *            Done or Undone
+     * @param status Done or Undone
      */
     public void addAlreadyMarked(int targetIndex, Status status) {
         if (status.status) {
@@ -78,9 +80,9 @@ public class MarkTaskUtil {
         String alreadyDoneTasksString = getIndexesString(alreadyDoneTasks);
         String alreadyUndoneTasksString = getIndexesString(alreadyUndoneTasks);
 
-        String result = formatResults(markDoneTasksString,
-                markUndoneTasksString, alreadyDoneTasksString,
-                alreadyUndoneTasksString);
+        String result =
+                formatResults(markDoneTasksString, markUndoneTasksString,
+                        alreadyDoneTasksString, alreadyUndoneTasksString);
 
         return result;
     }
@@ -89,14 +91,14 @@ public class MarkTaskUtil {
             String markUndoneTasksString, String alreadyDoneTasksString,
             String alreadyUndoneTasksString) {
 
-        String markDoneResult = getResultFromString(markDoneTasksString,
-                SUCCESS_DONE);
-        String markUndoneResult = getResultFromString(markUndoneTasksString,
-                SUCCESS_UNDONE);
-        String alreadyDoneResult = getResultFromString(alreadyDoneTasksString,
-                ALREADY_DONE);
-        String aldreadyUndoneResult = getResultFromString(
-                alreadyUndoneTasksString, ALREADY_UNDONE);
+        String markDoneResult =
+                getResultFromString(markDoneTasksString, SUCCESS_DONE);
+        String markUndoneResult =
+                getResultFromString(markUndoneTasksString, SUCCESS_UNDONE);
+        String alreadyDoneResult =
+                getResultFromString(alreadyDoneTasksString, ALREADY_DONE);
+        String aldreadyUndoneResult =
+                getResultFromString(alreadyUndoneTasksString, ALREADY_UNDONE);
 
         return markDoneResult + markUndoneResult + alreadyDoneResult
                 + aldreadyUndoneResult;
@@ -165,8 +167,8 @@ public class MarkTaskUtil {
     public ArrayList<ReadOnlyTask> getTasksFromIndexes(Model model,
             String[] indexes, Status status)
             throws InvalidTaskDisplayedException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model
-                .getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList =
+                model.getFilteredTaskList();
         ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
 
         for (int i = 0; i < indexes.length; i++) {

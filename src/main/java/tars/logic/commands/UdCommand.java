@@ -53,8 +53,8 @@ public class UdCommand extends Command {
     private void handleMarkUndone()
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status undone = new Status(false);
-        ArrayList<ReadOnlyTask> markUndoneTasks = tracker
-                .getTasksFromIndexes(model, this.toUndo.split(StringUtil.STRING_WHITESPACE), undone);
+        ArrayList<ReadOnlyTask> markUndoneTasks = tracker.getTasksFromIndexes(
+                model, this.toUndo.split(StringUtil.STRING_WHITESPACE), undone);
         model.mark(markUndoneTasks, undone);
     }
 
