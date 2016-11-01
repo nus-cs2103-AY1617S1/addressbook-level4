@@ -22,7 +22,6 @@ public class DateUtil {
         DATE_FORMATS1 = new ArrayList<>();
         DATE_FORMATS2 = new ArrayList<>();
         DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm aa"));
-        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy h:mm aa"));
         DATE_FORMATS.add(new SimpleDateFormat("d.MM.yyyy h:mm aa"));
         DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h.mm aa"));
         DATE_FORMATS.add(new SimpleDateFormat("d.MM.yyyy h.mm aa"));
