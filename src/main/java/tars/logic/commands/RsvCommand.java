@@ -10,6 +10,7 @@ import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.commons.util.StringUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.rsv.RsvTask;
@@ -49,9 +50,14 @@ public class RsvCommand extends UndoableCommand {
     public static final String MESSAGE_REDO_DELETE = "Deleted:%1$s";
     public static final String MESSAGE_REDO_ADD = "Added %1$s";
 
+    private static final String MESSAGE_CONFLICT_FOR = "\nConflicts for ";
+
     private RsvTask toReserve = null;
     private String rangeIndexString = "";
     private String conflictingTaskList = "";
+    
+    private static final int INDEX_OF_ENDDATE = 1;
+    private static final int INDEX_OF_STARTDATE = 0;
 
     private ArrayList<RsvTask> rsvTasksToDelete;
 
@@ -65,7 +71,7 @@ public class RsvCommand extends UndoableCommand {
 
         Set<DateTime> dateTimeSet = new HashSet<>();
         for (String[] dateTimeStringArray : dateTimeStringSet) {
-            dateTimeSet.add(new DateTime(dateTimeStringArray[0], dateTimeStringArray[1]));
+            dateTimeSet.add(new DateTime(dateTimeStringArray[INDEX_OF_STARTDATE], dateTimeStringArray[INDEX_OF_ENDDATE]));
         }
 
         this.toReserve = new RsvTask(new Name(name), new ArrayList<DateTime>(dateTimeSet));
@@ -91,7 +97,7 @@ public class RsvCommand extends UndoableCommand {
         try {
             for (DateTime dt : toReserve.getDateTimeList()) {
                 if (!model.getTaskConflictingDateTimeWarningMessage(dt).isEmpty()) {
-                    conflictingTaskList += "\nConflicts for " + dt.toString() + ":";
+                    conflictingTaskList += MESSAGE_CONFLICT_FOR + dt.toString() + StringUtil.STRING_COLON;
                     conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(dt);
                 }
             }
@@ -107,7 +113,7 @@ public class RsvCommand extends UndoableCommand {
         rsvTasksToDelete = new ArrayList<RsvTask>();
 
         try {
-            rsvTasksToDelete = getRsvTasksFromIndexes(this.rangeIndexString.split(" "));
+            rsvTasksToDelete = getRsvTasksFromIndexes(this.rangeIndexString.split(StringUtil.STRING_WHITESPACE));
         } catch (InvalidTaskDisplayedException itde) {
             return new CommandResult(itde.getMessage());
         }
@@ -136,14 +142,14 @@ public class RsvCommand extends UndoableCommand {
         UnmodifiableObservableList<RsvTask> lastShownList = model.getFilteredRsvTaskList();
         ArrayList<RsvTask> rsvTasksList = new ArrayList<RsvTask>();
 
-        for (int i = 0; i < indexes.length; i++) {
+        for (int i = StringUtil.START_INDEX; i < indexes.length; i++) {
             int targetIndex = Integer.parseInt(indexes[i]);
             if (lastShownList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 throw new InvalidTaskDisplayedException(
                         Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
             }
-            RsvTask rsvTask = lastShownList.get(targetIndex - 1);
+            RsvTask rsvTask = lastShownList.get(targetIndex - StringUtil.LAST_INDEX);
             rsvTasksList.add(rsvTask);
         }
         return rsvTasksList;
@@ -153,7 +159,7 @@ public class RsvCommand extends UndoableCommand {
         String summary = String.format(MESSAGE_SUCCESS, toReserve.toString());
 
         if (!conflictingTaskList.isEmpty()) {
-            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
+            summary += StringUtil.STRING_NEWLINE + Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
         }
 
         return summary;

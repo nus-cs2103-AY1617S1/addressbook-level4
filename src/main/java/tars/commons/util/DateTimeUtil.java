@@ -122,7 +122,7 @@ public class DateTimeUtil {
                 if (dateTimeQuery.getEndDate()
                         .isBefore(dateTimeSource.getStartDate())
                         || dateTimeQuery.getEndDate()
-                                .isAfter(dateTimeSource.getEndDate())) {
+                        .isAfter(dateTimeSource.getEndDate())) {
                     return false;
                 }
             } else { // Case 2b: dateTimeSource only has a endDateTime
@@ -156,7 +156,7 @@ public class DateTimeUtil {
 
             if (startDateTime.isBefore(endDateTime)) {
                 listOfFreeTimeSlots
-                        .add(new DateTime(startDateTime, endDateTime));
+                .add(new DateTime(startDateTime, endDateTime));
             }
 
             if (startDateTime.isBefore(dt.getEndDate())) {
@@ -166,7 +166,7 @@ public class DateTimeUtil {
 
         if (startDateTime.isBefore(dateToCheck.getEndDate())) {
             listOfFreeTimeSlots
-                    .add(new DateTime(startDateTime, dateToCheck.getEndDate()));
+            .add(new DateTime(startDateTime, dateToCheck.getEndDate()));
         }
 
         return listOfFreeTimeSlots;
@@ -177,8 +177,8 @@ public class DateTimeUtil {
 
         sb.append(dateTime.getEndDate().getDayOfWeek()
                 .getDisplayName(TextStyle.FULL, Locale.ENGLISH)).append(", ")
-                .append(dateTime.getEndDate()
-                        .format(stringFormatterWithoutTime));
+        .append(dateTime.getEndDate()
+                .format(stringFormatterWithoutTime));
 
         return sb.toString();
     }
@@ -193,14 +193,14 @@ public class DateTimeUtil {
 
         for (DateTime dt : listOfFreeTimeSlotsInDate) {
             sb.append("\n").append(counter).append(". ")
-                    .append(dt.getStartDate()
-                            .format(stringFormatterWithoutDate))
-                    .append("hrs to ")
-                    .append(dt.getEndDate().format(stringFormatterWithoutDate))
-                    .append("hrs (")
-                    .append(getDurationInMinutesBetweenTwoLocalDateTime(
-                            dt.getStartDate(), dt.getEndDate()))
-                    .append(")");
+            .append(dt.getStartDate()
+                    .format(stringFormatterWithoutDate))
+            .append("hrs to ")
+            .append(dt.getEndDate().format(stringFormatterWithoutDate))
+            .append("hrs (")
+            .append(getDurationInMinutesBetweenTwoLocalDateTime(
+                    dt.getStartDate(), dt.getEndDate()))
+            .append(")");
 
             counter++;
         }

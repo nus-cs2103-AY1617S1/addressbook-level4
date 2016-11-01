@@ -10,6 +10,7 @@ import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.ExtractorUtil;
+import tars.commons.util.StringUtil;
 import tars.logic.commands.AddCommand;
 import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
@@ -36,11 +37,11 @@ public class AddCommandParser extends CommandParser {
         try {
             return new AddCommand(argsTokenizer.getPreamble().get(),
                     DateTimeUtil.parseStringToDateTime(
-                            argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)),
-                    argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
+                            argsTokenizer.getValue(dateTimePrefix).orElse(StringUtil.EMPTY_STRING)),
+                    argsTokenizer.getValue(priorityPrefix).orElse(StringUtil.EMPTY_STRING),
                     argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<String>()),
                     ExtractorUtil.getRecurringFromArgs(
-                            argsTokenizer.getValue(recurringPrefix).orElse(EMPTY_STRING),
+                            argsTokenizer.getValue(recurringPrefix).orElse(StringUtil.EMPTY_STRING),
                             recurringPrefix));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

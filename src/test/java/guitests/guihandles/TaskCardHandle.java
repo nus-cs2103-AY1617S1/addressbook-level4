@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 
 /**
@@ -65,6 +66,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return gettaskName() + " " + getStartDate() + " " + getEndDate();
+        return gettaskName() + StringUtil.STRING_WHITESPACE + getStartDate() + StringUtil.STRING_WHITESPACE + getEndDate();
     }
 }

@@ -3,6 +3,7 @@ package tars.logic.commands;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.InvalidRangeException;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.commons.util.StringUtil;
 import tars.model.task.*;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class UdCommand extends Command {
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status undone = new Status(false);
         ArrayList<ReadOnlyTask> markUndoneTasks = tracker
-                .getTasksFromIndexes(model, this.toUndo.split(" "), undone);
+                .getTasksFromIndexes(model, this.toUndo.split(StringUtil.STRING_WHITESPACE), undone);
         model.mark(markUndoneTasks, undone);
     }
 

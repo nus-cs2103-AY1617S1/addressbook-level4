@@ -3,6 +3,7 @@ package tars.logic.commands;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.InvalidRangeException;
 import tars.commons.exceptions.InvalidTaskDisplayedException;
+import tars.commons.util.StringUtil;
 import tars.model.task.*;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class DoCommand extends Command {
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status done = new Status(true);
         ArrayList<ReadOnlyTask> markDoneTasks = tracker
-                .getTasksFromIndexes(model, this.toDo.split(" "), done);
+                .getTasksFromIndexes(model, this.toDo.split(StringUtil.STRING_WHITESPACE), done);
         model.mark(markDoneTasks, done);
     }
 

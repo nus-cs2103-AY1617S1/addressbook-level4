@@ -12,9 +12,24 @@ import tars.commons.exceptions.InvalidRangeException;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    private static final String RANGE_SEPARATOR = "..";
+
+    private static final String INVALID_INDEX_ENTERED = "Invalid index entered";
+    private static final String UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING =
+            "Unexpected error in geting index from String.";
+
+    public static final String STRING_NEWLINE = "\n";
+    public static final String STRING_COLON = ":";
+    public static final String STRING_COMMA = ",";
+    public static final String STRING_SQUARE_BRACKET_OPEN = "[";
+    public static final String STRING_SQUARE_BRACKET_CLOSE = "]";
     public static final String EMPTY_STRING = "";
+    public static final String STRING_WHITESPACE = " ";
     public static final int EMPTY_STRING_LENGTH = 0;
+    public static final int START_INDEX = 0;
+    public static final int LAST_INDEX = 1;
+    public static final int INVALID_POSITION = -1;
+
+    private static final String RANGE_SEPARATOR = "..";
 
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
@@ -29,7 +44,7 @@ public class StringUtil {
     public static String getDetails(Throwable t) {
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
-        return t.getMessage() + "\n" + sw.toString();
+        return t.getMessage() + STRING_NEWLINE + sw.toString();
     }
 
     /**
@@ -61,18 +76,19 @@ public class StringUtil {
             return formateRangeOfIndexes(s);
         } else {
             throw new IllegalValueException(
-                    "Unexpected error in geting index from String.");
+                    UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING);
         }
     }
 
     private static boolean isSingleNumber(String s) {
-        return (s.indexOf(" ") == -1 && !s.contains(RANGE_SEPARATOR));
+        return (s.indexOf(STRING_WHITESPACE) == INVALID_POSITION
+                && !s.contains(RANGE_SEPARATOR));
     }
 
     private static String formatSingleNumber(String s)
             throws IllegalValueException {
         if (!isUnsignedInteger(s)) {
-            throw new IllegalValueException("Invalid index entered");
+            throw new IllegalValueException(INVALID_INDEX_ENTERED);
         }
         return s;
     }
@@ -83,18 +99,19 @@ public class StringUtil {
      * @@author A0121533W
      */
     private static boolean isListOfIndexes(String s) {
-        return s.indexOf(" ") != -1 && !s.contains(RANGE_SEPARATOR);
+        return (s.indexOf(STRING_WHITESPACE) != INVALID_POSITION
+                && !s.contains(RANGE_SEPARATOR));
     }
 
     private static String formatListOfIndexes(String s)
             throws IllegalValueException {
-        String indexString = "";
-        String[] indexArray = s.split(" ");
-        for (int i = 0; i < indexArray.length; i++) {
+        String indexString = EMPTY_STRING;
+        String[] indexArray = s.split(STRING_WHITESPACE);
+        for (int i = START_INDEX; i < indexArray.length; i++) {
             if (!isUnsignedInteger(indexArray[i])) {
-                throw new IllegalValueException("Invalid index entered");
+                throw new IllegalValueException(INVALID_INDEX_ENTERED);
             }
-            indexString += indexArray[i] + " ";
+            indexString += indexArray[i] + STRING_WHITESPACE;
         }
         return indexString.trim();
     }
@@ -115,14 +132,14 @@ public class StringUtil {
      */
     private static String formateRangeOfIndexes(String s)
             throws IllegalValueException, InvalidRangeException {
-        String rangeToReturn = "";
+        String rangeToReturn = EMPTY_STRING;
 
         int toIndex = s.indexOf(RANGE_SEPARATOR);
-        String start = s.substring(0, toIndex);
+        String start = s.substring(START_INDEX, toIndex);
         String end = s.substring(toIndex + RANGE_SEPARATOR.length());
 
         if (!isUnsignedInteger(start) || !isUnsignedInteger(end)) {
-            throw new IllegalValueException("Invalid index entered");
+            throw new IllegalValueException(INVALID_INDEX_ENTERED);
         }
 
         int startInt = Integer.parseInt(start);
@@ -133,7 +150,7 @@ public class StringUtil {
         }
 
         for (int i = startInt; i <= endInt; i++) {
-            rangeToReturn += String.valueOf(i) + " ";
+            rangeToReturn += String.valueOf(i) + STRING_WHITESPACE;
         }
 
         return rangeToReturn.trim();

@@ -13,8 +13,6 @@ import tars.logic.parser.Prefix;
  * Container for methods which extract data from string
  */
 public class ExtractorUtil {
-    private static final String EMPTY_STRING = "";
-    private static final String ONE_EMPTY_SPACE = " ";
 
     /**
      * Extracts the new task's dateTimes from the rsv command's dateTime arguments string. Merges
@@ -24,16 +22,17 @@ public class ExtractorUtil {
             String dateTimeArguments, Prefix prefix)
             throws IllegalValueException {
         // no dateTime
-        if (EMPTY_STRING.equals(dateTimeArguments)) {
+        if (StringUtil.EMPTY_STRING.equals(dateTimeArguments)) {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
         final Collection<String> dateTimeStrings =
                 Arrays.asList(dateTimeArguments
-                        .replaceFirst(prefix.value + ONE_EMPTY_SPACE,
-                                EMPTY_STRING)
-                        .split(ONE_EMPTY_SPACE + prefix.value
-                                + ONE_EMPTY_SPACE));
+                        .replaceFirst(
+                                prefix.value + StringUtil.STRING_WHITESPACE,
+                                StringUtil.EMPTY_STRING)
+                        .split(StringUtil.STRING_WHITESPACE + prefix.value
+                                + StringUtil.STRING_WHITESPACE));
         return new HashSet<>(dateTimeStrings);
     }
 
@@ -45,8 +44,9 @@ public class ExtractorUtil {
     public static String[] getRecurringFromArgs(String recurringArguments,
             Prefix prefix) throws IllegalValueException {
         recurringArguments = recurringArguments
-                .replaceFirst(prefix.value, EMPTY_STRING).trim();
-        String[] recurringString = recurringArguments.split(ONE_EMPTY_SPACE);
+                .replaceFirst(prefix.value, StringUtil.EMPTY_STRING).trim();
+        String[] recurringString =
+                recurringArguments.split(StringUtil.STRING_WHITESPACE);
 
         return recurringString;
     }

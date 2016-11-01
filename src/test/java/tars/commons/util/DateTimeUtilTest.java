@@ -38,22 +38,25 @@ public class DateTimeUtilTest {
 
     @Test
     public void natty_parser_empty_args() {
-        String[] expected = new String[] { "", "" };
-        String[] actual = DateTimeUtil.parseStringToDateTime(" ");
+        String[] expected =
+                new String[] {StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING};
+        String[] actual = DateTimeUtil
+                .parseStringToDateTime(StringUtil.STRING_WHITESPACE);
 
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
 
-        actual = DateTimeUtil.parseStringToDateTime("");
+        actual = DateTimeUtil.parseStringToDateTime(StringUtil.EMPTY_STRING);
         assertEquals(expected[0], actual[0]);
         assertEquals(expected[1], actual[1]);
     }
 
     @Test
     public void extract_date_successful() {
-        String[] expectedDateTime = { "", "01/01/2016 1500" };
-        String[] actualDateTime = DateTimeUtil
-                .parseStringToDateTime("1/1/2016 1500");
+        String[] expectedDateTime =
+                {StringUtil.EMPTY_STRING, "01/01/2016 1500"};
+        String[] actualDateTime =
+                DateTimeUtil.parseStringToDateTime("1/1/2016 1500");
 
         assertArrayEquals(expectedDateTime, actualDateTime);
     }
@@ -75,14 +78,14 @@ public class DateTimeUtilTest {
         String expectedMonth = "06/10/2016 2200";
         String expectedYear = "06/09/2017 2200";
 
-        String modifiedDay = DateTimeUtil.modifyDate(dateToModify,
-                frequencyDay);
-        String modifiedWeek = DateTimeUtil.modifyDate(dateToModify,
-                frequencyWeek);
-        String modifiedMonth = DateTimeUtil.modifyDate(dateToModify,
-                frequencyMonth);
-        String modifiedYear = DateTimeUtil.modifyDate(dateToModify,
-                frequencyYear);
+        String modifiedDay =
+                DateTimeUtil.modifyDate(dateToModify, frequencyDay);
+        String modifiedWeek =
+                DateTimeUtil.modifyDate(dateToModify, frequencyWeek);
+        String modifiedMonth =
+                DateTimeUtil.modifyDate(dateToModify, frequencyMonth);
+        String modifiedYear =
+                DateTimeUtil.modifyDate(dateToModify, frequencyYear);
 
         assertEquals(expectedDay, modifiedDay);
         assertEquals(expectedWeek, modifiedWeek);
@@ -104,10 +107,10 @@ public class DateTimeUtilTest {
 
     @Test
     public void isWithinWeek_dateTimeNotWithinWeek_returnFalse() {
-        LocalDateTime nextMonth = LocalDateTime.now().plus(1,
-                ChronoUnit.MONTHS);
-        LocalDateTime lastMonth = LocalDateTime.now().minus(1,
-                ChronoUnit.MONTHS);
+        LocalDateTime nextMonth =
+                LocalDateTime.now().plus(1, ChronoUnit.MONTHS);
+        LocalDateTime lastMonth =
+                LocalDateTime.now().minus(1, ChronoUnit.MONTHS);
         assertFalse(DateTimeUtil.isWithinWeek(nextMonth));
         assertFalse(DateTimeUtil.isWithinWeek(lastMonth));
     }
@@ -134,9 +137,10 @@ public class DateTimeUtilTest {
     @Test
     public void isDateTimeWithinRange_emptyDateTimeSource()
             throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("", "");
-        DateTime dateTimeQuery = new DateTime("17/01/2016 1200",
-                "18/01/2016 1200");
+        DateTime dateTimeSource =
+                new DateTime(StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING);
+        DateTime dateTimeQuery =
+                new DateTime("17/01/2016 1200", "18/01/2016 1200");
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource,
                 dateTimeQuery));
     }
@@ -144,12 +148,12 @@ public class DateTimeUtilTest {
     @Test
     public void isDateTimeWithinRange_dateTimeOutOfRange()
             throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("15/01/2016 1200",
-                "16/01/2016 1200");
-        DateTime dateTimeSource2 = new DateTime("19/01/2016 1200",
-                "20/01/2016 1200");
-        DateTime dateTimeQuery = new DateTime("17/01/2016 1200",
-                "18/01/2016 1200");
+        DateTime dateTimeSource =
+                new DateTime("15/01/2016 1200", "16/01/2016 1200");
+        DateTime dateTimeSource2 =
+                new DateTime("19/01/2016 1200", "20/01/2016 1200");
+        DateTime dateTimeQuery =
+                new DateTime("17/01/2016 1200", "18/01/2016 1200");
 
         assertFalse(DateTimeUtil.isDateTimeWithinRange(dateTimeSource,
                 dateTimeQuery));
@@ -160,12 +164,12 @@ public class DateTimeUtilTest {
     @Test
     public void isDateTimeWithinRange_dateTimeWithinRange()
             throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("14/01/2016 1200",
-                "16/01/2016 1200");
-        DateTime dateTimeQueryFullyInRange = new DateTime("14/01/2016 2000",
-                "15/01/2016 1200");
-        DateTime dateTimeQueryPartiallyInRange = new DateTime("13/01/2016 1000",
-                "15/01/2016 1200");
+        DateTime dateTimeSource =
+                new DateTime("14/01/2016 1200", "16/01/2016 1200");
+        DateTime dateTimeQueryFullyInRange =
+                new DateTime("14/01/2016 2000", "15/01/2016 1200");
+        DateTime dateTimeQueryPartiallyInRange =
+                new DateTime("13/01/2016 1000", "15/01/2016 1200");
 
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSource,
                 dateTimeQueryFullyInRange));
@@ -176,16 +180,16 @@ public class DateTimeUtilTest {
     @Test
     public void isDateTimeWithinRange_dateTimeWithoutStartDate()
             throws DateTimeException, IllegalDateException {
-        DateTime dateTimeSource = new DateTime("15/01/2016 1200",
-                "17/01/2016 1100");
-        DateTime dateTimeSourceWithoutStartDate = new DateTime("",
-                "16/01/2016 1200");
-        DateTime dateTimeQuery = new DateTime("14/01/2016 2000",
-                "17/01/2016 1200");
-        DateTime dateTimeQueryWithoutStartDate = new DateTime("",
-                "16/01/2016 1200");
-        DateTime dateTimeQueryWithoutStartDate2 = new DateTime("",
-                "18/01/2016 1200");
+        DateTime dateTimeSource =
+                new DateTime("15/01/2016 1200", "17/01/2016 1100");
+        DateTime dateTimeSourceWithoutStartDate =
+                new DateTime("", "16/01/2016 1200");
+        DateTime dateTimeQuery =
+                new DateTime("14/01/2016 2000", "17/01/2016 1200");
+        DateTime dateTimeQueryWithoutStartDate =
+                new DateTime("", "16/01/2016 1200");
+        DateTime dateTimeQueryWithoutStartDate2 =
+                new DateTime("", "18/01/2016 1200");
 
         assertTrue(DateTimeUtil.isDateTimeWithinRange(dateTimeSource,
                 dateTimeQuery));
@@ -201,8 +205,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void getListOfFreeTimeSlotsInDate_success()
-            throws DateTimeException, IllegalDateException {
+    public void getListOfFreeTimeSlotsInDate_success() throws DateTimeException, IllegalDateException {
         ArrayList<DateTime> listOfFilledTimeSlots = new ArrayList<DateTime>();
         DateTime dateToCheck = new DateTime("29/10/2016 0000",
                 "29/10/2016 2359");

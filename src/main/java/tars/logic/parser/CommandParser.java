@@ -20,9 +20,6 @@ public abstract class CommandParser {
     protected static final Prefix undonePrefix = new Prefix("/ud");
     protected static final Prefix listPrefix = new Prefix("/ls");
     protected static final Prefix editPrefix = new Prefix("/e");
-    
-    protected static final String EMPTY_STRING = "";
-    protected static final String EMPTY_SPACE_ONE = " ";
 
     public abstract Command prepareCommand(String args);
 }
