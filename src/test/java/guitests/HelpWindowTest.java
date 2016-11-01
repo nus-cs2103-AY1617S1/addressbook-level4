@@ -3,12 +3,15 @@ package guitests;
 import guitests.guihandles.HelpWindowHandle;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 public class HelpWindowTest extends AddressBookGuiTest {
 
+    //TODO Help window test
     //@Test
     public void openHelpWindow() {
 
-        personListPanel.clickOnListView();
+        datedListPanel.clickOnListView();
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 

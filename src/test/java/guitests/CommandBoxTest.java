@@ -4,9 +4,11 @@ import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 public class CommandBoxTest extends AddressBookGuiTest {
 
-    //@Test
+    @Test
     public void commandBox_commandSucceeds_textCleared() {
         commandBox.runCommand(TypicalTestTasks.two.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
