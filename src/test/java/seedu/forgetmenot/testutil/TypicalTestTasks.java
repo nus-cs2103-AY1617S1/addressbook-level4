@@ -3,7 +3,6 @@ package seedu.forgetmenot.testutil;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.Task;
-import seedu.forgetmenot.model.task.UniqueTaskList;
 
 /**
  *
@@ -30,8 +29,7 @@ public class TypicalTestTasks {
             hoon = new TaskBuilder().withName("Hoon Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
             ida = new TaskBuilder().withName("Ida Mueller").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
         } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
+            assert false : "TypicalTestTasks data details are invalid";
         }
     }
 
