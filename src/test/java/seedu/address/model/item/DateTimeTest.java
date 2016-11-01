@@ -107,11 +107,6 @@ public class DateTimeTest {
     }
     
     @Test
-    public void isValidDate_invalidDateTwo() {
-        assertFalse(DateTime.isValidDate("10am meh"));
-    }
-    
-    @Test
     public void isValidDate_invalidDateThree() {
         assertFalse(DateTime.isValidDate("meh 10am"));
     }
@@ -119,6 +114,11 @@ public class DateTimeTest {
     @Test
     public void isValidDate_validDate() {
         assertTrue(DateTime.isValidDate("11th Sep 10am"));
+    }
+    
+    @Test
+    public void isValidDate_validDateTwo() {
+        assertTrue(DateTime.isValidDate("10am meh"));
     }
     
     @Test
