@@ -6,7 +6,6 @@ import seedu.taskitty.commons.exceptions.DataConversionException;
 import seedu.taskitty.model.ReadOnlyTaskManager;
 import seedu.taskitty.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -29,7 +28,13 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
 
     @Override
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
-
+    
+    //@@author A0135793W
+    void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException;
+    
+    boolean toOverwriteOrLoad(String filepath) throws DataConversionException, IOException;
+    //@@author
+    
     /**
      * Saves the current version of the Task Manager to the hard disk.
      *   Creates the data file if it is missing.

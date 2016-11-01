@@ -27,6 +27,12 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     public String getTaskManagerFilePath(){
         return filePath;
     }
+    
+    //@@author A0135793W
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+    //@@author
 
     /**
      * Similar to {@link #readTaskManager()}

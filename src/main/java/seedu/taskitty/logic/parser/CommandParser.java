@@ -31,6 +31,7 @@ public class CommandParser {
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
+    public static final int FILE_EXTENSION_LENGTH = 4;
     
     /**
      * Used for initial separation of command word and args.
@@ -98,8 +99,8 @@ public class CommandParser {
         case ViewCommand.COMMAND_WORD:
         	return prepareView(arguments);
         
-        case SaveCommand.COMMAND_WORD:
-            return prepareSave(arguments);
+        case PathCommand.COMMAND_WORD:
+            return preparePath(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -107,15 +108,60 @@ public class CommandParser {
     }
     
     //@@author A0135793W
-    private Command prepareSave(String argument) {
-        try {
-            return new SaveCommand(argument.trim());
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+    /**
+     * Parses arguments in the context of save command
+     * @param argument full command args string
+     * @return the prepared command
+     */
+    private Command preparePath(String argument) {
+        String args = argument.trim();
+        
+        if (args.equals(EMPTY_STRING)) {
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_MISSING_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+        } else if (args.length() < FILE_EXTENSION_LENGTH) {
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+        } else if (!isValidFileXmlExtension(args)) {
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         }
+        return new PathCommand(args);
     }
+    
+    /**
+     * Checks if input argument has a valid xml file extension
+     * @param argument full command args string
+     * @return true if argument ends with .xml and false otherwise
+     */
+    private boolean isValidFileXmlExtension(String argument) {
+        //Checking if filename ends with .xml
+        Optional<String> fileExtension = getFileExtension(argument.trim());
+        if (!fileExtension.isPresent()) {
+            return false;
+        } else if (!fileExtension.get().equals(".xml")) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Gets file extension of an argument
+     * Assume file extension has .___ format
+     * @param argument full command args string
+     * @return an optional depending on whether it is a valid file extension
+     */
+    private Optional<String> getFileExtension(String argument) {
+        int length = argument.length();
+        String extension = argument.substring(length-FILE_EXTENSION_LENGTH);
+        if (extension.charAt(STRING_START) != '.') {
+            return Optional.empty();
+        }
+        return Optional.of(extension);
+    }
+    //@@author
+    
     //@@author A0130853L
-
     /**
      * Parses arguments in the context of the view command.
      *

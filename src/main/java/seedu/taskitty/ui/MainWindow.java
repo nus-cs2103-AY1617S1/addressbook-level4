@@ -34,7 +34,7 @@ public class MainWindow extends UiPart {
     private DeadlineListPanel deadlineListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
+    private static StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -144,7 +144,7 @@ public class MainWindow extends UiPart {
     }
     
     //@@author A0130853L
-    void fillInnerParts() {
+    public void fillInnerParts() {
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
         deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new DeadlineListPanel());
@@ -153,8 +153,15 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
-
+    
     //@@author
+    
+    //@@author A0135793W
+    public static StatusBarFooter getStatusBarFooter() {
+        return statusBarFooter;
+    }
+    //@@author
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }

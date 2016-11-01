@@ -35,9 +35,9 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
+    protected static Storage storage;
     protected Model model;
-    protected Config config;
+    protected static Config config;
     protected UserPrefs userPrefs;
 
     public MainApp() {}
@@ -62,7 +62,17 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-
+    
+    //@@author A0135793W
+    public static Config getConfig() {
+        return config;
+    }
+    
+    public static Storage getStorage() {
+        return storage;
+    }
+    //@@author
+    
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
