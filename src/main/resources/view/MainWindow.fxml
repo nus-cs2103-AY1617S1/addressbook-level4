@@ -22,8 +22,8 @@
           </VBox>
            <AnchorPane fx:id="commandPreviewViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
            <AnchorPane fx:id="helpViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
+           <AnchorPane fx:id="commandErrorViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT"/>
        </StackPane>
-       <AnchorPane fx:id="commandErrorViewPlaceholder" />
        <AnchorPane fx:id="commandFeedbackViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
