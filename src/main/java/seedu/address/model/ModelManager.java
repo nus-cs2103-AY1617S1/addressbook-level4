@@ -11,6 +11,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.storage.Storage;
+import seedu.address.commons.events.model.AddTaskEvent;
 import seedu.address.commons.events.model.ToDoChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -90,14 +91,21 @@ public class ModelManager extends ComponentManager implements Model {
         toDo.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+        int index = filteredTasks.indexOf(task);
+        indicateTaskAdded(index, filteredTasks.get(index));
     }
-    
+    //@@author A0135812L
     @Override
     public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
         ReadOnlyTask editedTask = toDo.editTask(task, changes);
         indicateAddressBookChanged();
         return editedTask;
     }
+    
+    private void indicateTaskAdded(int i, ReadOnlyTask taskAdded) {
+        raise(new AddTaskEvent(i, taskAdded));
+    }
+    //@@author
 
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
