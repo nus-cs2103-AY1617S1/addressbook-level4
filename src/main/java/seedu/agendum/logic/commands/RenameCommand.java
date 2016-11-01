@@ -22,7 +22,7 @@ public class RenameCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 Watch Star Trek";
 
     public static final String MESSAGE_SUCCESS = "Task #%1$s renamed: %2$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
+    public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";
 
     public int targetIndex = -1;
     public Name newTaskName = null;

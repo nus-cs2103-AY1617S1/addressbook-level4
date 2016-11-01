@@ -7,6 +7,7 @@ import java.util.Set;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.commons.core.UnmodifiableObservableList;
 import seedu.agendum.model.task.ReadOnlyTask;
+import seedu.agendum.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -25,6 +26,7 @@ public class MarkCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 3 5-6";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s): %1$s";
+    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
 
     public ArrayList<Integer> targetIndexes;
 
@@ -56,6 +58,9 @@ public class MarkCommand extends Command {
             model.markTasks(tasksToMark);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (DuplicateTaskException pnfe) {
+            model.restoreCurrentToDoListClone();
+            return new CommandResult(MESSAGE_DUPLICATE);
         }
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, 

@@ -89,20 +89,26 @@ public class ToDoList implements ReadOnlyToDoList {
         return tasks.update(key, updatedTask);
     }
 
-    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.mark(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
+    /**
+     * Marks an existing task in the to-do list.
+     * @throws UniqueTaskList.DuplicateTaskException if a duplicate task would result after marking key.
+     * @throws UniqueTaskList.TaskNotFoundException if no such task (key) could be found in the list.
+     */
+    public boolean markTask(ReadOnlyTask key) 
+            throws UniqueTaskList.TaskNotFoundException, 
+            UniqueTaskList.DuplicateTaskException {
+        return tasks.mark(key);
     }
 
-    public boolean unmarkTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.unmark(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
+    /**
+     * Unmarks an existing task in the to-do list.
+     * @throws UniqueTaskList.DuplicateTaskException if a duplicate task would result after unmarking key.
+     * @throws UniqueTaskList.TaskNotFoundException if no such task (key) could be found in the list.
+     */
+    public boolean unmarkTask(ReadOnlyTask key) 
+            throws UniqueTaskList.TaskNotFoundException,
+            UniqueTaskList.DuplicateTaskException {
+        return tasks.unmark(key);
     }
     //@@author
 

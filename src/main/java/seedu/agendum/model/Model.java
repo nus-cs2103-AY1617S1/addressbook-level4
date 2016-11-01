@@ -30,13 +30,23 @@ public interface Model {
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
        
     /** Marks the given task(s) as completed */
-    void markTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void markTasks(List<ReadOnlyTask> targets)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
     /** Unmarks the given task(s) */
-    void unmarkTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void unmarkTasks(List<ReadOnlyTask> targets)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
 
-    /** Restores the previous to do list saved. Returns true if successful; false if no previous saved list*/
-    boolean restorePreviousToDoList();
+    /** 
+     * Restores the previous (second latest) to do list saved in the event of an undo operation
+     * Returns true if successful; false if there are no earlier lists
+     */
+    boolean restorePreviousToDoListClone();
+
+    /** 
+     * Restores the current (latest) to do list saved in the event of exceptions
+     */
+    void restoreCurrentToDoListClone();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
