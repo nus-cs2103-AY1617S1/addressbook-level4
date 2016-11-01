@@ -13,9 +13,10 @@ public class Messages {
             + MESSAGE_ALL_AVAIL_CMD;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX =
-            "The index provided is invalid. \n"
+            "The index provided is invalid! Check the following:\n"
             + "> Have you checked if your index exists? \n"
-            + "> If you're specifying a range of indices, have you checked if your start index precedes your end index?";
+            + "> If you're specifying a range of indices, does the start index precede the end index?\n"
+            + "> If you're specifying a range of indices, do both indices refer to the same list?";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d task(s) listed!";
     public static final String MESSAGE_INVALID_DATE = 
             "Date and time are invalid!\n" 
