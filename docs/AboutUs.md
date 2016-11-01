@@ -13,8 +13,11 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 
 #### [Irwin Mah](https://github.com/chooxy) <br>
 <img src="images/IrwinMah.jpg" width="150"><br>
-Role: Developer <br>
-Responsibilities: Codes about storage.
+* Components in charge of: [storage]
+* Aspects/tools in charge of: 
+* Features implemented:  
+ * [Set storage location]
+* Other major contributions:
 
 -----
 
@@ -31,7 +34,7 @@ Responsibilities: Codes about storage.
 
 #### [Xie Jihui](https://github.com/xjh666)
 <img src="images/XieJihui.JPG" width="150"><br>
-* Components in charge of: [logic] [model] [ui]
+* Components in charge of: [logic](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) [model] (https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#model-component) [ui](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
    * [Complete task](https://github.com/CS2103AUG2016-T16-C4/main/blob/master/docs/UserGuide.md#complete-a-task-complete)
