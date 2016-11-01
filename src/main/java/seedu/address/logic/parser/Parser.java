@@ -41,7 +41,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[a-z|A-Z]\\d+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -266,7 +266,8 @@ public class Parser {
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
+     * Returns the specified index in the {@code command} IF a letter followed by
+     * a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<String> parseIndex(String command) {
@@ -277,7 +278,7 @@ public class Parser {
 
         String index = matcher.group("targetIndex");
         if ((index.split(" ")).length == 1 && StringUtil.isUnsignedInteger(index.substring(1))) {
-            return Optional.of(index);
+            return Optional.of(index.toUpperCase());
         }
         else {
             return Optional.empty();
