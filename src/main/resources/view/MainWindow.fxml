@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
 
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -34,15 +34,10 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="commandBoxPlaceholder" style="-fx-background-color: #FFFFFF;" styleClass="anchor-pane" VBox.vgrow="NEVER">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-         </padding>
-      </AnchorPane>
       <SplitPane id="splitPane" dividerPositions="0.6, 0.5" style="-fx-background-color: #FFFFFF;" stylesheets="@Extensions.css" VBox.vgrow="ALWAYS">
          <items>
          <!-- @@author A0142421X -->
-            <AnchorPane fx:id="tagListPanelPlaceholder" maxWidth="200.0" minWidth="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="tagListPanelPlaceholder" maxWidth="150.0" minWidth="150.0" prefWidth="150.0">
                <padding>
                   <Insets top="10.0" />
                </padding>
@@ -58,9 +53,14 @@
                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                        </padding>
                    </AnchorPane>
+                  <AnchorPane fx:id="commandBoxPlaceholder" style="-fx-background-color: #FFFFFF;" styleClass="anchor-pane" VBox.vgrow="NEVER">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
                <!-- @@author A0138967J -->
                   <AnchorPane fx:id="summaryPlaceholder" prefHeight="500.0" prefWidth="340.0">

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -16,8 +10,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
             
@@ -27,17 +22,17 @@
             </columnConstraints>
             
             <children>
-            <GridPane prefHeight="32.0" prefWidth="580.0" translateY="2.0" GridPane.hgrow="NEVER">
+            <GridPane maxWidth="325.0" prefHeight="105.0" prefWidth="325.0" translateY="2.0" GridPane.hgrow="NEVER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="43.0" minWidth="10.0" prefWidth="43.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="487.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="48.0" minWidth="10.0" prefWidth="48.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="277.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="86.0" minHeight="20.0" prefHeight="86.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="10.0" translateY="-35.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateX="10.0" translateY="-31.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            <Label fx:id="id" styleClass="cell_big_label" text="id">
                      <padding>
                         <Insets left="10.0" />
@@ -46,13 +41,13 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                          <HBox GridPane.columnIndex="1">
+                          <HBox maxWidth="300.0" prefHeight="29.0" prefWidth="66.0" GridPane.columnIndex="1">
                              <children>
-                                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" translateX="10.0">
+                        <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="\$name" translateX="10.0" translateY="2.0">
                            <font>
-                              <Font name="Cambria" size="16.0" />
+                              <Font size="24.0" />
                            </font>
-                        </Label>
+                        </Text>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="15.0" translateY="4.0">
                            <graphic>
                               <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
@@ -61,7 +56,7 @@
                              </children>                             
                           </HBox>
                           
-					<!-- @@author A0121643R -->
+      					<!-- @@author A0121643R -->
                   <Circle fx:id="priorityLevel" fill="#1fff4d" radius="6.0" scaleX="1.1" scaleY="1.1" scaleZ="1.1" stroke="BLACK" strokeType="INSIDE" translateX="35.0" />
                </children>
             </GridPane>
