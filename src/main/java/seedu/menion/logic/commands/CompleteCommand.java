@@ -19,10 +19,8 @@ public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their type and index: "
-            + "\n" + "Parameters: [Activity_Type] + [Activity_Index] \n" + "Example: " + COMMAND_WORD + " "
-            + Activity.EVENT_TYPE + " 1";
-    public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD
-            + " [Activity Type] [Activity_index]" + "\n" + "Example: complete task 1";
+            + "\n" + "Parameters: [Activity_Type] + [Activity_Index] \n"
+            + "Example: complete " + Activity.TASK_TYPE + " 1";
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
     public static final String MESSAGE_ALREADY_COMPLETED = "Menion has already completed this activity!";
 

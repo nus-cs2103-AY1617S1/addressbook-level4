@@ -20,10 +20,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the activity type followed by the index number used in the last activity listing.\n"
-            + "Parameters: ACTIVITY_TYPE(task,event,floating) INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " floating" + " 1"
-            + "Example: " + COMMAND_WORD + " task" + " 2"
-            + "Example: " + COMMAND_WORD + " event" + " 3";
+            + "Parameters: [Activity_Type] + [Activity_Index]\n"
+            + "Example: " + COMMAND_WORD + " " + Activity.FLOATING_TASK_TYPE + " 1\n"
+            + "Example: " + COMMAND_WORD + " " + Activity.TASK_TYPE + " 2\n"
+            + "Example: " + COMMAND_WORD + " " + Activity.EVENT_TYPE + " 3";
 
     public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = "Deleted Activity: %1$s";
 
