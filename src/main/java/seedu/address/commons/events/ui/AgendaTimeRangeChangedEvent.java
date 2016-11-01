@@ -3,7 +3,7 @@ package seedu.address.commons.events.ui;
 import java.util.List;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 
 //@@author A0147967J
@@ -12,11 +12,10 @@ import seedu.address.model.task.TaskDate;
  */
 public class AgendaTimeRangeChangedEvent extends BaseEvent {
 
-
     private final TaskDate inputDate;
-    private final List<TaskComponent> taskComponentList;
+    private final List<TaskOccurrence> taskComponentList;
 
-    public AgendaTimeRangeChangedEvent(TaskDate inputDate, List<TaskComponent> list){
+    public AgendaTimeRangeChangedEvent(TaskDate inputDate, List<TaskOccurrence> list) {
         this.inputDate = inputDate;
         this.taskComponentList = list;
     }
@@ -30,7 +29,7 @@ public class AgendaTimeRangeChangedEvent extends BaseEvent {
         return inputDate;
     }
     
-    public List<TaskComponent> getData() {
+    public List<TaskOccurrence> getData() {
         return taskComponentList;
     }
 }

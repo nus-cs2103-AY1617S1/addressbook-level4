@@ -1,10 +1,14 @@
 package seedu.address.model.task;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.task.stub.NameStub;
+import seedu.address.model.task.stub.TaskDateStub;
+import seedu.address.model.task.stub.TaskOccurrenceStub;
+import seedu.address.model.task.stub.UniqueTagListStub;
 
 //@@author A0135782Y
 /**
@@ -12,74 +16,71 @@ import seedu.address.model.tag.UniqueTagList;
  *
  */
 public class TaskTester {
-   private Task task;
+    private Task task;
     
-   @Test
-   public void create_floatingTask_success() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList());
-       assertEquals(task.getTaskType(),TaskType.FLOATING);
-   }
-   
-   @Test
-   public void create_floatingTask_failure() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), new TaskDate(10), new TaskDate(20), RecurringType.NONE);
-       assertNotEquals(task.getTaskType(),TaskType.FLOATING);
-   }
-   
-   @Test 
-   public void create_nonFloatingTask_success() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), new TaskDate(10), new TaskDate(20), RecurringType.NONE);
-       assertEquals(task.getTaskType(),TaskType.NON_FLOATING);
-   }
-   
-   @Test
-   public void create_nonFloatingTask_failire() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList());
-       assertNotEquals(task.getTaskType(),TaskType.NON_FLOATING);       
-   }
-   
-   @Test
-   public void set_floatingTask_recurring_failure() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList());
-       try{
-           task.setRecurringType(RecurringType.DAILY);
-       } catch (AssertionError error) {
-           assertTrue(true);
-       }
-   }
-   
-   @Test
-   public void set_nonFloatingTask_recurring_successful() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.NONE);
-       task.setRecurringType(RecurringType.DAILY);
-       assertEquals(task.getRecurringType(), RecurringType.DAILY);
-   }   
-   
-   @Test
-   public void set_TaskType_sucessful() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.NONE);
-       task.setTaskType(TaskType.COMPLETED);
-       assertEquals("Task type should be mutated", task.getTaskType(), TaskType.COMPLETED);
-   }
-   
-   @Test
-   public void append_taskComponent_toNonRecurringTask_notAllowed() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), 
-               new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.NONE);
-       try {
-           task.appendRecurringDate(new TaskComponent(task,new TaskDate(), new TaskDate()));
-       } catch(AssertionError ae) {
-           assertTrue(true);
-       }
-   }
-   
-   @Test
-   public void getLastAppendedComponent_success() throws Exception {
-       task = new Task(new Name("Name"), new UniqueTagList(), 
-               new TaskDate("11 oct 11pm"), new TaskDate("11 oct 12pm"), RecurringType.DAILY);
-       TaskComponent toAppend = new TaskComponent(task, new TaskDate("12oct 11pm"), new TaskDate("12 oct 11.01pm"));
-       task.appendRecurringDate(toAppend);
-       TaskComponent component = task.getLastAppendedComponent();
-       assertEquals("Task component just appended must be the last appended component", toAppend, component);
-   }
+    @Test
+    public void create_floatingTask() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createFloatingTask();
+        assertEquals(task.getTaskType(), TaskType.FLOATING);
+        
+        task = helper.createNonFloatingTask(RecurringType.NONE);
+        assertEquals(task.getTaskType(), TaskType.NON_FLOATING);
+    }
+    
+    @Test(expected=AssertionError.class)
+    public void setRecurringType_floatingTask_throwAssert() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createFloatingTask();
+        task.setRecurringType(RecurringType.DAILY);
+    }
+
+    @Test
+    public void setRecurringType_successful() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createNonFloatingTask(RecurringType.NONE);
+        task.setRecurringType(RecurringType.DAILY);
+        assertEquals(task.getRecurringType(), RecurringType.DAILY);
+    }
+
+    @Test
+    public void setTaskType_successful() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createNonFloatingTask(RecurringType.NONE);
+        task.setTaskType(TaskType.COMPLETED);
+        assertEquals("Task type should be mutated", task.getTaskType(), TaskType.COMPLETED);
+    }
+
+    @Test(expected=AssertionError.class)
+    public void appendTaskComponent_toNonRecurringTask_notAllowed() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createNonFloatingTask(RecurringType.NONE);
+        TaskOccurrenceStub toAppend = helper.createTaskOccurenceStub(task);
+        task.appendRecurringDate(toAppend);
+    }
+
+    @Test
+    public void getLastAppendedComponent_success() throws Exception {
+        TaskTesterHelper helper = new TaskTesterHelper();
+        task = helper.createNonFloatingTask(RecurringType.DAILY);
+        TaskOccurrenceStub toAppend = helper.createTaskOccurenceStub(task);
+        task.appendRecurringDate(toAppend);
+        TaskOccurrenceStub component = (TaskOccurrenceStub) task.getLastAppendedComponent();
+        assertEquals("Task component just appended must be the last appended component", toAppend, component);
+        assertEquals("Task occurrences should be properly appended", task.getTaskDateComponent().size(), 2);
+    }
+    
+    class TaskTesterHelper {
+        public Task createFloatingTask() throws IllegalValueException {
+            return new Task(new NameStub("dummy"), new UniqueTagListStub());
+        }
+        
+        public Task createNonFloatingTask(RecurringType type) throws IllegalValueException {
+            return new Task(new NameStub("dummy"), new UniqueTagListStub(), new TaskDateStub(), new TaskDateStub(), type);
+        }
+        
+        public TaskOccurrenceStub createTaskOccurenceStub(Task task) {
+            return new TaskOccurrenceStub(task, new TaskDateStub(), new TaskDateStub());
+        }
+    }
 }

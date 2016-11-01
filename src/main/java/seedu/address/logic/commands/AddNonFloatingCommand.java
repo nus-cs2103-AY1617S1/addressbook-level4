@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
@@ -51,7 +53,7 @@ public class AddNonFloatingCommand extends AddCommand {
                 new TaskDate(endDate),
                 recurringType
         );
-        if(!this.toAdd.getComponentForNonRecurringType().isValidTimeSlot()){
+        if(!this.toAdd.getLastAppendedComponent().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }
@@ -62,7 +64,10 @@ public class AddNonFloatingCommand extends AddCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            int targetIndex = model.getFilteredTaskComponentList().size();
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            return result;
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	indicateAttemptToExecuteFailedCommand();
         	urManager.popFromUndoQueue();

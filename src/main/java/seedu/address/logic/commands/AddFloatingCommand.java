@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -45,7 +47,10 @@ public class AddFloatingCommand extends AddCommand {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            int targetIndex = model.getFilteredTaskComponentList().size();
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            return result;
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	indicateAttemptToExecuteFailedCommand();
         	urManager.popFromUndoQueue();

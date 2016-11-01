@@ -18,7 +18,7 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
-    List<TaskComponent> getTaskDateComponent();
+    List<TaskOccurrence> getTaskDateComponent();
     
     /**
      * Returns the type of the class, whether it is FLOATING or NON_FLOATING type
@@ -39,8 +39,7 @@ public interface ReadOnlyTask {
     		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE))
-                && other.getTaskDateComponent().equals(this.getTaskDateComponent()));
+                && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE)));
     }
 
     /**
@@ -70,9 +69,7 @@ public interface ReadOnlyTask {
 
     void completeTaskWhenAllComponentArchived();
     
-    TaskComponent getComponentForNonRecurringType();
-    
-    void appendRecurringDate(TaskComponent componentToBeAppended);
+    void appendRecurringDate(TaskOccurrence componentToBeAppended);
 
-    TaskComponent getLastAppendedComponent();
+    TaskOccurrence getLastAppendedComponent();
 }

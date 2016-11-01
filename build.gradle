@@ -52,7 +52,12 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
+        
         compile group: 'com.joestelmach', name: 'natty', version: '0.12'
+		compile group: 'org.antlr', name: 'antlr-runtime', version: '3.5.2'        
+		compile group: 'org.mnode.ical4j', name: 'ical4j', version: '1.0.7'
+		compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+
         
         compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
   		compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'

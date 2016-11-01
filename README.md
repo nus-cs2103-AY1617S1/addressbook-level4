@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W09-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W09-C2/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W09-C2/main?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W09-C2/main/badge.svg?branch=development)](https://coveralls.io/github/CS2103AUG2016-W09-C2/main?branch=development)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/57ca405c8cfb4a95b7b49cb6479573c5)](https://www.codacy.com/app/victoriaduanyc/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W09-C2/main&amp;utm_campaign=Badge_Grade)
 # HappyJimTaskManager
 

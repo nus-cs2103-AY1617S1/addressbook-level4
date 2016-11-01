@@ -1,11 +1,15 @@
 package seedu.address.model.task;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.stub.NameStub;
+import seedu.address.model.task.stub.TaskStub;
+import seedu.address.model.task.stub.UniqueTagListStub;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
@@ -17,8 +21,23 @@ import seedu.address.testutil.TestTask;
 public class UniqueTaskListTest {
     UniqueTaskList taskList;
     @Before
-    public void setup() {
+    public void setUp() {
         taskList = new UniqueTaskList();
+    }
+    
+    @Test
+    public void addToTaskList_unitTest() throws Exception {
+        taskList.add(new TaskStub());
+        assertEquals(taskList.getInternalTaskList().size(), 1);
+        assertEquals(taskList.getInternalComponentList().size(), 1);
+    }
+    
+    @Test
+    public void addToTaskList_integrationTest() throws Exception {
+        Task toAdd = new Task(new NameStub("dummy"), new UniqueTagListStub());
+        taskList.add(toAdd);
+        assertEquals(taskList.getInternalTaskList().size(), 1);
+        assertEquals(taskList.getInternalComponentList().size(), 1);
     }
     
     @Test
@@ -34,30 +53,22 @@ public class UniqueTaskListTest {
         assertEquals(taskList.getInternalComponentList().size(),2);
     }
     
-    @Test
+    @Test(expected = DuplicateTaskException.class)
     public void add_duplicate_non_recurring_tasks_throwException() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         TestTask toAdd = builder.withName("Recurring Task").withStartDate("11oct 2016 11pm")
                 .withEndDate("12oct 2016 12pm").withRecurringType(RecurringType.DAILY).build();
         TestTask toAddRecurring = builder.withName("Recurring Task").withStartDate("12oct 2016 11pm")
                 .withEndDate("13oct 2016 12pm").withRecurringType(RecurringType.NONE).build();
-        try {
-            taskList.add(toAdd);
-            taskList.add(toAddRecurring);
-        } catch (DuplicateTaskException dte) {
-            assertTrue(true);
-        }
+        taskList.add(toAdd);
+        taskList.add(toAddRecurring);
     }
     
-    @Test
+    @Test(expected = TaskNotFoundException.class)
     public void remove_task_that_does_not_exist() throws Exception {
         TaskBuilder builder = new TaskBuilder();
         TestTask toRemove = builder.withName("Recurring Task").withStartDate("11oct 2016 11pm")
                 .withEndDate("12oct 2016 12pm").withRecurringType(RecurringType.DAILY).build();
-        try {
-            taskList.remove(toRemove);
-        } catch (TaskNotFoundException tnfe) {
-            assertTrue(true);
-        }
+        taskList.remove(toRemove);
     }
 }

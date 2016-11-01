@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,6 +11,7 @@ public class SelectCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void selectTask_nonEmptyList() {
+        commandBox.runCommand("list"); //switch to all tasks first
 
         assertSelectionInvalid(20); //invalid index
         assertNoTaskSelected();
@@ -47,7 +48,7 @@ public class SelectCommandTest extends TaskMasterGuiTest {
 
     private void assertTaskSelected(int index) {
         assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        TaskComponent selectedTask = taskListPanel.getSelectedTasks().get(0);
+        TaskOccurrence selectedTask = taskListPanel.getSelectedTasks().get(0);
         assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

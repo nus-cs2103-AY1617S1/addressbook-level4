@@ -7,43 +7,91 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 //@@author A0147967J
 /**
- * Tests view command and agenda time range change event.
- * Currently only tentative and will add in more later. 
+ * Tests view command and agenda time range change event. Currently only
+ * tentative and will add in more later.
  */
-public class ViewCommandTest extends TaskMasterGuiTest{
-	
-	private final long DAY  = 24*60*60*1000;
-	@Test
-	public void view(){
-		
-		//View today
-		TestTask toBeAdded = td.weekly;
-		ArrayList<TaskComponent> expectedList = new ArrayList<TaskComponent>();
-		expectedList.add(toBeAdded.getLastAppendedComponent());
-		commandBox.runCommand(toBeAdded.getAddRecurringCommand());
-		assertViewSuccess("today", expectedList);
-		
-		//View next week today
-		TaskComponent updated = toBeAdded.getLastAppendedComponent();
-		updated.setStartDate(new TaskDate(updated.getStartDate().getDateInLong() + 7 * DAY));
-		updated.setEndDate(new TaskDate(updated.getEndDate().getDateInLong() + 7 * DAY));
-		expectedList.set(0, updated);
-		assertViewSuccess("next week today", expectedList);
-	}
-	
-	public void assertViewSuccess(String date, ArrayList<TaskComponent> expectedList){
-		
-		commandBox.runCommand("view "+date);
-		assertEquals(TestUtil.getConvertedTime(new TaskDate(date)).truncatedTo(ChronoUnit.DAYS),
-				browser.getMyAgenda().getDisplayedLocalDateTime());
-		assertIsAgendaMatching(expectedList);
-		
-	}
+public class ViewCommandTest extends TaskMasterGuiTest {
+
+    private final long DAY = 24 * 60 * 60 * 1000;
+
+    @Test
+    public void viewSwitch() {
+        
+        //Add an additional deadline task to verify the changes in tasklist panel.
+        commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
+
+        // View today
+        TestTask toBeAdded = td.weekly;
+        ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        commandBox.runCommand(toBeAdded.getAddRecurringCommand());
+        assertViewSuccess("today", expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent()));
+
+        // View next week today
+        TaskOccurrence updated = toBeAdded.getLastAppendedComponent();
+        updated.setStartDate(new TaskDate(updated.getStartDate().getDateInLong() + 7 * DAY));
+        updated.setEndDate(new TaskDate(updated.getEndDate().getDateInLong() + 7 * DAY));
+        expectedList.set(0, updated);
+        assertViewSuccess("next week today", expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent(),
+                td.incoming.getLastAppendedComponent()));
+             
+    }
+    
+    @Test
+    public void viewUndoRedo() {
+        
+        //Add an additional deadline task to verify the changes in tasklist panel.
+        commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
+
+        // View today
+        TestTask toBeAdded = td.none;
+        ArrayList<TaskOccurrence> expectedList = new ArrayList<TaskOccurrence>();
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        commandBox.runCommand(toBeAdded.getAddRecurringCommand());
+        assertViewSuccess("today", expectedList);
+
+        // View next week today
+        expectedList.clear();
+        assertViewSuccess("next week today", expectedList);
+        
+        //Verifies undo/redo
+        expectedList.add(toBeAdded.getLastAppendedComponent());
+        commandBox.runCommand("u");
+        assertEquals(TestUtil.getConvertedTime(new TaskDate("today")).truncatedTo(ChronoUnit.DAYS),
+                browser.getMyAgenda().getDisplayedLocalDateTime());
+        assertIsAgendaMatching(expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent()));
+        
+        expectedList.clear();
+        commandBox.runCommand("r");
+        assertEquals(TestUtil.getConvertedTime(new TaskDate("next week today")).truncatedTo(ChronoUnit.DAYS),
+                browser.getMyAgenda().getDisplayedLocalDateTime());
+        assertIsAgendaMatching(expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent(),
+                td.incoming.getLastAppendedComponent()));
+        
+             
+    }
+
+    public void assertViewSuccess(String date, ArrayList<TaskOccurrence> expectedList) {
+
+        commandBox.runCommand("view " + date);
+        assertEquals(TestUtil.getConvertedTime(new TaskDate(date)).truncatedTo(ChronoUnit.DAYS),
+                browser.getMyAgenda().getDisplayedLocalDateTime());
+        assertIsAgendaMatching(expectedList);
+
+    }
 }
