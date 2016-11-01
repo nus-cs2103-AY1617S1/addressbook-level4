@@ -20,6 +20,7 @@ public class ShowCommand extends Command {
     public static final String COMMAND_WORD = "show";
     
     public static final List<String> VALID_KEYWORDS = Arrays.asList(
+            "overdue",
             "floating", 
             "incomplete", 
             "completed",
@@ -68,6 +69,9 @@ public class ShowCommand extends Command {
         }
         
         switch (userSelection) {
+        case "overdue" :
+            sectionToShow = ListId.OVERDUE;
+            break;
         case "floating" :
             sectionToShow = ListId.FLOATING_TASKS;
             break;
