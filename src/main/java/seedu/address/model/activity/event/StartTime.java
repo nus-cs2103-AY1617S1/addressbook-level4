@@ -13,6 +13,7 @@ public class StartTime extends DateTime {
 
     public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Event's start time should only contain valid date";
     public static final String MESSAGE_STARTTIME_INVALID = "Event has already started";
+    public String RecurringMessage;
 
     public StartTime(Calendar date) {
         super(date);
@@ -26,10 +27,42 @@ public class StartTime extends DateTime {
      */
     public StartTime(String date) throws IllegalValueException {
         super(date);
-        Date taskDate;
+        String[] recur;
+        if(date!=""){
+        if (date.contains("every")) {
+            this.recurring = true;
+            RecurringMessage = date;
+            recur = date.split(" ", 2);
+            if(recur.length==1)
+                throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
+            date = recur[1];
+        }
 
+        setDate(date);}
+        System.out.println(this.toString());
+
+    }
+
+    public void setDate(String date) throws IllegalValueException {
+        String[] recur = date.split(" ", 2);
+        String recurfreq = recur[0];
+        if(recur.length==1)
+            throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
+        if (recurfreq.equals("day")){
+            date = "today " + recur[1];
+        }
+        if (recurfreq.contains("month") ) {
+            date = DateUtil.everyMonth(recur[1]);       
+        }
+        if(recurfreq.contains("year")){
+            date = DateUtil.everyYear(recur[1]);   
+        }
+    if (!isValidDate(date)) {
+            throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
+        }
         if (!date.equals("")) {
-            taskDate = DATE_PARSER.FixedDateConvert(date);
+            Date taskDate = DateUtil.FixedDateConvert(date);
+
 
             if (taskDate == null) {
                 assert false : "Date should not be null";
@@ -37,12 +70,21 @@ public class StartTime extends DateTime {
                 throw new IllegalValueException(MESSAGE_STARTTIME_INVALID);
             }*/
 
-            if (!isValidDate(date)) {
-                throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
-            }
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
+            while (recurring && this.value.before(Calendar.getInstance())) {
+                if (recurfreq.contains("year"))
+                    this.value.add(Calendar.YEAR, 1);
+                if (recurfreq.contains("month"))
+                    this.value.add(Calendar.MONTH, 1);
+                else if( recurfreq.equals("mon")||recurfreq.contains("tue")||recurfreq.contains("wed")||recurfreq.contains("thu")||recurfreq.contains("fri")||recurfreq.contains("sat")||recurfreq.contains("sun"))
+                this.value.add(Calendar.DAY_OF_WEEK, 7);
+                if (recurfreq.contains("day"))
+                    this.value.add(Calendar.DAY_OF_MONTH, 1);
+            }
+
+
         }
     }
     

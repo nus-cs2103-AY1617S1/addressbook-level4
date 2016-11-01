@@ -102,7 +102,6 @@ public class DateUtil {
 
     public static Date parseDateTime(String date) throws IllegalValueException {
         Date validDate;
-
         for (SimpleDateFormat sdf : DATE_FORMATS) {
             try {
                 validDate = sdf.parse(date);

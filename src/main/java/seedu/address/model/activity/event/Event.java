@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
@@ -71,14 +72,17 @@ public class Event extends Activity implements ReadOnlyEvent{
     
     @Override
     public String toStringCompletionStatus() {
-        if(this.isOver()) {
-            setisOver(true);
-            return "Event Over";
+        String message = "";
+        if(this.isOver()&&!this.startTime.recurring) {
+            setisOver(true);            
+            message =  "Event Over";
         } else if (this.isOngoing()) {
-            return "Event Ongoing";
-        } else {
-            return "";
+            message =  "Event Ongoing";
+        } else if (this.isOver() && this.startTime.recurring) {
+            recurringEvent();
+            message = "This is a recurring event";
         }
+        return message;
     }
     
     @Override
@@ -107,5 +111,24 @@ public class Event extends Activity implements ReadOnlyEvent{
     public String toString() {
         return getAsText();
     }
-    
+    public void recurringEvent(){ 
+        if(this.reminder.recurring && Calendar.getInstance().after(this.reminder.value)){
+                String[] recur;
+                recur = this.reminder.RecurringMessage.split(" ", 2);
+                String date = recur [1];
+                try {
+                    this.reminder.setDate(date);
+                } catch (IllegalValueException e) {
+                    e.printStackTrace();
+                }}    
+        if(this.startTime.recurring && Calendar.getInstance().after(this.startTime.value)){
+            String[] recur;
+            recur = this.startTime.RecurringMessage.split(" ", 2);
+            String date = recur [1];
+            try {
+                this.startTime.setDate(date);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }} 
+    }
 }
