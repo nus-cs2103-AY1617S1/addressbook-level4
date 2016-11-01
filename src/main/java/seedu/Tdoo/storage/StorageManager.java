@@ -126,7 +126,7 @@ public class StorageManager extends ComponentManager implements Storage {
 	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
 	        try {
 	            saveTodoList(event.data);
-	        } catch (IOException e) {
+	        } catch (Exception e) {
 	            raise(new DataSavingExceptionEvent(e));
 	        }
     	}
@@ -181,7 +181,7 @@ public class StorageManager extends ComponentManager implements Storage {
 	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
 	        try {
 	            saveEventList(event.data);
-	        } catch (IOException e) {
+	        } catch (Exception e) {
 	            raise(new DataSavingExceptionEvent(e));
 	        }
     	}
@@ -236,7 +236,7 @@ public class StorageManager extends ComponentManager implements Storage {
 	        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
 	        try {
 	            saveDeadlineList(event.data);
-	        } catch (IOException e) {
+	        } catch (Exception e) {
 	            raise(new DataSavingExceptionEvent(e));
 	        }
     	}

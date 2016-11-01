@@ -3,6 +3,7 @@ package seedu.Tdoo.model.task.attributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
 
@@ -15,7 +16,7 @@ import java.util.Calendar;
 public class EndDate {
     
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Event date should be written in this format 'DD-MM-YYYY' and date must be current or later date\n"
+            "Event end date should be written in this format 'DD-MM-YYYY' and date must be current or later date\n"
             + "Input the correct Day,Month and Year";
     public static final String DATE_VALIDATION_REGEX = "^(\\d{2}-\\d{2}-\\d{4})$";
     
@@ -82,7 +83,7 @@ public class EndDate {
         Date dateobj = new Date();
         String [] dateArr = date.split("-");
         String [] curDate = df.format(dateobj).split("-");
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = new GregorianCalendar(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[1]));
         int daysOfcurrMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         //Check if input year is less than current year

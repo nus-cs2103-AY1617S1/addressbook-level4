@@ -11,9 +11,19 @@ import seedu.Tdoo.commons.events.model.DeadlineListChangedEvent;
 import seedu.Tdoo.commons.events.model.EventListChangedEvent;
 import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
 import seedu.Tdoo.commons.events.storage.DataSavingExceptionEvent;
+import seedu.Tdoo.commons.exceptions.IllegalValueException;
+import seedu.Tdoo.model.Model;
+import seedu.Tdoo.model.ModelManager;
 import seedu.Tdoo.model.ReadOnlyTaskList;
 import seedu.Tdoo.model.TaskList;
 import seedu.Tdoo.model.UserPrefs;
+import seedu.Tdoo.model.task.*;
+import seedu.Tdoo.model.task.attributes.EndDate;
+import seedu.Tdoo.model.task.attributes.EndTime;
+import seedu.Tdoo.model.task.attributes.Name;
+import seedu.Tdoo.model.task.attributes.Priority;
+import seedu.Tdoo.model.task.attributes.StartDate;
+import seedu.Tdoo.model.task.attributes.StartTime;
 import seedu.Tdoo.storage.JsonUserPrefsStorage;
 import seedu.Tdoo.storage.Storage;
 import seedu.Tdoo.storage.StorageManager;
@@ -115,36 +125,73 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void handleTodoListChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
+    public void handleTodoListChangedEvent_exceptionThrown_eventRaised() throws IOException, IllegalValueException {
+        //Create a StorageManager while injecting a stub with wrong format that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlTodoListStorageExceptionThrowingStub("dummy"), new XmlEventListStorageExceptionThrowingStub("dummy"), new XmlDeadlineListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TaskList()));
+        storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TodoListExceptionThrowingStub()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
     
     @Test
     //@@author A0132157M reused
-    public void handleEventListChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleEventListChangedEvent_exceptionThrown_eventRaised() throws IOException, IllegalValueException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(null, new XmlEventListStorageExceptionThrowingStub("dummy"), null, new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleEventListChangedEvent(new EventListChangedEvent(new TaskList()));
+        storage.handleEventListChangedEvent(new EventListChangedEvent(new EventListExceptionThrowingStub()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
     
     @Test
     //@@author A0132157M reused
-    public void handleDeadlineListChangedEvent_exceptionThrown_eventRaised() throws IOException {
+    public void handleDeadlineListChangedEvent_exceptionThrown_eventRaised() throws IOException, IllegalValueException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(null, null, new XmlDeadlineListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleDeadlineListChangedEvent(new DeadlineListChangedEvent(new TaskList()));
+        storage.handleDeadlineListChangedEvent(new DeadlineListChangedEvent(new DeadlineListExceptionThrowingStub()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
-
-
-
+    
+    //@@author A0144061U
+    /**
+     * A Todo Stub class to throw wrong format exception when saving data
+     */
+    class TodoListExceptionThrowingStub extends TaskList {
+    	
+        public TodoListExceptionThrowingStub() throws IllegalValueException{
+        	super();
+        	Task wrongFormatTask = new Event(new Name("Assignment"), new StartDate("12-12-2016"), new EndDate("14-12-2016"), new StartTime("14:00"), new EndTime("16:00"), "done");
+        	super.addTask(wrongFormatTask);
+        }
+    }
+    
+    //@@author A0144061U
+    /**
+     * A Event Stub class to throw wrong format exception when saving data
+     */
+    class EventListExceptionThrowingStub extends TaskList {
+    	
+        public EventListExceptionThrowingStub() throws IllegalValueException{
+        	super();
+        	Task wrongFormatTask = new Todo(new Name("Assignment"), new StartDate("12-12-2016"), new EndDate("14-12-2016"), new Priority("HIGH"), "done");
+        	super.addTask(wrongFormatTask);
+        }
+    }
+    
+    /**
+     * A Deadline Stub class to throw wrong format exception when saving data
+     */
+    class DeadlineListExceptionThrowingStub extends TaskList {
+    	
+        public DeadlineListExceptionThrowingStub() throws IllegalValueException{
+        	super();
+        	Task wrongFormatTask = new Todo(new Name("Assignment"), new StartDate("12-12-2016"), new EndDate("14-12-2016"), new Priority("HIGH"), "done");
+        	super.addTask(wrongFormatTask);
+        }
+    }
+    
+    //@@author A0144061U
     /**
      * A Stub class to throw an exception when the save method is called
      */
@@ -159,6 +206,7 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
+    
     //@@author A0132157M reused
     class XmlEventListStorageExceptionThrowingStub extends XmlEventListStorage{
 
