@@ -134,14 +134,24 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Comparators.NAME.compare(this, other);
     }
 
+    /** 
+     * Static class with methods to compare tasks
+     */
     public static class Comparators {
 
+    	/**
+    	 * Static method to compare tasks by alphabetical order of NAME
+    	 */
         public static Comparator<Task> NAME = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
                 return t1.getName().toString().compareTo(t2.getName().toString());
             }
         };
+        
+        /**
+         * Static method to compare tasks by chronological order of DATE
+         */
         public static Comparator<Task> DATE = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {

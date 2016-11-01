@@ -1,7 +1,10 @@
 package seedu.address.commons.util;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.TaskBook.TaskType;
+import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0139145E
 /**
  * Utility methods related to Command
  */
@@ -26,6 +29,32 @@ public class CommandUtil {
         else {
             return false;
         }
+    }
+    
+    /**
+     * Returns ReadOnlyTask from correct list based on targetIndex
+     * @param targetIndex
+     * @param lastDatedTaskList
+     * @param lastUndatedTaskList
+     * @return ReadOnlyTask
+     */
+    public static ReadOnlyTask getTaskFromCorrectList(String targetIndex, 
+    		UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList,
+    		UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList){
+    	
+    	TaskType type = getTaskType(targetIndex);
+        int indexNum = getIndex(targetIndex);
+        
+        if (type == TaskType.DATED) {
+            return lastDatedTaskList.get(indexNum - 1);
+        }
+        else if (type == TaskType.UNDATED){
+            return lastUndatedTaskList.get(indexNum - 1);
+        }
+        else {
+            assert false : "Task type not found";
+        	return null;
+        }    	
     }
     
     private static boolean isValidType(String target){

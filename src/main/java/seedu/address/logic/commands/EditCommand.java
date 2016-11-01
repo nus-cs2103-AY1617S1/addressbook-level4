@@ -7,7 +7,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CommandUtil;
-import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -50,24 +49,7 @@ public class EditCommand extends Command implements Undoable{
         }    
 
         populateNonNullFields(targetIndex, name, description, datetime, tagSet);
-    }
-
-    private void populateNonNullFields(String targetIndex, String name, String description, String datetime,
-            final Set<Tag> tagSet) throws IllegalValueException {
-        if (name != null){
-            this.name = new Name(name);       
-        }
-        if (description != null){
-            this.description = new Description(description);
-        }
-
-        if (datetime != null){
-            this.datetime = new Datetime(datetime);
-        }
-
-        this.tags = new UniqueTagList(tagSet);
-        this.targetIndex = targetIndex;
-    }  
+    } 
 
     @Override
     public CommandResult execute() {
@@ -78,23 +60,13 @@ public class EditCommand extends Command implements Undoable{
 
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TaskType type = CommandUtil.getTaskType(targetIndex);
-        int indexNum = CommandUtil.getIndex(targetIndex);
-        
-        if (type == TaskType.DATED) {
-            toEdit = lastDatedTaskList.get(indexNum - 1);
-        }
-        else if (type == TaskType.UNDATED){
-            toEdit = lastUndatedTaskList.get(indexNum - 1);
-        }
-        else {
-            assert false : "Task type not found";
-        }
+        toEdit = CommandUtil.getTaskFromCorrectList(targetIndex, lastDatedTaskList, lastUndatedTaskList);
         
         populateEditedTaskFields();
+        
         boolean duplicate = false;
         try {
         	model.deleteTask(toEdit);  
@@ -111,8 +83,38 @@ public class EditCommand extends Command implements Undoable{
         	return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
         }
     }
+    
+    /**
+     * populates non-null instance variables of EditCommand and validates them 
+     * 
+     * @param targetIndex
+     * @param name
+     * @param description
+     * @param datetime
+     * @param tagSet
+     * @throws IllegalValueException
+     */   
+    private void populateNonNullFields(String targetIndex, String name, String description, String datetime,
+            final Set<Tag> tagSet) throws IllegalValueException {
+        if (name != null){
+            this.name = new Name(name);       
+        }
+        
+        if (description != null){
+            this.description = new Description(description);
+        }
 
-    // use original task as base, insert fields that have been input in edit
+        if (datetime != null){
+            this.datetime = new Datetime(datetime);
+        }
+
+        this.tags = new UniqueTagList(tagSet);
+        this.targetIndex = targetIndex;
+    }  
+ 
+    /**
+     * combine edit inputs into task to be added
+     */
     private void populateEditedTaskFields() {
 
         toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDatetime(), 

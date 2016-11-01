@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the Undated List Panel
  */
 public class UndatedPanelSelectionChangedEvent extends BaseEvent {
 

@@ -13,8 +13,9 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Status.State;
 import seedu.address.model.task.Task;
 
+//@@author A0143884W
 /**
- * Adds a task to the address book.
+ * Adds a task to the task book.
  */
 public class AddCommand extends Command implements Undoable {
 

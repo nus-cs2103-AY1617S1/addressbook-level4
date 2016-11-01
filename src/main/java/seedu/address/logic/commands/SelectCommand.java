@@ -7,11 +7,10 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.TaskBook.TaskType;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.ui.PersonListPanel;
 
 //@@author A0143884W
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the task book.
  */
 public class SelectCommand extends Command {
 
@@ -40,10 +39,19 @@ public class SelectCommand extends Command {
         if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
                 lastDatedTaskList.size())){
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TaskType type = CommandUtil.getTaskType(targetIndex);
+        indicateScrollToTargetIndex();
+
+        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+    }
+
+    /**
+     * post an event to scroll to targetIndex
+     */
+	private void indicateScrollToTargetIndex() {
+		TaskType type = CommandUtil.getTaskType(targetIndex);
         int indexNum = CommandUtil.getIndex(targetIndex);
         
         if (type == TaskType.DATED) {
@@ -55,8 +63,6 @@ public class SelectCommand extends Command {
         else {
             assert false : "Task type not found";
         }
-
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
-    }
+	}
 
 }

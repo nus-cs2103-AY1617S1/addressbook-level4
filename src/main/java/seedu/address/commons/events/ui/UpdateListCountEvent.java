@@ -3,6 +3,10 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.Model;
 
+//@@author A0143884W
+/**
+ * Indicates a request to update the list count
+ */
 public class UpdateListCountEvent extends BaseEvent {
 
 	public final Model model; 
@@ -13,8 +17,7 @@ public class UpdateListCountEvent extends BaseEvent {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getClass().getSimpleName();
 	}
 
 }
