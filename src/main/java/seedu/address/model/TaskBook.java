@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.tag.Tag;
@@ -287,9 +289,11 @@ public class TaskBook implements ReadOnlyTaskBook {
                 events.remove(task);
                 if(task.getTaskCategory()==2){
                     deadlines.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
                 }
                 else if(task.getTaskCategory()==3){
                     todo.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
                 }    
             }           
         }
@@ -298,9 +302,11 @@ public class TaskBook implements ReadOnlyTaskBook {
                 deadlines.remove(task);
                 if(task.getTaskCategory()==1){
                     events.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
                 }
                 else if(task.getTaskCategory()==3){
                     todo.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
                 }    
             }   
         }
@@ -309,9 +315,11 @@ public class TaskBook implements ReadOnlyTaskBook {
                 todo.remove(task);
                 if(task.getTaskCategory()==1){
                     events.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
                 }
                 else if(task.getTaskCategory()==2){
                     deadlines.add(task);
+                    EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
                 }    
             }    
         }
