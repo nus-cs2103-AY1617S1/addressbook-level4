@@ -27,7 +27,7 @@ public class DateNaturalLanguageProcessor implements NaturalLanguageProcessor {
 	}
 	
 	private String formatDateToString(Date date) {
-		Format formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Format formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return formatter.format(date);
 	}
 }

@@ -10,10 +10,11 @@ public class FindCommand extends Command {
 	//@@author addressbook-level4
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose name, date, address, tags and priority contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " cs2103";
+    		+ "To search by one particular field type, use t/ for tags, a/ for address, d/ for duedate and p/ for priority.\n"
+            + "Parameters: [FIELDTYPE] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " cs2103, " + COMMAND_WORD + " d/today";
     
     //@@author A0146130W
     private final String keywords;
@@ -30,6 +31,13 @@ public class FindCommand extends Command {
     	String task_tasks = (displaySize == 1) ? "task" : "tasks";
     	
     	String MESSAGE_IF_EXACT_PHRASE_NOT_FOUND = "The exact phrase '" + keywords + "' was not found. Listing " + displaySize + " " + task_tasks + " containing the keywords entered instead.";
+    	return String.format(MESSAGE_IF_EXACT_PHRASE_NOT_FOUND);
+    }
+    
+    private String getMessageForTaskListShownSummaryIfExactFieldNotFound(int displaySize) {
+    	String task_tasks = (displaySize == 1) ? "task" : "tasks";
+    	
+    	String MESSAGE_IF_EXACT_PHRASE_NOT_FOUND = "The exact phrase '" + keywords + "' was not found in the specified field type. Listing " + displaySize + " " + task_tasks + " containing the keywords entered instead.";
     	return String.format(MESSAGE_IF_EXACT_PHRASE_NOT_FOUND);
     }
 
@@ -52,7 +60,11 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords, "nil");
     	
     	if (!model.getFilteredTaskList().isEmpty()) {
-    		return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
+    		if (cmd == "nil") {
+    			return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
+    		} else {
+    			return new CommandResult(getMessageForTaskListShownSummaryIfExactFieldNotFound(model.getFilteredTaskList().size()));
+    		}
         }
     	
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

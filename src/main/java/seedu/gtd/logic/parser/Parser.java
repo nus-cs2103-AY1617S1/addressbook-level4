@@ -170,6 +170,12 @@ public class Parser {
     	return nlp.formatString(dueDateRaw);
     }
     
+    // remove time on date parsed to improve search results
+    private String removeTimeOnDate(String dueDateRaw) {
+    	String[] dateTime = dueDateRaw.split(" ");
+    	return dateTime[0];
+    }
+    
     //@@author addressbook-level4
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -309,7 +315,8 @@ public class Parser {
     	}
     	if (dueDateMatcher.matches()) {
     		String dueDateToBeFound = dueDateMatcher.group("dueDate");
-    		return new FindCommand(dueDateToBeFound, defaultSet, "dueDate");
+    		String parsedDueDateToBeFound = removeTimeOnDate(parseDueDate(dueDateToBeFound));
+    		return new FindCommand(parsedDueDateToBeFound, defaultSet, "dueDate");
     	}
     	if (tagsMatcher.matches()) {
     		String tagsToBeFound = tagsMatcher.group("tagArguments");
