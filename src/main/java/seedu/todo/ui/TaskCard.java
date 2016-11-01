@@ -22,7 +22,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label details;
     @FXML
-    private Label priority;
+    private Label recurrence;
     @FXML
     private Label onDate;
     @FXML
@@ -50,10 +50,31 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
+        
         details.setText(task.getDetail().value);
-        onDate.setText("Start: " + task.getOnDate().toString());
-        byDate.setText("End: " + task.getByDate().toString());
-        priority.setText("Priority: " + task.getPriority().toString());
+        
+        if (task.getOnDate().getDate() != null) {
+            onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
+                            + " @ " + task.getOnDate().getTime());
+        } else {
+            onDate.setText("");
+        }
+        
+        if (task.getByDate().getDate() != null) {
+            byDate.setText("End: " + PrettifyDate.prettifyDate(task.getByDate().getDate()) 
+                            + " @ " + task.getByDate().getTime());
+        } else {
+            byDate.setText("");
+        }
+        
+        
+        if (task.isRecurring()) {
+            recurrence.setText("Every: " + task.getRecurrence().toString());
+        } else {
+            recurrence.setText("");
+        }
+        
+        
         if (task.getPriority().toString().equals(Priority.LOW)) {
         	priorityLevel.setFill(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
@@ -61,6 +82,7 @@ public class TaskCard extends UiPart{
         } else {
         	priorityLevel.setFill(Color.RED);
         }
+        
         tags.setText(task.tagsString());
     }
 

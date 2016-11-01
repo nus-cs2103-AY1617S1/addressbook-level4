@@ -12,8 +12,9 @@ public class Tag {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
-
+    private String tagName;
+    private int tasksCount;
+    
     public Tag() {
     }
 
@@ -29,6 +30,22 @@ public class Tag {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
         this.tagName = tempName;
+        this.tasksCount = 0;
+    }
+    
+    /**
+     * Validates given tag name.
+     *
+     * @throws IllegalValueException if the given tag name string is invalid.
+     */
+    public Tag(String name, int tasksCount) throws IllegalValueException {
+        assert name != null;
+        String tempName = name.trim();
+        if (!isValidTagName(tempName)) {
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+        }
+        this.tagName = tempName;
+        this.tasksCount = tasksCount;
     }
 
     /**
@@ -38,6 +55,29 @@ public class Tag {
         return test.matches(TAG_VALIDATION_REGEX);
     }
 
+    //@@author A0142421X
+    public String getName() {
+        return tagName;
+    }
+    
+    public int getCount() {
+        return tasksCount;
+    }
+    
+    public void increaseCount() {
+        this.tasksCount++;
+    }
+    
+    public void setCount(int count) {
+        this.tasksCount = count;
+    }
+    
+    public void decreaseCount() {
+        if(tasksCount > 0) {
+            this.tasksCount--;
+        }
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -57,9 +97,8 @@ public class Tag {
         return '[' + tagName + ']';
     }
     
-    //@@author A0142421X
-    public String getName() {
-    	return tagName;
-    }
+    
+    
+    
 
 }

@@ -16,7 +16,7 @@ public class TagQualifier implements Qualifier{
     @Override
     public boolean run(ReadOnlyTask task) {
         return task.getTags().getInternalList().stream()
-                .filter(tag -> tag.tagName.equals(tagName))
+                .filter(tag -> tag.getName().equals(tagName))
                 .findAny()
                 .isPresent();
     }
