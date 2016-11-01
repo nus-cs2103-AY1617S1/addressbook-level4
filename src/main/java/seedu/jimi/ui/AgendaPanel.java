@@ -2,6 +2,8 @@ package seedu.jimi.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
+import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.util.FxViewUtil;
 import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.DeadlineTask;
@@ -150,6 +153,13 @@ public class AgendaPanel extends UiPart{
         eventsTableColumnStartDate.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) (cellData.getValue())).getEnd() == null ? null : ((Event) cellData.getValue()).getEnd().toString()));
         eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
+    }
+    
+    @Subscribe
+    public void handleJumpToUpdatedTaskOrEvent(JumpToListRequestEvent ev) {
+        int targetIndex = this.tasksList.indexOf(ev.targetTask);
+        tasksTableView.scrollTo(targetIndex);
+        tasksTableView.getSelectionModel().select(targetIndex);
     }
     
     /**
