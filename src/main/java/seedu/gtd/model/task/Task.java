@@ -6,8 +6,6 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
 import seedu.gtd.commons.util.CollectionUtil;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.tag.UniqueTagList;
-import seedu.gtd.logic.parser.*;
-
 
 /**
  * Represents a Task in the task list.
@@ -83,10 +81,9 @@ public class Task implements ReadOnlyTask {
     }
     
     public void edit(String detailType, String newDetail) throws IllegalValueException {
-    	NaturalLanguageProcessor nlp = new DateNaturalLanguageProcessor();
     	
     	switch(detailType) {
-    	case "dueDate": setDueDate(new DueDate(nlp.formatString(newDetail))); break;
+    	case "dueDate": setDueDate(new DueDate(newDetail)); break;
     	case "address": setAddress(new Address(newDetail)); break;
     	case "priority": setPriority(new Priority(newDetail)); break;
     	default: setName(new Name(newDetail));

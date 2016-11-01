@@ -53,8 +53,8 @@ import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 			return new CommandResult(ive.getMessage());
 		}
 
-         assert model != null;
-         try {
+        assert model != null;
+        try {
 			model.editTask(targetIndex, taskToUpdate);
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
