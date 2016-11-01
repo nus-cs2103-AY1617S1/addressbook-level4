@@ -203,9 +203,9 @@ public class LogicManagerTest {
 
     }
 
-
+    //--------------Tests for List Command---------------------------------
     @Test
-    public void execute_list_showsAllTasks() throws Exception {
+    public void list_emptyInput_showsAllTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskBook expectedTB = helper.generateTaskBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
@@ -218,7 +218,54 @@ public class LogicManagerTest {
                 expectedTB,
                 expectedList);
     }
+    
+    //@@author A0121657H
+    @Test
+    public void list_undoneInput_showsAllUndoneTasks() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithName("eat apple");
+        Task p2 = helper.generateTaskWithName("boil water");
+        Task p3 = helper.generateTaskWithName("poke pineapple");
+        Task p4 = helper.generateTaskWithName("buy pen");
+        p2.setCompleted(true);
+        p4.setCompleted(true);
+        
+        List<Task> originalTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(originalTasks);
+        TaskBook expectedAB = helper.generateTaskBook(originalTasks);
+        List<Task> expectedList = helper.generateTaskList(p1, p3);
+        helper.addToModel(model, originalTasks);
+        model.updateFilteredListToShowAllNotDone();
 
+        assertCommandBehavior("list undone",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void list_doneInput_showsAllDoneTasks() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithName("eat apple");
+        Task p2 = helper.generateTaskWithName("boil water");
+        Task p3 = helper.generateTaskWithName("poke pineapple");
+        Task p4 = helper.generateTaskWithName("buy pen");
+        p2.setCompleted(true);
+        p4.setCompleted(true);
+        
+        List<Task> originalTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(originalTasks);
+        TaskBook expectedAB = helper.generateTaskBook(originalTasks);
+        List<Task> expectedList = helper.generateTaskList(p2, p4);
+        helper.addToModel(model, originalTasks);
+        model.updateFilteredListToShowAllDone();
+
+        assertCommandBehavior("list done",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -372,6 +419,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author A0121657H
     //---------------- Tests for doneCommand --------------------------------------
     /*
      * Invalid equivalence partitions for index: null, signed integer, non-numeric characters
@@ -380,15 +428,67 @@ public class LogicManagerTest {
      */
     
     @Test
-    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void done_invalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
     
     @Test
-    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+    public void done_indexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
     }
+    
+    /**
+     * Checks that the task book is able to sort through the task list
+     * and mark the appropriate task as done. The resulting task list 
+     * shown should only contain tasks that are not done.
+     * @throws Exception
+     */
+    @Test
+    public void done_validIndex_successMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task p1 = helper.generateTaskWithName("eat apple");
+        Task p2 = helper.generateTaskWithName("boil water");
+        Task p3 = helper.generateTaskWithName("poke pineapple");
+        Task p4 = helper.generateTaskWithName("buy pen");
+
+        List<Task> originalTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(originalTasks); 
+        TaskBook expectedAB = helper.generateTaskBook(originalTasks);
+        List<Task> expectedList = helper.generateTaskList(p2, p1, p3);
+        helper.addToModel(model, originalTasks);
+        model.updateFilteredListToShowAllNotDone();
+
+        assertCommandBehavior("done 2",
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, p4),
+                expectedAB,
+                expectedList);
+    }
+    
+    //-----------------Tests for Location Command---------------------------------
+    /**
+     * The following tests consider checks the correctness of the message reflected
+     * when a valid path is input and when a invalid path is given.
+     */
+    @Test
+    public void changeSaveLocation_validPath_successMessageShown() {
+        String homeDir = System.getProperty("user.home");
+        LocationCommand cmd = new LocationCommand(homeDir);
+        CommandResult res = cmd.execute();
+        String feedback = res.feedbackToUser;
+        assertTrue(feedback.equals(String.format(LocationCommand.MESSAGE_SET_STORAGE_SUCCESS, homeDir)));        
+    }
+    
+    @Test
+    public void changeSaveLocation_invalidPath_invalidMessageShown() {
+        LocationCommand cmd = new LocationCommand("!@#$%^&*");
+        CommandResult res = cmd.execute();
+        String feedback = res.feedbackToUser;
+        assertTrue(feedback.equals(String.format(LocationCommand.MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID, "!@#$%^&*")));        
+    }
+    
+    //@@author
+    //-----------------------------------------------------------------
     
     @Test
     public void execute_undo_redo() throws Exception {
