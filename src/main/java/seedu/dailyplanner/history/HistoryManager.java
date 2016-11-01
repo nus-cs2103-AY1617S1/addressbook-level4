@@ -55,5 +55,33 @@ public class HistoryManager {
 		recordCommand.push(new Instruction("D", pushName, pushDate, pushStart, pushEnd, pushTag));
 
 	}
+	
+	public void stackEditInstruction(ReadOnlyTask taskToEdit, ReadOnlyTask toAdd) {
+
+        String taskToEditName = taskToEdit.getName().toString();
+        String taskToEditDate = taskToEdit.getPhone().toString();
+        String taskToEditStart = taskToEdit.getEmail().toString();
+        String taskToEditEnd = taskToEdit.getAddress().toString();
+        Set<String> taskToEditTag = new HashSet<>();
+        for (Tag tagName : taskToEdit.getTags().toSet()) {
+            taskToEditTag.add(tagName.toString());
+        }
+
+        recordCommand.push(new Instruction("EA", taskToEditName, taskToEditDate, taskToEditStart, taskToEditEnd, taskToEditTag));
+        
+        String toAddName = toAdd.getName().toString();
+        String toAddDate = toAdd.getPhone().toString();
+        String toAddStart = toAdd.getEmail().toString();
+        String toAddEnd = toAdd.getAddress().toString();
+        Set<String> toAddTag = new HashSet<>();
+        for (Tag tagName : toAdd.getTags().toSet()) {
+            toAddTag.add(tagName.toString());
+        }
+
+        recordCommand.push(new Instruction("ED", toAddName, toAddDate, toAddStart, toAddEnd, toAddTag));
+
+    }
+	
+	
 
 }

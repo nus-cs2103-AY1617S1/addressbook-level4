@@ -14,6 +14,7 @@ import seedu.dailyplanner.model.task.Name;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.StartTime;
 import seedu.dailyplanner.model.task.Task;
+import seedu.dailyplanner.model.task.UniqueTaskList.DuplicatePersonException;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
 public class UndoCommand extends Command {
@@ -51,15 +52,50 @@ public class UndoCommand extends Command {
 			}
 		}
 		
-		if (undoInstruction.getReverse().equals("D")) {
-			try {
-				model.deletePerson(taskToUndo);
-			} catch (PersonNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+        if (undoInstruction.getReverse().equals("D")) {
+            try {
+                model.deletePerson(taskToUndo);
+            } catch (PersonNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (undoInstruction.getReverse().equals("ED")) {
+            try {
+                model.deletePerson(taskToUndo);
+
+            } catch (PersonNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            // Get next instruction from stack to generate and add the old task
+            // back
+            // The instruction is guaranteed to be an "EA" instruction
+            undoInstruction = model.getHistory().getLastInstruction();
+            taskToUndo = null;
+
+            try {
+                final Set<Tag> tagSet = new HashSet<>();
+                for (String tagName : undoInstruction.getTag()) {
+                    tagSet.add(new Tag(tagName));
+                }
+
+                taskToUndo = new Task(new Name(undoInstruction.getTaskName()), new Date(undoInstruction.getTaskDate()),
+                        new StartTime(undoInstruction.getTaskStart()), new EndTime(undoInstruction.getTaskEnd()),
+                        new UniqueTagList(tagSet));
+
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                model.addPerson((Task) taskToUndo);
+            } catch (DuplicatePersonException e) {
+                e.printStackTrace();
+            }
+
+        }
 		
 		return new CommandResult(String.format(MESSAGE_SUCCESS));
 		
