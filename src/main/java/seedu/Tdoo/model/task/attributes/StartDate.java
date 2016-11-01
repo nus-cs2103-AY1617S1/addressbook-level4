@@ -3,6 +3,7 @@ package seedu.Tdoo.model.task.attributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
 
@@ -82,7 +83,7 @@ public class StartDate {
         Date dateobj = new Date();
         String [] dateArr = date.split("-");
         String [] curDate = df.format(dateobj).split("-");
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = new GregorianCalendar(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[1]));
         int daysOfcurrMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         //Check if input year is less than current year
