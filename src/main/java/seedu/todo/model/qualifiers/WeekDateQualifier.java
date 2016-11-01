@@ -11,7 +11,7 @@ public class WeekDateQualifier implements Qualifier{
     private LocalDateTime endDatetime;
 
     public WeekDateQualifier(LocalDateTime datetime) {
-        this.startDatetime = datetime;
+        this.startDatetime = datetime.plusDays(1);
         this.endDatetime = datetime.plusWeeks(1);
     }
 
@@ -24,7 +24,8 @@ public class WeekDateQualifier implements Qualifier{
                         task.getByDate().getTime());
             boolean byWeekCheck = true;
             boolean onWeekCheck = true;
-            onWeekCheck = onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate());          
+            boolean intermediateCheck = onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            onWeekCheck = onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || intermediateCheck;          
             byWeekCheck = byDateTime.toLocalDate().equals(startDatetime.toLocalDate()) || byDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
             
             return byWeekCheck || onWeekCheck;
@@ -35,7 +36,8 @@ public class WeekDateQualifier implements Qualifier{
         } else if (task.getOnDate().getDate() != null) {
             LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(),
                     task.getOnDate().getTime());
-            return onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate());
+            boolean intermediateCheck = onDateTime.toLocalDate().isBefore(endDatetime.toLocalDate()) && onDateTime.toLocalDate().isAfter(startDatetime.toLocalDate());
+            return onDateTime.toLocalDate().equals(endDatetime.toLocalDate()) || intermediateCheck;
         } else {
             return false;
         }
