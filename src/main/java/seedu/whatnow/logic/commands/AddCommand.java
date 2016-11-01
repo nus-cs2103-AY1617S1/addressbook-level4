@@ -21,22 +21,22 @@ public class AddCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. \n"
 			+ "Parameters: \"TASK_NAME\" [t/TAG]...\n"
-	        + "Parameters: \"TASK_NAME\" [on/by/from] [today/tomorrow/DATE] [to] [today/tomorrow/DATE] [t/TAG]...\n"
+	        + "Parameters: \"TASK_NAME\" [on/by/from] [today/tomorrow/DATE] [to] [today/tomorrow/DATE] [every] [day/week/month/year] [till/until] [DATE] [t/TAG]...\n"
 			+ "Parameters: \"TASK_NAME\" [by/at/from] [TIME] [till/to] [TIME] [t/TAG]...\n"
 			+ "Example: \n"
-			+ COMMAND_WORD + " \"Buy groceries\" on 23/2/2017 t/highPriority\n"
+			+ COMMAND_WORD + " \"Buy groceries\" on 23rd Feb 2017 t/highPriority\n"
 			+ COMMAND_WORD + " \"Buy dinner\" at 6pm t/highPriority\n"
-			+ COMMAND_WORD + " \"Lesson\" on 24/2/2017 from 8.30am to 4:30pm t/lowPriority\n"
+			+ COMMAND_WORD + " \"Lesson\" on 24/2/2017 from 8.30am to 4:30pm every week till 25/4/2017 t/lowPriority\n"
 			+ COMMAND_WORD + " \"Submit homework\" by tomorrow 12pm t/lowPriority\n";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
 	private static final String STATUS_INCOMPLETE = "incomplete";
 
-	private final Task toAdd;
+	private Task toAdd;
 	
 	//@@author A0126240W
-	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
+	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, String period, String endPeriod, Set<String> tags) throws IllegalValueException, ParseException {
 	    TaskTime validateTime = null;
 	    TaskDate validateDate = null;
 	    
@@ -61,7 +61,36 @@ public class AddCommand extends UndoAndRedo {
             tagSet.add(new Tag(tagName));
         }    
         
-        this.toAdd = new Task(new Name(name), date, startDate, endDate, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        this.toAdd = new Task(new Name(name), date, startDate, endDate, time, startTime, endTime, period, endPeriod, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+	}
+	
+	public void addRecurring(Recurrence recurring) throws DuplicateTaskException {
+	    String currentDate;
+	    Task nextToAdd = recurring.getNextTask(toAdd);
+	    
+	    if (nextToAdd.getTaskDate() != null) {
+            currentDate = nextToAdd.getTaskDate();
+        } else if (nextToAdd.getStartDate() != null) {
+            currentDate = nextToAdd.getStartDate();
+        } else {
+            return;
+        }
+	    
+	    while (recurring.hasNextTask(currentDate)) {  	        
+	        model.addTask(nextToAdd);
+	        model.getUndoStack().push(this);
+	        model.getDeletedStackOfTasksAdd().push(nextToAdd);
+	        
+	        nextToAdd = recurring.getNextTask(nextToAdd);
+	        
+	        if (nextToAdd.getTaskDate() != null) {
+	            currentDate = nextToAdd.getTaskDate();
+	        } else if (nextToAdd.getStartDate() != null) {
+	            currentDate = nextToAdd.getStartDate();
+	        } else {
+	            return;
+	        }
+	    }
 	}
 
 	//@@author A0139128A
@@ -72,6 +101,10 @@ public class AddCommand extends UndoAndRedo {
 			model.addTask(toAdd);
 			model.getUndoStack().push(this);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
+			Recurrence recurring = new Recurrence(toAdd.getPeriod(), toAdd.getTaskDate(), toAdd.getStartDate(), toAdd.getEndDate(), toAdd.getEndPeriod());
+			if (recurring.hasRecurring()) {
+			    addRecurring(recurring);
+			}
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}

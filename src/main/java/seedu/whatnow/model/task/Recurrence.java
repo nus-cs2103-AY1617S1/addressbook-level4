@@ -13,11 +13,15 @@ import java.util.regex.Pattern;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 public class Recurrence {
-    private static final String DATE_WITH_SLASH_FORMAT= "^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$";
-    
+    private static final String DATE_WITH_SLASH_FORMAT= "dd/MM/yyyy";
     private static final String EMPTY_STRING = "";
     private static final String FORWARD_SLASH = "/";
     private static final String SINGLE_DIGIT = ("^(\\d)$");
+    private static final String LEAP_YEAR_DATE = "29/02/";
+    private static final String DAILY = "day";
+    private static final String WEEKLY = "week";
+    private static final String MONTHLY = "month";
+    private static final String YEARLY = "year";
     
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -98,16 +102,15 @@ public class Recurrence {
         return daysInMonths;
     }
     
-    private boolean hasRecurring() {
+    public boolean hasRecurring() {
         return this.period != null;
     }
     
-    private boolean hasNextTask(String date) {
+    public boolean hasNextTask(String date) {
         Date nextDate = null;
         try {
             DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
             df.setLenient(false);
-
             nextDate = df.parse(date);
         } catch(ParseException ex) {
             return false;
@@ -115,16 +118,15 @@ public class Recurrence {
         
         Calendar d = new GregorianCalendar();
         d.setTime(nextDate);
-        d.set(Calendar.HOUR_OF_DAY, 23);
-        d.set(Calendar.MINUTE, 59);
-        d.set(Calendar.SECOND, 59);
+        d.set(Calendar.HOUR_OF_DAY, 00);
+        d.set(Calendar.MINUTE, 00);
+        d.set(Calendar.SECOND, 00);
         nextDate = d.getTime();
         
         Date recurringEndDate = null;
         try {
             DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
             df.setLenient(false);
-
             recurringEndDate = df.parse(endPeriod);
         } catch(ParseException ex) {
             return false;
@@ -133,9 +135,9 @@ public class Recurrence {
         //Following checks if the user input date is invalid i.e before today's date
         Calendar r = new GregorianCalendar();
         r.setTime(recurringEndDate);
-        r.set(Calendar.HOUR_OF_DAY, 00);
-        r.set(Calendar.MINUTE, 00);
-        r.set(Calendar.SECOND, 00);
+        r.set(Calendar.HOUR_OF_DAY, 23);
+        r.set(Calendar.MINUTE, 59);
+        r.set(Calendar.SECOND, 59);
         Date recurEndDate = r.getTime();
         
         if(recurEndDate.compareTo(nextDate) < 0) {
@@ -163,22 +165,23 @@ public class Recurrence {
         return date;
     }
     
-    private String getNextDay(String date) {
+    public String getNextDay(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);      
         int day = Integer.parseInt(splitDate[DATE_DAY]) + 1;
         int month = Integer.parseInt(splitDate[DATE_MONTH]);
         int year = Integer.parseInt(splitDate[DATE_YEAR]);
         
-        while (day > daysInMonths.get(month) || month > 12) {
-            if (day > daysInMonths.get(month)) {
-                month++;
-                day = 1;
-            }
-            
+        while (daysInMonths.get(month) == null || day > daysInMonths.get(month)) {
             if (month > 12) {
                 year++;
                 month = 1;
+                break;
             }
+            
+            if (day > daysInMonths.get(month)) {
+                month++;
+                day = 1;
+            }  
         }
 
         //February
@@ -186,37 +189,38 @@ public class Recurrence {
             try {
                 DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
                 df.setLenient(false);
-                df.parse("29/02/" + year);
+                df.parse(LEAP_YEAR_DATE + year);
             } catch(ParseException ex) {
                 day = 1;
                 month++;
             }
         }
         
-        splitDate[DATE_DAY] = (day < 10) ? "0" + day : "" + day;
-        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : "" + month;
-        splitDate[DATE_YEAR] = "" + year;
+        splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
+        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
+        splitDate[DATE_YEAR] = EMPTY_STRING + year;
         date = formatDate(splitDate);
         
         return date;
     }
     
-    private String getNextWeek(String date) {
+    public String getNextWeek(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);      
         int day = Integer.parseInt(splitDate[DATE_DAY]) + 7;
         int month = Integer.parseInt(splitDate[DATE_MONTH]);
         int year = Integer.parseInt(splitDate[DATE_YEAR]);
         
-        while (day > daysInMonths.get(month) || month > 12) {
-            if (day > daysInMonths.get(month)) {
-                month++;
-                day -= daysInMonths.get(month);
-            }
-            
+        while (daysInMonths.get(month) == null || day > daysInMonths.get(month)) {
             if (month > 12) {
                 year++;
                 month = 1;
+                break;
             }
+            
+            if (day > daysInMonths.get(month)) {
+                day -= daysInMonths.get(month);
+                month++;
+            } 
         }
         
         //February
@@ -233,34 +237,35 @@ public class Recurrence {
             try {
                 DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
                 df.setLenient(false);
-                df.parse("29/02/" + year);
+                df.parse(LEAP_YEAR_DATE + year);
             } catch(ParseException ex) {
                 day++;             
             }
         }
         
-        splitDate[DATE_DAY] = (day < 10) ? "0" + day : "" + day;
-        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : "" + month;
-        splitDate[DATE_YEAR] = "" + year;
+        splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
+        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
+        splitDate[DATE_YEAR] = EMPTY_STRING + year;
         date = formatDate(splitDate);
         
         return date;
     }
     
-    private String getNextMonth(String date) {
+    public String getNextMonth(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);      
         int day = Integer.parseInt(splitDate[DATE_DAY]);
         int month = Integer.parseInt(splitDate[DATE_MONTH]) + 1;
         int year = Integer.parseInt(splitDate[DATE_YEAR]);
         
-        while (day > daysInMonths.get(month) || month > 12) {
-            if (day > daysInMonths.get(month)) {
-                day = daysInMonths.get(month);
-            }
-            
+        while (daysInMonths.get(month) == null || day > daysInMonths.get(month)) {
             if (month > 12) {
                 year++;
                 month = 1;
+                break;
+            }
+            
+            if (day > daysInMonths.get(month)) {
+                day = daysInMonths.get(month);
             }
         }
         
@@ -269,21 +274,21 @@ public class Recurrence {
             try {
                 DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
                 df.setLenient(false);
-                df.parse("29/02/" + year);
+                df.parse(LEAP_YEAR_DATE + year);
             } catch(ParseException ex) {
                 day = 28;
             }
         }
         
-        splitDate[DATE_DAY] = (day < 10) ? "0" + day : "" + day;
-        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : "" + month;
-        splitDate[DATE_YEAR] = "" + year;
+        splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
+        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
+        splitDate[DATE_YEAR] = EMPTY_STRING + year;
         date = formatDate(splitDate);
         
         return date;
     }
     
-    private String getNextYear(String date) {
+    public String getNextYear(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);      
         int day = Integer.parseInt(splitDate[DATE_DAY]);
         int month = Integer.parseInt(splitDate[DATE_MONTH]);
@@ -294,43 +299,43 @@ public class Recurrence {
             try {
                 DateFormat df = new SimpleDateFormat(DATE_WITH_SLASH_FORMAT);
                 df.setLenient(false);
-                df.parse("29/02/" + year);
+                df.parse(LEAP_YEAR_DATE + year);
             } catch(ParseException ex) {
                 day = 28;
             }
         }
         
-        splitDate[DATE_DAY] = (day < 10) ? "0" + day : "" + day;
-        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : "" + month;
-        splitDate[DATE_YEAR] = "" + year;
+        splitDate[DATE_DAY] = (day < 10) ? "0" + day : EMPTY_STRING + day;
+        splitDate[DATE_MONTH] = (month < 10) ? "0" + month : EMPTY_STRING + month;
+        splitDate[DATE_YEAR] = EMPTY_STRING + year;
         date = formatDate(splitDate);
         
         return date;
     }
     
-    private Task getNextTask(Task currentTask) {
-        if (this.period.equals("day")) {
+    public Task getNextTask(Task currentTask) {
+        if (this.period.equals(DAILY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextDay(this.taskDate);
             } else if (this.startDate != null) {
                 System.out.println("IMPOSSIBLE");
                 //What to do when there is a start and end date and it is recurring daily?
             }
-        } else if (this.period.equals("week")) {
+        } else if (this.period.equals(WEEKLY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextWeek(this.taskDate);
             } else if (this.startDate != null) {
                 System.out.println("IMPOSSIBLE");
                 //What to do when there is a start and end date and it is recurring daily?
             }
-        } else if (this.period.equals("month")) {
+        } else if (this.period.equals(MONTHLY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextMonth(this.taskDate);
             } else if (this.startDate != null) {
                 this.startDate = getNextMonth(this.startDate);
                 this.endDate = getNextMonth(this.endDate);
             }
-        } else if (this.period.equals("year")) {
+        } else if (this.period.equals(YEARLY)) {
             if (this.taskDate != null) {
                 this.taskDate = getNextYear(this.taskDate);
             } else if (this.startDate != null) {
@@ -339,12 +344,15 @@ public class Recurrence {
             }
         }
         
-        return new Task(currentTask.getName(), this.taskDate, this.startDate, this.endDate, currentTask.getTaskTime(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getTags(), currentTask.getStatus(), currentTask.getTaskType());
+        return new Task(currentTask.getName(), this.taskDate, this.startDate, this.endDate, currentTask.getTaskTime(), currentTask.getStartTime(), currentTask.getEndTime(), currentTask.getPeriod(), currentTask.getEndPeriod(), currentTask.getTags(), currentTask.getStatus(), currentTask.getTaskType());
     }
     
 	@Override
 	public String toString() {
-	    String str = "";
+	    String str = EMPTY_STRING;
+	    if (this.taskDate != null) {
+	        str = this.taskDate;
+	    }
 	    
 	    if (this.startDate != null) {
 	        str = this.startDate;

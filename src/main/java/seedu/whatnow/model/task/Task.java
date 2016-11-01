@@ -1,7 +1,6 @@
 //@@author A0139772U
 package seedu.whatnow.model.task;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 import seedu.whatnow.commons.util.CollectionUtil;
@@ -20,6 +19,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private String taskTime;
     private String startTime;
     private String endTime;
+    private String period;
+    private String endPeriod;
     private UniqueTagList tags;
     private String status;
     private String taskType;
@@ -37,13 +38,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, String taskDate, String startDate, String endDate, String taskTime, String startTime, String endTime, UniqueTagList tags, String status, String taskType) {
+    public Task(Name name, String taskDate, String startDate, String endDate, String taskTime, String startTime, String endTime, String period, String endPeriod, UniqueTagList tags, String status, String taskType) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.period = period;
+        this.endPeriod = endPeriod;
         this.tags = new UniqueTagList(tags);
         this.status = status;
         this.taskType = FLOATING;
-             
+         
         if (taskDate != null) {
             this.taskDate = taskDate;
             this.taskType = NOT_FLOATING;
@@ -74,6 +77,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             this.taskType = NOT_FLOATING;
         }
         
+        
         if (taskType != null) {
             this.taskType = taskType;
         }
@@ -83,7 +87,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDate(), source.getStartDate(), source.getEndDate(), source.getTaskTime(), source.getStartTime(), source.getEndTime(), source.getTags(), source.getStatus(), source.getTaskType());
+        this(source.getName(), source.getTaskDate(), source.getStartDate(), source.getEndDate(), source.getTaskTime(), source.getStartTime(), source.getEndTime(), source.getPeriod(), source.getEndPeriod(), source.getTags(), source.getStatus(), source.getTaskType());
     }
    
     @Override
@@ -119,6 +123,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public String getEndTime() {
         return endTime;
+    }
+    
+    @Override
+    public String getPeriod() {
+        return period;
+    }
+    
+    @Override
+    public String getEndPeriod() {
+        return endPeriod;
     }
 
     @Override
@@ -162,6 +176,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+    
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+    
+    public void setEndPeriod(String endPeriod) {
+        this.endPeriod = endPeriod;
     }
     
     /**
@@ -254,5 +276,4 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public String toString() {
         return getAsText();
     }
-
 }

@@ -1,4 +1,4 @@
-//@@author A0126240W
+//@@author A0139772U
 package seedu.whatnow.logic.parser;
 
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -30,6 +30,7 @@ public class Parser {
      */
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
+    //@@author A0139128A-unused
     /**
      * Forward slashes are reserved for delimiter prefixes
      * variable number of tags
@@ -42,6 +43,7 @@ public class Parser {
     private static final Pattern TASK_MODIFIED_WITH_DATE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)\\s" + "(.*?\\bon|by\\b.*?\\s)??" +
             "(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)" + "(?<tagArguments>(?: t/[^/]+)*)");	
 
+    //@@author A0126240W
     /**
      * Regular Expressions
      */
@@ -131,7 +133,11 @@ public class Parser {
     private static final String TASK_ARG_TAG = "tag";
     private static final String TASK_ARG_DATE = "date";
     private static final String TASK_ARG_TIME = "time";
+    
+    HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
+    HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
 
+    //@@author A0139772U
     public Parser() {}
 
     /**
@@ -197,6 +203,7 @@ public class Parser {
         }
     }
 
+    //@@author A0126240W
     /**
      * Counts the number of occurrence of a substring in a string
      * @param str The given string
@@ -311,6 +318,40 @@ public class Parser {
         months.put("dec", 12);
         return months;
     }
+
+    public String getDate(String argument) {
+        if (TODAY_OR_TOMORROW.matcher(argument).find()) {
+            return argument;
+        } else if (DATE_WITH_SLASH_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else {
+            return null;
+        }
+    }
+    
+    public String getSubDate(String argument) {
+        if (DATE.matcher(argument).find()) {
+            return argument + FORWARD_SLASH;
+        } else if (DATE_WITH_SUFFIX.matcher(argument).find()) {
+            return argument.replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING) + FORWARD_SLASH;
+        } else if (MONTH_IN_FULL.matcher(argument).find()) {     
+            return MONTHS_IN_FULL.get(argument) + FORWARD_SLASH;
+        } else if (MONTH_IN_SHORT.matcher(argument).find()) {
+            return MONTHS_IN_SHORT.get(argument) + FORWARD_SLASH;
+        } else if (YEAR.matcher(argument).find()) {
+            return argument;
+        } else {
+            return null;
+        }
+    }
+
+    public String getTime(String argument) {
+        if (TIME_FORMAT.matcher(argument).find()) {
+            return argument;
+        } else {
+            return null;
+        }
+    }
     
     /**
      * Parses arguments in the context of the add task command.
@@ -321,6 +362,7 @@ public class Parser {
     private Command prepareAdd(String args){
         boolean validArgument = true;
         boolean hasDate = false;
+        boolean hasSubDate = false;
         boolean hasTime = false;
         boolean hasRecurring = false;
         boolean hasRecurringEndDate = false;
@@ -333,13 +375,16 @@ public class Parser {
         String time = null;
         String startTime = null;
         String endTime = null;
+        String period = null;
+        String endPeriod = null;
         Set<String> tags = new HashSet<String>();
         String[] argComponents = null;
-        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
-        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
         
-        fullMonths = storeFullMonths(fullMonths);
-        shortMonths = storeShortMonths(shortMonths);    
+        //Temporary variables
+        String tempDate;
+        
+        MONTHS_IN_FULL = storeFullMonths(MONTHS_IN_FULL);
+        MONTHS_IN_SHORT = storeShortMonths(MONTHS_IN_SHORT);    
 
         args = args.trim();
 
@@ -359,7 +404,7 @@ public class Parser {
             name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 
             try {
-                return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, Collections.emptySet());
+                return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, period, endPeriod, Collections.emptySet());
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             } catch (ParseException e) {
@@ -370,154 +415,56 @@ public class Parser {
         name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 
         if (arguments.length > ADD_COMMAND_MIN_ARGUMENTS) {
-            argComponents = arguments[arguments.length - ONE].trim().split(DELIMITER_BLANK_SPACE);
+            argComponents = arguments[arguments.length - ONE].trim().toLowerCase().split(DELIMITER_BLANK_SPACE);
         }
 
         for (int i = 0; i < argComponents.length; i++) {
-            if (KEYWORD_FOR_DATE.matcher(argComponents[i].toLowerCase()).find()) {
-                hasDate = true;
-                continue;
-            } else if (KEYWORD_FOR_TIME.matcher(argComponents[i].toLowerCase()).find()) {
-                hasTime = true;
-                if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
+            if (!hasDate && !hasSubDate && !hasTime && !hasRecurring && !hasRecurringEndDate) {
+                if (KEYWORD_FOR_DATE.matcher(argComponents[i]).find()) {
+                    hasDate = true;
+                    if (KEYWORD_FOR_TIME.matcher(argComponents[i]).find()) {
+                        hasTime = true;
+                    }
+                } else if (KEYWORD_FOR_TIME.matcher(argComponents[i]).find()) {
+                    hasTime = true;
+                    if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i]).find()) {
+                        hasDate = true;
+                        hasRecurringEndDate = true;
+                    } 
+                } else if (KEYWORD_FOR_RECURRING.matcher(argComponents[i]).find()) {
+                    hasRecurring = true;
+                } else if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i]).find()) {
                     hasDate = true;
                     hasRecurringEndDate = true;
-                    continue;
-                } 
-                continue;
-            } else if (KEYWORD_FOR_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
-                hasRecurring = true;
-                continue;
-            } else if (KEYWORD_FOR_END_OF_RECURRING.matcher(argComponents[i].toLowerCase()).find()) {
-                hasDate = true;
-                hasRecurringEndDate = true;
-                continue;
-            } else if (TAG_FORMAT.matcher(argComponents[i]).find()) {
-                String[] splitTag = argComponents[i].trim().split(DELIMITER_FORWARD_SLASH);
-                tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
-                continue;
-            } else if (!hasDate && TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
-                numOfDate++;
-                if (numOfDate == ONE) {
-                    date = argComponents[i].toLowerCase();
-                } else if (numOfDate == TWO) {
-                    startDate = date;
-                    date = null;
-                    endDate = argComponents[i].toLowerCase();
-                }
-                continue;
-            } else if (!hasTime && TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
-                numOfTime++;
-                if (numOfTime == ONE) {
-                    time = argComponents[i].toLowerCase();
-                    if (startDate != null & endDate != null) {
-                        endTime = time;
-                        time = null;
-                        startTime = DEFAULT_START_TIME;
-                    }
-                } else if (numOfTime == TWO) {       
-                    startTime = time;      
-                    time = null;
-                    endTime = argComponents[i].toLowerCase();
-                }
-                continue;
-            } else if (!hasDate && !hasTime && !hasRecurring) {
-                validArgument = false;
-            }
-            
-            if (hasDate) {
-                if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
+                } else if (TAG_FORMAT.matcher(argComponents[i]).find()) {
+                    String[] splitTag = argComponents[i].trim().split(DELIMITER_FORWARD_SLASH);
+                    tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
+                } else if (getDate(argComponents[i]) != null) {
+                    System.out.println("GET DATE");
+                    tempDate = getDate(argComponents[i]);
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = argComponents[i];
+                        date = tempDate;
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = argComponents[i];
+                        endDate = tempDate;
                     }
-                    hasDate = false;
-                } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
+                } else if (getSubDate(argComponents[i]) != null) {
+                    tempDate = getSubDate(argComponents[i]);
+                    hasSubDate = true;
                     numOfDate++;
                     if (numOfDate == ONE) {
-                        date = argComponents[i].toLowerCase();
+                        date = tempDate;
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = argComponents[i].toLowerCase();
-                    }
-                    hasDate = false;
-                } else if (TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
+                        endDate = tempDate;
+                    }                
+                } else if (getTime(argComponents[i]) != null) {
                     numOfTime++;
                     if (numOfTime == ONE) {
-                        time = argComponents[i].toLowerCase();
-                        if (startDate != null & endDate != null) {
-                            endTime = time;
-                            time = null;
-                            startTime = DEFAULT_START_TIME;
-                        }
-                    } else if (numOfTime == TWO) {
-                        startTime = time;                    
-                        time = null;
-                        endTime = argComponents[i].toLowerCase();       
-                    }
-                    hasDate = false;
-                } else if (DATE.matcher(argComponents[i].toLowerCase()).find()) {
-                    numOfDate++;
-                    if (numOfDate == ONE) {
-                        date = argComponents[i].toLowerCase();
-                        date += FORWARD_SLASH;
-                    } else if (numOfDate == TWO) {
-                        startDate = date;
-                        date = null;
-                        endDate = argComponents[i].toLowerCase();
-                        endDate += FORWARD_SLASH;
-                    } 
-                } else if (DATE_WITH_SUFFIX.matcher(argComponents[i].toLowerCase()).find()) {
-                    numOfDate++;
-                    if (numOfDate == ONE) {
-                        date = argComponents[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
-                        date += FORWARD_SLASH;
-                    } else if (numOfDate == TWO) {
-                        startDate = date;
-                        date = null;
-                        endDate = argComponents[i].toLowerCase().replaceAll(DATE_SUFFIX_REGEX, EMPTY_STRING);
-                        endDate += FORWARD_SLASH;
-                    } 
-                } else if (MONTH_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {     
-                    if (numOfDate == ONE) {
-                        date += fullMonths.get(argComponents[i].toLowerCase());
-                    } else if (numOfDate == TWO) {
-                        endDate += fullMonths.get(argComponents[i].toLowerCase());
-                    }
-                } else if (MONTH_IN_SHORT.matcher(argComponents[i].toLowerCase()).find()) {
-                    if (numOfDate == ONE) {
-                        date += shortMonths.get(argComponents[i].toLowerCase());               
-                    } else if (numOfDate == TWO) {
-                        endDate += shortMonths.get(argComponents[i].toLowerCase());     
-                    } 
-                } else if (YEAR.matcher(argComponents[i].toLowerCase()).find()) {
-                    if (numOfDate == ONE) {
-                        date += FORWARD_SLASH;
-                        date += argComponents[i].toLowerCase();
-                    } else if (numOfDate == TWO) {
-                        endDate += FORWARD_SLASH;
-                        endDate += argComponents[i].toLowerCase();
-                    } 
-                    hasDate = false;
-                } else if (hasTime) {
-                    hasDate = false;
-                    hasRecurringEndDate = false;
-                } else {
-                    hasDate = false;
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
-            }
-
-            if (hasTime && !hasRecurringEndDate) {
-                if (TIME_FORMAT.matcher(argComponents[i].toLowerCase()).find()) {
-                    numOfTime++;
-                    if (numOfTime == ONE) {
-                        time = argComponents[i].toLowerCase();
+                        time = argComponents[i];
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
@@ -526,24 +473,133 @@ public class Parser {
                     } else if (numOfTime == TWO) {
                         startTime = time;             
                         time = null;
-                        endTime = argComponents[i].toLowerCase();
+                        endTime = argComponents[i];
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
+                
+                continue;
+            }
 
+            if (hasDate) {
+                if (hasRecurringEndDate && period != null) {    
+                    if (getDate(argComponents[i]) != null) {
+                        endPeriod = getDate(argComponents[i]);
+                        hasRecurringEndDate = false;
+                    } else if (getSubDate(argComponents[i]) != null) {                     
+                        endPeriod = getSubDate(argComponents[i]);
+                        hasSubDate = true;
+                    } else {
+                        validArgument = false;
+                        hasRecurringEndDate = false;
+                    }
+                    
+                    hasTime = false;
+                } else {
+                    if (getDate(argComponents[i]) != null) {
+                        tempDate = getDate(argComponents[i]);
+                        numOfDate++;
+                        if (numOfDate == ONE) {
+                            date = tempDate;
+                        } else if (numOfDate == TWO) {
+                            startDate = date;
+                            date = null;
+                            endDate = tempDate;
+                        }
+                        
+                        hasTime = false;
+                    } else if (getSubDate(argComponents[i]) != null) {
+                        tempDate = getSubDate(argComponents[i]);
+                        hasSubDate = true;
+                        numOfDate++;
+                        if (numOfDate == ONE) {
+                            date = tempDate;
+                        } else if (numOfDate == TWO) {
+                            startDate = date;
+                            date = null;
+                            endDate = tempDate;
+                        }
+                        
+                        hasTime = false;
+                    } else if (!hasTime) {
+                        validArgument = false;
+                    }
+                    
+                    hasRecurringEndDate = false;
+                }
+                
+                hasDate = false;
+                if (hasSubDate) {
+                    continue;
+                }              
+            }
+
+            if (hasSubDate) {
+                if (hasRecurringEndDate && period != null) {  
+                    tempDate = getSubDate(argComponents[i]);
+                    if (tempDate != null) {
+                        endPeriod += tempDate;
+                        hasSubDate = true;               
+                        if (YEAR.matcher(endPeriod).find()) {
+                            hasSubDate = false;
+                            hasRecurringEndDate = false;
+                        }
+                    } else {
+                        validArgument = false;
+                        hasSubDate = false;
+                        hasRecurringEndDate = false;
+                    }     
+                } else {
+                    tempDate = getSubDate(argComponents[i]);
+                    if (tempDate != null) {
+                        if (numOfDate == ONE) {
+                            date += tempDate;
+                        } else if (numOfDate == TWO) {
+                            endDate += tempDate;
+                        }
+                        
+                        if (YEAR.matcher(tempDate).find()) {
+                            hasSubDate = false;
+                        }
+                    } else {
+                        validArgument = false;
+                        hasSubDate = false;
+                    }
+                }
+            }
+
+            if (hasTime && !hasRecurringEndDate) {
+                if (getTime(argComponents[i]) != null) {
+                    numOfTime++;
+                    if (numOfTime == ONE) {
+                        time = argComponents[i];
+                        if (startDate != null & endDate != null) {
+                            endTime = time;
+                            time = null;
+                            startTime = DEFAULT_START_TIME;
+                        }
+                    } else if (numOfTime == TWO) {
+                        startTime = time;             
+                        time = null;
+                        endTime = argComponents[i];
+                    } 
+                } else {
+                    validArgument = false;
+                }
+ 
                 hasTime = false;
             }
             
             if (hasRecurring) {
-                if (DAYS_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
-                    System.out.println(argComponents[i]);
-                } else if (DAYS_IN_FULL.matcher(argComponents[i].toLowerCase()).find()) {
-                    System.out.println(argComponents[i]);
-                } else if (RECURRING_PERIOD.matcher(argComponents[i].toLowerCase()).find()) {
-                    System.out.println(argComponents[i]);
+                if (DAYS_IN_FULL.matcher(argComponents[i]).find()) {
+                    period = argComponents[i];
+                } else if (DAYS_IN_FULL.matcher(argComponents[i]).find()) {
+                    period = argComponents[i];
+                } else if (RECURRING_PERIOD.matcher(argComponents[i]).find()) {
+                    period = argComponents[i];
                 } else {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    validArgument = false;
                 }
                 
                 hasRecurring = false;
@@ -552,6 +608,10 @@ public class Parser {
             if (!validArgument) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
+        }
+        
+        if (endPeriod != null) {
+            endPeriod = formatDate(endPeriod);
         }
         
         if (date != null) {
@@ -577,7 +637,7 @@ public class Parser {
         }
 
         try {
-            return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, tags);
+            return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, period, endPeriod, tags);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException e) {
@@ -585,6 +645,7 @@ public class Parser {
         }
     }
 
+    //@@author A0139772U-reused
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -599,6 +660,7 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
+    //@@author A0141021H
     /**
      * Parses arguments in the context of the change data file location command.
      * 
@@ -606,7 +668,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareChange(String args) {
-        String[] argComponents= args.trim().split(" ");
+        String[] argComponents= args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents[CHANGE_LOCATION].equals("location") && argComponents[CHANGE_LOCATION_TO].equals("to")){
             return new ChangeCommand(argComponents[CHANGE_LOCATION_TO_PATH]);
         }
@@ -616,6 +678,7 @@ public class Parser {
         }
     }
 
+    //@@author A0139772U
     private Command prepareList(String args) {
         String[] argComponents= args.trim().split(DELIMITER_BLANK_SPACE);
         String listArg = argComponents[LIST_ARG];
@@ -653,6 +716,7 @@ public class Parser {
         return new DeleteCommand(argComponents[TASK_TYPE], index.get());
     }
 
+    //@@author A0126240W
     /**
      * Parses arguments in the context of the update task command.
      *
@@ -794,6 +858,7 @@ public class Parser {
         }
     }
 
+    //@@author A0139772U
     /**
      * Parses arguments in the context of the markDone task command.
      *
@@ -810,6 +875,7 @@ public class Parser {
         return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
     }
 
+    //@@author A0141021H
     /**
      * Parses arguments in the context of the markUndone task command.
      *
@@ -826,6 +892,7 @@ public class Parser {
         return new MarkUndoneCommand(argComponents[TASK_TYPE], index.get());
     }
 
+    //@@author A0139772U
     /**
      * Checks that the command format is valid
      * @param type is todo/schedule, index is the index of item on the list, argType is description/tag/date/time
@@ -844,6 +911,7 @@ public class Parser {
         return true;
     }
 
+    //@@author A0139772U-reused
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -860,6 +928,7 @@ public class Parser {
         return new SelectCommand(index.get());
     }
 
+    //@@author A0139772U
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.

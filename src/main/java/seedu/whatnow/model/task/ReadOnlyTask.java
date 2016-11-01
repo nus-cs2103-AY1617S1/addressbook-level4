@@ -16,12 +16,26 @@ public interface ReadOnlyTask {
     String getTaskTime();
     String getStartTime();
     String getEndTime();
+    String getPeriod();
+    String getEndPeriod();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
      */
     UniqueTagList getTags();
+    
+    /**
+     * Return the status of the task.
+     * @return
+     */
+    String getStatus();
+    
+    /**
+     * Return the task type of the task.
+     * @return
+     */
+    String getTaskType();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -87,48 +101,42 @@ public interface ReadOnlyTask {
     default boolean isBothEvent(ReadOnlyTask task) {
         return this.getTaskDate() == null && task.getTaskDate() == null
                 && this.getStartDate() != null && task.getStartDate() != null;
-    }
+    } 
     
-    /**
-     * Return the status of the task.
-     * @return
-     */
-    String getStatus();
-    
-    /**
-     * Return the task type of the task.
-     * @return
-     */
-    String getTaskType();
-    
-  //@@author A0126240W
+    //@@author A0126240W
     /**
      * Formats the task as text, showing all details.
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if (getTaskDate() != null)
-            builder.append(" " + getTaskDate());
-        		
-        if (getStartDate() != null)
-            builder.append(" " + getStartDate());
-        
-        if (getEndDate() != null)
-            builder.append(" " + getEndDate());
-        
-        if (getTaskTime() != null)
-            builder.append(" " + getTaskTime());
-        
-        if (getStartTime() != null)
-            builder.append(" " + getStartTime());
-        
-        if (getEndTime() != null)
-            builder.append(" " + getEndTime());
-        
-        if (getStatus() != null)
+        if (getTaskDate() != null) {
+            builder.append(" on " + getTaskDate());
+        }
+        if (getStartDate() != null) {
+            builder.append(" from " + getStartDate());
+        }
+        if (getEndDate() != null) {
+            builder.append(" to " + getEndDate());
+        }
+        if (getTaskTime() != null) {
+            builder.append(" at " + getTaskTime());
+        }
+        if (getStartTime() != null) {
+            builder.append(" from " + getStartTime());
+        }
+        if (getEndTime() != null) {
+            builder.append(" to " + getEndTime());
+        }
+        if (getPeriod() != null) {
+            builder.append(" every " + getPeriod());
+        }
+        if (getEndPeriod() != null) {
+            builder.append(" till " + getEndPeriod());
+        }
+        if (getStatus() != null) {
             builder.append(" " + getStatus());
-        
+        }
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

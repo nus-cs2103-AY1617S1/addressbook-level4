@@ -552,7 +552,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, date, null, null, null, null, null, tags, "incomplete", null);
+            return new Task(name, date, null, null, null, null, null, null, null, tags, "incomplete", null);
         }
         
         Task todo(String description, String dateString, String tag01, String tag02) throws Exception {
@@ -561,7 +561,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag(tag01);
             Tag tag2 = new Tag(tag02);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, date, null, null, null, null, null, tags, "incomplete", null);
+            return new Task(name, date, null, null, null, null, null, null, null, tags, "incomplete", null);
         }
 
         /**
@@ -575,6 +575,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     "23/2/2017",
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -596,6 +598,8 @@ public class LogicManagerTest {
         Task generateTaskForSelect(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -731,6 +735,8 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    null,
+                    null,
                     null,
                     null,
                     null,

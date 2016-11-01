@@ -18,6 +18,8 @@ public class TestTask implements ReadOnlyTask {
     private String taskTime;
     private String startTime;
     private String endTime;
+    private String period;
+    private String endPeriod;
     private UniqueTagList tags;
     private String status;
     private String taskType; //todo or schedule
@@ -103,6 +105,16 @@ public class TestTask implements ReadOnlyTask {
         return endTime;
     }
     
+    @Override
+    public String getPeriod() {
+        return period;
+    }
+    
+    @Override
+    public String getEndPeriod() {
+        return endPeriod;
+    }
+    
     public void setTaskDate(String date) {
         this.taskDate = date;
     }
@@ -125,6 +137,14 @@ public class TestTask implements ReadOnlyTask {
     
     public void setEndTime(String time) {
         this.endTime = time;
+    }
+    
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+    
+    public void setEndPeriod(String endPeriod) {
+        this.endPeriod = endPeriod;
     }
     
     @Override
