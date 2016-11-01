@@ -43,7 +43,7 @@
                   </Label>
                           <HBox maxWidth="300.0" prefHeight="29.0" prefWidth="66.0" GridPane.columnIndex="1">
                              <children>
-                        <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="\$name" translateX="10.0" translateY="2.0">
+                        <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="\$name" translateX="10.0">
                            <font>
                               <Font size="24.0" />
                            </font>

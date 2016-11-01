@@ -51,8 +51,8 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         if (task.getCompletion().isCompleted()) {
-        	name.setStyle("-fx-strikethrough: true");
         	name.setFill(Color.LIGHTGREY);
+        	name.setStyle("-fx-strikethrough: true");
         	name.setOpacity(50);
         }
         
