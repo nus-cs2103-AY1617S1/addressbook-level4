@@ -1,14 +1,9 @@
 package seedu.task.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import seedu.task.model.task.ReadOnlyTask;
 import java.util.Date;
 import java.text.*;
