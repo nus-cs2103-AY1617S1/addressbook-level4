@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
@@ -141,11 +142,13 @@ public class StorageManagerTest {
         storageManager.updateConfig(null);
     }
     
+    //@@author
 //    //@@author A0139194X
 //    @Test
-//    public void updateConfig_nullInput_assertionFailure() {
-//        thrown.expect(AssertionError.class);
-//        storageManager.updateConfig(null);
+//    public void updateConfig_success() {
+//        ConfigStub config = new ConfigStub(FILEPATH_NOT_ENDING_WITH_SLASH);
+//        storageManager.updateConfig(FILEPATH_NOT_ENDING_WITH_SLASH);
+//        assertEquals(config.getTaskManagerFilePath(), FILEPATH_NOT_ENDING_WITH_SLASH);
 //    }
 
     /**
@@ -162,5 +165,18 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
+    
+    /**@@author A0139194X
+     * A Stub class to store config.json
+     */
+    class ConfigStub extends Config {
+        
+        Config config;
+        
+        public ConfigStub(String filePath) {
+            config = new Config();
+            config.setTaskManagerFilePath(filePath);
+        }
+    }
+    
 }

@@ -101,4 +101,25 @@ public class ConfigTest {
         config.setTaskManagerFilePath("TestTestTest");
         assertEquals("TestTestTest", config.getTaskManagerFilePath());
     }
+    
+    //@@author A0139194X
+    @Test
+    public void getTaskManagerName_success() {
+        assertEquals("MyTaskManager", config.getTaskManagerName());
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerName_nullInput_assertionFailure() {
+        thrown.expect(AssertionError.class);
+        config.setTaskManagerName(null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerName_success() {
+        config.setTaskManagerName("TestTestTestTest");
+        assertEquals("TestTestTestTest", config.getTaskManagerName());
+    }
+    
 }

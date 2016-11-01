@@ -135,7 +135,6 @@ public class StorageManager extends ComponentManager implements Storage {
                     "Using default config properties");
             config = new Config();
         }
-
         config.setTaskManagerFilePath(newPath);
         logger.fine("Updated config's data save location.");
         

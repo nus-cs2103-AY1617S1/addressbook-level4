@@ -65,11 +65,14 @@ public class Config {
         return taskManagerName;
     }
 
+    //@@author A0139194X
     public void setTaskManagerName(String taskManagerName) {
+        assert taskManagerName != null;
         this.taskManagerName = taskManagerName;
     }
 
 
+    //@@author
     @Override
     public boolean equals(Object other) {
         if (other == this){
