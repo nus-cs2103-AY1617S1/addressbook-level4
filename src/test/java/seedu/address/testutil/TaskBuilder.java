@@ -9,6 +9,7 @@ import seedu.task.model.task.DueDate;
 import seedu.task.model.task.Interval;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Status;
+import seedu.task.model.task.TaskColor;
 import seedu.task.model.task.TimeInterval;
 import seedu.task.model.task.Title; 
 
@@ -67,6 +68,13 @@ public class TaskBuilder {
         this.task.setStatus(new Status(status));
         return this;
     }
+    
+    //@@author A0153751H
+    public TaskBuilder withTaskColor(String color) throws IllegalValueException {
+        this.task.setTaskColor(new TaskColor(color));
+        return this;
+    }
+    //@@author
     
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {

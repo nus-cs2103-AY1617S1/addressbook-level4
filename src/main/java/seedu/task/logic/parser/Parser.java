@@ -68,6 +68,7 @@ public class Parser {
                     + "( dd/(?<dueDate>[^/]+))|"
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
+                    + "( c/(?<taskColor>[^/]+))|"
                     + "(?<tagArguments>(?: ts/[^/]+)*))+?");
     //@@author 
     
@@ -200,7 +201,8 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else if (matcher.group("newTitle")==null && matcher.group("description")==null && matcher.group("startDate")==null && matcher.group("dueDate")==null
-        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null) {
+        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null && matcher.group("taskColor")==null
+        		&& matcher.group("taskColor").equalsIgnoreCase("cyan")) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
@@ -212,6 +214,7 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
+                    matcher.group("taskColor"),
                     getTagsFromArgs(matcher.group("tagArguments"))
 			);
 		} catch (NumberFormatException e) {
@@ -225,12 +228,14 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
+                    matcher.group("taskColor"),
                     null);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
     }
-    
+    //@@author
+    //@@author A0153751H_reused
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
         if (tagArguments.isEmpty()) {
