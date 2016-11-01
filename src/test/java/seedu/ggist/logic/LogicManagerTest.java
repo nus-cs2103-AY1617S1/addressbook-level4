@@ -15,8 +15,6 @@ import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.Model;
 import seedu.ggist.model.ModelManager;
 import seedu.ggist.model.ReadOnlyTaskManager;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 import seedu.ggist.storage.StorageManager;
 

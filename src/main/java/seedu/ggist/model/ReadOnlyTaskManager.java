@@ -3,8 +3,7 @@ package seedu.ggist.model;
 
 import java.util.List;
 
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
+
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 

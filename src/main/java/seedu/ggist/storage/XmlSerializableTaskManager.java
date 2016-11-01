@@ -5,8 +5,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.ReadOnlyTaskManager;
-import seedu.ggist.model.tag.Tag;
-import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
 

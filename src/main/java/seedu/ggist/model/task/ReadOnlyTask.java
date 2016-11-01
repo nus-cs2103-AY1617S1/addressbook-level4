@@ -3,7 +3,6 @@ package seedu.ggist.model.task;
 import java.util.Date;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable (except for setting task done) interface for a Task in the task manager.

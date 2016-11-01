@@ -2,7 +2,6 @@ package seedu.ggist.testutil;
 
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.TaskManager;
-import seedu.ggist.model.tag.Tag;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.UniqueTaskList;
 
