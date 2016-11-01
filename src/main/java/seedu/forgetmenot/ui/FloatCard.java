@@ -19,10 +19,6 @@ public class FloatCard extends UiPart{
     private HBox cardPane;
     @FXML
     private Label floatname;
-    @FXML
-    private Label id;
-
-
 
     private ReadOnlyTask task;
 
@@ -37,7 +33,7 @@ public class FloatCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
     
-
+    // Displays the name of the task on every floating card cell in the list.
     @FXML
     public void initialize() {
 		floatname.setText(task.getName().fullName);

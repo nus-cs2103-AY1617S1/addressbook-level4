@@ -26,7 +26,6 @@ public class FloatingPanel extends UiPart {
     private static final String FXML = "FloatingPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static ObservableList<ReadOnlyTask> filteredList;
 
     @FXML
     private ListView<ReadOnlyTask> floatingListView;

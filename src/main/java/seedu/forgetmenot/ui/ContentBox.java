@@ -117,6 +117,7 @@ public class ContentBox extends UiPart {
         return contentbox;
     }
     
+    // Updates the respective task numbers in event of change
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
     	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
@@ -133,7 +134,7 @@ public class ContentBox extends UiPart {
         addToPlaceholder();
         panel.prefHeightProperty().bind(placeHolderPane.heightProperty());       
     }
-    
+    // Initialize various task values to correspond to those when application is closed
     @FXML
     public void initialize() {
        	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
@@ -143,48 +144,11 @@ public class ContentBox extends UiPart {
     	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
 
-//    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-//        setEventHandlerForSelectionChangeEvent();
-//    }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
 
-/*    private void setEventHandlerForSelectionChangeEvent() {
-        dummy1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
-*/
-/*    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
-            }
-        }
-    }
-    */
 }
 

@@ -38,7 +38,7 @@
                             </children>
                         </HBox>
                         <Label fx:id="start" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$start" />
-                        <Label fx:id="address" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$address" />
+                        <Label fx:id="end" style="-fx-font-size: 120%;" styleClass="cell_small_label" text="\$end" />
                   <Label fx:id="recur" style="-fx-font-size: 120%;" styleClass="cell_small_label" />
                     </children>
                 </VBox>

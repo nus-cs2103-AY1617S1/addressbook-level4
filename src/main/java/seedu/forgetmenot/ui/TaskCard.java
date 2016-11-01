@@ -28,7 +28,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label address;
+    private Label end;
     @FXML
     private Label start;
     @FXML
@@ -56,7 +56,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        address.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
+        end.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
         start.setText("Start: " + task.getStartTime().easyReadDateFormatForUI());
         if (task.getDone().getDoneValue() == true) {
         	stateicon.setImage(tickmark.getImage());
