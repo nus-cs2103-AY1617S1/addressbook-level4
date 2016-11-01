@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="cardPane" fx:id="cardPane" prefHeight="80.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefWidth="600.0" VBox.vgrow="NEVER">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints fillWidth="false" hgrow="NEVER" />
+            <ColumnConstraints fillWidth="false" hgrow="NEVER" maxWidth="90.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #63ff75; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #63ff75; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" translateY="1.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -55,7 +55,7 @@
                   <URL value="@Extensions.css" />
                </stylesheets>
             </HBox>
-            <Label fx:id="taskStatus" styleClass="cell_big_label" GridPane.columnIndex="1">
+            <Label fx:id="taskStatus" styleClass="cell_big_label" textAlignment="CENTER" GridPane.columnIndex="1">
                <stylesheets>
                   <URL value="@DarkTheme.css" />
                   <URL value="@Extensions.css" />
@@ -80,7 +80,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefWidth="580.0">
+            <HBox prefWidth="580.0" translateY="5.0">
                <children>
                   <Label style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="Tags: " textFill="#686565">
                      <font>

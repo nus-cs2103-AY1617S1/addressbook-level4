@@ -206,7 +206,7 @@ public class Parser {
         }
     	
     	// keyphrases delimited by commas
-        final String[] keyphrases = args.split(",");
+        final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
         System.out.println("keyphrase set: " + keyphraseSet.toString());
@@ -215,7 +215,7 @@ public class Parser {
     }
 
 	//@@author A0141019U
-	// Only supports task type and done|pending options.
+	// Only supports task type and status type options.
 	private Command prepareList(String arguments) {
 		if (arguments.equals("")) {
 			return new ListCommand();
