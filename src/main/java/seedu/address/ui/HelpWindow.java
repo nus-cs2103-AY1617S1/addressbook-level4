@@ -10,6 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -51,9 +52,9 @@ public class HelpWindow extends UiPart {
         setIcon(dialogStage, ICON);
 
         ClassLoader classloader = getClass().getClassLoader();
-        File file = new File(classloader.getResource("help.html").getFile());
         WebView browser = new WebView();
-        browser.getEngine().load(file.toURI().toURL().toString());
+        URL url = classloader.getResource("help.html");
+        browser.getEngine().load(url.toExternalForm());
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
