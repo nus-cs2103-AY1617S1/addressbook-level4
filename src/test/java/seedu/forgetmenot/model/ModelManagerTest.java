@@ -29,6 +29,28 @@ public class ModelManagerTest {
             assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
 
         }
+    }
 
+    @Test
+    public void addRecurringTask_addSpecifiedNumberOfRecurringEventTask_addsSpecifiedInstancesToTaskManager()
+            throws IllegalValueException {
+        String specifiedOccurenceKeyword = " x";
+        String specifiedOccurences = "5";
+        TestTask recurringTask = new TaskBuilder().withName("recurring task").withStartTime("tomorrow 9pm")
+                .withEndTime("tomorrow 10pm").withDone(false)
+                .withRecurrence("2 days" + specifiedOccurenceKeyword + specifiedOccurences).build();
+        ModelManager testModel = new ModelManager();
+        testModel.addRecurringTask(recurringTask);
+        testModel.sortTasks();
+
+        TestTask toCheck;
+        StringBuilder addedTime = new StringBuilder("");
+        for (int i = 0; i < Integer.parseInt(specifiedOccurences) - 1; i++) {
+            addedTime.insert(0, "2 days after ");
+            toCheck = new TaskBuilder().withName("recurring task").withStartTime(addedTime + "tomorrow 9pm")
+                    .withEndTime(addedTime + "tomorrow 10pm").withDone(false).withRecurrence("2 days").build();
+            assertEquals(testModel.getTaskManager().getUniqueTaskList().getInternalList().get(i), toCheck);
+
+        }
     }
 }
