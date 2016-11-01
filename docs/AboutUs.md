@@ -29,9 +29,18 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Leah Lim](http://github.com/leahlim)
 <img src="images/leah.jpeg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Documentation, GUI Design <br>
-In-Charge: UI
+
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
+* Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
+* Features implemented:
+   * [Edit](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [Done](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete--done) 
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0144727B.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0144727B.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0144727B.md)] 
+* Other major contributions:
+  * Aided in the initial refactoring from AddressBook test cases to GGist test cases
+  * Developed and edited the user guide to make it user friendly
+  * Developed the UI [[#111](https://github.com/CS2103AUG2016-W13-C2/main/pull/111)][[#120](https://github.com/CS2103AUG2016-W13-C2/main/pull/120)][[#123](https://github.com/CS2103AUG2016-W13-C2/main/pull/123)][[#126](https://github.com/CS2103AUG2016-W13-C2/main/pull/126/commits/843f0e06cede70303a75824d216846a1c4871be1)]
+  * Contributed to Testing developments [[#159](https://github.com/CS2103AUG2016-W13-C2/main/pull/159)]
 
 -----
 
