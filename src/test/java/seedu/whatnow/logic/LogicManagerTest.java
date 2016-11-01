@@ -620,7 +620,7 @@ public class LogicManagerTest {
          *            used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
-            return new Task(new Name("Task " + seed), "23/2/2017", null, null, null, null, null,
+            return new Task(new Name("Task " + seed), "23/2/2017", null, null, null, null, null, null, null,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     "incomplete", null);
         }
@@ -634,7 +634,7 @@ public class LogicManagerTest {
          *            used to generate the task data field values
          */
         Task generateTaskForSelect(int seed) throws Exception {
-            return new Task(new Name("Task " + seed), null, null, null, null, null, null,
+            return new Task(new Name("Task " + seed), null, null, null, null, null, null, null, null,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     "incomplete", null);
         }
@@ -767,7 +767,7 @@ public class LogicManagerTest {
          * dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
-            return new Task(new Name(name), null, null, null, null, null, null, new UniqueTagList(new Tag("tag")),
+            return new Task(new Name(name), null, null, null, null, null, null, null, null, new UniqueTagList(new Tag("tag")),
                     "incomplete", null);
         }
     }
