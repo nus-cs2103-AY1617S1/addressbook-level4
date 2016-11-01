@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 //@@author A0135805H
 /**
@@ -53,7 +52,6 @@ public class TagCommand extends BaseCommand {
     private static final String DESCRIPTION_DELETE_TAGS = "Remove tags from all tasks";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
 
-    private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
     private static final int INDEX_OFFSET = 1;
     private static final String ARGUMENTS_SHOW_TAGS = "";
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
