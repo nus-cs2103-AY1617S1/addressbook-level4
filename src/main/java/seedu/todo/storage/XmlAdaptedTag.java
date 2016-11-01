@@ -1,10 +1,7 @@
 package seedu.todo.storage;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.model.tag.Tag;
 
 /**

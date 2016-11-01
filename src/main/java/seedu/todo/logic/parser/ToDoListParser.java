@@ -3,8 +3,7 @@ package seedu.todo.logic.parser;
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todo.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,10 +11,11 @@ import java.util.regex.Pattern;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Recurrence.Frequency;
 
-import com.joestelmach.natty.*;
+
 
 /**
  * Parses user input.
@@ -114,6 +114,11 @@ public class ToDoListParser {
         return matcher.group("rec");
     }
     
+    private String matchTagsResult(Matcher matcher) {
+        return matcher.group("tags");
+    }
+    
+    
 
     /**
      * Parses arguments in the context of the add task command.
@@ -210,7 +215,7 @@ public class ToDoListParser {
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
-    //@@author A0121643R
+
     /**
      * Parses arguments in the context of the delete task command.
      *
@@ -378,7 +383,8 @@ public class ToDoListParser {
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.KEYWORDS_ARGS_FORMAT, 
+                ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT,
+                ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
                 ParserFormats.SEARCH_PRIORITY };
         
         String tempArgs = args.trim(); 
@@ -388,45 +394,57 @@ public class ToDoListParser {
             matcher = p.matcher(tempArgs);
             
             if (matcher.matches()) {
+                SearchCompletedOption option = SearchCompletedOption.UNDONE;
+                if (matcher.group("comOpt") != null) {
+                    option = SearchCompletedOption.valueOf(matcher.group(2).trim().toUpperCase());
+                }                
+                
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
-                    return new SearchCommand(matchOnDateTimeResult(matcher), 
+                    return new SearchCommand(matchOnDateTimeResult(matcher),
+                                             option,
                                              SearchCommand.SearchIndex.ON);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE)) {
-                    return new SearchCommand(matcher.group("beforeDateTime"), 
+                    return new SearchCommand(matcher.group("beforeDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.BEFORE);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER)) {
-                    return new SearchCommand(matcher.group("afterDateTime"), 
+                    return new SearchCommand(matcher.group("afterDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.AFTER);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)) {
-                    return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 
+                    return new SearchCommand(matcher.group("fromDateTime") + SearchCommand.FT_CONCATENATER 
+                                           + matcher.group("tillDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.FT);
                     
-                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
-                        && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0 
-                        && tempArgs.indexOf("priority") != 0) {
-                    
+                } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != ParserFormats.FIRST_INDEX
+                            && tempArgs.indexOf("priority") != ParserFormats.FIRST_INDEX && tempArgs.indexOf("undone") != ParserFormats.FIRST_INDEX 
+                            && tempArgs.indexOf("done") != ParserFormats.FIRST_INDEX) {
                     return new SearchCommand(matcher.group("keywords"), 
+                                             option,
                                              SearchCommand.SearchIndex.KEYWORD);
-                    
                 } else if (p.equals(ParserFormats.SEARCH_PRIORITY)) {
                     return new SearchCommand(matchPriorityResult(matcher), 
-                                         SearchCommand.SearchIndex.PRIORITY);
+                                             option,
+                                             SearchCommand.SearchIndex.PRIORITY);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG)) {
+                    return new SearchCommand(matchTagsResult(matcher), 
+                                             option,
+                                             SearchCommand.SearchIndex.TAG);
                 }
             }
         }
-        if (tempArgs.indexOf("tag") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.TAG);
+        
+
+        if (tempArgs.indexOf("done") == ParserFormats.FIRST_INDEX) {
+            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
         }
 
-        if (tempArgs.indexOf("done") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.DONE);
-        }
-
-        if (tempArgs.indexOf("undone") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.UNDONE);
+        if (tempArgs.indexOf("undone") == ParserFormats.FIRST_INDEX) {
+            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.UNDONE);
         }
         
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));

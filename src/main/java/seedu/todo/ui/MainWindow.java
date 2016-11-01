@@ -13,7 +13,6 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing

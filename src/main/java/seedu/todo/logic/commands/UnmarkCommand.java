@@ -3,9 +3,6 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
-import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
