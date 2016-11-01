@@ -147,7 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0147619W
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -155,7 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139671X
     @Override
-    public synchronized void addRecurringTask(ReadOnlyTask task) throws DuplicateTaskException, IllegalValueException {
+    public synchronized void addRecurringTask(ReadOnlyTask task) throws IllegalValueException {
 
         String freq = task.getRecurrence().getRecurFreq();
         int occur = task.getRecurrence().getOccurence();
@@ -224,8 +224,22 @@ public class ModelManager extends ComponentManager implements Model {
     	if(start.isMissing() && end.isMissing())
     		return false;
     	
+    	if(!start.isMissing() && !end.isMissing()) {
+    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
+    			if(!task.getStartTime().isMissing() && 
+    					task.getStartTime().time.compareTo(start.time) >= 0 && 
+    					task.getStartTime().time.compareTo(end.time) < 0)
+    				return true;
+    			
+    			if(!task.getEndTime().isMissing() && 
+    					task.getEndTime().time.compareTo(start.time) > 0 && 
+    					task.getEndTime().time.compareTo(end.time) <= 0)
+    				return true;	
+    		}
+    	}
+    	
     	if(!start.isMissing()) {
-    		for(Task task: taskManager.getTasks()) {
+    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getStartTime().isMissing() && task.getStartTime().time.compareTo(start.time) == 0) {
     				System.out.println("a");
     				return true;
@@ -240,7 +254,7 @@ public class ModelManager extends ComponentManager implements Model {
     	}
     	
     	if(!end.isMissing()) {
-    		for(Task task: taskManager.getTasks()) {
+    		for(Task task: taskManager.getTasks().filtered(isNotDone())) {
     			if(!task.getEndTime().isMissing() && task.getEndTime().time.compareTo(end.time) == 0) {
     				System.out.println("c");
     				return true;

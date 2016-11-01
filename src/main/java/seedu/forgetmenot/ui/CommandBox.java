@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.forgetmenot.commons.core.LogsCenter;
 import seedu.forgetmenot.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.commons.util.FxViewUtil;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.logic.commands.CommandResult;
@@ -143,7 +144,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() {
+    private void handleCommandInputChanged() throws IllegalValueException {
     	if(!downKeyStack.isEmpty()){
 			upKeyStack.push(currHistLine);
 			while(!downKeyStack.isEmpty()){

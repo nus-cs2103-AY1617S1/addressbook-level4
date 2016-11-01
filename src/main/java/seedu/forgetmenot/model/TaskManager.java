@@ -83,7 +83,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *             if an equivalent task already exists.
      * @@author A0147619W
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) {
         tasks.add(p);
         counter();
     }

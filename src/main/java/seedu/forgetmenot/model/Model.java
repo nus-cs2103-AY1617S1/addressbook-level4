@@ -26,10 +26,11 @@ public interface Model {
     /** Adds the given task 
      * @@author A0147619W
      * */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
  
-    /** Adds the given recurring task again with the correct date and time*/
-    void addRecurringTask(ReadOnlyTask taskToMark) throws DuplicateTaskException, IllegalValueException;
+    /** Adds the given recurring task again with the correct date and time
+     * @throws IllegalValueException */
+    void addRecurringTask(ReadOnlyTask taskToMark) throws IllegalValueException;
     
     /** Edits the given task */
     void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;

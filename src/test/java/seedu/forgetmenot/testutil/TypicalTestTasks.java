@@ -37,17 +37,13 @@ public class TypicalTestTasks {
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
-        try {
-            ab.addTask(new Task(alice));
-            ab.addTask(new Task(benson));
-            ab.addTask(new Task(carl));
-            ab.addTask(new Task(daniel));
-            ab.addTask(new Task(elle));
-            ab.addTask(new Task(fiona));
-            ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+        ab.addTask(new Task(alice));
+		ab.addTask(new Task(benson));
+		ab.addTask(new Task(carl));
+		ab.addTask(new Task(daniel));
+		ab.addTask(new Task(elle));
+		ab.addTask(new Task(fiona));
+		ab.addTask(new Task(george));
     }
 
     public TestTask[] getTypicalTasks() {

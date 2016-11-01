@@ -25,7 +25,6 @@ public class AddCommand extends Command {
             + " Homework by tomorrow 6pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
     public static final String MESSAGE_CLASH_WARNING = "WARNING! This task clashes with one of the tasks in ForgetMeNot. Type undo if you want to undo the previous add.";
     
     private final Task toAdd;
@@ -57,9 +56,8 @@ public class AddCommand extends Command {
     }
 
 	@Override
-    public CommandResult execute() {
+    public CommandResult execute() throws IllegalValueException {
         assert model != null;
-        try {
         	boolean clashCheck = false;
         	if(model.isClashing(toAdd))
         		clashCheck = true;
@@ -72,10 +70,6 @@ public class AddCommand extends Command {
             
         	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
         					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        } catch (IllegalValueException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
+        
     }
 }

@@ -15,11 +15,10 @@ import com.joestelmach.natty.Parser;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.logic.parser.DatePreParse;
 
-
 /**
  * Represents a Task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
- * @@author A0147619W
+ * @author A0147619W
  */
 public class Time {
     
@@ -82,7 +81,7 @@ public class Time {
     		return dateFormat.format(time.getTime());
     	}
     }
-    
+    //@@author
     /**
      * @return a String for a date and time thats easy to read. Example, "Thu, Feb 17, 2016, 10:11 AM"
      * @@author A0139671X
