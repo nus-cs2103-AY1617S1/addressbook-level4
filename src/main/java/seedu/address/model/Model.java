@@ -78,8 +78,10 @@ public interface Model {
 	void editTask(ReadOnlyTask taskToEdit, Name taskName, Date startDate, Date endDate, Priority priority,
 			RecurrenceRate recurrenceRate);
 
+	
     void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
-
+    void resetUndoneData(ReadOnlyTaskManager newData);
+    
     void setTaskManagerUndoneList(ObservableList<Task> list);
 
     void setTaskManagerDoneList(ObservableList<Task> list);

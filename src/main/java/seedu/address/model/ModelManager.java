@@ -65,8 +65,16 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDoneTasks = new FilteredList<>(taskManager.getDoneTasks());
         
     }
-
+    
+    @Override
     public void resetData(ReadOnlyTaskManager newData) {
+        taskManager.resetDoneData(newData);
+        taskManager.resetUndoneData(newData);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void resetUndoneData(ReadOnlyTaskManager newData) {
         taskManager.resetUndoneData(newData);
         indicateTaskManagerChanged();
     }

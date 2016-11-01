@@ -95,7 +95,6 @@ public class StoreCommand extends Command {
         ReadOnlyTaskManager readOnlyTaskManagerWithNewData = readTaskManager.get();
         EventsCenter.getInstance().post(new ChangeStorageFilePathEvent(storageFilePath));
         model.resetData(readOnlyTaskManagerWithNewData);
-        model.resetDoneData(readOnlyTaskManagerWithNewData);
     }
 
 }
