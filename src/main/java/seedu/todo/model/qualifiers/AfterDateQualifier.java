@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 
 /**
@@ -14,9 +15,11 @@ import seedu.todo.model.task.ReadOnlyTask;
  */
 public class AfterDateQualifier implements Qualifier{
     private LocalDateTime datetime;
-
-    public AfterDateQualifier(LocalDateTime datetime) {
+    private SearchCompletedOption option;
+    
+    public AfterDateQualifier(LocalDateTime datetime, SearchCompletedOption option) {
         this.datetime = datetime;
+        this.option = option;
     }
 
     @Override
@@ -40,8 +43,15 @@ public class AfterDateQualifier implements Qualifier{
             byAfter = onDateTime.isAfter(datetime);
         }
         
-        return onAfter || byAfter; //true if either the starting date or ending is after
-            
+        boolean taskIsAfter = onAfter || byAfter; //true if either the starting date or ending is after
+        
+        if (option == SearchCompletedOption.ALL) {
+            return taskIsAfter;
+        } else if (option == SearchCompletedOption.DONE) {
+            return taskIsAfter && task.getCompletion().isCompleted();
+        } else {
+            return taskIsAfter && !task.getCompletion().isCompleted();
+        }
     }
 
     @Override
