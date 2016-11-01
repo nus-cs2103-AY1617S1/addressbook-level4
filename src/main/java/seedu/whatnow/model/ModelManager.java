@@ -367,9 +367,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (freeTimes.get(startDate) == null) {
             FreePeriod newFreePeriod = new FreePeriod();
             newFreePeriod.block(startTime, DEFAULT_END_TIME);
-            System.out.println(startTime);
-            System.out.println(DEFAULT_END_TIME);
-            System.out.println(newFreePeriod.toString());
             freeTimes.put(startDate, newFreePeriod);
         } else {
             freeTimes.get(startDate).block(startTime, DEFAULT_END_TIME);
@@ -377,8 +374,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (freeTimes.get(endDate) == null) {
             FreePeriod newFreePeriod = new FreePeriod();
             newFreePeriod.block(DEFAULT_START_TIME, endTime);
-            System.out.println(endTime);
-            System.out.println(DEFAULT_START_TIME);
             System.out.println(newFreePeriod.toString());
             freeTimes.put(endDate, newFreePeriod);
         } else {
