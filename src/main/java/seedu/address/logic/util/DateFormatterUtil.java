@@ -9,7 +9,6 @@ import java.util.Date;
  * Formats TaskDate 
  */
 public class DateFormatterUtil {
-    public DateFormatterUtil(){}
     
     public static Date getEndOfDay(Date dateToFormat) {
         LocalDate date = dateToFormat.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -20,10 +19,6 @@ public class DateFormatterUtil {
     public static Date getStartOfDay(Date dateToFormat) {
         LocalDate date = dateToFormat.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
-    
-    public static Date localDateToDate(LocalDate toConvert) {
-        return Date.from(toConvert.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     public static LocalDate dateToLocalDate(Date toConvert) {
