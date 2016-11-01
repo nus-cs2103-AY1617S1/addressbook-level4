@@ -53,10 +53,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	/**
 	 * Copy constructor.
-	 * @throws IllegalValueException 
 	 */
-	public Task(ReadOnlyTask source) throws IllegalValueException {
-		this(new TaskDetails(source.getTaskDetails().taskDetails), new StartTime(source.getStartTime().toString()), new EndTime(source.getEndTime().toString()), new Priority(source.getPriority().priorityLevel), new String(source.getRecurringFrequency()));
+	public Task(ReadOnlyTask source) {
+		this(source.getTaskDetails(), source.getStartTime(), source.getEndTime(), source.getPriority(), source.getRecurringFrequency());
 		if(source.isComplete()){
 			this.markAsComplete();
 		}
@@ -279,7 +278,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             && this.getStartTime().equals(task.getStartTime())
             && this.getEndTime().equals(task.getEndTime())
             && this.getPriority().equals(task.getPriority())
-                )
+            && this.recurringFrequency.equals(task.getRecurringFrequency())    )
             return true;
         else return false;
     }

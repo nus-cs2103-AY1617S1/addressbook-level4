@@ -44,7 +44,7 @@ public class UpdateCommandTest extends TaskListGuiTest {
         //updating end time for a task
         commandBox.runCommand("update 5 by 1pm");
         TypicalTestTasks.task5.getEndTime().updateTime("1pm");
-        assertResultMessage(String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, currentList[4].getTaskDetails()));
+        assertResultMessage(String.format(UpdateCommand.MESSAGE_NOT_CHRONO_TASK, currentList[4].getTaskDetails()));
         
         //updating a floating task to a task with date and time
         commandBox.runCommand("update 3 at 5pm");

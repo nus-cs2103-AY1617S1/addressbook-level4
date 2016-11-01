@@ -145,12 +145,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        try {
-            return getPersonCardHandle(new Task(getListView().getItems().get(index)));
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return getPersonCardHandle(new Task(getListView().getItems().get(index)));
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyTask person) {
