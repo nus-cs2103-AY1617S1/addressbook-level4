@@ -104,13 +104,17 @@ public class RecurringTaskManagerTest {
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-12"));
         assertThat("Recurring tasks should be corrected", 
                 helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))));
+        
+        tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
+        recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-11-12"));
+        assertThat("Recurring tasks should be corrected",
+                helper.getLastAppendedOccurrence(tryCorrect), is(not(helper.getLastAppendedOccurrence(expectedTask))))
+        ;
+        
         tryCorrect = helper.buildRecurringTask(RecurringType.MONTHLY);
         recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-10-09"));
         assertEquals("Recurring tasks should be corrected",
-                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
-        recurringManager.correctAddingOverdueTasks(tryCorrect, helper.getLocalDateByString("2016-11-12"));
-        assertEquals("Recurring tasks should be corrected",
-                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));    
+                helper.getLastAppendedOccurrence(tryCorrect), helper.getLastAppendedOccurrence(expectedTask));      
     }        
 
     @Test
