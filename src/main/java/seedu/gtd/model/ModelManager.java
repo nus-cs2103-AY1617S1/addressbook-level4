@@ -74,6 +74,15 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
+    
+    @Override
+    public synchronized void doneTask(int targetIndex, Task task) throws TaskNotFoundException {
+    	System.out.println("in model manager");
+        addressBook.doneTask(targetIndex, task);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -85,6 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0146130W
     @Override
     public synchronized void editTask(int targetIndex, Task task) throws TaskNotFoundException {
+    	System.out.println("editing task..");
         addressBook.editTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -100,7 +110,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    	updateFilteredListToShowAll(new PredicateExpression(new RemoveDoneQualifier()));
+    	System.out.println("show all");
+    }
+    
+    private void updateFilteredListToShowAll(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredListToShowRemoved() {
+    	updateFilteredListToShowRemoved(new PredicateExpression(new DoneQualifier()));
+    	System.out.println("show done list");
+    }
+    
+    private void updateFilteredListToShowRemoved(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
@@ -250,6 +275,29 @@ public class ModelManager extends ComponentManager implements Model {
             .findAny()
             .isPresent();
         	return eachWordMatch && nameMatch;
+        }
+    }
+    
+    // to check and return a list of tasks that are already done
+    private class DoneQualifier implements Qualifier {
+
+        DoneQualifier() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return task.getisDone(); 	
+        }
+    }
+    
+    // default display tasks that are not yet done
+    private class RemoveDoneQualifier implements Qualifier {
+
+        RemoveDoneQualifier() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	System.out.println(task.getName());
+        	return !task.getisDone(); 	
         }
     }
 }

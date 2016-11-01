@@ -15,14 +15,27 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private DueDate dueDate;
+    private DueDate startDate;
+    private DueDate endDate;
     private Address address;
     private Priority priority;
+    private boolean isDone;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
+    public Task(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags, boolean isDone) {
+        assert !CollectionUtil.isAnyNull(name, dueDate, address, priority, tags);
+        this.name = name;
+        this.dueDate = dueDate;
+        this.address = address;
+        this.priority = priority;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isDone = isDone;
+    }
+    
     public Task(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, dueDate, address, priority, tags);
         this.name = name;
@@ -30,6 +43,7 @@ public class Task implements ReadOnlyTask {
         this.address = address;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isDone = false;
     }
 
     /**
@@ -58,6 +72,11 @@ public class Task implements ReadOnlyTask {
     public Priority getPriority() {
         return priority;
     }
+    
+    @Override
+    public boolean getisDone() {
+        return isDone;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -80,12 +99,17 @@ public class Task implements ReadOnlyTask {
         this.priority = priority;
     }
     
+    public void setisDone(boolean isdone) {
+        this.isDone = isdone;
+    }
+    
     public void edit(String detailType, String newDetail) throws IllegalValueException {
     	
     	switch(detailType) {
     	case "dueDate": setDueDate(new DueDate(newDetail)); break;
     	case "address": setAddress(new Address(newDetail)); break;
     	case "priority": setPriority(new Priority(newDetail)); break;
+    	case "done": setisDone(true); break;
     	default: setName(new Name(newDetail));
     	}
     }

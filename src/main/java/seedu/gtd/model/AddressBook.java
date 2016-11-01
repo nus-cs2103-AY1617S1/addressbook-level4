@@ -6,6 +6,7 @@ import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.Task;
 import seedu.gtd.model.task.UniqueTaskList;
+import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        System.out.println("start with first method");
     }
 
     /**
@@ -39,6 +41,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
+        System.out.println("start with second method");
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -126,6 +129,11 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public void doneTask(int index, Task target) throws TaskNotFoundException {
+		System.out.println("in addressbook");
+		tasks.done(index, target);
+	}
 
 //// tag-level operations
 
@@ -145,7 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
-
+ 
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());

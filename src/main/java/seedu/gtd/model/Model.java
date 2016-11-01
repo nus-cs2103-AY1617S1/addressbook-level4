@@ -19,6 +19,9 @@ public interface Model {
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks the given task as done. */
+    void doneTask(int targetIndex, Task target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -31,6 +34,9 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredListToShowRemoved();
 
     /** Updates the filter of the filtered task list to filter by the given exact phrase
      * @param keywordSet */

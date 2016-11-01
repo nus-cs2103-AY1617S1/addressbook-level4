@@ -35,19 +35,19 @@ public class Parser {
 //                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern NAME_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[^/]+) (t|p|a|d|e)/.*");
+            Pattern.compile("(?<name>[^/]+) (t|p|a|d|z)/.*");
     
     private static final Pattern PRIORITY_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|e)/.*");
+            Pattern.compile(".* p/(?<priority>[^/]+) (t|a|d|z)/.*");
     
     private static final Pattern ADDRESS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|e)/.*");
+            Pattern.compile(".* a/(?<address>[^/]+) (t|p|d|z)/.*");
     
     private static final Pattern DUEDATE_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|e)/.*");
+            Pattern.compile(".* d/(?<dueDate>[^/]+) (t|a|p|z)/.*");
     
     private static final Pattern TAGS_TASK_DATA_ARGS_FORMAT =
-            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|e)/.*");
+            Pattern.compile(".* t/(?<tagArguments>[^/]+) (d|a|p|z)/.*");
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
@@ -82,6 +82,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+            return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -90,7 +93,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -154,7 +157,7 @@ public class Parser {
     }
     
     private String appendEnd(String args) {
-    	return args + " e/";
+    	return args + " z/";
     }
     
     private String checkEmptyAndAddDefault(Matcher matcher, String groupName, String defaultValue) {
@@ -260,6 +263,18 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
+    
+    private Command prepareDone(String args) {
+
+        Optional<Integer> index = parseIndex(args);
+        System.out.println("index at preparedone:" + index.get());
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(index.get());
+    }
 
     /**
      * Parses arguments in the context of the select task command.
@@ -346,6 +361,14 @@ public class Parser {
         final String keywords = matcher.group("keywords");
         return new FindCommand(keywords, keywordSet, "nil");
     }
+    
+private Command prepareList(String args) {
+    	
+    	// check if parameters are specified and pass specified field to FindCommand
+    	
+    	//String preprocessedArgs = " " + appendEnd(args.trim());
+    	return new ListCommand(args);
+}
 
     /**
      * Parses arguments in the context of the help command.
