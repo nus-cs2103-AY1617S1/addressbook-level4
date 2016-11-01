@@ -14,6 +14,7 @@ import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
+import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.UserPrefs;
@@ -95,11 +96,21 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
         mainWindow.pushToActionHistory(event.title, event.description);
     }
+    //@@author
     
+    // @@author A0138862W
     @Subscribe
     private void handleHighlightLastActionedRowRequestEvent(HighlightLastActionedRowRequestEvent event){
         mainWindow.highlightLastActionedRow(event.task);
     }
+    //@@author
+    
+    // @@author A0138862W
+    @Subscribe
+    private void handleToggleActionHistoryRequest(ToggleActionHistoryEvent event){
+        mainWindow.toggleActionHistory();
+    }
+    // @@author
 
     // @@author A0124797R
     @Subscribe

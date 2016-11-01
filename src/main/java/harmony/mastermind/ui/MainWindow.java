@@ -50,6 +50,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -58,6 +60,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -210,6 +213,9 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsArchive;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurArchive;
+    
+    @FXML
+    private TitledPane actionHistoryMini;
 
     @FXML
     private ListView<ActionHistory> actionHistory;
@@ -266,6 +272,13 @@ public class MainWindow extends UiPart {
         Comparator<ReadOnlyTask> comparator = new TaskListComparator();
         sortedTasks.setComparator(comparator);
         sortedTasks.comparatorProperty().bind(taskTableHome.comparatorProperty());
+        
+        Label placeholder = new Label("What's on your mind?\nTry adding a new task by executing \"add\" command!");
+        placeholder.setAlignment(Pos.CENTER);
+        placeholder.setTextAlignment(TextAlignment.CENTER);
+        
+        taskTableHome.setPlaceholder(placeholder);
+        
         taskTableHome.setItems(sortedTasks);
         
         taskTableTask.setItems(logic.getFilteredFloatingTaskList());
@@ -427,7 +440,6 @@ public class MainWindow extends UiPart {
                         ActionHistoryEntry actionHistoryEntry = UiPartLoader.loadUiPart(new ActionHistoryEntry());
 
                         actionHistoryEntry.setTitle(item.getTitle().toUpperCase());
-                        actionHistoryEntry.setDescription(item.getDescription());
                         actionHistoryEntry.setDate(item.getDateActioned().toString().toUpperCase());
 
                         if (item.getTitle().toUpperCase().equals("INVALID COMMAND")) {
@@ -716,6 +728,11 @@ public class MainWindow extends UiPart {
         taskTableHome.getSelectionModel().select(task);
         taskTableHome.scrollTo(task);
     }
+    
+    //@@author A0138862W
+    public void toggleActionHistory(){
+        actionHistoryMini.setExpanded(!actionHistoryMini.isExpanded());
+    }
 
     // @@author A0124797R
     /**
@@ -736,6 +753,7 @@ public class MainWindow extends UiPart {
          */
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
+        actionHistoryMini.setText(mostRecentResult.feedbackToUser);
 
         this.pushToActionHistory(mostRecentResult.title, mostRecentResult.feedbackToUser);
 
