@@ -100,9 +100,7 @@ public class TaskListPanel extends UiPart {
     }
     
     public void deselectAll() {
-        Platform.runLater(() -> {
-            taskListView.getSelectionModel().clearSelection();
-        });
+       taskListView.getSelectionModel().clearSelection();
     }
     //@@author
 

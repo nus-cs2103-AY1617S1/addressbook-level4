@@ -39,7 +39,6 @@ public class RedoCommand extends Command {
         	assert lastCommand instanceof Undoable;
         	undoRedoManager.transferToUndo(lastCommand);
             lastUndoMessage = lastCommand.execute().feedbackToUser;
-            EventsCenter.getInstance().post(new MinimizeRequestEvent());
             return new CommandResult(MESSAGE_SUCCESS + System.lineSeparator() + lastUndoMessage);
         }catch (EmptyStackException ese) {
             return new CommandResult(MESSAGE_NO_UNDO_COMMAND + System.lineSeparator() + MESSAGE_USAGE);

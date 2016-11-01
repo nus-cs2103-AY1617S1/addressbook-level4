@@ -14,6 +14,7 @@ import seedu.address.storage.Storage;
 import seedu.address.commons.events.model.TaskAddedEvent;
 import seedu.address.commons.events.model.TaskEditedEvent;
 import seedu.address.commons.events.model.ToDoChangedEvent;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
@@ -83,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        indicatedTaskToBeDeleted();
         toDo.removeTask(target);
         indicateAddressBookChanged();
     }
@@ -91,25 +93,32 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDo.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
         int index = filteredTasks.indexOf(task);
         indicateTaskAdded(index, filteredTasks.get(index));
+        indicateAddressBookChanged();
     }
     
     //@@author A0135812L
     @Override
     public synchronized ReadOnlyTask editTask(ReadOnlyTask task, HashMap<Field, Object> changes) throws TaskNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException{
         ReadOnlyTask editedTask = toDo.editTask(task, changes);
+        int index = filteredTasks.indexOf(editedTask);
+        indicateTaskEdited(index, filteredTasks.get(index));
         indicateAddressBookChanged();
         return editedTask;
     }
     
     private void indicateTaskAdded(int i, ReadOnlyTask taskAdded) {
-        raise(new AddTaskEvent(i, taskAdded));
+        raise(new TaskAddedEvent(i, taskAdded));
     }
     
     private void indicateTaskEdited(int i, ReadOnlyTask taskEdited) {
         raise(new TaskEditedEvent(i, taskEdited));
+    }
+    
+
+    private void indicatedTaskToBeDeleted() {
+        raise(new MinimizeRequestEvent());        
     }
     //@@author
 

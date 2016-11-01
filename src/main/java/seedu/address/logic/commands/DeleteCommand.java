@@ -64,7 +64,6 @@ public class DeleteCommand extends Command implements Undoable{
             assert false : "The target task cannot be missing";
         }
 
-        EventsCenter.getInstance().post(new MinimizeRequestEvent());
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
