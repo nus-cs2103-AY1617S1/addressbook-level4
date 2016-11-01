@@ -55,6 +55,17 @@ public class CommandUtil {
         return instance;
     }
     
+    /** Returns a list of command words that nearly matches {@code target} */
+    public List<String> getCommandWordMatches(String target) {
+        return cmdStubList.stream()
+                .filter(c -> 
+                    c.isValidCommandWord(target) 
+                    || c.getCommandWord().contains(target) 
+                    || target.contains(c.getCommandWord()))
+                .map(c -> c.getCommandWord())
+                .collect(Collectors.toList());
+    }
+    
     /*
      * ==========================================================
      *                  Initialization Methods
@@ -87,4 +98,5 @@ public class CommandUtil {
                 .filter(s -> s != null && !s.isEmpty())
                 .collect(Collectors.toList());
     }
+
 }

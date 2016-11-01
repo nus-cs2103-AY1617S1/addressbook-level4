@@ -19,4 +19,12 @@ public class Messages {
             + "> Tip: try avoiding keywords like `on`, `to` and `due` in your dates and times.\n" 
             + "> You might confuse Jimi!";
     public static final String MESSAGE_START_END_CONSTRAINT = "Start date/time needs to be prior to end date/time!";
+    public static final String MESSAGE_WELCOME_JIMI = 
+            "Welcome to Jimi, the task manager for people like Jim. \n"
+            + "\n"
+            + "Let's get started! Try these commands out: \n"
+            + MESSAGE_ALL_AVAIL_CMD + "\n"
+            + "\n"
+            + "To get help for a specific command, type 'help COMMAND_WORD' e.g. 'help add' \n"
+            + "To get detailed help for all commands, type 'help' to visit our user guide.";
 }
