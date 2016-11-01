@@ -107,6 +107,11 @@ The _Sequence Diagram_ below show how recurring tasks have dates appended to the
 <img src="images/SD_update_recurring_tasks.png" width="800"><br>
 
 > Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
+
+The _Activity Diagram_ below shows the flow when a Task is being added in TaskMaster.
+
+<img src="images/AD_add_task.png" width="800">
+
 <!--@@author-->
 <!--@@author A0147967J-->
 The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
