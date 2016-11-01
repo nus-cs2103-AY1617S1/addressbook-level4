@@ -34,6 +34,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -740,6 +741,42 @@ public class LogicManagerTest {
     }
     //@@author
 
+    //@@author A0139528W
+    @Test
+    public void execute_save_successful() throws Exception {
+        assertCommandBehavior(
+                "save now\\here", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save where/", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save there/", SaveCommand.MESSAGE_SUCCESS);
+    }
+    //@@author
+    
+    //@@author A0139528W
+    @Test
+    public void execute_save_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "save", expectedMessage);
+        assertCommandBehavior(
+                "save    ", expectedMessage);
+        assertCommandBehavior(
+                "save \t  \n   ", expectedMessage);
+    }
+    //@@author
+
+    //@@author A0139528W 
+    @Test
+    public void execute_save_invalidFilePath() throws Exception {
+        assertCommandBehavior(
+                "save /here\\there", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+        assertCommandBehavior(
+                "save //here", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+    }
+    //@@author
+    
+    
     /**
      * A utility class to generate test data.
      */
