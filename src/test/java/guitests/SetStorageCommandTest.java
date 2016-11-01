@@ -12,7 +12,13 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     @Test
     public void setStorage() {
     	
-    	//Valid folder file path and valid file name
+    	//Valid folder file path: Canonical file path, valid file name
+    	
+    	//Valid folder file path: Absolute file path
+    	
+    	//
+    	
+    	//and valid file name
     	
     	assertSetStorageCommandSuccess();
     	
@@ -24,7 +30,7 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     	//Invalid folder file path: Invalid file path
     	
     	
-    	assertResultMessage(SetStorageCommand.)
+    	assertResultMessage(SetStorageCommand.MESSAGE)
     	
     	//Invalid folder file path: Folder does not exist
     	
