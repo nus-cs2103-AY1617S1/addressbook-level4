@@ -5,8 +5,6 @@
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
-
-
 ## Introduction
 This application is a task manager created to solve Jim's problems. Jim prefers typing over clicking, so you will primarily use Command Line Interface (CLI) for input. A Graphical User Interface (GUI) is present for your visual feedback.
 
