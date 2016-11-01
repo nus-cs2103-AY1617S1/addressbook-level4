@@ -31,7 +31,7 @@ public class XmlTaskManagerStorageTest {
 
     @Test
     public void readTaskManager_nullFilePath_assertionFailure() throws Exception {
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         readTaskManager(null);
     }
 
