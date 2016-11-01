@@ -55,8 +55,11 @@ public class ImportCommand extends Command {
                                                             + "like Subject, Start Date, Start Time, End Date, End Time";
     public static final String MESSAGE_IMPORT_TXT_SUCCESS = "Import success: %1$s tasks added";
     public static final String MESSAGE_IMPORT_TXT_FAILURE = "Import failure: %1$s tasks added \nInvalid lines: %2$s";
-    public static final String MESSAGE_IMPORT_ICS_SUCCESS = "Import ics success";
-    public static final String MESSAGE_IMPORT_ICS_FAILURE = "Failed to import ics file";
+    public static final String MESSAGE_IMPORT_ICS_SUCCESS = "Import ics success.";
+    public static final String MESSAGE_IMPORT_ICS_FAILURE = "Failed to import ics.";
+    
+    public static final String MESSAGE_FAILURE_DUPLICATE_TASK = "Failed to import ics. Duplicate task detected when importing.";
+
     
     public static final String EXT_CSV = "csv";
     public static final String EXT_ICS = "ics";
@@ -69,10 +72,12 @@ public class ImportCommand extends Command {
     public static final MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
     
     private String fileToImport;
+    private String extension;
     private ArrayList<String> lstOfCmd;
     
-    public ImportCommand(String filePath) {
+    public ImportCommand(String filePath, String extension) {
         this.fileToImport = filePath.trim();
+        this.extension = extension;
         lstOfCmd = new ArrayList<String>();
     }
     
@@ -82,10 +87,9 @@ public class ImportCommand extends Command {
         assert fileToImport != null;
         assert lstOfCmd != null;
         
-        String ext = getFileExt(fileToImport);
         CommandResult result = null;
         
-        switch (ext) {
+        switch (extension) {
             case EXT_ICS:
                 result = importIcsFile();
                 break;
@@ -226,16 +230,7 @@ public class ImportCommand extends Command {
         
         return new CommandResult(COMMAND_WORD, MESSAGE_READ_SUCCESS);
     }
-    
-    private String getFileExt(String file) {
-        String extension = "";
-        int i = file.lastIndexOf('.');
-        if (i >= 0) {
-            extension = file.substring(i+1);
-        }
-        
-        return extension;
-    }
+
 
     //@@author A0138862W
     private CommandResult importIcsFile() {
@@ -249,6 +244,8 @@ public class ImportCommand extends Command {
             }
 
             return new CommandResult(COMMAND_WORD, MESSAGE_IMPORT_ICS_SUCCESS);
+        } catch (DuplicateTaskException e){
+            return new CommandResult(COMMAND_WORD, MESSAGE_FAILURE_DUPLICATE_TASK);
         } catch (InvalidEventDateException | IOException | IllegalValueException e) {
             return new CommandResult(COMMAND_WORD, MESSAGE_IMPORT_ICS_FAILURE);
         }
