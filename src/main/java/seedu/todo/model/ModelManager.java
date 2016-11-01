@@ -51,6 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
         todayTasks = new FilteredList<>(dodobird.getTasks());
         weekTasks = new FilteredList<>(dodobird.getTasks());
         tagList = new FilteredList<>(dodobird.getTags());
+        
+        updateFilteredListToShowAllNotCompleted();
         updateTodayListToShowAll();
         updateWeekListToShowAll();
     }

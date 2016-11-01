@@ -19,13 +19,9 @@ public class TagQualifier implements Qualifier{
 
     @Override
     public boolean run(ReadOnlyTask task) {
-<<<<<<< Updated upstream
-        return task.getTags().getInternalList().stream()
-                .filter(tag -> tag.getName().equals(tagName))
-=======
+
         boolean taskHasTags = task.getTags().getInternalList().stream()
-                .filter(tag -> tag.tagName.equals(tagName))
->>>>>>> Stashed changes
+                .filter(tag -> tag.getName().equals(tagName))
                 .findAny()
                 .isPresent();
         

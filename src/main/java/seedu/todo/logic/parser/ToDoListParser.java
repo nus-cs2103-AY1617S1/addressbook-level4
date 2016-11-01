@@ -384,7 +384,7 @@ public class ToDoListParser {
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.KEYWORDS_ARGS_FORMAT,
+                ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT,
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
                 ParserFormats.SEARCH_PRIORITY };
         
@@ -395,12 +395,11 @@ public class ToDoListParser {
             matcher = p.matcher(tempArgs);
             
             if (matcher.matches()) {
-                SearchCompletedOption option = SearchCompletedOption.DONE;
-                System.out.println(matcher.groupCount());
-                if (matcher.groupCount() >= 2) {
-                    System.out.println(matcher.group(1).trim().toUpperCase());
-                    option = SearchCompletedOption.valueOf(matcher.group(1).trim().toUpperCase());
+                SearchCompletedOption option = SearchCompletedOption.UNDONE;
+                if (matcher.group("comOpt") != null) {
+                    option = SearchCompletedOption.valueOf(matcher.group(2).trim().toUpperCase());
                 }                
+                
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
                     return new SearchCommand(matchOnDateTimeResult(matcher),
                                              option,
@@ -423,18 +422,19 @@ public class ToDoListParser {
                                              SearchCommand.SearchIndex.FT);
                     
                 } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
-                        && tempArgs.indexOf("priority") != 0) {
+                            && tempArgs.indexOf("priority") != 0 && tempArgs.indexOf("undone") != 0 
+                            && tempArgs.indexOf("done") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 
                                              option,
                                              SearchCommand.SearchIndex.KEYWORD);
                 } else if (p.equals(ParserFormats.SEARCH_PRIORITY)) {
+                    return new SearchCommand(matchPriorityResult(matcher), 
+                                             option,
+                                             SearchCommand.SearchIndex.PRIORITY);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG)) {
                     return new SearchCommand(matchTagsResult(matcher), 
                                              option,
                                              SearchCommand.SearchIndex.TAG);
-                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG)) {
-                    return new SearchCommand(matchPriorityResult(matcher), 
-                            option,
-                            SearchCommand.SearchIndex.PRIORITY);
                 }
             }
         }

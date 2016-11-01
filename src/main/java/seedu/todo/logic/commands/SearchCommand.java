@@ -183,8 +183,7 @@ public class SearchCommand extends Command {
      * Search tasks that have a certain tag
      */
     private CommandResult searchTag() {
-        String tag = data.split("tag")[1].trim();
-        model.updateFilteredTaskListByTag(tag, this.option);
+        model.updateFilteredTaskListByTag(data.trim(), this.option);
         
         int size = model.getFilteredTaskList().size();
         return new CommandResult(getMessageForTaskListShownSummary(size));

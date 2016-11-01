@@ -48,7 +48,7 @@ public class AfterDateQualifier implements Qualifier{
         if (option == SearchCompletedOption.ALL) {
             return taskIsAfter;
         } else if (option == SearchCompletedOption.DONE) {
-            return taskIsAfter && !task.getCompletion().isCompleted();
+            return taskIsAfter && task.getCompletion().isCompleted();
         } else {
             return taskIsAfter && !task.getCompletion().isCompleted();
         }

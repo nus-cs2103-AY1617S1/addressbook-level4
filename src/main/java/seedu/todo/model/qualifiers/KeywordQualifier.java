@@ -31,7 +31,7 @@ public class KeywordQualifier implements Qualifier{
         if (option == SearchCompletedOption.ALL) {
             return taskHasKeywords;
         } else if (option == SearchCompletedOption.DONE) {
-            return taskHasKeywords && !task.getCompletion().isCompleted();
+            return taskHasKeywords && task.getCompletion().isCompleted();
         } else {
             return taskHasKeywords && !task.getCompletion().isCompleted();
         }

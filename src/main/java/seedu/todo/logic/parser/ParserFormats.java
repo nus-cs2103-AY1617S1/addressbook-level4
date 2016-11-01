@@ -73,25 +73,25 @@ public class ParserFormats {
     
     //@@author A0093896H 
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
-            .compile("on (?<onDateTime>.+?)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("on (?<onDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_BEFORE = Pattern
-            .compile("before (?<beforeDateTime>.+?)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("before (?<beforeDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_AFTER = Pattern
-            .compile("after (?<afterDateTime>.+?)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("after (?<afterDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
-            .compile("from (?<fromDateTime>.+?) to (?<tillDateTime>.+?)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("from (?<fromDateTime>.+?) to (?<tillDateTime>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_TAG = Pattern
-            .compile("tag (?<tags>.+?)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("tag (?<tags>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
-    public static final Pattern SEARCH_KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)( all| undone)?"); 
+    public static final Pattern SEARCH_KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>.+?)(?<comOpt> done|all|undone)?"); 
     
     //@@author A0121643R   
     public static final Pattern SEARCH_PRIORITY = Pattern
-            .compile("priority (?<priority>.+)( all| undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? "
