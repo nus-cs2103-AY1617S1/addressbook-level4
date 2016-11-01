@@ -12,35 +12,33 @@ public class SetStorageCommandTest extends TaskManagerGuiTest {
     @Test
     public void setStorage() {
     	
-    	//Valid folder file path: Canonical file path, valid file name
-    	
-    	//Valid folder file path: Absolute file path
-    	
-    	//
-    	
-    	//and valid file name
-    	
+    	//Valid folder file path and valid file name
+    
     	assertSetStorageCommandSuccess();
-    	
     	
     	//Storage location has previously been set
     	
     	assertResultMessage(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET);
     	
-    	//Invalid folder file path: Invalid file path
+    	//Invalid folder file path
     	
+    	assertResultMessage(SetStorageCommand.MESSAGE_INVALID_PATH_EXCEPTION);
     	
-    	assertResultMessage(SetStorageCommand.MESSAGE)
+    	//Folder specified by user does not exist
     	
-    	//Invalid folder file path: Folder does not exist
+    	assertResultMessage(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST);
     	
-    	//Invalid folder file path: File path does not navigate to a folder/ directory
+    	//Folder file path given does not navigate to a folder/ directory
     	
-    	//Invalid file name: 
+    	assertResultMessage(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY);
     	
-    	//Invalid file name: File with identical name exists in user-specified folder
+    	//Invalid file name
+    	
+    	assertResultMessage(SetStorageCommand.)
+    	
+    	//File with identical name exists in folder
     
-    	
+ 
     	
     	
     	
