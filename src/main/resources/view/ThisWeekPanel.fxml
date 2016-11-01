@@ -10,27 +10,27 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.ThisWeekPanel">
+<VBox prefHeight="256.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.ThisWeekPanel">
    <children>
       <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
             <AnchorPane HBox.hgrow="ALWAYS">
                <children>
-                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="65.0" vgrow="ALWAYS" />
-                        <RowConstraints maxHeight="1.7976931348623157E308" percentHeight="35.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="25.0" vgrow="ALWAYS" />
+                        <RowConstraints percentHeight="75.0" vgrow="ALWAYS" />
                         <RowConstraints vgrow="NEVER" />
                         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
                         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
                      </rowConstraints>
                      <children>
-                        <AnchorPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <AnchorPane GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                            <children>
-                              <VBox prefWidth="462.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane>
                                        <children>
@@ -60,17 +60,25 @@
                                     </AnchorPane>
                                     <Label fx:id="overduedTasksList" text="\$overduedTasks">
                                        <padding>
-                                          <Insets left="15.0" />
+                                          <Insets bottom="15.0" left="15.0" />
                                        </padding>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
                                     </Label>
                                  </children>
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" styleClass="date-label" text="\$date" textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                           <padding>
-                              <Insets right="15.0" top="10.0" />
-                           </padding></Label>
+                        <AnchorPane GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="date" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="date-label" text="\$date" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets left="15.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </GridPane>
                </children>
