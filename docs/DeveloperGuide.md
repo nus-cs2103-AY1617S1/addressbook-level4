@@ -671,10 +671,49 @@ Use case ends
 > * Program returns error message, saying that command was invalid<br>
   Use case resumes at step 1.
 
+* Command does not end with .xml.
+
+> * Program returns error message, saying that command needs to end with .xml<br>
+  Use case resumes at step 1.
+
 * Specified folder has not been created.
 
 > * Program automatically creates the folder<br>
   Use case ends.
+
+* Specified folder has existing data.
+
+> * User will be asked if user wants to overwrite the existing data.<br>
+  * If yes, use case resumes at step 2.
+  * If no, use case resumes at step 1.
+
+<br></br> 
+### Use case: Load data from a specified file
+
+**MSS**
+
+1. User requests to load data from a file
+2. Program loads data from the specified file
+3. Program restarts itself to reflect loaded data<br>
+Use case ends
+
+**Extension**
+
+* There is no file specified by user.
+
+> * Program returns error message, saying that command was invalid<br>
+  Use case resumes at step 1.
+
+* Command does not end with .xml.
+
+> * Program returns error message, saying that command needs to end with .xml<br>
+  Use case resumes at step 1.
+
+* Specified file has not been created.
+
+> * Program automatically creates the file<br>
+  Use case ends.
+
 <!-- @@author A0139930B -->
 
 ## Appendix C : Non Functional Requirements

@@ -15,6 +15,16 @@ public interface TaskManagerStorage {
      * Returns the file path of the data file.
      */
     String getTaskManagerFilePath();
+    
+    //@@author A0135793W
+    /**
+     * Set file path of the data file.
+     * @param filePath
+     * @throws IOException 
+     * @throws DataConversionException 
+     */
+    void setFilePath(String filePath) throws DataConversionException, IOException;
+    //@@author
 
     /**
      * Returns TaskManager data as a {@link ReadOnlyTaskManager}.

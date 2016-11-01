@@ -21,11 +21,9 @@ public class AppUtil {
         assert categoryIndex == 0 || categoryIndex == 1 || categoryIndex == 2;
         if (categoryIndex == 0) {
             return model.getFilteredTodoList();
-        }
-        else if (categoryIndex == 1) {
+        } else if (categoryIndex == 1) {
             return model.getFilteredDeadlineList();
-        }
-        else {
+        } else {
             return model.getFilteredEventList();
         }
     }

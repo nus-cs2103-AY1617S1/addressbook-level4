@@ -37,7 +37,7 @@ public class UiManager extends ComponentManager implements Ui {
         this.config = config;
         this.prefs = prefs;
     }
-
+    
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
