@@ -458,7 +458,6 @@ public class LogicManagerTest {
     //@@author
 
     //@@author A0139145E
-    @Test
     public void execute_list_od_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
