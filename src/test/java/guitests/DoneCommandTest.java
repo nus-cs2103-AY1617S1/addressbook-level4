@@ -50,11 +50,11 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("done " + targetIndexOneIndexed);
         
         //confirm the list now contains one lesser task
-        assertEquals(taskListPanel.getNumberOfTasks(), number - 1);
+        assertListSize(number - 1);
         //confirms the task mark done is no longer on the listing view
         assertEquals(taskListPanel.getTaskIndex(taskToDone), -1);
         //confirm the task is marked done
-        assertFalse(taskToDone.isDone());
+        assertTrue(taskToDone.isDone());
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
