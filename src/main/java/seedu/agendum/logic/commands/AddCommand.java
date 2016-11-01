@@ -16,8 +16,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_FORMAT = "add <name>\n"
                                               + "add <name> by <deadline> \n"
-                                              + "add <name> from <start-time>\n"
-                                              + "to <end-time>";
+                                              + "add <name> from <start-time> to <end-time>";
     public static final String COMMAND_DESCRIPTION = "adds a task to Agendum";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "

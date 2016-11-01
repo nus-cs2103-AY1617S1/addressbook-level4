@@ -3,21 +3,15 @@ package seedu.agendum.ui;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import org.reflections.Reflections;
 import seedu.agendum.logic.commands.Command;
@@ -27,30 +21,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.sun.javafx.stage.StageHelper;
-
 //@@author A0148031R
 /**
- * Controller for a help page
+ * Controller for help anchorpane
  */
 public class HelpWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
-    private static final String TITLE = "Help";
-    private static final int HEIGHT = 600;
-    private double xOffset = 0;
-    private double yOffset = 0;
+    private static final int PADDING = 11;
+    private static final double COMMAND_COLUMN_WIDTH = 0.2;
+    private static final double DESCRIPTION_COLUMN_WIDTH = 0.4;
+    private static final double FORMAT_COLUMN_WIDTH = 0.4;
     private ObservableList<Map<CommandColumns, String>> commandList = FXCollections.observableArrayList();
-
-    private AnchorPane mainPane;
-
-    private static Stage dialogStage;
 
     private enum CommandColumns {
         COMMAND, DESCRIPTION, FORMAT
     }
+    
+    @FXML
+    private AnchorPane helpWindowRoot;
     
     @FXML
     private TableView<Map<CommandColumns, String>> commandTable;
@@ -64,8 +54,8 @@ public class HelpWindow extends UiPart {
     @FXML
     private TableColumn<Map<CommandColumns, String>, String> formatColumn;
     
-    @FXML
-    private Button backButton;
+    private StackPane messagePlaceHolder;
+    private AnchorPane mainPane;
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -74,98 +64,52 @@ public class HelpWindow extends UiPart {
     @FXML
     private void initialize() {
         
-        backButton.setOnAction((event) -> dialogStage.close());
-        
         commandColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().get(CommandColumns.COMMAND)));
         descriptionColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().get(CommandColumns.DESCRIPTION)));
         formatColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(cellData.getValue().get(CommandColumns.FORMAT)));
-        
         commandTable.setItems(commandList);
+        commandTable.setEditable(false);
     }
     
-    public static HelpWindow load(Stage primaryStage) {
+    public static HelpWindow load(Stage primaryStage, StackPane messagePlaceHolder) {
         logger.fine("Showing help page about the application.");
-        if (!StageHelper.getStages().contains(dialogStage)) {
-            HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
-            helpWindow.configure();
-            return helpWindow;
-        } else {
-            dialogStage.requestFocus();
-            return null;
-        }
+        HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
+        helpWindow.configure(messagePlaceHolder);
+        return helpWindow;
     }
     
-
     @Override
     public void setNode(Node node) {
-        mainPane = (AnchorPane) node;
+        this.mainPane = (AnchorPane)node;
     }
-
+    
     @Override
     public String getFxmlPath() {
         return FXML;
     }
+    
+    public AnchorPane getMainPane() {
+        return this.mainPane;
+    }
 
-    private void configure(){
-        Scene scene = new Scene(mainPane);
-        dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setHeight(HEIGHT);
-        dialogStage.setResizable(false);
-        
-        scene.setFill(Color.TRANSPARENT);
-        dialogStage.initStyle(StageStyle.TRANSPARENT);
-        
-        setIcon(dialogStage, ICON);
-        configureDrag();
+    private void configure(StackPane messagePlaceHolder){
+        this.messagePlaceHolder = messagePlaceHolder;
+        commandColumn.prefWidthProperty().bind(commandTable.widthProperty().multiply(COMMAND_COLUMN_WIDTH));
+        descriptionColumn.prefWidthProperty().bind(commandTable.widthProperty().multiply(DESCRIPTION_COLUMN_WIDTH));
+        formatColumn.prefWidthProperty().bind(commandTable.widthProperty().multiply(FORMAT_COLUMN_WIDTH));
         loadHelpList();
-        
-        handleKeyInput(scene);
     }
     
-    private void configureDrag() {
-        mainPane.setOnMousePressed(event -> {
-            xOffset = dialogStage.getX() - event.getScreenX();
-            yOffset = dialogStage.getY() - event.getScreenY();
-        });
-
-        mainPane.setOnMouseDragged(event -> {
-            dialogStage.setX(event.getScreenX() + xOffset);
-            dialogStage.setY(event.getScreenY() + yOffset);
-        });
-    }
-
-    private void handleKeyInput(Scene scene) {
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            
-            KeyCombination toggleHelpWindow = new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN);
-
-            @Override
-            public void handle(KeyEvent evt) {
-                if (evt.getCode().equals(KeyCode.ESCAPE)) {
-                    dialogStage.close();
-                    primaryStage.requestFocus();
-                } else if (toggleHelpWindow.match(evt)) {
-                    if (dialogStage.isFocused()) {
-                        primaryStage.requestFocus();
-                    } else {
-                        dialogStage.requestFocus();
-                    }
-                }
-            }
-        });
-    }
-    
-    public void show() {
-        dialogStage.show();
-    }
-    
-    public Stage getStage() {
-        return dialogStage;
+    public void show(double height) {
+        this.messagePlaceHolder.setPadding(new Insets(PADDING));
+        this.helpWindowRoot.setMinHeight(height);
+        this.messagePlaceHolder.setPrefSize(Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE);
+        this.messagePlaceHolder.getChildren().add(helpWindowRoot);
     }
 
     //@@author A0003878Y
     private void loadHelpList() {
-
+        
         new Reflections("seedu.agendum").getSubTypesOf(Command.class)
                 .stream()
                 .map(s -> {

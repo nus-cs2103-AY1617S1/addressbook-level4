@@ -11,8 +11,7 @@ public class FindCommand extends Command {
  // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_FORMAT= "find <keyword> <more-keywords>";
-    public static final String COMMAND_DESCRIPTION = "search for task(s) matching\n"
-                                                   + "any of the keywords";
+    public static final String COMMAND_DESCRIPTION = "search for task(s) matching any of the keywords";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
