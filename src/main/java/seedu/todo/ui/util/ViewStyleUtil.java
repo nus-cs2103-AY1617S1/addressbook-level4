@@ -10,6 +10,7 @@ public class ViewStyleUtil {
 
     /* Style Classes Constants */
     public static final String STYLE_COLLAPSED = "collapsed";
+    public static final String STYLE_COLLAPSIBLE = "collapsible";
     public static final String STYLE_COMPLETED = "completed";
     public static final String STYLE_OVERDUE = "overdue";
     public static final String STYLE_SELECTED = "selected";
