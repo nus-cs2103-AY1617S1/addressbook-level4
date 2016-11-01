@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -46,7 +45,7 @@ public class ModelManager extends ComponentManager implements Model {
     private Expression previousExpression;
     private TaskDate previousDate;
 
-    // @@author A0135782Y
+    //@@author A0135782Y
     /**
      * Initializes a ModelManager with the given TaskList TaskList and its
      * variables should not be null
@@ -64,16 +63,17 @@ public class ModelManager extends ComponentManager implements Model {
         if (RecurringTaskManager.getInstance().updateAnyRecurringTasks()) {
             indicateTaskListChanged();
         }
-        previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
+        previousExpression = new PredicateExpression(new InitialQualifier());
+        
     }
 
-    // @@author
+    //@@author
     public ModelManager() {
         this(new TaskMaster(), new UserPrefs());
     }
 
-    // @@author A0135782Y
+    //@@author A0135782Y
     public ModelManager(ReadOnlyTaskMaster initialData, UserPrefs userPrefs) {
         taskMaster = new TaskMaster(initialData);
         tasks = taskMaster.getTasks();
@@ -83,11 +83,10 @@ public class ModelManager extends ComponentManager implements Model {
         if (RecurringTaskManager.getInstance().updateAnyRecurringTasks()) {
             indicateTaskListChanged();
         }
-        previousExpression = new PredicateExpression(new InitialQualifier());
         previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-        showTaskToday();
+        previousExpression = new PredicateExpression(new InitialQualifier());
     }
-    // @@author
+    //@@author
 
     @Override
     public void resetData(ReadOnlyTaskMaster newData) {
@@ -111,7 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
-    // @@author A0147995H
+    //@@author A0147995H
     @Override
     public synchronized void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate,
             RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
@@ -119,9 +118,9 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         updateFilteredTaskList(previousExpression);
     }
-    // @@author
+    //@@author
 
-    // @@author A0135782Y
+    //@@author A0135782Y
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
@@ -130,7 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
-    // @@author A0147967J
+    //@@author A0147967J
     @Override
     public synchronized void archiveTask(TaskOccurrence target) throws TaskNotFoundException {
         taskMaster.archiveTask(target);
@@ -143,7 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void changeDirectory(String filePath) {
         raise(new FilePathChangeEvent(filePath));
     }
-    // @@author
+    //@@author
 
     // =========== Filtered Task List Accessory ===============================================================
 
@@ -170,9 +169,22 @@ public class ModelManager extends ComponentManager implements Model {
                 new PredicateExpression(new FindQualifier(keywords, tags, startDate, endDate, deadline)));
     }
     
+    //@@A0147967J
     @Override
     public void updateFilteredTaskList(Expression expression) {
+        previousExpression  = expression;
         filteredTaskComponents.setPredicate(expression::satisfies);
+    }
+    
+
+    @Override
+    public Expression getPreviousExpression() {
+        return previousExpression;
+    }
+    
+    @Override 
+    public TaskDate getPreviousDate(){
+        return previousDate;
     }
     
     @Override
@@ -182,12 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(),
                 DateFormatterUtil.getStartOfDay(atrce.getInputDate().getDate()), DateFormatterUtil.getEndOfDay(atrce.getInputDate().getDate()), null);
     }
-    
-    public void showTaskToday() {
-        Date date = DateFormatterUtil.localDateToDate(LocalDate.now());
-        updateFilteredTaskList(new HashSet<String>(), new HashSet<String>(), 
-                DateFormatterUtil.getStartOfDay(date), DateFormatterUtil.getEndOfDay(date), null);
-    }
+    //@@author
 
     // ========== Inner classes/interfaces used for filtering ==================================================
 
@@ -216,7 +223,16 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    // @@author A0147967J
+    //@@author A0147967J
+    private class InitialQualifier implements Qualifier {
+
+        @Override
+        public boolean run(TaskOccurrence task) {
+            return true;
+        }
+        
+    }
+    
     private class TypeQualifier implements Qualifier {
         private TaskType typeKeyWords;
 
@@ -231,20 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
     
-    private class InitialQualifier implements Qualifier {
-
-        InitialQualifier() {
-        }
-
-        @Override
-        public boolean run(TaskOccurrence task) {
-            return true;
-        }
-
-    }
-    // @@author
-
-    // @@author A0135782Y
+    //@@author A0135782Y
     private class ArchiveQualifier implements Qualifier {
         private boolean isArchived;
 
@@ -258,9 +261,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
     }
-    // @@author
+    //@@author
 
-    // @@author A0147995H
+    //@@author A0147995H
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -419,16 +422,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
     }
-    // @@author
+    //@@author
 
-    @Override
-    public Expression getPreviousExpression() {
-        // TODO Auto-generated method stub
-        return previousExpression;
-    }
-    
-    @Override 
-    public TaskDate getPreviousDate(){
-        return previousDate;
-    }
 }

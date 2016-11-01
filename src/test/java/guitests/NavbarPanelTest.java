@@ -15,6 +15,7 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
     private final String NAVBAR_COMPLETED = " Completed";
+    private final String NAVBAR_TODAY = " Today";
 
     @Test
     public void navigateToFloatingTasks() {
@@ -49,8 +50,15 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     @Test
     public void navigateToCompletedOnes() {
         // Navigate to completed ones
+        commandBox.runCommand("list"); //switch to all tasks first
         commandBox.runCommand("done 1");
         assertResult(NAVBAR_COMPLETED, td.trash.getLastAppendedComponent());
+    }
+    
+    @Test
+    public void navigateToToday() {
+        // Navigate to today's tasks, here should be none.
+        assertResult(NAVBAR_TODAY);
     }
 
     private void assertResult(String navigation, TaskOccurrence... expectedHits) {

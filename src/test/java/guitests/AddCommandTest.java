@@ -17,6 +17,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void add() {
+        commandBox.runCommand("list"); //switch to all tasks first
         // add one floatingTask
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hoon;

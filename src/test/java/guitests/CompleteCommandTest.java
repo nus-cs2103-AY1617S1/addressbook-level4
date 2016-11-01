@@ -16,6 +16,7 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void complete() {
+        commandBox.runCommand("list"); //switch to all tasks first
 
         // done the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -23,17 +24,20 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
         int targetIndex = 1;
         completed[0] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         // done the last in the list
         targetIndex = currentList.length;
         completed[2] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
-
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        
         // done from the middle of the list
         targetIndex = 3;
         completed[1] = currentList[targetIndex - 1];
         assertCompleteSuccess(targetIndex, currentList);
-
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        
         // invalid index
         commandBox.runCommand("done " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
@@ -58,7 +62,7 @@ public class CompleteCommandTest extends TaskMasterGuiTest {
      */
     private void assertCompleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToComplete = currentList[targetIndexOneIndexed - 1]; // -1
-        TestTask[] expectedRemainder = currentList;
+        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("done " + targetIndexOneIndexed);
 
