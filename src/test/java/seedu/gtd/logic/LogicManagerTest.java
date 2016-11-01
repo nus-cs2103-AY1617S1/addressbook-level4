@@ -303,7 +303,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new AddressBook());
+        model.clearTaskList();
         for (Task p : taskList) {
             model.addTask(p);
         }

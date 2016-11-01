@@ -11,9 +11,6 @@ import seedu.gtd.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
@@ -50,4 +47,7 @@ public interface Model {
 	
 	/** Un-does a change to the AddressBook */
 	void undoAddressBookChange();
+	
+	/** Clears all tasks */
+	void clearTaskList();
 }

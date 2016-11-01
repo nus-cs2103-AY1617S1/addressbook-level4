@@ -56,12 +56,11 @@ public class ModelManager extends ComponentManager implements Model {
         previousAddressBook = new AddressBook(addressBook);
     }
 
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    private void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
-
+    
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
@@ -113,6 +112,12 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.editTask(targetIndex, task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
+    }
+    
+    @Override
+    public void clearTaskList() {
+    	savePreviousAddressBook();
+    	resetData(AddressBook.getEmptyAddressBook());
     }
     
     //@@author addressbook-level4
