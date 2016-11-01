@@ -12,7 +12,8 @@ public class Messages {
             "Unknown command - \"%1$s\" \n"
             + MESSAGE_ALL_AVAIL_CMD;
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The index provided is invalid.";
+    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX =
+            "The index provided is invalid. 't1', 'e4' are examples of valid indices.";
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d task(s) listed!";
     public static final String MESSAGE_INVALID_DATE = 
             "Date and time are invalid!\n" 
