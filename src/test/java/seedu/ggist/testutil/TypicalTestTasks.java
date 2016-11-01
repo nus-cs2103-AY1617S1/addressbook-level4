@@ -87,7 +87,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{deadline,event,dance};
+        return new TestTask[]{deadline,dance,event};
     }
 
     public TaskManager getTypicalTaskManager() throws IllegalValueException{

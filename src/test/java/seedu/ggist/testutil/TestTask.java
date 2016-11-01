@@ -4,6 +4,7 @@ import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.logic.parser.DateTimeParser;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import seedu.ggist.model.tag.UniqueTagList;
@@ -86,7 +87,37 @@ public class TestTask implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+    
+    /**
+     * compares task based on start date and time
+     * @return dateTimeComparator
+     */
+    public static Comparator getTaskComparator(){
+        return new Comparator<TestTask>(){
+            public int compare (TestTask t1, TestTask t2){
+                    
+                if (t1.getStartDateTime().equals(t2.getStartDateTime())
+                    && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
+                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
+                } 
+                
+                if (t1.getStartDateTime().before(t2.getStartDateTime())) {
+                    return -1;
+                } else if (t1.getStartDateTime().after(t2.getStartDateTime())) {
+                    return 1;
+                } 
+                
+                if (t1.getEndDateTime().before(t2.getEndDateTime())) {
+                    return -1;
+                } else if (t1.getEndDateTime().after(t2.getEndDateTime())) {
+                    return 1;
+                }
+                
+                return 0;
+            }
+        };
+    }
+    
     public String getAddCommand() {
         
         String[] startDate = this.getStartDate().value.split(",");
