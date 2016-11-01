@@ -59,10 +59,9 @@ public class SortedObservableArrayList<E extends Comparable<? super E>> implemen
 
     @Override
     public boolean add(E e) {
-        int index = Collections.binarySearch(backingList, e);
-        if (index < 0) index = ~index;
-        add(index, e);
-        return true;
+        boolean add = backingList.add(e);
+        backingList.sort(null);
+        return add;
     }
 
     @Override
@@ -77,15 +76,14 @@ public class SortedObservableArrayList<E extends Comparable<? super E>> implemen
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        
-        for(E e: c){
-            add(e);
-        }
-        return true;
+        boolean isAdded = backingList.addAll(c);
+        backingList.sort(null);
+        return isAdded;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
+        assert false: "Should not be using this function";
         return false;
     }
 
@@ -117,7 +115,7 @@ public class SortedObservableArrayList<E extends Comparable<? super E>> implemen
 
     @Override
     public void add(int index, E element) {
-        backingList.add(index, element);
+        assert false: "Should not be using this function";
     }
 
     @Override
