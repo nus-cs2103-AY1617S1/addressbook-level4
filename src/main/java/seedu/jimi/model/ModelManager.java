@@ -7,6 +7,7 @@ import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
+import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.datetime.DateTime;
@@ -72,6 +73,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskBookChangedEvent(taskBook));
     }
     
+    //@author A0138915X
+    /** Raises an event to indicate request to highlight chosen item. */
+    public void highlightLatestUpdatedItem(ReadOnlyTask target) {
+        raise(new JumpToListRequestEvent(target));
+    }
+    
     /** Raises and event to indicate user request to show task panel sections. */
     public void showTaskPanelSection(String sectionToShow) {
         raise(new ShowTaskPanelSectionEvent(sectionToShow));
@@ -82,12 +89,15 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.removeTask(target);
         indicateTaskBookChanged();
     }
+    //@@author
+    
     
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateAllFilteredListsToNormalListing();
         indicateTaskBookChanged();
+        highlightLatestUpdatedItem(task);
     }
     
     /**
@@ -100,6 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
         taskBook.replaceTask(oldTask, newTask);
         indicateTaskBookChanged();
+        highlightLatestUpdatedItem(newTask);
     }
     
     /**
@@ -113,8 +124,10 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
             throws TaskNotFoundException {
         taskBook.completeTask(taskToComplete, isComplete);
-        updateAllFilteredListsToNormalListing();
+        updateFilteredAgendaTaskList(ListId.COMPLETED); //show the completed tasks by default after execution
+        updateFilteredAgendaEventList(ListId.COMPLETED);
         indicateTaskBookChanged();
+        highlightLatestUpdatedItem(taskToComplete);
     }
     
     public Model clone() {
