@@ -33,7 +33,7 @@
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * The order of parameters is flexible.
 
 #### Viewing help : `help`
 Shows a list of various commands available.<br>
@@ -59,20 +59,20 @@ Examples:
 Shows a list of all events and tasks.<br>
 Format: `list`
 
+<!-- @@author A0146123R-->
 #### Finding all events and tasks containing any keyword in their name: `find`
 Finds events and tasks whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]`
 
 > * The search is not case sensitive. e.g hans will match Hans
-> * The order of the keywords does not matter. e.g. `Project Deadline` will match `Deadline Project`
+> * The order of the keywords does not matter. e.g. `Project Meeting` will match `Meeting Project`
 > * Only the name is searched.
-> * By default, Events and Tasks matching at least one keyword will be returned (i.e. `OR` search).
-    The matching will only compare word stems of keywords. <br>
-    e.g. `Projects` will match `Project Deadline`
-> * Only Events and Tasks matching the exact keyword will be returned if the command contains the `exact!` parameter.
-    e.g. `Projects exact!` will not match `Project Deadline`
-> * Only Events and Tasks matching both keywords will be returned if the two keywords are connected by `AND`
-    (i.e. `AND` search). e.g. `Project` AND `Deadline` will match `Project Deadline` but will not match `Project`
+> * By default, events and tasks matching at least one keyword will be returned (i.e. `OR` search).
+    The matching will only compare word stems of keywords. e.g. `Project Meeting` will match `Project Meeting` and `Meet teammates`
+> * Only events and tasks matching the exact keyword will be returned if the command contains the `exact!` parameter.
+    e.g. `Meeting exact!` will match `Project Meeting` but will not match `Meet teammates`
+> * Only events and tasks matching both groups of keywords will be returned if the two groups of keywords are connected by `AND`
+    (i.e. `AND` search). e.g. `Project AND Meeting` will match `Project Meeting` but will not match `Meet teammates`
 
 Examples:
 * `find lecture`<br>
@@ -81,8 +81,9 @@ Examples:
   Returns `CS2103 Lecture` but not `lectures`
 * `find CS2103 Software Project`<br>
   Returns any event or task having names `CS2103`, `Software`, or `Project`
-* `find CS2103 AND Software AND Project`<br>
-  Returns event or task having names `CS2103`, `Software`, and `Project`
+* `find CS2103 AND Software Project`<br>
+  Returns event or task having names `CS2103` and at least one of `Software` or `Project`
+<!-- @@author -->
 
 #### Deleting an event or task : `delete`
 Deletes the specified event or task from the list. Irreversible.<br>
@@ -138,11 +139,12 @@ Exits the program.<br>
 Format: `exit`  
 
 #### Saving the data: 
-Data will be automatically save to the default location after any command that changes the data.<br>
-If user has changed the file location using the ‘change’ command, data will be save to the file path that user indicate.<br>
+Data will be automatically save to the storage file, by default toDoList.xml in the data folder, after any command that changes the data.<br>
+If user has changed the file location using the `change` command, data will be save to the file path that user indicate.<br>
 There is no need to save manually.
 
-####Changing default storage location: `change`
+<!-- @@author A0146123R-->
+#### Changing default storage location: `change`
 Default storage location will be changed to the location specified by the user. Any data saved in the previous location will be cleared if specified.<br>
 Format: `change FILE_PATH [clear]`
 
@@ -161,9 +163,12 @@ Format: `undo`
 Undo the most recent change of the default storage location (up to 1 time) and clear data saved in the new location if specified.<br>
 Format: `undochange [clear]` <br>
 
+Example: 
+* `undochange clear`
+
 #### Redo operations: `redo`
 Redo the most recent action that is undone.<br>
-Format: `redo`<br>
+Format: `redo`<br><br>
 Redo change the default storage location back to the new location.<br>
 Format: `redochange` <br>
 
@@ -171,9 +176,12 @@ Format: `redochange` <br>
 Filter list for attributes such as start date, end date, deadline and tag.<br>
 Format: `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]` 
 
+> Only events and tasks that matching all attributes will be returned (i.e. `AND` search).
+
 Examples:
 * `filter s/7.10.2016-14 t/CS2103` <br>
   List events that start from 7.10.2016-14 and have tag CS2103.
+<!-- @@author -->
 
 ## FAQ
 
@@ -191,8 +199,9 @@ Clear | `clear`
 Delete | `delete INDEX`<br> `delete EVENT_NAME/TASK_NAME`
 Done | `done INDEX`
 Edit | `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [p/PRIORITY_LEVEL]`
-Filter | `[n/EVENT/TASK] [s/START_DATE] [d/DEADLINE] [c/DONE/UNDONE] [t/TAG]`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+Filter | filter `[s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]`<br>  e.g. `filter s/7.10.2016-14 t/CS2103`
+Find | `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]` <br> e.g. `find CS2103 Software Project`, `find CS2103 AND Software Project`, `find lecture exact!`
 Help | `help`
 List | `list`
-Undo | `undo`
+Redo | `redo` <br> `redochange`
+Undo | `undo` <br> `undochange [clear]` e.g. `undochange clear`
