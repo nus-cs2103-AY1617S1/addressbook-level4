@@ -52,7 +52,7 @@ public class MarkCommand extends Command {
             toMark.setCompletion(new Completion(true));
 
             model.updateTask(taskToMark, toMark);
-            model.updateFilteredListToShowAll();
+            model.updateFilteredListToShowAllCompleted();
             
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_TASK_NOT_FOUND);

@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 
@@ -16,7 +17,7 @@ public class TaskCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Text name;
     @FXML
     private Label id;
     @FXML
@@ -49,6 +50,12 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
+        if (task.getCompletion().isCompleted()) {
+        	name.setFill(Color.LIGHTGREY);
+        	name.setStyle("-fx-strikethrough: true");
+        	name.setOpacity(50);
+        }
+        
         id.setText(displayedIndex + ". ");
         
         details.setText(task.getDetail().value);
@@ -67,13 +74,11 @@ public class TaskCard extends UiPart{
             byDate.setText("");
         }
         
-        
         if (task.isRecurring()) {
             recurrence.setText("Every: " + task.getRecurrence().toString());
         } else {
             recurrence.setText("");
         }
-        
         
         if (task.getPriority().toString().equals(Priority.LOW)) {
         	priorityLevel.setFill(Color.LIMEGREEN);

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 
@@ -17,7 +18,7 @@ public class WeekSummaryCard extends UiPart{
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Text name;
     @FXML
     private Label details;
     @FXML
@@ -36,10 +37,18 @@ public class WeekSummaryCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
+        if (task.getCompletion().isCompleted()) {
+        	name.setStyle("-fx-strikethrough: true");
+        	name.setFill(Color.LIGHTGREY);
+        	name.setOpacity(50);
+        }
         details.setText(task.getDetail().value);
         tags.setText(task.tagsString());
-        if (task.getPriority().toString().equals(Priority.LOW)) {
-            priorityLevel.setFill(Color.LIMEGREEN);
+        if (task.getCompletion().isCompleted()) {
+        	priorityLevel.setFill(Color.WHITE);
+        	priorityLevel.setStroke(Color.WHITE);
+        } else if (task.getPriority().toString().equals(Priority.LOW)) {
+        	priorityLevel.setFill(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
             priorityLevel.setFill(Color.YELLOW);
         } else {
