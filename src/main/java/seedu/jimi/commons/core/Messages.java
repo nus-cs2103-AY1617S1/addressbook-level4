@@ -26,9 +26,8 @@ public class Messages {
     public static final String MESSAGE_WELCOME_JIMI = 
             "Welcome to Jimi, the task manager for people like Jim. \n"
             + "\n"
-            + "Let's get started! Try these commands out: \n"
+            + "Let's get started! Give these commands a try: \n"
             + MESSAGE_ALL_AVAIL_CMD + "\n"
-            + "\n"
             + "To get help for a specific command, type 'help COMMAND_WORD' e.g. 'help add' \n"
             + "To get detailed help for all commands, type 'help' to visit our user guide.";
 }
