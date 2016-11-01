@@ -27,66 +27,85 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (isBothFloating(other)) {
+        if (isBothNoDateNoTime(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName())
                     && other.getTags().equals(this.getTags()));
-        } else if (isBothDeadline(other)) {
-            if (other.getTaskTime() == null && this.getTaskTime() == null) {
-                return other == this // short circuit if same object
-                        || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName())
-                        && other.getTaskDate().equals(this.getTaskDate())
-                        && other.getTags().equals(this.getTags()));
-            } else if (other.getTaskTime() != null && this.getTaskTime() != null) {
-                return other == this // short circuit if same object
-                        || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName())
-                        && other.getTaskDate().equals(this.getTaskDate())
-                        && other.getTags().equals(this.getTags())
-                        && other.getTaskTime().equals(this.getTaskTime()));
-            } else {
-                return false;
-            }
-        } else if (isBothEvent(other)) {
-            if (other.getStartTime() == null && this.getStartTime() == null) {
-                return other == this // short circuit if same object
-                        || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName())
-                        && other.getStartDate().equals(this.getStartDate())
-                        && other.getEndDate().equals(this.getEndDate())
-                        && other.getTags().equals(this.getTags()));               
-            } else if (other.getStartTime() != null && this.getStartTime() != null) {
-                return other == this // short circuit if same object
-                        || (other != null // this is first to avoid NPE below
-                        && other.getName().equals(this.getName())
-                        && other.getStartDate().equals(this.getStartDate())
-                        && other.getEndDate().equals(this.getEndDate())
-                        && other.getStartTime().equals(this.getStartTime())
-                        && other.getEndTime().equals(this.getEndTime())
-                        && other.getTags().equals(this.getTags()));             
-            } else {
-                return false;
-            }
+        } else if (isBothOneDateNoTime(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate());
+        } else if (isBothOneDateOneTime(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getTaskTime().equals(this.getTaskTime());
+        } else if (isBothOneDateTwoTime(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags()))
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getStartTime().equals(this.getStartTime())
+                    && other.getEndTime().equals(this.getEndTime());
+        } else if (isBothTwoDateNoTime(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags()))
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate());
+        } else if (isBothTwoDateTwoTime(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTags().equals(this.getTags()))
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate())
+                    && other.getStartTime().equals(this.getStartTime())
+                    && other.getEndTime().equals(this.getEndTime());
         } else {
             return false;
         }
     }
     
-    default boolean isBothFloating(ReadOnlyTask task) {
+    default boolean isBothNoDateNoTime(ReadOnlyTask task) {
         return this.getTaskDate() == null && task.getTaskDate() == null
-                && this.getStartDate() == null && task.getStartDate() == null;
+                && this.getStartDate() == null && task.getStartDate() == null
+                && this.getEndDate() == null && task.getEndDate() == null
+                && this.getStartTime() == null && task.getStartTime() == null
+                && this.getEndDate() == null && task.getEndTime() == null;
     }
     
-    default boolean isBothDeadline(ReadOnlyTask task) {
+    default boolean isBothOneDateNoTime(ReadOnlyTask task) {
+        return this.getTaskDate() != null && task.getTaskDate() != null 
+                && this.getTaskTime() == null && task.getTaskTime() == null
+                && this.getStartTime() == null && task.getStartTime() == null;
+    }
+    
+    default boolean isBothOneDateOneTime(ReadOnlyTask task) {
         return this.getTaskDate() != null && task.getTaskDate() != null
-                && this.getStartDate() == null && task.getStartDate() == null;
+                && this.getTaskTime() != null && task.getTaskTime() != null;
     }
     
-    default boolean isBothEvent(ReadOnlyTask task) {
-        return this.getTaskDate() == null && task.getTaskDate() == null
-                && this.getStartDate() != null && task.getStartDate() != null;
+    default boolean isBothOneDateTwoTime(ReadOnlyTask task) {
+        return this.getTaskDate() != null && task.getTaskDate() != null
+                && this.getStartTime() != null && task.getStartTime() != null;
+    }
+    
+    default boolean isBothTwoDateNoTime(ReadOnlyTask task) {
+        return this.getStartDate() != null && task.getStartDate() != null
+                && this.getStartTime() == null && task.getStartTime() == null;
+    }
+    
+    default boolean isBothTwoDateTwoTime(ReadOnlyTask task) {
+        return this.getStartDate() != null && task.getStartDate() != null
+                && this.getStartTime() != null && task.getStartDate() != null;
     }
     
     /**
