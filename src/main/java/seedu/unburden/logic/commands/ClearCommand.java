@@ -12,37 +12,27 @@ public class ClearCommand extends Command {
 
 	public static final String COMMAND_WORD = "clear";
 	public static final String MESSAGE_SUCCESS = "Unburden has been cleared!";
-
-	public static String mode;
+	public static final String MESSAGE_USAGE = COMMAND_WORD + "Clears the current list. \n";
 
 	public ClearCommand() {
-		this.mode = null;
-	}
-
-	public ClearCommand(String all) {
-		this.mode = all;
 	}
 
 	@Override
 	public CommandResult execute() {
 		assert model != null;
 		model.saveToPrevLists();
-		if (mode.equals("all")) {
-			model.resetData(ListOfTask.getEmptyAddressBook());
-			return new CommandResult(MESSAGE_SUCCESS);
-		} else {
-			UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-			if(lastShownList.size()==0){
-				return new CommandResult("The list is currently empty. Try Clear all instead.");
-			}
-			try {
-				for (ReadOnlyTask tasksToDelete : lastShownList) {
-					model.deleteTask(tasksToDelete);
-				}
-			} catch (TaskNotFoundException pnfe) {
-				assert false : "The target task cannot be missing";
-			}
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		if (lastShownList.size() == 0) {
+			return new CommandResult("The list is currently empty. Try Clear on another list instead.");
 		}
-		return null; //Should not go here
+		try {
+			while(lastShownList.size() != 0){
+				ReadOnlyTask taskToDelete = lastShownList.get(0); 
+				model.deleteTask(taskToDelete);
+			}
+		} catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		}
+		return new CommandResult(MESSAGE_SUCCESS);
 	}
 }

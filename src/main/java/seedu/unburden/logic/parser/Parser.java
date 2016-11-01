@@ -147,7 +147,7 @@ public class Parser {
 			return prepareSetDir(arguments);
 
 		case ClearCommand.COMMAND_WORD:
-			return prepareClear(arguments);
+			return new ClearCommand();
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -438,16 +438,20 @@ public class Parser {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
-	
-	private Command prepareClear(String args){
-		args = args.trim().toLowerCase();
-		if(args.equals(ALL)){
-			return new ClearCommand(ALL);
+
+	/*private Command prepareClear(String args) {
+		args = args.trim();
+		if(args.equals("")){
+			return new ClearCommand(args);
+		}
+		else if(args.toLowerCase().equals(ALL)){
+			return new ClearCommand(args);
 		}
 		else{
-			return new ClearCommand();
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,ClearCommand.MESSAGE_USAGE));
 		}
-	}
+
+	}*/
 
 	/**
 	 * Parses arguments in the context of the set directory command.
