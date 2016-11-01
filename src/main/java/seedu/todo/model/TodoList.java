@@ -36,7 +36,7 @@ public class TodoList implements TodoListModel {
     private static final String FILE_NOT_FOUND_FORMAT = "%s does not seem to exist.";
     private static final String FILE_SAVE_ERROR_FORMAT = "Couldn't save file: %s";
     private static final String FILE_LOAD_ERROR_FORMAT = "The data file %s does not appear to be in the correct format";
-    
+
     private ObservableList<Task> tasks = FXCollections.observableArrayList(Task::getObservableProperties);
 
     private MovableStorage<ImmutableTodoList> storage;
@@ -147,8 +147,22 @@ public class TodoList implements TodoListModel {
         
         saveTodoList();
         
-    } 
-    
+    }
+
+    //@@author A0135805H
+    @Override
+    public void updateAll(Consumer<MutableTask> update) throws ValidationException {
+        //Perform one round of validation first.
+        for (MutableTask task : tasks) {
+            ValidationTask validationTask = new ValidationTask(task);
+            update.accept(validationTask);
+            validationTask.validate();
+        }
+
+        //When there is no errors, actually do it.
+        tasks.forEach(update::accept);
+    }
+
     //@@author A0135817B
     @Override
     public void save(String location) throws ValidationException {

@@ -30,15 +30,4 @@ public class MainGuiHandle extends GuiHandle {
     public CommandPreviewViewHandle getCommandPreviewView() {
         return new CommandPreviewViewHandle(guiRobot, primaryStage);
     }
-
-    @Deprecated
-    public PersonListPanelHandle getPersonListPanel() {
-        return new PersonListPanelHandle(guiRobot, primaryStage);
-    }
-
-    @Deprecated
-    public MainMenuHandle getMainMenu() {
-        return new MainMenuHandle(guiRobot, primaryStage);
-    }
-
 }

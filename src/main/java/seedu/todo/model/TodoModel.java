@@ -89,7 +89,7 @@ public class TodoModel implements Model {
         findFilteredTasks = new FilteredList<>(viewFilteredTasks);
         sortedTasks = new SortedList<>(findFilteredTasks);
 
-        uniqueTagCollection = new UniqueTagCollection(tasks);
+        uniqueTagCollection = new UniqueTagCollection(todoList.getTasks());
         
         // Sets the default view 
         view(TaskViewFilter.DEFAULT);
@@ -364,7 +364,7 @@ public class TodoModel implements Model {
      */
     private void deleteTagsHelper(String[] tagNames) throws ValidationException {
         Collection<Tag> deletedTags = uniqueTagCollection.deleteTags(tagNames);
-        updateAll(mutableTask -> {
+        todoList.updateAll(mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             tagsFromTask.removeAll(deletedTags);
             mutableTask.setTags(tagsFromTask);
@@ -378,7 +378,7 @@ public class TodoModel implements Model {
         Set<ImmutableTask> tasksWithTag = uniqueTagCollection.getTasksLinkedToTag(oldName);
         deleteTags(oldName);
 
-        updateAll(mutableTask -> {
+        todoList.updateAll(mutableTask -> {
             if (tasksWithTag.contains(mutableTask)) {
                 addTagsToTask(mutableTask, newName);
             }

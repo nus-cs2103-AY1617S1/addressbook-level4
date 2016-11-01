@@ -75,6 +75,13 @@ public interface TodoListModel extends ImmutableTodoList {
      */
     void updateAll(List<Integer> indexes, Consumer <MutableTask> update) throws ValidationException;
 
+    //@@author A0135805H
+    /**
+     * Updates every single task, visible and non-visible, that are found inside the {@link TodoListModel}.
+     * Refer to {@link #updateAll(List, Consumer)} for more details on usage.
+     */
+    void updateAll(Consumer<MutableTask> update) throws ValidationException;
+
     //@@author A0135817B
     /**
      * Changes the save path of the TodoList storage 

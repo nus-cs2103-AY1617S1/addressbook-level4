@@ -185,9 +185,12 @@ public class TagCommand extends BaseCommand {
      *      Show a global list of tags
      */
     private CommandResult performShowTagsWhenApplicable() {
-        ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
-        EventsCenter.getInstance().post(tagsEvent);
-        return new CommandResult("Press [Enter] to dismiss.");
+        if (isShowTags()){
+            ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
+            EventsCenter.getInstance().post(tagsEvent);
+            return new CommandResult("Type [Enter] to dismiss.");
+        }
+        return null;
     }
 
     /* Add Tags to Task Method */
