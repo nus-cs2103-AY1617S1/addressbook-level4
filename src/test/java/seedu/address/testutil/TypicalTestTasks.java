@@ -62,6 +62,7 @@ public class TypicalTestTasks {
         try {
             ab.addTask(new Task(someday1));
             ab.addTask(new Task(someday2));
+            ab.addTask(new Task(someday3));
             ab.addTask(new Task(deadline1));
             ab.addTask(new Task(deadline2));
             ab.addTask(new Task(deadlineToday));
