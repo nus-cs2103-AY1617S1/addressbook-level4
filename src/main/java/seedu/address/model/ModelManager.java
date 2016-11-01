@@ -195,10 +195,10 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	Files.copy(oldStorageFile, newStorageFile);  //Throws IOException
     	
-    	//Updates taskManagerFilePath (attribute) in config (Config object)
+    	//Updates taskManagerFilePath attribute in Config instance, config
     	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());  //Throws IOException
     	
-    	//Saves config (Config object) to config.configFilePath (JSON file path), overwrites existing config file
+    	//Serializes Config instance, config to JSON file indicated by config.configFilePath, overwrites existing JSON file
     	ConfigUtil.saveConfig(config, config.getConfigFilePath());  //Throws IOException
     }
     //@@author 
