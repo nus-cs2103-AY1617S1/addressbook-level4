@@ -51,7 +51,7 @@ public class ListCommand extends ModelRequiringCommand {
         case Archived:
             model.updateFilteredListToShowArchived();
             break;
-        case AliasKeywords:
+        case Alias:
             MainApp.getUiManager().showTaskList(false);
             break;
         default:

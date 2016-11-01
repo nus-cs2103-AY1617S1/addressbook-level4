@@ -21,9 +21,9 @@ public enum ListType {
     Archived,
     
     /**
-     * List alias keywords.
+     * List aliases.
      */
-    AliasKeywords;
+    Alias;
     
     /**
      * Gets a ListType enum object from its enum name, ignoring cases.
