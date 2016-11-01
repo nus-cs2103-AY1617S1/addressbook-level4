@@ -3,7 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -48,7 +47,4 @@
          </rowConstraints>
         </GridPane>
     </children>
-   <effect>
-      <DropShadow color="#9fa1a6ac" height="10.0" offsetX="1.0" offsetY="2.0" radius="4.0" width="8.0" />
-   </effect>
 </HBox>

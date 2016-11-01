@@ -83,7 +83,7 @@ public class PersonCard extends UiPart{
     private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
         String status = task.getStatus().toString();
         if(status.equals("OVERDUE")){
-            cardPane.setStyle("-fx-border-color: red");
+            cardPane.setStyle("-fx-border-color: #202020 #202020 red red");
             name.setStyle("-fx-text-fill: #888888");
             id.setStyle("-fx-text-fill: #888888");
             description.setStyle("-fx-text-fill: #888888");
@@ -92,7 +92,7 @@ public class PersonCard extends UiPart{
             tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("DONE")){
-            cardPane.setStyle("-fx-border-color: blue");
+            cardPane.setStyle("-fx-border-color: #202020 #202020 blue blue");
             name.setStyle("-fx-text-fill: #888888");
             id.setStyle("-fx-text-fill: #888888");
             description.setStyle("-fx-text-fill: #888888");
@@ -101,7 +101,7 @@ public class PersonCard extends UiPart{
             tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("NONE")){
-            cardPane.setStyle("-fx-border-color: #F0F0F0");
+            cardPane.setStyle("-fx-border-color: #202020 #202020 #F0F0F0 #F0F0F0");
             name.setStyle("-fx-text-fill: #888888");
             id.setStyle("-fx-text-fill: #888888");
             description.setStyle("-fx-text-fill: #888888");
@@ -110,7 +110,7 @@ public class PersonCard extends UiPart{
             tags.setStyle("-fx-text-fill: ##00CC0");
         }
         else if(status.equals("EXPIRE")){
-            cardPane.setStyle("-fx-border-color: magenta");
+            cardPane.setStyle("-fx-border-color: #202020 #202020 magenta magenta");
             name.setStyle("-fx-text-fill: #888888");
             id.setStyle("-fx-text-fill: #888888");
             description.setStyle("-fx-text-fill: #888888");
