@@ -1,5 +1,6 @@
 package harmony.mastermind.testutil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;

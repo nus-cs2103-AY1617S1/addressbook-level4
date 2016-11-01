@@ -3,6 +3,7 @@ package harmony.mastermind.logic.parser;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,10 +31,12 @@ import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.logic.commands.DeleteCommand;
 import harmony.mastermind.logic.commands.EditCommand;
 import harmony.mastermind.logic.commands.ExitCommand;
+import harmony.mastermind.logic.commands.ExportCommand;
 import harmony.mastermind.logic.commands.FindCommand;
 import harmony.mastermind.logic.commands.FindTagCommand;
 import harmony.mastermind.logic.commands.HelpCommand;
 import harmony.mastermind.logic.commands.ImportCommand;
+import harmony.mastermind.logic.commands.ImportIcsCommand;
 import harmony.mastermind.logic.commands.IncorrectCommand;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.MarkCommand;
@@ -55,23 +58,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<keyword>\\S+)(?<arguments>.*)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // keywords
-                                                                                                           // separated
-                                                                                                           // by
-                                                                                                           // whitespace
-
-    private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes
-                                                         // are reserved for
-                                                         // delimiter prefixes
-            Pattern.compile(
-                    "(?<name>[^/]+)" + " at/(?<time>[^/]+)" + " on/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
-                                                                                                                        // number
-                                                                                                                        // of
-                                                                                                                        // tags
-
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     private static final Pattern TAB_ARGS_FORMAT = Pattern.compile("(?<tab>home|tasks|events|deadlines|archives)");
@@ -153,7 +140,12 @@ public class Parser {
                 
             case ImportCommand.COMMAND_WORD:
                 return new ImportCommand(arguments);
-
+                
+            case ImportIcsCommand.COMMAND_KEYWORD_IMPORTICS:
+                return prepareImportIcs(arguments);
+                
+            case ExportCommand.COMMAND_KEYWORD_EXPORT:
+                return prepareExport(arguments);
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
@@ -256,6 +248,26 @@ public class Parser {
         return dates.size() == 2;
     }
     
+    //@@author A0138862W
+    /*
+     * Extract the source destination string and prepare the Import ICS command. 
+     * 
+     */
+    private Command prepareImportIcs(String args){
+        final Matcher matcher = ImportIcsCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportIcsCommand.MESSAGE_EXAMPLE));
+        }
+        
+        final String source = matcher.group("source");
+        
+        assert source != null;
+        
+        return new ImportIcsCommand(source);
+    }
+    
     /**
      * Parses arguments in the context of the edit task command.
      * 
@@ -295,10 +307,59 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         } catch (ParseException pe) {
             return new IncorrectCommand(pe.getMessage());
-
         }
 
     }
+    
+    private Command prepareExport(String args){
+        final Matcher matcher = ExportCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_EXAMPLE));
+        }
+        
+        try {
+            // mandatory
+            final String destination = matcher.group("destination");
+            
+            // at this point destination variable should never be null because the regex only capture full match of mandatory components
+            // check for bug in regex expression if the following throws assertion error
+            assert destination != null;
+            
+            // capture all matched string if present
+            final Optional<String> tasks = Optional.ofNullable(matcher.group("tasks"));
+            final Optional<String> deadlines = Optional.ofNullable(matcher.group("deadlines"));
+            final Optional<String> events = Optional.ofNullable(matcher.group("events"));
+            final Optional<String> archives = Optional.ofNullable(matcher.group("archives"));
+            
+            if(isExportingAll(tasks, deadlines, events, archives)){
+                return new ExportCommand(destination, true, true, true, true);
+            }else{
+                boolean isExportingTasks = tasks.isPresent();
+                boolean isExportingDeadlines = deadlines.isPresent();
+                boolean isExportingEvents = events.isPresent();
+                boolean isExportingArchives = archives.isPresent();
+                
+                return new ExportCommand(destination, isExportingTasks, isExportingDeadlines, isExportingEvents, isExportingArchives);
+            }
+        } catch (IOException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+    
+    /*
+     * This method return true if user did not specify any categories to export,
+     * then we assume user wants to export all categories.
+     * eg: export to C:\User\Jim\Workspace\mastermind.csv
+     */
+    private boolean isExportingAll(Optional<String> tasks, Optional<String> deadlines, Optional<String> events, Optional<String> archives){
+        return tasks.isPresent() == false &&
+                deadlines.isPresent() == false &&
+                events.isPresent() == false &&
+                archives.isPresent() == false;
+    }
+    
     // @@author
 
     /**
