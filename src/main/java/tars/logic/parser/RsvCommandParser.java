@@ -46,7 +46,7 @@ public class RsvCommandParser extends CommandParser {
     private Command prepareRsvAdd(ArgumentTokenizer argsTokenizer) {
         if (!argsTokenizer.getValue(dateTimePrefix).isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RsvCommand.MESSAGE_DATETIME_NOTFOUND));
+                    RsvCommand.MESSAGE_DATETIME_NOT_FOUND));
         }
 
         Set<String[]> dateTimeStringSet = new HashSet<>();

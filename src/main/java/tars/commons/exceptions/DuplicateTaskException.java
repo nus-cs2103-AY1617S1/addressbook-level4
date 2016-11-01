@@ -7,8 +7,4 @@ public class DuplicateTaskException extends DuplicateDataException {
     public DuplicateTaskException() {
         super("Operation would result in duplicate tasks");
     }
-
-    public DuplicateTaskException(String string) {
-        super(string);
-    }
 }

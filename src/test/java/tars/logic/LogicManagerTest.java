@@ -1162,7 +1162,7 @@ public class LogicManagerTest {
     @Test
     public void execute_rsvAddInvalidArgsFormatErrorMessageShown() throws Exception {
         String expectedMessageForNullDate = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RsvCommand.MESSAGE_DATETIME_NOTFOUND);
+                RsvCommand.MESSAGE_DATETIME_NOT_FOUND);
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE);
         assertCommandBehavior("rsv Rsv Task Without Date", expectedMessageForNullDate);
         assertCommandBehavior("rsv Rsv Task with flags other than date -p h", expectedMessageForNullDate);
@@ -1962,8 +1962,9 @@ public class LogicManagerTest {
         }
 
         /**
-         * @@author A0124333U Generates a Task object with given name and
-         *          datetime
+         * Generates a Task object with given name and datetime
+         * 
+         * @@author A0124333U
          */
         protected Task generateTaskWithNameAndDate(String name, DateTime dateTime) throws Exception {
             assert (dateTime != null && name != null);

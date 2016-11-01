@@ -8,11 +8,13 @@ import java.util.List;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.exceptions.InvalidRangeException;
 
-
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    public static final String EMPTY_STRING = "";
+    public static final int EMPTY_STRING_LENGTH = 0;
+    
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
@@ -30,7 +32,9 @@ public class StringUtil {
 
     /**
      * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
-     *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
+     * Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0"
+     * (contains whitespace).
+     * 
      * @param s Should be trimmed.
      */
     public static boolean isUnsignedInteger(String s){
