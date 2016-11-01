@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.ggist.logic.commands.DoneCommand.MESSAGE_DONE_TASK_SUCCESS;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
-    
+/*    
     @Test
     public void done() throws IllegalArgumentException, IllegalValueException {
         
@@ -32,13 +32,15 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertResultMessage("The task index provided is invalid");
 
     }
-    
+   */
+    /*
     /**
      * Runs the done command to mark the task at specified index as done and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to mark done the first task in the list, 1 should be given as the target index.
      * @throws IllegalValueException 
      * @throws IllegalArgumentException 
      */
+    /*
     private void assertDoneSuccess(int targetIndexOneIndexed) throws IllegalArgumentException, IllegalValueException {
         TestTask taskToDone = (TestTask) taskListPanel.getTask(targetIndexOneIndexed-1); //-1 because array uses zero indexing
         int number = taskListPanel.getNumberOfTasks();
@@ -54,6 +56,6 @@ public class DoneCommandTest extends TaskManagerGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
-    }
+    } */
 
 }
