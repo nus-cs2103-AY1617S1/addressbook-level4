@@ -21,6 +21,9 @@ import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.tag.Tag;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.*;
+import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
+import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -277,8 +280,8 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getEventList());
     }
-//@@author
-
+    
+    //@@author
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -387,6 +390,13 @@ public class LogicManagerTest {
         //invalid uncomplete argument
         assertEquals(result7.feedbackToUser, expectedMessage7);
         assertEquals(result8.feedbackToUser, expectedMessage8);
+    }
+    
+    @Test
+    public void execute_listall_test() throws Exception {
+        CommandResult result = logic.execute("listall");
+        String expectedMessage = String.format(ListAllCommand.LISTALL_MESSAGE_SUCCESS);
+        assertEquals(result.feedbackToUser, expectedMessage);
     }
    
     //@@author
