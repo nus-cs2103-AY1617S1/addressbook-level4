@@ -728,6 +728,11 @@ public class MainWindow extends UiPart {
         taskTableHome.getSelectionModel().select(task);
         taskTableHome.scrollTo(task);
     }
+    
+    //@@author A0138862W
+    public void toggleActionHistory(){
+        actionHistoryMini.setExpanded(!actionHistoryMini.isExpanded());
+    }
 
     /**
      * Handles all command input keyed in by user
