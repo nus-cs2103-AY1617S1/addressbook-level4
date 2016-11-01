@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     private final static String LIST_ARGS_VALIDATION = "(all)|(done)|(\\w{3}, \\d{2} \\w{3} \\d{2})"; 
     
     private String listing;
-    
+        
     public ListCommand(String argument) throws IllegalValueException {
         assert argument != null;
         listing = argument;

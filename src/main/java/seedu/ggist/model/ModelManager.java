@@ -176,7 +176,7 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAllDone();
         } else if (lastListing.equals("all")) {
             updateFilteredListToShowAll();
-        } else if (TaskDate.isValidDateFormat(lastListing)) {
+        }  else if (TaskDate.isValidDateFormat(lastListing)) {
             updateFilteredListToShowDate(lastListing);
         }
     }
