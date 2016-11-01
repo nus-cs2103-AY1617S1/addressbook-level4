@@ -4,6 +4,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.MinimizeRequestEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0135767U
@@ -28,7 +29,7 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {

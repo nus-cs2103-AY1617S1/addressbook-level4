@@ -85,18 +85,26 @@ public class TaskListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
+        	taskListView.getSelectionModel().clearSelection();
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
     
+    //@@author A0135767U
     public void scrollDeselect(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearSelection();
         });
     }
-
+    
+    public void deselectAll() {
+        Platform.runLater(() -> {
+            taskListView.getSelectionModel().clearSelection();
+        });
+    }
+    //@@author
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 

@@ -175,7 +175,8 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
-    private void handleMinimizeRequestEvent(MinimizeRequestEvent event){
+    private void handleMinimizeRequestEvent(MinimizeRequestEvent event) {
+    	mainWindow.getTaskListPanel().deselectAll();
         taskWindow.hide();
     }
     
