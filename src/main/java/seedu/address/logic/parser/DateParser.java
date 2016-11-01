@@ -38,7 +38,9 @@ public class DateParser {
 	 */
 	public static LocalDateTime parse(String dateString) throws ParseException {
 		dateString = dateString.trim();
-
+		
+		System.out.println(dateString);
+		
 		LocalDateTime dateTime = parseNaturalLanguage(dateString);
 		if (dateTime == null) {
 			dateTime = parseStandardFormat(dateString);
