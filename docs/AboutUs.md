@@ -7,29 +7,27 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
 <img src="images/Shailesh.JPG" width="150"><br>
-**Role**: Developer <br>
-**Responsibilities**: Parsing
+**Components in charge of :**: Parsing <br>
 
 -----
 
 #### [Teh Chee Yeo](https://github.com/cheo1994) <br>
 <img src="images/Chee Yeo.png" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: Logic
+**Components in charge of:**: Logic <br>  
 
 -----
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: Storage
+**Components in charge of:**: Storage <br>  
+
 
 -----
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
-**Role**: Developer <br>  
-**Responsibilities**: UI
+**Components in charge of:**: UI <br>  
+
 
 -----
 
