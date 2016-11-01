@@ -18,12 +18,20 @@ import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0124797R
 /**
  * Wraps all data at the task-manager level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskManager implements ReadOnlyTaskManager {
+    private static final int INDEX_RECURRENCE_KEYWORD = 0;
+    private static final int INDEX_RECURRENCE_AMOUNT = 1;
 
+    private static final int ONE_DAY = 1;
+    private static final int ONE_WEEK = 7;
+    private static final int ONE_MONTH = 1;
+    private static final int ONE_YEAR = 1;
+    
     private final UniqueTaskList tasks;
     private final UniqueTaskList floatingTasks;
     private final UniqueTaskList events;
@@ -47,52 +55,54 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this TaskManager
      */
-    //@@author A0124797R
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueFloatingTaskList(), 
                 toBeCopied.getUniqueEventList(), toBeCopied.getUniqueDeadlineList(), 
                 toBeCopied.getUniqueTagList(), toBeCopied.getUniqueArchiveList());
     }
 
+    //@@author A0124797R
     /**
      * Tasks and Tags are copied into this TaskManager
      */
-    //@@author A0124797R
     public TaskManager(UniqueTaskList tasks, UniqueTaskList floatingTasks, UniqueTaskList events, UniqueTaskList deadlines, UniqueTagList tags, ArchiveTaskList archiveTasks) {
         resetData(tasks.getInternalList(), floatingTasks.getInternalList(), events.getInternalList(),
                 deadlines.getInternalList(), tags.getInternalList(), archiveTasks.getInternalList());
     }
 
+    //@@author generated
     public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
 
-//// list overwrite operations
+    //list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
     
     //@@author A0124797R
+    /** returns an {@code ObservableList} of floating tasks*/
     public ObservableList<Task> getFloatingTasks() {
         return floatingTasks.getInternalList();
     }
     
-    //@@author A0124797R
+    /** returns an {@code ObservableList} of events*/
     public ObservableList<Task> getEvents() {
         return events.getInternalList();
     }
     
-    //@@author A0124797R
+    /** returns an {@code ObservableList} of deadlines*/
     public ObservableList<Task> getDeadlines() {
         return deadlines.getInternalList();
     }
-    
-    //@@author A0124797R
+
+    /** returns an {@code ObservableList} of archives*/
     public ObservableList<Task> getArchives() {
         return archives.getInternalList();
     }
     
+    //@@author generated
     public void setTasks(List<Task> tasks) {
         this.getUniqueTaskList().getInternalList().sort(comparator);
         this.tasks.getInternalList().setAll(tasks);
@@ -103,21 +113,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.floatingTasks.getInternalList().setAll(floatingTasks);
     }
 
-    //@@author A0124797R
     public void setEvents(List<Task> events) {
         this.events.getInternalList().setAll(events);
     }
 
-    //@@author A0124797R
     public void setDeadlines(List<Task> deadlines) {
         this.deadlines.getInternalList().setAll(deadlines);
     }
     
-    //@@author A0124797R
     public void setArchiveTasks(Collection<Task> archiveTasks) {
         this.archives.getInternalList().setAll(archiveTasks);
     }
 
+    //@@author generated
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
@@ -162,7 +170,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.getUniqueTaskList().getInternalList().sort(comparator);
 
     }
-    
+
+    //@@author A0124797R
     /**
      * Adds the next recurring task to the task manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -170,7 +179,6 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    //@@author A0124797R
     public void addNextTask(Task t) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
         syncTagsWithMasterList(t);
         Task newT = getNextTask(t);
@@ -191,58 +199,61 @@ public class TaskManager implements ReadOnlyTaskManager {
         Task newT = null;
         String[] recurVal = t.getRecur().split(" ");
         String nextRecur = getNextRecur(t.getRecur());
-        Date nextEndDate = getNextDate(t.getEndDate(),recurVal[0]);
+        Date nextEndDate = getNextDate(t.getEndDate(),recurVal[INDEX_RECURRENCE_KEYWORD]);
         
         if (t.isDeadline()) {
             newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur, new Date());
         }else if (t.isEvent()) {
-            Date nextStartDate = getNextDate(t.getStartDate(), recurVal[0]);
+            Date nextStartDate = getNextDate(t.getStartDate(), recurVal[INDEX_RECURRENCE_KEYWORD]);
             newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur, new Date());
         }
         
         return newT;
         
     }
-    
+
+    //@@author A0124797R
     /**
     * returns the next date based on the type of recurring task
     */
-    //@@author A0124797R
     private Date getNextDate(Date d, String recur) {
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         int date;
         switch (recur) {
-            case "daily":   date = c.get(Calendar.DATE);
-                            c.set(Calendar.DATE, date + 1);
-                            break;
-            case "weekly":  date = c.get(Calendar.DATE);
-                            c.set(Calendar.DATE, date + 7);
-                            break;
-            case "biweekly":  date = c.get(Calendar.DATE);
-                            c.set(Calendar.DATE, date + 14);
-                            break;
-            case "monthly": date = c.get(Calendar.MONTH);
-                            c.set(Calendar.MONTH, date + 1);
-                            break;
-            case "yearly":  date = c.get(Calendar.YEAR);
-                            c.set(Calendar.YEAR, date + 1);
-                            break;
+            case "daily" :   
+                date = c.get(Calendar.DATE);
+                c.set(Calendar.DATE, date + ONE_DAY);
+                break;
+            case "weekly" :  
+                date = c.get(Calendar.DATE);
+                c.set(Calendar.DATE, date + ONE_WEEK);
+                break;
+            case "monthly" : 
+                date = c.get(Calendar.MONTH);
+                c.set(Calendar.MONTH, date + ONE_MONTH);
+                break;
+            case "yearly" :  
+                date = c.get(Calendar.YEAR);
+                c.set(Calendar.YEAR, date + ONE_YEAR);
+                break;
+            default :
+                assert false;
         }
         
         return c.getTime();
     }
-    
+
+    //@@author A0124797R
     /**
     * returns the next date based on the type of recurring task
     */
-    //@@author A0124797R
     private String getNextRecur(String recur) {
         String[] recurArr = recur.split(" ");
         if (recurArr.length==1) {
             return recur;
         }else {
-            int counter = Integer.parseInt(recurArr[1]);
+            int counter = Integer.parseInt(recurArr[INDEX_RECURRENCE_AMOUNT]);
             
             if (counter>2) {
                 return recurArr[0] + " " + Integer.toString(counter-1);
@@ -252,6 +263,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
+    //@@author generated
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
@@ -285,6 +297,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    //@@author A0124797R
+    /**
+     * Removes an archived task as indicated
+     */
     public boolean removeArchive(ReadOnlyTask key) throws ArchiveTaskList.TaskNotFoundException {
         if (archives.remove(key)) {
             return true;
@@ -292,14 +308,12 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new ArchiveTaskList.TaskNotFoundException();
         }
     }
-    
+
+    //@@author A0124797R
     /**
      * marks task as completed by
      * removing the task from tasks and adds into archivedtasks
-     * throws TaskNotFoundException
-     * throws DuplicateTaskException 
      */
-    //@@author A0124797R
     public boolean markTask(Task key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             archives.add(key.mark());
@@ -309,13 +323,12 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+
+    //@@author A0124797R
     /**
      * marks task as not completed by
      * removing the task from archivedTasks and adds into tasks
-     * throws TaskNotFoundException, DuplicateTaskException 
      */
-    //@@author A0124797R
     public boolean unmarkTask(Task key) throws DuplicateTaskException, ArchiveTaskList.TaskNotFoundException {
         if (archives.remove(key)) {
             tasks.add(key.unmark());
@@ -325,11 +338,11 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new ArchiveTaskList.TaskNotFoundException();
         }
     }
-    
-    /**
-     * Synchronize adding of tasks
-     */
+
     //@@author A0124797R
+    /**
+     * Synchronize adding of tasks across the tabs
+     */
     private void syncAddTask(Task task) throws DuplicateTaskException{   
         if (task.isFloating()) {
             floatingTasks.add(task);
@@ -339,11 +352,11 @@ public class TaskManager implements ReadOnlyTaskManager {
             events.add(task);
         }
     }
-    
-    /**
-     * Synchronize removing of tasks
-     */
+
     //@@author A0124797R
+    /**
+     * Synchronize removing of tasks across the tabs
+     */
     private void syncRemoveTask(ReadOnlyTask task) throws TaskNotFoundException{
         if (task.isFloating()) {
             floatingTasks.remove(task);
@@ -357,6 +370,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// tag-level operations
 
+    //@@author generated
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
@@ -380,24 +394,22 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(floatingTasks.getInternalList());
     }
     
-    //@@author A0124797R
     @Override
     public List<ReadOnlyTask> getEventList() {
         return Collections.unmodifiableList(events.getInternalList());
     }
     
-    //@@author A0124797R
     @Override
     public List<ReadOnlyTask> getDeadlineList() {
         return Collections.unmodifiableList(deadlines.getInternalList());
     }
     
-    //@@author A0124797R
     @Override
     public List<ReadOnlyTask> getArchiveList() {
         return Collections.unmodifiableList(archives.getInternalList());
     }
 
+    //@@author generated
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
@@ -408,6 +420,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.tasks;
     }
 
+    //@@author A0124797R
     @Override
     public UniqueTaskList getUniqueFloatingTaskList() {
         return this.floatingTasks;
@@ -423,12 +436,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.deadlines;
     }
 
-    //@@author A0124797R
     @Override
     public ArchiveTaskList getUniqueArchiveList() {
         return this.archives;
     }
-
+    
+    //@@author generated
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
@@ -437,20 +450,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     @Override
     public boolean equals(Object other) {
-//        System.out.println("========");
-//        for (Task t : this.tasks.getInternalList()) {
-//            System.out.println(t.getName());
-//        }
-//        System.out.println("++++++++");
-//        for (Task t : ((TaskManager) other).tasks.getInternalList()) {
-//            System.out.println(t.getName());
-//        }
-//        System.out.println(this.tasks.equals(((TaskManager) other).tasks));
-//        System.out.println(this.floatingTasks.equals(((TaskManager) other).floatingTasks));
-//        System.out.println(this.events.equals(((TaskManager) other).events));
-//        System.out.println(this.deadlines.equals(((TaskManager) other).deadlines));
-//        System.out.println(this.tags.equals(((TaskManager) other).tags));
-//        System.out.println(this.archives.equals(((TaskManager) other).archives));
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
                 && this.tasks.equals(((TaskManager) other).tasks)
@@ -461,6 +460,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                 && this.archives.equals(((TaskManager) other).archives));
     }
 
+    //@@author generated
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

@@ -4,6 +4,7 @@ import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.collections.ObservableList;
 
+//@@author A0124797R
 /**
  * API of the Logic component
  */
@@ -18,19 +19,15 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    //@@author A0124797R
     /** Returns the filtered list of floating tasks*/
     ObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
 
-    //@@author A0124797R
     /** Returns the filtered list of events*/
     ObservableList<ReadOnlyTask> getFilteredEventList();
 
-    //@@author A0124797R
     /** Returns the filtered list of deadlines*/
     ObservableList<ReadOnlyTask> getFilteredDeadlineList();
 
-    //@@author A0124797R
     /** Returns the filtered list of archived tasks*/
     ObservableList<ReadOnlyTask> getFilteredArchiveList();
     

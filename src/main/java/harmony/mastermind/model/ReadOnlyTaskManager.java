@@ -27,34 +27,22 @@ public interface ReadOnlyTaskManager {
     
     ArchiveTaskList getUniqueArchiveList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
+    /** Returns an unmodifiable view of tasks list */
     List<ReadOnlyTask> getTaskList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
+    /** Returns an unmodifiable view of tasks list */
     List<ReadOnlyTask> getFloatingTaskList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
+    /** Returns an unmodifiable view of tasks list*/
     List<ReadOnlyTask> getEventList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
+    /** Returns an unmodifiable view of tasks list */
     List<ReadOnlyTask> getDeadlineList();
     
-    /**
-     * Returns an unmodifiable view of archive list
-     */
+    /** Returns an unmodifiable view of archive list */
     List<ReadOnlyTask> getArchiveList();
 
-    /**
-     * Returns an unmodifiable view of tags list
-     */
+    /** Returns an unmodifiable view of tags list */
     List<Tag> getTagList();
 
 

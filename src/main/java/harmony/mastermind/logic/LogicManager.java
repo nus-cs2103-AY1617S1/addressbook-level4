@@ -36,6 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
+    //@@author A0124797R
     public CommandResult execute(String commandText, String currentTab) {
         logger.info("----------------[" + currentTab + "Tab][USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText, currentTab);
@@ -70,10 +71,12 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredArchiveList();
     }
     
+    /**
+     * parse the result of commands and handle ImportCommand separately
+     */
     private CommandResult parseResult(Command cmd, String currentTab) {
         CommandResult result = cmd.execute();
         if (result.feedbackToUser.equals(ImportCommand.MESSAGE_READ_SUCCESS)) {
-            System.out.println("read success");
             result = handleImport((ImportCommand) cmd, currentTab);
         }
 
@@ -106,10 +109,10 @@ public class LogicManager extends ComponentManager implements Logic {
         
         int addCount = lineCounter - errCount;
         if (errLines.isEmpty()) {
-            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, addCount));
+            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_TXT_SUCCESS, addCount));
         } else {
             errLines = errLines.substring(0,errLines.length()-1);
-            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_FAILURE, addCount, errLines));
+            return new CommandResult(ImportCommand.COMMAND_WORD, String.format(ImportCommand.MESSAGE_IMPORT_TXT_FAILURE, addCount, errLines));
         }
         
     }

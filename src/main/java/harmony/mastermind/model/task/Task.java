@@ -150,20 +150,23 @@ public class Task implements ReadOnlyTask {
                 && this.toString().equals(((Task) other).toString())); // state check
         
     }
-        
-    @Override
+
     //@@author A0124797R
+    /** checks if task is marked */
+    @Override
     public boolean isMarked() {
         return this.isMarked;
     }
 
     //@@author A0124797R
+    /** set task as marked */
     public Task mark() {
         this.isMarked = true;
         return this;
     }
     
     //@@author A0124797R
+    /** set task as not mark */
     public Task unmark() {
         this.isMarked = false;
         return this;

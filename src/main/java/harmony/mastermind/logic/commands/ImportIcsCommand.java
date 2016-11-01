@@ -23,11 +23,11 @@ public class ImportIcsCommand extends Command {
 
     public static final String COMMAND_KEYWORD_IMPORTICS = "importics";
 
-    public static final String COMMAND_ARGUMENTS_REGEX = "from (?<source>.+)";
+    public static final String COMMAND_ARGUMENTS_REGEX = "from (?<source>.+)(?<=(?<extension>txt|csv|ics))";
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
     
-    public static final String MESSAGE_EXAMPLE = "importics from C:\\Users\\Jim\\jim@gmail.com.ics";
+    public static final String MESSAGE_EXAMPLE = "hint: remember to include the extension!\nimport from C:\\Users\\Jim\\jim@gmail.com.ics";
     
     public static final String MESSAGE_SUCCESS = "Imported ics.";
     

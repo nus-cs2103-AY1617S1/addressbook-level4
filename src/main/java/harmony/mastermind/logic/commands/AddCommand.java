@@ -1,27 +1,23 @@
 package harmony.mastermind.logic.commands;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
+import harmony.mastermind.memory.GenericMemory;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.logic.parser.Parser;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
-import harmony.mastermind.model.task.*;
+import harmony.mastermind.model.task.Task;
+import harmony.mastermind.model.task.TaskBuilder;
+import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
-import harmony.mastermind.memory.GenericMemory;
-import harmony.mastermind.memory.Memory;
 
 /**
  * Adds a task to the task manager.
@@ -80,8 +76,8 @@ public class AddCommand extends Command implements Undoable, Redoable {
     static GenericMemory deadline; 
     static GenericMemory event;
 
-    // event
     // @@author A0124797R
+    /** adds an event */
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal, Memory mem) throws IllegalValueException, InvalidEventDateException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {

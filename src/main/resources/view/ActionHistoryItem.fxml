@@ -13,6 +13,5 @@
             <Label fx:id="date" styleClass="date" text="DATE" />
          </children>
       </VBox>
-      <Label fx:id="description" styleClass="description" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>

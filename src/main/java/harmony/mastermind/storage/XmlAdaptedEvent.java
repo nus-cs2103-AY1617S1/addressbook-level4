@@ -1,5 +1,9 @@
 package harmony.mastermind.storage;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;
@@ -8,15 +12,10 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
-/**
- * JAXB-friendly version of the Task.
- */
 //@@author A0124797R
+/**
+ * JAXB-friendly version of the event type Task.
+ */
 public class XmlAdaptedEvent {
 
     @XmlElement(required = true)
@@ -57,7 +56,7 @@ public class XmlAdaptedEvent {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted event object into the model's Task object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted event
      */

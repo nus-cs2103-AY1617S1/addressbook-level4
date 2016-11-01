@@ -33,24 +33,25 @@ public interface Model {
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-    
-    /** Deletes the given Archived Task */
+
     //@@author A0124797R
+    /** Deletes the given Archived Task */
     void deleteArchive(ReadOnlyTask target) throws TaskNotFoundException, ArchiveTaskList.TaskNotFoundException;
 
+    //@@author generated
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
-    /** Add the next recurring task */
+
     //@@author A0124797R
+    /** Add the next recurring task */
     void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException;
 
+    //@@author A0124797R
     /** Marks the given task as done */
-    //@@author A0124797R
     void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
-    
-    /** Updates the completed task as not done */
+
     //@@author A0124797R
+    /** Updates the completed task as not done */
     void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
     ArchiveTaskList.TaskNotFoundException;
     
@@ -70,6 +71,7 @@ public interface Model {
     /** Returns the current list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentList();
 
+    //@@author A0138862W
     /** push the command to redo history */
     void pushToRedoHistory(Redoable command);
     
@@ -82,30 +84,27 @@ public interface Model {
     void clearRedoHistory();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    //@@author generated
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
     //@@author A0124797R
     /** Returns the filtered floating task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
-    //@@author A0124797R
     /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
     
-    //@@author A0124797R
     /** Returns the filtered deadline list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList();
     
-    //@@author A0124797R
     /** Returns the filtered archive list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList();
 
-    //@@author A0124797R
+    //@@author A0138862W
     /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark();
 
-    //@@author A0124797R
-    /** update current tab */
+    /** update current tab to the specified tab*/
     void updateCurrentTab(String tab);
 
     /** Updates the filter of the filtered task list for current tab to show all tasks */
@@ -114,15 +113,16 @@ public interface Model {
     /** Updates the filter of the filtered task list for specified tab to show all tasks */
     void updateFilteredListToShow(String tab);
     
-    //@@author A0124797R
     /** Updates the filter of the filtered task list 
      * for Home tab to show all upcoming tasks */
     void updateFilteredListToShowUpcoming(long time, String taskType);
     
+    //@@author generated
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    //@@author A0138862W
+    /** Updates the filter of the filtered task list to filter by the given tag keywords*/
     void updateFilteredTagTaskList(Set<Tag> keywords);
     
     /** Search */

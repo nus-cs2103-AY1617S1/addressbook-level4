@@ -26,12 +26,15 @@
 }
 
 .table-row-cell {
-    -fx-cell-size: 50px;
+    -fx-cell-size: 55px;
 }
 
 .table-row-cell:selected {
-   -fx-background-color: #4d0000;
-   -fx-table-cell-border-color: #4d0000;
+   -fx-background-color: black;
+   -fx-table-cell-border-color: black;
+   -fx-border-width: 2px 2px 2px 2px;
+   -fx-border-color: deepSkyBlue;
+   -fx-border-style: dashed;
 }
 
 .text-field{
@@ -202,4 +205,29 @@
 
 .happening{
     -fx-fill: orange;
+}
+
+.titled-pane,
+.titled-pane .title,
+.titled-pane .content{
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+}
+
+.titled-pane .title{
+    -fx-border-width: 2px 0px 0px 0px;
+    -fx-border-color: #3f3f3f;
+    -fx-border-style: dashed;
+}
+
+.titled-pane > .title .text{
+    -fx-fill: deepSkyBlue;
+    -fx-font-family: "Lucida Console";
+    -fx-font-style: oblique;
+    -fx-font-weight: bold;
+    
+}
+
+.titled-pane .title .arrow-button .arrow{
+    -fx-background-color: deepSkyBlue;
 }
