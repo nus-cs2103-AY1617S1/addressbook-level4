@@ -59,6 +59,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        FXCollections.sort(internalList);
     }
     
 
@@ -73,6 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        FXCollections.sort(internalList);
         return taskFoundAndDeleted;
     }
     
@@ -106,6 +108,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	
     	updatedTask.setTags(oldTask.getTags());
     	internalList.set(taskIndex, updatedTask);
+    	FXCollections.sort(internalList);
 	
     	return true;
       
@@ -113,7 +116,6 @@ public class UniqueTaskList implements Iterable<Task> {
     
 
     public ObservableList<Task> getInternalList() {
-        
         return internalList;
     }
 

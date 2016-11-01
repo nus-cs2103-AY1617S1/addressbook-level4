@@ -11,7 +11,7 @@ import seedu.unburden.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  * @@author A0143095H
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private TaskDescription taskD;
@@ -234,9 +234,24 @@ public class Task implements ReadOnlyTask {
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
+    
+    @Override
+    public int compareTo(Task task) {
+    	if (this.getDate().compareTo(task.getDate()) == 0) { // two objects have the same date, compare end times
+    		if (this.getEndTime().compareTo(task.getEndTime()) == 0) {
+    			return this.getStartTime().compareTo(task.getStartTime());
+       		}
+    		else {
+    			return this.getEndTime().compareTo(task.getEndTime());
+    		}
+    	}
+    	else {
+    		return this.getDate().compareTo(task.getDate());
+    	}
+    }
 
     
-        @Override
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name,taskD,date,startTime,endTime, tags);
