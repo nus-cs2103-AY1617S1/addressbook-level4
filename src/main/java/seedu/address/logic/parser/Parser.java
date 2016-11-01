@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -523,10 +524,18 @@ public class Parser {
 
         // Validate arg string format
         for(Prefix prefix : prefix_to_fieldName.keySet()){
-            Optional<List<String>> input = argsTokenizer.getAllValues(prefix);
-            if(input.isPresent()){
-                field_and_newValue_pair.put(prefix_to_fieldName.get(prefix), input.get());
+            Optional<List<String>> optInput = argsTokenizer.getAllValues(prefix);
+            String fieldName = prefix_to_fieldName.get(prefix);
+            List<String> input;
+            if(optInput.isPresent()){
+                input = optInput.get();
+            }else{
+                continue;
+            }               
+            if(fieldName=="time"){
+                input = Arrays.asList(prepareAddTimeArgs(input.get(0)));
             }
+            field_and_newValue_pair.put(fieldName, input);
         }
         return new EditCommand(index, field_and_newValue_pair);
     }
