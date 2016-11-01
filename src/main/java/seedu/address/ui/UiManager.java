@@ -18,6 +18,10 @@ import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.lifekeeper.MainApp;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 /**
@@ -31,6 +35,11 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    
+    private static final long DELAY = 60 * 1000; // one minute
+    
+    private LoopTask loopTask = new LoopTask();
+    private Timer timer = new Timer("Refresh");
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -51,6 +60,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            initRefresh();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -122,5 +132,22 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }
+    
+    private void initRefresh() {
+        timer.cancel();
+        timer = new Timer("TaskName");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date executionDate = cal.getTime();
+        timer.scheduleAtFixedRate(loopTask, executionDate, DELAY);
+    }
+    
+    private class LoopTask extends TimerTask {
+        public void run() {
+            mainWindow.refresh();
+        }
+    }
+
 
 }

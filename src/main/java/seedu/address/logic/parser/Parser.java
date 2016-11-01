@@ -33,6 +33,7 @@ public class Parser {
                     + "(?<priority>(?: p/[^/]+)?)"
                     + "(?<start>(?: s/[^/]+)?)"
                     + "(?<end>(?: e/[^/]+)?)"
+                    + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
@@ -45,6 +46,7 @@ public class Parser {
                     + "(?<priority>(?: p/[^/]+)?)"
                     + "(?<start>(?: s/[^/]+)?)"
                     + "(?<end>(?: e/[^/]+)?)"
+                    + "(?<recurring>(?: every/[^/]+)?)"
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 

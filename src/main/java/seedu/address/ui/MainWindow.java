@@ -222,4 +222,8 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+    
+    public void refresh() {
+        personListPanel.refresh();
+    }
 }

@@ -29,7 +29,7 @@ public class StartTime extends DateTime {
         Date taskDate;
 
         if (!date.equals("")) {
-            taskDate = DATE_PARSER.EventDateConvert(date);
+            taskDate = DATE_PARSER.FixedDateConvert(date);
 
             if (taskDate == null) {
                 assert false : "Date should not be null";

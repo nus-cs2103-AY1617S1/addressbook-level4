@@ -86,6 +86,11 @@ public class PersonListPanel extends UiPart {
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void refresh() {
+        ObservableList<ReadOnlyActivity> items = personListView.<ReadOnlyActivity>getItems();
+        setConnections(items);
+    }
 
     class PersonListViewCell extends ListCell<ReadOnlyActivity> {
 

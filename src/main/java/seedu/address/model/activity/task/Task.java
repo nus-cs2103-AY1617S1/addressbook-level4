@@ -91,6 +91,7 @@ public class Task extends Activity implements ReadOnlyTask {
         } else {
             Calendar cal = Calendar.getInstance();
             Date now = cal.getTime();
+            cal.setTime(duedate.getCalendarValue().getTime());
             cal.add(Calendar.DAY_OF_MONTH, DAYS_WARNING);
             Date warningDate = cal.getTime();
             return warningDate.before(now)
