@@ -13,15 +13,17 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " cs2103";
     
     //@@author A0146130W
     private final String keywords;
-    private final Set<String> keywordSet;
+    private Set<String> keywordSet;
+	private final String cmd;
 
-    public FindCommand(String keywords, Set<String> keywordSet) {
+    public FindCommand(String keywords, Set<String> keywordSet, String cmd) {
         this.keywords = keywords;
         this.keywordSet = keywordSet;
+        this.cmd = cmd;
     }
     
     private String getMessageForTaskListShownSummaryIfExactPhraseNotFound(int displaySize) {
@@ -33,13 +35,26 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords, keywordSet);
-        
-        if(model.getFilteredTaskList().isEmpty()) {
-        	model.updateFilteredTaskList(keywordSet);
-        	if(!model.getFilteredTaskList().isEmpty()) return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
-        }        
-        
+    	System.out.println("command: " + cmd);
+    	
+    	// search by parameter if specified
+    	if (cmd != "nil") {
+    		model.updateFilteredTaskList(keywords, cmd);
+    	} else {
+    		// search by exact name
+    		model.updateFilteredTaskList(keywords, keywordSet);
+    	}
+    	if (!model.getFilteredTaskList().isEmpty()) {
+    		return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+    	}
+    	
+    	// search by keywords
+        model.updateFilteredTaskList(keywords, "nil");
+    	
+    	if (!model.getFilteredTaskList().isEmpty()) {
+    		return new CommandResult(getMessageForTaskListShownSummaryIfExactPhraseNotFound(model.getFilteredTaskList().size()));
+        }
+    	
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }

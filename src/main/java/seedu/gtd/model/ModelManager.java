@@ -7,10 +7,13 @@ import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.commons.events.model.AddressBookChangedEvent;
 import seedu.gtd.commons.util.StringUtil;
 import seedu.gtd.model.task.Task;
+import seedu.gtd.model.tag.Tag;
+import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.task.UniqueTaskList;
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -99,6 +102,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredTaskList(Set<String> keywordSet) {
+    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
+    }
 
     @Override
     public void updateFilteredTaskList(String keywords, Set<String> keywordSet){
@@ -106,8 +114,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskList(Set<String> keywordSet) {
-    	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywordSet)));
+    public void updateFilteredTaskList(String keywords, String cmd) {
+    	updateFilteredTaskList(new PredicateExpression(new otherFieldsQualifier(keywords, cmd)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -154,15 +162,73 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return keywordSet.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
+        	return keywordSet.stream()
+            .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+            .findAny()
+            .isPresent();
         }
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", keywordSet);
+        }
+    }
+    
+    private class otherFieldsQualifier implements Qualifier {
+        protected String nameKeyWords;
+        protected String cmd;
+
+        otherFieldsQualifier(String keywords, String cmd) {
+            this.nameKeyWords = keywords;
+            this.cmd = cmd;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	if (cmd == "address") {
+        		System.out.println("finding address..");
+        		String address = task.getAddress().toString().toLowerCase();
+        		boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        		return addressMatch;
+        	} else if (cmd == "priority") {
+        		System.out.println("finding priority..");
+        		String priority = task.getPriority().toString();
+        		boolean priorityMatch = priority.contains(nameKeyWords);
+        		return priorityMatch;
+        	} else if (cmd == "dueDate") {
+        		System.out.println("finding dueDate..");
+        		String dueDate = task.getDueDate().toString();
+        		boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        		return dueDateMatch;
+        	} else if (cmd == "tagArguments") {
+        		System.out.println("finding tags.. ");
+        		UniqueTagList tagsList = task.getTags();
+        		boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        		return tagsMatch;
+        	}
+        	
+        	// cmd == "nil"
+        	
+        	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
+        	String priority = task.getPriority().toString();
+        	String address = task.getAddress().toString().toLowerCase();
+        	String dueDate = task.getDueDate().toString();
+        	UniqueTagList tagsList = task.getTags();
+        	
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
+        	boolean priorityMatch = priority.contains(nameKeyWords);
+        	boolean dueDateMatch = dueDate.contains(nameKeyWords);
+        	boolean tagsMatch = tagsList.containSearch(nameKeyWords.toLowerCase());
+        	boolean eachWordMatch = false;
+        	
+        	String[] eachWord = nameKeyWords.split(" ");
+        	for (String word : eachWord) {
+        		System.out.println("each: " + word);
+        		eachWordMatch = eachWordMatch || taskFullNameLowerCase.contains(word.toLowerCase());
+        	}
+        	
+            return eachWordMatch || nameMatch || addressMatch || priorityMatch || dueDateMatch || tagsMatch;
         }
     }
     
@@ -177,14 +243,13 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
         	String taskFullNameLowerCase = task.getName().fullName.toLowerCase();
-        	boolean orderMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
+        	boolean nameMatch = taskFullNameLowerCase.contains(nameKeyWords.toLowerCase());
         	
         	boolean eachWordMatch = keywordSet.stream()
             .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
             .findAny()
             .isPresent();
-        	
-            return eachWordMatch && orderMatch;
+        	return eachWordMatch && nameMatch;
         }
     }
 }

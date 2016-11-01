@@ -296,6 +296,36 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
+    	
+    	// check if parameters are specified and pass specified field to FindCommand
+    	
+    	String preprocessedArgs = " " + appendEnd(args.trim());
+    	final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher dueDateMatcher = DUEDATE_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArgs);
+    	
+    	Set<String> defaultSet = new HashSet<String>();
+    	
+    	if (addressMatcher.matches()) {
+    		String addressToBeFound = addressMatcher.group("address");
+    		return new FindCommand(addressToBeFound, defaultSet,"address");
+    	}
+    	if (priorityMatcher.matches()) {
+    		String priorityToBeFound = priorityMatcher.group("priority");
+    		return new FindCommand(priorityToBeFound, defaultSet, "priority");
+    	}
+    	if (dueDateMatcher.matches()) {
+    		String dueDateToBeFound = dueDateMatcher.group("dueDate");
+    		return new FindCommand(dueDateToBeFound, defaultSet, "dueDate");
+    	}
+    	if (tagsMatcher.matches()) {
+    		String tagsToBeFound = tagsMatcher.group("tagArguments");
+    		return new FindCommand(tagsToBeFound, defaultSet,"tagArguments");
+    	}
+    	
+    	// free-form search by keywords
+    	
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -307,7 +337,7 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(splitKeywords));
         
         final String keywords = matcher.group("keywords");
-        return new FindCommand(keywords, keywordSet);
+        return new FindCommand(keywords, keywordSet, "nil");
     }
 
     /**

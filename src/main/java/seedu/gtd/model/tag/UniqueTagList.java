@@ -3,6 +3,7 @@ package seedu.gtd.model.tag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.gtd.commons.exceptions.DuplicateDataException;
+import seedu.gtd.commons.exceptions.IllegalValueException;
 import seedu.gtd.commons.util.CollectionUtil;
 
 import java.util.*;
@@ -104,6 +105,25 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean contains(Tag toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
+    }
+    
+    
+    
+    public boolean containSearch(String toCheck) {
+        assert toCheck != null;
+        boolean containsTag = true;
+        try {
+        	String[] tagsArray = toCheck.split(" ");
+        	
+        	for (String tag : tagsArray) {
+        		System.out.println(tag);
+        		Tag searchTag = new Tag(tag);
+        		containsTag = containsTag && internalList.contains(searchTag);
+        	}
+        	return containsTag;
+		} catch (IllegalValueException e) {
+			return false;
+		}
     }
 
     /**
