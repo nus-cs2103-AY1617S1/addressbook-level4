@@ -21,7 +21,7 @@ public class RedoCommand extends Command {
             + ": Redo the previous undo command.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_COMMAND_SUCCESS = "Redo previous undo command: %1$s";
+    public static final String MESSAGE_REDO_COMMAND_SUCCESS = "Redo previous undo command: %1$s";
 
     @Override
     public CommandResult execute() {
