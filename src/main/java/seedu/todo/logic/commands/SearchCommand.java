@@ -31,7 +31,15 @@ public class SearchCommand extends Command {
         PRIORITY,
     }
     
+    public enum SearchCompletedOption {
+        ALL,
+        DONE,
+        UNDONE,
+    }
+    
+    
     public static final String COMMAND_WORD = "search";
+    public static final String FT_CONCATENATER = "@";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Search all tasks whose names contain any of "
             + "the specified keywords and displays them as a list with index numbers.\n"
@@ -40,10 +48,12 @@ public class SearchCommand extends Command {
 
     private final String data;
     private final SearchIndex whichSearch;
+    private final SearchCompletedOption option;
     
-    public SearchCommand(String data, SearchIndex whichSearch) {
+    public SearchCommand(String data, SearchCompletedOption option, SearchIndex whichSearch) {
         this.data = data;
         this.whichSearch = whichSearch;
+        this.option = option;
     }
 
     /**
@@ -92,7 +102,7 @@ public class SearchCommand extends Command {
     private CommandResult searchOn() {
         try {
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
-            model.updateFilteredTaskListOnDate(datetime);
+            model.updateFilteredTaskListOnDate(datetime, this.option);
             
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -108,7 +118,7 @@ public class SearchCommand extends Command {
     private CommandResult searchBefore() {
         try {
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_BY);
-            model.updateFilteredTaskListBeforeDate(datetime);
+            model.updateFilteredTaskListBeforeDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -124,7 +134,7 @@ public class SearchCommand extends Command {
     private CommandResult searchAfter() {
         try {
             LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
-            model.updateFilteredTaskListAfterDate(datetime);
+            model.updateFilteredTaskListAfterDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -139,13 +149,13 @@ public class SearchCommand extends Command {
      */
     private CommandResult searchFT() {
         try {
-            String fromDateString = data.split("@")[0].trim();
+            String fromDateString = data.split(FT_CONCATENATER)[0].trim();
             LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString, TaskDate.TASK_DATE_ON);
                 
-            String tillDateString = data.split("@")[1].trim();
+            String tillDateString = data.split(FT_CONCATENATER)[1].trim();
             LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString, TaskDate.TASK_DATE_BY);
                 
-            model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);
+            model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime, this.option);
             
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -163,7 +173,7 @@ public class SearchCommand extends Command {
     private CommandResult searchKeyword() {
         final String[] keywords = data.split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        model.updateFilteredTaskListByKeywords(keywordSet);
+        model.updateFilteredTaskListByKeywords(keywordSet, this.option);
         
         int size = model.getFilteredTaskList().size();
         return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -174,7 +184,7 @@ public class SearchCommand extends Command {
      */
     private CommandResult searchTag() {
         String tag = data.split("tag")[1].trim();
-        model.updateFilteredTaskListByTag(tag);
+        model.updateFilteredTaskListByTag(tag, this.option);
         
         int size = model.getFilteredTaskList().size();
         return new CommandResult(getMessageForTaskListShownSummary(size));
@@ -187,7 +197,7 @@ public class SearchCommand extends Command {
     private CommandResult searchPriority() {
         try {
             String priority = data.trim();                   
-            model.updateFilteredTaskListByPriority(new Priority(priority));
+            model.updateFilteredTaskListByPriority(new Priority(priority), this.option);
            
             int size = model.getFilteredTaskList().size();
             return new CommandResult(getMessageForTaskListShownSummary(size));

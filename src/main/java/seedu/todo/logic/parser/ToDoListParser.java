@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Recurrence.Frequency;
 
@@ -113,6 +114,11 @@ public class ToDoListParser {
     private String matchRecurrenceResult(Matcher matcher) {
         return matcher.group("rec");
     }
+    
+    private String matchTagsResult(Matcher matcher) {
+        return matcher.group("tags");
+    }
+    
     
 
     /**
@@ -378,7 +384,8 @@ public class ToDoListParser {
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, 
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
                 ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.KEYWORDS_ARGS_FORMAT, 
+                ParserFormats.KEYWORDS_ARGS_FORMAT,
+                ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG,
                 ParserFormats.SEARCH_PRIORITY };
         
         String tempArgs = args.trim(); 
@@ -388,45 +395,57 @@ public class ToDoListParser {
             matcher = p.matcher(tempArgs);
             
             if (matcher.matches()) {
+                SearchCompletedOption option = SearchCompletedOption.DONE;
+                System.out.println(matcher.groupCount());
+                if (matcher.groupCount() >= 2) {
+                    System.out.println(matcher.group(1).trim().toUpperCase());
+                    option = SearchCompletedOption.valueOf(matcher.group(1).trim().toUpperCase());
+                }                
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
-                    return new SearchCommand(matchOnDateTimeResult(matcher), 
+                    return new SearchCommand(matchOnDateTimeResult(matcher),
+                                             option,
                                              SearchCommand.SearchIndex.ON);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE)) {
-                    return new SearchCommand(matcher.group("beforeDateTime"), 
+                    return new SearchCommand(matcher.group("beforeDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.BEFORE);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER)) {
-                    return new SearchCommand(matcher.group("afterDateTime"), 
+                    return new SearchCommand(matcher.group("afterDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.AFTER);
                     
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)) {
-                    return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 
+                    return new SearchCommand(matcher.group("fromDateTime") + SearchCommand.FT_CONCATENATER 
+                                           + matcher.group("tillDateTime"),
+                                             option,
                                              SearchCommand.SearchIndex.FT);
                     
-                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
-                        && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0 
+                } else if (p.equals(ParserFormats.SEARCH_KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
                         && tempArgs.indexOf("priority") != 0) {
-                    
                     return new SearchCommand(matcher.group("keywords"), 
+                                             option,
                                              SearchCommand.SearchIndex.KEYWORD);
-                    
                 } else if (p.equals(ParserFormats.SEARCH_PRIORITY)) {
+                    return new SearchCommand(matchTagsResult(matcher), 
+                                             option,
+                                             SearchCommand.SearchIndex.TAG);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_TAG)) {
                     return new SearchCommand(matchPriorityResult(matcher), 
-                                         SearchCommand.SearchIndex.PRIORITY);
+                            option,
+                            SearchCommand.SearchIndex.PRIORITY);
                 }
             }
         }
-        if (tempArgs.indexOf("tag") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.TAG);
-        }
+        
 
         if (tempArgs.indexOf("done") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.DONE);
+            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.DONE);
         }
 
         if (tempArgs.indexOf("undone") == 0) {
-            return new SearchCommand(tempArgs, SearchCommand.SearchIndex.UNDONE);
+            return new SearchCommand(tempArgs, SearchCompletedOption.ALL, SearchCommand.SearchIndex.UNDONE);
         }
         
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));

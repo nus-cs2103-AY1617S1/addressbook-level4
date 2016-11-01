@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import javafx.collections.transformation.FilteredList;
-
+import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.task.Task;
@@ -25,7 +25,7 @@ public class OnDateQualifierTest {
         Task toAdd = helper.generateFullTask(1);
         ddb.addTask(toAdd);
         
-        filteredTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now())))::satisfies);
+        filteredTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now(), SearchCompletedOption.ALL)))::satisfies);
         assertEquals(filteredTasks.size(), 0);
         
         Task toAddToday = helper.generateTaskWithDates("today", "4 days later");
@@ -34,7 +34,7 @@ public class OnDateQualifierTest {
         Task toAddNoDate = helper.generateTaskWithDates(null, null);
         ddb.addTask(toAddNoDate);
         
-        filteredTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now())))::satisfies);
+        filteredTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now(), SearchCompletedOption.ALL)))::satisfies);
         assertEquals(filteredTasks.size(), 1);
     }
     

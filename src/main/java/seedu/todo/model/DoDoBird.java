@@ -7,6 +7,7 @@ import seedu.todo.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
+import seedu.todo.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
@@ -116,7 +117,7 @@ public class DoDoBird implements ReadOnlyToDoList {
             UniqueTagList topList = this.copyTagList(tags);
             this.tagsHistory.push(topList);
         } else {
-            this.updateTaskHistoryStack();
+            this.updateTagHistoryStack();
             this.getTags().setAll(tags);
         }
     }
@@ -142,16 +143,33 @@ public class DoDoBird implements ReadOnlyToDoList {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws DuplicateTaskException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
-        this.getUniqueTaskList().add(p);
+
+        try {
+            this.getUniqueTaskList().add(p);
+        } catch (DuplicateTaskException e) {
+            undo();
+            throw e;
+        }
+        
+        updateTagTopList();
     }
     
-    public void deleteTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public void deleteTask(ReadOnlyTask key) throws TaskNotFoundException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
-        this.getUniqueTaskList().remove(key);
+        
+        try {
+            this.getUniqueTaskList().remove(key);
+        } catch (TaskNotFoundException e) {
+            undo();
+            throw e;
+        }
+        
+        updateTagTopList();
+
     }
     
     /**
@@ -161,18 +179,19 @@ public class DoDoBird implements ReadOnlyToDoList {
      * @param newTask copy the fields in new task into task to update
      * @throws UniqueTaskList.TaskNotFoundException if the task to update is not found.
      */
-    public void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
+    public void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
         updateTaskHistoryStack();
         updateTagHistoryStack();
-        
+         
         int index = this.getTaskIndex(oldTask);
-        
+            
         this.getTasks().get(index).setName(newTask.getName());
         this.getTasks().get(index).setDetail(newTask.getDetail());
         this.getTasks().get(index).setOnDate(newTask.getOnDate());
         this.getTasks().get(index).setByDate(newTask.getByDate());
         this.getTasks().get(index).setPriority(newTask.getPriority());
         this.getTasks().get(index).setRecurrence(newTask.getRecurrence());
+        
     }
     
     public void addTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
@@ -217,7 +236,8 @@ public class DoDoBird implements ReadOnlyToDoList {
      * TODO : Does not handle tags as of yet
      */
     public boolean undo() {
-        if (this.tasksHistory.size() > 1) {
+        System.out.println(this.tasksHistory.size() + " " + this.tagsHistory.size());
+        if (this.tasksHistory.size() > 1 && this.tagsHistory.size() > 1) {
             UniqueTaskList topTaskList = this.tasksHistory.pop();
             UniqueTaskList oldTaskList = this.tasksHistory.pop();
             topTaskList.getInternalList().setAll(oldTaskList.getInternalList());
