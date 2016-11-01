@@ -21,7 +21,7 @@ public class NattyDateParser {
 	 * This method parses the date from the String argument into a Calendar object which
 	 * can be used in other classes.
 	 * @param args, dateTimeList
-	 * @return an array list with the first index containing the date and second index containing the time
+	 * @return an array list with the first index containing the date 18-08-2016 1800 and second index containing the time
 	 */
 	public static void parseDate (String args, ArrayList<String> dateTimeList) {
 		

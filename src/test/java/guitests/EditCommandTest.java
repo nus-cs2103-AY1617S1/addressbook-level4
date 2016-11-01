@@ -40,24 +40,20 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertTaskEditNoteSuccess(task, 1, "Task Hello Note");
         assertEventEditNoteSuccess(event, 1, "Event Hello Note");
         
+        /**
+         * Editting for single parameters no longer works due to natty.
+         * I.e editting time/date alone does not work.
         // Edit Date - For Task
         assertTaskEditDateTimeSuccess(task, 1, "30-11-1994");
         
         // Edit Time - For Task
         assertTaskEditDateTimeSuccess(task, 1, "2359");
-
         
-        // Edit Both, Date/Time - For Task
-        assertTaskEditBothDateTimeSuccess(task, 1, "10-10-2016 1000");
-
         // Edit From Date - For Event
         assertEventEditFromDateTimeSuccess(event, 1, "30-11-1994");
        
         // Edit From Time - For Event
         assertEventEditFromDateTimeSuccess(event, 1, "2359");
-
-        // Edit Both, From Date/Time - For Event
-        assertEventEditFromDateTimeSuccess(event, 1, "10-01-2016 1000");
         
         // Edit To Date - For Event
         assertEventEditToDateTimeSuccess(event, 1, "20-02-2016");
@@ -65,17 +61,25 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         // Edit to Time - For Event. 
         assertEventEditToDateTimeSuccess(event, 1, "1200");
 
-        // Edit Both, To Date/Time - For Event
-        assertEventEditToDateTimeSuccess(event, 1, "02-02-2016 1100");
-       
+        */
+        
+        // Edit Both, Date/Time - For Task
+        assertTaskEditBothDateTimeSuccess(task, 1, "10-10-2016 1000");
 
-        // Current from: 10-01-2016 1000. Current to: 02-02-2016 1100.
+        // Edit Both, From Date/Time - For Event
+        assertEventEditFromDateTimeSuccess(event, 1, "10-10-2016 1000");
+
+        // Edit Both, To Date/Time - For Event
+        assertEventEditToDateTimeSuccess(event, 1, "12-02-2016 1100");
+       
+        // mm-dd-yyyy
+        // Current from: 10-10-2016 1000. Current to: 12-02-2016 1100.
         // Edit invalid to/From date& Time.
         // From date/time cannot be after than to date/time. - For Event
-        assertInvalidEventFromDateTime(event, 1, "02-02-2016 1101"); // Invalid from time
-        assertInvalidEventFromDateTime(event, 1, "03-02-2016 1100"); // Invalid from date
-        assertInvalidEventToDateTime(event, 1, "10-01-2016 0959"); // Invalid to time
-        assertInvalidEventToDateTime(event, 1, "09-01-2016 1000"); // Invalid to date
+        assertInvalidEventFromDateTime(event, 1, "12-02-2016 1101"); // Invalid from time
+        assertInvalidEventFromDateTime(event, 1, "12-03-2016 1100"); // Invalid from date
+        assertInvalidEventToDateTime(event, 1, "10-10-2016 0959"); // Invalid to time
+        assertInvalidEventToDateTime(event, 1, "10-09-2016 1000"); // Invalid to date
       
     }
     

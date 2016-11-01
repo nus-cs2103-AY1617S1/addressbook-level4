@@ -23,10 +23,13 @@ public class UnremindCommand extends Command {
         try {
             // Retrieve the email of the user from the txt file.
             Scanner fromFile = new Scanner(new File(Messages.MESSAGE_FILE));
-            fromFile.next();
+            String isRemindOn = fromFile.next();
+            if (isRemindOn.equals(REMINDER_OFF)) {
+                return new CommandResult(REMIND_NOT_SET_ERROR);
+            }
             fromFile.nextLine(); // Skips a line.
             String userEmail = fromFile.nextLine();
-
+            
             // Writes userEmail to a file.
             // Saves file
             PrintStream out;

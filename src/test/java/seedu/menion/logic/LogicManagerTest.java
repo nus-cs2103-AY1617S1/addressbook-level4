@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.menion.commons.core.EventsCenter;
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
 import seedu.menion.commons.events.ui.JumpToListRequestEvent;
 import seedu.menion.commons.events.ui.ShowHelpRequestEvent;
@@ -151,8 +152,10 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidActivityData() throws Exception {
        
+    	String expected = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,DateChecker.END_DATE_BEFORE_START_DATE_ERROR);
+    	
         assertCommandBehavior(
-                "add Valid Name from: 09-10-2016 2100 to: 09-09-2016 2200 n: hi", DateChecker.END_DATE_BEFORE_START_DATE_ERROR);
+                "add Valid Name from: 09-10-2016 2100 to: 09-09-2016 2200 n: hi", expected);
        
     }
 

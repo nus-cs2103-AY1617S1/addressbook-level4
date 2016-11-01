@@ -57,7 +57,6 @@ public class ActivityParser {
             return new ClearCommand();
 
         case ListCommand.COMMAND_WORD:
-            
         	return prepareList(arguments);
             
         case UndoCommand.COMMAND_WORD:
@@ -99,7 +98,6 @@ public class ActivityParser {
     private Command prepareList(String args){
     	
     	args = args.trim();
-    	
     	return new ListCommand(args);
     
     }
@@ -133,7 +131,7 @@ public class ActivityParser {
         
         // Should only contain a space, Activity Type and Index
         if (splited.length != 3) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
         // Checks that the activity type is of valid type
@@ -163,7 +161,7 @@ public class ActivityParser {
         
         // Should only contain a space, Activity Type and Index
         if (splited.length != 3) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.MESSAGE_USAGE));
         }
         
         boolean isValidType = false; // Checks that the activity type is of valid type
@@ -228,7 +226,7 @@ public class ActivityParser {
 			return new AddCommand(details);
 
 		} catch (IllegalValueException e) {
-			return new IncorrectCommand(e.getMessage());
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()));
 		}
     	  
    
