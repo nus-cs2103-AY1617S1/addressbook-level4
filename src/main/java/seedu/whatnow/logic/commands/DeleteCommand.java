@@ -33,6 +33,9 @@ public class DeleteCommand extends Command {
         this.taskType = taskType;
     }
 
+    /**
+     * Execute DeleteCommand to delete a task at targetIndex
+     */
     @Override
     public CommandResult execute() {
 

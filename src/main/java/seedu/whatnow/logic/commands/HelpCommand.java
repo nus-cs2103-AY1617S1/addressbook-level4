@@ -19,6 +19,9 @@ public class HelpCommand extends Command {
     public HelpCommand() {
     }
 
+    /**
+     * Executes the FindCommand that launches the help page
+     */
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());

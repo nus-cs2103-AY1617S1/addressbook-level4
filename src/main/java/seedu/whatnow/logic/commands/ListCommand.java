@@ -37,6 +37,9 @@ public class ListCommand extends Command {
         }
     }
 
+    /**
+     * Executes the ListCommand to display task based on task status(incomplete or complete or both) 
+     */
     @Override
     public CommandResult execute() {
         mapInputToCorrectArgumentForExecution();

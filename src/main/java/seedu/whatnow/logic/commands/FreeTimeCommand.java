@@ -30,7 +30,10 @@ public class FreeTimeCommand extends Command {
     public FreeTimeCommand(String date) {
         this.date = date;
     }
-
+    
+    /**
+     * Execute the FreeTimeCommand to display the period of free time of a date
+     */
     @Override
     public CommandResult execute() {
 

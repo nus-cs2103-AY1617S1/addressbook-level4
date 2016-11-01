@@ -21,6 +21,9 @@ public class FindCommand extends Command {
         this.keywords = keywords;
     }
 
+    /**
+     * Executes the FindCommand to get task that matches the keywords
+     */
     @Override
     public CommandResult execute() {
         return new CommandResult(getMessageForTaskListShownSummary(

@@ -48,6 +48,9 @@ public class ChangeCommand extends Command {
         this.newPath = newPath;
     }
 
+    /**
+     * Execute the ChangeCommand to change to the updated data filepath
+     */
     @Override
     public CommandResult execute() {
         Path path = FileSystems.getDefault().getPath(newPath);

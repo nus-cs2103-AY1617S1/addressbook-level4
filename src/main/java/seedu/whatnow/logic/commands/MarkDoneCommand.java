@@ -35,6 +35,9 @@ public class MarkDoneCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the MarkDoneCommand to mark a task at targetIndex as completed
+     */
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;

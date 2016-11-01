@@ -217,6 +217,9 @@ public class UpdateCommand extends Command {
     }
 
     // @@author A0139772U
+    /**
+     * Executes the UpdateCommand to replace the task at targetIndex with updated information
+     */
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;

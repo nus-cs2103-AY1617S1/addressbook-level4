@@ -34,6 +34,9 @@ public class MarkUndoneCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the MarkUndoneCommand to mark a completed task as incomplete
+     */
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;

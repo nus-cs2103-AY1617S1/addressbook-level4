@@ -15,6 +15,9 @@ public class ClearCommand extends Command {
 
     public static Stack<WhatNow> reqStack;
 
+    /**
+     * Executes the ClearCommand to delete all task data on WhatNow
+     */
     public ClearCommand() {
     }
 

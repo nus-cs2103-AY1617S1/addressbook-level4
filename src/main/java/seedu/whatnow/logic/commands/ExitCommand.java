@@ -16,6 +16,9 @@ public class ExitCommand extends Command {
     public ExitCommand() {
     }
 
+    /**
+     * Executes ExitCommand to exit WhatNow
+     */
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());

@@ -13,6 +13,9 @@ public class IncorrectCommand extends Command {
         this.feedbackToUser = feedbackToUser;
     }
 
+    /**
+     * Executes the IncorrectCommand to display the feedback message to user
+     */
     @Override
     public CommandResult execute() {
         indicateAttemptToExecuteIncorrectCommand();
