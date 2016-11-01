@@ -24,8 +24,7 @@ public class Date {
 
 	
 	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	private boolean isLeapYear = false;
-	public final String fullDate;
+	private final String fullDate;
 	private int day;
 	private int month;
 	private int year;
@@ -130,6 +129,10 @@ public class Date {
 	public java.util.Date toDate() throws ParseException {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		return df.parse(fullDate);
+	}
+	
+	public String getFullDate() {
+		return this.fullDate;
 	}
 
 	@Override

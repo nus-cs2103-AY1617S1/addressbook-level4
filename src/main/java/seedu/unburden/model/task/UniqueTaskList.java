@@ -92,7 +92,7 @@ public class UniqueTaskList implements Iterable<Task> {
     		updatedTask.setTaskDescription(oldTask.getTaskDescription());
     	}
     	
-    	if (updatedTask.getDate().fullDate == "       ") {
+    	if (updatedTask.getDate().getFullDate() == "       ") {
     		updatedTask.setDate(oldTask.getDate());
     	}
     	

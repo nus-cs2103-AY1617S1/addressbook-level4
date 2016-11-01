@@ -41,14 +41,14 @@ public interface ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         
         // Floating task 
-        if(getTaskDescription().getFullTaskDescription() == "       " && getDate().fullDate == "       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){
+        if(getTaskDescription().getFullTaskDescription() == "       " && getDate().getFullDate() == "       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){
         	builder.append(getName());
         	builder.append("\n");
         	getTags().forEach(builder::append);
         }
         
         // Floating task with task description 
-        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().fullDate == "       " && getStartTime().fullTime == "       "&& getEndTime().fullTime == "       "){       
+        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().getFullDate() == "       " && getStartTime().fullTime == "       "&& getEndTime().fullTime == "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Task Description : ");        
@@ -58,7 +58,7 @@ public interface ReadOnlyTask {
         }
         
         // Task with deadline 
-        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().fullDate !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){       
+        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().getFullDate() !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Deadline : ");        
@@ -68,7 +68,7 @@ public interface ReadOnlyTask {
         }
         
         // Task with deadline and task description 
-        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().fullDate != "       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){       
+        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().getFullDate() != "       " && getStartTime().fullTime == "       " && getEndTime().fullTime == "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Task Description : ");        
@@ -81,7 +81,7 @@ public interface ReadOnlyTask {
         }
         
         // Task with deadline and end date 
-        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().fullDate !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime != "       "){       
+        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().getFullDate() !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime != "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Deadline : ");        
@@ -94,7 +94,7 @@ public interface ReadOnlyTask {
         }
         
         // Task with deadline and end date and task description 
-        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().fullDate !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime != "       "){       
+        else if(getTaskDescription().getFullTaskDescription() != "       " && getDate().getFullDate() !="       " && getStartTime().fullTime == "       " && getEndTime().fullTime != "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Task Description : ");        
@@ -110,7 +110,7 @@ public interface ReadOnlyTask {
         }
         
         // Task with deadline, start time and end time 
-        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().fullDate !="       " && getStartTime().fullTime != "       " && getEndTime().fullTime != "       "){       
+        else if(getTaskDescription().getFullTaskDescription() == "       " && getDate().getFullDate() !="       " && getStartTime().fullTime != "       " && getEndTime().fullTime != "       "){       
 	        builder.append(getName());
 	        builder.append("\n");
 	        builder.append("Deadline : ");        
