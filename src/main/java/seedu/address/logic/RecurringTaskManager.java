@@ -208,13 +208,6 @@ public class RecurringTaskManager {
     }
 
     /**
-     * Looks at the latest task occurrence and appends task occurrences based on it.
-     */
-    private void updateRecurringTask(ReadOnlyTask task) {
-        updateRecurringTask(task, LocalDate.now());
-    }
-    
-    /**
      * Test method to test if updateRecurringTask is working as intended
      */
     public void updateRecurringTask(ReadOnlyTask task, LocalDate currentDate) {
