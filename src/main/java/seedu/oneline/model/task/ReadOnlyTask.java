@@ -81,5 +81,13 @@ public interface ReadOnlyTask {
      * @return
      */
     public Task markUndone(ReadOnlyTask taskToDone);
-    //@@author
+    
+    //@@author A0138848M
+    /**
+     * Returns a new Task which duplicates the existing task and updates its tag
+     * 
+     * @param newTag the updated tag
+     * @return
+     */
+    public Task updateTag(Tag newTag);
 }

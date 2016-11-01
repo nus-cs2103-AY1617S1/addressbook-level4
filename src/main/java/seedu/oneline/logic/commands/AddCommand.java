@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. \n"
-            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
+            + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
             + " Acad meeting .from 2pm .to 4pm #acad";
 
