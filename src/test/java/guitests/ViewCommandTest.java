@@ -23,6 +23,9 @@ public class ViewCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void viewSwitch() {
+        
+        //Add an additional deadline task to verify the changes in tasklist panel.
+        commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
 
         // View today
         TestTask toBeAdded = td.weekly;
@@ -30,6 +33,8 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         expectedList.add(toBeAdded.getLastAppendedComponent());
         commandBox.runCommand(toBeAdded.getAddRecurringCommand());
         assertViewSuccess("today", expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent()));
 
         // View next week today
         TaskOccurrence updated = toBeAdded.getLastAppendedComponent();
@@ -37,11 +42,17 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         updated.setEndDate(new TaskDate(updated.getEndDate().getDateInLong() + 7 * DAY));
         expectedList.set(0, updated);
         assertViewSuccess("next week today", expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent(),
+                td.incoming.getLastAppendedComponent()));
              
     }
     
     @Test
     public void viewUndoRedo() {
+        
+        //Add an additional deadline task to verify the changes in tasklist panel.
+        commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
 
         // View today
         TestTask toBeAdded = td.none;
@@ -60,12 +71,18 @@ public class ViewCommandTest extends TaskMasterGuiTest {
         assertEquals(TestUtil.getConvertedTime(new TaskDate("today")).truncatedTo(ChronoUnit.DAYS),
                 browser.getMyAgenda().getDisplayedLocalDateTime());
         assertIsAgendaMatching(expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent()));
         
         expectedList.clear();
         commandBox.runCommand("r");
         assertEquals(TestUtil.getConvertedTime(new TaskDate("next week today")).truncatedTo(ChronoUnit.DAYS),
                 browser.getMyAgenda().getDisplayedLocalDateTime());
         assertIsAgendaMatching(expectedList);
+        assertTrue(taskListPanel.isListMatching(td.labDeadline.getLastAppendedComponent(),
+                td.essayDeadline.getLastAppendedComponent(),
+                td.incoming.getLastAppendedComponent()));
+        
              
     }
 
