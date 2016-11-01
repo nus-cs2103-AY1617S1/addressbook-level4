@@ -26,6 +26,10 @@ import seedu.address.model.item.TimePeriod;
  */
 public class AddCommandHelper {
     
+    private static final String STRING_CONSTANT_ZERO = "0";
+
+    private static final String MESSAGE_INVALID_DATE = "Invalid date!";
+
     private final static Logger logger = LogsCenter.getLogger(AddCommandHelper.class);
     
     private static final String STRING_CONSTANT_ONE = "1";
@@ -134,8 +138,8 @@ public class AddCommandHelper {
         String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
         Pattern pattern = Pattern.compile(REGEX_VALIDATE_DATE);
         Matcher matcher = pattern.matcher(syntaxTree);
-        if (matcher.matches()) {
-            throw new IllegalValueException("Invalid start date!");
+        if (matcher.matches() && !matcher.group("date").equals(STRING_CONSTANT_ZERO)) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATE);
         }
     }
     
