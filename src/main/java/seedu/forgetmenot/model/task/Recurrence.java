@@ -14,7 +14,7 @@ public class Recurrence {
     public static final int DEFAULT_OCCURENCE = 10;
     
     private static final Pattern RECURRENCE_DATA_ARGS_FORMAT = Pattern.compile("(?<freq>((\\d* )?(day|week|month|year)(s)?))"
-            + "( x(?<occ>(\\d++)))?");
+            + "( x(?<occ>(\\d++)))?", Pattern.CASE_INSENSITIVE);
 
     private boolean value;
     public String days;
@@ -60,6 +60,15 @@ public class Recurrence {
     public String toString() {
         if (!value)
             return "NIL";
+        if (days.toLowerCase().equals("day"))
+            return "Daily";
+        if (days.toLowerCase().equals("week"))
+            return "Weekly";
+        if (days.toLowerCase().equals("month"))
+            return "Monthly";
+        if (days.toLowerCase().equals("year"))
+            return "Yearly";
+        
         return days;
     }
     
