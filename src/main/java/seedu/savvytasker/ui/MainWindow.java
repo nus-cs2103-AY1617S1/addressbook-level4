@@ -64,6 +64,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private VBox listPanel;
 
 
     public MainWindow() {
@@ -113,11 +116,40 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
+        setDefaultView();
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    /**
+     * Removes all the children in the taskPanel VBox
+     * Shows the default list, which is the list of tasks
+     */
+    private void setDefaultView() {
+        getListPanel().getChildren().remove(getAliasSymbolPlaceholder());
+        getListPanel().getChildren().remove(getTaskListPlaceholder());
+        getListPanel().getChildren().add(getTaskListPlaceholder());
+    }
+    
+    /**
+     * Set to true to show the list of tasks. Set to false to show the list of alias
+     * @param isShown
+     */
+    public void showTaskList(boolean isShown) {
+        getListPanel().getChildren().remove(getAliasSymbolPlaceholder());
+        getListPanel().getChildren().remove(getTaskListPlaceholder());
+        if (isShown) {
+            getListPanel().getChildren().add(getTaskListPlaceholder());
+        } else {
+            getListPanel().getChildren().add(getAliasSymbolPlaceholder());
+        }
+    }
+    
+    private VBox getListPanel() {
+        return listPanel;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -132,7 +164,7 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
+    public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
     

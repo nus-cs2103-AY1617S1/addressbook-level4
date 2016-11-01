@@ -44,6 +44,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected static MainApp instance;
 
     public MainApp() {}
 
@@ -51,7 +52,8 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing Savvy Tasker ]===========================");
         super.init();
-
+        instance = this;
+        
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
@@ -66,6 +68,14 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+    }
+    
+    public static Ui getUiManager() {
+        return instance.ui;
+    }
+    
+    public static Logic getLogicManager() {
+        return instance.logic;
     }
 
     private String getApplicationParameter(String parameterName){

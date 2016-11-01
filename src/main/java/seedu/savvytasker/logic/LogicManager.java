@@ -7,11 +7,13 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
+import seedu.savvytasker.MainApp;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.logic.commands.ListCommand;
 import seedu.savvytasker.logic.parser.AddCommandParser;
 import seedu.savvytasker.logic.parser.AliasCommandParser;
 import seedu.savvytasker.logic.parser.ClearCommandParser;
@@ -61,6 +63,13 @@ public class LogicManager extends ComponentManager implements Logic {
         command.setLogic(this);
         
         CommandResult result = command.execute();
+        
+        if (!(command instanceof ListCommand)) {
+            // forcefully show the task list instead
+            MainApp.getUiManager().showTaskList(true);
+        } else {
+            ListCommand listCommand = (ListCommand)command;
+        }
         
         //@@author A0097627N
         if (command.isUndo()){

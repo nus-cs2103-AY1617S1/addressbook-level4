@@ -35,6 +35,10 @@ public class AliasSymbolListPanel extends UiPart {
     public void setNode(Node node) {
         panel = (VBox) node;
     }
+    
+    public Node getNode() {
+        return panel;
+    }
 
     @Override
     public String getFxmlPath() {
