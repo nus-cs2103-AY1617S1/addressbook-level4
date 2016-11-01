@@ -47,9 +47,7 @@ public class ChangeStatusCommand extends Command {
 
 		for (int i = 0; i < indices.length; i++) {
 			if (lastShownList.size() < indices[i]) {
-				// TODO avoid save state/loadPrevious in case of incorrect command, 
-				// since redo stack will have an element. possibly create model.undoSaveState()
-				model.loadPreviousState();
+				model.undoSaveState();
 				indicateAttemptToExecuteIncorrectCommand();
 				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 			}
@@ -62,7 +60,8 @@ public class ChangeStatusCommand extends Command {
 			try {
 				model.editTask(index, taskChanged);
 			} catch (TaskNotFoundException e) {
-				model.loadPreviousState();
+				model.undoSaveState();
+				// TODO create variable of string. compare message to delete command
 				return new CommandResult("The task with index " + indices[i] + " cannot be found. Please refresh the list.");
 			}
 		}
