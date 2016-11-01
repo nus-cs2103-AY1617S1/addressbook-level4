@@ -356,12 +356,14 @@ public class Parser {
 		if (args.equals("")) {
 			return new ListCommand();
 		}
-		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
-		final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args.trim());
+		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args);
+		final Matcher matcherWord = KEYWORDS_NAME_FORMAT.matcher(args);
 		if (!matcherWord.matches() && !matcherDate.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
-		if (matcherWord.matches()) {
+		if (matcherDate.matches()) {
+			return new ListCommand(args, "date");
+		} else {
 			Calendar calendar = Calendar.getInstance();
 			switch (args.toLowerCase()) {
 			case TOMORROW:
@@ -383,7 +385,6 @@ public class Parser {
 				return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
 			}
 		}
-		return new ListCommand(args, "date");
 	}
 
 	/**
@@ -438,6 +439,17 @@ public class Parser {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
+
+	/*
+	 * private Command prepareClear(String args) { args = args.trim();
+	 * if(args.equals("")){ return new ClearCommand(args); } else
+	 * if(args.toLowerCase().equals(ALL)){ return new ClearCommand(args); }
+	 * else{ return new
+	 * IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+	 * ClearCommand.MESSAGE_USAGE)); }
+	 * 
+	 * }
+	 */
 
 	/**
 	 * Parses arguments in the context of the set directory command.
