@@ -6,6 +6,7 @@ import java.util.List;
 import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -55,7 +56,7 @@ public class DeleteCommand extends UndoableCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        String toDisplay = deletedTasks.toString().replace("[", "").replace("]", "");
+        String toDisplay = StringUtil.removeArrayBrackets(deletedTasks.toString());
         return (deletedTasks.size() == 1)? 
                 new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
                 new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
@@ -70,7 +71,7 @@ public class DeleteCommand extends UndoableCommand {
     private void deleteTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-            lastShownList = isViewingDoneList? 
+            lastShownList = (isViewingDoneList)? 
                     model.getFilteredDoneTaskList():
                     model.getFilteredUndoneTaskList();
                     
@@ -100,7 +101,7 @@ public class DeleteCommand extends UndoableCommand {
 
     /**
      * Prepares for the deletion of tasks
-     * Initialises the attributes of this done command class
+     * Initialises the attributes of this delete command class
      * Sorts the indexes to ensure the proper offset is used
      */
     private void prepareToDeleteTasks() {

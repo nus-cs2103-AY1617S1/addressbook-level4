@@ -20,13 +20,13 @@ public class StoreCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the storage location. "
             + "Parameters: store [FILEPATH]\n" 
             + "Example: " + COMMAND_WORD 
-            + "data/hello_bunny" + XML_FILE_EXTENSION;      
+            + "data/dear_jim_backup";      
     public static final String TOOL_TIP = "store [FILEPATH]";
     public static final String MESSAGE_SUCCESS = "Storage location changed to %1$s.";
     public static final String MESSAGE_FAILURE = "Unable to write to the storage location specified. "
             + "Please choose another storage location.";
    
-    public final String storageFilePath;
+    public String storageFilePath;
 
     public StoreCommand(String storageFilePath) {
         this.storageFilePath = storageFilePath;
@@ -35,7 +35,7 @@ public class StoreCommand extends Command {
     @Override
     public CommandResult execute() {        
         assert model != null;
-       
+        storageFilePath = storageFilePath + XML_FILE_EXTENSION;
         Config config = new Config();
         config.setTaskManagerFilePath(storageFilePath);
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(storageFilePath);

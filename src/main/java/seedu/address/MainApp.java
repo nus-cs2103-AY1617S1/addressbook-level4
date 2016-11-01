@@ -194,7 +194,7 @@ public class MainApp extends Application {
     //@@author A0139498J
     @Subscribe
     public void handleChangeStorageFilePathEvent(ChangeStorageFilePathEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Updating storage file path in MainApp"));
         storage.setTaskManagerFilePath(event.getNewStorageFilePath());
     }
     //@@author

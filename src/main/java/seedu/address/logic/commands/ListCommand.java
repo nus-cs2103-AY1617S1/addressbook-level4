@@ -35,20 +35,8 @@ public class ListCommand extends Command {
 
     public ListCommand(Set<String> listKeywords) {
         this.keywords = listKeywords;
-        if (listKeywords.contains(ListCommand.DONE_COMMAND_WORD)) {
-            isListDoneCommand = true;
-        }
-        else {
-            isListDoneCommand = false;
-        }
-        
-        if (listKeywords.isEmpty()) {
-            isListUndoneCommand = true;
-        }
-        else {
-            isListUndoneCommand = false;
-        }
-        
+        this.isListDoneCommand = listKeywords.contains(ListCommand.DONE_COMMAND_WORD);
+        this.isListUndoneCommand = listKeywords.isEmpty();    
     }
 
     @Override
@@ -81,17 +69,6 @@ public class ListCommand extends Command {
             model.updateFilteredUndoneTaskListDatePred(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
         }
-        /*
-        if (isListDoneCommand) {
-            logger.info("Showing all done tasks");
-            model.setCurrentListToBeDoneList();
-            return new CommandResult(DONE_MESSAGE_SUCCESS);
-        } else {
-            logger.info("Showing all undone tasks");
-            model.setCurrentListToBeUndoneList();
-            return new CommandResult(MESSAGE_SUCCESS);
-        }
-        */
     }
     
 }

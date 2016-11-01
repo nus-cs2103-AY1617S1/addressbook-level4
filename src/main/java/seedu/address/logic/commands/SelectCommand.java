@@ -39,7 +39,9 @@ public class SelectCommand extends Command {
             lastShownList = model.getFilteredUndoneTaskList();
         }
 
-        if (lastShownList.size() < targetIndex) {
+        boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
+        
+        if (isTaskTargetIndexOutOfBounds) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }

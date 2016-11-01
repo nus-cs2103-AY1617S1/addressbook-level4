@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -68,7 +69,7 @@ public class DoneCommand extends UndoableCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        String toDisplay = doneTasks.toString().replace("[", "").replace("]", "");
+        String toDisplay = StringUtil.removeArrayBrackets(doneTasks.toString());
         return (doneTasks.size() == 1)? 
                 new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
                 new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
