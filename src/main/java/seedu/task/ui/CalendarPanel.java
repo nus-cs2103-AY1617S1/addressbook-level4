@@ -215,13 +215,35 @@ public class CalendarPanel extends UiPart {
 		//highlight the event 
 		Appointment targetAppoint  = agenda.appointments()
 				.stream()
-				.filter((Predicate<? super Agenda.Appointment>) appointment -> 
-			appointment.getSummary().equals(targetEvent.getEvent().fullName)
-			&& appointment.getStartLocalDateTime().equals(targetEvent.getDuration().getStartTime())
-			&& appointment.getEndLocalDateTime().equals(targetEvent.getDuration().getEndTime()))
+				.filter((Predicate<? super Agenda.Appointment>) eventInCalendar 
+						-> CalendarHelper.compareWithEvent(targetEvent, eventInCalendar))
 				.findAny()
 				.orElseThrow(()-> new CalendarUnsyncException(CALENDAR_UNSYC_MESSAGE));
 		
 		agenda.selectedAppointments().add(targetAppoint);
+	}
+
+	public void select(ReadOnlyTask targetTask) throws CalendarUnsyncException {
+		if(isCompleted(targetTask) || isFloating(targetTask)) {
+			return;
+		}
+		LocalDateTime displayedDateTime = targetTask.getDeadline().get().getTime();
+		updateCalendarShownPeriod(displayedDateTime);
+		
+		Appointment targetAppoint = agenda.appointments().stream()
+				.filter((Predicate<? super Agenda.Appointment>) taskInCalendar 
+						-> CalendarHelper.compareWithTask(targetTask, taskInCalendar))
+				.findAny()
+				.orElseThrow(() -> new CalendarUnsyncException(CALENDAR_UNSYC_MESSAGE));
+		
+		agenda.selectedAppointments().add(targetAppoint);
+	}
+
+	private boolean isFloating(ReadOnlyTask targetTask) {
+		return !targetTask.getDeadline().isPresent();
+	}
+
+	private boolean isCompleted(ReadOnlyTask targetTask) {
+		return targetTask.getTaskStatus();
 	}
 }

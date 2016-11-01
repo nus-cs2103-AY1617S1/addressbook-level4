@@ -44,7 +44,7 @@
 
 .Agenda .Selected { 
 	-xfx-color: -fx-focused-base;
-	-fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+	-fx-background-color: #f1c40f, -fx-outer-border, -fx-inner-border, #f1c40f;
 	-fx-background-insets: -1.4, 0, 1, 2;
 	-fx-background-radius: 10, 5, 4, 3;
 }

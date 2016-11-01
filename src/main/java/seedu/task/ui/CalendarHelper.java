@@ -61,4 +61,16 @@ public class CalendarHelper extends AppointmentImplBase implements Appointment {
 		return instance;
 	}
 
+	public static boolean compareWithTask(ReadOnlyTask targetTask, Appointment taskInCalendar) {
+		assert targetTask.getDeadline().isPresent();
+		return taskInCalendar.getSummary().equals(targetTask.getTask().fullName)
+				&& taskInCalendar.getStartLocalDateTime().equals(targetTask.getDeadline().get().getTime());
+	}
+
+	public static boolean compareWithEvent(ReadOnlyEvent targetEvent, Appointment eventInCalendar) {
+		return eventInCalendar.getSummary().equals(targetEvent.getEvent().fullName)
+				&& eventInCalendar.getStartLocalDateTime().equals(targetEvent.getDuration().getStartTime())
+				&& eventInCalendar.getEndLocalDateTime().equals(targetEvent.getDuration().getEndTime());
+	}
+
 }
