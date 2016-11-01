@@ -73,6 +73,12 @@ public interface Model {
             throws FloatingTaskNotFoundException, DuplicateFloatingTaskException, DuplicateDeadlineException,
             DeadlineNotFoundException, DuplicateEventException, EventNotFoundException;
     
+    /** Complete the task.*/
+    void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException;
+    
+    /** Complete the task.*/
+    void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException;
+    
     /** Complete the floating task.*/
 	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
 	
@@ -86,22 +92,13 @@ public interface Model {
 	void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException;
 	
 	/** Marks the task as a priority */
-    void markTask(Object taskToMark, boolean marked) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
-    FloatingTaskUnmarkedException, DeadlineNotFoundException, DeadlineMarkedException,
-    DeadlineUnmarkedException, EventNotFoundException, EventMarkedException, EventUnmarkedException; 
+    void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
+    DeadlineNotFoundException, DeadlineMarkedException, EventNotFoundException, EventMarkedException;
+
+    /** Unmarks the task as a priority */
+    void unmarkTask(Object taskToUnmark) throws FloatingTaskNotFoundException, FloatingTaskUnmarkedException,
+    DeadlineNotFoundException, DeadlineUnmarkedException, EventNotFoundException, EventUnmarkedException;
 	
-	/** Marks the floating task as a prority.*/
-	void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
-	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException;
-    
-	/** Marks the deadline as a prority.*/
-    void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
-            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException;
-    
-    /** Marks the event as a priority.*/
-    void markEvent(ReadOnlyEvent eventToMark, boolean marked)
-            throws EventNotFoundException, EventMarkedException, EventUnmarkedException;
-    
     /** Indicate the directory of data file has changed. Save data into new directory*/
     void dataFilePathChanged();
     

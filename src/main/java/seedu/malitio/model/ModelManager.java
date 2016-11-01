@@ -73,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
         malitio.resetData(newData);
         indicateMalitioChanged();
     }
-    
+
 
     @Override
     public ReadOnlyMalitio getMalitio() {
@@ -94,24 +94,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void addCorrectInputDeleteHistory(Object target) {
         if (target instanceof ReadOnlyFloatingTask) {
-        history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
+            history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
         } else {
             history.add(new InputDeleteHistory(target));
         }
     }
 
     //@@author A0129595N
- 
+
     @Override
     public void addTask(Object task)
             throws DuplicateFloatingTaskException, DuplicateDeadlineException, DuplicateEventException {
         malitio.addTask(task);
         history.add(new InputAddHistory(task));
-        UpdateAllListToShowALl();
+        updateAllListToShowAll();
         indicateMalitioChanged();
-        
+
     }
-    
+
     @Override
     public void addFloatingTaskAtSpecificPlace(Object task, int index) throws DuplicateFloatingTaskException {
         malitio.addTask(task, index);
@@ -125,99 +125,97 @@ public class ModelManager extends ComponentManager implements Model {
     DeadlineNotFoundException, DuplicateEventException, EventNotFoundException {
         malitio.editTask(edited, beforeEdit);
         history.add(new InputEditHistory(edited, beforeEdit));
-        UpdateAllListToShowALl();
+        updateAllListToShowAll();
         indicateMalitioChanged();
     }
-    
+
+    public void completeTask(Object taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException, DeadlineCompletedException, DeadlineNotFoundException {
+        malitio.completeTask(taskToComplete);
+        history.add(new InputCompleteHistory(taskToComplete));
+        updateAllListToShowAll();
+        indicateMalitioChanged();
+    }
+
+    public void uncompleteTask(Object taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException, DeadlineUncompletedException, DeadlineNotFoundException {
+        malitio.uncompleteTask(taskToUncomplete);
+        history.add(new InputUncompleteHistory(taskToUncomplete));
+        updateAllListToShowAll();
+        indicateMalitioChanged();
+    }
+
     //@@author A0122460W
-	@Override
-	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
-		malitio.completeTask(taskToComplete);
-		updateFilteredTaskListToShowAll();
+    @Override
+    public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+        malitio.completeTask(taskToComplete);
+        history.add(new InputCompleteHistory(taskToComplete));
+        updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
-	}
-	
-	@Override
-	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
-		malitio.completeDeadline(deadlineToComplete);
-		updateFilteredDeadlineListToShowAll();
+    }
+
+    @Override
+    public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
+        malitio.completeDeadline(deadlineToComplete);
+        history.add(new InputCompleteHistory(deadlineToComplete));
+        updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
-	}
-	
-	@Override
-	public void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
-		malitio.uncompleteTask(taskToUncomplete);
-		updateFilteredTaskListToShowAll();
+    }
+
+    @Override
+    public void uncompleteFloatingTask(ReadOnlyFloatingTask taskToUncomplete) throws FloatingTaskUncompletedException, FloatingTaskNotFoundException {
+        malitio.uncompleteTask(taskToUncomplete);
+        history.add(new InputCompleteHistory(taskToUncomplete));
+        updateFilteredTaskListToShowAll();
         indicateMalitioChanged();
-	}
-	
-	@Override
-	public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
-		malitio.uncompleteDeadline(deadlineToUncomplete);
-		updateFilteredDeadlineListToShowAll();
+    }
+
+    @Override
+    public void uncompleteDeadline(ReadOnlyDeadline deadlineToUncomplete) throws DeadlineUncompletedException, DeadlineNotFoundException {
+        malitio.uncompleteDeadline(deadlineToUncomplete);
+        history.add(new InputCompleteHistory(deadlineToUncomplete));
+        updateFilteredDeadlineListToShowAll();
         indicateMalitioChanged();
-	}
-	
-	@Override
-	public void markTask(Object taskToMark, boolean marked) throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException, DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException, EventNotFoundException, EventMarkedException, EventUnmarkedException {
-	    malitio.markTask(taskToMark, marked);
-	    history.add(new InputMarkHistory(taskToMark, marked));
-	    UpdateAllListToShowALl();
-	}
-	
-	private void UpdateAllListToShowALl() {
+    }
+
+    @Override
+    public void markTask(Object taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException,
+    DeadlineNotFoundException, DeadlineMarkedException, EventNotFoundException, EventMarkedException {
+        malitio.markTask(taskToMark);
+        history.add(new InputMarkHistory(taskToMark));
+        updateAllListToShowAll();
+    }
+
+    @Override
+    public void unmarkTask(Object taskToUnmark) throws FloatingTaskNotFoundException, FloatingTaskUnmarkedException,
+    DeadlineNotFoundException, DeadlineUnmarkedException, EventNotFoundException, EventUnmarkedException {
+        malitio.unmarkTask(taskToUnmark);
+        history.add(new InputUnmarkHistory(taskToUnmark));
+        updateAllListToShowAll();
+    }
+
+    private void updateAllListToShowAll() {
         updateFilteredTaskListToShowAll();
         updateFilteredDeadlineListToShowAll();
         updateFilteredEventListToShowAll();
-        
+
     }
 
-    //@@author A0153006W
-	@Override
-	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
-	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
-	    malitio.markTask(taskToMark, marked);
-	    history.add(new InputMarkHistory(taskToMark, marked));
-	    updateFilteredTaskListToShowAll();
-	    indicateMalitioChanged();
-	}
-	
-	@Override
-    public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
-            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
-        malitio.markDeadline(deadlineToMark, marked);
-        history.add(new InputMarkHistory(deadlineToMark, marked));
-        updateFilteredDeadlineListToShowAll();
-        indicateMalitioChanged();
-    }
-	
-	@Override
-	public void markEvent(ReadOnlyEvent eventToMark, boolean marked)
-	        throws EventNotFoundException, EventMarkedException, EventUnmarkedException {
-	    malitio.markEvent(eventToMark, marked);
-	    history.add(new InputMarkHistory(eventToMark, marked));
-	    updateFilteredEventListToShowAll();
-	    indicateMalitioChanged();
-	}
-    //@@author
-    
     @Override
     public Stack<InputHistory> getHistory() {
         return history;
     }
-    
+
     @Override
     public Stack<InputHistory> getFuture() {
         return future;
     }
-    
+
     //@@author a0126633j
     @Override
     public void dataFilePathChanged() {
         logger.info("Data storage file path changed, updating..");
         indicateMalitioChanged();
     }
-    
+
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -225,7 +223,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyDeadline> getFilteredDeadlineList() {
         return new UnmodifiableObservableList<>(filteredDeadlines);
@@ -247,12 +245,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListToShowAll() {
         filteredFloatingTasks.setPredicate(null);
     }
-    
+
     @Override
     public void updateFilteredDeadlineListToShowAll() {
         filteredDeadlines.setPredicate(p->!p.getCompleted() || p.getDue().compareTo(new Date())>0);
     }
-    
+
     @Override
     public void updateFilteredEventListToShowAll() {
         filteredEvents.setPredicate(p ->p.getStart().compareTo(new Date())>0);
@@ -266,12 +264,12 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredFloatingTasks.setPredicate(expression::satisfies);
     }
-    
+
     @Override
     public void updateFilteredDeadlineList(Set<String> keywords){
-    	updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void updateFilteredDeadlineList(DateTime keyword) {
         updateFilteredDeadlines(new PredicateExpression(new TimeQualifier(keyword)));
@@ -280,12 +278,12 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredDeadlines(Expression expression) {
         filteredDeadlines.setPredicate(expression::satisfies);
     }
-    
+
     @Override
     public void updateFilteredEventList(Set<String> keywords){
         updateFilteredEvents(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void updateFilteredEventList(DateTime keyword) {
         updateFilteredEvents(new PredicateExpression(new TimeQualifier(keyword)));
@@ -316,12 +314,12 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean satisfies(ReadOnlyFloatingTask task) {
             return qualifier.run(task);
         }
-        
+
         @Override
         public boolean satisfies(ReadOnlyDeadline deadline) {
             return qualifier.run(deadline);
         }
-        
+
         @Override
         public boolean satisfies(ReadOnlyEvent event) {
             return qualifier.run(event);
@@ -356,7 +354,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent();
         }
-        
+
         @Override
         public boolean run(ReadOnlyDeadline deadline) {
             return nameKeyWords.stream()
@@ -367,7 +365,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny() 
                     .isPresent();
         }
-        
+
         @Override
         public boolean run(ReadOnlyEvent event) {
             return nameKeyWords.stream()
@@ -386,8 +384,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
     //@@author
-    
     private class TimeQualifier implements Qualifier {
         private DateTime timeKeyWord;
 
@@ -399,7 +397,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyFloatingTask task) {
             return false;
         }
-        
+
         @Override
         public boolean run(ReadOnlyDeadline deadline) {
             if (timeKeyWord.compareTo(deadline.getDue()) <= 0) {
@@ -408,7 +406,7 @@ public class ModelManager extends ComponentManager implements Model {
                 return false;
             }
         }
-        
+
         @Override
         public boolean run(ReadOnlyEvent event) {
             if (timeKeyWord.compareTo(event.getStart()) <= 0) {
@@ -417,7 +415,7 @@ public class ModelManager extends ComponentManager implements Model {
                 return false;
             }
         }
-        
+
         @Override
         public String toString() {
             return timeKeyWord.toString();

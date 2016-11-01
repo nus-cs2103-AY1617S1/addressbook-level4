@@ -23,7 +23,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " Pay John $100 by Oct 11 2359 t/oweMoney";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Malitio";
     public static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";

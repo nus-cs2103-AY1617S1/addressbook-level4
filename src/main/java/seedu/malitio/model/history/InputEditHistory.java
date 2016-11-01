@@ -1,6 +1,7 @@
 package seedu.malitio.model.history;
 
 import seedu.malitio.commons.exceptions.IllegalValueException;
+import seedu.malitio.logic.commands.EditCommand;
 import seedu.malitio.model.tag.UniqueTagList;
 import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
@@ -8,7 +9,6 @@ import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 //@@author A0129595N
@@ -19,7 +19,7 @@ public class InputEditHistory extends InputHistory {
     private Object editedTask;
     
     public InputEditHistory(Object edited, Object beforeEdit) {
-        this.commandForUndo = "edit";
+        this.commandForUndo = EditCommand.COMMAND_WORD;
         this.taskToEdit = edited;
         if (isFloatingTask(edited)) {
             createEditedFloatingTask(beforeEdit);
@@ -66,7 +66,6 @@ public class InputEditHistory extends InputHistory {
     private boolean isDeadline(Object edited) {
         return edited instanceof Deadline;
     }
-
 
     private boolean isFloatingTask(Object edited) {
         return edited instanceof FloatingTask;

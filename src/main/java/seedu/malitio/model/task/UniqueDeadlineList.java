@@ -4,9 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.DuplicateDataException;
 import seedu.malitio.commons.util.CollectionUtil;
-import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
-import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-
 import java.util.*;
 
 /**
@@ -75,7 +72,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateDeadlineException if the task to add is a duplicate of an existing task in the list.
      */
     public void add(Deadline toAdd) throws DuplicateDeadlineException {
         assert toAdd != null;
@@ -143,30 +140,49 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         updateDeadlineList(deadlineToComplete);
 	}
 	
-	//@@author
+	//@@author A0153006W
 	/**
      * Marks the deadline in the list.
      *
-     * @throws DuplicateDeadlineException if the task to add is a duplicate of an existing task in the list.
+     * @throws DeadlineNotFoundException if the deadline doesn't exist.
      * @throws DeadlineMarkedException if the deadline is already marked.
-     * @throws DeadlineUnmarkedException if the deadline is already unmarked.
      */
-	public void mark(ReadOnlyDeadline deadlineToMark, boolean marked)
-	        throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
-	    if (deadlineToMark.isMarked() && marked) {
+    public void mark(ReadOnlyDeadline taskToMark)
+            throws DeadlineNotFoundException, DeadlineMarkedException {
+        if (taskToMark.isMarked()) {
             throw new DeadlineMarkedException();
-	    } else if (!deadlineToMark.isMarked() && !marked) {
-	        throw new DeadlineUnmarkedException();
-	    }
-
-        if (!contains(deadlineToMark)) {
-            throw new DeadlineNotFoundException();
         }
         
-        deadlineToMark.setMarked(marked);
-        updateDeadlineList(deadlineToMark);
-	}
+        if (!contains(taskToMark)) {
+            throw new DeadlineNotFoundException();
+        }
+        taskToMark.setMarked(true);
+        updateDeadlineList(taskToMark);
+    }
 
+    /**
+     * Unmarks the task in the list.
+     *
+     * @throws DeadlineNotFoundException if the deadline doesn't exist.
+     * @throws DeadlineUnmarkedException if the deadline is already unmarked.
+     */
+    public void unmark(ReadOnlyDeadline taskToUnmark)
+            throws DeadlineNotFoundException, DeadlineUnmarkedException {
+        if (!taskToUnmark.isMarked()) {
+            throw new DeadlineUnmarkedException();
+        }
+        
+        if (!contains(taskToUnmark)) {
+            throw new DeadlineNotFoundException();
+        }
+        taskToUnmark.setMarked(false);
+        updateDeadlineList(taskToUnmark);
+    }
+
+    //@@author
+	/*
+	 * Updates Malitio
+	 */
 	private void updateDeadlineList(ReadOnlyDeadline deadlineToComplete) {
 		int indexToReplace = internalList.indexOf(deadlineToComplete);
         internalList.remove(deadlineToComplete);

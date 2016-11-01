@@ -8,5 +8,4 @@ public abstract class InputHistory {
     public String getUndoCommand() {
         return commandForUndo;
     }
-
 }

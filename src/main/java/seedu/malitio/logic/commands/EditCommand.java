@@ -1,6 +1,5 @@
 package seedu.malitio.logic.commands;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,6 @@ import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyDeadline;
-import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
@@ -45,12 +43,8 @@ public class EditCommand extends Command{
 
     public static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited floating task.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited task.\nOld: %1$s\nNew: %2$s";
 
-    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
-
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
-    
     private final char taskType;
     
     private final int targetIndex;
@@ -69,47 +63,24 @@ public class EditCommand extends Command{
     
     private UniqueTagList tags;
     
-    //@@author A0129595N  
     public EditCommand(char taskType, int targetIndex, String name, String due, String start, String end, Set<String> newTags) 
             throws IllegalValueException {
         assert validArgTask(taskType, name, due, start, end, newTags) ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;
-        if (!name.equals("")) {
+        if (notEmptyString(name)) {
             this.name = new Name(name);
         }
-        if (!due.equals("")) {
+        if (notEmptyString(due)) {
             this.due = new DateTime(due);
         }
-        if (!start.equals("")) {
+        if (notEmptyString(start)) {
             this.start = new DateTime(start);
         }
-        if (!end.equals("")) {
+        if (notEmptyString(end)) {
             this.end = new DateTime(end);
         }
         this.tags = processTags(newTags);
-    }
-        
-    /**
-     * processTags return a UniqueTagList of tags but returns null if no tags were entered.
-     * @param newTags
-     * @return UniqueTagList or Null
-     * @throws IllegalValueException
-     */
-    private UniqueTagList processTags(Set<String> newTags) throws IllegalValueException {
-        if (!newTags.isEmpty() && newTags.toArray()[0].equals("null") && newTags.size()==1) {
-            return new UniqueTagList();
-        } 
-        else if (!newTags.isEmpty()){
-            final Set<Tag> tagSet = new HashSet<>();
-            for (String tagName : newTags) {
-            tagSet.add(new Tag(tagName));
-            }
-            return new UniqueTagList(tagSet);
-        }       
-        else {
-            return null;
-        }
     }
     
     @Override
@@ -191,25 +162,16 @@ public class EditCommand extends Command{
     }
     
     /**
-     * @param taskType
-     *            can be f/d/e
-     * @param name
-     * @param due
-     * @param start
-     * @param end
-     * @param newTags
-     * @return true if at least one of the arguments to be edited (for the
-     *         corresponding task) is non-empty and non-relevant argument is
-     *         empty (String).
+     * Method to check for valid (at least one non-empty) arguments for the corresponding task type
      */
     private boolean validArgTask(char taskType, String name, String due, String start, String end,
             Set<String> newTags) {
         if (taskType == 'f') {
-            return (!name.equals("") || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
+            return (notEmptyString(name) || !newTags.isEmpty()) && start.equals("") && end.equals("") && due.equals("");
         } else if (taskType == 'd') {
-            return (!name.equals("") || !due.equals("") || !newTags.isEmpty()) && start.equals("") && end.equals("");
+            return (notEmptyString(name) || notEmptyString(due) || !newTags.isEmpty()) && start.equals("") && end.equals("");
         } else {
-            return (!name.equals("") || !start.equals("") || !end.equals("") || !newTags.isEmpty()) && due.equals("");
+            return (notEmptyString(name) || notEmptyString(start) || notEmptyString(end) || !newTags.isEmpty()) && due.equals("");
         }
     }
     
@@ -220,9 +182,35 @@ public class EditCommand extends Command{
     private boolean isFloatingTask(Object taskToEdit) {
         return taskToEdit instanceof ReadOnlyFloatingTask;
     }
+    
+    private boolean notEmptyString(String name) {
+        return !name.equals("");
+    }
+        
+    /**
+     * processTags return a UniqueTagList of tags or returns null if no tags were entered.
+     * @param newTags
+     * @return UniqueTagList or Null
+     * @throws IllegalValueException
+     */
+    private UniqueTagList processTags(Set<String> newTags) throws IllegalValueException {
+        if (!newTags.isEmpty() && newTags.toArray()[0].equals("null") && newTags.size()==1) {
+            return new UniqueTagList();
+        } 
+        else if (!newTags.isEmpty()){
+            final Set<Tag> tagSet = new HashSet<>();
+            for (String tagName : newTags) {
+            tagSet.add(new Tag(tagName));
+            }
+            return new UniqueTagList(tagSet);
+        }       
+        else {
+            return null;
+        }
+    }
 
     /**
-     * Replace the (Event)editedTask details if they are empty 
+     * Replace the editedTask, type casted to Event, details if they are empty 
      * @param taskToEdit
      */
     private void getEventDetails(Object taskToEdit) {
@@ -241,7 +229,7 @@ public class EditCommand extends Command{
     }
 
     /**
-     * Replace the (Deadline)editedTask details if they are empty
+     * Replace the editedTask, type casted to Deadline, details if they are empty
      * @param taskToEdit
      */
     private void getDeadlineDetails(Object taskToEdit) {
@@ -257,7 +245,7 @@ public class EditCommand extends Command{
     }
 
     /**
-     * Replace the (FloatingTask) editedTask details if they are empty
+     * Replace the editedTask, type casted to Floating Task, details if they are empty
      * @param taskToEdit
      */
     private void getFloatingTaskDetails(Object taskToEdit) {
