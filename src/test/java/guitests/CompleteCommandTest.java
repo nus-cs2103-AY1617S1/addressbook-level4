@@ -40,7 +40,7 @@ public class CompleteCommandTest extends MalitioGuiTest {
 
         // complete with an invalid index
         commandBox.runCommand("complete d200");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX));
-    }
+		assertResultMessage(String.format(Messages.MESSAGE_INVALID_DEADLINE_DISPLAYED_INDEX));
+	}
 
 }
