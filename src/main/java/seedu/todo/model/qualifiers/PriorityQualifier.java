@@ -15,6 +15,7 @@ public class PriorityQualifier implements Qualifier {
         this.priority = priority;
         this.option = option;
     }
+    
 
     @Override
     public boolean run(ReadOnlyTask task) {

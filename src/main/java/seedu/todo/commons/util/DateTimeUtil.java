@@ -19,6 +19,7 @@ import seedu.todo.model.task.TaskDate;
  */
 public class DateTimeUtil {
 
+
     public static final int DEFAULT_ON_HOUR = 0;
     public static final int DEFAULT_ON_MINUTE = 0;        
     public static final int DEFAULT_BY_HOUR = 23;

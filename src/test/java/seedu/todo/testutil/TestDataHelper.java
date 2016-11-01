@@ -38,6 +38,42 @@ public class TestDataHelper {
         );
     }
     
+    /**
+     * Generates a valid full task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object with priority mid.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateFullTaskPriorityMid(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2018 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Priority("mid"),
+                new Recurrence(Frequency.NONE)
+        );
+    }
+    
+    
+    /**
+     * Generates a valid full task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object with priority mid.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateFullTaskPriorityHigh(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2018 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Priority("high"),
+                new Recurrence(Frequency.NONE)
+        );
+    }
     
     /** Generates the correct add command based on the task given */
     public String generateAddCommand(Task p) {
