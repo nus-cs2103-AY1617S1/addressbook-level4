@@ -38,7 +38,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="232.0" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="name" prefHeight="70.0" prefWidth="232.0" styleClass="cell_big_label" text="\$first" wrapText="true" />         
+                                    <Label fx:id="name" alignment="CENTER" prefHeight="70.0" prefWidth="232.0" styleClass="cell_big_label" text="\$first" textAlignment="CENTER" wrapText="true" />         
                                 </HBox>       
                             </children>
                         </HBox>
