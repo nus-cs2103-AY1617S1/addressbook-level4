@@ -70,7 +70,18 @@ Examples:
 * `list deadlines`
 * `list deadlines 05-10 1400`
 * `list 05-10 1400`
-<!--- @@author --->
+<!--- @@author A0122460W --->
+
+#### List all task from beginning of time: `listall`
+List all the task from beginning of time even if those task are already past current time.<br>
+Format: `listall`
+
+> List all the task from beginning of time
+
+Examples: 
+
+* `listall`<br>
+  List all the task from beginning of time in Malitio.  
 
 <!--- @@author a0126633j --->
 #### Finding tasks: `find`
@@ -148,9 +159,25 @@ Format: `complete f/d+INDEX`
   The index **must have either 'f' or 'd' as a prefix and also a positive integer** eg. f1, d2, ...
 
 Examples: 
-  `complete f2`<br>
-  Complete the 2nd floating task in Malitio.
-  `complete d1`<br>
+
+* `complete f2`<br>
+  Complete the 2nd floating task in Malitio.  
+* `complete d1`<br>
+  Complete the 1st deadline in Malitio.
+  
+#### Uncompleting a floating task or deadline: `complete`
+complete the specified floating task or deadline from Malitio by unstriking out them.<br>
+Format: `uncomplete f/d+INDEX`
+
+> Uncomplete the floating task or deadline at the specified `INDEX`. 
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must have either 'f' or 'd' as a prefix and also a positive integer** eg. f1, d2, ...
+
+Examples: 
+
+* `uncomplete f2`<br>
+  Complete the 2nd floating task in Malitio.  
+* `uncomplete d1`<br>
   Complete the 1st deadline in Malitio.
 
 <!--- @@author A0153006W --->
@@ -222,8 +249,10 @@ Clear 	| `clear`
 Delete  | `delete [f|d|e]INDEX`
 Find 	| `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
 List 	| `list`
+Listall 	| `listall`
 Edit 	| `edit [f|d|e]INDEX [NAME] [by DATE/TIME] [start DATE/TIME] [end DATE/TIME] [t/TAG]...`
-Complete| `complete [f|d|e]INDEX`
+Complete| `complete [f|d]INDEX`
+Uncomplete| `uncomplete [f|d]INDEX`
 Mark 	| `mark [f|d|e]INDEX`
 Unmark 	| `unmark [f|d|e]INDEX`
 Help 	| `help`
