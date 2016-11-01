@@ -1,5 +1,6 @@
 package seedu.forgetmenot.logic.parser;
 
+//@@author A0147619W
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -33,7 +34,6 @@ import seedu.forgetmenot.model.task.Time;
 
 /**
  * Parses user input.
- * //@@author A0147619W
  */
 public class Parser {
 
@@ -185,6 +185,7 @@ public class Parser {
     		}
     	}
     }
+    
     //@@author A0147619W
     private Command prepareSetStorage(String args) {
     	if(args != null) {
@@ -213,12 +214,12 @@ public class Parser {
         return new EditCommand(matcher.group("index"), name, startTime, endTime, recur);
     }
 
+    //@@author A0147619W
     /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
-     * @@author A0147619W
      */
     private Command prepareAdd(String args){
     	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());

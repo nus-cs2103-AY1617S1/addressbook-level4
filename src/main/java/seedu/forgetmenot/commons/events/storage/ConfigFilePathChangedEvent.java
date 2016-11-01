@@ -1,10 +1,10 @@
+//@@author A0147619W
 package seedu.forgetmenot.commons.events.storage;
 
 import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * Indicates that the TaskManager Storage location has changed in the Config
- * @@author A0147619W
  */
 public class ConfigFilePathChangedEvent extends BaseEvent{
 

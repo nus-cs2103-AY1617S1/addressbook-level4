@@ -26,7 +26,6 @@ public class Config extends ComponentManager{
 
     public Config() {
     	super();
-//    	EventsCenter.getInstance().registerHandler(this);
     }
 
     public String getAppTitle() {
@@ -110,7 +109,6 @@ public class Config extends ComponentManager{
     	setTaskManagerFilePath(event.filePath);
     	try {
 			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
-//			EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.filePath));
 			raise(new ConfigFilePathChangedEvent(event.filePath));
 		} catch (IOException e) {
 			e.printStackTrace();

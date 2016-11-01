@@ -21,7 +21,6 @@ import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.logic.commands.CommandResult;
 
 import java.util.Stack;
-import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -116,8 +115,13 @@ public class CommandBox extends UiPart {
 				}
 			}
 		}
-		commandTextField.setText(completedCommand);
-		commandTextField.end();
+		if(!found){
+			return;
+		}
+		else{
+			commandTextField.setText(completedCommand);
+			commandTextField.end();
+		}
 	}
 
     private void addToPlaceholder() {
