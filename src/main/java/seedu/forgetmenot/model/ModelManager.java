@@ -387,6 +387,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139198N
     public static Predicate<Task> isOverdue() {
-        return t -> t.checkOverdue() == true;
+        return t -> t.checkOverdue() == true && t.getDone().value == false;
     }
 }
