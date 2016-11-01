@@ -55,7 +55,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
-        assertEquals(1, dataFromFile.getTaskList().size());
+        assertEquals(0, dataFromFile.getTaskList().size());
 
     }
 
@@ -90,7 +90,6 @@ public class XmlUtilTest {
 
 
         TodoListBuilder builder = new TodoListBuilder(new TaskList());
-        dataToWrite = new XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
