@@ -581,7 +581,7 @@ public class LogicManagerTest {
         // complicated edit tooltip
         assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP + "\n\tEditing task at INDEX 0: \n\tName:\tNo Change" +
                 "\n\tStart Date:\tNo Change" + "\n\tEnd Date:\t\tNo Change" + "\n\tRecurrence Rate:\tNo Change" + 
-                "\n\tRecurrence Rate Time Period:\tNo Change" + "\n\tPriority:\tNo Change");
+                "\n\tPriority:\tNo Change");
     }
     
     @Test
@@ -631,7 +631,7 @@ public class LogicManagerTest {
     
     @Test
     public void toolTip_commandBeginningSubstringsOfSelect_selectToolTip() {
-        assertToolTipBehavior("s", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("s", SelectCommand.TOOL_TIP + "\n" + StoreCommand.TOOL_TIP);
         assertToolTipBehavior("se", SelectCommand.TOOL_TIP);
         assertToolTipBehavior("sel", SelectCommand.TOOL_TIP);
         assertToolTipBehavior("sele", SelectCommand.TOOL_TIP);
