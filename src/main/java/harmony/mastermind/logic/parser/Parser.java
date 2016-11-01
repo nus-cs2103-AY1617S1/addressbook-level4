@@ -255,7 +255,7 @@ public class Parser {
      * 
      */
     private Command prepareImport(String args){
-        final Matcher matcher = ImportIcsCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
+        final Matcher matcher = ImportCommand.COMMAND_ARGUMENTS_PATTERN.matcher(args.trim());
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -263,10 +263,11 @@ public class Parser {
         }
         
         final String source = matcher.group("source");
+        final String extension = matcher.group("extension");
         
         assert source != null;
         
-        return new ImportCommand(source);
+        return new ImportCommand(source, extension);
     }
     
     /**
