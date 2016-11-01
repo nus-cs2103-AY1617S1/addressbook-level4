@@ -232,29 +232,23 @@ public class RecurringTaskUtil {
                 break;
             case WEEKLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math
-                            .ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                    elapsed = (int) Math.ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
                 } else {
-                    elapsed = (int) Math
-                            .ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                    elapsed = (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
                 }
                 break;
             case MONTHLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math
-                            .ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
                 } else {
-                    elapsed = (int) Math
-                            .ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
                 }                
                 break;
             case YEARLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math
-                            .ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
                 } else {
-                    elapsed = (int) Math
-                            .ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
                 }                
                 break;
             default:

@@ -15,6 +15,7 @@ public class BlockCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void block() {
+        commandBox.runCommand("list"); //switch to all tasks first
         // block one slot
         TestTask[] currentList = td.getTypicalTasks();
         TestTask slotToBlock = td.block1;

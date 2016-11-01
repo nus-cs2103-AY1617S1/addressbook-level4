@@ -79,17 +79,17 @@
     -fx-text-fill: white;
 }
 
-#navbarView .list-cell:even:filled {
+#navbarView .list-cell:odd:filled {
     -fx-background-color: derive(#f7882f, 20%);
 }
 
-#navbarView .list-cell:odd:filled {
+#navbarView .list-cell:even:filled {
     -fx-background-color: derive(#f7c331, 50%);
 }
-#navbarView .list-cell:odd:filled .image-view{
+#navbarView .list-cell:even:filled .image-view{
     -fx-image:url('/images/ddl_icon.png');
 }
-#navbarView .list-cell:even:filled .image-view{
+#navbarView .list-cell:odd:filled .image-view{
     -fx-image:url('/images/task_icon.png');
     -fx-alignment:left;
 }

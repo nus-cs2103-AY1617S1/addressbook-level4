@@ -107,7 +107,7 @@ public class AutocompleteTextField extends TextField {
         dictionary.add("t/");
         // command word
         String[] commandWords = { "add", "block", "cd", "clear", "delete", "done", "edit", "help", "u", "r", "find",
-                "list", "select", "exit" };
+                "list", "select", "view", "exit" };
         for (String s : commandWords)
             dictionary.add(s);
         // date

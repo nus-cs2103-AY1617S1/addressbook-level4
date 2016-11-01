@@ -12,6 +12,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.commons.core.LogsCenter;
@@ -87,7 +88,7 @@ public class TaskListPanel extends UiPart {
             taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
-
+    
     class TaskListViewCell extends ListCell<TaskOccurrence> {
 
         public TaskListViewCell() {

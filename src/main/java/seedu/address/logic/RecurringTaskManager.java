@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,11 +10,11 @@ import java.util.logging.Logger;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.util.DateFormatterUtil;
 import seedu.address.logic.util.RecurringTaskUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.UniqueTaskList;
 
@@ -209,13 +208,6 @@ public class RecurringTaskManager {
     }
 
     /**
-     * Looks at the latest task occurrence and appends task occurrences based on it.
-     */
-    private void updateRecurringTask(ReadOnlyTask task) {
-        updateRecurringTask(task, LocalDate.now());
-    }
-    
-    /**
      * Test method to test if updateRecurringTask is working as intended
      */
     public void updateRecurringTask(ReadOnlyTask task, LocalDate currentDate) {
@@ -243,28 +235,28 @@ public class RecurringTaskManager {
         LocalDate localDateCurrently = currentDate;
         LocalDate startDateInLocalDate = null;
         if (startDate != null) {
-            startDateInLocalDate = startDate.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            startDateInLocalDate = DateFormatterUtil.dateToLocalDate(startDate.getTime());
         }
-        LocalDate endDateInLocalDate = endDate.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDateInLocalDate = DateFormatterUtil.dateToLocalDate(endDate.getTime());
         switch (task.getRecurringType()) {
         case DAILY:
-            attemptAppendDailyRecurringTasks(task, startDate, endDate, localDateCurrently, startDateInLocalDate,
-                    endDateInLocalDate);
+            attemptAppendDailyRecurringTasks(task, startDate, endDate, localDateCurrently, 
+                    startDateInLocalDate, endDateInLocalDate);
             break;
         case WEEKLY:
-            attempAppendWeeklyRecurringTasks(task, startDate, endDate, localDateCurrently, startDateInLocalDate,
-                    endDateInLocalDate);
+            attempAppendWeeklyRecurringTasks(task, startDate, endDate, localDateCurrently, 
+                    startDateInLocalDate, endDateInLocalDate);
             break;
         case MONTHLY:
-            attemptAppendMonthlyRecurringTasks(task, startDate, endDate, localDateCurrently, startDateInLocalDate,
-                    endDateInLocalDate);
+            attemptAppendMonthlyRecurringTasks(task, startDate, endDate, localDateCurrently, 
+                    startDateInLocalDate, endDateInLocalDate);
             break;
         case YEARLY:
-            attemptAppendYearlyRecurringTasks(task, startDate, endDate, localDateCurrently, startDateInLocalDate,
-                    endDateInLocalDate);
+            attemptAppendYearlyRecurringTasks(task, startDate, endDate, localDateCurrently, 
+                    startDateInLocalDate, endDateInLocalDate);
             break;
         default:
-            assert true : "Failed to set recurring type";
+            assert false : "Failed to set recurring type";
             break;
         }
     }

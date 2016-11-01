@@ -16,13 +16,13 @@ import seedu.address.model.task.RecurringType;
  * Parses the recurring info to determine the recurring type of the input
  * 
  */
-public class RecurringDateParser {
-    private static RecurringDateParser instance;
+public class DateParser {
+    private static DateParser instance;
     
     private HashSet<RecurringType> recurringTypes;
     private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
     
-    private RecurringDateParser () {
+    private DateParser () {
         populateSupportedRecurringTypes();
     }
 
@@ -72,9 +72,9 @@ public class RecurringDateParser {
         }
     }
     
-    public static RecurringDateParser getInstance() {
+    public static DateParser getInstance() {
         if (instance == null )
-            instance = new RecurringDateParser();
+            instance = new DateParser();
         return instance;
     }
 }

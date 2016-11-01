@@ -867,7 +867,7 @@ public class LogicManagerTest {
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
         TaskMaster expectedTM = helper.generateTaskList(fourTasks);
-        List<Task> expectedList = helper.generateTasks(test);
+        List<Task> expectedList = helper.generateTasks(test,test2);
 
         expectedTM.addTask(test);
         expectedTM.addTask(test2);
@@ -881,12 +881,14 @@ public class LogicManagerTest {
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 11am",
                 Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM, expectedComponentList);
         // find by smaller boundary lists nothing
-        assertCommandBehavior("find from 19 oct 10.01pm to 20 oct 11am", Command.getMessageForTaskListShownSummary(0),
-                expectedTM, new TaskMaster().getTaskComponentList());
+        expectedComponentList.remove(0);
+        assertCommandBehavior("find from 19 oct 10.01pm to 20 oct 11am", Command.getMessageForTaskListShownSummary(1),
+                expectedTM, expectedComponentList);
 
         assertCommandBehavior("find from 19 oct 10pm to 20 oct 10.59am", Command.getMessageForTaskListShownSummary(0),
                 expectedTM, new TaskMaster().getTaskComponentList());
         // find by lax boundary successful
+        expectedComponentList.add(0, test.getLastAppendedComponent());
         assertCommandBehavior("find from 19 oct 9pm to 20 oct 1pm",
                 Command.getMessageForTaskListShownSummary(expectedList.size()), expectedTM, expectedComponentList);
     }

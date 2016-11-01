@@ -68,4 +68,5 @@ public interface Model {
     
     /** Sets the system time. */
     void setSystemTime(AgendaTimeRangeChangedEvent atrce);
+
 }

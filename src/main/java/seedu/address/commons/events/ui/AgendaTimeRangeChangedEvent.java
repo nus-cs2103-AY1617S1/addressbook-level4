@@ -28,7 +28,7 @@ public class AgendaTimeRangeChangedEvent extends BaseEvent {
     public TaskDate getInputDate() {
         return inputDate;
     }
-
+    
     public List<TaskOccurrence> getData() {
         return taskComponentList;
     }

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,13 +26,14 @@ public class NavbarPanel extends UiPart {
     private VBox panel;
     private AnchorPane placeHolderPane;
 
+    private final String NAVBAR_TODAY= " Today";
     private final String NAVBAR_TASKS = " Tasks";
     private final String NAVBAR_DEADLINES = " Deadlines";
     private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
     private final String NAVBAR_COMPLETED = " Completed";
 
-    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS,
+    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TODAY, NAVBAR_TASKS,
             NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS, NAVBAR_INCOMING_DEADLINES, NAVBAR_COMPLETED);
     // private variables for navbar commands
     private String command = null;
@@ -99,6 +99,9 @@ public class NavbarPanel extends UiPart {
     public String getNavigationCommand(String navigation) {
         switch (navigation) {
 
+        case NAVBAR_TODAY:
+            command = FindCommand.COMMAND_WORD + " from 12am to tomorrow 12am";
+            return command;
         case NAVBAR_DEADLINES:
             day = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
             command = FindCommand.COMMAND_WORD + " by " + formatter.format(day) + " 12am";

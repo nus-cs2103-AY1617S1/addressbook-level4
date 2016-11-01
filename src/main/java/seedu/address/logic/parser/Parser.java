@@ -37,6 +37,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
+import seedu.address.logic.util.DateFormatterUtil;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 
@@ -258,14 +259,14 @@ public class Parser {
         }
     }
 
-    private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
+    private RecurringType checkForRecurringTask(String args) {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         RecurringType recurringType = RecurringType.IGNORED;
         if (!matcher.find()) {
             return recurringType;
         } else {
 
-            recurringType = RecurringDateParser.getInstance().
+            recurringType = DateParser.getInstance().
                     extractRecurringInfo(matcher.group("recurring"));
         }
         return recurringType;
@@ -290,12 +291,10 @@ public class Parser {
         }
         try {
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate(RecurringDateParser.getInstance().getDateFromString(endInput).getTime()),
+                    new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()),
                     recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         }
     }
 
@@ -318,14 +317,12 @@ public class Parser {
             recurringType = RecurringType.NONE;
         }
         try {
-            List<Date> datesToAdd = RecurringDateParser.getInstance().getFromToDatesFromString(startInput);
+            List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
             return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
                     new TaskDate(datesToAdd.get(0)),
                     new TaskDate(datesToAdd.get(1)), recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         }
     }
 
@@ -341,8 +338,8 @@ public class Parser {
             String endInput = matcher.group("endTime");
 
             return new BlockCommand(getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(RecurringDateParser.getInstance().getDateFromString(startInput).getTime()),
-                    new TaskDate(RecurringDateParser.getInstance().getDateFromString(endInput).getTime()));
+                    new TaskDate(DateParser.getInstance().getDateFromString(startInput).getTime()),
+                    new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -465,8 +462,6 @@ public class Parser {
                 endTime = dateSet.get(END_TIME_INDEX);
             }
             tagSet = getTagsFromArgs(m.group("tagArguments"));
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -599,8 +594,6 @@ public class Parser {
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
             return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -629,8 +622,6 @@ public class Parser {
 
             tagSet = getTagsFromArgs(m.group("tagArguments"));
             return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(iae.getMessage());
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -727,7 +718,8 @@ public class Parser {
         // TODO Auto-generated method stub
         Date date;
         try {
-            date = RecurringDateParser.getInstance().getDateFromString(arguments);
+            date = DateParser.getInstance().getDateFromString(arguments);
+            date = DateFormatterUtil.getStartOfDay(date);
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
@@ -742,15 +734,15 @@ public class Parser {
             String[] time = m.group("startTime").replace(" from ", "").split(" to ");
             resultSet.clear();
             try {
-                resultSet.add(RecurringDateParser.getInstance().getDateFromString(time[START_TIME_INDEX]));
-                resultSet.add(RecurringDateParser.getInstance().getDateFromString(time[END_TIME_INDEX]));
+                resultSet.add(DateParser.getInstance().getDateFromString(time[START_TIME_INDEX]));
+                resultSet.add(DateParser.getInstance().getDateFromString(time[END_TIME_INDEX]));
             } catch (IllegalValueException e) {              
                 throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
             }
         } catch (Exception ise) {
             resultSet.clear();
             try {
-                resultSet.add(RecurringDateParser.getInstance().getDateFromString(m.group("deadline").replace(" by ", "")));
+                resultSet.add(DateParser.getInstance().getDateFromString(m.group("deadline").replace(" by ", "")));
             } catch (Exception e) {
                 throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
             }

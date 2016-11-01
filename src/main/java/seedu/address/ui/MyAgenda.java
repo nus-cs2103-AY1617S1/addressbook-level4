@@ -4,17 +4,14 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
 import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.logic.commands.BlockCommand;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskType;
 
 //@@author A0147967J
 /**
