@@ -6,17 +6,17 @@ package seedu.savvytasker.logic.commands;
  */
 public class IncorrectCommand extends Command {
     public final String resolvedText;
-    public final String feedbackToUser;
+    public final String errorFeedback;
 
-    public IncorrectCommand(String resolvedText, String feedbackToUser){
+    public IncorrectCommand(String resolvedText, String errorFeedback){
         this.resolvedText = resolvedText;
-        this.feedbackToUser = feedbackToUser;
+        this.errorFeedback = errorFeedback;
     }
 
     @Override
     public CommandResult execute() {
         indicateAttemptToExecuteIncorrectCommand();
-        return new CommandResult(feedbackToUser);
+        return new CommandResult("Input: " + resolvedText + "\n" + errorFeedback);
     }
     
     //@@author A0097627N
