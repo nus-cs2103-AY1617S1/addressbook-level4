@@ -46,6 +46,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
+    
     //@@author A0121643R
     @FXML
     public void initialize() {
@@ -80,7 +81,10 @@ public class TaskCard extends UiPart{
             recurrence.setText("");
         }
         
-        if (task.getPriority().toString().equals(Priority.LOW)) {
+    	if (task.getCompletion().isCompleted()) {
+    		priorityLevel.setFill(Color.WHITE);
+    		priorityLevel.setStroke(Color.WHITE);
+    	} else if (task.getPriority().toString().equals(Priority.LOW)) {
         	priorityLevel.setFill(Color.LIMEGREEN);
         } else if (task.getPriority().toString().equals(Priority.MID)) {
         	priorityLevel.setFill(Color.YELLOW);
