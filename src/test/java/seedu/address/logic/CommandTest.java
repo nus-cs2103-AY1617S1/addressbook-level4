@@ -243,10 +243,10 @@ public class CommandTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateUndoneTaskWithName("bla KEY bla bceofeia");
+        Task p1 = helper.generateUndoneTaskWithName("KE Y");
+        Task p2 = helper.generateUndoneTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
@@ -262,10 +262,10 @@ public class CommandTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        Task p1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
+        Task p2 = helper.generateUndoneTaskWithName("bla KEY bla bceofeia");
+        Task p3 = helper.generateUndoneTaskWithName("key key");
+        Task p4 = helper.generateUndoneTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
@@ -281,10 +281,10 @@ public class CommandTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
+        Task pTarget1 = helper.generateUndoneTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateUndoneTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateUndoneTaskWithName("key key");
+        Task p1 = helper.generateUndoneTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
@@ -472,14 +472,50 @@ public class CommandTest {
         }
 
         /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
+         * Generates an undone Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        Task generateUndoneTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
                     new Deadline("11.11.2016"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        /**
+         * Generates a done Task object with given name. Other fields will have some dummy values.
+         */
+        Task generateDoneTaskWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Deadline("11.11.2016"),
+                    new UniqueTagList(new Tag("tag")),
+                    true,false
+            );
+        }
+        
+        /**
+         * Generates an undone Event object with given name. Other fields will have some dummy values.
+         */
+        Task generateUndoneEventWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new EventDate("11.11.2016","12.11.2016"),
+                    new UniqueTagList(new Tag("tag"))             
+            );
+        }
+        
+        /**
+         * Generates a done Event object with given name. Other fields will have some dummy values.
+         */
+        Task generateDoneEventWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new EventDate("11.11.2016","12.11.2016"),
+                    new UniqueTagList(new Tag("tag")) ,
+                    true,false
+            );
+        }
+
     }
 }
