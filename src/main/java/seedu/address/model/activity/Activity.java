@@ -24,7 +24,7 @@ public class Activity implements ReadOnlyActivity {
     protected Reminder reminder;
     protected boolean isCompleted;
     protected UniqueTagList tags;
-    protected boolean isOver = false;
+    protected boolean isOver;
 
     /**
      * Every field must be present and not null.
@@ -33,7 +33,7 @@ public class Activity implements ReadOnlyActivity {
         assert !CollectionUtil.isAnyNull(name, reminder, tags);
         this.name = name;
         this.reminder = reminder;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list  
     }
 
     /**

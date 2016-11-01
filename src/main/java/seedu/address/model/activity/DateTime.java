@@ -12,7 +12,7 @@ public abstract class DateTime {
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
     protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm a");
     protected static final DateUtil DATE_PARSER = new DateUtil();
-    public boolean recurring = false;
+    public boolean recurring;
 
     public DateTime(Calendar date) {
         if (date == null) {
