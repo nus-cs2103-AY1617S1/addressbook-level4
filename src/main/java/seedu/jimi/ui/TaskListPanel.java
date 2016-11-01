@@ -46,6 +46,7 @@ public class TaskListPanel extends UiPart {
     Accordion tasksAccordion;
     
     //all list views
+    @FXML private ListView<ReadOnlyTask> overdueTaskListView;
     @FXML private ListView<ReadOnlyTask> taskListView;
     @FXML private ListView<ReadOnlyTask> completedTaskListView;
     @FXML private ListView<ReadOnlyTask> incompleteTaskListView;
@@ -125,6 +126,8 @@ public class TaskListPanel extends UiPart {
     }
 
     private void setupListViews() {
+        this.overdueTaskListView.setItems(this.overdueTaskList);
+        this.overdueTaskListView.setCellFactory(newListView -> new TaskListViewCell());
         this.taskListView.setItems(this.floatingTaskList);
         this.taskListView.setCellFactory(newListView -> new TaskListViewCell());
         this.completedTaskListView.setItems(this.completedTaskList);
