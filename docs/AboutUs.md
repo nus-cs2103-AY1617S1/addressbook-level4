@@ -65,6 +65,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
    * [Find Command]()
+   * [Save Command]()   
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139528W.md)][[test code](A123456.md)][[docs](A123456.md)]
 * Other major contributions:
   * Saving Feature of the sTask
