@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ViewCommand;
 
 public class NavbarPanel extends UiPart {
 
@@ -102,7 +100,7 @@ public class NavbarPanel extends UiPart {
         switch (navigation) {
 
         case NAVBAR_TODAY:
-            command = ViewCommand.COMMAND_WORD + " by today";
+            command = FindCommand.COMMAND_WORD + " from 12am to tomorrow 12am";
             return command;
         case NAVBAR_DEADLINES:
             day = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);

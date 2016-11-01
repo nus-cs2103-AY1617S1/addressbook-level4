@@ -220,6 +220,10 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+
+    public void switchToInitialTab() {
+        logic.execute("find from 12am to tomorrow 12am");
+    }
     
     
 }

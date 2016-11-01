@@ -16,6 +16,7 @@ public class DeleteCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void delete() {
+        commandBox.runCommand("list"); //switch to all tasks first
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();

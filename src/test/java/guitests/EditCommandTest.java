@@ -20,6 +20,7 @@ public class EditCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void edit() throws IllegalValueException {
+        commandBox.runCommand("list"); //switch to all tasks first
 
         // Fix Index first to see edit effect
         // edit deadline

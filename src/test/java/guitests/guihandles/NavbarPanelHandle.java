@@ -19,8 +19,9 @@ public class NavbarPanelHandle extends GuiHandle {
     private final String NAVBAR_INCOMING_DEADLINES = " Incoming Deadlines";
     private final String NAVBAR_FLOATING_TASKS = " Floating Tasks";
     private final String NAVBAR_COMPLETED = " Completed";
+    private final String NAVBAR_TODAY = " Today";
 
-    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TASKS,
+    private final ObservableList<String> navbarElement = FXCollections.observableArrayList(NAVBAR_TODAY, NAVBAR_TASKS,
             NAVBAR_DEADLINES, NAVBAR_FLOATING_TASKS, NAVBAR_INCOMING_DEADLINES, NAVBAR_COMPLETED);
 
     public static final int NOT_FOUND = -1;

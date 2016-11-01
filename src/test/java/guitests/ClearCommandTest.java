@@ -11,6 +11,7 @@ public class ClearCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void clear() {
+        commandBox.runCommand("list"); //switch to all tasks first
 
         TaskOccurrence[] taskComponents = TestUtil.convertTasksToDateComponents(td.getTypicalTasks());
         //verify a non-empty list can be cleared
