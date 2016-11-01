@@ -11,6 +11,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -71,10 +72,6 @@ public class EditCommand extends Command implements Undoable {
 
                 String fieldString = entry.getKey();
                 List<String> valueString = entry.getValue();
-                Class<?>[] argTypes = new Class[valueString.size()];
-                for(int i=0; i<valueString.size(); i++){
-                    argTypes[i] = valueString.get(0).getClass();
-                }
 
                 Field field = taskClazz.getDeclaredField(fieldString);
                 Object new_value = getObject(valueString, field);
@@ -129,7 +126,7 @@ public class EditCommand extends Command implements Undoable {
 
  // Modified from http://stackoverflow.com/a/13872171/7068957
     private Object getObject(List<String> valueString, Field field) throws InstantiationException,
-        IllegalAccessException, InvocationTargetException, IllegalValueException {
+        IllegalAccessException, InvocationTargetException, IllegalValueException, NoSuchMethodException, SecurityException {
         Class type;
         if(field.getName() == "time"){
             type = Time.class;
@@ -142,14 +139,30 @@ public class EditCommand extends Command implements Undoable {
         }else{
             type = field.getType();
         }
-        for (Constructor<?> ctor : type.getConstructors()) {
-            Class<?>[] paramTypes = ctor.getParameterTypes();
-            // If the arity matches, let's use it.
-            if (valueString.size() == paramTypes.length) {
-                return newInstance(valueString, ctor);
-            }
+        
+        Class<?>[] argTypes = new Class[valueString.size()];
+        for(int i=0; i<valueString.size(); i++){
+            argTypes[i] = valueString.get(i).getClass();
         }
-        return null;
+        
+        Constructor suitableConstructor = getSuitableConstructor(type, argTypes);
+        
+        return newInstance(valueString, suitableConstructor);
+    }
+
+    private Constructor getSuitableConstructor(Class type, Class<?>[] argTypes) throws NoSuchMethodException, SecurityException {
+        System.out.println("PARAM ARG: "+" " + Arrays.deepToString(argTypes) + " ");
+        System.out.println("type: "+ type.getName());
+        return type.getDeclaredConstructor(argTypes);
+//        for (Constructor<?> ctor : type.getConstructors()) {
+//            Class<?>[] paramTypes = ctor.getParameterTypes();
+//            System.out.println("PARAM ARG: "+ argTypes.equals(paramTypes)+" " + argTypes + " "+paramTypes);
+//            if (argTypes.length != paramTypes.length) {       
+//                for(int i=0; i<argTypes.length; i++){
+//                    argTypes[i] instanceof paramTypes[i];
+//                }
+//            }
+//        }
     }
 
     private Object newInstance(List<String> valueString, Constructor<?> ctor)
