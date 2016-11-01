@@ -51,6 +51,11 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         }
     }
 
+    /**
+     * A getter method for DateTimeInfoParser
+     * 
+     * @return DateTimeInfoParser of the timing of interest
+     */
     public DateTimeInfoParser getTimeInfo() {
         return timeInfo;
     }
@@ -58,7 +63,7 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     /**
      * Change the format of the timing saved in setTime
      * 
-     * @param inferred
+     * @param inferred  True if the timing is inferred 
      */
     private void formatTiming(boolean inferred) {
         if (inferred) {
@@ -80,22 +85,18 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     /**
      * Validate the timing inputed
      * 
-     * @param test
-     * @return true if it is a valid timing
+     * @param test  A date to be tested 
+     * @return      True if it is a valid timing
      */
     public static boolean isValidDateTimeInfo(List<DateGroup> test) {
-        if (!test.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return (!test.isEmpty()) ? true :  false;
     }
 
     /**
      * Change the months which is specified in string to integer
      * 
-     * @param month
-     * @return month in integer
+     * @param month     The month in written 3 letters string 
+     * @return          Month in integer
      */
     public static int whatMonth(String month) {
         switch (month) {
