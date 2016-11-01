@@ -23,9 +23,6 @@
                   <Font size="14.0" />
                </font></Label>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </AnchorPane>
         <ListView fx:id="tagListView" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" VBox.vgrow="ALWAYS" />
     </children>

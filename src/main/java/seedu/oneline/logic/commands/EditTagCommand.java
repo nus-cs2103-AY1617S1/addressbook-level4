@@ -62,39 +62,13 @@ public class EditTagCommand extends EditCommand {
     public CommandResult execute() {
         String name = this.name; // Mutability
         List<String> results = new ArrayList<String>();
-        if (fields.containsKey(TagField.NAME)) {
-            String newName = fields.get(TagField.NAME);
-            Tag oldTag = null;
-            Tag newTag = null;
-            try {
-                oldTag = Tag.getTag(name);
-                newTag = Tag.getTag(newName);
-            } catch (IllegalValueException e) {
-            }
-            if (model.getTaskBook().getTagList().contains(newTag)) {
-                return new CommandResult(String.format(Tag.MESSAGE_DUPLICATE_TAG, newName));
-            }
-            List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
-            Map<TaskField, String> fields = new HashMap<TaskField, String>();
-            fields.put(TaskField.TAG, newTag.getTagName());
-            for (ReadOnlyTask t : taskList) {
-                if (t.getTag().equals(oldTag)) {
-                    try {
-                        Task newTask = t.update(fields);
-                        model.replaceTask(t, newTask);
-                    } catch (TaskNotFoundException | IllegalValueException e) {
-                        assert false : e.getMessage();
-                    }
-                }
-            }
-            TagColor color = model.getTagColor(oldTag);
-            model.setTagColor(oldTag, TagColor.getDefault());
-            model.setTagColor(newTag, color);
-            name = newName;
-            results.add("renamed to " + newTag.getTagName());
-        }
+        
+        Tag oldTag = null; 
+        Tag newTag = null; 
         if (fields.containsKey(TagField.COLOR)) {
             try {
+                oldTag = Tag.getTag(name);
+                newTag = oldTag; 
                 TagColor color = new TagColor(fields.get(TagField.COLOR));
                 model.setTagColor(Tag.getTag(name), color);
                 results.add(String.format("color updated to " + color.toString()));
@@ -102,6 +76,39 @@ public class EditTagCommand extends EditCommand {
                 assert false;
             }
         }
+        
+        if (fields.containsKey(TagField.NAME)) {
+            String newName = fields.get(TagField.NAME);
+            
+            try {
+                oldTag = Tag.getTag(name); 
+                newTag = Tag.getTag(newName);
+            } catch (IllegalValueException e) {
+            }
+            if (model.getTaskBook().getTagList().contains(newTag)) {
+                return new CommandResult(String.format(Tag.MESSAGE_DUPLICATE_TAG, newName));
+            }
+            TagColor color = model.getTagColor(oldTag);
+            model.setTagColor(oldTag, TagColor.getDefault());
+            model.setTagColor(newTag, color);
+            name = newName;
+            results.add("renamed to " + newTag.getTagName());
+        }
+        
+        List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.TAG, newTag.getTagName());
+        for (ReadOnlyTask t : taskList) {
+            if (t.getTag().equals(oldTag)) {
+                try {
+                    Task newTask = t.update(fields);
+                    model.replaceTask(t, newTask);
+                } catch (TaskNotFoundException | IllegalValueException e) {
+                    assert false : e.getMessage();
+                }
+            }
+        }
+        
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(MESSAGE_SUCCESS, name));
         sb.append(" ");

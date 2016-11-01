@@ -4,7 +4,13 @@ package seedu.oneline.logic.commands;
 import java.util.Iterator;
 import java.util.Set;
 
+import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
+import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
+import seedu.oneline.commons.events.ui.ShowAllViewEvent; 
+import seedu.oneline.commons.events.ui.ShowDayViewEvent; 
+import seedu.oneline.commons.events.ui.ShowWeekViewEvent; 
+import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -15,6 +21,11 @@ import seedu.oneline.logic.parser.Parser;
 public class ListCommand extends Command {
     
     public static final String COMMAND_WORD = "list";
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of undone tasks accordingly \n"
+            + "Parameters: [<today> / <week> / <float> / <done> / #<category>] \n"
+            + "Example: " + COMMAND_WORD
+            + "today";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
@@ -54,21 +65,26 @@ public class ListCommand extends Command {
     public CommandResult execute() {
         switch (listBy) {
         case " ":
+            EventsCenter.getInstance().post(new ShowAllViewEvent());
             model.updateFilteredListToShowAllNotDone();
             break;
         case "done":
+            EventsCenter.getInstance().post(new ShowAllViewEvent());
             model.updateFilteredListToShowAllDone();
             break;
         case "undone":
             model.updateFilteredListToShowAllNotDone();
             break;
         case "today":
+            EventsCenter.getInstance().post(new ShowDayViewEvent());
             model.updateFilteredListToShowToday();
             break;
         case "week":
+            EventsCenter.getInstance().post(new ShowWeekViewEvent());
             model.updateFilteredListToShowWeek();
             break;
         case "float":
+            EventsCenter.getInstance().post(new ShowFloatViewEvent());
             model.updateFilteredListToShowFloat();
             break;
         default:
