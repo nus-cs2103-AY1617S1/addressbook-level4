@@ -12,13 +12,13 @@ public class ChangePathCommandTest extends TaskManagerGuiTest {
     public void changePath() throws InterruptedException {
         
         
-        //Add successfully
-        String validPath = TestUtil.getFilePathInSandboxFolder("yxz.xml");
-        File writeableFolder = new File(validPath).getParentFile();
-        writeableFolder.setWritable(true);
-        Thread.sleep(300);
-        commandBox.runCommand("change-to "+validPath);
-        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_SUCCESS, validPath));
+//        //Add successfully
+//        String validPath = TestUtil.getFilePathInSandboxFolder("yxz.xml");
+//        File writeableFolder = new File(validPath).getParentFile();
+//        writeableFolder.setWritable(true);
+//        Thread.sleep(300);
+//        commandBox.runCommand("change-to "+validPath);
+//        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_SUCCESS, validPath));
         
         
         //Try with non xml file
