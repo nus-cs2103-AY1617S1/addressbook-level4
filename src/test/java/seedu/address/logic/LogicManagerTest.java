@@ -410,7 +410,7 @@ public class LogicManagerTest {
         Activity generatePerson(int seed) throws Exception {
             return new Activity(
                     new Name("Person " + seed),
-                    new Reminder("10-10-2019" + seed),
+                    new Reminder("10-10-2019 " + seed + "00"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
