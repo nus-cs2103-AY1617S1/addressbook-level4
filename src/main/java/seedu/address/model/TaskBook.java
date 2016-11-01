@@ -191,8 +191,11 @@ public class TaskBook implements ReadOnlyTaskBook {
     
   //@@author A0139024M 
     
-    /*
+    /**
      * Set deadline task as overdue
+     * @param target
+     * @return
+     * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean setTaskOverdue(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
@@ -204,8 +207,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
-    /*
+    /**
      * Reset the status of dated Task to None
+     * @param target
+     * @return
+     * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean postponeTask(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
@@ -217,8 +223,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         }        
     }
     
-    /*
+    /**
      * Set Event task as expired
+     * @param target
+     * @return
+     * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean setExpire(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
@@ -230,8 +239,11 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
 
     }
-    /*
+    /**
      * Clear all unwanted status (Expire/Overdue) status on floating/undated task
+     * @param undatedTarget
+     * @return
+     * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean resetFloatingTaskStatus(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
         if (undatedTasks.contains(undatedTarget)) {

@@ -64,6 +64,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@@author A0139024M 
+    /**
+     * Check the start time and date time of the dated tasks in application
+     */
     public void checkStatus(){
         UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
         UniqueTaskList floating = taskBook.getUniqueUndatedTaskList();
@@ -73,8 +76,9 @@ public class ModelManager extends ComponentManager implements Model {
         checkUndatedTaskStatus(floating);
     }
     
-    /*
+    /**
      * Update the status of all Undated/Floating Tasks in application
+     * @param floating
      */
     private void checkUndatedTaskStatus(UniqueTaskList floating) {
         for (Task undatedTarget : floating) {
@@ -86,8 +90,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    /*
+    /**
      * Update the status of all Dated Tasks in application
+     * @param tasks
+     * @param currentTime
+     * @param formatter
      */
     private void checkDatedTaskStatus(UniqueTaskList tasks, LocalDateTime currentTime, DateTimeFormatter formatter) {
         for (Task target : tasks) {
@@ -103,8 +110,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    /*
+    /**
      * Updated the status of all Event Tasks in application
+     * @param currentTime
+     * @param formatter
+     * @param target
      */
     private void updateEventStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
         String endDateTime = target.getDatetime().toString().substring(21);
@@ -125,8 +135,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    /*
+    /**
      * Updated the status of all Deadline tasks in application
+     * @param currentTime
+     * @param formatter
+     * @param target
      */
     private void updateDeadlineStatus(LocalDateTime currentTime, DateTimeFormatter formatter, Task target) {
         LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
