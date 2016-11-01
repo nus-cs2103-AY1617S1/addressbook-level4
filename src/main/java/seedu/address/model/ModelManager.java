@@ -65,15 +65,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0139024M 
     /**
-     * Check the start time and date time of the dated tasks in application
+     * Check the start time and date time of all tasks in application
      */
     public void checkStatus(){
-        UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
-        UniqueTaskList floating = taskBook.getUniqueUndatedTaskList();
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");       
-        checkDatedTaskStatus(tasks, currentTime, formatter);
-        checkUndatedTaskStatus(floating);
+        checkDatedTaskStatus(taskBook.getUniqueDatedTaskList(), getCurrentTime(), DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"));
+        checkUndatedTaskStatus(taskBook.getUniqueUndatedTaskList());
+    }
+    
+    /**
+     * Get the current time of the local machine
+     * @return
+     */
+    private LocalDateTime getCurrentTime() {
+        return LocalDateTime.now();
     }
     
     /**
