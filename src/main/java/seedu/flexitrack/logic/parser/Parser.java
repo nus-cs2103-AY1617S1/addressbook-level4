@@ -174,106 +174,113 @@ public class Parser {
         }
     }
 
-    //@@author A0127686R
+    // @@author A0127686R
     /**
      * Prepare the user input arguments to be passed GapCommand class
+     * 
      * @param args
      * @return a new Gap Command class
      */
     private Command prepareGap(String args) {
         args.toLowerCase();
-        
+
         Matcher matcher = TASK_FIND_GAP_WITH_NUMBER_ARGS_FORMAT.matcher(args.trim());
         int numberOfSlot = GapCommand.DEFAULT_NUMBER_OF_SLOT;
-        
-        if (matcher.matches()){
+
+        if (matcher.matches()) {
             args = matcher.group("info").trim();
-            try{
-            numberOfSlot =  Integer.parseInt(matcher.group("numberOfGaps").trim()); 
-            } catch (NumberFormatException nfe){
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
+            try {
+                numberOfSlot = Integer.parseInt(matcher.group("numberOfGaps").trim());
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
-        } else { 
-            if (args.trim().equals("") || args.trim().contains("n/")){
+        } else {
+            if (args.trim().equals("") || args.trim().contains("n/")) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
             }
             matcher = TASK_FIND_GAP_ARGS_FORMAT.matcher(args.trim());
             matcher.matches();
             args = matcher.group("info").trim();
         }
-        
-        if( isGapArgumentValid(args)){
+
+        if (isGapArgumentValid(args)) {
             try {
                 int keyword = extractKeywordFromArgs(args);
                 int length = extractLength(args);
                 return new GapCommand(keyword, length, numberOfSlot);
 
-            } catch (NumberFormatException nfe) { 
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NUMBER_NEED_TO_BE_IN_DIGIT));
             }
-        } else { 
+        } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GapCommand.MESSAGE_USAGE));
         }
     }
 
     /**
-     * Extract the length of the duration from string in keywords to number 
+     * Extract the length of the duration from string in keywords to number
+     * 
      * @param args
-     * @return length of duration in integer 
+     * @return length of duration in integer
      * @throws NumberFormatException
      */
     private int extractLength(String args) throws NumberFormatException {
-        String length = args.replace(GapCommand.WORD_DAY+"s", "").
-                replace(GapCommand.WORD_HOUR + "s", "").replace(GapCommand.WORD_MINUTE+"s", "").
-                replace(GapCommand.WORD_DAY, ""). replace(GapCommand.WORD_HOUR, "").
-                replace(GapCommand.WORD_MINUTE, "").replace(GapCommand.INITIAL_DAY, "").
-                replace(GapCommand.INITIAL_MINUTE, "").replace(GapCommand.INITIAL_HOUR, "");
-        if (length.trim().equals("")){
-            return 1; 
+        String length = args.replace(GapCommand.WORD_DAY + "s", "").replace(GapCommand.WORD_HOUR + "s", "")
+                .replace(GapCommand.WORD_MINUTE + "s", "").replace(GapCommand.WORD_DAY, "")
+                .replace(GapCommand.WORD_HOUR, "").replace(GapCommand.WORD_MINUTE, "")
+                .replace(GapCommand.INITIAL_DAY, "").replace(GapCommand.INITIAL_MINUTE, "")
+                .replace(GapCommand.INITIAL_HOUR, "");
+        if (length.trim().equals("")) {
+            return 1;
         } else {
             return Integer.parseInt(length.trim());
         }
     }
 
     /**
-     * Extract the keyword from the arguments and return it in integer reference number 
+     * Extract the keyword from the arguments and return it in integer reference
+     * number
+     * 
      * @param args
-     * @return number representing each key word. 
+     * @return number representing each key word.
      */
     private int extractKeywordFromArgs(String args) {
-        if (args.contains(GapCommand.WORD_DAY)||args.contains(GapCommand.WORD_DAY + "s")
-                ||args.contains(GapCommand.INITIAL_DAY)){
+        if (args.contains(GapCommand.WORD_DAY) || args.contains(GapCommand.WORD_DAY + "s")
+                || args.contains(GapCommand.INITIAL_DAY)) {
             return GapCommand.REF_NO_DAY;
         }
-        if (args.contains(GapCommand.WORD_HOUR)||args.contains(GapCommand.WORD_HOUR + "s")
-                ||args.contains(GapCommand.INITIAL_HOUR)){
-            return GapCommand.REF_NO_HOUR; 
-        }
-        else {
-            return GapCommand.REF_NO_MINUTE; 
+        if (args.contains(GapCommand.WORD_HOUR) || args.contains(GapCommand.WORD_HOUR + "s")
+                || args.contains(GapCommand.INITIAL_HOUR)) {
+            return GapCommand.REF_NO_HOUR;
+        } else {
+            return GapCommand.REF_NO_MINUTE;
         }
     }
 
-    /** 
-     * Find out if the argument is a valid argument for a GapCommand. The argument could not have more 
-     * than one timing key words ( minute, hour or day ) 
+    /**
+     * Find out if the argument is a valid argument for a GapCommand. The
+     * argument could not have more than one timing key words ( minute, hour or
+     * day )
+     * 
      * @param args
-     * @return true if the argument is a valid argument 
+     * @return true if the argument is a valid argument
      */
     private boolean isGapArgumentValid(String args) {
-        int numberOfMatch = 0; 
+        int numberOfMatch = 0;
 
-        if (args.contains(GapCommand.WORD_DAY)||args.contains(GapCommand.WORD_DAY + "s")
-                ||args.contains(GapCommand.INITIAL_DAY)){
-            numberOfMatch = numberOfMatch + 1; 
+        if (args.contains(GapCommand.WORD_DAY) || args.contains(GapCommand.WORD_DAY + "s")
+                || args.contains(GapCommand.INITIAL_DAY)) {
+            numberOfMatch = numberOfMatch + 1;
         }
-        if (args.contains(GapCommand.WORD_HOUR)||args.contains(GapCommand.WORD_HOUR + "s")
-                ||args.contains(GapCommand.INITIAL_HOUR)){
-            numberOfMatch = numberOfMatch + 1; 
+        if (args.contains(GapCommand.WORD_HOUR) || args.contains(GapCommand.WORD_HOUR + "s")
+                || args.contains(GapCommand.INITIAL_HOUR)) {
+            numberOfMatch = numberOfMatch + 1;
         }
-        if (args.contains(GapCommand.WORD_MINUTE)||args.contains(GapCommand.WORD_MINUTE + "s")
-                ||args.contains(GapCommand.INITIAL_MINUTE)){
-            numberOfMatch = numberOfMatch + 1; 
+        if (args.contains(GapCommand.WORD_MINUTE) || args.contains(GapCommand.WORD_MINUTE + "s")
+                || args.contains(GapCommand.INITIAL_MINUTE)) {
+            numberOfMatch = numberOfMatch + 1;
         }
         return numberOfMatch == 1;
     }
