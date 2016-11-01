@@ -177,5 +177,10 @@ public class GenerateCommand extends Command {
         }
         return Tag.EMPTY_TAG;
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 
 }

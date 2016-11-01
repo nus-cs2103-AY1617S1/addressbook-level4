@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.oneline.commons.exceptions.IncorrectCommandException;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
@@ -84,23 +85,17 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
+        Class<? extends Command> cmdClass;
+        try {
+            cmdClass = getCommandClass(commandWord);
+        } catch (IncorrectCommandException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
         final String arguments = matcher.group("arguments");
-        
-        if (!COMMAND_CLASSES.containsKey(commandWord)) {
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
-        }
-        Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
-        Method method = null;
+        Method method = getCommandCreator(cmdClass);
+        Command cmd;
         try {
-            method = cmdClass.getMethod("createFromArgs", String.class);
-        } catch (NoSuchMethodException | SecurityException e1) {
-            assert false : "Command class should implement \"createFromArgs(String)\".";
-        }
-        try {
-            return (Command) method.invoke(null, arguments);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
-            assert false : e.getClass().toString() + " : " + e.getMessage();
-            assert false : "Command class " + e.getClass().toString() + " should implement \"createFromArgs(String)\".";
+            cmd = createCommand(method, arguments);
         } catch (InvocationTargetException e) {
             if (e.getCause().getMessage() == null) {
                 e.printStackTrace();
@@ -108,7 +103,49 @@ public class Parser {
             }
             return new IncorrectCommand(e.getCause().getMessage());
         }
+        return cmd;
+    }
+
+    /**
+     * @param method
+     * @param arguments
+     * @throws InvocationTargetException 
+     */
+    private Command createCommand(Method method, final String arguments) throws InvocationTargetException {
+        try {
+            return (Command) method.invoke(null, arguments);
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            assert false : e.getClass().toString() + " : " + e.getMessage();
+            assert false : "Command class " + e.getClass().toString() + " should implement \"createFromArgs(String)\".";
+        }
         return null;
+    }
+
+    /**
+     * @param cmdClass
+     * @return
+     */
+    private Method getCommandCreator(Class<? extends Command> cmdClass) {
+        Method method = null;
+        try {
+            method = cmdClass.getMethod("createFromArgs", String.class);
+        } catch (NoSuchMethodException | SecurityException e) {
+            assert false : "Command class should implement \"createFromArgs(String)\".";
+        }
+        return method;
+    }
+
+    /**
+     * @param commandWord
+     * @return
+     * @throws IncorrectCommandException 
+     */
+    private Class<? extends Command> getCommandClass(final String commandWord) throws IncorrectCommandException {
+        if (!COMMAND_CLASSES.containsKey(commandWord)) {
+            throw new IncorrectCommandException(commandWord + " is not a valid command");
+        }
+        Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
+        return cmdClass;
     }
 
     /**
@@ -120,11 +157,72 @@ public class Parser {
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
         args = args.trim();
-        while (args.contains("  ")) {
-            args = args.replaceAll("  ", " "); // get rid of double-spaces
-        }
         // Get the indexes of all task fields
         String[] splitted = args.split(" ");
+        List<Entry<TaskField, Integer>> fieldIndexes = extractFieldIndexes(splitted);
+        // Extract the respective task fields into results map
+        if (fieldIndexes.size() == 0) {
+            return extractFieldName(splitted);
+        }
+        return extractAllFields(splitted, fieldIndexes);
+    }
+
+    /**
+     * @param splitted
+     * @param fieldIndexes
+     * @return
+     * @throws IllegalCmdArgsException
+     */
+    private static Map<TaskField, String> extractAllFields(String[] splitted,
+            List<Entry<TaskField, Integer>> fieldIndexes) throws IllegalCmdArgsException {
+        Map<TaskField, String> result = new HashMap<TaskField, String>();
+        Integer firstIndex = fieldIndexes.get(0).getValue();
+        if (firstIndex > 0) {
+            String[] subArr = Arrays.copyOfRange(splitted, 0, firstIndex);
+            result.put(TaskField.NAME, String.join(" ", subArr));
+        }
+        for (int i = 0; i < fieldIndexes.size(); i++) {
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG && i != fieldIndexes.size() - 1) {
+                throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
+            }
+            int startIndex = (fieldIndexes.get(i).getKey() == TaskField.TAG) ?
+                    fieldIndexes.get(i).getValue() :
+                    fieldIndexes.get(i).getValue() + 1;
+            int endIndex = (i == fieldIndexes.size() - 1) ?
+                    splitted.length : fieldIndexes.get(i + 1).getValue();
+            String[] subArr = Arrays.copyOfRange(splitted, startIndex, endIndex);
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG) {
+                for (int j = 0; j < subArr.length; j++) {
+                    subArr[j] = getTagFromArgs(subArr[j]);
+                }
+            }
+            result.put(fieldIndexes.get(i).getKey(), String.join(" ", subArr));
+        }
+        return result;
+    }
+
+    /**
+     * @param splitted
+     * @param result
+     * @return
+     * @throws IllegalCmdArgsException
+     */
+    private static Map<TaskField, String> extractFieldName(String[] splitted) throws IllegalCmdArgsException {
+        Map<TaskField, String> result = new HashMap<TaskField, String>();
+        if (splitted[0].equals("")) { 
+            throw new IllegalCmdArgsException("Task Name is a compulsory field.");
+        }
+        result.put(TaskField.NAME, String.join(" ", splitted));
+        return result;
+    }
+
+    /**
+     * @param splitted
+     * @return
+     * @throws IllegalCmdArgsException
+     */
+    private static List<Entry<TaskField, Integer>> extractFieldIndexes(String[] splitted)
+            throws IllegalCmdArgsException {
         List<Entry<TaskField, Integer>> fieldIndexes = new ArrayList<>();
         TaskField[] fields = new TaskField[] { TaskField.START_TIME, TaskField.END_TIME,
                                                TaskField.DEADLINE, TaskField.RECURRENCE };
@@ -151,38 +249,7 @@ public class Parser {
             public int compare(Entry<TaskField, Integer> a, Entry<TaskField, Integer> b) {
                 return a.getValue().compareTo(b.getValue());
             } });
-        // Extract the respective task fields into results map
-        Map<TaskField, String> result = new HashMap<TaskField, String>();
-        if (fieldIndexes.size() == 0) {
-            if (splitted[0].equals("")) { 
-                throw new IllegalCmdArgsException("Task Name is a compulsory field.");
-            }
-            result.put(TaskField.NAME, String.join(" ", splitted));
-            return result;
-        }
-        Integer firstIndex = fieldIndexes.get(0).getValue();
-        if (firstIndex > 0) {
-            String[] subArr = Arrays.copyOfRange(splitted, 0, firstIndex);
-            result.put(TaskField.NAME, String.join(" ", subArr));
-        }
-        for (int i = 0; i < fieldIndexes.size(); i++) {
-            if (fieldIndexes.get(i).getKey() == TaskField.TAG && i != fieldIndexes.size() - 1) {
-                throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
-            }
-            String[] subArr = Arrays.copyOfRange(splitted,
-                                (fieldIndexes.get(i).getKey() == TaskField.TAG) ?
-                                    fieldIndexes.get(i).getValue() :
-                                    fieldIndexes.get(i).getValue() + 1,
-                                (i == fieldIndexes.size() - 1) ?
-                                    splitted.length : fieldIndexes.get(i + 1).getValue());
-            if (fieldIndexes.get(i).getKey() == TaskField.TAG) {
-                for (int j = 0; j < subArr.length; j++) {
-                    subArr[j] = getTagFromArgs(subArr[j]);
-                }
-            }
-            result.put(fieldIndexes.get(i).getKey(), String.join(" ", subArr));
-        }
-        return result;
+        return fieldIndexes;
     }
     
     /**
@@ -303,7 +370,6 @@ public class Parser {
         if (!matcher.matches()) {
             return null; // TODO: THROW ERROR
         }
-
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
