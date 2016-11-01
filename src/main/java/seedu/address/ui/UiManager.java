@@ -16,13 +16,22 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.UpcomingReminders;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.task.Task;
 import seedu.lifekeeper.MainApp;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * The manager of the UI component.
@@ -106,6 +115,42 @@ public class UiManager extends ComponentManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
+    
+    //==================== Reminder Dialog Box =================================================================
+    
+    private void showReminderDialog(ArrayList<Activity> activities) {
+        ImageIcon reminderIcon = new ImageIcon("/images/ringing.png",
+                "Reminder Bell");
+        
+        for (Activity activity : activities) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    textForReminderDialog(activity, activity.getClass().getSimpleName()),
+                    "Reminder: " + activity.getReminder().toString(),
+                    JOptionPane.WARNING_MESSAGE,
+                    reminderIcon);
+        }
+    }
+    
+    private String textForReminderDialog(Activity activity, String type) {
+        final StringBuilder sb = new StringBuilder();
+        
+        sb.append("Reminder for the " + type.toLowerCase() + ": " +  activity.getName());
+        
+        switch (type) {
+        case "Task":
+            if (((Task) activity).getDueDate().getCalendarValue() != null) {
+                sb.append("\nDue:\t" + ((Task) activity).getDueDate().toString());
+            }
+            sb.append("\nPriority: " + ((Task) activity).getPriority().forReminderDialog());
+            break;
+        case "Event":
+            sb.append("\nTime:\t" + ((Event) activity).getStartTime().toString()
+                    + "\nto\t" + ((Event) activity).getEndTime().toString());
+            break;
+        }
+        
+        return sb.toString();
+    }
 
     //==================== Event Handling Code =================================================================
 
@@ -133,6 +178,8 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.loadPersonPage(event.getNewSelection());
     }
     
+    //==================== Refresh Handling Code =================================================================
+    
     private void initRefresh() {
         timer.cancel();
         timer = new Timer("TaskName");
@@ -146,6 +193,7 @@ public class UiManager extends ComponentManager implements Ui {
     private class LoopTask extends TimerTask {
         public void run() {
             mainWindow.refresh();
+            showReminderDialog(UpcomingReminders.popNextReminders());
         }
     }
 

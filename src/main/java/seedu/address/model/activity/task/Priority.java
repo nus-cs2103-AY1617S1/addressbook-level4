@@ -67,6 +67,19 @@ public class Priority {
         }
     }
     
+    public String forReminderDialog() {
+        switch (value) {
+        case "1":
+            return "Low";
+        case "2":
+            return "Medium";
+        case "3":
+            return "High";
+        default:
+            return "-";
+        }
+    }
+    
     public Image getPriorityIcon() {
         switch (value) {
         case "1":

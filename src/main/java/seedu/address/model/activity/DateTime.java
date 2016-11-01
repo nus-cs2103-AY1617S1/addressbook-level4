@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 
 //@@author A0125680H
-public abstract class DateTime {
+public abstract class DateTime implements Comparable<DateTime>{
     public final Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
     protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm aa");
@@ -49,6 +49,31 @@ public abstract class DateTime {
     public boolean isAfterNow() {
         Date now = Calendar.getInstance().getTime();
         return this.value.getTime().after(now);
+    }
+    
+    /**
+     * Returns true if the stored time is before the date in the specified DateTime object.
+     */
+    
+    public boolean isBefore(DateTime other) {
+        Date otherDate = other.getCalendarValue().getTime();
+        return this.value.getTime().before(otherDate);
+    }
+    
+    /**
+     * Returns true if the stored time is after the date in the specified DateTime object.
+     */
+    public boolean isAfter(DateTime other) {
+        Date now = Calendar.getInstance().getTime();
+        return this.value.getTime().after(now);
+    }
+    
+    /**
+     * Comparator for DateTime. Earlier dates are ordered before later dates.
+     */
+    @Override
+    public int compareTo(DateTime other) {
+        return this.value.getTime().compareTo(other.value.getTime());
     }
 
     /**
