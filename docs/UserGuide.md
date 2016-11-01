@@ -66,13 +66,13 @@ General command format :
 
 **Adding a simple task**
 
-Command format : **add DESCRIPTION**
+- Command format : **add DESCRIPTION**
 
-Adds a generic task with only the DESCRIPTION.
+- Adds a generic task with only the DESCRIPTION.
 
-Example :   **add organise room**
+- Example :   **add organise room**
 
-Adds a task **organise room**  into the task manager.
+- Adds a task **organise room**  into the task manager.
 PRIORITY is set to **normal** , all other parameters are empty.
 
 **Adding a task with PRIORITY**
