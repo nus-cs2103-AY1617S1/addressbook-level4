@@ -11,9 +11,9 @@ import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.datetime.DateTime;
 
+// @@author A0138915X
 /**
  * Shows certain sections of the task panel or all tasks and events to the user.
- * @@author A0138915X
  *
  */
 public class ShowCommand extends Command {
@@ -117,7 +117,7 @@ public class ShowCommand extends Command {
                 .isPresent();
     }
     // @@author
-    
+    // @@author A0138915X
     private ListId determineSectionToShow(String sectionToShow) {
         switch (userSelection) {
         case "overdue" :
