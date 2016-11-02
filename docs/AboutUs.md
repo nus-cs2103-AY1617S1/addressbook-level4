@@ -7,8 +7,27 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 #### [Shailesh Nahata](https://github.com/nahata-shailesh) <br>
 <img src="images/Shailesh.JPG" width="150"><br>
-**Role**: Developer <br>
-**Responsibilities**: Parsing
+
+* Project Lead
+* Components in charge of : Parsing and Storage <br>
+* Aspects/Tools un charge of: Github, Eclipse
+* Features Implemented:
+   * [Add Command](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+   * [Adding a floating task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task)
+   * [Adding a task with start time only](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-task-with-a-start-time-only)
+   * [Adding a deadline task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-a-deadline-task)
+   * [Adding an event task](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#adding-an-event-task)
+   * [Set storage](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#set-storage-setstorage)
+   * [Command history](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrow-keys)
+   * [Auto-complete](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button-or-space-bar)
+* Code written: [[functional code](A0147619W.md)][[test code](A0147619W.md)][[docs](A0147619W.md)]
+* Other major contributions:
+  * Implemented the Natty Parser for Natural Language Processing
+  * Set up Travis and Coverall
+  * Integration of all codes
+  * Handled clashing of events
+  * Implemented all validation checks regarding date and time
+  * Helped with the initial refactoring from AddressBook to ForgetMeNot
 
 -----
 
