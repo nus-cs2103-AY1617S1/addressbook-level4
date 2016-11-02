@@ -17,9 +17,20 @@ import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0138431L
+
 /**
  * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * a sorting and filtered list that display the result of the user command 
+ * on the left and a week's view of the task
+ * 
+ * The week's view contains 4 lists, namely the floating list, overdue list, 
+ * days of the week list and upcoming list
+ *  
+ * Floating list contains task without start and end dateTime
+ * Overdue list contains task with end date before current date
+ * Days of the week list contains task that falls on the respective day of the selected week
+ * Upcoming list contains task with start date after the last day of selected week
  * 
  * @author A0138431L
  * 
