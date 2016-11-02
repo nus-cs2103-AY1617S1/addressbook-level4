@@ -4,6 +4,7 @@ package seedu.whatnow.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.whatnow.commons.core.EventsCenter;
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
@@ -432,29 +433,31 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_markDoneInvalidArgsFormat_errorMessageShown() throws
+    public void execute_markDoneInvalidIndexFormat_errorMessageShown() throws
     Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MarkDoneCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("done", "todo 2",
                 expectedMessage);
     }
     //@@author A0139128A
     @Test
-    public void execute_markDoneInvalidArgsFormat_Negative_errorMessageShown() throws
+    public void execute_markUndoneInvalidIndexFormat_ErrorMessageShown() throws Exception {
+        String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        System.out.println(expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("undone", "todo 2", expectedMessage);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_markUndoneMissingIndexFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX);
+        assertIncorrectIndexFormatBehaviorForCommand("undone", "todo", expectedMessage);
+    }
+    @Test
+    public void execute_markDoneIndexNotFound_errorMessageShown() throws
     Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                MarkDoneCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("done", "todo -1",
-                expectedMessage);
+        assertIndexNotFoundBehaviorForCommand("done", "todo");
     }
     
-   // @Test
-   // public void execute_markDoneIndexNotFound_errorMessageShown() throws
-   // Exception {
-   //     assertIndexNotFoundBehaviorForCommand("done", "todo");
-   // }
-
     // @Test
     // public void execute_markDone_marksCorrectTask() throws Exception {
     // TestDataHelper helper = new TestDataHelper();

@@ -26,7 +26,8 @@ public class MarkDoneCommand extends Command {
     public static final String MESSAGE_MARK_INVALID_FORMAT = "Invalid format for done command";
     private static final String TASK_TYPE_FLOATING = "todo";
     private static final String TASK_TYPE_SCHEDULE = "schedule";
-
+    public static final String MESSAGE_MISSING_INDEX = "Please specify index";
+    public static final String MESSAGE_MISSING_TASKTYPE_AND_INDEX = "Please specify taskType and index";
     public final String taskType;
     public final int targetIndex;
 
@@ -50,9 +51,9 @@ public class MarkDoneCommand extends Command {
         } else {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
         }
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < targetIndex || targetIndex <0 ) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);

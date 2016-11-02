@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -147,7 +148,7 @@ public class Parser {
     private static final String TASK_ARG_TAG = "tag";
     private static final String TASK_ARG_DATE = "date";
     private static final String TASK_ARG_TIME = "time";
-    
+
     HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
     HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
 
@@ -247,7 +248,7 @@ public class Parser {
 
         return count;
     }
-    
+
     /**
      * Formats the input date to the DD/MM/YYYY format
      * @param date The date to be formatted in DD/MM/YYYY format but DD and MM may be single digit
@@ -256,14 +257,14 @@ public class Parser {
     private static String formatDate(String date) {
         String[] splitDate = date.split(FORWARD_SLASH);
         date = EMPTY_STRING;
-        
+
         for (int i = 0; i < splitDate.length; i++) {
             date += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
             if (i < splitDate.length - ONE) {
                 date += FORWARD_SLASH;
             }
         }
-        
+
         return date;
     }
 
@@ -313,7 +314,7 @@ public class Parser {
 
         return time;
     }
-    
+
     private static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
         months.put("january", 1);
         months.put("february", 2);
@@ -329,7 +330,7 @@ public class Parser {
         months.put("december", 12);
         return months;
     }
-    
+
     private static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
         months.put("jan", 1);
         months.put("feb", 2);
@@ -355,7 +356,7 @@ public class Parser {
             return null;
         }
     }
-    
+
     public String getSubDate(String argument) {
         if (DATE.matcher(argument).find()) {
             return argument + FORWARD_SLASH;
@@ -379,7 +380,7 @@ public class Parser {
             return null;
         }
     }
-    
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -407,10 +408,10 @@ public class Parser {
         String endPeriod = null;
         Set<String> tags = new HashSet<String>();
         String[] argComponents = null;
-        
+
         //Temporary variables
         String tempDate;
-        
+
         MONTHS_IN_FULL = storeFullMonths(MONTHS_IN_FULL);
         MONTHS_IN_SHORT = storeShortMonths(MONTHS_IN_SHORT);    
 
@@ -505,7 +506,7 @@ public class Parser {
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
-                
+
                 continue;
             }
 
@@ -521,7 +522,7 @@ public class Parser {
                         validArgument = false;
                         hasRecurringEndDate = false;
                     }
-                    
+
                     hasTime = false;
                 } else {
                     if (getDate(argComponents[i]) != null) {
@@ -534,7 +535,7 @@ public class Parser {
                             date = null;
                             endDate = tempDate;
                         }
-                        
+
                         hasTime = false;
                     } else if (getSubDate(argComponents[i]) != null) {
                         tempDate = getSubDate(argComponents[i]);
@@ -547,15 +548,15 @@ public class Parser {
                             date = null;
                             endDate = tempDate;
                         }
-                        
+
                         hasTime = false;
                     } else if (!hasTime) {
                         validArgument = false;
                     }
-                    
+
                     hasRecurringEndDate = false;
                 }
-                
+
                 hasDate = false;
                 if (hasSubDate) {
                     continue;
@@ -585,7 +586,7 @@ public class Parser {
                         } else if (numOfDate == TWO) {
                             endDate += tempDate;
                         }
-                        
+
                         if (YEAR.matcher(tempDate).find()) {
                             hasSubDate = false;
                         }
@@ -614,10 +615,10 @@ public class Parser {
                 } else {
                     validArgument = false;
                 }
- 
+
                 hasTime = false;
             }
-            
+
             if (hasRecurring) {
                 if (DAYS_IN_FULL.matcher(argComponents[i]).find()) {
                     period = argComponents[i];
@@ -628,7 +629,7 @@ public class Parser {
                 } else {
                     validArgument = false;
                 }
-                
+
                 hasRecurring = false;
             }
 
@@ -636,11 +637,11 @@ public class Parser {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
         }
-        
+
         if (endPeriod != null) {
             endPeriod = formatDate(endPeriod);
         }
-        
+
         if (date != null) {
             date = formatDate(date);
         } else if (startDate != null) {
@@ -892,11 +893,19 @@ public class Parser {
      */
     private Command prepareMarkDone(String args) {
         String[] argComponents = args.trim().split(" ");
-        Optional<Integer> index = parseIndex(argComponents[INDEX]);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
+        if(argComponents.length > 1) {
+            Optional<Integer> index = parseIndex(argComponents[INDEX]);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_USAGE));
+            }
+            return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
+        } else {
+            if(argComponents.length == 1 && !argComponents[0].equals("")) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_MISSING_INDEX));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkDoneCommand.MESSAGE_MISSING_TASKTYPE_AND_INDEX));
+            }
         }
-        return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
     }
 
     //@@author A0141021H
@@ -909,11 +918,20 @@ public class Parser {
      */
     private Command prepareMarkUndone(String args) {
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
-        Optional<Integer> index = parseIndex(argComponents[INDEX]);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
+        if(argComponents.length > 1) {
+            Optional<Integer> index = parseIndex(argComponents[INDEX]);
+            System.out.println(argComponents[INDEX]);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX));
+            }
+            return new MarkUndoneCommand(argComponents[TASK_TYPE], index.get());
+        } else {
+            if(argComponents.length == 1 && !argComponents[0].equals("")) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX));
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_TASKTYPE_AND_INDEX));
+            }
         }
-        return new MarkUndoneCommand(argComponents[TASK_TYPE], index.get());
     }
 
     //@@author A0139772U
