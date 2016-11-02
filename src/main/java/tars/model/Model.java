@@ -50,8 +50,9 @@ public interface Model {
     void addTask(Task task) throws DuplicateTaskException;
     
     /** 
-     * @@author A0124333U
      * Deletes the reserved task.
+     * 
+     * @@author A0124333U
      */
     void deleteRsvTask(RsvTask target) throws RsvTaskNotFoundException;
     
@@ -89,9 +90,10 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
     
     /**
-     * @@author A0124333U 
      * Updates the filter of the filtered task list to filter by the given keywords of each given
      * task attribute
+     * 
+     * @@author A0124333U
      */
     void updateFilteredTaskListUsingFlags(TaskQuery taskQuery);
     
@@ -109,8 +111,9 @@ public interface Model {
     ObservableList<? extends ReadOnlyTag> getUniqueTagList();
     
     /**
-     * @@author A0124333U
      * Returns an ArrayList of DateTime in a specified date
+     * 
+     * @@author A0124333U
      */
     public ArrayList<DateTime> getListOfFilledTimeSlotsInDate(DateTime dateToCheck);
 
