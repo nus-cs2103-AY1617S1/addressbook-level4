@@ -50,7 +50,7 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 * Components in charge of: [ui]
 * Aspects/tools in charge of: 
 * Features implemented:
-   * Change of User Interface
+   Change of User Interface
 -----
 
 # Contributors
