@@ -246,11 +246,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-### Continuous Integration
-
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
-
 ### Making a Release
 
 Here are the steps to create a new release.
@@ -298,7 +293,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 #### Use case: Add task
 
-**MSS**
+**Main Success Scenario**
 
 1. User enters command to add task along with task details
 2. TaskManager adds task with the details provided <br>
@@ -318,7 +313,7 @@ Use case ends.
 
 #### Use case: Delete task
 
-**MSS**
+**Main Success Scenario**
 
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
@@ -339,7 +334,7 @@ Use case ends.
 
 #### Use case: Edit task
 
-**MSS**
+**Main Success Scenario**
 
 1. User requests to list tasks
 2. TaskManager shows a list of tasks
@@ -361,7 +356,7 @@ Use case ends.
 
 #### Use case: Find task
 
-**MSS**
+**Main Success Scenario**
 
 1. User requests to find tasks along with the limiting parameters
 2. TaskManager shows a list of tasks that satisfies the parameters
@@ -382,7 +377,7 @@ Use case ends.
 
 #### Use case: Undo task
 
-**MSS**
+**Main Success Scenario**
 
 1. User request to undo
 2. TaskManager undoes the most recent change to stored data
@@ -397,7 +392,7 @@ Use case ends
 
 #### Use case: Complete task
 
-**MSS**
+**Main Success Scenario**
 1. User request to mark the specified task as complete
 2. TaskManager marks the specified task as complete
 
