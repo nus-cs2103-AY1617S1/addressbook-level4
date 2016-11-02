@@ -7,8 +7,6 @@ import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
-import static org.junit.Assert.assertTrue;
-
 public class ShowCommandTest extends TaskListGuiTest {
 
     @Test
@@ -69,7 +67,7 @@ public class ShowCommandTest extends TaskListGuiTest {
     
     @Test
     public void show_OverDue() {
-    	 assertShowResult("show overdue", TypicalTestTasks.task3);
+    	 assertShowResult("show overdue");
     }
 
     private void assertShowResult(String command, TestTask... expectedHits ) {
