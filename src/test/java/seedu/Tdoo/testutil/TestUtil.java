@@ -70,18 +70,18 @@ public class TestUtil {
 
     public static final Task[] sampletaskData = getSampletaskData();
     public static final Event[] sampleeventData = getSampleeventData();
-    public static final Deadline[] sampledeadlineData = getSampledeadlineData();
+    public static final Deadline[] sampledeadlineData = getSampledeadlineData(); 
 
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Todo(new Name("TT 11"), new StartDate("01-11-2016"), new EndDate("02-11-2016"), new Priority("1"), "false"),
-                    new Todo(new Name("Assignment 12"), new StartDate("02-11-2016"), new EndDate("03-11-2016"), new Priority("2"), "false"),
-                    new Todo(new Name("Assignment 13"), new StartDate("03-11-2016"), new EndDate("03-11-2016"), new Priority("1"), "false"),
-                    new Todo(new Name("Assignment 14"), new StartDate("04-11-2016"), new EndDate("05-11-2016"), new Priority("3"), "false"),
-                    new Todo(new Name("Assignment 15"), new StartDate("05-11-2016"), new EndDate("06-11-2016"), new Priority("1"), "false"),
-                    new Todo(new Name("Assignment 16"), new StartDate("06-11-2016"), new EndDate("07-11-2016"), new Priority("1"), "false"),
-                    new Todo(new Name("Assignment 17"), new StartDate("07-11-2016"), new EndDate("08-11-2016"), new Priority("1"), "false"),
+                    new Todo(new Name("TT 11"), new StartDate("01-11-2017"), new EndDate("02-11-2017"), new Priority("1"), "false"),
+                    new Todo(new Name("Assignment 12"), new StartDate("02-11-2017"), new EndDate("03-11-2017"), new Priority("2"), "false"),
+                    new Todo(new Name("Assignment 13"), new StartDate("03-11-2017"), new EndDate("03-11-2017"), new Priority("1"), "false"),
+                    new Todo(new Name("Assignment 14"), new StartDate("04-11-2017"), new EndDate("05-11-2017"), new Priority("3"), "false"),
+                    new Todo(new Name("Assignment 15"), new StartDate("05-11-2017"), new EndDate("06-11-2017"), new Priority("1"), "false"),
+                    new Todo(new Name("Assignment 16"), new StartDate("06-11-2017"), new EndDate("07-11-2017"), new Priority("1"), "false"),
+                    new Todo(new Name("Assignment 17"), new StartDate("07-11-2017"), new EndDate("08-11-2017"), new Priority("1"), "false"),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -128,7 +128,7 @@ public class TestUtil {
 
     public static List<Task> generateSampletaskData() {
         return Arrays.asList(sampletaskData);
-    }
+    } 
     //@@author A0132157M reused   
     public static List<Event> generateSampleeventData() {
         return Arrays.asList(sampleeventData);

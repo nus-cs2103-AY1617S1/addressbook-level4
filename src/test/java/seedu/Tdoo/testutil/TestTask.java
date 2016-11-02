@@ -15,10 +15,8 @@ public class TestTask implements ReadOnlyTask {
     private   String endDate;
     private   String done;
 
-
     public TestTask() {
     }
-
 
     public void setName(Name name) {
         this.name = name;
@@ -62,12 +60,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
-        //sb.append(this.getName().name + " ");
-        //sb.append("from/" + this.getStartDate().date + " ");
-        //sb.append("to/ " + this.getEndDate().endDate + " ");
         sb.append("p/ " + this.getPriority());
-        //sb.append(this.getDone());
-        //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 

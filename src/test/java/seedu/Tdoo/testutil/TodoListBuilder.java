@@ -6,8 +6,6 @@ import seedu.Tdoo.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building TodoList  objects.
- * Example usage: <br>
- *     {@code TodoList ab = new TodoListBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class TodoListBuilder {
 
