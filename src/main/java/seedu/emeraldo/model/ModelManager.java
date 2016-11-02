@@ -327,29 +327,22 @@ public class ModelManager extends ComponentManager implements Model {
      *  Compare tasks tags with the keyword "completed"
      */
     private class ListQualifier implements Qualifier {
-    	private String completedTag = "Completed";
-    	
-        ListQualifier() {}
+        private Completed CompletedKeyword;
+
+        ListQualifier() {  }	
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            boolean completedFinder = false;
-            Tag tag;
-            Iterator<Tag> tagIterator = task.getTags().iterator();
-            while(tagIterator.hasNext()){
-                tag = tagIterator.next();
-                completedFinder = completedFinder || run(tag);
-            }
-            return !completedFinder;
-        }
-        
-        private boolean run(Tag tag){
-            return tag.tagName.equalsIgnoreCase(completedTag);
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        		return false;
+        	else
+        		return true;
         }
 
         @Override
         public String toString() {
-            return "tag=" + String.join(", ", completedTag);
+            return "List= " + CompletedKeyword;
         }
     }
 
