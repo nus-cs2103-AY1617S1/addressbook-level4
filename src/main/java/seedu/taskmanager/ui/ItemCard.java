@@ -28,7 +28,6 @@ public class ItemCard extends UiPart{
     @FXML
     private HBox cardPane;
     
-    //@@author A0140060A
     @FXML
     private Text name;
     

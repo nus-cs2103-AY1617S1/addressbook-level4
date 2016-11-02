@@ -16,7 +16,6 @@ public class ItemType {
 
     public final String value;
     
-    //@@author A0140060A
     /**
      * Validates given item type.
      *
@@ -38,6 +37,7 @@ public class ItemType {
         return test.matches(ITEMTYPE_VALIDATION_REGEX);
     }
 
+    //@@author A0140060A
     /**
      * Returns true if item type is 'task'.
      */
@@ -58,6 +58,8 @@ public class ItemType {
     public boolean isDeadline() {
         return value.equals(DEADLINE_WORD);
     }
+    
+    //@@author 
     
     @Override
     public String toString() {

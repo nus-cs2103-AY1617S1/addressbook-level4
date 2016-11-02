@@ -22,7 +22,6 @@ public interface Model {
     /** Deletes the specified multiple items. **/
     void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws UniqueItemList.ItemNotFoundException;
     
-    //@@author A0140060A-reused
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 

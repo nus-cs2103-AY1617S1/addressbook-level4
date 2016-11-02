@@ -2,7 +2,6 @@ package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.model.tag.UniqueTagList;
 
-//@@author A0140060A
 /**
  * A read-only immutable interface for a Item in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -43,6 +42,7 @@ public interface ReadOnlyItem {
                 && other.getTags().equals(this.getTags());
     }
 
+    //@@author A0140060A
     /**
      * Formats the person as text, showing all contact details.
      */
@@ -70,6 +70,7 @@ public interface ReadOnlyItem {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+    //@@author 
 
     /**
      * Returns a string representation of this Item's tags
