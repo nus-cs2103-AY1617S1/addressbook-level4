@@ -13,6 +13,7 @@ public class CommandMap {
     // dispatcher can recognize them
     private static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
         AddCommand.class,
+        ClearCommand.class,
         CompleteCommand.class,
         DeleteCommand.class,
         EditCommand.class,
