@@ -1,5 +1,6 @@
 package tars.logic;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -52,6 +53,10 @@ public class LogicManager extends ComponentManager implements Logic {
         return (command instanceof UndoCommand || command instanceof RedoCommand);
     }
 
+    @Override
+    public List<ReadOnlyTask> getTaskList() {
+        return model.getTars().getTaskList();
+    }
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
