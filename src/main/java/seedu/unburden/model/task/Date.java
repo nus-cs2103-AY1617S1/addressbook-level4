@@ -24,7 +24,7 @@ public class Date implements Comparable<Date> {
 
 	
 	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //numDays[0] is a dummy value
-	public final String fullDate;
+	private final String fullDate;
 	private int day;
 	private int month;	
 	private int year;
