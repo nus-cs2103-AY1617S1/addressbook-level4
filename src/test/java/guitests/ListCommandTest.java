@@ -12,7 +12,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
 
 	@Test
 	public void list() {
-		TestTask[] expectedList = td.getSortedTypicalTasks();
+		TestTask[] expectedList = td.getTypicalTasks();
 		//list without parameters
 		assertListResult("list   ", expectedList);
 		

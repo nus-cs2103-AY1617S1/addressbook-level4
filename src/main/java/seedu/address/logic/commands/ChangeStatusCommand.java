@@ -37,32 +37,25 @@ public class ChangeStatusCommand extends Command {
 
     @Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
 		model.saveState();
-		
-		ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
-		Task taskChanged;
+		ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
+		try {
+			tasksList = getStatusChangedTasks();
+		} catch (IndexOutOfBoundsException iobe) {
+			return new CommandResult(iobe.getMessage());
+		}
 
-		for (int i = 0; i < indices.length; i++) {
-			if (lastShownList.size() < indices[i]) {
-				// TODO avoid save state/loadPrevious in case of incorrect command, 
-				// since redo stack will have an element. possibly create model.undoSaveState()
-				model.loadPreviousState();
-				indicateAttemptToExecuteIncorrectCommand();
-				return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-			}
-
-			taskChanged = new Task(lastShownList.get(indices[i] - 1));
+		for(int i = 0; i < tasksList.size(); i++) {
+			Task taskChanged = (Task) tasksList.get(i);
 			int index = fullList.indexOf(taskChanged);
 			taskChanged.setStatus(new Status(newStatus));
-			tasksList.add(taskChanged);
-
 			try {
 				model.editTask(index, taskChanged);
 			} catch (TaskNotFoundException e) {
-				model.loadPreviousState();
+				model.undoSaveState();
+				// TODO create variable of string. compare message to delete command
 				return new CommandResult("The task with index " + indices[i] + " cannot be found. Please refresh the list.");
 			}
 		}
@@ -76,5 +69,24 @@ public class ChangeStatusCommand extends Command {
 			return new CommandResult(String.format(MESSAGE_TASK_SUCCESS_PENDING, tasksList));
 		}
 	}
+    
+    public ArrayList<ReadOnlyTask> getStatusChangedTasks () 
+    		throws IndexOutOfBoundsException {
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    	ArrayList<ReadOnlyTask> tasksList = new ArrayList<ReadOnlyTask>();
+    	for (int i = 0; i < indices.length; i++) {
+			if (lastShownList.size() < indices[i]) {
+				// TODO avoid save state/loadPrevious in case of incorrect command, 
+				// since redo stack will have an element. possibly create model.undoSaveState()
+				model.undoSaveState();
+				indicateAttemptToExecuteIncorrectCommand();
+				throw new IndexOutOfBoundsException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+			}
+
+			Task taskChanged = new Task(lastShownList.get(indices[i] - 1));
+			tasksList.add(taskChanged);
+		}
+    	return tasksList;
+    }
 
 }
