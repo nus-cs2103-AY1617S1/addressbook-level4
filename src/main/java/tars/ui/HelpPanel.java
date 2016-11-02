@@ -56,7 +56,7 @@ public class HelpPanel extends UiPart {
     }
 
     /**
-     * @@author A014022H
+     * @@author A0140022H
      */
     private String configureURL(String args) {
         String url =
@@ -131,7 +131,7 @@ public class HelpPanel extends UiPart {
     }
 
     /**
-     * @@author A014022H
+     * @@author A0140022H
      */
     public void loadUserGuide(String args) {
         browser.getEngine().load(configureURL(args));
