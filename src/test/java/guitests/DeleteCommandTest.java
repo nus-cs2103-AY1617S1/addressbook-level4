@@ -54,8 +54,9 @@ public class DeleteCommandTest extends MalitioGuiTest {
 
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
+     * (overloading functions for different tasks)
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
-     * @param floatingTaskList A copy of the current list of tasks (before deletion).
+     * @param task list: A copy of the current list of tasks (before deletion).
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] floatingTaskList) {
         TestFloatingTask taskToDelete = floatingTaskList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
@@ -67,7 +68,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
         assertTrue(floatingTaskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-     //   assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
     
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestDeadline[] deadlineList) {
@@ -76,10 +77,8 @@ public class DeleteCommandTest extends MalitioGuiTest {
 
         commandBox.runCommand("delete " + DEADLINE_KEYWORD + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous tasks except the deleted task
         assertTrue(deadlineListPanel.isListMatching(expectedRemainder));
 
-        //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
     
@@ -89,7 +88,6 @@ public class DeleteCommandTest extends MalitioGuiTest {
 
         commandBox.runCommand("delete " + EVENT_KEYWORD + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous tasks except the deleted task
         try {
             assertTrue(eventListPanel.isListMatching(expectedRemainder));
         } catch (IllegalArgumentException e) {
@@ -97,8 +95,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
-
-        //confirm the result message is correct
+        
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 

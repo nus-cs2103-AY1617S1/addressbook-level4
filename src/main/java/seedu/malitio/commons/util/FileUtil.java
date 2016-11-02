@@ -101,9 +101,13 @@ public class FileUtil {
         Files.deleteIfExists(path);
     }
     
+    /**
+     * 
+     * Converts two strings of file path to their canonical values and then compares them.
+     */
     public static boolean twoFilePathsAreEqual(String filePath1, String filePath2) throws IOException {
         try {
-            if(new File(filePath1).getCanonicalPath().compareTo(new File(filePath2).getCanonicalPath()) == 0) {
+            if (new File(filePath1).getCanonicalPath().compareTo(new File(filePath2).getCanonicalPath()) == 0) {
                 return true;
             }
         } catch (IOException e1) {
