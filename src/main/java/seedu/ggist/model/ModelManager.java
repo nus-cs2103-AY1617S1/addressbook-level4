@@ -145,7 +145,17 @@ public class ModelManager extends ComponentManager implements Model {
         updateListing();
         indicateTaskManagerChanged();
     }
-
+    //@@author
+    
+    //@@author A0147994J
+    public synchronized void continueTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskManager.continueTask(target);
+        updateListing();
+        indicateTaskManagerChanged();
+    }
+    //@@author
+    
+    // @@author A0144727B
     public synchronized void editTask(Task task, String field, String value)
             throws TaskNotFoundException, IllegalValueException {
         taskManager.editTask(task, field, value);

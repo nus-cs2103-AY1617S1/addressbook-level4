@@ -163,6 +163,14 @@ public class Task implements ReadOnlyTask{
         isDone = true;
         setNotOverdue();
     }
+    /**
+     * Set done task as undone
+     * Mark it as not overdue
+     */
+    public void setContinue() {
+    	isDone = false;
+    	setNotOverdue();
+    }
     
     public void setUndone() {
         isDone = false;
@@ -183,6 +191,8 @@ public class Task implements ReadOnlyTask{
     public boolean isDone() {
         return isDone;
     }
+    
+ 
     //@@author
     @Override
     public boolean equals(Object other) {
