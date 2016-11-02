@@ -204,4 +204,55 @@ public class ListOfTask implements ReadOnlyListOfTask {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+    
+    //@@author A0143095H
+    //Method counts the number of each type of tasks
+    public void Counter(){
+    	int today = 0;
+    	int tomorrow = 0;
+    	int nextWeek = 0;
+    	int done = 0;
+    	int undone = 0;
+    	
+    	calendar_tmr.setTime(calendar.getTime());
+    	calendar_tmr.add(Calendar.DAY_OF_YEAR, 1);
+    	
+    	calendar_nextWeek.setTime(calendar.getTime());
+    	calendar_nextWeek.add(Calendar.WEEK_OF_YEAR, 1);
+    	
+    	for(int i=0; i<tasks.getInternalList().size(); i++) {
+    		
+    		if(tasks.getInternalList().get(i).getDone()){
+    			done++;
+    		}
+    		
+    		if(!tasks.getInternalList().get(i).getDone()){
+    			undone++;
+    		}
+    		
+    		//Checks if date of task matches the date "today" and ensures that task is still undone 
+    		if(tasks.getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar.getTime())) && (tasks.getInternalList().get(i).getDone() == false)){
+    			today++;
+    		}
+    		
+    		//Checks if date of task matches the date "tomorrow" and ensures that task is still undone 
+    		else if(tasks.getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar_tmr.getTime())) && (tasks.getInternalList().get(i).getDone() == false)){
+    			tomorrow++;
+    		}
+    		
+    		//Checks if date of task matches the date "next week" and ensures that task is still undone 
+    		else if(tasks.getInternalList().get(i).getDate().getFullDate().equals(DATEFORMATTER.format(calendar_nextWeek.getTime())) && (tasks.getInternalList().get(i).getDone() == false)){
+    			nextWeek++;
+    		}
+    		
+    	}
+    	
+    	todayCounter = today;
+    	tomorrowCounter = tomorrow;
+    	nextWeekCounter = nextWeek;
+    	doneCounter = done;
+    	undoneCounter = undone;
+    	
+    }
+    
 }
