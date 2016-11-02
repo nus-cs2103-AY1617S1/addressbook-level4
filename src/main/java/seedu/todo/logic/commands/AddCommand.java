@@ -64,7 +64,7 @@ public class AddCommand extends BaseCommand {
             task.setLocation(location.getValue());
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
-            model.addTagsToTask(task, StringUtil.splitString(tags.getValue()));
+            model.addTagsToTask(task, StringUtil.split(tags.getValue()));
         });
         if(!model.getObservableList().contains(addedTask)) {
             model.view(TaskViewFilter.DEFAULT);
@@ -86,7 +86,7 @@ public class AddCommand extends BaseCommand {
      */
     private void validateTagArguments() {
         if (tags.hasBoundValue()) {
-            String[] tagNames = StringUtil.splitString(tags.getValue());
+            String[] tagNames = StringUtil.split(tags.getValue());
             UniqueTagCollectionValidator validator = new UniqueTagCollectionValidator(tags.getName(), errors);
             validator.validateAddTags(tagNames);
         }
