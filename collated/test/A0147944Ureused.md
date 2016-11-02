@@ -136,7 +136,7 @@ public class TaskCardHandle extends GuiHandle {
 ``` java
         Task revise() throws Exception {
             Name name = new Name("Revise CS2103");
-            StartTime startTime = new StartTime("2016-10-25");
+            StartTime startTime = new StartTime("2016-10-25 13:00");
             EndTime endTime = new EndTime("2016-11-25 15:00");
             Deadline location = new Deadline("2016-11-26 15:00");
             Tag tag1 = new Tag("tag1");

@@ -357,6 +357,7 @@ public class UniqueTaskList implements Iterable<Task> {
         syncTagsWithMasterList(p);
         tasks.add(index, p);
     }
+
 ```
 ###### \java\seedu\task\ui\TaskCard.java
 ``` java
