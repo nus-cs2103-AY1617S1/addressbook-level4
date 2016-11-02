@@ -170,6 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateEmeraldoChanged();
     }
     
+    //@@author A0139749L
     private void updateFilteredTaskListWithCompletedInPast10Seconds(){
     	if(keywords instanceof Set<?>)
     		updateFilteredTaskListWithCompletedInPast10Seconds((Set<String>)keywords);
@@ -178,6 +179,7 @@ public class ModelManager extends ComponentManager implements Model {
     	else if(keywords instanceof TimePeriod)
     		updateFilteredTaskListWithCompletedInPast10Seconds((TimePeriod)keywords);
     }
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

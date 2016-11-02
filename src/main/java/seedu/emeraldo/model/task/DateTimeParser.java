@@ -233,6 +233,7 @@ public class DateTimeParser {
         }
     }
     
+    //@@author A0142290N
     public static String valueDateCompletedFormatter(LocalDate date) throws IllegalValueException{
     	String day = Integer.toString(date.getDayOfMonth());
     	String month = convertMonthFromIntToWords(date.getMonthValue());
@@ -243,7 +244,6 @@ public class DateTimeParser {
     }
     
     
-    //@@author A0142290N
     public static String valueTimeCompletedFormatter(LocalTime time) throws IllegalValueException{
     	String[] formattedInto12Hours = convert24HoursFormatTo12HoursFormat(Integer.toString(time.getHour()));
     	String minute = Integer.toString(time.getMinute());
@@ -252,9 +252,8 @@ public class DateTimeParser {
     	
     	return hour + "." + minute + timePostFix;
     }
-    //@@author
     
-  //@@author A0139749L
+    //@@author A0139749L
     private static String convertMonthFromIntToWords(int monthParsed){
         String monthInWords;
         
