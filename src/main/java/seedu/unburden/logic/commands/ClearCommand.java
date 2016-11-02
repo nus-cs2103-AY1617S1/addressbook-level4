@@ -42,6 +42,7 @@ public class ClearCommand extends Command {
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 	
+    //This method checks the entire list to check for overdue tasks
 	private void overdueOrNot() throws IllegalValueException, DuplicateTagException {
 		List<ReadOnlyTask> currentTaskList= model.getListOfTask().getTaskList();
 		for(ReadOnlyTask task : currentTaskList){
