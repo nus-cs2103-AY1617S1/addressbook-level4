@@ -7,8 +7,12 @@ import javafx.scene.layout.HBox;
 import seedu.Tdoo.model.task.*;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+//author A0132157M
+import org.ocpsoft.prettytime.PrettyTime;
 
 //@@author A0144061U-reused
 public class EventCard extends UiPart{
@@ -31,6 +35,8 @@ public class EventCard extends UiPart{
     private Label endTime;
     @FXML
     private Label done;
+    @FXML
+    private Label countdown;
 
     private Event task;
     private int displayedIndex;
@@ -38,7 +44,7 @@ public class EventCard extends UiPart{
     public EventCard(){
 
     }
-
+    PrettyTime p = new PrettyTime();
     public static EventCard load(ReadOnlyTask task, int displayedIndex){
         EventCard card = new EventCard();
         card.task = (Event) task;
@@ -68,7 +74,7 @@ public class EventCard extends UiPart{
         Date dateobj = new Date();
         String [] dateArr = endTaskDate.split(" ");
         String [] curDate = df.format(dateobj).split("-");
-        day = dateArr[0].substring(0, 2);
+        day = dateArr[0].substring(0, 2);   
         
         //Time object-----------------------------------------
         DateFormat tf = new SimpleDateFormat("h:m:a");
@@ -156,7 +162,7 @@ public class EventCard extends UiPart{
     }
     
     @FXML
-    public void initialize() {
+    public void initialize() throws ParseException {   
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
         date.setText("Start Date: "+ task.getStartDate().date);
@@ -165,22 +171,43 @@ public class EventCard extends UiPart{
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
         	done.setText("Completed");
+        	countdown.setText(p.format(new Date(System.currentTimeMillis() + dateToMilli(task.getEndDate().endDate, task.getEndTime().endTime))));
     		cardPane.setStyle("-fx-background-color: #01DF01");
+    		
     	}else if(!checkEndDateTime() && this.task.getDone().equals("false")) {
             endDate.setText("End Date: " + task.getEndDate().endDate);
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
             done.setText("Overdue");
+            countdown.setText(p.format(new Date(System.currentTimeMillis() + dateToMilli(task.getEndDate().endDate, task.getEndTime().endTime))));
             cardPane.setStyle("-fx-background-color: #ff2002");
+
         }else {
             endDate.setText("End Date: " + task.getEndDate().endDate);
             startTime.setText("Start Time: " + task.getStartTime().startTime);
             endTime.setText("End Time: " + task.getEndTime().endTime);
     		done.setText("Not Completed");
+    		countdown.setText(p.format(new Date(System.currentTimeMillis() + dateToMilli(task.getEndDate().endDate, task.getEndTime().endTime)))); 
     		cardPane.setStyle("-fx-background-color: #FFFFFF");
+
     	}
     }
-
+    //@@author A0132157M
+    public long dateToMilli(String s, String q) throws ParseException {
+        String string = s;
+        String[] parts = string.split(" ");
+        String part1 = parts[0]; 
+        String part2 = parts[1]; 
+        String part3 = parts[2];
+        String parta = part1.substring(0, 2);
+        String bstring = q;
+        String input = part3 + " " + part2 + " " + parta + " " + bstring;
+        Date date = new SimpleDateFormat("yyyy MMMM dd HH:mmaaa", Locale.ENGLISH).parse(input);
+        long milliseconds = date.getTime();
+        long ss = milliseconds - (new Date()).getTime();
+        return ss;
+    }
+    
     public HBox getLayout() {
         return cardPane;
     }
