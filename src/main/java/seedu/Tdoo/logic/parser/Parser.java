@@ -116,6 +116,9 @@ public class Parser {
             
         case ClearCommand.COMMAND_WORD:
             return prepareClear(arguments);
+            
+        case ClearDoneCommand.COMMAND_WORD:
+            return prepareClearDone(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -285,6 +288,24 @@ public class Parser {
         }
 
         return new ClearCommand(dataType.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the clear task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    //@@author A0144061U
+    private Command prepareClearDone(String args) {
+        Optional<String> dataType = parseDataType(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("all")) || (dataType.get().equals("todo")) || (dataType.get().equals("event")) ||
+        		(dataType.get().equals("deadline")))) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
+        }
+
+        return new ClearDoneCommand(dataType.get());
     }
 
     /**

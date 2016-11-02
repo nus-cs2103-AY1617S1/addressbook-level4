@@ -111,6 +111,12 @@ public class TaskList implements ReadOnlyTaskList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    //@@author A0144061U
+    public void removeDone() {
+    	backupStack.push(new UniqueTaskList(tasks));
+    	tasks.removeDone();
+    }
 
     //@@author A0139920A
     public boolean doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {

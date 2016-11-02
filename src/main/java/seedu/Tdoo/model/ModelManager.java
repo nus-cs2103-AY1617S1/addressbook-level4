@@ -90,6 +90,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public void resetAllData() {
+        undoer.prepareUndoClear("all");
+        todoList.resetData();
+        eventList.resetData();
+        deadlineList.resetData();
+        indicateTodoListChanged();
+        indicateEventListChanged();
+        indicateDeadlineListChanged();
+    } 
+    
+    @Override
     public void resetTodoListData() {
         undoer.prepareUndoClear("todo");
         todoList.resetData();
@@ -109,24 +120,43 @@ public class ModelManager extends ComponentManager implements Model {
     }
     /*
     @Override
+    public void removeDoneData() {
+        undoer.prepareUndoClear("all");
+        todoList.removeDone();
+        eventList.removeDone();
+        deadlineList.removeDone();
+        indicateTodoListChanged();
+        indicateEventListChanged();
+        indicateDeadlineListChanged();
+    } 
+    @Override
     public void removeDoneTodoData() {
         undoer.prepareUndoClear("todo");
-        todoList.resetData();
+        todoList.removeDone();
         indicateTodoListChanged();
     } 
     @Override
     public void removeDoneEventData() {
     	undoer.prepareUndoClear("event");
-        eventList.resetData();
+        eventList.removeDone();
         indicateEventListChanged();
     } 
     @Override
     public void removeDoneDeadlineData() {
     	undoer.prepareUndoClear("deadline");
-        deadlineList.resetData();
+        deadlineList.removeDone();
         indicateDeadlineListChanged();
     }
     */
+    @Override
+    public void restoreAllData() {
+        todoList.restoreData();
+        eventList.restoreData();
+        deadlineList.restoreData();
+        indicateTodoListChanged();
+        indicateEventListChanged();
+        indicateDeadlineListChanged();
+    } 
     @Override
     public void restoreTodoListData() {
         todoList.restoreData();

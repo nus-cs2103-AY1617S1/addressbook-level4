@@ -31,9 +31,7 @@ public class ClearCommand extends Command {
         assert model != null;
         switch(dataType) {
 	        case "all":
-	    		model.resetTodoListData();
-	    		model.resetEventListData();
-	    		model.resetDeadlineListData();
+	    		model.resetAllData();
 	            return new CommandResult(ALL_MESSAGE_SUCCESS);
         	case "todo":
         		model.resetTodoListData();

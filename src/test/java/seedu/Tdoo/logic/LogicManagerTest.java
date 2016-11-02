@@ -376,7 +376,27 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    //@@author A0139923X
+    public void execute_list_showsAllTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generatetask("task 1");
+        Task pTarget2 = helper.generateEvents("event 2");
+        Task pTarget3 = helper.generateDeadline("deadline 3");       
+        List<Task> threetasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
+        TaskList expectedAB = helper.generateTodoList(threetasks);      
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
+        // prepare TodoList state
+        helper.addToModel(model, threetasks);
+
+        assertCommandBehavior("list all",
+                ListCommand.ALL_MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -537,6 +557,26 @@ public class LogicManagerTest {
         helper.addToModel(model, fourtasks);
 
         assertCommandBehavior("find todo 1",
+                Command.getMessageFortaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    //@@author A0139923X
+    public void execute_find_onlyMatchesDatesInDayMonthYear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateEvents("15th May 2017");
+        Task pTarget2 = helper.generateDeadline("11th November 2017");
+        Task pTarget3 = helper.generateEvents("20th June 2016");
+        Task pTarget4 = helper.generateEvents("31st December 2018");
+
+        List<Task> fourtasks = helper.generatetaskList(pTarget1, pTarget2, pTarget3, pTarget4);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
+        List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3, pTarget4);
+        helper.addToModel(model, fourtasks);
+
+        assertCommandBehavior("find all date/2017",
                 Command.getMessageFortaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

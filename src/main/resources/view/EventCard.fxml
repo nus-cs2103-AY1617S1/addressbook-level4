@@ -41,6 +41,7 @@
                   <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
                   <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
                   <Label fx:id="done" styleClass="cell_small_label" text="\$done" />
+                  <Label fx:id="countdown" styleClass="cell_small_label" text="\$countdown" />
                </children>
             </VBox>
          </children>
