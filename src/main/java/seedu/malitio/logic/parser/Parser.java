@@ -426,7 +426,7 @@ public class Parser {
      * Extracts the task's deadline from the command's arguments string.
      */
     private static String getDeadlineFromArgs(String args) throws IllegalValueException {
-        int byIndex = args.lastIndexOf("by");
+        int byIndex = args.lastIndexOf("by ");
         String deadline = "";
         if(byIndex > 0 && byIndex < args.length() - 2) {
                 deadline = args.substring(byIndex + 3);
@@ -438,7 +438,7 @@ public class Parser {
      * Extracts the task's event start from the command's arguments string.
      */
     private static String getStartFromArgs(String args) throws IllegalValueException {
-        int startIndex = args.lastIndexOf("start");
+        int startIndex = args.lastIndexOf("start ");
         int endIndex = args.lastIndexOf("end");
         if (startIndex > 0 && endIndex > 0) {
             return args.substring(startIndex + 6, endIndex - 1);
@@ -453,7 +453,7 @@ public class Parser {
      * Extracts the task's event end from the command's arguments string.
      */
     private static String getEndFromArgs(String args) throws IllegalValueException {
-        int endIndex = args.lastIndexOf("end");
+        int endIndex = args.lastIndexOf("end ");
         if (endIndex > 0) {
          return args.substring(endIndex + 4);
         } else {
