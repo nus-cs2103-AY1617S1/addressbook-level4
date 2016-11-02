@@ -10,6 +10,7 @@ import seedu.tasklist.logic.commands.AddCommand;
 import seedu.tasklist.logic.commands.ClearCommand;
 import seedu.tasklist.logic.commands.DoneCommand;
 import seedu.tasklist.logic.commands.RedoCommand;
+import seedu.tasklist.logic.commands.SetStorageCommand;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.logic.commands.UpdateCommand;
 import seedu.tasklist.model.task.EndTime;
@@ -133,9 +134,22 @@ public class RedoCommandTest extends TaskListGuiTest {
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
     }
     
-    /*@Test
+    @Test
     public void redoSetstorageTest() {
-      //TODO
-    }*/
+        String filepath1 = "docs/tasklist.xml";
+        String filepath2 = "config/checkstyle.xml";
+        commandBox.runCommand("setstorage " + filepath1);
+    	assertResultMessage(String.format(SetStorageCommand.MESSAGE_SUCCESS + filepath1));
+    	commandBox.runCommand("setstorage " + filepath2);
+    	assertResultMessage(String.format(SetStorageCommand.MESSAGE_SUCCESS + filepath2));
+        commandBox.runCommand("undo");
+        assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
+        commandBox.runCommand("undo");
+        assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
+        commandBox.runCommand("redo");
+        assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
+        commandBox.runCommand("setstorage default");
+    	assertResultMessage(String.format(SetStorageCommand.MESSAGE_SUCCESS + "default"));
+    }
     
 }
