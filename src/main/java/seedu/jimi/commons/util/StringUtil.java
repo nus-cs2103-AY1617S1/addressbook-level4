@@ -34,7 +34,7 @@ public class StringUtil {
         String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
         String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
         if (sourceNoSpaces.contains(queryNoSpaces) || queryNoSpaces.contains(sourceNoSpaces)) {
-            return true;
+            return true; // Strings containing each other
         }
         
         HashMap<Character, Integer> srcFrequencyMap = generateCharFrequencyMap(sourceNoSpaces);
