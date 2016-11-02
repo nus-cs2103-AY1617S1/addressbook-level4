@@ -7,15 +7,17 @@ import seedu.todo.commons.events.BaseEvent;
  */
 public class DataSavingExceptionEvent extends BaseEvent {
 
-    public Exception exception;
+    public final Exception exception;
+    public final String message;
 
-    public DataSavingExceptionEvent(Exception exception) {
+    public DataSavingExceptionEvent(String message, Exception exception) {
+        this.message = message;
         this.exception = exception;
     }
 
     @Override
     public String toString(){
-        return exception.toString();
+        return message;
     }
 
 }

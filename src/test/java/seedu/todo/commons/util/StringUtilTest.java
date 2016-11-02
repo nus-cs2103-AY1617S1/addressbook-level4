@@ -5,6 +5,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -147,6 +151,12 @@ public class StringUtilTest {
         testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away",
                 new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
     }
+    
+    @Test
+    public void splitString_delimiterAtEnd() {
+        testSplitStringHelper(", pikachu", new String[]{"pikachu"});
+        testSplitStringHelper("pikachu  , ", new String[]{"pikachu"});
+    }
 
     /**
      * Helper method to test splitString(...).
@@ -185,6 +195,38 @@ public class StringUtilTest {
      */
     private void testConvertListToStringHelper(String[] input, String expected) {
         String outcome = StringUtil.convertListToString(input);
+        assertEquals(expected, outcome);
+    }
+
+    @Test
+    public void testConvertIterableToString_emptyList() {
+        String expected = "";
+
+        //Test null list
+        testConvertIterableToStringHelper(null, expected);
+
+        //Test empty list
+        testConvertIterableToStringHelper(new ArrayList<>(), expected);
+    }
+
+    @Test
+    public void testConvertIterableToString_validInput() {
+        //Test one element
+        List<String> array1 = Collections.singletonList("applepie123!");
+        testConvertIterableToStringHelper(array1, "applepie123!");
+
+        //Test several elements
+        List<String> array2 = Arrays.asList("this", "is", "apple", "pen");
+        testConvertIterableToStringHelper(array2, "this, is, apple, pen");
+    }
+
+    /**
+     * Helper method to test splitString(...).
+     * @param input String to be split.
+     * @param expected Expected output as String array.
+     */
+    private void testConvertIterableToStringHelper(Iterable<String> input, String expected) {
+        String outcome = StringUtil.convertIterableToString(input);
         assertEquals(expected, outcome);
     }
 

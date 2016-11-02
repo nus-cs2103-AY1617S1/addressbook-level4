@@ -27,7 +27,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/app_icon.png";
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_HEIGHT = 400;
-    private static final int MIN_WIDTH = 580;
+    private static final int MIN_WIDTH = 600;
 
     /* Variables */
     private Logic logic;
@@ -42,6 +42,7 @@ public class MainWindow extends UiPart {
     private CommandErrorView commandErrorView;
     private TodoListView todoListView;
     private HelpView helpView;
+    private GlobalTagView globalTagView;
 
     /* Layout objects for MainWindow: Handles elements of this Ui container */
     private VBox rootLayout;
@@ -51,6 +52,7 @@ public class MainWindow extends UiPart {
     @FXML private AnchorPane commandErrorViewPlaceholder;
     @FXML private AnchorPane commandPreviewViewPlaceholder;
     @FXML private AnchorPane commandFeedbackViewPlaceholder;
+    @FXML private AnchorPane globalTagViewPlaceholder;
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
     @FXML private AnchorPane filterBarViewPlaceholder;
@@ -95,6 +97,7 @@ public class MainWindow extends UiPart {
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
+        globalTagView = GlobalTagView.load(primaryStage, globalTagViewPlaceholder);
 
         FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         SearchStatusView.load(primaryStage, searchStatusViewPlaceholder, model.getSearchStatus());
@@ -176,5 +179,9 @@ public class MainWindow extends UiPart {
 
     public CommandPreviewView getCommandPreviewView() {
         return commandPreviewView;
+    }
+    
+    public GlobalTagView getGlobalTagView() {
+        return globalTagView;
     }
 }

@@ -66,11 +66,6 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.hide();
     }
 
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
-    }
-
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
@@ -125,6 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().hideHelpPanel();
+        mainWindow.getGlobalTagView().hideGlobalTagViewPanel();
         mainWindow.getCommandFeedbackView().clearMessage();
     }
 
@@ -138,7 +134,14 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+        showAlertDialogAndWait(AlertType.ERROR, "File Operation Error", 
+            "There was a problem when saving/loading your data", event.message);
+    }
+    
+    @Subscribe
+    private void handleShowTagsEvent(ShowTagsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getGlobalTagView().displayGlobalTags(event.getListOfTags());;
     }
 
 }

@@ -44,7 +44,7 @@ public class CommandFeedbackView extends UiPart {
     }
 
     /**
-     * Configure the UI layout of {@link CommandFeedbackView}.
+     * Configures the UI layout of {@link CommandFeedbackView}.
      */
     private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(textContainer, 0.0, 0.0, 0.0, 0.0);
