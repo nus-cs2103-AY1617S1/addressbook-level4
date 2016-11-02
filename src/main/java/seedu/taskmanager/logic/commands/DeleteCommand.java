@@ -22,20 +22,22 @@ public class DeleteCommand extends Command {
     
     //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "del";
-    //@@author 
     
+    //@@author A0143641M
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the item identified by the index number used in the last item listing.\n"
+            + ": Deletes the item(s) identified by the index number(s) used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " 5 2";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Items: %1$s";
 
     private int targetIndex;
     private ArrayList<Integer> targetIndexes;
     private boolean hasMultipleIndexes = false;
 
-    private ArrayList<ReadOnlyItem> deletedItems = new ArrayList<ReadOnlyItem>();
+    private ArrayList<ReadOnlyItem> itemsToDelete = new ArrayList<ReadOnlyItem>();
     private static final Logger logger = LogsCenter.getLogger(DeleteCommand.class);
     /*
      * Deletes deadline, task, or event by keyword.
@@ -53,7 +55,7 @@ public class DeleteCommand extends Command {
         hasMultipleIndexes = true;
     }
 
-    //@@author A0143641M
+
     /**
      * Deletes events, tasks, or deadlines by a single index or ascending multiple indexes.
      */
@@ -107,24 +109,24 @@ public class DeleteCommand extends Command {
 
                 ReadOnlyItem itemToDelete = lastShownList.get(lslIterator.nextIndex());
 
-                deletedItems.add(itemToDelete);
-                logger.info("DELETEDITEMS: " + deletedItems.toString());
+                itemsToDelete.add(itemToDelete);
+                logger.info("DELETEDITEMS: " + itemsToDelete.toString());
             }
             
             
             try {
-                model.deleteItems(deletedItems, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
+                model.deleteItems(itemsToDelete, String.format(MESSAGE_DELETE_ITEMS_SUCCESS, itemsToDelete));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
             
             StringBuilder printResult = new StringBuilder(MESSAGE_DELETE_ITEM_SUCCESS);
             
-            for(ReadOnlyItem item : deletedItems) {
+            for(ReadOnlyItem item : itemsToDelete) {
                 printResult.append(item.toString());
             }
             
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemsToDelete));
         }
     }
 }
