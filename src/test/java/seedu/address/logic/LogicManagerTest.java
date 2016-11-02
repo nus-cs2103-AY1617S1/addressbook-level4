@@ -832,15 +832,26 @@ public class LogicManagerTest {
 
     //@@author A0139528W
     //@Test
-    public void execute_save_successful() throws Exception {
+    public void execute_save_multipleScenarios() throws Exception {
+    	// test successful saves
         assertCommandBehavior(
-                "save now\\here", SaveCommand.MESSAGE_SUCCESS);
+                "save data\\here", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
-                "save where/", SaveCommand.MESSAGE_SUCCESS);
+                "save data/cow\\", SaveCommand.MESSAGE_SUCCESS);
         assertCommandBehavior(
-                "save there/", SaveCommand.MESSAGE_SUCCESS);
+                "save data/sdds/", SaveCommand.MESSAGE_SUCCESS);
+        // test for data file overwrite
         assertCommandBehavior(
-                "save data", SaveCommand.MESSAGE_SUCCESS);
+                "save data/new1", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new3", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new1", SaveCommand.MESSAGE_DATA_FILE_OVERWRITE);
+        // test duplicate name
+        assertCommandBehavior(
+                "save data/new2", SaveCommand.MESSAGE_SUCCESS);
+        assertCommandBehavior(
+                "save data/new2", SaveCommand.MESSAGE_LOCATION_SPECIFIED_SAME);
     }
     //@@author
 
@@ -861,9 +872,9 @@ public class LogicManagerTest {
     @Test
     public void execute_save_invalidFilePath() throws Exception {
         assertCommandBehavior(
-                "save /here\\there", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+                "save /data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
         assertCommandBehavior(
-                "save //here", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
+                "save \\data", SaveCommand.MESSAGE_PATH_IS_NOT_A_DIRECTORY);
     }
     //@@author
 

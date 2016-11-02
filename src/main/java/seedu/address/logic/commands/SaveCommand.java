@@ -38,6 +38,8 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
     public static final String MESSAGE_CONFIG_FILE_CANNOT_LOAD = "config.json file cannot be found.";
 	public static final String MESSAGE_LOCATION_SPECIFIED_SAME = "The current Data Storage is already in the given folder.";
+	public static final String MESSAGE_DATA_FILE_OVERWRITE = "The folder specified already contains task.xml\n"
+			+ "Please choose a different folder.";
 
     
     private final String dirPath;
@@ -99,8 +101,9 @@ public class SaveCommand extends Command {
 				return new CommandResult(MESSAGE_LOCATION_SPECIFIED_SAME);
 			}
 			File newDataPath = new File(filePath);
-			oldDataPath.renameTo(newDataPath);
-
+			if (newDataPath.exists()) {
+				return new CommandResult(MESSAGE_DATA_FILE_OVERWRITE);
+			}
 			changeConfigPaths(filePath);
 			
 			indicateStorageDataPathChangeCommand(newDataPath.toString());

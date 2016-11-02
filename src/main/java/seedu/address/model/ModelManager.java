@@ -7,11 +7,14 @@ import java.util.Date;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
+import seedu.address.commons.events.storage.StorageDataPathChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.UpdateListCountEvent;
 import seedu.address.commons.util.StringUtil;
@@ -360,22 +363,19 @@ public class ModelManager extends ComponentManager implements Model {
        
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
-                    .findAny()
-                    .isPresent()
-                    || taskKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
-                    .findAny()
-                    .isPresent());
+            boolean matchTaskNames = taskKeyWords.stream()
+            		.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .findAny().isPresent();
+			boolean matchDateTime = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
+					.findAny().isPresent();
+			boolean matchTaskDescription = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
+					.findAny().isPresent();
+			boolean matchListTags = taskKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
+					.findAny().isPresent();
+			return (matchTaskNames || matchDateTime || matchTaskDescription || matchListTags);
         }
 
         @Override
@@ -454,6 +454,14 @@ public class ModelManager extends ComponentManager implements Model {
         	return inputDate.getDate() == other.getDate() && inputDate.getMonth() == other.getMonth() 
         			&& inputDate.getYear() == other.getYear();
         }
+    }
+    //@@author
+    
+    //@@author A0139528W
+    @Subscribe
+    public void handleStorageDataChangedEvent(StorageDataPathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Creating task.xml in a new location."));
+        indicateTaskBookChanged();
     }
     //@@author
 
