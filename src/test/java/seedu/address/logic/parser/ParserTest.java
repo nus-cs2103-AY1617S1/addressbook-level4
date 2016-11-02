@@ -39,7 +39,8 @@ public class ParserTest {
 		deleteCommand = new DeleteCommand(new int[]{1});
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
 		editCommand = new EditCommand(1, Optional.of("editing"), 
-				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()));
+				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()),
+				false, false);
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 	}

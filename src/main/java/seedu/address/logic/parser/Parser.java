@@ -357,27 +357,45 @@ public class Parser {
 		}
 		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
 		
-		Optional<LocalDateTime> startDateTime = convertToLocalDateTime(startDateTimeString);
-		Optional<LocalDateTime> endDateTime = convertToLocalDateTime(endDateTimeString);
+		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
+		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
+		
+		Optional<LocalDateTime> startDateTime;
+		Optional<LocalDateTime> endDateTime;
 		
 		try {
-			return new EditCommand(index, taskName, startDateTime, endDateTime);
+			startDateTime = isRemoveStartDateTime ? Optional.empty() : 
+				convertToLocalDateTime(startDateTimeString);
+			endDateTime = isRemoveEndDateTime ? Optional.empty() : 
+				convertToLocalDateTime(endDateTimeString);
+		} catch (ParseException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
+		
+		try {
+			return new EditCommand(index, taskName, startDateTime, endDateTime,
+					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
 
-
-	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> startDateTimeString) {
+	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> dateTimeString) 
+		throws ParseException{
 		Optional<LocalDateTime> dateTime = Optional.empty();
-		if(startDateTimeString.isPresent()) {
-			try {
-				dateTime = Optional.ofNullable(DateParser.parse(startDateTimeString.get()));
-			} catch (ParseException e) {
-				e.getMessage();
-			}
+		if(dateTimeString.isPresent()) {
+			dateTime = Optional.of(DateParser.parse(dateTimeString.get()));
 		} 
 		return dateTime;
+	}
+	
+	private boolean isToRemoveDateTime (Optional<String> dateTimeString) {
+		if(dateTimeString.isPresent()) {
+			if(dateTimeString.get().equals("-")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//@@author A0139339W

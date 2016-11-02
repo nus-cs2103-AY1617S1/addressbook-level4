@@ -38,13 +38,16 @@ public class EditCommand extends Command {
     private final Optional<Name> newName;
     private final Optional<LocalDateTime> newStartDateTime;
     private final Optional<LocalDateTime> newEndDateTime;
+    private final boolean isRemoveStartDateTime;
+    private final boolean isRemoveEndDateTime;
 
     /**
      * For editing name of task
      * @throws IllegalValueException 
      */
     public EditCommand(int targetIndex, Optional<String> name, 
-    		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate)
+    		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate,
+    		boolean isRemoveStartDateTime, boolean isRemoveEndDateTime)
     		throws IllegalValueException {
         this.targetIndex = targetIndex;
         if(name.isPresent()) {
@@ -54,6 +57,8 @@ public class EditCommand extends Command {
         }
         this.newStartDateTime = newStartDate;
         this.newEndDateTime = newEndDate;
+        this.isRemoveStartDateTime = isRemoveStartDateTime;
+        this.isRemoveEndDateTime = isRemoveEndDateTime;
     }
 
 
@@ -109,6 +114,14 @@ public class EditCommand extends Command {
             
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
+            }
+            
+            if(isRemoveStartDateTime) {
+            	postEdit.removeStartDate();
+            }
+            
+            if(isRemoveEndDateTime) {
+            	postEdit.removeEndDate();
             }
         	
             if(lastShownList.contains(postEdit)) {
