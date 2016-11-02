@@ -489,24 +489,18 @@ public class LogicManagerTest {
         
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = new TaskBook();
-        FloatingTask index0 = helper.adam();
-        FloatingTask index1 = helper.homework();
-        FloatingTask index2 = helper.laundry();
+        FloatingTask index0 = helper.generateFloatingTaskWithName("first");
+        FloatingTask index1 = helper.generateFloatingTaskWithName("second");
+        FloatingTask index2 = helper.generateFloatingTaskWithName("third");
         
-        ArrayList<FloatingTask> threeFloatingTasks = new ArrayList<>();
-        threeFloatingTasks.add(index0);
-        threeFloatingTasks.add(index1);
-        threeFloatingTasks.add(index2);
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
+        TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
         
-        expectedAB.addTask(index0);
-        expectedAB.addTask(index1);
-        expectedAB.addTask(index2);
+        helper.addToModel(model, threeFloatingTasks);
         
         // execute command and verify result
-        expectedAB.removeTask(index1);
-        helper.addToModel(model, threeFloatingTasks);
-
+        expectedAB.removeTask(threeFloatingTasks.get(1));
+        
         assertCommandBehavior("delete t2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
                 expectedAB,
