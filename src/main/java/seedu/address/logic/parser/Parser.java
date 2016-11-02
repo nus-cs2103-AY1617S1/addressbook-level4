@@ -38,7 +38,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-import seedu.address.model.AliasManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.alias.Alias;
@@ -50,10 +49,11 @@ public class Parser {
 	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-	
+	//@@author A0139339W
+	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
+			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
 			.compile("\\s*'(?<alias>(\\s*\\S+)+)\\s*'\\s*=\\s*'(?<originalPhrase>(\\s*\\S+)+)\\s*'\\s*");
-
 	//@@author A0143756Y
 	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
@@ -65,6 +65,7 @@ public class Parser {
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
+	
 	
 	public Parser(Model model) {
 		this.model = model;
@@ -133,7 +134,7 @@ public class Parser {
 		}
 	}
 
-	// @@author A0141019U	
+	//@@author A0141019U	
 	private String replaceAliases(String userInput) {
 		List<Alias> aliasList = this.model.getAliasList();
 		List<String> aliases = new ArrayList<>(); 
@@ -371,109 +372,55 @@ public class Parser {
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		String index = "";
-		String newName = "";
-		String newStartDate = "";
-		String newEndDate = "";
-		
-		String[] args = arguments.split(" ");
-		System.out.println(arguments);
-				
-		//if the args[0] is not the index, return IncorrectCommand
-		if(!StringUtil.isUnsignedInteger(args[0])) {
+		Matcher matcher = EDIT_ARGS_FORMAT.matcher(arguments);
+		if(!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 		
-		index = args[0];
-
-		for(int i=1; i<args.length; i++) {
-			System.out.println("args[i]: " + args[i]);
-			if(args[i].startsWith("'") && newName.equals("")) {			//only takes the first pair of ' '
-				do {
-					newName += (args[i] + " ");
-				} while(i+1<args.length && !args[i++].endsWith("'"));	//continue adding until the next '
-				i--;													//to undo i++ in while loop when while condition fails
-				System.out.println("newName: " + newName);
-				
-			} else if(args[i].equals("from") && newStartDate.equals("")) {	//only takes the first from
-				while(++i<args.length &&
-						!(args[i].equals("to") ||
-						args[i].equals("by") ||
-						args[i].equals("from") ||
-						args[i].startsWith("'"))) {
-					
-					newStartDate += (args[i] + " ");
-					System.out.println("i is: " + args[i]);
-				}
-				i--;
-				System.out.println("newStartDate: " + newStartDate);
-			
-			} else if((args[i].equals("to") || args[i].equals("by")) && newEndDate.equals("")) {
-				while(++i<args.length &&
-						!(args[i].equals("from") ||
-						args[i].equals("by") ||
-						args[i].equals("to") ||
-						args[i].startsWith("'"))) {
-					
-					newEndDate += (args[i] + " ");
-					System.out.println("i is: " + args[i]);
-				}
-				i--;
-				System.out.println("newEndDate: " + newEndDate);
-			}
-					
-		}
+		int index = Integer.parseInt(matcher.group("index"));
+		String editTaskArgs = matcher.group("editTaskArgs");
 		
-		// newName while loop might have end at end of array and not '
-		newName = newName.trim();
-		if(!newName.endsWith("'")) {
-			newName = "";
+		Optional<String> taskName;
+		String args;
+		if(editTaskArgs.contains("\'")) {
+			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
+			taskName = Optional.of(nameAndArgs.getKey());
+			args = nameAndArgs.getValue();
 		} else {
-			newName = newName.substring(1, newName.length()-1);		//remove the ' '
-			newName = newName.trim();
+			taskName = Optional.empty();
+			args = editTaskArgs;
 		}
+		String argsLowerCase = args.toLowerCase();
 		
-		// No values are to be edited
-		if(newName.equals("") && newStartDate.equals("") && newEndDate.equals("")) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
+				startDateTimePrefix, endDateTimePrefix, dlEndDateTimePrefix, tagsPrefix);
+		
+		argsTokenizer.tokenize(argsLowerCase);
+		Optional<String> startDateTimeString = argsTokenizer.getValue(startDateTimePrefix);
+		Optional<String> endDateTimeString = argsTokenizer.getValue(endDateTimePrefix);
+		if(!endDateTimeString.isPresent()) {
+			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
 		}
+		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
 		
+		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
+		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
 		
-		System.out.println("newName post trim: " + newName);
-		LocalDateTime startDateTime = null;
-		LocalDateTime endDateTime = null;
+		Optional<LocalDateTime> startDateTime;
+		Optional<LocalDateTime> endDateTime;
 		
-		
-		if(!newStartDate.equals("")) {
-			try {
-				startDateTime = DateParser.parse(newStartDate);
-			} catch (ParseException e) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-			}
-		}
-		
-		if(!newEndDate.equals("")) {
-			try {
-				endDateTime = DateParser.parse(newEndDate);
-			} catch (ParseException e) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-			}
-		}
-		
-		if(startDateTime!=null && endDateTime!=null && !endDateTime.isAfter(startDateTime)){
-			if(startDateTime.isAfter(endDateTime)){
-				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-			}
-			
-			else{
-				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
-			}
+		try {
+			startDateTime = isRemoveStartDateTime ? Optional.empty() : 
+				convertToLocalDateTime(startDateTimeString);
+			endDateTime = isRemoveEndDateTime ? Optional.empty() : 
+				convertToLocalDateTime(endDateTimeString);
+		} catch (ParseException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 		
 		try {
-			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
-		} catch (NumberFormatException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			return new EditCommand(index, taskName, startDateTime, endDateTime,
+					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
@@ -494,6 +441,24 @@ public class Parser {
 		System.out.println("File Name: " + fileName);
 		
 		return new SetStorageCommand(folderFilePath, fileName);
+	}
+
+	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> dateTimeString) 
+		throws ParseException{
+		Optional<LocalDateTime> dateTime = Optional.empty();
+		if(dateTimeString.isPresent()) {
+			dateTime = Optional.of(DateParser.parse(dateTimeString.get()));
+		} 
+		return dateTime;
+	}
+	
+	private boolean isToRemoveDateTime (Optional<String> dateTimeString) {
+		if(dateTimeString.isPresent()) {
+			if(dateTimeString.get().equals("-")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	//@@author A0139339W

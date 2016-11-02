@@ -24,8 +24,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (positive integer) ['NEW_NAME'] [from hh::mm to hh:mm | by hh: mm] [dd-mm-yy] [done| not-done] \n"
-            + "Example: " + COMMAND_WORD + " 1 'chill for the day'";
+            + "Parameters: INDEX (positive integer) ['NEW_NAME'] [from TIME DATE] [by TIME DATE]\n"
+            + "Example: " + COMMAND_WORD + " 1 'chill for the day' from 12am today by 11pm today";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
@@ -41,21 +41,27 @@ public class EditCommand extends Command {
     private final Optional<Name> newName;
     private final Optional<LocalDateTime> newStartDateTime;
     private final Optional<LocalDateTime> newEndDateTime;
+    private final boolean isRemoveStartDateTime;
+    private final boolean isRemoveEndDateTime;
 
     /**
      * For editing name of task
      * @throws IllegalValueException 
      */
-    public EditCommand(int targetIndex, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    public EditCommand(int targetIndex, Optional<String> name, 
+    		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate,
+    		boolean isRemoveStartDateTime, boolean isRemoveEndDateTime)
     		throws IllegalValueException {
         this.targetIndex = targetIndex;
-        if(name.equals("")) {
-        	this.newName = Optional.empty();
+        if(name.isPresent()) {
+        	newName = Optional.of(new Name(name.get()));
         } else {
-        	this.newName = Optional.ofNullable(new Name(name));
+        	newName = Optional.empty();
         }
-        this.newStartDateTime = Optional.ofNullable(startDateTime);
-        this.newEndDateTime = Optional.ofNullable(endDateTime);
+        this.newStartDateTime = newStartDate;
+        this.newEndDateTime = newEndDate;
+        this.isRemoveStartDateTime = isRemoveStartDateTime;
+        this.isRemoveEndDateTime = isRemoveEndDateTime;
     }
     
     @Override
@@ -105,14 +111,22 @@ public class EditCommand extends Command {
                 		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
                 	}      
             	}
-            }     
+            }
+            
+            if(newEndDateTime.isPresent()) {
+            	postEdit.setEndDate(newEndDateTime.get());
+            }
             
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
             }
-        	
-            if(newEndDateTime.isPresent()) {
-                postEdit.setEndDate(newEndDateTime.get());
+            
+            if(isRemoveStartDateTime) {
+            	postEdit.removeStartDate();
+            }
+            
+            if(isRemoveEndDateTime) {
+            	postEdit.removeEndDate();
             }
         	
             if(lastShownList.contains(postEdit)) {
