@@ -17,6 +17,7 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 * Aspects/tools in charge of: Team Lead, Scheduling & Tracking, Deliverables & Deadlines, SourceTree
 * Features implemented:
 	* Edit task / deadline / event (end-to-end)
+	* Automatic conversion of task to deadline when user edits task's end datetime
 	* List uncompleted tasks / deadlines / events
 	* Short command words (aliases)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/main/A0140060A.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/test/A0140060A.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/docs/A0140060A.md)]
@@ -40,10 +41,10 @@ Responsibilities: UI
 * Features implemented:
 	* Find task/deadline/event
 	* List data by task/deadline/event (List commands)
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0135792X.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0135792X.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0135792X.md)]	
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0135792X.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0135792X.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0135792X.md)]
 * Other major contributions
 	* Maintaining and updating documentation
-	* Generating sample data 
+	* Generating sample data
 
 -----
 
