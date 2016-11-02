@@ -422,10 +422,8 @@ Use Case end.
 
 <!-- @@author A0153411W -->
 
-<<<<<<< HEAD
 <!-- @@author A0153411W -->
-=======
->>>>>>> 1e41ef63b34d61159454bdb4106b309b63897ef8
+
 #### Use case: UC07 edit task details
    Actor: User<br>
 
@@ -540,9 +538,6 @@ Use Case end.
    10. System should not allow information to be accessed outside of the program
    11. System should be able to recover from errors quickly
    12. System should be able to report errors
-
-
-{More to be added}
 
 ## Appendix D : Glossary
 
