@@ -131,11 +131,6 @@ class TaskBookTest extends Test {
 
 task guiTests(type: TaskBookTest) {
     include 'guitests/**'
-	exclude 'guitests/AddCommandTest.java'
-	exclude 'guitests/CompleteCommandTest.java'
-	exclude 'guitests/DeleteCommandTest.java'
-	exclude 'guitests/EditCommandTest.java'
-	exclude 'guitests/FindCommandTest.java'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
@@ -153,6 +148,13 @@ task nonGuiTests(type: TaskBookTest) {
 
 // Test mode depends on whether headless task has been run
 task allTests(type: TaskBookTest) {
+	exclude 'guitests/AddCommandTest.java'
+	exclude 'guitests/CompleteCommandTest.java'
+	exclude 'guitests/DeleteCommandTest.java'
+	exclude 'guitests/EditCommandTest.java'
+	exclude 'guitests/FindCommandTest.java'
+
+
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }

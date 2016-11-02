@@ -10,7 +10,7 @@ import seedu.jimi.testutil.TestUtil;
 //@@author A0138915X
 public class CompleteCommandTest extends AddressBookGuiTest {
 
-    @Test
+    //@Test
     public void complete() {
 
         //complete the first task in the list
