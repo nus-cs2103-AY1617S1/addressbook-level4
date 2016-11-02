@@ -197,9 +197,17 @@ Examples:
 * `unmark f1`
 <!--- @@author --->
 
-#### Clearing all entries : `clear`
-Clears all entries from the to-do list.<br>
-Format: `clear`  
+<!--- @@author a0126633j --->
+#### Clearing multiple entries : `clear`
+Clears multiple entries from Malitio.<br>
+Format: `clear [expired]` 
+
+Examples: 
+* `clear`<br>
+  Clears all entries in Malitio.
+* `clear expired`<br>
+  Clears all completed floating tasks and deadlines, and events in the past.
+<!--- @@author --->
 
 <!--- @@author A0129595N --->
 #### Undo the most recent action: `undo`
@@ -245,7 +253,7 @@ Example:
 Command | Format  
 ------- | :------- 
 Add	| `add TASK_NAME [by DATE/TIME] [start DATE/TIME end DATE/TIME] [t/TAG]...`
-Clear 	| `clear`
+Clear 	| `clear [expired]`
 Delete  | `delete [f|d|e]INDEX`
 Find 	| `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
 List 	| `list`
