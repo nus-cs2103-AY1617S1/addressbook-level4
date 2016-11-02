@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RefreshCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -100,6 +101,9 @@ public class Parser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
+            
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 

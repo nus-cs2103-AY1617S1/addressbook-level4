@@ -35,6 +35,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -304,7 +305,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeUndatedTask = helper.generateUndatedTaskList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threeUndatedTask);
+        TaskBook expectedAB = helper.generateTaskBook(threeUndatedTask);
         helper.addToModel(model, threeUndatedTask);
 
         assertCommandBehavior("select A2",
@@ -332,8 +333,8 @@ public class LogicManagerTest {
         List<Task> threeDatedTasks = helper.generateDatedTaskList(2);
         List<Task> threeUndatedTasks = helper.generateUndatedTaskList(3);
 
-        TaskBook expectedAB = helper.generateAddressBook(threeDatedTasks);
-        helper.addToAddressBook(expectedAB, threeUndatedTasks);
+        TaskBook expectedAB = helper.generateTaskBook(threeDatedTasks);
+        helper.addToTaskBook(expectedAB, threeUndatedTasks);
 
         helper.addToModel(model, threeDatedTasks);
         helper.addToModel(model, threeUndatedTasks);
@@ -372,7 +373,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
@@ -400,8 +401,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks);
-        helper.addToAddressBook(expectedAB, expectedUndatedTasks);
+        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks);
+        helper.addToTaskBook(expectedAB, expectedUndatedTasks);
 
         List<Task> toAddDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> toAddUndatedTasks = helper.generateTaskList(helper.floatTaskA());
@@ -444,7 +445,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
@@ -468,7 +469,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
@@ -500,8 +501,8 @@ public class LogicManagerTest {
         TaskBook expectedAB = new TaskBook();
         Task overdueDeadline = helper.overdueA();
         expectedAB.addTask(overdueDeadline);
-        helper.addToAddressBook(expectedAB, expectedDatedTasks);
-        helper.addToAddressBook(expectedAB, expectedUndatedTasks);
+        helper.addToTaskBook(expectedAB, expectedDatedTasks);
+        helper.addToTaskBook(expectedAB, expectedUndatedTasks);
         
         model.addTask(overdueDeadline);
         List<ReadOnlyTask> expectedOverdue = new ArrayList<>();
@@ -674,8 +675,8 @@ public class LogicManagerTest {
         List<Task> threeDated = helper.generateTaskList(p1, pTarget1a, pTarget1b);
         List<Task> threeUndated = helper.generateTaskList(pTarget2a, pTarget2b);
         TaskBook expectedAB = new TaskBook();
-        helper.addToAddressBook(expectedAB, threeUndated);
-        helper.addToAddressBook(expectedAB, threeDated);
+        helper.addToTaskBook(expectedAB, threeUndated);
+        helper.addToTaskBook(expectedAB, threeDated);
         List<Task> expectedDatedTaskList = helper.generateTaskList(pTarget1a, pTarget1b);
         List<Task> expectedUndatedTaskList = helper.generateTaskList(pTarget2a, pTarget2b);
         helper.addToModel(model, threeUndated);
@@ -702,8 +703,8 @@ public class LogicManagerTest {
         List<Task> fourDated = helper.generateTaskList(p1, pTarget1a, pTarget1b, pTarget1c);
         List<Task> fourUndated = helper.generateTaskList(pTarget2a, pTarget2b, pTarget2c);
         TaskBook expectedAB = new TaskBook();
-        helper.addToAddressBook(expectedAB, fourUndated);
-        helper.addToAddressBook(expectedAB, fourDated);
+        helper.addToTaskBook(expectedAB, fourUndated);
+        helper.addToTaskBook(expectedAB, fourDated);
         List<Task> expectedDatedTaskList = helper.generateTaskList(pTarget1a, pTarget1b, pTarget1c);
         List<Task> expectedUndatedTaskList = helper.generateTaskList(pTarget2a, pTarget2b, pTarget2c);
         helper.addToModel(model, fourUndated);
@@ -716,120 +717,296 @@ public class LogicManagerTest {
     }
     
     //@@author A0139145E
+    /*
+     * Generates initialData for undo and redo command testing
+     */
+    private Task[] generateStartStateForUndo(int i) throws Exception{
+        Task[] tasks = new Task[2];
+        TestDataHelper helper = new TestDataHelper();
+        expectedTB = helper.generateTaskBook(i);
+        helper.addToModel(model, i);
+        tasks[0] = helper.generateUndatedTaskWithName("Walk my dog");
+        tasks[1] = new Task(expectedTB.getDatedTaskList().get(1));
+        return tasks;
+    }
+    //@@author
+    
+    //@@author A0139145E
     @Test
-    public void execute_undo_add() throws Exception {
+    public void execute_undo_empty() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
-
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
-        Task toUndo = helper.generateUndatedTaskWithName("Buy milk");
-        helper.addToModel(model, 2);
-
-        expectedAB.addTask(toUndo);
-        model.addTask(toUndo);
-        expectedAB.removeTask(toUndo);
-        model.addUndo("add", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_undoRedoAdd_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);
+        //Add undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        
+        //Add undo for dated task (already exist in the model)
+        model.addUndo("add", toUndo[1]);
+        
+        //Undo add dated task
+        expectedTB.removeTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo add undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        //Redo add undated task
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add dated task
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_undoRedoDelete_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);    
+        model.addTask(toUndo[0]);
+        
+        
+        //Undo delete undated task
+        expectedTB.addTask(toUndo[0]);
+        expectedTB.removeTask(toUndo[0]);
+        model.deleteTask(toUndo[0]);
+        model.addUndo("delete", toUndo[0]);
+        
+        //Undo delete dated task
+        expectedTB.removeTask(toUndo[1]);
+        model.deleteTask(toUndo[1]);
+        model.addUndo("delete", toUndo[1]);
+        
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
+        //Redo delete dated task
+        expectedTB.removeTask(toUndo[1]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
+        
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_undo_delete() throws Exception {
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
-                Collections.emptyList(), Collections.emptyList());
-
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
-        helper.addToModel(model, 2);    
-
-        expectedAB.removeTask(toUndo);
-        model.deleteTask(toUndo);
-        expectedAB.addTask(toUndo);
-        model.addUndo("delete", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+    public void execute_undoRedoDone_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);
+        
+        //TODO add test for dated task
+        
+        //Undo complete undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.completeTask(toUndo[0]);
+        model.addUndo("done", toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo complete undated task. List should be empty as completed tasks are not displayed
+        expectedTB.completeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "done"), expectedTB, 
+                expectedTB.getDatedTaskList(), Collections.emptyList());
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_undo_done() throws Exception {
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
-                Collections.emptyList(), Collections.emptyList());
+    public void execute_undoRedoEdit_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);
+        
+      //Edit undated task
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        Task editUndated = new Task(toUndo[0]);
+        editUndated.setName(new Name("Walk Jim dog"));
+        model.deleteTask(toUndo[0]);
+        expectedTB.removeTask(toUndo[0]);
+        model.addTask(editUndated);
+        expectedTB.addTask(editUndated);
+        model.addUndo("edit", editUndated, toUndo[0]);
+        
+        //Edit dated task
+        Task editDated = new Task(toUndo[1]);
+        editDated.setName(new Name("Homework due"));
+        model.deleteTask(toUndo[1]);
+        expectedTB.removeTask(toUndo[1]);
+        model.addTask(editDated);
+        expectedTB.addTask(editDated);
+        model.addUndo("edit", editDated, toUndo[1]);
 
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(1));
-        helper.addToModel(model, 2);    
+        //Undo edit dated task
+        expectedTB.removeTask(editDated);
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo edit undated task
+        expectedTB.removeTask(editUndated);
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo edit undated task
+        expectedTB.removeTask(toUndo[0]);
+        expectedTB.addTask(editUndated);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo edit dated task
+        expectedTB.removeTask(toUndo[1]);
+        expectedTB.addTask(editDated);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "edit"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+    }
+    //@@author
 
-        model.completeTask(toUndo);
-        model.addUndo("done", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "done"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+  //@@author A0139145E
+    @Test
+    public void execute_undoRedoDuplicate_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);  
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+        //Add duplicate undated task
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+        //Add duplicate dated task
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        
+        //Undo add duplicate dated task
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo add duplicate undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add duplicate undated task
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add"
+                + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK)), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add duplicate dated task
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add"
+                + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK)), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_undoRedoMultiple_successful() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);  
+        model.addTask(toUndo[0]);
+        expectedTB.addTask(toUndo[0]);
+        
+      //Delete and add undated task
+        model.deleteTask(toUndo[0]);
+        model.addUndo("delete", toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        
+        //Delete and add dated task
+        model.deleteTask(toUndo[1]);
+        model.addUndo("delete", toUndo[1]);
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+
+        //Undo add and delete dated task
+        expectedTB.removeTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[1]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Undo add and delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Redo add and delete undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "delete"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        expectedTB.addTask(toUndo[0]);
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
     }
     //@@author
 
     //@@author A0139145E
     @Test
-    public void execute_undo_edit() throws Exception {
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
+    public void execute_redo_isEmpty() throws Exception {
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
-
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
-        helper.addToModel(model, 2);  
-
-        Task orig = new Task(helper.generateDatedTaskWithName("Homework due"));
-        expectedAB.addTask(orig);
-        model.addTask(orig);
-        Task edited = new Task(helper.generateDatedTaskWithName("Homework not due"));
-        model.addTask(edited);
-        model.deleteTask(orig);
-        model.addUndo("edit", edited, orig);
-
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "edit"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
     }
     //@@author
-
+    
     //@@author A0139145E
     @Test
-    public void execute_undo_multiple() throws Exception {
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, new TaskBook(), 
-                Collections.emptyList(), Collections.emptyList());
-
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedAB = helper.generateAddressBook(2);
-        Task toUndo = new Task(expectedAB.getDatedTaskList().get(0));
-        helper.addToModel(model, 2);  
-
-        expectedAB.removeTask(toUndo);
-        model.deleteTask(toUndo);
-        model.addUndo("delete", toUndo);
-        model.addTask(toUndo);
-        model.addUndo("add", toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        expectedAB.addTask(toUndo);
-        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "delete"), expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_NOT_POSSIBLE, expectedAB, 
-                expectedAB.getDatedTaskList(), expectedAB.getUndatedTaskList());
+    public void execute_redoAfterUndoableCmd_isEmpty() throws Exception {
+        Task[] toUndo = generateStartStateForUndo(2);
+        //Add undated task
+        expectedTB.addTask(toUndo[0]);
+        model.addTask(toUndo[0]);
+        model.addUndo("add", toUndo[0]);
+        
+        //Undo add undated task
+        expectedTB.removeTask(toUndo[0]);
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
+        
+        //Add dated task
+        expectedTB.addTask(toUndo[1]);
+        model.addTask(toUndo[1]);
+        model.addUndo("add", toUndo[1]);
+        model.clearRedo();
+        
+        //No more redo actions after undoable command is done
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, expectedTB, 
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
     }
     //@@author
-
+    
     //@@author A0139528W
     //@Test
     public void execute_save_multipleScenarios() throws Exception {
@@ -1013,21 +1190,21 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an TaskBook with auto-generated persons.
+         * Generates an TaskBook with auto-generated tasks.
          */
-        TaskBook generateAddressBook(int numGenerated) throws Exception{
-            TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        TaskBook generateTaskBook(int numGenerated) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addToTaskBook(taskBook, numGenerated);
+            return taskBook;
         }
 
         /**
-         * Generates an TaskBook based on the list of Persons given.
+         * Generates an TaskBook based on the list of Tasks given.
          */
-        TaskBook generateAddressBook(List<Task> persons) throws Exception{
-            TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addToTaskBook(taskBook, tasks);
+            return taskBook;
         }
 
         /**
@@ -1035,31 +1212,31 @@ public class LogicManagerTest {
          * @param datedTasks list of dated tasks
          *        undatedTasks list of undated Tasks
          */
-        TaskBook generateAddressBook(List<Task> datedTasks, List<Task> undatedTasks) throws Exception{
-            TaskBook addressBook = new TaskBook();
-            addToAddressBook(addressBook, datedTasks);
-            addToAddressBook(addressBook, undatedTasks);
-            return addressBook;
+        TaskBook generateTaskBook(List<Task> datedTasks, List<Task> undatedTasks) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addToTaskBook(taskBook, datedTasks);
+            addToTaskBook(taskBook, undatedTasks);
+            return taskBook;
         }
         /**
-         * Adds auto-generated Person objects to the given TaskBook
-         * @param addressBook The TaskBook to which the Persons will be added
+         * Adds auto-generated Tasks objects to the given TaskBook
+         * @param taskBook The TaskBook to which the Tasks will be added
          */
-        void addToAddressBook(TaskBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generateDatedTaskList(numGenerated));
+        void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+            addToTaskBook(taskBook, generateDatedTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given TaskBook
+         * Adds the given list of Tasks to the given TaskBook
          */
-        void addToAddressBook(TaskBook addressBook, List<Task> personsToAdd) throws Exception{
-            for(Task p: personsToAdd){
-                addressBook.addTask(p);
+        void addToTaskBook(TaskBook taskBook, List<Task> taskToAdd) throws Exception{
+            for(Task p: taskToAdd){
+                taskBook.addTask(p);
             }
         }
 
         /**
-         * Adds auto-generated Person objects to the given model
+         * Adds auto-generated Task objects to the given model
          * @param model The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
@@ -1067,10 +1244,10 @@ public class LogicManagerTest {
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> personsToAdd) throws Exception{
-            for(Task p: personsToAdd){
+        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
                 model.addTask(p);
             }
         }
@@ -1079,11 +1256,11 @@ public class LogicManagerTest {
          * Generates a list of dated task based on the flags.
          */
         List<Task> generateDatedTaskList(int numGenerated) throws Exception{
-            List<Task> persons = new ArrayList<>();
+            List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generateDatedTask(i));
+                tasks.add(generateDatedTask(i));
             }
-            return persons;
+            return tasks;
         }
 
         List<Task> generateTaskList(Task... tasks) {
@@ -1094,15 +1271,15 @@ public class LogicManagerTest {
          * Generates a list of undated task based on the flags.
          */
         List<Task> generateUndatedTaskList(int numGenerated) throws Exception{
-            List<Task> persons = new ArrayList<>();
+            List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generateUndatedTask(i));
+                tasks.add(generateUndatedTask(i));
             }
-            return persons;
+            return tasks;
         }
 
         /**
-         * Generates a Person object with given name. Other fields will have some dummy values.
+         * Generates a Task object with given name. Other fields will have some dummy values.
          */
         Task generateDatedTaskWithName(String name) throws Exception {
             return new Task(

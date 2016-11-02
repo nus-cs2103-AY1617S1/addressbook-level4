@@ -28,9 +28,23 @@ public interface Model {
     /** Adds the given undo */
     void addUndo(String command, ReadOnlyTask data);
     
-    /** Adds the given undo */
+    /**
+     * Adds the given undo
+     * @param command COMMAND_KEYWORD e.g. "add", "edit"
+     * @param postData Task after command
+     * @param preData Task before command (if any)
+     */
     void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData);
 
+    /** Adds the given undo */
+    void addUndo(UndoTask target);
+    
+    /** Adds the given redo */
+    void addRedo(UndoTask target);
+    
+    /** Clears existing redo stack and start afresh */
+    void clearRedo();
+    
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
@@ -39,6 +53,9 @@ public interface Model {
     
     /** Undoes the last reversible action */
     UndoTask undoTask();
+    
+    /** Redoes the last undone action */
+    UndoTask redoTask();
     
     /** Returns the filtered dated task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList();

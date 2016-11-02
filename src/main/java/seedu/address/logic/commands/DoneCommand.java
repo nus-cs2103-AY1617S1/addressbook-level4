@@ -67,6 +67,7 @@ public class DoneCommand extends Command implements Undoable{
         assert COMMAND_WORD != null;
         assert toComplete != null;
         model.addUndo(COMMAND_WORD, toComplete);
+        model.clearRedo();
     } 
     
 }

@@ -69,5 +69,6 @@ public class AddCommand extends Command implements Undoable {
         assert COMMAND_WORD != null;
         assert toAdd != null;
         model.addUndo(COMMAND_WORD, toAdd);
+        model.clearRedo();
     }
 }

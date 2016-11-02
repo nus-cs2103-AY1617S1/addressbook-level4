@@ -1,5 +1,7 @@
 package seedu.address.model.undo;
 
+import java.util.Stack;
+
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0139145E
@@ -9,36 +11,21 @@ import seedu.address.model.task.ReadOnlyTask;
  */
 public class UndoList {
 
-    public static int MAX_UNDO_SIZE = 10;
-    public UndoNode head;
-    public UndoNode tail;
     private int size;
 
+    private Stack<UndoTask> undoStack;
+    
     public UndoList(){
-        this.head = null;
-        this.tail = null;
         this.size = 0;
+        this.undoStack = new Stack<>();
     }
 
     /*
-     * Adds a Undo action to the front of the list.
+     * Adds a Undo action to the front of the stack.
      */
-    public void addToFront(String cmd, ReadOnlyTask postData, ReadOnlyTask preData){
-        if (size == 0){ //currently empty
-            head = new UndoNode(cmd, postData, preData, head, tail);
-            tail = head;
-            size++;
-        }
-        else if (size < MAX_UNDO_SIZE){
-            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
-            tail = tail.getNext();
-            size++;
-        }
-        else if (size == MAX_UNDO_SIZE){
-            head = head.getNext();
-            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
-            tail = tail.getNext();
-        }
+    public void add(String cmd, ReadOnlyTask postData, ReadOnlyTask preData){
+        undoStack.push(new UndoTask(cmd, postData, preData));
+        size++;
     }
 
     /**
@@ -46,79 +33,19 @@ public class UndoList {
      * @return UndoTask, or null if no actions to undo
      * 
      **/
-    public UndoTask removeFromFront(){
+    public UndoTask retrieve(){
         if (size == 0) {
             return null;
         }
-        UndoNode toRm = tail;
-        if (size == 1){
-            head = null;
-            tail = null;
-            size--;
-            return toRm.getUndoData();
-        }
-        else {
-            tail = tail.getPrev();
-            tail.setNext(head);
-            size--;
-            return toRm.getUndoData();
-        }
+        UndoTask toReturn = undoStack.pop();
+        size--;
+        return toReturn;
     }
 
     @Override
     public String toString(){
-        StringBuffer value = new StringBuffer();
-        UndoNode temp = tail;
-        if (head == null){
-            value.append("\n");
-        }
-        else {
-            while (temp != head){
-                value.append("--> ").append(temp.getUndoData().toString()).append("\n");
-                temp = temp.getPrev();
-            }
-            value.append("--> ").append(temp.getUndoData().toString()).append("\n");
-        }
-        return value.toString();
+        return "UndoList has " + size + " undo tasks.";
     }
 
-    /*
-     * List Node class for the UndoList circular linked list
-     */
-    class UndoNode {
-
-        public UndoTask data;
-        public UndoNode next, prev;
-
-        /*
-         * Initialises a UndoNode
-         * cmd. postData cannot be null
-         */
-        public UndoNode(String cmd, ReadOnlyTask postData, ReadOnlyTask preData, UndoNode next, UndoNode prev){
-            this.data = new UndoTask(cmd, postData, preData);
-            this.next = next;
-            this.prev = prev;
-        }
-
-        UndoNode getNext(){
-            return this.next;
-        }
-
-        UndoNode getPrev(){
-            return this.prev;
-        }
-
-        UndoTask getUndoData(){
-            return this.data;
-        }
-
-        void setNext(UndoNode next){
-            this.next = next;
-        }
-
-        void setPrev(UndoNode prev){
-            this.prev = prev;
-        }
-    }
 }
 //@@author
