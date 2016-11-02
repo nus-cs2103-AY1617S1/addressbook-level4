@@ -80,6 +80,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     public void resetData(ReadOnlyListOfTask newData) {
         resetData(newData.getTaskList(), newData.getTagList());
+        Counter();
     }
 
 //// person-level operations
@@ -94,6 +95,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+        Counter();
     }
 
     /**
@@ -121,6 +123,7 @@ public class ListOfTask implements ReadOnlyListOfTask {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+        	Counter();
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -130,8 +133,10 @@ public class ListOfTask implements ReadOnlyListOfTask {
   //@@author A0139714B
     public boolean editTask(ReadOnlyTask key, Task toEdit) 
     		throws UniqueTaskList.TaskNotFoundException, IllegalValueException{
-        if (tasks.edit(key, toEdit))
+        if (tasks.edit(key, toEdit)){
+        	Counter();
             return true;
+        }
         else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
@@ -140,25 +145,28 @@ public class ListOfTask implements ReadOnlyListOfTask {
     //@@author A0143095H
     public void doneTask(ReadOnlyTask key, boolean isDone){
     	tasks.done(key,isDone);
+    	Counter();
     }
     //@@Gauri Joshi
     
   //@@author A0143095H
     public void undoneTask(ReadOnlyTask key, boolean isDone){
     	tasks.done(key,isDone);
+    	Counter();
     }
     
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
+    	Counter();
     }
 
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " Tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " Tasks, " 	+ tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
