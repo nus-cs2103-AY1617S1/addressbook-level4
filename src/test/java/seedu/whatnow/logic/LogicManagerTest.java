@@ -321,35 +321,16 @@ public class LogicManagerTest {
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String taskType,
             String expectedMessage) throws Exception {
         if (!taskType.equals("")) {
-            assertCommandBehavior(commandWord + " " + taskType, expectedMessage); // index
-                                                                                  // missing
-            assertCommandBehavior(commandWord + " " + taskType + " +1", expectedMessage); // index
-                                                                                          // should
-                                                                                          // be
-                                                                                          // unsigned
-            assertCommandBehavior(commandWord + " " + taskType + " -1", expectedMessage); // index
-                                                                                          // should
-                                                                                          // be
-                                                                                          // unsigned
-            assertCommandBehavior(commandWord + " " + taskType + " 0", expectedMessage); // index
-                                                                                         // cannot
-                                                                                         // be
-                                                                                         // 0
+            assertCommandBehavior(commandWord + " " + taskType, expectedMessage); // index missing missing
+            assertCommandBehavior(commandWord + " " + taskType + " +1", expectedMessage); // index should be unsigned
+            assertCommandBehavior(commandWord + " " + taskType + " -1", expectedMessage); // index should be unsigned
+            assertCommandBehavior(commandWord + " " + taskType + " 0", expectedMessage); // index cannot be 0
             assertCommandBehavior(commandWord + " " + taskType + " not_a_number", expectedMessage);
         } else {
-            assertCommandBehavior(commandWord, expectedMessage); // index
-                                                                 // missing
-            assertCommandBehavior(commandWord + " +1", expectedMessage); // index
-                                                                         // should
-                                                                         // be
-                                                                         // unsigned
-            assertCommandBehavior(commandWord + " -1", expectedMessage); // index
-                                                                         // should
-                                                                         // be
-                                                                         // unsigned
-            assertCommandBehavior(commandWord + " 0", expectedMessage); // index
-                                                                        // cannot
-                                                                        // be 0
+            assertCommandBehavior(commandWord, expectedMessage); // index missing
+            assertCommandBehavior(commandWord + " +1", expectedMessage); // index should be unsigned
+            assertCommandBehavior(commandWord + " -1", expectedMessage); // index should be unsigned
+            assertCommandBehavior(commandWord + " 0", expectedMessage); // index cannot be 0
             assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
         }
 
@@ -587,7 +568,17 @@ public class LogicManagerTest {
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB, expectedList);
     }
-
+    
+    @Test
+    public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
+        assertCommandBehavior("freetime", "Invalid command format! \n" + FreeTimeCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void executeFreetime_datePresent_displayfreeSlotOfDate() {
+        
+    }
+    
     /**
      * A utility class to generate test data.
      */
@@ -771,4 +762,6 @@ public class LogicManagerTest {
                     "incomplete", null);
         }
     }
+    
+    
 }
