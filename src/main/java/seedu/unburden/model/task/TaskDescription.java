@@ -28,14 +28,14 @@ public class TaskDescription {
 	 */
 	public TaskDescription(String details) throws IllegalValueException {
 		assert details != null;
-		if (!details.equals("       ")) {
+		if (!details.equals("")) {
 			details = details.trim();
 			if (!isValidDetails(details)) {
 				throw new IllegalValueException(MESSAGE_TASK_CONSTRAINTS);
 			}
 		}
-		if (details.equals("       ")) {
-			this.fullTaskDescriptions = "       ";
+		if (details.equals("")) {
+			this.fullTaskDescriptions = "";
 		} else {
 			this.fullTaskDescriptions = details;
 		}
