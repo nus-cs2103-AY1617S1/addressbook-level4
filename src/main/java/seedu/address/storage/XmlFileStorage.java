@@ -22,11 +22,20 @@ public class XmlFileStorage {
             assert false : "Unexpected exception " + e.getMessage();
         }
     }
+    
+    public static void saveDataToFile(File file, XmlSerializableAliasManager aliasManager)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, aliasManager);
+        } catch (JAXBException e) {
+            assert false : "Unexpected exception " + e.getMessage();
+        }
+    }
 
     /**
      * Returns task manager in the file or an empty task manager
      */
-    public static XmlSerializableTaskManager loadDataFromSaveFile(File file) throws DataConversionException,
+    public static XmlSerializableTaskManager loadDataFromSaveTaskManagerFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableTaskManager.class);
@@ -34,5 +43,14 @@ public class XmlFileStorage {
             throw new DataConversionException(e);
         }
     }
-
+    
+    public static XmlSerializableAliasManager loadDataFromSaveAliasFile(File file) throws DataConversionException,
+    FileNotFoundException {
+		try {
+			return XmlUtil.getDataFromFile(file, XmlSerializableAliasManager.class);
+		} catch (JAXBException e) {
+			throw new DataConversionException(e);
+		}
+	}
+    
 }

@@ -3,7 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.Alias;
+import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 
 import java.io.File;
@@ -15,13 +15,13 @@ import java.util.logging.Logger;
 /**
  * A class to access TaskManager data stored as an xml file on the hard disk.
  */
-public class XmlAliasStorage implements AliasStorage {
+public class XmlAliasManagerStorage implements AliasManagerStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlTaskManagerStorage.class);
 
     private String filePath;
 
-    public XmlAliasStorage(String filePath){
+    public XmlAliasManagerStorage(String filePath){
         this.filePath = filePath;
     }
 
@@ -34,7 +34,7 @@ public class XmlAliasStorage implements AliasStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<Alias> readAlias(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<AliasManager> readAlias(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File aliasFile = new File(filePath);
@@ -44,7 +44,7 @@ public class XmlAliasStorage implements AliasStorage {
             return Optional.empty();
         }
 
-        Alias aliasOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        AliasManager aliasOptional = XmlFileStorage.loadDataFromSaveAliasFile(new File(filePath));
 
         return Optional.of(aliasOptional);
     }

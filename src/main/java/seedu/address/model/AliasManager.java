@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class Alias {
+public class AliasManager implements ReadOnlyAliasManager{
 
     private final HashMap<String, String> alias;
 
@@ -16,7 +16,7 @@ public class Alias {
         alias = new HashMap<String, String>();
     }
 
-    public Alias() {}
+    public AliasManager() {}
 
 //    /**
 //     * Tasks and Tags are copied into this task manager
@@ -102,6 +102,10 @@ public class Alias {
 //        return Collections.unmodifiableList(tags.getInternalList());
 //    }
 
+    public HashMap<String,String> getAlias() {
+    	return alias;
+    }
+    
     public String getValueOf(String key) {
         return alias.get(key);
     }
@@ -115,8 +119,8 @@ public class Alias {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Alias // instanceof handles nulls
-                && this.alias.equals(((Alias) other).alias));
+                || (other instanceof AliasManager // instanceof handles nulls
+                && this.alias.equals(((AliasManager) other).alias));
                 //&& this.tags.equals(((TaskManager) other).tags));
     }
 

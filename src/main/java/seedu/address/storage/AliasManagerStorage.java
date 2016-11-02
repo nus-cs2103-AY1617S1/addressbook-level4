@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Alias;
+import seedu.address.model.AliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.address.model.TaskManager}.
  */
-public interface AliasStorage {
+public interface AliasManagerStorage {
 
     /**
      * Returns the file path of the data file.
@@ -23,23 +23,23 @@ public interface AliasStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<Alias> readAlias() throws DataConversionException, IOException;
+    Optional<AliasManager> readAlias() throws DataConversionException, IOException;
 
     /**
      * @see #getTaskManagerFilePath()
      */
-    Optional<Alias> readAlias(String filePath) throws DataConversionException, IOException;
+    Optional<AliasManager> readAlias(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyTaskManager} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAlias(Alias alias) throws IOException;
+    void saveAlias(AliasManager alias) throws IOException;
 
     /**
      * @see #saveTaskManager(ReadOnlyTaskManager)
      */
-    void saveAlias(Alias alias, String filePath) throws IOException;
+    void saveAlias(AliasManager alias, String filePath) throws IOException;
 
 }
