@@ -151,6 +151,16 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 > <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
+#### Change storage location : `storage`
+Changes the storage location of Savvy Tasker.<br>
+Format: `storage PATH`
+
+> Parameters | Description  
+> -------- | :-------- 
+> PATH | `Mandatory` Specifies the path of where Savvy Tasker's task list is saved at.
+> <br>
+> If the new storage location specified by `PATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
+
 [//]: # (@@author A0097627N)
 
 #### Mark a task as done : `mark`
@@ -260,6 +270,7 @@ Command | Format
 [Help](#viewing-help--help) | `help`
 [Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
+[Storage]() | `storage PATH`<br>Example: `storage data/savvytasker.xml`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
