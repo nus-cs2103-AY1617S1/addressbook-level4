@@ -48,7 +48,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath(), config.getAliasManagerFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -69,23 +69,39 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskManager> addressBookOptional;
-        ReadOnlyTaskManager initialData;
+        Optional<ReadOnlyTaskManager> taskManagerOptional;
+        Optional<ReadOnlyAliasManager> aliasManagerOptional;
+        ReadOnlyTaskManager initialTaskManagerData;
+        ReadOnlyAliasManager initialAliasManagerData;
         try {
-            addressBookOptional = storage.readTaskManager();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty TaskManager");
+            taskManagerOptional = storage.readTaskManager();
+            if(!taskManagerOptional.isPresent()){
+                logger.info("Task manager data file not found. Will be starting with an empty TaskManager");
             }
-            initialData = addressBookOptional.orElse(new TaskManager());
+            initialTaskManagerData = taskManagerOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
-            initialData = new TaskManager();
+            logger.warning("Task manager data file not in the correct format. Will be starting with an empty TaskManager");
+            initialTaskManagerData = new TaskManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
-            initialData = new TaskManager();
+            logger.warning("Problem while reading from the task manager data file. . Will be starting with an empty TaskManager");
+            initialTaskManagerData = new TaskManager();
+        }
+        
+        try {
+            aliasManagerOptional = storage.readAliasManager();
+            if(!aliasManagerOptional.isPresent()){
+                logger.info("Alias manager data file not found. Will be starting with an empty AliasManager");
+            }
+            initialAliasManagerData = aliasManagerOptional.orElse(new AliasManager());
+        } catch (DataConversionException e) {
+            logger.warning("Alias manager data file not in the correct format. Will be starting with an empty AliasManager");
+            initialAliasManagerData = new AliasManager();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the alias manager file. . Will be starting with an empty AliasManager");
+            initialAliasManagerData = new AliasManager();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialTaskManagerData, userPrefs, initialAliasManagerData);
     }
 
     private void initLogging(Config config) {

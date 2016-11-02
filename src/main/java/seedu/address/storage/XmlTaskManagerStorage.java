@@ -43,7 +43,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
             return Optional.empty();
         }
 
-        ReadOnlyTaskManager addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTaskManager addressBookOptional = XmlFileStorage.loadDataFromSaveTaskManagerFile(new File(filePath));
 
         return Optional.of(addressBookOptional);
     }

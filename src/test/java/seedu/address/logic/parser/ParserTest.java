@@ -136,19 +136,19 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder5_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder5_addCommandReturned() {
 		String userInput = "add from 8:00 'party' to 10:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
 
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
-	public void parseCommand_addEventValidOrder6_incorrectCommandReturned() {
+	public void parseCommand_addEventValidOrder6_addCommandReturned() {
 		String userInput = "add from 8:00 to 10:00 'party' on 12-10-12";
 		Command command = parser.parseCommand(userInput);
 		
-		assertEquals(incorrectCommand.getClass(), command.getClass());
+		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	
