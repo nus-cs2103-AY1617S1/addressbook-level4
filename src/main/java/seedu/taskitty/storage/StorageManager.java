@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+import seedu.taskitty.MainApp;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
@@ -47,6 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
         Optional<ReadOnlyTaskManager> data;
         try {
             data = taskManagerStorage.readTaskManager();
+            taskManagerStorage.setFilePath(taskManagerFilePath);
             if (data.isPresent()) {
                 changeTaskManager(taskManagerFilePath, data);
             } 
@@ -68,7 +70,6 @@ public class StorageManager extends ComponentManager implements Storage {
             throws IOException, DataConversionException {
         //copy current data into new file path
         taskManagerStorage.saveTaskManager(data.get(),taskManagerFilePath); 
-        taskManagerStorage.setFilePath(taskManagerFilePath);
         handleTaskManagerChangedEvent(new TaskManagerChangedEvent(data.get()));
     }
     

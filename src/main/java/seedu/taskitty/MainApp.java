@@ -36,7 +36,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected static Storage storage;
-    protected Model model;
+    protected static Model model;
     protected static Config config;
     protected UserPrefs userPrefs;
 
@@ -70,6 +70,10 @@ public class MainApp extends Application {
     
     public static Storage getStorage() {
         return storage;
+    }
+    
+    public static Model getModel() {
+        return model;
     }
     //@@author
     

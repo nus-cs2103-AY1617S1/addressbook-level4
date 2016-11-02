@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.model.Model;
 import seedu.taskitty.storage.Storage;
 import seedu.taskitty.ui.MainWindow;
 import seedu.taskitty.MainApp;
@@ -38,6 +39,7 @@ public class PathCommand extends Command{
     
     Config config = MainApp.getConfig();
     Storage storage = MainApp.getStorage();
+    Model model = MainApp.getModel();
     String configFile = config.DEFAULT_CONFIG_FILE;
     
     public final String filepath;
@@ -59,10 +61,12 @@ public class PathCommand extends Command{
 
             storage.setFilePath(config.getTaskManagerFilePath());
             
+            if (storage.readTaskManager().isPresent()) {
+                model.resetData(storage.readTaskManager().get());
+            }
+            
             MainWindow.getStatusBarFooter().setSaveLocation("./"+config.getTaskManagerFilePath());
-            
-            restartApplication();
-            
+
             EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
             
             return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
@@ -73,36 +77,5 @@ public class PathCommand extends Command{
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(e));
         } 
-    }
-    
-    /**
-     * Restarts the application
-     * Code from stack overflow - http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
-     */
-    private void restartApplication() throws URISyntaxException, IOException{
-        final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
-        File currentJar;
-        try {
-            currentJar = new File(MainApp.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-        
-            /* is it a jar file? */
-            if(!currentJar.getName().endsWith(".jar")) {
-                return;
-            }
-            
-            /* Build command: java -jar application.jar */
-            final ArrayList<String> command = new ArrayList<String>();
-            command.add(javaBin);
-            command.add("-jar");
-            command.add(currentJar.getPath());
-
-            final ProcessBuilder builder = new ProcessBuilder(command);
-            builder.start();
-            System.exit(0);
-        } catch (URISyntaxException e) {
-            throw e;
-        } catch (IOException e) {
-            throw new IOException(e);
-        }
     }
 }
