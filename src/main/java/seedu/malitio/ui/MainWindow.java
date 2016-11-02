@@ -26,7 +26,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/malitio.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 900;
+    public static final int MIN_WIDTH = 1100;
 
     private Logic logic;
     
@@ -70,6 +70,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
+    @FXML
+    private AnchorPane panelTitle;
 
     public MainWindow() {
         super();
