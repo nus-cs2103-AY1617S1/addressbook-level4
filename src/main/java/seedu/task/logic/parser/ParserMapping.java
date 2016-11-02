@@ -4,13 +4,9 @@ package seedu.task.logic.parser;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import com.google.api.client.json.webtoken.JsonWebSignature.Parser;
-
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.logic.CommandKeys;
 import seedu.task.commons.logic.CommandKeys.Commands;
-import seedu.task.logic.commands.Command;
 
 /**
  * Provides command word and alias mappings

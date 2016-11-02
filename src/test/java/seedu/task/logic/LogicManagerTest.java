@@ -199,7 +199,6 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    //@@author
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -285,7 +284,7 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedTM.getTaskList());
     }
-    
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
