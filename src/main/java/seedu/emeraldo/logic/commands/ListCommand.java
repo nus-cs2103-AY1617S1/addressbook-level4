@@ -11,6 +11,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_LIST_ALL = "Listed all tasks";
     
+    public static final String MESSAGE_LIST_UNCOMPLETED = "Listed all uncompleted tasks";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all uncompleted tasks\n"
             + COMMAND_WORD + " [KEYWORD]: Lists all tasks with tags containing the specified keyword (case-sensitive)"
             + "and displays them as a list with index numbers.\n"
@@ -26,8 +28,11 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if(keyword.isEmpty()){
-            model.updateFilteredListToShowAll();
-            this.successMessage = MESSAGE_LIST_ALL;
+            model.updateFilteredListToShowUncompleted();
+            this.successMessage = MESSAGE_LIST_UNCOMPLETED;
+        }else if(keyword.equalsIgnoreCase("all")){
+        	model.updateFilteredListToShowAll();
+        	this.successMessage = MESSAGE_LIST_ALL;
         }else{
             model.updateFilteredTaskList(keyword);
             this.successMessage = getMessageForTaskListShownSummary(model.getFilteredTaskList().size());
