@@ -240,19 +240,8 @@ public class CommandParser {
     
     //@@ author A0152958R
     private Command createCommandStart(String name, String startTime, String endTime, String deadline, Set<String> tags){
-        TimeParser parserTime = new TimeParser();
-        TimeParserResult time = parserTime.parseTime(startTime);
-        StringBuilder start = new StringBuilder();
-        if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
-            start.append(time.getFirstDate().toString());
-            start.append(" ");
-            start.append(time.getFirstTime().toString().substring(0, 5));
-        }
-        if(start.length() == 0){
-            return new IncorrectCommand("Incorrect time format");
-        }
         try{
-            return new AddCommand(name, start.toString(), endTime, deadline, tags);
+            return new AddCommand(name, startTime, endTime, deadline, tags);
         }catch(IllegalValueException i){
             return new IncorrectCommand(i.getMessage());
         }
@@ -359,7 +348,7 @@ public class CommandParser {
         if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
            deadlineString.append(time.getFirstDate().toString());
            deadlineString.append(" ");
-           deadlineString.append(time.getFirstTime().toString());
+           deadlineString.append(time.getFirstTime().toString().substring(0, 5));
         }
         if(deadlineString.length() == 0){
             return new IncorrectCommand("Incorrect time format");
