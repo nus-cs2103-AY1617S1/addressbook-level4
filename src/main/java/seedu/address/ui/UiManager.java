@@ -199,6 +199,7 @@ public class UiManager extends ComponentManager implements Ui {
     
     private class RefreshTask extends TimerTask {
         public void run() {
+            System.out.println("I'm here!");
             mainWindow.refresh();
         }
     }

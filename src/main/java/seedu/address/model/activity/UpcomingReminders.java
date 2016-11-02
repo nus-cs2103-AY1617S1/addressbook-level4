@@ -51,9 +51,6 @@ public class UpcomingReminders {
      */
     public boolean addReminder(ReadOnlyActivity newActivity) {
         if (newActivity.getReminder().getCalendarValue() != null && !newActivity.hasReminderPassed()) {
-            for (Object a : reminderQueue.toArray()) {
-                System.out.println("Reminder queue: " + ((ReadOnlyActivity) a).toString());
-            }
             return reminderQueue.add(newActivity);
         } else {
             return false;
@@ -73,12 +70,14 @@ public class UpcomingReminders {
      * @return a list of the events with start time closest to current time.
      */
     public static ArrayList<ReadOnlyActivity> popNextReminders() {
-        for (Object a : reminderQueue.toArray()) {
-            System.out.println("Reminder queue: " + ((ReadOnlyActivity) a).toString());
-        }
         ArrayList<ReadOnlyActivity> nextRemindedActivities = new ArrayList<>();
         
-        while (!reminderQueue.isEmpty() && reminderQueue.peek().hasReminderPassed()) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, -10);
+        Date offset10Secs = cal.getTime();
+        Date reminderTime = reminderQueue.peek().getReminder().getCalendarValue().getTime();
+        
+        while (!reminderQueue.isEmpty() && reminderTime.after(offset10Secs)) {
             nextRemindedActivities.add(reminderQueue.poll());
         }
         
