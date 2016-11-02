@@ -72,7 +72,7 @@ public class Task extends Activity implements ReadOnlyTask {
         } else if (!isCompleted && this.isDueDateApproaching()) {
             return "Task Deadline Approaching";
         } else if(!isCompleted && this.hasPassedDueDate()){
-            return "Task Overdue!";
+            return "Task\nOverdue!";
         }
         
         return "";  

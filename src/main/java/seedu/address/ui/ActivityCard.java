@@ -26,8 +26,6 @@ public class ActivityCard extends UiPart {
     @FXML
     private Label line1;
     @FXML
-    private Label line2;
-    @FXML
     private Label reminder;
     @FXML
     private Label tags;
@@ -61,13 +59,11 @@ public class ActivityCard extends UiPart {
 
 		case "activity":
 			line1.setText("");
-			line2.setText("");
 
 			break;
 
 		case "task":
 			line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
-			line2.setText(((ReadOnlyTask) activity).getPriority().forDisplay());
 			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
 
 			if (((Task) activity).isDueDateApproaching()) {
@@ -78,8 +74,7 @@ public class ActivityCard extends UiPart {
 			break;
 
 		case "event":
-			line1.setText(((ReadOnlyEvent) activity).getStartTime().forDisplay());
-			line2.setText(((ReadOnlyEvent) activity).getEndTime().forDisplay());
+			line1.setText(((ReadOnlyEvent) activity).displayTiming());
 			if (((Event) activity).isOngoing()) {
 				cardPane.setStyle("-fx-background-color: lightskyblue;");
 			}

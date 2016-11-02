@@ -70,12 +70,17 @@ public class Event extends Activity implements ReadOnlyEvent{
     @Override
     public String toStringCompletionStatus() {
         if(this.isOver()) {
-            return "Event Over";
+            return "Event\nOver";
         } else if (this.isOngoing()) {
-            return "Event Ongoing";
+            return "Event\nOngoing";
         } else {
             return "";
         }
+    }
+    
+    @Override
+    public String displayTiming() {
+        return "From " + startTime.toString() + " to " + endTime.toString();
     }
     
     @Override
