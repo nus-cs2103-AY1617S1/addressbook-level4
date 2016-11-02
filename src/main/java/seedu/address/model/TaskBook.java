@@ -217,49 +217,35 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     //@@author A0139430L JingRui
-    public boolean changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
+    public Task changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         if(category == 'E'){
-            if (events.edit(target, args)) {
-                return true;
+            Task temp = events.edit(target, args);
+            if (temp!=null) {
+                return temp;
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
         else if(category == 'D'){
-            if (deadlines.edit(target, args)) {
-                return true;
+            Task temp = deadlines.edit(target, args);
+            if (temp!=null) {
+                return temp;
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
         else if(category == 'T'){
-            if (todo.edit(target, args)) {
-                return true;
+            Task temp = todo.edit(target, args);
+            if (temp!=null) {
+                return temp;
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();
             }        
         }
-        return false;
+        return null;
     }
-    //@@author A0139430L JingRui
-    public boolean changeDeadline(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
-        // TODO Auto-generated method stub
-        if (deadlines.edit(target, args)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }        
-    }
-
-    public boolean changeTodo(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
-        // TODO Auto-generated method stub
-        if (todo.edit(target, args)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }        
-    }
+    
     //@@author A0139430L JingRui
     public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
         for (Task task: events) {
