@@ -140,7 +140,25 @@
 }
 
 .cell_id_label {
-    -fx-font-size: 40px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_name_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_time_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-font-family: "Helvetica";
+}
+
+.cell_date_label {
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
     -fx-font-family: "Helvetica";
 }
@@ -152,8 +170,7 @@
 }
 
 .cell_tag_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #999999;
+    -fx-font-size: 14px;
     -fx-font-family: "Helvetica";
 }
 
@@ -330,8 +347,10 @@
 
 #cardPane {
     -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 5;
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 1;
+    -fx-border-width: 0 0 1 0;
 }
 
 #commandTypeLabel {
@@ -341,4 +360,24 @@
 
 #filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#deadlineListPanelPlaceholder {
+	-fx-background-color: #428bca;
+	-fx-background-radius: 5;
+} 
+
+#deadlineListView {
+	-fx-background-color: #ffffff;
+	-fx-background-radius: 10;
+}
+
+#taskListPanelPlaceholder {
+	-fx-background-color: #428bca;
+	-fx-background-radius: 5;
+}
+
+#eventListPanelPlaceholder {
+	-fx-background-color: #428bca;
+	-fx-background-radius: 5;
 }

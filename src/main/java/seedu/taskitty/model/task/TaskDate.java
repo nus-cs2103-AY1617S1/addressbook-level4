@@ -21,7 +21,7 @@ public class TaskDate {
             "Task date must be provided";
     public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER_STORAGE = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
-    public static final DateTimeFormatter DATE_FORMATTER_UI = DateTimeFormatter.ofPattern("dd MMM");
+    public static final DateTimeFormatter DATE_FORMATTER_UI = DateTimeFormatter.ofPattern("E, dd MMM");
     
     //format: dd/mm/yyyy
     private static final String DATE_VALIDATION_REGEX = "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";

@@ -165,6 +165,14 @@ public class DateUtil {
                 + TaskTime.TIME_FORMATTER_UI.format(time.getTime());
     }
     
+    public static String formatDateForUI(TaskDate date) {
+        return TaskDate.DATE_FORMATTER_UI.format(date.getDate());
+    }
+    
+    public static String formatTimeForUI(TaskTime time) {
+        return TaskTime.TIME_FORMATTER_UI.format(time.getTime());
+    }
+    
     //@@author A0130853L
     public static LocalDate createCurrentDate() {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");

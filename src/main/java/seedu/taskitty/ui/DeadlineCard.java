@@ -3,6 +3,7 @@ package seedu.taskitty.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
@@ -18,9 +19,13 @@ public class DeadlineCard extends UiPart {
     @FXML
     private Label name;
     @FXML
+    private Label endTime;
+    @FXML
     private Label endDate;
     @FXML
     private Label id;
+    //@FXML
+    //private AnchorPane exclamPane;
     @FXML
     private Label tags;
 
@@ -51,7 +56,7 @@ public class DeadlineCard extends UiPart {
         	// only deadline tasks have isOverdue attribute
             boolean isOverdue = task.isOverdue();
             if (isOverdue) {
-                cardPane.setStyle("-fx-background-color: red");
+                cardPane.setStyle("-fx-background-color: #d9534f");
             }
         }
         
@@ -60,9 +65,10 @@ public class DeadlineCard extends UiPart {
         
         TaskDate endTaskDate = task.getPeriod().getEndDate();  
         TaskTime endTaskTime = task.getPeriod().getEndTime();
-        endDate.setText(DateUtil.formatDateTimeForUI(endTaskDate, endTaskTime));
+        endTime.setText(DateUtil.formatTimeForUI(endTaskTime));
+        endDate.setText(DateUtil.formatDateForUI(endTaskDate));
         
-        id.setText("d" + displayedIndex);
+        id.setText("d" + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 
