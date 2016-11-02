@@ -23,6 +23,8 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * [Add tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#add)
     * [Edit tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#edit)
     * [Set new save directory](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#saveas)
+    * Near match search
+    * Real time command suggestions in console
 * Code written:[[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0140133B.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0140133B.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0140133B.md)]
 *  Other major contributions:
     * Set up JimiParser
@@ -31,6 +33,7 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * Update EditCommand parsing of updated commands
     * Update indexed commands to work with new indices
     * Refactoring/Morphing AddressBook -> Jimi
+    * UI beautifying with Ze Xuan
 
 
 -----
