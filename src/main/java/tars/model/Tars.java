@@ -1,32 +1,32 @@
 package tars.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
-import tars.model.task.Task;
-import tars.model.task.DateTime;
-import tars.model.task.DateTime.IllegalDateException;
-import tars.model.task.Name;
-import tars.model.task.Priority;
-import tars.model.task.ReadOnlyTask;
-import tars.model.task.Status;
-import tars.model.task.UniqueTaskList;
-import tars.model.task.UniqueTaskList.TaskNotFoundException;
-import tars.model.task.rsv.RsvTask;
-import tars.model.task.rsv.UniqueRsvTaskList;
-import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.util.DateTimeUtil;
-import tars.logic.parser.ArgumentTokenizer;
-import tars.logic.parser.Prefix;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
-
-import java.time.DateTimeException;
-import java.util.*;
-import java.util.stream.Collectors;
+import tars.model.task.ReadOnlyTask;
+import tars.model.task.Status;
+import tars.model.task.Task;
+import tars.model.task.UniqueTaskList;
+import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList;
+import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 /**
  * Wraps all data at the tars level Duplicates are not allowed (by .equals
@@ -37,16 +37,6 @@ public class Tars implements ReadOnlyTars {
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
     private final UniqueRsvTaskList rsvTasks;
-
-    private static final int DATETIME_INDEX_OF_ENDDATE = 1;
-    private static final int DATETIME_INDEX_OF_STARTDATE = 0;
-
-    private static final String EMPTY_STRING = "";
-    private static final String NAME_PREFIX = "/n";
-    private static final String DATETIME_PREFIX = "/dt";
-    private static final String PRIORITY_PREFIX = "/p";
-    private static final String ADDTAG_PREFIX = "/ta";
-    private static final String REMOVETAG_PREFIX = "/tr";
 
     {
         tasks = new UniqueTaskList();
@@ -98,19 +88,20 @@ public class Tars implements ReadOnlyTars {
      * @@author A0121533W
      * @throws DuplicateTaskException if replacement task is the same as the task to replace
      */
-    public void replaceTask(ReadOnlyTask toReplace, Task replacement) throws DuplicateTaskException {
+    public void replaceTask(ReadOnlyTask toReplace, Task replacement)
+            throws DuplicateTaskException {
         if (toReplace.isSameStateAs(replacement)) {
             throw new DuplicateTaskException();
         }
+
         ObservableList<Task> list = this.tasks.getInternalList();
-        int toReplaceIndex = -1;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).isSameStateAs(toReplace)) {
-                toReplaceIndex = i;
+                syncTagsWithMasterList(replacement);
+                list.set(i, replacement);
                 break;
             }
         }
-        list.set(toReplaceIndex, replacement);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -148,102 +139,6 @@ public class Tars implements ReadOnlyTars {
      */
     public void addRsvTask(RsvTask rt) throws DuplicateTaskException {
         rsvTasks.add(rt);
-    }
-
-    /**
-     * Edits a task in tars
-     * 
-     * @@author A0121533W
-     * @throws UniqueTaskList.TaskNotFoundException if task to edit could not be found.
-     * @throws DateTimeException if problem encountered while parsing dateTime.
-     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the
-     *         list.
-     * @throws TagNotFoundException if no such tag could be found.
-     * @throws IllegalValueException if argument(s) in argsToEdit is/are invalid.
-     */
-    public Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer) throws TaskNotFoundException,
-    DateTimeException, DuplicateTagException, TagNotFoundException, IllegalValueException {
-        if (!tasks.getInternalList().contains(toEdit)) {
-            throw new TaskNotFoundException();
-        }
-        
-        Task taskToEdit = new Task(toEdit);
-
-        editName(argsTokenizer, taskToEdit);
-        editPriority(argsTokenizer, taskToEdit);
-        editDateTime(argsTokenizer, taskToEdit);
-        addTags(argsTokenizer, taskToEdit);
-        removeTags(argsTokenizer, taskToEdit);
-
-        replaceTask(toEdit, taskToEdit);
-        syncTagsWithMasterList(taskToEdit);
-
-        return taskToEdit;
-    }
-
-    private void editName(ArgumentTokenizer argsTokenizer, Task taskToEdit) 
-            throws IllegalValueException {
-        Prefix namePrefix = new Prefix(NAME_PREFIX);
-        if (!argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
-            Name editedName = new Name(argsTokenizer.getValue(namePrefix).get());
-            taskToEdit.setName(editedName);
-        }
-    }
-    
-    private void editPriority(ArgumentTokenizer argsTokenizer, Task taskToEdit) 
-            throws IllegalValueException {
-        Prefix priorityPrefix = new Prefix(PRIORITY_PREFIX);
-        if (!argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
-            Priority editedPriority = new Priority(argsTokenizer.getValue(priorityPrefix).get());
-            taskToEdit.setPriority(editedPriority);
-        }
-    }
-
-    private void editDateTime(ArgumentTokenizer argsTokenizer, Task taskToEdit) 
-            throws IllegalDateException {
-        Prefix dateTimePrefix = new Prefix(DATETIME_PREFIX);
-        if (!argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
-            String[] dateTimeArray =
-                    DateTimeUtil.parseStringToDateTime(argsTokenizer.getValue(dateTimePrefix).get());
-            DateTime editedDateTime = new DateTime(dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
-                    dateTimeArray[DATETIME_INDEX_OF_ENDDATE]);
-            taskToEdit.setDateTime(editedDateTime);
-        }
-    }
-       
-    private void addTags(ArgumentTokenizer argsTokenizer, Task taskToEdit)
-            throws IllegalValueException, DuplicateTagException, TagNotFoundException {
-        Prefix addTagPrefix = new Prefix(ADDTAG_PREFIX);
-        handleTagsEdit(argsTokenizer, taskToEdit, addTagPrefix);
-    }
-
-    private void removeTags(ArgumentTokenizer argsTokenizer, Task taskToEdit)
-                    throws IllegalValueException, TagNotFoundException {
-        Prefix removeTagPrefix = new Prefix(REMOVETAG_PREFIX);
-        handleTagsEdit(argsTokenizer, taskToEdit, removeTagPrefix);
-    }
-    
-    /**
-     * Edits a task by adding or removing its tags based on given prefix
-     * @throws TagNotFoundException 
-     * 
-     * @@author A0121533W
-     */
-    private void handleTagsEdit(ArgumentTokenizer argsTokenizer, Task taskToEdit, Prefix prefix) 
-            throws IllegalValueException, DuplicateTagException, TagNotFoundException {
-        Set<String> tagsToHandle =
-                argsTokenizer.getMultipleValues(prefix).orElse(new HashSet<>());
-        for (String t : tagsToHandle) {
-            Tag toHandle = new Tag(t);
-            UniqueTagList replacement = taskToEdit.getTags();
-            if (prefix.value.equals(ADDTAG_PREFIX)){
-                replacement.add(toHandle);
-            } else if (prefix.value.equals(REMOVETAG_PREFIX)) {
-                replacement.remove(toHandle);
-            }
-            taskToEdit.setTags(replacement);
-        }
-        
     }
 
     /**
@@ -390,7 +285,6 @@ public class Tars implements ReadOnlyTars {
                 tasks.getInternalList().set(i, toEdit);
             }
         }
-
     }
 
     /**

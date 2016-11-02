@@ -1,12 +1,14 @@
 package tars.model;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Stack;
+
+import javafx.collections.ObservableList;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.logic.commands.Command;
-import tars.logic.parser.ArgumentTokenizer;
-import tars.model.task.Task;
-import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
@@ -14,16 +16,11 @@ import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
+import tars.model.task.Task;
+import tars.model.task.TaskQuery;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
-
-import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.Stack;
-
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -34,14 +31,9 @@ public interface Model {
 
     /** Returns the Tars */
     ReadOnlyTars getTars();
-
-    /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
-            throws UniqueTaskList.TaskNotFoundException, DateTimeException, IllegalValueException,
-            TagNotFoundException;
     
     /** Undo an edited task */
-    void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException;
+    void replaceTask(ReadOnlyTask toUndo, Task replacement) throws DuplicateTaskException;
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

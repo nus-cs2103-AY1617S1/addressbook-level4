@@ -3,19 +3,22 @@ package tars.logic;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tars.commons.core.Messages.MESSAGE_INVALID_DATE;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import tars.commons.exceptions.DuplicateTaskException;
+import tars.commons.exceptions.IllegalValueException;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.UndoCommand;
-import tars.logic.parser.ArgumentTokenizer;
 import tars.model.Tars;
 import tars.model.tag.Tag;
+import tars.model.tag.UniqueTagList;
+import tars.model.task.DateTime;
 import tars.model.task.Name;
 import tars.model.task.Priority;
+import tars.model.task.Status;
 import tars.model.task.Task;
 
 /**
@@ -60,28 +63,33 @@ public class EditLogicCommandTest extends LogicCommandTest {
         // setup expectations
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task taskToAdd = helper.meetAdam();
-        List<Task> listToEdit = new ArrayList<Task>();
-        listToEdit.add(taskToAdd);
-        Tars expectedTars = new Tars();
-        expectedTars.addTask(taskToAdd);
-
-        // edit task
-        String args =
-                " /n Meet Betty Green /dt 20/09/2016 1800 to 21/09/2016 1800 /p h /ta tag3 /tr tag2";
-
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix,
-                priorityPrefix, dateTimePrefix, addTagPrefix, removeTagPrefix);
-        argsTokenizer.tokenize(args);
-
-        Task taskToEdit = taskToAdd;
-        Task editedTask = expectedTars.editTask(taskToEdit, argsTokenizer);
-        helper.addToModel(model, listToEdit);
+        model.addTask(taskToAdd);
+        Tars expectedTars = prepareExpectedTars();
 
         String inputCommand = "edit 1 /n Meet Betty Green /dt 20/09/2016 1800 "
                 + "to 21/09/2016 1800 /p h /tr tag2 /ta tag3";
-        // execute command
-        assertCommandBehavior(inputCommand, String
-                .format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+
+        // execute command and verify result
+        assertCommandBehavior(inputCommand,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS,
+                        expectedTars.getTaskList().get(0)),
+                expectedTars, expectedTars.getTaskList());
+    }
+    
+    @Test
+    public void execute_edit_editedDuplicateTask() throws Exception {
+        // setup expectations
+        TypicalTestDataHelper helper = new TypicalTestDataHelper();
+        Task taskToAdd = helper.meetAdam();
+        model.addTask(taskToAdd);
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(taskToAdd);
+
+        String inputCommand = "edit 1 /n Meet Adam Brown";
+
+        // execute command and verify result
+        assertCommandBehavior(inputCommand,
+                new DuplicateTaskException().getMessage().toString(),
                 expectedTars, expectedTars.getTaskList());
     }
 
@@ -106,30 +114,24 @@ public class EditLogicCommandTest extends LogicCommandTest {
         // setup expectations
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Task taskToAdd = helper.meetAdam();
-        Tars expectedTars = new Tars();
-        expectedTars.addTask(taskToAdd);
-
-        // edit task
-        String args =
-                " /n Meet Betty Green /dt 20/09/2016 1800 to 21/09/2016 1800 /p h /ta tag3 /tr tag2";
-
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix,
-                priorityPrefix, dateTimePrefix, addTagPrefix, removeTagPrefix);
-        argsTokenizer.tokenize(args);
+        Tars expectedTars = prepareExpectedTars();
+        Task editedTask =
+                expectedTars.getUniqueTaskList().getInternalList().get(0);
 
         model.addTask(taskToAdd);
-        Task editedTask = expectedTars.editTask(taskToAdd, argsTokenizer);
 
-        String inputCommand = "edit 1 " + args;
+        String inputCommand = "edit 1 /n Meet Betty Green /dt 20/09/2016 1800 "
+                + "to 21/09/2016 1800 /p h /tr tag2 /ta tag3";
 
         // execute command and verify result
-        assertCommandBehavior(inputCommand, String
-                .format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
+        assertCommandBehavior(inputCommand,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS,
+                        expectedTars.getTaskList().get(0)),
                 expectedTars, expectedTars.getTaskList());
-
+        
         expectedTars.replaceTask(editedTask, taskToAdd);
 
-        // exceute undo and verify result
+        // execute undo and verify result
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
                 String.format(UndoCommand.MESSAGE_SUCCESS,
                         String.format(EditCommand.MESSAGE_UNDO, taskToAdd)),
@@ -142,5 +144,23 @@ public class EditLogicCommandTest extends LogicCommandTest {
                 String.format(RedoCommand.MESSAGE_SUCCESS,
                         String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
                 expectedTars, expectedTars.getTaskList());
+    }
+
+    private static Tars prepareExpectedTars() throws IllegalValueException {
+        Tars expectedTars = new Tars();
+        Name editedName = new Name("Meet Betty Green");
+        DateTime editedDateTime =
+                new DateTime("20/09/2016 1800", "21/09/2016 1800");
+        Priority editedPriority = new Priority("h");
+        Status editedStatus = new Status(false);
+        Tag tag1 = new Tag("tag1");
+        Tag tag2 = new Tag("tag3");
+        UniqueTagList editedTags = new UniqueTagList(tag1, tag2);
+        Task editedTask = new Task(editedName, editedDateTime, editedPriority,
+                editedStatus, editedTags);
+        expectedTars.addTask(editedTask);
+        expectedTars.getUniqueTagList().add(new Tag("tag2"));
+
+        return expectedTars;
     }
 }
