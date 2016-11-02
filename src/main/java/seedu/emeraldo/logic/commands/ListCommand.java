@@ -9,13 +9,15 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_LIST_ALL = "Listed all tasks";
+    public static final String MESSAGE_LIST_ALL = "All tasks are successfully listed!\n";
     
-    public static final String MESSAGE_LIST_UNCOMPLETED = "Listed all uncompleted tasks";
+    public static final String MESSAGE_LIST_UNCOMPLETED = "Tasks that are uncompleted are successfully listed!\n";
     
     public static final String MESSAGE_LIST_KEYWORD = "Tasks with tag '%s' successfully listed!\n";
     
     public static final String MESSAGE_LIST_TIMEPERIOD = "Tasks happening %s successfully listed!\n";
+    
+    public static final String MESSAGE_LIST_COMPLETED = "Tasks that are completed successfully listed!\n";
     
     public static final String MESSAGE_USAGE = "(1) " + COMMAND_WORD + " :  Lists all uncompleted tasks\n"
     		+ "(2) " + COMMAND_WORD + " [PRE-DEFINED KEYWORDS] :  Lists all tasks in the period specified\n"
@@ -44,6 +46,9 @@ public class ListCommand extends Command {
         }else if(keyword.equalsIgnoreCase("tomorrow")){
         	model.updateFilteredTaskList(TimePeriod.tomorrow);
         	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
+        }else if (keyword.equalsIgnoreCase("completed")){
+        	model.updateFilteredTaskList(Completed.completed);
+        	this.successMessage = String.format(MESSAGE_LIST_COMPLETED, keyword.toLowerCase());
     	}else{
             model.updateFilteredTaskList(keyword);
             this.successMessage = String.format(MESSAGE_LIST_KEYWORD, keyword.toLowerCase())
@@ -53,4 +58,5 @@ public class ListCommand extends Command {
     }
     
     public enum TimePeriod {today, tomorrow};
+    public enum Completed {completed};
 }

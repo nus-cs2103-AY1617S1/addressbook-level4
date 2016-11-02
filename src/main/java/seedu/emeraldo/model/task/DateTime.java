@@ -37,14 +37,14 @@ public class DateTime {
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
 
     public final String value;
-    public final String context;
-    public final String overdueContext;
-    public final String eventContext;
-    public final String valueFormatted;
-    public final LocalDate valueDate;
-    public final LocalTime valueTime;
-    public final LocalDate valueDateEnd;
-    public final LocalTime valueTimeEnd;
+    public String context;
+    public String overdueContext;
+    public String eventContext;
+    public String valueFormatted;
+    public LocalDate valueDate;
+    public LocalTime valueTime;
+    public LocalDate valueDateEnd;
+    public LocalTime valueTimeEnd;
 
     /**
      * Validates given date and time.
@@ -135,6 +135,16 @@ public class DateTime {
             default:
                 return false;
         }
+    }
+    
+    public void setCompletedDateTime() throws IllegalValueException{
+    	this.valueDate = LocalDate.now();
+    	this.valueTime = LocalTime.now();
+    	this.valueFormatted = "Completed on " + DateTimeParser.valueDateCompletedFormatter(valueDate) 
+    		+ " at " + DateTimeParser.valueTimeCompletedFormatter(valueTime);
+    	this.context = "";
+    	this.eventContext = "";
+    	this.overdueContext = "";
     }
     
     //@@author A0142290

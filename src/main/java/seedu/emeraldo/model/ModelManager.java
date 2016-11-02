@@ -15,6 +15,7 @@ import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
 import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
+import seedu.emeraldo.logic.commands.ListCommand.Completed;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
@@ -203,6 +204,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword), new ListQualifier()));
     }
     
+
+    public void updateFilteredTaskList(Completed keyword){
+    	updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(keyword)));
+    }
+    
     /*
      * Combines the result from both qualifier such satisfies returns true only when 
      * both qualifiers are satisfied
@@ -366,29 +372,48 @@ public class ModelManager extends ComponentManager implements Model {
      *  Compare tasks tags with the keyword "completed"
      */
     private class ListQualifier implements Qualifier {
-    	private String completedTag = "Completed";
-    	
-        ListQualifier() {}
+        private Completed CompletedKeyword;
+
+        ListQualifier() {  }	
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            boolean completedFinder = false;
-            Tag tag;
-            Iterator<Tag> tagIterator = task.getTags().iterator();
-            while(tagIterator.hasNext()){
-                tag = tagIterator.next();
-                completedFinder = completedFinder || run(tag);
-            }
-            return !completedFinder;
-        }
-        
-        private boolean run(Tag tag){
-            return tag.tagName.equalsIgnoreCase(completedTag);
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        		return false;
+        	else
+        		return true;
         }
 
         @Override
         public String toString() {
-            return "tag=" + String.join(", ", completedTag);
+            return "List= " + CompletedKeyword;
+        }
+    }
+
+    /**
+     * Qualifies the tasks that are completed
+     *
+     */
+    private class CompletedQualifier implements Qualifier {
+        private Completed CompletedKeyword;
+
+        CompletedQualifier(Completed keyword) {
+            this.CompletedKeyword = keyword;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueFormatted.startsWith("Completed")) 
+        		return true;
+        	else
+        		return false;
+        }
+
+        @Override
+        public String toString() {
+            return "Completed= " + CompletedKeyword;
         }
     }
 }
