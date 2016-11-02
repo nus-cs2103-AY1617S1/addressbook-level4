@@ -26,7 +26,7 @@ public class Date implements Comparable<Date> {
 	private static final int[] numDays = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //numDays[0] contains a dummy value
 	public final String fullDate;
 	private int day;
-	private int month;
+	private int month;	
 	private int year;
 
 	/**
@@ -39,11 +39,14 @@ public class Date implements Comparable<Date> {
 		assert date != null;
 		if (!date.equals("       ")) {
 			date = date.trim();
+			if (!checkRegex(date)) {
+				throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+			}
 			int[] values = splitDate(date);
 			this.day = values[0];
 			this.month = values[1];
 			this.year = values[2];
-			if (!isValidDate(date, day, month, year)) {
+			if (!isValidDate(day, month, year)) {
 				throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
 			}
 		}
@@ -76,10 +79,14 @@ public class Date implements Comparable<Date> {
 	/**
 	 * Returns true if a given string is a valid date.
 	 */
-	public static boolean isValidDate(String test, int day, int month, int year) {
+	public static boolean isValidDate(int day, int month, int year) {
+		return isValidYear(year) && isValidMonth(month) && isValidDay(day, month, year);
+	}
+
+	private static boolean checkRegex(String test) {
 		final Pattern pattern = Pattern.compile(DATE_VALIDATION_REGEX);
 		final Matcher matcher = pattern.matcher(test.trim());
-		return matcher.matches() && isValidYear(year) && isValidMonth(month) && isValidDay(day, month, year);
+		return matcher.matches();
 	}
 
 	/*
