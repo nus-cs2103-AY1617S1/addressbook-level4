@@ -4,10 +4,12 @@
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
+        blockFreeTime(task);
         updateFilteredListToShowAllIncomplete();
-        indicateAddTask(task);
+        indicateAddTask(task, false);
         indicateWhatNowChanged();
     }
+
 ```
 ###### \java\seedu\whatnow\model\task\Name.java
 ``` java
@@ -16,8 +18,8 @@ package seedu.whatnow.model.task;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's name in WhatNow.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Task's name in WhatNow. Guarantees: immutable; is valid as
+ * declared in {@link #isValidName(String)}
  */
 public class Name {
 
@@ -29,7 +31,8 @@ public class Name {
     /**
      * Validates given name.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException
+     *             if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -47,7 +50,6 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
-
     @Override
     public String toString() {
         return fullName;
@@ -57,7 +59,8 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+                        && this.fullName.equals(((Name) other).fullName)); // state
+                                                                           // check
     }
 
     @Override
@@ -84,8 +87,7 @@ public class XmlFileStorage {
     /**
      * Saves the given whatnow data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableWhatNow whatNow)
-            throws FileNotFoundException {
+    public static void saveDataToFile(File file, XmlSerializableWhatNow whatNow) throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, whatNow);
         } catch (JAXBException e) {
@@ -96,8 +98,8 @@ public class XmlFileStorage {
     /**
      * Returns WhatNow in the file or an empty WhatNow
      */
-    public static XmlSerializableWhatNow loadDataFromSaveFile(File file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static XmlSerializableWhatNow loadDataFromSaveFile(File file)
+            throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableWhatNow.class);
         } catch (JAXBException e) {
@@ -144,7 +146,8 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableWhatNow() {}
+    public XmlSerializableWhatNow() {
+    }
 
     /**
      * Conversion
@@ -159,7 +162,7 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
+            // TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -172,11 +175,11 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                // TODO: better error handling
             } catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         return lists;
     }
@@ -188,13 +191,13 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // TODO: better error handling
                 return null;
             } catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return null;
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return null;
+            }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 

@@ -16,7 +16,7 @@ public abstract class ComponentManager {
     /**
      * Uses default {@link EventsCenter}
      */
-    public ComponentManager(){
+    public ComponentManager() {
         this(EventsCenter.getInstance());
     }
 
@@ -25,7 +25,7 @@ public abstract class ComponentManager {
         eventsCenter.registerHandler(this);
     }
 
-    protected void raise(BaseEvent event){
+    protected void raise(BaseEvent event) {
         eventsCenter.post(event);
     }
 }
@@ -125,17 +125,16 @@ public class GuiSettings implements Serializable {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof GuiSettings)){ //this handles null as well.
+        if (!(other instanceof GuiSettings)) { // this handles null as well.
             return false;
         }
 
-        GuiSettings o = (GuiSettings)other;
+        GuiSettings o = (GuiSettings) other;
 
-        return Objects.equals(windowWidth, o.windowWidth)
-                && Objects.equals(windowHeight, o.windowHeight)
+        return Objects.equals(windowWidth, o.windowWidth) && Objects.equals(windowHeight, o.windowHeight)
                 && Objects.equals(windowCoordinates.x, o.windowCoordinates.x)
                 && Objects.equals(windowCoordinates.y, o.windowCoordinates.y);
     }
@@ -146,7 +145,7 @@ public class GuiSettings implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Width : " + windowWidth + "\n");
         sb.append("Height : " + windowHeight + "\n");
@@ -168,7 +167,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
-    public static final String MESSAGE_INVALID_PATH = "Invalid Path!"; 
+    public static final String MESSAGE_INVALID_PATH = "Invalid Path!";
 
 }
 ```
@@ -223,7 +222,9 @@ public class Version implements Comparable<Version> {
 
     /**
      * Parses a version number string in the format V1.2.3.
-     * @param versionString version number string
+     * 
+     * @param versionString
+     *            version number string
      * @return a Version object
      */
     @JsonCreator
@@ -234,10 +235,8 @@ public class Version implements Comparable<Version> {
             throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
         }
 
-        return new Version(Integer.parseInt(versionMatcher.group(1)),
-                Integer.parseInt(versionMatcher.group(2)),
-                Integer.parseInt(versionMatcher.group(3)),
-                versionMatcher.group(4) == null ? false : true);
+        return new Version(Integer.parseInt(versionMatcher.group(1)), Integer.parseInt(versionMatcher.group(2)),
+                Integer.parseInt(versionMatcher.group(3)), versionMatcher.group(4) == null ? false : true);
     }
 
     @JsonValue
@@ -247,11 +246,10 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(Version other) {
-        return this.major != other.major ? this.major - other.major :
-               this.minor != other.minor ? this.minor - other.minor :
-               this.patch != other.patch ? this.patch - other.patch :
-               this.isEarlyAccess == other.isEarlyAccess() ? 0 :
-               this.isEarlyAccess ? -1 : 1;
+        return this.major != other.major ? this.major - other.major
+                : this.minor != other.minor ? this.minor - other.minor
+                        : this.patch != other.patch ? this.patch - other.patch
+                                : this.isEarlyAccess == other.isEarlyAccess() ? 0 : this.isEarlyAccess ? -1 : 1;
     }
 
     @Override
@@ -284,10 +282,11 @@ package seedu.whatnow.commons.events;
 public abstract class BaseEvent {
 
     /**
-     * All Events should have a clear unambiguous custom toString message so that feedback message creation
-     * stays consistent and reusable.
+     * All Events should have a clear unambiguous custom toString message so
+     * that feedback message creation stays consistent and reusable.
      *
-     * For example the event manager post method will call any posted event's toString and print it in the console.
+     * For example the event manager post method will call any posted event's
+     * toString and print it in the console.
      */
     public abstract String toString();
 
@@ -300,13 +299,15 @@ package seedu.whatnow.commons.events.model;
 import seedu.whatnow.commons.events.BaseEvent;
 import seedu.whatnow.model.task.Task;
 
-/** Indicates that a task has been added to WhatNow*/
+/** Indicates that a task has been added to WhatNow */
 public class AddTaskEvent extends BaseEvent {
 
     public final Task task;
+    public final boolean isUndo;
 
-    public AddTaskEvent(Task task){
+    public AddTaskEvent(Task task, boolean isUndo) {
         this.task = task;
+        this.isUndo = isUndo;
     }
 
     @Override
@@ -322,12 +323,12 @@ package seedu.whatnow.commons.events.model;
 import seedu.whatnow.commons.events.BaseEvent;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 
-/** Indicates the WhatNow config in the model has changed*/
+/** Indicates the WhatNow config in the model has changed */
 public class WhatNowChangedEvent extends BaseEvent {
 
     public final ReadOnlyWhatNow data;
 
-    public WhatNowChangedEvent(ReadOnlyWhatNow data){
+    public WhatNowChangedEvent(ReadOnlyWhatNow data) {
         this.data = data;
     }
 
@@ -349,7 +350,8 @@ import seedu.whatnow.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectCommandAttemptedEvent(Command command) {}
+    public IncorrectCommandAttemptedEvent(Command command) {
+    }
 
     @Override
     public String toString() {
@@ -394,10 +396,9 @@ import seedu.whatnow.model.task.ReadOnlyTask;
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
-
     private final ReadOnlyTask newSelection;
 
-    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection){
+    public TaskPanelSelectionChangedEvent(ReadOnlyTask newSelection) {
         this.newSelection = newSelection;
     }
 
@@ -482,8 +483,6 @@ public class CollectionUtil {
         return false;
     }
 
-
-
     /**
      * Throws an assertion error if the collection or any item in it is null.
      */
@@ -493,12 +492,14 @@ public class CollectionUtil {
     }
 
     /**
-     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
+     * Returns true if every element in a collection are unique by
+     * {@link Object#equals(Object)}.
      */
     public static boolean elementsAreUnique(Collection<?> items) {
         final Set<Object> testSet = new HashSet<>();
         for (Object item : items) {
-            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
+            final boolean itemAlreadyExists = !testSet.add(item); // see Set
+                                                                  // documentation
             if (itemAlreadyExists) {
                 return false;
             }
@@ -529,7 +530,7 @@ public class StringUtil {
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
-    public static String getDetails(Throwable t){
+    public static String getDetails(Throwable t) {
         assert t != null;
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
@@ -538,10 +539,13 @@ public class StringUtil {
 
     /**
      * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
-     *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
-     * @param s Should be trimmed.
+     * Will return false for null, empty string, "-1", "0", "+1", and " 2 "
+     * (untrimmed) "3 0" (contains whitespace).
+     * 
+     * @param s
+     *            Should be trimmed.
      */
-    public static boolean isUnsignedInteger(String s){
+    public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
 }
@@ -568,7 +572,7 @@ public class UrlUtil {
         return url1.getHost().toLowerCase().replaceFirst("www.", "")
                 .equals(url2.getHost().replaceFirst("www.", "").toLowerCase())
                 && url1.getPath().replaceAll("/", "").toLowerCase()
-                .equals(url2.getPath().replaceAll("/", "").toLowerCase());
+                        .equals(url2.getPath().replaceAll("/", "").toLowerCase());
     }
 
 }
@@ -592,12 +596,16 @@ public class XmlUtil {
     /**
      * Returns the xml data in the file as an object of the specified type.
      *
-     * @param file           Points to a valid xml file containing data that match the {@code classToConvert}.
-     *                       Cannot be null.
-     * @param classToConvert The class corresponding to the xml data.
-     *                       Cannot be null.
-     * @throws FileNotFoundException Thrown if the file is missing.
-     * @throws JAXBException         Thrown if the file is empty or does not have the correct format.
+     * @param file
+     *            Points to a valid xml file containing data that match the
+     *            {@code classToConvert}. Cannot be null.
+     * @param classToConvert
+     *            The class corresponding to the xml data. Cannot be null.
+     * @throws FileNotFoundException
+     *             Thrown if the file is missing.
+     * @throws JAXBException
+     *             Thrown if the file is empty or does not have the correct
+     *             format.
      */
     @SuppressWarnings("unchecked")
     public static <T> T getDataFromFile(File file, Class<T> classToConvert)
@@ -619,11 +627,14 @@ public class XmlUtil {
     /**
      * Saves the data in the file in xml format.
      *
-     * @param file Points to a valid xml file containing data that match the {@code classToConvert}.
-     *             Cannot be null.
-     * @throws FileNotFoundException Thrown if the file is missing.
-     * @throws JAXBException         Thrown if there is an error during converting the data
-     *                               into xml and writing to the file.
+     * @param file
+     *            Points to a valid xml file containing data that match the
+     *            {@code classToConvert}. Cannot be null.
+     * @throws FileNotFoundException
+     *             Thrown if the file is missing.
+     * @throws JAXBException
+     *             Thrown if there is an error during converting the data into
+     *             xml and writing to the file.
      */
     public static <T> void saveDataToFile(File file, T data) throws FileNotFoundException, JAXBException {
 
@@ -654,14 +665,73 @@ import seedu.whatnow.model.WhatNow;
 /**
  * Clears WhatNow.
  */
-public class ClearCommand extends UndoAndRedo {
+public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "WhatNow has been cleared!";
-    
-    public static Stack<WhatNow> reqStack;
-    public ClearCommand() {}
 
+    public static Stack<WhatNow> reqStack;
+
+    /**
+     * Executes the ClearCommand to delete all task data on WhatNow
+     */
+    public ClearCommand() {
+    }
+
+```
+###### \java\seedu\whatnow\logic\commands\Command.java
+``` java
+import seedu.whatnow.commons.core.EventsCenter;
+import seedu.whatnow.commons.core.Messages;
+import seedu.whatnow.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.whatnow.model.Model;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+
+/**
+ * Represents a command with hidden internal logic and the ability to be
+ * executed.
+ */
+public abstract class Command {
+    protected Model model;
+
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a
+     * listing of tasks.
+     *
+     * @param displaySize
+     *            used to generate summary
+     * @return summary message for tasks displayed
+     */
+    public static String getMessageForTaskListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_TASK_LISTED_OVERVIEW, displaySize);
+    }
+
+    /**
+     * Executes the command and returns the result message.
+     *
+     * @return feedback message of the operation result for display
+     * @throws TaskNotFoundException
+     * @throws DuplicateTaskException
+     */
+    public abstract CommandResult execute() throws DuplicateTaskException, TaskNotFoundException;
+
+    /**
+     * Provides any needed dependencies to the command. Commands making use of
+     * any of these should override this method to gain access to the
+     * dependencies.
+     */
+    public void setData(Model model) {
+        this.model = model;
+    }
+
+    /**
+     * Raises an event to indicate an attempt to execute an incorrect command
+     */
+    protected void indicateAttemptToExecuteIncorrectCommand() {
+        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+}
 ```
 ###### \java\seedu\whatnow\logic\commands\CommandResult.java
 ``` java
@@ -686,16 +756,20 @@ public class CommandResult {
 package seedu.whatnow.logic.commands;
 
 /**
- * Represents an incorrect command. Upon execution, produces some feedback to the user.
+ * Represents an incorrect command. Upon execution, produces some feedback to
+ * the user.
  */
 public class IncorrectCommand extends Command {
 
     public final String feedbackToUser;
 
-    public IncorrectCommand(String feedbackToUser){
+    public IncorrectCommand(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
     }
 
+    /**
+     * Executes the IncorrectCommand to display the feedback message to user
+     */
     @Override
     public CommandResult execute() {
         indicateAttemptToExecuteIncorrectCommand();
@@ -703,6 +777,41 @@ public class IncorrectCommand extends Command {
     }
 
 }
+```
+###### \java\seedu\whatnow\logic\parser\Parser.java
+``` java
+    /**
+     * Extracts the new task's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        // no tags
+        if (tagArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        return new HashSet<>(tagStrings);
+    }
+
+```
+###### \java\seedu\whatnow\logic\parser\Parser.java
+``` java
+    /**
+     * Parses arguments in the context of the select task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareSelect(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        }
+
+        return new SelectCommand(index.get());
+    }
 
 ```
 ###### \java\seedu\whatnow\MainApp.java
@@ -748,7 +857,8 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-    public MainApp() {}
+    public MainApp() {
+    }
 
     @Override
     public void init() throws Exception {
@@ -769,20 +879,20 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-    
+
     public void setConfig(Config config) {
         this.config = config;
     }
-    
+
     public Config getConfig() {
         return this.config;
     }
-    
-    public void setStorage(Storage storage){
+
+    public void setStorage(Storage storage) {
         this.storage = storage;
     }
 
-    private String getApplicationParameter(String parameterName){
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
@@ -792,7 +902,7 @@ public class MainApp extends Application {
         ReadOnlyWhatNow initialData;
         try {
             whatNowOptional = storage.readWhatNow();
-            if(!whatNowOptional.isPresent()){
+            if (!whatNowOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty WhatNow");
             }
             initialData = whatNowOptional.orElse(new WhatNow());
@@ -817,7 +927,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
@@ -828,12 +938,13 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+                    + "Using default config properties");
             initializedConfig = new Config();
         }
 
-        //Update config file in case it was missing to begin with or there are new/unused fields
+        // Update config file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
         } catch (IOException e) {
@@ -853,15 +964,16 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
-                    "Using default user prefs");
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty WhatNow");
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are
+        // new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
@@ -911,6 +1023,7 @@ public class MainApp extends Application {
     private void indicateWhatNowChanged() {
         raise(new WhatNowChangedEvent(whatNow));
     }
+
 ```
 ###### \java\seedu\whatnow\model\tag\Tag.java
 ``` java
@@ -919,8 +1032,8 @@ package seedu.whatnow.model.tag;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in WhatNow.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a Tag in WhatNow. Guarantees: immutable; name is valid as declared
+ * in {@link #isValidTagName(String)}
  */
 public class Tag {
 
@@ -935,7 +1048,8 @@ public class Tag {
     /**
      * Validates given tag name.
      *
-     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws IllegalValueException
+     *             if the given tag name string is invalid.
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
@@ -957,7 +1071,8 @@ public class Tag {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
-                && this.tagName.equals(((Tag) other).tagName)); // state check
+                        && this.tagName.equals(((Tag) other).tagName)); // state
+                                                                        // check
     }
 
     @Override
@@ -996,7 +1111,8 @@ import java.util.*;
 public class UniqueTagList implements Iterable<Tag> {
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTagException extends DuplicateDataException {
         protected DuplicateTagException() {
@@ -1009,7 +1125,8 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Constructs empty TagList.
      */
-    public UniqueTagList() {}
+    public UniqueTagList() {
+    }
 
     /**
      * Varargs/array constructor, enforces no nulls or duplicates.
@@ -1046,11 +1163,13 @@ public class UniqueTagList implements Iterable<Tag> {
      * Copy constructor, insulates from changes in source.
      */
     public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+        internalList.addAll(source.internalList); // insulate internal list from
+                                                  // changes in argument
     }
 
     /**
-     * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
+     * All tags in this list as a Set. This set is mutable and change-insulated
+     * against the internal list.
      */
     public Set<Tag> toSet() {
         return new HashSet<>(internalList);
@@ -1065,7 +1184,8 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Adds every tag from the argument list that does not yet exist in this list.
+     * Adds every tag from the argument list that does not yet exist in this
+     * list.
      */
     public void mergeFrom(UniqueTagList tags) {
         final Set<Tag> alreadyInside = this.toSet();
@@ -1077,13 +1197,14 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Returns true if the list contains an equivalent Tag as the given argument.
+     * Returns true if the list contains an equivalent Tag as the given
+     * argument.
      */
     public boolean contains(Tag toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-    
+
     /**
      * Returns the number of tags in the list.
      */
@@ -1094,7 +1215,9 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Adds a Tag to the list.
      *
-     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     * @throws DuplicateTagException
+     *             if the Tag to add is a duplicate of an existing Tag in the
+     *             list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
         assert toAdd != null;
@@ -1130,7 +1253,7 @@ public class UniqueTagList implements Iterable<Tag> {
         }
         return false;
     }
- 
+
     @Override
     public int hashCode() {
         return internalList.hashCode();
@@ -1158,7 +1281,7 @@ public class UserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public UserPrefs(){
+    public UserPrefs() {
         this.setGuiSettings(500, 500, 0, 0);
     }
 
@@ -1168,14 +1291,14 @@ public class UserPrefs {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)){ //this handles null as well.
+        if (!(other instanceof UserPrefs)) { // this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs)other;
+        UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings);
     }
@@ -1186,7 +1309,7 @@ public class UserPrefs {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return guiSettings.toString();
     }
 
@@ -1207,8 +1330,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the WhatNow level
- * Duplicates are not allowed (by .equals comparison)
+ * Wraps all data at the WhatNow level Duplicates are not allowed (by .equals
+ * comparison)
  */
 public class WhatNow implements ReadOnlyWhatNow {
 
@@ -1221,7 +1344,8 @@ public class WhatNow implements ReadOnlyWhatNow {
         tags = new UniqueTagList();
     }
 
-    public WhatNow() {}
+    public WhatNow() {
+    }
 
     /**
      * Tasks and Tags are copied into this whatnow
@@ -1240,9 +1364,8 @@ public class WhatNow implements ReadOnlyWhatNow {
     public static ReadOnlyWhatNow getEmptyWhatNow() {
         return new WhatNow();
     }
-   
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
@@ -1257,26 +1380,28 @@ public class WhatNow implements ReadOnlyWhatNow {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        
-    	setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyWhatNow newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
-	public void revertEmptyWhatNow(ReadOnlyWhatNow backUp) {
-		resetData(backUp.getTaskList(),backUp.getTagList());
-	}
 
-//// task-level operations
+    public void revertEmptyWhatNow(ReadOnlyWhatNow backUp) {
+        resetData(backUp.getTaskList(), backUp.getTagList());
+    }
+
+    //// task-level operations
 
     /**
-     * Adds a task to WhatNow.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds a task to WhatNow. Also checks the new task's tags and updates
+     * {@link #tags} with any new tags found, and updates the Tag objects in the
+     * task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
@@ -1284,9 +1409,23 @@ public class WhatNow implements ReadOnlyWhatNow {
     }
 
     /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     * Adds a task to WhatNow at the specific index Also checks the new task's
+     * tags and updates {@link #tags} with any new tags found, and updates the
+     * Tag objects in the task to point to those in {@link #tags}.
+     * 
+     * @param task
+     *            is the task to re-add, idx is the idx the task was originally
+     *            at
+     * @throws DuplicateTaskException
+     */
+    public void addTaskSpecific(Task p, int idx) throws DuplicateTaskException {
+        syncTagsWithMasterList(p);
+        tasks.addSpecific(p, idx);
+    }
+
+    /**
+     * Ensures that every tag in this task: - exists in the master list
+     * {@link #tags} - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -1309,35 +1448,39 @@ public class WhatNow implements ReadOnlyWhatNow {
     /**
      * Remove a task from WhatNow.
      *
-     * @throws UniqueTaskList.TaskNotFoundException if the task does not exist.
+     * @throws UniqueTaskList.TaskNotFoundException
+     *             if the task does not exist.
      */
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public int removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        int indexRemoved = tasks.getInternalList().indexOf(key);
+        if (tasks.remove(key)) {
+            return indexRemoved;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+
+    public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
-    public boolean changeTask(ReadOnlyTask key) throws TaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        } 
-    }
+
     /**
      * Updates a task on WhatNow.
      * 
      * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-    	if (tasks.update(old, toUpdate)) {
+        if (tasks.update(old, toUpdate)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+
     /**
      * Marks a task on WhatNow as completed.
      * 
@@ -1351,26 +1494,25 @@ public class WhatNow implements ReadOnlyWhatNow {
         }
     }
 
-	public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-		if(tasks.unmark(target)) {
-			return true;
-		} else {
-			throw new UniqueTaskList.TaskNotFoundException();
-		}
-	}
+    public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.unmark(target)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
-
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
     }
 
     @Override
@@ -1393,18 +1535,17 @@ public class WhatNow implements ReadOnlyWhatNow {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WhatNow // instanceof handles nulls
-                && this.tasks.equals(((WhatNow) other).tasks)
-                && this.tags.equals(((WhatNow) other).tags));
+                        && this.tasks.equals(((WhatNow) other).tasks) && this.tags.equals(((WhatNow) other).tags));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(tasks, tags);
     }
 }
@@ -1428,21 +1569,26 @@ public class XmlAdaptedTag {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTag() {}
+    public XmlAdaptedTag() {
+    }
 
     /**
      * Converts a given Tag into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created
+     * @param source
+     *            future changes to this will not affect the created
      */
     public XmlAdaptedTag(Tag source) {
         tagName = source.tagName;
     }
 
     /**
-     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     * Converts this jaxb-friendly adapted tag object into the model's Tag
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws IllegalValueException
+     *             if there were any data constraints violated in the adapted
+     *             task
      */
     public Tag toModelType() throws IllegalValueException {
         return new Tag(tagName);
@@ -1465,13 +1611,14 @@ import java.util.logging.Logger;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart{
+public class BrowserPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private WebView browser;
 
     /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
+     * Constructor is kept private as {@link #load(AnchorPane)} is the only way
+     * to create a BrowserPanel.
      */
     private BrowserPanel() {
 
@@ -1479,24 +1626,28 @@ public class BrowserPanel extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        //not applicable
+        // not applicable
     }
 
     @Override
     public String getFxmlPath() {
-        return null; //not applicable
+        return null; // not applicable
     }
 
     /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
+     * Factory method for creating a Browser Panel. This method should be called
+     * after the FX runtime is initialized and in FX application thread.
+     * 
+     * @param placeholder
+     *            The AnchorPane where the BrowserPanel must be inserted
      */
-    public static BrowserPanel load(AnchorPane placeholder){
+    public static BrowserPanel load(AnchorPane placeholder) {
         logger.info("Initializing browser");
         BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering
+                                                     // events for typing inside
+                                                     // the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.browser);
         return browserPanel;
@@ -1506,7 +1657,7 @@ public class BrowserPanel extends UiPart{
         loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
     }
 
-    public void loadPage(String url){
+    public void loadPage(String url) {
         browser.getEngine().load(url);
     }
 
@@ -1563,11 +1714,12 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() {
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
+        // Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setMaximized(true); // TODO: set a more appropriate initial
+                                        // size
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
@@ -1654,7 +1806,7 @@ public class StatusBarFooter extends UiPart {
     private void setSyncStatus(String status) {
         this.syncStatus.setText(status);
     }
-    
+
     private void setSaveLocationStatus(Path destination) {
         this.saveLocationStatus.setText(destination.toString());
     }
@@ -1686,12 +1838,12 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
-    
+
     @Subscribe
     public void handleFileLocationChangedEvent(ConfigChangedEvent event) {
         setSaveLocationStatus(event.destination);
     }
-    
+
 }
 ```
 ###### \java\seedu\whatnow\ui\Ui.java
@@ -1703,7 +1855,7 @@ import javafx.stage.Stage;
  */
 public interface Ui {
 
-    /** Starts the UI (and the App).  */
+    /** Starts the UI (and the App). */
     void start(Stage primaryStage);
 
     /** Stops the UI. */

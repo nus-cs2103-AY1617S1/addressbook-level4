@@ -163,7 +163,7 @@ public class TaskDate {
      * @return true is valid date range, else false
      * @throws java.text.ParseException
      */
-    // @@author A0319128A
+    // @@author A0139128A
     private boolean isValidDateRange(String startDate, String endDate) throws java.text.ParseException {
         for (int i = 0; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i++) {
             if ((startDate.matches(ListOfDateRegex.get(i)) && (endDate.matches(ListOfDateRegex.get(i))))) {
