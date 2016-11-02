@@ -60,7 +60,7 @@
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
-    -fx-selection-bar-non-focused: transparent;
+    -fx-selection-bar-non-focused: gray;
 }
 
 .table-view .column-header-background {
