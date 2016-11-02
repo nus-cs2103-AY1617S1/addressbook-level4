@@ -1,20 +1,24 @@
 package seedu.address.model;
 
 
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
-import java.util.HashMap;
 import java.util.List;
 
+import seedu.address.model.alias.ReadOnlyAlias;
+import seedu.address.model.alias.UniqueAliasList;
+
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an alias manager.
  */
 public interface ReadOnlyAliasManager {
 
-	public HashMap<String,String> getAlias();
-	public String getValueOf(String key);
+    UniqueAliasList getUniqueAliasList();
+
+    /**
+     * Returns an unmodifiable view of alias list
+     */
+    List<ReadOnlyAlias> getAliasList();
+	
+	//public HashMap<String,String> getAlias();
+	//public String getValueOf(String key);
 	
 }

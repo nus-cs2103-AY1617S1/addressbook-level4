@@ -63,7 +63,7 @@ public class AliasManager implements ReadOnlyAliasManager{
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueAliasList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addAlias(String key, String value) {
         alias.put(key, value);

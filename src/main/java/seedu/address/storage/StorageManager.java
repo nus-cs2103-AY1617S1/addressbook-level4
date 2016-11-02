@@ -6,6 +6,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyAliasManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.UserPrefs;
 
