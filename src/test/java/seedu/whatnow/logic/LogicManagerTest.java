@@ -596,6 +596,11 @@ public class LogicManagerTest {
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB, expectedList);
     }
+    
+    @Test
+    public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
+        assertCommandBehavior("freetime", "Invalid command format! \n" + FreeTimeCommand.MESSAGE_USAGE);
+    }
 
     /**
      * A utility class to generate test data.
@@ -780,4 +785,4 @@ public class LogicManagerTest {
                     "incomplete", null);
         }
     }
-}
+}  
