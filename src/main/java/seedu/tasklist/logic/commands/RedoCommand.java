@@ -14,6 +14,11 @@ import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Redo's the last undo action made by the user
+ * Does not work if the user performs a task list mutating action following the undo
+ */
+
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";

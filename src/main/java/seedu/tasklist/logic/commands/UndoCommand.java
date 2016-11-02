@@ -14,6 +14,10 @@ import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Undo's the last undo action made by the user that mutated the task list
+ */
+
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

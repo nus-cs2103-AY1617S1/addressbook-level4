@@ -7,6 +7,12 @@ import java.util.Collection;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.tasklist.model.task.Task;
 
+/**
+ * Stores the undo information for reverting to the previous state
+ * Previous state of the task is stored
+ * Also, the command that was performed on this task is stored using a command ID
+ * For undoing setstorage, the original filepath is stored as a string in filePath
+ */
 public class UndoInfo {
 
     private int undo_ID;
