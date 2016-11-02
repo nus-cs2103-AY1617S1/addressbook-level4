@@ -128,4 +128,21 @@ public class ModelManagerTest {
         }
     }
     
+//    public void sortTasks_addListOfUnsortedTasks_trueIfSorted() throws IllegalValueException {
+//    	TestTask task1 = new TaskBuilder().withName("task1").withStartTime("5 days later").withEndTime("next week")
+//    			.withDone(false).withRecurrence("").build();
+//    	TestTask task2 = new TaskBuilder().withName("task2").withStartTime("today").withEndTime("tmr")
+//    			.withDone(false).withRecurrence("").build();
+//    	TestTask task3 = new TaskBuilder().withName("task3").withStartTime("").withEndTime("11pm")
+//    			.withDone(false).withRecurrence("").build();
+//    	TestTask task4 = new TaskBuilder().withName("task4").withStartTime("11pm").withEndTime("")
+//    			.withDone(false).withRecurrence("").build();
+//    	TestTask task5 = new TaskBuilder().withName("task5").withStartTime("").withEndTime("")
+//    			.withDone(false).withRecurrence("").build();
+//    	
+//    	ModelManager testModel = new ModelManager();
+//    	testModel.addTask(task1);
+//    	
+//    }
+    
 }
