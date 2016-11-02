@@ -23,7 +23,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/Tdoo_icon.png";
     private static final String FXML = "MainWindow.fxml";
 
-    public static final int MIN_HEIGHT = 830;
+    public static final int MIN_HEIGHT = 880;
     public static final int MIN_WIDTH = 1245;
 
 
