@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
+import seedu.forgetmenot.logic.commands.Command;
 import seedu.forgetmenot.testutil.TestTask;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
@@ -20,19 +21,21 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertUndoAddSuccess(taskToAdd, currentList);
 
         // undo delete command
-        int targetIndex = 1;
-        assertUndoDeleteSuccess(targetIndex, currentList);
+        int targetIndexToDelete = 1;
+        assertUndoDeleteSuccess(targetIndexToDelete, currentList);
 
         // undo clear command
         assertUndoClearSuccess(currentList);
 
         // undo edit command
-        assertUndoEditSuccess(currentList);
-
+        int targetIndexToEdit = 1;
+        assertUndoEditNameSuccess(targetIndexToEdit, currentList);
     }
 
-    private void assertUndoEditSuccess(TestTask[] currentList) {
-        
+    private void assertUndoEditNameSuccess(int targetIndex, TestTask[] currentList) {
+        commandBox.runCommand("edit " + targetIndex + " new name");
+        commandBox.runCommand("undo");
+        assertTrue(taskListPanel.isListMatching(currentList));
     }
 
     private void assertUndoAddSuccess(TestTask taskToAdd, TestTask[] currentList) {
