@@ -54,7 +54,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-//=========== Filtered Task List Without completed tag ==============================================
+//=========== Filtered Task List that are completed ==============================================
     
     //@@author A0139749L
     /** Updates the filter of the filtered task list to filter by the given keywords
@@ -72,7 +72,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks without completed tag*/
     void updateFilteredListToShowUncompleted();
     
-//=========== Filtered Task List With completed tag ==============================================
+//=========== Filtered Task List that including completed ones ==============================================
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
 	void updateFilteredTaskListWithCompleted(Set<String> keywords);
@@ -83,7 +83,6 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given time period*/
     void updateFilteredTaskListWithCompleted(TimePeriod keyword);
     
-    //@@author A0142290N
     /**Updates the filter of the filtered task list to filter by the keyword "completed*/
     void updateFilteredTaskList(Completed keyword);
 }
