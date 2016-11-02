@@ -25,7 +25,7 @@ public class AddCommand extends UndoableCommand {
     
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to To-Do List.\n"
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
@@ -46,8 +46,8 @@ public class AddCommand extends UndoableCommand {
      */
     public AddCommand(HashMap<String, Optional<String>> mapOfStrings) 
                     throws IllegalValueException {
-        //TODO: assert taskNameString != null;
         HashMap<String, Object> mapOfObjects = AddCommandHelper.convertStringToObjects(mapOfStrings);
+        assert mapOfObjects.get("taskName") != null;
         
         Name taskName = (Name) mapOfObjects.get("taskName");
         Date startDate = (Date) mapOfObjects.get("startDate");

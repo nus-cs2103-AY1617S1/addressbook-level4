@@ -30,7 +30,7 @@ public class AddCommandHelperTest {
             AddCommandHelper.convertStringToObjects(testOptionalHashMap.map);
             assert false;
         } catch (IllegalValueException ive) {
-            assertEquals(ive.getMessage(), "End date should be later than start date");
+            assertEquals(ive.getMessage(), "End date should be later than start date.");
         }
     }
     
