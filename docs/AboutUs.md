@@ -48,7 +48,6 @@ Features implemented:
 
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
-**Components in charge of:** Model <br>
 
 * Components in charge of: [Model](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/model)
 * Aspects/tools in charge of: Testing, Sourcetree, Eclipse
@@ -73,9 +72,14 @@ Features implemented:
 
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
-**Components in charge of:** UI <br>
-Features implemented:
-[UI Design](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)  
+
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-T11-C2/main/tree/master/src/main/java/seedu/forgetmenot/ui)
+* Aspects/tools in charge of: JavaFX, FXML
+* Features implemented:
+   * [UI Design](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)
+* Code written: [[functional code]()][[test code]()][[docs]()]
+* Other major contributions:
+  * Major contributor to changes of UI
 
 
 -----
