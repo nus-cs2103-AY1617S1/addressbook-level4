@@ -149,7 +149,7 @@ public class UiManager extends ComponentManager implements Ui {
             break;
         case "Event":
             sb.append("\nTime: " + ((Event) activity).getStartTime().toString()
-                    + "\nto   " + ((Event) activity).getEndTime().toString());
+                    + "\nto        " + ((Event) activity).getEndTime().toString());
             break;
         }
         
