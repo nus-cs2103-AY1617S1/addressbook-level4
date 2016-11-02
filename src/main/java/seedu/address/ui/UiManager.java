@@ -122,16 +122,17 @@ public class UiManager extends ComponentManager implements Ui {
     //==================== Reminder Dialog Box =================================================================
     
     private void showReminderDialog(ArrayList<ReadOnlyActivity> activities) {
-        /*ImageIcon reminderIcon = new ImageIcon("/images/ringing.png",
-                "Reminder Bell");*/
+        ImageIcon reminderIcon = new ImageIcon(getClass().getResource("/images/ringing.png"),
+                "Reminder Bell");
         
-        System.out.println("I'm here");
+        //System.out.println("I'm here");
         
         for (ReadOnlyActivity activity : activities) {
             JOptionPane.showMessageDialog(new JFrame(),
                     textForReminderDialog(activity, activity.getClass().getSimpleName()),
-                    "Reminder: " + activity.getReminder().toString(),
-                    JOptionPane.WARNING_MESSAGE);
+                    "Reminder: " + activity.getName().toString(),
+                    JOptionPane.INFORMATION_MESSAGE,
+                    reminderIcon);
         }
     }
     
