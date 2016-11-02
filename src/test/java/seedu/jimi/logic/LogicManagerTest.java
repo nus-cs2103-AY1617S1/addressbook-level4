@@ -258,7 +258,7 @@ public class LogicManagerTest {
         TaskBook expectedAB = new TaskBook();
 
         // execute command and verify result
-        FloatingTask toBeAdded = helper.homework();
+        FloatingTask toBeAdded = helper.adam();
         expectedAB.addTask(toBeAdded);
         
         assertCommandBehavior(
@@ -267,7 +267,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         
-        toBeAdded = helper.laundry();
+        toBeAdded =  helper.homework();
         expectedAB.addTask(toBeAdded);
         
         assertCommandBehavior(
@@ -276,16 +276,15 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         
-        toBeAdded = helper.adam();
+        toBeAdded = helper.laundry();
         expectedAB.addTask(toBeAdded);
-        
-        /*
+                
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-        */
+        
     }
 
     @Test
@@ -487,11 +486,25 @@ public class LogicManagerTest {
 
     @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
+        
+        // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(3);
-
-        TaskBook expectedAB = helper.generateFloatingTaskBook(threeFloatingTasks);
-        expectedAB.removeTask(threeFloatingTasks.get(1));
+        TaskBook expectedAB = new TaskBook();
+        FloatingTask index0 = helper.adam();
+        FloatingTask index1 = helper.homework();
+        FloatingTask index2 = helper.laundry();
+        
+        ArrayList<FloatingTask> threeFloatingTasks = new ArrayList<>();
+        threeFloatingTasks.add(index0);
+        threeFloatingTasks.add(index1);
+        threeFloatingTasks.add(index2);
+        
+        expectedAB.addTask(index0);
+        expectedAB.addTask(index1);
+        expectedAB.addTask(index2);
+        
+        // execute command and verify result
+        expectedAB.removeTask(index1);
         helper.addToModel(model, threeFloatingTasks);
 
         assertCommandBehavior("delete t2",
@@ -797,7 +810,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of FloatingTasks based on the flags.
          */
         List<FloatingTask> generateFloatingTaskList(int numGenerated) throws Exception{
             List<FloatingTask> floatingTasks = new ArrayList<>();
