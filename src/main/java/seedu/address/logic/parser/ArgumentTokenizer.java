@@ -212,8 +212,61 @@ package seedu.address.logic.parser;
          values.add(value);
          this.tokenizedArguments.put(prefix, values);
      }
-     //@@LiXiaowei
+     
+     /**
+      * returns the total number of mappings in the map
+      * @return int representing the number of mapping in the map
+      */
+     
+     //@@author A0142325R
+     
      public int getNumMappings(){
     	 return this.tokenizedArguments.size();
+     }
+     
+     /**
+      * check if a particular prefix is present in the map
+      * @param prefix
+      * @return boolean 
+      */
+     
+     public boolean isPresent(Prefix prefix){
+         return this.tokenizedArguments.containsKey(prefix);
+     }
+     
+     /**
+      * check if the parameters involved represent a floating task
+      * @param start
+      * @param end
+      * @param deadline
+      * @return boolean
+      */
+     
+     public boolean isFloatingTask(Prefix start,Prefix end,Prefix deadline){
+         return !isPresent(start)&&!isPresent(end)&&!isPresent(deadline);
+     }
+     
+     /**
+      * check if the parameters involved represent a deadline task
+      * @param start
+      * @param end
+      * @param deadline
+      * @return boolean
+      */
+     
+     public boolean isDeadlineTask(Prefix start,Prefix end,Prefix deadline){
+         return isPresent(deadline)&&!isPresent(start)&&!isPresent(end);
+     }
+     
+     /**
+      * check if the parameters involved represent an event
+      * @param start
+      * @param end
+      * @param deadline
+      * @return
+      */
+     
+     public boolean isEvent(Prefix start,Prefix end,Prefix deadline){
+         return isPresent(start)&&isPresent(end)&&!isPresent(deadline);
      }
  }
