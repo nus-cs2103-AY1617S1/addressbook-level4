@@ -289,6 +289,18 @@ Examples:
 
 > <img src="images/Find.png" width="800">
 
+#### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
+Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
+Format: `find from DATE to DATE`
+
+> * You can also input just a single date to search for tasks and events relevant to that day.
+> * You can search the tasks and events by dates along with keywords as well.
+> * Simply append the dates to the keywords.
+
+Examples:
+* `find "jimmy" from tuesday to wednesday`
+
+> <img src="images/FindDate.PNG" width="800">
 <br><br>
 
 #### <a id="saveas"></a>Setting save directory : `saveas`
