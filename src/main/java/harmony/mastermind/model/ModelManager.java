@@ -3,6 +3,7 @@ package harmony.mastermind.model;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EmptyStackException;
@@ -217,6 +218,16 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.markTask(target);
         indicateTaskManagerChanged();
     }
+    
+    // @@author A0124797R
+    @Override
+    public synchronized void markDue(ArrayList<Task> targets) throws TaskNotFoundException {
+        for (Task t: targets) {
+            taskManager.markTask(t);
+        }
+        indicateTaskManagerChanged();
+    }
+
 
     // @@author A0124797R
     @Override
@@ -479,8 +490,9 @@ public class ModelManager extends ComponentManager implements Model {
      * used as a qualifier to filter dates to use in {@code UpcomingCommand}
      */
     private class DateQualifier implements Qualifier {
-        private final String NAME_DEADLINE = "deadlines";
-        private final String NAME_EVENT = "events";
+        private final String TYPE_DEADLINE = "deadlines";
+        private final String TYPE_EVENT = "events";
+        private final String TYPE_DUE = "due";
         
         private long timeNow;
         private long oneWeekFromNow;
@@ -496,9 +508,14 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             switch (taskType) {
-                case NAME_DEADLINE: return isUpcomingDeadline(task);
-                case NAME_EVENT:    return isUpcomingEvent(task);
-                default:            return isUpcomingAll(task);
+                case TYPE_DEADLINE:
+                    return isUpcomingDeadline(task);
+                case TYPE_EVENT:
+                    return isUpcomingEvent(task);
+                case TYPE_DUE:
+                    return isTaskDue(task);
+                default:
+                    return isUpcomingAll(task);
             }
         }
 
@@ -524,7 +541,6 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
         
-        
         private boolean isUpcomingDeadline(ReadOnlyTask task) {
             if (task.isFloating() || task.isEvent()) {
                 return false;
@@ -533,6 +549,13 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
         
+        private boolean isTaskDue(ReadOnlyTask task) {
+            if (task.isFloating()) {
+                return false;
+            } else {
+                return isDue(task);
+            }
+        }
         
         /**
          * Checks if end date of task is within one week from now.
@@ -541,6 +564,14 @@ public class ModelManager extends ComponentManager implements Model {
             long taskTime = task.getEndDate().getTime();
             boolean isUpcoming = taskTime < oneWeekFromNow && taskTime > timeNow;
             return isUpcoming;
+        }
+        
+        /**
+         * Checks if tasks has already past
+         */
+        private boolean isDue(ReadOnlyTask task) {
+            long taskTime = task.getEndDate().getTime();
+            return taskTime < timeNow;
         }
     }
 

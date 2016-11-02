@@ -23,6 +23,9 @@ public class UpcomingCommand extends Command {
     public final String TIME_TODAY = "today 2359";
 
     public static final String MESSAGE_SUCCESS_UPCOMING = "Listed all upcoming tasks";
+    public static final String MESSAGE_SUCCESS_UPCOMING_DEADLINE = "Listed all upcoming deadlines";
+    public static final String MESSAGE_SUCCESS_UPCOMING_EVENT = "Listed all upcoming events";
+    
     
     private String taskType;
     
@@ -36,7 +39,14 @@ public class UpcomingCommand extends Command {
     public CommandResult execute() {
         model.updateFilteredListToShowUpcoming(prettyTimeParser.parse(TIME_TODAY).get(0).getTime(), taskType);
         
-        return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_UPCOMING);
+        switch (taskType) {
+            case "deadlines" :
+                return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_UPCOMING_DEADLINE);
+            case "events" :
+                return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_UPCOMING_EVENT);
+            default :
+                return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_UPCOMING);
+        }
     }
     
 

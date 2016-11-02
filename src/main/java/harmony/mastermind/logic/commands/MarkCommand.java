@@ -1,5 +1,8 @@
 package harmony.mastermind.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
@@ -31,28 +34,42 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
 
     public static final String MESSAGE_MARK_SUCCESS = "%1$s has been archived";
+    public static final String MESSAGE_MARK_DUE_SUCCESS = "All Tasks that are due has been archived";
     public static final String MESSAGE_MARK_FAILURE = "Selected is already marked";
     public static final String MESSAGE_MARK_RECURRING_FAILURE = "Unable to add recurring Task";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Mark Command] %1$s has been unmarked";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Mark Command] %1$s has been archived";
 
-    private final int targetIndex;
-    private Task taskToMark;
+    private int targetIndex;
+    private String type;
+    private ArrayList<Task> tasksToMark;
 
-    public MarkCommand(int targetIndex, String currentTab) {
+    public MarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
+        this.type = "empty";
+        tasksToMark = new ArrayList<Task>();
+    }
+    
+    public MarkCommand(String taskType) {
+        this.type = taskType;
+        tasksToMark = new ArrayList<Task>();
     }
 
     @Override
     public CommandResult execute() {
         try {
             executeMark();
+
             model.pushToUndoHistory(this);
             model.clearRedoHistory();
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARK_SUCCESS, taskToMark));
+            if (type.equals("due")) {
+                return new CommandResult(COMMAND_WORD, MESSAGE_MARK_DUE_SUCCESS);
+            } else {
+                return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARK_SUCCESS, tasksToMark.get(0)));
+            }
         } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (DuplicateTaskException e) {
             return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         } catch (NotRecurringTaskException e) {
@@ -70,15 +87,17 @@ public class MarkCommand extends Command implements Undoable, Redoable {
      */
     public CommandResult undo() {
         try {
-            model.unmarkTask(taskToMark);
-
-            model.pushToRedoHistory(this);
             
-            requestHighlightLastActionedRow(taskToMark);
+            for (Task t:tasksToMark) {
+                model.unmarkTask(t);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
+                requestHighlightLastActionedRow(t);                
+            }
+            model.pushToRedoHistory(this);
+
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, tasksToMark));
         } catch (DuplicateTaskException dte) {
-            return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, tasksToMark));
         } catch (ArchiveTaskList.TaskNotFoundException tnfe) {
             return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -97,7 +116,7 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
             model.pushToUndoHistory(this);
 
-            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, tasksToMark));
 
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
@@ -114,12 +133,21 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             indicateAttemptToExecuteIncorrectCommand();
             throw new TaskNotFoundException();
         }
-        
-        taskToMark = lastShownList.get(targetIndex - 1);
 
-        model.markTask(taskToMark);
-        if (taskToMark.isRecur()) {
-            model.addNextTask(taskToMark);
+        if (type.equals("empty")) {
+            tasksToMark.add(lastShownList.get(targetIndex - 1));
+            model.markTask(tasksToMark.get(0));
+            if (tasksToMark.get(0).isRecur()) {
+                model.addNextTask(tasksToMark.get(0));
+            }
+        } else if (type.equals("due")){
+            model.updateFilteredListToShowUpcoming(new Date().getTime(),type);
+            lastShownList = model.getListToMark();
+            for (Task task: lastShownList) {
+                tasksToMark.add(task);
+            }
+            
+            model.markDue(tasksToMark);
         }
 
     }

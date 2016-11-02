@@ -2,6 +2,7 @@ package harmony.mastermind.model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
 
@@ -49,6 +50,10 @@ public interface Model {
     //@@author A0124797R
     /** Marks the given task as done */
     void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
+    
+    //@@author A0124797R
+    /** Marks the given List of due tasks as done */
+    void markDue(ArrayList<Task> targets) throws UniqueTaskList.TaskNotFoundException;
 
     //@@author A0124797R
     /** Updates the completed task as not done */

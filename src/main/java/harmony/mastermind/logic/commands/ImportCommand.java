@@ -37,7 +37,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
                                                + ": Reads file and add all task from file into Mastermind\n"
                                                + "Parameters: File location\n"
-                                               + "Example: "
+                                               + "Example:\n"
                                                + "for Mac:\n"
                                                + COMMAND_WORD + "from"
                                                + " Users/Jim/Desktop/jim@gmail.com.ics\n"
