@@ -25,7 +25,22 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
+    
+    
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, Boolean done,UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
+        this.name = name;
+        this.taskD = taskD;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.done = done;
+        this.tags = tags; // protect internal tags from changes in the arg list
+    }
    
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getDone(),source.getTags());
+    }
     //@@Nathanael Chan A0139678J
     // adds event
     public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
