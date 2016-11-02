@@ -35,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredIncompleteTasks;
     
     private final Stack<ReadOnlyToDoList> ToDoListHistory;
+    private final Stack<ReadOnlyToDoList> ToDoListUndoHistory;
     
     private String currentTab;
 
@@ -54,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks = new FilteredList<>(ToDoList.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(ToDoList.getIncompleteTasks());
         ToDoListHistory = new Stack<ReadOnlyToDoList>();
+        ToDoListUndoHistory = new Stack<ReadOnlyToDoList>();
         currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
@@ -67,6 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks = new FilteredList<>(ToDoList.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(ToDoList.getIncompleteTasks());
         ToDoListHistory = new Stack<ReadOnlyToDoList>();
+        ToDoListUndoHistory = new Stack<ReadOnlyToDoList>();
         currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
@@ -74,6 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyToDoList newData) {
     	ToDoListHistory.push(new ToDoList(this.ToDoList));
     	ToDoList.resetData(newData);
+    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
 
@@ -85,7 +89,18 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0153736B
     @Override
     public synchronized void undoToDoList() throws EmptyStackException {
+    	ToDoList currentToDoList = new ToDoList(this.ToDoList);
     	ToDoList.resetData(ToDoListHistory.pop());
+    	ToDoListUndoHistory.push(currentToDoList);
+    	updateFilteredListToShowAll();
+    	indicateToDoListChanged();
+    }
+    
+    @Override
+    public synchronized void redoToDoList() throws EmptyStackException {
+    	ToDoList previousToDoList = new ToDoList(this.ToDoList);
+    	ToDoList.resetData(ToDoListUndoHistory.pop());
+    	ToDoListHistory.push(previousToDoList);
     	updateFilteredListToShowAll();
     	indicateToDoListChanged();
     }
@@ -112,6 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.markTask(tasks);
     	ToDoListHistory.push(previousToDoList);
+    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
 
@@ -120,6 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
         ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.removeTask(tasks);
     	ToDoListHistory.push(previousToDoList);
+    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
 
@@ -128,6 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.addTask(task);
     	ToDoListHistory.push(previousToDoList);
+    	ToDoListUndoHistory.clear();
         updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
@@ -138,6 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.editTask(target, replacement);
     	ToDoListHistory.push(previousToDoList);
+    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
     //@@author
