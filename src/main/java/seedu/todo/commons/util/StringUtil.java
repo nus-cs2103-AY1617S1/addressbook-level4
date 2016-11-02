@@ -71,7 +71,7 @@ public class StringUtil {
         if (string == null || string.isEmpty()) {
             return new String[0];
         } else {
-            return string.trim().split("([, ])+");
+            return string.trim().split("[,\\s]+");
         }
     }
 
