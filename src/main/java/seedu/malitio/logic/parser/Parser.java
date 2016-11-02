@@ -438,8 +438,8 @@ public class Parser {
      * Extracts the task's event start from the command's arguments string.
      */
     private static String getStartFromArgs(String args) throws IllegalValueException {
-        int startIndex = args.lastIndexOf(" start ");
-        int endIndex = args.lastIndexOf(" end");
+        int startIndex = args.lastIndexOf("start ");
+        int endIndex = args.lastIndexOf("end");
         if (startIndex > 0 && endIndex > 0) {
             return args.substring(startIndex + 6, endIndex - 1);
         } else if (startIndex > 0 && endIndex < 0) {
@@ -453,7 +453,7 @@ public class Parser {
      * Extracts the task's event end from the command's arguments string.
      */
     private static String getEndFromArgs(String args) throws IllegalValueException {
-        int endIndex = args.lastIndexOf(" end ");
+        int endIndex = args.lastIndexOf("end ");
         if (endIndex > 0) {
          return args.substring(endIndex + 4);
         } else {
