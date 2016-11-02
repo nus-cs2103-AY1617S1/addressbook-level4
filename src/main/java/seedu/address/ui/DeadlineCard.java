@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -49,14 +50,47 @@ public class DeadlineCard extends UiPart {
         end.setText("End time:" + "    " + deadline.getEnd().value);
         tags.setText(deadline.tagsString());
         
-        overdueChangeColor(deadline, cardPane);
+        
         registerAsAnEventHandler(this);
         
     }
     
     @Subscribe
     private void handleTaskOverdueChanged(OverdueChangedEvent change) {
-        overdueChangeColor(deadline, cardPane);
+        //overdueChangeColor(deadline, cardPane);
+        changeColor();
+    }
+
+    private void changeColor() {
+        int overdueState = overdueChangeColor(deadline, this.cardPane);
+        setTextColor(overdueState);
+    }
+
+    private void setTextColor(int overdueState) {
+        if (overdueState == 1) {
+            name.setStyle("-fx-text-fill: red");
+            id.setStyle("-fx-text-fill: red");
+            date.setStyle("-fx-text-fill: red");
+            end.setStyle("-fx-text-fill: red");
+            tags.setStyle("-fx-text-fill: red");
+        }
+        
+        if(overdueState == 2) {
+            name.setStyle("-fx-text-fill: #004402");
+            id.setStyle("-fx-text-fill: #004402");
+            date.setStyle("-fx-text-fill: #004402");
+            end.setStyle("-fx-text-fill: #004402");
+            tags.setStyle("-fx-text-fill: #004402");
+        }
+        
+        if (overdueState == 0) {
+
+            name.setStyle(null);
+            id.setStyle(null);
+            date.setStyle(null);
+            end.setStyle(null);
+            tags.setStyle(null);
+        }
     }
 
     public HBox getLayout() {

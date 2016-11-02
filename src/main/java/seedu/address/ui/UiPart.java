@@ -46,13 +46,20 @@ public abstract class UiPart {
     /**
      * changes color of the card depending on task overdue status
      */
-    protected void overdueChangeColor(ReadOnlyTask task, HBox cardPane) {
-        if (task.getOverdue() == 1) {
-            cardPane.setStyle("-fx-background-color: red");
+    protected int overdueChangeColor(ReadOnlyTask task, HBox cardPane) {
+        if (task.getOverdue() == 2) {
+            cardPane.setStyle("-fx-border-color: #02f21e");
+            return 2;
         }
         
-        if (task.getOverdue() == 0) {
+        else if (task.getOverdue() == 1) {
+            cardPane.setStyle("-fx-border-color: red");
+            return 1;
+        }
+        
+        else {
             cardPane.setStyle(null);
+            return 0;
         }
     }
     

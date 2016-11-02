@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -52,15 +53,51 @@ public class EventCard extends UiPart{
         start.setText("Start time:" + "    " + event.getStart().value);
         end.setText("End time:" + "    " + event.getEnd().value);
         tags.setText(event.tagsString());
+   
         
-        overdueChangeColor(event, cardPane);
         registerAsAnEventHandler(this);
         
     }
     
     @Subscribe
     private void handleTaskOverdueChanged(OverdueChangedEvent change) {
-        overdueChangeColor(event, cardPane);
+        //overdueChangeColor(event, cardPane);
+        changeColor();
+    }
+
+    private void changeColor() {
+        int overdueState = overdueChangeColor(event, this.cardPane);
+        setTextColor(overdueState);
+    }
+
+    private void setTextColor(int overdueState) {
+        if (overdueState == 1) {
+            name.setStyle("-fx-text-fill: red");
+            id.setStyle("-fx-text-fill: red");
+            date.setStyle("-fx-text-fill: red");
+            start.setStyle("-fx-text-fill: red");
+            end.setStyle("-fx-text-fill: red");
+            tags.setStyle("-fx-text-fill: red");
+        }
+        
+        if (overdueState == 2) {
+            name.setStyle("-fx-text-fill: #004402");
+            id.setStyle("-fx-text-fill: #004402");
+            date.setStyle("-fx-text-fill: #004402");
+            start.setStyle("-fx-text-fill: #004402");
+            end.setStyle("-fx-text-fill: #004402");
+            tags.setStyle("-fx-text-fill: #004402");
+        }
+        
+        if (overdueState == 0) {
+            Platform.runLater(() -> {
+                name.setStyle(null);
+                id.setStyle(null);
+                date.setStyle(null);
+                end.setStyle(null);
+                tags.setStyle(null);
+            });
+        }
     }
 
     public HBox getLayout() {
