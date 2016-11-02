@@ -20,6 +20,9 @@ import tars.model.task.DateTime.IllegalDateException;
  *
  */
 public class FreeCommandParser extends CommandParser {
+    
+    public static final int FIRST_DATETIME_INDEX = 0;
+    public static final int SECOND_DATETIME_INDEX = 1;
 
     @Override
     public Command prepareCommand(String args) {
@@ -39,13 +42,13 @@ public class FreeCommandParser extends CommandParser {
                     MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
         }
 
-        if (!dateTimeStringArray[0].isEmpty()) {
+        if (!dateTimeStringArray[FIRST_DATETIME_INDEX].isEmpty()) {
             return new IncorrectCommand(
                     FreeCommand.MESSAGE_DATE_RANGE_DETECTED);
         } else {
             try {
-                return new FreeCommand(new DateTime(dateTimeStringArray[0],
-                        dateTimeStringArray[1]));
+                return new FreeCommand(new DateTime(dateTimeStringArray[FIRST_DATETIME_INDEX],
+                        dateTimeStringArray[SECOND_DATETIME_INDEX]));
             } catch (DateTimeException dte) {
                 return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
             } catch (IllegalDateException ide) {
