@@ -2,7 +2,6 @@ package seedu.Tdoo.logic.commands;
 
 import seedu.Tdoo.commons.core.Messages;
 import seedu.Tdoo.commons.core.UnmodifiableObservableList;
-import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
 import seedu.Tdoo.model.task.ReadOnlyTask;
 import seedu.Tdoo.model.task.UniqueTaskList.TaskNotFoundException;
 

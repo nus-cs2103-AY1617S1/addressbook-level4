@@ -22,7 +22,6 @@ import seedu.Tdoo.model.task.*;
 import seedu.Tdoo.model.task.attributes.*;
 import seedu.Tdoo.storage.XmlSerializableDeadlineList;
 import seedu.Tdoo.storage.XmlSerializableEventList;
-import seedu.Tdoo.storage.XmlSerializableTaskList;
 import seedu.Tdoo.storage.XmlSerializableTodoList;
 import seedu.Tdoo.TestApp;
 

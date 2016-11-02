@@ -1,6 +1,5 @@
 package seedu.Tdoo.model;
 
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.Tdoo.logic.commands.*;
@@ -13,7 +12,7 @@ public class Undoer {
 	private final Model model;
 	private static Undoer instance;
 	
-	private final String EMPTY_UNDOSTACK_MESSAGE = "There was no undoable commnad before.";
+	private final String EMPTY_UNDOSTACK_MESSAGE = "There was no undoable command before.";
 	
 	public static Undoer getInstance(Model model) {
 		if(instance == null) {

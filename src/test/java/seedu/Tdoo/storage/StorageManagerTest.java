@@ -12,8 +12,6 @@ import seedu.Tdoo.commons.events.model.EventListChangedEvent;
 import seedu.Tdoo.commons.events.model.TodoListChangedEvent;
 import seedu.Tdoo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.Tdoo.commons.exceptions.IllegalValueException;
-import seedu.Tdoo.model.Model;
-import seedu.Tdoo.model.ModelManager;
 import seedu.Tdoo.model.ReadOnlyTaskList;
 import seedu.Tdoo.model.TaskList;
 import seedu.Tdoo.model.UserPrefs;

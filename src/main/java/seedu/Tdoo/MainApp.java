@@ -1,7 +1,12 @@
 package seedu.Tdoo;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
-import com.google.common.io.Files;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,18 +22,15 @@ import seedu.Tdoo.commons.util.ConfigUtil;
 import seedu.Tdoo.commons.util.StringUtil;
 import seedu.Tdoo.logic.Logic;
 import seedu.Tdoo.logic.LogicManager;
-import seedu.Tdoo.model.*;
+import seedu.Tdoo.model.Model;
+import seedu.Tdoo.model.ModelManager;
+import seedu.Tdoo.model.ReadOnlyTaskList;
+import seedu.Tdoo.model.TaskList;
+import seedu.Tdoo.model.UserPrefs;
 import seedu.Tdoo.storage.Storage;
 import seedu.Tdoo.storage.StorageManager;
 import seedu.Tdoo.ui.Ui;
 import seedu.Tdoo.ui.UiManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
-import java.nio.file.StandardCopyOption.*;
 
 /**
  * The main entry point to the application.

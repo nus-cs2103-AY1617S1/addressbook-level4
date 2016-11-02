@@ -5,13 +5,8 @@ import javafx.stage.Stage;
 
 import seedu.Tdoo.TestApp;
 import seedu.Tdoo.commons.core.EventsCenter;
-import seedu.Tdoo.commons.core.LogsCenter;
 import seedu.Tdoo.model.TaskList;
-import seedu.Tdoo.model.task.Deadline;
-import seedu.Tdoo.model.task.Event;
 import seedu.Tdoo.model.task.ReadOnlyTask;
-import seedu.Tdoo.model.task.Task;
-import seedu.Tdoo.model.task.Todo;
 import seedu.Tdoo.testutil.TestUtil;
 import seedu.Tdoo.testutil.TypicalTestDeadline;
 import seedu.Tdoo.testutil.TypicalTestEvent;

@@ -1,7 +1,6 @@
 package seedu.Tdoo.model.task;
 
 import seedu.Tdoo.commons.util.CollectionUtil;
-import seedu.Tdoo.model.task.attributes.Done;
 import seedu.Tdoo.model.task.attributes.EndDate;
 import seedu.Tdoo.model.task.attributes.EndTime;
 import seedu.Tdoo.model.task.attributes.Name;
