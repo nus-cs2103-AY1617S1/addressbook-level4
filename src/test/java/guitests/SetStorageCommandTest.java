@@ -10,8 +10,7 @@ import seedu.tasklist.testutil.TestUtil;
 public class SetStorageCommandTest extends TaskListGuiTest {
 	@Test
 	public void setStorage(){
-		 TestTask[] currentList = td.getTypicalTasks();
-		 
+	    TestTask[] currentList = td.getTypicalTasks(); 
     	String testCase1 = "docs/tasklist.xml";
     	String testCase2 = "default";
     	assertStorageSuccess(testCase1, currentList);
