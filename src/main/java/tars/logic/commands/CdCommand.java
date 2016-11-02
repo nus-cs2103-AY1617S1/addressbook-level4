@@ -21,7 +21,7 @@ public class CdCommand extends Command {
     public static final String COMMAND_WORD = "cd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the directory of the "
-            + "TARS storage file, tars.xml \n" + "Parameters: FILEPATH.xml \n" + "Example: " + COMMAND_WORD
+            + "TARS storage file.\n" + "Parameters: <FILE_PATH.xml> \n" + "Example: " + COMMAND_WORD
             + " data/tars.xml";
 
     public static final String MESSAGE_INVALID_FILEPATH = "Invalid file path. File paths should not"

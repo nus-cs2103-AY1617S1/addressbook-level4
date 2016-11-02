@@ -13,8 +13,9 @@ public class FreeCommand extends Command {
 
     public static final String COMMAND_WORD = "free";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggests free timeslots in a specified day.\n"
-            + "Parameters: <DATETIME>\n" + "Example: free 29/10/2016";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Suggests free timeslots in a specified day.\n"
+                    + "Parameters: <DATETIME>\n" + "Example: free 29/10/2016";
 
     public static final String MESSAGE_DATE_RANGE_DETECTED = "Range of datetime detected. Please only input a single datetime";
     public static final String MESSAGE_SUCCESS = "Free timeslots on %1$s";

@@ -14,10 +14,10 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds task based on the specified"
+            + ": Finds all tasks containing a list of keywords (i.e. AND search)."
             + "keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters (Quick Search Mode): KEYWORD [MORE_KEYWORDS]...\n"
-            + "Parameters (Filter Search Mode): /n NAME /dt DATETIME /p PRIORITY /t TAGS /do [or -ud] \n"
+            + "Parameters (Quick Search Mode): <KEYWORD> [KEYWORD ...]\n"
+            + "Parameters (Filter Search Mode): [/n NAME_KEYWORD ...] [/dt DATETIME] [/p PRIORITY] [/do] [/ud] [/t TAG_KEYWORD ...]\n"
             + "Examples (Quick Serach Mode): " + COMMAND_WORD
             + " CS2103 projects" + "Examples (Filter Search Mode): "
             + COMMAND_WORD + " /n CS2103 projects /dt 10/09/2016 1000 to "

@@ -18,8 +18,8 @@ public class DoCommand extends Command {
     public static final String COMMAND_WORD = "do";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": mark a task as done.\n"
-            + "Parameters: <INDEX>[  <INDEX> <INDEX> ...]\n" + "Example: "
+            + ": Marks the task based on its index in the task list as done.\n"
+            + "Parameters: <INDEX> [INDEX ...]\n" + "Example: "
             + COMMAND_WORD + " 3 5 7\n" + "OR " + COMMAND_WORD + " 1..3";
 
     private String toDo;

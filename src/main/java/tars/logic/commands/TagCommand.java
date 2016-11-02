@@ -24,7 +24,7 @@ public class TagCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": [/ls] [/e <INDEX> <TAG>] [/del <INDEX>]";
+            COMMAND_WORD + ": [/ls] [/e <INDEX> <TAG_NAME>] [/del <INDEX>]";
     public static final String MESSAGE_RENAME_TAG_SUCCESS =
             "%1$s renamed to [%2$s]";
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";

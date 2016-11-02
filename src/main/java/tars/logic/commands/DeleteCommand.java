@@ -22,9 +22,9 @@ public class DeleteCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "del";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: "
-            + COMMAND_WORD + " 1\n" + "OR " + COMMAND_WORD + " 1..3";
+            + ": Deletes the task based on its index in the task list.\n"
+            + "Parameters: <INDEX> [INDEX ...]\n" + "Example: "
+            + COMMAND_WORD + " 1\n" + COMMAND_WORD + " 1..3";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS =
             "Deleted Task:\n%1$s";

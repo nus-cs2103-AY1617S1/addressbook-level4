@@ -20,9 +20,9 @@ public class EditCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": edit a task in tars. "
-            + "Parameters: INDEX (must be a positive integer) /n NAME /dt DATETIME /p PRIORITY "
-            + "/ta TAGTOADD /tr TAGTOREMOVE\n" + "Example: " + COMMAND_WORD
+            + ": Edits any component of a particular task.\n"
+            + "Parameters: <INDEX> [/n TASK_NAME] [/dt DATETIME] [/p PRIORITY] "
+            + "[/ta TAG_TO_ADD ...] [/tr TAG_TO_REMOVE ...]\n" + "Example: " + COMMAND_WORD
             + " 1 /n Lunch with John /dt 10/09/2016 1200 to 10/09/2016 1300 /p l /ta lunch /tr dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
