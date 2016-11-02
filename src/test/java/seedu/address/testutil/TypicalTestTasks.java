@@ -48,8 +48,8 @@ public class TypicalTestTasks {
             eventTomorrowAdd = new TaskBuilder().withName("report 8").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
             eventIn7DaysAdd = new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
             eventIn30DaysAdd = new TaskBuilder().withName("report 4").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(13)).withEndDate(LocalDateTime.now().plusDays(14)).build();
-            eventStartDateTimeAfterEndDateTime = new TaskBuilder().withName("exam 1").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(8)).withEndDate(LocalDateTime.now().plusDays(1)).build();
-            eventStartDateTimeEqualsEndDateTime = new TaskBuilder().withName("exam 2").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(1)).build();          
+            eventStartDateTimeAfterEndDateTime = new TaskBuilder().withName("exam 1").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(8)).withEndDate(LocalDateTime.now().plusDays(1)).build();
+            eventStartDateTimeEqualsEndDateTime = new TaskBuilder().withName("exam 2").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(1)).build();          
         
         } catch (IllegalValueException e) {
             e.printStackTrace();
