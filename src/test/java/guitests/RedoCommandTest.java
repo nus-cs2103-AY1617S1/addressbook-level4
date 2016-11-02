@@ -29,20 +29,8 @@ public class RedoCommandTest extends TaskListGuiTest {
        assertResultMessage(RedoCommand.MESSAGE_FAILURE);
        //redo one change
        commandBox.runCommand("update 1 Attend yoga session from 2pm to 4pm p/high");
-       TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-       TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-       TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-       TypicalTestTasks.task1.setPriority(new Priority("high")); 
        commandBox.runCommand("undo");
-       TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Buy eggs"));
-       TypicalTestTasks.task1.setStartTime(new StartTime("5pm"));
-       TypicalTestTasks.task1.setEndTime(new EndTime(""));
-       TypicalTestTasks.task1.setPriority(new Priority("high"));
        commandBox.runCommand("redo");
-       TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-       TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-       TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-       TypicalTestTasks.task1.setPriority(new Priority("high"));
        assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
     }
     
@@ -50,35 +38,21 @@ public class RedoCommandTest extends TaskListGuiTest {
     public void redoTwoChanges() throws IllegalValueException {
         //undo two changes
         commandBox.runCommand("update 1 Attend yoga session from 2pm to 4pm p/high");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-        TypicalTestTasks.task1.setPriority(new Priority("high")); 
         commandBox.runCommand("delete 2");
         commandBox.runCommand("undo");
         commandBox.runCommand("undo");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Buy eggs"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("5pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime(""));
-        TypicalTestTasks.task1.setPriority(new Priority("high"));
         commandBox.runCommand("redo");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-        TypicalTestTasks.task1.setPriority(new Priority("high")); 
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
         commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
+        commandBox.runCommand("redo");
+        assertResultMessage(RedoCommand.MESSAGE_FAILURE);
     }
     
     @Test
     public void redoThreeChanges() throws IllegalValueException {
         //undo three changes
         commandBox.runCommand("update 1 Attend yoga session from 2pm to 4pm p/high");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-        TypicalTestTasks.task1.setPriority(new Priority("high")); 
         commandBox.runCommand("delete 2");
         commandBox.runCommand("delete 2");
         commandBox.runCommand("undo");
@@ -86,16 +60,8 @@ public class RedoCommandTest extends TaskListGuiTest {
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
         commandBox.runCommand("undo");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Buy eggs"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("5pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime(""));
-        TypicalTestTasks.task1.setPriority(new Priority("high"));
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
         commandBox.runCommand("redo");
-        TypicalTestTasks.task1.setTaskDetails(new TaskDetails("Attend yoga session"));
-        TypicalTestTasks.task1.setStartTime(new StartTime("2pm"));
-        TypicalTestTasks.task1.setEndTime(new EndTime("4pm"));
-        TypicalTestTasks.task1.setPriority(new Priority("high"));
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
         commandBox.runCommand("redo");
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
