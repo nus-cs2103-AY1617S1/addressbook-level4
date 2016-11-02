@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
  */
 public class StringUtil {
     
-    // @@ author A0140133B
+    // @@author A0140133B
     /**
      * Returns true if {@code query} is a near match of {@code source}, where: <br>
      * <ul>
