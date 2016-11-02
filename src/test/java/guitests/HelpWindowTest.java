@@ -8,14 +8,11 @@ import org.junit.Test;
 public class HelpWindowTest extends TaskBookGuiTest {
 
     //TODO Help window test
-    //@Test
+    @Test
     public void openHelpWindow() {
 
-        datedListPanel.clickOnListView();
-
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+        //assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        //assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
