@@ -60,6 +60,9 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
     //@@author A0142184L
+    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
+	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
+	
     /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
 
@@ -91,7 +94,5 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
-	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 
 }

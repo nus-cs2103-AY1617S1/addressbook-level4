@@ -204,11 +204,12 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0142184L
     @Override
     public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
         return new UnmodifiableObservableList<>(filteredAliases);
     }
-    
+    //@@author
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFilteredTasks());

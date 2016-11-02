@@ -1,6 +1,5 @@
-//@@author A0142184L
 package seedu.address.ui;
-
+//@@author A0142184L
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

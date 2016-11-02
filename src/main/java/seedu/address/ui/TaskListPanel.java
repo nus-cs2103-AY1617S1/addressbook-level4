@@ -62,7 +62,18 @@ public class TaskListPanel extends UiPart {
         taskListPanel.hideAliasListViewSize();
         return taskListPanel;
     }
-
+    
+    private void configureTask(ObservableList<ReadOnlyTask> taskList) {
+        setTaskConnections(taskList);
+        addToPlaceholder();
+    }
+    
+    private void setTaskConnections(ObservableList<ReadOnlyTask> taskList) {
+        taskListView.setItems(taskList);
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
+    }
+    
+    //@@author A0142184L
     private void hideAliasListViewSize() {
     	aliasListView.setMaxHeight(0.0);
 	}
@@ -79,26 +90,17 @@ public class TaskListPanel extends UiPart {
     	taskListView.setMaxHeight(0.0);
 	}
     
-    private void configureTask(ObservableList<ReadOnlyTask> taskList) {
-        setTaskConnections(taskList);
-        addToPlaceholder();
-    }
-    
     private void configureAlias(ObservableList<ReadOnlyAlias> aliasList) {
         setAliasConnections(aliasList);
         addToPlaceholder();
-    }
-    
-    private void setTaskConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
     }
     
     private void setAliasConnections(ObservableList<ReadOnlyAlias> aliasList) {
         aliasListView.setItems(aliasList);
         aliasListView.setCellFactory(listView -> new AliasListViewCell());
     }
-
+    
+    //@@author
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
@@ -135,6 +137,7 @@ public class TaskListPanel extends UiPart {
         }
     }
     
+    //@@author A0142184L
     class AliasListViewCell extends ListCell<ReadOnlyAlias> {
 
         public AliasListViewCell() {
@@ -151,6 +154,5 @@ public class TaskListPanel extends UiPart {
                 setGraphic(AliasCard.load(alias, getIndex() + 1).getLayout());
             }
         }
-    }
-
+     }
 }

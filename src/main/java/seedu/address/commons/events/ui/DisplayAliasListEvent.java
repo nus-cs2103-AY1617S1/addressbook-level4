@@ -3,7 +3,7 @@ package seedu.address.commons.events.ui;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.alias.ReadOnlyAlias;
-
+//@@author A0142184L
 public class DisplayAliasListEvent extends BaseEvent {
 
 	public final ObservableList<ReadOnlyAlias> list;

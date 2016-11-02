@@ -531,12 +531,8 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
-<<<<<<< HEAD
-		p.parseCommand("add from 5pm 'dd' to 6pm");
-=======
+
 //		p.parseCommand("add 'dd' by 5pm today");
 		p.replaceAliases("find k");
->>>>>>> 3cf7c370c635869c34e1a7c0b4f29af5b1cadef3
-	}
-	
+	}	
 }
