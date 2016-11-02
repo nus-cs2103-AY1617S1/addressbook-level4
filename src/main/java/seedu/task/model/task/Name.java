@@ -5,7 +5,6 @@ import seedu.task.commons.exceptions.IllegalValueException;
 /**
  * Represents a Task name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
- * @@author 
  */
 public class Name {
 
@@ -17,7 +16,8 @@ public class Name {
     /**
      * Validates given name.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException
+     *             if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -34,7 +34,6 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
@@ -53,13 +52,16 @@ public class Name {
         return fullName.hashCode();
     }
 
+    // @@author A0147944U
     /**
      * Compares the two Names lexicographically.
-     * @@author A0147944U
+     * 
+     * @param anotherName
+     *            Name of another Task to compare to
      */
     public int compareTo(Name anotherName) {
         return this.toString().compareTo(anotherName.toString());
     }
-    //@@author
+    // @@author
 
 }

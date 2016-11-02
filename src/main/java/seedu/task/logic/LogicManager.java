@@ -14,9 +14,9 @@ import seedu.task.storage.Storage;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+// @@author A0147335E-reused
 /**
  * The main LogicManager of the app.
- * @@author A0147335E-reused
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -38,24 +38,22 @@ public class LogicManager extends ComponentManager implements Logic {
 
         command.setData(model);
         command.setHistory(historyManager);
-        //@@author
-        //@@author A0147944U
+        // @@author
+        // @@author A0147944U-reused
         if (command instanceof IncorrectCommand) {
             return command.execute(false);
         }
-        //@@author
-        //@@author A0147335E-reused
+        // @@author
+        // @@author A0147335E-reused
         logger.info("SUCCESS");
 
         if (!commandText.toLowerCase().startsWith("undo")) {
             historyManager.getPreviousCommandList().add(commandText);
             return command.execute(false);
-        }
-        else {
+        } else {
             return command.execute(true);
         }
     }
-
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {

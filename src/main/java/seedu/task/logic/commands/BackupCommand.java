@@ -43,7 +43,7 @@ public class BackupCommand extends Command {
     /* This is the path of the backup data file */
     private String _destination;
 
-    /*
+    /**
      * This is information if the command had overwritten an existing data file
      * or created a new data file
      */
@@ -66,6 +66,9 @@ public class BackupCommand extends Command {
 
     /**
      * Replaces data in Config file with the updated data
+     * 
+     * @param newFile config file to update
+     * @param source config file to get data from
      */
     private void copyData(File newFile, File source) {
         // Copy current data to
@@ -79,6 +82,8 @@ public class BackupCommand extends Command {
 
     /**
      * Creates file on drive if it does not exist
+     * 
+     * @param newFile data file to create
      */
     private void createFileIfNotExisting(File newFile) {
         if (!FileUtil.isFileExists(newFile)) {
@@ -99,6 +104,8 @@ public class BackupCommand extends Command {
     /**
      * Appends FILE_EXTENSION to given destination.
      * This ensures user will not accidentally override non-xml files.
+     * 
+     * @param destination path of backup data file provided by user
      */
     private void appendExtension(String destination) {
         if (destination != null) {

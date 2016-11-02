@@ -59,6 +59,8 @@ public class DirectoryCommand extends Command {
 
     /**
      * Change TaskManager file path in Config
+     * 
+     * @param config Config to update
      */
     private void updateConfigWithNewFilePath(Config config) {
         config.setTaskManagerFilePath(_destination);
@@ -66,6 +68,8 @@ public class DirectoryCommand extends Command {
 
     /**
      * Saves changes made to Config
+     * 
+     * @param config Config file with updated data
      */
     private void saveConfig(Config config) {
         try {
@@ -78,6 +82,8 @@ public class DirectoryCommand extends Command {
 
     /**
      * Retrieves Config file
+     * 
+     * @return the deserialized config
      */
     private Config getConfig() {
         Config config = new Config();
@@ -98,6 +104,8 @@ public class DirectoryCommand extends Command {
     /**
      * Appends FILE_EXTENSION to given destination.
      * This ensures user will not accidentally override non.xml files.
+     * 
+     * @param destination path of new data file provided by user
      */
     private void appendExtension(String destination) {
         if (destination != null) {

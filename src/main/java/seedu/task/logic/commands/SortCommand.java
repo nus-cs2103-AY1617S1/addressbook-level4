@@ -19,6 +19,8 @@ public class SortCommand extends Command {
 
     /**
      * Parse the keyword given by user based on first character of the input
+     * 
+     * @param keyword keyword given by user to sort tasks by
      */
     public SortCommand(String keyword) {
         if (keyword.startsWith("d")) { // deadline

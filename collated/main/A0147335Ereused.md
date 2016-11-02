@@ -207,6 +207,8 @@ public interface Logic {
 ```
 ###### \java\seedu\task\logic\LogicManager.java
 ``` java
+/**
+ * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -236,12 +238,10 @@ public class LogicManager extends ComponentManager implements Logic {
         if (!commandText.toLowerCase().startsWith("undo")) {
             historyManager.getPreviousCommandList().add(commandText);
             return command.execute(false);
-        }
-        else {
+        } else {
             return command.execute(true);
         }
     }
-
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {

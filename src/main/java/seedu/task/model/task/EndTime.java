@@ -1,17 +1,14 @@
 package seedu.task.model.task;
 
-
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task end time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
- * @@author 
  */
 public class EndTime {
 
-    public static final String MESSAGE_ENDTIME_CONSTRAINTS =
-            "Task end times should be in hh.mmam or hh.mmpm format";
+    public static final String MESSAGE_ENDTIME_CONSTRAINTS = "Task end times should be in hh.mmam or hh.mmpm format";
     public static final String ENDTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
     public static final String NO_ENDTIME = "no end time";
 
@@ -20,12 +17,13 @@ public class EndTime {
     /**
      * Validates given end time.
      *
-     * @throws IllegalValueException if given end time string is invalid.
+     * @throws IllegalValueException
+     *             if given end time string is invalid.
      */
     public EndTime(String endTime) throws IllegalValueException {
         assert endTime != null;
         endTime = endTime.trim();
-        if(endTime.equals(NO_ENDTIME)) {
+        if (endTime.equals(NO_ENDTIME)) {
             this.value = endTime;
             return;
         }
@@ -39,7 +37,7 @@ public class EndTime {
      * Returns if a given string is a valid task end time.
      */
     public static boolean isValidEndTime(String test) {
-        return  test.matches(ENDTIME_VALIDATION_REGEX);
+        return test.matches(ENDTIME_VALIDATION_REGEX);
     }
 
     @Override
@@ -51,7 +49,8 @@ public class EndTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EndTime // instanceof handles nulls
-                && this.value.equals(((EndTime) other).value)); // state check
+                        && this.value.equals(((EndTime) other).value)); // state
+                                                                        // check
     }
 
     @Override
@@ -59,13 +58,16 @@ public class EndTime {
         return value.hashCode();
     }
 
+    // @@author A0147944U
     /**
      * Compares the two EndTimes lexicographically.
-     * @@author A0147944U
+     * 
+     * @param anotherEndTime
+     *            EndTime of another Task to compare to
      */
     public int compareTo(EndTime anotherEndTime) {
         return this.toString().compareTo(anotherEndTime.toString());
     }
-    //@@author
+    // @@author
 
 }

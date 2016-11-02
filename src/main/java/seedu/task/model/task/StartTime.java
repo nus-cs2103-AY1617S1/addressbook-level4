@@ -17,16 +17,16 @@ public class StartTime {
     /**
      * Validates given start time.
      *
-     * @throws IllegalValueException if given start time string is invalid.
+     * @throws IllegalValueException
+     *             if given start time string is invalid.
      */
     public StartTime(String startTime) throws IllegalValueException {
         assert startTime != null;
         startTime = startTime.trim();
-        if(startTime.equals(NO_STARTTIME)){
-             this.value = startTime;
+        if (startTime.equals(NO_STARTTIME)) {
+            this.value = startTime;
             return;
-            }
-        else if (!isValidStartTime(startTime)) {
+        } else if (!isValidStartTime(startTime)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
         this.value = startTime;
@@ -56,13 +56,16 @@ public class StartTime {
         return value.hashCode();
     }
 
+    // @@author A0147944U
     /**
      * Compares the two StartTimes lexicographically.
-     * @@author A0147944U
+     * 
+     * @param anotherStartTime
+     *            StartTime of another Task to compare to
      */
     public int compareTo(StartTime anotherStartTime) {
         return this.toString().compareTo(anotherStartTime.toString());
     }
-    //@@author
+    // @@author
 
 }

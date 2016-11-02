@@ -509,6 +509,9 @@ public class CommandParser {
     // @@author A0147944U
     /**
      * Parses arguments in the context of the directory command.
+     * 
+     * @param args full command args string
+     * @return the prepared command
      */
     private Command prepareDirectory(String args) {
         final Matcher matcher = DIRECTORY_ARGS_FORMAT.matcher(args.trim());
@@ -537,8 +540,7 @@ public class CommandParser {
     /**
      * Parses arguments in the context of the sort tasks command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSort(String args) {

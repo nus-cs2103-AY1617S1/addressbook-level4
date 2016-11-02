@@ -1,4 +1,10 @@
 # A0147944Ureused
+###### \java\seedu\task\logic\LogicManager.java
+``` java
+        if (command instanceof IncorrectCommand) {
+            return command.execute(false);
+        }
+```
 ###### \java\seedu\task\logic\parser\CommandParser.java
 ``` java
         case DirectoryCommand.COMMAND_WORD:

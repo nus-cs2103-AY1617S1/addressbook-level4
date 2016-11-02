@@ -50,7 +50,10 @@ public class Status {
 
     // @@author A0147944U
     /**
-     * Compares the two Statuses.
+     * Compares the two Statuses based on DoneStatus.
+     * 
+     * @param anotherStatus
+     *            Status of another Task to compare to
      */
     public int compareDoneStatusTo(Status anotherStatus) {
         Boolean isThisDone = new Boolean(this.getDoneStatus());
@@ -58,6 +61,12 @@ public class Status {
         return isThisDone.compareTo(isAnotherDone);
     }
 
+    /**
+     * Compares the two Statuses based on OverdueStatus.
+     * 
+     * @param anotherStatus
+     *            Status of another Task to compare to
+     */
     public int compareOverdueStatusTo(Status anotherStatus) {
         Boolean isThisOverdue = new Boolean(this.getOverdueStatus());
         Boolean isAnotherOverdue = new Boolean(anotherStatus.getOverdueStatus());

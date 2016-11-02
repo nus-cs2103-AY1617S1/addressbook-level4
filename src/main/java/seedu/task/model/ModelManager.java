@@ -112,6 +112,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0147944U
+    /**
+     * Select sorting method based on keyword
+     * 
+     * @param keyword keyword given by user to sort tasks by
+     */
     public void sortFilteredTaskList(String keyword) {
         if (keyword.equals("Deadline")) {
             taskManager.sortByDeadline();
