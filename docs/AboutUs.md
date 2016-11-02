@@ -27,6 +27,7 @@ Responsibilities: Logic
   * Other major contributions:
   * Set up Travis and Coveralls 
   * [Did the initial refactoring from AddressBook to ToDoList](https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5) 
+  
 -----
 
 #### [Choi Ying Ying](https://github.com/ychoi1997) <br>
