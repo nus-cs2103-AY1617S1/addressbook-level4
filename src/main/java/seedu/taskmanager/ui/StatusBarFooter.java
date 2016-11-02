@@ -8,8 +8,12 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
+import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.storage.SaveLocationChangedEvent;
+import seedu.taskmanager.commons.exceptions.DataConversionException;
+import seedu.taskmanager.commons.util.ConfigUtil;
 import seedu.taskmanager.commons.util.FxViewUtil;
 
 import java.util.Date;
@@ -95,5 +99,11 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent slce) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(slce, "Save location changed. Updating..."));
+        setSaveLocation("./" + slce.location);
     }
 }

@@ -19,6 +19,9 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
     
     //@@author A0143641M
+    /** Raises relevant event when save to specified location */
+    void saveAction(String location);
+    
     /** Deletes the specified multiple items. **/
     void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws UniqueItemList.ItemNotFoundException;
     
