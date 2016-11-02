@@ -10,8 +10,9 @@ import java.util.List;
  */
 public class StringUtil {
     public static boolean containsIgnoreCase(String source, String query) {
-        String noSpaces = source.toLowerCase().replaceAll("\\s+", "");
-        return noSpaces.contains(query) || query.contains(source);
+        String sourceNoSpaces = source.toLowerCase().replaceAll("\\s+", "");
+        String queryNoSpaces = query.toLowerCase().replaceAll("\\s+", "");
+        return sourceNoSpaces.contains(queryNoSpaces) || queryNoSpaces.contains(sourceNoSpaces);
     }
 
     /**
