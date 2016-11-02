@@ -52,7 +52,9 @@ public class DeleteCommand extends Command {
         try {
             model.deleteTasks(tasksToDelete);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+        	model.undoSaveState();
+        	// TODO use variable instead
+        	return new CommandResult("Task index does not exist in displayed list.");
         }
         
         recentDeletedTasks = new ArrayList<>();
@@ -62,19 +64,5 @@ public class DeleteCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
     }
-
-
-//	@Override
-//	public CommandResult undo() {
-//		AddCommand addCommand;
-//		
-//		for (Task task : recentDeletedTasks) {
-//			addCommand = new AddCommand(task);
-//			addCommand.setData(model);
-//			addCommand.execute();
-//		}
-//		
-//		return new CommandResult(String.format(MESSAGE_UNDO_DELETE_SUCCESS, recentDeletedTasks));
-//	}
 
 }

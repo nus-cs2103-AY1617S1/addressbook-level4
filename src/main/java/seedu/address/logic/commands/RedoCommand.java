@@ -6,9 +6,8 @@ import java.util.EmptyStackException;
 public class RedoCommand extends Command {
 	public static final String COMMAND_WORD = "redo";
 
-	// TODO better message
 	public static final String MESSAGE_REDO_SUCCESS = "Redid last undo successfully";
-	public static final String MESSAGE_REDO_FAIL = "No more actions to redo";
+	public static final String MESSAGE_REDO_FAIL = "No actions to redo";
 
 	public RedoCommand() {}
 

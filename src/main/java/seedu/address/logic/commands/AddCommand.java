@@ -2,10 +2,13 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -35,7 +38,26 @@ public class AddCommand extends Command {
     		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
     //@@author
     private final Task toAdd;
-
+    
+    //@@author A0141019U    
+    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) throws IllegalValueException {
+    	final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+    	
+    	this.toAdd = new Task(
+        		new Name(name),
+        		new TaskType(taskType),
+        		new Status("pending"), 
+        		startDate, 
+        		endDate,
+        		new UniqueTagList(tagSet)
+         );
+    	
+    	System.out.println(tagSet);
+    }
+    
     /**
      * Convenience constructor for event task using raw values
      *
@@ -104,8 +126,7 @@ public class AddCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	// If adding was unsuccessful, then the state should not be saved - no change was made.
-        	// TODO avoid undo pushing state into redo stack
-        	model.loadPreviousState();
+        	model.undoSaveState();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

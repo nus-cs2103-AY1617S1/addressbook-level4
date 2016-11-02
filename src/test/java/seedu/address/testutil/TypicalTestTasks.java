@@ -31,12 +31,12 @@ public class TypicalTestTasks {
             deadlineTomorrow = new TaskBuilder().withName("lab 3").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
             deadlineIn7Days = new TaskBuilder().withName("lab 4").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(5)).build();
             deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();
-            event1 = new TaskBuilder().withName("hw 4").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.of(2013, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2013, 2, 3, 4, 6)).build();
-            event2 = new TaskBuilder().withName("hw 5").withStatus("overdue").withTaskType("event").withStartDate(LocalDateTime.of(2014, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2014, 2, 3, 4, 6)).build();
-            eventToday = new TaskBuilder().withName("attend meeting").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().withHour(23)).withEndDate(LocalDateTime.now().plusDays(1)).build();
-            eventIn7Days = new TaskBuilder().withName("lab 6").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
-            eventTomorrow = new TaskBuilder().withName("lab 7").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
-            eventIn30Days = new TaskBuilder().withName("hw 7").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(20)).withEndDate(LocalDateTime.now().plusDays(22)).build();
+            event1 = new TaskBuilder().withName("hw 4").withStatus("done").withTaskType("event").withEndDate(LocalDateTime.of(2013, 2, 3, 4, 6)).withStartDate(LocalDateTime.of(2013, 2, 2, 4, 6)).build();
+            event2 = new TaskBuilder().withName("hw 5").withStatus("overdue").withTaskType("event").withEndDate(LocalDateTime.of(2014, 2, 3, 4, 6)).withStartDate(LocalDateTime.of(2014, 2, 2, 4, 6)).build();
+            eventToday = new TaskBuilder().withName("attend meeting").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(1)).withStartDate(LocalDateTime.now().withHour(23)).build();
+            eventIn7Days = new TaskBuilder().withName("lab 6").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(6)).withStartDate(LocalDateTime.now().plusDays(5)).build();
+            eventTomorrow = new TaskBuilder().withName("lab 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now().plusDays(1)).build();
+            eventIn30Days = new TaskBuilder().withName("hw 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(22)).withStartDate(LocalDateTime.now().plusDays(20)).build();
 
             //Sample tasks
             somedayAdd = new TaskBuilder().withName("report 5").withStatus("pending").withTaskType("someday").build();
@@ -44,12 +44,12 @@ public class TypicalTestTasks {
             deadlineTomorrowAdd = new TaskBuilder().withName("report 2").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
             deadlineIn7DaysAdd = new TaskBuilder().withName("report 9").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(3)).build();
             deadlineIn30DaysAdd = new TaskBuilder().withName("report 10").withStatus("pending").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(24)).build();
-            eventTodayAdd = new TaskBuilder().withName("report 7").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now()).withEndDate(LocalDateTime.now().plusDays(2)).build();
-            eventTomorrowAdd = new TaskBuilder().withName("report 8").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
-            eventIn7DaysAdd = new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
-            eventIn30DaysAdd = new TaskBuilder().withName("report 4").withStatus("pending").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(13)).withEndDate(LocalDateTime.now().plusDays(14)).build();
-            eventStartDateTimeAfterEndDateTime = new TaskBuilder().withName("exam 1").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(8)).withEndDate(LocalDateTime.now().plusDays(1)).build();
-            eventStartDateTimeEqualsEndDateTime = new TaskBuilder().withName("exam 2").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(1)).build();          
+            eventTodayAdd = new TaskBuilder().withName("report 7").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now()).build();
+            eventTomorrowAdd = new TaskBuilder().withName("report 8").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(2)).withStartDate(LocalDateTime.now().plusDays(1)).build();
+            eventIn7DaysAdd = new TaskBuilder().withName("report 3").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(6)).withStartDate(LocalDateTime.now().plusDays(5)).build();
+            eventIn30DaysAdd = new TaskBuilder().withName("report 4").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(14)).withStartDate(LocalDateTime.now().plusDays(13)).build();
+            eventStartDateTimeAfterEndDateTime = new TaskBuilder().withName("exam 1").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(1)).withStartDate(LocalDateTime.now().plusDays(8)).build();
+            eventStartDateTimeEqualsEndDateTime = new TaskBuilder().withName("exam 2").withStatus("pending").withTaskType("event").withEndDate(LocalDateTime.now().plusDays(1)).withStartDate(LocalDateTime.now().plusDays(1)).build();          
         
         } catch (IllegalValueException e) {
             e.printStackTrace();
