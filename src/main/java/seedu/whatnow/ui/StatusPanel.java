@@ -1,8 +1,8 @@
+//@@author A0139772U
 package seedu.whatnow.ui;
 
 import java.awt.Color;
 
-//@@author A0139772U
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;

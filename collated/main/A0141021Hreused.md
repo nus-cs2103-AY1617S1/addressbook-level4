@@ -20,7 +20,6 @@ public class Config {
     private String whatNowFilePath = "data/whatnow.xml";
     private String whatNowName = "MyWhatNow";
 
-
     public Config() {
     }
 
@@ -64,23 +63,20 @@ public class Config {
         this.whatNowName = whatNowName;
     }
 
-
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { // this handles null as well.
             return false;
         }
 
-        Config o = (Config)other;
+        Config o = (Config) other;
 
-        return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
+        return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(whatNowFilePath, o.whatNowFilePath)
-                && Objects.equals(whatNowName, o.whatNowName);
+                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName);
     }
 
     @Override
@@ -89,7 +85,7 @@ public class Config {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
@@ -140,10 +136,14 @@ public class ConfigUtil {
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     /**
-     * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.
-     *   If any values are missing from the file, default values will be used, as long as the file is a valid json file.
-     * @param configFilePath cannot be null.
-     * @throws DataConversionException if the file format is not as expected.
+     * Returns the Config object from the given file or {@code Optional.empty()}
+     * object if the file is not found. If any values are missing from the file,
+     * default values will be used, as long as the file is a valid json file.
+     * 
+     * @param configFilePath
+     *            cannot be null.
+     * @throws DataConversionException
+     *             if the file format is not as expected.
      */
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
 
@@ -152,7 +152,7 @@ public class ConfigUtil {
         File configFile = new File(configFilePath);
 
         if (!configFile.exists()) {
-            logger.info("Config file "  + configFile + " not found");
+            logger.info("Config file " + configFile + " not found");
             return Optional.empty();
         }
 
@@ -169,11 +169,15 @@ public class ConfigUtil {
     }
 
     /**
-     * Saves the Config object to the specified file.
-     *   Overwrites existing file if it exists, creates a new file if it doesn't.
-     * @param config cannot be null
-     * @param configFilePath cannot be null
-     * @throws IOException if there was an error during writing to the file
+     * Saves the Config object to the specified file. Overwrites existing file
+     * if it exists, creates a new file if it doesn't.
+     * 
+     * @param config
+     *            cannot be null
+     * @param configFilePath
+     *            cannot be null
+     * @throws IOException
+     *             if there was an error during writing to the file
      */
     public static void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;
@@ -209,7 +213,8 @@ public class FileUtil {
     }
 
     /**
-     * Creates a file if it does not exist along with its missing parent directories
+     * Creates a file if it does not exist along with its missing parent
+     * directories
      *
      * @return true if file is created, false if file already exists
      */
@@ -226,8 +231,10 @@ public class FileUtil {
     /**
      * Creates the given directory along with its parent directories
      *
-     * @param dir the directory to be created; assumed not null
-     * @throws IOException if the directory or a parent directory cannot be created
+     * @param dir
+     *            the directory to be created; assumed not null
+     * @throws IOException
+     *             if the directory or a parent directory cannot be created
      */
     public static void createDirs(File dir) throws IOException {
         if (!dir.exists() && !dir.mkdirs()) {
@@ -254,8 +261,8 @@ public class FileUtil {
     }
 
     /**
-     * Writes given string to a file.
-     * Will create the file if it does not exist yet.
+     * Writes given string to a file. Will create the file if it does not exist
+     * yet.
      */
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
@@ -263,8 +270,12 @@ public class FileUtil {
 
     /**
      * Converts a string to a platform-specific file path
-     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
-     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
+     * 
+     * @param pathWithForwardSlash
+     *            A String representing a file path but using '/' as the
+     *            separator
+     * @return {@code pathWithForwardSlash} but '/' replaced with
+     *         {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
         assert pathWithForwardSlash != null;
@@ -338,13 +349,15 @@ public class JsonUtil {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-            .registerModule(new SimpleModule("SimpleModule")
-                    .addSerializer(Level.class, new ToStringSerializer())
+            .registerModule(new SimpleModule("SimpleModule").addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
     /**
-     * Converts a given string representation of a JSON data to instance of a class
-     * @param <T> The generic type to create an instance of
+     * Converts a given string representation of a JSON data to instance of a
+     * class
+     * 
+     * @param <T>
+     *            The generic type to create an instance of
      * @return The instance of T with the specified values in the JSON string
      */
     public static <T> T fromJsonString(String json, Class<T> instanceClass) throws IOException {
@@ -352,9 +365,13 @@ public class JsonUtil {
     }
 
     /**
-     * Converts a given instance of a class into its JSON data string representation
-     * @param instance The T object to be converted into the JSON string
-     * @param <T> The generic type to create an instance of
+     * Converts a given instance of a class into its JSON data string
+     * representation
+     * 
+     * @param instance
+     *            The T object to be converted into the JSON string
+     * @param <T>
+     *            The generic type to create an instance of
      * @return JSON data representation of the given class instance, in string
      */
     public static <T> String toJsonString(T instance) throws JsonProcessingException {
@@ -368,20 +385,23 @@ public class JsonUtil {
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
+
 ```
 ###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     /** Raises an event to indicate that a task was added */
-    private void indicateAddTask(Task task) {
-        raise (new AddTaskEvent(task));
+    private void indicateAddTask(Task task, boolean isUndo) {
+        raise(new AddTaskEvent(task, isUndo));
     }
+
 ```
 ###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     /** Raises an event to indicate that a task was updated */
     private void indicateUpdateTask(Task task) {
-        raise (new UpdateTaskEvent(task));
+        raise(new UpdateTaskEvent(task));
     }
+
 ```
 ###### \java\seedu\whatnow\storage\Storage.java
 ``` java
@@ -418,12 +438,12 @@ public interface Storage extends WhatNowStorage, UserPrefsStorage {
     void saveWhatNow(ReadOnlyWhatNow whatNow) throws IOException;
 
     /**
-     * Saves the current version of the WhatNow to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Saves the current version of the WhatNow to the hard disk. Creates the
+     * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+     * there was an error during saving.
      */
     void handleWhatNowChangedEvent(WhatNowChangedEvent abce);
-    
+
     void handleFileLocationChangedEvent(ConfigChangedEvent dfgh);
 
     void saveConfig(Config config) throws IOException;
