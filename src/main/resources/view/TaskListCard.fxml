@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="100.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="150.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<GridPane HBox.hgrow="ALWAYS">
 			<columnConstraints>
@@ -22,7 +22,7 @@
 				<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="88.0" />
 			</columnConstraints>
 			<children>
-				<VBox alignment="CENTER_LEFT" maxHeight="150.0" maxWidth="240.0" minHeight="80" minWidth="80.0" prefHeight="100.0" prefWidth="180.0" GridPane.columnIndex="0">
+				<VBox alignment="CENTER_LEFT" maxHeight="150.0" maxWidth="240.0" minHeight="80" minWidth="80.0" prefHeight="150.0" prefWidth="180.0" GridPane.columnIndex="0">
 					<stylesheets>
 						<URL value="@DarkTheme.css" />
 						<URL value="@Extensions.css" />
@@ -32,23 +32,23 @@
 					</padding>
 
 					<children>
-						<HBox alignment="CENTER_LEFT" minHeight="100.0" minWidth="180.0" spacing="5" translateX="-15.0">
+						<HBox alignment="CENTER_LEFT" minHeight="100.0" minWidth="180.0" prefHeight="150.0" prefWidth="180.0" spacing="5" translateX="-15.0">
 							<children>
 								<HBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="180.0">
 									<children>
-										<Label fx:id="id" minWidth="25.0" prefHeight="25.0" prefWidth="25.0" styleClass="cell_big_label" translateX="5.0" />
-										<Label fx:id="name" alignment="TOP_LEFT" contentDisplay="CENTER" maxHeight="55.0" maxWidth="140.0" minHeight="55.0" minWidth="140.0" styleClass="cell_big_label" text="\$first" translateX="5.0" wrapText="true" />
+										<Label fx:id="id" alignment="CENTER" minWidth="35.0" prefHeight="35.0" prefWidth="35.0" styleClass="cell_big_label" translateX="2.0" wrapText="true" />
+										<Label fx:id="name" alignment="TOP_LEFT" contentDisplay="CENTER" maxHeight="75.0" maxWidth="130.0" minHeight="75.0" minWidth="130.0" styleClass="cell_big_label" text="\$first" translateX="0.0" translateY="5.0" wrapText="true" />
 									</children>
 								</HBox>
 								<!-- @@author A0135782Y -->
-								<Label fx:id="recurringType" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="75.0" text="\$recurringType" translateX="-180.0" translateY="35.0" />
+								<Label fx:id="recurringType" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="75.0" text="\$recurringType" translateX="-180.0" translateY="55.0" />
 								<!-- @@author -->
-								<Label fx:id="tags" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="75.0" styleClass="cell_small_label" text="\$tags" translateX="-260.0" translateY="-35.0" />
+								<Label fx:id="tags" alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="170.0" styleClass="cell_small_label" text="\$tags" translateX="-260.0" translateY="-45.0" wrapText="true" />
 							</children>
 						</HBox>
 					</children>
 				</VBox>
-				<VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1">
+				<VBox alignment="CENTER" prefHeight="150.0" prefWidth="100.0" GridPane.columnIndex="1">
 					<children>
 						<Label fx:id="startDate" text="\$startDate" />
 						<Label fx:id="endDate" text="\$endDate" />
