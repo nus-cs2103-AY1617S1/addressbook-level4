@@ -1,5 +1,12 @@
 package seedu.emeraldo.model;
 
+import java.time.LocalDate;
+import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
@@ -7,6 +14,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.logic.commands.ListCommand.TimePeriod;
 import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
@@ -130,10 +138,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0139342H
     @Override
-    public synchronized void editTask(Task target, int index, Description description, DateTime dateTime) 
+    public synchronized void editTask(Task target, Description description, DateTime dateTime) 
             throws TaskNotFoundException {
         try {
-            emeraldo.editTask(target, index, description, dateTime);
+            emeraldo.editTask(target, description, dateTime);
             saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -143,10 +151,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142290N
     @Override 
-    public synchronized void completedTask(Task target, int index)
+    public synchronized void completedTask(Task target)
     		throws TaskNotFoundException {
     	try {
-    		emeraldo.completedTask(target, index);
+    		emeraldo.completedTask(target);
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
@@ -159,15 +167,20 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    	filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredListToShowUncompleted() {
+        updateFilteredTaskList(new PredicateExpression(new ListQualifier()));
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-            updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
     
     //@@author A0139749L
@@ -175,6 +188,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(String keyword){
         updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
+    
+    @Override
+    public void updateFilteredTaskList(TimePeriod keyword){
+        updateFilteredTaskList(new PredicateExpression(new DateTimeQualifier(keyword)));
+    }
+
     //@@author
     
     private void updateFilteredTaskList(Expression expression) {
@@ -236,10 +255,10 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0139749L
     /*
      *  Compare tasks tags with keywords
      */
-    //@@author A0139749L
     private class TagQualifier implements Qualifier {
         private String tagKeyWord;
 
@@ -265,7 +284,67 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "tag=" + String.join(", ", tagKeyWord);
+            return "tag= " + tagKeyWord;
+        }
+    }
+    
+    /*
+     *  Compare tasks dateTime with the period specified by the keyword
+     */
+    private class DateTimeQualifier implements Qualifier {
+        private TimePeriod DateTimeKeyWord;
+
+        DateTimeQualifier(TimePeriod keyWord) {
+            this.DateTimeKeyWord = keyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	DateTime dateTime = task.getDateTime();
+        	if(dateTime.valueDate == null)	//For tasks without date specified
+        		return false;
+        	else if(DateTimeKeyWord == TimePeriod.today)
+        		return dateTime.valueDate.equals(LocalDate.now());
+        	else if(DateTimeKeyWord == TimePeriod.tomorrow)
+        		return dateTime.valueDate.equals(LocalDate.now().plusDays(1));
+        	else
+        		return false;
+        }
+
+        @Override
+        public String toString() {
+            return "DateTime= " + DateTimeKeyWord;
+        }
+    }
+    
+    //@@author A0142290N
+    /*
+     *  Compare tasks tags with the keyword "completed"
+     */
+    private class ListQualifier implements Qualifier {
+    	private String completedTag = "Completed";
+    	
+        ListQualifier() {}
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean completedFinder = false;
+            Tag tag;
+            Iterator<Tag> tagIterator = task.getTags().iterator();
+            while(tagIterator.hasNext()){
+                tag = tagIterator.next();
+                completedFinder = completedFinder || run(tag);
+            }
+            return !completedFinder;
+        }
+        
+        private boolean run(Tag tag){
+            return tag.tagName.equalsIgnoreCase(completedTag);
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", completedTag);
         }
     }
 }

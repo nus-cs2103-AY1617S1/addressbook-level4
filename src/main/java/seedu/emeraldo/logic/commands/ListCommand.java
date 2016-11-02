@@ -11,10 +11,17 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_LIST_ALL = "Listed all tasks";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all uncompleted tasks\n"
-            + COMMAND_WORD + " [KEYWORD]: Lists all tasks with tags containing the specified keyword (case-sensitive)"
-            + "and displays them as a list with index numbers.\n"
-            + "Example: " + COMMAND_WORD + " or " + COMMAND_WORD + " homework";
+    public static final String MESSAGE_LIST_UNCOMPLETED = "Listed all uncompleted tasks";
+    
+    public static final String MESSAGE_LIST_KEYWORD = "Tasks with tag '%s' successfully listed!\n";
+    
+    public static final String MESSAGE_LIST_TIMEPERIOD = "Tasks happening %s successfully listed!\n";
+    
+    public static final String MESSAGE_USAGE = "(1) " + COMMAND_WORD + " :  Lists all uncompleted tasks\n"
+    		+ "(2) " + COMMAND_WORD + " [PRE-DEFINED KEYWORDS] :  Lists all tasks in the period specified\n"
+            + "(3) " + COMMAND_WORD + " [KEYWORD] :  Lists all tasks with tags containing the specified keyword\n"
+            + "Example:  " + COMMAND_WORD + "  |  " + COMMAND_WORD + " today  |  " + COMMAND_WORD + " tomorrow"
+    		+ "  |  " + COMMAND_WORD + " homework";
 
     private String keyword;
     private String successMessage;
@@ -26,12 +33,24 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         if(keyword.isEmpty()){
-            model.updateFilteredListToShowAll();
-            this.successMessage = MESSAGE_LIST_ALL;
-        }else{
+            model.updateFilteredListToShowUncompleted();
+            this.successMessage = MESSAGE_LIST_UNCOMPLETED;
+        }else if(keyword.equalsIgnoreCase("all")){
+        	model.updateFilteredListToShowAll();
+        	this.successMessage = MESSAGE_LIST_ALL;
+        }else if(keyword.equalsIgnoreCase("today")){
+        	model.updateFilteredTaskList(TimePeriod.today);
+        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
+        }else if(keyword.equalsIgnoreCase("tomorrow")){
+        	model.updateFilteredTaskList(TimePeriod.tomorrow);
+        	this.successMessage = String.format(MESSAGE_LIST_TIMEPERIOD, keyword.toLowerCase());
+    	}else{
             model.updateFilteredTaskList(keyword);
-            this.successMessage = getMessageForTaskListShownSummary(model.getFilteredTaskList().size());
+            this.successMessage = String.format(MESSAGE_LIST_KEYWORD, keyword.toLowerCase())
+            		+ getMessageForTaskListShownSummary(model.getFilteredTaskList().size());
         }
         return new CommandResult(successMessage);
     }
+    
+    public enum TimePeriod {today, tomorrow};
 }

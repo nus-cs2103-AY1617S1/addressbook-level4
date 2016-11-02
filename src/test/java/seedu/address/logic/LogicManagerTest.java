@@ -174,7 +174,8 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    
+    //@@author A0139749L
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -194,6 +195,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    //@@author
 
 
     @Test
@@ -206,8 +208,24 @@ public class LogicManagerTest {
         // prepare Emeraldo state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandBehavior("list all",
                 ListCommand.MESSAGE_LIST_ALL,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsUncompletedTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Emeraldo expectedAB = helper.generateEmeraldo(2);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare Emeraldo state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list",
+                ListCommand.MESSAGE_LIST_UNCOMPLETED,
                 expectedAB,
                 expectedList);
     }
@@ -371,7 +389,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Description name = new Description("Complete assignments");
-            DateTime dateTime = new DateTime("by 22/01/2014 12:01");
+            DateTime dateTime = new DateTime("by 22/01/2014, 12:01");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -388,7 +406,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Description("Task " + seed),
-                    new DateTime("by 22/01/2014 12:0" + seed),
+                    new DateTime("by 22/01/2014, 12:0" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -484,7 +502,7 @@ public class LogicManagerTest {
         Task generateTaskWithDescription(String description) throws Exception {
             return new Task(
                     new Description(description),
-                    new DateTime("by 02/01/2013 12:01"),
+                    new DateTime("by 02/01/2013, 12:01"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -15,7 +15,7 @@
 1. Download the latest version `.jar` file from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Emeraldo
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="../assets/add_1.png" width="1000"><br>
+   > <img src="../assets/UIstartup.png" width="1000"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -41,20 +41,17 @@ Format: `help`
 [](@@author A0139749L)
 #### Adding a task: `add`
 Adds a task to the Emeraldo <br>
-Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME] [#TAGS]...`
 
 <br>
 
 Type of task to be added | Examples
 -------------------------|----------
-For a task with no date or time specified, only the task description is required to be specified.|`add "Do tutorial"`
-For a task with a deadline, the date and time must be specified.|`add "Do tutorial" by 23 May, 2pm`
-For a task with date but no time specified, it would be taken be as an all day event.|`add "Do tutorial" on 23 May`
-For a scheduled task within the same day, the date, start and end time must be specified.|`add "Do tutorial" on 23 May from 2pm to 4pm`
-For a scheduled task longer than a day, the date, start and end time must be specified.|`add "Do tutorial" from 23 May, 2pm to 25 May, 4pm`
-For any tasks with tags, specify the tags as the last parameter.|`add "CS2103T Lecture" on 7 Oct 2016 from 2pm to 4pm #Important`
-
-<br>
+For a task with no date or time specified, only the task description is required to be specified.|`add "Do laundry"`
+For a task with date but no time specified, it would be taken be as an all day event.|`add "Gyming with Jim" on 23 May 2016`
+For a task with a deadline, the date and time must be specified.|`add "Do tutorial for EE module" by 5 May, 2pm`
+For a scheduled task occurring over a period of time, the start and end date and time must be specified.|`add "Leadership workship" from 3 Jun, 2pm to 3 Jun, 4pm`
+For any tasks with tags, specify the tags as the last parameter.|`add "James wedding" on 30 Jun #Important`
 
 >Tasks can have any number of tags (including 0)
 
@@ -62,6 +59,8 @@ For any tasks with tags, specify the tags as the last parameter.|`add "CS2103T L
 
 <img src="../assets/add_1.png" width="1000"><br>
 First, type a command.
+<br>
+<br>
 <img src="../assets/add_2.png" width="1000"><br>
 Command will be added.
 
@@ -74,7 +73,7 @@ Format: `list`
 
 <br>
 #### Listing all tasks by categories: `list`
-Shows a list of all tasks in the Emeraldo according to a stated category
+Shows a list of all tasks in the Emeraldo according to a stated category. <br>
 Format: `list [CATEGORIES]`
 
 > By default, tasks will be sorted in order of task, floating, event, and then by index
@@ -94,13 +93,13 @@ Examples:
 <br>
 [](@@author A0139196U)
 #### Finding all tasks containing any keyword in their title: `find`
-Finds tasks whose titles contain any of the given keywords.
+Finds tasks whose titles contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * Finds all tasks that has the keyword in the task title, and shows in the list sorted in the one of the following order:
 > * By default it will be sorted by the most keyword matches first, but the sorting can be changed
 > * 1. Show the task with the most keyword matches first
-> * 2. Sorted in index order
+> 2. Sorted in index order
 >
 > * The search is not case sensitive. e.g `homework` will match `Homework`
 > * The order of the keywords does not matter. e.g. `to do homework` will match `homework to do`
@@ -148,7 +147,7 @@ Examples:
 <br>
 [](@@author A0139342H)
 #### Undo a command: `undo`
-Undo the previous action
+Undo the previous action. <br>
 Format: `undo`
 
 > Emeraldo will revert the last action done
@@ -164,7 +163,7 @@ Examples:
 <br>
 [](@@author A0139196U)
 #### Mark task as complete: `completed`
-Marks a task as completed as a normal tag
+Marks a task as completed as a normal tag. <br>
 Format: `completed INDEX`
 
 > Emeraldo will mark task as completed with a predefined tag "completed" 
@@ -179,7 +178,6 @@ Format: `clear`
 #### Exiting the program: `exit`
 Exits the program.<br>
 Format: `exit`
-<>
 [](@@author)
 
 <br>
@@ -204,11 +202,11 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+Add | `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME] [#TAGS]...`
 Clear | `clear`
 Completed | `completed INDEX`
 Delete | `delete INDEX`
-Edit | `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
+Edit | `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME] [#TAGS]...`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 Help | `help`

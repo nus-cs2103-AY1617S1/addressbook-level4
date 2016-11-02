@@ -67,15 +67,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Description("Complete application form for SEP"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Fred birthday party"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Return book to library"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Bring food for party"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Go for a haircut"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Pay for parking fines"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Complete tutorial for EE2020"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Do homework"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList()),
-                    new Task(new Description("Buy groceries for mum"), new DateTime("by 22/01/2014 12:01"), new UniqueTagList())
+                    new Task(new Description("Complete application form for SEP"), new DateTime("by 22/01/2014, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Fred birthday party"), new DateTime("on 22/02/2014"), new UniqueTagList()),
+                    new Task(new Description("Return book to library"), new DateTime("by 22/01/2014, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Bring food for party"), new DateTime("by 22/03/2014, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Go for a haircut"), new DateTime("by 21/01/2018, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Pay for parking fines"), new DateTime("by 11/01/2015, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Complete tutorial for EE2020"), new DateTime("by 22/01/2014, 12:01"), new UniqueTagList()),
+                    new Task(new Description("Do homework"), new DateTime("from 30/01/2017, 11:00 to 28/02/2018, 12:00"), new UniqueTagList()),
+                    new Task(new Description("Buy groceries for mum"), new DateTime("from 30/05/2017, 13:00 to 06/06/2017, 14:00"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

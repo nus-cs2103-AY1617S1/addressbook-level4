@@ -37,7 +37,7 @@ public class CompleteCommand extends Command {
         Task taskToMarkComplete = (Task) lastShownList.get(targetIndex - 1);
         
         try {
-            model.completedTask(taskToMarkComplete, targetIndex - 1);
+            model.completedTask(taskToMarkComplete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
