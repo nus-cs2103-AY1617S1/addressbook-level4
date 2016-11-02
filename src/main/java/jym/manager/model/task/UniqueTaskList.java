@@ -2,11 +2,13 @@ package jym.manager.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.util.*;
 
 import javax.swing.event.InternalFrameListener;
 
+import jym.manager.model.task.Task;
 import jym.manager.commons.exceptions.DuplicateDataException;
 import jym.manager.commons.util.CollectionUtil;
 
@@ -77,6 +79,27 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return personFoundAndDeleted;
     }
+    
+    /**
+     * Marks the equivalent task(s) in the list.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean complete(ReadOnlyTask... toMark) throws TaskNotFoundException {
+        assert toMark != null;
+        boolean taskFound = false;
+        for (ReadOnlyTask task : toMark) {
+        	taskFound = (internalList.indexOf(task) != -1);
+        	if (!taskFound) {
+                throw new TaskNotFoundException();
+            }
+        	Task taskMarked = new Task(task.getDescription(), task.getLocation(), task.getDate(), task.getPriority(), new Status(true));
+        	internalList.set(internalList.indexOf(task), taskMarked);
+        }
+//        Collections.sort(internalList);
+        return taskFound;
+    }
+       
 	/**
 	 * 
 	 * @param toUpdate
@@ -93,6 +116,10 @@ public class UniqueTaskList implements Iterable<Task> {
     
     public ObservableList<Task> getInternalList() {
         return internalList;
+    }
+    
+    public FilteredList<Task> getFilteredTaskList(String filter) {
+        return internalList.filtered(p -> p.getStatus().toString().equals(filter));
     }
 
     @Override

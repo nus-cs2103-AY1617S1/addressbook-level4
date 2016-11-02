@@ -2,9 +2,13 @@ package jym.manager.model;
 
 import javafx.collections.transformation.FilteredList;
 
+import java.util.EmptyStackException;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
+import jym.manager.model.TaskManager;
+import jym.manager.model.ReadOnlyTaskManager;
 import jym.manager.commons.core.ComponentManager;
 import jym.manager.commons.core.LogsCenter;
 import jym.manager.commons.core.UnmodifiableObservableList;
@@ -14,6 +18,7 @@ import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.Task;
 import jym.manager.model.task.UniqueTaskList;
 import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
+import jym.manager.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +29,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> filteredCompleteTasks;
+    private final FilteredList<Task> filteredIncompleteTasks;
+    
+    private final Stack<ReadOnlyTaskManager> taskManagerHistory;
+    private String currentTab;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -38,6 +48,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredCompleteTasks = new FilteredList<>(taskManager.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(taskManager.getIncompleteTasks());
+        taskManagerHistory = new Stack<ReadOnlyTaskManager>();
+        currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
     public ModelManager() {
@@ -47,6 +61,10 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredCompleteTasks = new FilteredList<>(taskManager.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(taskManager.getIncompleteTasks());
+        taskManagerHistory = new Stack<ReadOnlyTaskManager>();
+        currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
     @Override
@@ -63,6 +81,24 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
+    }
+    
+    @Override
+    public void setCurrentTab(String tab) {
+        currentTab = tab;
+    }
+    
+    @Override
+    public String getCurrentTab() {
+        return currentTab;
+    }
+    
+    @Override
+    public synchronized void markTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
+    	TaskManager previousTaskManager = new TaskManager(this.taskManager);
+    	taskManager.completeTask(tasks);
+    	taskManagerHistory.push(previousTaskManager);
+        indicateTaskManagerChanged();
     }
 
     @Override
@@ -87,7 +123,9 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws TaskNotFoundException {
+    	TaskManager previousToDoList = new TaskManager(this.taskManager);
         taskManager.completeTask(target);
+        taskManagerHistory.push(previousToDoList);
         indicateTaskManagerChanged();
     }
 
@@ -97,10 +135,22 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredCompleteTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredIncompleteTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        filteredCompleteTasks.setPredicate(null);
+        filteredIncompleteTasks.setPredicate(null);
     }
 
     @Override
@@ -110,6 +160,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+        filteredCompleteTasks.setPredicate(expression::satisfies);
+        filteredIncompleteTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -162,6 +214,13 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+	@Override
+    public synchronized void undoToDoList() throws EmptyStackException {
+    	taskManager.resetData(taskManagerHistory.pop());
+    	updateFilteredListToShowAll();
+    	indicateTaskManagerChanged();
     }
 
 }

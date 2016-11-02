@@ -2,6 +2,7 @@ package jym.manager.testutil;
 
 import java.time.LocalDateTime;
 
+import jym.manager.model.task.Status;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.*;
 
@@ -16,6 +17,7 @@ public class TestTask implements ReadOnlyTask {
     private Priority pri;
 //    private Phone phone;
     private UniqueTagList tags;
+    private Status status;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -36,6 +38,10 @@ public class TestTask implements ReadOnlyTask {
 //    public void setPhone(Phone phone) {
 //        this.phone = phone;
 //    }
+    
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     @Override
     public Description getDescription() {
@@ -90,6 +96,12 @@ public class TestTask implements ReadOnlyTask {
 
 	@Override
 	public Complete getComplete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public jym.manager.model.task.Status getStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -36,4 +36,6 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskManagerChangedEvent(TaskManagerChangedEvent abce);
+    
+    void setFilePath(String filepath);
 }

@@ -38,6 +38,10 @@ public abstract class Command {
         this.model = model;
     }
     
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
+    
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
