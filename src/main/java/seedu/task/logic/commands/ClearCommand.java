@@ -41,8 +41,11 @@ public class ClearCommand extends Command {
 	private void saveModelForUndo() {
 		savedTasksForUndo = new ArrayList<Task>();
 		for (ReadOnlyTask task : model.getFilteredTaskList()) {
+		    //@@author A0153751H
 			savedTasksForUndo.add(new Task(task.getTitle(), task.getDescription(), task.getStartDate(),
-					task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()));
+			        task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), 
+			        task.getTaskColor(), task.getTags()));
+			//@@author
 		}
 	}
 

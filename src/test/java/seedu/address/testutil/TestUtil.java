@@ -65,15 +65,17 @@ public class TestUtil {
 
     private static Task[] getSampleTaskData() {
         try {
+          //@@author A0153751H
             return new Task[]{
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList()),
-                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"),new UniqueTagList())
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"), new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList()),
+                    new Task(new Title("Title1"), new Description("Description"), new StartDate("11-01-2012 00:00"), new DueDate("11-01-2012 23:59"), new Interval("1"), new TimeInterval("1"), new Status("ONGOING"), new TaskColor("none"),new UniqueTagList())
             };
+          //@@author
         } catch (IllegalValueException e) {
             assert false;
             //not possible

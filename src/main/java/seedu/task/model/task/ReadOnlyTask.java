@@ -18,6 +18,11 @@ public interface ReadOnlyTask {
     Status getStatus();
     void setStatus(Status status);
     //@@author
+    
+    //@@author A0153751H
+    TaskColor getTaskColor();
+    //@@author
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.

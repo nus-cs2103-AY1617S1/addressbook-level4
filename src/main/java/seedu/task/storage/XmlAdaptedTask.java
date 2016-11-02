@@ -30,6 +30,8 @@ public class XmlAdaptedTask {
     private String timeInterval;
     @XmlElement(required = true)
     private String status;
+    @XmlElement(required = true)
+    private String color;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -45,6 +47,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
+    //@@author A0153751H
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().fullTitle;
         description =  source.getDescription().fullDescription;
@@ -53,6 +56,7 @@ public class XmlAdaptedTask {
         interval = source.getInterval().toString();
         timeInterval = source.getTimeInterval().toString();
         status = source.getStatus().toString();
+        color = source.getTaskColor().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -78,7 +82,8 @@ public class XmlAdaptedTask {
         final Interval interval = new Interval(this.interval);
         final TimeInterval timeInterval = new TimeInterval(this.timeInterval);
         final Status status = new Status(this.status);
+        final TaskColor color = new TaskColor(this.color);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title,description,startDate, dueDate,interval,timeInterval, status, tags);
+        return new Task(title,description,startDate, dueDate,interval,timeInterval, status, color, tags);
     }
 }
