@@ -100,7 +100,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
      * ===============================================================
      */
     
-    /** Returns true if indices are invalid i.e. end before start, start more than list size. */
+    /** Returns true if indices are valid i.e. not end before start, start more than list size. */
     private boolean isValidIndices(Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList, int start,
             int end) {
         return !(!optionalList.isPresent() || optionalList.get().size() < start || end < start);
