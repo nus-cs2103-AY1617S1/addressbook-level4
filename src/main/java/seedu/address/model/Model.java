@@ -44,6 +44,9 @@ public interface Model {
     //@@author A0143756Y
     /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
     void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException;
+    
+    /** Checks if alias argument for AddAliasCommand is valid. Alias cannot be a sub-string or super-string or any previously set alias. */
+    boolean validateAliasforAddAliasCommand(String alias);    
     //@@author
     
     /** Updates the task status overdue if not marked as done and end time is before now */

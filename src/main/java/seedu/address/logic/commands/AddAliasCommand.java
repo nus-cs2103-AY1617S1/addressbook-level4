@@ -21,6 +21,9 @@ public class AddAliasCommand extends Command {
     
     public static final String MESSAGE_DUPLICATE_ALIAS = "Alias already exists in the alias manager.\n";
     
+    public static final String MESSAGE_INVALID_ALIAS = "Alias '%s' is invalid. Alias cannot be a sub-string or "
+    		+ "a super-string of any previously set alias. Please re-enter command with a valid alias.\n";
+    
     private final String alias; 
     
     private final String originalPhrase;
@@ -37,7 +40,14 @@ public class AddAliasCommand extends Command {
         model.saveState();
         
         try{
-   
+        	
+        	if(!model.validateAliasforAddAliasCommand(alias)){
+        		
+        		model.undoSaveState();
+        		return new CommandResult(String.format(MESSAGE_INVALID_ALIAS, alias));	
+        		
+        	}
+        	
         	Alias aliasToAdd = new Alias(alias, originalPhrase);
         	model.addAlias(aliasToAdd); //Throws DuplicateAliasException
         	return new CommandResult(String.format(MESSAGE_SUCCESS, alias, originalPhrase));

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -20,6 +21,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -149,6 +151,21 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	aliasManager.addAlias(aliasToAdd);
     	indicateAliasManagerChanged();
+    }
+    
+    @Override
+    public synchronized boolean validateAliasforAddAliasCommand(String alias) {
+    	assert alias != null;
+    	assert !alias.isEmpty();
+    	
+    	ObservableList<Alias> aliasList = aliasManager.getInternalList();
+    	for(Alias currentAlias: aliasList){
+    		if(currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
+    			return false;
+    		}
+    	}
+    	
+    	return true;
     }
     
     //@@author A0141019U

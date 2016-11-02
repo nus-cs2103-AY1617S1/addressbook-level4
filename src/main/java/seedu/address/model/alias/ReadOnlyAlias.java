@@ -22,7 +22,7 @@ public interface ReadOnlyAlias extends Comparable<ReadOnlyAlias> {
     }
     
     /**
-     * Formats the alias as text, printing commandAlias and commandPhrase.
+     * Formats the alias as text, printing alias and originalPhrase.
      */
     default String getAsText() {
     	final StringBuilder builder = new StringBuilder();
