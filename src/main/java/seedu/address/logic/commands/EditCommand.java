@@ -3,8 +3,10 @@ package seedu.address.logic.commands;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
@@ -48,8 +50,7 @@ public class EditCommand extends Command {
         this.newStartDateTime = Optional.ofNullable(startDateTime);
         this.newEndDateTime = Optional.ofNullable(endDateTime);
     }
-
-
+    
     @Override
     public CommandResult execute() {
         model.saveState();
@@ -87,6 +88,10 @@ public class EditCommand extends Command {
         	
             model.editTask(index, postEdit);
             
+           
+            raiseJumpToTaskEvent(postEdit);
+
+            
         } catch (UnsupportedOperationException uoe) {
             model.loadPreviousState();
             return new CommandResult(uoe.getMessage());
@@ -95,9 +100,17 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
+        
         model.checkForOverdueTasks();
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
-
+    
+    //@@author A0142184L
+	private void raiseJumpToTaskEvent(Task postEdit) {
+		UnmodifiableObservableList<ReadOnlyTask> listAfterEdit = model.getFilteredTaskList();
+		int indexToScrollTo = listAfterEdit.indexOf(postEdit);
+		EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToScrollTo));
+	}
+        
 }
