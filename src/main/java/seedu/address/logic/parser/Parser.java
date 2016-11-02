@@ -52,11 +52,11 @@ public class Parser {
 	private static final Prefix datePrefix = new Prefix("on ");
 	private static final Prefix tagsPrefix = new Prefix("#");
 
-	private static final Pattern[] EDIT_ARGS_FORMAT = new Pattern[] { 
-			Pattern.compile("(?<index>\\d+)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by|to\\b)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+))?"),
-			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+([^'](?!(from | by | to\\b)))+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+))?"),
-			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?")
-	};
+	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
+			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
+//			Pattern.compile("(?<index>\\d+)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by|to\\b)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+))?"),
+//			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+([^'](?!(from | by | to\\b)))+))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+))?"),
+//			Pattern.compile("(?<index>\\d+)(\\s+(?<dateTime1>(from|by|to\\b)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by|to\\b)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?");
  	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
@@ -326,77 +326,58 @@ public class Parser {
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		String indexString = null;
-		Optional<String> newNameString = Optional.empty();
-		ArrayList<Optional<String>> newDateTime = new ArrayList<Optional<String>>();
-		ArrayList<Matcher> matchers = new ArrayList<Matcher>();
-		for(int i = 0; i < EDIT_ARGS_FORMAT.length; i++) {
-			matchers.add(EDIT_ARGS_FORMAT[i].matcher(arguments.trim()));
-		}
-		for(Matcher matcher : matchers) {
-			if(matcher.matches()) {
-				indexString = matcher.group("index");
-				newNameString = Optional.ofNullable(matcher.group("taskName"));
-				newDateTime.add(Optional.ofNullable(matcher.group("dateTime1")));
-				newDateTime.add(Optional.ofNullable(matcher.group("dateTime2")));
-				System.out.println("indexString: " + indexString);
-				System.out.println("newName: " + newNameString);
-				System.out.println("dateTime1: " + Optional.ofNullable(matcher.group("dateTime1")));
-				System.out.println("dateTime2: " + Optional.ofNullable(matcher.group("dateTime2")));
-				break;
-			}
-			
-		}
-		if(!StringUtil.isUnsignedInteger(indexString)) {
+		Matcher matcher = EDIT_ARGS_FORMAT.matcher(arguments);
+		if(!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
-		int index = Integer.parseInt(indexString);
-		Optional<Name> name = Optional.empty();
-		if(newNameString.isPresent()) {
-			try {
-				name = Optional.ofNullable(new Name(newNameString.get()));
-			} catch (IllegalValueException e1) {
-				return new IncorrectCommand(e1.getMessage());
-			}
-		}
 		
-		Optional<LocalDateTime> newStartDate = Optional.empty();
-		Optional<LocalDateTime> newEndDate = Optional.empty();
+		int index = Integer.parseInt(matcher.group("index"));
+		String editTaskArgs = matcher.group("editTaskArgs");
 		
-		for(int i = 0; i < newDateTime.size(); i++) {
-			if(newDateTime.get(i).isPresent()) {
-				try{
-					String[] newDate = newDateTime.get(i).get().split(" ", 2);
-					System.out.println("newDate[0]: " + newDate[0]);
-					assert newDate[0].equals("from") || newDate[0].equals("to") 
-						|| newDate[0].equals("by");
-					switch(newDate[0]) {
-					case "from":
-						newStartDate = Optional.ofNullable(DateParser.parse(newDate[1]));
-						break;
-					case "to":
-					case "by":
-						newEndDate = Optional.ofNullable(DateParser.parse(newDate[1]));
-						break;
-					}
-				} catch(ParseException e) {
-					return new IncorrectCommand(e.getMessage());
-				}
-			}
+		Optional<String> taskName;
+		String args;
+		if(editTaskArgs.contains("\'")) {
+			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
+			taskName = Optional.of(nameAndArgs.getKey());
+			args = nameAndArgs.getValue();
+		} else {
+			taskName = Optional.empty();
+			args = editTaskArgs;
 		}
-				
-		// No values are to be edited
-		if(!name.isPresent() && !newStartDate.isPresent() && !newEndDate.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		String argsLowerCase = args.toLowerCase();
+		
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
+				startDateTimePrefix, endDateTimePrefix, dlEndDateTimePrefix, tagsPrefix);
+		
+		argsTokenizer.tokenize(argsLowerCase);
+		Optional<String> startDateTimeString = argsTokenizer.getValue(startDateTimePrefix);
+		Optional<String> endDateTimeString = argsTokenizer.getValue(endDateTimePrefix);
+		if(!endDateTimeString.isPresent()) {
+			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
 		}
-
+		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
+		
+		Optional<LocalDateTime> startDateTime = convertToLocalDateTime(startDateTimeString);
+		Optional<LocalDateTime> endDateTime = convertToLocalDateTime(endDateTimeString);
+		
 		try {
-			return new EditCommand(index, name, newStartDate, newEndDate);
-		} catch (NumberFormatException e) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+			return new EditCommand(index, taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+	}
+
+
+	private Optional<LocalDateTime> convertToLocalDateTime(Optional<String> startDateTimeString) {
+		Optional<LocalDateTime> dateTime = Optional.empty();
+		if(startDateTimeString.isPresent()) {
+			try {
+				dateTime = Optional.ofNullable(DateParser.parse(startDateTimeString.get()));
+			} catch (ParseException e) {
+				e.getMessage();
+			}
+		} 
+		return dateTime;
 	}
 
 	//@@author A0139339W
