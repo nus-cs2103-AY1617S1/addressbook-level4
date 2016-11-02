@@ -17,7 +17,6 @@ import seedu.task.model.task.Interval;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
-import seedu.task.model.task.TaskColor;
 import seedu.task.model.task.TimeInterval;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.UniqueTaskList;
@@ -37,6 +36,9 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_EVENT_USAGE = "To add an event, DUE_DATE is required\n" + "Example: "
 			+ COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
 
+	public static final String MESSAGE_INVALID_DATE = "The DUE DATE is before the START DATE\n" + "Example: "
+	        + COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
+	
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -59,9 +61,10 @@ public class AddCommand extends Command {
 		for (String tagName : tags) {
 			tagSet.add(new Tag(tagName));
 		}
+		
 		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
 				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
-				new Status("ONGOING"), new TaskColor("none"), new UniqueTagList(tagSet));
+				new Status("ONGOING"), new UniqueTagList(tagSet));
 		addTasksToList(mainTask);
 	}
 
@@ -78,7 +81,7 @@ public class AddCommand extends Command {
 			tasksToAdd.add(new Task(mainTask.getTitle(), mainTask.getDescription(),
 					mainTask.getStartDateWithInterval(timeInterval * i),
 					mainTask.getDueDateWithInterval(timeInterval * i), mainTask.getInterval(),
-					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTaskColor(), mainTask.getTags()));
+					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTags()));
 		}
 	} 
 	

@@ -53,7 +53,6 @@ import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
-import seedu.task.model.task.TaskColor;
 import seedu.task.model.task.TimeInterval;
 import seedu.task.model.task.Title;
 import seedu.task.storage.StorageManager;
@@ -576,13 +575,10 @@ public class LogicManagerTest {
         	Interval interval= new Interval("1");
         	TimeInterval timeInterval = new TimeInterval("7");
         	Status status = new Status("ONGOING");
-            //@@author A0153751H
-        	TaskColor taskColor = new TaskColor("none");
-        	//@@author
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title,description,startDate,dueDate,interval, timeInterval, status, taskColor, tags);
+            return new Task(title,description,startDate,dueDate,interval, timeInterval, status,tags);
         }
 
         /**
@@ -592,7 +588,6 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        //@@author A0153751H
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
@@ -602,11 +597,9 @@ public class LogicManagerTest {
                     new Interval("1"),
                     new TimeInterval(""+seed),
                     new Status("ONGOING"),
-                    new TaskColor("none"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
-        //@@author
 
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task t) {
@@ -715,7 +708,6 @@ public class LogicManagerTest {
                     new Interval("7"),
                     new TimeInterval("1"),
                     new Status("ONGOING"),
-                    new TaskColor("none"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

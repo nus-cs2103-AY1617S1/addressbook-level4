@@ -4,6 +4,7 @@ import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +15,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Date;
+
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
@@ -33,6 +36,8 @@ import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
 import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.task.model.task.DueDate;
+import seedu.task.model.task.StartDate;
 
 /**
  * Parses user input.
@@ -48,18 +53,18 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+    
+    public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
     //@@author A0153411W
     public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
     public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
-    public static final Prefix tagArgumentsPrefix = new Prefix(" t/"); 
-    //@@author 
-
+    public static final Prefix tagArgumentsPrefix = new Prefix(" t/");   
     
-   //@@author A0153751H
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
             		+ "(( t/(?<newTitle>[^/]+))|"
@@ -68,7 +73,6 @@ public class Parser {
                     + "( dd/(?<dueDate>[^/]+))|"
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
-                    + "( c/(?<taskColor>[^/]+))|"
                     + "(?<tagArguments>(?: ts/[^/]+)*))+?");
     //@@author 
     
@@ -160,6 +164,36 @@ public class Parser {
 				dueDatePrefix.SetIsOptional(false);
 			}
 			//@@author
+			
+			//@@author A0139932X
+			//to validate start date is before due date
+			
+			Date dueDate, startDate;
+			if (!isInputPresent(argsTokenizer.getValue(startDatePrefix)).equals("Not Set")
+			        && (!isInputPresent(argsTokenizer.getValue(dueDatePrefix)).equals("Not Set"))){
+			    
+			    //validate start date format
+			    if (!checkDateFormate(argsTokenizer.getValue(startDatePrefix))) {
+                    throw new IllegalValueException(StartDate.MESSAGE_DATE_CONSTRAINTS);
+                }
+                else {
+                    startDate = parseStartDate(argsTokenizer.getValue(startDatePrefix));
+                }
+			    //validate due date format
+			    if (!checkDateFormate(argsTokenizer.getValue(dueDatePrefix))) {
+			        throw new IllegalValueException(DueDate.MESSAGE_DATE_CONSTRAINTS);
+			    }
+			    else {
+			        dueDate = parseDueDate(argsTokenizer.getValue(dueDatePrefix));
+		        }
+			    
+			    if (startDate.compareTo(dueDate) > 0) {
+			        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_INVALID_DATE));
+			    }
+			
+			}
+			//@@author
+			
 		    //@@author A0153411W
 			return new AddCommand(argsTokenizer.getPreamble(), 
 					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),
@@ -177,6 +211,42 @@ public class Parser {
 			return new IncorrectCommand(nvfrt.getMessage());
 		}
     }
+    //@@author A0139932X
+    public boolean checkDateFormate(String dateToValidate) {
+        if (!DueDate.isValidDateTime(dateToValidate) && !DueDate.isValidDate(dateToValidate)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public Date parseDueDate(String dateToValidate) throws ParseException {
+        Date date;
+        
+        if (DueDate.isValidDate(dateToValidate)) {
+            date = DATE_FORMAT.parse(dateToValidate + " 23:59");
+        }
+        else {
+            date = DATE_FORMAT.parse(dateToValidate);
+        }
+          
+        return date;
+    }
+    
+    public Date parseStartDate(String dateToValidate) throws ParseException {
+        Date date;
+        
+        if (StartDate.isValidDate(dateToValidate)) {
+            date = DATE_FORMAT.parse(dateToValidate + " 08:00");
+        }
+        else {
+            date = DATE_FORMAT.parse(dateToValidate);
+        }
+          
+        return date;
+    }
+    //@@author
+    
+        
     /**
      * Check if the input is present, hence having the attribute of task optional
      * @param input of task's attribute
@@ -194,15 +264,13 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0153751H
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT_EDIT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } else if (matcher.group("newTitle")==null && matcher.group("description")==null && matcher.group("startDate")==null && matcher.group("dueDate")==null
-        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null && matcher.group("taskColor")==null
-        		&& matcher.group("taskColor").equalsIgnoreCase("cyan")) {
+        		&& matcher.group("interval")==null && matcher.group("timeInterval")==null && matcher.group("tagArguments")==null) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         try {
@@ -214,7 +282,6 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
-                    matcher.group("taskColor"),
                     getTagsFromArgs(matcher.group("tagArguments"))
 			);
 		} catch (NumberFormatException e) {
@@ -228,14 +295,12 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
-                    matcher.group("taskColor"),
                     null);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
     }
-    //@@author
-    //@@author A0153751H_reused
+    
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
         if (tagArguments.isEmpty()) {
@@ -245,8 +310,6 @@ public class Parser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" ts/", "").split(" ts/"));
         return new HashSet<>(tagStrings);
     }
-    //@@author
-
 
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
     	List<String> tags = tagsOptional.orElse(Collections.emptyList());
