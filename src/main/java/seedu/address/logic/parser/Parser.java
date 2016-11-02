@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -57,6 +58,8 @@ public class Parser {
  	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
+		// String replacedInput = replaceAliases(userInput);
+		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -115,6 +118,30 @@ public class Parser {
 	
 	
 	// @@author A0141019U
+	private String replaceAliases(String userInput) {
+		List<String> keyStub = new ArrayList<>();
+		keyStub.add("labdi");
+		keyStub.add("k");
+		List<String> valueStub = new ArrayList<>();
+		valueStub.add("list");
+		valueStub.add("pending");
+		
+		for (int i=0; i<keyStub.size(); i++) {
+			String alias = keyStub.get(i);
+			
+			// Does not replace arguments to find
+			if (userInput.contains(alias) && !userInput.contains("find")) {
+				System.out.println("match");
+				userInput = userInput.replace(alias, valueStub.get(i));
+			}
+		}
+		
+		System.out.println("userInput: " + userInput);
+		
+		return null;
+	}
+	
+	
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
 			// TODO better error msg?
@@ -504,7 +531,12 @@ public class Parser {
 
 	public static void main(String[] args) {
 		Parser p = new Parser();
+<<<<<<< HEAD
 		p.parseCommand("add from 5pm 'dd' to 6pm");
+=======
+//		p.parseCommand("add 'dd' by 5pm today");
+		p.replaceAliases("find k");
+>>>>>>> 3cf7c370c635869c34e1a7c0b4f29af5b1cadef3
 	}
 	
 }
