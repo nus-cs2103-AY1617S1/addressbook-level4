@@ -24,6 +24,10 @@ public class Config {
     public String getAppTitle() {
         return appTitle;
     }
+    
+    public String getDefaultConfigFile(){
+    	return DEFAULT_CONFIG_FILE;
+    }
 
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;

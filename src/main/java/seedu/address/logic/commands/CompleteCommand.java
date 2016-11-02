@@ -79,18 +79,6 @@ public class CompleteCommand extends Command {
 
 	public CommandResult execute() {
 
-		/*
-		 * try { Name name = new Name(personToDelete.getName().toString() +
-		 * " is completed"); } catch (IllegalValueException e1) { // TODO
-		 * Auto-generated catch block e1.printStackTrace(); } UniqueDeadlineList
-		 * deadlineSet = new UniqueDeadlineList(personToDelete.getDeadlines());
-		 * Priority priority = null; try { priority = new Priority
-		 * (personToDelete.getPriority().toString()); } catch
-		 * (IllegalValueException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } UniqueTagList tagSet = new
-		 * UniqueTagList(personToDelete.getTags());
-		 * 
-		 */
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
 		if (lastShownList.size() < targetIndex) {

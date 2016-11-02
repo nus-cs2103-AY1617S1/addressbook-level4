@@ -95,16 +95,16 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
-	case DeleteCommand.COMMAND_WORD_2:
+        case DeleteCommand.COMMAND_WORD_2:
             return prepareDelete(arguments);
         
-	case ClearCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-	case FindCommand.COMMAND_WORD_2:
+        case FindCommand.COMMAND_WORD_2:
             return prepareFind(arguments);
 			
         case ListCommand.COMMAND_WORD:
