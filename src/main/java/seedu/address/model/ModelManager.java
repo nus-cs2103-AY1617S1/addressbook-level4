@@ -70,6 +70,10 @@ public class ModelManager extends ComponentManager implements Model {
     	undoHistory.clear();
     }
     
+    public void undoSaveState() {
+    	stateHistory.pop();
+    }
+    
     public void loadPreviousState() throws EmptyStackException {
     	TaskManager oldTaskManager = stateHistory.pop();
     	
