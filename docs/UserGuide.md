@@ -233,7 +233,7 @@ Command format : find ed/ENDTIME
 
 - **find ed/27.10.2016**
 
-- ** Returns any tasks that end **before 17.10.2016, 00:00**.
+- Returns any tasks that end **before 17.10.2016, 00:00**.
 
 - **find ed/16:00**
 
@@ -261,29 +261,29 @@ The INDEX refers to the task&#39;s listing index number.
 
 Examples :
 
-**        update 3 des/ go to school**
+- **update 3 des/ go to school**
 
-                Updates the listed third task&#39;s DESCRIPTION to &#39; **go to school&#39;**.
+- Updates the listed third task&#39;s DESCRIPTION to &#39; **go to school&#39;**.
 
-**        update 4 pr/high**
+- **update 4 pr/high**
 
-                Updates the listed third task&#39;s PRIORITY to **high**.
+- Updates the listed third task&#39;s PRIORITY to **high**.
 
 **        update 5 st/10:00**
 
-                Updates the listed fifth task&#39;s STARTTIME to **10:00**.
+- Updates the listed fifth task&#39;s STARTTIME to **10:00**.
 
-**        update 6 ed/19:00**
+- **update 6 ed/19:00**
 
-                Updates the listed sixth task&#39;s ENDTTIME to **19:00**.
+- Updates the listed sixth task&#39;s ENDTTIME to **19:00**.
 
 **Completing a task**
 
 Format : **complete INDEX**
 
-Examples: **complete 2**
+- Examples: **complete 2**
 
-        Marks the second task listed as &#39; **Completed**&#39;.
+- Marks the second task listed as &#39; **Completed**&#39;.
 
 **Undo action**
 
