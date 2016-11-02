@@ -27,12 +27,14 @@
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
-}
+    
 ```
 ###### \java\seedu\address\logic\parser\Parser.java
 ``` java
 	public Command parseCommand(String userInput) {
-		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+		 String replacedInput = replaceAliases(userInput);
+		
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -46,6 +48,9 @@
 		switch (commandWord) {
 		case AddCommand.COMMAND_WORD:
 			return prepareAdd(arguments);
+			
+		case FindCommand.COMMAND_WORD:
+			return prepareFind(arguments);
 
 		case ListCommand.COMMAND_WORD:
 			return prepareList(arguments);
@@ -55,15 +60,21 @@
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+		
+		case AddAliasCommand.COMMAND_WORD:
+			return prepareAddAlias(arguments);
 			
-		case DoneCommand.COMMAND_WORD:
-			return prepareDone(arguments);
+		case SetStorageCommand.COMMAND_WORD:
+			return prepareSetStorage(arguments);	
+			
+		case ChangeStatusCommand.COMMAND_WORD_DONE:
+			return prepareChangeStatus(arguments, "done");
+			
+		case ChangeStatusCommand.COMMAND_WORD_PENDING:
+			return prepareChangeStatus(arguments, "pending");
 		
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
-
-		case FindCommand.COMMAND_WORD:
-			return prepareFind(arguments);
 
 		case HelpCommand.COMMAND_WORD:
 			return new HelpCommand();
@@ -76,10 +87,10 @@
 
 		case RedoCommand.COMMAND_WORD:
 			return new RedoCommand();
-
+			
 		default:
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
-	
+
 ```
